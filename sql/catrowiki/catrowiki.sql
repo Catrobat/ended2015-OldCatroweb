@@ -18,6 +18,7 @@ SET escape_string_warning = off;
 -- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: website
 --
 
+DROP LANGUAGE IF EXISTS plpgsql;
 CREATE LANGUAGE plpgsql;
 
 ALTER PROCEDURAL LANGUAGE plpgsql OWNER TO website;

@@ -1523,7 +1523,7 @@ class user extends session
 	*/
 	function setup($lang_set = false, $style = false)
 	{
-		global $db, $template, $config, $auth, $phpEx, $phpbb_root_path, $cache;
+		global $db, $template, $config, $auth, $phpEx, $phpbb_root_path, $cache, $user;
 
 		if ($this->data['user_id'] != ANONYMOUS)
 		{
@@ -1590,7 +1590,8 @@ class user extends session
 
 		$this->add_lang($lang_set);
 		unset($lang_set);
-
+        
+		/*
 		if (!empty($_GET['style']) && $auth->acl_get('a_styles') && !defined('ADMIN_START'))
 		{
 			global $SID, $_EXTRA_URL;
@@ -1614,6 +1615,59 @@ class user extends session
 		$result = $db->sql_query($sql, 3600);
 		$this->theme = $db->sql_fetchrow($result);
 		$db->sql_freeresult($result);
+		*/
+		
+		// START PHPBB MOBILE
+		//$this->mobile_style = (isset($config['mobile_enabled']) && preg_match('/iPad|iPhone|iOS|Opera Mobi|BlackBerry|Android|IEMobile|Symbian/', $this->browser) && $auth->acl_get('u_mobile'));
+		$this->mobile_style = (isset($config['mobile_enabled']) && preg_match('/iPad|iPhone|iOS|Opera Mobi|BlackBerry|Android|IEMobile|Symbian/', $this->browser));
+		if ($this->mobile_style)
+		{
+			$user->add_lang('mods/mobile');
+			$this->theme = array(
+				'style_id'	=> '2',
+				'template_storedb' => '0',
+				'template_path' => 'mobile',
+				'template_id' => '2',
+				'bbcode_bitfield' => '+Ng=',
+				'template_inherits_id' => '0',
+				'template_inherit_path' => '',
+				'theme_path' => 'mobile',
+				'theme_name' => 'phpBB iPhone',
+				'theme_storedb' => '0',
+				'theme_id' => '2',
+				'imageset_path' => 'mobile',
+				'imageset_id' => '2',
+				'imageset_name' => 'phpBB iPhone',
+				);
+		}
+		else
+		{
+			// This code is original phpBB code
+			if (!empty($_GET['style']) && $auth->acl_get('a_styles') && !defined('ADMIN_START'))
+			{
+				global $SID, $_EXTRA_URL;
+
+				$style = request_var('style', 0);
+				$SID .= '&amp;style=' . $style;
+				$_EXTRA_URL = array('style=' . $style);
+			}
+			else
+			{
+				// Set up style
+				$style = ($style) ? $style : ((!$config['override_user_style']) ? $this->data['user_style'] : $config['default_style']);
+			}
+
+			$sql = 'SELECT s.style_id, t.template_storedb, t.template_path, t.template_id, t.bbcode_bitfield, t.template_inherits_id, t.template_inherit_path, c.theme_path, c.theme_name, c.theme_storedb, c.theme_id, i.imageset_path, i.imageset_id, i.imageset_name
+				FROM ' . STYLES_TABLE . ' s, ' . STYLES_TEMPLATE_TABLE . ' t, ' . STYLES_THEME_TABLE . ' c, ' . STYLES_IMAGESET_TABLE . " i
+				WHERE s.style_id = $style
+					AND t.template_id = s.template_id
+					AND c.theme_id = s.theme_id
+					AND i.imageset_id = s.imageset_id";
+			$result = $db->sql_query($sql, 3600);
+			$this->theme = $db->sql_fetchrow($result);
+			$db->sql_freeresult($result);
+		}
+		// END PHPBB MOBILE
 
 		// User has wrong style
 		if (!$this->theme && $style == $this->data['user_style'])
@@ -1712,7 +1766,9 @@ class user extends session
 		$template->set_template();
 
 		$this->img_lang = (file_exists($phpbb_root_path . 'styles/' . $this->theme['imageset_path'] . '/imageset/' . $this->lang_name)) ? $this->lang_name : $config['default_lang'];
-
+        
+		if (!$this->mobile_style)
+		{
 		// Same query in style.php
 		$sql = 'SELECT *
 			FROM ' . STYLES_IMAGESET_DATA_TABLE . '
@@ -1799,6 +1855,12 @@ class user extends session
 				$db->sql_transaction('commit');
 				add_log('admin', 'LOG_IMAGESET_LANG_MISSING', $this->theme['imageset_name'], $this->img_lang);
 			}
+		}
+		}
+		else
+		{
+			$this->img_array = $this->fetch_imageset_cfg('mobile');
+			$this->img_array = array_merge($this->img_array, $this->fetch_imageset_cfg('mobile', true));
 		}
 
 		// Call phpbb_user_session_handler() in case external application want to "bend" some variables or replace classes...
@@ -2356,6 +2418,51 @@ class user extends session
 		$this->data['user_new'] = 0;
 
 		return true;
+	}
+	
+    function fetch_imageset_cfg($imageset_name, $lang = false)
+	{
+		global $phpbb_root_path;
+
+		$lang = ($lang) ? '/' . $this->img_lang : '';
+		$img_array = array();
+
+		if (@file_exists("{$phpbb_root_path}styles/{$imageset_name}/imageset{$lang}/imageset.cfg"))
+		{
+			$cfg_data_imageset_data = parse_cfg_file("{$phpbb_root_path}styles/{$imageset_name}/imageset{$lang}/imageset.cfg");
+			foreach ($cfg_data_imageset_data as $image_name => $value)
+			{
+				if (strpos($value, '*') !== false)
+				{
+					if (substr($value, -1, 1) === '*')
+					{
+						list($image_filename, $image_height) = explode('*', $value);
+						$image_width = 0;
+					}
+					else
+					{
+						list($image_filename, $image_height, $image_width) = explode('*', $value);
+					}
+				}
+				else
+				{
+					$image_filename = $value;
+					$image_height = $image_width = 0;
+				}
+
+				if (strpos($image_name, 'img_') === 0 && $image_filename)
+				{
+					$image_name = substr($image_name, 4);
+					$img_array[$image_name] = array(
+						'image_filename'	=> $image_filename,
+						'image_height'		=> $image_height,
+						'image_width'		=> $image_width,
+						'image_lang'		=> ($lang) ? $this->img_lang : false,
+					);
+				}
+			}		
+		}
+		return $img_array;
 	}
 }
 

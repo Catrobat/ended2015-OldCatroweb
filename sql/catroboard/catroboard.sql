@@ -2679,28 +2679,7 @@ INSERT INTO "phpbb_search_wordmatch" VALUES ('2', '59', '0');
 -- ----------------------------
 -- Records of phpbb_sessions
 -- ----------------------------
-INSERT INTO "phpbb_sessions" VALUES ('19534fa33b5b45785f3159a8d2798ba2', '2', '0', '1297841285', '1297841673', '1297841673', '10.0.0.141', 'Mozilla/5.0 (Linux; U; Android 2.2; en-gb; GT-P1000 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('1c624e71d3746fae0c1d7abe3519a331', '1', '0', '1297856898', '1297856898', '1297856898', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', 'index.php', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('1e3771a5196ddba2f1f915a51e880403', '2', '0', '1297841285', '1297841755', '1297841755', '10.0.0.141', 'Mozilla/5.0 (Linux; U; Android 2.2; en-gb; GT-P1000 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('1f3736fc7083898c4c13fa30517d6388', '2', '0', '1297841285', '1297841881', '1297841881', '10.0.0.141', 'Mozilla/5.0 (Linux; U; Android 2.2; en-gb; GT-P1000 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('330e84a296e49758fa01b0bb94bc7db1', '2', '0', '1297841285', '1297841817', '1297841817', '10.0.0.141', 'Mozilla/5.0 (Linux; U; Android 2.2; en-gb; GT-P1000 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('3b6d7c68f4fc17bab8cd3c076997a21f', '1', '0', '1297841854', '1297841854', '1297841854', '10.0.0.141', 'Mozilla/5.0 (Linux; U; Android 2.2; en-gb; GT-P1000 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('3c4c5ea2c927e28c08bee70f6f6431b7', '1', '0', '1297848188', '1297848188', '1297848188', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('497daf7a2871feb7484907106f3dbb49', '2', '0', '1297848269', '1297848504', '1297848504', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('4fa0c15612ef82cf8df6719c3305fbaa', '2', '0', '1297840954', '1297840997', '1297840997', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; de-DE) AppleWebKit/533.19.4 (KHTML, like Gecko) Version/5.0.3 Safari/533.19.4', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('82eb3ed0873ccb6ae8372d1ac290ecbf', '2', '0', '1297842560', '1297842785', '1297842785', '::1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('85a587358c030c742d1355de5268a519', '2', '0', '1297848269', '1297848412', '1297848504', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('884c7804c7c7c4461eaab8c4b2624e49', '2', '0', '1297840124', '1297840556', '1297840636', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('9d02b2fe75c80cc22dabed9f1f4391f8', '1', '0', '1297841289', '1297841289', '1297841289', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('9d14511285475a7b496a0f6ed3625368', '1', '0', '1297841707', '1297841707', '1297841707', '10.0.0.141', 'Mozilla/5.0 (Linux; U; Android 2.2; en-gb; GT-P1000 Build/FROYO) AppleWebKit/533.1 (KHTML, like Gecko) Version/4.0 Mobile Safari/533.1', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('9d38598054c17963d75d0ef0facd49da', '1', '0', '1297841125', '1297841125', '1297841125', '127.0.0.1', 'Opera/9.80 (Windows NT 6.1; U; en) Presto/2.7.62 Version/11.01', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('9e6c839b747750702edb3369371ee91e', '2', '0', '1297840124', '1297840636', '1297841256', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('a656b4d0a6d3895b8a04fad323b51403', '1', '0', '1297842816', '1297842816', '1297842816', '::1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('ba7d91276048e7bacc328aee012744eb', '1', '0', '1297842870', '1297842870', '1297842870', '::1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('c008d8d0ac81d2636baa9a4e0c2dd6c0', '2', '0', '1297848176', '1297848395', '1297848395', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-GB; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13 ( .NET CLR 3.5.30729; .NET4.0C)', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('c2e5cc271ba5f7c55a798cdb646fc29a', '2', '0', '1297840701', '1297840747', '1297840747', '127.0.0.1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-GB; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13 ( .NET CLR 3.5.30729; .NET4.0C)', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('eea747ba73d98551126bb8bb42416611', '2', '0', '1297840890', '1297840919', '1297840919', '127.0.0.1', 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.1; Trident/4.0; SLCC2; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30729; Media Center PC 6.', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
-INSERT INTO "phpbb_sessions" VALUES ('eecadf9c707984497119864e00e15ed7', '2', '0', '1297842560', '1297842857', '1297842857', '::1', 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US) AppleWebKit/534.16 (KHTML, like Gecko) Chrome/10.0.648.45 Safari/534.16', '', '../../index.php?module=catroid&class=login', '1', '0', '0');
+
 
 -- ----------------------------
 -- Records of phpbb_smilies
@@ -2751,14 +2730,12 @@ INSERT INTO "phpbb_smilies" VALUES ('42', ':ugeek:', 'Uber Geek', 'icon_e_ugeek.
 -- ----------------------------
 -- Records of phpbb_styles
 -- ----------------------------
-INSERT INTO "phpbb_styles" VALUES ('1', 'prosilver', '© phpBB Group', '1', '5', '5', '5');
-INSERT INTO "phpbb_styles" VALUES ('4', 'subsilver2', '&copy; 2005 phpBB Group', '1', '4', '4', '4');
+INSERT INTO "phpbb_styles" VALUES ('1', 'prosilver', '&copy; phpBB Group', '1', '1', '1', '1');
 
 -- ----------------------------
 -- Records of phpbb_styles_imageset
 -- ----------------------------
 INSERT INTO "phpbb_styles_imageset" VALUES ('1', 'prosilver', '&copy; phpBB Group', 'prosilver');
-INSERT INTO "phpbb_styles_imageset" VALUES ('2', 'STG-Mobile', 'StarTrekGuide, 2008', 'STG-Mobile');
 INSERT INTO "phpbb_styles_imageset" VALUES ('5', 'phpBB iPhone', '&copy; 2010 Callum Macrae', 'mobile');
 
 -- ----------------------------
@@ -2852,110 +2829,6 @@ INSERT INTO "phpbb_styles_imageset_data" VALUES ('85', 'button_pm_reply', 'butto
 INSERT INTO "phpbb_styles_imageset_data" VALUES ('86', 'button_topic_locked', 'button_topic_locked.gif', 'en', '25', '88', '1');
 INSERT INTO "phpbb_styles_imageset_data" VALUES ('87', 'button_topic_new', 'button_topic_new.gif', 'en', '25', '96', '1');
 INSERT INTO "phpbb_styles_imageset_data" VALUES ('88', 'button_topic_reply', 'button_topic_reply.gif', 'en', '25', '96', '1');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('171', 'site_logo', 'site_logo.gif', '', '94', '170', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('172', 'upload_bar', 'upload_bar.gif', '', '16', '280', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('173', 'poll_left', 'poll_left.gif', '', '12', '4', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('174', 'poll_center', 'poll_center.gif', '', '12', '1', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('175', 'poll_right', 'poll_right.gif', '', '12', '4', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('176', 'forum_link', 'forum_link.gif', '', '25', '46', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('177', 'forum_read', 'forum_read.gif', '', '25', '46', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('178', 'forum_read_locked', 'forum_read_locked.gif', '', '25', '46', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('179', 'forum_read_subforum', 'forum_read_subforum.gif', '', '25', '46', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('180', 'forum_unread', 'forum_unread.gif', '', '25', '46', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('181', 'forum_unread_locked', 'forum_unread_locked.gif', '', '25', '46', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('182', 'forum_unread_subforum', 'forum_unread_subforum.gif', '', '25', '46', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('183', 'topic_moved', 'topic_moved.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('184', 'topic_read', 'topic_read.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('185', 'topic_read_mine', 'topic_read_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('186', 'topic_read_hot', 'topic_read_hot.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('187', 'topic_read_hot_mine', 'topic_read_hot_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('188', 'topic_read_locked', 'topic_read_locked.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('189', 'topic_read_locked_mine', 'topic_read_locked_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('190', 'topic_unread', 'topic_unread.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('191', 'topic_unread_mine', 'topic_unread_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('192', 'topic_unread_hot', 'topic_unread_hot.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('193', 'topic_unread_hot_mine', 'topic_unread_hot_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('194', 'topic_unread_locked', 'topic_unread_locked.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('195', 'topic_unread_locked_mine', 'topic_unread_locked_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('196', 'sticky_read', 'sticky_read.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('197', 'sticky_read_mine', 'sticky_read_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('198', 'sticky_read_locked', 'sticky_read_locked.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('199', 'sticky_read_locked_mine', 'sticky_read_locked_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('200', 'sticky_unread', 'sticky_unread.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('201', 'sticky_unread_mine', 'sticky_unread_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('202', 'sticky_unread_locked', 'sticky_unread_locked.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('203', 'sticky_unread_locked_mine', 'sticky_unread_locked_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('204', 'announce_read', 'announce_read.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('205', 'announce_read_mine', 'announce_read_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('206', 'announce_read_locked', 'announce_read_locked.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('207', 'announce_read_locked_mine', 'announce_read_locked_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('208', 'announce_unread', 'announce_unread.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('209', 'announce_unread_mine', 'announce_unread_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('210', 'announce_unread_locked', 'announce_unread_locked.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('211', 'announce_unread_locked_mine', 'announce_unread_locked_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('212', 'global_read', 'announce_read.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('213', 'global_read_mine', 'announce_read_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('214', 'global_read_locked', 'announce_read_locked.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('215', 'global_read_locked_mine', 'announce_read_locked_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('216', 'global_unread', 'announce_unread.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('217', 'global_unread_mine', 'announce_unread_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('218', 'global_unread_locked', 'announce_unread_locked.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('219', 'global_unread_locked_mine', 'announce_unread_locked_mine.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('220', 'pm_read', 'topic_read.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('221', 'pm_unread', 'topic_unread.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('222', 'icon_post_target', 'icon_post_target.gif', '', '9', '12', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('223', 'icon_post_target_unread', 'icon_post_target_unread.gif', '', '9', '12', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('224', 'icon_topic_attach', 'icon_topic_attach.gif', '', '18', '14', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('225', 'icon_topic_latest', 'icon_topic_latest.gif', '', '9', '18', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('226', 'icon_topic_newest', 'icon_topic_newest.gif', '', '9', '18', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('227', 'icon_topic_reported', 'icon_topic_reported.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('228', 'icon_topic_unapproved', 'icon_topic_unapproved.gif', '', '18', '19', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('229', 'icon_contact_aim', 'icon_contact_aim.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('230', 'icon_contact_email', 'icon_contact_email.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('231', 'icon_contact_icq', 'icon_contact_icq.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('232', 'icon_contact_jabber', 'icon_contact_jabber.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('233', 'icon_contact_msnm', 'icon_contact_msnm.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('234', 'icon_contact_pm', 'icon_contact_pm.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('235', 'icon_contact_yahoo', 'icon_contact_yahoo.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('236', 'icon_contact_www', 'icon_contact_www.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('237', 'icon_post_delete', 'icon_post_delete.gif', 'de', '20', '20', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('238', 'icon_post_edit', 'icon_post_edit.gif', 'de', '20', '90', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('239', 'icon_post_info', 'icon_post_info.gif', 'de', '20', '20', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('240', 'icon_post_quote', 'icon_post_quote.gif', 'de', '20', '90', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('241', 'icon_post_report', 'icon_post_report.gif', 'de', '20', '20', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('242', 'icon_user_online', 'icon_user_online.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('243', 'icon_user_offline', 'icon_user_offline.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('244', 'icon_user_profile', 'icon_user_profile.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('245', 'icon_user_search', 'icon_user_search.gif', 'de', '20', '72', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('246', 'icon_user_warn', 'icon_user_warn.gif', 'de', '20', '20', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('247', 'button_pm_new', 'button_pm_new.gif', 'de', '27', '115', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('248', 'button_pm_reply', 'button_pm_reply.gif', 'de', '20', '90', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('249', 'button_topic_locked', 'button_topic_locked.gif', 'de', '27', '115', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('250', 'button_topic_new', 'button_topic_new.gif', 'de', '27', '115', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('251', 'button_topic_reply', 'button_topic_reply.gif', 'de', '27', '115', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('252', 'icon_contact_aim', 'icon_contact_aim.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('253', 'icon_contact_email', 'icon_contact_email.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('254', 'icon_contact_icq', 'icon_contact_icq.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('255', 'icon_contact_jabber', 'icon_contact_jabber.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('256', 'icon_contact_msnm', 'icon_contact_msnm.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('257', 'icon_contact_pm', 'icon_contact_pm.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('258', 'icon_contact_yahoo', 'icon_contact_yahoo.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('259', 'icon_contact_www', 'icon_contact_www.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('260', 'icon_post_delete', 'icon_post_delete.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('261', 'icon_post_edit', 'icon_post_edit.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('262', 'icon_post_info', 'icon_post_info.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('263', 'icon_post_quote', 'icon_post_quote.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('264', 'icon_post_report', 'icon_post_report.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('265', 'icon_user_online', 'icon_user_online.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('266', 'icon_user_offline', 'icon_user_offline.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('267', 'icon_user_profile', 'icon_user_profile.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('268', 'icon_user_search', 'icon_user_search.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('269', 'icon_user_warn', 'icon_user_warn.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('270', 'button_pm_new', 'button_pm_new.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('271', 'button_pm_reply', 'button_pm_reply.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('272', 'button_topic_locked', 'button_topic_locked.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('273', 'button_topic_new', 'button_topic_new.gif', 'en', '0', '0', '4');
-INSERT INTO "phpbb_styles_imageset_data" VALUES ('274', 'button_topic_reply', 'button_topic_reply.gif', 'en', '0', '0', '4');
 INSERT INTO "phpbb_styles_imageset_data" VALUES ('275', 'site_logo', 'site_logo.gif', '', '52', '139', '5');
 INSERT INTO "phpbb_styles_imageset_data" VALUES ('276', 'forum_link', 'forum_link.gif', '', '27', '27', '5');
 INSERT INTO "phpbb_styles_imageset_data" VALUES ('277', 'forum_read', 'forum_read.gif', '', '27', '27', '5');
