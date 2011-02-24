@@ -112,7 +112,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('unitTest', 'my project description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with empty description', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with a very very very very long title and no description, hopefully not too long', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-    array('unitTest with special chars: ä, Ü, ß', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
+    array('unitTest with special chars: Ã¤, Ã¼, Ã¶', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
     );
 
     return $dataArray;
