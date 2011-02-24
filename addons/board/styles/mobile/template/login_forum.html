@@ -1,0 +1,19 @@
+<!-- INCLUDE overall_header.html -->
+
+
+	<form name="login_forum" method="post" action="{S_LOGIN_ACTION}">
+	
+<span class="header">{L_LOGIN}</span>
+<ul class="pageitem">
+<!-- IF LOGIN_ERROR --><li class="textbox">{LOGIN_ERROR}</li>
+<!-- ELSE --><li class="textbox">{L_LOGIN_FORUM}</li><!-- ENDIF -->
+<li class="smallfield"><span class="name">{L_PASSWORD}:</span><input type="password" name="password" id="password" title="{L_PASSWORD}" /></li>
+<li class="button"><input type="submit" name="login" value="{L_LOGIN}" class="button2" /></li>
+</ul>
+{S_HIDDEN_FIELDS}
+{S_FORM_TOKEN}
+{S_LOGIN_REDIRECT}
+</form>
+
+
+<!-- INCLUDE overall_footer.html -->

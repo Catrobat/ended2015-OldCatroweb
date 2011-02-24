@@ -1,0 +1,12 @@
+<form method="post" action="{U_QR_ACTION}">
+
+<div class="title">{L_QUICKREPLY}</div>
+
+<ul class="pageitem">
+			<li class="bigfield" style="height:100px; text-align: center"><textarea name="message" rows="7" cols="76" tabindex="3"  style="width: 98%;"></textarea></li>
+			<li class="button"><input class="btnmain" type="submit" accesskey="s" tabindex="6" name="post" value="{L_SUBMIT}" style="border:0px black solid"/></li>
+</ul>
+				{S_FORM_TOKEN}
+				{QR_HIDDEN_FIELDS}
+				<input type="hidden" name="subject" value="{SUBJECT}" />
+</form>

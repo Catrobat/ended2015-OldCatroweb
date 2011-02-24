@@ -1,0 +1,31 @@
+<!-- INCLUDE overall_header.html -->
+
+<span class="header">{TOPIC_TITLE}</span>
+<br />
+	<table width="100%" cellspacing="1">
+	<tr>
+
+		<!-- IF TOTAL_POSTS -->
+			<td class="nav" valign="middle" nowrap="nowrap">&nbsp;{PAGE_NUMBER}<br /></td>
+			<td class="gensmall" nowrap="nowrap">&nbsp;[ {TOTAL_POSTS} ]&nbsp;</td>
+			<td class="gensmall" width="100%" align="{S_CONTENT_FLOW_END}" nowrap="nowrap"><!-- INCLUDE pagination.html --></td>
+		<!-- ENDIF -->
+	</tr>
+	</table>
+<br />
+<!-- BEGIN postrow -->
+			<span class="header">{postrow.POST_AUTHOR}</span>
+
+		<ul class="pageitem"><li class="textbox">{postrow.MESSAGE}<br />
+		<p style="font-size:8pt; color: grey">{postrow.POST_DATE}</p></li></ul>
+<br />
+<!-- END postrow -->
+
+
+<!-- IF S_QUICK_REPLY -->
+<!-- INCLUDE quickreply_editor.html -->
+<!-- ELSE -->
+<ul class="pageitem"><li class="textbox">{L_MOBILE_ENABLE_QUICK}</li></ul>
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->

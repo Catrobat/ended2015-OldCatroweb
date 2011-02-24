@@ -1,0 +1,37 @@
+<!-- INCLUDE overall_header.html -->
+
+<!-- INCLUDE forumlist_body.html -->
+
+<!-- IF not S_USER_LOGGED_IN and not S_IS_BOT -->
+	<form method="post" action="{S_LOGIN_ACTION}" class="headerspace">
+		<span class="header">{L_LOGIN_LOGOUT}</span>
+		<ul class="pageitem">
+			<li class="smallfield"><span class="name">{L_USERNAME}:</span><input type="text" name="username" id="username" title="{L_USERNAME}" /></li>
+			<li class="smallfield"><span class="name">{L_PASSWORD}:</span><input type="password" name="password" id="password" title="{L_PASSWORD}" /></li>
+			<!-- IF S_AUTOLOGIN_ENABLED --><li class="checkbox"><span class="name">{L_LOG_ME_IN} </span><input type="checkbox" name="autologin" id="autologin" /> </li><!-- ENDIF -->
+			<li class="button"><input type="submit" name="login" value="{L_LOGIN}" class="button2" /></li>
+		</ul>
+{S_LOGIN_REDIRECT}
+	</form>
+<!-- ENDIF -->
+
+<!-- IF S_DISPLAY_BIRTHDAY_LIST and BIRTHDAY_LIST -->
+ <span class="header">{L_BIRTHDAYS}</span>
+	<ul class="pageitem">
+<li class="textbox">
+	<p><!-- IF BIRTHDAY_LIST -->{L_CONGRATULATIONS}: <strong>{BIRTHDAY_LIST}</strong><!-- ELSE -->{L_NO_BIRTHDAYS}<!-- ENDIF --></p>
+	</li>
+</ul>
+<!-- ENDIF -->
+
+<!-- IF NEWEST_USER -->
+ <span class="header">{L_STATISTICS}</span>
+	<ul class="pageitem">
+<li class="textbox">
+	<p>{TOTAL_POSTS}<br />{TOTAL_TOPICS}<br />{TOTAL_USERS}<br />{NEWEST_USER}</p>
+	</li>
+</ul>
+<!-- ENDIF -->
+
+<!-- INCLUDE overall_footer.html -->
+

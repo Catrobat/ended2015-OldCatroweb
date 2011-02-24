@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!--  Catroid: An on-device graphical programming language for Android devices
+      Copyright (C) 2010  Catroid development team 
+      (<http://code.google.com/p/catroid/wiki/Credits>)
+  
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 3 of the License, or
+      (at your option) any later version.
+  
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU General Public License for more details.
+  
+      You should have received a copy of the GNU General Public License
+      along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<project basedir="." default="deploy-local" name="catroid">
+  <property name="selenium.dir" value="tests/selenium" />
+  <property name="framework.dir" value="classes" />
+  <property name="images.dir" value="images" />
+  <property name="includes.dir" value="include" />
+  <property name="css.dir" value="${includes.dir}/css" />
+  <property name="modules.dir" value="modules" />
+  <property name="resources.dir" value="resources" />
+  <property name="addons.dir" value="addons" />
+  <property name="board.dir" value="${addons.dir}/board" />
+  <property name="wiki.dir" value="${addons.dir}/mediawiki" />
+  <property name="projects.dir" value="${resources.dir}/projects" />
+  <property name="thumbnails.dir" value="${resources.dir}/thumbnails" />
+  <property name="scripts.dir" value="script" />
+  <property name="tests.dir" value="${basedir}/tests/phpunit/" />
+  <property name="viewer.dir" value="viewer" />
+  <property name="htaccess.file" value=".htaccess" />
+  <property name="config.file" value="config.php" />
+  <property name="index.file" value="index.php" />
+  <property name="thumbnail.small.file" value="${thumbnails.dir}/thumbnail_small.jpg" />
+  <property name="thumbnail.large.file" value="${thumbnails.dir}/thumbnail_large.jpg" />
+
+  <target name="-conf">
+    <property name="build.dir" value="build" />
+    <property name="catroid.dir" value="${build.dir}/catroid" />
+  </target>
+
+  <target name="-conf-deploy-prod">
+    <property name="host.ip" value="129.27.202.41" />
+    <property name="host.root.dir" value="/var/www" />
+    <property name="host.catroid.dir" value="${host.root.dir}/catroid" />
+    <property name="host.addons.dir" value="${host.catroid.dir}/addons" />
+    <property name="host.board.dir" value="${host.addons.dir}/board" />
+    <property name="host.wiki.dir" value="${host.addons.dir}/mediawiki" />
+  </target>
+
+  <target name="-conf-deploy-test">
+    <property name="host.ip" value="129.27.202.40" />
+    <property name="host.root.dir" value="/var/www" />
+    <property name="host.catroid.dir" value="${host.root.dir}/catroid" />
+    <property name="host.addons.dir" value="${host.catroid.dir}/addons" />
+    <property name="host.board.dir" value="${host.addons.dir}/board" />
+    <property name="host.wiki.dir" value="${host.addons.dir}/mediawiki" />
+  </target>
+  
+  <target name="-validator-tests">
+  	<input message="Did you validate the page on http://validator.w3.org?"
+  		   validargs="y,n"
+  		   addproperty="do.continue" />
+  	<condition property="do.abort">
+  		<equals arg1="n" arg2="${do.continue}" />
+  	</condition>
+  	<fail if="do.abort">You have to validate the page on http://validator.w3.org before you can continue!</fail>
+  </target>
+  
+  <target name="-selenium-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-tests-catroid, -selenium-stop-server"/>
+  <target name="-selenium-android-tests" depends="-selenium-start-server-android, -selenium-start-android-emulator, -selenium-tests-android, -selenium-stop-server"/>
+  
+  <target name="-selenium-start-server">
+  	<java jar="${selenium.dir}/server/selenium-server.jar" fork="true" spawn="true"/>
+  </target>
+  
+  <target name="-selenium-start-server-android">
+  	<java jar="${selenium.dir}/server/selenium-server-1.0.2-SNAPSHOT-standalone.jar" fork="true" spawn="true">
+  		<arg line=" -proxyInjectionMode" />
+  	</java>
+  </target>
+
+  <target name="-selenium-start-android-emulator">
+    <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" AndroidBrowserTestSuite.php"/>
+    </exec>
+    <exec dir="/home/chris/Desktop/android-sdk-linux_86/tools" executable="/home/chris/Desktop/android-sdk-linux_86/tools/emulator" failonerror="false" osfamily="Unix" spawn="true">
+      <arg line=" -http-proxy 'http://localhost:4444' -avd android-2.2"/>
+    </exec>
+  </target>
+  
+  <target name="-selenium-stop-server">
+    <get taskname="selenium-shutdown" src="http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer"
+        dest="result.txt" ignoreerrors="true" />
+    <delete file="${basedir}/result.txt" />
+  </target>
+  
+  <target name="-selenium-tests-catroid">
+  	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" CatroidTestSuite.php"/>
+    </exec>
+    <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" CatroidTestSuite.php"/>
+    </exec>
+  </target>
+  
+  <target name="-selenium-tests-admin">
+  	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" AdminTestSuite.php"/>
+    </exec>
+    <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" AdminTestSuite.php"/>
+    </exec>
+  </target>
+  
+  <target name="-selenium-tests-android">
+    <waitfor maxwait="20" maxwaitunit="second">
+      <and>
+        <socket server="localhost" port="4444"/>
+      </and>
+    </waitfor>
+    
+  	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" AndroidBrowserTestSuite.php"/>
+    </exec>
+    <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" AndroidBrowserTestSuite.php"/>
+    </exec>
+  </target>
+  
+  <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid"/>
+  
+  <target name="-unittest-catroid">
+  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" catroid"/>
+    </exec>
+    <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" catroid"/>
+    </exec>
+  </target>
+  
+  <target name="-unittest-admin">
+  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" admin"/>
+    </exec>
+    <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" admin"/>
+    </exec>
+  </target>
+  
+  <target name="-unittest-framework">
+  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" framework"/>
+    </exec>
+    <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" framework"/>
+    </exec>
+  </target>
+
+  <target name="-user-pass-prompt">
+    <input
+      message="Please enter Username for Host ${host.ip}: "
+      addproperty="host.user"
+    />
+    <input
+      message="Please enter Password for User ${host.user} on Host ${host.ip}: "
+      addproperty="host.pass"
+    />
+  </target>
+
+  <target name="-clean">
+    <delete dir="${build.dir}"/>
+  </target>
+
+  <target name="-cleanup">
+    <delete includeEmptyDirs="true" quiet="true">
+      <fileset dir="${build.dir}" />
+    </delete>
+  </target>
+
+  <target name="-create-dirs">
+    <mkdir dir="${build.dir}" />
+    <mkdir dir="${catroid.dir}" />
+    <mkdir dir="${catroid.dir}/${framework.dir}" />
+    <mkdir dir="${catroid.dir}/${images.dir}" />
+    <mkdir dir="${catroid.dir}/${includes.dir}" />
+    <mkdir dir="${catroid.dir}/${modules.dir}" />
+    <mkdir dir="${catroid.dir}/${scripts.dir}" />
+    <mkdir dir="${catroid.dir}/${viewer.dir}" />
+    <mkdir dir="${catroid.dir}/${thumbnails.dir}" />
+    <mkdir dir="${catroid.dir}/${addons.dir}" />
+  </target>
+
+  <target name="-copy-files" depends="-copy-rootfiles, -copy-framework, -copy-viewer, -copy-modules, -copy-images, -copy-includes, -copy-thumbnails" />
+
+  <target name="-copy-rootfiles">
+    <copy file="${htaccess.file}" toDir="${catroid.dir}" />
+    <copy file="${config.file}" toDir="${catroid.dir}" />
+    <copy file="${index.file}" toDir="${catroid.dir}" />
+  </target>
+
+  <target name="-copy-framework">
+    <copy todir="${catroid.dir}/${framework.dir}">
+      <fileset dir="${framework.dir}"/>
+    </copy>
+  </target>
+
+  <target name="-copy-viewer">
+    <copy todir="${catroid.dir}/${viewer.dir}">
+      <fileset dir="${viewer.dir}"/>
+    </copy>
+  </target>
+
+  <target name="-copy-modules">
+    <copy todir="${catroid.dir}/${modules.dir}">
+      <fileset dir="${modules.dir}"/>
+    </copy>
+  </target>
+
+  <target name="-copy-scripts">
+    <copy todir="${catroid.dir}/${scripts.dir}">
+      <fileset dir="${scripts.dir}"/>
+    </copy>
+  </target>
+
+  <target name="-copy-images">
+    <copy todir="${catroid.dir}/${images.dir}">
+      <fileset dir="${images.dir}"/>
+    </copy>
+  </target>
+
+  <target name="-copy-includes">
+    <copy todir="${catroid.dir}/${includes.dir}">
+      <fileset dir="${includes.dir}"/>
+    </copy>
+  </target>
+  
+  <target name="-copy-thumbnails">
+    <copy file="${thumbnail.small.file}" toDir="${catroid.dir}/${thumbnails.dir}" />
+    <copy file="${thumbnail.large.file}" toDir="${catroid.dir}/${thumbnails.dir}" />
+  </target>
+  
+  <target name="-copy-board">
+    <copy todir="${catroid.dir}/${board.dir}">
+      <fileset dir="${board.dir}"/>
+    </copy>
+    <delete includeEmptyDirs="true" quiet="true">
+      <fileset dir="${catroid.dir}/${board.dir}/cache" />
+    </delete>
+    <copy file="${board.dir}/cache/.htaccess" toDir="${catroid.dir}/${board.dir}/cache" />
+    <copy file="${board.dir}/cache/data_bots.php" toDir="${catroid.dir}/${board.dir}/cache" />
+    <copy file="${board.dir}/cache/data_hooks.php" toDir="${catroid.dir}/${board.dir}/cache" />
+    <copy file="${board.dir}/cache/index.htm" toDir="${catroid.dir}/${board.dir}/cache" />
+  </target>
+  
+  <target name="-copy-wiki">
+    <copy todir="${catroid.dir}/${wiki.dir}">
+      <fileset dir="${wiki.dir}"/>
+    </copy>
+  </target>
+
+  <target name="-undeploy">
+    <sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="rm -rf ${host.catroid.dir}/${images.dir} ${host.catroid.dir}/${includes.dir} ${host.catroid.dir}/${framework.dir} ${host.catroid.dir}/${modules.dir} ${host.catroid.dir}/${viewer.dir} ${host.catroid.dir}/${scripts.dir}" />
+    <sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="rm -rf ${host.catroid.dir}/${index.file} ${host.catroid.dir}/${config.file} ${host.catroid.dir}/${htaccess.file}" />
+  </target>
+  
+  <target name="-undeploy-board">
+    <sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="rm -rf ${host.board.dir}" />
+  </target>
+  
+  <target name="-undeploy-wiki">
+    <sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="rm -rf ${host.wiki.dir}" />
+  </target>
+
+  <target name="-deploy">
+    <scp todir="${host.user}:${host.pass}@${host.ip}:${host.catroid.dir}/"
+         trust="true" >
+      <fileset dir="${catroid.dir}" />
+    </scp>
+  </target>
+  
+  <target name="-deploy-board">
+  	<sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="mkdir ${host.board.dir}" />
+    <scp todir="${host.user}:${host.pass}@${host.ip}:${host.board.dir}/"
+         trust="true" >
+      <fileset dir="${catroid.dir}/${board.dir}" />
+    </scp>
+    <sshexec host="${host.ip}"
+	         trust="true"
+	         username="${host.user}"
+	         password="${host.pass}"
+	         command="chmod -R 777 ${host.board.dir}/cache ${host.board.dir}/files ${host.board.dir}/store ${host.board.dir}/images/avatars/upload" />
+  </target>
+  
+  <target name="-deploy-wiki">
+  	<sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="mkdir ${host.wiki.dir}" />
+    <scp todir="${host.user}:${host.pass}@${host.ip}:${host.wiki.dir}/"
+         trust="true" >
+      <fileset dir="${catroid.dir}/${wiki.dir}" />
+    </scp>
+  </target>
+
+  <target name="deploy-local" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
+  <!-- <target name="deploy-test" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
+  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" />
+  <target name="deploy-public" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" />
+  <target name="run-tests" depends="-phpunit-tests, -selenium-tests" />
+  <target name="run-phpunit-tests" depends="-phpunit-tests" />
+  <target name="run-selenium-tests" depends="-selenium-tests" />
+  <target name="run-android-tests" depends="-selenium-android-tests" />
+  <target name="run-validator-tests" depends="-validator-tests" />
+  <target name="deploy-test-board" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />
+  <target name="deploy-test-wiki" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-wiki, -user-pass-prompt, -undeploy-wiki, -deploy-wiki, -cleanup" />
+
+</project>

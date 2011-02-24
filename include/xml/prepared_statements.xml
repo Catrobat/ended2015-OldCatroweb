@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Catroid: An on-device graphical programming language for Android devices
+      Copyright (C) 2010  Catroid development team 
+      (<http://code.google.com/p/catroid/wiki/Credits>)
+  
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU General Public License as published by
+      the Free Software Foundation, either version 3 of the License, or
+      (at your option) any later version.
+  
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU General Public License for more details.
+  
+      You should have received a copy of the GNU General Public License
+      along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ -->
+
+<statements>
+    <string name="get_projects_ordered_by_uploadtime">SELECT * FROM projects ORDER BY upload_time DESC</string>
+    <string name="get_visible_projects_ordered_by_uploadtime">SELECT * FROM projects WHERE visible=true ORDER BY upload_time DESC</string>
+    <string name="get_project_by_id">SELECT * FROM projects WHERE id=$1 LIMIT 1</string>
+    <string name="get_visible_project_by_id">SELECT * FROM projects WHERE id=$1 AND visible=true LIMIT 1</string>
+    <string name="get_project_by_source">SELECT * FROM projects WHERE source=$1 LIMIT 1</string>
+    <string name="insert_new_project">INSERT INTO projects (title, description, source, upload_ip) VALUES ($1, $2, $3, $4) RETURNING id</string>
+    <string name="increment_download_counter">UPDATE projects SET download_count=download_count+1 WHERE id=$1</string>
+    <string name="increment_view_counter">UPDATE projects SET view_count=view_count+1 WHERE id=$1</string>
+    <string name="set_project_new_filename">UPDATE projects SET source=$1 WHERE id=$2</string>
+    <string name="delete_project_by_id">DELETE FROM projects WHERE id=$1</string>
+    <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, reason, user_ip) VALUES ($1, $2, $3)</string>
+    <string name="get_flags_for_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND resolved=false</string>
+    <string name="hide_project">UPDATE projects SET visible=false WHERE id=$1</string>
+    <string name="show_project">UPDATE projects SET visible=true WHERE id=$1</string>
+    <string name="set_mail_sent_on_inappropriate">UPDATE flagged_projects SET mail_sent=true WHERE project_id=$1</string>
+    <string name="set_resolved_on_inappropriate">UPDATE flagged_projects SET resolved=true WHERE project_id=$1</string>
+    <string name="get_flagged_projects_ordered_by_uploadtime">
+    	SELECT projects.id, projects.title, projects.upload_time, projects.upload_ip, projects.visible, count(projects.id) 
+    	FROM projects, flagged_projects 
+    	WHERE projects.id=flagged_projects.project_id AND flagged_projects.mail_sent=true AND flagged_projects.resolved=false 
+    	GROUP BY projects.id, projects.title, projects.upload_time, projects.upload_ip, projects.visible 
+    	ORDER BY projects.upload_time DESC
+    </string>
+
+    <string name="add_word_to_wordlist">INSERT INTO wordlist (word, good_meaning, approved) VALUES ($1, $2, $3)</string>
+    <string name="get_unapproved_words">SELECT * FROM wordlist WHERE approved = FALSE ORDER BY id DESC</string>
+    <string name="get_word_from_wordlist">SELECT * FROM wordlist WHERE word=$1</string>
+    <string name="set_word_meaning">UPDATE wordlist SET good_meaning = $1, approved = TRUE WHERE id=$2</string>
+    <string name="delete_word_by_id">DELETE FROM wordlist WHERE id=$1</string>
+    
+    <string name="add_mapping_to_unapproved_words_in_projects">INSERT INTO unapproved_words_in_projects (project_id, word_id) VALUES ($1, $2)</string>
+    <string name="get_project_list_containing_insulting_words">SELECT * FROM unapproved_words_in_projects WHERE word_id=$1</string>
+    <string name="delete_word_from_list">DELETE FROM unapproved_words_in_projects WHERE word_id=$1</string>
+
+    <string name="get_user_login">SELECT * FROM cusers WHERE username=$1 AND password=$2 LIMIT 1</string>
+    <string name="get_user_row_by_username">SELECT * FROM cusers WHERE username=$1 LIMIT 1</string>
+    <string name="get_user_row_by_username_clean">SELECT * FROM cusers WHERE username_clean=$1 LIMIT 1</string>
+    <string name="get_user_row_by_email">SELECT * FROM cusers WHERE email=$1 LIMIT 1</string>
+    <string name="get_user_row_by_id">SELECT * FROM cusers WHERE id=$1 LIMIT 1</string>
+    <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, province, city, ip_registered, status) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id</string>
+    <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
+</statements>
+

@@ -1,0 +1,49 @@
+<!-- INCLUDE overall_header.html -->
+
+<span class="header">{PAGE_TITLE}</span>
+
+
+	<!-- IF AVATAR_IMG -->
+		<dl class="left-box">
+			<dt>{AVATAR_IMG}</dt>
+			<!-- IF RANK_TITLE --><dd style="text-align: center;">{RANK_TITLE}</dd><!-- ENDIF -->
+			<!-- IF RANK_IMG --><dd style="text-align: center;">{RANK_IMG}</dd><!-- ENDIF -->
+		</dl>
+	<!-- ENDIF -->
+
+	<ul class="pageitem">
+		<!-- IF S_USER_INACTIVE --><li class="menu"><span class="name">{L_USER_IS_INACTIVE}:</span> <span class="comment">{USER_INACTIVE_REASON}</span></li><!-- ENDIF -->
+		<li class="menu"><span class="name">{L_LOCATION}:</span> <span class="comment"><!-- IF LOCATION -->{LOCATION}<!-- ELSE --> - <!-- ENDIF --></span></li>
+		<li class="menu"><span class="name">{L_AGE}:</span> <span class="comment"><!-- IF AGE -->{AGE}<!-- ELSE --> - <!-- ENDIF --></span></li>
+		<li class="menu"><span class="name">{L_OCCUPATION}:</span> <span class="comment"><!-- IF OCCUPATION -->{OCCUPATION}<!-- ELSE --> - <!-- ENDIF --></span></li>
+		<li class="menu"><span class="name">{L_INTERESTS}:</span> <span class="comment"><!-- IF INTERESTS -->{INTERESTS}<!-- ELSE --> - <!-- ENDIF --></span></li>
+		<!-- BEGIN custom_fields --><li class="menu"><span class="name">{custom_fields.PROFILE_FIELD_NAME}:</span> <span class="comment">{custom_fields.PROFILE_FIELD_VALUE}</span></li><!-- END custom_fields -->
+	</ul>
+
+
+	<span class="header">{L_USER_FORUM}</span>
+	<ul class="pageitem">
+		<li class="menu"><span class="name">{L_JOINED}:</span> <span class="comment">{JOINED}</span></li>
+		<li class="menu"><span class="name">{L_VISITED}:</span> <span class="comment">{VISITED}</span></li>
+		<!-- IF S_WARNINGS -->
+		<li class="menu"><span class="name">{L_WARNINGS}:</span> <span class="comment">{WARNINGS}</span></li>
+		<!-- ENDIF -->
+		<li class="menu"><span class="name">{L_TOTAL_POSTS}:</span> <span class="comment">{POSTS}</span></li>
+		<!-- IF S_SHOW_ACTIVITY and POSTS -->
+			<li class="menu"><span class="name">{L_ACTIVE_IN_FORUM}:</span> <span class="comment"><!-- IF ACTIVE_FORUM --><strong><a href="{U_ACTIVE_FORUM}">{ACTIVE_FORUM}</a></strong><!-- ELSE --> - <!-- ENDIF --></span></li>
+			<li class="menu"><span class="name">{L_ACTIVE_IN_TOPIC}:</span> <span class="comment"><!-- IF ACTIVE_TOPIC --><strong><a href="{U_ACTIVE_TOPIC}">{ACTIVE_TOPIC}</a></strong><!-- ELSE --> - <!-- ENDIF --></span></li>
+		<!-- ENDIF -->
+	</ul>
+
+<!-- IF SIGNATURE -->
+	<span class="header">{L_SIGNATURE}</span>
+	<ul class="pageitem">
+		<li class="textbox">
+			{SIGNATURE}
+		</li>
+	</ul>
+<!-- ENDIF -->
+
+</form>
+
+<!-- INCLUDE overall_footer.html -->

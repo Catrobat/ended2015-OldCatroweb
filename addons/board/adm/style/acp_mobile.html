@@ -1,0 +1,32 @@
+<!-- INCLUDE overall_header.html -->
+
+<a name="maincontent"></a>
+
+	<h1>{L_ACP_MOBILE}</h1>
+
+	<p>{L_ACP_MOBILE_EXPLAIN}</p>
+
+	<form id="acp_words" method="post" action="{U_ACTION}">
+		<fieldset>
+			<legend>{L_EDIT_MOBILE}</legend>
+			<dl>
+				<dt><label for="enabled">{L_MOBILE_ENABLED}</label></dt>
+				<dd><input id="enabled" type="checkbox" name="enabled" <!-- IF MOBILE_ENABLED -->checked="checked" <!-- ENDIF -->maxlength="255" /></dd>
+			</dl>
+			<dl>
+				<dt><label for="agents">{L_MOBILE_AGENTS}</label></dt>
+				<dd><input id="agents" type="text" name="agents" value="{MOBILE_AGENTS}" maxlength="255" /></dd>
+			</dl>
+			{S_HIDDEN_FIELDS}
+
+			<p class="submit-buttons">
+				<input class="button1" type="submit" id="submit" name="save" value="{L_SUBMIT}" />&nbsp;
+				<input class="button2" type="reset" id="reset" name="reset" value="{L_RESET}" />
+				{S_FORM_TOKEN}
+			</p>
+		</fieldset>
+	</form>
+
+
+
+<!-- INCLUDE overall_footer.html -->

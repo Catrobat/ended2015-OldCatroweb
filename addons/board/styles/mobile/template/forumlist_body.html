@@ -1,0 +1,29 @@
+
+<!-- BEGIN forumrow -->
+	<!-- IF (forumrow.S_IS_CAT and not forumrow.S_FIRST_ROW) or forumrow.S_NO_CAT  -->
+			</ul>
+
+	<!-- ENDIF -->
+
+	<!-- IF forumrow.S_IS_CAT or forumrow.S_FIRST_ROW  or forumrow.S_NO_CAT  -->
+			<span class="header"><!-- IF forumrow.S_IS_CAT -->{forumrow.FORUM_NAME}<!-- ELSE -->{L_FORUM}<!-- ENDIF --></span>
+			<ul class="pageitem">
+	<!-- ENDIF -->
+
+	<!-- IF not forumrow.S_IS_CAT -->
+	
+	<li class="menu">
+<a href="{forumrow.U_VIEWFORUM}"> <img alt="Description" src="{forumrow.FORUM_FOLDER_IMG_SRC}" /> <span class="name">{forumrow.FORUM_NAME}</span> <span class="comment">{forumrow.TOPICS} {L_TOPICS}</span> <span class="arrow"></span> </a>
+</li>
+	<!-- ENDIF -->
+
+	<!-- IF forumrow.S_LAST_ROW -->
+</ul>
+	<!-- ENDIF -->
+
+<!-- BEGINELSE -->	
+	<ul class="pageitem">
+<li class="textbox"> <span class="header">{L_NO_FORUMS}</span>
+</li>
+</ul>
+<!-- END forumrow -->

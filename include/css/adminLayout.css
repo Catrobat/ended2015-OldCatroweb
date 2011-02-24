@@ -1,0 +1,61 @@
+/*    Catroid: An on-device graphical programming language for Android devices
+ *    Copyright (C) 2010  Catroid development team 
+ *    (<http://code.google.com/p/catroid/wiki/Credits>)
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ 
+body {
+	background-color: #ffffff;
+	color: #222222;
+	font-family: "Trebuchet MS", "Luxi Sans",Verdana, Arial, Helvetica, sans-serif;
+	font-size: 13px;
+}
+
+div.projectList {
+  width:100%;
+}
+
+.projectTable {
+  border-collapse:collapse;
+}
+
+.projectTable td, .projectTable th {
+  font-size:1em;
+  padding:3px 7px 2px 7px;
+  border:solid black 1px;
+}
+
+.projectTable th {
+  font-size:1.1em;
+  text-align:left;
+  padding-top:5px;
+  padding-bottom:4px;
+}
+
+.projectTable tr:nth-child(odd) {
+  background-color:#eeeeee;
+}
+
+.projectTable tr:nth-child(even) {
+  background-color:#ffffff;
+}
+.projectTable tr:hover {
+  background-color:#bbbbbb;
+}
+
+form.admin {
+  margin:0px;
+  padding:0px;
+}

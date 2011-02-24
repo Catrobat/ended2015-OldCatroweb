@@ -1,0 +1,169 @@
+/*    Catroid: An on-device graphical programming language for Android devices
+ *    Copyright (C) 2010  Catroid development team 
+ *    (<http://code.google.com/p/catroid/wiki/Credits>)
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU General Public License for more details.
+ *
+ *    You should have received a copy of the GNU General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+ 
+body {
+	background-color: #ffffff;
+	color: #222222;
+	font-family: "Trebuchet MS", "Luxi Sans",Verdana, Arial, Helvetica, sans-serif;
+	font-size: 1.3em;
+}
+
+/* Main Container; contains everything */
+div.webMainContainer {
+	width: 800px;
+	margin-right:auto;
+	margin-left:auto;
+}
+
+/* main horizontal sections of the site */
+div.webMainTop {
+	width:100%;
+	margin-bottom:0.7%;
+}
+div.webMainMiddle {
+	width:100%;
+	margin-bottom:0.7%;
+}
+div.webMainBottom {
+	width:100%;
+	margin-bottom:0.7%;
+}
+
+div.webMainContent {
+	min-height: 250px;
+}
+div.webMainContentTitle {
+  	text-align:center;
+  	width:100%;
+  	font-size:1.5em;
+  	color: #333333;
+  	font-weight: bold;
+  	letter-spacing: 0.14em;
+  	padding-bottom:1%;
+}
+
+/* divs for color: #606060;round boxes */
+div.blueBoxMain {
+   background: #d7e0f5;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   -ms-border-radius: 10px;
+   border-radius: 10px;
+   padding-top:0.8%;
+   padding-bottom:0.8%;
+}
+div.whiteBoxMain {
+  background: #ffffff;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   -ms-border-radius: 10px;
+   border-radius: 10px;
+   padding-top:0.8%;
+   padding-bottom:0.8%;
+}
+
+div.webMainHead {
+}
+div.webHeadLogo {
+	min-height:94px;
+	width:28%;
+	margin-left:2%;
+	text-align:left;
+	float:left;
+}
+div.webHeadTitle {
+	min-height:84px;
+	width:64%;
+	text-align:right;
+	margin-right:2%;
+	margin-top:0px;
+	/*padding-top:10px;*/
+	padding-right: 4%;
+	float:right;
+	/*background-color:red;*/
+	background-image: url(../../images/logo/brick_blue2_300.png);
+	background-repeat: no-repeat;
+	background-position: right top;
+}
+div.webHeadTitleName {
+	margin-top:20px;
+}
+div.webHeadTitleDownload {
+	margin-top:12px;
+}
+
+div.webMainLicense {
+    text-align:center;
+    font-size: 1em;
+    color: #606060;   
+}
+
+img.noBorder {
+  border: none;
+}
+
+img.catroidLogo {
+  border: none;
+  width:100%;
+}
+
+img.catroidBrick {
+  border: none;
+  width:50%;
+}
+
+span.webHeadTitleName {
+	color: #ffffff;
+	text-shadow: 0.1em 0.1em #333333;
+	font-size: 1.5em;
+	font-weight: bold;
+	letter-spacing: 0.2em;
+}
+span.webHeadTitleBeta {
+	color: #ffffff;
+	font-size: 1.1em;
+	letter-spacing: 0.1em;
+}
+
+a.webHeadTitleDownload {
+	color: #ffffff;
+	font-size: 0.9em;
+	letter-spacing: 0.2em;
+	font-weight:bold;
+}
+
+font.webMainBottomSpacer
+{
+	color:#7777AA;
+}
+
+a.downloadLink:link { color:#3333AA; text-decoration:underline; }
+a.downloadLink:visited { color:#3333AA; text-decoration:underline; }
+a.downloadLink:hover { color:#0000FF; text-decoration:underline; }
+a.downloadLink:active { color:#0000FF; text-decoration:underline; }
+
+a.noLink:link { text-decoration:none; }
+a.noLink:visited { text-decoration:none; }
+a.noLink:hover { text-decoration:none; }
+a.noLink:active { text-decoration:none; }
+
+
+a.license:link { color:#3333AA;text-decoration:underline;}
+a.license:visited {color:#3333AA; text-decoration:underline;}
+a.license:hover { color:#3333AA;text-decoration:underline;}
+a.license:active { color:#3333AA;text-decoration:underline;}

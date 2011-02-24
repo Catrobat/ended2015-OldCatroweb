@@ -1,0 +1,19 @@
+Mediawiki Installation:
+
+* Mercurial checkout
+* create DB named "catrowiki" with user "website" and password "cat.roid.web"
+* run catrowiki.sql
+* Add an Alias to your apache-config (Windows: httpd.conf; Unix: sites-enabled/ooo-default)
+Alias /wiki "/path/to/catroid/addons/mediawiki/index.php"
+
+PHPBB Installation:
+
+* Mercurial checkout
+* create DB named "catroboard" with user "website" and password "cat.roid.web"
+* run catroboard.sql
+* Unix: apply write-rights to the following files and folders (incl. subfolders):
+	- cache/
+	- files/
+	- store/
+	- config.php
+	- images/avatars/upload/
