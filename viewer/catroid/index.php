@@ -17,46 +17,22 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-  	<div class="webMainMiddle">
-  		<div class="blueBoxMain">
-  		   	<div class="webMainContent">
-            	<div class="webMainContentTitle">Newest Projects</div>
-  		   		<div class="projectListRow">
-  		   			<div class="whiteBoxMain">
-    					<div class="projectListElementRow">
-    				    <?php
-    					  $i=1;
-    					  if($this->projects) {
-                            foreach($this->projects as $project) {
-                        ?>
-                        <?php if($i%(PROJECT_ROW_MAX_PROJECTS+1) == 0) {?>
-                        <div style="clear:both;"></div>
-                        </div> <!-- projectListElementRow close //-->
-        			</div> <!-- whiteBoxMain close //-->
-              		<div class="projectListSpacer"></div>
-              	</div> <!-- projectListRow close //-->
-              	<div class="projectListRow">
-            		<div class="whiteBoxMain">
-            			<div class="projectListElementRow">
-            			<?php $i=1;}?>
-                      		<div class="projectListElement">
-                        		<div class="projectListThumbnail" title="<?php echo $project['title']?>">
-          							<div><a class="projectListDetailsLink" href="<?php echo BASE_PATH?>catroid/details/<?php echo $project['id']?>">
-          								<img class="projectListPreview" src="<?php echo $project['thumbnail']?>" alt="pro" />
-          							</a></div>
-          						</div>
-          						<div class="projectListDetails">
-          							<a class="projectListDetailsLink" href="<?php echo BASE_PATH?>catroid/details/<?php echo $project['id']?>">
-                                        <?php echo $project['title_short']?>
-                                    </a>
-                        		</div>
-                      		</div>
-                        <?php $i++;}}?>
-                        <div style="clear:both;"></div>
-                  		</div> <!-- projectListElementRow close //-->
-  					</div> <!-- whiteBoxMain close //-->
-  					<div class="projectListSpacer"></div>
-  				</div> <!-- projectListRow close //-->
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>
+    <div class="webMainMiddle">
+      <div class="blueBoxMain">
+        <div class="webMainContent">
+          <div class="webMainContentTitle">Newest Projects</div>
+          <div class="webMainNavigationButtons">
+            <button type="button" class="navigationButtons button white medium" id="fewerProjects">
+              <span class="navigationButtons">&laquo; Newer</span>
+            </button>
+          </div>
+          <div class="projectListSpacer"></div>
+          <div id="projectContainer"></div>
+          <div class="webMainNavigationButtons">
+            <button type="button" class="navigationButtons button white medium" id="moreProjects">
+              <span class="navigationButtons">Older &raquo;</span>
+            </button>
+          </div>
+        </div> <!-- mainContent close //-->
+      </div> <!-- blueBoxMain close //-->
+    </div>

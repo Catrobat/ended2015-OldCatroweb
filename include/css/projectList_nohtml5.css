@@ -29,22 +29,34 @@ div.projectListElementRow {
 }
 
 div.projectListElement {
-  float:left; /* for browser which do not understand html5 flexBox model*/
+  margin-left:0.8%;
+  margin-right:0.8%;
   border:solid #CCCCCC 2px;
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   border-radius: 10px;
-  margin-left:0.5%;
-  margin-right:0.5%;
-  width:31.8%;
+  width:768px;
 }
 div.projectListDetails {
   font-size:1em;
-  font-weight:bold;
-  text-align:center;
+  text-align:left;
+  height: 220px;
+  width:632px;
+  display: table-cell;
+  vertical-align: middle;
+
+  padding-left:10px;
+  font-size: 1.5em;
+}
+div.projectDetailLine {
+  word-wrap: break-word;
+  margin:0.2em;
 }
 div.projectListThumbnail {
+  margin-left:0.8%;
+  margin-right:0.8%;
+  float:left; /* for browser which do not understand html5 flexBox model*/
   display: -webkit-box;
   -webkit-box-orient: vertical;
   -webkit-box-pack: center;
@@ -58,7 +70,8 @@ div.projectListThumbnail {
   box-orient: vertical;
   box-pack: center;
   text-align:center;
-  min-height: 420px;
+  height: 220px;
+  width:130px;
 }
 
 img.projectListPreview {
@@ -72,3 +85,16 @@ a.projectListDetailsLink:visited { color:#3333AA; text-decoration:underline; }
 a.projectListDetailsLink:hover { color:#0000FF; text-decoration:underline; }
 a.projectListDetailsLink:active { color:#0000FF; text-decoration:underline; }
 
+a.projectListDetailsLinkBold:link { color:#3333AA; text-decoration:underline; font-weight: bold; }
+a.projectListDetailsLinkBold:visited { color:#3333AA; text-decoration:underline; font-weight: bold; }
+a.projectListDetailsLinkBold:hover { color:#0000FF; text-decoration:underline; font-weight: bold; }
+a.projectListDetailsLinkBold:active { color:#0000FF; text-decoration:underline; font-weight: bold; }
+
+span.navigationButtons {
+  font-size:2em;
+  font-weight: bold;
+}
+
+button.navigationButtons {
+  width:98%;
+}

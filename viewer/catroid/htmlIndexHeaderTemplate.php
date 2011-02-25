@@ -17,6 +17,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
+  <script type="text/javascript">
+      $(document).ready(function() {
+        new NewestProjects(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$_SESSION['pageNr']."', '".$this->numberOfPages."'"; ?>);
+      });
+    </script>
   	<div class="webMainTop">
   		<div class="blueBoxMain">
   		    <div class="webMainHead">

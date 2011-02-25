@@ -56,6 +56,9 @@ div.webMainContentTitle {
   	letter-spacing: 0.14em;
   	padding-bottom:1%;
 }
+div.webMainNavigationButtons {
+    text-align: center;
+}
 
 /* divs for color: #606060;round boxes */
 div.blueBoxMain {

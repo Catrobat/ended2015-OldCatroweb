@@ -30,11 +30,41 @@ class index extends CoreAuthenticationNone {
       $this->addCss('projectList_nohtml5.css');
     }
     $this->addCss('buttons.css');
+    $this->addJs('classy.js');
+    $this->addJs('jquery.js');
+    $this->addJs('newestProjects.js');
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
+
+    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_MAX_PROJECTS);
+
+    if(!isset($_SESSION['pageNr'])) {
+      $_SESSION['pageNr'] = 1;
+    }
+    if(isset($_REQUEST['method'])) {
+      $_SESSION['pageNr'] = intval($_REQUEST['method']);
+      if($_SESSION['pageNr'] < 1) {
+        $_SESSION['pageNr'] = 1; 
+      }
+      if($_SESSION['pageNr'] > $this->numberOfPages) {
+        $_SESSION['pageNr'] = $this->numberOfPages - 1; 
+      }
+    }
   }
 
   public function __default() {
     $this->projects = $this->retrieveAllProjectsFromDatabase();
+  }
+
+  public function getNumberOfVisibleProjects() {
+    $query = 'EXECUTE get_number_of_visible_projects;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $number = pg_fetch_all($result);
+    pg_free_result($result);
+    
+    if($number[0]['count']) {
+      return $number[0]['count'];
+    }
+    return 0;
   }
 
   public function retrieveAllProjectsFromDatabase() {

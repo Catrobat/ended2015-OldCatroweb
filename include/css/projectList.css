@@ -38,6 +38,7 @@ div.projectListElementRow {
   display: box;
   box-orient: horizontal;
   box-pack: center;
+  width:100%;
 }
 
 div.projectListElementRow > div {
@@ -50,14 +51,45 @@ div.projectListElement {
   -moz-border-radius: 10px;
   -ms-border-radius: 10px;
   border-radius: 10px;
-  margin-left:0.5%;
-  margin-right:0.5%;
-  width:31.9%;
+  width: 770px;
+  
+  display: -webkit-box;
+  -webkit-box-orient: horizontal;
+  -webkit-box-pack: center;
+  display: -moz-box;
+  -moz-box-orient: horizontal;
+  -moz-box-pack: center;
+  display: -ms-box;
+  -ms-box-orient: horizontal;
+  -ms-box-pack: center;
+  display: box;
+  box-orient: horizontal;
+  box-pack: center;
 }
 div.projectListDetails {
-  font-size:1em;
-  font-weight:bold;
-  text-align:center;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-box-pack: center;
+  display: -moz-box;
+  -moz-box-orient: vertical;
+  -moz-box-pack: center;
+  display: -ms-box;
+  -ms-box-orient: vertical;
+  -ms-box-pack: center;
+  display: box;
+  box-orient: vertical;
+  box-pack: center;
+  text-align: left;
+  min-height: 208px;
+  width:632px;
+
+  padding-left:10px;
+  padding-right:10px;
+  font-size: 1.5em;
+}
+div.projectDetailLine {
+  word-wrap: break-word;
+  margin:0.2em;
 }
 div.projectListThumbnail {
   display: -webkit-box;
@@ -73,17 +105,33 @@ div.projectListThumbnail {
   box-orient: vertical;
   box-pack: center;
   text-align:center;
-  min-height: 420px;
+  min-height: 208px;
+  width:130px;
 }
 
 img.projectListPreview {
-	border: none;
-	padding-top:4px;
-	width:98%;
+  border: none;
+  padding-top:4px;
+  width:120px;
+  height:200px;
 }
 
 a.projectListDetailsLink:link { color:#3333AA; text-decoration:underline; }
 a.projectListDetailsLink:visited { color:#3333AA; text-decoration:underline; }
 a.projectListDetailsLink:hover { color:#0000FF; text-decoration:underline; }
 a.projectListDetailsLink:active { color:#0000FF; text-decoration:underline; }
+
+a.projectListDetailsLinkBold:link { color:#3333AA; text-decoration:underline; font-weight: bold; }
+a.projectListDetailsLinkBold:visited { color:#3333AA; text-decoration:underline; font-weight: bold; }
+a.projectListDetailsLinkBold:hover { color:#0000FF; text-decoration:underline; font-weight: bold; }
+a.projectListDetailsLinkBold:active { color:#0000FF; text-decoration:underline; font-weight: bold; }
+
+span.navigationButtons {
+  font-size:2em;
+  font-weight: bold;
+}
+
+button.navigationButtons {
+  width:98%;
+}
 
