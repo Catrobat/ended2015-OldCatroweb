@@ -1618,8 +1618,10 @@ class user extends session
 		*/
 		
 		// START PHPBB MOBILE
-		//$this->mobile_style = (isset($config['mobile_enabled']) && preg_match('/iPad|iPhone|iOS|Opera Mobi|BlackBerry|Android|IEMobile|Symbian/', $this->browser) && $auth->acl_get('u_mobile'));
-		$this->mobile_style = (isset($config['mobile_enabled']) && preg_match('/iPad|iPhone|iOS|Opera Mobi|BlackBerry|Android|IEMobile|Symbian/', $this->browser));
+		//$this->mobile_style = (isset($config['mobile_enabled']) && $config['mobile_enabled'] && preg_match($config['mobile_agents'], $this->browser) && $auth->acl_get('u_mobile'));
+		require_once dirname(__FILE__).'/../../../classes/CoreClientDetection.php';
+		$clientDetection = new CoreClientDetection();
+		$this->mobile_style = $clientDetection->isMobile();
 		if ($this->mobile_style)
 		{
 			$user->add_lang('mods/mobile');

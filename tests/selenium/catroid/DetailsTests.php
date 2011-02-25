@@ -127,6 +127,16 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(2000);   
     $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
     $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
+    
+    //unflag the project again
+    $path= 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin/tools/inappropriateProjects';
+    $this->selenium->open($path);
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertTrue($this->selenium->isTextPresent($id));
+    $this->selenium->click("resolve".$id);
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertTrue($this->selenium->isTextPresent("The project was succesfully restored and set to visible!"));
+    $this->assertFalse($this->selenium->isTextPresent($id));
   }
   
   public function testMoreButtonAndQRCode() {

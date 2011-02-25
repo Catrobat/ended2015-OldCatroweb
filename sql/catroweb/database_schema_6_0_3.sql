@@ -1435,5 +1435,5 @@ INSERT INTO wordlist (word, good_meaning, approved) VALUES ( 'wop', false, true)
 -- ----------------------------
 -- Records of projects
 -- ----------------------------
-INSERT INTO projects (id, title, description, source, upload_time, upload_ip, download_count, view_count, visible, user_id) VALUES ('1', 'My first very cool TestProject', 'This is the description of my very first cool test project. If it is long enough you will see a more-button to show the rest of this cool description. So I have to write more and more and more text.', '112.zip', '2011-02-24 17:22:19+01', '127.0.0.1', '0', '0', 't', '0');
+INSERT INTO projects (id, title, description, source, upload_time, upload_ip, download_count, view_count, visible, user_id) VALUES ('1', 'My first very cool TestProject', 'This is the description of my very first cool test project. If it is long enough you will see a more-button to show the rest of this cool description. So I have to write more and more and more text.', '1.zip', '2011-02-24 17:22:19+01', '127.0.0.1', '0', '0', 't', '0');
 SELECT setval('projects_id_seq', (SELECT MAX(id) FROM projects) + 1);
