@@ -25,13 +25,13 @@
   		   		</div>
   		   		<form method="post" action="./registration">
   		   			Nickname:<br>
-  		   			<input type="text" name="registrationUsername" value="<?php echo $this->postData['registrationUsername']?>"><br>
+  		   			<input type="text" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>"><br>
   		   			Password:<br>
   		   			<input type="password" name="registrationPassword"><br>
   		   			Repeat password:<br>
   		   			<input type="password" name="registrationPasswordRepeat"><br>
   		   			Email:<br>
-  		   			<input type="text" name="registrationEmail" value="<?php echo $this->postData['registrationEmail']?>"><br>
+  		   			<input type="text" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>"><br>
   		   			<input type="submit" name="registrationSubmit" value="Register">
   		   		</form>
   		   		<br>

@@ -137,14 +137,14 @@ class registration extends CoreAuthenticationNone {
     $text = '[a-zA-Z0-9äöüßÄÖÜ|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
     $regEx = '^'.$text.'$';
     if(!ereg($regEx, $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid').'1');
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
     $usernameClean = utf8_clean_string(utf8_encode($username));
     if(empty($usernameClean)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid').'2');
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
     $query = "EXECUTE get_user_row_by_username('".utf8_encode($username)."')";

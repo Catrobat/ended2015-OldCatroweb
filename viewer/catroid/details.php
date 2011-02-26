@@ -83,8 +83,8 @@
                     						<p class="detailsDescription" id="detailsDescription">
                     						    <?php echo $this->project['description_short'];?>
                     						</p>
-                    						<input type="hidden" id="fullDescriptionText" value="<?php echo $this->project['description']?>">
-                    						<input type="hidden" id="shortDescriptionText" value="<?php echo $this->project['description_short']?>">
+                    						<input type="hidden" id="fullDescriptionText" value="<?php echo htmlspecialchars($this->project['description'])?>">
+                    						<input type="hidden" id="shortDescriptionText" value="<?php echo htmlspecialchars($this->project['description_short'])?>">
                     						<button type="button" id="showFullDescriptionButton" class="button green compact showFullDescriptionButton">
                         					  	<span class="detailsMoreButtonText">more</span>
                         					</button>
