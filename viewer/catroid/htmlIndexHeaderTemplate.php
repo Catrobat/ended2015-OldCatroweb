@@ -19,7 +19,7 @@
 ?>
   <script type="text/javascript">
       $(document).ready(function() {
-        new NewestProjects(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$_SESSION['pageNr']."', '".$this->numberOfPages."'"; ?>);
+        new NewestProjects(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->numberOfPages."'"; ?>);        
       });
     </script>
   	<div class="webMainTop">

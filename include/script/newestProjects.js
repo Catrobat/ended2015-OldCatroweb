@@ -93,6 +93,8 @@ var NewestProjects = Class.$extend( {
     $.ajax({
       url: this.basePath+"catroid/loadNewestProjects/"+self.pageNr,
       cache: false,
+      timeout: (5000),
+    
       success: function(result){
         if(result != "") {
           var content = eval('(' + result + ')');
@@ -106,6 +108,13 @@ var NewestProjects = Class.$extend( {
             self.fillSkeletonWithContent(content['next'], self.pageNr + 1);
           }
         }
+      },
+      error: function(result,errCode)
+      {
+        if (errCode == "timeout")
+        {
+          window.location.reload(false);          
+        }        
       }
     });
   },

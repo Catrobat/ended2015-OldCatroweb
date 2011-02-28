@@ -1,29 +1,34 @@
 <?php
 
 class loadNewestProjects extends CoreAuthenticationNone {
+  protected $pageNr = 0;
 	public function __construct() {
-		parent::__construct();
-
-	}
-
-	public function __default() {
-		$pageNr = 0;
+		parent::__construct();	  
 		if(isset($_REQUEST['method'])) {
-		  $pageNr = intval($_REQUEST['method']);
+		  $this->pageNr = intval($_REQUEST['method']);
 		}
-    $_SESSION['pageNr'] = $pageNr;
-    $pageContent = array();
-    
-    if($pageNr > 0) {
-      $pageContent['prev'] = $this->retrievePageNrFromDatabase($pageNr-1);
-    }
-    $pageContent['current'] = $this->retrievePageNrFromDatabase($pageNr);
-    $pageContent['next'] = $this->retrievePageNrFromDatabase($pageNr+1);
-		
-		echo json_encode($pageContent);
-		exit();
+    $this->session->pageNr = $this->pageNr;    
 	}
 
+	public function __default() {		
+        
+    echo $this->encodePageContent(); 
+    exit();
+	}
+
+	public function encodePageContent()
+	{
+	  $pageContent = array();
+    
+    if($this->pageNr > 0) {
+      $pageContent['prev'] = $this->retrievePageNrFromDatabase($this->pageNr-1);
+    }
+    $pageContent['current'] = $this->retrievePageNrFromDatabase($this->pageNr);
+    $pageContent['next'] = $this->retrievePageNrFromDatabase($this->pageNr+1);
+    return json_encode($pageContent);	
+					  
+	}
+	
   public function retrievePageNrFromDatabase($pageNr) {
     $query = 'EXECUTE get_visible_projects_ordered_by_uploadtime_with_limit_and_offset('.PROJECT_PAGE_MAX_PROJECTS.', '.(PROJECT_PAGE_MAX_PROJECTS * $pageNr).');';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());

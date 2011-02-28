@@ -17,19 +17,27 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+session_start();
 /* Set TESTS_BASE_PATH to your catroid www-root */
-define('TESTS_BASE_PATH','http://dev.catroid.localhost/');
+//define('TESTS_BASE_PATH','http://dev.catroid.localhost/');
 //define('TESTS_BASE_PATH','http://catroidwebtest.ist.tugraz.at/');
 //define('TESTS_BASE_PATH','http://localhost/catroweb/web/');
-//define('TESTS_BASE_PATH','http://localhost/');
+define('TESTS_BASE_PATH','http://localhost/');
 define('TESTS_SLOW_MODE',false);
 define('TESTS_SLOW_MODE_SPEED','1000');
 $_SERVER['SERVER_NAME'] = '127.0.0.1';
-set_include_path(get_include_path() . PATH_SEPARATOR . './PEAR/');
+spl_autoload_register('__autoload');
+set_include_path(get_include_path() . PATH_SEPARATOR . './pear/');
+
 require_once 'Testing/Selenium.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 require_once '../../config.php';
 require_once '../../passwords.php';
+set_include_path(get_include_path() . PATH_SEPARATOR . CORE_BASE_PATH.'classes/');
+function __autoload($class) {
+  //include_once CORE_BASE_PATH.'classes/'.$class.'.php';
+  include_once $class.'.php';
+}
 $connection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
     or die('Connection to Database failed: ' . pg_last_error());
 ?>

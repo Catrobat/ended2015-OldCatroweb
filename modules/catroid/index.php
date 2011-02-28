@@ -35,24 +35,25 @@ class index extends CoreAuthenticationNone {
     $this->addJs('newestProjects.js');
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
 
-    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_MAX_PROJECTS);
-
-    if(!isset($_SESSION['pageNr'])) {
-      $_SESSION['pageNr'] = 1;
+    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_MAX_PROJECTS);    
+    
+    if(!$this->session->pageNr) {      
+      $this->session->pageNr = 1;
     }
     if(isset($_REQUEST['method'])) {
-      $_SESSION['pageNr'] = intval($_REQUEST['method']);
-      if($_SESSION['pageNr'] < 1) {
-        $_SESSION['pageNr'] = 1; 
+      $this->session->pageNr = intval($_REQUEST['method']);
+      if($this->session->pageNr < 1) {
+        $this->session->pageNr = 1; 
       }
-      if($_SESSION['pageNr'] > $this->numberOfPages) {
-        $_SESSION['pageNr'] = $this->numberOfPages - 1; 
+      if($this->session->pageNr > $this->numberOfPages) {
+        $this->session->pageNr = $this->numberOfPages - 1; 
       }
     }
+    $this->pageNr = $this->session->pageNr;    
   }
 
   public function __default() {
-    $this->projects = $this->retrieveAllProjectsFromDatabase();
+    
   }
 
   public function getNumberOfVisibleProjects() {
@@ -65,42 +66,6 @@ class index extends CoreAuthenticationNone {
       return $number[0]['count'];
     }
     return 0;
-  }
-
-  public function retrieveAllProjectsFromDatabase() {
-    $query = 'EXECUTE get_visible_projects_ordered_by_uploadtime;';
-    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    $projects = pg_fetch_all($result);
-    pg_free_result($result);
-    if($projects[0]['id']) {
-      $i=0;
-      foreach($projects as $project) {
-        $projects[$i]['title'] = utf8_decode($projects[$i]['title']);
-        $projects[$i]['title_short'] = $this->shortenTitle(utf8_decode($project['title']));
-        $projects[$i]['thumbnail'] = $this->getThumbnail($project['id']);
-        $i++;
-      }
-      return($projects);
-    } else {
-      return ($projects[0]);
-    }
-  }
-
-  public function shortenTitle($string) {
-    if(strlen($string) > PROJECT_TITLE_MAX_DISPLAY_LENGTH) {
-      return substr($string, 0, PROJECT_TITLE_MAX_DISPLAY_LENGTH);
-    }
-    return $string;
-  }
-
-  public function getThumbnail($projectId) {
-    $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
-    $thumb_file = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
-    if(!is_file($thumb_file)) {
-      $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
-    }
-
-    return $thumb;
   }
 
   public function __destruct() {

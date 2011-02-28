@@ -77,6 +77,8 @@ class AdminTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isTextPresent("edit projects"));
     $this->assertTrue($this->selenium->isTextPresent("thumbnail uploader"));
     $this->assertTrue($this->selenium->isTextPresent("inappropriate projects"));
+    $this->assertTrue($this->selenium->isTextPresent("approve unapproved words"));    
+    
     $this->assertRegExp("/Administration - Catroid Website/", $this->selenium->getTitle());
 
     $this->selenium->click("xpath=//a[1]");
@@ -105,7 +107,7 @@ class AdminTests extends PHPUnit_Framework_TestCase
     
     $this->selenium->click("xpath=//a[5]");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("Administration Tools - List of unapproved Wor"));
+    $this->assertTrue($this->selenium->isTextPresent("Administration Tools - List of unapproved Words"));
     $this->goBack();
     $this->selenium->waitForPageToLoad(10000);
 

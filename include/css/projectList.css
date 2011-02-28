@@ -133,5 +133,6 @@ span.navigationButtons {
 
 button.navigationButtons {
   width:98%;
+  display:none;
 }
 

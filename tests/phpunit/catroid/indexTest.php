@@ -25,74 +25,26 @@ class indexTest extends PHPUnit_Framework_TestCase
 
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/catroid/index.php';
-    $this->obj = new index();
-    @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_large.jpg');
-  }
+    $this->obj = new index();    
+  } 
+  
 
-  public function testRetrieveAllProjectsFromDatabase()
+  public function testGetNumberOfVisibleProjects()
   {
-    $projects = $this->obj->retrieveAllProjectsFromDatabase();
-    foreach($projects as $project) {
-      $this->assertEquals('t', $project['visible']);
-    }
-
+    $projectscount = $this->obj->getNumberOfVisibleProjects();
+    
     $query = 'SELECT * FROM projects WHERE visible=true';
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $numDbEntries =  pg_num_rows($result);
-    // test that projects is a valid db serach result
-    if ($numDbEntries > 0) {
-      $this->assertEquals(true, is_array($projects));
-    } else {
-      $this->assertEquals(false, is_array($projects));
-    }
+    
+    // test that projects is a valid db serach result   
 
-    //test if all projects are fetched
-    $this->assertEquals($numDbEntries, count($projects));
-    //test that newest projects are first
-    if($numDbEntries > 1) {
-      $this->assertGreaterThanOrEqual(strtotime($projects[$numDbEntries-1]['upload_time']), strtotime($projects[0]['upload_time']));
-    }
+    $this->assertEquals($numDbEntries, $projectscount);
+    
+    
   }
 
-  public function testGetThumbnail() {
-    $thumbSourceName = 'test_thumbnail.jpg';
-    $thumbDestName = 'test_small.jpg';
-    $thumb = $this->obj->getThumbnail('test');
-    $this->assertFalse(strpos($thumb, $thumbDestName));
-    copy(dirname(__FILE__).'/testdata/'.$thumbSourceName, CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbDestName);
-    $thumb = $this->obj->getThumbnail('test');
-    $this->assertTrue(is_int(strpos($thumb, $thumbDestName)));
-  }
-
-  /**
-   * @dataProvider randomLongStrings
-   */
-  public function testShortenTitle($string) {
-    $short = $this->obj->shortenTitle($string);
-
-    $this->assertEquals(PROJECT_TITLE_MAX_DISPLAY_LENGTH, strlen($short));
-    $this->assertEquals(0, strcmp(substr($string, 0, strlen($short)), $short));
-  }
-
-  /* *** DATA PROVIDERS *** */
-  public function randomLongStrings() {
-    $returnArray = array();
-    $strLen = 200;
-    $chars = array('a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z');
-
-    for($i=0;$i<5;$i++) {
-      $str = '';
-      for($j=0;$j<$strLen;$j++) {
-        $str .= $chars[rand(0, count($chars)-1)];
-      }
-      $returnArray[$i] = array($str);
-    }
-
-    return $returnArray;
-  }
-
-  protected function tearDown() {
-    @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_small.jpg');
+  protected function tearDown() {    
   }
 }
 ?>

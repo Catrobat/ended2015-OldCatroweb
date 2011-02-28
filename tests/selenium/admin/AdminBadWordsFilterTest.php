@@ -60,6 +60,7 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($this->selenium->isTextPresent($this->unapprovedWord));
 		$this->selenium->select("meaning", "label=good");
 		$this->selenium->click("approve");
+		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent("The word was succesfully approved!"));
 
 		$this->deletePrivouslyUploadedProjectAndUnapporvedWord();
@@ -77,6 +78,7 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
 		$this->assertTrue($this->selenium->isTextPresent($this->unapprovedWord));
 		$this->selenium->select("meaning", "label=bad");
 		$this->selenium->click("approve");
+		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent("The word was succesfully approved!"));
 
 		$this->deletePrivouslyUploadedProjectAndUnapporvedWord();
@@ -93,6 +95,7 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent($this->unapprovedWord));
 		$this->selenium->click("approve");
+		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent("Error: no word meaning selected!"));
 
 		$this->deletePrivouslyUploadedProjectAndUnapporvedWord();
@@ -109,6 +112,7 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent($this->unapprovedWord));
 		$this->selenium->click("delete");
+		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent("The word was succesfully deleted!"));
 		$this->assertFalse($this->selenium->isTextPresent($this->unapprovedWord));
 

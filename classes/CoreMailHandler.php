@@ -35,6 +35,8 @@ class CoreMailHandler {
   }
 
   public function sendAdministrationMail($subject, $text) {
+    if (!(SEND_NOTIFICATION_EMAIL))
+        return false;
     if(!$subject || !$text) {
       return false;
     }
