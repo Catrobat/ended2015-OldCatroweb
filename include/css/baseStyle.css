@@ -91,9 +91,9 @@ div.webHeadLogo {
 }
 div.webHeadTitle {
 	min-height:84px;
-	width:64%;
+	width:43%;
 	text-align:right;
-	margin-right:2%;
+	margin-right:1%;
 	margin-top:0px;
 	/*padding-top:10px;*/
 	padding-right: 4%;
@@ -103,11 +103,53 @@ div.webHeadTitle {
 	background-repeat: no-repeat;
 	background-position: right top;
 }
+div.webHeadButtons {
+	display:none;
+  min-height:84px;
+  width:20%;
+  text-align:right;
+  margin-top:0px;
+  padding-right: 1%;
+  float:right;
+}
 div.webHeadTitleName {
 	margin-top:20px;
 }
 div.webHeadTitleDownload {
 	margin-top:12px;
+}
+div.webHeadSearchBoxSpacer {
+  width:100%;
+  height:5px;
+}
+span.webHeadCancelButtonText {
+  font-size:2em;
+  font-weight:bold;
+}
+img.webHeadSymbolOnButton {
+  width:36px;
+  height:36px;
+  border:0px;
+}
+button.webHeadButtons {
+	width:70px;
+  height:70px;
+  margin-top:8px;
+}
+button.webHeadCancelButton {
+  width:149px;
+  height:70px;
+  margin-top:8px;
+}
+input.webHeadSearchBox {
+	width:76%;
+	font-size:2.3em;
+	margin-left:1%;
+}
+input.webHeadSearchSubmit {
+  width:20%;
+  font-size:2.3em;
+  margin-right:1%;
 }
 
 div.webMainLicense {

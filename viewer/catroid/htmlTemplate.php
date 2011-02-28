@@ -25,25 +25,26 @@
   <!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.3, initial-scale=1.0, user-scalable=yes" /> -->
   <title>Catroid Website</title>
   <link href="<?php echo BASE_PATH?>include/css/baseStyle.css" media="screen" rel="stylesheet" type="text/css" />
-  <?php while($css = $this->getCss()) {?>
-  	<link href="<?php echo BASE_PATH?>include/css/<?php echo $css?>" media="screen" rel="stylesheet" type="text/css" />
-  <?php }?>
-  <?php if(!$this->isMobile) {?>
-  	<link href="<?php echo BASE_PATH?>include/css/baseStyleDesktop.css" media="screen" rel="stylesheet" type="text/css" />
-  <?php }?>
-  <?php while($js = $this->getJs()) {?>
-  	<script type="text/javascript" src="<?php echo BASE_PATH?>include/script/<?php echo $js?>"></script>
-  <?php }?>
+<?php while($css = $this->getCss()) {?>
+  <link href="<?php echo BASE_PATH?>include/css/<?php echo $css?>" media="screen" rel="stylesheet" type="text/css" />
+<?php }?>
+<?php if(!$this->isMobile) {?>
+  <link href="<?php echo BASE_PATH?>include/css/baseStyleDesktop.css" media="screen" rel="stylesheet" type="text/css" />
+<?php }?>
+<?php while($js = $this->getJs()) {?>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/<?php echo $js?>"></script>
+<?php }?>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js" ></script>
   <link rel="icon" href="<?php echo BASE_PATH?>images/layout/favicon.png" type="image/png" />
 </head>
 
 <body>
   <div class="webMainContainer">
-  <?php include($this->header);?>
+<?php include($this->header);?>
 
-  <?php include($this->viewer);?>
+<?php include($this->viewer);?>
   
-  <?php include($this->footer);?>
+<?php include($this->footer);?>
   </div>
 </body>
 </html>

@@ -17,34 +17,56 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-  <script type="text/javascript">
+    <script type="text/javascript">
       $(document).ready(function() {
-        new NewestProjects(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->numberOfPages."'"; ?>);        
+        new NewestProjects(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->numberOfPages."'"; ?>);
+        new HeaderMenu();        
       });
     </script>
-  	<div class="webMainTop">
-  		<div class="blueBoxMain">
-  		    <div class="webMainHead">
-  		    	<div class="webHeadLogo">
-  		    	  	<a id="aIndexWebLogoLeft" href="<?php echo BASE_PATH?>catroid/index">
-  		      			<img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
-  		      	  	</a>
-  		      	</div>
-  		      	<div class="webHeadTitle">
-  		      		<div class="webHeadTitleName">
-  		      			<a class="noLink" href="http://code.google.com/p/catroid/downloads/list" target="_blank">
-  			      			<span class="webHeadTitleName">Catroid</span>
-  			      			<span class="webHeadTitleBeta"><?php echo DEVELOPMENT_STATUS?></span>  			      			
-  			      		</a>
-  			      		
-  		      		</div>
-  		      		<div class="webHeadTitleDownload">
-  			      		 <a class="button green small webHeadTitleDownload" href="http://code.google.com/p/catroid/downloads/list" target="_blank">
-  			      		 	Download
-  			      		 </a>
-  		      		</div>
-  		      	</div>
-  		      	<div style="clear:both;"></div>
-  		    </div>
-  		</div>
-  	</div>
+    <div class="webMainTop">
+      <div class="blueBoxMain">
+        <div class="webMainHead">
+          <div class="webHeadLogo">
+            <a id="aIndexWebLogoLeft" href="<?php echo BASE_PATH?>catroid/index">
+              <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
+            </a>
+          </div>
+          <div id="normalHeaderButtons" class="webHeadButtons">
+            <a href="<?php echo BASE_PATH?>catroid/menu">
+              <button type="button" class="webHeadButtons button white medium" id="headerWallButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" /></button>
+            </a>
+            <button type="button" class="webHeadButtons button white medium" id="headerSearchButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/magnifying-glass.png" /></button>
+          </div>
+          <div id="cancelHeaderButton" class="webHeadButtons">
+            <button type="button" class="webHeadCancelButton button white medium" id="headerCancelSearchButton">
+              <span class="webHeadCancelButtonText">Cancel</span>
+            </button>
+          </div>
+          <div class="webHeadTitle">
+            <div class="webHeadTitleName">
+              <a class="noLink" href="http://code.google.com/p/catroid/downloads/list" target="_blank">
+                <span class="webHeadTitleName">Catroid</span>
+                <span class="webHeadTitleBeta"><?php echo DEVELOPMENT_STATUS?></span>  			      			
+              </a>
+            </div>
+            <div class="webHeadTitleDownload">
+              <a class="button green small webHeadTitleDownload" href="http://code.google.com/p/catroid/downloads/list" target="_blank">
+                Download
+              </a>
+            </div>
+          </div>
+          <div style="clear:both;"></div>
+        </div>
+      </div>
+      <div id="headerSearchBox" style="display:none;">
+        <div class="webHeadSearchBoxSpacer"></div>
+        <div class="blueBoxMain">
+          <div class="webMainHead">
+            <form>
+              <input type="search" class="webHeadSearchBox" placeholder="Search for Projects" autofocus  />
+              <input type="submit" class="webHeadSearchSubmit" value="Search" />
+            </form>
+          </div>
+        </div>
+      </div>
+    </div> <!--  WEBMAINTOP -->
