@@ -21,8 +21,8 @@ session_start();
 /* Set TESTS_BASE_PATH to your catroid www-root */
 //define('TESTS_BASE_PATH','http://dev.catroid.localhost/');
 //define('TESTS_BASE_PATH','http://catroidwebtest.ist.tugraz.at/');
-define('TESTS_BASE_PATH','http://localhost/catroweb/');
-//define('TESTS_BASE_PATH','http://localhost/');
+//define('TESTS_BASE_PATH','http://localhost/catroweb/');
+define('TESTS_BASE_PATH','http://localhost/');
 define('TESTS_SLOW_MODE',false);
 define('TESTS_SLOW_MODE_SPEED','1000');
 $_SERVER['SERVER_NAME'] = '127.0.0.1';

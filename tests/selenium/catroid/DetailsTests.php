@@ -40,7 +40,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
   {
     $this->selenium->stop();
   }
-  
+
   /**
    * @dataProvider randomIds
    */
@@ -48,17 +48,17 @@ class DetailsTests extends PHPUnit_Framework_TestCase
   {
     $this->selenium->open(TESTS_BASE_PATH.'catroid/details/'.$id);
     $this->selenium->waitForPageToLoad(10000);
-    
+
     //project title
     $this->assertEquals($title, $this->selenium->getText("xpath=//div[@class='detailsProjectTitle']"));
-    
+
     //test the view counter
     $numOfViews = intval($this->selenium->getText("xpath=//p[@class='detailsStats']/b"));
     $this->selenium->refresh();
     $this->selenium->waitForPageToLoad(10000);
     $numOfViewsAfter = intval($this->selenium->getText("xpath=//p[@class='detailsStats']/b"));
     $this->assertEquals($numOfViews+1, $numOfViewsAfter);
-    
+
     //test the download counter
     $numOfDownloads = intval($this->selenium->getText("xpath=//p[@class='detailsStats'][2]/b"));
     $this->selenium->click("xpath=//div[@class='detailsDownloadButton']/a[1]");
@@ -75,7 +75,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $numOfDownloadsAfter = intval($this->selenium->getText("xpath=//p[@class='detailsStats'][2]/b"));
     $this->assertEquals($numOfDownloads+2, $numOfDownloadsAfter);
-    
+
     //test the home link
     $this->selenium->click("xpath=//div[@class='webHeadTitleName']/a");
     $this->selenium->waitForPageToLoad(10000);
@@ -88,7 +88,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->goBack();
     $this->selenium->waitForPageToLoad(10000);
   }
-  
+
   /**
    * @dataProvider randomIds
    */
@@ -124,10 +124,10 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->type("reportInappropriateReason", "my selenium reason 2");
     $this->selenium->focus("reportInappropriateReason");
     $this->selenium->keyPress("reportInappropriateReason", "\\13");
-    $this->selenium->waitForPageToLoad(2000);   
+    $this->selenium->waitForPageToLoad(2000);
     $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
     $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
-    
+
     //unflag the project again
     $path= 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin/tools/inappropriateProjects';
     $this->selenium->open($path);
@@ -139,7 +139,10 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isTextPresent($id));
   }
   
-  public function testMoreButtonAndQRCode() {
+  /**
+   * @dataProvider titlesAndDescriptions
+   */
+  public function testMoreButtonAndQRCode($title, $description) {
     //upload new project
     $this->selenium->open(TESTS_BASE_PATH.'catroid/upload/');
     $this->selenium->waitForPageToLoad("10000");
@@ -149,15 +152,17 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     } else {
       $uploadpath .= "/../resources/testproject.zip";
     }
-    $projectTitle = "more button selenium test";
-    $projectDescription = "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!";
+    //$projectTitle = "more button selenium test";
+    //$projectDescription = "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!";
+    $projectTitle = $title;
+    $projectDescription = $description;
     $this->selenium->type("upload", $uploadpath);
     $this->selenium->type("projectTitle", $projectTitle);
     $this->selenium->type("projectDescription", $projectDescription);
     $this->selenium->click("submit_upload");
     $this->selenium->waitForPageToload("10000");
     $this->assertTrue($this->selenium->isTextPresent('Upload successfull!'));
-    
+
     //test more button
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad("10000");
@@ -173,7 +178,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isElementPresent("showShortDescriptionButton"));
     $this->selenium->click("showShortDescriptionButton");
     $this->assertEquals($shortDescriptionFromPage, $this->selenium->getText("xpath=//p[@id='detailsDescription']"));
-    
+
     //test qr code
     $lastProject = $this->getLastProject();
     $projectId = $lastProject['id'];
@@ -192,7 +197,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     } else {
       $this->assertFalse($this->selenium->isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
     }
-    
+
     //delete the test project
     $adminpath = 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin';
     $this->selenium->open($adminpath);
@@ -222,7 +227,16 @@ class DetailsTests extends PHPUnit_Framework_TestCase
 
     return $returnArray;
   }
-  
+
+  public function titlesAndDescriptions() {
+    $returnArray = array(
+                    array('more button selenium test', 'This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!'),
+                    array('more button special chars test', 'This is a description which has special chars like ", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with "special chars" and should have more characters than defined by the threshold in config.php. Thats it!')
+                   );
+    
+    return $returnArray;
+  }
+
   private function getLastProject() {
     $query = 'SELECT * FROM projects ORDER BY upload_time DESC LIMIT 1';
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
@@ -234,7 +248,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
       return false;
     }
   }
-  
+
   private function loginAsAdministrator() {
     $adminpath = 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin';
     $this->selenium->open($adminpath);
