@@ -64,7 +64,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
   
 
    public function doUpload() {    
-     for($i=1; $i< 15; $i++)
+     for($i=1; $i< 20; $i++)
      {
        $fileName = 'test.zip';
        $testFile = dirname(__FILE__).'/testdata/'.$fileName;
@@ -211,7 +211,8 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isVisible("fewerProjects"));
     
     $this->deleteUploadedProjects();
-  }
+  }   
+  
 }
 ?>
 

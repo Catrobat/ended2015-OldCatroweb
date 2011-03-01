@@ -31,10 +31,8 @@
             </a>
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">
-            <a href="<?php echo BASE_PATH?>catroid/menu">
-              <button type="button" class="webHeadButtons button white medium" id="headerWallButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" /></button>
-            </a>
-            <button type="button" class="webHeadButtons button white medium" id="headerSearchButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/magnifying-glass.png" /></button>
+            <a href="<?php echo BASE_PATH?>catroid/menu"><button type="button" class="webHeadButtons button white medium" id="headerMenuButton"><img alt="menu" class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" /></button></a>
+            <button type="button" class="webHeadButtons button white medium" id="headerSearchButton"><img alt="search" class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/magnifying-glass.png" /></button>
           </div>
           <div id="cancelHeaderButton" class="webHeadButtons">
             <button type="button" class="webHeadCancelButton button white medium" id="headerCancelSearchButton">
@@ -58,7 +56,7 @@
         <div class="blueBoxMain">
           <div class="webMainHead">
             <form>
-              <input type="search" class="webHeadSearchBox" placeholder="Search for Projects" autofocus  />
+              <input type="search" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />
               <input type="submit" class="webHeadSearchSubmit" value="Search" />
             </form>
           </div>
