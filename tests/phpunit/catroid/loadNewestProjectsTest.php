@@ -62,22 +62,6 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
     $this->deleteUploadedProjects();
   }
   
-  public function testEncodePageContent()
-  {
-    $this->doUpload();
-    $pageContent = array();
-       
-    $pageContent['current'] = $this->obj->retrievePageNrFromDatabase(0);
-    $pageContent['next'] = $this->obj->retrievePageNrFromDatabase(1);
-            
-    $pageContent = json_encode($pageContent);
-    $pageContent2 = $this->obj->encodePageContent();    
-    $this->assertEquals($pageContent,$pageContent2);
-    $this->deleteUploadedProjects();
-  }
-  
- 
-
   public function testGetThumbnail() {
     $thumbSourceName = 'test_thumbnail.jpg';
     $thumbDestName = 'test_small.jpg';
@@ -87,7 +71,6 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
     $thumb = $this->obj->getThumbnail('test');
     $this->assertTrue(is_int(strpos($thumb, $thumbDestName)));
   }
-
   
   public function testGetTimeInWords() {
     $fromTime = time() - 10;

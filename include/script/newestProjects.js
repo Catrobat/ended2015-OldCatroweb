@@ -97,21 +97,20 @@ var NewestProjects = Class.$extend( {
     }
 
     $.ajax({
-      url: this.basePath+"catroid/loadNewestProjects/"+self.pageNr,
+      url: this.basePath+"catroid/loadNewestProjects/"+self.pageNr+".json",
       cache: false,
       timeout: (5000),
     
       success: function(result){
         if(result != "") {
-          var content = eval('(' + result + ')');
-          if(content['prev']) {
-            self.fillSkeletonWithContent(content['prev'], self.pageNr - 1);
+          if(result.content['prev']) {
+            self.fillSkeletonWithContent(result.content['prev'], self.pageNr - 1);
           }
-          if(content['current']) {
-            self.fillSkeletonWithContent(content['current'], self.pageNr);
+          if(result.content['current']) {
+            self.fillSkeletonWithContent(result.content['current'], self.pageNr);
           }
-          if(content['next']) {
-            self.fillSkeletonWithContent(content['next'], self.pageNr + 1);
+          if(result.content['next']) {
+            self.fillSkeletonWithContent(result.content['next'], self.pageNr + 1);
           }
         }
       },

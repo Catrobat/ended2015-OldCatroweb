@@ -30,21 +30,14 @@ class loadNewestProjects extends CoreAuthenticationNone {
     }
     $this->session->pageNr = $this->pageNr;
 
-    echo $this->encodePageContent();
-    exit();
-  }
-
-  public function encodePageContent()
-  {
     $pageContent = array();
-
     if($this->pageNr > 0) {
       $pageContent['prev'] = $this->retrievePageNrFromDatabase($this->pageNr-1);
     }
     $pageContent['current'] = $this->retrievePageNrFromDatabase($this->pageNr);
     $pageContent['next'] = $this->retrievePageNrFromDatabase($this->pageNr+1);
-
-    return json_encode($pageContent);
+    
+    $this->content = $pageContent;
   }
 
   public function retrievePageNrFromDatabase($pageNr) {

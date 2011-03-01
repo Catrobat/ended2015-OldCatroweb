@@ -32,8 +32,6 @@ class details extends CoreAuthenticationNone {
     } else {
       $this->addCss('projectDetails_nohtml5.css');
     }
-    $this->addJs('classy.js');
-    $this->addJs('jquery.js');
     $this->addJs('projectDetails.js');
 
     $this->isMobile = $this->clientDetection->isMobile();

@@ -30,8 +30,6 @@ class index extends CoreAuthenticationNone {
       $this->addCss('projectList_nohtml5.css');
     }
     $this->addCss('buttons.css');
-    $this->addJs('classy.js');
-    $this->addJs('jquery.js');
     $this->addJs('newestProjects.js');
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
 

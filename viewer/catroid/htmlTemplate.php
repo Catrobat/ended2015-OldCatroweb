@@ -31,10 +31,12 @@
 <?php if(!$this->isMobile) {?>
   <link href="<?php echo BASE_PATH?>include/css/baseStyleDesktop.css" media="screen" rel="stylesheet" type="text/css" />
 <?php }?>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js" ></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/jquery.js" ></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js" ></script>
 <?php while($js = $this->getJs()) {?>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/<?php echo $js?>"></script>
 <?php }?>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js" ></script>
   <link rel="icon" href="<?php echo BASE_PATH?>images/layout/favicon.png" type="image/png" />
 </head>
 
