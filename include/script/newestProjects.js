@@ -33,17 +33,17 @@ var NewestProjects = Class.$extend( {
   },
 
   nextPage : function() {
-    this.pageNr = parseInt(this.pageNr) + 1;
+    this.pageNr = parseInt(this.pageNr) + 2;
     this.testAndSetBounderies();
     this.loadAndCachePage();
-    $(window).scrollTop($("#page"+(this.pageNr+1)).offset().top);
+    $(window).scrollTop($("#page"+this.pageNr).offset().top);
   },
 
   prevPage : function() {
-    this.pageNr = parseInt(this.pageNr) - 1;
+    this.pageNr = parseInt(this.pageNr) - 2;
     this.testAndSetBounderies();
     this.loadAndCachePage();
-    $(window).scrollTop($("#page"+this.pageNr).offset().top - $(window).height());
+    $(window).scrollTop($("#page"+(this.pageNr+1)).offset().top - $(window).height());
   },
   
   showFirstPage : function() {
@@ -85,9 +85,15 @@ var NewestProjects = Class.$extend( {
     if($("#page"+(this.pageNr-2)).length > 0) {
       $("#page"+(this.pageNr-2)).remove();
     }
+    if($("#page"+(this.pageNr-3)).length > 0) {
+      $("#page"+(this.pageNr-3)).remove();
+    }
     
     if($("#page"+(this.pageNr+2)).length > 0) {
       $("#page"+(this.pageNr+2)).remove();
+    }
+    if($("#page"+(this.pageNr+3)).length > 0) {
+      $("#page"+(this.pageNr+3)).remove();
     }
 
     $.ajax({
@@ -109,10 +115,8 @@ var NewestProjects = Class.$extend( {
           }
         }
       },
-      error: function(result,errCode)
-      {
-        if (errCode == "timeout")
-        {
+      error: function(result, errCode) {
+        if(errCode == "timeout") {
           window.location.reload(false);          
         }        
       }
@@ -130,17 +134,16 @@ var NewestProjects = Class.$extend( {
 	  for(var i = 0; i < this.projectPageMaxProjects; i++) {
         var projectListRowItemId = this.projectPageMaxProjects * pageNr + i;
 
-          if(whiteBox != null) {
-            whiteBox.append(projectListElementRow);
-            whiteBox.append("<div />").css("clear", "both");
-            containerContent.append(whiteBox);
-            var projectListSpacer = $("<div />").addClass("projectListSpacer").attr("id", "projectListSpacer"+projectListRowItemId);
-            containerContent.append(projectListSpacer);
-	      }
+        if(whiteBox != null) {
+          whiteBox.append(projectListElementRow);
+          whiteBox.append("<div />").css("clear", "both");
+          containerContent.append(whiteBox);
+          var projectListSpacer = $("<div />").addClass("projectListSpacer").attr("id", "projectListSpacer"+projectListRowItemId);
+          containerContent.append(projectListSpacer);
+        }
 
-	      whiteBox = $("<div />").addClass("whiteBoxMain").attr("id", "whiteBox"+projectListRowItemId);
-          projectListElementRow = $("<div />").addClass("projectListElementRow");
-
+        whiteBox = $("<div />").addClass("whiteBoxMain").attr("id", "whiteBox"+projectListRowItemId);
+        projectListElementRow = $("<div />").addClass("projectListElementRow");
 
 	    var projectListElement = $("<div />").addClass("projectListElement").attr("id", "projectListElement"+projectListRowItemId);
 	     
@@ -188,7 +191,7 @@ var NewestProjects = Class.$extend( {
             $("#projectListDetailsLinkThumb"+projectListRowItemId).attr("href", this.basePath+"catroid/details/"+content[i]['id']);
             $("#projectListPreview"+projectListRowItemId).attr("src", content[i]['thumbnail']).attr("alt", content[i]['title']);
 
-            $("#projectListTitle"+projectListRowItemId).html("<a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a>");
+            $("#projectListTitle"+projectListRowItemId).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");
             $("#projectListDescription"+projectListRowItemId).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
           }
         }

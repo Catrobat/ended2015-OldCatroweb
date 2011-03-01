@@ -177,18 +177,18 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
     $this->selenium->click("moreProjects");    
-    $this->ajaxWait("id=page1");
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
+    $this->ajaxWait("id=page2");
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page3']"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page4']"));
     $this->assertTrue($this->selenium->isVisible("fewerProjects"));
     // test session
     $this->selenium->refresh();
-    $this->ajaxWait("id=page1");
+    $this->ajaxWait("id=page2");
     $this->selenium->waitForPageToLoad("10000");
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page3']"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page4']"));
     $this->assertTrue($this->selenium->isVisible("fewerProjects"));
             
     $this->selenium->click("fewerProjects");
@@ -201,7 +201,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     // test header click
     $this->assertTrue($this->selenium->isVisible("moreProjects"));
     $this->selenium->click("moreProjects");    
-    $this->ajaxWait("id=page1");
+    $this->ajaxWait("id=page2");
     $this->selenium->click("aIndexWebLogoLeft");
     $this->ajaxWait("id=page0");
     $this->selenium->waitForPageToLoad("10000");

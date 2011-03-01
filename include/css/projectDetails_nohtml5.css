@@ -108,6 +108,7 @@ div.detailsPublishTime {
 
 div.detailsProjectTitle {
 	text-align: center;
+  word-wrap: break-word;
 }
 
 div.detailsProjectDescription {

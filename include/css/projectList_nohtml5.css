@@ -53,6 +53,9 @@ div.projectDetailLine {
   word-wrap: break-word;
   margin:0.2em;
 }
+div.projectDetailLineMaxWidth { /*firefox needs this*/
+  max-width:606px;
+}
 div.projectListThumbnail {
   margin-left:0.8%;
   margin-right:0.8%;
