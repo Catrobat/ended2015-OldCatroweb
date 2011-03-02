@@ -109,14 +109,14 @@ div.projectListThumbnail {
   box-pack: center;
   text-align:center;
   min-height: 208px;
-  width:130px;
+  width:130px;  
 }
 
 img.projectListPreview {
   border: none;
-  padding-top:4px;
+  padding-top:4px;  
   width:120px;
-  height:200px;
+  height:auto;
 }
 
 a.projectListDetailsLink:link { color:#3333AA; text-decoration:underline; }

@@ -37,6 +37,9 @@ div.projectListElement {
   -ms-border-radius: 10px;
   border-radius: 10px;
   width:768px;
+  /* IE8 fix*/
+  display:table;
+  table-layout:fixed;
 }
 div.projectListDetails {
   font-size:1em;
@@ -75,12 +78,14 @@ div.projectListThumbnail {
   text-align:center;
   height: 220px;
   width:130px;
+  padding-left:2px;
 }
 
 img.projectListPreview {
 	border: none;
-	padding-top:4px;
+	padding-top:4px;	
 	width:98%;
+	height:auto;		
 }
 
 a.projectListDetailsLink:link { color:#3333AA; text-decoration:underline; }
