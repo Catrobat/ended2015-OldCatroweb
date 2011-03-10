@@ -22,16 +22,42 @@ class registration extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
+    $this->addCss('registration.css');
+    $this->addCss('buttons.css');
+    $this->initRegistration();
   }
 
   public function __default() {
     if($_POST) {
       if(isset($_POST['registrationSubmit'])) {
         $this->doRegistration($_POST, $_SERVER);
+        $this->initRegistration();
       }
     }
   }
 
+
+  public function initRegistration() {
+    $answer = '';
+    try {
+      $this->initBirth('');
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    try {
+      $this->initSex();
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    try {
+      $this->initCountryCodes('');
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    $this->answer .= $answer;
+  }
+  
+  
   public function doRegistration($postData, $serverData) {
     $answer = '';
     $statusCode = 500;
@@ -58,7 +84,25 @@ class registration extends CoreAuthenticationNone {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
     }
-
+    try { 
+      $this->checkBirth($postData['registrationMonth'], $postData['registrationYear']);
+    } catch(Exception $e) {
+      $registrationDataValid = false;
+      $answer .= $e->getMessage().'<br>';
+    }
+    try { 
+      $this->checkSex($postData['registrationSex']);
+    } catch(Exception $e) {
+      $registrationDataValid = false;
+      $answer .= $e->getMessage().'<br>';
+    }
+    try {
+      $this->checkCountry($postData['registrationCountry']);
+    } catch(Exception $e) {
+      $registrationDataValid = false;
+      $answer .= $e->getMessage().'<br>';
+    } 
+    
     if($registrationDataValid) {
       try {
         $catroidUserId = $this->doCatroidRegistration($postData, $serverData);
@@ -107,7 +151,7 @@ class registration extends CoreAuthenticationNone {
       }
     }
 
-    $this->answer = $answer;
+    $this->answer .= $answer;
     $this->statusCode = $statusCode;
 
     if($boardRegistrationSuccess && $wikiRegistrationSuccess && $catroidRegistrationSuccess) {
@@ -127,16 +171,16 @@ class registration extends CoreAuthenticationNone {
     $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
     $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
     $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
-    $regEx = '^'.$ip.'$';
-    if(ereg($regEx, $username)) {
+    $regEx = '/^'.$ip.'$/';
+    if(preg_match($regEx, $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
     //username must consist of alpha numerical chars, underscores and spaces
     //min. 4, max. 32 chars
     $text = '[a-zA-Z0-9äöüßÄÖÜ|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
-    $regEx = '^'.$text.'$';
-    if(!ereg($regEx, $username)) {
+    $regEx = '/^'.$text.'$/';
+    if(!preg_match($regEx, $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
@@ -175,8 +219,8 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'password_repeat_missing'));
     }
     $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
-    $regEx = '^'.$text.'$';
-    if(!ereg($regEx, $password)) {
+    $regEx = '/^'.$text.'$/';
+    if(!preg_match($regEx, $password)) {
       throw new Exception($this->errorHandler->getError('registration', 'password_invalid'));
     }
     if(strcmp($password, $passwordRepeat) != 0) {
@@ -189,12 +233,12 @@ class registration extends CoreAuthenticationNone {
     if(empty($email)) {
       throw new Exception($this->errorHandler->getError('registration', 'email_missing'));
     }
-
+    
     $name = '[a-zA-Z0-9]((\.|\-|_)?[a-zA-Z0-9])*';
     $domain = '[a-zA-Z]((\.|\-)?[a-zA-Z0-9])*';
     $tld = '[a-zA-Z]{2,8}';
-    $regEx = '^('.$name.')@('.$domain.')\.('.$tld.')$';
-    if(!ereg($regEx, $email)) {
+    $regEx = '/^('.$name.')@('.$domain.')\.('.$tld.')$/';
+    if(!preg_match($regEx, $email)) {
       throw new Exception($this->errorHandler->getError('registration', 'email_invalid'));
     }
 
@@ -217,9 +261,10 @@ class registration extends CoreAuthenticationNone {
     $password = md5($postData['registrationPassword']);
     $email = $postData['registrationEmail'];
     $ip_registered = $serverData['REMOTE_ADDR'];
-    $country = 'AT';
+    $country = $postData['registrationCountry'];
     $status = USER_STATUS_STRING_ACTIVE;
-    $date_of_birth = null;
+    $date_of_birth = $postData['registrationYear'].'-'.$postData['registrationMonth'].'-01 00:00:01';
+echo $date_of_birth;
     $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', null, null, '$country', null, null, '$ip_registered', '$status')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
@@ -257,8 +302,10 @@ class registration extends CoreAuthenticationNone {
       'user_regdate' => time()
     );
     if($phpbb_user_id = user_add($user_row)) {
+echo $phpbb_user_id;
       return $phpbb_user_id;
     } else {
+echo $phpbb_user_id;
       throw new Exception($this->errorHandler->getError('registration', 'board_registration_failed'));
     }
     return false;
@@ -321,6 +368,143 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
     return true;
+  }
+  
+  
+  public function checkSex($sex) {
+    if(empty($sex)) {
+      throw new Exception($this->errorHandler->getError('registration', 'sex_missing'));
+    }    
+  }
+  
+  private function initSex() {
+    if(!$this->postData['registrationSex']) {
+      $sexlist[0] = "<option value=\"0\" selected>Select</option>\r";
+      $sexlist[1] = "<option value=\"1\">Male</option>\r";
+      $sexlist[2] = "<option value=\"2\">Female</option>\r";
+    }
+    else {
+      $sexlist[0] = "<option value=\"0\">Select</option>\r";
+      if($this->postData['registrationSex'] == 1) {
+        $sexlist[1] = "<option value=\"1\" selected>Male</option>\r";
+        $sexlist[2] = "<option value=\"2\">Female</option>\r";
+      }
+      else {
+        $sexlist[1] = "<option value=\"1\">Male</option>\r";
+        $sexlist[2] = "<option value=\"2\" selected>Female</option>\r";        
+      }
+    }
+    $this->sex = $sexlist;
+  }
+  
+  
+  public function checkBirth($month,$year) {
+    if(empty($month) || empty($year)) {
+      throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
+    }    
+  }
+
+  private function initBirth() {
+    $months = array(
+      0=>"Month",
+      1=>"Jan",
+      2=>"Feb",
+      3=>"Mar",
+      4=>"Apr",
+      5=>"May",
+      6=>"Jun",
+      7=>"Jul",
+      8=>"Aug",
+      9=>"Sep",
+      10=>"Oct",
+      11=>"Nov",
+      12=>"Dec"
+    );
+    
+    $registrationMonth = '';
+    $registrationYear = '';
+    
+    if(!$this->postData['registrationMonth']) {
+      $monthlist[0] = "<option value=\"0\" selected>" . $months[0] . "</option>\r";
+    }
+    else {
+      $registrationMonth = $this->postData['registrationMonth'];
+      $monthlist[0] = "<option value=\"0\">" . $months[0] . "</option>\r";
+    }
+    if(!$this->postData['registrationYear']) {
+      $yearlist[0] = "<option value=\"0\" selected>Year</option>\r";
+    }
+    else {
+      $registrationYear = $this->postData['registrationYear'];
+      $yearlist[0] = "<option value=\"0\">Year</option>\r";
+    }
+    
+    $x = 0;
+    while($x++ < 12) {
+      if($registrationMonth == sprintf("%02d",$x)) {
+        $monthlist[] = "<option value=\"" . sprintf("%02d",$x) . "\" selected>" . $months[$x] . "</option>\r";
+      }
+      else {
+        $monthlist[] = "<option value=\"" . sprintf("%02d",$x) . "\">" . $months[$x] . "</option>\r";
+      }
+    }
+    $x = 0;
+    $year = date('Y') + 1;
+    while($x++ < 100) {
+      $year--;
+      if($registrationYear == $year) {
+        $yearlist[] = "<option value=\"" . $year . "\" selected>" . $year . "</option>\r";
+      }
+      else {
+        $yearlist[] = "<option value=\"" . $year . "\">" . $year . "</option>\r";
+      }
+    }
+    $this->month = $monthlist;
+    $this->year = $yearlist;
+  }
+
+  public function checkCountry($country) {
+    if(empty($country)) {
+      throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
+    }
+  }
+  
+  private function initCountryCodes() {
+    $query = "EXECUTE get_country_from_countries";
+    $result = @pg_query($this->dbConnection, $query);
+
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+    }
+
+    if(pg_num_rows($result) > 0) {
+      $countrylist = array();
+      
+      if($this->postData['registrationCountry']) {
+        $registrationCountry = $this->postData['registrationCountry'];
+        $countrylist[] = "<option value=\"0\">Select country</option>\r";
+      }
+      else { 
+        $registrationCountry = '';
+        $countrylist[] = "<option value=\"0\" selected>Select country</option>\r";
+      }
+      
+      while($country = pg_fetch_assoc($result)) {
+        if($registrationCountry == $country['code'])
+          $countrylist[] = "<option value=\"" . $country['code'] . "\" selected>" . $country['name'] . "</option>\r";
+        else
+          $countrylist[] = "<option value=\"" . $country['code'] . "\">" . $country['name'] . "</option>\r";           
+      }
+      $countrylist[] = "<option value=\"\">undefined</option>\r";
+      $this->countrylist = $countrylist;
+      pg_free_result($result);      
+    } else {
+      $countrylist[] = "<option value=\"0\">Select country</option>";
+      $this->countrylist = $countrylist;
+      throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
+    }
+
+    
   }
 
   public function __destruct() {

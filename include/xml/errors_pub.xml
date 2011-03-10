@@ -68,6 +68,10 @@
     	<string name="username_missing">The username is missing.</string>
     	<string name="username_invalid">The username is invalid.</string>
     	<string name="username_already_exists">This username already exists.</string>
+    	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
+    	<string name="country_missing">The country is missing.</string>
+      <string name="birth_missing">The birthday is missing.</string>
+      <string name="sex_missing">The sex is missing.</string>
     </registration>
 </errors>
 
