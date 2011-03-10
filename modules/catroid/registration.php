@@ -264,8 +264,9 @@ class registration extends CoreAuthenticationNone {
     $country = $postData['registrationCountry'];
     $status = USER_STATUS_STRING_ACTIVE;
     $date_of_birth = $postData['registrationYear'].'-'.$postData['registrationMonth'].'-01 00:00:01';
-echo $date_of_birth;
-    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', null, null, '$country', null, null, '$ip_registered', '$status')";
+    $sex = $postData['registrationSex'];
+
+    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$sex', '$country', null, null, '$ip_registered', '$status')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -302,10 +303,8 @@ echo $date_of_birth;
       'user_regdate' => time()
     );
     if($phpbb_user_id = user_add($user_row)) {
-echo $phpbb_user_id;
       return $phpbb_user_id;
     } else {
-echo $phpbb_user_id;
       throw new Exception($this->errorHandler->getError('registration', 'board_registration_failed'));
     }
     return false;
@@ -380,18 +379,18 @@ echo $phpbb_user_id;
   private function initSex() {
     if(!$this->postData['registrationSex']) {
       $sexlist[0] = "<option value=\"0\" selected>Select</option>\r";
-      $sexlist[1] = "<option value=\"1\">Male</option>\r";
-      $sexlist[2] = "<option value=\"2\">Female</option>\r";
+      $sexlist[1] = "<option value=\"male\">Male</option>\r";
+      $sexlist[2] = "<option value=\"female\">Female</option>\r";
     }
     else {
       $sexlist[0] = "<option value=\"0\">Select</option>\r";
       if($this->postData['registrationSex'] == 1) {
-        $sexlist[1] = "<option value=\"1\" selected>Male</option>\r";
-        $sexlist[2] = "<option value=\"2\">Female</option>\r";
+        $sexlist[1] = "<option value=\"male\" selected>Male</option>\r";
+        $sexlist[2] = "<option value=\"female\">Female</option>\r";
       }
       else {
-        $sexlist[1] = "<option value=\"1\">Male</option>\r";
-        $sexlist[2] = "<option value=\"2\" selected>Female</option>\r";        
+        $sexlist[1] = "<option value=\"male\">Male</option>\r";
+        $sexlist[2] = "<option value=\"female\" selected>Female</option>\r";        
       }
     }
     $this->sex = $sexlist;
