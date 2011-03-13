@@ -22,18 +22,30 @@ class login extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
+    $this->addCss('login.css');
   }
 
   public function __default() {
     if($_POST) {
       if(isset($_POST['loginSubmit'])) {
-        $this->doLogin($_POST);
+        if($this->doLogin($_POST)) {
+          if(isset($_POST['requesturi'])) {
+            if($_POST['requesturi'] != "") {
+              $url = $_POST['requesturi'];  
+              }
+            else {
+              $url = "./index";
+            }
+            header("Location: $url");
+          }
+        }
       } else if(isset($_POST['logoutSubmit'])) {
         $this->doLogout();
       }
     }
   }
 
+  
   public function doLogin($postData) {
     //$postData = $this->encodeUtf8($postData);
     $answer = '';

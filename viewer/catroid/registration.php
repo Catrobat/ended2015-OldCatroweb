@@ -17,13 +17,6 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-
-<!--    <script type="text/javascript">-->
-<!--      $(document).ready(function() {-->
-<!--        //new fillRegistrationDate(); -->
-<!--      });-->
-<!--    </script>-->
-
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
@@ -60,7 +53,7 @@
             		   	  }?>
             		   	</div>
                   </div> <!-- registrationFormContainer -->
-								</div> <!-- Registration Text -->
+				</div> <!-- Registration Text -->
               </div> <!--  White Box -->            	
            </div> <!--  license Main -->  		   		
   		  </div> <!-- mainContent close //-->
