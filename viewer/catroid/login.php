@@ -25,12 +25,16 @@
             	  <div class ="whiteBoxMain">
             	    <div class="loginText">
             	    <div class="loginFormContainer">
-      	  		   		<!-- <form method="post" action="./login"> -->
       	  		   		<form method="post" action="./login">
-      	  		   			<?php if($this->module->session->userLogin_userId <= 0) {?>
+      	  		   			<?php if($this->module->session->userLogin_userId <= 0) { ?>
       	  		   				Nickname: <input type="text" name="loginUsername"><br>
       	  		   				Password: <input type="password" name="loginPassword"><br>
-      	  		   				<input type="hidden" name="requesturi" value="<?php echo $_GET['requesturi']?>">
+      	  		   				<?php //var_dump($this->requesturi); 
+      	  		   				if(($this->requesturi) || (isset($this->requesturi)) || $this->requesturi != '') { ?>
+      	  		   				  <input type="hidden" name="requesturi" value="<?php echo htmlspecialchars($this->requesturi); ?>"> 
+      	  		   				<?php } else { ?>
+      	  		   				  <input type="hidden" name="requesturi" value="<?php echo htmlspecialchars($_GET['requesturi']); ?>">
+      	  		   				<?php } ?>
       	  		   				<input type="submit" name="loginSubmit" value="Login"><br>
       	  		   			<?php } else {?>
       	  		   				Hello <?php echo $this->module->session->userLogin_userNickname?>!<br>

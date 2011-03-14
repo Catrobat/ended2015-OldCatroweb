@@ -28,23 +28,28 @@ class login extends CoreAuthenticationNone {
   public function __default() {
     if($_POST) {
       if(isset($_POST['loginSubmit'])) {
+        if(isset($_POST['requesturi'])) {
+          $this->setRequestURI($_POST['requesturi']);
+        }
         if($this->doLogin($_POST)) {
-          if(isset($_POST['requesturi'])) {
-            if($_POST['requesturi'] != "") {
-              $url = $_POST['requesturi'];  
-              }
-            else {
-              $url = "./index";
-            }
-            header("Location: $url");
-          }
+          $requesturi = $this->requesturi;
+          header('Location: http://'.$_SERVER['HTTP_HOST'].$requesturi);
         }
       } else if(isset($_POST['logoutSubmit'])) {
         $this->doLogout();
+        header('Location: http://'.$_SERVER['HTTP_HOST'].'/catroid/upload');
       }
     }
   }
 
+  private function setRequestURI($uri) {
+    if($uri != '') {
+      $this->requesturi = $_POST['requesturi'];  
+    }
+    else {
+      $this->requesturi = "/catroid/index";
+    }
+  }
   
   public function doLogin($postData) {
     //$postData = $this->encodeUtf8($postData);

@@ -37,7 +37,7 @@ DROP SEQUENCE IF EXISTS cusers_id_seq CASCADE;
 DROP TABLE IF EXISTS "public"."countries";
 CREATE TABLE "public"."countries" (
 "name" varchar(50) NOT NULL,
-"code" varchar(4) NOT NULL,
+"code" varchar(5) NOT NULL,
 "language" varchar(5) NOT NULL,
 PRIMARY KEY ("code")
 )
@@ -56,7 +56,7 @@ CREATE TABLE "public"."cusers" (
 "email" varchar(255) DEFAULT NULL NOT NULL,
 "date_of_birth" timestamp DEFAULT NULL,
 "sex" varchar(16) DEFAULT NULL,
-"country" varchar(4) DEFAULT NULL NOT NULL,
+"country" varchar(5) DEFAULT NULL NOT NULL,
 "province" varchar(255) DEFAULT NULL,
 "city" varchar(255) DEFAULT NULL,
 "time_registered" timestamptz DEFAULT now() NOT NULL,

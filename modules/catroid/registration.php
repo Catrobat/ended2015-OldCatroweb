@@ -494,7 +494,11 @@ class registration extends CoreAuthenticationNone {
         else
           $countrylist[] = "<option value=\"" . $country['code'] . "\">" . $country['name'] . "</option>\r";           
       }
-      $countrylist[] = "<option value=\"\">undefined</option>\r";
+      if($registrationCountry != 'undef')
+        $countrylist[] = "<option value=\"undef\">undefined</option>\r";
+      else
+        $countrylist[] = "<option value=\"undef\" selected>undefined</option>\r";
+      
       $this->countrylist = $countrylist;
       pg_free_result($result);      
     } else {
@@ -502,8 +506,6 @@ class registration extends CoreAuthenticationNone {
       $this->countrylist = $countrylist;
       throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
     }
-
-    
   }
 
   public function __destruct() {
