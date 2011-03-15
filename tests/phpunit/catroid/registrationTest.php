@@ -99,6 +99,75 @@ class registrationTest extends PHPUnit_Framework_TestCase
   }
 
   /**
+   * @dataProvider validGender
+   */
+  public function testCheckGender($gender) {
+    try {
+      $this->assertTrue($this->obj->checkGender($gender));
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
+    }
+  }
+  
+  /**
+   * @dataProvider invalidGender
+   */
+  public function testCheckInvalidGender($gender) {
+    try {
+      $this->obj->checkGender($gender);
+    } catch(Exception $e) {
+      return; 
+    }
+    $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+  }
+
+    /**
+   * @dataProvider validBirth
+   */
+  public function testCheckBirth($month, $year) {
+    try {
+      $this->assertTrue($this->obj->checkBirth($month, $year));
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
+    }
+  }
+  
+  /**
+   * @dataProvider invalidBirth
+   */
+  public function testCheckInvalidBirth($month, $year) {
+    try {
+      $this->obj->checkBirth($month, $year);
+    } catch(Exception $e) {
+      return; 
+    }
+    $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+  }
+
+  /**
+   * @dataProvider validCountry
+   */
+  public function testCheckCountry($country) {
+    try {
+      $this->assertTrue($this->obj->checkCountry($country));
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
+    }
+  }
+  
+  /**
+   * @dataProvider invalidCountry
+   */
+  public function testCheckInvalidCountry($country) {
+    try {
+      $this->obj->checkCountry($country);
+    } catch(Exception $e) {
+      return; 
+    }
+    $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+  }
+  
+  /**
    * @dataProvider validRegistrationData
    */
   public function testDoRegistration($postData, $serverData) {
@@ -241,22 +310,112 @@ class registrationTest extends PHPUnit_Framework_TestCase
     return $dataArray;
   }
 
+  public function validGender() {
+    $dataArray = array(
+    array('male'),
+    array('female'),
+    );
+    return $dataArray;
+  }
+
+  public function invalidGender() {
+    $dataArray = array(
+    array(''),
+    array('0'),
+    array('some-gender'),
+    );
+    return $dataArray;
+  }
+  
+  public function validBirth() {
+    $dataArray = array(
+    array('1', '2000'),
+    array('2', '1920'),
+    array('3', '1980'),
+    array('4', '1998'),
+    array('5', '2001'),
+    array('6', '2002'),
+    array('7', '2003'),
+    array('8', '2004'),
+    array('9', '2005'),
+    array('10', '2006'),
+    array('11', '2007'),
+    array('12', '2008'),
+    );
+    return $dataArray;
+  }
+
+  public function invalidBirth() {
+    $dataArray = array(
+    array('01', '2020'),
+    array('02', '2920'),
+    array('03', '1900'),
+    array('04', '199'),
+    array('16', '2002'),
+    array('-2', '2003'),
+    array('13', '2004'),
+    array('AA', '2005'),
+    array('00', 'A002'),
+    array('00', '0000'),
+    array(' ', '    '),
+    array('', ',,,,'),
+    array('', ''),
+    array('0', '0'),
+    );
+    return $dataArray;
+  }
+
+  public function validCountry() {
+    $dataArray = array(
+    array('AT'),
+    array('DE'),
+    array('US'),
+    array('GB'),
+    array('undef'),
+    );
+    return $dataArray;
+  }
+
+  public function invalidCountry() {
+    $dataArray = array(
+    array('ATX'),
+    array('DAX'),
+    array('U'),
+    array('A0'),
+    array('AA '),
+    array(' AA'),
+    array('  '),
+    array('0A'),
+    array(''),
+    array('0'),
+    array('-'),
+    array('undefined'),
+    );
+    return $dataArray;
+  }
+  
   public function validRegistrationData() {
     $dataArray = array(
     array(
     array('registrationUsername'=>'myUnitTest', 'registrationPassword'=>'myPassword123',
     	    'registrationPasswordRepeat'=>'myPassword123', 'registrationEmail'=>'unittest@unit.test',
+    		'registrationGender'=>'male', 'registrationMonth'=>'1', 'registrationYear'=>'1980',
+    		'registrationCountry'=>'AT', 'registrationProvince'=>'Steiermark', 'registrationCity'=>'Graz',
             'registrationSubmit'=>'submit'),
     array('REMOTE_ADDR'=>'127.0.0.1')),
     array(
     array('registrationUsername'=>'myÜnitTÄßt', 'registrationPassword'=>'mySpe§§ialChÄrPaßßword!!',
     	    'registrationPasswordRepeat'=>'mySpe§§ialChÄrPaßßword!!', 'registrationEmail'=>'_123unit@test.test',
-            'registrationSubmit'=>'submit'),
+    		'registrationGender'=>'female', 'registrationMonth'=>'2', 'registrationYear'=>'1987',
+    		'registrationCountry'=>'AT', 'registrationProvince'=>'Kärnten', 'registrationCity'=>'Villach',
+    'registrationSubmit'=>'submit'),
     array('REMOTE_ADDR'=>'127.0.0.1')),
     array(
     array('registrationUsername'=>'1234567', 'registrationPassword'=>'__bla__',
     	    'registrationPasswordRepeat'=>'__bla__', 'registrationEmail'=>'unit2test@unit.at',
-            'registrationSubmit'=>'submit'),
+    		'registrationGender'=>'male', 'registrationMonth'=>'3', 'registrationYear'=>'1989',
+    		'registrationCountry'=>'DE', 'registrationProvince'=>'Bayern', 'registrationCity'=>'München',
+    'registrationSubmit'=>'submit'),
     array('REMOTE_ADDR'=>'127.0.0.1'))
     );
     return $dataArray;

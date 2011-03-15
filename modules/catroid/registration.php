@@ -402,10 +402,12 @@ class registration extends CoreAuthenticationNone {
   
   
   public function checkBirth($month,$year) {
-    if(empty($month) || empty($year)) {
+  	$cyear = strftime("%Y");
+  	if (($month >= 1 && $month <= 12) && ($year < $cyear && $year >= $cyear-100)) {
+  	} else {
       throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
-    }
-    return true;      
+    }    
+    return true;
   }
 
   private function initBirth() {
@@ -468,7 +470,9 @@ class registration extends CoreAuthenticationNone {
   }
 
   public function checkCountry($country) {
-    if(empty($country)) {
+  	if ($country == "undef") {
+  	} elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
+  	} else {
       throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
     }
     return true;
