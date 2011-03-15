@@ -404,7 +404,8 @@ class registration extends CoreAuthenticationNone {
   public function checkBirth($month,$year) {
     if(empty($month) || empty($year)) {
       throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
-    }    
+    }
+    return true;      
   }
 
   private function initBirth() {
@@ -470,6 +471,7 @@ class registration extends CoreAuthenticationNone {
     if(empty($country)) {
       throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
     }
+    return true;
   }
   
   private function initCountryCodes() {
