@@ -20,7 +20,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
         new NewestProjects(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->numberOfPages."'"; ?>);
-        new HeaderMenu();        
+       
       });
     </script>
     <div class="webMainTop">
@@ -42,15 +42,9 @@
           </div>
           <div class="webHeadTitle">
             <div class="webHeadTitleName">
-              <a class="noLink" href="http://code.google.com/p/catroid/downloads/list" target="_blank">
-                <span class="webHeadTitleName">Catroid</span>
-                <span class="webHeadTitleBeta"><?php echo DEVELOPMENT_STATUS?></span>  			      			
-              </a>
-            </div>
-            <div class="webHeadTitleDownload">
-              <a class="button green small webHeadTitleDownload" href="http://code.google.com/p/catroid/downloads/list" target="_blank">
-                Download
-              </a>
+                <a class="noLink" id="aIndexWebLogoMiddle" href="http://code.google.com/p/catroid/downloads/list" target="_blank">
+                  <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering_dl.png" alt="catroid [beta] download" />
+                </a>			      			
             </div>
           </div>
           <div style="clear:both;"></div>

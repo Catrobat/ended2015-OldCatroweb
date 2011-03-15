@@ -95,11 +95,12 @@ div.webHeadTitle {
 	text-align:right;
 	margin-right:1%;
 	margin-top:0px;
+	margin-right:80px;
 	/*padding-top:10px;*/
 	padding-right: 4%;
 	float:right;
 	/*background-color:red;*/
-	background-image: url(../../images/logo/brick_blue2_300.png);
+	/*background-image: url(../../images/logo/brick_blue2_300.png);*/
 	background-repeat: no-repeat;
 	background-position: right top;
 }
@@ -113,7 +114,7 @@ div.webHeadButtons {
   float:right;
 }
 div.webHeadTitleName {
-	margin-top:20px;
+	margin-top:10px;
 }
 div.webHeadTitleDownload {
 	margin-top:12px;
@@ -159,6 +160,10 @@ div.webMainLicense {
 }
 
 img.noBorder {
+  border: none;
+}
+
+img.catroidLettering {
   border: none;
 }
 

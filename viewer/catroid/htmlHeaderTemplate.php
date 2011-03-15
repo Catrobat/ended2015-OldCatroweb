@@ -17,11 +17,6 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        new HeaderMenu();        
-      });
-    </script>
     <div class="webMainTop">
       <div class="blueBoxMain">
         <div class="webMainHead">
@@ -31,7 +26,7 @@
             </a>
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">
-            <a href="<?php echo BASE_PATH?>catroid/menu"><button type="button" class="webHeadButtons button white medium" id="headerMenuButton"><img alt="menu" class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" /></button></a>
+            <a title="Menu" href="<?php echo BASE_PATH?>catroid/menu"><button type="button" class="webHeadButtons button white medium" id="headerMenuButton"><img alt="menu" class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" /></button></a>
             <button type="button" class="webHeadButtons button white medium" id="headerSearchButton"><img alt="search" class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/magnifying-glass.png" /></button>
           </div>
           <div id="cancelHeaderButton" class="webHeadButtons">
@@ -41,10 +36,9 @@
           </div>
           <div class="webHeadTitle">
             <div class="webHeadTitleName">
-              <a class="noLink" href="<?php echo BASE_PATH?>catroid/index">
-                <span class="webHeadTitleName">Catroid</span>
-                <span class="webHeadTitleBeta"><?php echo DEVELOPMENT_STATUS?></span>
-              </a>
+                <a class="noLink" id="aIndexWebLogoMiddle" href="catroid/index">
+                  <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering.png" alt="catroid [beta]" />
+                </a>			      			
             </div>
           </div>
           <div style="clear:both;"></div>
