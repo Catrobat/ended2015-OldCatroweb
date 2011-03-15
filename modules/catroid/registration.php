@@ -371,26 +371,30 @@ class registration extends CoreAuthenticationNone {
   
   
   public function checkGender($gender) {
-    if(empty($gender)) {
+    if(strcmp ( $gender , 'male' ) == 0 || strcmp ( $gender , 'female' ) == 0) {
+      //throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
+    }
+    else {
       throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
-    }    
+    }
+    return true;
   }
   
   private function initGender() {
     if(!$this->postData['registrationGender']) {
       $genderlist[0] = "<option value=\"0\" selected>Select</option>\r";
-      $genderlist[1] = "<option value=\"male\">Male</option>\r";
-      $genderlist[2] = "<option value=\"female\">Female</option>\r";
+      $genderlist[1] = "<option value=\"female\">female</option>\r";
+      $genderlist[2] = "<option value=\"male\">male</option>\r";
     }
     else {
       $genderlist[0] = "<option value=\"0\">Select</option>\r";
-      if($this->postData['registrationGender'] == 1) {
-        $genderlist[1] = "<option value=\"male\" selected>Male</option>\r";
-        $genderlist[2] = "<option value=\"female\">Female</option>\r";
+      if($this->postData['registrationGender'] == 'male') {
+        $genderlist[1] = "<option value=\"female\">female</option>\r";
+        $genderlist[2] = "<option value=\"male\" selected>male</option>\r";
       }
       else {
-        $genderlist[1] = "<option value=\"male\">Male</option>\r";
-        $genderlist[2] = "<option value=\"female\" selected>Female</option>\r";        
+        $genderlist[1] = "<option value=\"female\" selected>female</option>\r";  
+        $genderlist[2] = "<option value=\"male\">male</option>\r";
       }
     }
     $this->gender = $genderlist;
