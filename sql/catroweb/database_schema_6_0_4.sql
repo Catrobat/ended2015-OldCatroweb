@@ -55,7 +55,7 @@ CREATE TABLE "public"."cusers" (
 "password" varchar(255) DEFAULT NULL NOT NULL,
 "email" varchar(255) DEFAULT NULL NOT NULL,
 "date_of_birth" timestamp DEFAULT NULL,
-"sex" varchar(16) DEFAULT NULL,
+"gender" varchar(16) DEFAULT NULL,
 "country" varchar(5) DEFAULT NULL NOT NULL,
 "province" varchar(255) DEFAULT NULL,
 "city" varchar(255) DEFAULT NULL,

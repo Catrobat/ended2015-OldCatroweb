@@ -45,7 +45,7 @@ class registration extends CoreAuthenticationNone {
       $answer .= $e->getMessage().'<br>';
     }
     try {
-      $this->initSex();
+      $this->initGender();
     } catch(Exception $e) {
       $answer .= $e->getMessage().'<br>';
     }
@@ -91,7 +91,7 @@ class registration extends CoreAuthenticationNone {
       $answer .= $e->getMessage().'<br>';
     }
     try { 
-      $this->checkSex($postData['registrationSex']);
+      $this->checkGender($postData['registrationGender']);
     } catch(Exception $e) {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
@@ -264,9 +264,9 @@ class registration extends CoreAuthenticationNone {
     $country = $postData['registrationCountry'];
     $status = USER_STATUS_STRING_ACTIVE;
     $date_of_birth = $postData['registrationYear'].'-'.$postData['registrationMonth'].'-01 00:00:01';
-    $sex = $postData['registrationSex'];
+    $gender = $postData['registrationGender'];
 
-    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$sex', '$country', null, null, '$ip_registered', '$status')";
+    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', null, null, '$ip_registered', '$status')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -370,30 +370,30 @@ class registration extends CoreAuthenticationNone {
   }
   
   
-  public function checkSex($sex) {
-    if(empty($sex)) {
-      throw new Exception($this->errorHandler->getError('registration', 'sex_missing'));
+  public function checkGender($gender) {
+    if(empty($gender)) {
+      throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
     }    
   }
   
-  private function initSex() {
-    if(!$this->postData['registrationSex']) {
-      $sexlist[0] = "<option value=\"0\" selected>Select</option>\r";
-      $sexlist[1] = "<option value=\"male\">Male</option>\r";
-      $sexlist[2] = "<option value=\"female\">Female</option>\r";
+  private function initGender() {
+    if(!$this->postData['registrationGender']) {
+      $genderlist[0] = "<option value=\"0\" selected>Select</option>\r";
+      $genderlist[1] = "<option value=\"male\">Male</option>\r";
+      $genderlist[2] = "<option value=\"female\">Female</option>\r";
     }
     else {
-      $sexlist[0] = "<option value=\"0\">Select</option>\r";
-      if($this->postData['registrationSex'] == 1) {
-        $sexlist[1] = "<option value=\"male\" selected>Male</option>\r";
-        $sexlist[2] = "<option value=\"female\">Female</option>\r";
+      $genderlist[0] = "<option value=\"0\">Select</option>\r";
+      if($this->postData['registrationGender'] == 1) {
+        $genderlist[1] = "<option value=\"male\" selected>Male</option>\r";
+        $genderlist[2] = "<option value=\"female\">Female</option>\r";
       }
       else {
-        $sexlist[1] = "<option value=\"male\">Male</option>\r";
-        $sexlist[2] = "<option value=\"female\" selected>Female</option>\r";        
+        $genderlist[1] = "<option value=\"male\">Male</option>\r";
+        $genderlist[2] = "<option value=\"female\" selected>Female</option>\r";        
       }
     }
-    $this->sex = $sexlist;
+    $this->gender = $genderlist;
   }
   
   

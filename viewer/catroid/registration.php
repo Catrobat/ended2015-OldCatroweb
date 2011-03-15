@@ -28,7 +28,7 @@
                   	<form method="post" action="./registration" name="registrationForm">
           		   			Nickname*<br>
           		   			<input type="text" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>"><br>
-          		   			<div class="registrationInfoText">Dein Nickname darf nur Buchstaben von A-Z (a-z), Zahlen von 0-9 oder Unterstriche oder Leerzeichen enthalten und darf zwischen mindestens 4 bis maximal 32 Zeichen lang sein.</div>
+          		   			<div class="registrationInfoText">Your nick name may only contain letters A-Z (a-z), numbers from 0-9, underscores or spaces and must be between 4 to 32 characters.</div>
           		   			Password*<br>
           		   			<input type="password" name="registrationPassword"><br>
           		   			Repeat password*<br>
@@ -37,8 +37,8 @@
           		   			<input type="text" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>"><br>
           		   			Birthday*<br>
           		   			<select name="registrationMonth" id="registrationMonth"><?php print_r ($this->month) ?></select> <select name="registrationYear" id="registrationYear"><?php print_r ($this->year) ?></select><br>
-          		   			Sex*<br>
-          		   			<select name="registrationSex"><?php print_r ($this->sex) ?></select><br>
+          		   			Gender*<br>
+          		   			<select name="registrationGender"><?php print_r ($this->gender) ?></select><br>
           		   			Country*<br>
           		   			<select name="registrationCountry" id="registrationCountry"><?php print_r ($this->countrylist) ?></select><br>
           		   			Province<br>

@@ -38,6 +38,7 @@ define('PROJECT_PAGE_MAX_PROJECTS', 5);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
 define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
 define('DEVELOPMENT_MODE',true);
+#define('DEVELOPMENT_MODE',false);
 define('SEND_NOTIFICATION_EMAIL',false);
 define('DEVELOPMENT_STATUS','[beta]');
 define('DEFAULT_HTML_TEMPLATE_NAME', 'htmlTemplate.php');

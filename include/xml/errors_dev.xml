@@ -71,6 +71,6 @@
     	<string name="country_codes_not_available">There are no countries available in DB.</string>
     	<string name="country_missing">The country is missing.</string>
     	<string name="birth_missing">The birthday is missing.</string>
-    	<string name="sex_missing">The sex is missing.</string>
+    	<string name="gender_missing">The gender is missing.</string>
     </registration>
 </errors>

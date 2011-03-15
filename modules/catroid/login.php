@@ -37,7 +37,7 @@ class login extends CoreAuthenticationNone {
         }
       } else if(isset($_POST['logoutSubmit'])) {
         $this->doLogout();
-        header('Location: http://'.$_SERVER['HTTP_HOST'].'/catroid/upload');
+        header('Location: http://'.$_SERVER['HTTP_HOST'].'/catroid/index');
       }
     }
   }

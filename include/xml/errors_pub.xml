@@ -71,7 +71,7 @@
     	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
     	<string name="country_missing">The country is missing.</string>
       <string name="birth_missing">The birthday is missing.</string>
-      <string name="sex_missing">The sex is missing.</string>
+      <string name="gender_missing">The gender is missing.</string>
     </registration>
 </errors>
 
