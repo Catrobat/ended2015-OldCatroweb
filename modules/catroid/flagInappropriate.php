@@ -41,7 +41,7 @@ class flagInappropriate extends CoreAuthenticationNone {
       $result = @pg_query($query);
       if($result) {
         if(($numberOfFlags = $this->getProjectFlags($projectId)) >= PROJECT_FLAG_NOTIFICATION_THRESHOLD) {
-          $this->hideProject($projectId);
+          //$this->hideProject($projectId);  // uncomment to hide projects if inappropriate - commented out for google code of summer
           if($sendNotificationEmail) {
             $this->sendNotificationEmail($projectId, $numberOfFlags);
             $query = "EXECUTE set_mail_sent_on_inappropriate('$projectId')";
