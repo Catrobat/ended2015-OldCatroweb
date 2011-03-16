@@ -26,7 +26,9 @@ abstract class CoreAuthenticationUser extends CoreAuthentication {
       if($this->session->userLogin_userId > 0) {
         return true;
       } else {
-        return false;
+        header("Location: http://".$_SERVER['HTTP_HOST'].'/catroid/login?requesturi='.$_SERVER['REQUEST_URI']);
+        exit;
+        //return false;
       }
     }
 
