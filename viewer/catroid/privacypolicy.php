@@ -44,10 +44,10 @@ We also ask for your city and state or province, but this information is optiona
 If you are 13 or over, we ask for your email address so that you can change your password (see below). If you are under 13, we ask for your parent's email address.<br>
 <br>
  -->
-We do not make any of your profile information public on the website.<br><!-- , except your username and country.<br> -->
-<br>
+<!-- CURRENTLY NOT AVAILABLE We do not make any of your profile information public on the website.<br><!-- , except your username and country.<br> -->
+<!-- CURRENTLY NOT AVAILABLE <br>
 We put "cookies" on your computer to keep track of when you are logged onto the Catroid website. (A cookie is a small data file that indicates that you have been to a particular website.)<br>
-<br>
+<br> -->
 As you use the website, we collect some data on where you click and which parts of the site you visit. This "click data" helps us figure out ways to improve the website.<br>
 We do not sell or rent your information to anyone.<br>
 <br>
