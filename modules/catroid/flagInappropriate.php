@@ -30,7 +30,7 @@ class flagInappropriate extends CoreAuthenticationNone {
     $this->flagProject($_POST, $_SERVER);
   }
   
-  public function flagProject($postData, $serverData, $sendNotificationEmail = false) { // FIXXXXXXME: set true if finished !!!
+  public function flagProject($postData, $serverData, $sendNotificationEmail = true) { 
     $answer = '';
     $statusCode = 500;
     if(isset($postData['projectId']) && $postData['flagReason'] != '') {
