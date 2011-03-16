@@ -140,6 +140,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('0123'),
     array('unit.te..st'),
     array('unit test'),
+    array('unit_test'),
     array('ÜnitTäßt')
     );
     return $dataArray;
@@ -166,7 +167,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('my%username'),  //contains invalid char
     array('my$username'),  //contains invalid char
     array('myusername&'),  //contains invalid char
-    array('unit_test'),    //contains invalid char
+    //array('unit_test'),    //contains invalid char
     array('myus-ername')   //contains invalid char
     );
     return $dataArray;

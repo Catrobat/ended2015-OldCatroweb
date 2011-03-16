@@ -134,7 +134,7 @@ class registration extends CoreAuthenticationNone {
 
     //username must consist of alpha numerical chars, underscores and spaces
     //min. 4, max. 32 chars
-    $text = '[a-zA-Z0-9äöüßÄÖÜ|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
+    $text = '[a-zA-Z0-9äÄöÖüÜß|.| |_]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
     $regEx = '^'.$text.'$';
     if(!ereg($regEx, $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
