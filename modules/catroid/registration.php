@@ -57,6 +57,124 @@ class registration extends CoreAuthenticationNone {
     $this->answer .= $answer;
   }
   
+  private function initGender() {
+    if(!$this->postData['registrationGender']) {
+      $genderlist[0] = "<option value=\"0\" selected>Select</option>\r";
+      $genderlist[1] = "<option value=\"female\">female</option>\r";
+      $genderlist[2] = "<option value=\"male\">male</option>\r";
+    }
+    else {
+      $genderlist[0] = "<option value=\"0\">Select</option>\r";
+      if($this->postData['registrationGender'] == 'male') {
+        $genderlist[1] = "<option value=\"female\">female</option>\r";
+        $genderlist[2] = "<option value=\"male\" selected>male</option>\r";
+      }
+      else {
+        $genderlist[1] = "<option value=\"female\" selected>female</option>\r";  
+        $genderlist[2] = "<option value=\"male\">male</option>\r";
+      }
+    }
+    $this->gender = $genderlist;
+  }
+  
+  private function initBirth() {
+    $months = array(
+      0=>"Month",
+      1=>"Jan",
+      2=>"Feb",
+      3=>"Mar",
+      4=>"Apr",
+      5=>"May",
+      6=>"Jun",
+      7=>"Jul",
+      8=>"Aug",
+      9=>"Sep",
+      10=>"Oct",
+      11=>"Nov",
+      12=>"Dec"
+    );
+    
+    $registrationMonth = '';
+    $registrationYear = '';
+    
+    if(!$this->postData['registrationMonth']) {
+      $monthlist[0] = "<option value=\"0\" selected>" . $months[0] . "</option>\r";
+    }
+    else {
+      $registrationMonth = $this->postData['registrationMonth'];
+      $monthlist[0] = "<option value=\"0\">" . $months[0] . "</option>\r";
+    }
+    if(!$this->postData['registrationYear']) {
+      $yearlist[0] = "<option value=\"0\" selected>Year</option>\r";
+    }
+    else {
+      $registrationYear = $this->postData['registrationYear'];
+      $yearlist[0] = "<option value=\"0\">Year</option>\r";
+    }
+    
+    $x = 0;
+    while($x++ < 12) {
+      if($registrationMonth == sprintf("%02d",$x)) {
+        $monthlist[] = "<option value=\"" . sprintf("%02d",$x) . "\" selected>" . $months[$x] . "</option>\r";
+      }
+      else {
+        $monthlist[] = "<option value=\"" . sprintf("%02d",$x) . "\">" . $months[$x] . "</option>\r";
+      }
+    }
+    $x = 0;
+    $year = date('Y') + 1;
+    while($x++ < 100) {
+      $year--;
+      if($registrationYear == $year) {
+        $yearlist[] = "<option value=\"" . $year . "\" selected>" . $year . "</option>\r";
+      }
+      else {
+        $yearlist[] = "<option value=\"" . $year . "\">" . $year . "</option>\r";
+      }
+    }
+    $this->month = $monthlist;
+    $this->year = $yearlist;
+  }
+  
+  private function initCountryCodes() {
+    $query = "EXECUTE get_country_from_countries";
+    $result = @pg_query($this->dbConnection, $query);
+
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+    }
+
+    if(pg_num_rows($result) > 0) {
+      $countrylist = array();
+      
+      if($this->postData['registrationCountry']) {
+        $registrationCountry = $this->postData['registrationCountry'];
+        $countrylist[] = "<option value=\"0\">Select country</option>\r";
+      }
+      else { 
+        $registrationCountry = '';
+        $countrylist[] = "<option value=\"0\" selected>Select country</option>\r";
+      }
+      
+      while($country = pg_fetch_assoc($result)) {
+        if($registrationCountry == $country['code'])
+          $countrylist[] = "<option value=\"" . $country['code'] . "\" selected>" . $country['name'] . "</option>\r";
+        else
+          $countrylist[] = "<option value=\"" . $country['code'] . "\">" . $country['name'] . "</option>\r";           
+      }
+      if($registrationCountry != 'undef')
+        $countrylist[] = "<option value=\"undef\">undefined</option>\r";
+      else
+        $countrylist[] = "<option value=\"undef\" selected>undefined</option>\r";
+      
+      $this->countrylist = $countrylist;
+      pg_free_result($result);      
+    } else {
+      $countrylist[] = "<option value=\"0\">Select country</option>";
+      $this->countrylist = $countrylist;
+      throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
+    }
+  }
   
   public function doRegistration($postData, $serverData) {
     $answer = '';
@@ -253,6 +371,35 @@ class registration extends CoreAuthenticationNone {
     return true;
   }
 
+  public function checkGender($gender) {
+    if(strcmp ( $gender , 'male' ) == 0 || strcmp ( $gender , 'female' ) == 0) {
+      //throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
+    }
+    else {
+      throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
+    }
+    return true;
+  }
+    
+  public function checkBirth($month,$year) {
+  	$cyear = strftime("%Y");
+  	if (($month >= 1 && $month <= 12) && ($year < $cyear && $year >= $cyear-100)) {
+  	} else {
+      throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
+    }    
+    return true;
+  }
+
+  public function checkCountry($country) {
+  	if ($country == "undef") {
+  	} elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
+  	} else {
+      throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
+    }
+    return true;
+  }
+  
+  
   public function doCatroidRegistration($postData, $serverData) {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
@@ -367,155 +514,6 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
     return true;
-  }
-  
-  
-  public function checkGender($gender) {
-    if(strcmp ( $gender , 'male' ) == 0 || strcmp ( $gender , 'female' ) == 0) {
-      //throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
-    }
-    else {
-      throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
-    }
-    return true;
-  }
-  
-  private function initGender() {
-    if(!$this->postData['registrationGender']) {
-      $genderlist[0] = "<option value=\"0\" selected>Select</option>\r";
-      $genderlist[1] = "<option value=\"female\">female</option>\r";
-      $genderlist[2] = "<option value=\"male\">male</option>\r";
-    }
-    else {
-      $genderlist[0] = "<option value=\"0\">Select</option>\r";
-      if($this->postData['registrationGender'] == 'male') {
-        $genderlist[1] = "<option value=\"female\">female</option>\r";
-        $genderlist[2] = "<option value=\"male\" selected>male</option>\r";
-      }
-      else {
-        $genderlist[1] = "<option value=\"female\" selected>female</option>\r";  
-        $genderlist[2] = "<option value=\"male\">male</option>\r";
-      }
-    }
-    $this->gender = $genderlist;
-  }
-  
-  
-  public function checkBirth($month,$year) {
-  	$cyear = strftime("%Y");
-  	if (($month >= 1 && $month <= 12) && ($year < $cyear && $year >= $cyear-100)) {
-  	} else {
-      throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
-    }    
-    return true;
-  }
-
-  private function initBirth() {
-    $months = array(
-      0=>"Month",
-      1=>"Jan",
-      2=>"Feb",
-      3=>"Mar",
-      4=>"Apr",
-      5=>"May",
-      6=>"Jun",
-      7=>"Jul",
-      8=>"Aug",
-      9=>"Sep",
-      10=>"Oct",
-      11=>"Nov",
-      12=>"Dec"
-    );
-    
-    $registrationMonth = '';
-    $registrationYear = '';
-    
-    if(!$this->postData['registrationMonth']) {
-      $monthlist[0] = "<option value=\"0\" selected>" . $months[0] . "</option>\r";
-    }
-    else {
-      $registrationMonth = $this->postData['registrationMonth'];
-      $monthlist[0] = "<option value=\"0\">" . $months[0] . "</option>\r";
-    }
-    if(!$this->postData['registrationYear']) {
-      $yearlist[0] = "<option value=\"0\" selected>Year</option>\r";
-    }
-    else {
-      $registrationYear = $this->postData['registrationYear'];
-      $yearlist[0] = "<option value=\"0\">Year</option>\r";
-    }
-    
-    $x = 0;
-    while($x++ < 12) {
-      if($registrationMonth == sprintf("%02d",$x)) {
-        $monthlist[] = "<option value=\"" . sprintf("%02d",$x) . "\" selected>" . $months[$x] . "</option>\r";
-      }
-      else {
-        $monthlist[] = "<option value=\"" . sprintf("%02d",$x) . "\">" . $months[$x] . "</option>\r";
-      }
-    }
-    $x = 0;
-    $year = date('Y') + 1;
-    while($x++ < 100) {
-      $year--;
-      if($registrationYear == $year) {
-        $yearlist[] = "<option value=\"" . $year . "\" selected>" . $year . "</option>\r";
-      }
-      else {
-        $yearlist[] = "<option value=\"" . $year . "\">" . $year . "</option>\r";
-      }
-    }
-    $this->month = $monthlist;
-    $this->year = $yearlist;
-  }
-
-  public function checkCountry($country) {
-  	if ($country == "undef") {
-  	} elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
-  	} else {
-      throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
-    }
-    return true;
-  }
-  
-  private function initCountryCodes() {
-    $query = "EXECUTE get_country_from_countries";
-    $result = @pg_query($this->dbConnection, $query);
-
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
-    }
-
-    if(pg_num_rows($result) > 0) {
-      $countrylist = array();
-      
-      if($this->postData['registrationCountry']) {
-        $registrationCountry = $this->postData['registrationCountry'];
-        $countrylist[] = "<option value=\"0\">Select country</option>\r";
-      }
-      else { 
-        $registrationCountry = '';
-        $countrylist[] = "<option value=\"0\" selected>Select country</option>\r";
-      }
-      
-      while($country = pg_fetch_assoc($result)) {
-        if($registrationCountry == $country['code'])
-          $countrylist[] = "<option value=\"" . $country['code'] . "\" selected>" . $country['name'] . "</option>\r";
-        else
-          $countrylist[] = "<option value=\"" . $country['code'] . "\">" . $country['name'] . "</option>\r";           
-      }
-      if($registrationCountry != 'undef')
-        $countrylist[] = "<option value=\"undef\">undefined</option>\r";
-      else
-        $countrylist[] = "<option value=\"undef\" selected>undefined</option>\r";
-      
-      $this->countrylist = $countrylist;
-      pg_free_result($result);      
-    } else {
-      $countrylist[] = "<option value=\"0\">Select country</option>";
-      $this->countrylist = $countrylist;
-      throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
-    }
   }
 
   public function __destruct() {

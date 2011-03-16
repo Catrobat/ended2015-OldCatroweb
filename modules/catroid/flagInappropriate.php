@@ -37,6 +37,9 @@ class flagInappropriate extends CoreAuthenticationNone {
       $userIp = $serverData['REMOTE_ADDR'];
       $projectId = $postData['projectId'];
       $flagReason = $postData['flagReason'];
+      if( preg_match("/'/" , $flagReason) ) {
+        $flagReason = preg_replace("/'/" , "\'", $flagReason);
+      }
       $query = "EXECUTE insert_new_flagged_project('$projectId', '$flagReason', '$userIp')";
       $result = @pg_query($query);
       if($result) {
