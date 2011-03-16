@@ -114,11 +114,11 @@ class registration extends CoreAuthenticationNone {
     
     $x = 0;
     while($x++ < 12) {
-      if($registrationMonth == sprintf("%02d",$x)) {
-        $monthlist[] = "<option value=\"" . sprintf("%02d",$x) . "\" selected>" . $months[$x] . "</option>\r";
+      if($registrationMonth == $x) {
+        $monthlist[] = "<option value=\"" . $x . "\" selected>" . $months[$x] . "</option>\r";
       }
       else {
-        $monthlist[] = "<option value=\"" . sprintf("%02d",$x) . "\">" . $months[$x] . "</option>\r";
+        $monthlist[] = "<option value=\"" . $x . "\">" . $months[$x] . "</option>\r";
       }
     }
     $x = 0;
@@ -294,9 +294,9 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
-    //username must consist of alpha numerical chars, underscores and spaces
+    //username must consist of alpha numerical chars and spaces and Umlaute!
     //min. 4, max. 32 chars
-    $text = '[a-zA-Z0-9äÄöÖüÜß|.| |_]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
+    $text = '[a-zA-Z0-9äÄöÖüÜß|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
     $regEx = '/^'.$text.'$/';
     if(!preg_match($regEx, $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
@@ -409,7 +409,7 @@ class registration extends CoreAuthenticationNone {
     $ip_registered = $serverData['REMOTE_ADDR'];
     $country = $postData['registrationCountry'];
     $status = USER_STATUS_STRING_ACTIVE;
-    $date_of_birth = $postData['registrationYear'].'-'.$postData['registrationMonth'].'-01 00:00:01';
+    $date_of_birth = $postData['registrationYear'].'-'.sprintf("%02d", $postData['registrationMonth']).'-01 00:00:01';
     $gender = $postData['registrationGender'];
 
     $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', null, null, '$ip_registered', '$status')";
