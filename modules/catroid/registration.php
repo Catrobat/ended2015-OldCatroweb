@@ -296,7 +296,7 @@ class registration extends CoreAuthenticationNone {
 
     //username must consist of alpha numerical chars, underscores and spaces
     //min. 4, max. 32 chars
-    $text = '[a-zA-Z0-9äöüßÄÖÜ|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
+    $text = '[a-zA-Z0-9äÄöÖüÜß|.| |_]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
     $regEx = '/^'.$text.'$/';
     if(!preg_match($regEx, $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
@@ -373,32 +373,31 @@ class registration extends CoreAuthenticationNone {
 
   public function checkGender($gender) {
     if(strcmp ( $gender , 'male' ) == 0 || strcmp ( $gender , 'female' ) == 0) {
-      //throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
+      return true;
     }
     else {
       throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
     }
-    return true;
   }
     
   public function checkBirth($month,$year) {
   	$cyear = strftime("%Y");
-  	if (($month >= 1 && $month <= 12) && ($year < $cyear && $year >= $cyear-100)) {
+  	if (($month >= 1 && $month <= 12) && ($year <= $cyear && $year >= $cyear-100)) {
+  	  return true;
   	} else {
       throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
     }    
-    return true;
   }
 
   public function checkCountry($country) {
   	if ($country == "undef") {
+      return true;
   	} elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
+  	  return true;
   	} else {
       throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
     }
-    return true;
   }
-  
   
   public function doCatroidRegistration($postData, $serverData) {
     global $phpbb_root_path;

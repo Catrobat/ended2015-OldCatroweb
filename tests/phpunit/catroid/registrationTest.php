@@ -209,6 +209,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('0123'),
     array('unit.te..st'),
     array('unit test'),
+    array('unit_test'),    //contains invalid char
     array('ÜnitTäßt')
     );
     return $dataArray;
@@ -235,7 +236,6 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('my%username'),  //contains invalid char
     array('my$username'),  //contains invalid char
     array('myusername&'),  //contains invalid char
-    array('unit_test'),    //contains invalid char
     array('myus-ername')   //contains invalid char
     );
     return $dataArray;
@@ -328,8 +328,9 @@ class registrationTest extends PHPUnit_Framework_TestCase
   }
   
   public function validBirth() {
+    $currentYear = strftime("%Y");
     $dataArray = array(
-    array('1', '2000'),
+    array('1', $currentYear),
     array('2', '1920'),
     array('3', '1980'),
     array('4', '1998'),
@@ -340,7 +341,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('9', '2005'),
     array('10', '2006'),
     array('11', '2007'),
-    array('12', '2008'),
+    array('12', '1950'),
     );
     return $dataArray;
   }
