@@ -20,16 +20,13 @@
     <script type="text/javascript">
       $(document).ready(function() {
         new NewestProjects(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->numberOfPages."'"; ?>);
-       
       });
     </script>
     <div class="webMainTop">
       <div class="blueBoxMain">
         <div class="webMainHead">
-          <div class="webHeadLogo">
-            <a id="aIndexWebLogoLeft" href="<?php echo BASE_PATH?>catroid/index">
-              <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
-            </a>
+          <div id="aIndexWebLogoLeft" class="webHeadLogo">
+            <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">
             <a title="Menu" href="<?php echo BASE_PATH?>catroid/menu"><button type="button" class="webHeadButtons button white medium" id="headerMenuButton"><img alt="menu" class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" /></button></a>

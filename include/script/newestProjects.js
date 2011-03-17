@@ -47,8 +47,14 @@ var NewestProjects = Class.$extend( {
   },
   
   showFirstPage : function() {
-    this.pageNr = 1;
-    this.loadAndCachePage();
+    var self = this;
+    $.ajax({
+      url: self.basePath+"catroid/loadNewestProjects/1.json",
+      async: false,
+      success: function() {
+        location.href = self.basePath+"catroid/index";
+      }
+    });
   },
 
   testAndSetBounderies : function() {
