@@ -48,6 +48,8 @@ define('MVC_DEFAULT_MODULE', 'catroid');
 define('MVC_DEFAULT_CLASS', 'index');
 define('MVC_DEFAULT_METHOD', '__default');
 define('MVC_DEFAULT_VIEW', 'html');
+define('USER_EMAIL_NOREPLY','noreply@catroid.org');
+define('USER_EMAIL_SUBJECT_PREFIX','CATROID.ORG');
 define('ADMIN_EMAIL_WEBMASTER','webmaster@catroid.org');
 define('ADMIN_EMAIL_NOREPLY','noreply@catroid.org');
 define('ADMIN_EMAIL_SUBJECT_PREFIX','CATROID.ORG');
