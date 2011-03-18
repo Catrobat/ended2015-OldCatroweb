@@ -31,7 +31,18 @@ class CoreMailHandler {
   }
 
   public function sendUserMail($subject, $text, $userAddress) {
-    return false;
+    if(!$subject || !$text || !$userAddress) {
+      return false;
+    }
+    $this->_subject = USER_EMAIL_SUBJECT_PREFIX.' - '.$subject;
+    $this->_text = wordwrap($text);
+    $this->_return = "-f".USER_EMAIL_NOREPLY;
+    $this->_reply = USER_EMAIL_NOREPLY;
+	  $this->_from = USER_EMAIL_NOREPLY;
+	  $this->_to = $userAddress;
+	  $this->_bcc = '';
+	
+	  return($this->send());
   }
 
   public function sendAdministrationMail($subject, $text) {
@@ -44,18 +55,21 @@ class CoreMailHandler {
     $this->_text = wordwrap($text);
     $this->_return = "-f".ADMIN_EMAIL_WEBMASTER;
     $this->_reply = ADMIN_EMAIL_NOREPLY;
-	$this->_from = ADMIN_EMAIL_NOREPLY;
-	$this->_to = ADMIN_EMAIL_WEBMASTER;
-	$this->_bcc = '';
+	  $this->_from = ADMIN_EMAIL_NOREPLY;
+	  $this->_to = ADMIN_EMAIL_WEBMASTER;
+	  $this->_bcc = '';
 	
-	return($this->send());
+	  return($this->send());
   }
   
   private function send() {
+    echo 'mail send HERE!!!!!<br>';
     $header = "From: ".$this->_from."\r\n"."Bcc: ".$this->_bcc."\r\n"."Reply-To: ".$this->_reply.";\r\n"."X-Mailer: PHP/".phpversion();
     if(@mail($this->_to, $this->_subject, $this->_text, $header, $this->_return)) {
+      echo 'mail send OKKK!!!!!!<br>';
       return true;
     } else {
+      echo 'mail send failed!!!!!!<br>';
       return false;
     }
   }

@@ -46,18 +46,18 @@
     	<string name="html_file_not_found">This page cannot be displayed.</string>
     </viewer>
     <auth>
-    	<string name="password_or_username_wrong">The password or username was incorrect.</string>
-    	<string name="username_not_found">The username was not found.</string>
+    	<string name="password_or_username_wrong">The password or nickname was incorrect.</string>
+    	<string name="username_not_found">The nickname was not found.</string>
     	<string name="board_authentication_failed">The board authentication failed.</string>
     	<string name="wiki_authentication_failed">The wiki authentication failed.</string>
-    	<string name="catroid_authentication_failed">Sorry, there was a problem: check your username and password.</string>
+    	<string name="catroid_authentication_failed">Sorry, there was a problem: check your nickname and password.</string>
     	<string name="wiki_api_response_incorrect">The response of the mediawiki API was incorrect.</string>
     </auth>
     <registration>
     	<string name="board_registration_failed">The board registration failed.</string>
     	<string name="wiki_registration_failed">The wiki registration failed.</string>
     	<string name="catroid_registration_failed">The catroid registration failed.</string>
-    	<string name="username_already_exists">The username already exists.</string>
+    	<string name="username_already_exists">The nickname already exists.</string>
     	<string name="email_already_exists">This email address already exists.</string>
     	<string name="email_invalid">The email address is not valid.</string>
     	<string name="email_missing">The email address is missing.</string>
@@ -65,13 +65,19 @@
     	<string name="password_repeat_missing">The repeated password is missing.</string>
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">The password is invalid.</string>
-    	<string name="username_missing">The username is missing.</string>
-    	<string name="username_invalid">The username is invalid.</string>
-    	<string name="username_already_exists">This username already exists.</string>
+    	<string name="username_missing">The nickname is missing.</string>
+    	<string name="username_invalid">The nickname is invalid.</string>
+    	<string name="username_already_exists">This nickname already exists.</string>
     	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
     	<string name="country_missing">The country is missing.</string>
       <string name="birth_missing">The birthday is missing.</string>
       <string name="gender_missing">The gender is missing.</string>
     </registration>
+    <passwordrecovery>
+      <string name="userdata_invalid">The nickname or email adress is invalid.</string>
+      <string name="userdata_missing">The nickname or email adress is missing.</string>
+      <string name="userdata_not_exists">The nickname or email adress was not found.</string>
+      <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
+    </passwordrecovery>
 </errors>
 

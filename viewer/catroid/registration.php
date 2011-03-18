@@ -36,7 +36,7 @@
           		   			Email*<br>
           		   			<input type="email" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" ><br>
           		   			Birthday*<br>
-          		   			<select name="registrationMonth" id="registrationMonth" ><?php print_r ($this->month) ?></select> <select name="registrationYear" id="registrationYear" ><?php print_r ($this->year) ?></select required ><br>
+          		   			<select name="registrationMonth" id="registrationMonth" ><?php print_r ($this->month) ?></select> <select name="registrationYear" id="registrationYear" ><?php print_r ($this->year) ?></select><br>
           		   			Gender*<br>
           		   			<select name="registrationGender" ><?php print_r ($this->gender) ?></select><br>
           		   			Country*<br>

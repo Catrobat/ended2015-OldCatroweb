@@ -43,7 +43,7 @@
       	  		   			<?php }?>
       	  		   		</form>
       	  		   		<br>
-										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Sign up</a> or <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordsend">did you forget your password?</a></div>
+										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Sign up</a> or <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">did you forget your password?</a></div>
             		   	<br>
             		   	<div class="loginErrorMsg">
             		   	  <?php if($this->answer) {
