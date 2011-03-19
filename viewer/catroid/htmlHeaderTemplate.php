@@ -25,15 +25,6 @@
               <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
             </a>
           </div>
-          <div id="normalHeaderButtons" class="webHeadButtons">
-            <a title="Menu" href="<?php echo BASE_PATH?>catroid/menu"><button type="button" class="webHeadButtons button white medium" id="headerMenuButton"><img alt="menu" class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" /></button></a>
-            <button type="button" class="webHeadButtons button white medium" id="headerSearchButton"><img alt="search" class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/magnifying-glass.png" /></button>
-          </div>
-          <div id="cancelHeaderButton" class="webHeadButtons">
-            <button type="button" class="webHeadCancelButton button white medium" id="headerCancelSearchButton">
-              <span class="webHeadCancelButtonText">Cancel</span>
-            </button>
-          </div>
           <div class="webHeadTitle">
             <div class="webHeadTitleName">
                 <a class="noLink" id="aIndexWebLogoMiddle" href="catroid/index">
@@ -42,18 +33,6 @@
             </div>
           </div>
           <div style="clear:both;"></div>
-        </div>
-      </div>
-  		
-      <div id="headerSearchBox" style="display:none;">
-        <div class="webHeadSearchBoxSpacer"></div>
-        <div class="blueBoxMain">
-          <div class="webMainHead">
-            <form>
-              <input type="search" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />
-              <input type="submit" class="webHeadSearchSubmit" value="Search" />
-            </form>
-          </div>
         </div>
       </div>
     </div> <!--  WEBMAINTOP -->
