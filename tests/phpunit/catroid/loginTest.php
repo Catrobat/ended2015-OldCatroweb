@@ -58,13 +58,6 @@ class loginTest extends PHPUnit_Framework_TestCase
     }
     $this->fail('EXPECTED EXCEPTION NOT RAISED!');
   }
-
- 	/**
-   * @dataProvider redirectLogin
-   */
-  public function testRedirectAfterLogin($postData) {
-    
-  }
   
   /* *** DATA PROVIDERS *** */
   public function validLogin() {

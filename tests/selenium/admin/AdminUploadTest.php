@@ -48,19 +48,23 @@ class AdminUploadTest extends PHPUnit_Framework_TestCase
     // upload project
     $this->selenium->open($uploadpath);
     $this->selenium->waitForPageToLoad("10000");
-    $uploadpath = dirname(__FILE__);
-    if(strpos($uploadpath, '\\') >= 0) {
-      $uploadpath .= "\..\resources\testproject.zip";
-    } else {
-      $uploadpath .= "/../resources/testproject.zip";
-    }
+    $uploadpath = dirname(__FILE__).'/testdata/test.zip';
     
     $projectTitle = "testproject".rand(1,9999);
 
+    $this->assertRegExp("/catroid\/login/", $this->selenium->getLocation());
+    $this->selenium->type("loginUsername", DB_NAME);
+    $this->selenium->type("loginPassword", DB_PASS);
+    $this->selenium->click("loginSubmit");
+
+    $this->selenium->waitForPageToload("10000");
+    $this->assertRegExp("/catroid\/upload/", $this->selenium->getLocation());
+    
     $this->selenium->type("upload",$uploadpath);
     $this->selenium->type("projectTitle",$projectTitle);
     $this->selenium->click("submit_upload");
     $this->selenium->waitForPageToload("10000");
+    $this->assertTrue($this->selenium->isTextPresent("Upload successfull!"));
     
     // verify creation & click download
     $this->selenium->open(TESTS_BASE_PATH);

@@ -146,12 +146,16 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     //upload new project
     $this->selenium->open(TESTS_BASE_PATH.'catroid/upload/');
     $this->selenium->waitForPageToLoad("10000");
-    $uploadpath = dirname(__FILE__);
-    if(strpos($uploadpath, '\\') >= 0) {
-      $uploadpath .= "\..\resources\testproject.zip";
-    } else {
-      $uploadpath .= "/../resources/testproject.zip";
-    }
+    $uploadpath = dirname(__FILE__).'/testdata/test.zip';
+    
+    $this->assertRegExp("/catroid\/login/", $this->selenium->getLocation());
+    $this->selenium->type("loginUsername", DB_NAME);
+    $this->selenium->type("loginPassword", DB_PASS);
+    $this->selenium->click("loginSubmit");
+
+    $this->selenium->waitForPageToload("10000");
+    $this->assertRegExp("/catroid\/upload/", $this->selenium->getLocation());
+    
     //$projectTitle = "more button selenium test";
     //$projectDescription = "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!";
     $projectTitle = $title;

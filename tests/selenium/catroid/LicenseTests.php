@@ -124,7 +124,7 @@ class LicenseTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("xpath=//p[@class='licenseText']/a[3]");
     $this->selenium->selectWindow("_blank");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertRegExp("/catroid - Project Hosting on Google Code/", $this->selenium->getTitle());  
+    $this->assertRegExp("/catroid - An on-device graphical programming language for Android inspired by Scratch - Google Project Hosting/", $this->selenium->getTitle());
     $this->selenium->close();
     $this->selenium->selectWindow(null);
     $this->selenium->goBack();    

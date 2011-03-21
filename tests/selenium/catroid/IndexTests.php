@@ -64,6 +64,9 @@ class IndexTests extends PHPUnit_Framework_TestCase
   
 
    public function doUpload() {    
+     
+
+     
      for($i=1; $i< 20; $i++)
      {
        $fileName = 'test.zip';
@@ -110,8 +113,6 @@ class IndexTests extends PHPUnit_Framework_TestCase
   }
   
   public function testIndexPage() {
-    
-    
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
     
@@ -127,7 +128,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->selenium->selectWindow("_blank");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Catroid_0-4-3d.apk"));
-    $this->assertTrue($this->selenium->isTextPresent("Paintroid_0-1-5-6b.apk"));
+    $this->assertTrue($this->selenium->isTextPresent("Paintroid_0.6.4b.apk"));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='webHeadTitleName']/a"));
@@ -135,7 +136,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->selenium->selectWindow("_blank");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Catroid_0-4-3d.apk"));
-    $this->assertTrue($this->selenium->isTextPresent("Paintroid_0-1-5-6b.apk"));
+    $this->assertTrue($this->selenium->isTextPresent("Paintroid_0.6.4b.apk"));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
     

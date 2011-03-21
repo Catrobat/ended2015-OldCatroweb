@@ -32,13 +32,12 @@ class login extends CoreAuthenticationNone {
           $this->setRequestURI($_POST['requesturi']);
         }
         if($this->doLogin($_POST)) {
-          $requesturi = $this->requesturi;
-          header('Location: http://'.$_SERVER['HTTP_HOST'].$requesturi);
+          header('Location: http://' . $_SERVER['HTTP_HOST'] . "/" . $this->requesturi);
           exit;
         }
       } else if(isset($_POST['logoutSubmit'])) {
         $this->doLogout();
-        header('Location: http://'.$_SERVER['HTTP_HOST'].'/catroid/index');
+        header('Location: ' . BASE_PATH . 'catroid/index');
         exit;
       }
     }
