@@ -41,6 +41,22 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->stop();
   }
 
+  public function ajaxWait($waitfor)
+  {
+    // Loop initialization.
+    for ($second = 0; $second <=600;$second++) {
+     // If loop is reached 60 seconds then break the loop.
+     if ($second >= 600) break;
+     // Search for element "link=ajaxLink" and if available then break loop.
+     try 
+     {        
+       if (($this->selenium->isElementPresent($waitfor))&&(!($this->selenium->isTextPresent("loading..."))))
+       break; 
+     } catch (Exception $e) {}
+     sleep(1);
+    }
+  }
+  
   /**
    * @dataProvider randomIds
    */
@@ -127,7 +143,6 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(2000);
     $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
     $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
-
     //unflag the project again
     $path= 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin/tools/inappropriateProjects';
     $this->selenium->open($path);
@@ -148,9 +163,9 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad("10000");
     $uploadpath = dirname(__FILE__);
     if(strpos($uploadpath, '\\') >= 0) {
-      $uploadpath .= "\..\resources\testproject.zip";
+      $uploadpath .= "\testdata\test.zip";
     } else {
-      $uploadpath .= "/../resources/testproject.zip";
+      $uploadpath .= "/testdataa/test.zip";
     }
     //$projectTitle = "more button selenium test";
     //$projectDescription = "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!";
@@ -166,8 +181,10 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     //test more button
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad("10000");
+    $this->ajaxWait("class=projectListDetailsLink");    
     $this->selenium->click("xpath=//a[@class='projectListDetailsLink']");
     $this->selenium->waitForPageToLoad("10000");
+    
     $this->assertTrue($this->selenium->isElementPresent("showFullDescriptionButton"));
     $shortDescriptionFromPage = $this->selenium->getText("xpath=//p[@id='detailsDescription']");
     $this->assertNotEquals(trim($shortDescriptionFromPage), trim($projectDescription));
@@ -232,7 +249,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
   public function titlesAndDescriptions() {
     $returnArray = array(
                     array('more button selenium test', 'This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!'),
-                    array('more button special chars test', 'This is a description which has special chars like ", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with "special chars" and should have more characters than defined by the threshold in config.php. Thats it!')
+                    array('more button special chars test', utf8_decode('This is a description which has special chars like ", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with "special chars" and should have more characters than defined by the threshold in config.php. Thats it!'))
                    );
     
     return $returnArray;

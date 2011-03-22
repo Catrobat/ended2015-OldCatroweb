@@ -50,9 +50,9 @@ class AdminUploadTest extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad("10000");
     $uploadpath = dirname(__FILE__);
     if(strpos($uploadpath, '\\') >= 0) {
-      $uploadpath .= "\..\resources\testproject.zip";
+      $uploadpath .= "\testdata\test.zip";
     } else {
-      $uploadpath .= "/../resources/testproject.zip";
+      $uploadpath .= "/testdata/test.zip";
     }
     
     $projectTitle = "testproject".rand(1,9999);
@@ -64,8 +64,10 @@ class AdminUploadTest extends PHPUnit_Framework_TestCase
     
     // verify creation & click download
     $this->selenium->open(TESTS_BASE_PATH);
-    $this->selenium->waitForPageToload("10000");
+    $this->selenium->waitForPageToload("2000");
+    $this->selenium->waitForCondition("", 2000); // necessary for loading delay (loading...)
     $this->assertTrue($this->selenium->isTextPresent($projectTitle));
+    
      
     // delete project
     $this->selenium->open($adminpath);
