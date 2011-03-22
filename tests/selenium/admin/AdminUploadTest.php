@@ -74,7 +74,8 @@ class AdminUploadTest extends PHPUnit_Framework_TestCase
     $this->selenium->click("aAdminToolsEditProjects");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent($projectTitle));
-    $this->selenium->click("delete");
+    $this->selenium->chooseOkOnNextConfirmation();
+    $this->selenium->click("xpath=//input[@name='deleteButton']");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isTextPresent($projectTitle));
     

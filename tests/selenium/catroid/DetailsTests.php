@@ -206,7 +206,8 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $this->selenium->click("aAdminToolsEditProjects");
     $this->selenium->waitForPageToLoad(10000);
-    $this->selenium->click("delete");
+    $this->selenium->chooseOkOnNextConfirmation();
+    $this->selenium->click("xpath=//input[@name='deleteButton']");
     $this->selenium->waitForPageToLoad(10000);
   }
 

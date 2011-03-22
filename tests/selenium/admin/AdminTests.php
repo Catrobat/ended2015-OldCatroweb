@@ -138,6 +138,7 @@ class AdminTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isTextPresent($title));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
+    $this->selenium->chooseOkOnNextConfirmation();
     $this->selenium->click("resolve".$id);
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("The project was succesfully restored and set to visible!"));
