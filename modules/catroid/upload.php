@@ -18,7 +18,7 @@
  */
 require_once("BadWordsFilter.php");
 
-class upload extends CoreAuthenticationUser {
+class upload extends CoreAuthenticationNone { 
 	private $badWordsFilter;
 
 	public function __construct() {
