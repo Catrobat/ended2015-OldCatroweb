@@ -65,6 +65,7 @@
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
     <string name="update_recovery_hash_recovery_time_by_id">UPDATE cusers SET recovery_hash=$1, recovery_time=$2 WHERE id=$3</string>
     <string name="update_password_and_hash_by_username">UPDATE cusers SET password=$1, recovery_hash=$2 WHERE username=$3</string>
+    <!-- <string name="update_phpbb_user_password_by_username">UPDATE phpbb_users SET user_password=$1 WHERE username=$2</string> -->
     
     <string name="get_country_from_countries">SELECT name, code FROM countries ORDER BY name ASC</string>
 </statements>

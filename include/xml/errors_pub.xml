@@ -78,6 +78,7 @@
       <string name="userdata_missing">The nickname or email adress is missing.</string>
       <string name="userdata_not_exists">The nickname or email adress was not found.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
+      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please contact us on webmaster@catroid.org!</string>
     </passwordrecovery>
 </errors>
 
