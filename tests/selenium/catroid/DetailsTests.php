@@ -41,6 +41,25 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->stop();
   }
 
+  public function ajaxWait($waitfor)
+  {
+    // Loop initialization.
+    for ($second = 0; $second <=600;$second++) {
+
+     // If loop is reached 60 seconds then break the loop.
+     if ($second >= 600) break;
+
+     // Search for element "link=ajaxLink" and if available then break loop.
+     try 
+     {        
+       if (($this->selenium->isElementPresent($waitfor))&&(!($this->selenium->isTextPresent("loading..."))))
+       break; 
+     } catch (Exception $e) {}
+     sleep(1);
+    }
+  }
+  
+  
   /**
    * @dataProvider randomIds
    */
@@ -173,6 +192,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     //test more button
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad("10000");
+    $this->ajaxWait('class=projectListDetailsLink');
     $this->selenium->click("xpath=//a[@class='projectListDetailsLink']");
     $this->selenium->waitForPageToLoad("10000");
     $this->assertTrue($this->selenium->isElementPresent("showFullDescriptionButton"));

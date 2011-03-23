@@ -75,6 +75,7 @@ class AdminUploadTest extends PHPUnit_Framework_TestCase
     // verify creation & click download
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToload("10000");
+    $this->selenium->waitForCondition("", 2000);
     $this->assertTrue($this->selenium->isTextPresent($projectTitle));
      
     // delete project
