@@ -109,6 +109,7 @@ class CoreErrorHandler {
     $mailText .= "--- *** ---\n\n";
     $mailText .= "--- USER DETAILS ---\n";
     $mailText .= "User IP: <".$_SERVER['REMOTE_ADDR'].">\n";
+    $mailText .= "User HTTP Referer: <".$_SERVER['HTTP_REFERER'].">\n";
     $mailText .= "--- *** ---\n\n";
     $mailText .= "You should check this!";
 
