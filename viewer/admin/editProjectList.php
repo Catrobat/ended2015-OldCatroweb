@@ -17,8 +17,15 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-
 <body>
+  <script type="text/javascript">
+  function submitForm(id, name) {
+    var doDelete = window.confirm("Delete project '"+name+"'?");
+    if(doDelete) {
+      document.getElementById("form"+id).submit();
+    }
+  }
+  </script>
   <h2>Administration Tools - List of available projects</h2>
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
   <?php if($this->answer) {
@@ -48,9 +55,10 @@
           <td><?php echo $project['num_flags'].'x'?></td>
           <td><?php echo ($project['visible']=='t' ? 'visible' : '<em>invisible</em>');?></td>
           <td>
-            <form class="admin" action="editProjects" method="POST">
+            <form id="form<?php echo $project['id']?>" class="admin" action="editProjects" method="POST">
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
-              <input type="submit" value="delete" name="delete" id="delete<?php echo $project['id']?>"/> <!-- chg -->
+              <input type="hidden" name="delete" value="delete"/>
+              <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitForm('<?php echo $project['id']?>', '<?php echo $project['title']?>');" /> <!-- chg -->
             </form>
           </td>
         </tr>

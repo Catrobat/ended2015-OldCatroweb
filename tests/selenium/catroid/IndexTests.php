@@ -122,6 +122,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     //$this->assertTrue($this->selenium->isTextPresent("catroid [alpha]"));
     
     //test catroid download link
+    $this->assertTrue($this->selenium->isTextPresent("Paintroid_0.6.4b.apk"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='webHeadTitleName']/a"));
     $this->selenium->click("xpath=//div[@class='webHeadTitleName']/a");
     $this->selenium->selectWindow("_blank");
@@ -165,11 +166,15 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isVisible("fewerProjects"));
     $this->assertTrue($this->selenium->isVisible("moreProjects"));
     $this->ajaxWait("id=page0");
+    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page0']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
     $this->selenium->click("moreProjects");    
     $this->ajaxWait("id=page2");
+    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page3']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page4']"));
@@ -177,6 +182,8 @@ class IndexTests extends PHPUnit_Framework_TestCase
     // test session
     $this->selenium->refresh();
     $this->ajaxWait("id=page2");
+    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    
     $this->selenium->waitForPageToLoad("10000");
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page3']"));
@@ -185,6 +192,8 @@ class IndexTests extends PHPUnit_Framework_TestCase
             
     $this->selenium->click("fewerProjects");
     $this->ajaxWait("id=page0");
+    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page0']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
@@ -194,9 +203,15 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isVisible("moreProjects"));
     $this->selenium->click("moreProjects");    
     $this->ajaxWait("id=page2");
+    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    
     $this->selenium->click("aIndexWebLogoLeft");
     $this->ajaxWait("id=page0");
+    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    
     $this->selenium->waitForPageToLoad("10000");
+    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page0']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));

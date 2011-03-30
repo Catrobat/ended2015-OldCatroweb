@@ -59,7 +59,8 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent($this->unapprovedWord));
 		$this->selenium->select("meaning", "label=good");
-		$this->selenium->click("approve");
+    $this->selenium->chooseOkOnNextConfirmation();
+    $this->selenium->click("xpath=//input[@name='approveButton']");
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent("The word was succesfully approved!"));
 
@@ -77,7 +78,8 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent($this->unapprovedWord));
 		$this->selenium->select("meaning", "label=bad");
-		$this->selenium->click("approve");
+    $this->selenium->chooseOkOnNextConfirmation();
+    $this->selenium->click("xpath=//input[@name='approveButton']");
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent("The word was succesfully approved!"));
 
@@ -94,7 +96,8 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
 		$this->selenium->click("aAdminToolsApproveWords");
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent($this->unapprovedWord));
-		$this->selenium->click("approve");
+    $this->selenium->chooseOkOnNextConfirmation();
+    $this->selenium->click("xpath=//input[@name='approveButton']");
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent("Error: no word meaning selected!"));
 
@@ -111,7 +114,8 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
 		$this->selenium->click("aAdminToolsApproveWords");
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent($this->unapprovedWord));
-		$this->selenium->click("delete");
+    $this->selenium->chooseOkOnNextConfirmation();
+    $this->selenium->click("xpath=//input[@name='deleteButton']");
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent("The word was succesfully deleted!"));
 		$this->assertFalse($this->selenium->isTextPresent($this->unapprovedWord));
@@ -146,7 +150,8 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
 		$this->selenium->click("aAdminToolsEditProjects");
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertTrue($this->selenium->isTextPresent($this->unapprovedWord));
-		$this->selenium->click("delete");
+    $this->selenium->chooseOkOnNextConfirmation();
+    $this->selenium->click("xpath=//input[@name='deleteButton']");
 		$this->selenium->waitForPageToLoad(10000);
 		$this->assertFalse($this->selenium->isTextPresent($this->unapprovedWord));
 
