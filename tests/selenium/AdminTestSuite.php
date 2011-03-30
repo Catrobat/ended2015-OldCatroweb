@@ -28,7 +28,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
  * TEST CASES
  */
 require_once 'admin/AdminTests.php';
-require_once 'admin/AdminUploadTest.php';
+// require_once 'admin/AdminUploadTest.php';
 
 
 /*****************************************************************************/
@@ -43,7 +43,7 @@ class TestSuite
     {
         $suite = new PHPUnit_Framework_TestSuite('PHPUnit Framework'); 
         $suite->addTestSuite('AdminTests');
-        $suite->addTestSuite('AdminUploadTest');
+        // $suite->addTestSuite('AdminUploadTest');
         return $suite;
     }
 }

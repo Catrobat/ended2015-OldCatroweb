@@ -119,23 +119,15 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
     
     //test catroid header text
-    $this->assertTrue($this->selenium->isTextPresent("Catroid [beta]"));
+    //$this->assertTrue($this->selenium->isTextPresent("catroid [alpha]"));
     
     //test catroid download link
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='webHeadTitleDownload']/a"));
-    $this->selenium->click("xpath=//div[@class='webHeadTitleDownload']/a");
-    $this->selenium->selectWindow("_blank");
-    $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("Catroid_0-4-3d.apk"));
-    $this->assertTrue($this->selenium->isTextPresent("Paintroid_0-1-5-6b.apk"));
-    $this->selenium->close();
-    $this->selenium->selectWindow(null);
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='webHeadTitleName']/a"));
     $this->selenium->click("xpath=//div[@class='webHeadTitleName']/a");
     $this->selenium->selectWindow("_blank");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Catroid_0-4-3d.apk"));
-    $this->assertTrue($this->selenium->isTextPresent("Paintroid_0-1-5-6b.apk"));
+    $this->assertTrue($this->selenium->isTextPresent("Paintroid_0.6.4b.apk"));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
     

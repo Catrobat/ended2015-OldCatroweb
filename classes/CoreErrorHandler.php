@@ -1,19 +1,19 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010  Catroid development team
+ *    Copyright (C) 2010-2011 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
- *    (at your option) any later version.
+ *    it under the terms of the GNU Affero General Public License as
+ *    published by the Free Software Foundation, either version 3 of the
+ *    License, or (at your option) any later version.
  *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
+ *    GNU Affero General Public License for more details.
  *
- *    You should have received a copy of the GNU General Public License
+ *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -96,6 +96,8 @@ class CoreErrorHandler {
   }
   
   private function sendNotificationEmail($type, $code, $extraInfo) {
+    $http_ref = "";
+    if (isset($_SERVER["HTTP_REFERER"])) $http_ref = $_SERVER["HTTP_REFERER"];
     $mailSubject = 'An error occurred during processing a page!';
     $mailText = "Hello catroid.org Administrator!\n\n";
     $mailText .= "An error message was produced during processing the page\n";
@@ -109,6 +111,7 @@ class CoreErrorHandler {
     $mailText .= "--- *** ---\n\n";
     $mailText .= "--- USER DETAILS ---\n";
     $mailText .= "User IP: <".$_SERVER['REMOTE_ADDR'].">\n";
+    $mailText .= "User HTTP Referer: <".$http_ref.">\n";    
     $mailText .= "--- *** ---\n\n";
     $mailText .= "You should check this!";
 

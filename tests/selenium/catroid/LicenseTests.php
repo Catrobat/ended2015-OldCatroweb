@@ -117,14 +117,24 @@ class LicenseTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("xpath=//p[@class='licenseText']/a[2]");    
     $this->selenium->selectWindow("_blank");    
     $this->selenium->waitForPageToLoad(10000);    
-    $this->assertTrue($this->selenium->isTextPresent(("GNU GENERAL PUBLIC LICENSE")));
-    $this->assertTrue($this->selenium->isTextPresent(("Version 3, 29 June 2007")));
+    $this->assertTrue($this->selenium->isTextPresent("GNU GENERAL PUBLIC LICENSE"));
+    $this->assertTrue($this->selenium->isTextPresent("Version 3, 29 June 2007"));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
-    $this->selenium->click("xpath=//p[@class='licenseText']/a[3]");
+
+    $this->selenium->click("xpath=//p[@class='licenseText']/a[3]");    
+    $this->selenium->selectWindow("_blank");    
+    $this->selenium->waitForPageToLoad(10000);    
+    $this->assertTrue($this->selenium->isTextPresent("GNU AFFERO GENERAL PUBLIC LICENSE"));
+    $this->assertTrue($this->selenium->isTextPresent("Version 3, 19 November 2007"));
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
+    
+    $this->selenium->click("xpath=//p[@class='licenseText']/a[4]");
     $this->selenium->selectWindow("_blank");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertRegExp("/catroid - Project Hosting on Google Code/", $this->selenium->getTitle());  
+    $this->assertRegExp("/catroid \-/", $this->selenium->getTitle());  
+    $this->assertRegExp("/An on-device graphical programming language for Android inspired by Scratch/", $this->selenium->getTitle());
     $this->selenium->close();
     $this->selenium->selectWindow(null);
     $this->selenium->goBack();    

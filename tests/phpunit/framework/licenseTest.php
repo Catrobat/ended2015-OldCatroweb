@@ -1,19 +1,19 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010  Catroid development team
+ *    Copyright (C) 2010-2011 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
- *    (at your option) any later version.
+ *    it under the terms of the GNU Affero General Public License as
+ *    published by the Free Software Foundation, either version 3 of the
+ *    License, or (at your option) any later version.
  *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
+ *    GNU Affero General Public License for more details.
  *
- *    You should have received a copy of the GNU General Public License
+ *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -32,21 +32,23 @@ class licenseTest extends PHPUnit_Framework_TestCase
     $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js");
     $this->whitelist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php");
     $this->whitelist_folders = array("addons");
+
     $this->license = array(
-	"Catroid: An on-device graphical programming language for Android devices",
-    "Copyright \(C\) 2010  Catroid development team",
-	"\(<http:\/\/code.google.com\/p\/catroid\/wiki\/Credits>\)",
-	"This program is free software: you can redistribute it and\/or modify",
-    "it under the terms of the GNU General Public License as published by",
-    "the Free Software Foundation, either version 3 of the License, or",
-    "\(at your option\) any later version.",
+    "Catroid: An on-device graphical programming language for Android devices",
+    "Copyright \(C\) 2010-2011 The Catroid Team",
+	  "\(<http:\/\/code.google.com\/p\/catroid\/wiki\/Credits>\)",
+	  "This program is free software: you can redistribute it and\/or modify",
+    "it under the terms of the GNU Affero General Public License as",
+    "published by the Free Software Foundation, either version 3 of the",
+    "License, or \(at your option\) any later version.",
     "This program is distributed in the hope that it will be useful,",
     "but WITHOUT ANY WARRANTY; without even the implied warranty of",
     "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the",
-    "GNU General Public License for more details.",
-    "You should have received a copy of the GNU General Public License",
+    "GNU Affero General Public License for more details.",
+    "You should have received a copy of the GNU Affero General Public License",
     "along with this program.  If not, see <http:\/\/www.gnu.org\/licenses\/>."
     );
+    
     $this->walkThroughDirectory(CORE_BASE_PATH);
   }
 
@@ -54,15 +56,14 @@ class licenseTest extends PHPUnit_Framework_TestCase
 
     foreach($this->file_listing as $current_file) {
       $contents = $this->getFileContent($current_file);
-
+      
       foreach($this->license as $line) {
-        $value = preg_match("/" . $line . "/", $contents);
-        if(!$value) {
-          echo $current_file . "\nis missing following line:\n";
-          echo "  " . stripslashes($line) . "\n\n";
-        }
-         
-        $this->assertTrue($value == 1);
+          $value = preg_match("/" . $line . "/", $contents);
+          if(!$value) {
+            echo $current_file . "\nis missing following line:\n";
+            echo "  " . stripslashes($line) . "\n\n";
+          }
+          $this->assertTrue($value == 1);
       }
     }
   }
