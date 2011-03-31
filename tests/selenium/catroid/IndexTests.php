@@ -120,7 +120,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     
     // test catroid header text
     $this->assertTrue($this->selenium->isElementPresent("xpath=//img[@class='catroidLettering']"));
-
+    
      // test logo link
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='webHeadLogo']/a"));
     $this->selenium->click("xpath=//div[@class='aIndexWebLogoLeft']/a");
