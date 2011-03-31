@@ -6,7 +6,7 @@
  *    This program is free software: you can redistribute it and/or modify
  *    it under the terms of the GNU Affero General Public License as
  *    published by the Free Software Foundation, either version 3 of the
- *    License, or License, or License, or (at your option) any later version.
+ *    License, or (at your option) any later version.
  *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -30,8 +30,9 @@ class licenseTest extends PHPUnit_Framework_TestCase
   protected function setUp() {
     $this->file_listing = array();
     $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js");
+    // $this->allowed_extensions = array("xml");
     $this->whitelist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php");
-    $this->whitelist_folders = array("addons");
+    $this->whitelist_folders = array("addons","pear");
 
     $this->license = array(
     "Catroid: An on-device graphical programming language for Android devices",
@@ -48,7 +49,6 @@ class licenseTest extends PHPUnit_Framework_TestCase
     "You should have received a copy of the GNU Affero General Public License",
     "along with this program.  If not, see <http:\/\/www.gnu.org\/licenses\/>."
     );
-    
     $this->walkThroughDirectory(CORE_BASE_PATH);
   }
 
@@ -57,7 +57,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
     foreach($this->file_listing as $current_file) {
       $contents = $this->getFileContent($current_file);
       
-      foreach($this->license as $line) {
+        foreach($this->license as $line) {
           $value = preg_match("/" . $line . "/", $contents);
           if(!$value) {
             echo $current_file . "\nis missing following line:\n";
@@ -72,7 +72,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
     if(is_dir($directory)) {
       if($directory_handler = opendir($directory)) {
         while(($file = readdir($directory_handler)) !== false) {
-          if($file != "." && $file != ".." && $file != "selenium") {
+          if($file != "." && $file != "..") {
             if(is_dir($directory . $file)) {
               if(!in_array($file, $this->whitelist_folders)) {
                 $this->walkThroughDirectory($directory . $file . "/");
@@ -98,5 +98,6 @@ class licenseTest extends PHPUnit_Framework_TestCase
 
     return $contents;
   }
+  
 }
 ?>

@@ -1,19 +1,19 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010  Catroid development team
+ *    Copyright (C) 2010-2011 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU General Public License as published by
- *    the Free Software Foundation, either version 3 of the License, or
- *    (at your option) any later version.
+ *    it under the terms of the GNU Affero General Public License as
+ *    published by the Free Software Foundation, either version 3 of the
+ *    License, or (at your option) any later version.
  *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU General Public License for more details.
+ *    GNU Affero General Public License for more details.
  *
- *    You should have received a copy of the GNU General Public License
+ *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -154,12 +154,81 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isTextPresent($id));
   }
   
+  /**
+   * @dataProvider titlesAndDescriptions
+   */
+  public function testMoreButtonAndQRCode($title, $description) {
+    //upload new project
+    $this->selenium->open(TESTS_BASE_PATH.'catroid/upload/');
+    $this->selenium->waitForPageToLoad("10000");
+    $uploadpath = dirname(__FILE__);
+    if(strpos($uploadpath, '\\') >= 0) {
       $uploadpath .= "\testdata\test.zip";
+    } else {
       $uploadpath .= "/testdataa/test.zip";
+    }
+    //$projectTitle = "more button selenium test";
+    //$projectDescription = "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!";
+    $projectTitle = $title;
+    $projectDescription = $description;
+    $this->selenium->type("upload", $uploadpath);
+    $this->selenium->type("projectTitle", $projectTitle);
+    $this->selenium->type("projectDescription", $projectDescription);
+    $this->selenium->click("submit_upload");
+    $this->selenium->waitForPageToload("10000");
+    $this->assertTrue($this->selenium->isTextPresent('Upload successfull!'));
+
+    //test more button
+    $this->selenium->open(TESTS_BASE_PATH);
+    $this->selenium->waitForPageToLoad("10000");
     $this->ajaxWait("class=projectListDetailsLink");    
+    $this->selenium->click("xpath=//a[@class='projectListDetailsLink']");
+    $this->selenium->waitForPageToLoad("10000");
+    // $this->ajaxWait("class=showFullDescriptionButton");    
     
+    $this->assertTrue($this->selenium->isElementPresent("showFullDescriptionButton"));
+    $shortDescriptionFromPage = $this->selenium->getText("xpath=//p[@id='detailsDescription']");
+    $this->assertNotEquals(trim($shortDescriptionFromPage), trim($projectDescription));
+    $this->selenium->click("showFullDescriptionButton");
+    $fullDescriptionFromPage = $this->selenium->getText("xpath=//p[@id='detailsDescription']");
+    $this->assertEquals(trim($fullDescriptionFromPage), trim($projectDescription));
+    $this->assertNotEquals(trim($fullDescriptionFromPage), trim($shortDescriptionFromPage));
+    $this->assertTrue($this->selenium->isElementPresent("showShortDescriptionButton"));
+    $this->selenium->click("showShortDescriptionButton");
+    $this->assertEquals($shortDescriptionFromPage, $this->selenium->getText("xpath=//p[@id='detailsDescription']"));
+
+    //test qr code
+    $lastProject = $this->getLastProject();
+    $projectId = $lastProject['id'];
+    $qrCodeFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
+    $qrCodeFileNew = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.'new'.PROJECTS_QR_EXTENTION;
+    if(file_exists($qrCodeFile)) {
+      $this->assertTrue($this->selenium->isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
+      rename($qrCodeFile, $qrCodeFileNew);
+      $this->selenium->refresh();
+      $this->selenium->waitForPageToLoad("10000");
+      $this->assertFalse($this->selenium->isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
+      rename($qrCodeFileNew, $qrCodeFile);
+      $this->selenium->refresh();
+      $this->selenium->waitForPageToLoad("10000");
+      $this->assertTrue($this->selenium->isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
+    } else {
+      $this->assertFalse($this->selenium->isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
+    }
+
+    //delete the test project
+    $adminpath = 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin';
+    $this->selenium->open($adminpath);
+    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->click("aAdministrationTools");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->click("aAdminToolsEditProjects");
+    $this->selenium->waitForPageToLoad(10000);
     $this->selenium->chooseOkOnNextConfirmation();
     $this->selenium->click("xpath=//input[@name='deleteButton']");
+    $this->selenium->waitForPageToLoad(10000);
+  }
+
   /* *** DATA PROVIDERS *** */
   //choose random ids from database
   public function randomIds() {
