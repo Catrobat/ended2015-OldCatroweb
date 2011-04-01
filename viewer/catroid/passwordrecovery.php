@@ -29,30 +29,67 @@
       	  		   			<?php 
       	  		   			  if(isset($_GET['c'])) {
       	  		   			    $this->getData = $_GET['c']; 
-      	  		   			    echo ( $this->saveFormFields ); ?>
+      	  		   			    echo ( $this->passwordRecoveryForm ); ?>
+    	  		   				<br>
+   	  		   				  <?php 
+  	  		   				        if($this->answer) {
+                              echo "<div class='passwordRecoveryErrorMsg'>";
+  	  		   				          echo $this->answer;
+  	  		   				          echo "</div>";
+  	  		   				        }
+        		   	            if($this->answer_ok) {
+        		   	              echo "<div class='passwordRecoveryOkMsg'>";
+        		   	              echo $this->answer_ok;
+        		   	              echo "</div>";
+        		   	            }
+        		   	      ?>
 	      	  		   		<br>
 											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a></div>
       	  		   			<?php }
       	  		   				else if(isset($_POST['passwordSaveSubmit'])) { 
       	  		   			    //$this->getData = $_POST['passwordSaveSubmit']; 
-      	  		   			    echo ( $this->saveFormFields ); ?>
+      	  		   			    echo ( $this->passwordRecoveryForm ); ?>
+    	  		   				<br>
+   	  		   				  <?php 
+  	  		   				        if($this->answer) {
+                              echo "<div class='passwordRecoveryErrorMsg'>";
+  	  		   				          echo $this->answer;
+  	  		   				          echo "</div>";
+  	  		   				        }
+        		   	            if($this->answer_ok) {
+        		   	              echo "<div class='passwordRecoveryOkMsg'>";
+        		   	              echo $this->answer_ok;
+        		   	              echo "</div>";
+        		   	            }
+        		   	      ?>
+    	  		   				</div>
 	      	  		   		<br>
 											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a></div>
       	  		   			<?php }
-      	  		   				else {?>
-      	  		   				<form method="post" action="./passwordrecovery">
-      	  		   					<div class="passwordRecoveryInfoText">Enter your nickname or email address</div>
-      	  		   					<input type="text" name="passwordRecoveryUserdata"><br>
-      	  		   					<input type="submit" name="passwordRecoverySubmit" value="Recover password"><br>
-      	  		   				</form>
+    	  		   				else {?>
+    	  		   				<form method="post" action="./passwordrecovery">
+    	  		   					<div class="passwordRecoveryHeadline">Enter your nickname or email address:</div>
+    	  		   					<input type="text" name="passwordRecoveryUserdata"><br>
+    	  		   					<input type="submit" name="passwordRecoverySubmit" value="Recover password"><br>
+    	  		   				</form>
+    	  		   				<br>
+   	  		   				  <?php 
+  	  		   				        if($this->answer) {
+                              echo "<div class='passwordRecoveryErrorMsg'>";
+  	  		   				          echo $this->answer;
+  	  		   				          echo "</div>";
+  	  		   				        }
+        		   	            if($this->answer_ok) {
+        		   	              echo "<div class='passwordRecoveryOkMsg'>";
+        		   	              echo $this->answer_ok;
+        		   	              echo "</div>";
+        		   	            }
+        		   	      ?>
 	      	  		   		<br>
 											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> or <a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">sign up now!</a></div>
       	  		   			<?php } ?>
             		   	<br>
-            		   	<div class="loginErrorMsg">
-            		   	  <?php if($this->answer) {
-            		   	    echo $this->answer;
-            		   	  }?>
+            		   	<div class="addons_links">
       		   		   		<br><br>
       		  		   		<a id="aBoardLink" target="_blank" href="<?php echo BASE_PATH?>addons/board/">Board</a>
       		  		   		<br>

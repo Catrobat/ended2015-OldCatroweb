@@ -26,9 +26,12 @@
             	    <div class="loginText">
             	    <div class="loginFormContainer">
       	  		   		<form method="post" action="./login">
+      	  		   		<div class="loginH2">Please enter your nickname and your password:</div>
       	  		   			<?php if($this->module->session->userLogin_userId <= 0) { ?>
-      	  		   				Nickname: <input type="text" name="loginUsername"><br>
-      	  		   				Password: <input type="password" name="loginPassword"><br>
+      	  		   				Nickname: <br>
+      	  		   				<input type="text" name="loginUsername"><br>
+      	  		   				Password:<br> 
+      	  		   				<input type="password" name="loginPassword"><br>
       	  		   				<?php //var_dump($this->requesturi); 
       	  		   				if(($this->requesturi) || (isset($this->requesturi)) || $this->requesturi != '') { ?>
       	  		   				  <input type="hidden" name="requesturi" value="<?php echo htmlspecialchars($this->requesturi); ?>"> 

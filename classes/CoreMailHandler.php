@@ -63,13 +63,10 @@ class CoreMailHandler {
   }
   
   private function send() {
-    echo 'mail send HERE!!!!!<br>';
     $header = "From: ".$this->_from."\r\n"."Bcc: ".$this->_bcc."\r\n"."Reply-To: ".$this->_reply.";\r\n"."X-Mailer: PHP/".phpversion();
     if(@mail($this->_to, $this->_subject, $this->_text, $header, $this->_return)) {
-      echo 'mail send OKKK!!!!!!<br>';
       return true;
     } else {
-      echo 'mail send failed!!!!!!<br>';
       return false;
     }
   }

@@ -23,6 +23,9 @@
         <string name="connection_failed">Ooooops something went wrong. Please try again!</string>
         <string name="no_entry_for_id">Ooooops something went wrong. Please try again!</string>
     </db>
+    <sendmail>
+      <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at webmaster@catroid.org.</string>
+    </sendmail>
     <upload>
         <string name="missing_post_data">You need to specify a title and description for your project!</string>
         <string name="copy_failed">Sorry, there was an error during the upload. Try again!</string>
@@ -78,7 +81,7 @@
       <string name="userdata_missing">The nickname or email adress is missing.</string>
       <string name="userdata_not_exists">The nickname or email adress was not found.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
-      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please contact us on webmaster@catroid.org!</string>
+      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
     </passwordrecovery>
 </errors>
 

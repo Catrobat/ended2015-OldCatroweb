@@ -28,11 +28,12 @@
                   	<form method="post" action="./registration" name="registrationForm">
           		   			Nickname*<br>
           		   			<input type="text" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>" ><br>
-          		   			<div class="registrationInfoText">Your nick name may only contain letters A-Z (a-z), numbers from 0-9, underscores or spaces and must be between 4 to 32 characters.</div>
+          		   			<div class="registrationInfoText">Your nick name may only contain letters A-Z (a-z), numbers from 0-9 and spaces and must be between <?php echo USER_MIN_USERNAME_LENGTH ?> to <?php echo USER_MAX_USERNAME_LENGTH ?> characters.</div>
           		   			Password*<br>
           		   			<input type="password" name="registrationPassword" ><br>
           		   			Repeat password*<br>
           		   			<input type="password" name="registrationPasswordRepeat" ><br>
+          		   			<div class="registrationInfoText">Your password must be between <?php echo USER_MIN_PASSWORD_LENGTH ?> to <?php echo USER_MAX_PASSWORD_LENGTH ?> characters.</div>
           		   			Email*<br>
           		   			<input type="email" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" ><br>
           		   			Birthday*<br>

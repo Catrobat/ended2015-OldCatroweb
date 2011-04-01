@@ -63,6 +63,14 @@ div.loginFormContainer
   font-size:1.3em;
 }
 
+
+div.loginH2
+{
+  font-size:0.9em;
+  margin-top: 1.5%; 
+  margin-bottom: 1.5%;
+}
+
 div.loginInfoText
 {
   font-size:0.9em;

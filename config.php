@@ -40,6 +40,7 @@ define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
 define('DEVELOPMENT_MODE',true);
 #define('DEVELOPMENT_MODE',false);
 define('SEND_NOTIFICATION_EMAIL',false);
+define('SEND_NOTIFICATION_USER_EMAIL',false);
 define('DEVELOPMENT_STATUS','[beta]');
 define('DEFAULT_HTML_TEMPLATE_NAME', 'htmlTemplate.php');
 define('DEFAULT_HTML_HEADER_TEMPLATE_NAME', 'htmlHeaderTemplate.php');

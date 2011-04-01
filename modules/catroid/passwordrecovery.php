@@ -27,8 +27,7 @@ class passwordrecovery extends CoreAuthenticationNone {
   public function __default() {
     if(($_POST) || ($_GET)) {
       if(isset($_POST['passwordRecoverySubmit'])) {
-        if($this->doSendPasswordRecoveryMail($_POST)) {
-          $this->answer .= 'RECOVERY <br>';
+        if($this->doSendPasswordRecoveryMail($_POST['passwordRecoveryUserdata'])) {
           return true;
         }
       }
@@ -37,183 +36,236 @@ class passwordrecovery extends CoreAuthenticationNone {
           if(($_POST['passwordSavePassword'] != '') || ($_POST['passwordSavePasswordRepeat'] != '')) {
             if(!$this->doPasswordRecovery($_GET,$_POST)) {
               $this->showAppropriateForm($_GET);
-              $this->answer .= 'filled ->> into if';
             }
           }
           else {
             $this->showAppropriateForm($_GET);
-            $this->answer .= 'SaveForm';  
+            $this->answer .= $this->errorHandler->getError('registration', 'password_missing');
           }
         }
         else {
           $this->showAppropriateForm($_GET);
-          $this->answer .= '$_GET';  
         }
       }
     }
   }
   
-  private function doPasswordRecovery($getData,$postData) {
-    $this->answer .= 'doSaveNewPassword<br>';
-    $answer = '';
+  public function doSendPasswordRecoveryMail($userData, $sendPasswordRecoveryEmail = SEND_NOTIFICATION_USER_EMAIL) {
     $statusCode = 500;
-    $passwordDataValid = true;
+    
+    try {
+      if($this->checkUserData($userData)) {
+        $this->createUserHash($userData);
+        $this->sendPasswordRecoveryEmail($sendPasswordRecoveryEmail);
+        
+        $this->answer_ok .= 'An email was sent to your email address. ';
+        $this->answer_ok .= 'Please check your inbox.';
+        $this->statusCode = 200;
+
+        return true;
+      }
+      return false;
+      
+    } catch(Exception $e) {
+      $this->answer .= $e->getMessage().'<br>';
+      return false;
+    }
+  }
+  
+  public function doPasswordRecovery($getData,$postData) {
+    $username = '';
+    $password = '';
+    $statusCode = 500;
+    $passwordDataValid = false;
+    $catroidPasswordRecoverySuccess = false;
+    $boardPasswordRecoverySuccess = false;
+    $wikiPasswordRecoverySuccess = false;
     
     $this->setupBoard();
     
     try {
       $this->checkPassword($postData['passwordSavePassword'], $postData['passwordSavePasswordRepeat']);
+      $passwordDataValid = true;
     } catch(Exception $e) {
       $passwordDataValid = false;
-      $answer .= $e->getMessage().'<br>';
+      $this->answer .= $e->getMessage().'<br>';
     }
     if($passwordDataValid) {
       try {
-        $this->doUpdateCatroidPassword($getData, $postData);
-        $passwordDataValid = true;
-        $html = '<div class="passwordRecoveryInfoText">Your new password is set. Please log in now.</div>';
-        $this->saveFormFields = $html;
-      } catch(Exception $e) {
-        $passwordDataValid = false;
-        $answer = $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
-      }
-      if($passwordDataValid) {
-        try {
-          $this->doUpdateBoardPassword($postData);
-          $passwordDataValid = true;
-          $html = '<div class="passwordRecoveryInfoText">Your new password is set. Please log in now.</div>';
-          $this->saveFormFields = $html;
-        } catch(Exception $e) {
-          $passwordDataValid = false;
-          $answer = $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+        $password = $postData['passwordSavePassword'];
+        
+        $hashValue = $getData['c'];
+        $query = "EXECUTE get_user_row_by_recovery_hash('$hashValue')";
+        $result = @pg_query($this->dbConnection, $query);
+        if(!$result) {
+          throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+        }
+        if(pg_num_rows($result) > 0) {
+          $user = pg_fetch_assoc($result);
+          $username = $user['username'];
+        } else {
+          throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'));
         }        
+        $catroidPasswordRecoverySuccess = $this->doUpdateCatroidPassword($username, $password);
+
+        if($catroidPasswordRecoverySuccess) {
+          try {
+            $boardPasswordRecoverySuccess = $this->doUpdateBoardPassword($username, $password);
+            if($boardPasswordRecoverySuccess) {
+              try {
+                $wikiPasswordRecoverySuccess = $this->doUpdateWikiPassword($username, $password);
+                if(!$wikiPasswordRecoverySuccess) {
+                  $this->answer = $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+                  return false;
+                }
+              } catch(Exception $e) {
+                $this->answer = $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+                return false;
+              }                  
+            }        
+          } catch(Exception $e) {
+            $this->answer = $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+            return false;
+          }                  
+        }
+      } catch(Exception $e) {
+        $this->answer = $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+        return false;
       }
+      $html .= '<div class="passwordRecoveryInfoText">Your new password is set. Please log in now.</div>';
+      $this->passwordRecoveryForm = $html;
     }
-    
     return $passwordDataValid;
   }
   
-  private function doUpdateCatroidPassword($getData,$postData) {
+  public function doUpdateCatroidPassword($username, $password) {
     $userid = 0;
-    $password = md5($postData['passwordSavePassword']);
-    $this->answer .= $password.' md5<br>';
-    $hashValue = $getData['c'];
-    
-    $query = "EXECUTE get_user_row_by_recovery_hash('$hashValue')";
-    
+    $password = md5($password);
+    $resetRecoveryHash = 0;
+    $query = "EXECUTE update_password_and_hash_by_username('$password', '$resetRecoveryHash','$username')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
-    if(pg_num_rows($result) > 0) {
-      $user = pg_fetch_assoc($result);
-      $username = $user['username'];
-      $resetRecoveryHash = 0;
-      $query = "EXECUTE update_password_and_hash_by_username('$password', '$resetRecoveryHash','$username')";
-      $result = @pg_query($this->dbConnection, $query);
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-      }
-    } else {
-      throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'));
-    }
-    
-
-    return $userid;
-    
+    return true;
   }
   
   
-  private function doUpdateBoardPassword($postData) {
+  public function doUpdateBoardPassword($username, $password) {
     global $db, $phpbb_root_path;
 
     require_once($phpbb_root_path .'includes/functions.php');
 
-    $username = utf8_encode($postData['registrationUsername']);
-    $password = phpbb_hash($postData['passwordSavePassword']); //md5($postData['passwordSavePassword']);
-    $email = $postData['registrationEmail'];
-
-  // ich weiß grad noch nicht, was da nicht geht... aber es geht NICHT
-
-		$sql = "UPDATE " . USERS_TABLE . "
-			SET user_password = '" . $password . "'
-			WHERE username = '" . $username . "'";
-		$db->sql_query($sql);
-	  
-		
- 
-  }
-
-  private function doUpdateWikiPassword($postData) {
-
-  }
-  
-  
-  
-  
-  
-  private function doSendPasswordRecoveryMail($postData, $sendPasswordRecoverEmail = true) {
-    $answer = '';
-    $statusCode = 500;
-    $catroidUserDataValid = true;
+    $username = utf8_encode($username);
+    $password = phpbb_hash($password);
     
-    try {
-      if($this->checkUserData($postData['passwordRecoveryUserdata'])) {
-        $this->createUserHash();
-        $this->sendPasswordRecoveryEmail();
-        
-        $answer = 'An email is sent to your email address. ';
-        $answer .= 'Please check your mailbox';
-        $statusCode = 200;
+  	$sql = 'UPDATE phpbb_users SET user_password = \'' . $password . '\',
+  		user_pass_convert = 0 WHERE username_clean = \'' . $username . '\'';
 
-      }
-    } catch(Exception $e) {
-      $catroidUserDataValid = false;
-      $answer .= $e->getMessage().'<br>'; //$this->errorHandler->getError('passwordrecovery', 'userdata_invalid',
+    if($db->sql_query($sql)) {
+      return true;
+    } else {
+      throw new Exception($this->errorHandler->getError('registration', 'board_registration_failed'));
     }
+  }
 
-    $this->answer .= $answer;
-    $this->statusCode = $statusCode;
+
+  public function doUpdateWikiPassword($username, $password) {
+
+    $wikiDbConnection = pg_connect("host=".DB_HOST_WIKI." dbname=".DB_NAME_WIKI." user=".DB_USER_WIKI." password=".DB_PASS_WIKI);
+    if(!$wikiDbConnection) {
+      throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)));
+    }
+    global $phpbb_root_path;
+    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
+
+    $username = ucfirst(utf8_clean_string($username));
+    $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
+    $hash = md5($hexSalt.'-'.md5($password));    
+    $password = ":B:$hexSalt:$hash";
+
+    $query = "UPDATE mwuser SET user_password = '".$password."' WHERE user_name = '".$username."'";
+    
+    $result = @pg_query($wikiDbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+    }
+    pg_free_result($result);
+    pg_close($wikiDbConnection);
     return true;
     
   }
   
-  private function checkUserData($postUserData) {
-    if(empty($postUserData)) {
+  public function checkUsername($username) {
+    if(empty($username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
+    }
+
+    //username must not look like an IP-address
+    $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
+    $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
+    $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
+    $regEx = '/^'.$ip.'$/';
+    if(preg_match($regEx, $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
+    }
+
+    //username must consist of alpha numerical chars and spaces and Umlaute!
+    //min. 4, max. 32 chars
+    $text = '[a-zA-Z0-9äÄöÖüÜß|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
+    $regEx = '/^'.$text.'$/';
+    if(!preg_match($regEx, $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
+    }
+    return true;
+  }
+  
+  public function checkUserData($userData) {
+    if(empty($userData)) {
       throw new Exception($this->errorHandler->getError('passwordrecovery', 'userdata_missing'));
     }
     
     $this->userData = '';    
-    $query = "EXECUTE get_user_row_by_username('".utf8_encode($postUserData)."')";
-    $result = pg_query($this->dbConnection, $query);
+    $query = "EXECUTE get_user_row_by_username('".utf8_encode($userData)."')";
+    $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
     if(pg_num_rows($result) > 0) {
-      $this->answer .= 'usernumrows > 0<br>';
       $this->userData = pg_fetch_assoc($result);
-      return true;
     }
     else {
-      $query = "EXECUTE get_user_row_by_email('".utf8_encode($postUserData)."')";
-      $result = pg_query($this->dbConnection, $query);
+      $query = "EXECUTE get_user_row_by_email('".utf8_encode($userData)."')";
+      $result = @pg_query($this->dbConnection, $query);
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
       }
       if(pg_num_rows($result) > 0) {
-        $this->answer .= 'emailnumrows > 0<br>';
         $this->userData = pg_fetch_assoc($result);
-        return true;
       }
       else {
-        $this->answer .= 'fucking end<br>';
         throw new Exception($this->errorHandler->getError('passwordrecovery', 'userdata_not_exists'));
-        return false;
       }
+    }
+    return true;
+  }
+  
+  
+  public function createUserHash() {
+    if($this->userData != '') {
+      $data = $this->userData['username'].$this->userData['email'];
+      $salt = hash("md5", $this->userData['password'].rand());
+      $hash = hash("md5", $data.$salt);
+      $this->userHash = $hash;
+      
+      return true;
+    }
+    else {
+      throw new Exception($this->errorHandler->getError('passwordrecovery', 'create_hash_failed'));
     }
   }
   
-  private function checkPassword($password, $passwordRepeat) {
+  public function checkPassword($password, $passwordRepeat) {
     if(empty($password)) {
       throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
     }
@@ -231,19 +283,15 @@ class passwordrecovery extends CoreAuthenticationNone {
     return true;
   }
 
-  private function showAppropriateForm($formData) {
+  public function showAppropriateForm($formData) {
     
     if($_GET) {
       $hashValue = $formData['c']; 
-      
-      $this->answer .= $hashValue.'<br>';
-      echo $hashValue.'<br>';
       
       $query = "EXECUTE get_user_password_hash_time('$hashValue')";
       $result = @pg_query($this->dbConnection, $query);
       
       if(!$result) {
-        echo 'TEST<br>';
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
       }
       
@@ -253,88 +301,77 @@ class passwordrecovery extends CoreAuthenticationNone {
         $hoursDifference = $this->timeDifference();
         if($hoursDifference < 24*60*60) {
           $html = '<form method="post" action="./passwordrecovery?c='.$hashValue.'">';
-          $html .= '  <div class="passwordRecoveryInfoText">Please enter your new password:</div>';
+          $html .= '  <div class="passwordRecoveryHeadline">Please enter your new password:</div>';
           $html .= '  Password*<br>';
           $html .= '  <input type="password" name="passwordSavePassword" ><br>';
           $html .= '  Repeat password*<br>';
           $html .= '  <input type="password" name="passwordSavePasswordRepeat" ><br>';
+          $html .= '  <div class="passwordRecoveryInfoText">Your password must be between '. USER_MIN_PASSWORD_LENGTH;
+          $html .= '   to '. USER_MAX_PASSWORD_LENGTH .' characters.</div>';
           $html .= '  <input type="submit" name="passwordSaveSubmit" value="Change password now"><br>';
           $html .= '</form>';
         }
         else {
-          $html = 'nooooooooo!!';
+          $html = '';
           $html .= '<form method="post" action="./passwordrecovery">';
-          $html .= '  <div class="passwordRecoveryInfoText">Sorry! Your recovery url has expired. Please try again.</div>';
+          $html .= '  <div class="passwordRecoveryHeadline">Sorry! Your recovery url has expired. Please try again.</div>';
           $html .= '  <input type="submit" name="passwordNextSubmit" value="Next"><br>';
           $html .= '</form>';
         }
-        $this->saveFormFields = $html;
+        $this->passwordRecoveryForm = $html;
         return true;
       }
       else {
-        $html = 'nooooooooo!!';
+        $html = '';
         $html .= '<form method="post" action="./passwordrecovery">';
-        $html .= '  <div class="passwordRecoveryInfoText">Sorry! Your recovery url has expired. Please try again.</div>';
+        $html .= '  <div class="passwordRecoveryHeadline">Sorry! Your recovery url has expired. Please try again.</div>';
         $html .= '  <input type="submit" name="passwordNextSubmit" value="Next"><br>';
         $html .= '</form>';
 
-        $this->saveFormFields = $html;
+        $this->passwordRecoveryForm = $html;
         
-        $this->answer .= 'fucking end<br>';
-        //throw new Exception($this->errorHandler->getError('passwordrecovery', 'passwordhash_invalid'));
         return false;
       }
     }
-    else {
-    
-    }
-
-    
   }
   
-  
-  private function createUserHash() {
-    if($this->userData != '') {
-      $data = $this->userData['username'].$this->userData['email'];
-      $this->answer .= $data.'<br>';
-      $salt = hash("md5", $this->userData['password'].rand());
-      $this->answer .= $salt.'<br>';
-      $hash = hash("md5", $data.$salt);
-      $this->userHash = $hash;
-      $this->answer .= $hash.'<br>';
-      
-      return true;
-    }
-    else {
-      throw new Exception($this->errorHandler->getError('passwordrecovery', 'create_hash_failed'));
-    }
-  }
-  
-  private function sendPasswordRecoveryEmail() {
+ 
+  public function sendPasswordRecoveryEmail($sendPasswordRecoveryEmail) {
     $resetPasswordLink = BASE_PATH.'catroid/passwordrecovery?c='.$this->userHash;
-    $this->answer .= $resetPasswordLink.'<br>';
     $userid = $this->userData['id'];
     $recoveryhash = $this->userHash;
     $date = new DateTime();
     $recoverytime = $date->getTimestamp(); 
+    
     $query = "EXECUTE update_recovery_hash_recovery_time_by_id('$recoveryhash', '$recoverytime', '$userid')";
-    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    
-    $userMailAddress = $this->userData['email'];
-    
-    $mailSubject = 'Your Catroid.org Password!';
-    $mailText = "Hello ".$this->userData['username']."!\n\n";
-    $mailText .= "Please click on the following link to create your new password:\n";
-    $mailText .= $resetPasswordLink."\n\n";
-    $mailText .= "You can use your nickname or email address and your password at any time to access your member profile.\n\n";
-    $mailText .= "To do so, just visit the following page: http://www.catroid.org/catroid/login\n\n";
-    $mailText .= "Catroid\nwww.catroid.org";
-    
-    return($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress));
-
+    $result = @pg_query($this->dbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+    }
+    if($sendPasswordRecoveryEmail) {
+      $userMailAddress = $this->userData['email'];
+      $mailSubject = 'Your Catroid.org Password!';
+      $mailText = "Hello ".$this->userData['username']."!\n\n";
+      $mailText .= "Please click on the following link to create your new password:\n";
+      $mailText .= $resetPasswordLink."\n\n";
+      $mailText .= "You can use your nickname and your password at any time to access the catroid community.\n\n";
+      $mailText .= "To do so, just visit the following page: http://www.catroid.org/catroid/login\n\n\n";
+      $mailText .= "Catroid\nwww.catroid.org";
+//    just for debugging output!
+      $this->answer .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br><br>';
+      
+      if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
+        throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed'));
+      }
+    }
+    else {
+//    just for debugging output!
+      $this->answer .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br><br>';
+    }
+    return true;
   }
   
-  private function timeDifference() {
+  public function timeDifference() {
     $date = new DateTime();
     $timenow = $date->getTimestamp(); 
     $hashtime = $this->userData['recovery_time'];

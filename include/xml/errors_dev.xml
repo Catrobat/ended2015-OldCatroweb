@@ -23,6 +23,9 @@
         <string name="connection_failed">DB connection failed</string>
         <string name="no_entry_for_id">No entry was found for the given ID.</string>
     </db>
+    <sendmail>
+      <string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>
+    </sendmail>
     <upload>
         <string name="missing_post_data">POST-Data not correct or missing! Required: projectTitle, [projectDescription], [fileChecksum] and file-data upload.</string>
         <string name="copy_failed">Statement copy has failed!</string>
@@ -78,7 +81,8 @@
       <string name="userdata_missing">The nickname or email adress is missing.</string>
       <string name="userdata_not_exists">The nickname or email adress was not found.</string>
       <string name="passwordhash_invalid">Sorry! Your recovery url has expired. Please try again.</string>
+      <string name="password_missing">The password is missing.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
-      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please contact us on webmaster@catroid.org!</string>
+      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
     </passwordrecovery>
 </errors>
