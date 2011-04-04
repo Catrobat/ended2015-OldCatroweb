@@ -358,15 +358,17 @@ class passwordrecovery extends CoreAuthenticationNone {
       $mailText .= "To do so, just visit the following page: http://www.catroid.org/catroid/login\n\n\n";
       $mailText .= "Catroid\nwww.catroid.org";
 //    just for debugging output!
-      $this->answer .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br><br>';
+      if (TEST_MODE)
+        $this->answer .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br><br>';
       
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
         throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed'));
       }
     }
     else {
-//    just for debugging output!
-      $this->answer .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br><br>';
+//    just for debugging output! OR tests
+      if (TEST_MODE)
+        $this->answer .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br><br>';
     }
     return true;
   }
