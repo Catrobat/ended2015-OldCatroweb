@@ -357,8 +357,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       $mailText .= "You can use your nickname and your password at any time to access the catroid community.\n\n";
       $mailText .= "To do so, just visit the following page: http://www.catroid.org/catroid/login\n\n\n";
       $mailText .= "Catroid\nwww.catroid.org";
-//    just for debugging output!
-      if (TEST_MODE)
+      if (DEVELOPMENT_MODE)
         $this->answer .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br><br>';
       
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
@@ -366,8 +365,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       }
     }
     else {
-//    just for debugging output! OR tests
-      if (TEST_MODE)
+      if (DEVELOPMENT_MODE)
         $this->answer .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br><br>';
     }
     return true;

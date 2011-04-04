@@ -209,6 +209,24 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     $this->ajaxWait('id=projectContainer');
     $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='projectContainer']"));
+    
+    // check board login
+    $this->selenium->open(TESTS_BASE_PATH."addons/board");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertTrue($this->selenium->isTextPresent("Registered users:"));
+    $this->assertTrue($this->selenium->isTextPresent($user));
+    $this->assertTrue($this->selenium->isTextPresent("Members"));
+    $this->assertTrue($this->selenium->isTextPresent("Logout [ $user ]"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//li[@class='icon-logout']"));
+
+    // check wiki login 
+    $this->selenium->open(TESTS_BASE_PATH.'wiki/');
+    $this->selenium->waitForPageToLoad(10000);   
+    $this->assertFalse($this->selenium->isTextPresent($user));
+    $this->selenium->click("xpath=//li[@id='pt-preferences']/a");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertFalse($this->selenium->isTextPresent($user));
+    
     $this->selenium->open(TESTS_BASE_PATH."catroid/login");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='logoutSubmit']"));
@@ -218,6 +236,7 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Sorry! Your recovery url has expired. Please try again."));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='passwordNextSubmit']"));
+    
   }  
 
   /* *** DATA PROVIDERS *** */

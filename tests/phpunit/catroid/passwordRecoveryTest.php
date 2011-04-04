@@ -164,7 +164,7 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
     array('<my>username'), //contains invalid char
     array('myusername!'),  //contains invalid char
     array('myuser/name'),  //contains invalid char
-    array('\my\username'), //contains invalid char
+    array('\my\username'), //contains invalid charan
     array('my%username'),  //contains invalid char
     array('my$username'),  //contains invalid char
     array('myusername&'),  //contains invalid char
@@ -197,39 +197,6 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
     array('', 'mypassword'),
     array('mypassword', '0'),
     array('short', 'short')
-    );
-    return $dataArray;
-  }
-
-  
-  
-  
-  
-  
-  
-  public function validRegistrationData() {
-    $dataArray = array(
-    array(
-    array('registrationUsername'=>'myUnitTest', 'registrationPassword'=>'myPassword123',
-    	    'registrationPasswordRepeat'=>'myPassword123', 'registrationEmail'=>'unittest@unit.test',
-    		'registrationGender'=>'male', 'registrationMonth'=>'1', 'registrationYear'=>'1980',
-    		'registrationCountry'=>'AT', 'registrationProvince'=>'Steiermark', 'registrationCity'=>'Graz',
-            'registrationSubmit'=>'submit'),
-    array('REMOTE_ADDR'=>'127.0.0.1')),
-    array(
-    array('registrationUsername'=>'myÜnitTÄßt', 'registrationPassword'=>'mySpe§§ialChÄrPaßßword!!',
-    	    'registrationPasswordRepeat'=>'mySpe§§ialChÄrPaßßword!!', 'registrationEmail'=>'_123unit@test.test',
-    		'registrationGender'=>'female', 'registrationMonth'=>'2', 'registrationYear'=>'1987',
-    		'registrationCountry'=>'AT', 'registrationProvince'=>'Kärnten', 'registrationCity'=>'Villach',
-    'registrationSubmit'=>'submit'),
-    array('REMOTE_ADDR'=>'127.0.0.1')),
-    array(
-    array('registrationUsername'=>'1234567', 'registrationPassword'=>'__bla__',
-    	    'registrationPasswordRepeat'=>'__bla__', 'registrationEmail'=>'unit2test@unit.at',
-    		'registrationGender'=>'male', 'registrationMonth'=>'3', 'registrationYear'=>'1989',
-    		'registrationCountry'=>'DE', 'registrationProvince'=>'Bayern', 'registrationCity'=>'München',
-    'registrationSubmit'=>'submit'),
-    array('REMOTE_ADDR'=>'127.0.0.1'))
     );
     return $dataArray;
   }

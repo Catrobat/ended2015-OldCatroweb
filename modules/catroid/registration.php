@@ -292,8 +292,10 @@ class registration extends CoreAuthenticationNone {
     $status = USER_STATUS_STRING_ACTIVE;
     $date_of_birth = $postData['registrationYear'].'-'.sprintf("%02d", $postData['registrationMonth']).'-01 00:00:01';
     $gender = $postData['registrationGender'];
-
-    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', null, null, '$ip_registered', '$status')";
+    $city = $postData['registrationCity'];
+    $province = $postData['registrationProvince'];
+    
+    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', '$province', '$city', '$ip_registered', '$status')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
