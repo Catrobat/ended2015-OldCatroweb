@@ -16,14 +16,11 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once("BadWordsFilter.php");
 
 class upload extends CoreAuthenticationNone { 
-	private $badWordsFilter;
 
 	public function __construct() {
 		parent::__construct();
-		$this->badWordsFilter = new BadWordsFilter();
 	}
 
 	public function __default() {
@@ -57,11 +54,11 @@ class upload extends CoreAuthenticationNone {
 			if(intval($fileData['upload']['size']) <= PROJECTS_MAX_SIZE) {
         		$projectTitle = pg_escape_string(utf8_encode($formData['projectTitle']));
 				if(($this->checkValidProjectTitle($projectTitle))){
-					if(!$this->areThereInsultingWords($projectTitle)) {
+					if(!$this->badWordsFilter->areThereInsultingWords($projectTitle)) {
 						if(isset($formData['projectDescription'])) {
           					$projectDescription = pg_escape_string(utf8_encode($formData['projectDescription']));
 						}
-						if(!$this->areThereInsultingWords($projectDescription)) {
+						if(!$this->badWordsFilter->areThereInsultingWords($projectDescription)) {
 							$projectName = md5(uniqid(time()));
 							$upfile = $projectName.PROJECTS_EXTENTION;
 							$updir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$upfile;

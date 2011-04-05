@@ -30,6 +30,7 @@ abstract class CoreModule extends CoreObjectWeb {
     public $htmlFooterFile = null;
     public $moduleName = null;
     public $pageTemplateFile = null;
+    public $badWordsFilter = null;
 
     public function __construct() {
       parent::__construct();
@@ -40,6 +41,8 @@ abstract class CoreModule extends CoreObjectWeb {
       $this->errorHandler = $this->coreRegistry->getErrorHandler();
       $this->coreRegistry->setClientDetection(new CoreClientDetection());
       $this->clientDetection = $this->coreRegistry->getClientDetection();
+      $this->coreRegistry->setBadwordsFilter(new CoreBadwordsFilter());
+      $this->badWordsFilter = $this->coreRegistry->getBadwordsFilter();
     }
 
     abstract public function __default();

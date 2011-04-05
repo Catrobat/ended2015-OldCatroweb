@@ -16,10 +16,7 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once("BadWordsFilter.php");
-
 class registration extends CoreAuthenticationNone {
-	private $badWordsFilter;
   
   public function __construct() {
     parent::__construct();
@@ -27,7 +24,6 @@ class registration extends CoreAuthenticationNone {
     $this->addCss('registration.css');
     $this->addCss('buttons.css');
     $this->initRegistration();
-    $this->badWordsFilter = new BadWordsFilter($this->dbConnection);
   }
 
   public function __default() {
@@ -169,12 +165,12 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
     }
 
-    if(!$this->badWordsFilter->areThereInsultingWords($username)) {
-    }
-    else {
-			$statusCode = 506;
-			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
-    }
+//    if(!$this->badWordsFilter->areThereInsultingWords($username)) {
+//    }
+//    else {
+//			$statusCode = 506;
+//			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
+//    }
     
     //username must not look like an IP-address
     $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
