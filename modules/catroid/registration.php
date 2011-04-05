@@ -27,7 +27,7 @@ class registration extends CoreAuthenticationNone {
     $this->addCss('registration.css');
     $this->addCss('buttons.css');
     $this->initRegistration();
-    $this->badWordsFilter = new BadWordsFilter();
+    $this->badWordsFilter = new BadWordsFilter($this->dbConnection);
   }
 
   public function __default() {
@@ -104,18 +104,6 @@ class registration extends CoreAuthenticationNone {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
     } 
-    try {
-      $this->checkProvince($postData['registrationProvince']);
-    } catch(Exception $e) {
-      $registrationDataValid = false;
-      $answer .= $e->getMessage().'<br>';
-    } 
-    try {
-      $this->checkCity($postData['registrationCity']);
-    } catch(Exception $e) {
-      $registrationDataValid = false;
-      $answer .= $e->getMessage().'<br>';
-    } 
     
     if($registrationDataValid) {
       try {
@@ -181,6 +169,13 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
     }
 
+    if(!$this->badWordsFilter->areThereInsultingWords($username)) {
+    }
+    else {
+			$statusCode = 506;
+			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
+    }
+    
     //username must not look like an IP-address
     $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
     $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
@@ -221,10 +216,6 @@ class registration extends CoreAuthenticationNone {
     }
     if(pg_num_rows($result) > 0) {
       throw new Exception($this->errorHandler->getError('registration', 'username_aready_exists'));
-    }
-    if($this->badWordsFilter->areThereInsultingWords($projectTitle)) {
-			$statusCode = 506;
-			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
     }
     return true;
   }
@@ -268,10 +259,6 @@ class registration extends CoreAuthenticationNone {
     if(pg_num_rows($result) > 0) {
       throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
     }
-    if($this->badWordsFilter->areThereInsultingWords($projectTitle)) {
-			$statusCode = 506;
-			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
-    }
     return true;
   }
 
@@ -303,21 +290,7 @@ class registration extends CoreAuthenticationNone {
     }
   }
   
-  public function checkCity($cityName) {
-    if($this->badWordsFilter->areThereInsultingWords($cityName)) {
-			$statusCode = 506;
-			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_city_field'));
-    }
-  }
-  
-  public function checkProvince($provinceName) {
-    if($this->badWordsFilter->areThereInsultingWords($provinceName)) {
-			$statusCode = 506;
-			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_province_field'));
-    }
-  }
-  
-  
+
   
   
   public function doCatroidRegistration($postData, $serverData) {

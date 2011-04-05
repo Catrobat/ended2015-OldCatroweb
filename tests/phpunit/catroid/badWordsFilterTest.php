@@ -28,6 +28,11 @@ class badWordsFilterTest extends PHPUnit_Framework_TestCase
 		$this->badWordsFilter = new BadWordsFilter();
 	}
 
+	public function testUsernames() {
+		$this->assertNotEquals(0, $this->badWordsFilter->areThereInsultingWords("fuck"));
+		$this->assertEquals(0, $this->badWordsFilter->areThereInsultingWords("ferdinand"));
+	}	
+	
 	public function testAddingWordsToWordlist() {
 		$word = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
 

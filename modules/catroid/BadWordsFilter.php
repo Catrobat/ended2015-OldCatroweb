@@ -20,8 +20,10 @@
 class BadWordsFilter {
 	private $insulting_words = array();
 	private $unapproved_words = array();
-
-	public function __construct() {
+  private $dbconnnection;
+	
+	public function __construct($db) {
+	  $this->dbconnnection = $db;
 	}
 
 	public function areThereInsultingWords($text) {
@@ -53,7 +55,7 @@ class BadWordsFilter {
 
 	public function addWord($word, $meaning, $approved) {
 		$query = "EXECUTE add_word_to_wordlist('".utf8_decode($word)."', $meaning, $approved);";
-		$result = @pg_query($query);
+		$result = @pg_query($this->dbconnnection, $query);
 		if($result) {
 			pg_free_result($result);
 		}
@@ -61,7 +63,7 @@ class BadWordsFilter {
 
 	public function checkWord($word) {
 		$query = "EXECUTE get_word_from_wordlist('".utf8_decode($word)."');";
-		$result = @pg_query($query);
+		$result = @pg_query($this->dbconnnection, $query);
 		if($result) {
 			$word_standing = pg_fetch_all($result);
 			pg_free_result($result);
@@ -93,7 +95,7 @@ class BadWordsFilter {
 		if($this->getUnapprovedWords()) {
 			foreach($this->getUnapprovedWords() as $word) {
 				$query = "EXECUTE get_word_from_wordlist('".utf8_decode($word)."');";
-				$result = @pg_query($query) or
+				$result = @pg_query($this->dbconnnection, $query) or
           $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
           
 				$unapproved_word_id = -1;
@@ -104,7 +106,7 @@ class BadWordsFilter {
 				}
 
 				$query = "EXECUTE add_mapping_to_unapproved_words_in_projects('$project_id', '$unapproved_word_id');";
-				$result = @pg_query($query);
+				$result = @pg_query($this->dbconnnection, $query);
 				if($result) {
 					pg_free_result($result);
 				}
