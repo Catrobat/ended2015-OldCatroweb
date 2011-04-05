@@ -25,36 +25,37 @@
             	  <div class ="whiteBoxMain">
             	    <div class="registrationText">
             	    <div class="registrationFormContainer">
+            		   	<div class="registrationErrorMsg">
+            		   	  <?php if($this->answer) {
+            		   	    echo $this->answer;
+            		   	  }?>
+            		   	</div>
                   	<form method="post" action="./registration" name="registrationForm">
+      	  		   			<div class="registrationH2">Please enter your data. Fields with * are required fields:</div>
           		   			Nickname*<br>
-          		   			<input type="text" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>" ><br>
+          		   			<input type="text" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>" required ><br>
           		   			<div class="registrationInfoText">Your nick name may only contain letters A-Z (a-z), numbers from 0-9 and spaces and must be between <?php echo USER_MIN_USERNAME_LENGTH ?> to <?php echo USER_MAX_USERNAME_LENGTH ?> characters.</div>
           		   			Password*<br>
-          		   			<input type="password" name="registrationPassword" ><br>
+          		   			<input type="password" name="registrationPassword" required ><br>
           		   			Repeat password*<br>
-          		   			<input type="password" name="registrationPasswordRepeat" ><br>
+          		   			<input type="password" name="registrationPasswordRepeat" required ><br>
           		   			<div class="registrationInfoText">Your password must be between <?php echo USER_MIN_PASSWORD_LENGTH ?> to <?php echo USER_MAX_PASSWORD_LENGTH ?> characters.</div>
           		   			Email*<br>
-          		   			<input type="email" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" ><br>
+          		   			<input type="email" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" required ><br>
           		   			Birthday*<br>
-          		   			<select name="registrationMonth" id="registrationMonth" ><?php print_r ($this->month) ?></select> <select name="registrationYear" id="registrationYear" ><?php print_r ($this->year) ?></select><br>
+          		   			<select name="registrationMonth" id="registrationMonth" required ><?php print_r ($this->month) ?></select> <select name="registrationYear" id="registrationYear" ><?php print_r ($this->year) ?></select><br>
           		   			Gender*<br>
-          		   			<select name="registrationGender" ><?php print_r ($this->gender) ?></select><br>
+          		   			<select name="registrationGender" required ><?php print_r ($this->gender) ?></select><br>
           		   			Country*<br>
-          		   			<select name="registrationCountry" id="registrationCountry" ><?php print_r ($this->countrylist) ?></select><br>
+          		   			<select name="registrationCountry" id="registrationCountry" required ><?php print_r ($this->countrylist) ?></select><br>
           		   			Province<br>
           		   			<input type="text" name="registrationProvince" value="<?php echo htmlspecialchars($this->postData['registrationProvince'])?>"><br>
           		   			City<br>
           		   			<input type="text" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>"><br>
           		   			<input class="registrationSubmitButton" type="submit" name="registrationSubmit" value="Register">
             		   	</form>
-            		   	<div class="registrationErrorMsg">
-            		   	  <?php if($this->answer) {
-            		   	    echo $this->answer;
-            		   	  }?>
-            		   	</div>
                   </div> <!-- registrationFormContainer -->
-				</div> <!-- Registration Text -->
+								</div> <!-- Registration Text -->
               </div> <!--  White Box -->            	
            </div> <!--  license Main -->  		   		
   		  </div> <!-- mainContent close //-->

@@ -16,15 +16,18 @@
  *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+require_once("BadWordsFilter.php");
 
 class registration extends CoreAuthenticationNone {
-
+	private $badWordsFilter;
+  
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
     $this->addCss('registration.css');
     $this->addCss('buttons.css');
     $this->initRegistration();
+    $this->badWordsFilter = new BadWordsFilter();
   }
 
   public function __default() {
@@ -97,6 +100,18 @@ class registration extends CoreAuthenticationNone {
     }
     try {
       $this->checkCountry($postData['registrationCountry']);
+    } catch(Exception $e) {
+      $registrationDataValid = false;
+      $answer .= $e->getMessage().'<br>';
+    } 
+    try {
+      $this->checkProvince($postData['registrationProvince']);
+    } catch(Exception $e) {
+      $registrationDataValid = false;
+      $answer .= $e->getMessage().'<br>';
+    } 
+    try {
+      $this->checkCity($postData['registrationCity']);
     } catch(Exception $e) {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
@@ -207,6 +222,10 @@ class registration extends CoreAuthenticationNone {
     if(pg_num_rows($result) > 0) {
       throw new Exception($this->errorHandler->getError('registration', 'username_aready_exists'));
     }
+    if($this->badWordsFilter->areThereInsultingWords($projectTitle)) {
+			$statusCode = 506;
+			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
+    }
     return true;
   }
 
@@ -249,6 +268,10 @@ class registration extends CoreAuthenticationNone {
     if(pg_num_rows($result) > 0) {
       throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
     }
+    if($this->badWordsFilter->areThereInsultingWords($projectTitle)) {
+			$statusCode = 506;
+			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
+    }
     return true;
   }
 
@@ -279,6 +302,23 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
     }
   }
+  
+  public function checkCity($cityName) {
+    if($this->badWordsFilter->areThereInsultingWords($cityName)) {
+			$statusCode = 506;
+			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_city_field'));
+    }
+  }
+  
+  public function checkProvince($provinceName) {
+    if($this->badWordsFilter->areThereInsultingWords($provinceName)) {
+			$statusCode = 506;
+			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_province_field'));
+    }
+  }
+  
+  
+  
   
   public function doCatroidRegistration($postData, $serverData) {
     global $phpbb_root_path;
