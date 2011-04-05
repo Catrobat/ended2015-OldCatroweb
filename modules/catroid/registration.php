@@ -166,8 +166,6 @@ class registration extends CoreAuthenticationNone {
     }
 
 //    if(!$this->badWordsFilter->areThereInsultingWords($username)) {
-//    }
-//    else {
 //			$statusCode = 506;
 //			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
 //    }

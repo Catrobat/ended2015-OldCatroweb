@@ -78,15 +78,16 @@ div.registrationH2
   margin-bottom: 1.5%;
 }
 
-div.registrationErrorMsg
-{
-  color: #DF0101;
-}
-
 input.registrationSubmitButton
 {
   margin-top: 2.5%;
   margin-bottom: 2.5%;
 }
 
-
+button.registrationSubmitButton {
+  /*float:right;*/ 
+  color: black;
+  font-size:0.8em;
+  font-weight: bold;
+  margin-top:15px;
+}

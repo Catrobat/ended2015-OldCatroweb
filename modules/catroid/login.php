@@ -23,6 +23,7 @@ class login extends CoreAuthenticationNone {
     parent::__construct();
     $this->setupBoard();
     $this->addCss('login.css');
+    $this->addCss('buttons.css');
   }
 
   public function __default() {

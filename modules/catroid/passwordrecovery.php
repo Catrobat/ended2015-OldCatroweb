@@ -35,16 +35,16 @@ class passwordrecovery extends CoreAuthenticationNone {
         if(isset($_POST['passwordSaveSubmit'])) {
           if(($_POST['passwordSavePassword'] != '') || ($_POST['passwordSavePasswordRepeat'] != '')) {
             if(!$this->doPasswordRecovery($_GET,$_POST)) {
-              $this->showAppropriateForm($_GET);
+              $this->showHTMLForm($_GET);
             }
           }
           else {
-            $this->showAppropriateForm($_GET);
+            $this->showHTMLForm($_GET);
             $this->answer .= $this->errorHandler->getError('registration', 'password_missing');
           }
         }
         else {
-          $this->showAppropriateForm($_GET);
+          $this->showHTMLForm($_GET);
         }
       }
     }
@@ -283,7 +283,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     return true;
   }
 
-  public function showAppropriateForm($formData) {
+  public function showHTMLForm($formData) {
     
     if($_GET) {
       $hashValue = $formData['c']; 
@@ -308,24 +308,28 @@ class passwordrecovery extends CoreAuthenticationNone {
           $html .= '  <input type="password" name="passwordSavePasswordRepeat" ><br>';
           $html .= '  <div class="passwordRecoveryInfoText">Your password must be between '. USER_MIN_PASSWORD_LENGTH;
           $html .= '   to '. USER_MAX_PASSWORD_LENGTH .' characters.</div>';
-          $html .= '  <input type="submit" name="passwordSaveSubmit" value="Change password now"><br>';
+          $html .= '	<button type="submit" name="passwordSaveSubmit" id="passwordSaveSubmit" class="button orange compact passwordRecoverySubmitButton">';
+          $html .= '   	<span class="passwordRecoverySubmitButton">Change password now</span>';
+          $html .= '	</button>';
           $html .= '</form>';
         }
         else {
-          $html = '';
-          $html .= '<form method="post" action="./passwordrecovery">';
+          $html = '<form method="post" action="./passwordrecovery">';
           $html .= '  <div class="passwordRecoveryHeadline">Sorry! Your recovery url has expired. Please try again.</div>';
-          $html .= '  <input type="submit" name="passwordNextSubmit" value="Next"><br>';
+          $html .= '	<button type="button" name="passwordNextSubmit" id="passwordNextSubmit" class="button orange compact passwordRecoverySubmitButton">';
+          $html .= '   	<span class="passwordRecoverySubmitButton">Next</span>';
+          $html .= '	</button>';
           $html .= '</form>';
         }
         $this->passwordRecoveryForm = $html;
         return true;
       }
       else {
-        $html = '';
-        $html .= '<form method="post" action="./passwordrecovery">';
+        $html = '<form method="post" action="./passwordrecovery">';
         $html .= '  <div class="passwordRecoveryHeadline">Sorry! Your recovery url has expired. Please try again.</div>';
-        $html .= '  <input type="submit" name="passwordNextSubmit" value="Next"><br>';
+        $html .= '	<button type="button" name="passwordNextSubmit" id="passwordNextSubmit" class="button orange compact passwordRecoverySubmitButton">';
+        $html .= '   	<span class="passwordRecoverySubmitButton">Next</span>';
+        $html .= '	</button>';
         $html .= '</form>';
 
         $this->passwordRecoveryForm = $html;

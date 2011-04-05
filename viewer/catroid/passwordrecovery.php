@@ -29,17 +29,15 @@
       	  		   			<?php 
       	  		   			  if(isset($_GET['c'])) {
  		   				            if($this->answer) {
-                            echo "<div class='passwordRecoveryErrorMsg'>";
+                            echo "<div class='errorMsg'>";
 	  		   				          echo $this->answer;
  	  		   				          echo "</div>";
  	  		   				        }
        		   	            if($this->answer_ok) {
-       		   	              echo "<div class='passwordRecoveryOkMsg'>";
+       		   	              echo "<div class='okMsg'>";
        		   	              echo $this->answer_ok;
        		   	              echo "</div>";
        		   	            }
-       		   	            echo "<br>";
-       		   	            
       	  		   			    $this->getData = $_GET['c']; 
       	  		   			    echo ( $this->passwordRecoveryForm );
 	 
@@ -49,16 +47,15 @@
       	  		   			<?php }
       	  		   				else if(isset($_POST['passwordSaveSubmit'])) { 
     	  		   				  	if($this->answer) {
-                            echo "<div class='passwordRecoveryErrorMsg'>";
+                            echo "<div class='errorMsg'>";
 	  		   				          echo $this->answer;
 	  		   				          echo "</div>";
 	  		   				        }
       		   	            if($this->answer_ok) {
-      		   	              echo "<div class='passwordRecoveryOkMsg'>";
+      		   	              echo "<div class='okMsg'>";
       		   	              echo $this->answer_ok;
       		   	              echo "</div>";
       		   	            }
-      		   	            echo "<br>";
       	  		   				  //$this->getData = $_POST['passwordSaveSubmit']; 
       	  		   			    echo ( $this->passwordRecoveryForm );
 
@@ -69,20 +66,25 @@
       	  		   			<?php }
       	  		   				else {
     		   				        if($this->answer) {
-                            echo "<div class='passwordRecoveryErrorMsg'>";
+                            echo "<div class='errorMsg'>";
     		   				          echo $this->answer;
     		   				          echo "</div>";
+    		   				          #echo "<br>";
     		   				        }
       		   	            if($this->answer_ok) {
-      		   	              echo "<div class='passwordRecoveryOkMsg'>";
+      		   	              echo "<div class='okMsg'>";
       		   	              echo $this->answer_ok;
       		   	              echo "</div>";
+      		   	              #echo "<br>";
       		   	            }
         		   	      ?>
     	  		   				<form method="post" action="./passwordrecovery">
     	  		   					<div class="passwordRecoveryHeadline">Enter your nickname or email address:</div>
     	  		   					<input type="text" name="passwordRecoveryUserdata"><br>
-    	  		   					<input type="submit" name="passwordRecoverySubmit" value="Recover password"><br>
+    	  		   					<button type="submit" name="passwordRecoverySubmit" id="passwordRecoverySubmit" class="button orange compact passwordRecoverySubmitButton">
+                        	<span class="passwordRecoverySubmitButton">Recover password</span>
+                      	</button>
+    	  		   					<br>
     	  		   				</form>
     	  		   				<br>
 	      	  		   		<br>

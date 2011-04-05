@@ -25,7 +25,7 @@
             	  <div class ="whiteBoxMain">
             	    <div class="registrationText">
             	    <div class="registrationFormContainer">
-            		   	<div class="registrationErrorMsg">
+            		   	<div class="errorMsg">
             		   	  <?php if($this->answer) {
             		   	    echo $this->answer;
             		   	  }?>
@@ -52,7 +52,9 @@
           		   			<input type="text" name="registrationProvince" value="<?php echo htmlspecialchars($this->postData['registrationProvince'])?>"><br>
           		   			City<br>
           		   			<input type="text" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>"><br>
-          		   			<input class="registrationSubmitButton" type="submit" name="registrationSubmit" value="Register">
+          		   			<button type="button" id="registrationSubmitButton" class="button orange compact registrationSubmitButton">
+                        <span class="registrationSubmitButton">Register</span>
+                      </button>
             		   	</form>
                   </div> <!-- registrationFormContainer -->
 								</div> <!-- Registration Text -->

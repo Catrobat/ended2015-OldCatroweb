@@ -122,6 +122,15 @@ div.webHeadSearchBoxSpacer {
   width:100%;
   height:5px;
 }
+
+div.errorMsg {
+  color: #DF0101;
+	}
+	
+div.okMsg {
+  color: #000000;
+  }
+
 span.webHeadCancelButtonText {
   font-size:2em;
   font-weight:bold;

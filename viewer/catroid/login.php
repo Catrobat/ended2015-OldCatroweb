@@ -25,7 +25,7 @@
             	  <div class ="whiteBoxMain">
             	    <div class="loginText">
             	    <div class="loginFormContainer">
-            		   	<div class="loginErrorMsg">
+            		   	<div class="errorMsg">
             		   	  <?php if($this->answer) {
             		   	    echo $this->answer;
             		   	  }?>
@@ -43,11 +43,16 @@
       	  		   				<?php } else { ?>
       	  		   				  <input type="hidden" name="requesturi" value="<?php echo htmlspecialchars($_GET['requesturi']); ?>">
       	  		   				<?php } ?>
-      	  		   				<input type="submit" name="loginSubmit" value="Login"><br>
+												<button type="submit" name="loginSubmit" id="loginSubmit" class="button orange compact loginSubmitButton">
+                        	<span class="loginSubmitButton">Login</span>
+                      	</button>
+      	  		   				<br>
       	  		   			<?php } else {?>
       	  		   				Hello <?php echo $this->module->session->userLogin_userNickname?>!<br>
       	  		   				You are logged in with ID <?php echo $this->module->session->userLogin_userId?><br>
-      	  		   				<input type="submit" name="logoutSubmit" value="Logout">
+												<button type="submit" name="logoutSubmit" id="loginSubmit" class="button orange compact loginSubmitButton">
+                        	<span class="loginSubmitButton">Logout</span>
+                      	</button>
       	  		   			<?php }?>
       	  		   		</form>
       	  		   		<br>
