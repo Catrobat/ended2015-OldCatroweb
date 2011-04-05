@@ -71,6 +71,12 @@ div.registrationInfoText
   margin-bottom: 1.5%;
 }
 
+div.registrationH2
+{
+  font-size:0.9em;
+  margin-top: 1.5%; 
+  margin-bottom: 1.5%;
+}
 
 div.registrationErrorMsg
 {

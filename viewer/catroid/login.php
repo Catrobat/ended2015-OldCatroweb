@@ -25,6 +25,11 @@
             	  <div class ="whiteBoxMain">
             	    <div class="loginText">
             	    <div class="loginFormContainer">
+            		   	<div class="loginErrorMsg">
+            		   	  <?php if($this->answer) {
+            		   	    echo $this->answer;
+            		   	  }?>
+            		   	</div>
       	  		   		<form method="post" action="./login">
       	  		   		<div class="loginH2">Please enter your nickname and your password:</div>
       	  		   			<?php if($this->module->session->userLogin_userId <= 0) { ?>
@@ -48,10 +53,6 @@
       	  		   		<br>
 										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Sign up</a> or <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">did you forget your password?</a></div>
             		   	<br>
-            		   	<div class="loginErrorMsg">
-            		   	  <?php if($this->answer) {
-            		   	    echo $this->answer;
-            		   	  }?>
       		   		   		<br><br>
       		  		   		<a id="aBoardLink" target="_blank" href="<?php echo BASE_PATH?>addons/board/">Board</a>
       		  		   		<br>
@@ -60,7 +61,6 @@
       		  		   		<?php } else {?>
       		  		   			<a id="aWikiLink" target="_blank" href="<?php echo BASE_PATH?>wiki/">Wiki</a>
       		  		   		<?php }?>
-            		   	</div>
                   </div> <!-- loginFormContainer -->
 								</div> <!-- login Text -->
               </div> <!--  White Box -->            	
