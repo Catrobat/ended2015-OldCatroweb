@@ -7,7 +7,7 @@
       This program is free software: you can redistribute it and/or modify
       it under the terms of the GNU Affero General Public License as
       published by the Free Software Foundation, either version 3 of the
-      License, or (at your option) any later version.
+      License, or License, or (at your option) any later version.
   
       This program is distributed in the hope that it will be useful,
       but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -35,6 +35,7 @@
   <property name="scripts.dir" value="script" />
   <property name="tests.dir" value="${basedir}/tests/phpunit/" />
   <property name="viewer.dir" value="viewer" />
+  <property name="sql.dir" value="sql" />
   <property name="htaccess.file" value=".htaccess" />
   <property name="config.file" value="config.php" />
   <property name="index.file" value="index.php" />
@@ -188,6 +189,10 @@
       addproperty="host.pass"
     />
   </target>
+  
+  <target name="-update-database">
+  
+  </target>
 
   <target name="-clean">
     <delete dir="${build.dir}"/>
@@ -210,9 +215,10 @@
     <mkdir dir="${catroid.dir}/${viewer.dir}" />
     <mkdir dir="${catroid.dir}/${thumbnails.dir}" />
     <mkdir dir="${catroid.dir}/${addons.dir}" />
+    <mkdir dir="${catroid.dir}/${sql.dir}" />
   </target>
 
-  <target name="-copy-files" depends="-copy-rootfiles, -copy-framework, -copy-viewer, -copy-modules, -copy-images, -copy-includes, -copy-thumbnails" />
+  <target name="-copy-files" depends="-copy-rootfiles, -copy-framework, -copy-viewer, -copy-modules, -copy-images, -copy-includes, -copy-thumbnails, -copy-sql" />
 
   <target name="-copy-rootfiles">
     <copy file="${htaccess.file}" toDir="${catroid.dir}" />
@@ -223,6 +229,12 @@
   <target name="-copy-framework">
     <copy todir="${catroid.dir}/${framework.dir}">
       <fileset dir="${framework.dir}"/>
+    </copy>
+  </target>
+  
+  <target name="-copy-sql">
+    <copy todir="${catroid.dir}/${sql.dir}">
+      <fileset dir="${sql.dir}"/>
     </copy>
   </target>
 
@@ -285,7 +297,7 @@
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="rm -rf ${host.catroid.dir}/${images.dir} ${host.catroid.dir}/${includes.dir} ${host.catroid.dir}/${framework.dir} ${host.catroid.dir}/${modules.dir} ${host.catroid.dir}/${viewer.dir} ${host.catroid.dir}/${scripts.dir}" />
+             command="rm -rf ${host.catroid.dir}/${images.dir} ${host.catroid.dir}/${includes.dir} ${host.catroid.dir}/${framework.dir} ${host.catroid.dir}/${modules.dir} ${host.catroid.dir}/${viewer.dir} ${host.catroid.dir}/${scripts.dir} ${host.catroid.dir}/${sql.dir}" />
     <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
@@ -345,7 +357,8 @@
     </scp>
   </target>
 
-  <target name="deploy-local" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
+  <!-- <target name="deploy-local" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" /> -->
+  <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
   <!-- <target name="deploy-test" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
   <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" />
   <!-- <target name="deploy-public" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
