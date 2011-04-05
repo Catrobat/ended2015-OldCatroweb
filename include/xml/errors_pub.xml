@@ -75,6 +75,10 @@
     	<string name="country_missing">The country is missing.</string>
       <string name="birth_missing">The birthday is missing.</string>
       <string name="gender_missing">The gender is missing.</string>
+      <string name="insulting_words_in_username_field">There are insulting words in the username field!</string>
+      <string name="insulting_words_in_email_field">There are insulting words in the email address field!</string>
+      <string name="insulting_words_in_city_field">There are insulting words in the city field!</string>
+      <string name="insulting_words_in_province_field">There are insulting words in the province field!</string>
     </registration>
     <passwordrecovery>
       <string name="userdata_invalid">The nickname or email address is invalid.</string>
