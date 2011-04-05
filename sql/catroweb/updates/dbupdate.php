@@ -34,7 +34,7 @@ function walkThroughDirectory($directory) {
       if($directory_handler = opendir($directory)) {
         while(($file = readdir($directory_handler)) !== false) {
           if(stristr($file, ".sql")) {
-            print "reading file: ".$directory."/".$file."\n";
+            // print "reading file: ".$directory."/".$file."\n";
             executeUpdateQueryInFile($file);
           }
         }
@@ -44,18 +44,21 @@ function walkThroughDirectory($directory) {
 }
 
 function executeUpdateQueryInFile($file) {
+  $fresult=-1;
   $fp = fopen($file, "rb+");
   if ($fp) {
     while (!feof($fp)) {
       $statement = chop(fgets($fp));
       // print "$statement\n";
       if (stristr($statement, "-- (+) ")) {
-        executeQueryCommand($statement, "-- (+)");
+        $fresult = executeQueryCommand($statement, "-- (+)");
       } elseif (!stristr($statement, "--")) {
-        executeQueryCommand($statement, "");
+        $fresult = executeQueryCommand($statement, "");
       }
     }
+    return $fresult;
   }
+  return -1;
 }
 
 function executeQueryCommand($statement, $trigger) {
@@ -69,15 +72,26 @@ function executeQueryCommand($statement, $trigger) {
     }
     $result = pg_query($cquerystring);
     if (!$result) {
-      pg_query("$query[0]");
-      print "executed: ".$query[0]."\n";
+      $qresult = pg_query("$query[0]");
+      if ($qresult) { 
+        print "executed: ".$query[0]."\n";
+        return 1;
+      } else {
+        print "error: ".pg_last_error();
+        return -1;
+      }
     } else {
       print "existing: $query[1] - no update!\n";
+      return 0;
     }
   } else {
     if (stristr($statement, ";")) {
       $result = pg_query($statement);
+      if ($result)
       print "executed: ".$statement."\n";
+      return 1;
+    } else {
+      return 0;
     }
   }
 }
