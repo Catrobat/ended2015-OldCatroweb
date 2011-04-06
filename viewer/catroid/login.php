@@ -25,11 +25,11 @@
             	  <div class ="whiteBoxMain">
             	    <div class="loginText">
             	    <div class="loginFormContainer">
-            		   	<div class="errorMsg">
-            		   	  <?php if($this->answer) {
-            		   	    echo $this->answer;
-            		   	  }?>
-            		   	</div>
+            		   	<?php if($this->answer) {
+          		   	    echo '<div class="errorMsg">';
+           		   	    echo $this->answer;
+              		   	echo '</div>';
+            		   	}?>
       	  		   		<form method="post" action="./login">
       	  		   		<div class="loginH2">Please enter your nickname and your password:</div>
       	  		   			<?php if($this->module->session->userLogin_userId <= 0) { ?>

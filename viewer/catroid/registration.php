@@ -25,11 +25,11 @@
             	  <div class ="whiteBoxMain">
             	    <div class="registrationText">
             	    <div class="registrationFormContainer">
-            		   	<div class="errorMsg">
-            		   	  <?php if($this->answer) {
-            		   	    echo $this->answer;
-            		   	  }?>
-            		   	</div>
+            		   	<?php if($this->answer) {
+          		   	    echo '<div class="errorMsg">';
+           		   	    echo $this->answer;
+              		   	echo '</div>';
+            		   	}?>
                   	<form method="post" action="./registration" name="registrationForm">
       	  		   			<div class="registrationH2">Please enter your data. Fields with * are required fields:</div>
           		   			Nickname*<br>
