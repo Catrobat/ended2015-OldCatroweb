@@ -82,6 +82,10 @@ input.registrationSubmitButton
 {
   margin-top: 2.5%;
   margin-bottom: 2.5%;
+  color: black;
+  font-size:0.8em;
+  font-weight: bold;
+  margin-top:15px;
 }
 
 button.registrationSubmitButton {

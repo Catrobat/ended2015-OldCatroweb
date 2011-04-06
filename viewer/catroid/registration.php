@@ -51,10 +51,8 @@
           		   			Province<br>
           		   			<input type="text" name="registrationProvince" value="<?php echo htmlspecialchars($this->postData['registrationProvince'])?>"><br>
           		   			City<br>
-          		   			<input type="text" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>"><br>
-          		   			<button type="button" id="registrationSubmitButton" class="button orange compact registrationSubmitButton">
-                        <span class="registrationSubmitButton">Register</span>
-                      </button>
+          		   			<input type="text" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>"><br>          		   			
+                      		<input type="submit" name="registrationSubmit" value="Register" class="button orange compact registrationSubmitButton">
             		   	</form>
                   </div> <!-- registrationFormContainer -->
 								</div> <!-- Registration Text -->
