@@ -339,7 +339,10 @@ class passwordrecovery extends CoreAuthenticationNone {
     $userid = $this->userData['id'];
     $recoveryhash = $this->userHash;
     $date = new DateTime();
-    $recoverytime = $date->getTimestamp(); 
+    $recoverytime = $date->format('U');//getTimestamp(); 
+//    echo $recoverytime.'<br>';
+//    $recoverytime = $date->getTimestamp(); 
+//    echo $recoverytime;
     
     $query = "EXECUTE update_recovery_hash_recovery_time_by_id('$recoveryhash', '$recoverytime', '$userid')";
     $result = @pg_query($this->dbConnection, $query);
@@ -356,7 +359,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       $mailText .= "To do so, just visit the following page: http://www.catroid.org/catroid/login\n\n\n";
       $mailText .= "Catroid\nwww.catroid.org";
       if (DEVELOPMENT_MODE)
-        $this->answer .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br><br>';
+        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
       
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
         throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed'));
@@ -364,7 +367,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     }
     else {
       if (DEVELOPMENT_MODE)
-        $this->answer .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br><br>';
+        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
     }
     return true;
   }
