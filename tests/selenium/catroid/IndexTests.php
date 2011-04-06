@@ -62,8 +62,10 @@ class IndexTests extends PHPUnit_Framework_TestCase
     }
   }
   
-
    public function doUpload() {    
+     
+
+     
      for($i=1; $i< 20; $i++)
      {
        $fileName = 'test.zip';
@@ -110,8 +112,6 @@ class IndexTests extends PHPUnit_Framework_TestCase
   }
   
   public function testIndexPage() {
-    
-    
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
     
@@ -127,7 +127,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->selenium->selectWindow("_blank");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
-    
+    $this->assertTrue($this->selenium->isTextPresent("Paintroid_0.6.4b.apk"));
     //test catroid download link
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='webHeadTitleName']/a"));
     $this->selenium->click("xpath=//div[@class='webHeadTitleName']/a");
@@ -146,6 +146,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     //test links to details page
     
     $this->ajaxWait("id=page0");
+    $this->selenium->waitForCondition("", 2000); // loading...
     $this->selenium->click("xpath=//a[@class='projectListDetailsLink']");    
     $this->selenium->waitForPageToLoad(10000);    
     $this->assertRegExp("/catroid\/details/", $this->selenium->getLocation());
@@ -172,14 +173,14 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isVisible("fewerProjects"));
     $this->assertTrue($this->selenium->isVisible("moreProjects"));
     $this->ajaxWait("id=page0");
-    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    $this->selenium->waitForCondition("", 2000); // loading...
     
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page0']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
     $this->selenium->click("moreProjects");    
     $this->ajaxWait("id=page2");
-    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    $this->selenium->waitForCondition("", 2000); // loading...
     
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page3']"));
@@ -188,7 +189,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     // test session
     $this->selenium->refresh();
     $this->ajaxWait("id=page2");
-    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    $this->selenium->waitForCondition("", 2000); // loading...
     
     $this->selenium->waitForPageToLoad("10000");
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
@@ -198,7 +199,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
             
     $this->selenium->click("fewerProjects");
     $this->ajaxWait("id=page0");
-    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    $this->selenium->waitForCondition("", 2000); // loading...
     
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page0']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
@@ -209,11 +210,11 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isVisible("moreProjects"));
     $this->selenium->click("moreProjects");    
     $this->ajaxWait("id=page2");
-    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    $this->selenium->waitForCondition("", 2000); // loading...
     
     $this->selenium->click("aIndexWebLogoLeft");
     $this->ajaxWait("id=page0");
-    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
+    $this->selenium->waitForCondition("", 2000); // loading...
     
     $this->selenium->waitForPageToLoad("10000");
     $this->selenium->waitForCondition("", 2000); // necessary for loading delay

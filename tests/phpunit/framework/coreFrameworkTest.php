@@ -113,5 +113,39 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($numJs, $jsCounter);
     $this->assertEquals(null, $this->testModel->getJs());
   }
+  
+  /**
+   * @dataProvider badWords
+   */
+  public function testBadwordsFilterBad($badWord) {
+    $this->assertEquals(1, $this->testModel->badWordsFilter->areThereInsultingWords($badWord));
+  }
+  
+  /**
+   * @dataProvider goodWords
+   */
+  public function testBadwordsFilterGood($goodWord) {
+    $this->assertEquals(0, $this->testModel->badWordsFilter->areThereInsultingWords($goodWord));
+  }
+
+  /* DATA PROVIDERS */
+  public function badWords() {
+    $badWords = array(
+          array("fuck"), 
+          array("shit"),
+          array("ass"),
+          array("this is a sucking text with some really bad words in it. so go home asshole!"),
+          array("f*uck"));
+    return $badWords;
+  }
+  
+  public function goodWords() {
+    $goodWords = array(
+          array("test"), 
+          array("catroid"),
+          array("here comes some text which does not have any insulting word inside."),
+          array("project"));
+    return $goodWords;
+  }
 }
 ?>

@@ -31,7 +31,18 @@ class CoreMailHandler {
   }
 
   public function sendUserMail($subject, $text, $userAddress) {
-    return false;
+    if(!$subject || !$text || !$userAddress) {
+      return false;
+    }
+    $this->_subject = USER_EMAIL_SUBJECT_PREFIX.' - '.$subject;
+    $this->_text = wordwrap($text);
+    $this->_return = "-f".USER_EMAIL_NOREPLY;
+    $this->_reply = USER_EMAIL_NOREPLY;
+	  $this->_from = USER_EMAIL_NOREPLY;
+	  $this->_to = $userAddress;
+	  $this->_bcc = '';
+	
+	  return($this->send());
   }
 
   public function sendAdministrationMail($subject, $text) {
@@ -44,11 +55,11 @@ class CoreMailHandler {
     $this->_text = wordwrap($text);
     $this->_return = "-f".ADMIN_EMAIL_WEBMASTER;
     $this->_reply = ADMIN_EMAIL_NOREPLY;
-	$this->_from = ADMIN_EMAIL_NOREPLY;
-	$this->_to = ADMIN_EMAIL_WEBMASTER;
-	$this->_bcc = '';
+	  $this->_from = ADMIN_EMAIL_NOREPLY;
+	  $this->_to = ADMIN_EMAIL_WEBMASTER;
+	  $this->_bcc = '';
 	
-	return($this->send());
+	  return($this->send());
   }
   
   private function send() {

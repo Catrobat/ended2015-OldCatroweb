@@ -22,6 +22,7 @@ class CoreRegistry {
   const KEY_MAIL = 'mailHandler';
   const KEY_VIEWHELPER = 'viewHelper';
   const KEY_CLIENTDETECTION = 'clientDetection';
+  const KEY_BADWORDS = 'badWordsFilter';
 
   protected static $instance = null;
   protected $values = array();
@@ -79,13 +80,22 @@ class CoreRegistry {
   public function getClientDetection() {
     return $this->get(self::KEY_CLIENTDETECTION);
   }
+  
+  public function setBadwordsFilter(CoreBadwordsFilter $badWordsFilter) {
+    $this->set(self::KEY_BADWORDS, $badWordsFilter);
+  }
 
+  public function getBadwordsFilter() {
+    return $this->get(self::KEY_BADWORDS);
+  }
+  
   private function __clone() {
   }
 
   public function __destruct() {
 
   }
+  
 }
 
 ?>

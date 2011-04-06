@@ -16,22 +16,46 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 class registration extends CoreAuthenticationNone {
-
+  
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
+    $this->addCss('registration.css');
+    $this->addCss('buttons.css');
+    $this->initRegistration();
   }
 
   public function __default() {
     if($_POST) {
       if(isset($_POST['registrationSubmit'])) {
         $this->doRegistration($_POST, $_SERVER);
+        $this->initRegistration();
       }
     }
   }
 
+
+  public function initRegistration() {
+    $answer = '';
+    try {
+      $this->initBirth('');
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    try {
+      $this->initGender();
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    try {
+      $this->initCountryCodes('');
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    $this->answer .= $answer;
+  }
+    
   public function doRegistration($postData, $serverData) {
     $answer = '';
     $statusCode = 500;
@@ -58,7 +82,25 @@ class registration extends CoreAuthenticationNone {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
     }
-
+    try { 
+      $this->checkBirth($postData['registrationMonth'], $postData['registrationYear']);
+    } catch(Exception $e) {
+      $registrationDataValid = false;
+      $answer .= $e->getMessage().'<br>';
+    }
+    try { 
+      $this->checkGender($postData['registrationGender']);
+    } catch(Exception $e) {
+      $registrationDataValid = false;
+      $answer .= $e->getMessage().'<br>';
+    }
+    try {
+      $this->checkCountry($postData['registrationCountry']);
+    } catch(Exception $e) {
+      $registrationDataValid = false;
+      $answer .= $e->getMessage().'<br>';
+    } 
+    
     if($registrationDataValid) {
       try {
         $catroidUserId = $this->doCatroidRegistration($postData, $serverData);
@@ -107,7 +149,7 @@ class registration extends CoreAuthenticationNone {
       }
     }
 
-    $this->answer = $answer;
+    $this->answer .= $answer;
     $this->statusCode = $statusCode;
 
     if($boardRegistrationSuccess && $wikiRegistrationSuccess && $catroidRegistrationSuccess) {
@@ -123,20 +165,25 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
     }
 
+//    if(!$this->badWordsFilter->areThereInsultingWords($username)) {
+//			$statusCode = 506;
+//			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
+//    }
+    
     //username must not look like an IP-address
     $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
     $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
     $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
-    $regEx = '^'.$ip.'$';
-    if(ereg($regEx, $username)) {
+    $regEx = '/^'.$ip.'$/';
+    if(preg_match($regEx, $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
-    //username must consist of alpha numerical chars, underscores and spaces
+    //username must consist of alpha numerical chars and spaces and Umlaute!
     //min. 4, max. 32 chars
-    $text = '[a-zA-Z0-9äöüßÄÖÜ|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
-    $regEx = '^'.$text.'$';
-    if(!ereg($regEx, $username)) {
+    $text = '[a-zA-Z0-9äÄöÖüÜß|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
+    $regEx = '/^'.$text.'$/';
+    if(!preg_match($regEx, $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
@@ -175,8 +222,8 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'password_repeat_missing'));
     }
     $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
-    $regEx = '^'.$text.'$';
-    if(!ereg($regEx, $password)) {
+    $regEx = '/^'.$text.'$/';
+    if(!preg_match($regEx, $password)) {
       throw new Exception($this->errorHandler->getError('registration', 'password_invalid'));
     }
     if(strcmp($password, $passwordRepeat) != 0) {
@@ -189,12 +236,12 @@ class registration extends CoreAuthenticationNone {
     if(empty($email)) {
       throw new Exception($this->errorHandler->getError('registration', 'email_missing'));
     }
-
+    
     $name = '[a-zA-Z0-9]((\.|\-|_)?[a-zA-Z0-9])*';
     $domain = '[a-zA-Z]((\.|\-)?[a-zA-Z0-9])*';
     $tld = '[a-zA-Z]{2,8}';
-    $regEx = '^('.$name.')@('.$domain.')\.('.$tld.')$';
-    if(!ereg($regEx, $email)) {
+    $regEx = '/^('.$name.')@('.$domain.')\.('.$tld.')$/';
+    if(!preg_match($regEx, $email)) {
       throw new Exception($this->errorHandler->getError('registration', 'email_invalid'));
     }
 
@@ -209,6 +256,37 @@ class registration extends CoreAuthenticationNone {
     return true;
   }
 
+  public function checkGender($gender) {
+    if(strcmp ( $gender , 'male' ) == 0 || strcmp ( $gender , 'female' ) == 0) {
+      return true;
+    }
+    else {
+      throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
+    }
+  }
+    
+  public function checkBirth($month,$year) {
+  	$cyear = strftime("%Y");
+  	if (($month >= 1 && $month <= 12) && ($year <= $cyear && $year >= $cyear-100)) {
+  	  return true;
+  	} else {
+      throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
+    }    
+  }
+
+  public function checkCountry($country) {
+  	if ($country == "undef") {
+      return true;
+  	} elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
+  	  return true;
+  	} else {
+      throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
+    }
+  }
+  
+
+  
+  
   public function doCatroidRegistration($postData, $serverData) {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
@@ -217,10 +295,14 @@ class registration extends CoreAuthenticationNone {
     $password = md5($postData['registrationPassword']);
     $email = $postData['registrationEmail'];
     $ip_registered = $serverData['REMOTE_ADDR'];
-    $country = 'AT';
+    $country = $postData['registrationCountry'];
     $status = USER_STATUS_STRING_ACTIVE;
-    $date_of_birth = null;
-    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', null, null, '$country', null, null, '$ip_registered', '$status')";
+    $date_of_birth = $postData['registrationYear'].'-'.sprintf("%02d", $postData['registrationMonth']).'-01 00:00:01';
+    $gender = $postData['registrationGender'];
+    $city = $postData['registrationCity'];
+    $province = $postData['registrationProvince'];
+    
+    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', '$province', '$city', '$ip_registered', '$status')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -323,6 +405,125 @@ class registration extends CoreAuthenticationNone {
     return true;
   }
 
+  private function initGender() {
+    if(!$this->postData['registrationGender']) {
+      $genderlist[0] = "<option value=\"0\" selected>Select</option>\r";
+      $genderlist[1] = "<option value=\"female\">female</option>\r";
+      $genderlist[2] = "<option value=\"male\">male</option>\r";
+    }
+    else {
+      $genderlist[0] = "<option value=\"0\">Select</option>\r";
+      if($this->postData['registrationGender'] == 'male') {
+        $genderlist[1] = "<option value=\"female\">female</option>\r";
+        $genderlist[2] = "<option value=\"male\" selected>male</option>\r";
+      }
+      else {
+        $genderlist[1] = "<option value=\"female\" selected>female</option>\r";  
+        $genderlist[2] = "<option value=\"male\">male</option>\r";
+      }
+    }
+    $this->gender = $genderlist;
+  }
+  
+  private function initBirth() {
+    $months = array(
+      0=>"Month",
+      1=>"Jan",
+      2=>"Feb",
+      3=>"Mar",
+      4=>"Apr",
+      5=>"May",
+      6=>"Jun",
+      7=>"Jul",
+      8=>"Aug",
+      9=>"Sep",
+      10=>"Oct",
+      11=>"Nov",
+      12=>"Dec"
+    );
+    
+    $registrationMonth = '';
+    $registrationYear = '';
+    
+    if(!$this->postData['registrationMonth']) {
+      $monthlist[0] = "<option value=\"0\" selected>" . $months[0] . "</option>\r";
+    }
+    else {
+      $registrationMonth = $this->postData['registrationMonth'];
+      $monthlist[0] = "<option value=\"0\">" . $months[0] . "</option>\r";
+    }
+    if(!$this->postData['registrationYear']) {
+      $yearlist[0] = "<option value=\"0\" selected>Year</option>\r";
+    }
+    else {
+      $registrationYear = $this->postData['registrationYear'];
+      $yearlist[0] = "<option value=\"0\">Year</option>\r";
+    }
+    
+    $x = 0;
+    while($x++ < 12) {
+      if($registrationMonth == $x) {
+        $monthlist[] = "<option value=\"" . $x . "\" selected>" . $months[$x] . "</option>\r";
+      }
+      else {
+        $monthlist[] = "<option value=\"" . $x . "\">" . $months[$x] . "</option>\r";
+      }
+    }
+    $x = 0;
+    $year = date('Y') + 1;
+    while($x++ < 100) {
+      $year--;
+      if($registrationYear == $year) {
+        $yearlist[] = "<option value=\"" . $year . "\" selected>" . $year . "</option>\r";
+      }
+      else {
+        $yearlist[] = "<option value=\"" . $year . "\">" . $year . "</option>\r";
+      }
+    }
+    $this->month = $monthlist;
+    $this->year = $yearlist;
+  }
+  
+  private function initCountryCodes() {
+    $query = "EXECUTE get_country_from_countries";
+    $result = @pg_query($this->dbConnection, $query);
+
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+    }
+
+    if(pg_num_rows($result) > 0) {
+      $countrylist = array();
+      
+      if($this->postData['registrationCountry']) {
+        $registrationCountry = $this->postData['registrationCountry'];
+        $countrylist[] = "<option value=\"0\">Select country</option>\r";
+      }
+      else { 
+        $registrationCountry = '';
+        $countrylist[] = "<option value=\"0\" selected>Select country</option>\r";
+      }
+      
+      while($country = pg_fetch_assoc($result)) {
+        if($registrationCountry == $country['code'])
+          $countrylist[] = "<option value=\"" . $country['code'] . "\" selected>" . $country['name'] . "</option>\r";
+        else
+          $countrylist[] = "<option value=\"" . $country['code'] . "\">" . $country['name'] . "</option>\r";           
+      }
+      if($registrationCountry != 'undef')
+        $countrylist[] = "<option value=\"undef\">undefined</option>\r";
+      else
+        $countrylist[] = "<option value=\"undef\" selected>undefined</option>\r";
+      
+      $this->countrylist = $countrylist;
+      pg_free_result($result);      
+    } else {
+      $countrylist[] = "<option value=\"0\">Select country</option>";
+      $this->countrylist = $countrylist;
+      throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
+    }
+  }
+    
   public function __destruct() {
     parent::__destruct();
   }

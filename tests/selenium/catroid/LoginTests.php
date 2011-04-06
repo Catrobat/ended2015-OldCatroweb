@@ -83,12 +83,11 @@ class LoginTests extends PHPUnit_Framework_TestCase
     
     $this->selenium->click("xpath=//input[@name='loginSubmit']");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("CATROID Login successfull!"));
-    $this->assertTrue($this->selenium->isTextPresent("BOARD Login successfull!"));
-    $this->assertTrue($this->selenium->isTextPresent("WIKI Login successfull!"));
-    
+
+    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->assertTrue($this->selenium->isTextPresent("Hello $user!"));
     $this->assertTrue($this->selenium->isTextPresent("You are logged in"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='logoutSubmit']"));
     
     $this->selenium->click("aBoardLink");
     $this->selenium->selectWindow("_blank");
@@ -118,10 +117,9 @@ class LoginTests extends PHPUnit_Framework_TestCase
     
     $this->selenium->click("xpath=//input[@name='logoutSubmit']");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("CATROID Logout successfull!"));
-    $this->assertTrue($this->selenium->isTextPresent("BOARD Logout successfull!"));
-    $this->assertTrue($this->selenium->isTextPresent("WIKI Logout successfull!"));
     
+    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isTextPresent("Hello $user!"));
     $this->assertFalse($this->selenium->isTextPresent("You are logged in"));
     

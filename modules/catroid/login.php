@@ -22,18 +22,37 @@ class login extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
+    $this->addCss('login.css');
+    $this->addCss('buttons.css');
   }
 
   public function __default() {
     if($_POST) {
       if(isset($_POST['loginSubmit'])) {
-        $this->doLogin($_POST);
+        if(isset($_POST['requesturi'])) {
+          $this->setRequestURI($_POST['requesturi']);
+        }
+        if($this->doLogin($_POST)) {
+          header('Location: http://' . $_SERVER['HTTP_HOST'] . "/" . $this->requesturi);
+          exit;
+        }
       } else if(isset($_POST['logoutSubmit'])) {
         $this->doLogout();
+        header('Location: ' . BASE_PATH . 'catroid/index');
+        exit;
       }
     }
   }
 
+  private function setRequestURI($uri) {
+    if($uri != '') {
+      $this->requesturi = $_POST['requesturi'];  
+    }
+    else {
+      $this->requesturi = "/catroid/index";
+    }
+  }
+  
   public function doLogin($postData) {
     //$postData = $this->encodeUtf8($postData);
     $answer = '';

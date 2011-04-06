@@ -24,6 +24,9 @@
         <string name="connection_failed">DB connection failed</string>
         <string name="no_entry_for_id">No entry was found for the given ID.</string>
     </db>
+    <sendmail>
+      <string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>
+    </sendmail>
     <upload>
         <string name="missing_post_data">POST-Data not correct or missing! Required: projectTitle, [projectDescription], [fileChecksum] and file-data upload.</string>
         <string name="copy_failed">Statement copy has failed!</string>
@@ -69,5 +72,23 @@
     	<string name="username_missing">The username is missing.</string>
     	<string name="username_invalid">The username is invalid.</string>
     	<string name="username_already_exists">This username already exists.</string>
+    	<string name="country_codes_not_available">There are no countries available in DB.</string>
+    	<string name="country_missing">The country is missing.</string>
+    	<string name="birth_missing">The birthday is missing.</string>
+    	<string name="gender_missing">The gender is missing.</string>
+    	<string name="insulting_words_in_username_field">There are insulting words in the username field!</string>
+    	<string name="insulting_words_in_email_field">There are insulting words in the email address field!</string>
+    	<string name="insulting_words_in_city_field">There are insulting words in the city field!</string>
+    	<string name="insulting_words_in_province_field">There are insulting words in the province field!</string>
+
     </registration>
+    <passwordrecovery>
+      <string name="userdata_invalid">The nickname or email address is invalid.</string>
+      <string name="userdata_missing">The nickname or email address is missing.</string>
+      <string name="userdata_not_exists">The nickname or email address was not found.</string>
+      <string name="passwordhash_invalid">Sorry! Your recovery url has expired. Please try again.</string>
+      <string name="password_missing">The password is missing.</string>
+      <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
+      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
+    </passwordrecovery>
 </errors>
