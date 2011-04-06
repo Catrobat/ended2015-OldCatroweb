@@ -188,7 +188,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     
     $this->selenium->click("xpath=//input[@name='registrationSubmit']");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("The username is invalid."));
+    $this->assertTrue($this->selenium->isTextPresent("The nickname is invalid."));
     $this->assertFalse($this->selenium->isTextPresent("CATROID registration successfull!"));
     $this->assertFalse($this->selenium->isTextPresent("BOARD registration successfull!"));
     $this->assertFalse($this->selenium->isTextPresent("WIKI registration successfull!"));

@@ -57,8 +57,6 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     }
   }
   
-  }
-  
   
   /**
    * @dataProvider randomIds

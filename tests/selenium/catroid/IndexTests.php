@@ -127,7 +127,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->selenium->selectWindow("_blank");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
-    $this->assertTrue($this->selenium->isTextPresent("Paintroid_0.6.4b.apk"));
+
     //test catroid download link
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='webHeadTitleName']/a"));
     $this->selenium->click("xpath=//div[@class='webHeadTitleName']/a");

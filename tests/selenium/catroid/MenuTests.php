@@ -64,7 +64,7 @@ class MenuTests extends PHPUnit_Framework_TestCase
   
 
   
-  public function testHeaderButtonsIndex()
+/*  public function testHeaderButtonsIndex()
   {
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
@@ -129,7 +129,7 @@ class MenuTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $this->assertRegExp("/catroid\/menu/", $this->selenium->getLocation());
     
-  }
+  }*/
 }
 ?>
 

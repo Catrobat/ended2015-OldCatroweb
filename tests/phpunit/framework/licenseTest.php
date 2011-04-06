@@ -56,7 +56,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
 
     foreach($this->file_listing as $current_file) {
       $contents = $this->getFileContent($current_file);
-      
+      // to see what files are checked ... // print "processing file: ".$current_file."\n";
         foreach($this->license as $line) {
           $value = preg_match("/" . $line . "/", $contents);
           if(!$value) {

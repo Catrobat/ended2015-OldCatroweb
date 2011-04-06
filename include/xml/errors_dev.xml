@@ -61,7 +61,6 @@
     	<string name="board_registration_failed">The board registration failed.</string>
     	<string name="wiki_registration_failed">The wiki registration failed.</string>
     	<string name="catroid_registration_failed">The catroid registration failed.</string>
-    	<string name="username_already_exists">The username already exists.</string>
     	<string name="email_already_exists">This email address already exists.</string>
     	<string name="email_invalid">The email address is not valid.</string>
     	<string name="email_missing">The email address is missing.</string>
@@ -69,9 +68,9 @@
     	<string name="password_repeat_missing">The repeated password is missing.</string>
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">The password is invalid.</string>
-    	<string name="username_missing">The username is missing.</string>
-    	<string name="username_invalid">The username is invalid.</string>
-    	<string name="username_already_exists">This username already exists.</string>
+    	<string name="username_missing">The nickname is missing.</string>
+    	<string name="username_invalid">The nickname is invalid.</string>
+    	<string name="username_already_exists">This nickname already exists.</string>
     	<string name="country_codes_not_available">There are no countries available in DB.</string>
     	<string name="country_missing">The country is missing.</string>
     	<string name="birth_missing">The birthday is missing.</string>
