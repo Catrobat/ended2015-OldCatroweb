@@ -125,7 +125,7 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     // check error message
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Enter your nickname or email address:"));
-    $this->assertTrue($this->selenium->isTextPresent("The nickname or email adddress was not found."));
+    $this->assertTrue($this->selenium->isTextPresent("The nickname or email address was not found."));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='passwordRecoveryUserdata']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='passwordRecoverySubmit']"));
 
