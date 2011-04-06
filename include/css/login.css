@@ -83,12 +83,8 @@ input.loginSubmitButton
 {
   margin-top: 2.5%;
   margin-bottom: 2.5%;
-}
-
-button.loginSubmitButton {
-  /*float:right;*/ 
   color: black;
   font-size:0.8em;
   font-weight: bold;
-  margin-top:15px;
 }
+

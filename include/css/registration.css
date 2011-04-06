@@ -85,13 +85,4 @@ input.registrationSubmitButton
   color: black;
   font-size:0.8em;
   font-weight: bold;
-  margin-top:15px;
-}
-
-button.registrationSubmitButton {
-  /*float:right;*/ 
-  color: black;
-  font-size:0.8em;
-  font-weight: bold;
-  margin-top:15px;
 }
