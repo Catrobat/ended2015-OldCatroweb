@@ -41,7 +41,7 @@ abstract class CoreModule extends CoreObjectWeb {
       $this->errorHandler = $this->coreRegistry->getErrorHandler();
       $this->coreRegistry->setClientDetection(new CoreClientDetection());
       $this->clientDetection = $this->coreRegistry->getClientDetection();
-      $this->coreRegistry->setBadwordsFilter(new CoreBadwordsFilter());
+      $this->coreRegistry->setBadwordsFilter(new CoreBadwordsFilter($this->dbConnection));
       $this->badWordsFilter = $this->coreRegistry->getBadwordsFilter();
     }
 
