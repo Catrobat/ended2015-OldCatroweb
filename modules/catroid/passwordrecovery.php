@@ -339,10 +339,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     $userid = $this->userData['id'];
     $recoveryhash = $this->userHash;
     $date = new DateTime();
-    $recoverytime = $date->format('U');//getTimestamp(); 
-//    echo $recoverytime.'<br>';
-//    $recoverytime = $date->getTimestamp(); 
-//    echo $recoverytime;
+    $recoverytime = $date->format('U');
     
     $query = "EXECUTE update_recovery_hash_recovery_time_by_id('$recoveryhash', '$recoverytime', '$userid')";
     $result = @pg_query($this->dbConnection, $query);

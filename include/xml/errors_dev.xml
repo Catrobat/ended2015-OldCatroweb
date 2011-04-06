@@ -82,9 +82,9 @@
 
     </registration>
     <passwordrecovery>
-      <string name="userdata_invalid">The nickname or email adress is invalid.</string>
-      <string name="userdata_missing">The nickname or email adress is missing.</string>
-      <string name="userdata_not_exists">The nickname or email adress was not found.</string>
+      <string name="userdata_invalid">The nickname or email address is invalid.</string>
+      <string name="userdata_missing">The nickname or email address is missing.</string>
+      <string name="userdata_not_exists">The nickname or email address was not found.</string>
       <string name="passwordhash_invalid">Sorry! Your recovery url has expired. Please try again.</string>
       <string name="password_missing">The password is missing.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>

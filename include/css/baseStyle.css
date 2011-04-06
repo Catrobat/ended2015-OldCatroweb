@@ -261,6 +261,10 @@ input.webHeadSearchSubmit {
   margin-right:1%;
 }
 
+select.registration {
+	margin: 1.2% 0 1.2% 0;
+	}
+
 div.webMainLicense {
     text-align:center;
     font-size: 1em;
