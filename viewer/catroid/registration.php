@@ -52,7 +52,7 @@
           		   			<input type="text" name="registrationProvince" value="<?php echo htmlspecialchars($this->postData['registrationProvince'])?>"><br>
           		   			City<br>
           		   			<input type="text" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>"><br>          		   			
-                      		<input type="submit" name="registrationSubmit" value="Register" class="button orange compact registrationSubmitButton">
+                      <input type="submit" name="registrationSubmit" value="Register" class="button orange compact registrationSubmitButton">
             		   	</form>
                   </div> <!-- registrationFormContainer -->
 								</div> <!-- Registration Text -->

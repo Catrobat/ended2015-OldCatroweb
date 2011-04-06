@@ -43,16 +43,12 @@
       	  		   				<?php } else { ?>
       	  		   				  <input type="hidden" name="requesturi" value="<?php echo htmlspecialchars($_GET['requesturi']); ?>">
       	  		   				<?php } ?>
-												<button type="submit" name="loginSubmit" id="loginSubmit" class="button orange compact loginSubmitButton">
-                        	<span class="loginSubmitButton">Login</span>
-                      	</button>
+                      	<input type="submit" name="loginSubmit" value="Login" class="button orange compact loginSubmitButton">
       	  		   				<br>
       	  		   			<?php } else {?>
       	  		   				Hello <?php echo $this->module->session->userLogin_userNickname?>!<br>
       	  		   				You are logged in with ID <?php echo $this->module->session->userLogin_userId?><br>
-												<button type="submit" name="logoutSubmit" id="loginSubmit" class="button orange compact loginSubmitButton">
-                        	<span class="loginSubmitButton">Logout</span>
-                      	</button>
+                      	<input type="submit" name="logoutSubmit" value="Logout" class="button orange compact loginSubmitButton">
       	  		   			<?php }?>
       	  		   		</form>
       	  		   		<br>

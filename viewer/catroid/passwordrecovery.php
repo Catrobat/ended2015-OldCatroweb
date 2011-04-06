@@ -81,9 +81,7 @@
     	  		   				<form method="post" action="./passwordrecovery">
     	  		   					<div class="passwordRecoveryHeadline">Enter your nickname or email address:</div>
     	  		   					<input type="text" name="passwordRecoveryUserdata"><br>
-    	  		   					<button type="submit" name="passwordRecoverySubmit" id="passwordRecoverySubmit" class="button orange compact passwordRecoverySubmitButton">
-                        	<span class="passwordRecoverySubmitButton">Recover password</span>
-                      	</button>
+                      	<input type="submit" name="passwordRecoverySubmit" value="Recover password" class="button orange compact passwordRecoverySubmitButton">
     	  		   					<br>
     	  		   				</form>
     	  		   				<br>

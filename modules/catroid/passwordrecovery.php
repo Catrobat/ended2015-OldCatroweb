@@ -308,17 +308,13 @@ class passwordrecovery extends CoreAuthenticationNone {
           $html .= '  <input type="password" name="passwordSavePasswordRepeat" ><br>';
           $html .= '  <div class="passwordRecoveryInfoText">Your password must be between '. USER_MIN_PASSWORD_LENGTH;
           $html .= '   to '. USER_MAX_PASSWORD_LENGTH .' characters.</div>';
-          $html .= '	<button type="submit" name="passwordSaveSubmit" id="passwordSaveSubmit" class="button orange compact passwordRecoverySubmitButton">';
-          $html .= '   	<span class="passwordRecoverySubmitButton">Change password now</span>';
-          $html .= '	</button>';
+          $html .= '	<input type="submit" name="passwordSaveSubmit" value="Change password now" class="button orange compact passwordRecoverySubmitButton">';
           $html .= '</form>';
         }
         else {
           $html = '<form method="post" action="./passwordrecovery">';
           $html .= '  <div class="passwordRecoveryHeadline">Sorry! Your recovery url has expired. Please try again.</div>';
-          $html .= '	<button type="button" name="passwordNextSubmit" id="passwordNextSubmit" class="button orange compact passwordRecoverySubmitButton">';
-          $html .= '   	<span class="passwordRecoverySubmitButton">Next</span>';
-          $html .= '	</button>';
+          $html .= '	<input type="submit" name="passwordNextSubmit" value="Next" class="button orange compact passwordRecoverySubmitButton">';
           $html .= '</form>';
         }
         $this->passwordRecoveryForm = $html;
@@ -327,9 +323,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       else {
         $html = '<form method="post" action="./passwordrecovery">';
         $html .= '  <div class="passwordRecoveryHeadline">Sorry! Your recovery url has expired. Please try again.</div>';
-        $html .= '	<button type="button" name="passwordNextSubmit" id="passwordNextSubmit" class="button orange compact passwordRecoverySubmitButton">';
-        $html .= '   	<span class="passwordRecoverySubmitButton">Next</span>';
-        $html .= '	</button>';
+        $html .= '	<input type="submit" name="passwordNextSubmit" value="Next" class="button orange compact passwordRecoverySubmitButton">';
         $html .= '</form>';
 
         $this->passwordRecoveryForm = $html;
