@@ -132,7 +132,7 @@ class passwordrecovery extends CoreAuthenticationNone {
         $this->answer = $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
         return false;
       }
-      $html .= '<div class="passwordRecoveryInfoText">Your new password is set. Please log in now.</div>';
+      $html .= '<div class="okMsg">Your new password is set. Please log in now.</div>';
       $this->passwordRecoveryForm = $html;
     }
     return $passwordDataValid;
@@ -371,7 +371,7 @@ class passwordrecovery extends CoreAuthenticationNone {
   
   public function timeDifference() {
     $date = new DateTime();
-    $timenow = $date->getTimestamp(); 
+    $timenow = $date->format('U');
     $hashtime = $this->userData['recovery_time'];
   
     if ($timenow > $hashtime) {
