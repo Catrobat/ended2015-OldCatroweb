@@ -57,6 +57,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     }
   }
   
+  
   /**
    * @dataProvider randomIds
    */
@@ -162,11 +163,18 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->open(TESTS_BASE_PATH.'catroid/upload/');
     $this->selenium->waitForPageToLoad("10000");
     $uploadpath = dirname(__FILE__);
-    if(strpos($uploadpath, '\\') >= 0) {
-      $uploadpath .= "\testdata\test.zip";
-    } else {
-      $uploadpath .= "/testdataa/test.zip";
-    }
+    if(strpos($uploadpath, '\\') >= 0)
+        $uploadpath.='\testdata\test.zip';
+    else
+        $uploadpath.='/testdata/test.zip';
+        
+//    $this->assertRegExp("/catroid\/login/", $this->selenium->getLocation());
+//    $this->selenium->type("loginUsername", DB_NAME);
+//    $this->selenium->type("loginPassword", DB_PASS);
+//    $this->selenium->click("loginSubmit");
+//     $this->selenium->waitForPageToload("10000");
+    $this->assertRegExp("/catroid\/upload/", $this->selenium->getLocation());
+    
     //$projectTitle = "more button selenium test";
     //$projectDescription = "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!";
     $projectTitle = $title;
@@ -181,7 +189,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     //test more button
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad("10000");
-    $this->ajaxWait("class=projectListDetailsLink");    
+    $this->ajaxWait('class=projectListDetailsLink');
     $this->selenium->click("xpath=//a[@class='projectListDetailsLink']");
     $this->selenium->waitForPageToLoad("10000");
     // $this->ajaxWait("class=showFullDescriptionButton");    

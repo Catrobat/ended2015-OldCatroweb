@@ -44,7 +44,7 @@ class loginTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(0, intval($this->obj->session->userLogin_userId));
     $this->assertEquals('', $this->obj->session->userLogin_userNickname);
   }
-
+  
   /**
    * @dataProvider invalidLogin
    */
@@ -58,7 +58,7 @@ class loginTest extends PHPUnit_Framework_TestCase
     }
     $this->fail('EXPECTED EXCEPTION NOT RAISED!');
   }
-
+  
   /* *** DATA PROVIDERS *** */
   public function validLogin() {
     $dataArray = array(

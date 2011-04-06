@@ -23,15 +23,12 @@ class toolsTest extends PHPUnit_Framework_TestCase
 {
   protected $tools;
 	protected $upload;
-	protected $badWordsFilter;
 
 	protected function setUp() {
 		require_once CORE_BASE_PATH.'modules/admin/tools.php';
 		require_once CORE_BASE_PATH.'modules/catroid/upload.php';
-		require_once CORE_BASE_PATH.'modules/catroid/BadWordsFilter.php';
 		$this->tools = new tools();
 		$this->upload = new upload();
-		$this->badWordsFilter = new BadWordsFilter();
 		@unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_thumbnail.jpg');
 	}
 
@@ -90,211 +87,211 @@ class toolsTest extends PHPUnit_Framework_TestCase
     return $returnArray;
   }
 
-  	public function testApproveWordGood() {
-		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
-		$this->deleteWord($unapprovedWord);
-		$unapprovedWordCount = count($this->badWordsFilter->getUnapprovedWords());
-		$this->badWordsFilter->addWord($unapprovedWord, 'false', 'false');
-		$this->badWordsFilter->checkWord($unapprovedWord);
-		$this->assertTrue((count($this->badWordsFilter->getUnapprovedWords()) == $unapprovedWordCount+1));
+//  public function testApproveWordGood() {
+//		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
+//		$this->deleteWord($unapprovedWord);
+//		$unapprovedWordCount = count($this->badWordsFilter->getUnapprovedWords());
+//		$this->badWordsFilter->addWord($unapprovedWord, 'false', 'false');
+//		$this->badWordsFilter->checkWord($unapprovedWord);
+//		$this->assertTrue((count($this->badWordsFilter->getUnapprovedWords()) == $unapprovedWordCount+1));
+//
+//		$fileName = 'test.zip';
+//		$testFile = dirname(__FILE__).'/testdata/'.$fileName;
+//		$fileChecksum = md5_file($testFile);
+//		$fileSize = filesize($testFile);
+//		$fileType = 'application/x-zip-compressed';
+//
+//		$formData = array('projectTitle'=>'A Testproject that contains an unapproved word',
+//                      'projectDescription'=>$unapprovedWord, 'fileChecksum'=>$fileChecksum);
+//		$fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
+//                        'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
+//		$serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+//		$insertId = $this->upload->doUpload($formData, $fileData, $serverData);
+//		$this->assertTrue($this->isProjectInDatabase($insertId));
+//		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
+//		$this->assertTrue($this->isProjectVisible($insertId));
+//
+//		$_POST['approve'] = true;
+//		$_POST['meaning'] = 1;
+//		$_POST['wordId'] = $this->getWordId($unapprovedWord);
+//		$this->tools->approveWords();
+//		$this->assertFalse(in_array($unapprovedWord, $this->getUnapprovedWords()));
+//		$this->assertTrue($this->isProjectVisible($insertId));
+//
+//		$this->deleteWord($unapprovedWord);
+//		$this->tools->deleteProject($insertId);
+//		$this->assertFalse($this->isProjectInDatabase($insertId));
+//		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
+//	}
 
-		$fileName = 'test.zip';
-		$testFile = dirname(__FILE__).'/testdata/'.$fileName;
-		$fileChecksum = md5_file($testFile);
-		$fileSize = filesize($testFile);
-		$fileType = 'application/x-zip-compressed';
-
-		$formData = array('projectTitle'=>'A Testproject that contains an unapproved word',
-                      'projectDescription'=>$unapprovedWord, 'fileChecksum'=>$fileChecksum);
-		$fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
-                        'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
-		$serverData = array('REMOTE_ADDR'=>'127.0.0.1');
-		$insertId = $this->upload->doUpload($formData, $fileData, $serverData);
-		$this->assertTrue($this->isProjectInDatabase($insertId));
-		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
-		$this->assertTrue($this->isProjectVisible($insertId));
-
-		$_POST['approve'] = true;
-		$_POST['meaning'] = 1;
-		$_POST['wordId'] = $this->getWordId($unapprovedWord);
-		$this->tools->approveWords();
-		$this->assertFalse(in_array($unapprovedWord, $this->getUnapprovedWords()));
-		$this->assertTrue($this->isProjectVisible($insertId));
-
-		$this->deleteWord($unapprovedWord);
-		$this->tools->deleteProject($insertId);
-		$this->assertFalse($this->isProjectInDatabase($insertId));
-		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
-	}
-
-	public function testApproveWordBad() {
-		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
-		$unapprovedWordCount = count($this->badWordsFilter->getUnapprovedWords());
-    $this->deleteWord($unapprovedWord);
-		$this->badWordsFilter->addWord($unapprovedWord, 'false', 'false');
-		$this->badWordsFilter->checkWord($unapprovedWord);
-		$this->assertTrue((count($this->badWordsFilter->getUnapprovedWords()) == $unapprovedWordCount+1));
-
-		$fileName = 'test.zip';
-		$testFile = dirname(__FILE__).'/testdata/'.$fileName;
-		$fileChecksum = md5_file($testFile);
-		$fileSize = filesize($testFile);
-		$fileType = 'application/x-zip-compressed';
-
-		$formData = array('projectTitle'=>'A Testproject that contains an unapproved word',
-                      'projectDescription'=>$unapprovedWord, 'fileChecksum'=>$fileChecksum);
-		$fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
-                        'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
-		$serverData = array('REMOTE_ADDR'=>'127.0.0.1');
-		$insertId = $this->upload->doUpload($formData, $fileData, $serverData);
-		$this->assertTrue($this->isProjectInDatabase($insertId));
-		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
-		$this->assertTrue($this->isProjectVisible($insertId));
-
-		$_POST['approve'] = true;
-		$_POST['meaning'] = 0;
-		$_POST['wordId'] = $this->getWordId($unapprovedWord);
-		$this->tools->approveWords();
-		$this->assertFalse(in_array($unapprovedWord, $this->getUnapprovedWords()));
-		$this->assertFalse($this->isProjectVisible($insertId));
-
-		$this->deleteWord($unapprovedWord);
-		$this->tools->deleteProject($insertId);
-		$this->assertFalse($this->isProjectInDatabase($insertId));
-		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
-	}
-
-	public function testApproveWordNoSelection() {
-		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
-		$unapprovedWordCount = count($this->badWordsFilter->getUnapprovedWords());
-    $this->deleteWord($unapprovedWord);
-		$this->badWordsFilter->addWord($unapprovedWord, 'false', 'false');
-		$this->badWordsFilter->checkWord($unapprovedWord);
-		$this->assertTrue((count($this->badWordsFilter->getUnapprovedWords()) == $unapprovedWordCount+1));
-
-		$fileName = 'test.zip';
-		$testFile = dirname(__FILE__).'/testdata/'.$fileName;
-		$fileChecksum = md5_file($testFile);
-		$fileSize = filesize($testFile);
-		$fileType = 'application/x-zip-compressed';
-
-		$formData = array('projectTitle'=>'A Testproject that contains an unapproved word',
-                      'projectDescription'=>$unapprovedWord, 'fileChecksum'=>$fileChecksum);
-		$fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
-                        'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
-		$serverData = array('REMOTE_ADDR'=>'127.0.0.1');
-		$insertId = $this->upload->doUpload($formData, $fileData, $serverData);
-		$this->assertTrue($this->isProjectInDatabase($insertId));
-		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
-		$this->assertTrue($this->isProjectVisible($insertId));
-
-		$_POST['approve'] = true;
-		$_POST['meaning'] = -1;
-		$_POST['wordId'] = $this->getWordId($unapprovedWord);
-		$this->tools->approveWords();
-		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
-		$this->assertTrue($this->isProjectVisible($insertId));
-
-		$this->deleteWord($unapprovedWord);
-		$this->tools->deleteProject($insertId);
-		$this->assertFalse($this->isProjectInDatabase($insertId));
-		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
-	}
-
-	public function testApproveWordDelete() {
-		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
-		$unapprovedWordCount = count($this->badWordsFilter->getUnapprovedWords());
-    $this->deleteWord($unapprovedWord);
-		$this->badWordsFilter->addWord($unapprovedWord, 'false', 'false');
-		$this->badWordsFilter->checkWord($unapprovedWord);
-		$this->assertTrue((count($this->badWordsFilter->getUnapprovedWords()) == $unapprovedWordCount+1));
-
-		$fileName = 'test.zip';
-		$testFile = dirname(__FILE__).'/testdata/'.$fileName;
-		$fileChecksum = md5_file($testFile);
-		$fileSize = filesize($testFile);
-		$fileType = 'application/x-zip-compressed';
-
-		$formData = array('projectTitle'=>'A Testproject that contains an unapproved word',
-                      'projectDescription'=>$unapprovedWord, 'fileChecksum'=>$fileChecksum);
-		$fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
-                        'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
-		$serverData = array('REMOTE_ADDR'=>'127.0.0.1');
-		$insertId = $this->upload->doUpload($formData, $fileData, $serverData);
-		$this->assertTrue($this->isProjectInDatabase($insertId));
-		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
-		$this->assertTrue($this->isProjectVisible($insertId));
-
-		$_POST['delete'] = true;
-		$_POST['wordId'] = $this->getWordId($unapprovedWord);
-		$this->tools->approveWords();
-		$this->assertFalse(in_array($unapprovedWord, $this->getUnapprovedWords()));
-		$this->assertTrue($this->isProjectVisible($insertId));
-
-		$this->tools->deleteProject($insertId);
-		$this->assertFalse($this->isProjectInDatabase($insertId));
-		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
-	}
-
-	public function testUnapprovedWordsInProjectsTable() {
-		$unapprovedTableLength = $this->getUnapprovedTableLength();
-		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
-		$unapprovedWordCount = count($this->badWordsFilter->getUnapprovedWords());
-    $this->deleteWord($unapprovedWord);
-		$this->badWordsFilter->addWord($unapprovedWord, 'false', 'false');
-		$this->badWordsFilter->checkWord($unapprovedWord);
-		$this->assertTrue((count($this->badWordsFilter->getUnapprovedWords()) == $unapprovedWordCount+1));
-
-		$fileName = 'test.zip';
-		$testFile = dirname(__FILE__).'/testdata/'.$fileName;
-		$fileChecksum = md5_file($testFile);
-		$fileSize = filesize($testFile);
-		$fileType = 'application/x-zip-compressed';
-
-		$formData = array('projectTitle'=>'A Testproject that contains an unapproved word',
-                      'projectDescription'=>$unapprovedWord, 'fileChecksum'=>$fileChecksum);
-		$fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
-                        'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
-		$serverData = array('REMOTE_ADDR'=>'127.0.0.1');
-		$insertId = $this->upload->doUpload($formData, $fileData, $serverData);
-		$this->assertTrue($this->isProjectInDatabase($insertId));
-		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
-		$this->assertTrue($this->isProjectVisible($insertId));
-		$this->assertTrue($unapprovedTableLength+1 == $this->getUnapprovedTableLength());
-
-		$_POST['delete'] = true;
-		$_POST['wordId'] = $this->getWordId($unapprovedWord);
-		$this->tools->approveWords();
-		$this->assertFalse(in_array($unapprovedWord, $this->getUnapprovedWords()));
-		$this->assertTrue($this->isProjectVisible($insertId));
-		$this->assertTrue($unapprovedTableLength == $this->getUnapprovedTableLength());
-
-		$this->tools->deleteProject($insertId);
-		$this->assertFalse($this->isProjectInDatabase($insertId));
-		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
-	}
-
-	private function deleteWord($word) {
-		$query = "DELETE FROM wordlist WHERE word='$word'";
-		$result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
-		if($result) {
-			pg_free_result($result);
-		}
-	}
-
-	private function getWordId($word) {
-		$query = "SELECT * FROM wordlist WHERE word='$word'";
-		$result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
-		if($result) {
-			$word =  pg_fetch_all($result);
-			pg_free_result($result);
-
-			if($word) {
-				return $word[0]['id'];
-			}
-		}
-		return -1;
-	}
+//	public function testApproveWordBad() {
+//		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
+//		$unapprovedWordCount = count($this->badWordsFilter->getUnapprovedWords());
+//    $this->deleteWord($unapprovedWord);
+//		$this->badWordsFilter->addWord($unapprovedWord, 'false', 'false');
+//		$this->badWordsFilter->checkWord($unapprovedWord);
+//		$this->assertTrue((count($this->badWordsFilter->getUnapprovedWords()) == $unapprovedWordCount+1));
+//
+//		$fileName = 'test.zip';
+//		$testFile = dirname(__FILE__).'/testdata/'.$fileName;
+//		$fileChecksum = md5_file($testFile);
+//		$fileSize = filesize($testFile);
+//		$fileType = 'application/x-zip-compressed';
+//
+//		$formData = array('projectTitle'=>'A Testproject that contains an unapproved word',
+//                      'projectDescription'=>$unapprovedWord, 'fileChecksum'=>$fileChecksum);
+//		$fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
+//                        'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
+//		$serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+//		$insertId = $this->upload->doUpload($formData, $fileData, $serverData);
+//		$this->assertTrue($this->isProjectInDatabase($insertId));
+//		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
+//		$this->assertTrue($this->isProjectVisible($insertId));
+//
+//		$_POST['approve'] = true;
+//		$_POST['meaning'] = 0;
+//		$_POST['wordId'] = $this->getWordId($unapprovedWord);
+//		$this->tools->approveWords();
+//		$this->assertFalse(in_array($unapprovedWord, $this->getUnapprovedWords()));
+//		$this->assertFalse($this->isProjectVisible($insertId));
+//
+//		$this->deleteWord($unapprovedWord);
+//		$this->tools->deleteProject($insertId);
+//		$this->assertFalse($this->isProjectInDatabase($insertId));
+//		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
+//	}
+//
+//	public function testApproveWordNoSelection() {
+//		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
+//		$unapprovedWordCount = count($this->badWordsFilter->getUnapprovedWords());
+//    $this->deleteWord($unapprovedWord);
+//		$this->badWordsFilter->addWord($unapprovedWord, 'false', 'false');
+//		$this->badWordsFilter->checkWord($unapprovedWord);
+//		$this->assertTrue((count($this->badWordsFilter->getUnapprovedWords()) == $unapprovedWordCount+1));
+//
+//		$fileName = 'test.zip';
+//		$testFile = dirname(__FILE__).'/testdata/'.$fileName;
+//		$fileChecksum = md5_file($testFile);
+//		$fileSize = filesize($testFile);
+//		$fileType = 'application/x-zip-compressed';
+//
+//		$formData = array('projectTitle'=>'A Testproject that contains an unapproved word',
+//                      'projectDescription'=>$unapprovedWord, 'fileChecksum'=>$fileChecksum);
+//		$fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
+//                        'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
+//		$serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+//		$insertId = $this->upload->doUpload($formData, $fileData, $serverData);
+//		$this->assertTrue($this->isProjectInDatabase($insertId));
+//		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
+//		$this->assertTrue($this->isProjectVisible($insertId));
+//
+//		$_POST['approve'] = true;
+//		$_POST['meaning'] = -1;
+//		$_POST['wordId'] = $this->getWordId($unapprovedWord);
+//		$this->tools->approveWords();
+//		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
+//		$this->assertTrue($this->isProjectVisible($insertId));
+//
+//		$this->deleteWord($unapprovedWord);
+//		$this->tools->deleteProject($insertId);
+//		$this->assertFalse($this->isProjectInDatabase($insertId));
+//		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
+//	}
+//
+//	public function testApproveWordDelete() {
+//		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
+//		$unapprovedWordCount = count($this->badWordsFilter->getUnapprovedWords());
+//    $this->deleteWord($unapprovedWord);
+//		$this->badWordsFilter->addWord($unapprovedWord, 'false', 'false');
+//		$this->badWordsFilter->checkWord($unapprovedWord);
+//		$this->assertTrue((count($this->badWordsFilter->getUnapprovedWords()) == $unapprovedWordCount+1));
+//
+//		$fileName = 'test.zip';
+//		$testFile = dirname(__FILE__).'/testdata/'.$fileName;
+//		$fileChecksum = md5_file($testFile);
+//		$fileSize = filesize($testFile);
+//		$fileType = 'application/x-zip-compressed';
+//
+//		$formData = array('projectTitle'=>'A Testproject that contains an unapproved word',
+//                      'projectDescription'=>$unapprovedWord, 'fileChecksum'=>$fileChecksum);
+//		$fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
+//                        'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
+//		$serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+//		$insertId = $this->upload->doUpload($formData, $fileData, $serverData);
+//		$this->assertTrue($this->isProjectInDatabase($insertId));
+//		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
+//		$this->assertTrue($this->isProjectVisible($insertId));
+//
+//		$_POST['delete'] = true;
+//		$_POST['wordId'] = $this->getWordId($unapprovedWord);
+//		$this->tools->approveWords();
+//		$this->assertFalse(in_array($unapprovedWord, $this->getUnapprovedWords()));
+//		$this->assertTrue($this->isProjectVisible($insertId));
+//
+//		$this->tools->deleteProject($insertId);
+//		$this->assertFalse($this->isProjectInDatabase($insertId));
+//		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
+//	}
+//
+//	public function testUnapprovedWordsInProjectsTable() {
+//		$unapprovedTableLength = $this->getUnapprovedTableLength();
+//		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
+//		$unapprovedWordCount = count($this->badWordsFilter->getUnapprovedWords());
+//    $this->deleteWord($unapprovedWord);
+//		$this->badWordsFilter->addWord($unapprovedWord, 'false', 'false');
+//		$this->badWordsFilter->checkWord($unapprovedWord);
+//		$this->assertTrue((count($this->badWordsFilter->getUnapprovedWords()) == $unapprovedWordCount+1));
+//
+//		$fileName = 'test.zip';
+//		$testFile = dirname(__FILE__).'/testdata/'.$fileName;
+//		$fileChecksum = md5_file($testFile);
+//		$fileSize = filesize($testFile);
+//		$fileType = 'application/x-zip-compressed';
+//
+//		$formData = array('projectTitle'=>'A Testproject that contains an unapproved word',
+//                      'projectDescription'=>$unapprovedWord, 'fileChecksum'=>$fileChecksum);
+//		$fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
+//                        'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
+//		$serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+//		$insertId = $this->upload->doUpload($formData, $fileData, $serverData);
+//		$this->assertTrue($this->isProjectInDatabase($insertId));
+//		$this->assertTrue(in_array($unapprovedWord, $this->getUnapprovedWords()));
+//		$this->assertTrue($this->isProjectVisible($insertId));
+//		$this->assertTrue($unapprovedTableLength+1 == $this->getUnapprovedTableLength());
+//
+//		$_POST['delete'] = true;
+//		$_POST['wordId'] = $this->getWordId($unapprovedWord);
+//		$this->tools->approveWords();
+//		$this->assertFalse(in_array($unapprovedWord, $this->getUnapprovedWords()));
+//		$this->assertTrue($this->isProjectVisible($insertId));
+//		$this->assertTrue($unapprovedTableLength == $this->getUnapprovedTableLength());
+//
+//		$this->tools->deleteProject($insertId);
+//		$this->assertFalse($this->isProjectInDatabase($insertId));
+//		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
+//	}
+//
+//	private function deleteWord($word) {
+//		$query = "DELETE FROM wordlist WHERE word='$word'";
+//		$result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+//		if($result) {
+//			pg_free_result($result);
+//		}
+//	}
+//
+//	private function getWordId($word) {
+//		$query = "SELECT * FROM wordlist WHERE word='$word'";
+//		$result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+//		if($result) {
+//			$word =  pg_fetch_all($result);
+//			pg_free_result($result);
+//
+//			if($word) {
+//				return $word[0]['id'];
+//			}
+//		}
+//		return -1;
+//	}
 
 	private function isProjectInDatabase($projectId) {
 		$query = "EXECUTE get_project_by_id('$projectId');";

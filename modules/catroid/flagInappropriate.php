@@ -37,18 +37,16 @@ class flagInappropriate extends CoreAuthenticationNone {
       $userIp = $serverData['REMOTE_ADDR'];
       $projectId = $postData['projectId'];
       $flagReason = $postData['flagReason'];
-
       if( preg_match("/'/" , $flagReason) ) {
         $flagReason = preg_replace("/'/" , "\'", $flagReason);
       }
-
       $query = "EXECUTE insert_new_flagged_project('$projectId', '$flagReason', '$userIp')";
       $result = @pg_query($query);
       if($result) {
         if(($numberOfFlags = $this->getProjectFlags($projectId)) >= PROJECT_FLAG_NOTIFICATION_THRESHOLD) {
           //$this->hideProject($projectId);  // uncomment to hide projects if inappropriate - commented out for google code of summer
           if($sendNotificationEmail) {
-            $this->sendNotificationEmail($projectId, $numberOfFlags);
+            $this->sendNotificationEmail($projectId, $flagReason);
             $query = "EXECUTE set_mail_sent_on_inappropriate('$projectId')";
             @pg_query($query);
           }
@@ -87,7 +85,7 @@ class flagInappropriate extends CoreAuthenticationNone {
     }
   }
   
-  public function sendNotificationEmail($projectId) {
+  public function sendNotificationEmail($projectId, $flagReason) {
     $query = "EXECUTE get_project_by_id('$projectId');";
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $project = pg_fetch_assoc($result);
@@ -97,6 +95,9 @@ class flagInappropriate extends CoreAuthenticationNone {
     $mailText = "Hello catroid.org Administrator!\n\n";
     $mailText .= "The following project was reported as inappropriate by ".$this->getProjectFlags($projectId)." user(s):\n\n";
     $mailText .= "---PROJECT DETAILS---\nID: ".$project['id']."\nTITLE: ".$project['title']."\n\n";
+    $mailText .= "Reason: ".$flagReason."\n";
+    $mailText .= "User IP: <".$_SERVER['REMOTE_ADDR'].">\n";
+    $mailText .= "--- *** ---\n\n";
     $mailText .= "You should check this!";
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));

@@ -20,24 +20,45 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-  		   		<div class="webMainContentTitle">
-  		   			Registration
-  		   		</div>
-  		   		<form method="post" action="./registration">
-  		   			Nickname:<br>
-  		   			<input type="text" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>"><br>
-  		   			Password:<br>
-  		   			<input type="password" name="registrationPassword"><br>
-  		   			Repeat password:<br>
-  		   			<input type="password" name="registrationPasswordRepeat"><br>
-  		   			Email:<br>
-  		   			<input type="text" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>"><br>
-  		   			<input type="submit" name="registrationSubmit" value="Register">
-  		   		</form>
-  		   		<br>
-  		   		<?php if($this->answer) {
-  		   		  echo $this->answer;  		   		  
-  		   		}?>
-  		  	</div>
-  		</div>
+              <div class="webMainContentTitle">Registration</div>
+                <div class="registrationMain">            	
+            	  <div class ="whiteBoxMain">
+            	    <div class="registrationText">
+            	    <div class="registrationFormContainer">
+            		   	<?php if($this->answer) {
+          		   	    echo '<div class="errorMsg">';
+           		   	    echo $this->answer;
+              		   	echo '</div>';
+            		   	}?>
+                  	<form method="post" action="./registration" name="registrationForm">
+      	  		   			<div class="registrationH2">Please enter your data. Fields with * are required fields:</div>
+          		   			Nickname*<br>
+          		   			<input type="text" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>" required="required" ><br>
+          		   			<div class="registrationInfoText">Your nick name may only contain letters A-Z (a-z), numbers from 0-9 and spaces and must be between <?php echo USER_MIN_USERNAME_LENGTH ?> to <?php echo USER_MAX_USERNAME_LENGTH ?> characters.</div>
+          		   			Password*<br>
+          		   			<input type="password" name="registrationPassword" required="required" ><br>
+          		   			Repeat password*<br>
+          		   			<input type="password" name="registrationPasswordRepeat" required="required" ><br>
+          		   			<div class="registrationInfoText">Your password must be between <?php echo USER_MIN_PASSWORD_LENGTH ?> to <?php echo USER_MAX_PASSWORD_LENGTH ?> characters.</div>
+          		   			Email*<br>
+          		   			<input type="email" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" required="required" ><br>
+          		   			Birthday*<br>
+          		   			<select name="registrationMonth" id="registrationMonth" class="registration" required="required" ><?php print_r ($this->month) ?></select> <select name="registrationYear" class="registration" id="registrationYear" required="required"><?php print_r ($this->year) ?></select><br>
+          		   			Gender*<br>
+          		   			<select name="registrationGender" class="registration" required="required" ><?php print_r ($this->gender) ?></select><br>
+          		   			Country*<br>
+          		   			<select name="registrationCountry" class="registration" id="registrationCountry" required="required" ><?php print_r ($this->countrylist) ?></select><br>
+          		   			Province<br>
+          		   			<input type="text" name="registrationProvince" value="<?php echo htmlspecialchars($this->postData['registrationProvince'])?>"><br>
+          		   			City<br>
+          		   			<input type="text" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>"><br>          		   			
+                      <input type="submit" name="registrationSubmit" value="Register" class="button orange compact registrationSubmitButton">
+            		   	</form>
+                  </div> <!-- registrationFormContainer -->
+								</div> <!-- Registration Text -->
+              </div> <!--  White Box -->            	
+           </div> <!--  license Main -->  		   		
+  		  </div> <!-- mainContent close //-->
+  		</div> <!-- blueBoxMain close //-->
   	</div>
+
