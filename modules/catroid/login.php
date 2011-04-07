@@ -33,7 +33,8 @@ class login extends CoreAuthenticationNone {
           $this->setRequestURI($_POST['requesturi']);
         }
         if($this->doLogin($_POST)) {
-          header('Location: http://' . $_SERVER['HTTP_HOST'] . "/" . $this->requesturi);
+          header('Location: ' . BASE_PATH . $this->requesturi);
+          //header('Location: http://' . $_SERVER['HTTP_HOST'] . "/" . $this->requesturi);
           exit;
         }
       } else if(isset($_POST['logoutSubmit'])) {
@@ -49,7 +50,7 @@ class login extends CoreAuthenticationNone {
       $this->requesturi = $_POST['requesturi'];  
     }
     else {
-      $this->requesturi = "/catroid/index";
+      $this->requesturi = "catroid/index";
     }
   }
   
