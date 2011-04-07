@@ -26,7 +26,7 @@ class AdminUploadTest extends PHPUnit_Framework_TestCase
 
   public function setUp() {
     $path= 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin/';
-    $this->selenium = new Testing_Selenium("*firefox", $path);
+    $this->selenium = new Testing_Selenium(TESTS_BROWSER, $path);
     if(TESTS_SLOW_MODE) {
       $this->selenium->setSpeed(TESTS_SLOW_MODE_SPEED);
     } else {

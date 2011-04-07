@@ -27,7 +27,7 @@ class LicenseTests extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     $path= 'http://'.str_replace('http://', '', TESTS_BASE_PATH).'catroid/';
-    $this->selenium = new Testing_Selenium("*firefox", $path);
+    $this->selenium = new Testing_Selenium(TESTS_BROWSER, $path);
     if (TESTS_SLOW_MODE==TRUE) {
       $this->selenium->setSpeed(TESTS_SLOW_MODE_SPEED);
     } else {
@@ -68,7 +68,7 @@ class LicenseTests extends PHPUnit_Framework_TestCase
     
     $this->selenium->click("xpath=//p[@class='licenseText']/a[3]");
     $this->selenium->selectWindow("_blank");    
-    $this->selenium->waitForPageToLoad(10000);    
+    $this->selenium->waitForPageToLoad(20000);    
     $this->assertTrue($this->selenium->isTextPresent(("Chilling Effects")));
     $this->assertTrue($this->selenium->isTextPresent(("Chilling Effects Clearinghouse - www.chillingeffects.org")));
     $this->selenium->close();

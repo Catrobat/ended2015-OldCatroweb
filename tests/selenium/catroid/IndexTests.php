@@ -28,7 +28,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     $path= 'http://'.str_replace('http://', '', TESTS_BASE_PATH).'catroid/';
-    $this->selenium = new Testing_Selenium("*firefox", $path);
+    $this->selenium = new Testing_Selenium(TESTS_BROWSER, $path);
     require_once CORE_BASE_PATH.'modules/catroid/upload.php';
     $this->upload = new upload();
     if (TESTS_SLOW_MODE==TRUE) {
