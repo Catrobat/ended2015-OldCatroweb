@@ -36,6 +36,7 @@
   <property name="tests.dir" value="${basedir}/tests/phpunit/" />
   <property name="viewer.dir" value="viewer" />
   <property name="sql.dir" value="sql" />
+  <property name="sqlupdate.dir" value="${sql.dir}/catroweb/updates" />
   <property name="htaccess.file" value=".htaccess" />
   <property name="config.file" value="config.php" />
   <property name="index.file" value="index.php" />
@@ -191,7 +192,11 @@
   </target>
   
   <target name="-update-database">
-  
+	<sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="cd ${host.catroid.dir}/${sqlupdate.dir}/; php dbupdate.php" />  
   </target>
 
   <target name="-clean">
@@ -360,12 +365,14 @@
   <!-- <target name="deploy-local" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" /> -->
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
   <!-- <target name="deploy-test" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
-  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" />
+  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-database, -cleanup" />
   <!-- <target name="deploy-public" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
-  <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" />
+  <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-database, -cleanup" />
   <target name="run-tests" depends="-phpunit-tests, -selenium-tests" />
   <target name="run-phpunit-tests" depends="-phpunit-tests" />
   <target name="run-selenium-tests" depends="-selenium-tests" />
+  <target name="run-selenium-admin-tests" depends="-selenium-tests-admin" />
+  <target name="run-selenium-catroid-tests" depends="-selenium-tests-catroid" />
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />
   <target name="deploy-test-board" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />
