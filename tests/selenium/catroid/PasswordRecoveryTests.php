@@ -133,7 +133,7 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     $this->selenium->type("xpath=//input[@name='passwordRecoveryUserdata']", $user);
     $this->selenium->click("xpath=//input[@name='passwordRecoverySubmit']");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("http://localhost/catroid/passwordrecovery?c="));
+    $this->assertTrue($this->selenium->isTextPresent(TESTS_BASE_PATH."catroid/passwordrecovery?c="));
     $this->assertTrue($this->selenium->isTextPresent("An email was sent to your email address. Please check your inbox."));
     $this->selenium->click("xpath=//a[@id='forgotPassword']");    
     
