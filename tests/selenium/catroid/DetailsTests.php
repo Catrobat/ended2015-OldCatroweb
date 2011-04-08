@@ -45,19 +45,19 @@ class DetailsTests extends PHPUnit_Framework_TestCase
   {
     // Loop initialization.
     for ($second = 0; $second <=600;$second++) {
-     // If loop is reached 60 seconds then break the loop.
-     if ($second >= 600) break;
-     // Search for element "link=ajaxLink" and if available then break loop.
-     try 
-     {        
-       if (($this->selenium->isElementPresent($waitfor))&&(!($this->selenium->isTextPresent("loading..."))))
-       break; 
-     } catch (Exception $e) {}
-     sleep(1);
+      // If loop is reached 60 seconds then break the loop.
+      if ($second >= 600) break;
+      // Search for element "link=ajaxLink" and if available then break loop.
+      try
+      {
+        if (($this->selenium->isElementPresent($waitfor))&&(!($this->selenium->isTextPresent("loading..."))))
+        break;
+      } catch (Exception $e) {}
+      sleep(1);
     }
   }
-  
-  
+
+
   /**
    * @dataProvider randomIds
    */
@@ -135,15 +135,17 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(2000);
     $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
     $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
-    $this->selenium->refresh();
-    $this->selenium->waitForPageToLoad(10000);
-    $this->selenium->click("reportAsInappropriateButton");
-    $this->selenium->type("reportInappropriateReason", "my selenium reason 2");
-    $this->selenium->focus("reportInappropriateReason");
-    $this->selenium->keyPress("reportInappropriateReason", "\\13");
-    $this->selenium->waitForPageToLoad(2000);
-    $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
-    $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
+    if(TESTS_BROWSER != "*googlechrome") { //chrome does not support keyPress for some reason
+	    $this->selenium->refresh();
+	    $this->selenium->waitForPageToLoad(10000);
+	    $this->selenium->click("reportAsInappropriateButton");
+	    $this->selenium->type("reportInappropriateReason", "my selenium reason 2");
+	    $this->selenium->focus("reportInappropriateReason");
+	    $this->selenium->keyPress("reportInappropriateReason", "\\13");
+	    $this->selenium->waitForPageToLoad(2000);
+	    $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
+	    $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
+    }
     //unflag the project again
     $path= 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin/tools/inappropriateProjects';
     $this->selenium->open($path);
@@ -154,37 +156,15 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isTextPresent("The project was succesfully restored and set to visible!"));
     $this->assertFalse($this->selenium->isTextPresent($id));
   }
-  
+
   /**
    * @dataProvider titlesAndDescriptions
    */
   public function testMoreButtonAndQRCode($title, $description) {
-    //upload new project
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/upload/');
-    $this->selenium->waitForPageToLoad("10000");
-    $uploadpath = dirname(__FILE__);
-    if(strpos($uploadpath, '\\') >= 0)
-        $uploadpath.='\testdata\test.zip';
-    else
-        $uploadpath.='/testdata/test.zip';
-        
-//    $this->assertRegExp("/catroid\/login/", $this->selenium->getLocation());
-//    $this->selenium->type("loginUsername", DB_NAME);
-//    $this->selenium->type("loginPassword", DB_PASS);
-//    $this->selenium->click("loginSubmit");
-//     $this->selenium->waitForPageToload("10000");
-    $this->assertRegExp("/catroid\/upload/", $this->selenium->getLocation());
-    
-    //$projectTitle = "more button selenium test";
-    //$projectDescription = "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!";
+    $this->uploadTestProject($title, $description);
+
     $projectTitle = $title;
     $projectDescription = $description;
-    $this->selenium->type("upload", $uploadpath);
-    $this->selenium->type("projectTitle", $projectTitle);
-    $this->selenium->type("projectDescription", $projectDescription);
-    $this->selenium->click("submit_upload");
-    $this->selenium->waitForPageToload("10000");
-    $this->assertTrue($this->selenium->isTextPresent('Upload successfull!'));
 
     //test more button
     $this->selenium->open(TESTS_BASE_PATH);
@@ -192,8 +172,8 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->ajaxWait('class=projectListDetailsLink');
     $this->selenium->click("xpath=//a[@class='projectListDetailsLink']");
     $this->selenium->waitForPageToLoad("10000");
-    // $this->ajaxWait("class=showFullDescriptionButton");    
-    
+    // $this->ajaxWait("class=showFullDescriptionButton");
+
     $this->assertTrue($this->selenium->isElementPresent("showFullDescriptionButton"));
     $shortDescriptionFromPage = $this->selenium->getText("xpath=//p[@id='detailsDescription']");
     $this->assertNotEquals(trim($shortDescriptionFromPage), trim($projectDescription));
@@ -257,10 +237,10 @@ class DetailsTests extends PHPUnit_Framework_TestCase
 
   public function titlesAndDescriptions() {
     $returnArray = array(
-                    array('more button selenium test', 'This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!'),
-                    array('more button special chars test', utf8_decode('This is a description which has special chars like ", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with "special chars" and should have more characters than defined by the threshold in config.php. Thats it!'))
-                   );
-    
+    array('more button selenium test', 'This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!'),
+    array('more button special chars test', utf8_decode('This is a description which has special chars like ", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with "special chars" and should have more characters than defined by the threshold in config.php. Thats it!'))
+    );
+
     return $returnArray;
   }
 
@@ -280,6 +260,36 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $adminpath = 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin';
     $this->selenium->open($adminpath);
     $this->selenium->waitForPageToLoad(10000);
+  }
+
+  // upload a test project via cURL-request
+  private function uploadTestProject($title, $description = '')
+  {
+    $uploadTestFile = dirname(__FILE__);
+    if(strpos($uploadTestFile, '\\') >= 0) {
+      $uploadTestFile.= '\testdata\test.zip';
+    } else {
+      $uploadTestFile.= '/testdata/test.zip';
+    }
+
+    $uploadpath= TESTS_BASE_PATH.'catroid/upload/upload.json';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_VERBOSE, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible;)");
+    curl_setopt($ch, CURLOPT_URL, $uploadpath);
+    curl_setopt($ch, CURLOPT_POST, true);
+    $post = array(
+        "upload"=>"@$uploadTestFile",
+        "projectTitle"=>$title,
+    	"projectDescription"=>$description,
+        "fileChecksum"=>md5_file($uploadTestFile)
+    );
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+    $response = json_decode(curl_exec($ch));
+    $this->assertEquals(200, $response->statusCode);
   }
 
 }

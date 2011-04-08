@@ -39,46 +39,20 @@ class AdminUploadTest extends PHPUnit_Framework_TestCase
   {
     $this->selenium->stop();
   }
-  
+
   public function testUploadTest()
   {
     $adminpath= 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin';
-    $uploadpath= TESTS_BASE_PATH.'catroid/upload/';
     
-    // upload project
-    $this->selenium->open($uploadpath);
-    $this->selenium->waitForPageToLoad("10000");
-
-    $uploadTestFile = dirname(__FILE__);
-    if(strpos($uploadTestFile, '\\') >= 0) {
-      $uploadTestFile.= "\testdata\test.zip";
-    } else {
-      $uploadTestFile.= "/testdata/test.zip";
-    }    
     $projectTitle = "testproject".rand(1,9999);
+    $this->uploadTestProject($projectTitle);
 
-    // no login needed
-/*    $this->assertRegExp("/catroid\/login/", $this->selenium->getLocation());
-    $this->selenium->type("loginUsername", DB_NAME);
-    $this->selenium->type("loginPassword", DB_PASS);
-    $this->selenium->click("loginSubmit");
-    $this->selenium->waitForPageToload("10000");
-*/    
-    
-    $this->assertRegExp("/catroid\/upload/", $this->selenium->getLocation());
-    $this->selenium->type("upload",$uploadTestFile);
-    $this->selenium->type("projectTitle",$projectTitle);
-    $this->selenium->click("submit_upload");
-    $this->selenium->waitForPageToload("10000");
-    $this->assertTrue($this->selenium->isTextPresent("Upload successfull!"));
-    
     // verify creation & click download
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToload("2000");
     $this->selenium->waitForCondition("", 2000);
     $this->assertTrue($this->selenium->isTextPresent($projectTitle));
-    
-     
+
     // delete project
     $this->selenium->open($adminpath);
     $this->selenium->click("aAdministrationTools");
@@ -90,11 +64,41 @@ class AdminUploadTest extends PHPUnit_Framework_TestCase
     $this->selenium->click("xpath=//input[@name='deleteButton']");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isTextPresent($projectTitle));
-    
+
     // verify deletion
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToload("10000");
     $this->assertFalse($this->selenium->isTextPresent($projectTitle));
+  }
+  
+  // upload a test project via cURL-request
+  private function uploadTestProject($title, $description = '')
+  {
+    $uploadTestFile = dirname(__FILE__);
+    if(strpos($uploadTestFile, '\\') >= 0) {
+      $uploadTestFile.= '\testdata\test.zip';
+    } else {
+      $uploadTestFile.= '/testdata/test.zip';
+    }
+
+    $uploadpath= TESTS_BASE_PATH.'catroid/upload/upload.json';
+
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_HEADER, 0);
+    curl_setopt($ch, CURLOPT_VERBOSE, 0);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_USERAGENT, "Mozilla/4.0 (compatible;)");
+    curl_setopt($ch, CURLOPT_URL, $uploadpath);
+    curl_setopt($ch, CURLOPT_POST, true);
+    $post = array(
+        "upload"=>"@$uploadTestFile",
+        "projectTitle"=>$title,
+    	"projectDescription"=>$description,
+        "fileChecksum"=>md5_file($uploadTestFile)
+    );
+    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
+    $response = json_decode(curl_exec($ch));
+    $this->assertEquals(200, $response->statusCode);
   }
 
 }
