@@ -112,7 +112,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('unitTest', 'my project description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with empty description', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with a very very very very long title and no description, hopefully not too long', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-    array('unitTest with special chars: ä, ü, ö', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
+    //array('unitTest with special chars: ä, ü, ö', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
     );
 
     return $dataArray;
@@ -130,6 +130,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $dataArray = array(
     array('unitTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, '', 0, $fileType),
     array('', 'this project has an empty projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType),
+    array(PROJECT_DEFAULT_SAVEFILE_NAME, 'this project is named defaultSaveFile', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType),
     array('unitTestFail2', 'this project has an invalid fileChecksum', $validTestFile, $validFileName, $invalidFileChecksum, $validFileSize, $fileType),
     array('unitTestFail3', 'this project has a too large project file', $validTestFile, $validFileName, $validFileChecksum, 200000000, $fileType),
     array('defaultSaveFile', 'this project has the default save file set.', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType),

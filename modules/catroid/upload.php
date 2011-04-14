@@ -36,12 +36,12 @@ class upload extends CoreAuthenticationNone {
 		}
 	}
 
-	public function checkValidProjectTitle($title)
-	{
-		if(strcmp($title,"defaultSaveFile") == 0)
-		return false;
-		else
-		return true;
+	public function checkValidProjectTitle($title) {
+		if(strcmp($title, PROJECT_DEFAULT_SAVEFILE_NAME) == 0) {
+		  return false;
+		} else {
+		  return true;
+		}
 	}
 
 	public function doUpload($formData, $fileData, $serverData) {
@@ -143,7 +143,7 @@ class upload extends CoreAuthenticationNone {
 						$statusCode = 506;
 						$answer = $this->errorHandler->getError('upload', 'insulting_words_in_project_title');
 					}
-				}else {
+				} else {
 					// project title == "defaultSaveFile"
 					$statusCode= 507;
 					$answer = $this->errorHandler->getError('upload', 'project_title_default');
@@ -210,7 +210,7 @@ class upload extends CoreAuthenticationNone {
 
 	public function getQRCode($projectId, $projectTitle) {
 		if(!$projectId || !$projectTitle) {
-			$this->sendQRFailNotificationEmail($projectId, $projectTitle);
+			$this->sendQRFailNotificationEmail($projectId, $projectTitle);	
 			return false;
 		}
 		$urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.'.zip?fname='.urlencode($projectTitle));

@@ -21,7 +21,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Administration - Catroid Website</title>
   <?php while($css = $this->getCss()) {?>
   	<link href="<?php echo BASE_PATH.CSS_PATH.$css?>" media="screen" rel="stylesheet" type="text/css" />

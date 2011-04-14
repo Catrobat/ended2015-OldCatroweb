@@ -21,7 +21,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=windows-1252" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.3, initial-scale=1.0, user-scalable=yes" /> -->
   <title>Catroid Website</title>
   <link href="<?php echo BASE_PATH?>include/css/baseStyle.css" media="screen" rel="stylesheet" type="text/css" />
