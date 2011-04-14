@@ -52,21 +52,24 @@ class upload extends CoreAuthenticationNone {
 		$projectDescription = '';
 		if($formData['projectTitle'] && isset($fileData['upload']['tmp_name']) && $fileData['upload']['error'] == 0) {
 			if(intval($fileData['upload']['size']) <= PROJECTS_MAX_SIZE) {
-        		$projectTitle = pg_escape_string(utf8_encode($formData['projectTitle']));
+        		$projectTitle = $formData['projectTitle'];
 				if(($this->checkValidProjectTitle($projectTitle))){
 					if(!$this->badWordsFilter->areThereInsultingWords($projectTitle)) {
 						if(isset($formData['projectDescription'])) {
-          					$projectDescription = pg_escape_string(utf8_encode($formData['projectDescription']));
+          					$projectDescription = pg_escape_string($formData['projectDescription']);
 						}
-						if(!$this->badWordsFilter->areThereInsultingWords($projectDescription)) {
+						if(!$this->badWordsFilter->areThereInsultingWords($formData['projectDescription'])) {
 							$projectName = md5(uniqid(time()));
 							$upfile = $projectName.PROJECTS_EXTENTION;
 							$updir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$upfile;
 							$uploadIp = $serverData['REMOTE_ADDR'];
+							isset($formData['deviceIMEI']) ? $uploadImei = $formData['deviceIMEI'] : $uploadImei = '';
+							isset($formData['userEmail']) ? $uploadEmail = $formData['userEmail'] : $uploadEmail = '';
+							isset($formData['userLanguage']) ? $uploadLanguage = $formData['userLanguage'] : $uploadLanguage = '';
 
 							if($this->copyProjectToDirectory($fileData['upload']['tmp_name'], $updir)) {
-								$query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$upfile', '$uploadIp');";
-								$result = @pg_query($query);
+								$query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$upfile', '$uploadIp', '$uploadImei', '$uploadEmail', '$uploadLanguage');";
+								$result = pg_query($query);
 								if($result) {
 									$line = pg_fetch_assoc($result);
 									$newId = $line['id'];

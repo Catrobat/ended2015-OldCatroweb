@@ -54,7 +54,7 @@ class CoreBadwordsFilter {
 	}
 
 	public function addWord($word, $meaning, $approved) {
-		$query = "EXECUTE add_word_to_wordlist('".utf8_decode($word)."', $meaning, $approved);";
+		$query = "EXECUTE add_word_to_wordlist('".$word."', $meaning, $approved);";
 		$result = @pg_query($this->dbConnection, $query);
 		if($result) {
 			pg_free_result($result);
@@ -62,7 +62,7 @@ class CoreBadwordsFilter {
 	}
 
 	public function checkWord($word) {
-		$query = "EXECUTE get_word_from_wordlist('".utf8_decode($word)."');";
+		$query = "EXECUTE get_word_from_wordlist('".$word."');";
 		$result = @pg_query($this->dbConnection, $query);
 		if($result) {
 			$word_standing = pg_fetch_all($result);
@@ -94,7 +94,7 @@ class CoreBadwordsFilter {
 	public function mapUnapprovedWordsToProject($project_id) {
 		if($this->getUnapprovedWords()) {
 			foreach($this->getUnapprovedWords() as $word) {
-				$query = "EXECUTE get_word_from_wordlist('".utf8_decode($word)."');";
+				$query = "EXECUTE get_word_from_wordlist('".$word."');";
 				$result = @pg_query($this->dbConnection, $query) or
           $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error($this->dbConnection));
           

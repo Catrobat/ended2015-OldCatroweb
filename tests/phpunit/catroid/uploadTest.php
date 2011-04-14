@@ -31,25 +31,25 @@ class uploadTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider correctPostData
    */
-  public function testDoUpload($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType) {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum);
+  public function testDoUpload($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
                         'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
     $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
     
-    //test qrcode image generation
-    $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));
-
+    $this->assertEquals(200, $this->upload->statusCode);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
-    $this->assertEquals(200, $this->upload->statusCode);
     $this->assertTrue($this->upload->projectId > 0);
     $this->assertTrue($this->upload->fileChecksum != null);
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
     $this->assertTrue(is_string($this->upload->answer));
-
+    
+    //test qrcode image generation
+    $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));
+/*
     //test renaming
     $return = $this->upload->renameProjectFile($filePath, $insertId);
     $this->assertTrue($return);
@@ -62,14 +62,14 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
-    $this->assertEquals(0, pg_num_rows($result));
+    $this->assertEquals(0, pg_num_rows($result));*/
   }
 
   /**
    * @dataProvider incorrectPostData
    */
-  public function testDoUploadFail($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType) {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum);
+  public function testDoUploadFail($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
                         'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
@@ -112,7 +112,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('unitTest', 'my project description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with empty description', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with a very very very very long title and no description, hopefully not too long', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-    //array('unitTest with special chars: ä, ü, ö', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
+    array(utf8_encode('unitTest with special chars: ä, ü, ö'), '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+    array('unitTest with IMEI, Email and Language', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, '12345rtgfb67854', 'catroid_unittest@gmail.com', 'en')
     );
 
     return $dataArray;

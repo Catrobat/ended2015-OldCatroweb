@@ -70,9 +70,9 @@ function executeQueryCommand($statement, $trigger) {
     } else { 
       $cquerystring = $query[1];
     }
-    $result = pg_query($cquerystring);
+    $result = @pg_query($cquerystring);
     if (!$result) {
-      $qresult = pg_query("$query[0]");
+      $qresult = @pg_query("$query[0]");
       if ($qresult) { 
         print "executed: ".$query[0]."\n";
         return 1;
