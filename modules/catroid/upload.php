@@ -77,7 +77,7 @@ class upload extends CoreAuthenticationNone {
 										$projectFile = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENTION;
 										//$statusCode = 200;
 										$fileChecksum = md5_file($projectFile);
-										if(isset($formData['fileChecksum'])) {
+										if($formData['fileChecksum']) {
 											if($this->checkFileChecksum($fileChecksum, $formData['fileChecksum'])) {
 												$statusCode = 200;
 												if($this->getQRCode($newId, $projectTitle)) {
@@ -101,18 +101,11 @@ class upload extends CoreAuthenticationNone {
 											}
 										} else {
 											//Client did not send file checksum; <= release 5
-											$statusCode = 200;
-											if($this->getQRCode($newId, $projectTitle)) {
-												$answer = 'Upload successfull!';
-											} else {
-												$answer = 'Upload successfull! QR-Code failed!';
-											}
-
-											$unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
-											if($unapprovedWords) {
-												$this->badWordsFilter->mapUnapprovedWordsToProject($newId);
-												$this->sendUnapprovedWordlistPerEmail();
-											}
+											$statusCode = 510;
+											$this->removeProjectFromDatabase($newId);
+											$this->removeProjectFromFilesystem($projectFile);
+											$newId = 0;
+											$answer = $this->errorHandler->getError('upload', 'missing_post_file_checksum');
 										}
 									} else {
 										//Error during rename

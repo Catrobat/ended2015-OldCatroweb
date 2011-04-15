@@ -47,9 +47,31 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
     $this->assertTrue(is_string($this->upload->answer));
     
+    if($uploadImei) {
+      $query = "SELECT upload_imei FROM projects WHERE id='$insertId'";
+      $result = pg_query($query);
+      $row = pg_fetch_row($result);
+      $this->assertEquals($uploadImei, $row[0]);
+      pg_free_result($result);
+    }
+    if($uploadEmail) {
+      $query = "SELECT upload_email FROM projects WHERE id='$insertId'";
+      $result = pg_query($query);
+      $row = pg_fetch_row($result);
+      $this->assertEquals($uploadEmail, $row[0]);
+      pg_free_result($result);
+    }
+    if($uploadLanguage) {
+      $query = "SELECT upload_language FROM projects WHERE id='$insertId'";
+      $result = pg_query($query);
+      $row = pg_fetch_row($result);
+      $this->assertEquals($uploadLanguage, $row[0]);
+      pg_free_result($result);
+    }
+    
     //test qrcode image generation
     $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));
-/*
+
     //test renaming
     $return = $this->upload->renameProjectFile($filePath, $insertId);
     $this->assertTrue($return);
@@ -62,13 +84,13 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
-    $this->assertEquals(0, pg_num_rows($result));*/
+    $this->assertEquals(0, pg_num_rows($result));
   }
 
   /**
    * @dataProvider incorrectPostData
    */
-  public function testDoUploadFail($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
+  public function testDoUploadFail($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $expectedStatusCode, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
     $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
                         'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
@@ -76,9 +98,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
     $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
 
+    $this->assertNotEquals(200, $this->upload->statusCode);
+    $this->assertEquals($expectedStatusCode, $this->upload->statusCode);
     $this->assertEquals(0, $insertId);
     $this->assertFalse(is_file($filePath));
-    $this->assertNotEquals(200, $this->upload->statusCode);
     $this->assertFalse($this->upload->projectId > 0);
     $this->assertTrue(is_string($this->upload->answer));
   }
@@ -129,15 +152,15 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $validFileSize = filesize($validTestFile);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-    array('unitTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, '', 0, $fileType),
-    array('', 'this project has an empty projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType),
-    array(PROJECT_DEFAULT_SAVEFILE_NAME, 'this project is named defaultSaveFile', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType),
-    array('unitTestFail2', 'this project has an invalid fileChecksum', $validTestFile, $validFileName, $invalidFileChecksum, $validFileSize, $fileType),
-    array('unitTestFail3', 'this project has a too large project file', $validTestFile, $validFileName, $validFileChecksum, 200000000, $fileType),
-    array('defaultSaveFile', 'this project has the default save file set.', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType),
-    array('unitTestFail3', 'this project has a too large project file', $validTestFile, $validFileName, $validFileChecksum, 200000000, $fileType),
-    array('my fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType),
-    array('unitTestFail5', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType)
+    array('unitTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, $validFileChecksum, 0, $fileType, 504),
+    array('unitTestFail9', 'no file checksum is send together with this project', $validTestFile, $validFileName, '', $validFileSize, $fileType, 510),
+    array('', 'this project has an empty projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 509),
+    array(PROJECT_DEFAULT_SAVEFILE_NAME, 'this project is named defaultProject', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 507),
+    array('unitTestFail2', 'this project has an invalid fileChecksum', $validTestFile, $validFileName, $invalidFileChecksum, $validFileSize, $fileType, 501),
+    array('unitTestFail3', 'this project has a too large project file', $validTestFile, $validFileName, $validFileChecksum, 200000000, $fileType, 508),
+    array(PROJECT_DEFAULT_SAVEFILE_NAME, 'this project has the default save file set.', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 507),
+    array('my fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 506),
+    array('unitTestFail5', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 505)
     );
 
     return $dataArray;
