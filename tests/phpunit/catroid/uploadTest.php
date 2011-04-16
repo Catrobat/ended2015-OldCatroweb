@@ -68,7 +68,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
       $this->assertEquals($uploadLanguage, $row[0]);
       pg_free_result($result);
     }
- /*   
+    
     //test qrcode image generation
     $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));
 
@@ -85,7 +85,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $query = "SELECT * FROM projects WHERE id='$insertId'";
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
-*/    
+    
   }
 
   /**
