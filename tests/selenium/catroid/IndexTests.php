@@ -63,7 +63,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
   }
 
   public function doUpload() {
-    for($i=1; $i< 20; $i++) {      
+    for($i=1; $i<25; $i++) {      
       $jsonResponse = $this->uploadTestProject('unitTest'.$i, 'unitTestDescription'.$i);
       $insertId = $jsonResponse->projectId;
       array_push($this->insertIDArray, $insertId);
