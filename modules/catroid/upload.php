@@ -210,7 +210,7 @@ class upload extends CoreAuthenticationNone {
 			return false;
 		}
 		$urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.'.zip?fname='.urlencode($projectTitle));
-		$serviceUrl = "http://qrcode.kaywa.com/img.php?s=5&d=".$urlToEncode;
+		$serviceUrl = PROJECTS_QR_SERVICE_URL.$urlToEncode;
 		$destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
 		$qrImageHandle = @imagecreatefrompng($serviceUrl);
 		if(!$qrImageHandle) {

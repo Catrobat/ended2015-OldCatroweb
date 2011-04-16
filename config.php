@@ -26,6 +26,7 @@ define('SCRIPT_PATH','include/script/');
 define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_QR_DIRECTORY','resources/qrcodes/');
 define('PROJECTS_QR_EXTENTION','_qr.png');
+define('PROJECTS_QR_SERVICE_URL','http://qrcode.kaywa.com/img.php?s=5&d=');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
 define('PROJECTS_THUMBNAIL_EXTENTION_SMALL','_small.jpg');
