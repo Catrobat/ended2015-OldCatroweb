@@ -37,4 +37,4 @@ WITH (OIDS=FALSE)
 ;;
 
 INSERT INTO "public"."projects" VALUES ('1', 'testproject', 'description', '1.zip', now(), '127.0.0.1', 0, 0, true, 0);
-SELECT setval('projects_id_seq', (SELECT MAX(id) FROM projects) + 1);
+

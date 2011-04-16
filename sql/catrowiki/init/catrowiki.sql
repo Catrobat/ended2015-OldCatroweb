@@ -18,10 +18,10 @@ SET escape_string_warning = off;
 -- Name: plpgsql; Type: PROCEDURAL LANGUAGE; Schema: -; Owner: website
 --
 
-DROP LANGUAGE IF EXISTS plpgsql;
-CREATE LANGUAGE plpgsql;
+-- DROP LANGUAGE IF EXISTS plpgsql;
+-- CREATE LANGUAGE plpgsql;
 
-ALTER PROCEDURAL LANGUAGE plpgsql OWNER TO website;
+-- ALTER PROCEDURAL LANGUAGE plpgsql OWNER TO website;
 
 SET search_path = public, pg_catalog;
 
@@ -3068,10 +3068,10 @@ ALTER TABLE ONLY watchlist
 -- Name: public; Type: ACL; Schema: -; Owner: website
 --
 
-REVOKE ALL ON SCHEMA public FROM PUBLIC;
-REVOKE ALL ON SCHEMA public FROM postgres;
-GRANT ALL ON SCHEMA public TO postgres;
-GRANT ALL ON SCHEMA public TO PUBLIC;
+-- REVOKE ALL ON SCHEMA public FROM PUBLIC;
+-- REVOKE ALL ON SCHEMA public FROM postgres;
+-- GRANT ALL ON SCHEMA public TO postgres;
+-- GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
 -- Completed on 2011-02-16 18:50:05

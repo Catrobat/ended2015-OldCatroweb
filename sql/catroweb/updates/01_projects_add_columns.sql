@@ -1,7 +1,6 @@
---
--- alter table: projects
--- 
-ALTER TABLE projects ADD COLUMN view_count integer; ALTER TABLE projects ALTER COLUMN view_count SET DEFAULT 0; -- (+) projects.view_count 
-ALTER TABLE projects ADD COLUMN visible boolean; ALTER TABLE projects ALTER COLUMN visible SET DEFAULT true; -- (+) projects.visible
-ALTER TABLE projects ADD COLUMN user_id integer; ALTER TABLE projects ALTER COLUMN user_id SET DEFAULT 0; -- (+) projects.user_id
-
+-- Column: upload_imei
+-- Column: upload_email
+-- Column: upload_language
+ALTER TABLE projects ADD COLUMN upload_imei character varying(32) DEFAULT ''; -- (+) projects.upload_imei
+ALTER TABLE projects ADD COLUMN upload_email character varying(255) DEFAULT ''; -- (+) projects.upload_email
+ALTER TABLE projects ADD COLUMN upload_language character varying(4) DEFAULT ''; -- (+) projects.upload_language

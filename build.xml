@@ -191,12 +191,34 @@
     />
   </target>
   
-  <target name="-update-database">
+  <target name="-update-remote-database">
 	<sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="cd ${host.catroid.dir}/${sqlupdate.dir}/; php dbupdate.php" />  
+             command="cd ${host.catroid.dir}/${sql.dir}/; php dbupdate.php" />  
+  </target>
+  
+  <target name="-update-local-database">
+	<exec dir="${sql.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="php"/>
+      <arg line=" dbupdate.php"/>
+    </exec>
+    <exec dir="${sql.dir}" executable="php" failonerror="true" osfamily="Unix">
+      <arg line=" dbupdate.php"/>
+    </exec>
+  </target>
+  
+  <target name="-init-local-database">
+	<exec dir="${sql.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="php"/>
+      <arg line=" dbinit.php"/>
+    </exec>
+    <exec dir="${sql.dir}" executable="php" failonerror="true" osfamily="Unix">
+      <arg line=" dbinit.php"/>
+    </exec>
   </target>
 
   <target name="-clean">
@@ -365,9 +387,9 @@
   <!-- <target name="deploy-local" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" /> -->
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
   <!-- <target name="deploy-test" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
-  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-database, -cleanup" />
+  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <!-- <target name="deploy-public" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
-  <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-database, -cleanup" />
+  <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="run-tests" depends="-phpunit-tests, -selenium-tests" />
   <target name="run-phpunit-tests" depends="-phpunit-tests" />
   <target name="run-selenium-tests" depends="-selenium-tests" />
@@ -377,5 +399,7 @@
   <target name="run-validator-tests" depends="-validator-tests" />
   <target name="deploy-test-board" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />
   <target name="deploy-test-wiki" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-wiki, -user-pass-prompt, -undeploy-wiki, -deploy-wiki, -cleanup" />
+  <target name="update-db" depends="-update-local-database" />
+  <target name="init-db" depends="-init-local-database, -update-local-database" />
 
 </project>
