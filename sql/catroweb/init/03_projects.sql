@@ -35,3 +35,6 @@ CONSTRAINT "userId" FOREIGN KEY ("user_id") REFERENCES "public"."cusers" ("id") 
 )
 WITH (OIDS=FALSE)
 ;;
+
+INSERT INTO "public"."projects" VALUES ('1', 'testproject', 'description', '1.zip', now(), '', 0, 0, true, 0);
+SELECT setval('projects_id_seq', (SELECT MAX(id) FROM projects) + 1);

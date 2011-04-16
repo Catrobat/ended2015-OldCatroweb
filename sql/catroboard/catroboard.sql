@@ -5619,7 +5619,6 @@ tweaks required due to its poor CSS support.
 table.table1 {
 	width: 99%;		/* IE < 6 browsers */
 	/* Tantek hack */
-	voice-family: "\\"}\\"";
 	voice-family: inherit;
 	width: 100%;
 }
