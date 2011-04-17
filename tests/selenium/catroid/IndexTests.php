@@ -68,7 +68,6 @@ class IndexTests extends PHPUnit_Framework_TestCase
       $insertId = $jsonResponse->projectId;
       array_push($this->insertIDArray, $insertId);
     }
-
   }
 
   public function deleteUploadedProjects()

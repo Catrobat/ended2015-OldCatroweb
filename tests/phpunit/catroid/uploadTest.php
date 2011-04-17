@@ -32,7 +32,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
    * @dataProvider correctPostData
    */
   public function testDoUpload($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>utf8_decode($projectTitle), 'projectDescription'=>utf8_decode($projectDescription), 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
                         'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
@@ -68,7 +68,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
       $this->assertEquals($uploadLanguage, $row[0]);
       pg_free_result($result);
     }
-    
+ 
     //test qrcode image generation
     $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));
 
@@ -86,14 +86,14 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $query = "SELECT * FROM projects WHERE id='$insertId'";
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
-    
+
   }
 
   /**
    * @dataProvider incorrectPostData
    */
   public function testDoUploadFail($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $expectedStatusCode, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>utf8_decode($projectTitle), 'projectDescription'=>utf8_decode($projectDescription), 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
                         'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
@@ -137,7 +137,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('unitTest', 'my project description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with empty description', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with a very very very very long title and no description, hopefully not too long', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-    array(utf8_encode('unitTest with special chars: ä, ü, ö'), '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+    array('unitTest with special chars: ä, ü, ö', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with IMEI, Email and Language', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, '12345rtgfb67854', 'catroid_unittest@gmail.com', 'en')
     );
 
@@ -162,7 +162,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('unitTestFail3', 'this project has a too large project file', $validTestFile, $validFileName, $validFileChecksum, 200000000, $fileType, 508),
     array(PROJECT_DEFAULT_SAVEFILE_NAME, 'this project has the default save file set.', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 507),
     array('my fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 506),
-    array('unitTestFail5', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 505)
+    array('insulting description', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 505)
     );
 
     return $dataArray;

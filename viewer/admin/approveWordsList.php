@@ -52,7 +52,7 @@
       foreach($this->words as $word) {?>
 	  <tr>
 		  <td><?php echo $word['id']?></td>
-		  <td><?php echo utf8_decode($word['word'])?></td>
+		  <td><?php echo $word['word']?></td>
 		  <td>
 		    <form id="approveForm<?php echo $word['id']?>" class="admin" action="approveWords" method="POST">
 		      <select name="meaning">

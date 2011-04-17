@@ -64,9 +64,9 @@ class details extends CoreAuthenticationNone {
     $project['publish_time_in_words'] = $this->getTimeInWords(strtotime($project['upload_time']), time());
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
     $project['uploaded_by'] = 'unknown';
-    $project['title'] = utf8_decode($project['title']);
+    $project['title'] = $project['title'];
     if($project['description']) {
-      $project['description'] = utf8_decode($project['description']);
+      $project['description'] = $project['description'];
     } else {
       $project['description'] = '';
     }

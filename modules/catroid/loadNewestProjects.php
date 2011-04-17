@@ -48,8 +48,8 @@ class loadNewestProjects extends CoreAuthenticationNone {
     if($projects[0]['id']) {
       $i=0;
       foreach($projects as $project) {
-        $projects[$i]['title'] = utf8_decode($projects[$i]['title']);
-        $projects[$i]['title_short'] = $this->shortenTitle(utf8_decode($project['title']));
+        $projects[$i]['title'] = $projects[$i]['title'];
+        $projects[$i]['title_short'] = $this->shortenTitle($project['title']);
         $projects[$i]['upload_time'] =  $this->getTimeInWords(strtotime($project['upload_time']), time());
         $projects[$i]['thumbnail'] = $this->getThumbnail($project['id']);
         $i++;
@@ -62,7 +62,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
 
   public function shortenTitle($string) {
     if(strlen($string) > PROJECT_TITLE_MAX_DISPLAY_LENGTH) {
-      return substr($string, 0, PROJECT_TITLE_MAX_DISPLAY_LENGTH);
+      return mb_substr($string, 0, PROJECT_TITLE_MAX_DISPLAY_LENGTH, 'UTF-8');
     }
     return $string;
   }
