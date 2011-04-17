@@ -314,6 +314,7 @@ class registration extends CoreAuthenticationNone {
     else {
       $date_of_birth = $year.'-'.sprintf("%02d", $month).'-01 00:00:01';
     }
+    
     $gender = $postData['registrationGender'];
     $city = $postData['registrationCity'];
     

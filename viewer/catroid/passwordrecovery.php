@@ -81,12 +81,12 @@
     	  		   				<form method="post" action="./passwordrecovery">
     	  		   					<div class="passwordRecoveryHeadline">Enter your nickname or email address:</div>
     	  		   					<input type="text" name="passwordRecoveryUserdata"><br>
-                      	<input type="submit" name="passwordRecoverySubmit" value="Recover password" class="button orange compact passwordRecoverySubmitButton">
+                      	<input type="submit" name="passwordRecoverySubmit" value="Send me my password recovery link" class="button orange compact passwordRecoverySubmitButton">
     	  		   					<br>
     	  		   				</form>
     	  		   				<br>
 	      	  		   		<br>
-											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> or <a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">sign up now!</a></div>
+											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } ?>
             		   	<br>
             		   	<div class="addons_links">
