@@ -20,7 +20,7 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle">Recover your password</div>
+              <div class="webMainContentTitle">Change your password</div>
                 <div class="passwordRecoveryMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="passwordRecoveryText">

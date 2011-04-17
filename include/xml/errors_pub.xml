@@ -69,8 +69,10 @@
     	<string name="password_repeat_missing">The repeated password is missing.</string>
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">The password is invalid.</string>
+    	<string name="password_length_invalid">The password must have at least 6 characters.</string>
     	<string name="username_missing">The nickname is missing.</string>
     	<string name="username_invalid">The nickname is invalid.</string>
+    	<string name="username_invalid_underscore">The nickname is invalid. Underscores are not allowed.</string>
     	<string name="username_already_exists">This nickname already exists.</string>
     	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
     	<string name="country_missing">The country is missing.</string>
