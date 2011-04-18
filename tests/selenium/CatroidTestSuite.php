@@ -32,7 +32,8 @@ require_once 'catroid/DetailsTests.php';
 require_once 'catroid/LicenseTests.php';
 require_once 'catroid/RegistrationTests.php';
 require_once 'catroid/LoginTests.php';
-// require_once 'catroid/MenuTests.php';
+require_once 'catroid/HeaderTests.php';
+require_once 'catroid/MenuTests.php';
 require_once 'catroid/PasswordRecoveryTests.php';
 
 /*****************************************************************************/
@@ -51,7 +52,8 @@ class TestSuite
         $suite->addTestSuite('LicenseTests');
         $suite->addTestSuite('RegistrationTests');
         $suite->addTestSuite('LoginTests');
-        // $suite->addTestSuite('MenuTests');
+        $suite->addTestSuite('HeaderTests');
+        $suite->addTestSuite('MenuTests');
         $suite->addTestSuite('PasswordRecoveryTests');
         return $suite;
     }

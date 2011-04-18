@@ -20,6 +20,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
         new NewestProjects(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->numberOfPages."'"; ?>);
+        new HeaderMenu(<?php echo "'".BASE_PATH."'"; ?>);
       });
     </script>
     <div class="webMainTop">
@@ -37,7 +38,27 @@
                 </a>			      			
             </div>
           </div>
+          <div id="normalHeaderButtons" class="webHeadButtons">
+            <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="Menu" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerSearchButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/search.png" alt="Search" /></button>
+          </div>
+          <div id="cancelHeaderButton" class="webHeadButtons">
+            <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelSearchButton">
+              <span class="webHeadCancelButtonText">Cancel</span>
+            </button>
+          </div>
           <div style="clear:both;"></div>
+        </div>
+      </div>
+      <div id="headerSearchBox" style="display:none;">
+        <div class="webHeadSearchBoxSpacer"></div>
+        <div class="blueBoxMain">
+          <div class="webMainHead">
+            <form>
+              <input type="search" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
+              <input type="submit" class="webHeadSearchSubmit" value="Search" />
+            </form>
+          </div>
         </div>
       </div>
     </div> <!--  WEBMAINTOP -->

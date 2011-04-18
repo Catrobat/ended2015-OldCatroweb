@@ -1,19 +1,19 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2011 The Catroid Team
+ *    Copyright (C) 2010  Catroid development team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
+ *    it under the terms of the GNU General Public License as published by
+ *    the Free Software Foundation, either version 3 of the License, or
+ *    (at your option) any later version.
  *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
+ *    GNU General Public License for more details.
  *
- *    You should have received a copy of the GNU Affero General Public License
+ *    You should have received a copy of the GNU General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
@@ -23,14 +23,12 @@ require_once 'testsBootstrap.php';
 class MenuTests extends PHPUnit_Framework_TestCase
 {
   private $selenium;
-  protected $upload;
-  protected $insertIDArray = array();
+  
   public function setUp()
   {
     $path= 'http://'.str_replace('http://', '', TESTS_BASE_PATH).'catroid/';
-    $this->selenium = new Testing_Selenium(TESTS_BROWSER, $path);
-    require_once CORE_BASE_PATH.'modules/catroid/upload.php';
-    $this->upload = new upload();
+    $this->selenium = new Testing_Selenium("*firefox", $path);
+    
     if (TESTS_SLOW_MODE==TRUE) {
       $this->selenium->setSpeed(TESTS_SLOW_MODE_SPEED);
     } else {
@@ -60,76 +58,100 @@ class MenuTests extends PHPUnit_Framework_TestCase
      } catch (Exception $e) {}
      sleep(1);
     }
-  }
-  
+  }  
 
-  
-/*  public function testHeaderButtonsIndex()
+  /**
+  * @dataProvider registrationData
+  */
+  public function testMenuButtons($regData)
   {
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
     
-     //test page title
-     
-    $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
-    $this->assertFalse($this->selenium->isVisible("headerSearchBox"));
-    $this->assertFalse($this->selenium->isVisible("headerCancelSearchButton"));
-    $this->assertTrue($this->selenium->isVisible("headerSearchButton"));
-    $this->assertTrue($this->selenium->isVisible("headerMenuButton"));      
-    
-    
-    $this->selenium->click("headerSearchButton");
-    $this->selenium->waitForPageToLoad(100);
-    $this->assertTrue($this->selenium->isVisible("headerSearchBox"));
-    $this->assertTrue($this->selenium->isVisible("headerCancelSearchButton"));
-    $this->assertFalse($this->selenium->isVisible("headerSearchButton"));
-    $this->assertFalse($this->selenium->isVisible("headerMenuButton"));
-    
-    $this->selenium->click("headerCancelSearchButton");
-    $this->selenium->waitForPageToLoad(100);
-    $this->assertFalse($this->selenium->isVisible("headerSearchBox"));
-    $this->assertFalse($this->selenium->isVisible("headerCancelSearchButton"));
-    $this->assertTrue($this->selenium->isVisible("headerSearchButton"));
-    $this->assertTrue($this->selenium->isVisible("headerMenuButton"));
-    
     $this->selenium->click("headerMenuButton");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertRegExp("/catroid\/menu/", $this->selenium->getLocation());    
+    
+    $this->assertTrue($this->selenium->isVisible("menuProfileButton"));
+    $this->assertTrue($this->selenium->isVisible("menuForumButton"));
+    $this->assertTrue($this->selenium->isVisible("menuWikiButton"));
+    
+    $this->assertTrue($this->selenium->isVisible("menuWallButton"));
+    $this->assertTrue($this->selenium->isVisible("menuLoginButton"));
+    $this->assertTrue($this->selenium->isVisible("menuSettingsButton"));
+    
+    
+    $this->assertFalse($this->selenium->isEditable("menuProfileButton"));
+    $this->assertFalse($this->selenium->isEditable("menuWallButton"));
+    $this->assertFalse($this->selenium->isEditable("menuSettingsButton"));
+    
+    $this->selenium->click("menuForumButton");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertRegExp("/catroid\/login/", $this->selenium->getLocation());
+    $this->selenium->click("headerMenuButton");
+    $this->selenium->waitForPageToLoad(10000);
+    
+    $this->selenium->click("menuWikiButton");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertRegExp("/catroid\/login/", $this->selenium->getLocation());
+    $this->selenium->click("headerMenuButton");
+    $this->selenium->waitForPageToLoad(10000);
+    
+    $this->selenium->click("menuLoginButton");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertRegExp("/catroid\/login/", $this->selenium->getLocation());
+    $this->selenium->click("headerMenuButton");
+    $this->selenium->waitForPageToLoad(10000);
+    
+    $this->selenium->click("menuLoginButton");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->type("xpath=//input[@name='loginUsername']", $regData['registrationUsername']);
+    $this->selenium->type("xpath=//input[@name='loginPassword']", $regData['registrationPassword']);
+    
+    $this->selenium->click("xpath=//input[@name='loginSubmit']");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertTrue($this->selenium->isVisible("menuLogoutButton"));    
+    $this->assertFalse($this->selenium->isVisible("menuLoginButton"));    
+    
+    // test links
+    $this->assertFalse($this->selenium->isEditable("menuProfileButton"));
+    $this->assertFalse($this->selenium->isEditable("menuWallButton"));
+    $this->assertFalse($this->selenium->isEditable("menuSettingsButton"));
+    
+    $this->selenium->click("menuForumButton");        
+    $this->selenium->waitForPageToLoad(10000);    
+    $this->assertRegExp("/addons\/board/", $this->selenium->getLocation());
+    $this->assertTrue($this->selenium->isTextPresent(("Board index")));
+    $this->selenium->goBack();
+    $this->selenium->waitForPageToLoad(10000); 
+    
+    $this->selenium->click("menuWikiButton");    
+    $this->selenium->waitForPageToLoad(10000);    
+    $this->assertRegExp("/wiki\/Main_Page/", $this->selenium->getLocation());
+    $this->assertTrue($this->selenium->isTextPresent(("Main Page")));      
+    $this->selenium->goBack();
+    $this->selenium->waitForPageToLoad(10000); 
+    $this->selenium->click("menuLogoutButton");
+    
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertRegExp("/catroid\/index/", $this->selenium->getLocation());
+    
+    $this->selenium->click("headerMenuButton");
+    $this->selenium->waitForPageToLoad(10000); 
+    
+    $this->assertTrue($this->selenium->isVisible("menuLoginButton"));    
+    $this->assertFalse($this->selenium->isVisible("menuLogoutButton")); 
   }
   
-  public function testHeaderButtons()
-  {
-    $this->selenium->open(TESTS_BASE_PATH);
-    $this->selenium->waitForPageToLoad(10000);
-    $this->selenium->click("xpath=//a[@class='license'][4]");    
-    $this->selenium->waitForPageToLoad(10000);
-    
-     //test page title
-    $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
-    $this->assertFalse($this->selenium->isVisible("headerSearchBox"));
-    $this->assertFalse($this->selenium->isVisible("headerCancelSearchButton"));
-    $this->assertTrue($this->selenium->isVisible("headerSearchButton"));
-    $this->assertTrue($this->selenium->isVisible("headerMenuButton"));
-    
-    $this->selenium->click("headerSearchButton");
-    $this->selenium->waitForPageToLoad(100);
-    $this->assertTrue($this->selenium->isVisible("headerSearchBox"));
-    $this->assertTrue($this->selenium->isVisible("headerCancelSearchButton"));
-    $this->assertFalse($this->selenium->isVisible("headerSearchButton"));
-    $this->assertFalse($this->selenium->isVisible("headerMenuButton"));
-    
-    $this->selenium->click("headerCancelSearchButton");
-    $this->selenium->waitForPageToLoad(100);
-    $this->assertFalse($this->selenium->isVisible("headerSearchBox"));
-    $this->assertFalse($this->selenium->isVisible("headerCancelSearchButton"));
-    $this->assertTrue($this->selenium->isVisible("headerSearchButton"));
-    $this->assertTrue($this->selenium->isVisible("headerMenuButton"));
-    
-    $this->selenium->click("headerMenuButton");
-    $this->selenium->waitForPageToLoad(10000);
-    $this->assertRegExp("/catroid\/menu/", $this->selenium->getLocation());
-    
-  }*/
+    /* *** DATA PROVIDERS *** */
+  public function registrationData() {
+    $random = rand(100, 999999);
+    $dataArray = array(
+    array(
+    array('registrationUsername'=>'catroweb', 'registrationPassword'=>'cat.roid.web'))
+    );
+    return $dataArray;
+  }
+  
 }
 ?>
 
