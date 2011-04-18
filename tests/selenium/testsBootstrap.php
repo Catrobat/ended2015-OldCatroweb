@@ -23,7 +23,7 @@ session_start();
 //define('TESTS_BASE_PATH','http://catroidwebtest.ist.tugraz.at/');
 //define('TESTS_BASE_PATH','http://localhost/catroweb/');
 define('TESTS_BASE_PATH','http://localhost/');
-define('TESTS_SLOW_MODE',true);
+define('TESTS_SLOW_MODE',false);
 define('TEST_MODE',true);
 define('TESTS_SLOW_MODE_SPEED','1000');
 define('TESTS_BROWSER', '*firefox');
