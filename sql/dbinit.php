@@ -21,9 +21,18 @@
 //require_once '../config.php';
 require_once '../passwords.php';
 
+$connection_common = null;
+if($connection_common === null) {
+      $connection_common = pg_connect("host=".DB_HOST." dbname=postgres user=".DB_USER." password=".DB_PASS)      
+      or die('Connection to Database failed: ' . pg_last_error());
+      
+}
+
+executeQueryLineByLineInFile(dirname(__FILE__).'/'."catroweb/create/", "01_create_databases.sql", $connection_common);
+
 $connection_web = null;
 if($connection_web === null) {
-      $connection_web = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
+      $connection_web = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)      
       or die('Connection to Database failed: ' . pg_last_error());
 }
 
@@ -41,22 +50,35 @@ if($connection_wiki === null) {
 
 set_time_limit(0);
 
+
 walkThroughDirectory(dirname(__FILE__).'/'."catroweb/init/", $connection_web);
 walkThroughDirectory(dirname(__FILE__).'/'."catroboard/init/", $connection_board);
 walkThroughDirectory(dirname(__FILE__).'/'."catrowiki/init/", $connection_wiki);
 
 function walkThroughDirectory($directory, $connection) {
+    $filearray = array();
     if(is_dir($directory)) {
       if($directory_handler = opendir($directory)) {
         while(($file = readdir($directory_handler)) !== false) {
           if(stristr($file, ".sql")) {
+            array_push($filearray,$file);
             // print "reading file: ".$directory."/".$file."\n";
-            executeQueryInFile($directory, $file, $connection);
           }
         }
         closedir($directory_handler);
       }
     }
+   if($filearray) {
+     executeFiles($directory,$connection,$filearray);
+   }
+}
+
+function executeFiles($directory,$connection,$filearray)
+{
+  sort($filearray);
+  foreach ($filearray as $file) {
+    executeQueryInFile($directory, $file, $connection);     
+  }
 }
 
 function executeQueryInFile($directory, $file, $connection) {
@@ -69,4 +91,18 @@ function executeQueryInFile($directory, $file, $connection) {
   }
 }
 
+function executeQueryLineByLineInFile($directory, $file, $connection) {
+  $handle = fopen($directory.$file, "r");  
+  while ( $sql_string = trim(fgets($handle)) ) {    
+    if ($sql_string!="") {
+      $result = pg_query($connection, $sql_string);
+      if($result) {
+        print "query ".$sql_string." successful!\n";
+      } else {
+        print "query ".$sql_string." failed!\n".pg_last_error($connection)."\n";;     
+      }
+    }
+  } 
+  fclose($handle); 
+}
 ?>

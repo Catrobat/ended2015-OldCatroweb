@@ -32,17 +32,29 @@ set_time_limit(0);
 walkThroughDirectory(dirname(__FILE__).'/'."catroweb/updates/", $connection_web);
 
 function walkThroughDirectory($directory, $connection) {
+    $filearray = array();
     if(is_dir($directory)) {
       if($directory_handler = opendir($directory)) {
         while(($file = readdir($directory_handler)) !== false) {
           if(stristr($file, ".sql")) {
             // print "reading file: ".$directory."/".$file."\n";
-            executeQueryInFile($directory, $file, $connection);
+            array_push($filearray,$file);
           }
         }
         closedir($directory_handler);
       }
     }
+   if($filearray) {
+     executeFiles($directory,$connection,$filearray);
+   }
+}
+
+function executeFiles($directory,$connection,$filearray)
+{
+  sort($filearray);
+  foreach ($filearray as $file) {
+    executeQueryInFile($directory, $file, $connection);     
+  }
 }
 
 function executeQueryInFile($directory, $file, $connection) {

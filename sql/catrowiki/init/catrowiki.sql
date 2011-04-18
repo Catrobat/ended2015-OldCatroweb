@@ -30,6 +30,7 @@ SET search_path = public, pg_catalog;
 -- Dependencies: 3
 -- Name: add_interwiki(text, integer, smallint); Type: FUNCTION; Schema: public; Owner: website
 --
+CREATE language plpgsql;
 
 CREATE FUNCTION add_interwiki(text, integer, smallint) RETURNS integer
     LANGUAGE sql
