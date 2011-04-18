@@ -97,7 +97,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("Hello ".mb_convert_case($regData['registrationUsername'], MB_CASE_TITLE, "UTF-8")."!"));
+    $this->assertTrue($this->selenium->isTextPresent("Hello ".$regData['registrationUsername']."!"));
     $this->assertTrue($this->selenium->isTextPresent("You are logged in"));
     
     $this->selenium->open(TESTS_BASE_PATH.'addons/board/');
