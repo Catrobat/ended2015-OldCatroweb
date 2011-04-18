@@ -25,6 +25,7 @@
   <!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.3, initial-scale=1.0, user-scalable=yes" /> -->
   <title>Catroid Website</title>
   <link href="<?php echo BASE_PATH?>include/css/baseStyle.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="<?php echo BASE_PATH?>include/css/buttons.css" media="screen" rel="stylesheet" type="text/css" />
 <?php while($css = $this->getCss()) {?>
   <link href="<?php echo BASE_PATH?>include/css/<?php echo $css?>" media="screen" rel="stylesheet" type="text/css" />
 <?php }?>
@@ -33,7 +34,8 @@
 <?php }?>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js" ></script>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/jquery.js" ></script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js" ></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js" ></script>    
+  
 <?php while($js = $this->getJs()) {?>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/<?php echo $js?>"></script>
 <?php }?>

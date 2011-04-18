@@ -18,12 +18,31 @@
 
 
 var HeaderMenu = Class.$extend( {
-  __init__ : function() {
+  __init__ : function(basePath) {
+  var self = this;
+    this.basePath = basePath;
+    
+    this.openLocation = {
+      home: function() {
+        location.href = self.basePath+'catroid/index';
+      },        
+      menu: function() {
+        location.href = self.basePath+'catroid/menu';
+      },
+      login: function() {
+        location.href = self.basePath+'catroid/login';
+      }
+    };
+
     if($("#normalHeaderButtons").length != 0) {
       $("#normalHeaderButtons").toggle();
     }
+
+    $("#headerMenuButton").click(jQuery.proxy(this.openLocation, "menu"));
+    $("#headerHomeButton").click(jQuery.proxy(this.openLocation, "home"));
     $("#headerSearchButton").click($.proxy(this.toggleSearchBox, this));
     $("#headerCancelSearchButton").click($.proxy(this.toggleSearchBox, this));
+    $("#headerLoginButton").click(jQuery.proxy(this.openLocation, "login"));
   },
 
   toggleSearchBox : function() {
@@ -32,3 +51,5 @@ var HeaderMenu = Class.$extend( {
     $("#cancelHeaderButton").toggle();
   }
 });
+
+
