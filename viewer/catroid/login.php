@@ -31,8 +31,8 @@
               		   	echo '</div>';
             		   	}?>
       	  		   		<form method="post" action="./login">
-      	  		   		<div class="loginH2">Please enter your nickname and your password:</div>
-      	  		   			<?php if($this->module->session->userLogin_userId <= 0) { ?>
+                        <?php if($this->module->session->userLogin_userId <= 0) { ?>
+      	  		   				<div class="loginH2">Please enter your nickname and your password:</div>
       	  		   				Nickname: <br>
       	  		   				<input type="text" name="loginUsername"><br>
       	  		   				Password:<br> 
@@ -52,7 +52,9 @@
       	  		   			<?php }?>
       	  		   		</form>
       	  		   		<br>
+      	  		   		<?php if($this->module->session->userLogin_userId <= 0) {?>
 										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Create a new account now</a> <br>or<br> <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>
+										<?php }?>
             		   	<br>
       		   		   		<br><br>
       		  		   		<a id="aBoardLink" target="_blank" href="<?php echo BASE_PATH?>addons/board/">Board</a>
