@@ -55,7 +55,6 @@ class login extends CoreAuthenticationNone {
   }
   
   public function doLogin($postData) {
-    //$postData = $this->encodeUtf8($postData);
     $answer = '';
     $statusCode = 500;
     $boardLoginSuccess = false;
@@ -130,7 +129,11 @@ class login extends CoreAuthenticationNone {
   }
   
   public function doCatroidLogin($postData) {
-    $user = utf8_encode($postData['loginUsername']);
+    global $phpbb_root_path;
+    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
+    
+    $user = $postData['loginUsername'];
+    $user = utf8_clean_string($user);
     $pass = md5($postData['loginPassword']);
     $query = "EXECUTE get_user_login('$user', '$pass')";
     
@@ -142,7 +145,7 @@ class login extends CoreAuthenticationNone {
     if(pg_num_rows($result) > 0) {
       $user = pg_fetch_assoc($result);
       $this->session->userLogin_userId = $user['id'];
-      $this->session->userLogin_userNickname = utf8_decode($user['username']);
+      $this->session->userLogin_userNickname = ($user['username']);
     } else {
       throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'));
     }
@@ -160,7 +163,7 @@ class login extends CoreAuthenticationNone {
     $user->session_begin();
     $auth->acl($user->data);
     $user->setup();
-    $auth->login(utf8_encode($postData['loginUsername']), $postData['loginPassword'], false, 1);
+    $auth->login($postData['loginUsername'], $postData['loginPassword'], false, 1);
     return($user->data['user_id']);
   }
 
@@ -173,6 +176,8 @@ class login extends CoreAuthenticationNone {
   }
 
   public function doWikiLogin($postData) {
+    //return true;
+    
     require_once("Snoopy.php");
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
@@ -182,7 +187,11 @@ class login extends CoreAuthenticationNone {
     $api_url = $wikiroot . "/api.php";
 
     $login_vars['action'] = "login";
-    $login_vars['lgname'] = utf8_clean_string(utf8_encode($postData['loginUsername']));
+    $username = $postData['loginUsername'];
+    $username = utf8_clean_string($username);
+    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
+    echo $username;
+    $login_vars['lgname'] = $username;
     $login_vars['lgpassword'] = $postData['loginPassword'];
     $login_vars['format'] = "php";
 
@@ -238,6 +247,16 @@ class login extends CoreAuthenticationNone {
     setcookie('catrowikiUserName', '', $cookieexpire_over, "/", $cookiedomain, false, true);
     setcookie('catrowikiToken', '', $cookieexpire_over, "/", $cookiedomain, false, true);
   }
+  
+//  private function utfCleanString($string) {
+//   
+//    //$username = ucfirst(utf8_clean_string(utf8_encode($postData['registrationUsername'])));
+//    $username = utf8_clean_string($username); //$postData['registrationUsername'];
+//    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");;
+//
+//    return $username;
+//  }
+  
   
   /*
   private function encodeUtf8($postData) {

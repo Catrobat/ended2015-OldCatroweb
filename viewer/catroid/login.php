@@ -52,7 +52,7 @@
       	  		   			<?php }?>
       	  		   		</form>
       	  		   		<br>
-										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Sign up</a> or <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">did you forget your password?</a></div>
+										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Create a new account now</a> <br>or<br> <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>
             		   	<br>
       		   		   		<br><br>
       		  		   		<a id="aBoardLink" target="_blank" href="<?php echo BASE_PATH?>addons/board/">Board</a>

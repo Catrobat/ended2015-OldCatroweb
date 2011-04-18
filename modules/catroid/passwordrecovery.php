@@ -20,6 +20,7 @@
 class passwordrecovery extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
+    $this->setupBoard();
     $this->addCss('passwordrecovery.css');
     $this->addCss('buttons.css');
   }
@@ -81,10 +82,8 @@ class passwordrecovery extends CoreAuthenticationNone {
     $boardPasswordRecoverySuccess = false;
     $wikiPasswordRecoverySuccess = false;
     
-    $this->setupBoard();
-    
     try {
-      $this->checkPassword($postData['passwordSavePassword'], $postData['passwordSavePasswordRepeat']);
+      $this->checkPassword($postData['passwordSavePassword']);
       $passwordDataValid = true;
     } catch(Exception $e) {
       $passwordDataValid = false;
@@ -153,10 +152,11 @@ class passwordrecovery extends CoreAuthenticationNone {
   
   public function doUpdateBoardPassword($username, $password) {
     global $db, $phpbb_root_path;
-
     require_once($phpbb_root_path .'includes/functions.php');
 
-    $username = utf8_encode($username);
+    //$username = utf8_encode($username);
+    $username = utf8_clean_string($username); 
+    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $password = phpbb_hash($password);
     
   	$sql = 'UPDATE phpbb_users SET user_password = \'' . $password . '\',
@@ -179,7 +179,8 @@ class passwordrecovery extends CoreAuthenticationNone {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
 
-    $username = ucfirst(utf8_clean_string($username));
+    $username = utf8_clean_string($username);
+    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
     $hash = md5($hexSalt.'-'.md5($password));    
     $password = ":B:$hexSalt:$hash";
@@ -210,12 +211,24 @@ class passwordrecovery extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
-    //username must consist of alpha numerical chars and spaces and Umlaute!
-    //min. 4, max. 32 chars
-    $text = '[a-zA-Z0-9äÄöÖüÜß|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
-    $regEx = '/^'.$text.'$/';
-    if(!preg_match($regEx, $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
+      // # < > [ ] | { }
+    if(preg_match('/_|^_$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
+    }
+    if(preg_match('/#|^#$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'));
+    }
+    if(preg_match('/\||^\|$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'));
+    }
+    if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'));
+    }
+    if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'));
+    }
+    if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
     }
     return true;
   }
@@ -224,9 +237,12 @@ class passwordrecovery extends CoreAuthenticationNone {
     if(empty($userData)) {
       throw new Exception($this->errorHandler->getError('passwordrecovery', 'userdata_missing'));
     }
+
+    global $phpbb_root_path;
+    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
     
-    $this->userData = '';    
-    $query = "EXECUTE get_user_row_by_username('".utf8_encode($userData)."')";
+    $userData = utf8_clean_string($userData);  
+    $query = "EXECUTE get_user_row_by_username_clean('".($userData)."')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -235,7 +251,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       $this->userData = pg_fetch_assoc($result);
     }
     else {
-      $query = "EXECUTE get_user_row_by_email('".utf8_encode($userData)."')";
+      $query = "EXECUTE get_user_row_by_email('".($userData)."')";
       $result = @pg_query($this->dbConnection, $query);
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -265,20 +281,14 @@ class passwordrecovery extends CoreAuthenticationNone {
     }
   }
   
-  public function checkPassword($password, $passwordRepeat) {
+  public function checkPassword($password) {
     if(empty($password)) {
       throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
-    }
-    if(empty($passwordRepeat)) {
-      throw new Exception($this->errorHandler->getError('registration', 'password_repeat_missing'));
     }
     $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
     $regEx = '/^'.$text.'$/';
     if(!preg_match($regEx, $password)) {
-      throw new Exception($this->errorHandler->getError('registration', 'password_invalid'));
-    }
-    if(strcmp($password, $passwordRepeat) != 0) {
-      throw new Exception($this->errorHandler->getError('registration', 'password_repeat_differs'));
+      throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid'));
     }
     return true;
   }
@@ -302,13 +312,9 @@ class passwordrecovery extends CoreAuthenticationNone {
         if($hoursDifference < 24*60*60) {
           $html = '<form method="post" action="./passwordrecovery?c='.$hashValue.'">';
           $html .= '  <div class="passwordRecoveryHeadline">Please enter your new password:</div>';
-          $html .= '  Password*<br>';
+          //$html .= '  Password<br>';
           $html .= '  <input type="password" name="passwordSavePassword" ><br>';
-          $html .= '  Repeat password*<br>';
-          $html .= '  <input type="password" name="passwordSavePasswordRepeat" ><br>';
-          $html .= '  <div class="passwordRecoveryInfoText">Your password must be between '. USER_MIN_PASSWORD_LENGTH;
-          $html .= '   to '. USER_MAX_PASSWORD_LENGTH .' characters.</div>';
-          $html .= '	<input type="submit" name="passwordSaveSubmit" value="Change password now" class="button orange compact passwordRecoverySubmitButton">';
+          $html .= '	<input type="submit" name="passwordSaveSubmit" value="Change my password now" class="button orange compact passwordRecoverySubmitButton">';
           $html .= '</form>';
         }
         else {

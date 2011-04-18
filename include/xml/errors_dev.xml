@@ -69,8 +69,15 @@
     	<string name="password_repeat_missing">The repeated password is missing.</string>
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">The password is invalid.</string>
+    	<string name="password_length_invalid">The password must have at least 6 characters.</string>
     	<string name="username_missing">The nickname is missing.</string>
     	<string name="username_invalid">The nickname is invalid.</string>
+    	<string name="username_invalid_underscore">The nickname is invalid. Underscores (_) are not allowed.</string>
+    	<string name="username_invalid_hash">The nickname is invalid. Hash signs (#) are not allowed.</string>
+    	<string name="username_invalid_verticalbar">The nickname is invalid. Vertical bars (|) are not allowed.</string>
+    	<string name="username_invalid_curlybrace">The nickname is invalid. Curly braces ({ or }) are not allowed.</string>
+    	<string name="username_invalid_lessgreater">The nickname is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.</string>
+    	<string name="username_invalid_squarebracket">The nickname is invalid. Square brackets ([ or ]) are not allowed.</string>
     	<string name="username_already_exists">This nickname already exists.</string>
     	<string name="country_codes_not_available">There are no countries available in DB.</string>
     	<string name="country_missing">The country is missing.</string>

@@ -64,7 +64,7 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
 
     // check password recovery link
     $this->assertTrue($this->selenium->isTextPresent("Login"));
-    $this->assertTrue($this->selenium->isTextPresent("did you forget your password?"));
+    $this->assertTrue($this->selenium->isTextPresent("click here if you forgot your password?"));
     $this->selenium->isElementPresent("xpath=//div[@class='loginMain']");
     $this->selenium->isElementPresent("xpath=//div[@class='loginFormContainer']");
     $this->selenium->isElementPresent("xpath=//div[@class='loginHelper']");
@@ -73,38 +73,34 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
 
     // check password recovery form
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("Recover your password"));
+    $this->assertTrue($this->selenium->isTextPresent("Change your password"));
   }    
  
   /**
    * @dataProvider passwordRecoveryResetUsernames 
    */
-  public function testPasswordRecoveryReset($user, $pass, $passrepeat, $email, $month, $year, $gender, $country, $province, $city) {
+  public function testPasswordRecoveryReset($user, $pass, $email, $month, $year, $gender, $country, $city) {
     // do registration process first, to create a new user with known password 
     $this->selenium->open(TESTS_BASE_PATH."catroid/registration");
     $this->selenium->waitForPageToLoad(10000);
     
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationUsername']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationPassword']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationPasswordRepeat']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationEmail']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationMonth']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationYear']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationGender']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationCountry']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationProvince']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationCity']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationSubmit']"));
     
     $this->selenium->type("xpath=//input[@name='registrationUsername']", $user);
     $this->selenium->type("xpath=//input[@name='registrationPassword']", $pass);
-    $this->selenium->type("xpath=//input[@name='registrationPasswordRepeat']", $passrepeat);
     $this->selenium->type("xpath=//input[@name='registrationEmail']", $email);
     $this->selenium->type("xpath=//select[@name='registrationMonth']", $month);
     $this->selenium->type("xpath=//select[@name='registrationYear']", $year);
     $this->selenium->type("xpath=//select[@name='registrationGender']", $gender);
     $this->selenium->type("xpath=//select[@name='registrationCountry']", $country);
-    $this->selenium->type("xpath=//input[@name='registrationProvince']", $province);
     $this->selenium->type("xpath=//input[@name='registrationCity']", $city);
     $this->selenium->click("xpath=//input[@name='registrationSubmit']");
     
@@ -136,48 +132,32 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isTextPresent(TESTS_BASE_PATH."catroid/passwordrecovery?c="));
     $this->assertTrue($this->selenium->isTextPresent("An email was sent to your email address. Please check your inbox."));
     $this->selenium->click("xpath=//a[@id='forgotPassword']");    
-    
-    // enter 2 different passwords
+
+    // enter 2short password
     $this->selenium->waitForPageToLoad(10000);
     $recovery_url = $this->selenium->getLocation();
     $this->assertTrue($this->selenium->isTextPresent("Please enter your new password:"));
-    $this->assertTrue($this->selenium->isTextPresent("Your password must be between 6 to 32 characters."));
-    $this->selenium->type("xpath=//input[@name='passwordSavePassword']", $pass." new");
-    $this->selenium->type("xpath=//input[@name='passwordSavePasswordRepeat']", $pass." new but different");
-    $this->selenium->click("xpath=//input[@name='passwordSaveSubmit']");
-    $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("Please enter your new password:"));
-    $this->assertTrue($this->selenium->isTextPresent("Your password must be between 6 to 32 characters."));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='passwordSavePassword']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='passwordSavePasswordRepeat']"));
-    $this->assertTrue($this->selenium->isTextPresent("The password differs from the repeated password."));
-
-    // enter 2short password
     $this->selenium->type("xpath=//input[@name='passwordSavePassword']", "short");
-    $this->selenium->type("xpath=//input[@name='passwordSavePasswordRepeat']", "short");
     $this->selenium->click("xpath=//input[@name='passwordSaveSubmit']");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Please enter your new password:"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='passwordSavePassword']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='passwordSavePasswordRepeat']"));
-    $this->assertTrue($this->selenium->isTextPresent("The password is invalid."));
+    $this->assertTrue($this->selenium->isTextPresent("The password must have at least 6 characters."));
 
     // enter the new password correctly
-    $this->selenium->type("xpath=//input[@name='passwordSavePassword']", $pass." new!");
-    $this->selenium->type("xpath=//input[@name='passwordSavePasswordRepeat']", $pass." new!");
+    $this->selenium->type("xpath=//input[@name='passwordSavePassword']", $pass." new");
     $this->selenium->click("xpath=//input[@name='passwordSaveSubmit']");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Your new password is set. Please log in now."));
     // login link muss vorhanden sein!
     
     $this->assertFalse($this->selenium->isElementPresent("xpath=//input[@name='passwordSavePassword']"));
-    $this->assertFalse($this->selenium->isElementPresent("xpath=//input[@name='passwordSavePasswordRepeat']"));
 
     // and try to login with the old credentials to verify password recovery worked
     $this->selenium->open(TESTS_BASE_PATH."catroid/login");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Login"));
-    $this->assertTrue($this->selenium->isTextPresent("did you forget your password?"));
+    $this->assertTrue($this->selenium->isTextPresent("click here if you forgot your password?"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='loginMain']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='loginFormContainer']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='loginHelper']"));
@@ -195,17 +175,17 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     $this->selenium->open(TESTS_BASE_PATH."catroid/login");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Login"));
-    $this->assertTrue($this->selenium->isTextPresent("did you forget your password?"));
+    $this->assertTrue($this->selenium->isTextPresent("click here if you forgot your password?"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='loginMain']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='loginFormContainer']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='loginHelper']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//a[@id='forgotPassword']"));
     $this->selenium->type("xpath=//input[@name='loginUsername']", $user);
-    $this->selenium->type("xpath=//input[@name='loginPassword']", $pass." new!");
+    $this->selenium->type("xpath=//input[@name='loginPassword']", $pass." new");
     $this->selenium->click("xpath=//input[@name='loginSubmit']");
     
     // check login
-    $this->selenium->waitForPageToLoad(20000);
+    $this->selenium->waitForPageToLoad(10000);
     $this->ajaxWait('id=projectContainer');
     $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='projectContainer']"));
@@ -222,10 +202,12 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     // check wiki login 
     $this->selenium->open(TESTS_BASE_PATH.'wiki/');
     $this->selenium->waitForPageToLoad(10000);   
-    $this->assertFalse($this->selenium->isTextPresent($user));
+    //$this->assertFalse($this->selenium->isTextPresent($user));
+    $this->assertTrue($this->selenium->isTextPresent($user));
     $this->selenium->click("xpath=//li[@id='pt-preferences']/a");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertFalse($this->selenium->isTextPresent($user));
+    //$this->assertFalse($this->selenium->isTextPresent($user));
+    $this->assertTrue($this->selenium->isTextPresent($user));
     
     $this->selenium->open(TESTS_BASE_PATH."catroid/login");
     $this->selenium->waitForPageToLoad(10000);
@@ -242,7 +224,7 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
   /* *** DATA PROVIDERS *** */
   public function passwordRecoveryResetUsernames() {
     $returnArray = array(
-      array("John Test ".rand(1,9999), "just a simple password!", "just a simple password!", "john".rand(1,9999)."@catroid.org", "2", "1980", "male", "IT", "Veneto", "Padua")
+      array("John Test ".rand(1,9999), "just a simple password!", "john".rand(1,9999)."@catroid.org", "2", "1980", "male", "IT", "Padua")
     );
     return $returnArray;
   }

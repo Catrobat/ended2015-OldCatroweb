@@ -27,11 +27,11 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 /*
  * TEST CASES
  */
-require_once 'catroid/IndexTests.php';
-require_once 'catroid/DetailsTests.php';
-require_once 'catroid/LicenseTests.php';
+//require_once 'catroid/IndexTests.php';
+//require_once 'catroid/DetailsTests.php';
+//require_once 'catroid/LicenseTests.php';
 require_once 'catroid/RegistrationTests.php';
-require_once 'catroid/LoginTests.php';
+//require_once 'catroid/LoginTests.php';
 // require_once 'catroid/MenuTests.php';
 require_once 'catroid/PasswordRecoveryTests.php';
 
@@ -46,11 +46,11 @@ class TestSuite
     public static function suite()
     {
         $suite = new PHPUnit_Framework_TestSuite('PHPUnit Framework'); 
-        $suite->addTestSuite('IndexTests');
-        $suite->addTestSuite('DetailsTests');
-        $suite->addTestSuite('LicenseTests');
+        // $suite->addTestSuite('IndexTests');
+        // $suite->addTestSuite('DetailsTests');
+        // $suite->addTestSuite('LicenseTests');
         $suite->addTestSuite('RegistrationTests');
-        $suite->addTestSuite('LoginTests');
+        // $suite->addTestSuite('LoginTests');
         // $suite->addTestSuite('MenuTests');
         $suite->addTestSuite('PasswordRecoveryTests');
         return $suite;

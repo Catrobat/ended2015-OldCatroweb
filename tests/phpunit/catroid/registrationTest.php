@@ -78,9 +78,9 @@ class registrationTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider validPasswords
    */
-  public function testCheckPassword($pass, $passRepeat) {
+  public function testCheckPassword($pass) {
     try {
-      $this->assertTrue($this->obj->checkPassword($pass, $passRepeat));
+      $this->assertTrue($this->obj->checkPassword($pass));
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -89,9 +89,9 @@ class registrationTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider invalidPasswords
    */
-  public function testCheckInvalidPassword($pass, $passRepeat) {
+  public function testCheckInvalidPassword($pass) {
     try {
-      $this->obj->checkPassword($pass, $passRepeat);
+      $this->obj->checkPassword($pass);
     } catch(Exception $e) {
       return;
     }
@@ -218,7 +218,8 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('0123'),
     array('unit.te..st'),
     array('unit test'),
-    array('ÜnitTäßt')
+    array('中國'),
+    array('ÜgümEnimem')
     );
     return $dataArray;
   }
@@ -231,21 +232,14 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('CATROWEB'),  //all mixed case forms of existing username should also be invalid
     array('catroweB'),  //all mixed case forms of existing username should also be invalid
     array(''),  //empty username
-    array('0'),  //zero as username
-    array('abc'), //too short username
-    array('129.0.12.123'), //IP address style (because of wiki)
-    array('[myusername]'), //contains invalid char
-    array('my*username'),  //contains invalid char
-    array('my:username'),  //contains invalid char
-    array('<my>username'), //contains invalid char
-    array('myusername!'),  //contains invalid char
-    array('myuser/name'),  //contains invalid char
-    array('\my\username'), //contains invalid char
-    array('my%username'),  //contains invalid char
-    array('my$username'),  //contains invalid char
-    array('myusername&'),  //contains invalid char
-    array('myus-ername'),   //contains invalid char
-    array('unit_test')    //contains invalid char
+    array('0'),  //zero as username is not allowed
+    array('t[ob]i'),  // squared braces not allowed (because of wiki)
+    array('{ubi}'),  // curly braces not allowed (because of wiki)
+    array('h|ol|y'), // vertical bars not allowed (because of wiki)
+    array('#1'), // hash sign not allowed (because of wiki)
+    array('unit_test'), // underscores not allowed (because of wiki)
+    array('<i>'), // underscores not allowed (because of wiki)
+    array('129.0.12.123') //IP address style (because of wiki)
     );
     return $dataArray;
   }
@@ -277,7 +271,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('a.@domain.com'),
     array('a-@domain.com'),
     array('a@.com'),
-    array('a@ä.com'),
+    array('a@Ã¤.com'),
     array('a@.domain.com'),
     array('a@-domain.com'),
     array('a@domain..com'),
@@ -288,7 +282,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('a@domain.c.m'),
     array('a@domain.c-m'),
     array('a@domain.c5m'),
-    array('special_char_äöü@sub.domÄin-5.com')
+    array('special_char_Ã¤Ã¶Ã¼@sub.domÃ„in-5.com')
     );
     return $dataArray;
   }
@@ -300,7 +294,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('89277823409', '89277823409'),
     array('012345', '012345'),
     array('abcdef', 'abcdef'),
-    array('äöüÜÜßß§$%§%%/', 'äöüÜÜßß§$%§%%/'),
+    array('Äjkasdkfäadfäppöü', 'Äjkasdkfäadfäppöü'),
     array('______', '______')
     );
     return $dataArray;
@@ -308,13 +302,10 @@ class registrationTest extends PHPUnit_Framework_TestCase
 
   public function invalidPasswords() {
     $dataArray = array(
-    array('mypassword', 'myotherpassword'),
-    array('mypassword', 'myPassword'),
-    array('0', '0'),
-    array('', ''),
-    array('', 'mypassword'),
-    array('mypassword', '0'),
-    array('short', 'short')
+    array('short'),
+    array('longmypasswordmypasmypasswordmypasmypasswordmypasmypasswordmypasmypassword'),
+    array('0'),
+    array('')
     );
     return $dataArray;
   }
@@ -414,17 +405,17 @@ class registrationTest extends PHPUnit_Framework_TestCase
             'registrationSubmit'=>'submit'),
     array('REMOTE_ADDR'=>'127.0.0.1')),
     array(
-    array('registrationUsername'=>'myÜnitTÄßt', 'registrationPassword'=>'mySpe§§ialChÄrPaßßword!!',
-    	    'registrationPasswordRepeat'=>'mySpe§§ialChÄrPaßßword!!', 'registrationEmail'=>'_123unit@test.test',
+    array('registrationUsername'=>'myÃœnitTÃ„ÃŸt', 'registrationPassword'=>'mySpeÂ§Â§ialChÃ„rPaÃŸÃŸword!!',
+    	    'registrationPasswordRepeat'=>'mySpeÂ§Â§ialChÃ„rPaÃŸÃŸword!!', 'registrationEmail'=>'_123unit@test.test',
     		'registrationGender'=>'female', 'registrationMonth'=>'2', 'registrationYear'=>'1987',
-    		'registrationCountry'=>'AT', 'registrationProvince'=>'Kärnten', 'registrationCity'=>'Villach',
+    		'registrationCountry'=>'AT', 'registrationProvince'=>'KÃ¤rnten', 'registrationCity'=>'Villach',
     'registrationSubmit'=>'submit'),
     array('REMOTE_ADDR'=>'127.0.0.1')),
     array(
     array('registrationUsername'=>'1234567', 'registrationPassword'=>'__bla__',
     	    'registrationPasswordRepeat'=>'__bla__', 'registrationEmail'=>'unit2test@unit.at',
     		'registrationGender'=>'male', 'registrationMonth'=>'3', 'registrationYear'=>'1989',
-    		'registrationCountry'=>'DE', 'registrationProvince'=>'Bayern', 'registrationCity'=>'München',
+    		'registrationCountry'=>'DE', 'registrationProvince'=>'Bayern', 'registrationCity'=>'MÃ¼nchen',
     'registrationSubmit'=>'submit'),
     array('REMOTE_ADDR'=>'127.0.0.1'))
     );

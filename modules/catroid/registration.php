@@ -71,7 +71,7 @@ class registration extends CoreAuthenticationNone {
       $answer .= $e->getMessage().'<br>';
     }
     try {
-      $this->checkPassword($postData['registrationPassword'], $postData['registrationPasswordRepeat']);
+      $this->passOk = $this->checkPassword($postData['registrationPassword'], $postData['registrationPasswordRepeat']);
     } catch(Exception $e) {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
@@ -82,24 +82,25 @@ class registration extends CoreAuthenticationNone {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
     }
-    try { 
-      $this->checkBirth($postData['registrationMonth'], $postData['registrationYear']);
-    } catch(Exception $e) {
-      $registrationDataValid = false;
-      $answer .= $e->getMessage().'<br>';
-    }
-    try { 
-      $this->checkGender($postData['registrationGender']);
-    } catch(Exception $e) {
-      $registrationDataValid = false;
-      $answer .= $e->getMessage().'<br>';
-    }
     try {
       $this->checkCountry($postData['registrationCountry']);
     } catch(Exception $e) {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
     } 
+//    try { 
+//      $this->checkBirth($postData['registrationMonth'], $postData['registrationYear']);
+//    } catch(Exception $e) {
+//      $registrationDataValid = false;
+//      $answer .= $e->getMessage().'<br>';
+//    }
+//    try { 
+//      $this->checkGender($postData['registrationGender']);
+//    } catch(Exception $e) {
+//      $registrationDataValid = false;
+//      $answer .= $e->getMessage().'<br>';
+//    }
+
     
     if($registrationDataValid) {
       try {
@@ -181,20 +182,40 @@ class registration extends CoreAuthenticationNone {
 
     //username must consist of alpha numerical chars and spaces and Umlaute!
     //min. 4, max. 32 chars
-    $text = '[a-zA-Z0-9äÄöÖüÜß|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
+    /*$text = '[a-zA-Z0-9äÄöÖüÜß|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
     $regEx = '/^'.$text.'$/';
     if(!preg_match($regEx, $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
+    }*/
+    
+    // # < > [ ] | { }
+    if(preg_match('/_|^_$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
     }
-
+    if(preg_match('/#|^#$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'));
+    }
+    if(preg_match('/\||^\|$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'));
+    }
+    if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'));
+    }
+    if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'));
+    }
+    if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
+    }
+    
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-    $usernameClean = utf8_clean_string(utf8_encode($username));
+    $usernameClean = utf8_clean_string(($username));
     if(empty($usernameClean)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
-    $query = "EXECUTE get_user_row_by_username('".utf8_encode($username)."')";
+    $query = "EXECUTE get_user_row_by_username('".($username)."')";
     $result = pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -214,20 +235,14 @@ class registration extends CoreAuthenticationNone {
     return true;
   }
 
-  public function checkPassword($password, $passwordRepeat) {
+  public function checkPassword($password) {
     if(empty($password)) {
       throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
-    }
-    if(empty($passwordRepeat)) {
-      throw new Exception($this->errorHandler->getError('registration', 'password_repeat_missing'));
     }
     $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
     $regEx = '/^'.$text.'$/';
     if(!preg_match($regEx, $password)) {
-      throw new Exception($this->errorHandler->getError('registration', 'password_invalid'));
-    }
-    if(strcmp($password, $passwordRepeat) != 0) {
-      throw new Exception($this->errorHandler->getError('registration', 'password_repeat_differs'));
+      throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid'));
     }
     return true;
   }
@@ -290,19 +305,28 @@ class registration extends CoreAuthenticationNone {
   public function doCatroidRegistration($postData, $serverData) {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-    $username = utf8_encode($postData['registrationUsername']);
+
+    $username = $postData['registrationUsername'];
     $usernameClean = utf8_clean_string($username);
     $password = md5($postData['registrationPassword']);
     $email = $postData['registrationEmail'];
     $ip_registered = $serverData['REMOTE_ADDR'];
     $country = $postData['registrationCountry'];
     $status = USER_STATUS_STRING_ACTIVE;
-    $date_of_birth = $postData['registrationYear'].'-'.sprintf("%02d", $postData['registrationMonth']).'-01 00:00:01';
+    $year = $postData['registrationYear'];
+    $month = $postData['registrationMonth'];
+    if($year == 0) {
+      $year = '1900';
+    }
+    if($month == 0) {
+      $month = '01';
+    }
+    $date_of_birth = $year.'-'.sprintf("%02d", $month).'-01 00:00:01';
+
     $gender = $postData['registrationGender'];
     $city = $postData['registrationCity'];
-    $province = $postData['registrationProvince'];
     
-    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', '$province', '$city', '$ip_registered', '$status')";
+    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', '$city', '$ip_registered', '$status')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -320,7 +344,7 @@ class registration extends CoreAuthenticationNone {
 
     require_once($phpbb_root_path .'includes/functions_user.php');
 
-    $username = utf8_encode($postData['registrationUsername']);
+    $username = $postData['registrationUsername'];
     $password = md5($postData['registrationPassword']);
     $email = $postData['registrationEmail'];
 
@@ -353,7 +377,11 @@ class registration extends CoreAuthenticationNone {
     }
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-    $username = ucfirst(utf8_clean_string(utf8_encode($postData['registrationUsername'])));
+    
+    $username = $postData['registrationUsername'];
+    $username = utf8_clean_string($username); 
+    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
+
     $userToken = md5($username);
     $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
     $hash = md5($hexSalt.'-'.md5($postData['registrationPassword']));
@@ -524,6 +552,17 @@ class registration extends CoreAuthenticationNone {
     }
   }
     
+//  private function utfCleanString($string) {
+//    global $wikiUpperChars;
+//    global $wikiLowerChars;
+//    
+//    $username = utf8_clean_string($string);
+//    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");;
+//
+//    return $username;
+//  }
+  
+  
   public function __destruct() {
     parent::__destruct();
   }

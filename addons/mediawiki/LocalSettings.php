@@ -153,52 +153,52 @@ function NoLoginLinkOnMainPage( &$personal_urls ){
 $wgHooks['PersonalUrls'][]='NoLoginLinkOnMainPage';
 
 // PHPBB User Database Plugin.
-require_once './extensions/Auth_phpBB/Auth_phpBB.php';
+//require_once './extensions/Auth_phpBB/Auth_phpBB.php';
  
-$wgAuth_Config = array(); // Clean.
- 
-$wgAuth_Config['WikiGroupName'] = 'REGISTERED'; // Name of your PHPBB group
-                                                // users need to be a member
-                                                // of to use the wiki. (i.e. wiki)
-                                                // This can also be set to an array 
-                                                // of group names to use more then 
-                                                // one. (ie. 
-                                                // $wgAuth_Config['WikiGroupName'][] = 'Wiki';
-                                                // $wgAuth_Config['WikiGroupName'][] = 'Wiki2';
-                                                // or
-                                                // $wgAuth_Config['WikiGroupName'] = array('Wiki', 'Wiki2');
-                                                // )
- 
-$wgAuth_Config['UseWikiGroup'] = true;          // This tells the Plugin to require
-                                                // a user to be a member of the above
-                                                // phpBB group. (ie. wiki) Setting
-                                                // this to false will let any phpBB
-                                                // user edit the wiki.
- 
-$wgAuth_Config['UseExtDatabase'] = true;       // This tells the plugin that the phpBB tables
-                                                // are in a different database then the wiki.
-                                                // The default settings is false.
- 
-$wgAuth_Config['PGSQL_Host']        = DB_HOST_BOARD; // phpBB PGSQL Host Name.
-$wgAuth_Config['PGSQL_Username']    = DB_USER_BOARD; // phpBB PGSQL Username.
-$wgAuth_Config['PGSQL_Password']    = DB_PASS_BOARD; // phpBB PGSQL Password.
-$wgAuth_Config['PGSQL_Database']    = DB_NAME_BOARD; // phpBB PGSQL Database Name.
- 
-$wgAuth_Config['UserTB']         = 'phpbb_users';       // Name of your PHPBB user table. (i.e. phpbb_users)
-$wgAuth_Config['GroupsTB']       = 'phpbb_groups';      // Name of your PHPBB groups table. (i.e. phpbb_groups)
-$wgAuth_Config['User_GroupTB']   = 'phpbb_user_group';  // Name of your PHPBB user_group table. (i.e. phpbb_user_group)
-$wgAuth_Config['PathToPHPBB']    = '../board/';         // Path from this file to your phpBB install. Must end with '/'.
-$wgAuth_Config['PathToRegistration'] = '../../catroid/registration';        // Path from this file to the catroid registration
-$wgAuth_Config['PathToLogin'] = '../../catroid/login';        // Path from this file to the catroid login
+//$wgAuth_Config = array(); // Clean.
+// 
+//$wgAuth_Config['WikiGroupName'] = 'REGISTERED'; // Name of your PHPBB group
+//                                                // users need to be a member
+//                                                // of to use the wiki. (i.e. wiki)
+//                                                // This can also be set to an array 
+//                                                // of group names to use more then 
+//                                                // one. (ie. 
+//                                                // $wgAuth_Config['WikiGroupName'][] = 'Wiki';
+//                                                // $wgAuth_Config['WikiGroupName'][] = 'Wiki2';
+//                                                // or
+//                                                // $wgAuth_Config['WikiGroupName'] = array('Wiki', 'Wiki2');
+//                                                // )
+// 
+//$wgAuth_Config['UseWikiGroup'] = true;          // This tells the Plugin to require
+//                                                // a user to be a member of the above
+//                                                // phpBB group. (ie. wiki) Setting
+//                                                // this to false will let any phpBB
+//                                                // user edit the wiki.
+// 
+//$wgAuth_Config['UseExtDatabase'] = true;       // This tells the plugin that the phpBB tables
+//                                                // are in a different database then the wiki.
+//                                                // The default settings is false.
+// 
+//$wgAuth_Config['PGSQL_Host']        = DB_HOST_BOARD; // phpBB PGSQL Host Name.
+//$wgAuth_Config['PGSQL_Username']    = DB_USER_BOARD; // phpBB PGSQL Username.
+//$wgAuth_Config['PGSQL_Password']    = DB_PASS_BOARD; // phpBB PGSQL Password.
+//$wgAuth_Config['PGSQL_Database']    = DB_NAME_BOARD; // phpBB PGSQL Database Name.
+// 
+//$wgAuth_Config['UserTB']         = 'phpbb_users';       // Name of your PHPBB user table. (i.e. phpbb_users)
+//$wgAuth_Config['GroupsTB']       = 'phpbb_groups';      // Name of your PHPBB groups table. (i.e. phpbb_groups)
+//$wgAuth_Config['User_GroupTB']   = 'phpbb_user_group';  // Name of your PHPBB user_group table. (i.e. phpbb_user_group)
+//$wgAuth_Config['PathToPHPBB']    = '../board/';         // Path from this file to your phpBB install. Must end with '/'.
+//$wgAuth_Config['PathToRegistration'] = '../../catroid/registration';        // Path from this file to the catroid registration
+//$wgAuth_Config['PathToLogin'] = '../../catroid/login';        // Path from this file to the catroid login
  
 // Local
-$wgAuth_Config['LoginMessage']   = '<b>You need a Catroid account to log in to the Wiki.</b><br />
-									<a href="'.$wgAuth_Config['PathToRegistration'].'">
-									Click here to create an account.
-									</a><br />
-									<b>Please use the Catroid login-page.</b><br />
-									<a href="'.$wgAuth_Config['PathToRegistration'].'">
-									Click here to log in.
-									</a>'; // Localize this message.
-$wgAuth_Config['NoWikiError']    = 'You are not a member of the required phpBB group.'; // Localize this message.
-$wgAuth = new Auth_phpBB($wgAuth_Config);     // Auth_phpBB Plugin.
+//$wgAuth_Config['LoginMessage']   = '<b>You need a Catroid account to log in to the Wiki.</b><br />
+//									<a href="'.$wgAuth_Config['PathToRegistration'].'">
+//									Click here to create an account.
+//									</a><br />
+//									<b>Please use the Catroid login-page.</b><br />
+//									<a href="'.$wgAuth_Config['PathToRegistration'].'">
+//									Click here to log in.
+//									</a>'; // Localize this message.
+//$wgAuth_Config['NoWikiError']    = 'You are not a member of the required phpBB group.'; // Localize this message.
+//$wgAuth = new Auth_phpBB($wgAuth_Config);     // Auth_phpBB Plugin.
