@@ -266,7 +266,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
   private function uploadTestProject($title, $description = '')
   {
     $uploadTestFile = dirname(__FILE__);
-    if(strpos($uploadTestFile, '\\') >= 0) {
+    if(strpos($uploadTestFile, '\\')  != false) {
       $uploadTestFile.= '\testdata\test.zip';
     } else {
       $uploadTestFile.= '/testdata/test.zip';
