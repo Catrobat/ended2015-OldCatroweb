@@ -83,7 +83,7 @@ function executeFiles($directory,$connection,$filearray)
 
 function executeQueryInFile($directory, $file, $connection) {
   $sql_string = file_get_contents($directory.$file);
-  $result = pg_query($connection, $sql_string);
+  $result = @pg_query($connection, $sql_string);
   if($result) {
     print "file ".$directory.$file.": query ok!\n";
   } else {
@@ -95,7 +95,7 @@ function executeQueryLineByLineInFile($directory, $file, $connection) {
   $handle = fopen($directory.$file, "r");  
   while ( $sql_string = trim(fgets($handle)) ) {    
     if ($sql_string!="") {
-      $result = pg_query($connection, $sql_string);
+      $result = @pg_query($connection, $sql_string);
       if($result) {
         print "query ".$sql_string." successful!\n";
       } else {

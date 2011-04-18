@@ -59,7 +59,7 @@ function executeFiles($directory,$connection,$filearray)
 
 function executeQueryInFile($directory, $file, $connection) {
   $sql_string = file_get_contents($directory.$file);
-  $result = pg_query($connection, $sql_string);
+  $result = @pg_query($connection, $sql_string);
   if($result) {
     print "file ".$directory.$file.": query ok!\n";
   } else {
