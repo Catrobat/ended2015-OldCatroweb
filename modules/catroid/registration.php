@@ -16,8 +16,6 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-require_once("Utf8Case.php");
-
 class registration extends CoreAuthenticationNone {
   
   public function __construct() {
@@ -189,21 +187,35 @@ class registration extends CoreAuthenticationNone {
     if(!preg_match($regEx, $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }*/
-
-    $text = '_';//{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
-    $regEx = '/'.$text.'/';
-    if(preg_match($regEx, $username)) {
+    
+    // # < > [ ] | { }
+    if(preg_match('/_|^_$/', $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
+    }
+    if(preg_match('/#|^#$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'));
+    }
+    if(preg_match('/\||^\|$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'));
+    }
+    if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'));
+    }
+    if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'));
+    }
+    if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
     }
     
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-    $usernameClean = utf8_clean_string(utf8_encode($username));
+    $usernameClean = utf8_clean_string(($username));
     if(empty($usernameClean)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
-    $query = "EXECUTE get_user_row_by_username('".utf8_encode($username)."')";
+    $query = "EXECUTE get_user_row_by_username('".($username)."')";
     $result = pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -295,8 +307,6 @@ class registration extends CoreAuthenticationNone {
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
 
     $username = $postData['registrationUsername'];
-    $username = utf8_clean_string($username); 
-    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $usernameClean = utf8_clean_string($username);
     $password = md5($postData['registrationPassword']);
     $email = $postData['registrationEmail'];
@@ -305,20 +315,18 @@ class registration extends CoreAuthenticationNone {
     $status = USER_STATUS_STRING_ACTIVE;
     $year = $postData['registrationYear'];
     $month = $postData['registrationMonth'];
-    if(empty($year)) {
+    if($year == 0) {
       $year = '1900';
     }
-    if(empty($month)) {
+    if($month == 0) {
       $month = '01';
     }
-    else {
-      $date_of_birth = $year.'-'.sprintf("%02d", $month).'-01 00:00:01';
-    }
-    
+    $date_of_birth = $year.'-'.sprintf("%02d", $month).'-01 00:00:01';
+
     $gender = $postData['registrationGender'];
     $city = $postData['registrationCity'];
     
-    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', '$province', '$city', '$ip_registered', '$status')";
+    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', '$city', '$ip_registered', '$status')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -337,8 +345,6 @@ class registration extends CoreAuthenticationNone {
     require_once($phpbb_root_path .'includes/functions_user.php');
 
     $username = $postData['registrationUsername'];
-    $username = utf8_clean_string($username); 
-    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $password = md5($postData['registrationPassword']);
     $email = $postData['registrationEmail'];
 

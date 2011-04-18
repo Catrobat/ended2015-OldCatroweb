@@ -58,9 +58,9 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider validPasswords
    */
-  public function testCheckPassword($pass, $passRepeat) {
+  public function testCheckPassword($pass) {
     try {
-      $this->assertTrue($this->passwordrecoveryObj->checkPassword($pass, $passRepeat));
+      $this->assertTrue($this->passwordrecoveryObj->checkPassword($pass));
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -69,9 +69,9 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider invalidPasswords
    */
-  public function testCheckInvalidPassword($pass, $passRepeat) {
+  public function testCheckInvalidPassword($pass) {
     try {
-      $this->passwordrecoveryObj->checkPassword($pass, $passRepeat);
+      $this->passwordrecoveryObj->checkPassword($pass);
     } catch(Exception $e) {
       return;
     }
@@ -140,9 +140,7 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
   public function validUserData() {
     $dataArray = array(
     array('catroweb'),
-    array('testuser'),
-    array('webmaster@catroid.org'),
-    array('testuser@catroid.org')
+    array('webmaster@catroid.org')
     );
     return $dataArray;
   }
@@ -153,21 +151,27 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
     array('xxx'),  //messword
     array('cartroweb'),  //not in db
     array('testusing@catroid.org'),  //not in db
+    array('testuser@catroid.org'),
     array('info@catroweb.org'),  //not in db
     array(''),  //empty username
     array('0'),  //zero as username
     array('abc'), //too short username
     array('129.0.12.123'), //IP address style (because of wiki)
     array('[myusername]'), //contains invalid char
-    array('my*username'),  //contains invalid char
-    array('my:username'),  //contains invalid char
+    //array('my*username'),  //contains invalid char
+    //array('my:username'),  //contains invalid char
     array('<my>username'), //contains invalid char
-    array('myusername!'),  //contains invalid char
-    array('myuser/name'),  //contains invalid char
-    array('\my\username'), //contains invalid charan
-    array('my%username'),  //contains invalid char
-    array('my$username'),  //contains invalid char
-    array('myusername&'),  //contains invalid char
+    //array('myusername!'),  //contains invalid char
+    //array('myuser/name'),  //contains invalid char
+    //array('\my\username'), //contains invalid charan
+    //array('my%username'),  //contains invalid char
+    //array('my$username'),  //contains invalid char
+    //array('myusername&'),  //contains invalid char
+    //array('myus-ername'),   //contains invalid char
+    array('myus#ername'),   //contains invalid char
+    array('myus[e]rname'),   //contains invalid char
+    array('myus{er}name'),   //contains invalid char
+    array('myus|ername'),   //contains invalid char
     array('myus-ername'),   //contains invalid char
     array('unit_test')    //contains invalid char
     );
@@ -176,27 +180,23 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
 
   public function validPasswords() {
     $dataArray = array(
-    array('mypassword', 'mypassword'),
-    array('myPassWorD', 'myPassWorD'),
-    array('89277823409', '89277823409'),
-    array('012345', '012345'),
-    array('abcdef', 'abcdef'),
-    array('äöüÜÜßß§$%§%%/', 'äöüÜÜßß§$%§%%/'),
-    array('______', '______')
+    array('mypassword'),
+    array('myPassWorD'),
+    array('89277823409'),
+    array('012345'),
+    array('abcdef'),
+    array('äöüÜÜßß§$%§%%/'),
+    array('______')
     );
     return $dataArray;
   }
 
   public function invalidPasswords() {
     $dataArray = array(
-    array('mypasswordmypasswordmypasswordmypassword', 'mypasswordmypasswordmypasswordmypassword'),
-    array('mypassword', 'myotherpassword'),
-    array('mypassword', 'myPassword'),
-    array('0', '0'),
-    array('', ''),
-    array('', 'mypassword'),
-    array('mypassword', '0'),
-    array('short', 'short')
+    array('longmypasswordmypasmypasswordmypasmypasswordmypasmypasswordmypasmypassword'),
+    array('short'),
+    array('0'),
+    array(''),
     );
     return $dataArray;
   }

@@ -135,22 +135,22 @@ $wgGroupPermissions['*']['createaccount'] = false; //turn user registration off
 $wgGroupPermissions['*']['edit'] = false; //turn off page-edit for non registered users#
 
 // turn off the login/logout special pages
-//function LessSpecialPages(&$aSpecialPages) {
-//  unset( $aSpecialPages['Userlogout'] );
-//  unset( $aSpecialPages['Userlogin'] );
-//  unset( $aSpecialPages['Changepassword'] );
-//  return true;
-//}
-//$wgHooks['SpecialPage_initList'][]='LessSpecialPages';
+function LessSpecialPages(&$aSpecialPages) {
+  unset( $aSpecialPages['Userlogout'] );
+  unset( $aSpecialPages['Userlogin'] );
+  unset( $aSpecialPages['Changepassword'] );
+  return true;
+}
+$wgHooks['SpecialPage_initList'][]='LessSpecialPages';
 
 // turn off login/logout link
-//function NoLoginLinkOnMainPage( &$personal_urls ){
-//    unset( $personal_urls['login'] );
-//    unset( $personal_urls["logout"] );
-//    unset( $personal_urls['anonlogin'] );
-//    return true;
-//}
-//$wgHooks['PersonalUrls'][]='NoLoginLinkOnMainPage';
+function NoLoginLinkOnMainPage( &$personal_urls ){
+    unset( $personal_urls['login'] );
+    unset( $personal_urls["logout"] );
+    unset( $personal_urls['anonlogin'] );
+    return true;
+}
+$wgHooks['PersonalUrls'][]='NoLoginLinkOnMainPage';
 
 // PHPBB User Database Plugin.
 //require_once './extensions/Auth_phpBB/Auth_phpBB.php';

@@ -61,25 +61,21 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationUsername']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationPassword']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationPasswordRepeat']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationEmail']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationGender']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationMonth']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationYear']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationCountry']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationProvince']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationCity']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationSubmit']"));
     
     $this->selenium->type("xpath=//input[@name='registrationUsername']", $regData['registrationUsername']);
     $this->selenium->type("xpath=//input[@name='registrationPassword']", $regData['registrationPassword']);
-    $this->selenium->type("xpath=//input[@name='registrationPasswordRepeat']", $regData['registrationPasswordRepeat']);
     $this->selenium->type("xpath=//input[@name='registrationEmail']", $regData['registrationEmail']);
     $this->selenium->type("xpath=//select[@name='registrationGender']", $regData['registrationGender']);
     $this->selenium->type("xpath=//select[@name='registrationMonth']", $regData['registrationMonth']);
     $this->selenium->type("xpath=//select[@name='registrationYear']", $regData['registrationYear']);
     $this->selenium->type("xpath=//select[@name='registrationCountry']", $regData['registrationCountry']);
-    $this->selenium->type("xpath=//input[@name='registrationProvince']", $regData['registrationProvince']);
     $this->selenium->type("xpath=//input[@name='registrationCity']", $regData['registrationCity']);
     
     $this->selenium->click("xpath=//input[@name='registrationSubmit']");
@@ -90,18 +86,18 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->selenium->waitForPageToLoad(10000);
-    
+
     $this->selenium->type("xpath=//input[@name='loginUsername']", $regData['registrationUsername']);
     $this->selenium->type("xpath=//input[@name='loginPassword']", $regData['registrationPassword']);
     
     $this->selenium->click("xpath=//input[@name='loginSubmit']");
-    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->waitForPageToLoad(40000);
 
     $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
     
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("Hello ".$regData['registrationUsername']."!"));
+    $this->assertTrue($this->selenium->isTextPresent("Hello ".mb_convert_case($regData['registrationUsername'], MB_CASE_TITLE, "UTF-8")."!"));
     $this->assertTrue($this->selenium->isTextPresent("You are logged in"));
     
     $this->selenium->open(TESTS_BASE_PATH.'addons/board/');
@@ -165,25 +161,21 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationUsername']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationPassword']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationPasswordRepeat']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationEmail']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationGender']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationMonth']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationYear']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationCountry']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationProvince']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationCity']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationSubmit']"));
     
     $this->selenium->type("xpath=//input[@name='registrationUsername']", $regData['registrationUsername']);
     $this->selenium->type("xpath=//input[@name='registrationPassword']", $regData['registrationPassword']);
-    $this->selenium->type("xpath=//input[@name='registrationPasswordRepeat']", $regData['registrationPasswordRepeat']);
     $this->selenium->type("xpath=//input[@name='registrationEmail']", $regData['registrationEmail']);
     $this->selenium->type("xpath=//select[@name='registrationGender']", $regData['registrationGender']);
     $this->selenium->type("xpath=//select[@name='registrationMonth']", $regData['registrationMonth']);
     $this->selenium->type("xpath=//select[@name='registrationYear']", $regData['registrationYear']);
     $this->selenium->type("xpath=//select[@name='registrationCountry']", $regData['registrationCountry']);
-    $this->selenium->type("xpath=//input[@name='registrationProvince']", $regData['registrationProvince']);
     $this->selenium->type("xpath=//input[@name='registrationCity']", $regData['registrationCity']);
     
     $this->selenium->click("xpath=//input[@name='registrationSubmit']");
@@ -226,9 +218,9 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $dataArray = array(
     array(
     array('registrationUsername'=>'myUnitTest'.$random, 'registrationPassword'=>'myPassword123',
-    	    'registrationPasswordRepeat'=>'myPassword123', 'registrationEmail'=>'test_'.$random.'@selenium.at',
+    	    'registrationEmail'=>'test_'.$random.'@selenium.at',
           'registrationGender'=>'male', 'registrationMonth'=>'2', 'registrationYear'=>'1980',
-    	    'registrationCountry'=>'AT', 'registrationProvince'=>'Steiermark', 'registrationCity'=>'Graz'))
+    	    'registrationCountry'=>'AT', 'registrationCity'=>'Graz'))
     );
     return $dataArray;
   }
@@ -239,9 +231,9 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $dataArray = array(
     array(
     array('registrationUsername'=>'my_UnitTest'.$random, 'registrationPassword'=>'myPassword123',
-    	    'registrationPasswordRepeat'=>'myPassword123', 'registrationEmail'=>'test_'.$random.'@selenium.at',
+    	    'registrationEmail'=>'test_'.$random.'@selenium.at',
           'registrationGender'=>'male', 'registrationMonth'=>'2', 'registrationYear'=>'1981',
-    	    'registrationCountry'=>'AT', 'registrationProvince'=>'Steiermark', 'registrationCity'=>'Graz'))
+    	    'registrationCountry'=>'AT', 'registrationCity'=>'Graz'))
     );
     return $dataArray;
   }

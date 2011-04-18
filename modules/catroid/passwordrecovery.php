@@ -179,7 +179,8 @@ class passwordrecovery extends CoreAuthenticationNone {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
 
-    $username = ucfirst(utf8_clean_string($username));
+    $username = utf8_clean_string($username);
+    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
     $hash = md5($hexSalt.'-'.md5($password));    
     $password = ":B:$hexSalt:$hash";
@@ -210,12 +211,24 @@ class passwordrecovery extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
-    //username must consist of alpha numerical chars and spaces and Umlaute!
-    //min. 4, max. 32 chars
-    $text = '[_]';//{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
-    $regEx = '/^'.$text.'$/';
-    if(preg_match($regEx, $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
+      // # < > [ ] | { }
+    if(preg_match('/_|^_$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
+    }
+    if(preg_match('/#|^#$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'));
+    }
+    if(preg_match('/\||^\|$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'));
+    }
+    if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'));
+    }
+    if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'));
+    }
+    if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
     }
     return true;
   }

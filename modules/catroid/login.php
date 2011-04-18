@@ -190,6 +190,7 @@ class login extends CoreAuthenticationNone {
     $username = $postData['loginUsername'];
     $username = utf8_clean_string($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
+    echo $username;
     $login_vars['lgname'] = $username;
     $login_vars['lgpassword'] = $postData['loginPassword'];
     $login_vars['format'] = "php";
