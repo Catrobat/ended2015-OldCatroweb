@@ -118,8 +118,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
    * corePreseterTests
    */
   
-  public function testViewHelperGetLink() {
-      echo "\ncorePresenterTests:\n";
+  public function testViewHelperGetLink() {      
       $myLink = 'my/link';
       $myLinkText = 'myLinkText';
       $myLinkClass = 'myLinkClass';

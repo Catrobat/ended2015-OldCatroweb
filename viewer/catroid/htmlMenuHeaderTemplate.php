@@ -38,23 +38,10 @@
                 </a>			      			
             </div>
           </div>
-          <div id="normalHeaderButtons" class="webHeadButtons">
-            <button type="button" class="webHeadButtons button orange medium" id="headerBackButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/back.png" alt="Back" /></button>
+          <div id="normalHeaderButtons" class="webHeadButtons">            
             <button type="button" class="webHeadButtons button orange  medium" id="headerHomeButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/home.png" alt="Home" /></button>
           </div>
           <div style="clear:both;"></div>
-        </div>
-      </div>
-  		
-      <div id="headerSearchBox">
-        <div class="webHeadSearchBoxSpacer"></div>
-        <div class="blueBoxMain">
-          <div class="webMainHead">
-            <form>
-              <input type="search" class="webHeadSearchBox" placeholder="Search for projects" />
-              <input type="submit" class="webHeadSearchSubmit" value="Search" />
-            </form>
-          </div>
         </div>
       </div>
     </div> <!--  WEBMAINTOP -->
