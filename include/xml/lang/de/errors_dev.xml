@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Catroid: An on-device graphical programming language for Android devices
+      Copyright (C) 2010-2011 The Catroid Team
+      (<http://code.google.com/p/catroid/wiki/Credits>)
+ 
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU Affero General Public License as
+      published by the Free Software Foundation, either version 3 of the
+      License, or (at your option) any later version.
+  
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU Affero General Public License for more details.
+  
+      You should have received a copy of the GNU Affero General Public License
+      along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+ 
+ 
+<errors>
+    <db>
+        <string name="query_failed">Datenbank Operation fehlgeschlagen.</string>
+        <string name="connection_failed">Datenbank Operation fehlgeschlagen</string>
+        <string name="no_entry_for_id">Kein Eintrag für diese ID gefunden.</string>
+    </db>
+    <sendmail>
+      <string name="sendmail_failed">Fehler während dem Senden des Emails. Vielleicht funktioniert dein Mailserver nicht?</string>
+    </sendmail>
+    <upload>
+        <string name="missing_post_data">POST-Daten fehlen oder sind nicht korrekt! Erforderlich: projectTitle und Datei-Daten upload.</string>
+        <string name="missing_post_file_checksum">Client hat Datei-Checksumme nicht gesendet! Verwendest du eine alte Catroid-Version?</string>
+        <string name="copy_failed">Das Kopieren der Datei hat nicht funktioniert!</string>
+        <string name="rename_failed">Das Umbenennen der Datei hat nicht funktioniert!</string>
+        <string name="sql_insert_failed">SQL Statement insert_new_project hat nicht funktioniert!</string>
+        <string name="invalid_file_checksum">Die Checksumme der Datei unterscheidet sich von der gesendeten Checksumme!</string>
+        <string name="project_exceed_filesize_limit">Die Größe des Projekts überschreitet die Maximalgröße!</string>
+        <string name="project_title_default">Das Senden von Projekten mit dem Title 'defaultProject' ist nicht erlaubt.</string>
+        <string name="insulting_words_in_project_title">Der Titel enthält Schimpfwörter!</string>
+        <string name="insulting_words_in_project_description">Die Beschreibung enthält Schimpfwörter!</string>
+        <string name="bad_words_filter_error">Ein SQL-Statement in der BadWordsFilter Klasse ist fehlgeschlagen!</string>
+    </upload>
+    <download>
+    	<string name="file_not_found">Konnte angeforderte Datei nicht auf dem Server finden.</string>
+    </download>
+    <flag>
+        <string name="missing_post_data">POST-Daten fehlen oder sind nicht korrekt! Erforderlich: projectId und flagReason.</string>
+        <string name="sql_insert_failed">SQL Statement insert_new_flagged_project hat nicht funktioniert!</string>
+    </flag>
+    <viewer>
+    	<string name="html_file_not_found">Konnte den HTML Viewer nicht finden.</string>
+    </viewer>
+    <auth>
+    	<string name="password_or_username_wrong">Das Passwort oder der Nickname ist falsch.</string>
+    	<string name="username_not_found">Der Nickname konnte nicht gefunden werden.</string>
+    	<string name="board_authentication_failed">Die Authentifizierung mit dem Forum ist fehlgeschlagen.</string>
+    	<string name="wiki_authentication_failed">Die Authentifizierung mit dem Mediawiki ist fehlgeschlagen.</string>
+    	<string name="catroid_authentication_failed">Die Authentifizierung auf der Seite ist fehlgeschlagen.</string>
+    	<string name="wiki_api_response_incorrect">Die Mediawiki-API lieferte eine falsche Antwort.</string>
+    </auth>
+    <registration>
+    	<string name="board_registration_failed">Die Registrierung im Forum ist fehlgeschlagen.</string>
+    	<string name="wiki_registration_failed">Die Registrierung im Mediawiki ist fehlgeschlagen.</string>
+    	<string name="catroid_registration_failed">Die Registrierung auf der Seite ist fehlgeschlagen.</string>
+    	<string name="email_already_exists">Die Email-Adresse existiert bereits.</string>
+    	<string name="email_invalid">Die Email-Adresse ist ungültig.</string>
+    	<string name="email_missing">Du hast keine Email-Adresse angegeben.</string>
+    	<string name="password_missing">Du hast kein Passwort angegeben.</string>
+    	<string name="password_repeat_missing">Du hast keine Passwortwiederholung angegeben.</string>
+    	<string name="password_repeat_differs">Das Passwort und die Passwortwiederholung unterscheiden sich.</string>
+    	<string name="password_invalid">Das Passwort ist ungültig.</string>
+    	<string name="password_length_invalid">Das Passwort muss mindestens 6 Zeichen beinhalten.</string>
+    	<string name="username_missing">Du hast keinen Nickname angegeben.</string>
+    	<string name="username_invalid">Der Nickname ist ungültig.</string>
+    	<string name="username_invalid_underscore">Der Nickname ist ungültig. Underscores (_) sind nicht erlaubt.</string>
+    	<string name="username_invalid_hash">Der Nickname ist ungültig. Rautezeichen (#) sind nicht erlaubt.</string>
+    	<string name="username_invalid_verticalbar">Der Nickname ist ungültig. Vertikale Linien (|) sind nicht erlaubt.</string>
+    	<string name="username_invalid_curlybrace">Der Nickname ist ungültig. Geschweifte Klammern ({ oder }) sind nicht erlaubt.</string>
+    	<string name="username_invalid_lessgreater">Der Nickname ist ungültig. Größer/Kleiner Zeichen (&lt; oder &gt;) sind nicht erlaubt.</string>
+    	<string name="username_invalid_squarebracket">Der Nickname ist ungültig. Eckige Klammern ([ oder ]) are not allowed.</string>
+    	<string name="username_already_exists">Der Nickname existiert bereits.</string>
+    	<string name="country_codes_not_available">Keine Ländercodes in der Datenbank gefunden.</string>
+    	<string name="country_missing">Du hast kein Land angegeben.</string>
+    	<string name="birth_missing">Du hast keinen Geburtstag angegeben.</string>
+    	<string name="gender_missing">Du hast kein Geschlecht angegeben.</string>
+    	<string name="insulting_words_in_username_field">Der Nickname enthält Schimpfwörter!</string>
+    	<string name="insulting_words_in_email_field">Die Email-Adresse enthält Schimpfwörter!</string>
+    	<string name="insulting_words_in_city_field">Die Stadt enthält Schimpfwörter!</string>
+    	<string name="insulting_words_in_province_field">Das Bundesland enthält Schimpfwörter!</string>
+
+    </registration>
+    <passwordrecovery>
+      <string name="userdata_invalid">Das Passwort oder der Nickname ist falsch.</string>
+      <string name="userdata_missing">Das Passwort oder der Nickname fehlt.</string>
+      <string name="userdata_not_exists">Das Passwort oder der Nickname konnte nicht gefunden werden.</string>
+      <string name="passwordhash_invalid">Die Gültigkeit deiner Wiederherstellungs-URL ist abgelaufen.</string>
+      <string name="password_missing">Du hast kein Passwort angegeben.</string>
+      <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
+      <string name="catroid_password_recovery_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal oder kontaktiere den Administrator unter webmaster@catroid.org.</string>
+    </passwordrecovery>
+</errors>

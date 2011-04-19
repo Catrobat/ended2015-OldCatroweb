@@ -21,6 +21,7 @@ define('VERSION','0.6.1');
 define('BASE_PATH','http://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');
 define('XML_PATH','include/xml/');
+define('LANGUAGE_PATH','include/xml/lang/');
 define('CSS_PATH','include/css/');
 define('SCRIPT_PATH','include/script/');
 define('PROJECTS_DIRECTORY','resources/projects/');
@@ -46,6 +47,7 @@ define('DEVELOPMENT_STATUS','[beta]');
 define('DEFAULT_HTML_TEMPLATE_NAME', 'htmlTemplate.php');
 define('DEFAULT_HTML_HEADER_TEMPLATE_NAME', 'htmlHeaderTemplate.php');
 define('DEFAULT_HTML_FOOTER_TEMPLATE_NAME', 'htmlFooterTemplate.php');
+define('SITE_DEFAULT_LANGUAGE', 'en');
 define('MVC_DEFAULT_MODULE', 'catroid');
 define('MVC_DEFAULT_CLASS', 'index');
 define('MVC_DEFAULT_METHOD', '__default');
@@ -63,4 +65,11 @@ define('USER_MIN_USERNAME_LENGTH',4);
 define('USER_MAX_USERNAME_LENGTH',32);
 define('USER_MIN_PASSWORD_LENGTH',6);
 define('USER_MAX_PASSWORD_LENGTH',32);
+
+function getSupportedLanguagesArray() {
+  $supportedLanguages = array(
+  	'de'=>1,
+  	'en'=>1);
+  return $supportedLanguages;
+}
 ?>

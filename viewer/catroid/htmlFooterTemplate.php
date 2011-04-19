@@ -28,7 +28,9 @@
           <font class="webMainBottomSpacer">|</font>
           <a class="license" href="<?php echo BASE_PATH?>catroid/imprint">Imprint</a>
           <font class="webMainBottomSpacer">|</font>
-          <a class="license" href="<?php echo BASE_PATH?>catroid/contactus">Contact</a> 
+          <a class="license" href="<?php echo BASE_PATH?>catroid/contactus">Contact</a>
+          <font class="webMainBottomSpacer">|</font>
+          <?php echo $this->module->session->SITE_LANGUAGE?>
         </div>
       </div>
     </div> <!--  WEBMAINBOTTOM -->

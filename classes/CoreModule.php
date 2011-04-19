@@ -37,12 +37,14 @@ abstract class CoreModule extends CoreObjectWeb {
       $this->name = $this->me->getName();
       $this->coreRegistry->setMailHandler(new CoreMailHandler());
       $this->mailHandler = $this->coreRegistry->getMailHandler();
-      $this->coreRegistry->setErrorHandler(new CoreErrorHandler($this->session, $this->mailHandler));
-      $this->errorHandler = $this->coreRegistry->getErrorHandler();
       $this->coreRegistry->setClientDetection(new CoreClientDetection());
       $this->clientDetection = $this->coreRegistry->getClientDetection();
+      $this->setSiteLanguage();
+      $this->coreRegistry->setErrorHandler(new CoreErrorHandler($this->session, $this->mailHandler));
+      $this->errorHandler = $this->coreRegistry->getErrorHandler();
       $this->coreRegistry->setBadwordsFilter(new CoreBadwordsFilter($this->dbConnection));
       $this->badWordsFilter = $this->coreRegistry->getBadwordsFilter();
+      
     }
 
     abstract public function __default();
@@ -75,6 +77,23 @@ abstract class CoreModule extends CoreObjectWeb {
 
     public function __destruct() {
         parent::__destruct();
+    }
+    
+    private function setSiteLanguage() {
+      if(!isset($this->session->SITE_LANGUAGE)) {
+        if(isset($_COOKIE['site_language'])) {
+          $lang = $_COOKIE['site_language'];
+        } else if(isset($_POST['userLanguage'])) {
+          $lang = $_POST['userLanguage'];
+        } else {
+          $lang = $this->clientDetection->getBrowserLanguage();
+        }
+      }
+      $supportedLanguages = getSupportedLanguagesArray();
+      if(!$supportedLanguages[$lang]) {
+        $lang = SITE_DEFAULT_LANGUAGE;
+      }
+      $this->session->SITE_LANGUAGE = $lang;
     }
 }
 

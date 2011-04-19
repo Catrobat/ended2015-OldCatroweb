@@ -29,9 +29,9 @@ class CoreErrorHandler {
   }
 
   private function setErrors() {
-    $file = CORE_BASE_PATH.XML_PATH.'errors_pub.xml';
+    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->session->SITE_LANGUAGE.'/errors_pub.xml';
     if(DEVELOPMENT_MODE) {
-      $file = CORE_BASE_PATH.XML_PATH.'errors_dev.xml';
+      $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->session->SITE_LANGUAGE.'/errors_dev.xml';
     }
     if(file_exists($file)) {
       $xml = simplexml_load_file($file);

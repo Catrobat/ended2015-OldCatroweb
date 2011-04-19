@@ -24,7 +24,7 @@
           <div class="webMainNavigationButtons">
             <button type="button" class="navigationButtons button white medium" id="fewerProjects">            
               <span class="navigationButtons">&laquo; Newer</span>
-            </button>            
+            </button>
           </div>
           <div class="projectListSpacer"></div>
           
