@@ -20,8 +20,8 @@
  
 <errors>
     <db>
-        <string name="query_failed">DB operation failed</string>
-        <string name="connection_failed">DB connection failed</string>
+        <string name="query_failed">DB operation failed.</string>
+        <string name="connection_failed">DB connection failed.</string>
         <string name="no_entry_for_id">No entry was found for the given ID.</string>
     </db>
     <sendmail>
@@ -69,7 +69,7 @@
     	<string name="password_repeat_missing">The repeated password is missing.</string>
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">The password is invalid.</string>
-    	<string name="password_length_invalid">The password must have at least 6 characters.</string>
+    	<string name="password_length_invalid">The password must have at least $1 characters.</string>
     	<string name="username_missing">The nickname is missing.</string>
     	<string name="username_invalid">The nickname is invalid.</string>
     	<string name="username_invalid_underscore">The nickname is invalid. Underscores (_) are not allowed.</string>

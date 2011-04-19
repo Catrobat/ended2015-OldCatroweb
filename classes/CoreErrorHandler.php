@@ -54,17 +54,24 @@ class CoreErrorHandler {
   }
 
   public function getError($type, $code, $extraInfo = '') {
+    $numargs = func_num_args();
+    $args = array();
+    if($numargs > 3) {
+      $args = array_slice(func_get_args(), 3);
+    }
     if(isset($this->errors[$type][$code])) {
       if(DEVELOPMENT_MODE && $extraInfo != '') {
-        return $this->errors[$type][$code].'<br>'.$extraInfo;
+        //return $this->errors[$type][$code].'<br>'.$extraInfo;
+        return $this->parseErrorMessage($this->errors[$type][$code], $args).'<br>'.$extraInfo;
       } else {
-        return $this->errors[$type][$code];
+        //return $this->errors[$type][$code];
+        return $this->parseErrorMessage($this->errors[$type][$code], $args);
       }
     } else {
       return 'unknown error: "'.$code.'"!';
     }
   }
-
+/*
   public function showError($type, $code, $extraInfo = '') {
     if(!$this->errors[strval($type)][strval($code)]) {
       echo "unknown error: \"".$code."\"!";
@@ -81,11 +88,17 @@ class CoreErrorHandler {
     }
     exit();
   }
-
+*/
   public function showErrorPage($type, $code, $extraInfo = '') {
+    $numargs = func_num_args();
+    $args = array();
+    if($numargs > 3) {
+      $args = array_slice(func_get_args(), 3);
+    }
     $this->session->errorType = $type;
     $this->session->errorCode = $code;
     $this->session->errorExtraInfo = $extraInfo;
+    $this->session->errorArgs = $args;
     $this->sendNotificationEmail($type, $code, $extraInfo);
     if(!headers_sent()) {
       header("Location: ".BASE_PATH."catroid/errorPage");
@@ -116,6 +129,32 @@ class CoreErrorHandler {
     $mailText .= "You should check this!";
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+  }
+  
+  public function parseErrorMessage($msg, $args) {
+    if(count($args) <= 0) {
+      return $msg;
+    }
+    if(!$this->checkParamCount($msg, count($args))) {
+      return $msg;
+    }
+    for($i=count($args); $i>0; $i--) {
+      $placeholderString = '\$'.$i;
+      $pattern = "/".$placeholderString."/";
+      $msg = preg_replace($pattern, $args[$i-1], $msg);
+    }
+    
+    return $msg;
+  }
+  
+  public function checkParamCount($msg, $num) {
+    $ret = array();
+    $paramCount = preg_match_all("/[\$][0-9]+/", $msg, $ret);
+    if($paramCount == $num) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public function __destruct() {

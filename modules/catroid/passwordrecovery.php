@@ -288,7 +288,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
     $regEx = '/^'.$text.'$/';
     if(!preg_match($regEx, $password)) {
-      throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid'));
+      throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid', '', USER_MIN_PASSWORD_LENGTH));
     }
     return true;
   }

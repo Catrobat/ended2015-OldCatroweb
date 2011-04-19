@@ -28,13 +28,16 @@ class errorPage extends CoreAuthenticationNone {
   	$type = $this->session->errorType;
   	$code = $this->session->errorCode;
   	$extraInfo = $this->session->errorExtraInfo;
-  	$errorMessage = $this->errorHandler->getError($type, $code);
-  	if($extraInfo && DEVELOPMENT_MODE) {
-      $errorMessage .= ':<br/>'.$extraInfo;
-    }
-    $errorMessage .= "<br /><a href='".BASE_PATH."'>Click to go back to startpage.</a>";
+  	$args = $this->session->errorArgs;
+  	$arr = array($type, $code, $extraInfo);
+  	if(is_array($args)) {
+  	  $params = array_merge($arr, $args);
+  	} else {
+  	  $params = $arr;
+  	}
+  	$errorMessage = call_user_func_array(array($this->errorHandler, 'getError'), $params);
     $this->errorMessage = $errorMessage;
-	}
+  }
 
   public function __destruct() {
     parent::__destruct();
