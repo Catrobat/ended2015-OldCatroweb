@@ -219,6 +219,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('unit.te..st'),
     array('unit test'),
     array('中國'),
+    array('1'),
     array('ÜgümEnimem')
     );
     return $dataArray;
