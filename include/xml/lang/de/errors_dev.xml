@@ -77,7 +77,7 @@
     	<string name="username_invalid_verticalbar">Der Nickname ist ungültig. Vertikale Linien (|) sind nicht erlaubt.</string>
     	<string name="username_invalid_curlybrace">Der Nickname ist ungültig. Geschweifte Klammern ({ oder }) sind nicht erlaubt.</string>
     	<string name="username_invalid_lessgreater">Der Nickname ist ungültig. Größer/Kleiner Zeichen (&lt; oder &gt;) sind nicht erlaubt.</string>
-    	<string name="username_invalid_squarebracket">Der Nickname ist ungültig. Eckige Klammern ([ oder ]) are not allowed.</string>
+    	<string name="username_invalid_squarebracket">Der Nickname ist ungültig. Eckige Klammern ([ oder ]) sind nicht erlaubt.</string>
     	<string name="username_already_exists">Der Nickname existiert bereits.</string>
     	<string name="country_codes_not_available">Keine Ländercodes in der Datenbank gefunden.</string>
     	<string name="country_missing">Du hast kein Land angegeben.</string>
