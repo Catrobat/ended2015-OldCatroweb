@@ -114,6 +114,46 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(null, $this->testModel->getJs());
   }
   
+  /*
+   * corePreseterTests
+   */
+  
+  public function testViewHelperGetLink() {
+      echo "\ncorePresenterTests:\n";
+      $myLink = 'my/link';
+      $myLinkText = 'myLinkText';
+      $myLinkClass = 'myLinkClass';
+      $view = new CorePresenter_html($this->testModel);
+      $testLink = $view->viewHelper->getLink($myLink, $myLinkText, $myLinkClass);
+      $this->assertTrue(is_int(strpos($testLink, $myLink)));
+      $this->assertTrue(is_int(strpos($testLink, $myLinkText)));
+      $this->assertTrue(is_int(strpos($testLink, $myLinkClass)));
+    }
+
+    public function testHtmlPresenter() {
+      $view = new CorePresenter_html($this->testModel);
+      $this->assertFalse($view->display());
+      $this->assertEquals(10, $view->testValue);
+    }
+
+    public function testJsonPresenter() {
+      $view = new CorePresenter_json($this->testModel);
+      $tmpAssocArray = json_decode($view->getJsonString(), true);
+      $this->assertEquals(10, $tmpAssocArray['testValue']);
+    }
+
+    public function testHttpPresenter() {
+      $view = new CorePresenter_http($this->testModel);
+      $this->assertEquals(500, $view->getStatusCode());
+    }
+
+    public function testXmlPresenter() {
+      $view = new CorePresenter_xml($this->testModel);
+      $xml = simplexml_load_string($view->getXmlString());
+      $values = $xml->children();
+      $this->assertEquals(10, intval($values[0]));
+    }
+    
   /**
    * @dataProvider badWords
    */
