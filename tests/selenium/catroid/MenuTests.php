@@ -84,17 +84,26 @@ class MenuTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isEditable("menuWallButton"));
     $this->assertFalse($this->selenium->isEditable("menuSettingsButton"));
     
-    $this->selenium->click("menuForumButton");
-    $this->selenium->waitForPageToLoad(10000);
-    $this->assertRegExp("/catroid\/login/", $this->selenium->getLocation());
-    $this->selenium->click("headerMenuButton");
-    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->click("menuForumButton");        
+    $this->selenium->selectWindow("board");   
+    $this->selenium->waitForPageToLoad(10000); 
+    
+    $this->assertRegExp("/addons\/board/", $this->selenium->getLocation());
+    $this->assertTrue($this->selenium->isTextPresent(("Board index")));
+    $this->assertTrue($this->selenium->isTextPresent(("Login")));
+    
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);    
     
     $this->selenium->click("menuWikiButton");
-    $this->selenium->waitForPageToLoad(10000);
-    $this->assertRegExp("/catroid\/login/", $this->selenium->getLocation());
-    $this->selenium->click("headerMenuButton");
-    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->waitForPageToLoad(1000);
+    $this->selenium->selectWindow("wiki");    
+        
+    $this->assertRegExp("/wiki\/Main_Page/", $this->selenium->getLocation());
+    $this->assertTrue($this->selenium->isTextPresent(("Main Page")));
+    $this->assertFalse($this->selenium->isTextPresent( $regData['registrationUsername']));    
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
     
     $this->selenium->click("menuLoginButton");
     $this->selenium->waitForPageToLoad(10000);
@@ -110,26 +119,31 @@ class MenuTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("xpath=//input[@name='loginSubmit']");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isVisible("menuLogoutButton"));    
-    $this->assertFalse($this->selenium->isVisible("menuLoginButton"));    
+    $this->assertFalse($this->selenium->isVisible("menuLoginButton"));      
     
-    // test links
-    $this->assertFalse($this->selenium->isEditable("menuProfileButton"));
-    $this->assertFalse($this->selenium->isEditable("menuWallButton"));
-    $this->assertFalse($this->selenium->isEditable("menuSettingsButton"));
     
-    $this->selenium->click("menuForumButton");        
+    $this->selenium->click("menuForumButton");
+    $this->selenium->selectWindow("board");    
     $this->selenium->waitForPageToLoad(10000);    
     $this->assertRegExp("/addons\/board/", $this->selenium->getLocation());
     $this->assertTrue($this->selenium->isTextPresent(("Board index")));
-    $this->selenium->goBack();
-    $this->selenium->waitForPageToLoad(10000); 
+    $this->assertTrue($this->selenium->isTextPresent(($regData['registrationUsername'])));    
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);            
     
-    $this->selenium->click("menuWikiButton");    
+    $this->selenium->click("menuWikiButton");
+    $this->selenium->selectWindow("wiki");    
     $this->selenium->waitForPageToLoad(10000);    
     $this->assertRegExp("/wiki\/Main_Page/", $this->selenium->getLocation());
-    $this->assertTrue($this->selenium->isTextPresent(("Main Page")));      
-    $this->selenium->goBack();
-    $this->selenium->waitForPageToLoad(10000); 
+    $this->assertTrue($this->selenium->isTextPresent(("Main Page")));
+    $this->assertTrue($this->selenium->isElementPresent("pt-userpage"));    
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
+ 
+    $this->assertFalse($this->selenium->isEditable("menuProfileButton"));
+    $this->assertFalse($this->selenium->isEditable("menuWallButton"));
+    $this->assertFalse($this->selenium->isEditable("menuSettingsButton"));    
+     
     $this->selenium->click("menuLogoutButton");
     
     $this->selenium->waitForPageToLoad(10000);

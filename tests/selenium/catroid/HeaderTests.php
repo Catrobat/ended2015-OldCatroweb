@@ -63,7 +63,7 @@ class HeaderTests extends PHPUnit_Framework_TestCase
   }
   
   public function testMenuHeaderButtonsMenu()
-  {
+  {    
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
     $this->selenium->click("xpath=//div[@id='aIndexWebLogoLeft']/a");
@@ -72,16 +72,8 @@ class HeaderTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     
      //test page title
-    $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());    
-    $this->assertTrue($this->selenium->isVisible("headerBackButton"));
-    $this->assertTrue($this->selenium->isVisible("headerHomeButton"));
-    
-    $this->selenium->click("headerBackButton");
-    $this->selenium->waitForPageToLoad(10000);
-    $this->assertRegExp("/catroid\/index/", $this->selenium->getLocation());
-    
-    $this->selenium->click("headerMenuButton");  
-    $this->selenium->waitForPageToLoad(10000);
+    $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
+    $this->assertTrue($this->selenium->isVisible("headerHomeButton"));    
     
     $this->selenium->click("headerHomeButton");
     $this->selenium->waitForPageToLoad(10000);
@@ -89,7 +81,7 @@ class HeaderTests extends PHPUnit_Framework_TestCase
   }
   
   public function testHeaderButtonsIndex()
-  {
+  {   
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
     
@@ -99,8 +91,7 @@ class HeaderTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isVisible("headerSearchBox"));
     $this->assertFalse($this->selenium->isVisible("headerCancelSearchButton"));
     $this->assertTrue($this->selenium->isVisible("headerSearchButton"));
-    $this->assertTrue($this->selenium->isVisible("headerMenuButton"));      
-    
+    $this->assertTrue($this->selenium->isVisible("headerMenuButton"));  
     
     $this->selenium->click("headerSearchButton");
     $this->selenium->waitForPageToLoad(100);
@@ -119,14 +110,10 @@ class HeaderTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("headerMenuButton");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertRegExp("/catroid\/menu/", $this->selenium->getLocation());    
-    
-    
-    
-    
   }
   
   public function testHeaderButtons()
-  {    
+  { 
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
     $this->selenium->click("xpath=//a[@class='license'][4]");    

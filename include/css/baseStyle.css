@@ -83,28 +83,23 @@ div.whiteBoxMain {
 div.webMainHead {
 }
 div.webHeadLogo {
-	min-height:94px;
-	width:28%;
-	margin-left:2%;
-	text-align:left;
-	float:left;
-  cursor:pointer;  
+	cursor: pointer;
+    float: left;
+    margin-left: 2%;
+    min-height: 79px;
+    padding-top: 15px;
+    text-align: left;
+    width: 18%;
 }
 div.webHeadTitle {
-	min-height:84px;
-	width:43%;	
-	text-align:right;
-	/*margin-right:1%;*/
-	margin-top:0px;
-	/*margin-right:80px;*/
-	/*padding-top:10px;*/
-	/*padding-right: 4%;*/
-	float:right;
-	/*background-color:red;*/
-	/*background-image: url(../../images/logo/brick_blue2_300.png);*/
-	background-repeat: no-repeat;
-	background-position: right top;
-	float:left;
+  background-position: right top;
+    background-repeat: no-repeat;
+    float: left;
+    margin-left: 3%;
+    margin-top: 0;
+    min-height: 84px;
+    text-align: center;
+    width: 43%;
 }
 div.webHeadButtons {
 	display:none;

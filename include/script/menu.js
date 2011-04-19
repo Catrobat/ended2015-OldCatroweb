@@ -48,18 +48,12 @@ var Menu = Class.$extend( {
         }
       },
       forum: function() {
-        if(userLogin_userId > 0) {
-          location.href = self.basePath+'addons/board';
-        } else {
-          location.href = self.basePath+'catroid/login?requesturi=addons/board';
-        }
+        window.open(self.basePath+'addons/board','board');
+        return false;
       },
       wiki: function() {
-        if(userLogin_userId > 0) {
-          location.href = self.basePath+'wiki';
-        } else {
-          location.href = self.basePath+'catroid/login?requesturi=wiki';
-        }
+        window.open(self.basePath+'wiki','wiki');        
+        return false;
       },
       login: function() {
         location.href = self.basePath+'catroid/login?requesturi=catroid/menu';
