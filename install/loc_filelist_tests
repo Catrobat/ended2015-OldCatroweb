@@ -1,0 +1,3 @@
+../tests/phpunit
+../tests/phpunit/framework/testdata/
+../tests/selenium
