@@ -17,8 +17,9 @@
  */
 
 
-var NewestProjects = Class.$extend( {
+var Index = Class.$extend( {
   __init__ : function(basePath, projectPageMaxProjects, pageNr, numberOfPages) {
+    this.initialized = false;
     this.basePath = basePath;
     this.pageNr = parseInt(pageNr);
     this.numberOfPages = parseInt(numberOfPages);
@@ -109,6 +110,10 @@ var NewestProjects = Class.$extend( {
     
       success: function(result){
         if(result != "") {
+          $("#projectListTitle").text(result.labels['title']);
+          $("#fewerProjects").children("span").html(result.labels['prevButton']);
+          $("#moreProjects").children("span").html(result.labels['nextButton']);
+          
           if(result.content['prev']) {
             self.fillSkeletonWithContent(result.content['prev'], self.pageNr - 1);
           }

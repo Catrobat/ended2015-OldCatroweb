@@ -20,10 +20,10 @@
     <div class="webMainMiddle">
       <div class="blueBoxMain">
         <div class="webMainContent">
-          <div class="webMainContentTitle">Newest Projects</div>          
+          <div id="projectListTitle" class="webMainContentTitle"></div>          
           <div class="webMainNavigationButtons">
             <button type="button" class="navigationButtons button white medium" id="fewerProjects">            
-              <span class="navigationButtons">&laquo; Newer</span>
+              <span class="navigationButtons"></span>
             </button>            
           </div>
           <div class="projectListSpacer"></div>
@@ -39,7 +39,7 @@
           </div>        
           <div class="webMainNavigationButtons">
             <button type="button" class="navigationButtons button white medium" id="moreProjects">
-              <span class="navigationButtons">Older &raquo;</span>
+              <span class="navigationButtons"></span>
             </button>
           </div>
         </div> <!-- mainContent close //-->

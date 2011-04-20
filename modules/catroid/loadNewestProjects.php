@@ -36,8 +36,15 @@ class loadNewestProjects extends CoreAuthenticationNone {
     }
     $pageContent['current'] = $this->retrievePageNrFromDatabase($this->pageNr);
     $pageContent['next'] = $this->retrievePageNrFromDatabase($this->pageNr+1);
-    
+
     $this->content = $pageContent;
+    
+    $labels = array();
+    $labels['title'] = "Newest Projects";
+    $labels['prevButton'] = "&laquo; Newer";
+    $labels['nextButton'] = "Older &raquo;";
+    
+    $this->labels = $labels;
   }
 
   public function retrievePageNrFromDatabase($pageNr) {

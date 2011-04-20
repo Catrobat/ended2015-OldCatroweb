@@ -19,7 +19,7 @@
 ?>
     <script type="text/javascript">
       $(document).ready(function() {
-        new NewestProjects(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->numberOfPages."'"; ?>);
+        new Index(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->numberOfPages."'"; ?>);
         new HeaderMenu(<?php echo "'".BASE_PATH."'"; ?>);
       });
     </script>
@@ -54,8 +54,8 @@
         <div class="webHeadSearchBoxSpacer"></div>
         <div class="blueBoxMain">
           <div class="webMainHead">
-            <form>
-              <input type="search" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
+            <form method="get" action="<?php echo BASE_PATH.'catroid/search'; ?>">
+              <input type="search" class="webHeadSearchBox" placeholder="Search for projects" name="searchTerm" autofocus  />             
               <input type="submit" class="webHeadSearchSubmit" value="Search" />
             </form>
           </div>

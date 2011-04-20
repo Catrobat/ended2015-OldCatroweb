@@ -30,7 +30,7 @@ class index extends CoreAuthenticationNone {
       $this->addCss('projectList_nohtml5.css');
     }
     $this->addCss('buttons.css');
-    $this->addJs('newestProjects.js');
+    $this->addJs('index.js');
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
 
     $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_MAX_PROJECTS);    
@@ -47,7 +47,7 @@ class index extends CoreAuthenticationNone {
         $this->session->pageNr = $this->numberOfPages - 1; 
       }
     }
-    $this->pageNr = $this->session->pageNr;    
+    $this->pageNr = $this->session->pageNr;
   }
 
   public function __default() {

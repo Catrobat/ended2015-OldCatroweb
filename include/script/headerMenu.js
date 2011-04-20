@@ -46,9 +46,12 @@ var HeaderMenu = Class.$extend( {
   },
 
   toggleSearchBox : function() {
-    $("#headerSearchBox").toggle();
     $("#normalHeaderButtons").toggle();
     $("#cancelHeaderButton").toggle();
+    $("#headerSearchBox").toggle();
+    if($("#headerSearchBox").css("display") == "block") {
+      $('input[name="searchTerm"]').focus();
+    }
   }
 });
 
