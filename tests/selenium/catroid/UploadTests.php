@@ -25,7 +25,6 @@ class UploadTests extends PHPUnit_Framework_TestCase
   private $selenium;
 
   public function setUp() {
-    //$path= 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin/';
     $this->selenium = new Testing_Selenium(TESTS_BROWSER, TESTS_BASE_PATH);
     if(TESTS_SLOW_MODE) {
       $this->selenium->setSpeed(TESTS_SLOW_MODE_SPEED);
@@ -54,7 +53,7 @@ class UploadTests extends PHPUnit_Framework_TestCase
   private function uploadTestProject($title, $description = '', $source = 'test.zip')
   {
     $uploadTestFile = dirname(__FILE__);
-    if(strpos($uploadTestFile, '\\') >= 0) {
+    if(strpos($uploadTestFile, '\\') != false) {
       $uploadTestFile.= '\testdata\\'.$source;
     } else {
       $uploadTestFile.= '/testdata/'.$source;

@@ -81,6 +81,7 @@
   
   <target name="-selenium-start-server">
   	<java jar="${selenium.dir}/server/selenium-server.jar" fork="true" spawn="true"/>
+  	<sleep seconds="1" />
   </target>
   
   <target name="-selenium-start-server-android">

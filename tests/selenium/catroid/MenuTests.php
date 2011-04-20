@@ -27,7 +27,7 @@ class MenuTests extends PHPUnit_Framework_TestCase
   public function setUp()
   {
     $path= 'http://'.str_replace('http://', '', TESTS_BASE_PATH).'catroid/';
-    $this->selenium = new Testing_Selenium("*firefox", $path);
+    $this->selenium = new Testing_Selenium(TESTS_BROWSER, $path);
     
     if (TESTS_SLOW_MODE==TRUE) {
       $this->selenium->setSpeed(TESTS_SLOW_MODE_SPEED);
@@ -96,12 +96,12 @@ class MenuTests extends PHPUnit_Framework_TestCase
     $this->selenium->selectWindow(null);    
     
     $this->selenium->click("menuWikiButton");
-    $this->selenium->waitForPageToLoad(1000);
-    $this->selenium->selectWindow("wiki");    
+    $this->selenium->selectWindow("wiki");
+    $this->selenium->waitForPageToLoad(10000);
         
     $this->assertRegExp("/wiki\/Main_Page/", $this->selenium->getLocation());
     $this->assertTrue($this->selenium->isTextPresent(("Main Page")));
-    $this->assertFalse($this->selenium->isTextPresent( $regData['registrationUsername']));    
+    $this->assertFalse($this->selenium->isElementPresent("pt-userpage"));  
     $this->selenium->close();
     $this->selenium->selectWindow(null);
     
