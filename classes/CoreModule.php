@@ -20,6 +20,7 @@
 abstract class CoreModule extends CoreObjectWeb {
     protected $data = array();
     public $errorHandler = null;
+    public $languageHandler = null;
     public $mailHandler = null;
     public $clientDetection = null;
     public $name = null;
@@ -42,6 +43,8 @@ abstract class CoreModule extends CoreObjectWeb {
       $this->setSiteLanguage();
       $this->coreRegistry->setErrorHandler(new CoreErrorHandler($this->session, $this->mailHandler));
       $this->errorHandler = $this->coreRegistry->getErrorHandler();
+      $this->coreRegistry->setLanguageHandler(new CoreLanguageHandler($this->session->SITE_LANGUAGE, $this->name));
+      $this->languageHandler = $this->coreRegistry->getLanguageHandler();
       $this->coreRegistry->setBadwordsFilter(new CoreBadwordsFilter($this->dbConnection));
       $this->badWordsFilter = $this->coreRegistry->getBadwordsFilter();
       

@@ -20,7 +20,7 @@
     <div class="webMainMiddle">
       <div class="blueBoxMain">
         <div class="webMainContent">
-          <div class="webMainContentTitle">Newest Projects</div>          
+          <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('newest_projects')?></div>          
           <div class="webMainNavigationButtons">
             <button type="button" class="navigationButtons button white medium" id="fewerProjects">            
               <span class="navigationButtons">&laquo; Newer</span>

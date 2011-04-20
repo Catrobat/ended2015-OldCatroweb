@@ -30,7 +30,7 @@
           <font class="webMainBottomSpacer">|</font>
           <a class="license" href="<?php echo BASE_PATH?>catroid/contactus">Contact</a>
           <font class="webMainBottomSpacer">|</font>
-          <?php echo $this->module->session->SITE_LANGUAGE?>
+          <?php echo $this->languageHandler->getLanguage()?>
         </div>
       </div>
     </div> <!--  WEBMAINBOTTOM -->
