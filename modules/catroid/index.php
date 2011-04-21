@@ -30,6 +30,7 @@ class index extends CoreAuthenticationNone {
       $this->addCss('projectList_nohtml5.css');
     }
     $this->addCss('buttons.css');
+    $this->addJs('ajax.js');
     $this->addJs('index.js');
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
 
@@ -48,6 +49,10 @@ class index extends CoreAuthenticationNone {
       }
     }
     $this->pageNr = $this->session->pageNr;
+    $this->searchQuery = "";
+    if($this->session->searchQuery != "") {
+      $this->searchQuery = $this->session->searchQuery;
+    }
   }
 
   public function __default() {

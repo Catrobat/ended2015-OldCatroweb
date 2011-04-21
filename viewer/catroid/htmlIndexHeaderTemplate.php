@@ -54,8 +54,8 @@
         <div class="webHeadSearchBoxSpacer"></div>
         <div class="blueBoxMain">
           <div class="webMainHead">
-            <form method="get" action="<?php echo BASE_PATH.'catroid/search'; ?>">
-              <input type="search" class="webHeadSearchBox" placeholder="Search for projects" name="searchTerm" autofocus  />             
+            <form id="searchForm">
+              <input id="searchQuery" type="search" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
               <input type="submit" class="webHeadSearchSubmit" value="Search" />
             </form>
           </div>

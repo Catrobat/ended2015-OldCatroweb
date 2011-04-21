@@ -50,7 +50,7 @@ var HeaderMenu = Class.$extend( {
     $("#cancelHeaderButton").toggle();
     $("#headerSearchBox").toggle();
     if($("#headerSearchBox").css("display") == "block") {
-      $('input[name="searchTerm"]').focus();
+      $("#searchQuery").focus();
     }
   }
 });

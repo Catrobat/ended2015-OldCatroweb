@@ -25,12 +25,14 @@ var Index = Class.$extend( {
     this.numberOfPages = parseInt(numberOfPages);
     this.projectPageMaxProjects = parseInt(projectPageMaxProjects);
     
+    this.ajax = new Ajax();
     this.testAndSetBounderies();
     this.loadAndCachePage();
     
     $("#fewerProjects").click($.proxy(this.prevPage, this));
     $("#moreProjects").click($.proxy(this.nextPage, this));
     $("#aIndexWebLogoLeft").click($.proxy(this.showFirstPage, this));
+    $("#searchForm").submit($.proxy(this.showSearchResults, this));
   },
 
   nextPage : function() {
@@ -48,14 +50,14 @@ var Index = Class.$extend( {
   },
   
   showFirstPage : function() {
-    var self = this;
-    $.ajax({
-      url: self.basePath+"catroid/loadNewestProjects/1.json",
-      async: false,
-      success: function() {
-        location.href = self.basePath+"catroid/index";
-      }
-    });
+    this.ajax.request("showFirstPage", this);
+  },
+  
+  showSearchResults : function() {
+    this.searchQuery = $("#searchQuery").val();
+    this.pageNr = 0;
+    this.ajax.request("showSearchResults", this);
+    return false;
   },
 
   testAndSetBounderies : function() {
@@ -103,38 +105,9 @@ var Index = Class.$extend( {
       $("#page"+(this.pageNr+3)).remove();
     }
 
-    $.ajax({
-      url: this.basePath+"catroid/loadNewestProjects/"+self.pageNr+".json",
-      cache: false,
-      timeout: (5000),
-    
-      success: function(result){
-        if(result != "") {
-          $("#projectListTitle").text(result.labels['title']);
-          $("#fewerProjects").children("span").html(result.labels['prevButton']);
-          $("#moreProjects").children("span").html(result.labels['nextButton']);
-          
-          if(result.content['prev']) {
-            self.fillSkeletonWithContent(result.content['prev'], self.pageNr - 1);
-          }
-          if(result.content['current']) {
-            self.fillSkeletonWithContent(result.content['current'], self.pageNr);
-          }
-          if(result.content['next']) {
-            self.fillSkeletonWithContent(result.content['next'], self.pageNr + 1);
-          }
-        }
-      },
-      error: function(result, errCode) {
-        if(errCode == "timeout") {
-          window.location.reload(false);          
-        }        
-      }
-    });
+    this.ajax.request("update", this);
   },
 
-
-  
   createSkeleton : function(pageNr) {
     if($("#page"+pageNr).length == 0) {
       var containerContent = $("<div />").addClass("projectListRow").attr("id", "page"+pageNr);
@@ -155,21 +128,21 @@ var Index = Class.$extend( {
         whiteBox = $("<div />").addClass("whiteBoxMain").attr("id", "whiteBox"+projectListRowItemId);
         projectListElementRow = $("<div />").addClass("projectListElementRow");
 
-	    var projectListElement = $("<div />").addClass("projectListElement").attr("id", "projectListElement"+projectListRowItemId);
+	      var projectListElement = $("<div />").addClass("projectListElement").attr("id", "projectListElement"+projectListRowItemId);
 	     
         var projectListThumbnail = $("<div />").addClass("projectListThumbnail").attr("id", "projectListThumbnail"+projectListRowItemId);
         var projectListDetailsLinkThumb = $("<a />").addClass("projectListDetailsLink").attr("id", "projectListDetailsLinkThumb"+projectListRowItemId);
-	    var projectListPreview = $("<img />").addClass("projectListPreview").attr("id", "projectListPreview"+projectListRowItemId).attr("src", this.basePath+"images/symbols/ajax-loader.gif").attr("alt", "loading...");
+	      var projectListPreview = $("<img />").addClass("projectListPreview").attr("id", "projectListPreview"+projectListRowItemId).attr("src", this.basePath+"images/symbols/ajax-loader.gif").attr("alt", "loading...");
 	     
-	    var projectListTitle = $("<div />").addClass("projectDetailLine").attr("id", "projectListTitle"+projectListRowItemId).html("loading...");
-	    var projectListDescription = $("<div />").addClass("projectDetailLine").attr("id", "projectListDescription"+projectListRowItemId);
-	    var projectListDetails = $("<div />").addClass("projectListDetails");
+	      var projectListTitle = $("<div />").addClass("projectDetailLine").attr("id", "projectListTitle"+projectListRowItemId).html("loading...");
+	      var projectListDescription = $("<div />").addClass("projectDetailLine").attr("id", "projectListDescription"+projectListRowItemId);
+	      var projectListDetails = $("<div />").addClass("projectListDetails");
 
-	    projectListThumbnail.append(projectListDetailsLinkThumb.append(projectListPreview).wrap("<div />"));
+	      projectListThumbnail.append(projectListDetailsLinkThumb.append(projectListPreview).wrap("<div />"));
         projectListDetails.append(projectListTitle);
         projectListDetails.append(projectListDescription);
 	    	 
-	    projectListElement.append(projectListThumbnail);
+	      projectListElement.append(projectListThumbnail);
         projectListElement.append(projectListDetails);
 	  
         projectListElementRow.append(projectListElement);
@@ -190,29 +163,26 @@ var Index = Class.$extend( {
   },
  
   fillSkeletonWithContent : function(content, pageNr) {
-	if(content != null) {
-      for(var i=0; i<this.projectPageMaxProjects; i++) {
-        var projectListRowItemId = this.projectPageMaxProjects * pageNr + i;
-        if(content[i]) {
-          if($("#projectListElement"+projectListRowItemId).length > 0) {
-            $("#whiteBox"+projectListRowItemId).css("display", "block");
-            $("#projectListSpacer"+projectListRowItemId).css("display", "block");
-            $("#projectListThumbnail"+projectListRowItemId).attr("title", content[i]['title']);
-            $("#projectListDetailsLinkThumb"+projectListRowItemId).attr("href", this.basePath+"catroid/details/"+content[i]['id']);
-            $("#projectListPreview"+projectListRowItemId).attr("src", content[i]['thumbnail']).attr("alt", content[i]['title']);
+    for(var i=0; i<this.projectPageMaxProjects; i++) {
+      var projectListRowItemId = this.projectPageMaxProjects * pageNr + i;
+      if(content != null && content[i]) {
+        if($("#projectListElement"+projectListRowItemId).length > 0) {
+          $("#whiteBox"+projectListRowItemId).css("display", "block");
+          $("#projectListSpacer"+projectListRowItemId).css("display", "block");
+          $("#projectListThumbnail"+projectListRowItemId).attr("title", content[i]['title']);
+          $("#projectListDetailsLinkThumb"+projectListRowItemId).attr("href", this.basePath+"catroid/details/"+content[i]['id']);
+          $("#projectListPreview"+projectListRowItemId).attr("src", content[i]['thumbnail']).attr("alt", content[i]['title']);
 
-            $("#projectListTitle"+projectListRowItemId).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");
-            $("#projectListDescription"+projectListRowItemId).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
-            $("#projectListDescription"+projectListRowItemId).html("uploaded "+content[i]['upload_time']+" ago");
-          }
+          $("#projectListTitle"+projectListRowItemId).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");
+          $("#projectListDescription"+projectListRowItemId).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
+          $("#projectListDescription"+projectListRowItemId).html("uploaded "+content[i]['upload_time']+" ago");
         }
-        else {
-          $("#projectListElement"+projectListRowItemId).css("display", "none");
-          $("#whiteBox"+projectListRowItemId).css("display", "none");
-          $("#projectListSpacer"+projectListRowItemId).css("display", "none");
-        }
-      } 
-    }
+      }
+      else {
+        $("#whiteBox"+projectListRowItemId).css("display", "none");
+        $("#projectListSpacer"+projectListRowItemId).css("display", "none");
+      }
+    } 
   }
 
 });
