@@ -26,6 +26,7 @@ class CoreLanguageHandler {
     $this->moduleName = $moduleName;
     $this->language = $language;
     $this->setStrings();
+    $this->setTemplateStrings();
   }
 
   private function setStrings() {
@@ -44,11 +45,28 @@ class CoreLanguageHandler {
     }
   }
 
+  private function setTemplateStrings() {
+    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->language.'/template.xml';
+    if(file_exists($file)) {
+      $xml = simplexml_load_file($file);
+    } else {
+      return false;
+    }
+
+    foreach($xml->children() as $string) {
+      $attributes = $string->attributes();
+      if($string->getName() && $attributes['name']) {
+        $this->strings[strval($attributes['name'])] = strval($string);
+      }
+    }
+  }
+
   public function getString($code) {
     $numargs = func_num_args();
     $args = array();
-    if($numargs > 3) {
-      $args = array_slice(func_get_args(), 3);
+    if($numargs > 1) {
+      //echo 'args found';
+      $args = array_slice(func_get_args(), 1);
     }
     if(isset($this->strings[$code])) {
       return $this->parseString($this->strings[$code], $args);
@@ -56,7 +74,7 @@ class CoreLanguageHandler {
       return 'unknown string: "'.$code.'"!';
     }
   }
-  
+
   public function parseString($msg, $args) {
     if(count($args) <= 0) {
       return $msg;
@@ -68,7 +86,7 @@ class CoreLanguageHandler {
       $placeholderString = '\$'.$i;
       $pattern = "/".$placeholderString."/";
       $msg = preg_replace($pattern, $args[$i-1], $msg);
-    }  
+    }
     return $msg;
   }
 
@@ -78,6 +96,16 @@ class CoreLanguageHandler {
 
   public function getLanguage() {
     return $this->language;
+  }
+
+  public function checkParamCount($msg, $num) {
+    $ret = array();
+    $paramCount = preg_match_all("/[\$][0-9]+/", $msg, $ret);
+    if($paramCount == $num) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public function __destruct() {

@@ -84,7 +84,10 @@ abstract class CoreModule extends CoreObjectWeb {
     
     private function setSiteLanguage() {
       if(!isset($this->session->SITE_LANGUAGE)) {
-        if(isset($_COOKIE['site_language'])) {
+        if(isset($_GET['userLanguage'])) {
+          $lang = $_GET['userLanguage'];
+          setcookie('site_language', $lang, 0, "/", '', false, true);
+        } else if(isset($_COOKIE['site_language'])) {
           $lang = $_COOKIE['site_language'];
         } else if(isset($_POST['userLanguage'])) {
           $lang = $_POST['userLanguage'];

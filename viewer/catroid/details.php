@@ -41,7 +41,7 @@
                 						<img class="projectDetailsImage" src="<?php echo $this->project['image']?>" alt="project thumbnail">
                 					</a>
             					<div class="detailsLicenseLink">
-            					  <a class="licenseLink" href="<?php echo BASE_PATH?>catroid/projectlicense">Some rights reserved</a>
+            					  <a class="licenseLink" href="<?php echo BASE_PATH?>catroid/projectlicense"><?php echo $this->languageHandler->getString('some_rights_reserved')?></a>
                 					</div>
                 				</div>
                 				<?php if(!$this->isMobile) {?>
@@ -50,11 +50,11 @@
                     					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view7.png" alt="view count image">                    					
                     					<!--   <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view8.png" alt="view count image">
                     					-->
-                        					<b><?php echo $this->project['view_count']?></b> views</p>
+                        					<b><?php echo $this->project['view_count']?></b> <?php echo $this->languageHandler->getString('views')?></p>
                         					<div style="height:10px;"></div>
                         					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down1.png" alt="download count image">
                     					<!-- <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down_2.png" alt="download count image"> -->
-                        					<b><?php echo $this->project['download_count']?></b> downloads</p>
+                        					<b><?php echo $this->project['download_count']?></b> <?php echo $this->languageHandler->getString('downloads')?></p>
                     					</div>
                         			</div>
                     			<?php }?>
@@ -64,13 +64,13 @@
       		   						<div class="detailsPublishTime">
                     					<p class="detailsTime"><img class="projectDetailsTimeSymbol" src="<?php echo BASE_PATH?>images/symbols/clock2.png" alt="publish time image">
                 					<!-- <img class="projectDetailsTimeSymbol" src="<?php echo BASE_PATH?>images/symbols/clock4.png" alt="publish time image"> -->
-    									uploaded<br>
-    									<b><?php echo $this->project['publish_time_in_words']?></b> ago.</p>
+    									<?php echo $this->languageHandler->getString('uploaded')?><br>
+    									<b><?php echo $this->project['publish_time_in_words']?></b></p>
                     				</div>
                     				<div class="detailsDownloadButton">
                             			<a class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']?>.zip?fname=<?php echo urlencode($this->project['title'])?>">
                             				<img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button">
-                            				<span class="detailsDownloadButtonText">Download</span>
+                            				<span class="detailsDownloadButtonText"><?php echo $this->languageHandler->getString('download')?></span>
                             			</a>
                     				</div>
                     				<?php if(!$this->isMobile && $this->project['qr_code_image']) {?>
@@ -104,11 +104,11 @@
                         			    <div class="detailsStatistics">
                         					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view7.png" alt="view count image">
                     					<!-- <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view8.png" alt="view count image"> -->
-                        					<b><?php echo $this->project['view_count']?></b> views</p>
+                        					<b><?php echo $this->project['view_count']?></b> <?php echo $this->languageHandler->getString('views')?></p>
                         					<div style="height:10px;"></div>
                         					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down1.png" alt="download count image">
                     					<!-- <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down_2.png" alt="download count image"> -->
-                        					<b><?php echo $this->project['download_count']?></b> downloads</p>
+                        					<b><?php echo $this->project['download_count']?></b> <?php echo $this->languageHandler->getString('downloads')?></p>
                     					</div>
                         			</div>
                     			<?php }?>
@@ -116,16 +116,16 @@
                         		<div class="detailsMainStats">
                         			<div class="detailsFlagButton" id="detailsFlagButton">
                       		   			<button type="button" class="button white medium" id="reportAsInappropriateButton">
-                      		   				<span class="detailsFlagButtonText">report as inappropriate</span>                            			
+                      		   				<span class="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>                            			
                                     	</button>
                             		</div>
                             		<div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
                             			<form method="POST" class="reportInappropriateForm">
-                            				<span class="reportInappropriateLabel">Why do you think this project is inappropriate?</span><br>
+                            				<span class="reportInappropriateLabel"><?php echo $this->languageHandler->getString('why_you_think_inappropriate')?></span><br>
                             				<input type="hidden" id="reportInappropriateProjectId" value="<?php echo $this->project['id']?>">
-      										<input type="text" class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="enter a reason" required>
-      										<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateReportButton" value="Report">
-      										<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateCancelButton" value="Cancel">
+      										<input type="text" class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="<?php echo $this->languageHandler->getString('enter_a_reason')?>" required>
+      										<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateReportButton" value="<?php echo $this->languageHandler->getString('report')?>">
+      										<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateCancelButton" value="<?php echo $this->languageHandler->getString('cancel')?>">
     									</form>
                             		</div>
                             		<div class="reportAsInappropriateAnswer" id="reportAsInappropriateAnswer"></div>

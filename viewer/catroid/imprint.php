@@ -21,25 +21,27 @@
   <div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle">Imprint</div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('imprint_title')?></div>
                 <div class="licenseMain">            	
             	  <div class ="whiteBoxMain">
-            	    <div class="imprintText"><p class="licenseText">            	    
-					  Catroid is developed at the <br><a href="http://www.ist.tugraz.at" target="_blank">Institute for Software Technology</a> at Graz University of Technology in Austria.            	     
-            	     <br><br>            	                 	     
-            	     <font class="licenseHeader">Address</font><br>
-            	     Institut f&uuml;r Softwaretechnologie<br>
-            	     Technische Universit&auml;t Graz<br>
-            	     Inffeldgasse 16B/II<br>
-            	     8010 Graz<br>
-            	     Austria            	     
-            	     <br><br>
-            	     <font class="imprintHeader">Contact</font><br>
-            	     E-Mail: webmaster@catroid.org
-            	     </p>
-                   </div> <!-- License Text -->
-                   </div> <!--  White Box -->            	
-            	</div> <!--  license Main -->
+            	    <div class="imprintText">
+            	      <p class="licenseText">
+            	        <?php echo $this->languageHandler->getString('development_text', '<br><a href="http://www.ist.tugraz.at" target="_blank">'
+            	                  .$this->languageHandler->getString('institute_for_software_technology').'</a><br>')?>
+            	        <br><br>            	                 	     
+            	        <font class="licenseHeader"><?php echo $this->languageHandler->getString('address')?></font><br>
+            	        <?php echo $this->languageHandler->getString('institute_for_software_technology')?><br>
+            	        <?php echo $this->languageHandler->getString('graz_university_of_technology')?><br>
+            	        <?php echo $this->languageHandler->getString('address_street')?><br>
+            	        <?php echo $this->languageHandler->getString('address_city')?><br>
+            	        <?php echo $this->languageHandler->getString('address_country')?>
+            	        <br><br>
+            	        <font class="imprintHeader"><?php echo $this->languageHandler->getString('contact')?></font><br>
+            	        <?php echo $this->languageHandler->getString('contact_text', CONTACT_EMAIL)?>
+            	      </p>
+                    </div> <!-- imprintText -->
+                  </div> <!--  whiteBoxMain -->            	
+            	</div> <!--  licenseMain -->
   		   		
   		  </div> <!-- mainContent close //-->
   		</div> <!-- blueBoxMain close //-->

@@ -21,7 +21,7 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle">Terms of use</div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('terms_of_use_title')?></div>
                 <div class="licenseMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="licenseText"><p class="licenseText">

@@ -20,7 +20,7 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle">Privacy Policy</div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('privacy_policy_title')?></div>
                 <div class="licenseMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="licenseText"><p class="licenseText">            	          

@@ -50,7 +50,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
       foreach($projects as $project) {
         $projects[$i]['title'] = $projects[$i]['title'];
         $projects[$i]['title_short'] = $this->shortenTitle($project['title']);
-        $projects[$i]['upload_time'] =  $this->getTimeInWords(strtotime($project['upload_time']), time());
+        $projects[$i]['upload_time'] = $this->languageHandler->getString('uploaded', $this->getTimeInWords(strtotime($project['upload_time']), time()));
         $projects[$i]['thumbnail'] = $this->getThumbnail($project['id']);
         $i++;
       }
@@ -84,33 +84,33 @@ class loadNewestProjects extends CoreAuthenticationNone {
     $seconds = round(abs($toTime - $fromTime));
     $minutes = round($seconds/60);
     if ($minutes <= 1) {
-      return ($minutes == 0) ? 'less than a minute' : '1 minute';
+      return ($minutes == 0) ? $this->languageHandler->getString('less_than_a_minute_ago') : $this->languageHandler->getString('one_minute_ago');
     }
     if ($minutes < 45) {
-      return $minutes.' minutes';
+      return $this->languageHandler->getString('minutes_ago', $minutes);
     }
     if ($minutes < 90) {
-      return 'about 1 hour';
+      return $this->languageHandler->getString('one_hour_ago');
     }
     if ($minutes < 1440) {
-      return 'about '.round(floatval($minutes)/60.0).' hours';
+      return $this->languageHandler->getString('hours_ago', round(floatval($minutes)/60.0));
     }
     if ($minutes < 2880) {
-      return '1 day';
+      return $this->languageHandler->getString('one_day_ago');
     }
     if ($minutes < 43200) {
-      return 'about '.round(floatval($minutes)/1440).' days';
+      return $this->languageHandler->getString('days_ago', round(floatval($minutes)/1440));
     }
     if ($minutes < 86400) {
-      return 'about 1 month';
+      return $this->languageHandler->getString('one_month_ago');
     }
     if ($minutes < 525600) {
-      return round(floatval($minutes)/43200).' months';
+      return $this->languageHandler->getString('months_ago', round(floatval($minutes)/43200));
     }
     if ($minutes < 1051199) {
-      return 'about 1 year';
+      return $this->languageHandler->getString('one_year_ago');
     }
-    return 'over '.round(floatval($minutes)/525600) . ' years';
+    return $this->languageHandler->getString('over_years_ago', round(floatval($minutes)/525600));
   }
 
   public function __destruct() {

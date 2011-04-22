@@ -20,4 +20,6 @@
  
 <strings>
     <string name="newest_projects">Newest Projects</string>
+    <string name="newer">Newer</string>
+	<string name="older">Older</string>
 </strings>

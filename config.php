@@ -57,6 +57,7 @@ define('USER_EMAIL_SUBJECT_PREFIX','CATROID.ORG');
 define('ADMIN_EMAIL_WEBMASTER','webmaster@catroid.org');
 define('ADMIN_EMAIL_NOREPLY','noreply@catroid.org');
 define('ADMIN_EMAIL_SUBJECT_PREFIX','CATROID.ORG');
+define('CONTACT_EMAIL','webmaster@catroid.org');
 define('USER_STATUS_STRING_ACTIVE','active');
 define('USER_STATUS_STRING_INACTIVE','inactive');
 define('USER_STATUS_STRING_DELETED','deleted');

@@ -23,7 +23,7 @@
           <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('newest_projects')?></div>          
           <div class="webMainNavigationButtons">
             <button type="button" class="navigationButtons button white medium" id="fewerProjects">            
-              <span class="navigationButtons">&laquo; Newer</span>
+              <span class="navigationButtons">&laquo; <?php echo $this->languageHandler->getString('newer')?></span>
             </button>
           </div>
           <div class="projectListSpacer"></div>
@@ -39,7 +39,7 @@
           </div>        
           <div class="webMainNavigationButtons">
             <button type="button" class="navigationButtons button white medium" id="moreProjects">
-              <span class="navigationButtons">Older &raquo;</span>
+              <span class="navigationButtons"><?php echo $this->languageHandler->getString('older')?> &raquo;</span>
             </button>
           </div>
         </div> <!-- mainContent close //-->

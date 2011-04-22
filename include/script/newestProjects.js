@@ -197,8 +197,8 @@ var NewestProjects = Class.$extend( {
             $("#projectListPreview"+projectListRowItemId).attr("src", content[i]['thumbnail']).attr("alt", content[i]['title']);
 
             $("#projectListTitle"+projectListRowItemId).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");
-            $("#projectListDescription"+projectListRowItemId).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
-            $("#projectListDescription"+projectListRowItemId).html("uploaded "+content[i]['upload_time']+" ago");
+            $("#projectListDescription"+projectListRowItemId).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />"+content[i]['upload_time']);
+            $("#projectListDescription"+projectListRowItemId).html(content[i]['upload_time']);
           }
         }
         else {

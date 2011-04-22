@@ -20,15 +20,15 @@
     <div class="webMainBottom">
       <div class="blueBoxMain">
         <div class="webMainLicense"> 
-          <a class="license" href="<?php echo BASE_PATH?>catroid/privacypolicy">Privacy policy</a>
+          <a class="license" href="<?php echo BASE_PATH?>catroid/privacypolicy"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a>
           <font class="webMainBottomSpacer">|</font>
-          <a class="license" href="<?php echo BASE_PATH?>catroid/terms">Terms of Use </a>  	      
+          <a class="license" href="<?php echo BASE_PATH?>catroid/terms"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>  	      
           <font class="webMainBottomSpacer">|</font>
-          <a class="license" href="<?php echo BASE_PATH?>catroid/copyrightpolicy">Copyright policy</a>
+          <a class="license" href="<?php echo BASE_PATH?>catroid/copyrightpolicy"><?php echo $this->languageHandler->getString('template_footer_copyright_policy_link')?></a>
           <font class="webMainBottomSpacer">|</font>
-          <a class="license" href="<?php echo BASE_PATH?>catroid/imprint">Imprint</a>
+          <a class="license" href="<?php echo BASE_PATH?>catroid/imprint"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a>
           <font class="webMainBottomSpacer">|</font>
-          <a class="license" href="<?php echo BASE_PATH?>catroid/contactus">Contact</a>
+          <a class="license" href="<?php echo BASE_PATH?>catroid/contactus"><?php echo $this->languageHandler->getString('template_footer_contact_link')?></a>
           <font class="webMainBottomSpacer">|</font>
           <?php echo $this->languageHandler->getLanguage()?>
         </div>

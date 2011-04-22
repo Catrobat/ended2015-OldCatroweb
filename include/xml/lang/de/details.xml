@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Catroid: An on-device graphical programming language for Android devices 
+	Copyright (C) 2010-2011 The Catroid Team (<http://code.google.com/p/catroid/wiki/Credits>) 
+	This program is free software: you can redistribute it and/or modify it under 
+	the terms of the GNU Affero General Public License as published by the Free 
+	Software Foundation, either version 3 of the License, or (at your option) 
+	any later version. This program is distributed in the hope that it will be 
+	useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY 
+	or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Affero General Public License 
+	for more details. You should have received a copy of the GNU Affero General 
+	Public License along with this program. If not, see <http://www.gnu.org/licenses/>. -->
+
+
+<strings>
+	<string name="uploaded">hochgeladen</string>
+	<string name="one_minute_ago">vor 1 Minute</string>
+	<string name="less_than_a_minute_ago">vor weniger als 1 Minute</string>
+	<string name="minutes_ago">vor $1 Minuten</string>
+	<string name="one_hour_ago">vor 1 Stunde</string>
+	<string name="hours_ago">vor $1 Stunden</string>
+	<string name="one_day_ago">vor 1 Tag</string>
+	<string name="days_ago">vor $1 Tagen</string>
+	<string name="one_month_ago">vor 1 Monat</string>
+	<string name="months_ago">vor $1 Monaten</string>
+	<string name="one_year_ago">vor 1 Jahr</string>
+	<string name="years_ago">vor $1 Jahren</string>
+	<string name="over_years_ago">vor über $1 Jahren</string>
+	<string name="download">Herunterladen</string>
+	<string name="report">Melden</string>
+	<string name="cancel">Abbrechen</string>
+	<string name="report_as_inappropriate">als unpassend melden</string>
+	<string name="why_you_think_inappropriate">Warum denkst du dass diese Projekt unpassend ist?</string>
+	<string name="enter_a_reason">Bitte eine Begründung eingeben.</string>
+	<string name="some_rights_reserved">Einige Rechte vorbehalten</string>
+	<string name="views">mal gesehen</string>
+	<string name="downloads">mal heruntergeladen</string>
+</strings>
