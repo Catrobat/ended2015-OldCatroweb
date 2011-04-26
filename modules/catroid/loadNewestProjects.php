@@ -28,7 +28,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
     if(isset($_REQUEST['method'])) {
       $this->pageNr = intval($_REQUEST['method']);
     }
-    $this->session->pageNr = $this->pageNr;
+    $this->session->pageNr = (($this->pageNr+1)/2);
 
     $pageContent = array();
     if($this->pageNr > 0) {

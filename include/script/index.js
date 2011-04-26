@@ -19,65 +19,98 @@
 
 var Index = Class.$extend( {
   __init__ : function(basePath, projectPageMaxProjects, pageNr, numberOfPages) {
+    var self = this;
+    this.siteState = "newestProjects";
+    this.writeHistory = true;
     this.initialized = false;
     this.basePath = basePath;
     this.pageNr = parseInt(pageNr);
     this.numberOfPages = parseInt(numberOfPages);
     this.projectPageMaxProjects = parseInt(projectPageMaxProjects);
-    
     this.ajax = new Ajax();
-    this.testAndSetBounderies();
-    this.loadAndCachePage();
     
     $("#fewerProjects").click($.proxy(this.prevPage, this));
     $("#moreProjects").click($.proxy(this.nextPage, this));
     $("#aIndexWebLogoLeft").click($.proxy(this.showFirstPage, this));
     $("#searchForm").submit($.proxy(this.showSearchResults, this));
+    
+    window.onpopstate = function(event) {
+      if(event.state != null || self.pageNr == event.state.pageNr) {
+        self.writeHistory = false;
+      }
+      self.initialized = true;
+      self.pageNr = event.state.pageNr;
+      self.testAndSetBounderies();  
+      self.loadAndCachePage();
+    }
+    
+    setTimeout(this.initialize, 50, this); 
+  },
+  
+  initialize : function(object){
+    if(!object.initialized) {
+      object.testAndSetBounderies();
+      object.loadAndCachePage();
+      object.initialized = true;
+    }
   },
 
   nextPage : function() {
-    this.pageNr = parseInt(this.pageNr) + 2;
+    this.pageNr = parseInt(this.pageNr) + 1;
     this.testAndSetBounderies();
     this.loadAndCachePage();
-    $(window).scrollTop($("#page"+this.pageNr).offset().top);
+    $(window).scrollTop($("#page"+(this.pageNr-1)).offset().top);
   },
 
   prevPage : function() {
-    this.pageNr = parseInt(this.pageNr) - 2;
+    this.pageNr = parseInt(this.pageNr) - 1;
     this.testAndSetBounderies();
     this.loadAndCachePage();
     $(window).scrollTop($("#page"+(this.pageNr+1)).offset().top - $(window).height());
   },
   
   showFirstPage : function() {
-    this.ajax.request("showFirstPage", this);
+    this.pageNr = 1;
+    this.siteState = "newestProjects";
+    this.testAndSetBounderies();
+    this.loadAndCachePage();
+
+    $("#normalHeaderButtons").toggle(true);
+    $("#cancelHeaderButton").toggle(false);
+    $("#headerSearchBox").toggle(false);
+    $("#searchQuery").val("");
   },
   
   showSearchResults : function() {
     this.searchQuery = $("#searchQuery").val();
-    this.pageNr = 0;
-    this.ajax.request("showSearchResults", this);
+    this.pageNr = 1;
+    this.siteState = "searchResults";
+    this.testAndSetBounderies();
+    this.loadAndCachePage();
     return false;
   },
 
   testAndSetBounderies : function() {
-    if(this.pageNr >= this.numberOfPages) {
-	  this.pageNr = this.numberOfPages - 1;
-    }
-    if(this.pageNr >= this.numberOfPages - 2) {
-      $("#moreProjects").toggle(false);
-    } else {
-      $("#moreProjects").toggle(true);
+    if((this.pageNr*2-1) >= this.numberOfPages) {
+	    this.pageNr = ((this.numberOfPages+1) /2);
     }
 	    
     if(this.pageNr < 0) {
       this.pageNr = 0;
     }
-    if(this.pageNr < 2) {
-        $("#fewerProjects").toggle(false);
-      } else {
-        $("#fewerProjects").toggle(true);
-      }
+  },
+  
+  hideOrShowButtons : function(result) {
+    if(result.content['prev'] != null && this.pageNr > 1) {
+      $("#fewerProjects").toggle(true);
+    } else {
+      $("#fewerProjects").toggle(false);
+    }
+    if(result.content['next'] != null) {
+      $("#moreProjects").toggle(true);
+    } else {
+      $("#moreProjects").toggle(false);
+    }
   },
 
   loadAndCachePage : function() {
@@ -105,7 +138,7 @@ var Index = Class.$extend( {
       $("#page"+(this.pageNr+3)).remove();
     }
 
-    this.ajax.request("update", this);
+    this.ajax.request(this);
   },
 
   createSkeleton : function(pageNr) {

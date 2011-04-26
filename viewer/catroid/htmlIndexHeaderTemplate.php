@@ -27,9 +27,7 @@
       <div class="blueBoxMain">
         <div class="webMainHead">
           <div id="aIndexWebLogoLeft" class="webHeadLogo">
-            <a id="aIndexWebLogoLeft" href="<?php echo BASE_PATH?>catroid/index">
-            <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
-            </a>
+            <img id="aIndexWebLogoLeft" class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
           </div>
           <div class="webHeadTitle">
             <div class="webHeadTitleName">

@@ -19,37 +19,19 @@
 
 var Ajax = Class.$extend( {
   __init__ : function() {
-    this.state = 'newestProjects';
   },
 
-  request : function(action, object) {
-    switch(action) {
-      case 'showFirstPage':
-        this.state = 'newestProjects';
-        this.actionShowFirstPage(object);
+  request : function(object) {
+    switch(object.siteState) {
+      case 'newestProjects':
+        this.actionNewestPage(object);
         break;
-      case 'showSearchResults':
-        this.state = 'search';
+      case 'searchResults':
         this.actionShowSearchResults(object);
-        break;
-      case 'update':
-        if(this.state == 'newestProjects') {
-          this.actionNewestPage(object);
-        }
         break;
       default:
         alert('nix');
     }
-  },
-
-  actionShowFirstPage : function(object) {
-    $.ajax({
-      url: object.basePath+"catroid/loadNewestProjects/1.json",
-      async: false,
-      success: function() {
-        location.href = object.basePath+"catroid/index";
-      }
-    });
   },
 
   actionShowSearchResults : function(object) {
@@ -64,9 +46,16 @@ var Ajax = Class.$extend( {
           $("#fewerProjects").children("span").html(result.labels['prevButton']);
           $("#moreProjects").children("span").html(result.labels['nextButton']);
           
+          object.hideOrShowButtons(result);
           object.fillSkeletonWithContent(result.content['prev'], object.pageNr - 1);
           object.fillSkeletonWithContent(result.content['current'], object.pageNr);
           object.fillSkeletonWithContent(result.content['next'], object.pageNr + 1);
+
+          if(object.writeHistory) {
+            history.pushState({pageNr: object.pageNr, searchQuery : object.searchQuery}, "Search " + object.pageNr, 
+                              object.basePath+"catroid/search/" + object.searchQuery + "/"  + object.pageNr);
+          }
+          object.writeHistory = true;
         }
       },
       error: function(result, errCode) {
@@ -79,7 +68,7 @@ var Ajax = Class.$extend( {
 
   actionNewestPage : function(object) {
     $.ajax({
-      url: object.basePath+"catroid/loadNewestProjects/"+object.pageNr+".json",
+      url: object.basePath+"catroid/loadNewestProjects/"+(object.pageNr*2-1)+".json",
       cache: false,
       timeout: (5000),
     
@@ -89,9 +78,16 @@ var Ajax = Class.$extend( {
           $("#fewerProjects").children("span").html(result.labels['prevButton']);
           $("#moreProjects").children("span").html(result.labels['nextButton']);
           
+          object.hideOrShowButtons(result);
           object.fillSkeletonWithContent(result.content['prev'], object.pageNr - 1);
           object.fillSkeletonWithContent(result.content['current'], object.pageNr);
           object.fillSkeletonWithContent(result.content['next'], object.pageNr + 1);
+
+          if(object.writeHistory) {
+            history.pushState({pageNr: object.pageNr}, "Page " + object.pageNr, 
+                              object.basePath+"catroid/index/" + object.pageNr);
+          }
+          object.writeHistory = true;
         }
       },
       error: function(result, errCode) {

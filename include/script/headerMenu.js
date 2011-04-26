@@ -55,4 +55,3 @@ var HeaderMenu = Class.$extend( {
   }
 });
 
-
