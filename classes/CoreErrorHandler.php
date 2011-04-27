@@ -21,17 +21,19 @@ class CoreErrorHandler {
   private $errors = array();
   private $session;
   private $mailHandler;
+  private $moduleName;
 
-  public function __construct($session, $mailHandler) {
+  public function __construct($session, $mailHandler, $moduleName) {
     $this->session = $session;
     $this->mailHandler = $mailHandler;
+    $this->moduleName = $moduleName;
     $this->setErrors();
   }
 
   private function setErrors() {
-    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->session->SITE_LANGUAGE.'/errors_pub.xml';
+    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->session->SITE_LANGUAGE.'/errors_pub.xml';
     if(DEVELOPMENT_MODE) {
-      $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->session->SITE_LANGUAGE.'/errors_dev.xml';
+      $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->session->SITE_LANGUAGE.'/errors_dev.xml';
     }
     if(file_exists($file)) {
       $xml = simplexml_load_file($file);
@@ -61,34 +63,15 @@ class CoreErrorHandler {
     }
     if(isset($this->errors[$type][$code])) {
       if(DEVELOPMENT_MODE && $extraInfo != '') {
-        //return $this->errors[$type][$code].'<br>'.$extraInfo;
         return $this->parseErrorMessage($this->errors[$type][$code], $args).'<br>'.$extraInfo;
       } else {
-        //return $this->errors[$type][$code];
         return $this->parseErrorMessage($this->errors[$type][$code], $args);
       }
     } else {
       return 'unknown error: "'.$code.'"!';
     }
   }
-/*
-  public function showError($type, $code, $extraInfo = '') {
-    if(!$this->errors[strval($type)][strval($code)]) {
-      echo "unknown error: \"".$code."\"!";
-      echo "<br /><a href='".BASE_PATH."'>Go back to start.</a>";
-      exit();
-    }
 
-    echo 'ERROR: '.$this->errors[strval($type)][strval($code)];
-    if(DEVELOPMENT_MODE) {
-      echo ': <br />'.$extraInfo;
-    }
-    else {
-      echo "<br /><a href='".BASE_PATH."'>Go back to start.</a>";
-    }
-    exit();
-  }
-*/
   public function showErrorPage($type, $code, $extraInfo = '') {
     $numargs = func_num_args();
     $args = array();
@@ -107,7 +90,7 @@ class CoreErrorHandler {
       return false;
     }
   }
-  
+
   private function sendNotificationEmail($type, $code, $extraInfo) {
     $http_ref = "";
     if (isset($_SERVER["HTTP_REFERER"])) $http_ref = $_SERVER["HTTP_REFERER"];
@@ -124,13 +107,13 @@ class CoreErrorHandler {
     $mailText .= "--- *** ---\n\n";
     $mailText .= "--- USER DETAILS ---\n";
     $mailText .= "User IP: <".$_SERVER['REMOTE_ADDR'].">\n";
-    $mailText .= "User HTTP Referer: <".$http_ref.">\n";    
+    $mailText .= "User HTTP Referer: <".$http_ref.">\n";
     $mailText .= "--- *** ---\n\n";
     $mailText .= "You should check this!";
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
-  
+
   public function parseErrorMessage($msg, $args) {
     if(count($args) <= 0) {
       return $msg;
@@ -143,10 +126,10 @@ class CoreErrorHandler {
       $pattern = "/".$placeholderString."/";
       $msg = preg_replace($pattern, $args[$i-1], $msg);
     }
-    
+
     return $msg;
   }
-  
+
   public function checkParamCount($msg, $num) {
     $ret = array();
     $paramCount = preg_match_all("/[\$][0-9]+/", $msg, $ret);

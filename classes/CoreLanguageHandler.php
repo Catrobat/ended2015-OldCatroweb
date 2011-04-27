@@ -20,17 +20,21 @@
 class CoreLanguageHandler {
   private $strings = array();
   private $moduleName = '';
+  private $className = '';
   private $language = '';
+  private $browserLanguage = '';
 
-  public function __construct($language, $moduleName) {
+  public function __construct($moduleName, $className, $browserLanguage) {
     $this->moduleName = $moduleName;
-    $this->language = $language;
+    $this->className = $className;
+    $this->browserLanguage = $browserLanguage;
+    $this->setSiteLanguage();
     $this->setStrings();
     $this->setTemplateStrings();
   }
 
   private function setStrings() {
-    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->language.'/'.$this->moduleName.'.xml';
+    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->language.'/'.$this->className.'.xml';
     if(file_exists($file)) {
       $xml = simplexml_load_file($file);
     } else {
@@ -46,7 +50,7 @@ class CoreLanguageHandler {
   }
 
   private function setTemplateStrings() {
-    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->language.'/template.xml';
+    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->language.'/template.xml';
     if(file_exists($file)) {
       $xml = simplexml_load_file($file);
     } else {
@@ -65,7 +69,6 @@ class CoreLanguageHandler {
     $numargs = func_num_args();
     $args = array();
     if($numargs > 1) {
-      //echo 'args found';
       $args = array_slice(func_get_args(), 1);
     }
     if(isset($this->strings[$code])) {
@@ -106,6 +109,24 @@ class CoreLanguageHandler {
     } else {
       return false;
     }
+  }
+
+  private function setSiteLanguage() {
+    if(isset($_GET['userLanguage'])) {
+      $lang = $_GET['userLanguage'];
+      setcookie('site_language', $lang, 0, "/", '', false, true);
+    } else if(isset($_COOKIE['site_language'])) {
+      $lang = $_COOKIE['site_language'];
+    } else if(isset($_POST['userLanguage'])) {
+      $lang = $_POST['userLanguage'];
+    } else {
+      $lang = $this->browserLanguage;
+    }
+    $supportedLanguages = getSupportedLanguagesArray();
+    if(!isset($supportedLanguages[$lang])) {
+      $lang = SITE_DEFAULT_LANGUAGE;
+    }
+    $this->language = $lang;
   }
 
   public function __destruct() {
