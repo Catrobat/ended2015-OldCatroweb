@@ -34,7 +34,7 @@ class index extends CoreAuthenticationNone {
     $this->addJs('index.js');
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
 
-    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_MAX_PROJECTS);    
+    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_SHOW_MAX_PROJECTS);    //TODO deprecated???
     
     if(!$this->session->pageNr) {      
       $this->session->pageNr = 1;

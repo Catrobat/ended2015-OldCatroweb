@@ -24,7 +24,7 @@ var Ajax = Class.$extend( {
   request : function(object) {
     switch(object.siteState) {
       case 'newestProjects':
-        this.actionNewestPage(object);
+        this.actionNewestPage(object, object.pageNr);
         break;
       case 'searchResults':
         this.actionShowSearchResults(object);
@@ -46,10 +46,10 @@ var Ajax = Class.$extend( {
           $("#fewerProjects").children("span").html(result.labels['prevButton']);
           $("#moreProjects").children("span").html(result.labels['nextButton']);
           
-          object.hideOrShowButtons(result);
-          object.fillSkeletonWithContent(result.content['prev'], object.pageNr - 1);
-          object.fillSkeletonWithContent(result.content['current'], object.pageNr);
-          object.fillSkeletonWithContent(result.content['next'], object.pageNr + 1);
+          //object.hideOrShowButtons(result);
+          //object.fillSkeletonWithContent(result.content['prev'], object.pageNr - 1);
+          //object.fillSkeletonWithContent(result.content, object.pageNr);
+          //object.fillSkeletonWithContent(result.content['next'], object.pageNr + 1);
 
           if(object.writeHistory) {
             history.pushState({pageNr: object.pageNr, searchQuery : object.searchQuery}, "Search " + object.pageNr, 
@@ -66,22 +66,48 @@ var Ajax = Class.$extend( {
     });
   },
 
-  actionNewestPage : function(object) {
+  actionNewestPage : function(object, pageNr) {
+    var self = this;
     $.ajax({
-      url: object.basePath+"catroid/loadNewestProjects/"+(object.pageNr*2-1)+".json",
+      url: object.basePath+"catroid/loadNewestProjects/"+pageNr+".json",
       cache: false,
       timeout: (5000),
     
       success: function(result){
         if(result != "") {
-          $("#projectListTitle").text(result.labels['title']);
-          $("#fewerProjects").children("span").html(result.labels['prevButton']);
-          $("#moreProjects").children("span").html(result.labels['nextButton']);
+          object.pageLabels =  result.labels;
+
+          if(object.pageNr - 1 == pageNr) {
+            if(result.content == null || result.content === undefined) {
+              object.pageContent.prev = "NIL";
+            } else {
+              object.pageContent.prev = result.content;
+            }
+          }
+          if(object.pageNr == pageNr) {
+            if(object.pageContent.current == null) {
+              object.pageContent.current = result.content;
+            }
+          }
+          if(object.pageNr + 1 == pageNr) {
+            if(result.content == null || result.content === undefined) {
+              object.pageContent.next = "NIL";
+            } else {
+              object.pageContent.next = result.content;
+            }
+          }
           
-          object.hideOrShowButtons(result);
-          object.fillSkeletonWithContent(result.content['prev'], object.pageNr - 1);
-          object.fillSkeletonWithContent(result.content['current'], object.pageNr);
-          object.fillSkeletonWithContent(result.content['next'], object.pageNr + 1);
+          if(object.pageContent.next == null && object.pageContent.next != "NIL") {
+            self.actionNewestPage(object, object.pageNr + 1);
+          } else if(object.pageContent.prev == null && object.pageContent.prev != "NIL") {
+            self.actionNewestPage(object, object.pageNr - 1);
+          } else {
+            object.hideOrShowButtons();
+          }
+          
+          if(object.pageContent.current != null) {
+            object.fillSkeletonWithContent();
+          }
 
           if(object.writeHistory) {
             history.pushState({pageNr: object.pageNr}, "Page " + object.pageNr, 

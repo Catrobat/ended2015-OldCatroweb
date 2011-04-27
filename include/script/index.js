@@ -18,16 +18,19 @@
 
 
 var Index = Class.$extend( {
-  __init__ : function(basePath, projectPageMaxProjects, pageNr, numberOfPages) {
+  __init__ : function(basePath, maxLoadProjects, maxVisibleProjects, pageNr) {
     var self = this;
-    this.siteState = "newestProjects";
+    this.siteState = "newestProjects";  /*deprecated*/
     this.writeHistory = true;
     this.initialized = false;
     this.basePath = basePath;
     this.pageNr = parseInt(pageNr);
-    this.numberOfPages = parseInt(numberOfPages);
-    this.projectPageMaxProjects = parseInt(projectPageMaxProjects);
-    this.ajax = new Ajax();
+    this.maxLoadProjects = parseInt(maxLoadProjects);
+    this.maxVisibleProjects = parseInt(maxVisibleProjects);
+    this.pageContent = { prev : null, current : null, next : null};
+    this.pageLabels = new Array();
+    this.ajax = new Ajax(); /*deprecated*/
+    this.blockAjaxRequest = false;
     
     $("#fewerProjects").click($.proxy(this.prevPage, this));
     $("#moreProjects").click($.proxy(this.nextPage, this));
@@ -38,10 +41,13 @@ var Index = Class.$extend( {
       if(event.state != null || self.pageNr == event.state.pageNr) {
         self.writeHistory = false;
       }
-      self.initialized = true;
       self.pageNr = event.state.pageNr;
-      self.testAndSetBounderies();  
-      self.loadAndCachePage();
+      self.pageContent = event.state.pageContent;
+      self.pageLabels = event.state.pageLabels;
+      self.createSkeleton();
+      self.fillSkeletonWithContent();
+      self.hideOrShowButtons();
+      self.initialized = true;
     }
     
     setTimeout(this.initialize, 50, this); 
@@ -49,31 +55,52 @@ var Index = Class.$extend( {
   
   initialize : function(object){
     if(!object.initialized) {
-      object.testAndSetBounderies();
-      object.loadAndCachePage();
+      object.createSkeleton();
+      object.requestPage(object.pageNr);
+      object.requestPage(object.pageNr-1);
+      object.requestPage(object.pageNr+1);
       object.initialized = true;
     }
   },
 
   nextPage : function() {
-    this.pageNr = parseInt(this.pageNr) + 1;
-    this.testAndSetBounderies();
-    this.loadAndCachePage();
-    $(window).scrollTop($("#page"+(this.pageNr-1)).offset().top);
+    if(!this.blockAjaxRequest) {
+      this.blockAjaxRequest = true;
+      this.pageNr = parseInt(this.pageNr) + 1;
+    
+      this.pageContent.current = this.pageContent.current.concat(this.pageContent.next);
+      if(this.pageContent.current.length > this.maxVisibleProjects) {
+        this.pageContent.current = this.pageContent.current.slice(this.maxLoadProjects);
+        this.pageContent.prev = null; 
+      }
+      this.pageContent.next = null;
+      this.loadAndCachePage();
+    }
   },
 
   prevPage : function() {
-    this.pageNr = parseInt(this.pageNr) - 1;
-    this.testAndSetBounderies();
-    this.loadAndCachePage();
-    $(window).scrollTop($("#page"+(this.pageNr+1)).offset().top - $(window).height());
+    if(!this.blockAjaxRequest) {
+      this.blockAjaxRequest = true;
+      this.pageNr = parseInt(this.pageNr) - 1;
+      
+      this.pageContent.current = this.pageContent.prev.concat(this.pageContent.current);
+      if(this.pageContent.current.length > this.maxVisibleProjects) {
+        this.pageContent.current = this.pageContent.current.slice(0, this.maxVisibleProjects);
+        this.pageContent.next = null;
+      }
+      this.pageContent.prev = null;
+      this.loadAndCachePage();
+    }
   },
   
   showFirstPage : function() {
     this.pageNr = 1;
     this.siteState = "newestProjects";
-    this.testAndSetBounderies();
-    this.loadAndCachePage();
+    this.pageContent.prev = "NIL";
+    this.pageContent.current = null;
+    this.pageContent.next = null;
+    this.requestPage(this.pageNr);
+    this.requestPage(this.pageNr+1);
 
     $("#normalHeaderButtons").toggle(true);
     $("#cancelHeaderButton").toggle(false);
@@ -100,75 +127,106 @@ var Index = Class.$extend( {
     }
   },
   
-  hideOrShowButtons : function(result) {
-    if(result.content['prev'] != null && this.pageNr > 1) {
-      $("#fewerProjects").toggle(true);
-    } else {
+  hideOrShowButtons : function() {
+    if(this.pageContent.prev == "NIL") {
       $("#fewerProjects").toggle(false);
-    }
-    if(result.content['next'] != null) {
-      $("#moreProjects").toggle(true);
     } else {
+      $("#fewerProjects").toggle(true);
+    }
+    if(this.pageContent.next == "NIL") {
       $("#moreProjects").toggle(false);
+    } else {
+      $("#moreProjects").toggle(true);
     }
   },
 
   loadAndCachePage : function() {
-    var self = this;
-    
-    this.createSkeleton(this.pageNr);
-    if(this.pageNr < this.numberOfPages - 1) {
-      this.createSkeleton(this.pageNr + 1);
+    if(this.pageContent.next == null) {
+      this.requestPage(this.pageNr + 1);
     }
-    if(this.pageNr > 0) {
-      this.createSkeleton(this.pageNr - 1);
-    }
-
-    if($("#page"+(this.pageNr-2)).length > 0) {
-      $("#page"+(this.pageNr-2)).remove();
-    }
-    if($("#page"+(this.pageNr-3)).length > 0) {
-      $("#page"+(this.pageNr-3)).remove();
+    if(this.pageContent.prev == null) {
+      this.requestPage(this.pageNr - 1);
     }
     
-    if($("#page"+(this.pageNr+2)).length > 0) {
-      $("#page"+(this.pageNr+2)).remove();
+    if(this.writeHistory) {
+      var stateObject = { pageNr: 0, pageContent: {}, pageLabels: new Array()};
+      
+      stateObject.pageNr = this.pageNr;
+      stateObject.pageContent = this.pageContent;
+      stateObject.pageLabels = this.pageLabels;
+      
+      history.pushState(stateObject, "Page " + this.pageNr, this.basePath+"catroid/index/" + this.pageNr);
     }
-    if($("#page"+(this.pageNr+3)).length > 0) {
-      $("#page"+(this.pageNr+3)).remove();
-    }
-
-    this.ajax.request(this);
+    this.writeHistory = true;
   },
 
-  createSkeleton : function(pageNr) {
-    if($("#page"+pageNr).length == 0) {
-      var containerContent = $("<div />").addClass("projectListRow").attr("id", "page"+pageNr);
-	     
-	  var whiteBox = null;
-	  var projectListElementRow = null;
-	  for(var i = 0; i < this.projectPageMaxProjects; i++) {
-        var projectListRowItemId = this.projectPageMaxProjects * pageNr + i;
+  requestPage : function(pageNr) {
+    var self = this;
+    $.ajax({
+      url: self.basePath+"catroid/loadNewestProjects/"+pageNr+".json?cp="+self.pageNr,
+      cache: false,
+      timeout: (5000),
+    
+      success: function(result){
+        if(result != "") {
+          self.pageLabels = result.labels;
+
+          if(self.pageNr == pageNr) {
+            if(self.pageContent.current == null) {
+              self.pageContent.current = result.content;
+            }
+          }
+          else {
+            if(self.pageNr - 1 == pageNr) {
+              self.pageContent.prev = result.content;
+            }
+            if(self.pageNr + 1 == pageNr) {
+              self.pageContent.next = result.content;
+            }
+          }
+          
+          if(self.pageContent.prev != null && self.pageContent.current != null && self.pageContent.next != null) {
+            self.fillSkeletonWithContent();
+            self.hideOrShowButtons();
+            self.blockAjaxRequest = false;
+          }
+        }
+      },
+      error: function(result, errCode) {
+        if(errCode == "timeout") {
+          window.location.reload(false);          
+        }        
+      }
+    });
+  }, 
+
+  createSkeleton : function() {
+    if(!this.initialized) {
+      var containerContent = $("<div />").addClass("projectListRow");
+
+      var whiteBox = null;
+      var projectListElementRow = null;
+      for(var i = 0; i < this.maxVisibleProjects; i++) {
 
         if(whiteBox != null) {
           whiteBox.append(projectListElementRow);
           whiteBox.append("<div />").css("clear", "both");
           containerContent.append(whiteBox);
-          var projectListSpacer = $("<div />").addClass("projectListSpacer").attr("id", "projectListSpacer"+projectListRowItemId);
+          var projectListSpacer = $("<div />").addClass("projectListSpacer").attr("id", "projectListSpacer"+i);
           containerContent.append(projectListSpacer);
         }
 
-        whiteBox = $("<div />").addClass("whiteBoxMain").attr("id", "whiteBox"+projectListRowItemId);
+        whiteBox = $("<div />").addClass("whiteBoxMain").attr("id", "whiteBox"+i);
         projectListElementRow = $("<div />").addClass("projectListElementRow");
 
-	      var projectListElement = $("<div />").addClass("projectListElement").attr("id", "projectListElement"+projectListRowItemId);
+	      var projectListElement = $("<div />").addClass("projectListElement").attr("id", "projectListElement"+i);
 	     
-        var projectListThumbnail = $("<div />").addClass("projectListThumbnail").attr("id", "projectListThumbnail"+projectListRowItemId);
-        var projectListDetailsLinkThumb = $("<a />").addClass("projectListDetailsLink").attr("id", "projectListDetailsLinkThumb"+projectListRowItemId);
-	      var projectListPreview = $("<img />").addClass("projectListPreview").attr("id", "projectListPreview"+projectListRowItemId).attr("src", this.basePath+"images/symbols/ajax-loader.gif").attr("alt", "loading...");
+        var projectListThumbnail = $("<div />").addClass("projectListThumbnail").attr("id", "projectListThumbnail"+i);
+        var projectListDetailsLinkThumb = $("<a />").addClass("projectListDetailsLink").attr("id", "projectListDetailsLinkThumb"+i);
+	      var projectListPreview = $("<img />").addClass("projectListPreview").attr("id", "projectListPreview"+i).attr("src", this.basePath+"images/symbols/ajax-loader.gif").attr("alt", "loading...");
 	     
-	      var projectListTitle = $("<div />").addClass("projectDetailLine").attr("id", "projectListTitle"+projectListRowItemId).html("loading...");
-	      var projectListDescription = $("<div />").addClass("projectDetailLine").attr("id", "projectListDescription"+projectListRowItemId);
+	      var projectListTitle = $("<div />").addClass("projectDetailLine").attr("id", "projectListTitle"+i).html("loading...");
+	      var projectListDescription = $("<div />").addClass("projectDetailLine").attr("id", "projectListDescription"+i);
 	      var projectListDetails = $("<div />").addClass("projectListDetails");
 
 	      projectListThumbnail.append(projectListDetailsLinkThumb.append(projectListPreview).wrap("<div />"));
@@ -184,38 +242,37 @@ var Index = Class.$extend( {
       whiteBox.append(projectListElementRow);
       whiteBox.append("<div />").css("clear", "both");
       containerContent.append(whiteBox);
-      containerContent.append($("<div />").addClass("projectListSpacer").attr("id", "projectListSpacer"+projectListRowItemId));
+      containerContent.append($("<div />").addClass("projectListSpacer").attr("id", "projectListSpacer"+i));
 
-      if($("#page"+(pageNr+1)).length > 0) {
-        $("#projectContainer").prepend(containerContent);
-      }
-      else {
-        $("#projectContainer").append(containerContent);
-      }
+      $("#projectContainer").append(containerContent);
     }
   },
  
-  fillSkeletonWithContent : function(content, pageNr) {
-    for(var i=0; i<this.projectPageMaxProjects; i++) {
-      var projectListRowItemId = this.projectPageMaxProjects * pageNr + i;
-      if(content != null && content[i]) {
-        if($("#projectListElement"+projectListRowItemId).length > 0) {
-          $("#whiteBox"+projectListRowItemId).css("display", "block");
-          $("#projectListSpacer"+projectListRowItemId).css("display", "block");
-          $("#projectListThumbnail"+projectListRowItemId).attr("title", content[i]['title']);
-          $("#projectListDetailsLinkThumb"+projectListRowItemId).attr("href", this.basePath+"catroid/details/"+content[i]['id']);
-          $("#projectListPreview"+projectListRowItemId).attr("src", content[i]['thumbnail']).attr("alt", content[i]['title']);
+  fillSkeletonWithContent : function() {
+    $("#projectListTitle").text(this.pageLabels['title']);
+    $("#fewerProjects").children("span").html(this.pageLabels['prevButton']);
+    $("#moreProjects").children("span").html(this.pageLabels['nextButton']);
 
-          $("#projectListTitle"+projectListRowItemId).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");
-          $("#projectListDescription"+projectListRowItemId).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
-          $("#projectListDescription"+projectListRowItemId).html("uploaded "+content[i]['upload_time']+" ago");
+    var content = this.pageContent.current;
+    for(var i=0; i<this.maxVisibleProjects; i++) {
+      if(content != null && content[i]) {
+        if($("#projectListElement"+i).length > 0) {
+          $("#whiteBox"+i).css("display", "block");
+          $("#projectListSpacer"+i).css("display", "block");
+          $("#projectListThumbnail"+i).attr("title", content[i]['title']);
+          $("#projectListDetailsLinkThumb"+i).attr("href", this.basePath+"catroid/details/"+content[i]['id']);
+          $("#projectListPreview"+i).attr("src", content[i]['thumbnail']).attr("alt", content[i]['title']);
+
+          $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");
+          $("#projectListDescription"+i).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
+          $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago");
         }
       }
       else {
-        $("#whiteBox"+projectListRowItemId).css("display", "none");
-        $("#projectListSpacer"+projectListRowItemId).css("display", "none");
+        $("#whiteBox"+i).css("display", "none");
+        $("#projectListSpacer"+i).css("display", "none");
       }
-    } 
+    }
   }
 
 });

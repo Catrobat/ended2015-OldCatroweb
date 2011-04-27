@@ -25,30 +25,29 @@ class loadNewestProjects extends CoreAuthenticationNone {
   }
 
   public function __default() {
+  	if(isset($_REQUEST['cp'])) {
+  		$this->session->pageNr = intval($_REQUEST['cp']);
+  	}
+
     if(isset($_REQUEST['method'])) {
-      $this->pageNr = intval($_REQUEST['method']);
+      $this->pageNr = intval($_REQUEST['method']-1);
     }
-    $this->session->pageNr = (($this->pageNr+1)/2);
-
-    $pageContent = array();
-    if($this->pageNr > 0) {
-      $pageContent['prev'] = $this->retrievePageNrFromDatabase($this->pageNr-1);
-    }
-    $pageContent['current'] = $this->retrievePageNrFromDatabase($this->pageNr);
-    $pageContent['next'] = $this->retrievePageNrFromDatabase($this->pageNr+1);
-
-    $this->content = $pageContent;
     
     $labels = array();
     $labels['title'] = "Newest Projects";
     $labels['prevButton'] = "&laquo; Newer";
     $labels['nextButton'] = "Older &raquo;";
-    
     $this->labels = $labels;
+
+    $this->content = $this->retrievePageNrFromDatabase($this->pageNr);
   }
 
   public function retrievePageNrFromDatabase($pageNr) {
-    $query = 'EXECUTE get_visible_projects_ordered_by_uploadtime_limited_and_offset('.PROJECT_PAGE_MAX_PROJECTS.', '.(PROJECT_PAGE_MAX_PROJECTS * $pageNr).');';
+  	if($pageNr < 0) {
+      return "NIL";
+  	}
+  	 
+    $query = 'EXECUTE get_visible_projects_ordered_by_uploadtime_limited_and_offset('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).');';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $projects = pg_fetch_all($result);
     pg_free_result($result);
@@ -63,7 +62,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
       }
       return($projects);
     } else {
-      return ($projects[0]);
+      return "NIL";
     }
   }
 
