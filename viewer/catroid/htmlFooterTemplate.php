@@ -21,13 +21,13 @@
       <div class="blueBoxMain">
         <div class="webMainLicense"> 
           <a class="license" href="<?php echo BASE_PATH?>catroid/privacypolicy">Privacy policy</a>
-          <font class="webMainBottomSpacer">|</font>
+          <span class="webMainBottomSpacer">|</span>
           <a class="license" href="<?php echo BASE_PATH?>catroid/terms">Terms of Use </a>  	      
-          <font class="webMainBottomSpacer">|</font>
+          <span class="webMainBottomSpacer">|</span>
           <a class="license" href="<?php echo BASE_PATH?>catroid/copyrightpolicy">Copyright policy</a>
-          <font class="webMainBottomSpacer">|</font>
+          <span class="webMainBottomSpacer">|</span>
           <a class="license" href="<?php echo BASE_PATH?>catroid/imprint">Imprint</a>
-          <font class="webMainBottomSpacer">|</font>
+          <span class="webMainBottomSpacer">|</span>
           <a class="license" href="<?php echo BASE_PATH?>catroid/contactus">Contact</a> 
         </div>
       </div>
