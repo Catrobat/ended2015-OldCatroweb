@@ -72,6 +72,7 @@ class upload extends CoreAuthenticationNone {
 									$newId = $line['id'];
 									if($this->renameProjectFile($updir, $newId)) {
 										$projectFile = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENTION;
+										$projectDir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY;
 										//$statusCode = 200;
 										$fileChecksum = md5_file($projectFile);
 										if(isset($formData['fileChecksum'])) {
@@ -83,6 +84,8 @@ class upload extends CoreAuthenticationNone {
 													$answer = 'Upload successfull! QR-Code failed!';
 												}
 
+												$this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
+												
 												$unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
 												if($unapprovedWords) {
 													$this->badWordsFilter->mapUnapprovedWordsToProject($newId);
@@ -92,7 +95,7 @@ class upload extends CoreAuthenticationNone {
 												//Error: file checksum incorrect
 												$statusCode = 501;
 												$this->removeProjectFromDatabase($newId);
-												$this->removeProjectFromFilesystem($projectFile);
+												$this->removeProjectFromFilesystem($projectFile, $newId);
 												$newId = 0;
 												$answer = $this->errorHandler->getError('upload', 'invalid_file_checksum');
 											}
@@ -117,14 +120,14 @@ class upload extends CoreAuthenticationNone {
 										$statusCode = 502;
 										$newId = 0;
 										$this->removeProjectFromDatabase($newId);
-										$this->removeProjectFromFilesystem($projectFile);
-										$this->removeProjectFromFilesystem($updir);
+										$this->removeProjectFromFilesystem($projectFile, $newId);
+										$this->removeProjectFromFilesystem($updir, $newId);
 										$answer = $this->errorHandler->getError('upload', 'rename_failed');
 									}
 								} else {
 									//DB INSERT Error
 									$statusCode = 503;
-									$this->removeProjectFromFilesystem($updir);
+									$this->removeProjectFromFilesystem($updir, $newId);
 									$answer = $this->errorHandler->getError('upload', 'sql_insert_failed');
 								}
           						@pg_free_result($result);
@@ -164,7 +167,35 @@ class upload extends CoreAuthenticationNone {
 		$this->answer = $answer;
 		return $newId;
 	}
-
+	
+	public function unzipUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
+	  $unzipDir = CORE_BASE_PATH.'/'.PROJECTS_UNZIPPED_DIRECTORY;
+    $zip = zip_open($projectDir.$projectId.".zip");
+    while ($zip_entry = zip_read($zip)) {
+      $filename = zip_entry_name($zip_entry);
+      if (preg_match("/images\/thumbnail\./", $filename)) {
+      	 $thumbnail = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+         $thumbFilename = zip_entry_name($zip_entry);
+         $thumbnailExtension = substr($thumbFilename, -3);
+         if ($thumbnail) {
+            $this->saveThumbnail($projectId, $thumbnailExtension, $thumbnail, "small");
+            $this->saveThumbnail($projectId, $thumbnailExtension, $thumbnail, "large");
+        }
+      }
+    }
+    zip_close($zip);
+	}
+	
+  private function saveThumbnail($filename, $extension, $thumbnail, $addon) {
+	  $thumbnailDir = CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY;
+    $savedThumbnail = $thumbnailDir.$filename."_".$addon.".".$extension; 
+    $fp = fopen($savedThumbnail, "wb+");
+    if ($fp && $thumbnail) {
+      fwrite($fp, $thumbnail);
+      fclose($fp);
+    }
+  } 
+	
 	public function renameProjectFile($oldName, $newId) {
 		$newFileName = $newId.PROJECTS_EXTENTION;
 		$newName = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newFileName;
@@ -203,8 +234,10 @@ class upload extends CoreAuthenticationNone {
 		return;
 	}
 
-	public function removeProjectFromFilesystem($projectFile) {
+	public function removeProjectFromFilesystem($projectFile, $projectId) {
 		@unlink($projectFile);
+		@unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.'_small.png');
+		@unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.'_large.png');
 		return;
 	}
 
