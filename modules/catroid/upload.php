@@ -230,10 +230,12 @@ class upload extends CoreAuthenticationNone {
 		return;
 	}
 
-	public function removeProjectFromFilesystem($projectFile, $projectId) {
+	public function removeProjectFromFilesystem($projectFile, $projectId=-1) {
 		@unlink($projectFile);
-		@unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.'_small.png');
-		@unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.'_large.png');
+		if ($projectId > 0) {
+		  @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.'_small.png');
+		  @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.'_large.png');
+		}
 		return;
 	}
 
