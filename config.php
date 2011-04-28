@@ -24,6 +24,7 @@ define('XML_PATH','include/xml/');
 define('CSS_PATH','include/css/');
 define('SCRIPT_PATH','include/script/');
 define('PROJECTS_DIRECTORY','resources/projects/');
+define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
 define('PROJECTS_QR_DIRECTORY','resources/qrcodes/');
 define('PROJECTS_QR_EXTENTION','_qr.png');
 define('PROJECTS_QR_SERVICE_URL','http://qrcode.kaywa.com/img.php?s=5&d=');

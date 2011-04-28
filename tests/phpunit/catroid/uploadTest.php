@@ -47,6 +47,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
     $this->assertTrue(is_string($this->upload->answer));
     
+    // check thumbnails
+    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_small.png'));
+    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_large.png'));
+    
     if($uploadImei) {
       $query = "SELECT upload_imei FROM projects WHERE id='$insertId'";
       $result = pg_query($query);
@@ -77,9 +81,12 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($return);
 
     //test deleting from filesystem
-    $this->upload->removeProjectFromFilesystem($filePath);
+    $this->upload->removeProjectFromFilesystem($filePath, $insertId);
     $this->assertFalse(is_file($filePath));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_small.png'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_large.png'));
     @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
+    
 
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
@@ -104,6 +111,12 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($expectedStatusCode, $this->upload->statusCode);
     $this->assertEquals(0, $insertId);
     $this->assertFalse(is_file($filePath));
+
+    // check thumbnails
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_small.png'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_large.png'));
+    
+    $this->assertNotEquals(200, $this->upload->statusCode);
     $this->assertFalse($this->upload->projectId > 0);
     $this->assertTrue(is_string($this->upload->answer));
   }
@@ -126,9 +139,18 @@ class uploadTest extends PHPUnit_Framework_TestCase
     @unlink($dest);
   }
 
+  public function testCopyProjectWithThumbnailToDirectory() {
+    $dest = CORE_BASE_PATH.PROJECTS_DIRECTORY.'copyTest'.PROJECTS_EXTENTION;
+    $src = dirname(__FILE__).'/testdata/test2.zip';
+    
+    $this->assertTrue($this->upload->copyProjectToDirectory($src, $dest));
+    $this->assertTrue(is_file($dest));
+    @unlink($dest);
+  }
+  
   /* *** DATA PROVIDERS *** */
   public function correctPostData() {
-    $fileName = 'test.zip';
+    $fileName = 'test2.zip';
     $testFile = dirname(__FILE__).'/testdata/'.$fileName;
     $fileChecksum = md5_file($testFile);
     $fileSize = filesize($testFile);
