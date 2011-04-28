@@ -48,8 +48,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertTrue(is_string($this->upload->answer));
     
     // check thumbnails
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_small.png'));
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_large.png'));
+    //$this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE.'.png'));
+    //$this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE.'.png'));
+    //$this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_small.jpg'));
+    //$this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_large.jpg'));
     
     if($uploadImei) {
       $query = "SELECT upload_imei FROM projects WHERE id='$insertId'";
@@ -83,8 +85,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
     //test deleting from filesystem
     $this->upload->removeProjectFromFilesystem($filePath, $insertId);
     $this->assertFalse(is_file($filePath));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_small.png'));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_large.png'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL.'.png'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE.'.png'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL.'.jpg'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE.'.jpg'));
     @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
     
 
@@ -93,7 +97,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $query = "SELECT * FROM projects WHERE id='$insertId'";
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
-
   }
 
   /**
@@ -113,8 +116,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file($filePath));
 
     // check thumbnails
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_small.png'));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.'_large.png'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL.'.png'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE.'.png'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL.'.jpg'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE.'.jpg'));
     
     $this->assertNotEquals(200, $this->upload->statusCode);
     $this->assertFalse($this->upload->projectId > 0);
@@ -150,16 +155,21 @@ class uploadTest extends PHPUnit_Framework_TestCase
   
   /* *** DATA PROVIDERS *** */
   public function correctPostData() {
-    $fileName = 'test2.zip';
+    $fileName = 'test.zip';
+    $fileNameWithThumbnail = 'test2.zip';
     $testFile = dirname(__FILE__).'/testdata/'.$fileName;
+    $testFileWithThumbnail = dirname(__FILE__).'/testdata/'.$fileNameWithThumbnail;
     $fileChecksum = md5_file($testFile);
+    $fileChecksumWithThumbnail = md5_file($testFileWithThumbnail);
     $fileSize = filesize($testFile);
+    $fileSizeWithThumbnail = filesize($testFileWithThumbnail);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
     array('unitTest', 'my project description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with empty description', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with a very very very very long title and no description, hopefully not too long', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with special chars: ä, ü, ö', 'jüßt 4 spècia1 char **test** %&()[]{}_|~#', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+    array('unitTest with included Thumbnail', 'this project contains its thumbnail inside the zip file', $testFileWithThumbnail, $fileNameWithThumbnail, $fileChecksumWithThumbnail, $fileSizeWithThumbnail, $fileType),
     array('unitTest with long description', 'this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest with IMEI, Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, '12345rtgfb67854', 'catroid_unittest@gmail.com', 'en')
     );
