@@ -58,7 +58,7 @@ You can change your password or delete your account at any time. To change your 
 <br>
 -->
 <font class ="licenseHeader">Contacting Us</font><br><br>
-If you have questions about this privacy policy, you can use the <a class="license" href="<?php echo BASE_PATH?>catroid/contactus">Contact Us</a> form.
+If you have questions about this privacy policy, you can use the <a class="license" href="<?php echo BASE_PATH?>catroid/contactus" id="contactus">Contact Us</a> form.
 </p>
                    </div> <!-- License Text -->
                    </div> <!--  White Box -->            	

@@ -45,12 +45,12 @@
 click the link that says <i>"report as inappropriate"</i>. The Catroid team will review, and may remove any project, comment or post.</li>
 </ul>
 <p class ="licenseText">
-All projects shared on the Catroid website, as well as the Catroid support materials, are shared under the Creative Commons license with the conditions <a class = "nolink" href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Attribution - Share Alike</a>.
+All projects shared on the Catroid website, as well as the Catroid support materials, are shared under the Creative Commons license with the conditions <a class = "nolink" href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank" id="creativecommons">Attribution - Share Alike</a>.
 <br><br>
-The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>, 
-the source code of the website is available under the <a href="http://www.gnu.org/licenses/agpl.html" target="_blank">GNU Affero General Public License</a>.
+The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank" id="gnugpl">GNU General Public License</a>, 
+the source code of the website is available under the <a href="http://www.gnu.org/licenses/agpl.html" target="_blank" id="gnuagpl">GNU Affero General Public License</a>.
 <br><br>
-You can visit the project at <a href="http://code.google.com/p/catroid" target="_blank">Google Code</a>.<br>
+You can visit the project at <a href="http://code.google.com/p/catroid" target="_blank" id="googlecode">Google Code</a>.<br>
 <br>Check back here from time-to-time, because we are always trying to improve our guidelines. Please mail any suggestions regarding these Terms of Use to 
 <a href="mailto:webmaster@catroid.org?subject=Terms of Use">webmaster@catroid.org</a>.
 <br><br>

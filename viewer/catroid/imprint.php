@@ -25,7 +25,7 @@
                 <div class="licenseMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="imprintText"><p class="licenseText">            	    
-					  Catroid is developed at the <br><a href="http://www.ist.tugraz.at" target="_blank">Institute for Software Technology</a> at Graz University of Technology in Austria.            	     
+					  Catroid is developed at the <br><a href="http://www.ist.tugraz.at" target="_blank" id="tugist">Institute for Software Technology</a> at Graz University of Technology in Austria.            	     
             	     <br><br>            	                 	     
             	     <font class="licenseHeader">Address</font><br>
             	     Institut f&uuml;r Softwaretechnologie<br>
