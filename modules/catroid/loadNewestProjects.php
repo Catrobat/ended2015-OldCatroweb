@@ -70,14 +70,8 @@ class loadNewestProjects extends CoreAuthenticationNone {
   public function getThumbnail($projectId) {
     $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
     $thumb_file = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
-    if(is_file($thumb_file.'.png')) {
-      $thumb .= '.png';
-    } elseif(is_file($thumb_file.'.jpg')) {
-      $thumb .= '.jpg';
-    } else {
-      $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_SMALL.'.png';
-    }
-    
+    if (!is_file($thumb_file))
+      $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
     return $thumb;
   }
 

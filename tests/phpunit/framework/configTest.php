@@ -29,8 +29,9 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals('resources/projects/', PROJECTS_DIRECTORY);
     $this->assertEquals('resources/thumbnails/', PROJECTS_THUMBNAIL_DIRECTORY);
     $this->assertEquals('thumbnail', PROJECTS_THUMBNAIL_DEFAULT);
-    $this->assertEquals('_small', PROJECTS_THUMBNAIL_EXTENTION_SMALL);
-    $this->assertEquals('_large', PROJECTS_THUMBNAIL_EXTENTION_LARGE);
+    $this->assertEquals('_small.jpg', PROJECTS_THUMBNAIL_EXTENTION_SMALL);
+    $this->assertEquals('_large.jpg', PROJECTS_THUMBNAIL_EXTENTION_LARGE);
+    $this->assertEquals('_original.jpg', PROJECTS_THUMBNAIL_EXTENTION_ORIG);
     $this->assertEquals('.zip', PROJECTS_EXTENTION);
     $this->assertEquals(104857600, PROJECTS_MAX_SIZE);
     $this->assertEquals('htmlTemplate.php', DEFAULT_HTML_TEMPLATE_NAME);

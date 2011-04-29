@@ -79,14 +79,8 @@ class details extends CoreAuthenticationNone {
   public function getProjectImage($projectId) {
     $img = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE;
     $img_file = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE;
-    if(is_file($img_file.'.png')) {
-      $img .= '.png';
-    } elseif(is_file($img_file.'.jpg')) {
-      $img .= '.jpg';
-    } else {
-      $img = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_LARGE.'.png';
-    }
-
+    if(!is_file($img_file))
+      $img = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_LARGE;
     return $img;
   }
 
