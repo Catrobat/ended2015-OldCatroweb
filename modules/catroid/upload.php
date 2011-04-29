@@ -21,6 +21,7 @@ class upload extends CoreAuthenticationNone {
 
 	public function __construct() {
 		parent::__construct();
+    $thumbnailDir = CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY;
 	}
 
 	public function __default() {
@@ -169,14 +170,16 @@ class upload extends CoreAuthenticationNone {
     $zip = zip_open($projectDir.$projectId.".zip");
     while ($zip_entry = zip_read($zip)) {
       $filename = zip_entry_name($zip_entry);
-      if (preg_match("/images\/thumbnail\./", $filename)) {
+      if (preg_match("/thumbnail\./", $filename) || preg_match("/images\/thumbnail\./", $filename)) {
       	 $thumbnail = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
          $thumbFilename = zip_entry_name($zip_entry);
          $thumbnailExtension = substr($thumbFilename, -3);
          if ($thumbnail) {
-            $this->saveThumbnail($projectId, $thumbnailExtension, $thumbnail, "small");
-            $this->saveThumbnail($projectId, $thumbnailExtension, $thumbnail, "large");
-        }
+           $this->saveThumbnail($projectId, $thumbnailExtension, $thumbnail, "tmp");
+           $this->saveThumbnail($projectId, $thumbnailExtension, $thumbnail, "small");
+           $this->saveThumbnail($projectId, $thumbnailExtension, $thumbnail, "large");
+           $this->removeTempThumbnail($projectId, $thumbnailExtension, $thumbnail, "tmp");
+         }
       }
     }
     zip_close($zip);
@@ -185,13 +188,62 @@ class upload extends CoreAuthenticationNone {
   private function saveThumbnail($filename, $extension, $thumbnail, $addon) {
 	  $thumbnailDir = CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY;
     $savedThumbnail = $thumbnailDir.$filename."_".$addon.".".$extension; 
-    $fp = fopen($savedThumbnail, "wb+");
-    if ($fp && $thumbnail) {
-      fwrite($fp, $thumbnail);
-      fclose($fp);
+    if ($addon == "tmp") {
+      $fp = fopen($savedThumbnail, "wb+");
+      if ($fp && $thumbnail) {
+        fwrite($fp, $thumbnail);
+        fclose($fp);
+      }
     }
+    
+    if ($extension != "jpg" && $extension != "png")
+      return;
+      
+    if ($addon == "large") {
+      if ($extension == "jpg") {      
+        $thumbImage = imagecreatefromjpeg($thumbnailDir.$filename."_tmp.".$extension);
+        $w = imagesx($thumbImage);
+        $h = imagesy($thumbImage);
+        $newImage = imagecreatetruecolor(480, 800);
+        imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, 800, max(480, $w), max(800, $h)); 
+        imagejpeg($newImage, $thumbnailDir.$filename."_".$addon.".".$extension, 50);
+      }        
+      if ($extension == "png") {      
+        $thumbImage = imagecreatefrompng($thumbnailDir.$filename."_tmp.".$extension);
+        $w = imagesx($thumbImage);
+        $h = imagesy($thumbImage);
+        $newImage = imagecreatetruecolor(480, 800);
+        imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, 800, max(480, $w), max(800, $h)); 
+        imagepng($newImage, $thumbnailDir.$filename."_".$addon.".".$extension, 5);
+      }        
+    }
+    
+    if ($addon == "small") {
+      if ($extension == "jpg") {      
+        $thumbImage = imagecreatefromjpeg($thumbnailDir.$filename."_tmp.".$extension);
+        $w = imagesx($thumbImage);
+        $h = imagesy($thumbImage);
+        $smallImage = imagecreatetruecolor(240, 400);
+        imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, 400, max(240, $w), max(400, $h)); 
+        imagejpeg($smallImage, $thumbnailDir.$filename."_".$addon.".".$extension, 50);
+      }        
+      if ($extension == "png") {      
+        $thumbImage = imagecreatefrompng($thumbnailDir.$filename."_tmp.".$extension);
+        $w = imagesx($thumbImage);
+        $h = imagesy($thumbImage);
+        $smallImage = imagecreatetruecolor(240, 400);
+        imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, 400, max(240, $w), max(400, $h)); 
+        imagepng($smallImage, $thumbnailDir.$filename."_".$addon.".".$extension, 5);
+      }        
+    }
+    
   } 
-	
+
+  private function removeTempThumbnail($filename, $extension, $thumbnail, $addon) {
+	  $thumbnailDir = CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY;
+    @unlink($thumbnailDir.$filename."_".$addon.".".$extension);
+  }
+  
 	public function renameProjectFile($oldName, $newId) {
 		$newFileName = $newId.PROJECTS_EXTENTION;
 		$newName = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newFileName;
@@ -235,6 +287,8 @@ class upload extends CoreAuthenticationNone {
 		if ($projectId > 0) {
 		  @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.'_small.png');
 		  @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.'_large.png');
+		  @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.'_small.jpg');
+		  @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.'_large.jpg');
 		}
 		return;
 	}

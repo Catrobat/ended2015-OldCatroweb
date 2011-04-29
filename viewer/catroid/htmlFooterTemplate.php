@@ -20,15 +20,15 @@
     <div class="webMainBottom">
       <div class="blueBoxMain">
         <div class="webMainLicense"> 
-          <a class="license" href="<?php echo BASE_PATH?>catroid/privacypolicy">Privacy policy</a>
+          <a class="license" id="_privacy" href="<?php echo BASE_PATH?>catroid/privacypolicy">Privacy policy</a>
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" href="<?php echo BASE_PATH?>catroid/terms">Terms of Use </a>  	      
+          <a class="license" id="_termsofuse" href="<?php echo BASE_PATH?>catroid/terms">Terms of Use </a>  	      
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" href="<?php echo BASE_PATH?>catroid/copyrightpolicy">Copyright policy</a>
+          <a class="license" id="_copyright" href="<?php echo BASE_PATH?>catroid/copyrightpolicy">Copyright policy</a>
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" href="<?php echo BASE_PATH?>catroid/imprint">Imprint</a>
+          <a class="license" id="_imprint" href="<?php echo BASE_PATH?>catroid/imprint">Imprint</a>
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" href="<?php echo BASE_PATH?>catroid/contactus">Contact</a> 
+          <a class="license" id="_contactus" href="<?php echo BASE_PATH?>catroid/contactus">Contact</a> 
         </div>
       </div>
     </div> <!--  WEBMAINBOTTOM -->
