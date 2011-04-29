@@ -202,7 +202,6 @@ class upload extends CoreAuthenticationNone {
       $newImage = imagecreatetruecolor(480, 800);
       imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, 800, max(480, $w), max(800, $h));
       imagejpeg($newImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
-
     }
   } 
   
