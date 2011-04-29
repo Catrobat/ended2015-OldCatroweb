@@ -26,7 +26,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
 
   public function __default() {
     if(isset($_REQUEST['method'])) {
-      $this->pageNr = intval($_REQUEST['method']-1);
+      $this->pageNr = intval($_REQUEST['method'])-1;
     }
     
     $labels = array();

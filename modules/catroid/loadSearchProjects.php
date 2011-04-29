@@ -19,56 +19,49 @@
 
 class loadSearchProjects extends CoreAuthenticationNone {
   protected $pageNr = 0;
+  protected $searchQuery = "";
 
   public function __construct() {
     parent::__construct();
   }
 
   public function __default() {
-    $this->searchQuery = "";
-    $this->pageNr = 0;
     if(isset($_REQUEST['query'])) {
     	$this->searchQuery = $_REQUEST['query'];
     }
     if(isset($_REQUEST['page'])) {
-      $this->pageNr = intval($_REQUEST['page']);
+      $this->pageNr = intval($_REQUEST['page'])-1;
     }
-    $this->session->searchQuery = $this->searchQuery;
-    $this->session->pageNr = $this->pageNr;
-
-    $pageContent = array();
-    if($this->pageNr > 0) {
-      $pageContent['prev'] = $this->retrieveSearchResultsFromDatabase($this->searchQuery, $this->pageNr-1);
-    }
-    $pageContent['current'] = $this->retrieveSearchResultsFromDatabase($this->searchQuery, $this->pageNr);
-    $pageContent['next'] = $this->retrieveSearchResultsFromDatabase($this->searchQuery, $this->pageNr+1);
-
-    $this->content = $pageContent;
     
     $labels = array();
     $labels['title'] = "Search Results";
     $labels['prevButton'] = "&laquo; Previous";
     $labels['nextButton'] = "Next &raquo;";
-    
     $this->labels = $labels;
+
+    $this->content = $this->retrieveSearchResultsFromDatabase($this->searchQuery, $this->pageNr);
   }
 
   public function retrieveSearchResultsFromDatabase($keywords, $pageNr) {
+    if($pageNr < 0) {
+      return "NIL";
+    }
+
   	$searchTerms = explode(" ", $keywords);
   	$keywordsCount = 3;
   	$searchQuery = "";
   	$searchRequest = "";
 
     foreach($searchTerms as $term) {
-      $searchQuery .= (($searchQuery=="")?"":" OR " )."title LIKE \$".$keywordsCount;
-      $searchQuery .= " OR description LIKE \$".$keywordsCount;
+      $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$".$keywordsCount;
+      $searchQuery .= " OR description ILIKE \$".$keywordsCount;
       $searchRequest .= ", '%".strtolower($term)."%'";
       $keywordsCount++;
     }
   	
   	pg_prepare($this->dbConnection, "get_search_results", "SELECT * FROM projects WHERE $searchQuery ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")
   	or die("Couldn't prepare statement: " . pg_last_error());
-    $query = 'EXECUTE get_search_results('.PROJECT_PAGE_MAX_PROJECTS.', '.(PROJECT_PAGE_MAX_PROJECTS * $pageNr).$searchRequest.');';
+    $query = 'EXECUTE get_search_results('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).$searchRequest.');';
   	$result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
   	$projects = pg_fetch_all($result);
   	pg_query('DEALLOCATE get_search_results');
@@ -84,7 +77,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
       }
       return($projects);
     } else {
-      return ($projects[0]);
+      return "NIL";
     }
   }
 

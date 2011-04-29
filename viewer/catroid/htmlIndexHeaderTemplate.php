@@ -19,7 +19,7 @@
 ?>
     <script type="text/javascript">
       $(document).ready(function() {
-        new Index(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_LOAD_MAX_PROJECTS."', '".PROJECT_PAGE_SHOW_MAX_PROJECTS."', '".$this->module->session->pageNr."'"; ?>);
+        new Index(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_LOAD_MAX_PROJECTS."', '".PROJECT_PAGE_SHOW_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->module->session->searchQuery."'"; ?>);
         new HeaderMenu(<?php echo "'".BASE_PATH."'"; ?>);
       });
     </script>

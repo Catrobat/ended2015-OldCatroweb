@@ -31,10 +31,11 @@ class index extends CoreAuthenticationNone {
     }
     $this->addCss('buttons.css');
     $this->addJs('newestProjects.js');
+    $this->addJs('searchProjects.js');
     $this->addJs('index.js');
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
 
-    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_SHOW_MAX_PROJECTS);    //TODO deprecated???
+    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);    //TODO deprecated???
     
     if(!$this->session->pageNr) {      
       $this->session->pageNr = 1;
@@ -42,7 +43,7 @@ class index extends CoreAuthenticationNone {
     if(isset($_REQUEST['method'])) {
       $this->session->pageNr = intval($_REQUEST['method']);
       if($this->session->pageNr < 1) {
-        $this->session->pageNr = 1; 
+        $this->session->pageNr = 1;
       }
       if($this->session->pageNr > $this->numberOfPages) {
         $this->session->pageNr = $this->numberOfPages - 1; 

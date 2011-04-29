@@ -17,13 +17,14 @@
  */
 
 
-var NewestProjects = Class.$extend( {
-  __init__ : function(parent, basePath, maxLoadProjects, maxVisibleProjects, pageNr) {
+var SearchProjects = Class.$extend( {
+  __init__ : function(parent, basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery) {
 	this.parent = parent;
     this.basePath = basePath;
     this.maxLoadProjects = parseInt(maxLoadProjects);
     this.maxVisibleProjects = parseInt(maxVisibleProjects);
     this.pageNr = { prev : parseInt(pageNr)-1, current : parseInt(pageNr), next : parseInt(pageNr)+1 };
+    this.searchQuery = searchQuery;
    
     this.initialized = false;
     this.ajaxRequestMutex = false;
@@ -38,7 +39,7 @@ var NewestProjects = Class.$extend( {
         object.restoreHistoryState(window.history.state);
         return;
       }
-      
+
       object.createSkeleton();
       $("#fewerProjects").click($.proxy(object.prevPage, object));
       $("#moreProjects").click($.proxy(object.nextPage, object));
@@ -66,11 +67,12 @@ var NewestProjects = Class.$extend( {
     if(history.pushState) {
       var stateObject = { pageNr: {}, pageContent: {}, pageLabels: new Array()};
       stateObject.pageNr = this.pageNr;
+      stateObject.searchQuery = this.searchQuery;
       stateObject.pageLabels = this.pageLabels;
       stateObject.pageContent = this.pageContent;
-      stateObject.newestProjects = true;
+      stateObject.searchProjects = true;
 	      
-      history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/index/" + this.pageNr.current);
+      history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/search/?q=" + this.searchQuery + "&p=" + this.pageNr.current);
     }
   },
 
@@ -80,8 +82,9 @@ var NewestProjects = Class.$extend( {
       $("#fewerProjects").click($.proxy(this.prevPage, this));
       $("#moreProjects").click($.proxy(this.nextPage, this));
 
-      if(state.newestProjects) {
+      if(state.searchProjects) {
         this.pageNr = state.pageNr;
+        this.searchQuery = stateObject.searchQuery;
         this.pageLabels = state.pageLabels;
         this.pageContent = state.pageContent;
       }
@@ -98,7 +101,8 @@ var NewestProjects = Class.$extend( {
       cache: false,      
       data: {
           content: {
-            pageNr: pageNumber
+            pageNr: pageNumber,
+            searchQuery: self.searchQuery
           }
       }
     });
@@ -176,6 +180,23 @@ var NewestProjects = Class.$extend( {
 	}
   },
 
+  triggerSearch : function() {
+    if(this.searchQuery != $("#searchQuery").val()) {
+      this.searchQuery = $("#searchQuery").val();
+
+      this.pageContent.prev = "NIL";
+      this.pageContent.current = null;
+      this.pageContent.next = null;
+
+      this.pageNr.prev = 0;
+      this.pageNr.current = 1;
+      this.pageNr.next = 2;
+      
+      this.loadAndCachePage();
+      this.saveHistoryState();
+    }
+  },
+
   loadAndCachePage : function() {
     if(this.pageContent.next == null) {
       this.requestPage(this.pageNr.next);
@@ -191,7 +212,7 @@ var NewestProjects = Class.$extend( {
   requestPage : function(pageNr) {
     var self = this;
     $.ajax({
-      url: self.basePath+"catroid/loadNewestProjects/"+pageNr+".json",
+      url: self.basePath+"catroid/loadSearchProjects/result.json?query="+self.searchQuery+"&page="+pageNr,
       cache: false,
       timeout: (5000),
     
