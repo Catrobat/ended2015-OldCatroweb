@@ -19,4 +19,29 @@
 
 <strings>
 	<string name="copyright_policy_title">Copyright Policy</string>
+	<string name="email_link">email</string>
+	<string name="directive_link">Directive 2001/29/EC</string>
+	<string name="chilling_link">chillingeffects.org</string>
+	<string name="copyright_policy_part1">
+		The Catroid development team respects the intellectual property of others, as well as our users.
+        If you believe that your work has been copied in a way that constitutes copyright infringement, please send us an $1.
+    </string>
+    <string name="copyright_policy_part2">
+		We will promptly process and investigate notices of alleged infringement and will take appropriate actions under the $1 and
+		other applicable intellectual property laws. Upon receipt, the Catroid development team may act expeditiously to remove or disable
+		access to any material claimed to be infringing. Repeat infringers of third-party copyrights are subject to termination in appropriate circumstances.
+    </string>
+    <string name="copyright_policy_part3">
+		In assessing whether or not a Catroid user has violated your copyrights, please keep in mind that Catroid is an educational
+		and not-for-profit initiative, seeking to aid children's learning by providing the tools for them to learn and express themselves using digital technology.
+    </string>
+    <string name="copyright_policy_part4">
+		We hope you also see Catroid not only as a good way of popularizing your creations/website but also as an opportunity
+		to do something good for children's education.
+    </string>
+    <string name="copyright_policy_part5">
+		If you choose to make a copyright infringement complaint, please note that we may post your notification,
+		with personally identifiable information redacted, to a clearinghouse such as $1. Please also note that you may be liable
+		for damages (including costs and attorneys' fees) if you materially misrepresent that an activity is infringing your copyright.
+    </string>
 </strings>

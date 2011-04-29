@@ -23,20 +23,23 @@
               <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('copyright_policy_title')?></div>
                 <div class="licenseMain">            	
             	  <div class ="whiteBoxMain">
-            	    <div class="licenseText"><p class="licenseText"> 
-            	   The Catroid development team respects the intellectual property of others, as well as our users. If you believe that your work has been copied in a way that constitutes copyright infringement, please send us an <a href="mailto:webmaster@catroid.org?subject=Copyright Issue">email</a>.<br>
-<br>
-We will promptly process and investigate notices of alleged infringement and will take appropriate actions under  the <a class="nolink" href="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32001L0029:EN:HTML" target="_blank">Directive 2001/29/EC</a> and other applicable intellectual property laws. Upon receipt, the Catroid development team may act expeditiously to remove or disable access to any material claimed to be infringing. Repeat infringers of third-party copyrights are subject to termination in appropriate circumstances.<br>
-<br>
-In assessing whether or not a Catroid user has violated your copyrights, please keep in mind that Catroid is an educational and not-for-profit initiative, seeking to aid children's learning by providing the tools for them to learn and express themselves using digital technology.<br>
-<br>
-We hope you also see Catroid not only as a good way of popularizing your creations/website but also as an opportunity to do something good for children's education.<br>
-<br>
-If you choose to make a copyright infringement complaint, please note that we may post your notification, with personally identifiable information redacted, to a clearinghouse such as <a class="nolink" href="http://chillingeffects.org" target="_blank">chillingeffects.org</a>. Please also note that you may be liable for damages (including costs and attorneys' fees) if you materially misrepresent that an activity is infringing your copyright.
-            	   
+            	    <div class="licenseText">
+            	    <p class="licenseText"> 
+            	   		<?php echo $this->languageHandler->getString('copyright_policy_part1',
+            	   					'<a href="mailto:webmaster@catroid.org?subject=Copyright Issue">'.$this->languageHandler->getString('email_link').'</a>')?>
+            	   		<br><br>
+            	   		<?php echo $this->languageHandler->getString('copyright_policy_part2',
+            	   					'<a class="nolink" href="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32001L0029:EN:HTML" target="_blank">'.$this->languageHandler->getString('directive_link').'</a>')?>
+						<br><br>
+						<?php echo $this->languageHandler->getString('copyright_policy_part3')?>
+						<br><br>
+						<?php echo $this->languageHandler->getString('copyright_policy_part4')?>
+						<br><br>
+						<?php echo $this->languageHandler->getString('copyright_policy_part5',
+            	   					'<a class="nolink" href="http://chillingeffects.org" target="_blank">'.$this->languageHandler->getString('chilling_link').'</a>')?>          	   					
 					</p>
-                   </div> <!-- License Text -->
-                   </div> <!--  White Box -->            	
+                    </div> <!-- License Text -->
+                  </div> <!--  White Box -->            	
             	</div> <!--  license Main -->
   		   		
   		  </div> <!-- mainContent close //-->
