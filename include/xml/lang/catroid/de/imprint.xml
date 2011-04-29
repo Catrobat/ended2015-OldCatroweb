@@ -26,6 +26,6 @@
 	<string name="address_city">8010 Graz</string>
 	<string name="address_country">Österreich</string>
 	<string name="contact">Kontakt</string>
-	<string name="contact_text">E-Mail: $1</string>
-	<string name="development_text">Catroid wird am $1 an der technischen Universität Graz in Österreich entwickelt.</string>
+	<string name="contact_text">E-Mail: {*email*}</string>
+	<string name="development_text">Catroid wird am {*institute*} an der technischen Universität Graz in Österreich entwickelt.</string>
 </strings>

@@ -85,10 +85,9 @@ class CoreLanguageHandler {
     if(!$this->checkParamCount($msg, count($args))) {
       return $msg;
     }
-    for($i=count($args); $i>0; $i--) {
-      $placeholderString = '\$'.$i;
-      $pattern = "/".$placeholderString."/";
-      $msg = preg_replace($pattern, $args[$i-1], $msg);
+    for($i=0; $i<count($args); $i++) {
+      $pattern = "/[{][\*][a-zA-Z0-9_]+[\*][}]/";
+      $msg = preg_replace($pattern, $args[$i], $msg, 1);
     }
     return $msg;
   }
@@ -103,7 +102,7 @@ class CoreLanguageHandler {
 
   public function checkParamCount($msg, $num) {
     $ret = array();
-    $paramCount = preg_match_all("/[\$][0-9]+/", $msg, $ret);
+    $paramCount = preg_match_all("/[{][\*][a-zA-Z0-9_]+[\*][}]/", $msg, $ret);
     if($paramCount == $num) {
       return true;
     } else {

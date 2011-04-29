@@ -121,6 +121,30 @@ class CoreErrorHandler {
     if(!$this->checkParamCount($msg, count($args))) {
       return $msg;
     }
+    for($i=0; $i<count($args); $i++) {
+      $pattern = "/[{][\*][a-zA-Z0-9_]+[\*][}]/";
+      $msg = preg_replace($pattern, $args[$i], $msg, 1);
+    }
+    return $msg;
+  }
+
+  public function checkParamCount($msg, $num) {
+    $ret = array();
+    $paramCount = preg_match_all("/[{][\*][a-zA-Z0-9_]+[\*][}]/", $msg, $ret);
+    if($paramCount == $num) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+/*
+  public function parseErrorMessage($msg, $args) {
+    if(count($args) <= 0) {
+      return $msg;
+    }
+    if(!$this->checkParamCount($msg, count($args))) {
+      return $msg;
+    }
     for($i=count($args); $i>0; $i--) {
       $placeholderString = '\$'.$i;
       $pattern = "/".$placeholderString."/";
@@ -129,7 +153,8 @@ class CoreErrorHandler {
 
     return $msg;
   }
-
+*/
+  /*
   public function checkParamCount($msg, $num) {
     $ret = array();
     $paramCount = preg_match_all("/[\$][0-9]+/", $msg, $ret);
@@ -139,7 +164,7 @@ class CoreErrorHandler {
       return false;
     }
   }
-
+*/
   public function __destruct() {
   }
 }

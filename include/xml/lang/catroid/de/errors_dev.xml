@@ -69,7 +69,7 @@
     	<string name="password_repeat_missing">Du hast keine Passwortwiederholung angegeben.</string>
     	<string name="password_repeat_differs">Das Passwort und die Passwortwiederholung unterscheiden sich.</string>
     	<string name="password_invalid">Das Passwort ist ungültig.</string>
-    	<string name="password_length_invalid">Das Passwort muss mindestens $1 Zeichen beinhalten.</string>
+    	<string name="password_length_invalid">Das Passwort muss mindestens {*minPasswordLength*} Zeichen beinhalten.</string>
     	<string name="username_missing">Du hast keinen Nickname angegeben.</string>
     	<string name="username_invalid">Der Nickname ist ungültig.</string>
     	<string name="username_invalid_underscore">Der Nickname ist ungültig. Underscores (_) sind nicht erlaubt.</string>

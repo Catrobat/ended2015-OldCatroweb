@@ -19,5 +19,5 @@
 
 <strings>
 	<string name="contact_title">Kontakt</string>
-	<string name="contact_text">Wenn du Fragen oder Vorschläge für uns hast, schicke einfach ein Mail an $1.</string>
+	<string name="contact_text">Wenn du Fragen oder Vorschläge für uns hast, schicke einfach ein Mail an {*emailLink*}.</string>
 </strings>
