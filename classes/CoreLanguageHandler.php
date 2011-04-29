@@ -34,12 +34,13 @@ class CoreLanguageHandler {
   }
 
   private function setStrings() {
-    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->language.'/'.$this->className.'.xml';
-    if(file_exists($file)) {
-      $xml = simplexml_load_file($file);
-    } else {
+    $file = $this->getLanguageFile($this->className.'.xml');
+    if(!$file) {
+      die("text string file not found!");
       return false;
     }
+
+    $xml = simplexml_load_file($file);
 
     foreach($xml->children() as $string) {
       $attributes = $string->attributes();
@@ -50,12 +51,13 @@ class CoreLanguageHandler {
   }
 
   private function setTemplateStrings() {
-    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->language.'/template.xml';
-    if(file_exists($file)) {
-      $xml = simplexml_load_file($file);
-    } else {
+    $file = $this->getLanguageFile('template.xml');
+    if(!$file) {
+      die("text string file not found!");
       return false;
     }
+
+    $xml = simplexml_load_file($file);
 
     foreach($xml->children() as $string) {
       $attributes = $string->attributes();
@@ -98,6 +100,25 @@ class CoreLanguageHandler {
 
   public function getLanguage() {
     return $this->language;
+  }
+
+  private function getLanguageFile($fileName) {
+    $defaultLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.SITE_DEFAULT_LANGUAGE.'/'.$fileName;
+    $selectedLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->language.'/'.$fileName;
+    if(!file_exists($defaultLanguagefile)) {
+      return false;
+    }
+    if(!file_exists($selectedLanguagefile)) {
+      return $defaultLanguagefile;
+    }
+    $defaultLanguageXml = simplexml_load_file($defaultLanguagefile);
+    $selectedLanguageXml = simplexml_load_file($selectedLanguagefile);
+
+    if(count($defaultLanguageXml->children()) == count($selectedLanguageXml->children())) {
+      return $selectedLanguagefile;
+    } else {
+      return $defaultLanguagefile;
+    }
   }
 
   public function checkParamCount($msg, $num) {
