@@ -21,13 +21,6 @@
       <div class="blueBoxMain">
         <div class="webMainContent">
           <div id="projectListTitle" class="webMainContentTitle"></div>          
-          <div class="webMainNavigationButtons">
-            <button type="button" class="navigationButtons button white medium" id="fewerProjects">            
-              <span class="navigationButtons"></span>
-            </button>            
-          </div>
-          <div class="projectListSpacer"></div>
-          
           <div id="projectContainer">
             <noscript>
                <div class="projectListRow">
@@ -37,11 +30,6 @@
                </div>
             </noscript>  
           </div>        
-          <div class="webMainNavigationButtons">
-            <button type="button" class="navigationButtons button white medium" id="moreProjects">
-              <span class="navigationButtons"></span>
-            </button>
-          </div>
         </div> <!-- mainContent close //-->
       </div> <!-- blueBoxMain close //-->
     </div> <!--  WEBMAINMIDDLE -->
