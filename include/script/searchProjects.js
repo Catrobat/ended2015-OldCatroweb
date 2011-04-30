@@ -33,9 +33,9 @@ var SearchProjects = Class.$extend( {
   },
 
   initialize : function(object) {
-    if(!object.initialized) {
-      if(window.history.state != null && window.history.state.pageContent.current != null) {
-        // FF 4.0 does not fire onPopState.event, webkit does
+    if(!object.initialized) {      
+      if(window.history.state != null && window.history.state.pageContent.current != null && window.history.state.seachProjects) {
+        // FF 4.0 does not fire onPopState.event, webkit does        
         object.restoreHistoryState(window.history.state);
         return;
       }
@@ -43,14 +43,24 @@ var SearchProjects = Class.$extend( {
       object.createSkeleton();
       $("#fewerProjects").click($.proxy(object.prevPage, object));
       $("#moreProjects").click($.proxy(object.nextPage, object));
+      
+      $("#searchQuery").val(this.searchQuery);
+      $("#normalHeaderButtons").toggle(false);
+      $("#cancelHeaderButton").toggle(true);
+      $("#headerSearchBox").toggle(true);
+      $("#searchQuery").focus();
 
       object.loadAndCachePage();
       object.initialized = true;
     }
   },
-
+  
+  setDocumentTitle : function(title) {
+    document.title = "Catroid Website - " + title;  // TODO
+  },
+  
   setActive : function() {
-    if(!this.initialized) {
+    if(!this.initialized) {      
       this.initialize(this);
       this.fillSkeletonWithContent();
     }
@@ -63,7 +73,7 @@ var SearchProjects = Class.$extend( {
     }
   },
   
-  saveHistoryState : function() {
+  saveHistoryState : function() {    
     if(history.pushState) {
       var stateObject = { pageNr: {}, pageContent: {}, pageLabels: new Array()};
       stateObject.pageNr = this.pageNr;
@@ -73,22 +83,30 @@ var SearchProjects = Class.$extend( {
       stateObject.searchProjects = true;
 	      
       history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/search/?q=" + this.searchQuery + "&p=" + this.pageNr.current);
+      this.setDocumentTitle("search for " + this.searchQuery + " : page " + this.pageNr.current);
     }
+    this.saveStateToSession(this.pageNr.current);
   },
 
   restoreHistoryState : function(state) {
-    if(state != null) {
+    if(state != null) {      
       this.createSkeleton();
       $("#fewerProjects").click($.proxy(this.prevPage, this));
       $("#moreProjects").click($.proxy(this.nextPage, this));
-
-      if(state.searchProjects) {
+      if(state.searchProjects) {        
         this.pageNr = state.pageNr;
-        this.searchQuery = stateObject.searchQuery;
+        this.searchQuery = state.searchQuery;
         this.pageLabels = state.pageLabels;
-        this.pageContent = state.pageContent;
-      }
-      this.loadAndCachePage();
+        this.pageContent = state.pageContent;         
+      } 
+      $("#searchQuery").val(this.searchQuery);
+      $("#normalHeaderButtons").toggle(false);
+      $("#cancelHeaderButton").toggle(true);
+      $("#headerSearchBox").toggle(true);
+      $("#searchQuery").focus();
+      
+      this.setDocumentTitle("search for " + this.searchQuery + " : page " + this.pageNr.current);
+      this.fillSkeletonWithContent();
       this.initialized = true;
     }
   },
@@ -102,7 +120,8 @@ var SearchProjects = Class.$extend( {
       data: {
           content: {
             pageNr: pageNumber,
-            searchQuery: self.searchQuery
+            searchQuery: self.searchQuery,
+            task : "searchProjects"
           }
       }
     });
@@ -132,8 +151,7 @@ var SearchProjects = Class.$extend( {
       this.pageNr.current = 1;
       this.pageNr.next = 2;
 	      
-      this.loadAndCachePage();
-      this.saveHistoryState();
+      this.loadAndCachePage();     
 	      
       $("#normalHeaderButtons").toggle(true);
       $("#cancelHeaderButton").toggle(false);
@@ -155,8 +173,7 @@ var SearchProjects = Class.$extend( {
         this.pageContent.prev = null; 
         this.pageNr.prev++;        
       }
-      
-      this.saveHistoryState();
+     
       this.loadAndCachePage();
     }
   },
@@ -175,15 +192,14 @@ var SearchProjects = Class.$extend( {
         this.pageNr.next--;
       }
 
-      this.saveHistoryState();
       this.loadAndCachePage();
 	}
   },
 
-  triggerSearch : function() {
-    if(this.searchQuery != $("#searchQuery").val()) {
+  triggerSearch : function(loadAndCache) {
+    if(this.searchQuery != $("#searchQuery").val()) {    
       this.searchQuery = $("#searchQuery").val();
-
+      
       this.pageContent.prev = "NIL";
       this.pageContent.current = null;
       this.pageContent.next = null;
@@ -192,8 +208,9 @@ var SearchProjects = Class.$extend( {
       this.pageNr.current = 1;
       this.pageNr.next = 2;
       
-      this.loadAndCachePage();
-      this.saveHistoryState();
+      if(loadAndCache) {
+        this.loadAndCachePage();
+      }
     }
   },
 
@@ -206,7 +223,7 @@ var SearchProjects = Class.$extend( {
     }
     if(this.pageContent.prev == null) {
       this.requestPage(this.pageNr.prev);
-    }
+    }    
   },
 
   requestPage : function(pageNr) {
@@ -240,6 +257,7 @@ var SearchProjects = Class.$extend( {
           
           if(self.pageContent.prev != null && self.pageContent.current != null && self.pageContent.next != null) {
             self.fillSkeletonWithContent();
+            self.saveHistoryState();
             self.unblockAjaxRequest();            
           }
         }
@@ -331,16 +349,31 @@ var SearchProjects = Class.$extend( {
           $("#whiteBox"+i).css("display", "block");
           $("#projectListSpacer"+i).css("display", "block");
           $("#projectListThumbnail"+i).attr("title", content[i]['title']);
-          $("#projectListDetailsLinkThumb"+i).attr("href", this.basePath+"catroid/details/"+content[i]['id']);
           $("#projectListDetailsLinkThumb"+i).unbind('click');
-          $("#projectListDetailsLinkThumb"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
+          if (content[i]['id'] != 0) {
+            $("#projectListDetailsLinkThumb"+i).attr("href", this.basePath+"catroid/details/"+content[i]['id']);  
+            $("#projectListDetailsLinkThumb"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
+          }
+          else {
+            $("#projectListDetailsLinkThumb"+i).attr("href", "#");
+          }
           $("#projectListPreview"+i).attr("src", content[i]['thumbnail']).attr("alt", content[i]['title']);
           
-          $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");
-          $("#projectListTitle"+i).unbind('click');
-          $("#projectListTitle"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
+          $("#projectListTitle"+i).unbind('click');          
+          if (content[i]['id'] != 0) {
+            $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");  
+            $("#projectListTitle"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
+          }
+          else {
+            $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='#'>"+content[i]['title']+"</a></div>");            
+          }
           // + author $("#projectListDescription"+i).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
-          $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago");          
+          if (content[i]['upload_time'] != "") {
+            $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago");          
+          } 
+          else {
+            $("#projectListDescription"+i).html("");            
+          }
         }
       }
       else {

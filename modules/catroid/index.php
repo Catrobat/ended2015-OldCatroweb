@@ -34,7 +34,7 @@ class index extends CoreAuthenticationNone {
     $this->addJs('searchProjects.js');
     $this->addJs('index.js');
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
-
+    
     $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);    //TODO deprecated???
     
     if(!$this->session->pageNr) {      
@@ -49,6 +49,12 @@ class index extends CoreAuthenticationNone {
         $this->session->pageNr = $this->numberOfPages - 1; 
       }
     }
+    if (($this->session->referer  == "") || ($this->session->referer != $_SERVER['HTTP_REFERER'])) {
+      $this->session->referer = $_SERVER['HTTP_REFERER'];
+      $this->session->task = "newestProjects";
+    }
+      
+    $this->task = $this->session->task;
     $this->pageNr = $this->session->pageNr;
     $this->searchQuery = "";
     if($this->session->searchQuery != "") {

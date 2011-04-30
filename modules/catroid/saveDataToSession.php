@@ -40,6 +40,9 @@ class saveDataToSession extends CoreAuthenticationNone {
       case 'searchQuery':
         $this->session->searchQuery = $value;
         break;
+      case 'task':
+        $this->session->task = $value;
+        break;
     }
   }
 }

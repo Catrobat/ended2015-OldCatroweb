@@ -30,10 +30,10 @@ var NewestProjects = Class.$extend( {
     this.pageLabels = new Array();
     this.pageContent = { prev : null, current : null, next : null };
   },
-
+  
   initialize : function(object) {
     if(!object.initialized) {
-      if(window.history.state != null && window.history.state.pageContent.current != null) {
+      if(window.history.state != null && window.history.state.pageContent.current != null && window.history.state.newestProjects) {
         // FF 4.0 does not fire onPopState.event, webkit does
         object.restoreHistoryState(window.history.state);
         return;
@@ -42,11 +42,15 @@ var NewestProjects = Class.$extend( {
       object.createSkeleton();
       $("#fewerProjects").click($.proxy(object.prevPage, object));
       $("#moreProjects").click($.proxy(object.nextPage, object));
-
+      
       object.loadAndCachePage();
       object.initialized = true;
     }
   },
+  
+  setDocumentTitle : function(title) {
+    document.title = "Catroid Website - " + title;  // TODO
+  },  
 
   setActive : function() {
     if(!this.initialized) {
@@ -71,7 +75,9 @@ var NewestProjects = Class.$extend( {
       stateObject.newestProjects = true;
 	      
       history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/index/" + this.pageNr.current);
+      this.setDocumentTitle("newest projects page " + this.pageNr.current);
     }
+    this.saveStateToSession(this.pageNr.current);
   },
 
   restoreHistoryState : function(state) {
@@ -84,8 +90,12 @@ var NewestProjects = Class.$extend( {
         this.pageNr = state.pageNr;
         this.pageLabels = state.pageLabels;
         this.pageContent = state.pageContent;
-      }
-      this.loadAndCachePage();
+      }      
+      $("#normalHeaderButtons").toggle(true);
+      $("#cancelHeaderButton").toggle(false);
+      $("#headerSearchBox").toggle(false);
+      this.setDocumentTitle("newest projects page " + this.pageNr.current);
+      this.fillSkeletonWithContent();
       this.initialized = true;
     }
   },
@@ -98,7 +108,8 @@ var NewestProjects = Class.$extend( {
       cache: false,      
       data: {
           content: {
-            pageNr: pageNumber
+            pageNr: pageNumber,
+            task : "newestProjects"
           }
       }
     });
@@ -129,7 +140,6 @@ var NewestProjects = Class.$extend( {
       this.pageNr.next = 2;
 	      
       this.loadAndCachePage();
-      this.saveHistoryState();
 	      
       $("#normalHeaderButtons").toggle(true);
       $("#cancelHeaderButton").toggle(false);
@@ -152,7 +162,6 @@ var NewestProjects = Class.$extend( {
         this.pageNr.prev++;        
       }
       
-      this.saveHistoryState();
       this.loadAndCachePage();
     }
   },
@@ -171,12 +180,11 @@ var NewestProjects = Class.$extend( {
         this.pageNr.next--;
       }
 
-      this.saveHistoryState();
       this.loadAndCachePage();
-	}
+	  }
   },
 
-  loadAndCachePage : function() {
+  loadAndCachePage : function() {    
     if(this.pageContent.next == null) {
       this.requestPage(this.pageNr.next);
     }
@@ -219,6 +227,7 @@ var NewestProjects = Class.$extend( {
           
           if(self.pageContent.prev != null && self.pageContent.current != null && self.pageContent.next != null) {
             self.fillSkeletonWithContent();
+            self.saveHistoryState();
             self.unblockAjaxRequest();            
           }
         }

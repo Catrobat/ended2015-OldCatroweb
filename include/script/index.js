@@ -18,21 +18,50 @@
 
 
 var Index = Class.$extend( {
-  __init__ : function(basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery) {
+  __init__ : function(basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery, task) {
     var self = this;
     this.newestProjects = new NewestProjects(this, basePath, maxLoadProjects, maxVisibleProjects, pageNr);
     this.searchProjects = new SearchProjects(this, basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery);
 
+    this.task = task;
     this.state = "newestProjects";
-    window.onpopstate = function(event) {
-      self.newestProjects.restoreHistoryState(event.state);  
+    window.onpopstate = function(event) {      
+      if(event.state.newestProjects) {        
+        self.newestProjects.restoreHistoryState(event.state);
+        self.state = "newestProjects";
+      }
+      if(event.state.searchProjects) {
+        self.searchProjects.restoreHistoryState(event.state);
+        self.state = "searchProjects";
+      }        
     }
-    setTimeout(this.newestProjects.initialize, 50, this.newestProjects);
+    setTimeout(this.initialize, 50, this);
     
     $("#aIndexWebLogoLeft").click($.proxy(this.startPage, this));
     $("#headerMenuButton").click(function() { self.newestProjects.saveStateToSession(self.newestProjects.pageNr.current); });
     $("#searchForm").submit($.proxy(this.search, this));
     $("#headerCancelSearchButton").click($.proxy(this.cancelSearch, this));
+  },
+  
+  initialize : function(object) {    
+    if(window.history.state != null && window.history.state.pageContent.current != null) {      
+      // FF 4.0 does not fire onPopState.event, webkit does
+      if(window.history.state.newestProjects) {
+        object.newestProjects.restoreHistoryState(window.history.state);
+        object.state = "newestProjects";
+      }
+      if(window.history.state.searchProjects) {        
+        object.searchProjects.restoreHistoryState(window.history.state);
+        object.state = "searchProjects";        
+      }      
+      return;
+    }
+    if (object.task == "newestProjects") {
+      object.newestProjects.initialize(object.newestProjects);
+    }
+    if (object.task == "searchProjects") {
+      object.searchProjects.initialize(object.searchProjects);
+    }            
   },
   
   switchState : function(state) {
@@ -43,14 +72,18 @@ var Index = Class.$extend( {
     }
     if(state == "searchProjects") {
       this.newestProjects.setInactive();
-      this.searchProjects.setActive();
+      this.searchProjects.setActive();      
       this.state = "searchProjects";
     }
   },
   
-  search : function() {
-    this.searchProjects.triggerSearch();
-    this.switchState("searchProjects");
+  search : function() {     
+    if (this.state == "searchProjects")
+      this.searchProjects.triggerSearch(true);
+    else {
+      this.searchProjects.triggerSearch(false);
+      this.switchState("searchProjects");      
+    }
     return false;
   },
 
@@ -59,8 +92,8 @@ var Index = Class.$extend( {
   },
   
   startPage : function() {
-    this.newestProjects.showStartPage();
     this.switchState("newestProjects");
+    this.newestProjects.showStartPage();
   }
 
 });
