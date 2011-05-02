@@ -36,6 +36,15 @@ class IndexTests extends PHPUnit_Framework_TestCase
     } else {
       $this->selenium->setSpeed(1);
     }
+    
+    $labels = array();
+    $labels['websitetitle'] = "Catroid Website";
+    $labels['title'] = "Newest Projects";
+    $labels['prevButton'] = "« Newer";
+    $labels['nextButton'] = "Older »";
+    $labels['loadingButton'] = "loading...";
+    $this->labels = $labels;
+    
     $this->selenium->start();
   }
 
@@ -44,26 +53,21 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->selenium->stop();
   }
 
-  public function ajaxWait($waitfor)
+  public function ajaxWait()
   {
-    // Loop initialization.
-    for ($second = 0; $second <=600;$second++) {
-
-      // If loop is reached 60 seconds then break the loop.
-      if ($second >= 600) break;
-
-      // Search for element "link=ajaxLink" and if available then break loop.
-      try
-      {
-        if (($this->selenium->isElementPresent($waitfor))&&(!($this->selenium->isTextPresent("loading..."))))
-        break;
+    for($second = 0; $second <= 600; $second++) {
+      if($second >= 600) break;
+      try {
+        if($this->selenium->isElementPresent("xpath=//input[@id='ajax-loader'][@value='off']")) {
+          break;
+        }
       } catch (Exception $e) {}
       sleep(1);
     }
   }
 
   public function doUpload() {
-    for($i=1; $i<25; $i++) {      
+    for($i=1; $i<PROJECT_PAGE_LOAD_MAX_PROJECTS+PROJECT_PAGE_SHOW_MAX_PROJECTS; $i++) {      
       $jsonResponse = $this->uploadTestProject('unitTest'.$i, 'unitTestDescription'.$i);
       $insertId = $jsonResponse->projectId;
       array_push($this->insertIDArray, $insertId);
@@ -89,56 +93,51 @@ class IndexTests extends PHPUnit_Framework_TestCase
   public function testIndexPage() {
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
+    $this->ajaxWait();
 
     //test page title
     $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
+    $this->assertTrue($this->selenium->isTextPresent($this->labels['title']));
+    $this->assertTrue($this->selenium->isTextPresent($this->labels['nextButton']));
 
     // test catroid header text
     $this->assertTrue($this->selenium->isElementPresent("xpath=//img[@class='catroidLettering']"));
 
     // test logo link
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='webHeadLogo']/a"));
-    $this->selenium->click("xpath=//div[@id='aIndexWebLogoLeft']/a");
-    //$this->selenium->selectWindow("_blank");
-    $this->selenium->waitForPageToLoad(10000);
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@class='webHeadLogo']"));
+    $this->selenium->click("xpath=//div[@id='aIndexWebLogoLeft']");
+    $this->ajaxWait();
     $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
 
     //test catroid download link
     $this->assertTrue($this->selenium->isElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']"));
-    //$this->selenium->click("xpath=//div[@class='webHeadTitleName']/a");
     $this->selenium->click("xpath=//a[@id='aIndexWebLogoMiddle']");
-
-    $this->selenium->waitForPageToLoad(10000);
     $this->selenium->selectWindow("_blank");
-
-    //$this->selenium->waitForPageToLoad(10000);
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Catroid_0-4-3d.apk"));
     $this->assertTrue($this->selenium->isTextPresent("Paintroid_0.6.4b.apk"));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
 
-    //test home link
-    $this->selenium->click("xpath=//a[1]"); //clicks first link on page (should be the home link)
-    $this->selenium->waitForPageToLoad(10000);
-    $this->assertRegExp("/catroid\/index/", $this->selenium->getLocation());
-
     //test links to details page
-
-    $this->ajaxWait("id=page0");
-    $this->selenium->waitForCondition("", 2000); // loading...
     $this->selenium->click("xpath=//a[@class='projectListDetailsLink']");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertRegExp("/catroid\/details/", $this->selenium->getLocation());
     $this->selenium->goBack();
-    $this->ajaxWait("id=page0");
     $this->selenium->waitForPageToLoad(10000);
-
+    $this->ajaxWait();
 
     $this->selenium->click("xpath=//a[@class='projectListDetailsLinkBold']");
     $this->selenium->waitForPageToLoad(10000);
-
     $this->assertRegExp("/catroid\/details/", $this->selenium->getLocation());
+    $this->selenium->click("xpath=//a[@id='aIndexWebLogoLeft']");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->ajaxWait();
 
+    //test home link
+    $this->selenium->click("xpath=//div[@id='aIndexWebLogoLeft']");
+    $this->ajaxWait();
+    $this->assertRegExp("/catroid\/index/", $this->selenium->getLocation());
   }
 
   public function testPageNavigation()
@@ -146,63 +145,48 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->doUpload();
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
+    $this->ajaxWait();
 
     //test page title
     $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
     $this->assertFalse($this->selenium->isVisible("fewerProjects"));
     $this->assertTrue($this->selenium->isVisible("moreProjects"));
-    $this->ajaxWait("id=page0");
-    $this->selenium->waitForCondition("", 2000); // loading...
+    
+    $clickCount = ceil(PROJECT_PAGE_SHOW_MAX_PROJECTS / PROJECT_PAGE_LOAD_MAX_PROJECTS) + 1;
+    for($i=0; $i<$clickCount; $i++) {
+      $this->selenium->click("moreProjects");
+      $this->ajaxWait();
+      $this->assertRegExp("/".$this->labels['websitetitle']." - ".$this->labels['title']." - ".($i+2)."/", $this->selenium->getTitle());
+    }
 
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page0']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
-    $this->selenium->click("moreProjects");
-    $this->ajaxWait("id=page2");
-    $this->selenium->waitForCondition("", 2000); // loading...
-
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page3']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page4']"));
     $this->assertTrue($this->selenium->isVisible("fewerProjects"));
+    $this->assertTrue($this->selenium->isTextPresent($this->labels['prevButton']));
+    $this->selenium->click("fewerProjects");
+    $this->assertTrue($this->selenium->isElementPresent("//img[@src='".TESTS_BASE_PATH."images/symbols/ajax-loader.gif']"));
+    $this->assertTrue($this->selenium->isTextPresent($this->labels['loadingButton']));
+    $this->ajaxWait();
+    $this->assertRegExp("/".$this->labels['websitetitle']." - ".$this->labels['title']." - ".($i)."/", $this->selenium->getTitle());
+
     // test session
     $this->selenium->refresh();
-    $this->ajaxWait("id=page2");
-    $this->selenium->waitForCondition("", 2000); // loading...
-
-    $this->selenium->waitForPageToLoad("10000");
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page3']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page4']"));
-    $this->assertTrue($this->selenium->isVisible("fewerProjects"));
-
-    $this->selenium->click("fewerProjects");
-    $this->ajaxWait("id=page0");
-    $this->selenium->waitForCondition("", 2000); // loading...
-
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page0']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
-    $this->assertFalse($this->selenium->isVisible("fewerProjects"));
-
+    $this->selenium->waitForPageToLoad(10000);
+    $this->ajaxWait();
+    $this->assertRegExp("/".$this->labels['websitetitle']." - ".$this->labels['title']." - ".($i)."/", $this->selenium->getTitle());
+    
+    //test links to details page
+    $this->selenium->click("xpath=//a[@class='projectListDetailsLink']");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertRegExp("/catroid\/details/", $this->selenium->getLocation());
+    $this->selenium->goBack();
+    $this->selenium->waitForPageToLoad(10000);
+    $this->ajaxWait();
+    $this->assertRegExp("/".$this->labels['websitetitle']." - ".$this->labels['title']." - ".($i)."/", $this->selenium->getTitle());
+    
     // test header click
-    $this->assertTrue($this->selenium->isVisible("moreProjects"));
-    $this->selenium->click("moreProjects");
-    $this->ajaxWait("id=page2");
-    $this->selenium->waitForCondition("", 2000); // loading...
-
     $this->selenium->click("aIndexWebLogoLeft");
-    $this->ajaxWait("id=page0");
-    $this->selenium->waitForCondition("", 2000); // loading...
-
-    $this->selenium->waitForPageToLoad("10000");
-    $this->selenium->waitForCondition("", 2000); // necessary for loading delay
-
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page0']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page1']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='page2']"));
-    $this->assertFalse($this->selenium->isVisible("fewerProjects"));
-
+    $this->ajaxWait();
+    $this->assertRegExp("/".$this->labels['websitetitle']." - ".$this->labels['title']." - 1/", $this->selenium->getTitle());
+    
     $this->deleteUploadedProjects();
   }
 
@@ -228,7 +212,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $post = array(
         "upload"=>"@$uploadTestFile",
         "projectTitle"=>$title,
-    	"projectDescription"=>$description,
+    	  "projectDescription"=>$description,
         "fileChecksum"=>md5_file($uploadTestFile)
     );
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post);

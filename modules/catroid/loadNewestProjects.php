@@ -30,9 +30,11 @@ class loadNewestProjects extends CoreAuthenticationNone {
     }
     
     $labels = array();
+    $labels['websitetitle'] = "Catroid Website";
     $labels['title'] = "Newest Projects";
     $labels['prevButton'] = "&laquo; Newer";
     $labels['nextButton'] = "Older &raquo;";
+    $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
     $this->labels = $labels;
 
     $this->content = $this->retrievePageNrFromDatabase($this->pageNr);

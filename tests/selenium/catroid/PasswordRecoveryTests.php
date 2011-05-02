@@ -23,7 +23,7 @@ require_once 'testsBootstrap.php';
 class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
 {
   private $selenium;
-    
+
   public function setUp()
   {
     $path= 'http://'.str_replace('http://', '', TESTS_BASE_PATH).'catroid/login';
@@ -41,23 +41,19 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     $this->selenium->stop();
   }
   
-  public function ajaxWait($waitfor)
+  public function ajaxWait()
   {
-    // Loop initialization.
-    for ($second = 0; $second <=600;$second++) {
-
-     // If loop is reached 60 seconds then break the loop.
-     if ($second >= 600) break;
-
-     // Search for element "link=ajaxLink" and if available then break loop.
-     try 
-     {        
-       if (($this->selenium->isElementPresent($waitfor))&&(!($this->selenium->isTextPresent("loading..."))))
-       break; 
-     } catch (Exception $e) {}
-     sleep(1);
+    for($second = 0; $second <= 600; $second++) {
+      if($second >= 600) break;
+      try {
+        if($this->selenium->isElementPresent("xpath=//input[@id='ajax-loader'][@value='off']")) {
+          break;
+        }
+      } catch (Exception $e) {}
+      sleep(1);
     }
-  }  
+  }
+
   public function testPasswordRecoveryIntro() {
     $this->selenium->open(TESTS_BASE_PATH."catroid/login");
     $this->selenium->waitForPageToLoad(10000);
@@ -186,7 +182,7 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     
     // check login
     $this->selenium->waitForPageToLoad(10000);
-    $this->ajaxWait('id=projectContainer');
+    $this->ajaxWait();
     $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='projectContainer']"));
     

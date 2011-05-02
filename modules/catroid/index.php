@@ -55,10 +55,10 @@ class index extends CoreAuthenticationNone {
         $this->session->pageNr = $this->numberOfPages - 1; 
       }
     }
-    if(!$this->session->referer) {
+    if(isset($_SERVER['HTTP_REFERER']) && !$this->session->referer) {
     	$this->session->referer = $_SERVER['HTTP_REFERER'];
     }
-    if($this->session->referer != $_SERVER['HTTP_REFERER']) {
+    if(isset($_SERVER['HTTP_REFERER']) && $this->session->referer != $_SERVER['HTTP_REFERER']) {
       $this->session->referer = $_SERVER['HTTP_REFERER'];
       $this->session->task = "newestProjects";
     }

@@ -66,7 +66,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
   	$projects = pg_fetch_all($result);
   	pg_query('DEALLOCATE get_search_results');
     pg_free_result($result);
-    if(($projects[0]['id']) || ($pageNr == 0)) {
+    if($projects[0]['id']) {
       $i=0;
       foreach($projects as $project) {
         $projects[$i]['title'] = $projects[$i]['title'];
@@ -75,15 +75,14 @@ class loadSearchProjects extends CoreAuthenticationNone {
         $projects[$i]['thumbnail'] = $this->getThumbnail($project['id']);
         $i++;
       }
-      if ($i == 0)
-      {        
-        $projects[$i]['id'] = 0;
-        $projects[$i]['title'] = "Your search returned no results";
-        $projects[$i]['title_short'] = "Your search returned no results";
-        $projects[$i]['upload_time'] =  "";
-        $projects[$i]['thumbnail'] = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_GRAY;
-      }              
       return($projects);
+    } elseif($pageNr == 0) {
+    	 $projects[0]['id'] = 0;
+       $projects[0]['title'] = "Your search returned no results";
+       $projects[0]['title_short'] = "Your search returned no results";
+       $projects[0]['upload_time'] =  "";
+       $projects[0]['thumbnail'] = BASE_PATH."images/symbols/thumbnail_gray.png";
+       return($projects);
     } else {
       return "NIL";
     }

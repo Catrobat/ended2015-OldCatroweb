@@ -48,8 +48,8 @@ var NewestProjects = Class.$extend( {
     }
   },
   
-  setDocumentTitle : function(title) {
-    document.title = "Catroid Website - " + title;  // TODO
+  setDocumentTitle : function() {
+    document.title = this.pageLabels['websitetitle'] + " - " + this.pageLabels['title'] + " - " + this.pageNr.current;
   },  
 
   setActive : function() {
@@ -74,8 +74,9 @@ var NewestProjects = Class.$extend( {
       stateObject.pageContent = this.pageContent;
       stateObject.newestProjects = true;
 	      
-      history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/index/" + this.pageNr.current);
-      this.setDocumentTitle("newest projects page " + this.pageNr.current);
+      history.pushState(stateObject, this.pageLabels['websitetitle'] + " - " + 
+          this.pageLabels['title'] + " - " + this.pageNr.current, 
+          this.basePath+"catroid/index/" + this.pageNr.current);
     }
     this.saveStateToSession(this.pageNr.current);
   },
@@ -94,7 +95,7 @@ var NewestProjects = Class.$extend( {
       $("#normalHeaderButtons").toggle(true);
       $("#cancelHeaderButton").toggle(false);
       $("#headerSearchBox").toggle(false);
-      this.setDocumentTitle("newest projects page " + this.pageNr.current);
+      this.setDocumentTitle();
       this.fillSkeletonWithContent();
       this.initialized = true;
     }
@@ -118,7 +119,8 @@ var NewestProjects = Class.$extend( {
   blockAjaxRequest : function() {
     if(!this.ajaxRequestMutex) {
       this.ajaxRequestMutex = true;
-      $("#projectContainer").fadeTo(100, 0.20);
+      $("#projectContainer").fadeTo(100, 0.60);
+      $("#ajax-loader").val("on");
       return true;
     }
     return false;
@@ -126,6 +128,7 @@ var NewestProjects = Class.$extend( {
 	  
   unblockAjaxRequest : function() {
     $("#projectContainer").fadeTo(10, 1.0);
+    $("#ajax-loader").val("off");
     this.ajaxRequestMutex = false;
   },
 
@@ -149,7 +152,9 @@ var NewestProjects = Class.$extend( {
   },
 
   nextPage : function() {
-    if(this.blockAjaxRequest()) {            
+    if(this.blockAjaxRequest()) {
+      $("#moreProjects").children("span").html(this.pageLabels['loadingButton']);
+
       this.pageContent.current = this.pageContent.current.concat(this.pageContent.next);
       this.pageNr.current++;
       
@@ -168,6 +173,8 @@ var NewestProjects = Class.$extend( {
 
   prevPage : function() {
     if(this.blockAjaxRequest()) {
+      $("#moreProjects").children("span").html(this.pageLabels['loadingButton']);
+      
       this.pageContent.current = this.pageContent.prev.concat(this.pageContent.current);
       this.pageNr.current--;
 
@@ -228,6 +235,8 @@ var NewestProjects = Class.$extend( {
           if(self.pageContent.prev != null && self.pageContent.current != null && self.pageContent.next != null) {
             self.fillSkeletonWithContent();
             self.saveHistoryState();
+            self.saveStateToSession(self.pageNr.current);
+            self.setDocumentTitle();
             self.unblockAjaxRequest();            
           }
         }
@@ -291,6 +300,8 @@ var NewestProjects = Class.$extend( {
       $("#projectContainer").append(containerContent);
       $("#projectContainer").append($("<div />").addClass("projectListSpacer"));
       $("#projectContainer").append($("<div />").addClass("webMainNavigationButtons").append(navigationButtonNext.attr("id", "moreProjects").append($("<span />").addClass("navigationButtons"))));
+      
+      $("#projectContainer").append($("<div />").append($("<input />").attr("type", "hidden").attr("id", "ajax-loader")));
     }
   },
   
