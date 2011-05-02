@@ -39,9 +39,15 @@ class index extends CoreAuthenticationNone {
     
     if(!$this->session->pageNr) {      
       $this->session->pageNr = 1;
+      $this->session->task = "newestProjects";
     }
-    if(isset($_REQUEST['method'])) {
-      $this->session->pageNr = intval($_REQUEST['method']);
+    if(isset($_REQUEST['method']) || isset($_REQUEST['p'])) {
+    	if(isset($_REQUEST['method'])) {
+        $this->session->pageNr = intval($_REQUEST['method']);
+    	}
+      if(isset($_REQUEST['p'])) {
+        $this->session->pageNr = intval($_REQUEST['p']);
+      }
       if($this->session->pageNr < 1) {
         $this->session->pageNr = 1;
       }
@@ -49,9 +55,16 @@ class index extends CoreAuthenticationNone {
         $this->session->pageNr = $this->numberOfPages - 1; 
       }
     }
-    if (($this->session->referer  == "") || ($this->session->referer != $_SERVER['HTTP_REFERER'])) {
+    if(!$this->session->referer) {
+    	$this->session->referer = $_SERVER['HTTP_REFERER'];
+    }
+    if($this->session->referer != $_SERVER['HTTP_REFERER']) {
       $this->session->referer = $_SERVER['HTTP_REFERER'];
       $this->session->task = "newestProjects";
+    }
+    
+    if(isset($_REQUEST['q'])) {
+    	$this->session->searchQuery = $_REQUEST['q'];
     }
       
     $this->task = $this->session->task;

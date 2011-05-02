@@ -29,6 +29,7 @@ define('PROJECTS_QR_EXTENTION','_qr.png');
 define('PROJECTS_QR_SERVICE_URL','http://qrcode.kaywa.com/img.php?s=5&d=');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
+define('PROJECTS_THUMBNAIL_EXTENTION_GRAY','_gray.jpg');
 define('PROJECTS_THUMBNAIL_EXTENTION_SMALL','_small.jpg');
 define('PROJECTS_THUMBNAIL_EXTENTION_LARGE','_large.jpg');
 define('PROJECTS_EXTENTION','.zip');

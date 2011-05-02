@@ -81,7 +81,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
         $projects[$i]['title'] = "Your search returned no results";
         $projects[$i]['title_short'] = "Your search returned no results";
         $projects[$i]['upload_time'] =  "";
-        $projects[$i]['thumbnail'] = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
+        $projects[$i]['thumbnail'] = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_GRAY;
       }              
       return($projects);
     } else {
