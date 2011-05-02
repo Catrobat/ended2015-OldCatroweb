@@ -24,39 +24,43 @@
               <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('terms_of_use_title')?></div>
                 <div class="licenseMain">            	
             	  <div class ="whiteBoxMain">
-            	    <div class="licenseText"><p class="licenseText">
-            	      Welcome to the Catroid community!
-					As part of the Catroid community, you are sharing projects and ideas with people:
-					<br>
-					</p>
-					<ul>
-					  <li>from many different countries and cultures</li>
-					  <li>of all ages (from young children to teens and grandparents)</li>
-					  <li>with all levels of experience</li>
-					</ul>
-<p class ="licenseText">We need your help to make this community a supportive place for every member. Here's how you can help:</p>
-<ul>
-<li>Be respectful. When sharing projects remember that people of many different ages and backgrounds will see your contributions.</li>
-<li>Give credit. Feel free to make modified versions of other people's projects - just make sure to give them credit. One place to give credit is in your Project description.</li>
-<li>Be honest. Don't pretend to be someone other than who you are or try to trick the community.</li>
-<li>Keep personal information private. Don't share your email address, phone number, or other personal contact information.</li>
-
-<li>Help keep the site friendly. If you feel others would find a project or comment mean, insulting, too violent, or otherwise inappropriate,  
-click the link that says <i>"report as inappropriate"</i>. The Catroid team will review, and may remove any project, comment or post.</li>
-</ul>
-<p class ="licenseText">
-All projects shared on the Catroid website, as well as the Catroid support materials, are shared under the Creative Commons license with the conditions <a class = "nolink" href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">Attribution - Share Alike</a>.
-<br><br>
-The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">GNU General Public License</a>, 
-the source code of the website is available under the <a href="http://www.gnu.org/licenses/agpl.html" target="_blank">GNU Affero General Public License</a>.
-<br><br>
-You can visit the project at <a href="http://code.google.com/p/catroid" target="_blank">Google Code</a>.<br>
-<br>Check back here from time-to-time, because we are always trying to improve our guidelines. Please mail any suggestions regarding these Terms of Use to 
-<a href="mailto:webmaster@catroid.org?subject=Terms of Use">webmaster@catroid.org</a>.
-<br><br>
-Thank you for joining and contributing to the Catroid community!
-<br><br>
-The Catroid Team</p>
+            	    <div class="licenseText">
+            	      <p class="licenseText">
+            	        <?php echo $this->languageHandler->getString('terms_of_use_catroid_community_list_head')?>
+					  </p>
+					  <ul>
+					    <li><?php echo $this->languageHandler->getString('terms_of_use_catroid_community_list_element1')?></li>
+					    <li><?php echo $this->languageHandler->getString('terms_of_use_catroid_community_list_element2')?></li>
+					    <li><?php echo $this->languageHandler->getString('terms_of_use_catroid_community_list_element3')?></li>
+					  </ul>
+					  <p class ="licenseText">
+					  	<?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_head')?>
+					  </p>
+					  <ul>
+						<li><?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_element1')?></li>
+						<li><?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_element2')?></li>
+						<li><?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_element3')?></li>
+						<li><?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_element4')?></li>
+						<li><?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_element5')?></li>
+					  </ul>
+					  <p class ="licenseText">
+					  	<?php echo $this->languageHandler->getString('terms_of_use_project_licence', 
+					  		'<a class = "nolink" href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">'.$this->languageHandler->getString('share_alike_licence_link').'</a>')?>
+						<br><br>
+						<?php echo $this->languageHandler->getString('terms_of_use_software_licence', 
+					  		'<a href="http://www.gnu.org/licenses/gpl.html" target="_blank">'.$this->languageHandler->getString('gnu_licence_link').'</a>',
+						    '<a href="http://www.gnu.org/licenses/agpl.html" target="_blank">'.$this->languageHandler->getString('gnu_affero_licence_link').'</a>')?>
+						<br><br>
+						<?php echo $this->languageHandler->getString('terms_of_use_google_code', 
+					  		'<a href="http://code.google.com/p/catroid" target="_blank">'.$this->languageHandler->getString('google_code_link').'</a>')?>
+						<br><br>
+						<?php echo $this->languageHandler->getString('terms_of_use_check_back', 
+					  		'<a href="mailto:'.CONTACT_EMAIL.'?subject=Terms of Use">'.CONTACT_EMAIL.'</a>')?>
+						<br><br>
+						<?php echo $this->languageHandler->getString('terms_of_use_thanks')?>
+						<br><br>
+						<?php echo $this->languageHandler->getString('terms_of_use_team')?>
+					  </p>
                    </div> <!-- License Text -->
                    </div> <!--  White Box -->            	
             	</div> <!--  license Main -->

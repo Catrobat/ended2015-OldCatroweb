@@ -29,10 +29,10 @@ class internationalizationTest extends PHPUnit_Framework_TestCase
   }
 
   public function testParseErrorMessage() {
-    $this->assertTrue($this->obj->errorHandler->checkParamCount('test $a test $B test $1, $ $2, $3, $4, $5, $6, $7, $8, $9, $10, $11;', 11));    
+    $this->assertTrue($this->obj->errorHandler->checkParamCount('test {*--*} test {*ÜÜ*} test {*1*}, {**} {*2*}, {*3*}, {*4*}, {*5*}, {*6*}, {*7*}, {*8*}, {*9*}, {*10*}, {*11*};', 11));    
     $this->assertEquals('test test test', $this->obj->errorHandler->parseErrorMessage('test test test', array()));
-    $this->assertEquals('test one test two test', $this->obj->errorHandler->parseErrorMessage('test $1 test $2 test', array('one', 'two')));
-    $this->assertEquals('test test test a, b, c, d, e, f, g, h, i, j, k;', $this->obj->errorHandler->parseErrorMessage('test test test $1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11;', array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k')));
+    $this->assertEquals('test one test two test', $this->obj->errorHandler->parseErrorMessage('test {*1*} test {*2*} test', array('one', 'two')));
+    $this->assertEquals('test test test a, b, c, d, e, f, g, h, i, j, k;', $this->obj->errorHandler->parseErrorMessage('test test test {*1*}, {*2*}, {*3*}, {*4*}, {*5*}, {*6*}, {*7*}, {*8*}, {*9*}, {*10*}, {*11*};', array('a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k')));
   }
 }
 ?>

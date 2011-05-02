@@ -36,7 +36,7 @@ class CoreLanguageHandler {
   private function setStrings() {
     $file = $this->getLanguageFile($this->className.'.xml');
     if(!$file) {
-      die("text string file not found!");
+      //die("text string file not found!"); //at least an english string xml file must exist for each module -> see phpunit/catroid/languageTest.php
       return false;
     }
 
@@ -53,7 +53,7 @@ class CoreLanguageHandler {
   private function setTemplateStrings() {
     $file = $this->getLanguageFile('template.xml');
     if(!$file) {
-      die("text string file not found!");
+      //die("text string file not found!"); //at least an english string xml file must exist for each module -> see phpunit/catroid/languageTest.php
       return false;
     }
 
@@ -106,6 +106,7 @@ class CoreLanguageHandler {
     $defaultLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.SITE_DEFAULT_LANGUAGE.'/'.$fileName;
     $selectedLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->language.'/'.$fileName;
     if(!file_exists($defaultLanguagefile)) {
+      //print "not exist: $defaultLanguagefile\n";
       return false;
     }
     if(!file_exists($selectedLanguagefile)) {

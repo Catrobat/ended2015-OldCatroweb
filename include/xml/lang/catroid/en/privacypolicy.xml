@@ -19,4 +19,23 @@
 
 <strings>
 	<string name="privacy_policy_title">Privacy Policy</string>
+	<string name="privacy_policy_contact_link">Contact Us</string>
+	<string name="privacy_policy_using_software_head">Using the Catroid Software</string>
+	<string name="privacy_policy_using_website_head">Using the Catroid Website</string>
+	<string name="privacy_policy_contact_head">Contacting Us</string>
+	<string name="privacy_policy_intro">
+		Your privacy and safety online are very important to us. To protect your privacy, we limit what we collect and what we publish on the website.
+	</string>
+	<string name="privacy_policy_using_software">
+		You do not have to tell us anything about yourselves to download the Catroid application software. When you download the
+		Catroid software, we give you the option of telling us some things about yourself, but you do not have to fill in any of this information if you don't want to.
+	</string>
+	<string name="privacy_policy_using_website">
+		You can try out projects on the Catroid website without registering or providing any information. As you use the website, we collect some data on where
+		you click and which parts of the site you visit. This "click data" helps us figure out ways to improve the website.
+		We do not sell or rent your information to anyone.
+	</string>
+	<string name="privacy_policy_contact">
+		If you have questions about this privacy policy, you can use the {*contactLink*} form.
+	</string>
 </strings>
