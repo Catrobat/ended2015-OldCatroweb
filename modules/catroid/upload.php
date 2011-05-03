@@ -189,18 +189,21 @@ class upload extends CoreAuthenticationNone {
     if ($thumbImage) {
       $w = imagesx($thumbImage);
       $h = imagesy($thumbImage);
-      
+            
+      $wsmall = 0; $hsmall = 0; $hsmallopt = intval(240*$h/$w);
+      $wlarge = 0; $hlarge = 0; $hlargeopt = intval(480*$h/$w);
+       
       // thumbnail with original filesize
       imagejpeg($thumbImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 100);
     
       // small thumbnail for preview 240x400 
-      $smallImage = imagecreatetruecolor(240, 400);
-      imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, 400, max(240, $w), max(400, $h)); 
+      $smallImage = imagecreatetruecolor(240, $hsmallopt);
+      imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, $hsmallopt, $w, $h); 
       imagejpeg($smallImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 50);
 
         // large thumbnail for details-view 480x800
-      $newImage = imagecreatetruecolor(480, 800);
-      imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, 800, max(480, $w), max(800, $h));
+      $newImage = imagecreatetruecolor(480, $hlargeopt);
+      imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, $hlargeopt, $w, $h);
       imagejpeg($newImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
     }
   } 

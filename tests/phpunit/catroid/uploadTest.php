@@ -379,12 +379,32 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctPostDataThumbailInRootFolderJPG() {
     $fileName = 'test_thumbnail_jpg.zip';
     $testFile = dirname(__FILE__).'/testdata/'.$fileName;
+    $testFileDir = dirname(__FILE__).'/testdata/';
     $fileChecksum = md5_file($testFile);
     $fileSize = filesize($testFile);
     $fileType = 'application/x-zip-compressed';
+    
+    $testFile1 = 'test_thumbnail_240x400.zip'; $testFileDir1 = $testFileDir.'test_thumbnail_240x400.zip';
+    $testFile2 = 'test_thumbnail_480x800.zip'; $testFileDir2 = $testFileDir.'test_thumbnail_480x800.zip';
+    $testFile3 = 'test_thumbnail_240x240.zip'; $testFileDir3 = $testFileDir.'test_thumbnail_240x240.zip';
+    $testFile4 = 'test_thumbnail_480x480.zip'; $testFileDir4 = $testFileDir.'test_thumbnail_480x480.zip';
+    $testFile5 = 'test_thumbnail_400x400.zip'; $testFileDir5 = $testFileDir.'test_thumbnail_400x400.zip';
+    $testFile6 = 'test_thumbnail_800x800.zip'; $testFileDir6 = $testFileDir.'test_thumbnail_800x800.zip';
+    $testFile7 = 'test_thumbnail_960x1600.zip'; $testFileDir7 = $testFileDir.'test_thumbnail_960x1600.zip';
+    $testFile8 = 'test_thumbnail_400x240.zip'; $testFileDir8 = $testFileDir.'test_thumbnail_400x240.zip';
+    $testFile9 = 'test_thumbnail_800x480.zip'; $testFileDir9 = $testFileDir.'test_thumbnail_800x480.zip';
+    
     $dataArray = array(
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
-    // array('unitTest', 'my project description with thumbnail in images folder.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+    array('unitTest', 'my project description with thumbnail of type JPG in root folder and default thumbnail.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 240x400.', $testFileDir1, $testFile1, md5_file($testFileDir1), filesize($testFileDir1), $fileType),
+    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 480x800.', $testFileDir2, $testFile2, md5_file($testFileDir2), filesize($testFileDir2), $fileType),
+    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 240x240.', $testFileDir3, $testFile3, md5_file($testFileDir3), filesize($testFileDir3), $fileType),
+    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 480x480.', $testFileDir4, $testFile4, md5_file($testFileDir4), filesize($testFileDir4), $fileType),
+    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 400x400.', $testFileDir5, $testFile5, md5_file($testFileDir5), filesize($testFileDir5), $fileType),
+    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 800x800.', $testFileDir6, $testFile6, md5_file($testFileDir6), filesize($testFileDir6), $fileType),
+    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 960x1600.', $testFileDir7, $testFile7, md5_file($testFileDir7), filesize($testFileDir7), $fileType),
+    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 400x240.', $testFileDir8, $testFile8, md5_file($testFileDir8), filesize($testFileDir8), $fileType),
+    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 800x480.', $testFileDir9, $testFile9, md5_file($testFileDir9), filesize($testFileDir9), $fileType)
     );
     return $dataArray;
   }
