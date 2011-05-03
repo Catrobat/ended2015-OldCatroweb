@@ -173,7 +173,7 @@ var NewestProjects = Class.$extend( {
 
   prevPage : function() {
     if(this.blockAjaxRequest()) {
-      $("#moreProjects").children("span").html(this.pageLabels['loadingButton']);
+      $("#fewerProjects").children("span").html(this.pageLabels['loadingButton']);
       
       this.pageContent.current = this.pageContent.prev.concat(this.pageContent.current);
       this.pageNr.current--;
@@ -296,10 +296,12 @@ var NewestProjects = Class.$extend( {
       var navigationButtonNext = $("<button />").addClass("navigationButtons").addClass("button").addClass("white").addClass("medium").attr("type", "button");
 
       $("#projectContainer").append($("<div />").addClass("webMainNavigationButtons").append(navigationButtonPrev.attr("id", "fewerProjects").append($("<span />").addClass("navigationButtons"))));
+      $("#fewerProjects").toggle(false);
       $("#projectContainer").append($("<div />").addClass("projectListSpacer"));
       $("#projectContainer").append(containerContent);
       $("#projectContainer").append($("<div />").addClass("projectListSpacer"));
       $("#projectContainer").append($("<div />").addClass("webMainNavigationButtons").append(navigationButtonNext.attr("id", "moreProjects").append($("<span />").addClass("navigationButtons"))));
+      $("#moreProjects").toggle(false);
       
       $("#projectContainer").append($("<div />").append($("<input />").attr("type", "hidden").attr("id", "ajax-loader")));
     }
@@ -310,18 +312,6 @@ var NewestProjects = Class.$extend( {
     $("#projectListTitle").text(this.pageLabels['title']);
     $("#fewerProjects").children("span").html(this.pageLabels['prevButton']);
     $("#moreProjects").children("span").html(this.pageLabels['nextButton']);
-    
-    if(this.pageContent.prev == "NIL") {
-      $("#fewerProjects").toggle(false);
-    } else {
-      $("#fewerProjects").toggle(true);
-    }
-
-    if(this.pageContent.next == "NIL") {
-      $("#moreProjects").toggle(false);
-    } else {
-      $("#moreProjects").toggle(true);
-    }
 
     var content = this.pageContent.current;
     for(var i=0; i<this.maxVisibleProjects; i++) {
@@ -346,6 +336,17 @@ var NewestProjects = Class.$extend( {
         $("#whiteBox"+i).css("display", "none");
         $("#projectListSpacer"+i).css("display", "none");
       }
+    }
+    if(this.pageContent.prev == "NIL") {
+      $("#fewerProjects").toggle(false);
+    } else {
+      $("#fewerProjects").toggle(true);
+    }
+
+    if(this.pageContent.next == "NIL") {
+      $("#moreProjects").toggle(false);
+    } else {
+      $("#moreProjects").toggle(true);
     }
   }
 });

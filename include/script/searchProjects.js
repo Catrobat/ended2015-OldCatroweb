@@ -55,8 +55,8 @@ var SearchProjects = Class.$extend( {
     }
   },
   
-  setDocumentTitle : function(title) {
-    document.title = "Catroid Website - " + title;  // TODO
+  setDocumentTitle : function() {
+    document.title = this.pageLabels['websitetitle'] + " - " + this.pageLabels['title'] + " - " + this.searchQuery  + " - " + this.pageNr.current;
   },
   
   setActive : function() {
@@ -82,8 +82,7 @@ var SearchProjects = Class.$extend( {
       stateObject.pageContent = this.pageContent;
       stateObject.searchProjects = true;
 	      
-      history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/search/?q=" + this.searchQuery + "&p=" + this.pageNr.current);
-      this.setDocumentTitle("search for " + this.searchQuery + " : page " + this.pageNr.current);
+      history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/search/?q=" + this.searchQuery + "&p=" + this.pageNr.current);      
     }
     this.saveStateToSession(this.pageNr.current);
   },
@@ -105,7 +104,7 @@ var SearchProjects = Class.$extend( {
       $("#headerSearchBox").toggle(true);
       $("#searchQuery").focus();
       
-      this.setDocumentTitle("search for " + this.searchQuery + " : page " + this.pageNr.current);
+      this.setDocumentTitle();
       this.fillSkeletonWithContent();
       this.initialized = true;
     }
@@ -130,7 +129,8 @@ var SearchProjects = Class.$extend( {
   blockAjaxRequest : function() {
     if(!this.ajaxRequestMutex) {
       this.ajaxRequestMutex = true;
-      $("#projectContainer").fadeTo(100, 0.20);
+      $("#projectContainer").fadeTo(100, 0.60);
+      $("#ajax-loader").val("on");
       return true;
     }
     return false;
@@ -138,6 +138,7 @@ var SearchProjects = Class.$extend( {
 	  
   unblockAjaxRequest : function() {
     $("#projectContainer").fadeTo(10, 1.0);
+    $("#ajax-loader").val("off");
     this.ajaxRequestMutex = false;
   },
 
@@ -161,7 +162,8 @@ var SearchProjects = Class.$extend( {
   },
 
   nextPage : function() {
-    if(this.blockAjaxRequest()) {            
+    if(this.blockAjaxRequest()) {     
+      $("#moreProjects").children("span").html(this.pageLabels['loadingButton']);
       this.pageContent.current = this.pageContent.current.concat(this.pageContent.next);
       this.pageNr.current++;
       
@@ -180,6 +182,7 @@ var SearchProjects = Class.$extend( {
 
   prevPage : function() {
     if(this.blockAjaxRequest()) {
+      $("#fewerProjects").children("span").html(this.pageLabels['loadingButton']);      
       this.pageContent.current = this.pageContent.prev.concat(this.pageContent.current);
       this.pageNr.current--;
 
@@ -197,19 +200,24 @@ var SearchProjects = Class.$extend( {
   },
 
   triggerSearch : function(loadAndCache) {
-    if(this.searchQuery != $("#searchQuery").val()) {    
-      this.searchQuery = $("#searchQuery").val();
+    if(this.searchQuery != $("#searchQuery").val()) {
+      if(this.blockAjaxRequest()) {
+        this.searchQuery = $("#searchQuery").val();
       
-      this.pageContent.prev = "NIL";
-      this.pageContent.current = null;
-      this.pageContent.next = null;
+        this.pageContent.prev = "NIL";
+        this.pageContent.current = null;
+        this.pageContent.next = null;
 
-      this.pageNr.prev = 0;
-      this.pageNr.current = 1;
-      this.pageNr.next = 2;
+        this.pageNr.prev = 0;
+        this.pageNr.current = 1;
+        this.pageNr.next = 2;
       
-      if(loadAndCache) {
-        this.loadAndCachePage();
+        if(loadAndCache) {
+          this.loadAndCachePage();
+        }
+        else {
+          this.unblockAjaxRequest();
+        }
       }
     }
   },
@@ -258,6 +266,8 @@ var SearchProjects = Class.$extend( {
           if(self.pageContent.prev != null && self.pageContent.current != null && self.pageContent.next != null) {
             self.fillSkeletonWithContent();
             self.saveHistoryState();
+            self.saveStateToSession(self.pageNr.current);
+            self.setDocumentTitle();
             self.unblockAjaxRequest();            
           }
         }
@@ -317,10 +327,14 @@ var SearchProjects = Class.$extend( {
       var navigationButtonNext = $("<button />").addClass("navigationButtons").addClass("button").addClass("white").addClass("medium").attr("type", "button");
 
       $("#projectContainer").append($("<div />").addClass("webMainNavigationButtons").append(navigationButtonPrev.attr("id", "fewerProjects").append($("<span />").addClass("navigationButtons"))));
+      $("#fewerProjects").toggle(false);
       $("#projectContainer").append($("<div />").addClass("projectListSpacer"));
       $("#projectContainer").append(containerContent);
       $("#projectContainer").append($("<div />").addClass("projectListSpacer"));
       $("#projectContainer").append($("<div />").addClass("webMainNavigationButtons").append(navigationButtonNext.attr("id", "moreProjects").append($("<span />").addClass("navigationButtons"))));
+      $("#moreProjects").toggle(false);
+      
+      $("#projectContainer").append($("<div />").append($("<input />").attr("type", "hidden").attr("id", "ajax-loader")));
     }
   },
   
@@ -329,18 +343,6 @@ var SearchProjects = Class.$extend( {
     $("#projectListTitle").text(this.pageLabels['title']);
     $("#fewerProjects").children("span").html(this.pageLabels['prevButton']);
     $("#moreProjects").children("span").html(this.pageLabels['nextButton']);
-    
-    if(this.pageContent.prev == "NIL") {
-      $("#fewerProjects").toggle(false);
-    } else {
-      $("#fewerProjects").toggle(true);
-    }
-
-    if(this.pageContent.next == "NIL") {
-      $("#moreProjects").toggle(false);
-    } else {
-      $("#moreProjects").toggle(true);
-    }
 
     var content = this.pageContent.current;
     for(var i=0; i<this.maxVisibleProjects; i++) {
@@ -380,6 +382,17 @@ var SearchProjects = Class.$extend( {
         $("#whiteBox"+i).css("display", "none");
         $("#projectListSpacer"+i).css("display", "none");
       }
+    }    
+    if(this.pageContent.prev == "NIL") {
+      $("#fewerProjects").toggle(false);
+    } else {
+      $("#fewerProjects").toggle(true);
+    }
+
+    if(this.pageContent.next == "NIL") {
+      $("#moreProjects").toggle(false);
+    } else {
+      $("#moreProjects").toggle(true);
     }
   }
 });

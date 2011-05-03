@@ -34,9 +34,11 @@ class loadSearchProjects extends CoreAuthenticationNone {
     }
     
     $labels = array();
+    $labels['websitetitle'] = "Catroid Website";
     $labels['title'] = "Search Results";
     $labels['prevButton'] = "&laquo; Previous";
     $labels['nextButton'] = "Next &raquo;";
+    $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
     $this->labels = $labels;
 
     $this->content = $this->retrieveSearchResultsFromDatabase($this->searchQuery, $this->pageNr);
@@ -55,13 +57,16 @@ class loadSearchProjects extends CoreAuthenticationNone {
     foreach($searchTerms as $term) {
       $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$".$keywordsCount;
       $searchQuery .= " OR description ILIKE \$".$keywordsCount;
-      $searchRequest .= ", '%".strtolower($term)."%'";
+      $s = pg_escape_string(preg_replace("/\\\/", "\\\\\\", $term));
+      $s = preg_replace(array("/\%/", "/\_/"), array("\\\\\%", "\\\\\_"), $s);
+      //$searchRequest .= ", '%".pg_escape_string(preg_replace(array("/%/","/\\\/"), array("\%","\\\\\\"), $term))."%'";      
+      $searchRequest .= ", '%".$s."%'";      
       $keywordsCount++;
     }
   	
   	pg_prepare($this->dbConnection, "get_search_results", "SELECT * FROM projects WHERE $searchQuery ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")
   	or die("Couldn't prepare statement: " . pg_last_error());
-    $query = 'EXECUTE get_search_results('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).$searchRequest.');';
+    $query = 'EXECUTE get_search_results('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).$searchRequest.');';    
   	$result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
   	$projects = pg_fetch_all($result);
   	pg_query('DEALLOCATE get_search_results');
