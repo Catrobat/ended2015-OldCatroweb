@@ -22,12 +22,6 @@ class loadNewestProjects extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-  }
-
-  public function __default() {
-    if(isset($_REQUEST['method'])) {
-      $this->pageNr = intval($_REQUEST['method'])-1;
-    }
     
     $labels = array();
     $labels['websitetitle'] = "Catroid Website";
@@ -36,7 +30,13 @@ class loadNewestProjects extends CoreAuthenticationNone {
     $labels['nextButton'] = "Older &raquo;";
     $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
     $this->labels = $labels;
+  }
 
+  public function __default() {
+    if(isset($_REQUEST['method'])) {
+      $this->pageNr = intval($_REQUEST['method'])-1;
+    }    
+    
     $this->content = $this->retrievePageNrFromDatabase($this->pageNr);
   }
 

@@ -23,6 +23,14 @@ class loadSearchProjects extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
+    
+    $labels = array();
+    $labels['websitetitle'] = "Catroid Website";
+    $labels['title'] = "Search Results";
+    $labels['prevButton'] = "&laquo; Previous";
+    $labels['nextButton'] = "Next &raquo;";
+    $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
+    $this->labels = $labels;
   }
 
   public function __default() {
@@ -32,14 +40,6 @@ class loadSearchProjects extends CoreAuthenticationNone {
     if(isset($_REQUEST['page'])) {
       $this->pageNr = intval($_REQUEST['page'])-1;
     }
-    
-    $labels = array();
-    $labels['websitetitle'] = "Catroid Website";
-    $labels['title'] = "Search Results";
-    $labels['prevButton'] = "&laquo; Previous";
-    $labels['nextButton'] = "Next &raquo;";
-    $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
-    $this->labels = $labels;
 
     $this->content = $this->retrieveSearchResultsFromDatabase($this->searchQuery, $this->pageNr);
   }

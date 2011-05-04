@@ -32,9 +32,15 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
     $this->upload = new upload();        
   } 
   
+  public function testCheckLabels() {
+    $this->assertEquals($this->obj->labels['websitetitle'], "Catroid Website");
+    $this->assertEquals($this->obj->labels['title'], "Search Results");
+    $this->assertEquals($this->obj->labels['prevButton'], "&laquo; Previous");
+    $this->assertEquals($this->obj->labels['nextButton'], "Next &raquo;");
+    $this->assertEquals($this->obj->labels['loadingButton'], "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...");
+  }  
 
-  public function testRetrieveSearchResultsFromDatabaseSuccess() {  
-    return;
+  public function testRetrieveSearchResultsFromDatabaseSuccess() {
     $this->uniqueString = "";
     $randomStrings =  $this->randomLongStrings();
     $this->uniqueString = $randomStrings[0][0];
@@ -42,15 +48,14 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
     
     // retrieve first page from database
     $projects = $this->obj->retrieveSearchResultsFromDatabase($this->uniqueString, 0);
-    $i = PROJECT_PAGE_LOAD_MAX_PROJECTS - 1;
+    $i = PROJECT_PAGE_LOAD_MAX_PROJECTS;
     foreach($projects as $project) {
-      $this->assertEquals('unitTest'.$i--, $project['title']);
+      $this->assertEquals('unitTest'.($i--), $project['title']);
     }
 
     $query = 'SELECT * FROM projects WHERE title ILIKE \''.$this->uniqueString.'\' OR description ILIKE \''.$this->uniqueString.'\' ORDER BY upload_time DESC  LIMIT '.(PROJECT_PAGE_LOAD_MAX_PROJECTS).' OFFSET 0';
             
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
-    print_r($result);
     $numDbEntries =  pg_num_rows($result);
     
     // test that projects is$numDbEntries a valid db serach result

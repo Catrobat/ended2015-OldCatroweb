@@ -161,9 +161,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
 
     $this->assertTrue($this->selenium->isVisible("fewerProjects"));
     $this->assertTrue($this->selenium->isTextPresent($this->labels['prevButton']));
-    $this->selenium->click("fewerProjects");
-    $this->assertTrue($this->selenium->isElementPresent("//img[@src='".TESTS_BASE_PATH."images/symbols/ajax-loader.gif']"));
-    $this->assertTrue($this->selenium->isTextPresent($this->labels['loadingButton']));
+    $this->selenium->click("fewerProjects");    
     $this->ajaxWait();
     $this->assertRegExp("/".$this->labels['websitetitle']." - ".$this->labels['title']." - ".($i)."/", $this->selenium->getTitle());
 
