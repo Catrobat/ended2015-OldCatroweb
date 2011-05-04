@@ -44,7 +44,9 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECTS_MAX_SIZE, 104857600);
     $this->assertEquals(PROJECT_TITLE_MAX_DISPLAY_LENGTH, 20);
     $this->assertEquals(PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, 178);
-    $this->assertEquals(PROJECT_PAGE_MAX_PROJECTS, 5);
+    $this->assertEquals(PROJECT_PAGE_LOAD_MAX_PROJECTS, 5);
+    $this->assertEquals(PROJECT_PAGE_SHOW_MAX_PROJECTS, 25);
+    $this->assertEquals(PROJECT_PAGE_SHOW_MAX_PROJECTS%PROJECT_PAGE_LOAD_MAX_PROJECTS, 0);
     $this->assertEquals(PROJECT_ROW_MAX_PROJECTS, 3);
     $this->assertEquals(PROJECT_FLAG_NOTIFICATION_THRESHOLD, 1);
     $this->assertEquals(PROJECT_DEFAULT_SAVEFILE_NAME, 'defaultProject');
