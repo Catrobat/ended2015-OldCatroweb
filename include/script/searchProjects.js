@@ -82,7 +82,7 @@ var SearchProjects = Class.$extend( {
       stateObject.pageContent = this.pageContent;
       stateObject.searchProjects = true;
 	      
-      history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/search/?q=" + this.searchQuery + "&p=" + this.pageNr.current);      
+      history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/search/?q=" + escape(this.searchQuery) + "&p=" + this.pageNr.current);      
     }
     this.saveStateToSession(this.pageNr.current);
   },
@@ -196,13 +196,14 @@ var SearchProjects = Class.$extend( {
       }
 
       this.loadAndCachePage();
-	}
+	  }
   },
 
   triggerSearch : function(loadAndCache) {
-    if(this.searchQuery != $("#searchQuery").val()) {
+    var search = $.trim($("#searchQuery").val());    
+    if(search != "" && this.searchQuery != search) {
       if(this.blockAjaxRequest()) {
-        this.searchQuery = $("#searchQuery").val();
+        this.searchQuery = search;
       
         this.pageContent.prev = "NIL";
         this.pageContent.current = null;
@@ -237,8 +238,13 @@ var SearchProjects = Class.$extend( {
   requestPage : function(pageNr) {
     var self = this;
     $.ajax({
-      url: self.basePath+"catroid/loadSearchProjects/result.json?query="+self.searchQuery+"&page="+pageNr,
+      url: self.basePath+"catroid/loadSearchProjects/result.json",//?query="+self.searchQuery+"&page="+pageNr,
       cache: false,
+      type : "POST",
+      data : {
+        query : self.searchQuery,
+        page : pageNr 
+      },
       timeout: (5000),
     
       success: function(result){

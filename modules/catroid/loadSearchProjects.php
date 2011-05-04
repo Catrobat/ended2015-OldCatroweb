@@ -55,13 +55,15 @@ class loadSearchProjects extends CoreAuthenticationNone {
   	$searchRequest = "";
 
     foreach($searchTerms as $term) {
-      $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$".$keywordsCount;
-      $searchQuery .= " OR description ILIKE \$".$keywordsCount;
-      $s = pg_escape_string(preg_replace("/\\\/", "\\\\\\", $term));
-      $s = preg_replace(array("/\%/", "/\_/"), array("\\\\\%", "\\\\\_"), $s);
-      //$searchRequest .= ", '%".pg_escape_string(preg_replace(array("/%/","/\\\/"), array("\%","\\\\\\"), $term))."%'";      
-      $searchRequest .= ", '%".$s."%'";      
-      $keywordsCount++;
+      if ($term != "") { 
+        $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$".$keywordsCount;
+        $searchQuery .= " OR description ILIKE \$".$keywordsCount;
+        $s = pg_escape_string(preg_replace("/\\\/", "\\\\\\", $term));
+        $s = preg_replace(array("/\%/", "/\_/"), array("\\\\\%", "\\\\\_"), $s);
+        //$searchRequest .= ", '%".pg_escape_string(preg_replace(array("/%/","/\\\/"), array("\%","\\\\\\"), $term))."%'";      
+        $searchRequest .= ", '%".$s."%'";      
+        $keywordsCount++;
+      }
     }
   	
   	pg_prepare($this->dbConnection, "get_search_results", "SELECT * FROM projects WHERE $searchQuery ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")

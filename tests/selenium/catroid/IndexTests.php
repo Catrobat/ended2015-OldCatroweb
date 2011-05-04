@@ -138,6 +138,8 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("xpath=//div[@id='aIndexWebLogoLeft']");
     $this->ajaxWait();
     $this->assertRegExp("/catroid\/index/", $this->selenium->getLocation());
+    
+    
   }
 
   public function testPageNavigation()
