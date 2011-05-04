@@ -54,7 +54,6 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
     }
 
     $query = 'SELECT * FROM projects WHERE title ILIKE \''.$this->uniqueString.'\' OR description ILIKE \''.$this->uniqueString.'\' ORDER BY upload_time DESC  LIMIT '.(PROJECT_PAGE_LOAD_MAX_PROJECTS).' OFFSET 0';
-            
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $numDbEntries =  pg_num_rows($result);
     
@@ -70,7 +69,7 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
     $this->deleteUploadedProjects();
   }
   
-public function testRetrieveSearchResultsFromDatabaseFail() {  
+  public function testRetrieveSearchResultsFromDatabaseFail() {  
     $this->uniqueString = "";  
     $randomStrings =  $this->randomLongStrings();
     $this->uniqueString = $randomStrings[0][0];  
@@ -96,8 +95,8 @@ public function testRetrieveSearchResultsFromDatabaseFail() {
     $specialStrings = $this->specialCharStrings();
     foreach($specialStrings as $specialString) {
       $this->doUpload($specialString,1);
-      $this->doUpload("",2);        
-      
+      $this->doUpload("",2);
+
       for($i=0; $i<mb_strlen($specialString,'UTF-8'); $i++) {
         $char = mb_substr($specialString, $i, 1,'UTF-8');
         $projects = $this->obj->retrieveSearchResultsFromDatabase($char, 0);
@@ -143,8 +142,7 @@ public function testRetrieveSearchResultsFromDatabaseFail() {
        $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
        $this->assertTrue(is_string($this->upload->answer));
        array_push($this->insertIDArray, $insertId);
-    }
-    
+    }    
   }    
 
   public function deleteUploadedProjects()  {
@@ -186,7 +184,6 @@ public function testRetrieveSearchResultsFromDatabaseFail() {
       }
       $returnArray[$i] = array($str);
     }
-
     return $returnArray;
   }
   

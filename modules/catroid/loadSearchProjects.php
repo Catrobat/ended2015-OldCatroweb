@@ -58,15 +58,14 @@ class loadSearchProjects extends CoreAuthenticationNone {
       if ($term != "") { 
         $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$".$keywordsCount;
         $searchQuery .= " OR description ILIKE \$".$keywordsCount;
-        $s = pg_escape_string(preg_replace("/\\\/", "\\\\\\", $term));
-        $s = preg_replace(array("/\%/", "/\_/"), array("\\\\\%", "\\\\\_"), $s);
-        //$searchRequest .= ", '%".pg_escape_string(preg_replace(array("/%/","/\\\/"), array("\%","\\\\\\"), $term))."%'";      
-        $searchRequest .= ", '%".$s."%'";      
+        $searchTerm = pg_escape_string(preg_replace("/\\\/", "\\\\\\", $term));
+        $searchTerm = preg_replace(array("/\%/", "/\_/"), array("\\\\\%", "\\\\\_"), $searchTerm);
+        $searchRequest .= ", '%".$searchTerm."%'";      
         $keywordsCount++;
       }
     }
   	
-  	pg_prepare($this->dbConnection, "get_search_results", "SELECT * FROM projects WHERE $searchQuery ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")
+  	pg_prepare($this->dbConnection, "get_search_results", "SELECT id, title, upload_time FROM projects WHERE $searchQuery ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")
   	or die("Couldn't prepare statement: " . pg_last_error());
     $query = 'EXECUTE get_search_results('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).$searchRequest.');';    
   	$result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());

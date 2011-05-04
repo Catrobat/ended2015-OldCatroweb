@@ -50,6 +50,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
 
   public function tearDown()
   {
+    $this->deleteUploadedProjects();
     $this->selenium->stop();
   }
 
@@ -98,7 +99,6 @@ class IndexTests extends PHPUnit_Framework_TestCase
     //test page title
     $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
     $this->assertTrue($this->selenium->isTextPresent($this->labels['title']));
-    $this->assertTrue($this->selenium->isTextPresent($this->labels['nextButton']));
 
     // test catroid header text
     $this->assertTrue($this->selenium->isElementPresent("xpath=//img[@class='catroidLettering']"));
@@ -138,8 +138,6 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("xpath=//div[@id='aIndexWebLogoLeft']");
     $this->ajaxWait();
     $this->assertRegExp("/catroid\/index/", $this->selenium->getLocation());
-    
-    
   }
 
   public function testPageNavigation()
@@ -153,8 +151,9 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->assertRegExp("/Catroid Website/", $this->selenium->getTitle());
     $this->assertFalse($this->selenium->isVisible("fewerProjects"));
     $this->assertTrue($this->selenium->isVisible("moreProjects"));
+    $this->assertTrue($this->selenium->isTextPresent($this->labels['nextButton']));
     
-    $clickCount = ceil(PROJECT_PAGE_SHOW_MAX_PROJECTS / PROJECT_PAGE_LOAD_MAX_PROJECTS) + 1;
+    $clickCount = ceil(PROJECT_PAGE_SHOW_MAX_PROJECTS / PROJECT_PAGE_LOAD_MAX_PROJECTS);
     for($i=0; $i<$clickCount; $i++) {
       $this->selenium->click("moreProjects");
       $this->ajaxWait();
@@ -186,8 +185,6 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("aIndexWebLogoLeft");
     $this->ajaxWait();
     $this->assertRegExp("/".$this->labels['websitetitle']." - ".$this->labels['title']." - 1/", $this->selenium->getTitle());
-    
-    $this->deleteUploadedProjects();
   }
 
   // upload a test project via cURL-request
