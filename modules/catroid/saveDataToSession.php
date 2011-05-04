@@ -1,6 +1,6 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2011 The Catroid Team 
+ *    Copyright (C) 2010-2011 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
@@ -16,20 +16,34 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+class saveDataToSession extends CoreAuthenticationNone {
+
+  public function __construct() {
+    parent::__construct();
+  }
+
+  public function __default() {
+    $this->data=$_REQUEST['content'];    
+    if(isset($_POST['content'])) {
+      foreach($_POST['content'] as $key => $value) {
+        $this->saveData($key, $value);                
+      }
+    }
+  }
+  
+  private function saveData($key,$value) {
+    switch($key) {
+      case 'pageNr': 
+        $this->session->pageNr = $value;
+        break;
+      case 'searchQuery':
+        $this->session->searchQuery = $value;
+        break;
+      case 'task':
+        $this->session->task = $value;
+        break;
+    }
+  }
+}
 ?>
-    <div class="webMainMiddle">
-      <div class="blueBoxMain">
-        <div class="webMainContent">
-          <div id="projectListTitle" class="webMainContentTitle"></div>          
-          <div id="projectContainer">
-            <noscript>
-               <div class="projectListRow">
-                 <div class="whiteBoxMain">
-                   <div class="webMainContentTitle">Please enable javascript in your browser.</div>                   
-                 </div>
-               </div>
-            </noscript>  
-          </div>        
-        </div> <!-- mainContent close //-->
-      </div> <!-- blueBoxMain close //-->
-    </div> <!--  WEBMAINMIDDLE -->

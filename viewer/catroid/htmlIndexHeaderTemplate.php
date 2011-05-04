@@ -19,7 +19,7 @@
 ?>
     <script type="text/javascript">
       $(document).ready(function() {
-        new NewestProjects(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->numberOfPages."'"; ?>);
+        new Index(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_LOAD_MAX_PROJECTS."', '".PROJECT_PAGE_SHOW_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->module->session->searchQuery."', '".$this->module->session->task."'"; ?>);
         new HeaderMenu(<?php echo "'".BASE_PATH."'"; ?>);
       });
     </script>
@@ -27,9 +27,7 @@
       <div class="blueBoxMain">
         <div class="webMainHead">
           <div id="aIndexWebLogoLeft" class="webHeadLogo">
-            <a id="aIndexWebLogoLeft" href="<?php echo BASE_PATH?>catroid/index">
-            <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
-            </a>
+            <img id="aIndexWebLogoLeft" class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
           </div>
           <div class="webHeadTitle">
             <div class="webHeadTitleName">
@@ -54,8 +52,8 @@
         <div class="webHeadSearchBoxSpacer"></div>
         <div class="blueBoxMain">
           <div class="webMainHead">
-            <form>
-              <input type="search" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
+            <form id="searchForm">
+              <input id="searchQuery" type="search" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
               <input type="submit" class="webHeadSearchSubmit" value="Search" />
             </form>
           </div>

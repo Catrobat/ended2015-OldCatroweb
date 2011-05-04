@@ -17,37 +17,60 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class loadNewestProjects extends CoreAuthenticationNone {
+class loadSearchProjects extends CoreAuthenticationNone {
   protected $pageNr = 0;
+  protected $searchQuery = "";
 
   public function __construct() {
     parent::__construct();
     
     $labels = array();
     $labels['websitetitle'] = "Catroid Website";
-    $labels['title'] = "Newest Projects";
-    $labels['prevButton'] = "&laquo; Newer";
-    $labels['nextButton'] = "Older &raquo;";
+    $labels['title'] = "Search Results";
+    $labels['prevButton'] = "&laquo; Previous";
+    $labels['nextButton'] = "Next &raquo;";
     $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
     $this->labels = $labels;
   }
 
   public function __default() {
-    if(isset($_REQUEST['method'])) {
-      $this->pageNr = intval($_REQUEST['method'])-1;
-    }    
-    
-    $this->content = $this->retrievePageNrFromDatabase($this->pageNr);
+    if(isset($_REQUEST['query'])) {
+    	$this->searchQuery = $_REQUEST['query'];
+    }
+    if(isset($_REQUEST['page'])) {
+      $this->pageNr = intval($_REQUEST['page'])-1;
+    }
+
+    $this->content = $this->retrieveSearchResultsFromDatabase($this->searchQuery, $this->pageNr);
   }
 
-  public function retrievePageNrFromDatabase($pageNr) {
-  	if($pageNr < 0) {
+  public function retrieveSearchResultsFromDatabase($keywords, $pageNr) {
+    if($pageNr < 0) {
       return "NIL";
-  	}
-  	 
-    $query = 'EXECUTE get_visible_projects_ordered_by_uploadtime_limited_and_offset('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).');';
-    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    $projects = pg_fetch_all($result);
+    }
+
+  	$searchTerms = explode(" ", $keywords);
+  	$keywordsCount = 3;
+  	$searchQuery = "";
+  	$searchRequest = "";
+
+    foreach($searchTerms as $term) {
+      if ($term != "") { 
+        $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$".$keywordsCount;
+        $searchQuery .= " OR description ILIKE \$".$keywordsCount;
+        $searchTerm = pg_escape_string(preg_replace("/\\\/", "\\\\\\", $term));
+        $searchTerm = preg_replace(array("/\%/", "/\_/"), array("\\\\\%", "\\\\\_"), $searchTerm);
+        $searchRequest .= ", '%".$searchTerm."%'";      
+        $keywordsCount++;
+      }
+    }
+  	
+  	pg_prepare($this->dbConnection, "get_search_results", "SELECT id, title, upload_time FROM projects WHERE $searchQuery ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")
+  	or die("Couldn't prepare statement: " . pg_last_error());
+    $query = 'EXECUTE get_search_results('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).$searchRequest.');';    
+  	$result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+  	$projects = pg_fetch_all($result);
+  	pg_query('DEALLOCATE get_search_results');
     pg_free_result($result);
     if($projects[0]['id']) {
       $i=0;
@@ -59,6 +82,13 @@ class loadNewestProjects extends CoreAuthenticationNone {
         $i++;
       }
       return($projects);
+    } elseif($pageNr == 0) {
+    	 $projects[0]['id'] = 0;
+       $projects[0]['title'] = "Your search returned no results";
+       $projects[0]['title_short'] = "Your search returned no results";
+       $projects[0]['upload_time'] =  "";
+       $projects[0]['thumbnail'] = BASE_PATH."images/symbols/thumbnail_gray.png";
+       return($projects);
     } else {
       return "NIL";
     }
@@ -74,8 +104,10 @@ class loadNewestProjects extends CoreAuthenticationNone {
   public function getThumbnail($projectId) {
     $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
     $thumb_file = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
-    if (!is_file($thumb_file))
+    if(!is_file($thumb_file)) {
       $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
+    }
+
     return $thumb;
   }
 

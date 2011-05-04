@@ -31,23 +31,48 @@ class index extends CoreAuthenticationNone {
     }
     $this->addCss('buttons.css');
     $this->addJs('newestProjects.js');
+    $this->addJs('searchProjects.js');
+    $this->addJs('index.js');
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
-
-    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_MAX_PROJECTS);    
+    
+    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);    //TODO deprecated???
     
     if(!$this->session->pageNr) {      
       $this->session->pageNr = 1;
+      $this->session->task = "newestProjects";
     }
-    if(isset($_REQUEST['method'])) {
-      $this->session->pageNr = intval($_REQUEST['method']);
+    if(isset($_REQUEST['method']) || isset($_REQUEST['p'])) {
+    	if(isset($_REQUEST['method'])) {
+        $this->session->pageNr = intval($_REQUEST['method']);
+    	}
+      if(isset($_REQUEST['p'])) {
+        $this->session->pageNr = intval($_REQUEST['p']);
+      }
       if($this->session->pageNr < 1) {
-        $this->session->pageNr = 1; 
+        $this->session->pageNr = 1;
       }
       if($this->session->pageNr > $this->numberOfPages) {
         $this->session->pageNr = $this->numberOfPages - 1; 
       }
     }
-    $this->pageNr = $this->session->pageNr;    
+    if(isset($_SERVER['HTTP_REFERER']) && !$this->session->referer) {
+    	$this->session->referer = $_SERVER['HTTP_REFERER'];
+    }
+    if(isset($_SERVER['HTTP_REFERER']) && $this->session->referer != $_SERVER['HTTP_REFERER']) {
+      $this->session->referer = $_SERVER['HTTP_REFERER'];
+      $this->session->task = "newestProjects";
+    }
+    
+    if(isset($_REQUEST['q'])) {
+    	$this->session->searchQuery = $_REQUEST['q'];
+    }
+      
+    $this->task = $this->session->task;
+    $this->pageNr = $this->session->pageNr;
+    $this->searchQuery = "";
+    if($this->session->searchQuery != "") {
+      $this->searchQuery = $this->session->searchQuery;
+    }
   }
 
   public function __default() {

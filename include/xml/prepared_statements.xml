@@ -20,7 +20,7 @@
 <statements>
     <string name="get_projects_ordered_by_uploadtime">SELECT * FROM projects ORDER BY upload_time DESC</string>
     <string name="get_visible_projects_ordered_by_uploadtime">SELECT * FROM projects WHERE visible=true ORDER BY upload_time DESC</string>
-    <string name="get_visible_projects_ordered_by_uploadtime_limited_and_offset">SELECT id, title, upload_time, visible FROM projects WHERE visible=true ORDER BY upload_time DESC LIMIT $1 OFFSET $2</string>
+    <string name="get_visible_projects_ordered_by_uploadtime_limited_and_offset">SELECT id, title, upload_time FROM projects WHERE visible=true ORDER BY upload_time DESC LIMIT $1 OFFSET $2</string>
     <string name="get_number_of_visible_projects">SELECT count(id) FROM projects WHERE visible=true</string>
     <string name="get_project_by_id">SELECT * FROM projects WHERE id=$1 LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT * FROM projects WHERE id=$1 AND visible=true LIMIT 1</string>

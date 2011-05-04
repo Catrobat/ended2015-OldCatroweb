@@ -17,43 +17,50 @@
  */
 
 
-var NewestProjects = Class.$extend( {
-  __init__ : function(parent, basePath, maxLoadProjects, maxVisibleProjects, pageNr) {
+var SearchProjects = Class.$extend( {
+  __init__ : function(parent, basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery) {
 	this.parent = parent;
     this.basePath = basePath;
     this.maxLoadProjects = parseInt(maxLoadProjects);
     this.maxVisibleProjects = parseInt(maxVisibleProjects);
     this.pageNr = { prev : parseInt(pageNr)-1, current : parseInt(pageNr), next : parseInt(pageNr)+1 };
+    this.searchQuery = searchQuery;
    
     this.initialized = false;
     this.ajaxRequestMutex = false;
     this.pageLabels = new Array();
     this.pageContent = { prev : null, current : null, next : null };
   },
-  
+
   initialize : function(object) {
-    if(!object.initialized) {
-      if(window.history.state != null && window.history.state.pageContent.current != null && window.history.state.newestProjects) {
-        // FF 4.0 does not fire onPopState.event, webkit does
+    if(!object.initialized) {      
+      if(window.history.state != null && window.history.state.pageContent.current != null && window.history.state.seachProjects) {
+        // FF 4.0 does not fire onPopState.event, webkit does        
         object.restoreHistoryState(window.history.state);
         return;
       }
-      
+
       object.createSkeleton();
       $("#fewerProjects").click($.proxy(object.prevPage, object));
       $("#moreProjects").click($.proxy(object.nextPage, object));
       
+      $("#searchQuery").val(this.searchQuery);
+      $("#normalHeaderButtons").toggle(false);
+      $("#cancelHeaderButton").toggle(true);
+      $("#headerSearchBox").toggle(true);
+      $("#searchQuery").focus();
+
       object.loadAndCachePage();
       object.initialized = true;
     }
   },
   
   setDocumentTitle : function() {
-    document.title = this.pageLabels['websitetitle'] + " - " + this.pageLabels['title'] + " - " + this.pageNr.current;
-  },  
-
+    document.title = this.pageLabels['websitetitle'] + " - " + this.pageLabels['title'] + " - " + this.searchQuery  + " - " + this.pageNr.current;
+  },
+  
   setActive : function() {
-    if(!this.initialized) {
+    if(!this.initialized) {      
       this.initialize(this);
       this.fillSkeletonWithContent();
     }
@@ -66,35 +73,37 @@ var NewestProjects = Class.$extend( {
     }
   },
   
-  saveHistoryState : function() {
+  saveHistoryState : function() {    
     if(history.pushState) {
       var stateObject = { pageNr: {}, pageContent: {}, pageLabels: new Array()};
       stateObject.pageNr = this.pageNr;
+      stateObject.searchQuery = this.searchQuery;
       stateObject.pageLabels = this.pageLabels;
       stateObject.pageContent = this.pageContent;
-      stateObject.newestProjects = true;
+      stateObject.searchProjects = true;
 	      
-      history.pushState(stateObject, this.pageLabels['websitetitle'] + " - " + 
-          this.pageLabels['title'] + " - " + this.pageNr.current, 
-          this.basePath+"catroid/index/" + this.pageNr.current);
+      history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/search/?q=" + escape(this.searchQuery) + "&p=" + this.pageNr.current);      
     }
     this.saveStateToSession(this.pageNr.current);
   },
 
   restoreHistoryState : function(state) {
-    if(state != null) {
+    if(state != null) {      
       this.createSkeleton();
       $("#fewerProjects").click($.proxy(this.prevPage, this));
       $("#moreProjects").click($.proxy(this.nextPage, this));
-
-      if(state.newestProjects) {
+      if(state.searchProjects) {        
         this.pageNr = state.pageNr;
+        this.searchQuery = state.searchQuery;
         this.pageLabels = state.pageLabels;
-        this.pageContent = state.pageContent;
-      }      
-      $("#normalHeaderButtons").toggle(true);
-      $("#cancelHeaderButton").toggle(false);
-      $("#headerSearchBox").toggle(false);
+        this.pageContent = state.pageContent;         
+      } 
+      $("#searchQuery").val(this.searchQuery);
+      $("#normalHeaderButtons").toggle(false);
+      $("#cancelHeaderButton").toggle(true);
+      $("#headerSearchBox").toggle(true);
+      $("#searchQuery").focus();
+      
       this.setDocumentTitle();
       this.fillSkeletonWithContent();
       this.initialized = true;
@@ -110,7 +119,8 @@ var NewestProjects = Class.$extend( {
       data: {
           content: {
             pageNr: pageNumber,
-            task : "newestProjects"
+            searchQuery: self.searchQuery,
+            task : "searchProjects"
           }
       }
     });
@@ -142,7 +152,7 @@ var NewestProjects = Class.$extend( {
       this.pageNr.current = 1;
       this.pageNr.next = 2;
 	      
-      this.loadAndCachePage();
+      this.loadAndCachePage();     
 	      
       $("#normalHeaderButtons").toggle(true);
       $("#cancelHeaderButton").toggle(false);
@@ -152,9 +162,8 @@ var NewestProjects = Class.$extend( {
   },
 
   nextPage : function() {
-    if(this.blockAjaxRequest()) {
+    if(this.blockAjaxRequest()) {     
       $("#moreProjects").children("span").html(this.pageLabels['loadingButton']);
-
       this.pageContent.current = this.pageContent.current.concat(this.pageContent.next);
       this.pageNr.current++;
       
@@ -166,15 +175,14 @@ var NewestProjects = Class.$extend( {
         this.pageContent.prev = null; 
         this.pageNr.prev++;        
       }
-      
+     
       this.loadAndCachePage();
     }
   },
 
   prevPage : function() {
     if(this.blockAjaxRequest()) {
-      $("#fewerProjects").children("span").html(this.pageLabels['loadingButton']);
-      
+      $("#fewerProjects").children("span").html(this.pageLabels['loadingButton']);      
       this.pageContent.current = this.pageContent.prev.concat(this.pageContent.current);
       this.pageNr.current--;
 
@@ -191,7 +199,31 @@ var NewestProjects = Class.$extend( {
 	  }
   },
 
-  loadAndCachePage : function() {    
+  triggerSearch : function(loadAndCache) {
+    var search = $.trim($("#searchQuery").val());    
+    if(search != "" && this.searchQuery != search) {
+      if(this.blockAjaxRequest()) {
+        this.searchQuery = search;
+      
+        this.pageContent.prev = "NIL";
+        this.pageContent.current = null;
+        this.pageContent.next = null;
+
+        this.pageNr.prev = 0;
+        this.pageNr.current = 1;
+        this.pageNr.next = 2;
+      
+        if(loadAndCache) {
+          this.loadAndCachePage();
+        }
+        else {
+          this.unblockAjaxRequest();
+        }
+      }
+    }
+  },
+
+  loadAndCachePage : function() {
     if(this.pageContent.next == null) {
       this.requestPage(this.pageNr.next);
     }
@@ -200,14 +232,19 @@ var NewestProjects = Class.$extend( {
     }
     if(this.pageContent.prev == null) {
       this.requestPage(this.pageNr.prev);
-    }
+    }    
   },
 
   requestPage : function(pageNr) {
     var self = this;
     $.ajax({
-      url: self.basePath+"catroid/loadNewestProjects/"+pageNr+".json",
+      url: self.basePath+"catroid/loadSearchProjects/result.json",//?query="+self.searchQuery+"&page="+pageNr,
       cache: false,
+      type : "POST",
+      data : {
+        query : self.searchQuery,
+        page : pageNr 
+      },
       timeout: (5000),
     
       success: function(result){
@@ -320,23 +357,38 @@ var NewestProjects = Class.$extend( {
           $("#whiteBox"+i).css("display", "block");
           $("#projectListSpacer"+i).css("display", "block");
           $("#projectListThumbnail"+i).attr("title", content[i]['title']);
-          $("#projectListDetailsLinkThumb"+i).attr("href", this.basePath+"catroid/details/"+content[i]['id']);
           $("#projectListDetailsLinkThumb"+i).unbind('click');
-          $("#projectListDetailsLinkThumb"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
+          if (content[i]['id'] != 0) {
+            $("#projectListDetailsLinkThumb"+i).attr("href", this.basePath+"catroid/details/"+content[i]['id']);  
+            $("#projectListDetailsLinkThumb"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
+          }
+          else {
+            $("#projectListDetailsLinkThumb"+i).attr("href", "#");
+          }
           $("#projectListPreview"+i).attr("src", content[i]['thumbnail']).attr("alt", content[i]['title']);
           
-          $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");
-          $("#projectListTitle"+i).unbind('click');
-          $("#projectListTitle"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
+          $("#projectListTitle"+i).unbind('click');          
+          if (content[i]['id'] != 0) {
+            $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");  
+            $("#projectListTitle"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
+          }
+          else {
+            $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='#'>"+content[i]['title']+"</a></div>");            
+          }
           // + author $("#projectListDescription"+i).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
-          $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago");          
+          if (content[i]['upload_time'] != "") {
+            $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago");          
+          } 
+          else {
+            $("#projectListDescription"+i).html("");            
+          }
         }
       }
       else {
         $("#whiteBox"+i).css("display", "none");
         $("#projectListSpacer"+i).css("display", "none");
       }
-    }
+    }    
     if(this.pageContent.prev == "NIL") {
       $("#fewerProjects").toggle(false);
     } else {

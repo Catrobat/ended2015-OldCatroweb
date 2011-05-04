@@ -26,11 +26,12 @@ class upload extends CoreAuthenticationNone {
 
 	public function __default() {
 		if(isset($_FILES['upload']['tmp_name']) && $_FILES['upload']['error'] == 0) {
-			$this->upload();
+			$this->_upload();
 		}
 	}
 
-	public function upload() {
+	//Strict Standards: Redefining already defined constructor for class
+	public function _upload() { 
 		$newId = $this->doUpload($_POST, $_FILES, $_SERVER);
 		if($newId > 0) {
 			$this->answer = 'Upload successfull!';
