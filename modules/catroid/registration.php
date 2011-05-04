@@ -23,37 +23,35 @@ class registration extends CoreAuthenticationNone {
     $this->setupBoard();
     $this->addCss('registration.css');
     $this->addCss('buttons.css');
+    
+    $this->addJs('registration.js');
+    
     $this->initRegistration();
   }
 
+//  public function __default() {
+//    if($_POST) {
+//      if(isset($_POST['registrationSubmit'])) {
+//        $this->doRegistration($_POST, $_SERVER);
+//        $this->initRegistration();
+//      }
+//    }
+//  }
+
+  
   public function __default() {
-    if($_POST) {
-      if(isset($_POST['registrationSubmit'])) {
-        $this->doRegistration($_POST, $_SERVER);
-        $this->initRegistration();
-      }
-    }
+
   }
 
-
-  public function initRegistration() {
-    $answer = '';
-    try {
-      $this->initBirth('');
-    } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
+  public function registrationRequest() {
+    $this->registration($_POST);
+  }
+  
+  public function registration($postData) {
+    if($postData) {
+      $this->doRegistration($_POST, $_SERVER);
+      $this->initRegistration();
     }
-    try {
-      $this->initGender();
-    } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
-    }
-    try {
-      $this->initCountryCodes('');
-    } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
-    }
-    $this->answer .= $answer;
   }
     
   public function doRegistration($postData, $serverData) {
@@ -432,10 +430,30 @@ class registration extends CoreAuthenticationNone {
     }
     return true;
   }
+  
+  public function initRegistration() {
+    $answer = '';
+    try {
+      $this->initBirth('');
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    try {
+      $this->initGender();
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    try {
+      $this->initCountryCodes('');
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    $this->answer .= $answer;
+  }
 
   private function initGender() {
     if(!$this->postData['registrationGender']) {
-      $genderlist[0] = "<option value=\"0\" selected>Select</option>\r";
+      $genderlist[0] = "<option value=\"0\" selected>select your gender</option>\r";
       $genderlist[1] = "<option value=\"female\">female</option>\r";
       $genderlist[2] = "<option value=\"male\">male</option>\r";
     }
@@ -455,7 +473,7 @@ class registration extends CoreAuthenticationNone {
   
   private function initBirth() {
     $months = array(
-      0=>"Month",
+      0=>"select month",
       1=>"Jan",
       2=>"Feb",
       3=>"Mar",
@@ -481,11 +499,11 @@ class registration extends CoreAuthenticationNone {
       $monthlist[0] = "<option value=\"0\">" . $months[0] . "</option>\r";
     }
     if(!$this->postData['registrationYear']) {
-      $yearlist[0] = "<option value=\"0\" selected>Year</option>\r";
+      $yearlist[0] = "<option value=\"0\" selected>select year</option>\r";
     }
     else {
       $registrationYear = $this->postData['registrationYear'];
-      $yearlist[0] = "<option value=\"0\">Year</option>\r";
+      $yearlist[0] = "<option value=\"0\">select year</option>\r";
     }
     
     $x = 0;
@@ -529,7 +547,7 @@ class registration extends CoreAuthenticationNone {
       }
       else { 
         $registrationCountry = '';
-        $countrylist[] = "<option value=\"0\" selected>Select country</option>\r";
+        $countrylist[] = "<option value=\"0\" selected>select your country</option>\r";
       }
       
       while($country = pg_fetch_assoc($result)) {
@@ -546,7 +564,7 @@ class registration extends CoreAuthenticationNone {
       $this->countrylist = $countrylist;
       pg_free_result($result);      
     } else {
-      $countrylist[] = "<option value=\"0\">Select country</option>";
+      $countrylist[] = "<option value=\"0\">select your country</option>";
       $this->countrylist = $countrylist;
       throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
     }

@@ -17,6 +17,13 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
+  <input type="hidden" id="basePath" value="<?php echo BASE_PATH?>">
+  <script type="text/javascript">
+  	$(document).ready(function() {
+  		new Login($("#basePath").attr("value"));
+  	});
+  </script>
+
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
@@ -25,32 +32,34 @@
             	  <div class ="whiteBoxMain">
             	    <div class="loginText">
             	    <div class="loginFormContainer">
-            		   	<?php if($this->answer) {
-          		   	    echo '<div class="errorMsg">';
-           		   	    echo $this->answer;
-              		   	echo '</div>';
-            		   	}?>
-      	  		   		<form method="post" action="./login">
-                        <?php if($this->module->session->userLogin_userId <= 0) { ?>
-      	  		   				<div class="loginH2">Please enter your nickname and your password:</div>
-      	  		   				Nickname: <br>
-      	  		   				<input type="text" name="loginUsername"><br>
-      	  		   				Password:<br> 
-      	  		   				<input type="password" name="loginPassword"><br>
-      	  		   				<?php //var_dump($this->requesturi); 
-      	  		   				if(($this->requesturi) || (isset($this->requesturi)) || $this->requesturi != '') { ?>
-      	  		   				  <input type="hidden" name="requesturi" value="<?php echo htmlspecialchars($this->requesturi); ?>"> 
-      	  		   				<?php } else { ?>
-      	  		   				  <input type="hidden" name="requesturi" value="<?php echo htmlspecialchars($_GET['requesturi']); ?>">
-      	  		   				<?php } ?>
-                      	<input type="submit" name="loginSubmit" value="Login" class="button orange compact loginSubmitButton">
-      	  		   				<br>
-      	  		   			<?php } else {?>
-      	  		   				Hello <?php echo $this->module->session->userLogin_userNickname?>!<br>
-      	  		   				You are logged in with ID <?php echo $this->module->session->userLogin_userId?><br>
-                      	<input type="submit" name="logoutSubmit" value="Logout" class="button orange compact loginSubmitButton">
-      	  		   			<?php }?>
-      	  		   		</form>
+            	    	<div class="loginFormAnswer" id="loginFormAnswer">
+            	    		<div class="errorMsg" id="errorMsg">
+            	    		<!-- error messages here -->
+              		   	</div>
+            		   	</div>
+            		   	<div class="loginFormDialog" id="loginFormDialog">
+        	  		   		<form method="post" class="loginForm" id="loginForm" >
+                          <?php if($this->module->session->userLogin_userId <= 0) { ?>
+        	  		   				<div class="loginH2">Please enter your nickname and your password:</div>
+        	  		   				Nickname: <br>
+        	  		   				<input type="text" name="loginUsername" id="loginUsername" ><br>
+        	  		   				Password:<br> 
+        	  		   				<input type="password" name="loginPassword" id="loginPassword"><br>
+        	  		   				<?php //var_dump($this->requesturi); 
+        	  		   				if(($this->requesturi) || (isset($this->requesturi)) || $this->requesturi != '') { ?>
+        	  		   				  <input type="hidden" name="requesturi" id="requesturi" value="<?php echo htmlspecialchars($this->requesturi); ?>"> 
+        	  		   				<?php } else { ?>
+        	  		   				  <input type="hidden" name="requesturi" id="requesturi" value="<?php echo htmlspecialchars($_GET['requesturi']); ?>">
+        	  		   				<?php } ?>
+                        	<input type="button" name="loginSubmit" id="loginSubmit" value="Login" class="button orange compact loginSubmitButton">
+        	  		   				<br>
+        	  		   			<?php } else {?>
+        	  		   				Hello <?php echo $this->module->session->userLogin_userNickname?>!<br>
+        	  		   				You are logged in with ID <?php echo $this->module->session->userLogin_userId?><br>
+                        	<input type="button" name="logoutSubmit" id="logoutSubmit" value="Logout" class="button orange compact loginSubmitButton">
+        	  		   			<?php }?>
+        	  		   		</form>
+      	  		   		</div>
       	  		   		<br>
       	  		   		<?php if($this->module->session->userLogin_userId <= 0) {?>
 										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Create a new account now</a> <br>or<br> <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>

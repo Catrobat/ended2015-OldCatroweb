@@ -21,33 +21,42 @@ class login extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
+    
     $this->setupBoard();
     $this->addCss('login.css');
     $this->addCss('buttons.css');
+    $this->addJs('login.js');
   }
 
   public function __default() {
-    if($_POST) {
-      if(isset($_POST['loginSubmit'])) {
-        if(isset($_POST['requesturi'])) {
-          $this->setRequestURI($_POST['requesturi']);
-        }
-        if($this->doLogin($_POST)) {
-          header('Location: ' . BASE_PATH . $this->requesturi);
-          //header('Location: http://' . $_SERVER['HTTP_HOST'] . "/" . $this->requesturi);
-          exit;
-        }
-      } else if(isset($_POST['logoutSubmit'])) {
-        $this->doLogout();
-        header('Location: ' . BASE_PATH . 'catroid/index');
-        exit;
-      }
-    }
+
   }
 
+  public function loginRequest() {
+    $this->login($_POST);
+    //$this->jsonAnswer = "hallo";
+  }
+  
+  public function logoutRequest() {
+    $this->logout($_POST);
+  }
+  
+  public function login($postData) {
+    if($postData) {
+      if(isset($postData['requesturi'])) {
+        $this->setRequestURI($postData['requesturi']);
+      }
+      $this->doLogin($postData);
+    }
+  }
+  
+  public function logout($postData) {
+    $this->doLogout();
+  }
+  
   private function setRequestURI($uri) {
     if($uri != '') {
-      $this->requesturi = $_POST['requesturi'];  
+      $this->requesturi = $postData['requesturi'];  
     }
     else {
       $this->requesturi = "catroid/index";
@@ -108,6 +117,7 @@ class login extends CoreAuthenticationNone {
 
   public function doLogout() {
     $answer = '';
+    $statusCode = 500;
 
     //catroid logout
     $this->doCatroidLogout();
@@ -121,10 +131,12 @@ class login extends CoreAuthenticationNone {
     try {
       $this->doWikiLogout();
       $answer .= 'WIKI Logout successfull!<br>';
+      $statusCode = 200;
     } catch (Exception $e) {
       $answer .= 'ERROR: WIKI Logout: '.$e->getMessage().'!<br>';
     }
-
+    
+    $this->statusCode = $statusCode;
     $this->answer = $answer;
   }
   
