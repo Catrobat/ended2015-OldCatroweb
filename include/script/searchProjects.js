@@ -18,9 +18,10 @@
 
 
 var SearchProjects = Class.$extend( {
-  __init__ : function(parent, basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery) {
-	this.parent = parent;
+  __init__ : function(parent, basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery, strings) {
+	  this.parent = parent;
     this.basePath = basePath;
+    this.strings = strings;
     this.maxLoadProjects = parseInt(maxLoadProjects);
     this.maxVisibleProjects = parseInt(maxVisibleProjects);
     this.pageNr = { prev : parseInt(pageNr)-1, current : parseInt(pageNr), next : parseInt(pageNr)+1 };
@@ -63,6 +64,9 @@ var SearchProjects = Class.$extend( {
     if(!this.initialized) {      
       this.initialize(this);
       this.fillSkeletonWithContent();
+      if(this.pageContent.current == null) {
+        this.setLoadingPage();
+      }
     }
   },
   
@@ -212,11 +216,13 @@ var SearchProjects = Class.$extend( {
         this.pageNr.prev = 0;
         this.pageNr.current = 1;
         this.pageNr.next = 2;
+        
+        this.setLoadingPage();
       
         if(loadAndCache) {
           this.loadAndCachePage();
         }
-        else {
+        else { 
           this.unblockAjaxRequest();
         }
       }
@@ -344,6 +350,22 @@ var SearchProjects = Class.$extend( {
     }
   },
   
+  setLoadingPage : function() {
+    $("#whiteBox0").css("display", "block");
+    $("#projectListSpacer0").css("display", "block");
+    
+    $("#fewerProjects").toggle(false);
+    $("#moreProjects").toggle(false);
+    for(var i=1; i<this.maxVisibleProjects; i++) {
+      $("#whiteBox"+i).css("display", "none");
+      $("#projectListSpacer"+i).css("display", "none");
+    }
+    
+    $("#projectListPreview0").attr("src", this.basePath + "images/symbols/thumbnail_gray.png");
+    $("#projectListTitle0").html("<div class='projectDetailLineMaxWidth'><img src='" + this.basePath + "images/symbols/ajax-loader.gif' /> " + this.strings['loading'] + "</div>");
+    $("#projectListDescription0").html("");    
+  },
+  
   fillSkeletonWithContent : function() {
     var self = this;
     $("#projectListTitle").text(this.pageLabels['title']);
@@ -391,13 +413,13 @@ var SearchProjects = Class.$extend( {
     }    
     if(this.pageContent.prev == "NIL") {
       $("#fewerProjects").toggle(false);
-    } else {
+    } else if(this.pageContent.prev != null) {
       $("#fewerProjects").toggle(true);
     }
 
     if(this.pageContent.next == "NIL") {
       $("#moreProjects").toggle(false);
-    } else {
+    } else if(this.pageContent.next != null) {
       $("#moreProjects").toggle(true);
     }
   }

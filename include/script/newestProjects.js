@@ -18,8 +18,9 @@
 
 
 var NewestProjects = Class.$extend( {
-  __init__ : function(parent, basePath, maxLoadProjects, maxVisibleProjects, pageNr) {
-	this.parent = parent;
+  __init__ : function(parent, basePath, maxLoadProjects, maxVisibleProjects, pageNr, strings) {
+	  this.parent = parent;
+	  this.strings = strings;
     this.basePath = basePath;
     this.maxLoadProjects = parseInt(maxLoadProjects);
     this.maxVisibleProjects = parseInt(maxVisibleProjects);
@@ -42,7 +43,8 @@ var NewestProjects = Class.$extend( {
       object.createSkeleton();
       $("#fewerProjects").click($.proxy(object.prevPage, object));
       $("#moreProjects").click($.proxy(object.nextPage, object));
-      
+
+      object.setLoadingPage();
       object.loadAndCachePage();
       object.initialized = true;
     }
@@ -54,8 +56,11 @@ var NewestProjects = Class.$extend( {
 
   setActive : function() {
     if(!this.initialized) {
-      this.initialize(this);
+      this.initialize(this);      
       this.fillSkeletonWithContent();
+      if(this.pageContent.current == null) {
+        this.setLoadingPage();
+      }
     }
   },
   
@@ -307,6 +312,22 @@ var NewestProjects = Class.$extend( {
     }
   },
   
+  setLoadingPage : function() {
+    $("#whiteBox0").css("display", "block");
+    $("#projectListSpacer0").css("display", "block");
+    
+    $("#fewerProjects").toggle(false);
+    $("#moreProjects").toggle(false);
+    for(var i=1; i<this.maxVisibleProjects; i++) {
+      $("#whiteBox"+i).css("display", "none");
+      $("#projectListSpacer"+i).css("display", "none");
+    }
+    
+    $("#projectListPreview0").attr("src", this.basePath + "images/symbols/thumbnail_gray.png");
+    $("#projectListTitle0").html("<div class='projectDetailLineMaxWidth'><img src='" + this.basePath + "images/symbols/ajax-loader.gif' /> " + this.strings['loading'] + "</div>");
+    $("#projectListDescription0").html("");    
+  },
+  
   fillSkeletonWithContent : function() {
     var self = this;
     $("#projectListTitle").text(this.pageLabels['title']);
@@ -339,13 +360,13 @@ var NewestProjects = Class.$extend( {
     }
     if(this.pageContent.prev == "NIL") {
       $("#fewerProjects").toggle(false);
-    } else {
+    } else if(this.pageContent.prev != null) {
       $("#fewerProjects").toggle(true);
     }
 
     if(this.pageContent.next == "NIL") {
       $("#moreProjects").toggle(false);
-    } else {
+    } else if(this.pageContent.next != null) {
       $("#moreProjects").toggle(true);
     }
   }

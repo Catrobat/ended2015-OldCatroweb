@@ -52,7 +52,11 @@ var Menu = Class.$extend( {
         return false;
       },
       wiki: function() {
-        window.open(self.basePath+'wiki','wiki');        
+        if(userLogin_userId == 0) {
+          window.open(self.basePath+'wiki','wiki');
+        } else {
+          window.open(self.basePath+'wiki/Main_Page?action=purge','wiki');
+        }
         return false;
       },
       login: function() {

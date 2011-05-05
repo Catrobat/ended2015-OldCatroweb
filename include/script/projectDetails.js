@@ -51,26 +51,31 @@ var ProjectDetails = Class.$extend( {
   },
 
   reportInappropriateSubmit : function() {
+    var self = this;
     $("#reportInappropriateReportButton").attr('disabled', true);
     $("#reportInappropriateReason").attr('disabled', true);
-    var url = this.basePath + 'catroid/flagInappropriate/flag.json';
-    $.post(url, {
-      projectId : $("#reportInappropriateProjectId").attr("value"),
-      flagReason : $("#reportInappropriateReason").attr("value")
-    }, $.proxy(this.reportInappropriateSuccess, this), "json");
-  },
-
-  reportInappropriateSuccess : function(response) {
-    $("#reportAsInappropriateAnswer").toggle(true);
-    $("#reportAsInappropriateAnswer").html(response.answer);
-    if(response.statusCode == 200) {
-      $("#reportAsInappropriateDialog").toggle(false);
-      $("#detailsFlagButton").toggle(false);
-    }  else {
-      $("#reportAsInappropriateDialog").toggle(false);
-      $("#reportInappropriateReportButton").attr('disabled', false);
-      $("#reportInappropriateReason").attr('disabled', false);
-    }
+    
+    $.ajax({
+      type: 'POST',
+      url: self.basePath + 'catroid/flagInappropriate/flag.json',
+      cache: false,
+      data: {
+          projectId : $("#reportInappropriateProjectId").val(),
+          flagReason : $("#reportInappropriateReason").val()
+        },
+      success: function(response) {
+        $("#reportAsInappropriateAnswer").toggle(true);
+        $("#reportAsInappropriateAnswer").html(response.answer);
+        if(response.statusCode == 200) {
+          $("#reportAsInappropriateDialog").toggle(false);
+          $("#detailsFlagButton").toggle(false);
+        }  else {
+          $("#reportAsInappropriateDialog").toggle(false);
+          $("#reportInappropriateReportButton").attr('disabled', false);
+          $("#reportInappropriateReason").attr('disabled', false);
+        }
+      }
+    });
   },
   
   showFullDescription : function() {

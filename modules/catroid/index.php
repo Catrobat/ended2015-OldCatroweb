@@ -66,6 +66,10 @@ class index extends CoreAuthenticationNone {
     if(isset($_REQUEST['q'])) {
     	$this->session->searchQuery = $_REQUEST['q'];
     }
+    
+    if(!$this->session->task) {
+      $this->session->task = "newestProjects";
+    }
       
     $this->task = $this->session->task;
     $this->pageNr = $this->session->pageNr;

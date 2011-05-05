@@ -18,19 +18,19 @@
 
 
 var Index = Class.$extend( {
-  __init__ : function(basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery, task) {
+  __init__ : function(basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery, task, strings) {
     var self = this;
-    this.newestProjects = new NewestProjects(this, basePath, maxLoadProjects, maxVisibleProjects, pageNr);
-    this.searchProjects = new SearchProjects(this, basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery);
+    this.newestProjects = new NewestProjects(this, basePath, maxLoadProjects, maxVisibleProjects, pageNr, strings);
+    this.searchProjects = new SearchProjects(this, basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery, strings);
 
     this.task = task;
     this.state = "newestProjects";
     window.onpopstate = function(event) {      
-      if(event.state.newestProjects) {        
+      if(event.state && event.state.newestProjects) {        
         self.newestProjects.restoreHistoryState(event.state);
         self.state = "newestProjects";
       }
-      if(event.state.searchProjects) {
+      if(event.state && event.state.searchProjects) {
         self.searchProjects.restoreHistoryState(event.state);
         self.state = "searchProjects";
       }        
