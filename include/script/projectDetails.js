@@ -19,6 +19,11 @@
 var ProjectDetails = Class.$extend( {
   __init__ : function(basePath) {
     this.basePath = basePath;
+    $("#qrcodeInfo").toggle(false);
+    $("#hideQrCodeInfoButton").toggle(false);
+    $("#showQrCodeInfoButton").click($.proxy(this.showQrCodeInfo, this));
+    $("#hideQrCodeInfoButton").click($.proxy(this.hideQrCodeInfo, this));
+
     $("#reportAsInappropriateDialog").toggle(false);
     $("#reportAsInappropriateAnswer").toggle(false);
     $("#showFullDescriptionButton").click(
@@ -78,5 +83,18 @@ var ProjectDetails = Class.$extend( {
     $("#detailsDescription").html($("#shortDescriptionText").attr("value"));
     $("#showFullDescriptionButton").toggle(true);
     $("#showShortDescriptionButton").toggle(false);
+  },
+
+  showQrCodeInfo : function() {
+	  $("#qrcodeInfo").toggle(true);
+	  $("#showQrCodeInfoButton").toggle(false);
+	  $("#hideQrCodeInfoButton").toggle(true);
+  },
+
+  hideQrCodeInfo : function() {
+	  $("#qrcodeInfo").toggle(false);
+	  $("#showQrCodeInfoButton").toggle(true);
+	  $("#hideQrCodeInfoButton").toggle(false);
   }
+
 });

@@ -54,7 +54,6 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     }
   }
 
-
   /**
    * @dataProvider randomIds
    */
@@ -201,6 +200,22 @@ class DetailsTests extends PHPUnit_Framework_TestCase
       $this->assertFalse($this->selenium->isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
     }
 
+    // Test QR-Code Info
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//button[@id='showQrCodeInfoButton']"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='qrcodeInfo']"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//button[@id='hideQrCodeInfoButton']"));
+    $this->assertTrue($this->selenium->isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
+    $this->assertFalse($this->selenium->isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
+    $this->assertFalse($this->selenium->isVisible("xpath=//div[@id='qrcodeInfo']"));
+    $this->selenium->click("showQrCodeInfoButton");
+    $this->assertFalse($this->selenium->isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
+    $this->assertTrue($this->selenium->isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
+    $this->assertTrue($this->selenium->isVisible("xpath=//div[@id='qrcodeInfo']"));
+    $this->selenium->click("hideQrCodeInfoButton");
+    $this->assertTrue($this->selenium->isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
+    $this->assertFalse($this->selenium->isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
+    $this->assertFalse($this->selenium->isVisible("xpath=//div[@id='qrcodeInfo']"));
+    
     //delete the test project
     $adminpath = 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin';
     $this->selenium->open($adminpath);

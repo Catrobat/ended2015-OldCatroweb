@@ -77,6 +77,11 @@
                             			<div class="detailsQRCode">
         									<img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_image']?>" alt="qr code image">
                             			</div>
+                            			<div class="detailsQRCodeText">
+                    							<div id="qrcodeInfo" class="qrcodeInfo">You can download this project directly to your mobile phone - when you have a barcode-reader app installed. Just open the app on your mobile phone and point the camera to the above QR-Code and the download will be started immediately.</div>
+                        					<button type="button" id="showQrCodeInfoButton" class="button white medium"><span class="showQrCodeInfoButton">QR Code - what's this?</span></button>
+                        					<button type="button" id="hideQrCodeInfoButton" class="button white medium"><span class="hideQrCodeInfoButton">QR Code - what's this?</span></button>
+                            			</div>
                     			    <?php }?>
                     				<div class="detailsProjectDescription">
                     					<?php if($this->project['description_short']) {?>

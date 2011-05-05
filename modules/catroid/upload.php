@@ -175,8 +175,6 @@ class upload extends CoreAuthenticationNone {
       $filename = zip_entry_name($zip_entry);
       if (preg_match("/thumbnail\./", $filename) || preg_match("/images\/thumbnail\./", $filename)) {
       	 $thumbnail = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-         // $thumbFilename = zip_entry_name($zip_entry);
-         // $thumbnailExtension = substr($thumbFilename, -3);
          if ($thumbnail) {
            $this->saveThumbnail($projectId, $thumbnail);
          }
