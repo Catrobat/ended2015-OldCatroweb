@@ -34,8 +34,10 @@ class upload extends CoreAuthenticationNone {
 	public function _upload() { 
 		$newId = $this->doUpload($_POST, $_FILES, $_SERVER);
 		if($newId > 0) {
-			$this->answer = 'Upload successfull!';
-		}
+		  $this->answer = 'Upload successfull!';
+		} else {
+		  $this->sendUploadFailAdminEmail($_POST, $_FILES, $_SERVER);
+        }
 	}
 
 	public function checkValidProjectTitle($title) {
@@ -325,6 +327,33 @@ class upload extends CoreAuthenticationNone {
 		$mailText .= "You should check this! <a href='".BASE_PATH."admin/tools/approveWords'>follow me!</a>";
 
 		return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+	}
+	
+	public function sendUploadFailAdminEmail($formData, $fileData, $serverData) {
+	  $mailSubject = 'Upload of a project failed!';
+	  $mailText = "Hello catroid.org Administrator!\n\n";
+	  $mailText .= "The Upload of a project failed:\n\n";
+	  $mailText .= "---PROJECT DETAILS---\n";
+	  $mailText .= "Upload Error Code: ".$this->statusCode."\n";
+	  $mailText .= "Upload Error Message: ".$this->answer."\n";
+	  if(isset($formData['projectTitle']))
+	    $mailText .= "Project Title: ".$formData['projectTitle']."\n";
+	  if(isset($formData['projectDescription']))
+	    $mailText .= "Project Description: ".$formData['projectDescription']."\n";
+	  if(isset($fileData['upload']))  
+	    $mailText .= "Project Size: ".intval($fileData['upload']['size'])." Byte\n";
+	  if(isset($formData['deviceIMEI']))
+	    $mailText .= "Device IMEI: ".$formData['deviceIMEI']."\n";
+	  if(isset($formData['userEmail']))
+	    $mailText .= "User Email: ".$formData['userEmail']."\n";
+	  if(isset($formData['userLanguage']))
+	    $mailText .= "User Language: ".$formData['userLanguage']."\n";
+	  if(isset($serverData['REMOTE_ADDR']))
+	    $mailText .= "User IP: ".$serverData['REMOTE_ADDR']."\n";
+
+      $mailText .= "You should check this!";
+
+	  return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
 	}
 
 	public function __destruct() {
