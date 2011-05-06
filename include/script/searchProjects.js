@@ -34,13 +34,7 @@ var SearchProjects = Class.$extend( {
   },
 
   initialize : function(object) {
-    if(!object.initialized) {      
-      if(window.history.state != null && window.history.state.pageContent.current != null && window.history.state.seachProjects) {
-        // FF 4.0 does not fire onPopState.event, webkit does        
-        object.restoreHistoryState(window.history.state);
-        return;
-      }
-
+    if(!object.initialized) { 
       object.createSkeleton();
       $("#fewerProjects").click($.proxy(object.prevPage, object));
       $("#moreProjects").click($.proxy(object.nextPage, object));

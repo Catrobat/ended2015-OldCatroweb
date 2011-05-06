@@ -65,7 +65,7 @@ class SearchTests extends PHPUnit_Framework_TestCase
     }
   }
   
-  public function NOtestSpecialChars() {
+  public function testSpecialChars() {
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
     $this->selenium->click("headerSearchButton");
@@ -91,7 +91,7 @@ class SearchTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isTextPresent("unitTest2"));
   }
   
-  public function NOtestPageNavigation() {
+  public function testPageNavigation() {
     $noSearchResultKeywords = $this->randomLongStrings();
     $this->doUpload($noSearchResultKeywords[2][0], PROJECT_PAGE_LOAD_MAX_PROJECTS+PROJECT_PAGE_SHOW_MAX_PROJECTS);
     
@@ -113,7 +113,7 @@ class SearchTests extends PHPUnit_Framework_TestCase
     $this->ajaxWait();    
     
     $this->assertFalse($this->selenium->isVisible("fewerProjects"));
-    $this->assertFalse/catroweb($this->selenium->isVisible("moreProjects"));
+    $this->assertFalse($this->selenium->isVisible("moreProjects"));
     $this->assertTrue($this->selenium->isTextPresent("Your search returned no results"));
     
     $this->selenium->click("headerCancelSearchButton");    

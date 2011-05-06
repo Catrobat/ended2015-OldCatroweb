@@ -53,7 +53,7 @@
         <div class="blueBoxMain">
           <div class="webMainHead">
             <form id="searchForm">
-              <input id="searchQuery" type="search" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
+              <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
               <input type="submit" class="webHeadSearchSubmit" value="Search" />
             </form>
           </div>
