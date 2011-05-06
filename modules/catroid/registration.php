@@ -21,8 +21,8 @@ class registration extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
-    $this->addCss('registration.css');
-    $this->addCss('buttons.css');
+    $this->addCss('registration.css?'.VERSION);
+    $this->addCss('buttons.css?'.VERSION);
     $this->initRegistration();
   }
 

@@ -170,7 +170,7 @@ class upload extends CoreAuthenticationNone {
 	
 	public function unzipUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
 	  $unzipDir = CORE_BASE_PATH.'/'.PROJECTS_UNZIPPED_DIRECTORY;
-    $zip = zip_open($projectDir.$projectId.".zip");
+    $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
     while ($zip_entry = zip_read($zip)) {
       $filename = zip_entry_name($zip_entry);
       if (preg_match("/thumbnail\./", $filename) || preg_match("/images\/thumbnail\./", $filename)) {
@@ -265,7 +265,7 @@ class upload extends CoreAuthenticationNone {
 			$this->sendQRFailNotificationEmail($projectId, $projectTitle);	
 			return false;
 		}
-		$urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.'.zip?fname='.urlencode($projectTitle));
+		$urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENTION.'?fname='.urlencode($projectTitle));
 		$serviceUrl = PROJECTS_QR_SERVICE_URL.$urlToEncode;
 		$destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
 		$qrImageHandle = @imagecreatefrompng($serviceUrl);

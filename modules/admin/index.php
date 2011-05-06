@@ -20,7 +20,7 @@
 class index extends CoreAuthenticationAdmin {
   public function __construct() {
     parent::__construct();
-    $this->addCss('adminLayout.css');
+    $this->addCss('adminLayout.css?'.VERSION);
   }
 
   public function __default() {

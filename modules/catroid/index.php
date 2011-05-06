@@ -25,14 +25,14 @@ class index extends CoreAuthenticationNone {
       $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_SAFARI) ||
       $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_CHROME) ||
       $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_ANDROID)) {
-        $this->addCss('projectList.css');
+        $this->addCss('projectList.css?'.VERSION);
     } else {
-      $this->addCss('projectList_nohtml5.css');
+      $this->addCss('projectList_nohtml5.css?'.VERSION);
     }
-    $this->addCss('buttons.css');
-    $this->addJs('newestProjects.js');
-    $this->addJs('searchProjects.js');
-    $this->addJs('index.js');
+    $this->addCss('buttons.css?'.VERSION);
+    $this->addJs('newestProjects.js?'.VERSION);
+    $this->addJs('searchProjects.js?'.VERSION);
+    $this->addJs('index.js?'.VERSION);
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
     
     $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);    //TODO deprecated???

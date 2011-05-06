@@ -215,7 +215,7 @@ var NewestProjects = Class.$extend( {
       cache: false,
       timeout: (5000),
     
-      success: function(result){
+      success: function(result) {
         if(result != "") {
           for(var i = 0; i < result.content.length; i++) {
             result.content[i].pageNr = pageNr;
@@ -301,12 +301,10 @@ var NewestProjects = Class.$extend( {
       var navigationButtonNext = $("<button />").addClass("navigationButtons").addClass("button").addClass("white").addClass("medium").attr("type", "button");
 
       $("#projectContainer").append($("<div />").addClass("webMainNavigationButtons").append(navigationButtonPrev.attr("id", "fewerProjects").append($("<span />").addClass("navigationButtons"))));
-      $("#fewerProjects").toggle(false);
       $("#projectContainer").append($("<div />").addClass("projectListSpacer"));
       $("#projectContainer").append(containerContent);
       $("#projectContainer").append($("<div />").addClass("projectListSpacer"));
       $("#projectContainer").append($("<div />").addClass("webMainNavigationButtons").append(navigationButtonNext.attr("id", "moreProjects").append($("<span />").addClass("navigationButtons"))));
-      $("#moreProjects").toggle(false);
       
       $("#projectContainer").append($("<div />").append($("<input />").attr("type", "hidden").attr("id", "ajax-loader")));
     }

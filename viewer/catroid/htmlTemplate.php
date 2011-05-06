@@ -24,17 +24,17 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.3, initial-scale=1.0, user-scalable=yes" /> -->
   <title>Catroid Website</title>
-  <link href="<?php echo BASE_PATH?>include/css/baseStyle.css" media="screen" rel="stylesheet" type="text/css" />
-  <link href="<?php echo BASE_PATH?>include/css/buttons.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="<?php echo BASE_PATH?>include/css/baseStyle.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
+  <link href="<?php echo BASE_PATH?>include/css/buttons.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
 <?php while($css = $this->getCss()) {?>
   <link href="<?php echo BASE_PATH?>include/css/<?php echo $css?>" media="screen" rel="stylesheet" type="text/css" />
 <?php }?>
 <?php if(!$this->isMobile) {?>
-  <link href="<?php echo BASE_PATH?>include/css/baseStyleDesktop.css" media="screen" rel="stylesheet" type="text/css" />
+  <link href="<?php echo BASE_PATH?>include/css/baseStyleDesktop.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
 <?php }?>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js" ></script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/jquery.js" ></script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js" ></script>    
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js?<?php echo VERSION; ?>" ></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/jquery.js?<?php echo VERSION; ?>" ></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js?<?php echo VERSION; ?>" ></script>    
   
 <?php while($js = $this->getJs()) {?>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/<?php echo $js?>"></script>

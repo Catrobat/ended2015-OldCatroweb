@@ -21,7 +21,7 @@ class errorPage extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    $this->addCss('errorPage.css');
+    $this->addCss('errorPage.css?'.VERSION);
   }
 
   public function __default() {
