@@ -148,11 +148,9 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     $this->selenium->type("xpath=//input[@name='passwordSavePassword']", $pass." new");
     $this->selenium->click("xpath=//input[@name='passwordSaveSubmit']");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("Your new password is set. Please log in now."));
-    // login link muss vorhanden sein!
+    $this->assertTrue($this->selenium->isTextPresent("Your new password is set."));
+    $this->assertFalse($this->selenium->isTextPresent("Please enter your new password:"));
     
-    $this->assertFalse($this->selenium->isElementPresent("xpath=//input[@name='passwordSavePassword']"));
-
     // and try to login with the old credentials to verify password recovery worked
     $this->selenium->open(TESTS_BASE_PATH."catroid/login");
     $this->selenium->waitForPageToLoad(10000);
@@ -169,7 +167,7 @@ class PasswordRecoveryTests extends PHPUnit_Framework_TestCase
     // check bad login
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("The catroid authentication failed."));
-    $this->assertTrue($this->selenium->isTextPresent("The password or username was incorrect."));    
+    $this->assertTrue($this->selenium->isTextPresent("The password or nickname was incorrect."));    
   
     // and try to login now with the new credentials
     $this->selenium->open(TESTS_BASE_PATH."catroid/login");

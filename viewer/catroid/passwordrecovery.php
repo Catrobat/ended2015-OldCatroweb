@@ -41,9 +41,8 @@
               		   	</div>
             		   	</div>
   		   						<div id="loginOk">
-  										<div class="okMsg">Your new password is set. Please log in now.</div>
     		   						<br>
-    		   						<input type="submit" id="passwordLoginSubmit" name="passwordLoginSubmit" value="Login now" class="button orange compact passwordRecoverySubmitButton">
+    		   						<input type="submit" id="passwordLoginSubmit" name="passwordLoginSubmit" value="Please login now" class="button orange compact passwordRecoverySubmitButton">
   									</div>
       	  		   			<?php 
       	  		   			  if(isset($_GET['c'])) {
@@ -57,7 +56,7 @@
           									</form>
 
 	      	  		   					<br> 
-														<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a></div>
+														<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // showForm == 1
       	  		   			    else if($this->showForm == 2) {
       	  		   			?>
@@ -66,7 +65,7 @@
 															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="Next" class="button orange compact passwordRecoverySubmitButton">
 														</form>
 	      	  		   					<br>
-														<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a></div>
+														<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // showForm == 2
       	  		   			  } // get['c']
       	  		   			  else if(isset($_POST['passwordSaveSubmit'])) {
@@ -81,9 +80,8 @@
           									</form>
 
 	      	  		   					<br>
-														<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a></div>
+	      	  		   					<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // showForm == 1
-
       	  		   			    else if($this->showForm == 2) {
       	  		   			?>
 														<form method="post" action="./passwordrecovery">
@@ -91,23 +89,17 @@
 															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="Next" class="button orange compact passwordRecoverySubmitButton">
 														</form>
 	      	  		   					<br>
-														<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a></div>
+	      	  		   					<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // showForm == 2
-      	  		   			    else if($this->showForm == 3) {
-      	  		   			?>		
-  												<div class="okMsg">Your new password is set. Please log in now.</div>
-    		   								<br>
-  												<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a></div>
-      	  		   			<?php } // showForm == 3
            		   			  } // $_POST['passwordSaveSubmit'])
       	  		   				else {
         		   	      ?>
-    	  		   				<form method="post" name="passwordRecoveryFormDialog" id="passwordRecoveryFormDialog" action=""> <!-- action="./passwordrecovery"> -->
-												<div class="passwordRecoveryHeadline">Enter your nickname or email address:</div>
-    	  		   					<input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="nickname or email" ><br>
-                      	<input type="button" id="passwordRecoverySubmit" name="passwordRecoverySubmit" value="Send me my password recovery link" class="button orange compact passwordRecoverySubmitButton">
-    	  		   					<br>
-    	  		   				</form>
+      	  		   				<form method="post" name="passwordRecoveryFormDialog" id="passwordRecoveryFormDialog" action=""> <!-- action="./passwordrecovery"> -->
+  												<div class="passwordRecoveryHeadline">Enter your nickname or email address:</div>
+      	  		   					<input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="nickname or email" ><br>
+                        	<input type="button" id="passwordRecoverySubmit" name="passwordRecoverySubmit" value="Send me my password recovery link" class="button orange compact passwordRecoverySubmitButton">
+      	  		   					<br>
+      	  		   				</form>
 
     	  		   				<br>
 	      	  		   		<br>

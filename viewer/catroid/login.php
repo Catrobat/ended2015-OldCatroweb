@@ -44,7 +44,7 @@
         	  		   				Nickname: <br>
         	  		   				<input type="text" name="loginUsername" id="loginUsername" ><br>
         	  		   				Password:<br> 
-        	  		   				<input type="password" name="loginPassword" id="loginPassword"><br>
+        	  		   				<input type="text" name="loginPassword" id="loginPassword"><br>
         	  		   				<?php //var_dump($this->requesturi); 
         	  		   				if(($this->requesturi) || (isset($this->requesturi)) || $this->requesturi != '') { ?>
         	  		   				  <input type="hidden" name="requesturi" id="requesturi" value="<?php echo htmlspecialchars($this->requesturi); ?>"> 
