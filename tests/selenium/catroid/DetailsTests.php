@@ -41,22 +41,18 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->stop();
   }
 
-  public function ajaxWait($waitfor)
+  public function ajaxWait()
   {
-    // Loop initialization.
-    for ($second = 0; $second <=600;$second++) {
-      // If loop is reached 60 seconds then break the loop.
-      if ($second >= 600) break;
-      // Search for element "link=ajaxLink" and if available then break loop.
-      try
-      {
-        if (($this->selenium->isElementPresent($waitfor))&&(!($this->selenium->isTextPresent("loading..."))))
-        break;
+    for($second = 0; $second <= 600; $second++) {
+      if($second >= 600) break;
+      try {
+        if($this->selenium->isElementPresent("xpath=//input[@id='ajax-loader'][@value='off']")) {
+          break;
+        }
       } catch (Exception $e) {}
       sleep(1);
     }
   }
-
 
   /**
    * @dataProvider randomIds
@@ -126,13 +122,13 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
     $this->selenium->click("reportAsInappropriateButton");
     $this->selenium->click("reportInappropriateReportButton");
-    $this->selenium->waitForPageToLoad(2000);
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
     $this->assertFalse($this->selenium->isTextPresent("You reported this project as inappropriate!"));
     $this->selenium->click("reportAsInappropriateButton");
     $this->selenium->type("reportInappropriateReason", "my selenium reason");
     $this->selenium->click("reportInappropriateReportButton");
-    $this->selenium->waitForPageToLoad(2000);
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
     $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
     if(TESTS_BROWSER != "*googlechrome") { //chrome does not support keyPress for some reason
@@ -142,7 +138,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
 	    $this->selenium->type("reportInappropriateReason", "my selenium reason 2");
 	    $this->selenium->focus("reportInappropriateReason");
 	    $this->selenium->keyPress("reportInappropriateReason", "\\13");
-	    $this->selenium->waitForPageToLoad(2000);
+	    $this->selenium->waitForPageToLoad(10000);
 	    $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
 	    $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
     }
@@ -169,7 +165,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     //test more button
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad("10000");
-    $this->ajaxWait('class=projectListDetailsLink');
+    $this->ajaxWait();
     $this->selenium->click("xpath=//a[@class='projectListDetailsLink']");
     $this->selenium->waitForPageToLoad("10000");
     // $this->ajaxWait("class=showFullDescriptionButton");
@@ -204,6 +200,22 @@ class DetailsTests extends PHPUnit_Framework_TestCase
       $this->assertFalse($this->selenium->isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
     }
 
+    // Test QR-Code Info
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//button[@id='showQrCodeInfoButton']"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//div[@id='qrcodeInfo']"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//button[@id='hideQrCodeInfoButton']"));
+    $this->assertTrue($this->selenium->isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
+    $this->assertFalse($this->selenium->isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
+    $this->assertFalse($this->selenium->isVisible("xpath=//div[@id='qrcodeInfo']"));
+    $this->selenium->click("showQrCodeInfoButton");
+    $this->assertFalse($this->selenium->isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
+    $this->assertTrue($this->selenium->isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
+    $this->assertTrue($this->selenium->isVisible("xpath=//div[@id='qrcodeInfo']"));
+    $this->selenium->click("hideQrCodeInfoButton");
+    $this->assertTrue($this->selenium->isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
+    $this->assertFalse($this->selenium->isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
+    $this->assertFalse($this->selenium->isVisible("xpath=//div[@id='qrcodeInfo']"));
+    
     //delete the test project
     $adminpath = 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin';
     $this->selenium->open($adminpath);
@@ -271,7 +283,6 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     } else {
       $uploadTestFile.= '/testdata/test.zip';
     }
-
     $uploadpath= TESTS_BASE_PATH.'catroid/upload/upload.json';
 
     $ch = curl_init();
@@ -284,14 +295,13 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $post = array(
         "upload"=>"@$uploadTestFile",
         "projectTitle"=>$title,
-    	"projectDescription"=>$description,
+        "projectDescription"=>$description,
         "fileChecksum"=>md5_file($uploadTestFile)
     );
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
     $response = json_decode(curl_exec($ch));
     $this->assertEquals(200, $response->statusCode);
   }
-
 }
 ?>
 

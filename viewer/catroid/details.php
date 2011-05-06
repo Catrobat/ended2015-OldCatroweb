@@ -37,7 +37,7 @@
         				<div class="detailsFlexDiv">
             				<div class="detailsLeft">
                 				<div class="detailsMainImage">
-                					<a href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']?>.zip?fname=<?php echo urlencode($this->project['title'])?>">
+                					<a href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id'].PROJECTS_EXTENTION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                 						<img class="projectDetailsImage" src="<?php echo $this->project['image']?>" alt="project thumbnail">
                 					</a>
             					<div class="detailsLicenseLink">
@@ -68,7 +68,7 @@
     									<b><?php echo $this->project['publish_time_in_words']?></b> ago.</p>
                     				</div>
                     				<div class="detailsDownloadButton">
-                            			<a class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']?>.zip?fname=<?php echo urlencode($this->project['title'])?>">
+                            			<a class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id'].PROJECTS_EXTENTION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                             				<img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button">
                             				<span class="detailsDownloadButtonText">Download</span>
                             			</a>
@@ -76,6 +76,11 @@
                     				<?php if(!$this->isMobile && $this->project['qr_code_image']) {?>
                             			<div class="detailsQRCode">
         									<img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_image']?>" alt="qr code image">
+                            			</div>
+                            			<div class="detailsQRCodeText">
+                    							<div id="qrcodeInfo" class="qrcodeInfo">You can download this project directly to your mobile phone - when you have a barcode-reader app installed. Just open the app on your mobile phone and point the camera to the above QR-Code and the download will be started immediately.</div>
+                        					<button type="button" id="showQrCodeInfoButton" class="button white medium"><span class="showQrCodeInfoButton">QR Code - what's this?</span></button>
+                        					<button type="button" id="hideQrCodeInfoButton" class="button white medium"><span class="hideQrCodeInfoButton">QR Code - what's this?</span></button>
                             			</div>
                     			    <?php }?>
                     				<div class="detailsProjectDescription">

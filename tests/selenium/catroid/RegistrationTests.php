@@ -24,6 +24,19 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
 {
   private $selenium;
 
+  public function ajaxWait()
+  {
+    for($second = 0; $second <= 600; $second++) {
+      if($second >= 600) break;
+      try {
+        if($this->selenium->isElementPresent("xpath=//input[@id='ajax-loader'][@value='off']")) {
+          break;
+        }
+      } catch (Exception $e) {}
+      sleep(1);
+    }
+  }
+
   public function setUp()
   {
     $path= 'http://'.str_replace('http://', '', TESTS_BASE_PATH).'catroid/';
@@ -92,6 +105,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     
     $this->selenium->click("xpath=//input[@name='loginSubmit']");
     $this->selenium->waitForPageToLoad(40000);
+    $this->ajaxWait();
 
     $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
     
@@ -120,6 +134,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $this->selenium->click("xpath=//input[@name='logoutSubmit']");
     $this->selenium->waitForPageToLoad(10000);
+    $this->ajaxWait();
     $this->assertTrue($this->selenium->isTextPresent("Newest Projects")); // Default Seite, INdex
         
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login');

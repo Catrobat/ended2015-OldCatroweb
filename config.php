@@ -17,25 +17,28 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('VERSION','0.6.1');
+define('VERSION','0.6.2');
 define('BASE_PATH','http://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');
 define('XML_PATH','include/xml/');
 define('CSS_PATH','include/css/');
 define('SCRIPT_PATH','include/script/');
 define('PROJECTS_DIRECTORY','resources/projects/');
+define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
 define('PROJECTS_QR_DIRECTORY','resources/qrcodes/');
 define('PROJECTS_QR_EXTENTION','_qr.png');
 define('PROJECTS_QR_SERVICE_URL','http://qrcode.kaywa.com/img.php?s=5&d=');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
+define('PROJECTS_THUMBNAIL_EXTENTION_ORIG','_original.jpg');
 define('PROJECTS_THUMBNAIL_EXTENTION_SMALL','_small.jpg');
 define('PROJECTS_THUMBNAIL_EXTENTION_LARGE','_large.jpg');
 define('PROJECTS_EXTENTION','.zip');
 define('PROJECTS_MAX_SIZE',104857600);
 define('PROJECT_TITLE_MAX_DISPLAY_LENGTH',20);
 define('PROJECT_SHORT_DESCRIPTION_MAX_LENGTH',178);
-define('PROJECT_PAGE_MAX_PROJECTS', 5);
+define('PROJECT_PAGE_LOAD_MAX_PROJECTS', 5);
+define('PROJECT_PAGE_SHOW_MAX_PROJECTS', 25);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
 define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
 define('PROJECT_DEFAULT_SAVEFILE_NAME', 'defaultProject');

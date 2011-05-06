@@ -22,26 +22,30 @@ class loadNewestProjects extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
+    
+    $labels = array();
+    $labels['websitetitle'] = "Catroid Website";
+    $labels['title'] = "Newest Projects";
+    $labels['prevButton'] = "&laquo; Newer";
+    $labels['nextButton'] = "Older &raquo;";
+    $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
+    $this->labels = $labels;
   }
 
   public function __default() {
     if(isset($_REQUEST['method'])) {
-      $this->pageNr = intval($_REQUEST['method']);
-    }
-    $this->session->pageNr = $this->pageNr;
-
-    $pageContent = array();
-    if($this->pageNr > 0) {
-      $pageContent['prev'] = $this->retrievePageNrFromDatabase($this->pageNr-1);
-    }
-    $pageContent['current'] = $this->retrievePageNrFromDatabase($this->pageNr);
-    $pageContent['next'] = $this->retrievePageNrFromDatabase($this->pageNr+1);
+      $this->pageNr = intval($_REQUEST['method'])-1;
+    }    
     
-    $this->content = $pageContent;
+    $this->content = $this->retrievePageNrFromDatabase($this->pageNr);
   }
 
   public function retrievePageNrFromDatabase($pageNr) {
-    $query = 'EXECUTE get_visible_projects_ordered_by_uploadtime_limited_and_offset('.PROJECT_PAGE_MAX_PROJECTS.', '.(PROJECT_PAGE_MAX_PROJECTS * $pageNr).');';
+  	if($pageNr < 0) {
+      return "NIL";
+  	}
+  	 
+    $query = 'EXECUTE get_visible_projects_ordered_by_uploadtime_limited_and_offset('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).');';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $projects = pg_fetch_all($result);
     pg_free_result($result);
@@ -56,7 +60,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
       }
       return($projects);
     } else {
-      return ($projects[0]);
+      return "NIL";
     }
   }
 

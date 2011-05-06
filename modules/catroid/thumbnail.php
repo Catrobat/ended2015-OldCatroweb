@@ -20,7 +20,7 @@
 class thumbnail extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
-    $this->addCss('thumbnailUploader.css');
+    $this->addCss('thumbnailUploader.css?'.VERSION);
   }
 
   public function __default() {

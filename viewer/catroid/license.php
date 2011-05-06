@@ -27,10 +27,10 @@
             	    <div class="licenseText"><p class="licenseText">
             	    All projects shared on the Catroid website, as well as the Catroid support materials, are shared under the Creative Commons license with the conditions Attribution - Share Alike.
 									<br><br>
-									The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the GNU General Public License <a href="http://www.gnu.org/licenses/gpl.html" target="_blank">http://www.gnu.org/licenses/gpl.html</a>, 
-									the source code of the website is available under the GNU Affero General Public License <a href="http://www.gnu.org/licenses/agpl.html" target="_blank">http://www.gnu.org/licenses/agpl.html</a>
+									The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the GNU General Public License <a href="http://www.gnu.org/licenses/gpl.html" target="_blank" id="gnugpl">http://www.gnu.org/licenses/gpl.html</a>, 
+									the source code of the website is available under the GNU Affero General Public License <a href="http://www.gnu.org/licenses/agpl.html" target="_blank" id="gnuagpl">http://www.gnu.org/licenses/agpl.html</a>
             	    <br><br>
-              	  You can visit the project at <a href="http://code.google.com/p/catroid" target="_blank">Google Code</a>.
+              	  You can visit the project at <a href="http://code.google.com/p/catroid" target="_blank" id="googlecode">Google Code</a>.
             	    </p>
                   </div> <!-- License Text -->
                   </div> <!--  White Box -->            	

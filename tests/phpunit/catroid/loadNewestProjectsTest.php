@@ -28,21 +28,30 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
     require_once CORE_BASE_PATH.'modules/catroid/loadNewestProjects.php';
     $this->obj = new loadNewestProjects();
     require_once CORE_BASE_PATH.'modules/catroid/upload.php';
-    $this->upload = new upload();        
+    $this->upload = new upload();  
   } 
   
 
+   public function testCheckLabels() {
+     $this->assertEquals($this->obj->labels['websitetitle'], "Catroid Website");
+     $this->assertEquals($this->obj->labels['title'], "Newest Projects");
+     $this->assertEquals($this->obj->labels['prevButton'], "&laquo; Newer");
+     $this->assertEquals($this->obj->labels['nextButton'], "Older &raquo;");
+     $this->assertEquals($this->obj->labels['loadingButton'], "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...");
+  }
+  
   public function testRetrievePageNrFromDatabase()
   {  
     $this->doUpload();
     
     // retrieve first page from database
-    $projects = $this->obj->retrievePageNrFromDatabase(0);    
+    $projects = $this->obj->retrievePageNrFromDatabase(0);
+    $i = PROJECT_PAGE_SHOW_MAX_PROJECTS - 1; 
     foreach($projects as $project) {
-      $this->assertEquals('t', $project['visible']);
-    }
-
-    $query = 'SELECT * FROM projects WHERE visible=true LIMIT '.(PROJECT_PAGE_MAX_PROJECTS).' OFFSET 0';
+      $this->assertEquals('unitTest'.$i--, $project['title']);
+    }        
+    
+    $query = 'SELECT * FROM projects WHERE visible=true LIMIT '.(PROJECT_PAGE_LOAD_MAX_PROJECTS).' OFFSET 0';
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $numDbEntries =  pg_num_rows($result);
     
@@ -110,7 +119,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
   }
 
    public function doUpload() {    
-     for($i=1; $i< 15; $i++)
+     for($i=1; $i< PROJECT_PAGE_SHOW_MAX_PROJECTS; $i++)
      {
        $fileName = 'test.zip';
        $testFile = dirname(__FILE__).'/testdata/'.$fileName;

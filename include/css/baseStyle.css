@@ -271,6 +271,10 @@ div.webMainLicense {
     color: #606060;   
 }
 
+span.webMainBottomSpacer {
+	   color:#7777AA;
+}
+
 img.noBorder {
   border: none;
 }
@@ -307,11 +311,6 @@ a.webHeadTitleDownload {
 	font-size: 0.9em;
 	letter-spacing: 0.2em;
 	font-weight:bold;
-}
-
-font.webMainBottomSpacer
-{
-	color:#7777AA;
 }
 
 a.downloadLink:link { color:#3333AA; text-decoration:underline; }

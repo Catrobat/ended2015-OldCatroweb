@@ -25,29 +25,58 @@ class index extends CoreAuthenticationNone {
       $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_SAFARI) ||
       $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_CHROME) ||
       $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_ANDROID)) {
-        $this->addCss('projectList.css');
+        $this->addCss('projectList.css?'.VERSION);
     } else {
-      $this->addCss('projectList_nohtml5.css');
+      $this->addCss('projectList_nohtml5.css?'.VERSION);
     }
-    $this->addCss('buttons.css');
-    $this->addJs('newestProjects.js');
+    $this->addCss('buttons.css?'.VERSION);
+    $this->addJs('newestProjects.js?'.VERSION);
+    $this->addJs('searchProjects.js?'.VERSION);
+    $this->addJs('index.js?'.VERSION);
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
-
-    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_MAX_PROJECTS);    
+    
+    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);    //TODO deprecated???
     
     if(!$this->session->pageNr) {      
       $this->session->pageNr = 1;
+      $this->session->task = "newestProjects";
     }
-    if(isset($_REQUEST['method'])) {
-      $this->session->pageNr = intval($_REQUEST['method']);
+    if(isset($_REQUEST['method']) || isset($_REQUEST['p'])) {
+    	if(isset($_REQUEST['method'])) {
+        $this->session->pageNr = intval($_REQUEST['method']);
+    	}
+      if(isset($_REQUEST['p'])) {
+        $this->session->pageNr = intval($_REQUEST['p']);
+      }
       if($this->session->pageNr < 1) {
-        $this->session->pageNr = 1; 
+        $this->session->pageNr = 1;
       }
       if($this->session->pageNr > $this->numberOfPages) {
         $this->session->pageNr = $this->numberOfPages - 1; 
       }
     }
-    $this->pageNr = $this->session->pageNr;    
+    if(isset($_SERVER['HTTP_REFERER']) && !$this->session->referer) {
+    	$this->session->referer = $_SERVER['HTTP_REFERER'];
+    }
+    if(isset($_SERVER['HTTP_REFERER']) && $this->session->referer != $_SERVER['HTTP_REFERER']) {
+      $this->session->referer = $_SERVER['HTTP_REFERER'];
+      $this->session->task = "newestProjects";
+    }
+    
+    if(isset($_REQUEST['q'])) {
+    	$this->session->searchQuery = $_REQUEST['q'];
+    }
+    
+    if(!$this->session->task) {
+      $this->session->task = "newestProjects";
+    }
+      
+    $this->task = $this->session->task;
+    $this->pageNr = $this->session->pageNr;
+    $this->searchQuery = "";
+    if($this->session->searchQuery != "") {
+      $this->searchQuery = $this->session->searchQuery;
+    }
   }
 
   public function __default() {

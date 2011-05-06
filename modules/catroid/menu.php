@@ -20,8 +20,8 @@
 class menu extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
-    $this->addCss('menu.css');
-    $this->addJs('menu.js');
+    $this->addCss('menu.css?'.VERSION);
+    $this->addJs('menu.js?'.VERSION);
     $this->htmlHeaderFile = 'htmlMenuHeaderTemplate.php';
   }
 

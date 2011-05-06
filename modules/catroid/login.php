@@ -23,8 +23,8 @@ class login extends CoreAuthenticationNone {
     parent::__construct();
     
     $this->setupBoard();
-    $this->addCss('login.css');
-    $this->addCss('buttons.css');
+    $this->addCss('login.css?'.VERSION);
+    $this->addCss('buttons.css?'.VERSION);
     $this->addJs('login.js');
   }
 

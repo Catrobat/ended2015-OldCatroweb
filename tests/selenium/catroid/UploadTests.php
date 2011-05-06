@@ -43,8 +43,7 @@ class UploadTests extends PHPUnit_Framework_TestCase
    * @dataProvider validProjectsForUpload
    */
   public function testUploadTest($projectTitle, $projectDescription, $projectSource)
-  {
-       
+  {     
     $response = $this->uploadTestProject($projectTitle, $projectDescription, $projectSource);
     $this->assertEquals(200, $response->statusCode);
   }
@@ -84,8 +83,10 @@ class UploadTests extends PHPUnit_Framework_TestCase
       array('testing project upload', 'some description for my test project.', 'test.zip'),
       array('my test project with spaces', 'some description for my test project.', 'test.zip'),
       array(('my spÄc1al c´har t3ßt pröjec+'), 'some description with -äöüÜÖÄß- for my test project.%&()[]{}_|~#', 'test.zip'),
-      array('my_test_project_with_looong_description', 'some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ', 'test.zip'));
-    
+      array('my_test_project_with_looong_description', 'some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ', 'test.zip'),
+      array('project with thumbnail', 'this project has its own thumbnail inside the zip', 'test2.zip')
+      );
+      
     return $returnArray;
   }
 

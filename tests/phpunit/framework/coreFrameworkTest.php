@@ -181,6 +181,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
   public function goodWords() {
     $goodWords = array(
           array("test"), 
+          array("backslash\\"),
           array("catroid"),
           array("here comes some text which does not have any insulting word inside."),
           array("project"));

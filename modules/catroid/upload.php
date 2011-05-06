@@ -21,19 +21,23 @@ class upload extends CoreAuthenticationNone {
 
 	public function __construct() {
 		parent::__construct();
+    $thumbnailDir = CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY;
 	}
 
 	public function __default() {
 		if(isset($_FILES['upload']['tmp_name']) && $_FILES['upload']['error'] == 0) {
-			$this->upload();
+			$this->_upload();
 		}
 	}
 
-	public function upload() {
+	//Strict Standards: Redefining already defined constructor for class
+	public function _upload() { 
 		$newId = $this->doUpload($_POST, $_FILES, $_SERVER);
 		if($newId > 0) {
-			$this->answer = 'Upload successfull!';
-		}
+		  $this->answer = 'Upload successfull!';
+		} else {
+		  $this->sendUploadFailAdminEmail($_POST, $_FILES, $_SERVER);
+        }
 	}
 
 	public function checkValidProjectTitle($title) {
@@ -75,6 +79,7 @@ class upload extends CoreAuthenticationNone {
 									$newId = $line['id'];
 									if($this->renameProjectFile($updir, $newId)) {
 										$projectFile = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENTION;
+										$projectDir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY;
 										//$statusCode = 200;
 										$fileChecksum = md5_file($projectFile);
 										if($formData['fileChecksum']) {
@@ -86,6 +91,8 @@ class upload extends CoreAuthenticationNone {
 													$answer = 'Upload successfull! QR-Code failed!';
 												}
 
+												$this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
+												
 												$unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
 												if($unapprovedWords) {
 													$this->badWordsFilter->mapUnapprovedWordsToProject($newId);
@@ -95,7 +102,7 @@ class upload extends CoreAuthenticationNone {
 												//Error: file checksum incorrect
 												$statusCode = 501;
 												$this->removeProjectFromDatabase($newId);
-												$this->removeProjectFromFilesystem($projectFile);
+												$this->removeProjectFromFilesystem($projectFile, $newId);
 												$newId = 0;
 												$answer = $this->errorHandler->getError('upload', 'invalid_file_checksum');
 											}
@@ -113,14 +120,14 @@ class upload extends CoreAuthenticationNone {
 										$statusCode = 502;
 										$newId = 0;
 										$this->removeProjectFromDatabase($newId);
-										$this->removeProjectFromFilesystem($projectFile);
-										$this->removeProjectFromFilesystem($updir);
+										$this->removeProjectFromFilesystem($projectFile, $newId);
+										$this->removeProjectFromFilesystem($updir, $newId);
 										$answer = $this->errorHandler->getError('upload', 'rename_failed');
 									}
 								} else {
 									//DB INSERT Error
 									$statusCode = 503;
-									$this->removeProjectFromFilesystem($updir);
+									$this->removeProjectFromFilesystem($updir, $newId);
 									$answer = $this->errorHandler->getError('upload', 'sql_insert_failed');
 								}
           						@pg_free_result($result);
@@ -160,7 +167,48 @@ class upload extends CoreAuthenticationNone {
 		$this->answer = $answer;
 		return $newId;
 	}
+	
+	public function unzipUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
+	  $unzipDir = CORE_BASE_PATH.'/'.PROJECTS_UNZIPPED_DIRECTORY;
+    $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
+    while ($zip_entry = zip_read($zip)) {
+      $filename = zip_entry_name($zip_entry);
+      if (preg_match("/thumbnail\./", $filename) || preg_match("/images\/thumbnail\./", $filename)) {
+      	 $thumbnail = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+         if ($thumbnail) {
+           $this->saveThumbnail($projectId, $thumbnail);
+         }
+      }
+    }
+    zip_close($zip);
+	}
+	
+  private function saveThumbnail($filename, $thumbnail) {
+	  $thumbnailDir = CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY;
 
+    $thumbImage = imagecreatefromstring($thumbnail);
+    if ($thumbImage) {
+      $w = imagesx($thumbImage);
+      $h = imagesy($thumbImage);
+            
+      $wsmall = 0; $hsmall = 0; $hsmallopt = intval(240*$h/$w);
+      $wlarge = 0; $hlarge = 0; $hlargeopt = intval(480*$h/$w);
+       
+      // thumbnail with original filesize
+      imagejpeg($thumbImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 100);
+    
+      // small thumbnail for preview 240x400 
+      $smallImage = imagecreatetruecolor(240, $hsmallopt);
+      imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, $hsmallopt, $w, $h); 
+      imagejpeg($smallImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 50);
+
+        // large thumbnail for details-view 480x800
+      $newImage = imagecreatetruecolor(480, $hlargeopt);
+      imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, $hlargeopt, $w, $h);
+      imagejpeg($newImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
+    }
+  } 
+  
 	public function renameProjectFile($oldName, $newId) {
 		$newFileName = $newId.PROJECTS_EXTENTION;
 		$newName = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newFileName;
@@ -199,8 +247,16 @@ class upload extends CoreAuthenticationNone {
 		return;
 	}
 
-	public function removeProjectFromFilesystem($projectFile) {
+	public function removeProjectFromFilesystem($projectFile, $projectId=-1) {
 		@unlink($projectFile);
+		if($projectId > 0) {
+		  if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL))
+		    @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL);
+		  if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE))
+		    @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE);
+		  if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG))
+		    @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG);
+		}
 		return;
 	}
 
@@ -209,7 +265,7 @@ class upload extends CoreAuthenticationNone {
 			$this->sendQRFailNotificationEmail($projectId, $projectTitle);	
 			return false;
 		}
-		$urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.'.zip?fname='.urlencode($projectTitle));
+		$urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENTION.'?fname='.urlencode($projectTitle));
 		$serviceUrl = PROJECTS_QR_SERVICE_URL.$urlToEncode;
 		$destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
 		$qrImageHandle = @imagecreatefrompng($serviceUrl);
@@ -269,6 +325,33 @@ class upload extends CoreAuthenticationNone {
 		$mailText .= "You should check this! <a href='".BASE_PATH."admin/tools/approveWords'>follow me!</a>";
 
 		return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+	}
+	
+	public function sendUploadFailAdminEmail($formData, $fileData, $serverData) {
+	  $mailSubject = 'Upload of a project failed!';
+	  $mailText = "Hello catroid.org Administrator!\n\n";
+	  $mailText .= "The Upload of a project failed:\n\n";
+	  $mailText .= "---PROJECT DETAILS---\n";
+	  $mailText .= "Upload Error Code: ".$this->statusCode."\n";
+	  $mailText .= "Upload Error Message: ".$this->answer."\n";
+	  if(isset($formData['projectTitle']))
+	    $mailText .= "Project Title: ".$formData['projectTitle']."\n";
+	  if(isset($formData['projectDescription']))
+	    $mailText .= "Project Description: ".$formData['projectDescription']."\n";
+	  if(isset($fileData['upload']))  
+	    $mailText .= "Project Size: ".intval($fileData['upload']['size'])." Byte\n";
+	  if(isset($formData['deviceIMEI']))
+	    $mailText .= "Device IMEI: ".$formData['deviceIMEI']."\n";
+	  if(isset($formData['userEmail']))
+	    $mailText .= "User Email: ".$formData['userEmail']."\n";
+	  if(isset($formData['userLanguage']))
+	    $mailText .= "User Language: ".$formData['userLanguage']."\n";
+	  if(isset($serverData['REMOTE_ADDR']))
+	    $mailText .= "User IP: ".$serverData['REMOTE_ADDR']."\n";
+
+      $mailText .= "You should check this!";
+
+	  return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
 	}
 
 	public function __destruct() {

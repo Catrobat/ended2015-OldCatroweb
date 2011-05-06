@@ -125,9 +125,22 @@ div.detailsFlagButton {
 	text-align: center;
 }
 
+div.qrcodeInfo {
+  text-align: left;
+}
+
 div.detailsQRCode {
 	text-align: center;
 	margin-top: 10px;
+}
+
+div.detailsQRCodeText {
+  text-align: left;
+  margin-top: 10px;
+  margin-right: 10px;
+  font-size: 0.75em;
+  color: gray;
+  margin-bottom: 10px;
 }
 
 div.reportAsInappropriateDialog {
