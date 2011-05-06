@@ -49,6 +49,7 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">This page cannot be displayed.</string>
+    	<string name="ajax_request_page_not_found">This page cannot be displayed.</string>
     </viewer>
     <auth>
     	<string name="password_or_username_wrong">Your password or nickname was incorrect.</string>

@@ -68,7 +68,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
   }
 
   public function doUpload() {
-    for($i=1; $i<PROJECT_PAGE_LOAD_MAX_PROJECTS+PROJECT_PAGE_SHOW_MAX_PROJECTS; $i++) {      
+    for($i=1; $i<PROJECT_PAGE_LOAD_MAX_PROJECTS*(PROJECT_PAGE_SHOW_MAX_PAGES+1); $i++) {      
       $jsonResponse = $this->uploadTestProject('unitTest'.$i, 'unitTestDescription'.$i);
       $insertId = $jsonResponse->projectId;
       array_push($this->insertIDArray, $insertId);
@@ -153,8 +153,7 @@ class IndexTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isVisible("moreProjects"));
     $this->assertTrue($this->selenium->isTextPresent($this->labels['nextButton']));
     
-    $clickCount = ceil(PROJECT_PAGE_SHOW_MAX_PROJECTS / PROJECT_PAGE_LOAD_MAX_PROJECTS);
-    for($i=0; $i<$clickCount; $i++) {
+    for($i=0; $i<PROJECT_PAGE_SHOW_MAX_PAGES; $i++) {
       $this->selenium->click("moreProjects");
       $this->ajaxWait();
       $this->assertRegExp("/".$this->labels['websitetitle']." - ".$this->labels['title']." - ".($i+2)."/", $this->selenium->getTitle());

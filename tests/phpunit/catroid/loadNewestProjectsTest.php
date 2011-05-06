@@ -37,7 +37,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
      $this->assertEquals($this->obj->labels['title'], "Newest Projects");
      $this->assertEquals($this->obj->labels['prevButton'], "&laquo; Newer");
      $this->assertEquals($this->obj->labels['nextButton'], "Older &raquo;");
-     $this->assertEquals($this->obj->labels['loadingButton'], "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...");
+     $this->assertEquals($this->obj->labels['loadingButton'], "loading...");
   }
   
   public function testRetrievePageNrFromDatabase()
@@ -46,7 +46,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
     
     // retrieve first page from database
     $projects = $this->obj->retrievePageNrFromDatabase(0);
-    $i = PROJECT_PAGE_SHOW_MAX_PROJECTS - 1; 
+    $i = PROJECT_PAGE_SHOW_MAX_PAGES - 1; 
     foreach($projects as $project) {
       $this->assertEquals('unitTest'.$i--, $project['title']);
     }        
@@ -119,7 +119,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
   }
 
    public function doUpload() {    
-     for($i=1; $i< PROJECT_PAGE_SHOW_MAX_PROJECTS; $i++)
+     for($i=1; $i< PROJECT_PAGE_LOAD_MAX_PROJECTS*PROJECT_PAGE_SHOW_MAX_PAGES; $i++)
      {
        $fileName = 'test.zip';
        $testFile = dirname(__FILE__).'/testdata/'.$fileName;

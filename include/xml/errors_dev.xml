@@ -49,6 +49,7 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">Could not find html viewer file.</string>
+    	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
     </viewer>
     <auth>
     	<string name="password_or_username_wrong">The password or nickname was incorrect.</string>

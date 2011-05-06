@@ -35,7 +35,7 @@ class index extends CoreAuthenticationNone {
     $this->addJs('index.js?'.VERSION);
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
     
-    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);    //TODO deprecated???
+    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);
     
     if(!$this->session->pageNr) {      
       $this->session->pageNr = 1;
@@ -52,7 +52,7 @@ class index extends CoreAuthenticationNone {
         $this->session->pageNr = 1;
       }
       if($this->session->pageNr > $this->numberOfPages) {
-        $this->session->pageNr = $this->numberOfPages - 1; 
+        $this->session->pageNr = $this->numberOfPages; 
       }
     }
     if(isset($_SERVER['HTTP_REFERER']) && !$this->session->referer) {
@@ -77,6 +77,7 @@ class index extends CoreAuthenticationNone {
     if($this->session->searchQuery != "") {
       $this->searchQuery = $this->session->searchQuery;
     }
+    $this->error = "PageNotFound";
   }
 
   public function __default() {

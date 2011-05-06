@@ -37,7 +37,7 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($this->obj->labels['title'], "Search Results");
     $this->assertEquals($this->obj->labels['prevButton'], "&laquo; Previous");
     $this->assertEquals($this->obj->labels['nextButton'], "Next &raquo;");
-    $this->assertEquals($this->obj->labels['loadingButton'], "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...");
+    $this->assertEquals($this->obj->labels['loadingButton'], "loading...");
   }  
 
   public function testRetrieveSearchResultsFromDatabaseSuccess() {

@@ -29,7 +29,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
     $labels['title'] = "Search Results";
     $labels['prevButton'] = "&laquo; Previous";
     $labels['nextButton'] = "Next &raquo;";
-    $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
+    $labels['loadingButton'] = "loading...";
     $this->labels = $labels;
   }
 

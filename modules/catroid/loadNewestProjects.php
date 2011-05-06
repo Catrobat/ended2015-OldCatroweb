@@ -28,7 +28,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
     $labels['title'] = "Newest Projects";
     $labels['prevButton'] = "&laquo; Newer";
     $labels['nextButton'] = "Older &raquo;";
-    $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
+    $labels['loadingButton'] = "loading...";
     $this->labels = $labels;
   }
 

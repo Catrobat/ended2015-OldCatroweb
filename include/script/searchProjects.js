@@ -18,12 +18,12 @@
 
 
 var SearchProjects = Class.$extend( {
-  __init__ : function(parent, basePath, maxLoadProjects, maxVisibleProjects, pageNr, searchQuery, strings) {
+  __init__ : function(parent, basePath, maxLoadProjects, maxLoadPages, pageNr, searchQuery, strings) {
 	  this.parent = parent;
     this.basePath = basePath;
     this.strings = strings;
     this.maxLoadProjects = parseInt(maxLoadProjects);
-    this.maxVisibleProjects = parseInt(maxVisibleProjects);
+    this.maxVisibleProjects = parseInt(maxLoadPages) * maxLoadProjects;
     this.pageNr = { prev : parseInt(pageNr)-1, current : parseInt(pageNr), next : parseInt(pageNr)+1 };
     this.searchQuery = searchQuery;
    
@@ -142,7 +142,9 @@ var SearchProjects = Class.$extend( {
 
   nextPage : function() {
     if(this.blockAjaxRequest()) {     
-      $("#moreProjects").children("span").html(this.pageLabels['loadingButton']);
+      $("#moreProjects").children("span").html("<img src='" + this.basePath + "images/symbols/ajax-loader.gif' /> "
+          + this.pageLabels['loadingButton']);
+      
       this.pageContent.current = this.pageContent.current.concat(this.pageContent.next);
       this.pageNr.current++;
       
@@ -161,7 +163,9 @@ var SearchProjects = Class.$extend( {
 
   prevPage : function() {
     if(this.blockAjaxRequest()) {
-      $("#fewerProjects").children("span").html(this.pageLabels['loadingButton']);      
+      $("#fewerProjects").children("span").html("<img src='" + this.basePath + "images/symbols/ajax-loader.gif' /> "
+          + this.pageLabels['loadingButton']);
+      
       this.pageContent.current = this.pageContent.prev.concat(this.pageContent.current);
       this.pageNr.current--;
 
@@ -224,38 +228,42 @@ var SearchProjects = Class.$extend( {
       type : "POST",
       data : {
         query : self.searchQuery,
-        page : pageNr 
+        page : pageNr
       },
       timeout: (5000),
     
       success: function(result) {
         if(result != "") {
-          for(var i = 0; i < result.content.length; i++) {
-            result.content[i].pageNr = pageNr;
-          }         
+          if(result.error) {
+            self.showErrorPage('viewer', 'ajax_request_page_not_found', '');
+          } else {
+            for(var i = 0; i < result.content.length; i++) {
+              result.content[i].pageNr = pageNr;
+            }      
           
-          self.pageLabels = result.labels;
+            self.pageLabels = result.labels;
           
-          if(self.pageNr.current == pageNr) {
-            if(self.pageContent.current == null) {
-              self.pageContent.current = result.content;
+            if(self.pageNr.current == pageNr) {
+              if(self.pageContent.current == null) {
+                self.pageContent.current = result.content;
+              }
             }
-          }
-          else {
-            if(self.pageNr.prev == pageNr) {
-              self.pageContent.prev = result.content;
+            else {
+              if(self.pageNr.prev == pageNr) {
+                self.pageContent.prev = result.content;
+              }
+              if(self.pageNr.next == pageNr) {
+                self.pageContent.next = result.content;
+              }
             }
-            if(self.pageNr.next == pageNr) {
-              self.pageContent.next = result.content;
-            }
-          }
           
-          if(self.pageContent.prev != null && self.pageContent.current != null && self.pageContent.next != null) {
-            self.fillSkeletonWithContent();
-            self.saveHistoryState();
-            self.saveStateToSession(self.pageNr.current);
-            self.setDocumentTitle();
-            self.unblockAjaxRequest();            
+            if(self.pageContent.prev != null && self.pageContent.current != null && self.pageContent.next != null) {
+              self.fillSkeletonWithContent();
+              self.saveHistoryState();
+              self.saveStateToSession(self.pageNr.current);
+              self.setDocumentTitle();
+              self.unblockAjaxRequest();            
+            }
           }
         }
       },
@@ -264,6 +272,24 @@ var SearchProjects = Class.$extend( {
           window.location.reload(false);          
         }        
       }
+    });
+  },
+
+  showErrorPage: function(type, code, extra) {
+    var self = this;
+    $.ajax({
+      type: 'POST',
+      url: self.basePath+"catroid/saveDataToSession/save.json",
+      data : {
+        content: {
+          errorType : type,
+          errorCode : code,
+          errorExtraInfo : extra
+        }
+      },
+      success: function(result) {
+          location.href = self.basePath + "catroid/errorPage"; 
+        }
     });
   },
 

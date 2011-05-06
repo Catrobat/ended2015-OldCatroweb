@@ -93,7 +93,7 @@ class SearchTests extends PHPUnit_Framework_TestCase
   
   public function testPageNavigation() {
     $noSearchResultKeywords = $this->randomLongStrings();
-    $this->doUpload($noSearchResultKeywords[2][0], PROJECT_PAGE_LOAD_MAX_PROJECTS+PROJECT_PAGE_SHOW_MAX_PROJECTS);
+    $this->doUpload($noSearchResultKeywords[2][0], PROJECT_PAGE_LOAD_MAX_PROJECTS*(PROJECT_PAGE_SHOW_MAX_PAGES+1));
     
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
@@ -125,8 +125,7 @@ class SearchTests extends PHPUnit_Framework_TestCase
     $this->ajaxWait();
     $this->assertFalse($this->selenium->isTextPresent("Your search returned no results"));
     
-    $clickCount = ceil(PROJECT_PAGE_SHOW_MAX_PROJECTS / PROJECT_PAGE_LOAD_MAX_PROJECTS);
-    for($i=0; $i<$clickCount; $i++) {
+    for($i=0; $i<PROJECT_PAGE_SHOW_MAX_PAGES; $i++) {
       $this->selenium->click("moreProjects");
       $this->ajaxWait();
       $this->assertRegExp("/".$this->labels['websitetitle']." - ".$this->labels['title']." - ".$noSearchResultKeywords[2][0]." - ".($i+2)."/", $this->selenium->getTitle());
