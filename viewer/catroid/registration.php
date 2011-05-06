@@ -54,6 +54,10 @@
           		   			Gender<br>
           		   			<select id="registrationGender" name="registrationGender" class="registration" ><?php print_r ($this->gender) ?></select><br>
                       <input type="button" name="registrationSubmit" id="registrationSubmit" value="Create my account now" class="button orange compact registrationSubmitButton">
+                      <br>
+                      <br>
+                      <br> 
+											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>
             		   	</form>
                   </div> <!-- registrationFormContainer -->
 								</div> <!-- Registration Text -->

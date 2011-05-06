@@ -60,6 +60,7 @@
         	  		   			<?php }?>
         	  		   		</form>
       	  		   		</div>
+										<br>
       	  		   		<br>
       	  		   		<?php if($this->module->session->userLogin_userId <= 0) {?>
 										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Create a new account now</a> <br>or<br> <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>
