@@ -53,7 +53,7 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
       $this->assertEquals('unitTest'.($i--), $project['title']);
     }
 
-    $query = 'SELECT * FROM projects WHERE title ILIKE \''.$this->uniqueString.'\' OR description ILIKE \''.$this->uniqueString.'\' ORDER BY upload_time DESC  LIMIT '.(PROJECT_PAGE_LOAD_MAX_PROJECTS).' OFFSET 0';
+    $query = 'SELECT * FROM projects WHERE (title ILIKE \''.$this->uniqueString.'\' OR description ILIKE \''.$this->uniqueString.'\') AND visible = \'t\' ORDER BY upload_time DESC  LIMIT '.(PROJECT_PAGE_LOAD_MAX_PROJECTS).' OFFSET 0';
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $numDbEntries =  pg_num_rows($result);
     
