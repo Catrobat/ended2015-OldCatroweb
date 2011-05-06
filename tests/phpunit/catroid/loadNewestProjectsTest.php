@@ -46,7 +46,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
     
     // retrieve first page from database
     $projects = $this->obj->retrievePageNrFromDatabase(0);
-    $i = PROJECT_PAGE_SHOW_MAX_PAGES - 1; 
+    $i = PROJECT_PAGE_SHOW_MAX_PAGES * PROJECT_PAGE_LOAD_MAX_PROJECTS - 1; 
     foreach($projects as $project) {
       $this->assertEquals('unitTest'.$i--, $project['title']);
     }        
