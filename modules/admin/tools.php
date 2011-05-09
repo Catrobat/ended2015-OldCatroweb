@@ -61,6 +61,29 @@ class tools extends CoreAuthenticationAdmin {
 		$this->projects = $this->retrieveAllProjectsFromDatabase();
 	}
 
+	public function toggleProjects() {
+	  if(isset($_POST['toggle'])) {
+	    if ($_POST['toggle'] == "visible") {
+	      if($this->showProject($_POST['projectId'])) {
+	        $answer = "The project was succesfully set to state visible!";
+	      } else {
+	        $answer = "Error could NOT change project to state visible!";
+	      }
+	      $this->answer = $answer;
+	    }
+	    if ($_POST['toggle'] == "invisible") {
+	      if($this->hideProject($_POST['projectId'])) {
+	        $answer = "The project was succesfully set to state invisible!";
+	      } else {
+	        $answer = "Error could NOT change project to state invisible!";
+	      }
+	      $this->answer = $answer;
+	    }
+	  }
+	  $this->htmlFile = "editProjectList.php";
+	  $this->projects = $this->retrieveAllProjectsFromDatabase();
+	}
+
 	public function approveWords() {
 		if(isset($_POST['approve'])) {
 			$meaning = $_POST['meaning'];
@@ -224,7 +247,7 @@ class tools extends CoreAuthenticationAdmin {
 		}
 	}
 
-	private function hideProject($id) {
+	public function hideProject($id) {
 		$query = "EXECUTE hide_project('$id');";
 		$result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
 		if($result) {
@@ -233,6 +256,15 @@ class tools extends CoreAuthenticationAdmin {
 		return $result;
 	}
 
+	public function showProject($id) {
+		$query = "EXECUTE show_project('$id');";
+		$result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+		if($result) {
+			pg_free_result($result);
+		}
+		return $result;
+	}
+	
 	private function hideProjectsContainingInsultingWords($word_id) {
 		$query = "EXECUTE get_project_list_containing_insulting_words('$word_id');";
 		$result = @pg_query($query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());

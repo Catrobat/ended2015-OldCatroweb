@@ -19,12 +19,14 @@
 ?>
 <body>
   <script type="text/javascript">
-  function submitForm(id, name) {
-    var doDelete = window.confirm("Delete project '"+name+"'?");
-    if(doDelete) {
-      document.getElementById("form"+id).submit();
-    }
+  function submitDeleteForm(id, name) {
+    if (confirm("Delete project '"+name+"'?"))
+      document.getElementById(id).submit();
   }
+  function submitToggleForm(id, name, newstate) {
+	    if (confirm("Change project '"+name+"' to "+newstate+"?"))
+	      document.getElementById(id).submit();
+	  }
   </script>
   <h2>Administration Tools - List of available projects</h2>
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
@@ -53,12 +55,20 @@
           <td><?php echo $project['upload_ip']?></td>
           <td><?php echo $project['download_count']?></td>
           <td><?php echo $project['num_flags'].'x'?></td>
-          <td><?php echo ($project['visible']=='t' ? 'visible' : '<em>invisible</em>');?></td>
           <td>
-            <form id="form<?php echo $project['id']?>" class="admin" action="editProjects" method="POST">
+            <form id="toggleform<?php echo $project['id']?>" class="admin" action="toggleProjects" method="POST">
+            <?php echo ($project['visible']=='t' ? 'visible' : '<em>invisible</em>');?> 
+              <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
+              <input type="hidden" name="toggle" value="<?php echo ($project['visible']=='t' ? 'invisible' : 'visible'); ?>">
+              <input type="button" value="change" name="toggleProject" id="toggle<?php echo $project['id']?>" onclick="javascript:submitToggleForm('toggleform<?php echo $project['id']?>', '<?php echo $project['title']?>', '<?php echo ($project['visible']=='t' ? 'invisible' : 'visible');?>');" /> <!-- chg -->
+            </form>
+          </td>
+                  
+          <td>
+            <form id="deleteform<?php echo $project['id']?>" class="admin" action="editProjects" method="POST">
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
               <input type="hidden" name="delete" value="delete"/>
-              <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitForm('<?php echo $project['id']?>', '<?php echo $project['title']?>');" /> <!-- chg -->
+              <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitDeleteForm('deleteform<?php echo $project['id']?>', '<?php echo $project['title']?>');" /> <!-- chg -->
             </form>
           </td>
         </tr>
