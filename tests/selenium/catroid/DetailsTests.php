@@ -122,13 +122,13 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
     $this->selenium->click("reportAsInappropriateButton");
     $this->selenium->click("reportInappropriateReportButton");
-    $this->selenium->waitForPageToLoad(2000);
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
     $this->assertFalse($this->selenium->isTextPresent("You reported this project as inappropriate!"));
     $this->selenium->click("reportAsInappropriateButton");
     $this->selenium->type("reportInappropriateReason", "my selenium reason");
     $this->selenium->click("reportInappropriateReportButton");
-    $this->selenium->waitForPageToLoad(2000);
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
     $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
     if(TESTS_BROWSER != "*googlechrome") { //chrome does not support keyPress for some reason
@@ -138,7 +138,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
 	    $this->selenium->type("reportInappropriateReason", "my selenium reason 2");
 	    $this->selenium->focus("reportInappropriateReason");
 	    $this->selenium->keyPress("reportInappropriateReason", "\\13");
-	    $this->selenium->waitForPageToLoad(2000);
+	    $this->selenium->waitForPageToLoad(10000);
 	    $this->assertFalse($this->selenium->isVisible("reportInappropriateReason"));
 	    $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
     }
@@ -283,7 +283,6 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     } else {
       $uploadTestFile.= '/testdata/test.zip';
     }
-
     $uploadpath= TESTS_BASE_PATH.'catroid/upload/upload.json';
 
     $ch = curl_init();
@@ -296,14 +295,13 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $post = array(
         "upload"=>"@$uploadTestFile",
         "projectTitle"=>$title,
-    	"projectDescription"=>$description,
+        "projectDescription"=>$description,
         "fileChecksum"=>md5_file($uploadTestFile)
     );
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
     $response = json_decode(curl_exec($ch));
     $this->assertEquals(200, $response->statusCode);
   }
-
 }
 ?>
 

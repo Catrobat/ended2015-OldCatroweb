@@ -22,17 +22,17 @@ class details extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
 
-    $this->addCss('buttons.css');
+    $this->addCss('buttons.css?'.VERSION);
     if($this->clientDetection->isBrowser(CoreClientDetection::BROWSER_FIREFOX) ||
     $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_FIREFOX_MOBILE) ||
     $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_SAFARI) ||
     $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_CHROME) ||
     $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_ANDROID)) {
-      $this->addCss('projectDetails.css');
+      $this->addCss('projectDetails.css?'.VERSION);
     } else {
-      $this->addCss('projectDetails_nohtml5.css');
+      $this->addCss('projectDetails_nohtml5.css?'.VERSION);
     }
-    $this->addJs('projectDetails.js');
+    $this->addJs('projectDetails.js?'.VERSION);
 
     $this->isMobile = $this->clientDetection->isMobile();
   }

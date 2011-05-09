@@ -49,9 +49,10 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">Could not find html viewer file.</string>
+    	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
     </viewer>
     <auth>
-    	<string name="password_or_username_wrong">The password or username was incorrect.</string>
+    	<string name="password_or_username_wrong">The password or nickname was incorrect.</string>
     	<string name="username_not_found">The username was not found.</string>
     	<string name="board_authentication_failed">The board authentication failed.</string>
     	<string name="wiki_authentication_failed">The wiki authentication failed.</string>
@@ -70,6 +71,7 @@
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">The password is invalid.</string>
     	<string name="password_length_invalid">The password must have at least 6 characters.</string>
+      <string name="username_password_equal">The password must differ from the nickname.</string>
     	<string name="username_missing">The nickname is missing.</string>
     	<string name="username_invalid">The nickname is invalid.</string>
     	<string name="username_invalid_underscore">The nickname is invalid. Underscores (_) are not allowed.</string>
@@ -87,7 +89,6 @@
     	<string name="insulting_words_in_email_field">There are insulting words in the email address field!</string>
     	<string name="insulting_words_in_city_field">There are insulting words in the city field!</string>
     	<string name="insulting_words_in_province_field">There are insulting words in the province field!</string>
-
     </registration>
     <passwordrecovery>
       <string name="userdata_invalid">The nickname or email address is invalid.</string>

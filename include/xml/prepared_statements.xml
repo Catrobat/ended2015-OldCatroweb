@@ -55,6 +55,7 @@
     <string name="delete_word_from_list">DELETE FROM unapproved_words_in_projects WHERE word_id=$1</string>
 
     <string name="get_user_login">SELECT * FROM cusers WHERE username_clean=$1 AND password=$2 LIMIT 1</string>
+    <string name="get_userid_by_username">SELECT id FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_row_by_username">SELECT * FROM cusers WHERE username=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_clean">SELECT * FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_row_by_email">SELECT * FROM cusers WHERE email=$1 LIMIT 1</string>

@@ -28,7 +28,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
     $labels['title'] = "Newest Projects";
     $labels['prevButton'] = "&laquo; Newer";
     $labels['nextButton'] = "Older &raquo;";
-    $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
+    $labels['loadingButton'] = "loading...";
     $this->labels = $labels;
   }
 
@@ -74,8 +74,10 @@ class loadNewestProjects extends CoreAuthenticationNone {
   public function getThumbnail($projectId) {
     $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
     $thumb_file = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
-    if (!is_file($thumb_file))
+    if(!is_file($thumb_file)) {
       $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
+    }
+
     return $thumb;
   }
 

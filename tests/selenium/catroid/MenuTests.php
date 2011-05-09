@@ -134,7 +134,7 @@ class MenuTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("menuWikiButton");
     $this->selenium->selectWindow("wiki");    
     $this->selenium->waitForPageToLoad(10000);    
-    $this->assertRegExp("/wiki\/Main_Page/", $this->selenium->getLocation());
+    $this->assertRegExp("/wiki\/Main_Page\?action=purge/", $this->selenium->getLocation());
     $this->assertTrue($this->selenium->isTextPresent(("Main Page")));
     $this->assertTrue($this->selenium->isElementPresent("pt-userpage"));    
     $this->selenium->close();

@@ -43,6 +43,15 @@ class saveDataToSession extends CoreAuthenticationNone {
       case 'task':
         $this->session->task = $value;
         break;
+      case 'errorType':
+        $this->session->errorType = $value;
+        break;
+      case 'errorCode':
+        $this->session->errorCode = $value;
+        break;
+      case 'errorExtraInfo':
+        $this->session->errorExtraInfo = $value;
+        break;        
     }
   }
 }

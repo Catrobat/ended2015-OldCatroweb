@@ -19,7 +19,7 @@
 ?>
     <script type="text/javascript">
       $(document).ready(function() {
-        new Index(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_LOAD_MAX_PROJECTS."', '".PROJECT_PAGE_SHOW_MAX_PROJECTS."', '".$this->module->session->pageNr."', '".$this->module->session->searchQuery."', '".$this->module->session->task."'"; ?>);
+        new Index(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_LOAD_MAX_PROJECTS."', '".PROJECT_PAGE_SHOW_MAX_PAGES."', '".$this->module->session->pageNr."', '".$this->module->session->searchQuery."', '".$this->module->session->task."', { loading: 'loading...' }"; ?>);
         new HeaderMenu(<?php echo "'".BASE_PATH."'"; ?>);
       });
     </script>
@@ -53,7 +53,7 @@
         <div class="blueBoxMain">
           <div class="webMainHead">
             <form id="searchForm">
-              <input id="searchQuery" type="search" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
+              <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
               <input type="submit" class="webHeadSearchSubmit" value="Search" />
             </form>
           </div>

@@ -16,7 +16,8 @@
       You should have received a copy of the GNU Affero General Public License
       along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
-  
+ 
+
 <errors>
     <db>
         <string name="query_failed">Ooooops something went wrong. Please try again!</string>
@@ -48,6 +49,7 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">This page cannot be displayed.</string>
+    	<string name="ajax_request_page_not_found">This page cannot be displayed.</string>
     </viewer>
     <auth>
     	<string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
@@ -70,6 +72,7 @@
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">Your password is invalid.</string>
     	<string name="password_length_invalid">Your password must have at least 6 characters.</string>
+    	<string name="username_password_equal">The password must differ from your nickname.</string>
     	<string name="username_missing">Your nickname is missing.</string>
     	<string name="username_invalid">Your nickname is invalid.</string>
       <string name="username_invalid_underscore">The nickname is invalid. Underscores (_) are not allowed.</string>
@@ -91,6 +94,8 @@
       <string name="userdata_invalid">Your nickname or email address is invalid.</string>
       <string name="userdata_missing">Your nickname or email address is missing.</string>
       <string name="userdata_not_exists">Your nickname or email address was not found.</string>
+      <string name="passwordhash_invalid">Sorry! Your recovery url has expired. Please try again.</string>
+      <string name="password_missing">The password is missing.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
       <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
     </passwordrecovery>

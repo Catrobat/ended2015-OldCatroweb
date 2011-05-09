@@ -29,7 +29,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
     $labels['title'] = "Search Results";
     $labels['prevButton'] = "&laquo; Previous";
     $labels['nextButton'] = "Next &raquo;";
-    $labels['loadingButton'] = "<img src='".BASE_PATH."images/symbols/ajax-loader.gif' /> loading...";
+    $labels['loadingButton'] = "loading...";
     $this->labels = $labels;
   }
 
@@ -65,7 +65,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
       }
     }
   	
-  	pg_prepare($this->dbConnection, "get_search_results", "SELECT id, title, upload_time FROM projects WHERE $searchQuery ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")
+  	pg_prepare($this->dbConnection, "get_search_results", "SELECT id, title, upload_time FROM projects WHERE ($searchQuery) AND visible = 't' ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")
   	or die("Couldn't prepare statement: " . pg_last_error());
     $query = 'EXECUTE get_search_results('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).$searchRequest.');';    
   	$result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());

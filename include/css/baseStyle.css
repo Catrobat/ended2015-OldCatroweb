@@ -261,7 +261,8 @@ input.webHeadSearchSubmit {
 }
 
 select.registration {
-	margin: 1.2% 1% 1.2% 0;
+	margin: 1.2% 1% 1.2% 0.4%;
+	max-width: 60%;
 	}
 
 div.webMainLicense {

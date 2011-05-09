@@ -78,9 +78,9 @@ class registrationTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider validPasswords
    */
-  public function testCheckPassword($pass) {
+  public function testCheckPassword($user, $pass) {
     try {
-      $this->assertTrue($this->obj->checkPassword($pass));
+      $this->assertTrue($this->obj->checkPassword($user, $pass));
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -287,26 +287,27 @@ class registrationTest extends PHPUnit_Framework_TestCase
     );
     return $dataArray;
   }
-
+  
   public function validPasswords() {
     $dataArray = array(
-    array('mypassword', 'mypassword'),
-    array('myPassWorD', 'myPassWorD'),
-    array('89277823409', '89277823409'),
-    array('012345', '012345'),
-    array('abcdef', 'abcdef'),
-    array('Äjkasdkfäadfäppöü', 'Äjkasdkfäadfäppöü'),
-    array('______', '______')
+    array('mynickname', 'mypassword'),
+    array('mynickname', 'myPassWorD'),
+    array('mynickname', '89277823409'),
+    array('mynickname', '012345'),
+    array('mynickname', 'abcdef'),
+    array('mynickname', 'Äjkasdkfäadfäppöü'),
+    array('mynickname', '______')
     );
     return $dataArray;
   }
 
   public function invalidPasswords() {
     $dataArray = array(
-    array('short'),
-    array('longmypasswordmypasmypasswordmypasmypasswordmypasmypasswordmypasmypassword'),
-    array('0'),
-    array('')
+    array('short', 'okpassword'),
+    array('longmypasswordmypasmypasswordmypasmypasswordmypasmypasswordmypasmypassword','okpassword'),
+    array('0', '000'),
+    array('', ''),
+    array('mynickname', 'mynickname') // passwords must not be equal to uernames
     );
     return $dataArray;
   }

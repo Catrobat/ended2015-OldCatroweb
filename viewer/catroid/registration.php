@@ -17,6 +17,13 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
+  <input type="hidden" id="basePath" value="<?php echo BASE_PATH?>">
+  <script type="text/javascript">
+  	$(document).ready(function() {
+  		new Registration($("#basePath").attr("value"));
+  	});
+  </script>
+  
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
@@ -25,28 +32,32 @@
             	  <div class ="whiteBoxMain">
             	    <div class="registrationText">
             	    <div class="registrationFormContainer">
-            		   	<?php if($this->answer) {
-          		   	    echo '<div class="errorMsg">';
-           		   	    echo $this->answer;
-              		   	echo '</div>';
-            		   	}?>
-                  	<form method="post" action="./registration" name="registrationForm">
+            	    	<div class="registrationFormAnswer" id="registrationFormAnswer">
+            	    		<div class="errorMsg" id="errorMsg">
+            	    		<!-- error messages here -->
+              		   	</div>
+            		   	</div>
+                  	<form method="post" name="registrationFormDialog" id="registrationFormDialog">
       	  		   			<div class="registrationH2">Please choose your nickname. </div>
-          		   			Nickname*<br>
-          		   			<input type="text" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>" required="required" ><br>
-          		   			Password*<br>
-          		   			<input type="password" name="registrationPassword" value="<?php if($this->passOk) { echo htmlspecialchars($this->postData['registrationPassword']); }?>" required="required" ><br>
-          		   			Email*<br>
-          		   			<input type="email" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" required="required" ><br>
-          		   			Country*<br>
-          		   			<select name="registrationCountry" class="registration" id="registrationCountry" required="required" ><?php print_r ($this->countrylist) ?></select><br>
-          		   			Birthday<br>
-          		   			<select name="registrationMonth" id="registrationMonth" class="registration" required="required" ><?php print_r ($this->month) ?></select> <select name="registrationYear" class="registration" id="registrationYear" required="required"><?php print_r ($this->year) ?></select><br>
-          		   			Gender<br>
-          		   			<select name="registrationGender" class="registration" required="required" ><?php print_r ($this->gender) ?></select><br>
+          		   			Nickname<br>
+          		   			<input type="text" id="registrationUsername" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>" required="required" placeholder="enter a nickname" ><br>
+          		   			Password<br>
+          		   			<input type="text" id="registrationPassword" name="registrationPassword" value="<?php if($this->passOk) { echo htmlspecialchars($this->postData['registrationPassword']); }?>" required="required" placeholder="enter a password" ><br>
+          		   			Email<br>
+          		   			<input type="email" id="registrationEmail" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" required="required" placeholder="enter your email address" ><br>
+          		   			Country<br>
+          		   			<select id="registrationCountry" name="registrationCountry" class="registration" id="registrationCountry" required="required" ><?php print_r ($this->countrylist) ?></select><br>
           		   			City<br>
-          		   			<input type="text" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>"><br>          		   			
-                      <input type="submit" name="registrationSubmit" value="Create my account now" class="button orange compact registrationSubmitButton">
+          		   			<input type="text" id="registrationCity" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>" placeholder="enter your city"><br>
+          		   			Birthday<br>
+          		   			<select id="registrationMonth" name="registrationMonth" class="registration" ><?php print_r ($this->month) ?></select> <select id="registrationYear" name="registrationYear" class="registration" required="required"><?php print_r ($this->year) ?></select><br>
+          		   			Gender<br>
+          		   			<select id="registrationGender" name="registrationGender" class="registration" ><?php print_r ($this->gender) ?></select><br>
+                      <input type="button" name="registrationSubmit" id="registrationSubmit" value="Create my account now" class="button orange compact registrationSubmitButton">
+                      <br>
+                      <br>
+                      <br> 
+											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>
             		   	</form>
                   </div> <!-- registrationFormContainer -->
 								</div> <!-- Registration Text -->

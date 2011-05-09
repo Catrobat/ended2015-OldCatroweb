@@ -25,17 +25,17 @@ class index extends CoreAuthenticationNone {
       $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_SAFARI) ||
       $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_CHROME) ||
       $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_ANDROID)) {
-        $this->addCss('projectList.css');
+        $this->addCss('projectList.css?'.VERSION);
     } else {
-      $this->addCss('projectList_nohtml5.css');
+      $this->addCss('projectList_nohtml5.css?'.VERSION);
     }
-    $this->addCss('buttons.css');
-    $this->addJs('newestProjects.js');
-    $this->addJs('searchProjects.js');
-    $this->addJs('index.js');
+    $this->addCss('buttons.css?'.VERSION);
+    $this->addJs('newestProjects.js?'.VERSION);
+    $this->addJs('searchProjects.js?'.VERSION);
+    $this->addJs('index.js?'.VERSION);
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
     
-    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);    //TODO deprecated???
+    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);
     
     if(!$this->session->pageNr) {      
       $this->session->pageNr = 1;
@@ -52,7 +52,7 @@ class index extends CoreAuthenticationNone {
         $this->session->pageNr = 1;
       }
       if($this->session->pageNr > $this->numberOfPages) {
-        $this->session->pageNr = $this->numberOfPages - 1; 
+        $this->session->pageNr = $this->numberOfPages; 
       }
     }
     if(isset($_SERVER['HTTP_REFERER']) && !$this->session->referer) {
@@ -66,6 +66,10 @@ class index extends CoreAuthenticationNone {
     if(isset($_REQUEST['q'])) {
     	$this->session->searchQuery = $_REQUEST['q'];
     }
+    
+    if(!$this->session->task) {
+      $this->session->task = "newestProjects";
+    }
       
     $this->task = $this->session->task;
     $this->pageNr = $this->session->pageNr;
@@ -73,6 +77,7 @@ class index extends CoreAuthenticationNone {
     if($this->session->searchQuery != "") {
       $this->searchQuery = $this->session->searchQuery;
     }
+    $this->error = "PageNotFound";
   }
 
   public function __default() {

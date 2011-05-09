@@ -21,39 +21,37 @@ class registration extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
-    $this->addCss('registration.css');
-    $this->addCss('buttons.css');
+    $this->addCss('registration.css?'.VERSION);
+    $this->addCss('buttons.css?'.VERSION);
+    
+    $this->addJs('registration.js');
+    
     $this->initRegistration();
   }
 
+//  public function __default() {
+//    if($_POST) {
+//      if(isset($_POST['registrationSubmit'])) {
+//        $this->doRegistration($_POST, $_SERVER);
+//        $this->initRegistration();
+//      }
+//    }
+//  }
+
+  
   public function __default() {
-    if($_POST) {
-      if(isset($_POST['registrationSubmit'])) {
-        $this->doRegistration($_POST, $_SERVER);
-        $this->initRegistration();
-      }
-    }
+
   }
 
-
-  public function initRegistration() {
-    $answer = '';
-    try {
-      $this->initBirth('');
-    } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
+  public function registrationRequest() {
+    $this->registration($_POST);
+  }
+  
+  public function registration($postData) {
+    if($postData) {
+      $this->doRegistration($_POST, $_SERVER);
+      $this->initRegistration();
     }
-    try {
-      $this->initGender();
-    } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
-    }
-    try {
-      $this->initCountryCodes('');
-    } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
-    }
-    $this->answer .= $answer;
   }
     
   public function doRegistration($postData, $serverData) {
@@ -71,7 +69,7 @@ class registration extends CoreAuthenticationNone {
       $answer .= $e->getMessage().'<br>';
     }
     try {
-      $this->passOk = $this->checkPassword($postData['registrationPassword'], $postData['registrationPasswordRepeat']);
+      $this->passOk = $this->checkPassword($postData['registrationUsername'], $postData['registrationPassword']);
     } catch(Exception $e) {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
@@ -161,146 +159,7 @@ class registration extends CoreAuthenticationNone {
     }
   }
 
-  public function checkUsername($username) {
-    if(empty($username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
-    }
-
-//    if(!$this->badWordsFilter->areThereInsultingWords($username)) {
-//			$statusCode = 506;
-//			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
-//    }
-    
-    //username must not look like an IP-address
-    $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
-    $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
-    $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
-    $regEx = '/^'.$ip.'$/';
-    if(preg_match($regEx, $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
-    }
-
-    //username must consist of alpha numerical chars and spaces and Umlaute!
-    //min. 4, max. 32 chars
-    /*$text = '[a-zA-Z0-9äÄöÖüÜß|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
-    $regEx = '/^'.$text.'$/';
-    if(!preg_match($regEx, $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
-    }*/
-    
-    // # < > [ ] | { }
-    if(preg_match('/_|^_$/', $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
-    }
-    if(preg_match('/#|^#$/', $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'));
-    }
-    if(preg_match('/\||^\|$/', $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'));
-    }
-    if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'));
-    }
-    if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'));
-    }
-    if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
-    }
-    
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-    $usernameClean = utf8_clean_string(($username));
-    if(empty($usernameClean)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
-    }
-
-    $query = "EXECUTE get_user_row_by_username('".($username)."')";
-    $result = pg_query($this->dbConnection, $query);
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-    }
-    if(pg_num_rows($result) > 0) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_already_exists'));
-    }
-
-    $query = "EXECUTE get_user_row_by_username_clean('$usernameClean')";
-    $result = pg_query($this->dbConnection, $query);
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-    }
-    if(pg_num_rows($result) > 0) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_aready_exists'));
-    }
-    return true;
-  }
-
-  public function checkPassword($password) {
-    if(empty($password)) {
-      throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
-    }
-    $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
-    $regEx = '/^'.$text.'$/';
-    if(!preg_match($regEx, $password)) {
-      throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid'));
-    }
-    return true;
-  }
-
-  public function checkEmail($email) {
-    if(empty($email)) {
-      throw new Exception($this->errorHandler->getError('registration', 'email_missing'));
-    }
-    
-    $name = '[a-zA-Z0-9]((\.|\-|_)?[a-zA-Z0-9])*';
-    $domain = '[a-zA-Z]((\.|\-)?[a-zA-Z0-9])*';
-    $tld = '[a-zA-Z]{2,8}';
-    $regEx = '/^('.$name.')@('.$domain.')\.('.$tld.')$/';
-    if(!preg_match($regEx, $email)) {
-      throw new Exception($this->errorHandler->getError('registration', 'email_invalid'));
-    }
-
-    $query = "EXECUTE get_user_row_by_email('$email')";
-    $result = pg_query($this->dbConnection, $query);
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-    }
-    if(pg_num_rows($result) > 0) {
-      throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
-    }
-    return true;
-  }
-
-  public function checkGender($gender) {
-    if(strcmp ( $gender , 'male' ) == 0 || strcmp ( $gender , 'female' ) == 0) {
-      return true;
-    }
-    else {
-      throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
-    }
-  }
-    
-  public function checkBirth($month,$year) {
-  	$cyear = strftime("%Y");
-  	if (($month >= 1 && $month <= 12) && ($year <= $cyear && $year >= $cyear-100)) {
-  	  return true;
-  	} else {
-      throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
-    }    
-  }
-
-  public function checkCountry($country) {
-  	if ($country == "undef") {
-      return true;
-  	} elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
-  	  return true;
-  	} else {
-      throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
-    }
-  }
-  
-
-  
+ 
   
   public function doCatroidRegistration($postData, $serverData) {
     global $phpbb_root_path;
@@ -432,10 +291,175 @@ class registration extends CoreAuthenticationNone {
     }
     return true;
   }
+  
+  
+  public function checkUsername($username) {
+    if(empty($username) && strcmp('0', $username) != 0) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
+    }
+
+//    if(!$this->badWordsFilter->areThereInsultingWords($username)) {
+//			$statusCode = 506;
+//			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
+//    }
+    
+    //username must not look like an IP-address
+    $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
+    $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
+    $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
+    $regEx = '/^'.$ip.'$/';
+    if(preg_match($regEx, $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
+    }
+
+    //username must consist of alpha numerical chars and spaces and Umlaute!
+    //min. 4, max. 32 chars
+    /*$text = '[a-zA-Z0-9äÄöÖüÜß|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
+    $regEx = '/^'.$text.'$/';
+    if(!preg_match($regEx, $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
+    }*/
+    
+    // # < > [ ] | { }
+    if(preg_match('/_|^_$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
+    }
+    if(preg_match('/#|^#$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'));
+    }
+    if(preg_match('/\||^\|$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'));
+    }
+    if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'));
+    }
+    if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'));
+    }
+    if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
+    }
+    
+    global $phpbb_root_path;
+    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
+    $usernameClean = utf8_clean_string(($username));
+    if(empty($usernameClean)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
+    }
+
+    $query = "EXECUTE get_user_row_by_username('".($username)."')";
+    $result = pg_query($this->dbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+    }
+    if(pg_num_rows($result) > 0) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_already_exists'));
+    }
+
+    $query = "EXECUTE get_user_row_by_username_clean('$usernameClean')";
+    $result = pg_query($this->dbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+    }
+    if(pg_num_rows($result) > 0) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_aready_exists'));
+    }
+    return true;
+  }
+
+  public function checkPassword($username, $password) {
+    if((empty($password) && strcmp('0', $password) != 0) || $password == '' || mb_strlen($password) < 1) {
+      throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
+    }
+    if(strcmp($username, $password) != 0) {
+      $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
+      $regEx = '/^'.$text.'$/';
+      if(!preg_match($regEx, $password)) {
+        throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid'));
+      }
+    } else {
+      throw new Exception($this->errorHandler->getError('registration', 'username_password_equal'));
+    }
+    return true;
+  }
+
+  public function checkEmail($email) {
+    if(empty($email) && strcmp('0', $email) != 0) {
+      throw new Exception($this->errorHandler->getError('registration', 'email_missing'));
+    }
+    
+    $name = '[a-zA-Z0-9]((\.|\-|_)?[a-zA-Z0-9])*';
+    $domain = '[a-zA-Z]((\.|\-)?[a-zA-Z0-9])*';
+    $tld = '[a-zA-Z]{2,8}';
+    $regEx = '/^('.$name.')@('.$domain.')\.('.$tld.')$/';
+    if(!preg_match($regEx, $email)) {
+      throw new Exception($this->errorHandler->getError('registration', 'email_invalid'));
+    }
+
+    $query = "EXECUTE get_user_row_by_email('$email')";
+    $result = pg_query($this->dbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+    }
+    if(pg_num_rows($result) > 0) {
+      throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
+    }
+    return true;
+  }
+
+  public function checkGender($gender) {
+    if(strcmp ( $gender , 'male' ) == 0 || strcmp ( $gender , 'female' ) == 0) {
+      return true;
+    }
+    else {
+      throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
+    }
+  }
+    
+  public function checkBirth($month,$year) {
+  	$cyear = strftime("%Y");
+  	if (($month >= 1 && $month <= 12) && ($year <= $cyear && $year >= $cyear-100)) {
+  	  return true;
+  	} else {
+      throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
+    }    
+  }
+
+  public function checkCountry($country) {
+  	if ($country == "undef") {
+      return true;
+  	} elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
+  	  return true;
+  	} else {
+      throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
+    }
+  }
+  
+  
+  
+  public function initRegistration() {
+    $answer = '';
+    try {
+      $this->initBirth('');
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    try {
+      $this->initGender();
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    try {
+      $this->initCountryCodes('');
+    } catch(Exception $e) {
+      $answer .= $e->getMessage().'<br>';
+    }
+    $this->answer .= $answer;
+  }
 
   private function initGender() {
     if(!$this->postData['registrationGender']) {
-      $genderlist[0] = "<option value=\"0\" selected>Select</option>\r";
+      $genderlist[0] = "<option value=\"0\" selected>select your gender</option>\r";
       $genderlist[1] = "<option value=\"female\">female</option>\r";
       $genderlist[2] = "<option value=\"male\">male</option>\r";
     }
@@ -455,7 +479,7 @@ class registration extends CoreAuthenticationNone {
   
   private function initBirth() {
     $months = array(
-      0=>"Month",
+      0=>"select month",
       1=>"Jan",
       2=>"Feb",
       3=>"Mar",
@@ -481,11 +505,11 @@ class registration extends CoreAuthenticationNone {
       $monthlist[0] = "<option value=\"0\">" . $months[0] . "</option>\r";
     }
     if(!$this->postData['registrationYear']) {
-      $yearlist[0] = "<option value=\"0\" selected>Year</option>\r";
+      $yearlist[0] = "<option value=\"0\" selected>select year</option>\r";
     }
     else {
       $registrationYear = $this->postData['registrationYear'];
-      $yearlist[0] = "<option value=\"0\">Year</option>\r";
+      $yearlist[0] = "<option value=\"0\">select year</option>\r";
     }
     
     $x = 0;
@@ -529,7 +553,7 @@ class registration extends CoreAuthenticationNone {
       }
       else { 
         $registrationCountry = '';
-        $countrylist[] = "<option value=\"0\" selected>Select country</option>\r";
+        $countrylist[] = "<option value=\"0\" selected>select your country</option>\r";
       }
       
       while($country = pg_fetch_assoc($result)) {
@@ -546,12 +570,48 @@ class registration extends CoreAuthenticationNone {
       $this->countrylist = $countrylist;
       pg_free_result($result);      
     } else {
-      $countrylist[] = "<option value=\"0\">Select country</option>";
+      $countrylist[] = "<option value=\"0\">select your country</option>";
       $this->countrylist = $countrylist;
       throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
     }
   }
     
+  public function deleteRegistration($userId, $boardUserId, $wikiUserId) {
+    // get_userid_by_username
+//    try {
+//      $query = "EXECUTE get_userid_by_username('$username')";
+//  
+//      $result = @pg_query($this->dbConnection, $query);
+//      if(!$result) {
+//        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+//      }
+//      $row = pg_fetch_assoc($result);
+//      $userId = $row['id'];
+//      $this->answer .= $userId.'<br>';
+//    } catch(Exception $e) {
+//      $registrationDataValid = false;
+//      $answer .= $e->getMessage().'<br>';
+//    }
+    try {
+      $this->undoWikiRegistration($userId);
+    } catch(Exception $e) {
+      $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage()).'<br>';
+    }
+    try {
+      $this->undoBoardRegistration($boardUserId);
+    } catch(Exception $e) {
+      $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage()).'<br>';
+    }
+    try {
+      $this->undoWikiRegistration($wikiUserId);
+    } catch(Exception $e) {
+      $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage()).'<br>';
+    }
+    return true;
+    
+  }
+  
+  
 //  private function utfCleanString($string) {
 //    global $wikiUpperChars;
 //    global $wikiLowerChars;
