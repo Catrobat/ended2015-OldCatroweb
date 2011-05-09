@@ -73,7 +73,7 @@ class CoreController {
           } else {
 //            header("Location: http://".$_SERVER['HTTP_HOST'].'/catroid/login?requesturi='.$_SERVER['REQUEST_URI']);
 //            exit;
-            //die("Authentication required!");
+              die("Authentication required!");
           }
         } catch (Exception $error) {
           die($error->getMessage());
