@@ -63,7 +63,6 @@ class details extends CoreAuthenticationNone {
     $project['image'] = $this->getProjectImage($project['id']);
     $project['publish_time_in_words'] = $this->getTimeInWords(strtotime($project['upload_time']), time());
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
-    $project['uploaded_by'] = 'unknown';
     $project['title'] = $project['title'];
     $project['fileSize'] = $this->getFilesizeInMegabytes($project['filesize_bytes']);
     if($project['description']) {

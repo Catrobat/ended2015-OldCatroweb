@@ -398,7 +398,7 @@ var SearchProjects = Class.$extend( {
           }
           // + author $("#projectListDescription"+i).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
           if (content[i]['upload_time'] != "") {
-            $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago");          
+            $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago by "+content[i]['uploaded_by']);          
           } 
           else {
             $("#projectListDescription"+i).html("");            
