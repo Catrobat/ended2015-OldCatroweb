@@ -77,7 +77,12 @@ class index extends CoreAuthenticationNone {
     if($this->session->searchQuery != "") {
       $this->searchQuery = $this->session->searchQuery;
     }
-    $this->error = "PageNotFound";
+    $error = array();
+    $error['type'] = 'viewer';
+    $error['code'] = 'ajax_request_page_not_found';
+    $error['extra'] = '';
+
+    $this->error = $error;
   }
 
   public function __default() {

@@ -235,7 +235,7 @@ var SearchProjects = Class.$extend( {
       success: function(result) {
         if(result != "") {
           if(result.error) {
-            self.showErrorPage('viewer', 'ajax_request_page_not_found', '');
+            self.showErrorPage(result.error['type'], result.error['code'], result.error['extra']);
           } else {
             for(var i = 0; i < result.content.length; i++) {
               result.content[i].pageNr = pageNr;

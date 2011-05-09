@@ -23,6 +23,7 @@ require_once 'testsBootstrap.php';
 class IndexTests extends PHPUnit_Framework_TestCase
 {
   private $selenium;
+  protected $labels;
   protected $upload;
   protected $insertIDArray = array();
   public function setUp()
