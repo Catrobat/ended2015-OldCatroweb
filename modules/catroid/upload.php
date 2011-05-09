@@ -71,8 +71,8 @@ class upload extends CoreAuthenticationNone {
 							isset($formData['userEmail']) ? $uploadEmail = $formData['userEmail'] : $uploadEmail = '';
 							isset($formData['userLanguage']) ? $uploadLanguage = $formData['userLanguage'] : $uploadLanguage = '';
 
-							if($this->copyProjectToDirectory($fileData['upload']['tmp_name'], $updir)) {
-								$query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$upfile', '$uploadIp', '$uploadImei', '$uploadEmail', '$uploadLanguage');";
+							if($fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $updir)) {
+								$query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$upfile', '$uploadIp', '$uploadImei', '$uploadEmail', '$uploadLanguage', '$fileSize');";
 								$result = pg_query($query);
 								if($result) {
 									$line = pg_fetch_assoc($result);
@@ -227,7 +227,7 @@ class upload extends CoreAuthenticationNone {
 
 	public function copyProjectToDirectory($tmpFile, $updir) {
 		if(@copy($tmpFile, $updir)) {
-			return true;
+			return filesize($updir);
 		} else {
 			return false;
 		}

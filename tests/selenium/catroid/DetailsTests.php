@@ -88,6 +88,14 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $numOfDownloadsAfter = intval($this->selenium->getText("xpath=//p[@class='detailsStats'][2]/b"));
     $this->assertEquals($numOfDownloads+2, $numOfDownloadsAfter);
+    
+    //test the fileSize display
+    $fileSizeOnServer = round(filesize(CORE_BASE_PATH.PROJECTS_DIRECTORY.$id.PROJECTS_EXTENTION)/1048576, 1);
+    $downloadButtonText = $this->selenium->getText("xpath=//span[@class='detailsDownloadButtonText']");
+    $fileSizeDisplayed = floatval(substr($downloadButtonText, strpos($downloadButtonText, '(')+1, strpos($downloadButtonText, ' ', strpos($downloadButtonText, '('))-strpos($downloadButtonText, '(')));
+    if($fileSizeDisplayed != 0.0) {
+      $this->assertEquals($fileSizeOnServer, $fileSizeDisplayed);
+    }
 
     //test the home link
     $this->selenium->click("xpath=//div[@class='webHeadTitleName']/a");

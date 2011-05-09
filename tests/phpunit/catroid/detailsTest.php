@@ -107,6 +107,12 @@ class detailsTest extends PHPUnit_Framework_TestCase
     //@unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION);
     $this->assertFalse(is_string($this->obj->getQRCodeImage('non_existing_id')));
   }
+  
+  public function testGetFilesizeInMegabytes() {
+    $bytes = 1234567890;
+    $megabytes = round($bytes/1048576, 1);
+    $this->assertEquals($megabytes, $this->obj->getFilesizeInMegabytes($bytes));
+  }
 
   /* *** DATA PROVIDERS *** */
   //choose random ids from database

@@ -25,7 +25,7 @@
     <string name="get_project_by_id">SELECT * FROM projects WHERE id=$1 LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT * FROM projects WHERE id=$1 AND visible=true LIMIT 1</string>
     <string name="get_project_by_source">SELECT * FROM projects WHERE source=$1 LIMIT 1</string>
-    <string name="insert_new_project">INSERT INTO projects (title, description, source, upload_ip, upload_imei, upload_email, upload_language) VALUES ($1, $2, $3, $4, $5, $6, $7) RETURNING id</string>
+    <string name="insert_new_project">INSERT INTO projects (title, description, source, upload_ip, upload_imei, upload_email, upload_language, filesize_bytes) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id</string>
     <string name="increment_download_counter">UPDATE projects SET download_count=download_count+1 WHERE id=$1</string>
     <string name="increment_view_counter">UPDATE projects SET view_count=view_count+1 WHERE id=$1</string>
     <string name="set_project_new_filename">UPDATE projects SET source=$1 WHERE id=$2</string>
@@ -43,6 +43,7 @@
       GROUP BY projects.id, projects.title, projects.upload_time, projects.upload_ip, projects.visible 
       ORDER BY projects.upload_time DESC
     </string>
+    <string name="update_project_filesize">UPDATE projects SET filesize_bytes=$2 WHERE id=$1</string>
 
     <string name="add_word_to_wordlist">INSERT INTO wordlist (word, good_meaning, approved) VALUES ($1, $2, $3)</string>
     <string name="get_unapproved_words">SELECT * FROM wordlist WHERE approved = FALSE ORDER BY id DESC</string>

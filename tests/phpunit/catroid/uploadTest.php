@@ -35,9 +35,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+    $fileSize = filesize($testFile);
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
     $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
-    
+
     $this->assertEquals(200, $this->upload->statusCode);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
@@ -45,7 +46,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->upload->fileChecksum != null);
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
     $this->assertTrue(is_string($this->upload->answer));
-    
+
 
     if($uploadImei) {
       $query = "SELECT upload_imei FROM projects WHERE id='$insertId'";
@@ -68,7 +69,14 @@ class uploadTest extends PHPUnit_Framework_TestCase
       $this->assertEquals($uploadLanguage, $row[0]);
       pg_free_result($result);
     }
- 
+    if($fileSize) {
+      $query = "SELECT filesize_bytes FROM projects WHERE id='$insertId'";
+      $result = pg_query($query);
+      $row = pg_fetch_row($result);
+      $this->assertEquals($fileSize, $row[0]);
+      pg_free_result($result);
+    }
+
     //test qrcode image generation
     $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));
 
@@ -83,7 +91,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
     @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
-    
+
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
@@ -126,8 +134,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function testCopyProjectToDirectory() {
     $dest = CORE_BASE_PATH.PROJECTS_DIRECTORY.'copyTest'.PROJECTS_EXTENTION;
     $src = dirname(__FILE__).'/testdata/test.zip';
-    
-    $this->assertTrue($this->upload->copyProjectToDirectory($src, $dest));
+    @unlink($dest);
+    $this->assertEquals(filesize($src), $this->upload->copyProjectToDirectory($src, $dest));
     $this->assertTrue(is_file($dest));
     @unlink($dest);
   }
@@ -135,8 +143,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function testCopyProjectWithThumbnailToDirectory() {
     $dest = CORE_BASE_PATH.PROJECTS_DIRECTORY.'copyTest'.PROJECTS_EXTENTION;
     $src = dirname(__FILE__).'/testdata/test2.zip';
-    
-    $this->assertTrue($this->upload->copyProjectToDirectory($src, $dest));
+    @unlink($dest);
+    $this->assertEquals(filesize($src), $this->upload->copyProjectToDirectory($src, $dest));
     $this->assertTrue(is_file($dest));
     @unlink($dest);
   }
@@ -150,7 +158,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
     $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
-    
+
     $this->assertEquals(200, $this->upload->statusCode);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
@@ -158,7 +166,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->upload->fileChecksum != null);
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
     $this->assertTrue(is_string($this->upload->answer));
-    
+
     // check thumbnails
     $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
     $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
@@ -171,7 +179,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
     @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
-    
+
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
@@ -188,7 +196,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
     $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
-    
+
     $this->assertEquals(200, $this->upload->statusCode);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
@@ -196,7 +204,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->upload->fileChecksum != null);
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
     $this->assertTrue(is_string($this->upload->answer));
-    
+
     // check thumbnails
     $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
     $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
@@ -209,15 +217,15 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
     @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
-    
+
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
   }
-    
-    /**
+
+  /**
    * @dataProvider correctPostDataThumbailInRootFolderPNG
    */
   public function testDoUploadWithThumbnailInRootFolderPNG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
@@ -226,7 +234,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
     $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
-    
+
     $this->assertEquals(200, $this->upload->statusCode);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
@@ -234,7 +242,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->upload->fileChecksum != null);
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
     $this->assertTrue(is_string($this->upload->answer));
-    
+
     // check thumbnails
     $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
     $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
@@ -247,7 +255,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
     @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
-    
+
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
@@ -264,7 +272,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
     $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
-    
+
     $this->assertEquals(200, $this->upload->statusCode);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
@@ -272,7 +280,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->upload->fileChecksum != null);
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
     $this->assertTrue(is_string($this->upload->answer));
-    
+
     // check thumbnails
     $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
     $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
@@ -285,7 +293,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
     @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
-    
+
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
@@ -302,7 +310,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
     $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
-    
+
     $this->assertEquals(200, $this->upload->statusCode);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
@@ -310,24 +318,24 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->upload->fileChecksum != null);
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
     $this->assertTrue(is_string($this->upload->answer));
-    
+
     // check thumbnails
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-    
+
     //test deleting from filesystem
     $this->upload->removeProjectFromFilesystem($filePath, $insertId);
     $this->assertFalse(is_file($filePath));
     @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
-    
+
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
   }
-  
+
   /* *** DATA PROVIDERS *** */
   public function correctPostData() {
     $fileName = 'test.zip';
@@ -383,7 +391,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileChecksum = md5_file($testFile);
     $fileSize = filesize($testFile);
     $fileType = 'application/x-zip-compressed';
-    
+
     $testFile1 = 'test_thumbnail_240x400.zip'; $testFileDir1 = $testFileDir.'test_thumbnail_240x400.zip';
     $testFile2 = 'test_thumbnail_480x800.zip'; $testFileDir2 = $testFileDir.'test_thumbnail_480x800.zip';
     $testFile3 = 'test_thumbnail_240x240.zip'; $testFileDir3 = $testFileDir.'test_thumbnail_240x240.zip';
@@ -393,7 +401,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $testFile7 = 'test_thumbnail_960x1600.zip'; $testFileDir7 = $testFileDir.'test_thumbnail_960x1600.zip';
     $testFile8 = 'test_thumbnail_400x240.zip'; $testFileDir8 = $testFileDir.'test_thumbnail_400x240.zip';
     $testFile9 = 'test_thumbnail_800x480.zip'; $testFileDir9 = $testFileDir.'test_thumbnail_800x480.zip';
-    
+
     $dataArray = array(
     array('unitTest', 'my project description with thumbnail of type JPG in root folder and default thumbnail.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
     array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 240x400.', $testFileDir1, $testFile1, md5_file($testFileDir1), filesize($testFileDir1), $fileType),
@@ -416,7 +424,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileSize = filesize($testFile);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-      array('unitTest', 'my project description with thumbnail of type JPG in images folder.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
+    array('unitTest', 'my project description with thumbnail of type JPG in images folder.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
     );
     return $dataArray;
   }
@@ -441,7 +449,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileSize = filesize($testFile);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-      array('unitTest', 'my project description with thumbnail of type PNG in images folder.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
+    array('unitTest', 'my project description with thumbnail of type PNG in images folder.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
     );
     return $dataArray;
   }
@@ -453,10 +461,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileSize = filesize($testFile);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-      array('unitTest', 'my project description without thumbnail of type JPG.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
+    array('unitTest', 'my project description without thumbnail of type JPG.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
     );
     return $dataArray;
   }
-  
+
 }
 ?>

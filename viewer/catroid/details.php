@@ -70,7 +70,9 @@
                     				<div class="detailsDownloadButton">
                             			<a class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id'].PROJECTS_EXTENTION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                             				<img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button">
-                            				<span class="detailsDownloadButtonText">Download</span>
+                            				<span class="detailsDownloadButtonText">
+                            					Download (<?php echo $this->project['fileSize']?> MB)
+                            				</span>
                             			</a>
                     				</div>
                     				<?php if(!$this->isMobile && $this->project['qr_code_image']) {?>

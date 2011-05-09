@@ -65,6 +65,7 @@ class details extends CoreAuthenticationNone {
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
     $project['uploaded_by'] = 'unknown';
     $project['title'] = $project['title'];
+    $project['fileSize'] = $this->getFilesizeInMegabytes($project['filesize_bytes']);
     if($project['description']) {
       $project['description'] = $project['description'];
     } else {
@@ -141,6 +142,10 @@ class details extends CoreAuthenticationNone {
     $query = "EXECUTE increment_view_counter('$projectId');";
     $result = pg_query($query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
     return;
+  }
+  
+  public function getFilesizeInMegabytes($bytes) {
+    return round($bytes/1048576, 1);
   }
 
   public function __destruct() {
