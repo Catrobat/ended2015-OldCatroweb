@@ -32,16 +32,17 @@ class login extends CoreAuthenticationNone {
 
   }
 
-  public function loginRequest() {
-    $this->login($_POST);
-    //$this->jsonAnswer = "hallo";
-  }
+//  public function loginRequest() {
+//    $this->login($_POST);
+//    //$this->jsonAnswer = "hallo";
+//  }
   
   public function logoutRequest() {
     $this->logout($_POST);
   }
   
-  public function login($postData) {
+  public function loginRequest() {
+    $postData = $_POST;
     if($postData) {
       if(isset($postData['requesturi'])) {
         $this->setRequestURI($postData['requesturi']);
