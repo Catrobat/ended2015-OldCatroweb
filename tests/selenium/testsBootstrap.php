@@ -27,8 +27,8 @@ define('TESTS_SLOW_MODE',false);
 define('TEST_MODE',true);
 define('TESTS_SLOW_MODE_SPEED','1000');
 define('TESTS_BROWSER', '*firefox');
-//define('TESTS_BROWSER', '*iexplore');
-//define('TESTS_BROWSER', '*googlechrome');
+// define('TESTS_BROWSER', '*iexplore');
+// define('TESTS_BROWSER', '*googlechrome');
 
 $_SERVER['SERVER_NAME'] = '127.0.0.1';
 spl_autoload_register('__autoload');

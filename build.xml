@@ -83,7 +83,7 @@
   	<java jar="${selenium.dir}/server/selenium-server.jar" fork="true" spawn="true"/>
   	<sleep seconds="1" />
   </target>
-  
+
   <target name="-selenium-start-server-android">
   	<java jar="${selenium.dir}/server/selenium-server-1.0.2-SNAPSHOT-standalone.jar" fork="true" spawn="true">
   		<arg line=" -proxyInjectionMode" />

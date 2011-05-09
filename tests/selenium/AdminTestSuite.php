@@ -30,6 +30,7 @@ require_once 'PHPUnit/TextUI/TestRunner.php';
 require_once 'admin/AdminTests.php';
 require_once 'admin/AdminUploadTest.php';
 require_once 'admin/AdminBadWordsFilterTest.php';
+require_once 'admin/AdminEditProjectsTests.php';
 
 
 /*****************************************************************************/
@@ -46,6 +47,7 @@ class TestSuite
         $suite->addTestSuite('AdminTests');
         $suite->addTestSuite('AdminUploadTest');
         $suite->addTestSuite('AdminBadWordsFilterTest');
+        $suite->addTestSuite('AdminEditProjectsTests');
         return $suite;
     }
 }
