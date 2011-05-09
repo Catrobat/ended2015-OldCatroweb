@@ -29,26 +29,12 @@ class registration extends CoreAuthenticationNone {
     $this->initRegistration();
   }
 
-//  public function __default() {
-//    if($_POST) {
-//      if(isset($_POST['registrationSubmit'])) {
-//        $this->doRegistration($_POST, $_SERVER);
-//        $this->initRegistration();
-//      }
-//    }
-//  }
-
-  
   public function __default() {
 
   }
-
-  public function registrationRequest() {
-    $this->registration($_POST);
-  }
   
-  public function registration($postData) {
-    if($postData) {
+  public function registrationRequest() {
+    if($_POST) {
       $this->doRegistration($_POST, $_SERVER);
       $this->initRegistration();
     }
@@ -86,20 +72,7 @@ class registration extends CoreAuthenticationNone {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
     } 
-//    try { 
-//      $this->checkBirth($postData['registrationMonth'], $postData['registrationYear']);
-//    } catch(Exception $e) {
-//      $registrationDataValid = false;
-//      $answer .= $e->getMessage().'<br>';
-//    }
-//    try { 
-//      $this->checkGender($postData['registrationGender']);
-//    } catch(Exception $e) {
-//      $registrationDataValid = false;
-//      $answer .= $e->getMessage().'<br>';
-//    }
-
-    
+   
     if($registrationDataValid) {
       try {
         $catroidUserId = $this->doCatroidRegistration($postData, $serverData);
@@ -312,14 +285,6 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
-    //username must consist of alpha numerical chars and spaces and Umlaute!
-    //min. 4, max. 32 chars
-    /*$text = '[a-zA-Z0-9äÄöÖüÜß|.| ]{'.USER_MIN_USERNAME_LENGTH.','.USER_MAX_USERNAME_LENGTH.'}';
-    $regEx = '/^'.$text.'$/';
-    if(!preg_match($regEx, $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
-    }*/
-    
     // # < > [ ] | { }
     if(preg_match('/_|^_$/', $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
@@ -577,21 +542,6 @@ class registration extends CoreAuthenticationNone {
   }
     
   public function deleteRegistration($userId, $boardUserId, $wikiUserId) {
-    // get_userid_by_username
-//    try {
-//      $query = "EXECUTE get_userid_by_username('$username')";
-//  
-//      $result = @pg_query($this->dbConnection, $query);
-//      if(!$result) {
-//        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-//      }
-//      $row = pg_fetch_assoc($result);
-//      $userId = $row['id'];
-//      $this->answer .= $userId.'<br>';
-//    } catch(Exception $e) {
-//      $registrationDataValid = false;
-//      $answer .= $e->getMessage().'<br>';
-//    }
     try {
       $this->undoWikiRegistration($userId);
     } catch(Exception $e) {
@@ -610,18 +560,6 @@ class registration extends CoreAuthenticationNone {
     return true;
     
   }
-  
-  
-//  private function utfCleanString($string) {
-//    global $wikiUpperChars;
-//    global $wikiLowerChars;
-//    
-//    $username = utf8_clean_string($string);
-//    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");;
-//
-//    return $username;
-//  }
-  
   
   public function __destruct() {
     parent::__destruct();
