@@ -78,6 +78,7 @@
   
   <target name="-selenium-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-tests-catroid, -selenium-stop-server"/>
   <target name="-selenium-android-tests" depends="-selenium-start-server-android, -selenium-start-android-emulator, -selenium-tests-android, -selenium-stop-server"/>
+  <target name="-selenium-test" depends="-selenium-start-server, -selenium-test-specific, -selenium-stop-server"/>
   
   <target name="-selenium-start-server">
   	<java jar="${selenium.dir}/server/selenium-server.jar" fork="true" spawn="true"/>
@@ -126,6 +127,17 @@
     </exec>
     <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
       <arg line=" AdminTestSuite.php"/>
+    </exec>
+  </target>
+  
+  <target name="-selenium-test-specific">
+  	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" ${test}"/>
+    </exec>
+    <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" ${test}"/>
     </exec>
   </target>
   
@@ -394,6 +406,7 @@
   <target name="run-tests" depends="-phpunit-tests, -selenium-tests" />
   <target name="run-phpunit-tests" depends="-phpunit-tests" />
   <target name="run-selenium-tests" depends="-selenium-tests" />
+  <target name="run-selenium-test" depends="-selenium-test" />
   <target name="run-selenium-admin-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-stop-server" />
   <target name="run-selenium-catroid-tests" depends="-selenium-start-server, -selenium-tests-catroid, -selenium-stop-server" />
   <target name="run-android-tests" depends="-selenium-android-tests" />
