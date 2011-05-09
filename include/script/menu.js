@@ -62,14 +62,24 @@ var Menu = Class.$extend( {
       login: function() {
         location.href = self.basePath+'catroid/login?requesturi=catroid/menu';
       },
-      logout: function() {
-        var submitForm = "<form action='"+self.basePath+"catroid/login' method='POST'>";
-        submitForm += "<input type='hidden' name='logoutSubmit' value='Logout'>";
-        submitForm += "</form>";
-
-        var $form = $(submitForm).appendTo('body');
-        $form.submit();
-      }
+//      logout: function() {
+//        var submitForm = "<form action='"+self.basePath+"catroid/login' method='POST'>";
+//        submitForm += "<input type='hidden' name='logoutSubmit' value='Logout'>";
+//        submitForm += "</form>";
+//
+//        var $form = $(submitForm).appendTo('body');
+//        $form.submit();
+//      }
+      logout : function() {
+        var self = this;
+        $.ajax({
+          url: self.basePath+"catroid/login/logoutRequest.json",
+          async: false,
+          success: function() {
+            location.href = self.basePath+"catroid/index";
+          }
+        });
+      },
     };
     
     $("#headerHomeButton").click(jQuery.proxy(this.openLocation, "home"));

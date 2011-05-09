@@ -39,8 +39,8 @@ var Login = Class.$extend( {
       url: this.basePath + 'catroid/login/loginRequest.json',
       data: "loginUsername="+$("#loginUsername").val()+"&loginPassword="+$("#loginPassword").val()+"&requesturi="+$("#requesturi").val(),
       success: function(result){
-        if(result['statusCode'] == 200) {
-          location.href = self.basePath+"catroid/index";
+        if(result.statusCode == 200) {
+          location.href = self.basePath+result.requesturi;
         }
         else {
           $("#loginFormAnswer").toggle(true);

@@ -57,7 +57,7 @@ class login extends CoreAuthenticationNone {
   
   private function setRequestURI($uri) {
     if($uri != '') {
-      $this->requesturi = $postData['requesturi'];  
+      $this->requesturi = $uri;  
     }
     else {
       $this->requesturi = "catroid/index";
