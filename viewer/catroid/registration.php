@@ -52,7 +52,9 @@
           		   			Birthday<br>
           		   			<select id="registrationMonth" name="registrationMonth" class="registration" ><?php print_r ($this->month) ?></select> <select id="registrationYear" name="registrationYear" class="registration" required="required"><?php print_r ($this->year) ?></select><br>
           		   			Gender<br>
-          		   			<select id="registrationGender" name="registrationGender" class="registration" ><?php print_r ($this->gender) ?></select><br>
+          		   			<select id="registrationGender" name="registrationGender" class="registration" ><?php print_r ($this->gender) ?></select>
+          		   			<br>
+          		   			<br>
                       <input type="button" name="registrationSubmit" id="registrationSubmit" value="Create my account now" class="button orange compact registrationSubmitButton">
                       <br>
                       <br>

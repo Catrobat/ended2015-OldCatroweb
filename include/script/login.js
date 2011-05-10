@@ -19,13 +19,17 @@
 var Login = Class.$extend( {
   __init__ : function(basePath) {
     this.basePath = basePath;
-	var self = this;
+    var self = this;
+    //this.enableForm(true);
+
     $("#loginFormDialog").toggle(true);
     $("#loginFormAnswer").toggle(false);
+    // enable form fields after timeout
+    
     $("#loginSubmit").click(
       $.proxy(this.loginSubmit, this));
-    $("#logoutSubmit").click(
-      $.proxy(this.logoutSubmit, this));
+//    $("#logoutSubmit").click(
+//      $.proxy(this.logoutSubmit, this));
     $("#loginUsername").keypress(
       $.proxy(this.loginCatchKeypress, this));
     $("#loginPassword").keypress(
@@ -33,12 +37,19 @@ var Login = Class.$extend( {
   },
   
   loginSubmit : function() {
+    // disable form fields
+    $("#loginSubmit").attr("disabled", "disabled");
+    $("#loginUsername").attr("disabled", "disabled");
+    $("#loginPassword").attr("disabled", "disabled");
+    
     var self = this;
     $.ajax({
       type: "POST",
       url: this.basePath + 'catroid/login/loginRequest.json',
       data: "loginUsername="+$("#loginUsername").val()+"&loginPassword="+$("#loginPassword").val()+"&requesturi="+$("#requesturi").val(),
-      success: function(result){
+      timeout: (5000),
+      
+      success : function(result){
         if(result.statusCode == 200) {
           location.href = self.basePath+result.requesturi;
         }
@@ -46,17 +57,15 @@ var Login = Class.$extend( {
           $("#loginFormAnswer").toggle(true);
           $("#errorMsg").html(result.answer);
         }
-      }
-    });
-  },
-  
-  logoutSubmit : function() {
-    var self = this;
-    $.ajax({
-      url: self.basePath+"catroid/login/logoutRequest.json",
-      async: false,
-      success: function() {
-        location.href = self.basePath+"catroid/index";
+        // enable form fields
+        $("#loginSubmit").removeAttr("disabled");
+        $("#loginUsername").removeAttr("disabled");
+        $("#loginPassword").removeAttr("disabled");
+      },
+      error : function(result, errCode) {
+        if(errCode == "timeout") {
+          window.location.reload(false);   
+        }
       }
     });
   },
@@ -66,6 +75,6 @@ var Login = Class.$extend( {
       event.preventDefault();
       this.loginSubmit();
     }
-  }
+  },
 
 });

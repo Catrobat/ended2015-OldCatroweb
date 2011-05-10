@@ -44,6 +44,10 @@ var PasswordRecovery = Class.$extend( {
   },
   
   passwordRecoverySubmit : function() {
+    // disable form fields
+    $("#passwordRecoverySubmit").attr("disabled", "disabled");
+    $("#passwordRecoveryUserdata").attr("disabled", "disabled");
+
     var url = this.basePath + 'catroid/passwordrecovery/passwordRecoverySendMailRequest.json';
     $.post(url, {
       passwordRecoveryUserdata : $("#passwordRecoveryUserdata").val()
@@ -62,14 +66,22 @@ var PasswordRecovery = Class.$extend( {
       $("#okMsg").toggle(true);
       $("#okMsg").html(response.answer_ok);
     }
+    $("#passwordRecoverySubmit").removeAttr("disabled");
+    $("#passwordRecoveryUserdata").removeAttr("disabled");
   },
  
   passwordSaveSubmit : function() {
+    // disable form fields
+    $("#passwordSaveSubmit").attr("disabled", "disabled");
+    $("#passwordSavePassword").attr("disabled", "disabled");
+    
     var self = this;
     $.ajax({
       type: "POST",
       url: this.basePath + 'catroid/passwordrecovery/passwordRecoveryChangeMyPasswordRequest.json',
       data: "c="+$("#c").val()+"&passwordSavePassword="+$("#passwordSavePassword").val(),
+      timeout: (5000),
+      
       success: function(result){
         if(result['statusCode'] == 200) {
           $("#passwordRecoveryFormDialog").toggle(false);
@@ -87,6 +99,14 @@ var PasswordRecovery = Class.$extend( {
             $("#errorMsg").toggle(true);
             $("#errorMsg").html(result.answer);
           }
+        }
+        // enable form fields
+        $("#passwordSaveSubmit").removeAttr("disabled");
+        $("#passwordSavePassword").removeAttr("disabled");
+      },
+      error : function(result, errCode) {
+        if(errCode == "timeout") {
+          window.location.reload(false);   
         }
       }
     });

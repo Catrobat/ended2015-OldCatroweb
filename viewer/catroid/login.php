@@ -39,8 +39,7 @@
             		   	</div>
             		   	<div class="loginFormDialog" id="loginFormDialog">
         	  		   		<form method="post" class="loginForm" id="loginForm" >
-                          <?php if($this->module->session->userLogin_userId <= 0) { ?>
-        	  		   				<div class="loginH2">Please enter your nickname and your password:</div>
+	     	  		   				<div class="loginH2">Please enter your nickname and your password:</div>
         	  		   				Nickname: <br>
         	  		   				<input type="text" name="loginUsername" id="loginUsername" ><br>
         	  		   				Password:<br> 
@@ -51,14 +50,10 @@
         	  		   				<?php } else { ?>
         	  		   				  <input type="hidden" name="requesturi" id="requesturi" value="<?php echo htmlspecialchars($_GET['requesturi']); ?>">
         	  		   				<?php } ?>
+        	  		   				<br>
                         	<input type="button" name="loginSubmit" id="loginSubmit" value="Login" class="button orange compact loginSubmitButton">
         	  		   				<br>
-        	  		   			<?php } else {?>
-        	  		   				Hello <?php echo $this->module->session->userLogin_userNickname?>!<br>
-        	  		   				You are logged in with ID <?php echo $this->module->session->userLogin_userId?><br>
-                        	<input type="button" name="logoutSubmit" id="logoutSubmit" value="Logout" class="button orange compact loginSubmitButton">
-        	  		   			<?php }?>
-        	  		   		</form>
+         	  		   		</form>
       	  		   		</div>
 										<br>
       	  		   		<br>
@@ -66,15 +61,7 @@
 										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Create a new account now</a> <br>or<br> <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>
 										<?php }?>
             		   	<br>
-      		   		   		<br><br>
-      		  		   		<a id="aBoardLink" target="_blank" href="<?php echo BASE_PATH?>addons/board/">Board</a>
-      		  		   		<br>
-      		  		   		<?php if($this->module->session->userLogin_userId > 0) {?>
-      		  		   			<a id="aWikiLink" target="_blank" href="<?php echo BASE_PATH?>wiki/?action=purge">Wiki</a>
-      		  		   		<?php } else {?>
-      		  		   			<a id="aWikiLink" target="_blank" href="<?php echo BASE_PATH?>wiki/">Wiki</a>
-      		  		   		<?php }?>
-                  </div> <!-- loginFormContainer -->
+                     </div> <!-- loginFormContainer -->
 								</div> <!-- login Text -->
               </div> <!--  White Box -->            	
            </div> <!--  license Main -->  		   		

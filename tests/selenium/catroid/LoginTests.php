@@ -40,7 +40,19 @@ class LoginTests extends PHPUnit_Framework_TestCase
   {
     $this->selenium->stop();
   }
-  
+
+  public function ajaxWait() {
+    for($second = 0; $second <= 600; $second++) {
+      if($second >= 600) break;
+      try {
+        if($this->selenium->isElementPresent("xpath=//input[@id='ajax-loader'][@value='off']")) {
+          break;
+        }
+      } catch (Exception $e) {}
+      sleep(1);
+    }
+  }
+
   /**
    * @dataProvider loginData
    */
@@ -49,58 +61,65 @@ class LoginTests extends PHPUnit_Framework_TestCase
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->selenium->waitForPageToLoad(10000);
     $this->assertEquals('Login', $this->selenium->getText("xpath=//div[@class='webMainContentTitle']"));
-    
+
     //wiki username creation
     $wikiUsername = ucfirst(strtolower($user));
-    
+
     //check if we are not logged in to board & wiki
-    $this->assertFalse($this->selenium->isTextPresent("Hello $user!"));
-    $this->assertFalse($this->selenium->isTextPresent("You are logged in"));
-    
-    $this->selenium->click("aBoardLink");
-    $this->selenium->selectWindow("_blank");
-    $this->selenium->waitForPageToLoad(10000);   
+    $this->selenium->click("headerMenuButton");
+    $this->selenium->waitForPageToLoad(10000);
+
+    $this->assertTrue($this->selenium->isVisible("menuLoginButton"));
+
+    $this->selenium->click("menuForumButton");
+    $this->selenium->selectWindow("board");
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Login"));
     $this->assertFalse($this->selenium->isTextPresent("Logout"));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
-    
-    $this->selenium->click("aWikiLink");
-    $this->selenium->selectWindow("_blank");
-    $this->selenium->waitForPageToLoad(10000);   
+
+    $this->selenium->click("menuWikiButton");
+    $this->selenium->selectWindow("wiki");
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isTextPresent($wikiUsername));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
-    
+
     // test login
+    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginUsername']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginPassword']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginSubmit']"));
-    $this->assertFalse($this->selenium->isElementPresent("xpath=//input[@name='logoutSubmit']"));
-    
+
     $this->selenium->type("xpath=//input[@name='loginUsername']", $user);
     $this->selenium->type("xpath=//input[@name='loginPassword']", $pass);
-    
+
     $this->selenium->click("xpath=//input[@name='loginSubmit']");
     $this->selenium->waitForPageToLoad(10000);
 
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
-    $this->assertTrue($this->selenium->isTextPresent("Hello $user!"));
-    $this->assertTrue($this->selenium->isTextPresent("You are logged in"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='logoutSubmit']"));
-    
-    $this->selenium->click("aBoardLink");
-    $this->selenium->selectWindow("_blank");
-    $this->selenium->waitForPageToLoad(10000);   
+    $this->ajaxWait();
+    $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
+
+    $this->selenium->click("headerMenuButton");
+    $this->selenium->waitForPageToLoad(10000);
+
+    $this->assertTrue($this->selenium->isVisible("menuLogoutButton"));
+
+    $this->selenium->click("menuForumButton");
+    $this->selenium->selectWindow("board");
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isTextPresent("Login"));
     $this->assertTrue($this->selenium->isTextPresent("Logout"));
     $this->assertTrue($this->selenium->isTextPresent($user));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
-    
-    $this->selenium->click("aWikiLink");
-    $this->selenium->selectWindow("_blank");
-    $this->selenium->waitForPageToLoad(10000);   
+
+    $this->selenium->click("menuWikiButton");
+    $this->selenium->selectWindow("wiki");
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent($wikiUsername));
     $this->selenium->click("xpath=//li[@id='pt-preferences']/a");
     $this->selenium->waitForPageToLoad(10000);
@@ -108,64 +127,70 @@ class LoginTests extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->selenium->isTextPresent("Not logged in"));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
-    
+
     // test logout
-    $this->assertFalse($this->selenium->isElementPresent("xpath=//input[@name='loginUsername']"));
-    $this->assertFalse($this->selenium->isElementPresent("xpath=//input[@name='loginPassword']"));
-    $this->assertFalse($this->selenium->isElementPresent("xpath=//input[@name='loginSubmit']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='logoutSubmit']"));
-    
-    $this->selenium->click("xpath=//input[@name='logoutSubmit']");
-    $this->selenium->waitForPageToLoad(10000);
-    
+    $this->selenium->click("menuLogoutButton");
+    $this->ajaxWait();
+    $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
+
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertFalse($this->selenium->isTextPresent("Hello $user!"));
-    $this->assertFalse($this->selenium->isTextPresent("You are logged in"));
-    
-    $this->selenium->click("aBoardLink");
-    $this->selenium->selectWindow("_blank");
-    $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("Login"));
-    $this->assertFalse($this->selenium->isTextPresent("Logout"));   
-    $this->selenium->close();
-    $this->selenium->selectWindow(null);
-    
-    $this->selenium->click("aWikiLink");
-    $this->selenium->selectWindow("_blank");
-    $this->selenium->waitForPageToLoad(10000);   
-    $this->assertFalse($this->selenium->isTextPresent($wikiUsername));
-    $this->selenium->close();
-    $this->selenium->selectWindow(null);
-    
-    // test login with wrong user/pass
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginUsername']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginPassword']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginSubmit']"));
-    $this->assertFalse($this->selenium->isElementPresent("xpath=//input[@name='logoutSubmit']"));
-    
-    $this->selenium->type("xpath=//input[@name='loginUsername']", $wrongUser);
-    $this->selenium->type("xpath=//input[@name='loginPassword']", $wrongPass);
-    
-    $this->selenium->click("xpath=//input[@name='loginSubmit']");
+
+    $this->selenium->click("headerMenuButton");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("The catroid authentication failed."));
-    
-    $this->assertFalse($this->selenium->isTextPresent("Hello $user!"));
-    $this->assertFalse($this->selenium->isTextPresent("You are logged in"));
-    
-    $this->selenium->click("aBoardLink");
-    $this->selenium->selectWindow("_blank");
-    $this->selenium->waitForPageToLoad(10000);   
+
+    $this->assertTrue($this->selenium->isVisible("menuLoginButton"));
+
+    $this->selenium->click("menuForumButton");
+    $this->selenium->selectWindow("board");
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Login"));
     $this->assertFalse($this->selenium->isTextPresent("Logout"));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
-    
-    $this->selenium->click("aWikiLink");
-    $this->selenium->selectWindow("_blank");
+
+    $this->selenium->click("menuWikiButton");
+    $this->selenium->selectWindow("wiki");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertFalse($this->selenium->isTextPresent($wikiUsername));   
+    $this->assertFalse($this->selenium->isTextPresent($wikiUsername));
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
+
+    // test login with wrong user/pass
+    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginUsername']"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginPassword']"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginSubmit']"));
+    $this->assertFalse($this->selenium->isElementPresent("xpath=//input[@name='logoutSubmit']"));
+
+    $this->selenium->type("xpath=//input[@name='loginUsername']", $wrongUser);
+    $this->selenium->type("xpath=//input[@name='loginPassword']", $wrongPass);
+
+    $this->selenium->click("xpath=//input[@name='loginSubmit']");
+    //$this->selenium->waitForPageToLoad(10000);
+    $this->selenium->waitForCondition('', 3000);
+    $this->assertTrue($this->selenium->isTextPresent("The catroid authentication failed."));
+
+    $this->selenium->click("headerMenuButton");
+    $this->selenium->waitForPageToLoad(10000);
+
+    $this->assertTrue($this->selenium->isVisible("menuLoginButton"));
+
+    $this->selenium->click("menuForumButton");
+    $this->selenium->selectWindow("board");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertTrue($this->selenium->isTextPresent("Login"));
+    $this->assertFalse($this->selenium->isTextPresent("Logout"));
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
+
+    $this->selenium->click("menuWikiButton");
+    $this->selenium->selectWindow("wiki");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertFalse($this->selenium->isTextPresent($wikiUsername));
     $this->selenium->close();
     $this->selenium->selectWindow(null);
   }
@@ -173,7 +198,7 @@ class LoginTests extends PHPUnit_Framework_TestCase
   /* *** DATA PROVIDERS *** */
   public function loginData() {
     $returnArray = array(
-      array('catroweb', 'cat.roid.web', 'wrongUser', 'wrongPassword')
+    array('catroweb', 'cat.roid.web', 'wrongUser', 'wrongPassword')
     );
     return $returnArray;
   }

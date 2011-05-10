@@ -45,6 +45,17 @@ var Registration = Class.$extend( {
   },
   
   registrationSubmit : function() {
+    // disable form fields
+    $("#registrationUsername").attr("disabled", "disabled");
+    $("#registrationPassword").attr("disabled", "disabled");
+    $("#registrationEmail").attr("disabled", "disabled");
+    $("#registrationCountry").attr("disabled", "disabled");
+    $("#registrationCity").attr("disabled", "disabled");
+    $("#registrationMonth").attr("disabled", "disabled");
+    $("#registrationYear").attr("disabled", "disabled");
+    $("#registrationGender").attr("disabled", "disabled");
+    $("#registrationSubmit").attr("disabled", "disabled");
+    
     var url = this.basePath + 'catroid/registration/registrationRequest.json';
     $.post(url, {
       registrationUsername : $("#registrationUsername").val(),
@@ -61,9 +72,20 @@ var Registration = Class.$extend( {
   registrationSuccess : function(response) {
     $("#registrationFormAnswer").toggle(true);
 	$("#errorMsg").html(response.answer);
-    if(response.statusCode == 200) {
-    	location.href = self.basePath+'catroid/login';
+    
+	if(response.statusCode == 200) {
+      location.href = self.basePath+'catroid/login';
     }
+    $("#registrationUsername").removeAttr("disabled");
+    $("#registrationPassword").removeAttr("disabled");
+    $("#registrationEmail").removeAttr("disabled");
+    $("#registrationCountry").removeAttr("disabled");
+    $("#registrationCity").removeAttr("disabled");
+    $("#registrationMonth").removeAttr("disabled");
+    $("#registrationYear").removeAttr("disabled");
+    $("#registrationGender").removeAttr("disabled");
+    $("#registrationSubmit").removeAttr("disabled");
+
   },
   
   registrationCatchKeypress : function(event) {
