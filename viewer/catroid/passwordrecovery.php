@@ -51,10 +51,10 @@
       	  		   			      <form method="post" name="passwordRecoveryFormDialog" id="passwordRecoveryFormDialog" action="">
           										<div class="passwordRecoveryHeadline">Please enter your new password:</div>
           										<input type="hidden" id="c" name="c" value="<?php echo $_GET['c']; ?>">
-															<input type="text" id="passwordSavePassword" name="passwordSavePassword" ><br>
+															<input type="text" id="passwordSavePassword" name="passwordSavePassword" >
+															<br>
           										<input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="Change my password now" class="button orange compact passwordRecoverySubmitButton">
           									</form>
-
 	      	  		   					<br> 
 														<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // showForm == 1
@@ -62,6 +62,7 @@
       	  		   			?>
 														<form method="post" action="./passwordrecovery">
 															<div class="passwordRecoveryHeadline">Sorry! Your recovery url has expired. Please try again.</div>
+															<br>
 															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="Next" class="button orange compact passwordRecoverySubmitButton">
 														</form>
 	      	  		   					<br>
@@ -75,10 +76,10 @@
       	  		   			      <form method="post" name="passwordRecoveryFormDialog" id="passwordRecoveryFormDialog" action="">
           										<div class="passwordRecoveryHeadline">Please enter your new password:</div>
           										<input type="hidden" id="c" name="c" value="<?php echo $_POST['c']; ?>">
-															<input type="text" id="passwordSavePassword" name="passwordSavePassword" ><br>
+															<input type="text" id="passwordSavePassword" name="passwordSavePassword" >
+															<br>
           										<input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="Change my password now" class="button orange compact passwordRecoverySubmitButton">
           									</form>
-
 	      	  		   					<br>
 	      	  		   					<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // showForm == 1
@@ -86,6 +87,7 @@
       	  		   			?>
 														<form method="post" action="./passwordrecovery">
 															<div class="passwordRecoveryHeadline">Sorry! Your recovery url has expired. Please try again.</div>
+															<br>
 															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="Next" class="button orange compact passwordRecoverySubmitButton">
 														</form>
 	      	  		   					<br>
@@ -96,11 +98,11 @@
         		   	      ?>
       	  		   				<form method="post" name="passwordRecoveryFormDialog" id="passwordRecoveryFormDialog" action=""> <!-- action="./passwordrecovery"> -->
   												<div class="passwordRecoveryHeadline">Enter your nickname or email address:</div>
-      	  		   					<input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="nickname or email" ><br>
-                        	<input type="button" id="passwordRecoverySubmit" name="passwordRecoverySubmit" value="Send me my password recovery link" class="button orange compact passwordRecoverySubmitButton">
+      	  		   					<input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="nickname or email" >
       	  		   					<br>
+												  <br>
+                        	<input type="button" id="passwordRecoverySubmit" name="passwordRecoverySubmit" value="Send me my password recovery link" class="button orange compact passwordRecoverySubmitButton">
       	  		   				</form>
-
     	  		   				<br>
 	      	  		   		<br>
 											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>

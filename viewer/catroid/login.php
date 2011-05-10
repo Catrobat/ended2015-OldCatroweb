@@ -39,8 +39,7 @@
             		   	</div>
             		   	<div class="loginFormDialog" id="loginFormDialog">
         	  		   		<form method="post" class="loginForm" id="loginForm" >
-                          <?php if($this->module->session->userLogin_userId <= 0) { ?>
-        	  		   				<div class="loginH2">Please enter your nickname and your password:</div>
+	     	  		   				<div class="loginH2">Please enter your nickname and your password:</div>
         	  		   				Nickname: <br>
         	  		   				<input type="text" name="loginUsername" id="loginUsername" ><br>
         	  		   				Password:<br> 
@@ -51,14 +50,10 @@
         	  		   				<?php } else { ?>
         	  		   				  <input type="hidden" name="requesturi" id="requesturi" value="<?php echo htmlspecialchars($_GET['requesturi']); ?>">
         	  		   				<?php } ?>
+        	  		   				<br>
                         	<input type="button" name="loginSubmit" id="loginSubmit" value="Login" class="button orange compact loginSubmitButton">
         	  		   				<br>
-        	  		   			<?php } else {?>
-        	  		   				Hello <?php echo $this->module->session->userLogin_userNickname?>!<br>
-        	  		   				You are logged in with ID <?php echo $this->module->session->userLogin_userId?><br>
-                        	<input type="button" name="logoutSubmit" id="logoutSubmit" value="Logout" class="button orange compact loginSubmitButton">
-        	  		   			<?php }?>
-        	  		   		</form>
+         	  		   		</form>
       	  		   		</div>
 										<br>
       	  		   		<br>
