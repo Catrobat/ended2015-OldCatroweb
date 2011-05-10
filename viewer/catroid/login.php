@@ -61,15 +61,7 @@
 										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Create a new account now</a> <br>or<br> <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>
 										<?php }?>
             		   	<br>
-      		   		   		<br><br>
-      		  		   		<a id="aBoardLink" target="_blank" href="<?php echo BASE_PATH?>addons/board/">Board</a>
-      		  		   		<br>
-      		  		   		<?php if($this->module->session->userLogin_userId > 0) {?>
-      		  		   			<a id="aWikiLink" target="_blank" href="<?php echo BASE_PATH?>wiki/?action=purge">Wiki</a>
-      		  		   		<?php } else {?>
-      		  		   			<a id="aWikiLink" target="_blank" href="<?php echo BASE_PATH?>wiki/">Wiki</a>
-      		  		   		<?php }?>
-                  </div> <!-- loginFormContainer -->
+                     </div> <!-- loginFormContainer -->
 								</div> <!-- login Text -->
               </div> <!--  White Box -->            	
            </div> <!--  license Main -->  		   		
