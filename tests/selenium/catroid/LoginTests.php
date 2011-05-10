@@ -132,7 +132,6 @@ class LoginTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("menuLogoutButton");
     $this->ajaxWait();
     $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
-    //$this->selenium->waitForPageToLoad(10000);
 
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->selenium->waitForPageToLoad(10000);

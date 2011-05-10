@@ -109,17 +109,6 @@
       	  		   			<?php } // else
 
                       ?>
-            		   	<br>
-            		   	<div class="addons_links">
-      		   		   		<br><br>
-      		  		   		<a id="aBoardLink" target="_blank" href="<?php echo BASE_PATH?>addons/board/">Board</a>
-      		  		   		<br>
-      		  		   		<?php if($this->module->session->userLogin_userId > 0) {?>
-      		  		   			<a id="aWikiLink" target="_blank" href="<?php echo BASE_PATH?>wiki/?action=purge">Wiki</a>
-      		  		   		<?php } else {?>
-      		  		   			<a id="aWikiLink" target="_blank" href="<?php echo BASE_PATH?>wiki/">Wiki</a>
-      		  		   		<?php }?>
-            		   	</div>
                   </div> <!-- loginFormContainer -->
 								</div> <!-- login Text -->
               </div> <!--  White Box -->            	

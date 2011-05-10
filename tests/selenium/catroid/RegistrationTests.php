@@ -53,7 +53,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
   {
     $this->selenium->stop();
   }
-  
+
   /**
    * @dataProvider registrationData
    */
@@ -62,14 +62,10 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     //log out if necessary
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->selenium->waitForPageToLoad(10000);
-    if($this->selenium->isElementPresent("xpath=//input[@name='logoutSubmit']")) {
-      $this->selenium->click("xpath=//input[@name='logoutSubmit']");
-      $this->selenium->waitForPageToLoad(10000);
-    }
-    
+
     //wiki username creation
     $wikiUsername = ucfirst(strtolower($regData['registrationUsername']));
-    
+
     $this->selenium->open(TESTS_BASE_PATH.'catroid/registration/');
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationUsername']"));
@@ -81,7 +77,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationCountry']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationCity']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationSubmit']"));
-    
+
     $this->selenium->type("xpath=//input[@name='registrationUsername']", $regData['registrationUsername']);
     $this->selenium->type("xpath=//input[@name='registrationPassword']", $regData['registrationPassword']);
     $this->selenium->type("xpath=//input[@name='registrationEmail']", $regData['registrationEmail']);
@@ -90,73 +86,80 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $this->selenium->type("xpath=//select[@name='registrationYear']", $regData['registrationYear']);
     $this->selenium->type("xpath=//select[@name='registrationCountry']", $regData['registrationCountry']);
     $this->selenium->type("xpath=//input[@name='registrationCity']", $regData['registrationCity']);
-    
+
     $this->selenium->click("xpath=//input[@name='registrationSubmit']");
-    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->waitForCondition('', 3000);
     $this->assertTrue($this->selenium->isTextPresent("CATROID registration successfull!"));
     $this->assertTrue($this->selenium->isTextPresent("BOARD registration successfull!"));
     $this->assertTrue($this->selenium->isTextPresent("WIKI registration successfull!"));
-    
+
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->selenium->waitForPageToLoad(10000);
 
     $this->selenium->type("xpath=//input[@name='loginUsername']", $regData['registrationUsername']);
     $this->selenium->type("xpath=//input[@name='loginPassword']", $regData['registrationPassword']);
-    
-    $this->selenium->click("xpath=//input[@name='loginSubmit']");
-    $this->selenium->waitForPageToLoad(40000);
-    $this->ajaxWait();
 
-    $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
-    
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
+    $this->selenium->click("xpath=//input[@name='loginSubmit']");
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isTextPresent("Hello ".$regData['registrationUsername']."!"));
-    $this->assertTrue($this->selenium->isTextPresent("You are logged in"));
-    
-    $this->selenium->open(TESTS_BASE_PATH.'addons/board/');
+    $this->ajaxWait();
+    $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
+
+    $this->selenium->click("headerMenuButton");
+    $this->selenium->waitForPageToLoad(10000);
+
+    $this->assertTrue($this->selenium->isVisible("menuLogoutButton"));
+
+    $this->selenium->click("menuForumButton");
+    $this->selenium->selectWindow("board");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isTextPresent("Login"));
     $this->assertTrue($this->selenium->isTextPresent("Logout"));
-    $this->assertTrue($this->selenium->isTextPresent("User Control Panel"));
-    
-    $this->selenium->open(TESTS_BASE_PATH.'wiki/');
-    $this->selenium->waitForPageToLoad(10000);   
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
+
+    $this->selenium->click("menuWikiButton");
+    $this->selenium->selectWindow("wiki");
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent($wikiUsername));
     $this->selenium->click("xpath=//li[@id='pt-preferences']/a");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertEquals('Preferences', $this->selenium->getText("firstHeading"));
     $this->assertFalse($this->selenium->isTextPresent("Not logged in"));
-    // $this->selenium->close();
-    // $this->selenium->selectWindow(null);
-    
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/login');
-    $this->selenium->waitForPageToLoad(10000);
-    $this->selenium->click("xpath=//input[@name='logoutSubmit']");
-    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
+
+    $this->selenium->click("menuLogoutButton");
     $this->ajaxWait();
-    $this->assertTrue($this->selenium->isTextPresent("Newest Projects")); // Default Seite, INdex
-        
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/login');
-    $this->assertFalse($this->selenium->isTextPresent("Hello ".$regData['registrationUsername']."!"));
-    $this->assertFalse($this->selenium->isTextPresent("You are logged in"));
-    
-    $this->selenium->open(TESTS_BASE_PATH.'addons/board/');
+    $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
+
+    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginUsername']"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginPassword']"));
+    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginSubmit']"));
+
+    $this->selenium->click("headerMenuButton");
+    $this->selenium->waitForPageToLoad(10000);
+
+    $this->assertTrue($this->selenium->isVisible("menuLoginButton"));
+
+    $this->selenium->click("menuForumButton");
+    $this->selenium->selectWindow("board");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Login"));
-    $this->assertFalse($this->selenium->isTextPresent("Logout"));   
-    $this->assertFalse($this->selenium->isTextPresent("User Control Panel"));
-    // $this->selenium->close();
-    // $this->selenium->selectWindow(null);
-    
-    $this->selenium->open(TESTS_BASE_PATH.'wiki/');
-    $this->selenium->waitForPageToLoad(10000);   
+    $this->assertFalse($this->selenium->isTextPresent("Logout"));
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
+
+    $this->selenium->click("menuWikiButton");
+    $this->selenium->selectWindow("wiki");
+    $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isTextPresent($wikiUsername));
-    // $this->selenium->close();
-    // $this->selenium->selectWindow(null);
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
   }
 
-    /**
+  /**
    * @dataProvider invalidRegistrationData
    */
   public function testInvalidLogin($regData)
@@ -164,14 +167,10 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     //log out if necessary
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->selenium->waitForPageToLoad(10000);
-    if($this->selenium->isElementPresent("xpath=//input[@name='logoutSubmit']")) {
-      $this->selenium->click("xpath=//input[@name='logoutSubmit']");
-      $this->selenium->waitForPageToLoad(10000);
-    }
-    
+
     //wiki username creation
     $wikiUsername = ucfirst(strtolower($regData['registrationUsername']));
-    
+
     $this->selenium->open(TESTS_BASE_PATH.'catroid/registration/');
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationUsername']"));
@@ -183,7 +182,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isElementPresent("xpath=//select[@name='registrationCountry']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationCity']"));
     $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='registrationSubmit']"));
-    
+
     $this->selenium->type("xpath=//input[@name='registrationUsername']", $regData['registrationUsername']);
     $this->selenium->type("xpath=//input[@name='registrationPassword']", $regData['registrationPassword']);
     $this->selenium->type("xpath=//input[@name='registrationEmail']", $regData['registrationEmail']);
@@ -192,41 +191,45 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $this->selenium->type("xpath=//select[@name='registrationYear']", $regData['registrationYear']);
     $this->selenium->type("xpath=//select[@name='registrationCountry']", $regData['registrationCountry']);
     $this->selenium->type("xpath=//input[@name='registrationCity']", $regData['registrationCity']);
-    
+
     $this->selenium->click("xpath=//input[@name='registrationSubmit']");
-    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->waitForCondition('', 3000);
     $this->assertTrue($this->selenium->isTextPresent("The nickname is invalid."));
     $this->assertFalse($this->selenium->isTextPresent("CATROID registration successfull!"));
     $this->assertFalse($this->selenium->isTextPresent("BOARD registration successfull!"));
     $this->assertFalse($this->selenium->isTextPresent("WIKI registration successfull!"));
-    
+
     $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
     $this->selenium->waitForPageToLoad(10000);
-    
+
     $this->selenium->type("xpath=//input[@name='loginUsername']", $regData['registrationUsername']);
     $this->selenium->type("xpath=//input[@name='loginPassword']", $regData['registrationPassword']);
-    
+
     $this->selenium->click("xpath=//input[@name='loginSubmit']");
-    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->waitForCondition('', 3000);
     $this->assertTrue($this->selenium->isTextPresent("The catroid authentication failed."));
-    $this->assertFalse($this->selenium->isTextPresent("Hello ".$regData['registrationUsername']."!"));
-    $this->assertFalse($this->selenium->isTextPresent("You are logged in"));
-    
-    $this->selenium->open(TESTS_BASE_PATH.'addons/board/');
+
+    $this->selenium->click("headerMenuButton");
+    $this->selenium->waitForPageToLoad(10000);
+
+    $this->assertTrue($this->selenium->isVisible("menuLoginButton"));
+
+    $this->selenium->click("menuForumButton");
+    $this->selenium->selectWindow("board");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Login"));
     $this->assertFalse($this->selenium->isTextPresent("Logout"));
-    $this->assertFalse($this->selenium->isTextPresent("User Control Panel"));
-    
-    $this->selenium->open(TESTS_BASE_PATH.'wiki/');
-    $this->selenium->waitForPageToLoad(10000);   
-    $this->assertFalse($this->selenium->isTextPresent($wikiUsername));
-    $this->selenium->click("xpath=//li[@id='pt-preferences']/a");
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
+
+    $this->selenium->click("menuWikiButton");
+    $this->selenium->selectWindow("wiki");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isTextPresent($wikiUsername));
-
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
   }
-  
+
   /* *** DATA PROVIDERS *** */
   public function registrationData() {
     $random = rand(100, 999999);
@@ -239,7 +242,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     );
     return $dataArray;
   }
-  
+
   /* *** DATA PROVIDERS *** */
   public function invalidRegistrationData() {
     $random = rand(100, 999999);
@@ -252,7 +255,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     );
     return $dataArray;
   }
-  
+
 }
 ?>
 
