@@ -36,7 +36,7 @@ require_once 'catroid/HeaderTests.php';
 require_once 'catroid/MenuTests.php';
 require_once 'catroid/PasswordRecoveryTests.php';
 require_once 'catroid/SearchTests.php';
-require_once 'catroid/UploadTests.php';
+//require_once 'catroid/UploadTests.php';
 
 /*****************************************************************************/
 class TestSuite
@@ -58,7 +58,7 @@ class TestSuite
         $suite->addTestSuite('MenuTests');
         $suite->addTestSuite('PasswordRecoveryTests');
         $suite->addTestSuite('SearchTests');
-        $suite->addTestSuite('UploadTests');
+        //$suite->addTestSuite('UploadTests');
         return $suite;
     }
 }

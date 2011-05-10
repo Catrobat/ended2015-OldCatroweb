@@ -68,7 +68,7 @@ class UploadTests extends PHPUnit_Framework_TestCase
     curl_setopt($ch, CURLOPT_URL, $uploadpath);
     curl_setopt($ch, CURLOPT_POST, true);
     $post = array(
-        "token"=>"8f496b74c08bdebe12dedea5c3bbeda6",
+        "token"=>"0",
         "upload"=>"@$uploadTestFile",
         "projectTitle"=>$title,
     	"projectDescription"=>$description,

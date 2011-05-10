@@ -26,7 +26,7 @@ class toolsTest extends PHPUnit_Framework_TestCase
 
 	protected function setUp() {
 		require_once CORE_BASE_PATH.'modules/admin/tools.php';
-		require_once CORE_BASE_PATH.'modules/catroid/upload.php';
+		require_once CORE_BASE_PATH.'modules/api/upload.php';
 		$this->tools = new tools();
 		$this->upload = new upload();
 		@unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_thumbnail.jpg');

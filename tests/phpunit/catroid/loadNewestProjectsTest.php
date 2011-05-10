@@ -27,7 +27,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/catroid/loadNewestProjects.php';
     $this->obj = new loadNewestProjects();
-    require_once CORE_BASE_PATH.'modules/catroid/upload.php';
+    require_once CORE_BASE_PATH.'modules/api/upload.php';
     $this->upload = new upload();  
   } 
   

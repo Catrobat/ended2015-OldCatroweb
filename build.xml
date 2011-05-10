@@ -76,7 +76,7 @@
   	<fail if="do.abort">You have to validate the page on http://validator.w3.org before you can continue!</fail>
   </target>
   
-  <target name="-selenium-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-tests-catroid, -selenium-stop-server"/>
+  <target name="-selenium-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-tests-catroid, -selenium-tests-api, -selenium-stop-server"/>
   <target name="-selenium-android-tests" depends="-selenium-start-server-android, -selenium-start-android-emulator, -selenium-tests-android, -selenium-stop-server"/>
   <target name="-selenium-test" depends="-selenium-start-server, -selenium-test-specific, -selenium-stop-server"/>
   
@@ -130,6 +130,17 @@
     </exec>
   </target>
   
+  <target name="-selenium-tests-api">
+  	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" ApiTestSuite.php"/>
+    </exec>
+    <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" ApiTestSuite.php"/>
+    </exec>
+  </target>
+  
   <target name="-selenium-test-specific">
   	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
@@ -158,7 +169,7 @@
     </exec>
   </target>
   
-  <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid"/>
+  <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api"/>
   
   <target name="-unittest-catroid">
   	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
@@ -190,6 +201,17 @@
     </exec>
     <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
       <arg line=" framework"/>
+    </exec>
+  </target>
+  
+  <target name="-unittest-api">
+  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" api"/>
+    </exec>
+    <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" api"/>
     </exec>
   </target>
 
@@ -409,6 +431,7 @@
   <target name="run-selenium-test" depends="-selenium-test" />
   <target name="run-selenium-admin-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-stop-server" />
   <target name="run-selenium-catroid-tests" depends="-selenium-start-server, -selenium-tests-catroid, -selenium-stop-server" />
+  <target name="run-selenium-api-tests" depends="-selenium-start-server, -selenium-tests-api, -selenium-stop-server" />
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />
   <target name="deploy-test-board" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />

@@ -188,7 +188,7 @@ class AdminEditProjectsTests extends PHPUnit_Framework_TestCase
       $uploadTestFile.= '/testdata/test2.zip';
     }
 
-    $uploadpath= TESTS_BASE_PATH.'catroid/upload/upload.json';
+    $uploadpath= TESTS_BASE_PATH.'api/upload/upload.json';
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -198,6 +198,7 @@ class AdminEditProjectsTests extends PHPUnit_Framework_TestCase
     curl_setopt($ch, CURLOPT_URL, $uploadpath);
     curl_setopt($ch, CURLOPT_POST, true);
     $post = array(
+        "token"=>"0",
         "upload"=>"@$uploadTestFile",
         "projectTitle"=>$title,
     	"projectDescription"=>$description,

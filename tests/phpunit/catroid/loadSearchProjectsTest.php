@@ -28,7 +28,7 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/catroid/loadSearchProjects.php';
     $this->obj = new loadSearchProjects();
-    require_once CORE_BASE_PATH.'modules/catroid/upload.php';
+    require_once CORE_BASE_PATH.'modules/api/upload.php';
     $this->upload = new upload();        
   } 
   

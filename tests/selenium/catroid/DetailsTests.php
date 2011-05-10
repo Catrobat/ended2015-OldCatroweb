@@ -291,7 +291,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     } else {
       $uploadTestFile.= '/testdata/test.zip';
     }
-    $uploadpath= TESTS_BASE_PATH.'catroid/upload/upload.json';
+    $uploadpath= TESTS_BASE_PATH.'api/upload/upload.json';
 
     $ch = curl_init();
     curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -301,6 +301,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     curl_setopt($ch, CURLOPT_URL, $uploadpath);
     curl_setopt($ch, CURLOPT_POST, true);
     $post = array(
+        "token"=>"0",
         "upload"=>"@$uploadTestFile",
         "projectTitle"=>$title,
         "projectDescription"=>$description,
