@@ -65,7 +65,7 @@
                     					<p class="detailsTime">
                     					  <img class="projectDetailsTimeSymbol" src="<?php echo BASE_PATH?>images/symbols/clock2.png" alt="publish time image">
     									  uploaded<br>
-    									  <b><?php echo $this->project['publish_time_in_words']?></b> ago.<br>
+    									  <b><?php echo $this->project['publish_time_in_words']?></b> ago<br>
     									  by <b><?php echo $this->project['uploaded_by']?></b>
     									</p>
                     				</div>
