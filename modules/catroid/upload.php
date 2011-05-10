@@ -72,7 +72,8 @@ class upload extends CoreAuthenticationNone {
 							isset($formData['userLanguage']) ? $uploadLanguage = $formData['userLanguage'] : $uploadLanguage = '';
 
 							if($fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $updir)) {
-								$query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$upfile', '$uploadIp', '$uploadImei', '$uploadEmail', '$uploadLanguage', '$fileSize');";
+							    $this->session->userLogin_userId ? $userId = $this->session->userLogin_userId : $userId = 0;
+								$query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$upfile', '$uploadIp', '$uploadImei', '$uploadEmail', '$uploadLanguage', '$fileSize', '$userId');";
 								$result = pg_query($query);
 								if($result) {
 									$line = pg_fetch_assoc($result);
