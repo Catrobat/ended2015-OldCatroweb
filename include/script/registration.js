@@ -55,7 +55,7 @@ var Registration = Class.$extend( {
     $("#registrationYear").attr("disabled", "disabled");
     $("#registrationGender").attr("disabled", "disabled");
     $("#registrationSubmit").attr("disabled", "disabled");
-    
+
     var url = this.basePath + 'catroid/registration/registrationRequest.json';
     $.post(url, {
       registrationUsername : $("#registrationUsername").val(),
@@ -72,7 +72,7 @@ var Registration = Class.$extend( {
   registrationSuccess : function(response) {
     $("#registrationFormAnswer").toggle(true);
 	$("#errorMsg").html(response.answer);
-    
+
 	if(response.statusCode == 200) {
       location.href = self.basePath+'catroid/login';
     }

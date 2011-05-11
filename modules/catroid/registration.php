@@ -131,8 +131,6 @@ class registration extends CoreAuthenticationNone {
       return false;
     }
   }
-
- 
   
   public function doCatroidRegistration($postData, $serverData) {
     global $phpbb_root_path;
@@ -158,7 +156,11 @@ class registration extends CoreAuthenticationNone {
     $gender = $postData['registrationGender'];
     $city = $postData['registrationCity'];
     
-    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', '$city', '$ip_registered', '$status')";
+    $md5user = md5($username);
+    $md5pass = md5($password);
+    $authToken = md5($md5user.":".$md5pass); 
+    
+    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', '$city', '$ip_registered', '$status', '$authToken')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -400,17 +402,10 @@ class registration extends CoreAuthenticationNone {
     }
   }
   
-  
-  
   public function initRegistration() {
     $answer = '';
     try {
       $this->initBirth('');
-    } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
-    }
-    try {
-      $this->initGender();
     } catch(Exception $e) {
       $answer .= $e->getMessage().'<br>';
     }
@@ -422,29 +417,8 @@ class registration extends CoreAuthenticationNone {
     $this->answer .= $answer;
   }
 
-  private function initGender() {
-    if(!$this->postData['registrationGender']) {
-      $genderlist[0] = "<option value=\"0\" selected>select your gender</option>\r";
-      $genderlist[1] = "<option value=\"female\">female</option>\r";
-      $genderlist[2] = "<option value=\"male\">male</option>\r";
-    }
-    else {
-      $genderlist[0] = "<option value=\"0\">Select</option>\r";
-      if($this->postData['registrationGender'] == 'male') {
-        $genderlist[1] = "<option value=\"female\">female</option>\r";
-        $genderlist[2] = "<option value=\"male\" selected>male</option>\r";
-      }
-      else {
-        $genderlist[1] = "<option value=\"female\" selected>female</option>\r";  
-        $genderlist[2] = "<option value=\"male\">male</option>\r";
-      }
-    }
-    $this->gender = $genderlist;
-  }
-  
   private function initBirth() {
-    $months = array(
-      0=>"select month",
+    $this->months = array(
       1=>"Jan",
       2=>"Feb",
       3=>"Mar",
@@ -458,47 +432,6 @@ class registration extends CoreAuthenticationNone {
       11=>"Nov",
       12=>"Dec"
     );
-    
-    $registrationMonth = '';
-    $registrationYear = '';
-    
-    if(!$this->postData['registrationMonth']) {
-      $monthlist[0] = "<option value=\"0\" selected>" . $months[0] . "</option>\r";
-    }
-    else {
-      $registrationMonth = $this->postData['registrationMonth'];
-      $monthlist[0] = "<option value=\"0\">" . $months[0] . "</option>\r";
-    }
-    if(!$this->postData['registrationYear']) {
-      $yearlist[0] = "<option value=\"0\" selected>select year</option>\r";
-    }
-    else {
-      $registrationYear = $this->postData['registrationYear'];
-      $yearlist[0] = "<option value=\"0\">select year</option>\r";
-    }
-    
-    $x = 0;
-    while($x++ < 12) {
-      if($registrationMonth == $x) {
-        $monthlist[] = "<option value=\"" . $x . "\" selected>" . $months[$x] . "</option>\r";
-      }
-      else {
-        $monthlist[] = "<option value=\"" . $x . "\">" . $months[$x] . "</option>\r";
-      }
-    }
-    $x = 0;
-    $year = date('Y') + 1;
-    while($x++ < 100) {
-      $year--;
-      if($registrationYear == $year) {
-        $yearlist[] = "<option value=\"" . $year . "\" selected>" . $year . "</option>\r";
-      }
-      else {
-        $yearlist[] = "<option value=\"" . $year . "\">" . $year . "</option>\r";
-      }
-    }
-    $this->month = $monthlist;
-    $this->year = $yearlist;
   }
   
   private function initCountryCodes() {
@@ -510,35 +443,24 @@ class registration extends CoreAuthenticationNone {
     }
 
     if(pg_num_rows($result) > 0) {
-      $countrylist = array();
-      
-      if($this->postData['registrationCountry']) {
-        $registrationCountry = $this->postData['registrationCountry'];
-        $countrylist[] = "<option value=\"0\">Select country</option>\r";
-      }
-      else { 
-        $registrationCountry = '';
-        $countrylist[] = "<option value=\"0\" selected>select your country</option>\r";
-      }
-      
+      $countryCodeList = array();
+      $countryNameList = array();
+
+      $x = 1;
       while($country = pg_fetch_assoc($result)) {
-        if($registrationCountry == $country['code'])
-          $countrylist[] = "<option value=\"" . $country['code'] . "\" selected>" . $country['name'] . "</option>\r";
-        else
-          $countrylist[] = "<option value=\"" . $country['code'] . "\">" . $country['name'] . "</option>\r";           
+        $countryCodeList[$x] = $country['code'];
+        $countryNameList[$x] = $country['name'];
+        $x++;
       }
-      if($registrationCountry != 'undef')
-        $countrylist[] = "<option value=\"undef\">undefined</option>\r";
-      else
-        $countrylist[] = "<option value=\"undef\" selected>undefined</option>\r";
-      
-      $this->countrylist = $countrylist;
+      // if user country is not in list
+      $countryCodeList[$x] = "undef";
+      $countryNameList[$x] = "undefined";
       pg_free_result($result);      
     } else {
-      $countrylist[] = "<option value=\"0\">select your country</option>";
-      $this->countrylist = $countrylist;
       throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
     }
+    $this->countryCodeList = $countryCodeList;
+    $this->countryNameList = $countryNameList;
   }
     
   public function deleteRegistration($userId, $boardUserId, $wikiUserId) {

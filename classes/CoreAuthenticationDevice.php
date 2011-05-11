@@ -24,7 +24,7 @@ abstract class CoreAuthenticationDevice extends CoreAuthentication {
 
   function authenticate() {
     if(isset($_REQUEST['token'])) {
-      $authToken = $_REQUEST['token'];
+      $authToken = strtolower($_REQUEST['token']);
       $query = "EXECUTE get_user_device_login('$authToken');";
       $result = pg_query($query);
       if($result) {

@@ -46,13 +46,61 @@
           		   			Email<br>
           		   			<input type="email" id="registrationEmail" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" required="required" placeholder="enter your email address" ><br>
           		   			Country<br>
-          		   			<select id="registrationCountry" name="registrationCountry" class="registration" id="registrationCountry" required="required" ><?php print_r ($this->countrylist) ?></select><br>
+          		   			<select id="registrationCountry" name="registrationCountry" class="registration" id="registrationCountry" required="required" >
+          		   			<?php // country 
+          		   			$x = 0;
+          		   			$sumCount = count($this->countryCodeList);
+          		   			while($x < $sumCount+1) {
+                        if($x == 0) {
+                          echo '<option value="0" selected>select your country</option>';
+                        }
+                        else {
+                          echo "<option value=\"" . $this->countryCodeList[$x] . "\">" . $this->countryNameList[$x] . "</option>\r";
+                        }
+                        $x++;           
+          		   			}
+          		   			?>
+          		   			</select><br>
           		   			City<br>
           		   			<input type="text" id="registrationCity" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>" placeholder="enter your city"><br>
           		   			Birthday<br>
-          		   			<select id="registrationMonth" name="registrationMonth" class="registration" ><?php print_r ($this->month) ?></select> <select id="registrationYear" name="registrationYear" class="registration" required="required"><?php print_r ($this->year) ?></select><br>
+          		   			
+          		   			<select id="registrationMonth" name="registrationMonth" class="registration" >
+          		   			<?php // month 
+        		   			    $x = 0;
+                        while($x < 13) {
+                          if($x == 0) {
+                            echo '<option value="0" selected>select your month</option>';
+                          }
+                          else {
+                            echo "<option value=\"" . $x . "\">" . $this->months[$x] . "</option>\r";
+                          }
+                          $x++;
+                        }
+          		   			?>
+          		   			</select> 
+          		   			<select id="registrationYear" name="registrationYear" class="registration" >
+          		   			<?php // year
+                        $x = 0;
+                        $year = date('Y') + 1;
+                        while($x < 101) {
+                          $year--;
+                          if($x == 0) {
+                            echo '<option value="0" selected>select <our year</option>';
+                          }
+                          else {
+                            echo "<option value=\"" . $year . "\" >" . $year . "</option>\r";
+                          }
+                          $x++;
+                        }          		   			
+          		   			?>
+          		   			</select><br>
           		   			Gender<br>
-          		   			<select id="registrationGender" name="registrationGender" class="registration" ><?php print_r ($this->gender) ?></select>
+											<select id="registrationGender" name="registrationGender" class="registration" >
+												<option value="0" selected>select your gender</option>
+												<option value="female">female</option>
+												<option value="male">male</option>
+                      </select>
           		   			<br>
           		   			<br>
                       <input type="button" name="registrationSubmit" id="registrationSubmit" value="Create my account now" class="button orange compact registrationSubmitButton">
