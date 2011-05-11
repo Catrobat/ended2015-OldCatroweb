@@ -1,0 +1,14 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Catroid Test Suite" parallel="methods" thread-count="7" verbose="3" >
+  <test name="HeaderTests" >
+    <packages>
+      <package name="at.tugraz.ist.catroweb.catroid.header" />
+   </packages>
+  </test>
+  <test name="LicenceTests" >
+    <packages>
+      <package name="at.tugraz.ist.catroweb.catroid.licence" />
+   </packages>
+ </test>
+</suite>

@@ -21,6 +21,7 @@
  
 <project basedir="." default="deploy-local" name="catroid">
   <property name="selenium.dir" value="tests/selenium" />
+  <property name="selenium-grid.dir" value="tests/selenium-grid" />
   <property name="framework.dir" value="classes" />
   <property name="images.dir" value="images" />
   <property name="includes.dir" value="include" />
@@ -42,6 +43,8 @@
   <property name="index.file" value="index.php" />
   <property name="thumbnail.small.file" value="${thumbnails.dir}/thumbnail_small.jpg" />
   <property name="thumbnail.large.file" value="${thumbnails.dir}/thumbnail_large.jpg" />
+
+  <import file="tests/selenium-grid/build.xml"/>
 
   <target name="-conf">
     <property name="build.dir" value="build" />
@@ -159,7 +162,7 @@
       </and>
     </waitfor>
     
-  	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+   <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="phpunit.bat"/>
       <arg line=" AndroidBrowserTestSuite.php"/>
@@ -167,6 +170,171 @@
     <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
       <arg line=" AndroidBrowserTestSuite.php"/>
     </exec>
+  </target>
+
+  <target name="-start-selenium-grid-hub">
+    <condition property="hub-socket.open">
+      <socket server="localhost" port="4444"/>
+    </condition>
+    <antcall target="-launch-selenium-grid-hub"/>
+  </target>
+
+  <target name="-launch-selenium-grid-hub" unless="hub-socket.open">
+    <exec dir="${selenium-grid.dir}/hub" executable="cmd" osfamily="Windows" spawn="true">
+      <arg value="/c"/>
+      <arg value="ant"/>
+      <arg line="launch-hub"/>
+    </exec>
+    <exec dir="${selenium-grid.dir}/hub" executable="ant" osfamily="Unix" spawn="true">
+      <arg line="launch-hub"/>
+    </exec>
+
+    <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
+      <socket server="localhost" port="4444"/>
+    </waitfor>
+  </target>
+
+  <target name="-start-selenium-grid-rc5555">
+    <condition property="rc5555-socket.open">
+      <socket server="localhost" port="5555"/>
+    </condition>
+    <antcall target="-launch-selenium-grid-rc5555"/>
+  </target>
+
+  <target name="-launch-selenium-grid-rc5555" unless="rc5555-socket.open">
+    <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
+      <arg value="/c"/>
+      <arg value="ant"/>
+      <arg line="launch-remote-control -Dport=5555"/>
+    </exec>
+    <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
+      <arg line="launch-remote-control -Dport=5555"/>
+    </exec>
+
+    <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
+      <socket server="localhost" port="5555"/>
+    </waitfor>
+  </target>
+
+  <target name="-start-selenium-grid-rc5556">
+    <condition property="rc5556-socket.open">
+      <socket server="localhost" port="5556"/>
+    </condition>
+    <antcall target="-launch-selenium-grid-rc5556"/>
+  </target>
+
+  <target name="-launch-selenium-grid-rc5556" unless="rc5556-socket.open">
+    <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
+      <arg value="/c"/>
+      <arg value="ant"/>
+      <arg line="launch-remote-control -Dport=5556"/>
+    </exec>
+    <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
+      <arg line="launch-remote-control -Dport=5556"/>
+    </exec>
+
+    <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
+      <socket server="localhost" port="5556"/>
+    </waitfor>
+  </target>
+
+  <target name="-start-selenium-grid-rc5557">
+    <condition property="rc5557-socket.open">
+      <socket server="localhost" port="5557"/>
+    </condition>
+    <antcall target="-launch-selenium-grid-rc5557"/>
+  </target>
+
+  <target name="-launch-selenium-grid-rc5557" unless="rc5557-socket.open">
+    <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
+      <arg value="/c"/>
+      <arg value="ant"/>
+      <arg line="launch-remote-control -Dport=5557"/>
+    </exec>
+    <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
+      <arg line="launch-remote-control -Dport=5557"/>
+    </exec>
+
+    <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
+      <socket server="localhost" port="5557"/>
+    </waitfor>
+  </target>
+
+  <target name="-start-selenium-grid-rc5558">
+    <condition property="rc5558-socket.open">
+      <socket server="localhost" port="5558"/>
+    </condition>
+    <antcall target="-launch-selenium-grid-rc5558"/>
+  </target>
+
+  <target name="-launch-selenium-grid-rc5558" unless="rc5558-socket.open">
+    <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
+      <arg value="/c"/>
+      <arg value="ant"/>
+      <arg line="launch-remote-control -Dport=5558"/>
+    </exec>
+    <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
+      <arg line="launch-remote-control -Dport=5558"/>
+    </exec>
+
+    <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
+      <socket server="localhost" port="5558"/>
+    </waitfor>
+  </target>
+
+  <target name="-start-selenium-grid-local-testsuite" depends="-start-selenium-grid-hub">
+    <parallel>
+      <ant target='-start-selenium-grid-rc5555' />
+      <ant target='-start-selenium-grid-rc5556' />
+      <ant target='-start-selenium-grid-rc5557' />
+      <ant target='-start-selenium-grid-rc5558' />
+    </parallel>
+  </target>
+
+  <target name="-selenium-grid-tests-admin-local" depends="-start-selenium-grid-local-testsuite">
+    <echo message="check your test report at:"/>
+    <echo message="> http://localhost/tests/selenium-grid/target/reports/index.html"/>
+
+    <antcall target='selenium-grid.run-admin-tests' />
+  </target>
+
+  <target name="-selenium-grid-tests-catroid-local" depends="-start-selenium-grid-local-testsuite">
+    <echo message="check your test report at:"/>
+    <echo message="> http://localhost/tests/selenium-grid/target/reports/index.html"/>
+
+    <antcall target='selenium-grid.run-catroid-tests' />
+  </target>
+
+  <target name="-selenium-grid-singletest" depends="-start-selenium-grid-local-testsuite">
+    <echo message="check your test report at:"/>
+    <echo message="> http://localhost/tests/selenium-grid/target/reports/index.html"/>
+
+    <input
+      message="Please enter a package to test (e.g.: catroid.index): "
+      addproperty="this.single-test-package"
+    />
+
+    <antcall target='selenium-grid.run-single-test'>
+      <param name="single-test-package" value="${this.single-test-package}" />
+    </antcall>
+  </target>
+
+  <target name="-selenium-grid-tests-remote">
+    <echo message="check your test report at:"/>
+    <echo message="http://catroidwebtest.ist.tugraz.at/tests/selenium-grid/target/reports/index.html"/>
+
+    <sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-admin-tests" />
+
+    <sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+
+             password="${host.pass}"
+             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests" />
   </target>
   
   <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api"/>
@@ -280,6 +448,10 @@
     <mkdir dir="${catroid.dir}/${sql.dir}" />
   </target>
 
+  <target name="-create-dirs-test">
+    <mkdir dir="${catroid.dir}/${selenium-grid.dir}" />
+  </target>
+
   <target name="-copy-files" depends="-copy-rootfiles, -copy-framework, -copy-viewer, -copy-modules, -copy-images, -copy-includes, -copy-thumbnails, -copy-sql" />
 
   <target name="-copy-rootfiles">
@@ -334,6 +506,12 @@
     <copy file="${thumbnail.small.file}" toDir="${catroid.dir}/${thumbnails.dir}" />
     <copy file="${thumbnail.large.file}" toDir="${catroid.dir}/${thumbnails.dir}" />
   </target>
+
+  <target name="-copy-selenium-tests">
+    <copy todir="${catroid.dir}/${selenium-grid.dir}">
+      <fileset dir="${selenium-grid.dir}" excludes="target/, hub/, remote-control/"/>
+    </copy>
+  </target>
   
   <target name="-copy-board">
     <copy todir="${catroid.dir}/${board.dir}">
@@ -351,7 +529,11 @@
   <target name="-copy-wiki">
     <copy todir="${catroid.dir}/${wiki.dir}">
       <fileset dir="${wiki.dir}"/>
-    </copy>
+    </copy>	<exec dir="${sql.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="php"/>
+      <arg line=" dbupdate.php"/>
+    </exec>
   </target>
 
   <target name="-undeploy">
@@ -359,7 +541,7 @@
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="rm -rf ${host.catroid.dir}/${images.dir} ${host.catroid.dir}/${includes.dir} ${host.catroid.dir}/${framework.dir} ${host.catroid.dir}/${modules.dir} ${host.catroid.dir}/${viewer.dir} ${host.catroid.dir}/${scripts.dir} ${host.catroid.dir}/${sql.dir}" />
+             command="rm -rf ${host.catroid.dir}/${images.dir} ${host.catroid.dir}/${includes.dir} ${host.catroid.dir}/${framework.dir} ${host.catroid.dir}/${modules.dir} ${host.catroid.dir}/${viewer.dir} ${host.catroid.dir}/${scripts.dir} ${host.catroid.dir}/${sql.dir} ${host.catroid.dir}/tests" />
     <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
@@ -423,6 +605,7 @@
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
   <!-- <target name="deploy-test" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
   <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
+  <target name="deploy-test-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <!-- <target name="deploy-public" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
   <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="run-tests" depends="-phpunit-tests, -selenium-tests" />
@@ -431,6 +614,9 @@
   <target name="run-selenium-test" depends="-selenium-test" />
   <target name="run-selenium-admin-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-stop-server" />
   <target name="run-selenium-catroid-tests" depends="-selenium-start-server, -selenium-tests-catroid, -selenium-stop-server" />
+  <target name="run-selenium-local-tests" depends="-selenium-grid-tests-admin-local, -selenium-grid-tests-catroid-local" />
+  <target name="run-selenium-remote-tests" depends="deploy-test-with-tests, -selenium-grid-tests-remote" />
+  <target name="run-selenium-singletest" depends="-selenium-grid-singletest" />
   <target name="run-selenium-api-tests" depends="-selenium-start-server, -selenium-tests-api, -selenium-stop-server" />
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />
@@ -438,5 +624,5 @@
   <target name="deploy-test-wiki" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-wiki, -user-pass-prompt, -undeploy-wiki, -deploy-wiki, -cleanup" />
   <target name="update-db" depends="-update-local-database" />
   <target name="init-db" depends="-init-local-database, -update-local-database" />
-
+  
 </project>

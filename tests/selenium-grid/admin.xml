@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Admin Test Suite" parallel="methods" thread-count="7" verbose="3" >
+  <test name="AdminEditProjectsTests" >
+    <packages>
+      <package name="at.tugraz.ist.catroweb.admin.editProjects" />
+   </packages>
+  </test>
+</suite>

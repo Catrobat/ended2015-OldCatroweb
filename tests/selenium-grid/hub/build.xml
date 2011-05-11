@@ -1,0 +1,53 @@
+<project name="selenium-hub" basedir=".">
+  <description>Selenium Grid Distribution</description>
+  <dirname property="selenium-hub.basedir" file="${ant.file.selenium-hub}"/>
+
+  <property name="version" value="1.0.8" />
+  <property name="selenium.version" value="1.0.3" />
+  <property name="version" value="SNAPSHOT"/>
+
+  <path id="hub.classpath">
+    <pathelement path="${selenium-hub.basedir}/"/>
+    <fileset dir="${selenium-hub.basedir}/">
+      <include name="selenium-grid-hub-standalone-${version}*.jar"/>
+    </fileset>
+    <pathelement path="${java.class.path}/"/>
+  </path>
+
+  <target name="sanity-check" description="Check that the tools are been installed and configured properly">
+    <property environment="env"/>
+    <echo>${ant.version}</echo>
+    <condition property="ant-7">
+      <antversion atleast="1.7.0"/>
+    </condition>
+    <fail message="You need Ant 1.7 or newer" unless="ant-7"/>
+
+    <echo>Java ${ant.java.version}</echo>
+    <condition property="java-5">
+      <not><matches pattern="^1\.[0-4]" string="${ant.java.version}"/></not>
+    </condition>
+    <fail message="Your must use Java 1.5 or newer. You are currrenltly using '${ant.java.version}'." unless="java-5"/>
+
+    <echo/>
+    <echo>********************************************************************</echo>
+    <echo>Congratulations, your setup looks good. Have fun with Selenium Grid!</echo>
+    <echo>********************************************************************</echo>
+    <echo/>
+    <echo>You can launch a hub by running 'ant launch-hub'</echo>
+    <echo>You can launch a a remote control with 'ant -Dport=4444 launch-remote-control'</echo>
+  </target>
+
+  <target name="launch-hub" description="Launch Selenium Hub">
+    <java classname="com.thoughtworks.selenium.grid.hub.HubServer"
+          classpathref="hub.classpath"
+          fork="true"
+          failonerror="true" >
+
+      <sysproperty key="http.proxyHost" value="${http.proxyHost}"/>
+      <sysproperty key="http.proxyPort" value="${http.proxyPort}"/>
+      <sysproperty key="https.proxyHost" value="${https.proxyHost}"/>
+      <sysproperty key="https.proxyPort" value="${https.proxyPort}"/>
+    </java>
+  </target>
+
+</project>

@@ -1,0 +1,9 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Catroid Run Single Test">
+  <test name="SingleTest" >
+    <packages>
+      <package name="@PACKAGE@"/>
+    </packages>
+  </test>
+</suite>
