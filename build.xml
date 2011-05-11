@@ -296,7 +296,7 @@
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message=" http://localhost/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" http://localhost/tests/selenium-grid/target/reports"/>
     <echo message=" "/>
     <echo message=""/>
 
@@ -308,7 +308,7 @@
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message=" http://localhost/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" http://localhost/tests/selenium-grid/target/reports"/>
     <echo message=" "/>
     <echo message=""/>
 
@@ -320,7 +320,7 @@
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message=" http://localhost/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" http://localhost/tests/selenium-grid/target/reports"/>
     <echo message=" "/>
     <echo message=""/>
 
@@ -339,7 +339,7 @@
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message=" http://catroidwebtest.ist.tugraz.at/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" http://catroidwebtest.ist.tugraz.at/tests/selenium-grid/target/reports"/>
     <echo message=" "/>
     <echo message=""/>
 
