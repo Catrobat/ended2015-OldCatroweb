@@ -11,6 +11,7 @@ RewriteRule ^modules/ - [L]
 RewriteRule ^classes/ - [L]
 RewriteRule ^viewer/ - [L]
 RewriteRule ^resources/ - [L]
+RewriteRule ^tests/ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)([^/]*)/([^/]*)/([^/]*)\.([^\.]*)$ index.php?module=$1&class=$3&method=$4&view=$5 [L,QSA]
@@ -25,6 +26,7 @@ RewriteRule ^modules/ - [L]
 RewriteRule ^classes/ - [L]
 RewriteRule ^viewer/ - [L]
 RewriteRule ^resources/ - [L]
+RewriteRule ^tests/ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)([^/]*)/([^/]*)/([^/]*)$ index.php?module=$1&class=$3&method=$4 [L,QSA]
@@ -39,6 +41,7 @@ RewriteRule ^modules/ - [L]
 RewriteRule ^classes/ - [L]
 RewriteRule ^viewer/ - [L]
 RewriteRule ^resources/ - [L]
+RewriteRule ^tests/ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)([^/]*)/([^/]*)$ index.php?module=$1&class=$3 [L,QSA]
@@ -53,6 +56,7 @@ RewriteRule ^modules/ - [L]
 RewriteRule ^classes/ - [L]
 RewriteRule ^viewer/ - [L]
 RewriteRule ^resources/ - [L]
+RewriteRule ^tests/ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)([^/]*)$ index.php?module=$1 [L,QSA]
