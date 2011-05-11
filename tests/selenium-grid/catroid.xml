@@ -25,6 +25,11 @@
       <package name="at.tugraz.ist.catroweb.catroid.header" />
    </packages>
   </test>
+  <test name="IndexTests" >
+    <packages>
+      <package name="at.tugraz.ist.catroweb.catroid.index" />
+   </packages>
+  </test>
   <test name="LicenseTests" >
     <packages>
       <package name="at.tugraz.ist.catroweb.catroid.license" />
