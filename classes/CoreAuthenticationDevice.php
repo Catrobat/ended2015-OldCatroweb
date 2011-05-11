@@ -27,21 +27,40 @@ abstract class CoreAuthenticationDevice extends CoreAuthentication {
       $authToken = strtolower($_REQUEST['token']);
       $query = "EXECUTE get_user_device_login('$authToken');";
       $result = pg_query($query);
-      if($result) {
+      if($result && pg_num_rows($result)) {
         $user = pg_fetch_assoc($result);
-        if($user['id'] >= 0) {
+        if(is_numeric($user['id']) && $user['id'] >= 0) {
           $this->session->userLogin_userId = $user['id'];
           $this->session->userLogin_userNickname = $user['username'];
           return true;
         } else {
+          //invalid userID
+          $this->statusCode = 603;
+          $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_user_id');
+          $this->jsonAnswer();
           return false;
         }
       } else {
+        //no user found for this token; token wrong/outdated
+        $this->statusCode = 602;
+        $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_token');
+        $this->jsonAnswer();
         return false;
       }
     } else {
+      //POST-var 'token' not set
+      $this->statusCode = 601;
+      $this->answer = $this->errorHandler->getError('auth', 'device_auth_token_not_set');
+      $this->jsonAnswer();
       return false;
     }
+  }
+  
+  private function jsonAnswer() {
+    $json = json_encode($this->data);
+    header("Content-Type: application/json");
+    echo $json;
+    exit();
   }
 
   function __destruct() {

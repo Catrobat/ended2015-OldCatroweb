@@ -38,18 +38,27 @@ class UploadTests extends PHPUnit_Framework_TestCase
   {
     $this->selenium->stop();
   }
-  
+
   /**
    * @dataProvider validProjectsForUpload
    */
-  public function testUploadTest($projectTitle, $projectDescription, $projectSource)
-  {     
-    $response = $this->uploadTestProject($projectTitle, $projectDescription, $projectSource);
+  public function testUploadTest($projectTitle, $projectDescription, $projectSource, $token)
+  {
+    $response = $this->uploadTestProject($projectTitle, $projectDescription, $projectSource, $token);
     $this->assertEquals(200, $response->statusCode);
   }
 
+  /**
+   * @dataProvider invalidProjectsForUpload
+   */
+  public function testInvalidUploadTest($projectTitle, $projectDescription, $projectSource, $token)
+  {
+    $response = $this->uploadTestProject($projectTitle, $projectDescription, $projectSource, $token);
+    $this->assertGreaterThan(200, $response->statusCode);
+  }
+
   // upload a test project via cURL-request
-  private function uploadTestProject($title, $description = '', $source = 'test.zip')
+  private function uploadTestProject($title, $description, $source, $token)
   {
     $uploadTestFile = dirname(__FILE__);
     if(strpos($uploadTestFile, '\\') != false) {
@@ -68,8 +77,8 @@ class UploadTests extends PHPUnit_Framework_TestCase
     curl_setopt($ch, CURLOPT_URL, $uploadpath);
     curl_setopt($ch, CURLOPT_POST, true);
     $post = array(
-        "token"=>"0",
         "upload"=>"@$uploadTestFile",
+        "token"=>$token,
         "projectTitle"=>$title,
     	"projectDescription"=>$description,
         "fileChecksum"=>md5_file($uploadTestFile)
@@ -81,13 +90,24 @@ class UploadTests extends PHPUnit_Framework_TestCase
   /* *** DATA PROVIDER *** */
   public function validProjectsForUpload() {
     $returnArray = array(
-      array('testing project upload', 'some description for my test project.', 'test.zip'),
-      array('my test project with spaces', 'some description for my test project.', 'test.zip'),
-      array(('my spÄc1al c´har t3ßt pröjec+'), 'some description with -äöüÜÖÄß- for my test project.%&()[]{}_|~#', 'test.zip'),
-      array('my_test_project_with_looong_description', 'some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ', 'test.zip'),
-      array('project with thumbnail', 'this project has its own thumbnail inside the zip', 'test2.zip')
-      );
-      
+    array('testing project upload', 'some description for my test project.', 'test.zip', '0'),
+    array('my test project with spaces', 'some description for my test project.', 'test.zip', '0'),
+    array(('my spÄc1al c´har t3ßt pröjec+'), 'some description with -äöüÜÖÄß- for my test project.%&()[]{}_|~#', 'test.zip', '0'),
+    array('my_test_project_with_looong_description', 'some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ', 'test.zip', '0'),
+    array('project with thumbnail', 'this project has its own thumbnail inside the zip', 'test2.zip', '0')
+    );
+
+    return $returnArray;
+  }
+
+  public function invalidProjectsForUpload() {
+    $returnArray = array(
+    array('insulting word in description', 'fuck the project!!!!', 'test.zip', '0'),
+    array('fucking word in title', 'some description', 'test.zip', '0'),
+    array('no token given', 'some description', 'test.zip', ''),
+    array('wrong token given', 'some description', 'test.zip', '123'),
+    );
+
     return $returnArray;
   }
 }
