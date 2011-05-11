@@ -1,4 +1,4 @@
-package at.tugraz.ist.catroweb.catroid.licence;
+package at.tugraz.ist.catroweb.catroid.license;
 
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.closeSeleniumSession;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 /**
  * Base class for all tests in Selenium Grid Java examples.
  */
-public class LicenceTests {
+public class LicenseTests {
 
     public static final String TIMEOUT = "120000";
 
