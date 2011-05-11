@@ -29,10 +29,10 @@ class licenseTest extends PHPUnit_Framework_TestCase
 
   protected function setUp() {
     $this->file_listing = array();
-    $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js");
+    $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js", "java");
     // $this->allowed_extensions = array("xml");
     $this->whitelist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php");
-    $this->whitelist_folders = array("addons","pear");
+    $this->whitelist_folders = array("addons","pear", "target");
 
     $this->license = array(
     "Catroid: An on-device graphical programming language for Android devices",
