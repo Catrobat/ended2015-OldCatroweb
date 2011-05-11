@@ -405,12 +405,12 @@ class registration extends CoreAuthenticationNone {
   public function initRegistration() {
     $answer = '';
     try {
-      $this->initBirth('');
+      $this->initBirth();
     } catch(Exception $e) {
       $answer .= $e->getMessage().'<br>';
     }
     try {
-      $this->initCountryCodes('');
+      $this->initCountryCodes();
     } catch(Exception $e) {
       $answer .= $e->getMessage().'<br>';
     }

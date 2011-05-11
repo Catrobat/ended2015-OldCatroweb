@@ -6,9 +6,9 @@
       <package name="at.tugraz.ist.catroweb.catroid.header" />
    </packages>
   </test>
-  <test name="LicenceTests" >
+  <test name="LicenseTests" >
     <packages>
-      <package name="at.tugraz.ist.catroweb.catroid.licence" />
+      <package name="at.tugraz.ist.catroweb.catroid.license" />
    </packages>
  </test>
 </suite>

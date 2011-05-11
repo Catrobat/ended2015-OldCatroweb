@@ -93,7 +93,7 @@ var Menu = Class.$extend( {
     $("#menuLogoutButton").click(jQuery.proxy(this.openLocation, "logout"));
     
     $("#menuWallButton").attr('disabled', true).removeClass('green').addClass('gray');
-    $("#menuProfileButton").attr('disabled', true).removeClass('pink').addClass('gray');
+    //$("#menuProfileButton").attr('disabled', true).removeClass('pink').addClass('gray');
     $("#menuSettingsButton").attr('disabled', true).removeClass('rosy').addClass('gray');
     
     if(userLogin_userId > 0) {

@@ -292,22 +292,37 @@
   </target>
 
   <target name="-selenium-grid-tests-admin-local" depends="-start-selenium-grid-local-testsuite">
+    <echo message=""/>
+    <echo message="========== HTTP REPORT ========== "/>
+    <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message="> http://localhost/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" http://localhost/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" "/>
+    <echo message=""/>
 
     <antcall target='selenium-grid.run-admin-tests' />
   </target>
 
   <target name="-selenium-grid-tests-catroid-local" depends="-start-selenium-grid-local-testsuite">
+    <echo message=""/>
+    <echo message="========== HTTP REPORT ========== "/>
+    <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message="> http://localhost/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" http://localhost/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" "/>
+    <echo message=""/>
 
     <antcall target='selenium-grid.run-catroid-tests' />
   </target>
 
   <target name="-selenium-grid-singletest" depends="-start-selenium-grid-local-testsuite">
+    <echo message=""/>
+    <echo message="========== HTTP REPORT ========== "/>
+    <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message="> http://localhost/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" http://localhost/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" "/>
+    <echo message=""/>
 
     <input
       message="Please enter a package to test (e.g.: catroid.index): "
@@ -320,8 +335,13 @@
   </target>
 
   <target name="-selenium-grid-tests-remote">
+    <echo message=""/>
+    <echo message="========== HTTP REPORT ========== "/>
+    <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message="http://catroidwebtest.ist.tugraz.at/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" http://catroidwebtest.ist.tugraz.at/tests/selenium-grid/target/reports/index.html"/>
+    <echo message=" "/>
+    <echo message=""/>
 
     <sshexec host="${host.ip}"
              trust="true"
