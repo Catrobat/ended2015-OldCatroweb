@@ -25,9 +25,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function __default() {
-    if(isset($_FILES['upload']['tmp_name']) && $_FILES['upload']['error'] == 0) {
-      $this->_upload();
-    }
+    $this->_upload();
   }
 
   //Strict Standards: Redefining already defined constructor for class
@@ -54,7 +52,7 @@ class upload extends CoreAuthenticationDevice {
     $newId = 0;
     $answer = null;
     $projectDescription = '';
-    if($formData['projectTitle'] && isset($fileData['upload']['tmp_name']) && $fileData['upload']['error'] == 0) {
+    if(isset($formData['projectTitle']) && isset($fileData['upload']['tmp_name']) && $fileData['upload']['error'] == 0) {
       if(intval($fileData['upload']['size']) <= PROJECTS_MAX_SIZE) {
         $projectTitle = $formData['projectTitle'];
         if(($this->checkValidProjectTitle($projectTitle))){
