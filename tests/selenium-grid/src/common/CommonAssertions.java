@@ -18,48 +18,37 @@
 
 package at.tugraz.ist.catroweb.common;
 
-import org.apache.tools.ant.taskdefs.Definer;
+import static org.testng.AssertJUnit.assertTrue;
+
 
 /**
  */
 public class CommonAssertions  {
+  public static void assertRegExp(String pattern, String string) {	
+    assertTrue(string.matches(pattern));
+  }	
 
-	private static CommonAssertions instance = new CommonAssertions();
-
-	private CommonAssertions(){
-		
-	}
-	
-	public static CommonAssertions getInstance() {
-        return instance;
+  /** Description of isIndexLocation(String location)
+  * 
+  * @param location	asserts that the location matches [host]/catroid/index/[pagenumber]
+  * @return			true if matches
+  */
+  public static boolean isIndexLocation(String location) {	
+    if(location.matches(".*/catroid/index/[0-9]+")) {
+      return true;
     }
+    return false;
+  }
 	
-	/** Description of isIndexLocation(String location)
-	 * 
-	 * @param location	asserts that the location matches [host]/catroid/index/[pagenumber]
-	 * @return			true if matches
-	 */
-	public boolean isIndexLocation(String location)
-	{	
-		if (location.matches(".*/catroid/index/[0-9]+"))
-			return true;
-		else
-			return false;
-	}	
-	
-	/** Description of isDetailsLocation(String location)
-	 * 
-	 * @param location	asserts that the location matches [host]/catroid/details/[id]
-	 * @return			true if matches
-	 */
-	public boolean isDetailsLocation(String location)
-	{
-		if (location.matches(".*/catroid/details/[0-9]+"))
-			return true;
-		else
-			return false;
-	}
-	
-
-
+  /** Description of isDetailsLocation(String location)
+  * 
+  * @param location	asserts that the location matches [host]/catroid/details/[id]
+  * @return			true if matches
+  */
+  public static boolean isDetailsLocation(String location) {
+    if(location.matches(".*/catroid/details/[0-9]+")) {
+      return true;
+    }
+    return false;
+  }
 }

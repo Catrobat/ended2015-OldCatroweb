@@ -18,58 +18,61 @@
 
 package at.tugraz.ist.catroweb.common;
 
+import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
+
 import org.apache.tools.ant.taskdefs.Definer;
 
 /**
  */
 public class CommonFunctions  {
+  private static CommonFunctions instance = new CommonFunctions();
 
-	private static CommonFunctions instance = new CommonFunctions();
-	
-	
-	private CommonFunctions(){
-		
-	}
-	
-	public static CommonFunctions getInstance() {
-        return instance;
+  private CommonFunctions(){
+  }
+
+  public static CommonFunctions getInstance() {
+    return instance;
+  }
+
+  /** Description of setSpeed()
+   * @return			selenium string to use with setSpeed();
+   */
+  public String setSpeed() {
+    if(CommonConfig.TESTS_SLOW_MODE) {
+      System.out.println("********************************************************************");
+      System.out.println("* WARNING: You are running this test in slow mode!                 *");
+      System.out.println("********************************************************************");
+      return String.valueOf(CommonConfig.TESTS_SLOW_SPEED);
     }
+    return "1";		
+  }
 	
-	public void ajaxWait() {
-		//var value = selenium.getText("//textarea[@name='comment']"); value == "";
-		
-		
-	}
+  /** Description of getAjaxWaitString()	  
+  * @return			selenium string to use with waitForCondition();
+  */
+  public String getAjaxWaitString() {
+    return "selenium.browserbot.getCurrentWindow().jQuery.active == 0";
+  }
 	
-	/** Description of getAjaxWaitString()	  
-	 * @return			selenium string to use with waitForCondition();
-	 */
-	public String getAjaxWaitString() {
-		return "selenium.browserbot.getCurrentWindow().jQuery.active == 0";
-	}
-	
-	/** Description of getWaitForConditionIsElementPresentString(String locator)
-	 *  i.e.  session().waitForCondition(getWaitForConditionIsElementPresentString(locator,"10000"));
-	 * @param locator	locator to be waited on
-	 * @return			selenium string condition 
-	 */
-	public String getWaitForConditionIsTextPresentString(String locator) {
-		return "value = selenium.isTextPresent('"+locator+"'); value == true";
-	}
-	
-	/** Description of getWaitForConditionIsElementPresentString(String locator)
-	 *  i.e.  session().waitForCondition(getWaitForConditionIsElementPresentString(locator,"10000"));
-	 * @param locator	locator to be waited on
-	 * @return			selenium string condition 
-	 */
-	public String getWaitForConditionIsElementPresentString(String locator) {
-		return "value = selenium.isElementPresent('"+locator.replace("'", "\\'")+ "'); value == true";
-	}
-	
-	public int testMe(String what)
-	{
-		return what.length(); 
-	}	
+  /** Description of getWaitForConditionIsElementPresentString(String locator)
+  *  i.e.  session().waitForCondition(getWaitForConditionIsElementPresentString(locator,"10000"));
+  * @param locator	locator to be waited on
+  * @return			selenium string condition 
+  */
+  public String getWaitForConditionIsTextPresentString(String locator) {
+    return "value = selenium.isTextPresent('"+locator+"'); value == true";
+  }
 
+  /** Description of getWaitForConditionIsElementPresentString(String locator)
+  *  i.e.  session().waitForCondition(getWaitForConditionIsElementPresentString(locator,"10000"));
+  * @param locator	locator to be waited on
+  * @return			selenium string condition 
+  */
+  public String getWaitForConditionIsElementPresentString(String locator) {
+    return "value = selenium.isElementPresent('"+locator.replace("'", "\\'")+ "'); value == true";
+  }
 
+  public int testMe(String what) {
+    return what.length(); 
+  }	
 }

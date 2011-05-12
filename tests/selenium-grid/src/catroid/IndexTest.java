@@ -41,10 +41,7 @@ public class IndexTest {
     @Parameters({"seleniumHost", "seleniumPort", "browser", "webSite"})
     protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
         startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
-        if (CommonConfig.TESTS_SLOW_MODE)
-        	session().setSpeed(String.valueOf(CommonConfig.TESTS_SLOW_SPEED));
-        else
-        	session().setSpeed("1");
+        session().setSpeed(CommonFunctions.getInstance().setSpeed());
         session().setTimeout(TIMEOUT);
     }
 
@@ -82,7 +79,7 @@ public class IndexTest {
         //test links to details page
         session().click("xpath=//a[@class='projectListDetailsLink']");
         session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
-        assertTrue(CommonAssertions.getInstance().isDetailsLocation(session().getLocation()));        
+        assertTrue(CommonAssertions.isDetailsLocation(session().getLocation()));        
         session().goBack();
         session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);                
         session().waitForCondition(CommonFunctions.getInstance().getWaitForConditionIsElementPresentString("xpath=//a[@id='aIndexWebLogoMiddle']"),"10000");

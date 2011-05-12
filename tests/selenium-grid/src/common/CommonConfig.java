@@ -55,9 +55,9 @@ public class CommonConfig  {
 	public static final String     WAIT_FOR_PAGE_TO_LOAD_SHORT =  "1000";
 	
 	/**
-	 *  selenium setTimout-command: waits 10000ms  
+	 *  selenium setTimout-command: waits 120000ms  
 	 */
-	public static final String     TIMEOUT_LONG =  "10000";
+	public static final String     TIMEOUT =  "120000";
 	
 	
 	
