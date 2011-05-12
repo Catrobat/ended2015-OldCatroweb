@@ -35,20 +35,33 @@ public class LicenseTests {
 
     public static final String TIMEOUT = "120000";
 
-    @BeforeMethod(groups = {"default", "licence"}, alwaysRun = true)
+    @BeforeMethod(groups = {"default", "license"}, alwaysRun = true)
     @Parameters({"seleniumHost", "seleniumPort", "browser", "webSite"})
     protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
         startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
         session().setTimeout(TIMEOUT);
     }
 
-    @AfterMethod(groups = {"default", "licence"}, alwaysRun = true)
+    @AfterMethod(groups = {"default", "license"}, alwaysRun = true)
     protected void closeSession() {
         closeSeleniumSession();
     }
 
-    @Test(groups = {"licence", "firefox", "default"}, description = "Imprint")
+    @Test(groups = {"license", "firefox", "default"}, description = "Imprint")
     public void imprint() throws Throwable {
+        session().setSpeed("1000");
+        session().open("/");
+        session().waitForPageToLoad(TIMEOUT);
+        session().click("xpath=//a[@class='license'][5]");
+        session().waitForPageToLoad(TIMEOUT);
+        assertTrue(session().isTextPresent(("Contact us")));
+        session().isElementPresent("xpath=//p[@class='licenseText']/a");
+        session().goBack();
+        session().waitForPageToLoad(TIMEOUT);
+    }
+
+    @Test(groups = {"license", "firefox", "default"}, description = "Imprint")
+    public void imprint2() throws Throwable {
         session().setSpeed("1000");
         session().open("/");
         session().waitForPageToLoad(TIMEOUT);

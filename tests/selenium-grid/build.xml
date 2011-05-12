@@ -104,7 +104,8 @@
 
     <copy file="${selenium-grid.basedir}/single_test.xml" tofile="${selenium-grid.basedir}/single_test_tmp.xml" overwrite="true">
       <filterset>
-        <filter token="PACKAGE" value="at.tugraz.ist.catroweb.${single-test-package}"/>
+        <filter token="CLASS" value="at.tugraz.ist.catroweb.${single-test-class}"/>
+        <filter token="METHOD" value="${single-test-method}"/>
       </filterset>
     </copy>
 

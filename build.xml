@@ -315,23 +315,48 @@
     <antcall target='selenium-grid.run-catroid-tests' />
   </target>
 
-  <target name="-selenium-grid-singletest" depends="-start-selenium-grid-local-testsuite">
+  <target name="-selenium-grid-singletest" depends="-start-selenium-grid-local-testsuite, -are-selenium-test-parameters-set, -get-selenium-grid-singletest-parameters">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
     <echo message=" http://localhost/tests/selenium-grid/target/reports"/>
-    <echo message=" "/>
+    <echo message=""/>
     <echo message=""/>
 
+    <antcall target='selenium-grid.run-single-test'>
+      <param name="single-test-class" value="${test.class}" />
+      <param name="single-test-method" value="${test.method}" />
+    </antcall>
+  </target>
+  
+  <target name="-are-selenium-test-parameters-set">
+    <condition property="selenium-grid-singletest.class">
+      <and>
+        <isset property="test.class" />
+        <isset property="test.method" />
+      </and>
+    </condition>
+  </target>
+  
+  <target name="-get-selenium-grid-singletest-parameters" unless="selenium-grid-singletest.class">
     <input
-      message="Please enter a package to test (e.g.: catroid.index): "
-      addproperty="this.single-test-package"
+      message="Please enter a class to test (e.g.: catroid.license.LicenseTests): "
+      addproperty="test.class"
     />
 
-    <antcall target='selenium-grid.run-single-test'>
-      <param name="single-test-package" value="${this.single-test-package}" />
-    </antcall>
+    <input
+      message="Please enter a method to test (e.g.: imprint; to run all: .*): "
+      addproperty="test.method"
+    />
+
+    <echo message=""/>
+    <echo message="========== Notice ========== "/>
+    <echo message=""/>
+    <echo message="you can repeat this test by running:"/>
+    <echo message=" ant run-selenium-singletest -Dtest.class=${test.class} -Dtest.method=${test.method}"/>
+    <echo message=""/>
+    <echo message=""/>
   </target>
 
   <target name="-selenium-grid-tests-remote">
@@ -347,14 +372,13 @@
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-admin-tests" />
+             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-admin-tests -DwebSite=http://catroidwebtest.ist.tugraz.at" />
 
     <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
-
              password="${host.pass}"
-             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests" />
+             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidwebtest.ist.tugraz.at" />
   </target>
   
   <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api"/>

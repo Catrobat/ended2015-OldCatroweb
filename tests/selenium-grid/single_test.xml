@@ -19,8 +19,13 @@
 
 <suite name="Catroid Run Single Test">
   <test name="SingleTest" >
-    <packages>
-      <package name="@PACKAGE@"/>
-    </packages>
+    <classes>
+      <class name="@CLASS@">
+        <methods>
+          <include name="@METHOD@" />
+        </methods>
+      </class>
+    </classes>
   </test>
 </suite>
+
