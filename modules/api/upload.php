@@ -29,7 +29,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function __authenticationFailed() {
-    $this->statusCode = 602;
+    $this->statusCode = 601;
     $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_token');
   }
 

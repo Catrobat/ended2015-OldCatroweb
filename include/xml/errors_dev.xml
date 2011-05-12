@@ -58,9 +58,7 @@
     	<string name="wiki_authentication_failed">The wiki authentication failed.</string>
     	<string name="catroid_authentication_failed">The catroid authentication failed.</string>
     	<string name="wiki_api_response_incorrect">The response of the mediawiki API was incorrect.</string>
-    	<string name="device_auth_invalid_user_id">Authentication of device failed: invalid userID!</string>
     	<string name="device_auth_invalid_token">Authentication of device failed: invalid auth-token!</string>
-    	<string name="device_auth_token_not_set">Authentication of device failed: POST field 'token' not set!</string>
     </auth>
     <registration>
     	<string name="board_registration_failed">The board registration failed.</string>
