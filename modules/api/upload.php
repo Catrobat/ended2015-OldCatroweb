@@ -28,6 +28,11 @@ class upload extends CoreAuthenticationDevice {
     $this->_upload();
   }
 
+  public function __authenticationFailed() {
+    $this->statusCode = 602;
+    $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_token');
+  }
+
   //Strict Standards: Redefining already defined constructor for class
   public function _upload() {
     $newId = $this->doUpload($_POST, $_FILES, $_SERVER);
@@ -52,7 +57,7 @@ class upload extends CoreAuthenticationDevice {
     $newId = 0;
     $answer = null;
     $projectDescription = '';
-    if(isset($formData['projectTitle']) && isset($fileData['upload']['tmp_name']) && $fileData['upload']['error'] == 0) {
+    if(isset($formData['projectTitle']) && $formData['projectTitle'] && isset($fileData['upload']['tmp_name']) && $fileData['upload']['error'] == 0) {
       if(intval($fileData['upload']['size']) <= PROJECTS_MAX_SIZE) {
         $projectTitle = $formData['projectTitle'];
         if(($this->checkValidProjectTitle($projectTitle))){
@@ -79,7 +84,6 @@ class upload extends CoreAuthenticationDevice {
                   if($this->renameProjectFile($updir, $newId)) {
                     $projectFile = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENTION;
                     $projectDir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY;
-                    //$statusCode = 200;
                     $fileChecksum = md5_file($projectFile);
                     if($formData['fileChecksum']) {
                       if($this->checkFileChecksum($fileChecksum, $formData['fileChecksum'])) {

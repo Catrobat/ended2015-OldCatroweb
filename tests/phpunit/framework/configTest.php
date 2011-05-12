@@ -26,7 +26,6 @@ class configTest extends PHPUnit_Framework_TestCase
   public function testConfig()
   {
     $this->assertEquals(VERSION, '0.6.2');
-    // $this->assertEquals(BASE_PATH, 'http://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
     $this->assertEquals(XML_PATH, 'include/xml/');
     $this->assertEquals(CSS_PATH, 'include/css/');
     $this->assertEquals(SCRIPT_PATH, 'include/script/');
@@ -49,9 +48,6 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECT_ROW_MAX_PROJECTS, 3);
     $this->assertEquals(PROJECT_FLAG_NOTIFICATION_THRESHOLD, 1);
     $this->assertEquals(PROJECT_DEFAULT_SAVEFILE_NAME, 'defaultProject');
-    // $this->assertEquals(DEVELOPMENT_MODE, true);
-    // $this->assertEquals(SEND_NOTIFICATION_EMAIL, false);
-    // $this->assertEquals(SEND_NOTIFICATION_USER_EMAIL, false);
     $this->assertEquals(DEVELOPMENT_STATUS, '[beta]');
     $this->assertEquals(DEFAULT_HTML_TEMPLATE_NAME, 'htmlTemplate.php');
     $this->assertEquals(DEFAULT_HTML_HEADER_TEMPLATE_NAME, 'htmlHeaderTemplate.php');
@@ -59,6 +55,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(MVC_DEFAULT_MODULE, 'catroid');
     $this->assertEquals(MVC_DEFAULT_CLASS, 'index');
     $this->assertEquals(MVC_DEFAULT_METHOD, '__default');
+    $this->assertEquals(MVC_DEFAULT_AUTH_FAILED_METHOD, '__authenticationFailed');
     $this->assertEquals(MVC_DEFAULT_VIEW, 'html');
     $this->assertEquals(USER_EMAIL_NOREPLY, 'noreply@catroid.org');
     $this->assertEquals(USER_EMAIL_SUBJECT_PREFIX, 'CATROID.ORG');

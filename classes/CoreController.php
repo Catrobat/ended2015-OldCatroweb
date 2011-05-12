@@ -54,24 +54,23 @@ class CoreController {
             die("Requested module is not a valid CORE module!");
           }
           $instance->moduleName = $this->module;
-          if($instance->authenticate()) {
-            try {
-              $instance->presenter = 'CorePresenter_'.$this->view;
-              $method = $this->method;
-              $result = $instance->$method();
-              if(file_exists(CORE_BASE_PATH.'classes/'.$instance->presenter.'.php')) {
-                $view = CorePresenter::factory($instance->presenter, $instance);
-              } else {
-                die("Could not find viewerClass: ".CORE_BASE_PATH.'classes/'.$instance->presenter.'.php!');
-              }
-              if(!$view->display()) {
-                die('There is no suitable viewer-file for this model!');
-              }
-            } catch (Exception $error) {
-              die($error->getMessage());
+          try {
+            if(!$instance->authenticate() && !method_exists($instance, MVC_DEFAULT_AUTH_FAILED_METHOD)) {
+              die("Authentication required!");
             }
-          } else {
-            die("Authentication required!");
+            $instance->presenter = 'CorePresenter_'.$this->view;
+            $instance->authenticate() ? $method = $this->method : $method = MVC_DEFAULT_AUTH_FAILED_METHOD;
+            $result = $instance->$method();
+            if(file_exists(CORE_BASE_PATH.'classes/'.$instance->presenter.'.php')) {
+              $view = CorePresenter::factory($instance->presenter, $instance);
+            } else {
+              die("Could not find viewerClass: ".CORE_BASE_PATH.'classes/'.$instance->presenter.'.php!');
+            }
+            if(!$view->display()) {
+              die('There is no suitable viewer-file for this model!');
+            }
+          } catch (Exception $error) {
+            die($error->getMessage());
           }
         } catch (Exception $error) {
           die($error->getMessage());

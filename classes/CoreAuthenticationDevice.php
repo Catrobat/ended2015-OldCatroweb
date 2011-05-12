@@ -21,6 +21,8 @@ abstract class CoreAuthenticationDevice extends CoreAuthentication {
   function __construct() {
     parent::__construct();
   }
+  
+  abstract public function __authenticationFailed();
 
   function authenticate() {
     if(isset($_REQUEST['token'])) {
@@ -33,34 +35,10 @@ abstract class CoreAuthenticationDevice extends CoreAuthentication {
           $this->session->userLogin_userId = $user['id'];
           $this->session->userLogin_userNickname = $user['username'];
           return true;
-        } else {
-          //invalid userID
-          $this->statusCode = 603;
-          $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_user_id');
-          $this->jsonAnswer();
-          return false;
         }
-      } else {
-        //no user found for this token; token wrong/outdated
-        $this->statusCode = 602;
-        $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_token');
-        $this->jsonAnswer();
-        return false;
       }
-    } else {
-      //POST-var 'token' not set
-      $this->statusCode = 601;
-      $this->answer = $this->errorHandler->getError('auth', 'device_auth_token_not_set');
-      $this->jsonAnswer();
-      return false;
     }
-  }
-  
-  private function jsonAnswer() {
-    $json = json_encode($this->data);
-    header("Content-Type: application/json");
-    echo $json;
-    exit();
+    return false;
   }
 
   function __destruct() {
