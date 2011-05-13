@@ -71,8 +71,4 @@ public class CommonFunctions  {
   public String getWaitForConditionIsElementPresentString(String locator) {
     return "value = selenium.isElementPresent('"+locator.replace("'", "\\'")+ "'); value == true";
   }
-
-  public int testMe(String what) {
-    return what.length(); 
-  }	
 }

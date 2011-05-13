@@ -65,6 +65,11 @@ public class CommonConfig  {
 	 */
 	public static final String     TIMEOUT =  "120000";
 	
+	/**
+   *  timeout for ajax request
+   */
+  public static final String     TIMEOUT_AJAX =  "5000";
+  
 	
 	
 	

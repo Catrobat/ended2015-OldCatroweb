@@ -33,4 +33,9 @@
       <package name="at.tugraz.ist.catroweb.catroid.license" />
    </packages>
  </test>
+ <test name="MenuTests" >
+ <packages>
+   <package name="at.tugraz.ist.catroweb.catroid.menu" />
+</packages>
+</test>
 </suite>

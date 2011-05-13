@@ -66,10 +66,10 @@ class MenuTests extends PHPUnit_Framework_TestCase
   public function testMenuButtons($regData)
   {
     $this->selenium->open(TESTS_BASE_PATH);
-    $this->selenium->waitForPageToLoad(10000);
+    //$this->selenium->waitForPageToLoad(10000);
     
     $this->selenium->click("headerMenuButton");
-    $this->selenium->waitForPageToLoad(10000);
+    //$this->selenium->waitForPageToLoad(10000);
     
     $this->assertTrue($this->selenium->isVisible("menuProfileButton"));
     $this->assertTrue($this->selenium->isVisible("menuForumButton"));
