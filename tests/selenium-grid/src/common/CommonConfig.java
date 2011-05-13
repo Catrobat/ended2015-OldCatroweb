@@ -25,6 +25,12 @@ import org.apache.tools.ant.taskdefs.Definer;
 public class CommonConfig  {
 
 	private static CommonConfig instance = new CommonConfig();
+
+	/**
+	 * test base path
+	 */
+	public static final String     TESTS_BASE_PATH =  "/";
+	//public static final String     TESTS_BASE_PATH =  "/catroweb/";
 	
 	/**
 	 * determines if the message is printed to the std out

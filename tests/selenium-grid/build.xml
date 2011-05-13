@@ -25,20 +25,18 @@
 
   <property name="version" value="1.0.8" />
   <property name="selenium.version" value="1.0.3" />
-  <property name="name" value="Selenium Grid Demo"/>
-  <property name="artifact" value="selenium-grid-demo"/>
-  <property name="version" value="SNAPSHOT"/>
-  <property name="selenium.version" value="1.0.8"/>
+  <property name="name" value="Selenium Grid Catroid Test Suite"/>
+  <property name="artifact" value="selenium-grid-catroid-test-suite"/>
 
   <property name="build.src" location="${selenium-grid.basedir}/src"/>
   <property name="build.output" location="${selenium-grid.basedir}/target/classes"/>
 
-  <import file="${selenium-grid.basedir}/common-build.xml" />
+  <import file="${selenium-grid.basedir}/common-build.xml"/>
 
-  <property name="webSite" value="http://localhost/" />
-  <property name="seleniumHost" value="localhost" />
-  <property name="seleniumPort" value="4444" />
-  <property name="browser" value="*firefox" />
+  <property name="webSite" value="http://localhost/"/>
+  <property name="seleniumHost" value="localhost"/>
+  <property name="seleniumPort" value="4444"/>
+  <property name="browser" value="*firefox"/>
 
   <path id="compile.classpath">
     <fileset dir="${selenium-grid.basedir}/lib">

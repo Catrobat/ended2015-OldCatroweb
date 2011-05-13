@@ -45,7 +45,7 @@ public class LicenseTests {
 
   @Test(groups = {"license", "firefox", "default"}, description = "check privacy policy link/page")
   public void privacyPolicy() throws Throwable {
-    session().open("/");
+    session().open(CommonConfig.TESTS_BASE_PATH);
     session().waitForPageToLoad(CommonConfig.TIMEOUT);
     session().click("xpath=//a[@class='license']");
     session().waitForPageToLoad(CommonConfig.TIMEOUT);
@@ -56,7 +56,7 @@ public class LicenseTests {
 
   @Test(groups = {"license", "firefox", "default"}, description = "check terms of use link/page")
   public void termsOfUse() throws Throwable {
-    session().open("/");
+	session().open(CommonConfig.TESTS_BASE_PATH);
     session().waitForPageToLoad(CommonConfig.TIMEOUT);
     session().click("xpath=//a[@class='license'][2]");
     session().waitForPageToLoad(CommonConfig.TIMEOUT);
@@ -94,7 +94,7 @@ public class LicenseTests {
 
   @Test(groups = {"license", "firefox", "default"}, description = "check copyright policy link/page")
   public void copyrightPolicy() throws Throwable {
-    session().open("/");
+    session().open(CommonConfig.TESTS_BASE_PATH);
     session().waitForPageToLoad(CommonConfig.TIMEOUT);
     session().click("xpath=//a[@class='license'][3]");
     session().waitForPageToLoad(CommonConfig.TIMEOUT);
@@ -118,7 +118,7 @@ public class LicenseTests {
 
   @Test(groups = {"license", "firefox", "default"}, description = "check imprint link/page")
   public void imprint() throws Throwable {
-    session().open("/");
+    session().open(CommonConfig.TESTS_BASE_PATH);
     session().waitForPageToLoad(CommonConfig.TIMEOUT);
     session().click("xpath=//a[@class='license'][4]");
     session().waitForPageToLoad(CommonConfig.TIMEOUT);
@@ -137,7 +137,7 @@ public class LicenseTests {
 
   @Test(groups = {"license", "firefox", "default"}, description = "check contact us link/page")
   public void contactUs() throws Throwable {
-    session().open("/");
+    session().open(CommonConfig.TESTS_BASE_PATH);
     session().waitForPageToLoad(CommonConfig.TIMEOUT);
     session().click("xpath=//a[@class='license'][5]");
     session().waitForPageToLoad(CommonConfig.TIMEOUT);

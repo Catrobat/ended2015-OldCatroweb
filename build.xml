@@ -205,10 +205,10 @@
     <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
       <arg value="/c"/>
       <arg value="ant"/>
-      <arg line="launch-remote-control -Dport=5555"/>
+      <arg line="launch-remote-control -Dport=5555 -Denvironment=${test.browser}"/>
     </exec>
     <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
-      <arg line="launch-remote-control -Dport=5555"/>
+      <arg line="launch-remote-control -Dport=5555 -Denvironment=${test.browser}"/>
     </exec>
 
     <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
@@ -227,10 +227,10 @@
     <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
       <arg value="/c"/>
       <arg value="ant"/>
-      <arg line="launch-remote-control -Dport=5556"/>
+      <arg line="launch-remote-control -Dport=5556 -Denvironment=${test.browser}"/>
     </exec>
     <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
-      <arg line="launch-remote-control -Dport=5556"/>
+      <arg line="launch-remote-control -Dport=5556 -Denvironment=${test.browser}"/>
     </exec>
 
     <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
@@ -249,10 +249,10 @@
     <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
       <arg value="/c"/>
       <arg value="ant"/>
-      <arg line="launch-remote-control -Dport=5557"/>
+      <arg line="launch-remote-control -Dport=5557 -Denvironment=${test.browser}"/>
     </exec>
     <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
-      <arg line="launch-remote-control -Dport=5557"/>
+      <arg line="launch-remote-control -Dport=5557 -Denvironment=${test.browser}"/>
     </exec>
 
     <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
@@ -271,10 +271,10 @@
     <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
       <arg value="/c"/>
       <arg value="ant"/>
-      <arg line="launch-remote-control -Dport=5558"/>
+      <arg line="launch-remote-control -Dport=5558 -Denvironment=${test.browser}"/>
     </exec>
     <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
-      <arg line="launch-remote-control -Dport=5558"/>
+      <arg line="launch-remote-control -Dport=5558 -Denvironment=${test.browser}"/>
     </exec>
 
     <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
@@ -282,12 +282,12 @@
     </waitfor>
   </target>
 
-  <target name="-start-selenium-grid-local-testsuite" depends="-start-selenium-grid-hub">
+  <target name="-start-selenium-grid-local-testsuite" depends="-is-test-browser-set, -get-selenium-grid-test-browser, -start-selenium-grid-hub">
     <parallel>
-      <ant target='-start-selenium-grid-rc5555' />
-      <ant target='-start-selenium-grid-rc5556' />
-      <ant target='-start-selenium-grid-rc5557' />
-      <ant target='-start-selenium-grid-rc5558' />
+      <ant target='-start-selenium-grid-rc5555'/>
+      <ant target='-start-selenium-grid-rc5556'/>
+      <ant target='-start-selenium-grid-rc5557'/>
+      <ant target='-start-selenium-grid-rc5558'/>
     </parallel>
   </target>
 
@@ -300,7 +300,9 @@
     <echo message=" "/>
     <echo message=""/>
 
-    <antcall target='selenium-grid.run-admin-tests' />
+    <antcall target='selenium-grid.run-admin-tests'>
+      <param name="browser" value="${test.browser}" />
+    </antcall>
   </target>
 
   <target name="-selenium-grid-tests-catroid-local" depends="-start-selenium-grid-local-testsuite">
@@ -312,7 +314,9 @@
     <echo message=" "/>
     <echo message=""/>
 
-    <antcall target='selenium-grid.run-catroid-tests' />
+    <antcall target='selenium-grid.run-catroid-tests'>
+      <param name="browser" value="${test.browser}" />
+    </antcall>
   </target>
 
   <target name="-selenium-grid-singletest" depends="-start-selenium-grid-local-testsuite, -are-selenium-test-parameters-set, -get-selenium-grid-singletest-parameters">
@@ -327,6 +331,7 @@
     <antcall target='selenium-grid.run-single-test'>
       <param name="single-test-class" value="${test.class}" />
       <param name="single-test-method" value="${test.method}" />
+      <param name="browser" value="${test.browser}" />
     </antcall>
   </target>
   
@@ -346,8 +351,9 @@
     />
 
     <input
-      message="Please enter a method to test (e.g.: imprint; to run all: .*): "
+      message="Please enter a method to test (e.g.: imprint): "
       addproperty="test.method"
+      defaultvalue=".*"
     />
 
     <echo message=""/>
@@ -359,7 +365,7 @@
     <echo message=""/>
   </target>
 
-  <target name="-selenium-grid-tests-remote">
+  <target name="-selenium-grid-tests-remote" depends="-is-test-browser-set, -get-selenium-grid-test-browser">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -372,13 +378,27 @@
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-admin-tests -DwebSite=http://catroidwebtest.ist.tugraz.at" />
+             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-admin-tests -DwebSite=http://catroidwebtest.ist.tugraz.at -Dbrowser=${browser}" />
 
     <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidwebtest.ist.tugraz.at" />
+             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidwebtest.ist.tugraz.at -Dbrowser=${browser}" />
+  </target>
+
+  <target name="-is-test-browser-set">
+    <condition property="selenium-grid.test-browser">
+      <isset property="test.browser" />
+    </condition>
+  </target>
+
+  <target name="-get-selenium-grid-test-browser" unless="selenium-grid.test-browser">
+    <input
+      message="Please enter an environment to test: "
+      addproperty="test.browser"
+      defaultvalue="*firefox"
+    />
   </target>
   
   <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api"/>

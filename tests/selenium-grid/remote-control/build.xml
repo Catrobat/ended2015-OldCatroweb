@@ -24,12 +24,12 @@
   <dirname property="selenium-rc.basedir" file="${ant.file.selenium-rc}"/>
 
   <property name="version" value="1.0.8" />
-  <property name="selenium.version" value="1.0.3" />
+  <property name="selenium.version" value="2.0b3" />
   <property name="hubPollerIntervalInSeconds" value="30" />
   
   <path id="remote-control.classpath">
     <fileset dir="${selenium-rc.basedir}/lib">
-      <include name="selenium-server-*.jar"/>
+      <include name="selenium-server-standalone-*.jar"/>
     </fileset>
     <!-- Selenium Server must be first in classpath -->
     <fileset dir="${selenium-rc.basedir}/lib">
