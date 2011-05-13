@@ -95,7 +95,8 @@ class upload extends CoreAuthenticationDevice {
                         }
 
                         $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
-
+                        $this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
+                        
                         $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
                         if($unapprovedWords) {
                           $this->badWordsFilter->mapUnapprovedWordsToProject($newId);
@@ -172,6 +173,40 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function unzipUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
+    $unzipDir = CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId;
+    // print "Unzip FILE ".$projectDir.$projectId.PROJECTS_EXTENTION.$unzipDir;
+    mkdir(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId);
+    mkdir(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images");
+    mkdir(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds");
+
+    $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
+    while ($zip_entry = zip_read($zip)) {
+      $filename = zip_entry_name($zip_entry);
+      if (preg_match("/images\//", $filename)) {
+      	 $image = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+      	 if ($image)
+      	   $this->saveFile($unzipDir, $filename, $image, zip_entry_filesize($zip_entry));
+      }
+      if (preg_match("/sounds\//", $filename)) {
+      	 $sound = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+      	 if ($sound)
+      	   $this->saveFile($unzipDir, $filename, $sound, zip_entry_filesize($zip_entry));
+      }
+      if (preg_match("/\.spf/", $filename)) {
+      	 $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+      	 if ($spf)
+      	   $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
+      }
+      if ($filename == "thumbnail.jpg" || $filename == "thumbnail.png") {
+      	 $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+      	 if ($spf)
+      	   $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
+      }
+    }
+    zip_close($zip);
+  }
+  
+  public function unzipThumbnailFromUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
     $unzipDir = CORE_BASE_PATH.'/'.PROJECTS_UNZIPPED_DIRECTORY;
     $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
     while ($zip_entry = zip_read($zip)) {
@@ -212,6 +247,14 @@ class upload extends CoreAuthenticationDevice {
     }
   }
 
+  private function saveFile($targetDir, $filename, $filecontent, $filesize) {
+    $fp = fopen($targetDir."/".$filename, "wb+");
+    if ($fp) {
+      fwrite($fp, $filecontent, $filesize);
+      fclose($fp);
+    }
+  }
+
   public function renameProjectFile($oldName, $newId) {
     $newFileName = $newId.PROJECTS_EXTENTION;
     $newName = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newFileName;
@@ -249,16 +292,34 @@ class upload extends CoreAuthenticationDevice {
     @pg_query($query);
     return;
   }
-
+  
+  private function removeProjectDir($dir) {
+    $dh = opendir($dir);
+    while (($file = readdir($dh)) !== false) {
+       if ($file != "." && $file != "..")
+         unlink($dir."/".$file);
+    }
+    closedir($dh);
+    rmdir($dir);
+  }
+  
   public function removeProjectFromFilesystem($projectFile, $projectId=-1) {
     @unlink($projectFile);
     if($projectId > 0) {
+      $projectBaseDir = CORE_BASE_PATH.'/'.PROJECTS_UNZIPPED_DIRECTORY.$projectId;
+      $projectSoundDir = $projectBaseDir.'/sounds';
+      $projectImageDir = $projectBaseDir.'/images';
+      
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL))
       @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL);
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE))
       @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE);
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG))
       @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG);
+
+      if(is_dir($projectSoundDir)) $this->removeProjectDir($projectSoundDir);
+      if(is_dir($projectImageDir)) $this->removeProjectDir($projectImageDir);
+      if(is_dir($projectBaseDir)) $this->removeProjectDir($projectBaseDir);
     }
     return;
   }
