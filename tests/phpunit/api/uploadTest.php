@@ -131,7 +131,29 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->upload->projectId > 0);
     $this->assertTrue(is_string($this->upload->answer));
   }
+  
+  /*public function testSaveFile() {
+  }
 
+  public function saveThumbnail() {
+  }*/
+  
+  /**
+   * @dataProvider testVersion4
+   */
+  public function testExtractVersionInfo4($xml, $code, $name) {
+    $this->assertEquals($code, $this->upload->extractVersionCode($xml));
+    $this->assertEquals($name, $this->upload->extractVersionName($xml));
+  }
+
+  /**
+   * @dataProvider testVersion5
+   */
+  public function testExtractVersionInfo5($xml, $code, $name) {
+    $this->assertEquals($code, $this->upload->extractVersionCode($xml));
+    $this->assertEquals($name, $this->upload->extractVersionName($xml));
+  }
+  
   public function testCheckFileChecksum() {
     $csOne = '12abc';
     $csTwo = '12abc';
@@ -347,6 +369,27 @@ class uploadTest extends PHPUnit_Framework_TestCase
   }
 
   /* *** DATA PROVIDERS *** */
+  public function correctPostDataVersion4() {
+    $fileName = 'test_v4.zip';
+    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
+    $fileChecksum = md5_file($testFile);
+    $fileSize = filesize($testFile);
+    $fileType = 'application/x-zip-compressed';
+    $dataArray = array(
+    array('unitTest version 4', 'my project description for catroid version 4', $testFile, $fileName, $fileChecksum, $fileSize, $fileType));
+    return $dataArray;
+  }
+  public function correctPostDataVersion5() {
+    $fileName = 'test_v5.zip';
+    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
+    $fileChecksum = md5_file($testFile);
+    $fileSize = filesize($testFile);
+    $fileType = 'application/x-zip-compressed';
+    $dataArray = array(
+    array('unitTest version 5', 'my project description for catroid version 5', $testFile, $fileName, $fileChecksum, $fileSize, $fileType));
+    return $dataArray;
+  }
+  
   public function correctPostData() {
     $fileName = 'test.zip';
     $fileNameWithThumbnail = 'test2.zip';
@@ -476,5 +519,17 @@ class uploadTest extends PHPUnit_Framework_TestCase
     return $dataArray;
   }
 
+  public function testVersion4() {
+    $dataArray = array(
+    array("<project versionCode=\"4\" versionName=\"0.4.3d\"><stage><brick id=\"13\" type=\"0\">", "4", "0.4.3d"));
+    return $dataArray;
+  }
+
+  public function testVersion5() {
+    $dataArray = array(
+    array("<project><versionName>0.5.1</versionName><versionCode>5</versionCode></project>", "5", "0.5.1"));
+    return $dataArray;
+  }
+  
 }
 ?>

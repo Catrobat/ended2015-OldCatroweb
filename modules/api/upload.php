@@ -194,8 +194,11 @@ class upload extends CoreAuthenticationDevice {
       }
       if (preg_match("/\.spf/", $filename)) {
       	 $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-      	 if ($spf)
+      	 if ($spf) {
       	   $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
+      	   //$versionCode = $this->extractVersionCode($spf);
+      	   //$versionName = $this->extractVersionName($spf);
+      	 }
       }
       if ($filename == "thumbnail.jpg" || $filename == "thumbnail.png") {
       	 $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
@@ -221,7 +224,7 @@ class upload extends CoreAuthenticationDevice {
     zip_close($zip);
   }
 
-  private function saveThumbnail($filename, $thumbnail) {
+  public function saveThumbnail($filename, $thumbnail) {
     $thumbnailDir = CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY;
 
     $thumbImage = imagecreatefromstring($thumbnail);
@@ -247,7 +250,7 @@ class upload extends CoreAuthenticationDevice {
     }
   }
 
-  private function saveFile($targetDir, $filename, $filecontent, $filesize) {
+  public function saveFile($targetDir, $filename, $filecontent, $filesize) {
     $fp = fopen($targetDir."/".$filename, "wb+");
     if ($fp) {
       fwrite($fp, $filecontent, $filesize);
@@ -417,7 +420,55 @@ class upload extends CoreAuthenticationDevice {
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
+  
+function extractVersionCode($xml) {
+    $version = 0;
+    if (preg_match("/<versionCode/", $xml)) {
+      $stag = "<versionCode>";
+      $etag = "<";
+      $version = 5;
+    } else {
+      $stag = "<project ";
+      $etag = ">";
+      $stag2 = "versionCode=\"";
+      $etag2 = "\"";
+      $version = 4;
+    }
+    $starttag = preg_split("/".$stag."/", $xml);
+    $endtag = preg_split("/".$etag."/", $starttag[1]);
+    $content = $endtag[0];
+    if ($version >= 5)
+      return $content;
+    
+    $starttag = preg_split("/".$stag2."/", $content);
+    $endtag = preg_split("/".$etag2."/", $starttag[1]);
+    return $endtag[0];
+  }
 
+ function extractVersionName($xml) {
+    $version = 0;
+    if (preg_match("/<versionName/", $xml)) {
+      $stag = "<versionName>";
+      $etag = "<";
+      $version = 5;
+    } else {
+      $stag = "<project ";
+      $etag = ">";
+      $stag2 = "versionName=\"";
+      $etag2 = "\"";
+      $version = 4;
+    }
+    $starttag = preg_split("/".$stag."/", $xml);
+    $endtag = preg_split("/".$etag."/", $starttag[1]);
+    $content = $endtag[0];
+    if ($version >= 5)
+      return $content;
+    
+    $starttag = preg_split("/".$stag2."/", $content);
+    $endtag = preg_split("/".$etag2."/", $starttag[1]);
+    return $endtag[0];
+  }
+    
   public function __destruct() {
     parent::__destruct();
   }

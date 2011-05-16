@@ -80,7 +80,7 @@ class UploadTests extends PHPUnit_Framework_TestCase
         "upload"=>"@$uploadTestFile",
         "token"=>$token,
         "projectTitle"=>$title,
-    	"projectDescription"=>$description,
+    	  "projectDescription"=>$description,
         "fileChecksum"=>md5_file($uploadTestFile)
     );
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post);

@@ -58,10 +58,11 @@ class UploadTests extends PHPUnit_Framework_TestCase
     // upload project
     $projectTitle = "Testproject for report as inappropriate ".rand(1,9999);
     $response = $this->uploadTestProject($projectTitle, $projectDescription, $projectSource, $token);
+    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->waitForCondition("", 5000);
     $this->assertEquals(200, $response->statusCode);
     $projectId = $response->projectId;
     $this->selenium->waitForPageToLoad(10000);
-    
     $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
     $this->selenium->waitForCondition("", 2000);
@@ -103,6 +104,10 @@ class UploadTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("xpath=//input[@name='deleteButton']");
     $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isTextPresent($projectTitle));
+    
+    $this->selenium->open(TESTS_BASE_PATH.'catroid/logout');
+    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->waitForCondition("", 5000);
   }
   
   /**
@@ -186,9 +191,9 @@ class UploadTests extends PHPUnit_Framework_TestCase
     curl_setopt($ch, CURLOPT_URL, $uploadpath);
     curl_setopt($ch, CURLOPT_POST, true);
     $post = array(
-        "token"=>$token,
         "upload"=>"@$uploadTestFile",
-        "projectTitle"=>$title,
+        "token"=>$token,
+    		"projectTitle"=>$title,
     	  "projectDescription"=>$description,
         "fileChecksum"=>md5_file($uploadTestFile)
     );

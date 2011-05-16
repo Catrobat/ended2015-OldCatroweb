@@ -127,6 +127,7 @@ class AdminTests extends PHPUnit_Framework_TestCase
     $this->selenium->type("reportInappropriateReason", "my selenium reason");
     $this->selenium->click("reportInappropriateReportButton");
     $this->selenium->waitForPageToLoad(2000);
+    $this->selenium->waitForCondition("", 5000);
     $this->assertTrue($this->selenium->isTextPresent("You reported this project as inappropriate!"));
     $path= 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin/tools/inappropriateProjects';
     $this->selenium->open($path);
