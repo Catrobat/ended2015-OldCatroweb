@@ -16,7 +16,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package at.tugraz.ist.catroweb.catroid.menu;
+package at.tugraz.ist.catroweb.catroid;
 
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.closeSeleniumSession;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
@@ -27,14 +27,9 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import org.testng.Reporter;
 
 import at.tugraz.ist.catroweb.common.*;
 
-
-/**
- * Base class for all tests in Selenium Grid Java examples.
- */
 public class MenuTests {
 
   public static final String TIMEOUT = "120000";

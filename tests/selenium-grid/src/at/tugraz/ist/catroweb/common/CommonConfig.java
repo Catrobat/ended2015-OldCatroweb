@@ -18,8 +18,6 @@
 
 package at.tugraz.ist.catroweb.common;
 
-import org.apache.tools.ant.taskdefs.Definer;
-
 public class CommonConfig  {
   /**
   * test base path

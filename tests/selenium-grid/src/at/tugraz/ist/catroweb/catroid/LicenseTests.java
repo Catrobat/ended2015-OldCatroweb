@@ -16,7 +16,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package at.tugraz.ist.catroweb.catroid.license;
+package at.tugraz.ist.catroweb.catroid;
 
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.closeSeleniumSession;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
@@ -39,7 +39,7 @@ public class LicenseTests {
     startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
     session().setSpeed(CommonFunctions.setSpeed());
     session().setTimeout(CommonConfig.TIMEOUT);
-    
+
     externalLinkTester = new ExternalLinkTester(seleniumHost, seleniumPort, browser);
   }
 

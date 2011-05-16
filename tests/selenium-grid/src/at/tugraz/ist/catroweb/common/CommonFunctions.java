@@ -18,12 +18,6 @@
 
 package at.tugraz.ist.catroweb.common;
 
-import java.lang.Thread;
-import java.lang.InterruptedException;
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
-import org.apache.tools.ant.taskdefs.Definer;
-
 public class CommonFunctions  {
   /** Description of setSpeed()
    * @return			selenium string to use with setSpeed();

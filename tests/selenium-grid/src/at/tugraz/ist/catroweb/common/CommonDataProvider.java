@@ -18,10 +18,6 @@
 
 package at.tugraz.ist.catroweb.common;
 
-import org.apache.tools.ant.taskdefs.Definer;
-import java.util.Random;
-/**
- */
 public class CommonDataProvider  {
 
   /** Description of getRandomLongString()

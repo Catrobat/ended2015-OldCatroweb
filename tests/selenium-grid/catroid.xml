@@ -19,23 +19,23 @@
 
 <suite name="Catroid Test Suite" parallel="methods" thread-count="7" verbose="3" >
   <test name="HeaderTests" >
-    <packages>
-      <package name="at.tugraz.ist.catroweb.catroid.header" />
-   </packages>
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.HeaderTests" />
+   </classes>
   </test>
   <test name="IndexTests" >
-    <packages>
-      <package name="at.tugraz.ist.catroweb.catroid.index" />
-   </packages>
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.IndexTests" />
+   </classes>
   </test>
   <test name="LicenseTests" >
-    <packages>
-      <package name="at.tugraz.ist.catroweb.catroid.license" />
-   </packages>
- </test>
- <test name="MenuTests" >
- <packages>
-   <package name="at.tugraz.ist.catroweb.catroid.menu" />
-</packages>
-</test>
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.LicenseTests" />
+    </classes>
+  </test>
+  <test name="MenuTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.MenuTests" />
+    </classes>
+  </test>
 </suite>
