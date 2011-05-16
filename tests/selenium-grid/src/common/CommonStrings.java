@@ -35,8 +35,8 @@ public class CommonStrings  {
 	 */
 	public static final String NEWEST_PROJECTS_PAGE_TITLE = "Newest Projects";
 	public static final String NEWEST_PROJECTS_PAGE_PREV_BUTTON = "« Newer";
-    public static final String NEWEST_PROJECTS_PAGE_NEXT_BUTTON = "Older »";
-    public static final String NEWEST_PROJECTS_PAGE_LOADING_BUTTON = "loading...";
+  public static final String NEWEST_PROJECTS_PAGE_NEXT_BUTTON = "Older »";
+  public static final String NEWEST_PROJECTS_PAGE_LOADING_BUTTON = "loading...";
 	/*
 	private CommonStrings() {
 		
