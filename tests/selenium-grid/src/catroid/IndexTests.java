@@ -21,37 +21,61 @@ package at.tugraz.ist.catroweb.catroid.index;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.closeSeleniumSession;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.startSeleniumSession;
-import static org.testng.AssertJUnit.assertTrue;
+import static org.testng.AssertJUnit.*;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-import org.testng.Reporter;
+
+
 import at.tugraz.ist.catroweb.common.*;
 
+public class IndexTests {
+  @BeforeMethod(groups = {"default", "index"}, alwaysRun = true)
+  @Parameters({"seleniumHost", "seleniumPort", "browser", "webSite"})  
+  protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
+    startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
+    session().setSpeed(CommonFunctions.getInstance().setSpeed());
+    session().setTimeout(CommonConfig.TIMEOUT);
+  }
 
-/**
- * Base class for all tests in Selenium Grid Java examples.
- */
-public class IndexTest {
+  @AfterMethod(groups = {"default", "license"}, alwaysRun = true)
+  protected void closeSession() {
+    closeSeleniumSession();
+  }
 
-    public static final String TIMEOUT = "120000";
+  @Test(groups = {"index", "firefox", "default"}, description = "location tests")    
+  public void location() {
 
-    @BeforeMethod(groups = {"default", "example"}, alwaysRun = true)
-    @Parameters({"seleniumHost", "seleniumPort", "browser", "webSite"})
-    protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
-        startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
-        session().setSpeed(CommonFunctions.getInstance().setSpeed());
-        session().setTimeout(TIMEOUT);
-    }
+    session().open("/catroid/index/9999999999999999999");
+    session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
+    session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");        
+    //test page title and header title        
+    assertTrue(session().getTitle().matches("^Catroid Website -.*"));        
+    assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+    assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));        
 
-    @AfterMethod(groups = {"default", "example"}, alwaysRun = true)
-    protected void closeSession() {
-        closeSeleniumSession();
-    }
-   
-    @Test(groups = {"example", "firefox", "default"}, description = "testIndexpage")    
-    public void testIndexPage() {
+    String location = CommonDataProvider.getRandomLongString();
+    session().open("/catroid/index/"+location);
+    session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
+    session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");        
+    //test page title and header title        
+    assertTrue(session().getTitle().matches("^Catroid Website -.*"));        
+    assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+    assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));        
+    
+    
+    location = CommonDataProvider.getRandomLongString();
+    session().open("/catroid/details/"+location);
+    session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
+    session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");        
+    //test page title and header title        
+    CommonAssertions.assertRegExp(".*/catroid/errorPage", session().getLocation());
+    assertTrue(session().isTextPresent(location));   
+  }
+     
+    @Test(groups = {"index", "firefox", "default"}, description = "click download,header,details -links ")
+    public void index() throws Throwable {
         session().open("/");
         session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
         session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");        
@@ -79,7 +103,9 @@ public class IndexTest {
         //test links to details page
         session().click("xpath=//a[@class='projectListDetailsLink']");
         session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
-        assertTrue(CommonAssertions.isDetailsLocation(session().getLocation()));        
+        //assertTrue(CommonAssertions.isDetailsLocation(session().getLocation()));        
+        CommonAssertions.assertRegExp(".*/catroid/details/[0-9]+",session().getLocation());
+        
         session().goBack();
         session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);                
         session().waitForCondition(CommonFunctions.getInstance().getWaitForConditionIsElementPresentString("xpath=//a[@id='aIndexWebLogoMiddle']"),"10000");
@@ -94,7 +120,5 @@ public class IndexTest {
         session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");
         assertTrue(session().isElementPresent("xpath=//img[@class='catroidLettering']"));        
         
-      }
-
-
+      }    
 }

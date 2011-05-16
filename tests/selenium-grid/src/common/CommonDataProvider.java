@@ -19,12 +19,26 @@
 package at.tugraz.ist.catroweb.common;
 
 import org.apache.tools.ant.taskdefs.Definer;
-
+import java.util.Random;
 /**
  */
 public class CommonDataProvider  {
 
-	
+  /** Description of getRandomLongString()
+   * 
+   * @return      random long string
+   */
+  public static String getRandomLongString() {
+    String str="";
+    int strLen = 200;
+    String chars = "abcdefghijklmnopqrstuvwxyz1234567890";
+    for(int i=0;i<strLen;i++) {
+        java.util.Random rand = new java.util.Random();
+        str += chars.charAt(rand.nextInt(chars.length()));
+    }
+    return str;
+  }
+  
 	/** Description of getLoginUserDefault()
 	 * 
 	 * @return			default test username
