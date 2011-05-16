@@ -24,6 +24,7 @@ import java.util.List;
 
 import com.thoughtworks.selenium.DefaultSelenium;
 import com.thoughtworks.selenium.Selenium;
+import com.thoughtworks.selenium.SeleniumException;
 
 public class ExternalLinkTester {
   protected List<Selenium> selenium;
@@ -43,12 +44,17 @@ public class ExternalLinkTester {
       session.close();
       session.stop();
     }
+    this.selenium.clear();
   }
 
   public void stopSession(Selenium session) {
-    this.selenium.remove(session);
-    session.close();
-    session.stop();
+    try {
+      this.selenium.remove(session);
+      session.close();
+      session.stop();
+    } catch(SeleniumException e) {
+      System.out.println("This session has been stopped before! " + e.getMessage());
+    }
   }
 
   public Selenium getSession(Selenium session, String locator) {
