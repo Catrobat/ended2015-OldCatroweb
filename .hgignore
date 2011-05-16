@@ -1,6 +1,5 @@
-
-syntax: regexp
 syntax: regexp
 ^resources/projects$
-syntax: regexp
 ^resources/qrcodes$
+^resources/thumbnails$
+^resources/catroid$

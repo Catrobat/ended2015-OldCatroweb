@@ -60,3 +60,5 @@ RewriteRule ^tests/ - [L]
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.*)([^/]*)$ index.php?module=$1 [L,QSA]
+
+Redirect permanent /resources/catroid /catroid/index
