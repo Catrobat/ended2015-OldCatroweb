@@ -122,7 +122,7 @@
                         			</div>
                     			<?php 
                     			  }
-                    			  if ($this->project['user_id'] != $this->module->session->userLogin_userId) {
+                    			  if ($this->project['user_id'] == 0 || $this->project['user_id'] != $this->module->session->userLogin_userId) {
                     			?>
                     			
                         		<div class="detailsMainStats">
