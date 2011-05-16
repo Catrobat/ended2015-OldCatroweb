@@ -43,7 +43,7 @@ public class MenuTests {
   @Parameters({ "seleniumHost", "seleniumPort", "browser", "webSite" })
   protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
     startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
-    session().setSpeed(CommonFunctions.getInstance().setSpeed());
+    session().setSpeed(CommonFunctions.setSpeed());
     session().setTimeout(CommonConfig.TIMEOUT);
   }
 
@@ -82,7 +82,7 @@ public class MenuTests {
     session().type("xpath=//input[@name='loginUsername']", CommonDataProvider.getLoginUserDefault());
     session().type("xpath=//input[@name='loginPassword']", CommonDataProvider.getLoginPasswordDefault());
     session().click("xpath=//input[@name='loginSubmit']");
-    session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), CommonConfig.TIMEOUT_AJAX);
+    session().waitForCondition(CommonFunctions.getAjaxWaitString(), CommonConfig.TIMEOUT_AJAX);
     session().waitForPageToLoad(CommonConfig.TIMEOUT);   
 
     //assertTrue(CommonAssertions.isMenuLocation(session().getLocation()));
@@ -139,7 +139,7 @@ public class MenuTests {
     session().type("xpath=//input[@name='loginUsername']", CommonDataProvider.getLoginUserDefault());
     session().type("xpath=//input[@name='loginPassword']", CommonDataProvider.getLoginPasswordDefault());
     session().click("xpath=//input[@name='loginSubmit']");
-    session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), CommonConfig.TIMEOUT_AJAX);
+    session().waitForCondition(CommonFunctions.getAjaxWaitString(), CommonConfig.TIMEOUT_AJAX);
     session().waitForPageToLoad(CommonConfig.TIMEOUT);   
 
     session().click("menuForumButton");

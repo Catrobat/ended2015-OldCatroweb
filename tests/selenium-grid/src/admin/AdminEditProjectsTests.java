@@ -27,10 +27,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-
-/**
- * Base class for all tests in Selenium Grid Java examples.
- */
 public class AdminEditProjectsTests {
 
     public static final String TIMEOUT = "120000";

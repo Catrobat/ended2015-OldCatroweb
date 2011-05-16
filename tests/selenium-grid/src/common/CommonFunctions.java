@@ -18,26 +18,17 @@
 
 package at.tugraz.ist.catroweb.common;
 
+import java.lang.Thread;
+import java.lang.InterruptedException;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
 
 import org.apache.tools.ant.taskdefs.Definer;
 
-/**
- */
 public class CommonFunctions  {
-  private static CommonFunctions instance = new CommonFunctions();
-
-  private CommonFunctions(){
-  }
-
-  public static CommonFunctions getInstance() {
-    return instance;
-  }
-
   /** Description of setSpeed()
    * @return			selenium string to use with setSpeed();
    */
-  public String setSpeed() {
+  public static String setSpeed() {
     if(CommonConfig.TESTS_SLOW_MODE) {
       System.out.println("********************************************************************");
       System.out.println("* WARNING: You are running this test in slow mode!                 *");
@@ -50,7 +41,7 @@ public class CommonFunctions  {
   /** Description of getAjaxWaitString()	  
   * @return			selenium string to use with waitForCondition();
   */
-  public String getAjaxWaitString() {
+  public static String getAjaxWaitString() {
     return "selenium.browserbot.getCurrentWindow().jQuery.active == 0";
   }
 	
@@ -59,7 +50,7 @@ public class CommonFunctions  {
   * @param locator	locator to be waited on
   * @return			selenium string condition 
   */
-  public String getWaitForConditionIsTextPresentString(String locator) {
+  public static String getWaitForConditionIsTextPresentString(String locator) {
     return "value = selenium.isTextPresent('"+locator+"'); value == true";
   }
 
@@ -68,7 +59,7 @@ public class CommonFunctions  {
   * @param locator	locator to be waited on
   * @return			selenium string condition 
   */
-  public String getWaitForConditionIsElementPresentString(String locator) {
+  public static String getWaitForConditionIsElementPresentString(String locator) {
     return "value = selenium.isElementPresent('"+locator.replace("'", "\\'")+ "'); value == true";
   }
 }

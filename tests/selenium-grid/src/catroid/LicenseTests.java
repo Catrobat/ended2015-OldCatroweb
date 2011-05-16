@@ -21,6 +21,7 @@ package at.tugraz.ist.catroweb.catroid.license;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.closeSeleniumSession;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.startSeleniumSession;
+import com.thoughtworks.selenium.Selenium;
 import static org.testng.AssertJUnit.assertTrue;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -30,16 +31,21 @@ import org.testng.annotations.Test;
 import at.tugraz.ist.catroweb.common.*;
 
 public class LicenseTests {
+  protected ExternalLinkTester externalLinkTester;
+  
   @BeforeMethod(groups = {"default", "license"}, alwaysRun = true)
   @Parameters({"seleniumHost", "seleniumPort", "browser", "webSite"})  
   protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
     startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
-    session().setSpeed(CommonFunctions.getInstance().setSpeed());
+    session().setSpeed(CommonFunctions.setSpeed());
     session().setTimeout(CommonConfig.TIMEOUT);
+    
+    externalLinkTester = new ExternalLinkTester(seleniumHost, seleniumPort, browser);
   }
 
   @AfterMethod(groups = {"default", "license"}, alwaysRun = true)
   protected void closeSession() {
+    externalLinkTester.cleanup();
     closeSeleniumSession();
   }
 
@@ -61,35 +67,26 @@ public class LicenseTests {
     session().click("xpath=//a[@class='license'][2]");
     session().waitForPageToLoad(CommonConfig.TIMEOUT);
 
-    assertTrue(session().isTextPresent("Welcome to the Catroid community! As part of the Catroid community, you are sharing projects and ideas with people: "));
-    session().click("xpath=//p[@class='licenseText'][3]/a");
-    session().waitForPopUp("_blank", CommonConfig.TIMEOUT);
-    session().selectWindow("_blank");
-    CommonAssertions.assertRegExp(".*Creative Commons — Attribution-ShareAlike 2.0 Generic — CC BY-SA 2.0.*", session().getTitle());
-    session().close();
-    session().selectWindow(null);
+    assertTrue(session().isTextPresent("Welcome to the Catroid community!"));
+    assertTrue(session().isTextPresent("As part of the Catroid community, you are sharing projects and ideas with people:"));
+    Selenium popupSession = externalLinkTester.getSession(session(), "xpath=//p[@class='licenseText'][3]/a");
+    CommonAssertions.assertRegExp(".*Creative Commons — Attribution-ShareAlike 2.0 Generic — CC BY-SA 2.0.*", popupSession.getTitle());
+    externalLinkTester.stopSession(popupSession);
 
-    session().click("xpath=//p[@class='licenseText']/a[2]");
-    session().waitForPopUp("_blank", CommonConfig.TIMEOUT);
-    session().selectWindow("_blank");
-    assertTrue(session().isTextPresent("GNU GENERAL PUBLIC LICENSE"));
-    assertTrue(session().isTextPresent("Version 3, 29 June 2007"));
-    session().close();
-    session().selectWindow(null);
+    popupSession = externalLinkTester.getSession(session(), "xpath=//p[@class='licenseText']/a[2]");
+    assertTrue(popupSession.isTextPresent("GNU GENERAL PUBLIC LICENSE"));
+    assertTrue(popupSession.isTextPresent("Version 3, 29 June 2007"));
+    externalLinkTester.stopSession(popupSession);
 
-    session().click("xpath=//p[@class='licenseText']/a[3]");
-    session().waitForPopUp("_blank", CommonConfig.TIMEOUT);
-    session().selectWindow("_blank");
-    assertTrue(session().isTextPresent("GNU AFFERO GENERAL PUBLIC LICENSE"));
-    assertTrue(session().isTextPresent("Version 3, 19 November 2007"));
-    session().close();
-    session().selectWindow(null);
+    popupSession = externalLinkTester.getSession(session(), "xpath=//p[@class='licenseText']/a[3]");
+    assertTrue(popupSession.isTextPresent("GNU AFFERO GENERAL PUBLIC LICENSE"));
+    assertTrue(popupSession.isTextPresent("Version 3, 19 November 2007"));
+    externalLinkTester.stopSession(popupSession);
 
-    session().click("xpath=//p[@class='licenseText']/a[4]");
-    session().waitForPopUp("_blank", CommonConfig.TIMEOUT);
-    session().selectWindow("_blank");
-    CommonAssertions.assertRegExp(".*catroid -.*", session().getTitle());
-    CommonAssertions.assertRegExp(".*An on-device graphical programming language for Android inspired by Scratch.*", session().getTitle());
+    popupSession = externalLinkTester.getSession(session(), "xpath=//p[@class='licenseText']/a[4]");
+    CommonAssertions.assertRegExp(".*catroid -.*", popupSession.getTitle());
+    CommonAssertions.assertRegExp(".*An on-device graphical programming language for Android inspired by Scratch.*", popupSession.getTitle());
+    externalLinkTester.stopSession(popupSession);
   }
 
   @Test(groups = {"license", "firefox", "default"}, description = "check copyright policy link/page")
@@ -101,19 +98,15 @@ public class LicenseTests {
 
     assertTrue(session().isTextPresent("Copyright Policy"));
     session().isElementPresent("xpath=//p[@class='licenseText']/a");
-    session().click("xpath=//p[@class='licenseText']/a[2]");
-    session().waitForPopUp("_blank", CommonConfig.TIMEOUT);
-    session().selectWindow("_blank");
-    assertTrue(session().isTextPresent("Directive 2001/29/EC of the European Parliament and of the Council"));
-    assertTrue(session().isTextPresent("32001L0029"));
-    session().close();
-    session().selectWindow(null);
-    
-    session().click("xpath=//p[@class='licenseText']/a[3]");
-    session().waitForPopUp("_blank", CommonConfig.TIMEOUT);
-    session().selectWindow("_blank");
-    assertTrue(session().isTextPresent("Chilling Effects"));
-    assertTrue(session().isTextPresent("Chilling Effects Clearinghouse - www.chillingeffects.org"));
+    Selenium popupSession = externalLinkTester.getSession(session(), "xpath=//p[@class='licenseText']/a[2]");
+    assertTrue(popupSession.isTextPresent("Directive 2001/29/EC of the European Parliament and of the Council"));
+    assertTrue(popupSession.isTextPresent("32001L0029"));
+    externalLinkTester.stopSession(popupSession);
+
+    popupSession = externalLinkTester.getSession(session(), "xpath=//p[@class='licenseText']/a[3]");
+    assertTrue(popupSession.isTextPresent("Chilling Effects"));
+    assertTrue(popupSession.isTextPresent("Chilling Effects Clearinghouse - www.chillingeffects.org"));
+    externalLinkTester.stopSession(popupSession);
   }
 
   @Test(groups = {"license", "firefox", "default"}, description = "check imprint link/page")
@@ -129,10 +122,9 @@ public class LicenseTests {
     assertTrue(session().isTextPresent("Inffeldgasse 16B/II"));
     assertTrue(session().isTextPresent("8010 Graz"));
     assertTrue(session().isTextPresent("Austria"));
-    session().click("xpath=//p[@class='licenseText']/a");
-    session().waitForPopUp("_blank", CommonConfig.TIMEOUT);
-    session().selectWindow("_blank");
-    CommonAssertions.assertRegExp(".*IST web - Index.*", session().getTitle());
+    Selenium popupSession = externalLinkTester.getSession(session(), "xpath=//p[@class='licenseText']/a");
+    CommonAssertions.assertRegExp(".*IST web - Index.*", popupSession.getTitle());
+    externalLinkTester.stopSession(popupSession);
   }
 
   @Test(groups = {"license", "firefox", "default"}, description = "check contact us link/page")

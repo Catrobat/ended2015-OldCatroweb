@@ -282,7 +282,7 @@
     </waitfor>
   </target>
 
-  <target name="-start-selenium-grid-local-testsuite" depends="-is-test-browser-set, -get-selenium-grid-test-browser, -start-selenium-grid-hub">
+  <target name="-start-selenium-grid-local-testsuite" depends="-get-selenium-grid-test-browser, -start-selenium-grid-hub">
     <parallel>
       <ant target='-start-selenium-grid-rc5555'/>
       <ant target='-start-selenium-grid-rc5556'/>
@@ -319,7 +319,7 @@
     </antcall>
   </target>
 
-  <target name="-selenium-grid-singletest" depends="-start-selenium-grid-local-testsuite, -are-selenium-test-parameters-set, -get-selenium-grid-singletest-parameters">
+  <target name="-selenium-grid-singletest" depends="-start-selenium-grid-local-testsuite, -get-selenium-grid-singletest-parameters">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -335,16 +335,7 @@
     </antcall>
   </target>
   
-  <target name="-are-selenium-test-parameters-set">
-    <condition property="selenium-grid-singletest.class">
-      <and>
-        <isset property="test.class" />
-        <isset property="test.method" />
-      </and>
-    </condition>
-  </target>
-  
-  <target name="-get-selenium-grid-singletest-parameters" unless="selenium-grid-singletest.class">
+  <target name="-get-selenium-grid-singletest-parameters">
     <input
       message="Please enter a class to test (e.g.: catroid.license.LicenseTests): "
       addproperty="test.class"
@@ -360,12 +351,12 @@
     <echo message="========== Notice ========== "/>
     <echo message=""/>
     <echo message="you can repeat this test by running:"/>
-    <echo message=" ant run-selenium-singletest -Dtest.class=${test.class} -Dtest.method=${test.method}"/>
+    <echo message=" ant run-selenium-singletest -Dtest.browser=${test.browser} -Dtest.class=${test.class} -Dtest.method=${test.method}"/>
     <echo message=""/>
     <echo message=""/>
   </target>
 
-  <target name="-selenium-grid-tests-remote" depends="-is-test-browser-set, -get-selenium-grid-test-browser">
+  <target name="-selenium-grid-tests-remote" depends="-get-selenium-grid-test-browser">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -387,13 +378,7 @@
              command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidwebtest.ist.tugraz.at -Dbrowser=${browser}" />
   </target>
 
-  <target name="-is-test-browser-set">
-    <condition property="selenium-grid.test-browser">
-      <isset property="test.browser" />
-    </condition>
-  </target>
-
-  <target name="-get-selenium-grid-test-browser" unless="selenium-grid.test-browser">
+  <target name="-get-selenium-grid-test-browser">
     <input
       message="Please enter an environment to test: "
       addproperty="test.browser"

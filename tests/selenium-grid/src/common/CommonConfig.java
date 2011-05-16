@@ -20,70 +20,48 @@ package at.tugraz.ist.catroweb.common;
 
 import org.apache.tools.ant.taskdefs.Definer;
 
-/**
- */
 public class CommonConfig  {
+  /**
+  * test base path
+  */
+  public static final String TESTS_BASE_PATH =  "/";
+  //public static final String TESTS_BASE_PATH =  "/catroweb/";
 
-	private static CommonConfig instance = new CommonConfig();
+  /**
+  * determines if the message is printed to the std out
+  * usage: org.testng.Reporter.log(message,true)
+  * @true:  std out + HTML.report
+  * @false: HTML report only	
+  */
+  public static final boolean REPORTER_LOG_TO_STD_OUT = true;
 
-	/**
-	 * test base path
-	 */
-	public static final String     TESTS_BASE_PATH =  "/";
-	//public static final String     TESTS_BASE_PATH =  "/catroweb/";
-	
-	/**
-	 * determines if the message is printed to the std out
-	 * usage: org.testng.Reporter.log(message,true)
-	 * @true:  std out + HTML.report
-	 * @false: HTML report only	
-	 */
-	public static final boolean REPORTER_LOG_TO_STD_OUT = true;
-	
-	/**
-	 * set slow mode (selenium)
-	 */
-	public static final boolean TESTS_SLOW_MODE = false;
-	
-	/**
-	 * value used if slow mode is on; execution time in ms for each command (selenium)
-	 */
-	public static final int     TESTS_SLOW_SPEED =  1000;
-	
-	/**
-	 *  selenium waitForPageToLoad-command: waits 10000ms  
-	 */
-	public static final String     WAIT_FOR_PAGE_TO_LOAD_LONG =  "10000";
-	
-	/**
-	 * selenium waitForPageToLoad-command: waits 1000ms 
-	 */
-	public static final String     WAIT_FOR_PAGE_TO_LOAD_SHORT =  "1000";
-	
-	/**
-	 *  selenium setTimout-command: waits 120000ms  
-	 */
-	public static final String     TIMEOUT =  "120000";
-	
-	/**
-   *  timeout for ajax request
-   */
-  public static final String     TIMEOUT_AJAX =  "5000";
-  
-	
-	
-	
-	
-	private CommonConfig(){
-		
-	}
-	
-	public static CommonConfig getInstance() {
-        return instance;
-    }
-	
-	
-	
+  /**
+  * set slow mode (selenium)
+  */
+  public static final boolean TESTS_SLOW_MODE = false;
 
+  /**
+  * value used if slow mode is on; execution time in ms for each command (selenium)
+  */
+  public static final int TESTS_SLOW_SPEED = 1000;
 
+  /**
+  *  selenium waitForPageToLoad-command: waits 10000ms  
+  */
+  public static final String WAIT_FOR_PAGE_TO_LOAD_LONG = "10000";
+
+  /**
+  * selenium waitForPageToLoad-command: waits 1000ms 
+  */
+  //public static final String WAIT_FOR_PAGE_TO_LOAD_SHORT = "1000";
+
+  /**
+  *  selenium setTimout-command: waits 120000ms  
+  */
+  public static final String TIMEOUT = "120000";
+
+  /**
+  *  timeout for ajax request: waits 5000ms  
+  */
+  public static final String TIMEOUT_AJAX = "5000";
 }

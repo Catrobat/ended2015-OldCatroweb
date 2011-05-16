@@ -35,7 +35,7 @@ public class IndexTests {
   @Parameters({"seleniumHost", "seleniumPort", "browser", "webSite"})  
   protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
     startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
-    session().setSpeed(CommonFunctions.getInstance().setSpeed());
+    session().setSpeed(CommonFunctions.setSpeed());
     session().setTimeout(CommonConfig.TIMEOUT);
   }
 
@@ -49,7 +49,7 @@ public class IndexTests {
 
     session().open("/catroid/index/9999999999999999999");
     session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
-    session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");        
+    session().waitForCondition(CommonFunctions.getAjaxWaitString(), "5000");        
     //test page title and header title        
     assertTrue(session().getTitle().matches("^Catroid Website -.*"));        
     assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
@@ -58,7 +58,7 @@ public class IndexTests {
     String location = CommonDataProvider.getRandomLongString();
     session().open("/catroid/index/"+location);
     session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
-    session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");        
+    session().waitForCondition(CommonFunctions.getAjaxWaitString(), "5000");        
     //test page title and header title        
     assertTrue(session().getTitle().matches("^Catroid Website -.*"));        
     assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
@@ -68,7 +68,7 @@ public class IndexTests {
     location = CommonDataProvider.getRandomLongString();
     session().open("/catroid/details/"+location);
     session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
-    session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");        
+    session().waitForCondition(CommonFunctions.getAjaxWaitString(), "5000");        
     //test page title and header title        
     CommonAssertions.assertRegExp(".*/catroid/errorPage", session().getLocation());
     assertTrue(session().isTextPresent(location));   
@@ -78,7 +78,7 @@ public class IndexTests {
     public void index() throws Throwable {
         session().open("/");
         session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
-        session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");        
+        session().waitForCondition(CommonFunctions.getAjaxWaitString(), "5000");        
         //test page title and header title        
         assertTrue(session().getTitle().matches("^Catroid Website -.*"));        
         assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
@@ -88,7 +88,7 @@ public class IndexTests {
         // test logo link
         assertTrue(session().isElementPresent("xpath=//div[@class='webHeadLogo']"));
         session().click("xpath=//div[@id='aIndexWebLogoLeft']");        
-        session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");
+        session().waitForCondition(CommonFunctions.getAjaxWaitString(), "5000");
         
         //test catroid download link
         assertTrue(session().isElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']"));
@@ -103,21 +103,20 @@ public class IndexTests {
         //test links to details page
         session().click("xpath=//a[@class='projectListDetailsLink']");
         session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);
-        //assertTrue(CommonAssertions.isDetailsLocation(session().getLocation()));        
         CommonAssertions.assertRegExp(".*/catroid/details/[0-9]+",session().getLocation());
         
         session().goBack();
         session().waitForPageToLoad(CommonConfig.WAIT_FOR_PAGE_TO_LOAD_LONG);                
-        session().waitForCondition(CommonFunctions.getInstance().getWaitForConditionIsElementPresentString("xpath=//a[@id='aIndexWebLogoMiddle']"),"10000");
-        session().waitForCondition(CommonFunctions.getInstance().getWaitForConditionIsTextPresentString(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE),"10000");
+        session().waitForCondition(CommonFunctions.getWaitForConditionIsElementPresentString("xpath=//a[@id='aIndexWebLogoMiddle']"),"10000");
+        session().waitForCondition(CommonFunctions.getWaitForConditionIsTextPresentString(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE),"10000");
         
-        session().waitForCondition(CommonFunctions.getInstance().getWaitForConditionIsElementPresentString("xpath=//a[@id='aIndexWebLogoMiddle']"),"10000");
+        session().waitForCondition(CommonFunctions.getWaitForConditionIsElementPresentString("xpath=//a[@id='aIndexWebLogoMiddle']"),"10000");
         assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));        
         assertTrue(session().isElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']"));
         
         //test home link
         session().click("xpath=//div[@id='aIndexWebLogoLeft']");        
-        session().waitForCondition(CommonFunctions.getInstance().getAjaxWaitString(), "5000");
+        session().waitForCondition(CommonFunctions.getAjaxWaitString(), "5000");
         assertTrue(session().isElementPresent("xpath=//img[@class='catroidLettering']"));        
         
       }    

@@ -20,11 +20,8 @@ package at.tugraz.ist.catroweb.common;
 
 import static org.testng.AssertJUnit.assertTrue;
 
-
-/**
- */
 public class CommonAssertions  {
   public static void assertRegExp(String pattern, String string) {	
     assertTrue(string.matches(pattern));
-  }	
+  }
 }
