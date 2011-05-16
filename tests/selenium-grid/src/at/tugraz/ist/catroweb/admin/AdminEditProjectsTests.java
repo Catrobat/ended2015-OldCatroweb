@@ -16,7 +16,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package at.tugraz.ist.catroweb.catroid.header;
+package at.tugraz.ist.catroweb.admin;
 
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.closeSeleniumSession;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
@@ -27,11 +27,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
 
-
-/**
- * Base class for all tests in Selenium Grid Java examples.
- */
-public class HeaderTests {
+public class AdminEditProjectsTests {
 
     public static final String TIMEOUT = "120000";
 
@@ -52,10 +48,6 @@ public class HeaderTests {
         session().setSpeed("1000");
         session().open("/");
         session().waitForPageToLoad(TIMEOUT);
-//        assertFalse(session().isVisible("headerSearchBox"));
-//        assertFalse(session().isVisible("headerCancelSearchButton"));
-//        assertTrue(session().isVisible("headerSearchButton"));
-//        assertTrue(session().isVisible("headerMenuButton"));
     }
 }
 

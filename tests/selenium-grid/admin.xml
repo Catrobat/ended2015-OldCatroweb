@@ -19,8 +19,8 @@
 
 <suite name="Admin Test Suite" parallel="methods" thread-count="7" verbose="3" >
   <test name="AdminEditProjectsTests" >
-    <packages>
-      <package name="at.tugraz.ist.catroweb.admin.editProjects" />
-   </packages>
+    <classes>
+      <class name="at.tugraz.ist.catroweb.admin.AdminEditProjectsTests" />
+   </classes>
   </test>
 </suite>

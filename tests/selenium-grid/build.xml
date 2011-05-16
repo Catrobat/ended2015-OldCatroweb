@@ -18,7 +18,7 @@
       along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-	<project name="selenium-grid" basedir=".">
+<project name="selenium-grid" basedir=".">
 
   <description>Selenium Grid Distribution</description>
   <dirname property="selenium-grid.basedir" file="${ant.file.selenium-grid}"/>
@@ -30,8 +30,6 @@
 
   <property name="build.src" location="${selenium-grid.basedir}/src"/>
   <property name="build.output" location="${selenium-grid.basedir}/target/classes"/>
-
-  <import file="${selenium-grid.basedir}/common-build.xml"/>
 
   <property name="webSite" value="http://localhost/"/>
   <property name="seleniumHost" value="localhost"/>
@@ -54,6 +52,8 @@
     <path refid="compile.classpath"/>
     <pathelement path="${build.output}/"/>
   </path>
+
+  <import file="${selenium-grid.basedir}/common-build.xml"/>
 
   <target name="run-admin-tests" depends="compile" description="Run Catroid Test Suite">
     <echo>${seleniumHost}</echo>

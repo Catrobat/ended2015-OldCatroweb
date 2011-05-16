@@ -62,12 +62,15 @@
                 			<div class="detailsRight">
                 				<div class="detailsMainDescription">
       		   						<div class="detailsPublishTime">
-                    					<p class="detailsTime">
-                    					  <img class="projectDetailsTimeSymbol" src="<?php echo BASE_PATH?>images/symbols/clock2.png" alt="publish time image">
-    									  uploaded<br>
-    									  <b><?php echo $this->project['publish_time_in_words']?></b> ago<br>
-    									  by <b><?php echo $this->project['uploaded_by']?></b>
-    									</p>
+                    					<div style="float:left;"><img class="projectDetailsTimeSymbol" src="<?php echo BASE_PATH?>images/symbols/clock2.png" alt="publish time image"></div>
+    									<div style="float:left;">
+    									  <p class="detailsTime">
+    									    uploaded<br>
+    									    <b><?php echo $this->project['publish_time_in_words']?></b> ago<br>
+    									    by <b><?php echo $this->project['uploaded_by']?></b>
+    									  </p>
+    									</div>
+    									<div style="clear:both;"></div>
                     				</div>
                     				<div class="detailsDownloadButton">
                             			<a class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id'].PROJECTS_EXTENTION; ?>?fname=<?php echo urlencode($this->project['title'])?>">

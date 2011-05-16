@@ -154,7 +154,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
      {
        $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
        // test deleting from database
-       $this->upload->removeProjectFromFilesystem($filePath);    
+       $this->upload->removeProjectFromFilesystem($filePath, $insertId);
        $this->assertFalse(is_file($filePath));
        @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
        $this->assertFalse(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));

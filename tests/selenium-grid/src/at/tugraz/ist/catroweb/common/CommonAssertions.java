@@ -18,36 +18,10 @@
 
 package at.tugraz.ist.catroweb.common;
 
-import org.apache.tools.ant.taskdefs.Definer;
+import static org.testng.AssertJUnit.assertTrue;
 
-/**
- */
-public class CommonStrings  {
-
-	//private static CommonStrings instance = new CommonStrings();
-	
-	/**
-	 * set selenium slow mode
-	 */
-	public static final String WEBSITE_TITLE = "Catroid Website";
-	/**
-	 * Labels for newest projects
-	 */
-	public static final String NEWEST_PROJECTS_PAGE_TITLE = "Newest Projects";
-	public static final String NEWEST_PROJECTS_PAGE_PREV_BUTTON = "« Newer";
-    public static final String NEWEST_PROJECTS_PAGE_NEXT_BUTTON = "Older »";
-    public static final String NEWEST_PROJECTS_PAGE_LOADING_BUTTON = "loading...";
-	/*
-	private CommonStrings() {
-		
-	}
-	
-	public static CommonStrings getInstance() {
-        return instance;
-    }
-	*/
-	
-	
-
-
+public class CommonAssertions  {
+  public static void assertRegExp(String pattern, String string) {	
+    assertTrue(string.matches(pattern));
+  }
 }
