@@ -69,7 +69,7 @@ class MenuTests extends PHPUnit_Framework_TestCase
     //$this->selenium->waitForPageToLoad(10000);
     
     $this->selenium->click("headerMenuButton");
-    //$this->selenium->waitForPageToLoad(10000);
+    $this->selenium->waitForPageToLoad(10000);
     
     $this->assertTrue($this->selenium->isVisible("menuProfileButton"));
     $this->assertTrue($this->selenium->isVisible("menuForumButton"));
@@ -79,8 +79,7 @@ class MenuTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isVisible("menuLoginButton"));
     $this->assertTrue($this->selenium->isVisible("menuSettingsButton"));
     
-    
-    $this->assertFalse($this->selenium->isEditable("menuProfileButton"));
+    $this->assertTrue($this->selenium->isEditable("menuProfileButton"));
     $this->assertFalse($this->selenium->isEditable("menuWallButton"));
     $this->assertFalse($this->selenium->isEditable("menuSettingsButton"));
     
@@ -140,7 +139,7 @@ class MenuTests extends PHPUnit_Framework_TestCase
     $this->selenium->close();
     $this->selenium->selectWindow(null);
  
-    $this->assertFalse($this->selenium->isEditable("menuProfileButton"));
+    $this->assertTrue($this->selenium->isEditable("menuProfileButton"));
     $this->assertFalse($this->selenium->isEditable("menuWallButton"));
     $this->assertFalse($this->selenium->isEditable("menuSettingsButton"));    
      
