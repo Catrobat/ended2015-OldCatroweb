@@ -19,89 +19,59 @@
 
 var Menu = Class.$extend( {
   __init__ : function(basePath, userLogin_userId) {
-	var self = this;
 	this.userLogin_userId = userLogin_userId;
     this.basePath = basePath;
     
-    this.openLocation = {
-      home: function() {
-        location.href = self.basePath+'catroid/index';
-      },
-      back: function() {
-        history.back();
-      },
-      wall: function() {
-        location.href = self.basePath+'catroid/wall';
-      },
-      profile: function() {
-        if(userLogin_userId == 0) {
-          location.href = self.basePath+'catroid/login';
-        } else {
-          location.href = self.basePath+'catroid/profile';
-        }
-      },
-      settings: function() {
-        if(userLogin_userId > 0) {
-          location.href = self.basePath+'catroid/settings';
-        } else {
-          location.href = self.basePath+'catroid/login';
-        }
-      },
-      forum: function() {
-        window.open(self.basePath+'addons/board','board');
-        return false;
-      },
-      wiki: function() {
-        if(userLogin_userId == 0) {
-          window.open(self.basePath+'wiki','wiki');
-        } else {
-          window.open(self.basePath+'wiki/Main_Page?action=purge','wiki');
-        }
-        return false;
-      },
-      login: function() {
-        location.href = self.basePath+'catroid/login?requesturi=catroid/menu';
-      },
-//      logout: function() {
-//        var submitForm = "<form action='"+self.basePath+"catroid/login' method='POST'>";
-//        submitForm += "<input type='hidden' name='logoutSubmit' value='Logout'>";
-//        submitForm += "</form>";
-//
-//        var $form = $(submitForm).appendTo('body');
-//        $form.submit();
-//      }
-      logout : function() {
-        var self = this;
-        $.ajax({
-          url: self.basePath+"catroid/login/logoutRequest.json",
-          async: false,
-          success: function() {
-            location.href = self.basePath+"catroid/index";
-          }
-        });
-      },
-    };
-    
-    $("#headerHomeButton").click(jQuery.proxy(this.openLocation, "home"));
-    $("#headerBackButton").click(jQuery.proxy(this.openLocation, "back"));
-    $("#menuWallButton").click(jQuery.proxy(this.openLocation, "wall"));
-    $("#menuProfileButton").click(jQuery.proxy(this.openLocation, "profile"));
-    $("#menuSettingsButton").click(jQuery.proxy(this.openLocation, "settings"));
-    $("#menuForumButton").click(jQuery.proxy(this.openLocation, "forum"));
-    $("#menuWikiButton").click(jQuery.proxy(this.openLocation, "wiki"));
-    $("#menuLoginButton").click(jQuery.proxy(this.openLocation, "login"));
-    $("#menuLogoutButton").click(jQuery.proxy(this.openLocation, "logout"));
+    $("#menuForumButton").click({url:"addons/board",windowName:"board"}, jQuery.proxy(this.openWindow, this));
+    $("#headerHomeButton").click({url:"catroid/index"}, jQuery.proxy(this.openLocation, this));
+    $("#headerBackButton").click(jQuery.proxy(this.goBack, this));
+    $("#menuWallButton").click({url:"catroid/wall"}, jQuery.proxy(this.openLocation, this));
+    $("#menuSettingsButton").click({url:"catroid/settings"}, jQuery.proxy(this.openLocation, this));
+    $("#menuLoginButton").click({url:"catroid/login?requesturi=catroid/menu"}, jQuery.proxy(this.openLocation, this));
+    $("#menuLogoutButton").click(jQuery.proxy(this.doLogoutRequest, this));
+    if(this.userLogin_userId == 0) {
+    	$("#menuWikiButton").click({url:"wiki",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
+    } else {
+    	$("#menuWikiButton").click({url:"wiki/Main_Page?action=purge",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
+    }
+    if(this.userLogin_userId == 0) {
+    	$("#menuProfileButton").click({url:"catroid/login"}, jQuery.proxy(this.openLocation, this));
+    } else {
+    	$("#menuProfileButton").click({url:"catroid/profile"}, jQuery.proxy(this.openLocation, this));
+    }
     
     $("#menuWallButton").attr('disabled', true).removeClass('green').addClass('gray');
-    //$("#menuProfileButton").attr('disabled', true).removeClass('pink').addClass('gray');
     $("#menuSettingsButton").attr('disabled', true).removeClass('rosy').addClass('gray');
-    
-    if(userLogin_userId > 0) {
+    if(this.userLogin_userId > 0) {
       $("#menuLoginButton").toggle(false);
       $("#menuLogoutButton").toggle(true);
     } else {
       $("#menuLoginButton").toggle(true);
       $("#menuLogoutButton").toggle(false);
     }
-  }
+  },
+  
+  goBack : function(event) {
+	  history.back();
+  },
+    
+  openLocation : function(event) {
+	  location.href = this.basePath+event.data.url;
+  },
+    
+  openWindow : function(event) {
+  	 window.open(this.basePath+event.data.url, event.data.windowName);
+  },
+    
+  doLogoutRequest : function(event) {
+	  $.ajax({ 
+    	url: self.basePath+"catroid/login/logoutRequest.json", 
+    	async: false,
+   		success: jQuery.proxy(this.logout, this)
+   	  });
+    },
+    
+  logout: function(event) {
+	  location.href = this.basePath+"catroid/index"; 
+  },
 });
