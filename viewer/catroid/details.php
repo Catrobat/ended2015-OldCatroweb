@@ -120,26 +120,29 @@
                         					<b><?php echo $this->project['download_count']?></b> downloads</p>
                     					</div>
                         			</div>
-                    			<?php }?>
+                    			<?php 
+                    			  }
+                    			  if ($this->project['user_id'] != $this->module->session->userLogin_userId) {
+                    			?>
                     			
                         		<div class="detailsMainStats">
                         			<div class="detailsFlagButton" id="detailsFlagButton">
                       		   			<button type="button" class="button white medium" id="reportAsInappropriateButton">
                       		   				<span class="detailsFlagButtonText">report as inappropriate</span>                            			
-                                    	</button>
-                            		</div>
-                            		<div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
+                                  </button>
+                            	</div>
+                            	<div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
                             			<form method="POST" class="reportInappropriateForm">
                             				<span class="reportInappropriateLabel">Why do you think this project is inappropriate?</span><br>
                             				<input type="hidden" id="reportInappropriateProjectId" value="<?php echo $this->project['id']?>">
-      										<input type="text" class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="enter a reason" required>
-      										<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateReportButton" value="Report">
-      										<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateCancelButton" value="Cancel">
-    									</form>
-                            		</div>
-                            		<div class="reportAsInappropriateAnswer" id="reportAsInappropriateAnswer"></div>
+      															<input type="text" class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="enter a reason" required>
+      															<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateReportButton" value="Report">
+      															<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateCancelButton" value="Cancel">
+    									    				</form>
+                            	</div>
+                            	<div class="reportAsInappropriateAnswer" id="reportAsInappropriateAnswer"></div>
                         		</div>
-                    			
+                    			  <?php } ?>
                 			</div>
             				<div style="clear:both;"></div>
         				</div>    	
