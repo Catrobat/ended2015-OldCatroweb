@@ -97,7 +97,7 @@ class ProfileTests extends PHPUnit_Framework_TestCase
 
     $this->assertTrue($this->selenium->isTextPresent($dataArray["user"].'\'s Profile'));
     $this->assertTrue($this->selenium->isTextPresent('change my password'));
-    $this->assertTrue($this->selenium->isTextPresent('change my e-mail address'));
+    $this->assertTrue($this->selenium->isTextPresent($dataArray["email"]));
     $this->assertTrue($this->selenium->isTextPresent('from '));
     
     $this->selenium->click("xpath=//a[@id='profileChangePassword']");
@@ -133,11 +133,11 @@ class ProfileTests extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isTextPresent('The new password is missing.'));
     
     $this->selenium->type("xpath=//input[@id='profileOldPassword']", $dataArray["emptyPass"]);
-    $this->selenium->type("xpath=//input[@id='profileNewPassword']", $dataArray["pass"]);
+    $this->selenium->type("xpath=//input[@id='profileNewPassword']", $dataArray["shortPass"]);
     $this->selenium->click("xpath=//input[@id='profilePasswordSubmit']");
     $this->ajaxWait();
     
-    $this->assertTrue($this->selenium->isTextPresent('The old password is empty.'));
+    $this->assertTrue($this->selenium->isTextPresent('The old password is missing.'));
     $this->assertTrue($this->selenium->isTextPresent('The new password must have at least 6 characters.'));
     
     $this->selenium->type("xpath=//input[@id='profileOldPassword']", $dataArray["newPass"]);
@@ -161,16 +161,27 @@ class ProfileTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("xpath=//a[@id='profileChangeEmailText']");
     $this->ajaxWait();
     
+    $this->selenium->type("xpath=//input[@id='profileEmail']", $dataArray["emailForTest"]);
+    $this->selenium->click("xpath=//input[@id='profileEmailSubmit']");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->ajaxWait();
+    
+    $this->assertTrue($this->selenium->isTextPresent($dataArray["emailForTest"]));
+    
+    $this->selenium->click("xpath=//a[@id='profileChangeEmailText']");
+    $this->ajaxWait();
+    
     $this->selenium->type("xpath=//input[@id='profileEmail']", $dataArray["email"]);
     $this->selenium->click("xpath=//input[@id='profileEmailSubmit']");
     $this->selenium->waitForPageToLoad(10000);
     $this->ajaxWait();
     
     $this->assertTrue($this->selenium->isTextPresent($dataArray["email"]));
-    
-    
-    
 
+    
+    $this->selenium->close();
+    $this->selenium->selectWindow(null);
+    
 //
   }  
   /* *** DATA PROVIDERS *** */
@@ -184,6 +195,7 @@ class ProfileTests extends PHPUnit_Framework_TestCase
           "wrongPass" => "wrongPassword", 
           "shortPass" => "short",
           "emptyPass" => " ",  
+          "emailForTest" => "catroweb@catroid.org",
           "email" => "webmaster@catroid.org"
     ))
     );

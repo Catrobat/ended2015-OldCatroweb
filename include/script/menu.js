@@ -66,11 +66,9 @@ var Menu = Class.$extend( {
     
   doLogoutRequest : function(event) {
 	  $.ajax({ 
-          type: "POST",
     	url: self.basePath+"catroid/login/logoutRequest.json", 
     	async: false,
    		success: jQuery.proxy(this.logout, this)
-            alert(self.basePath+"catroid/index");
    	  });
     },
     

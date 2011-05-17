@@ -107,7 +107,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $this->selenium->click("headerMenuButton");
     $this->selenium->waitForPageToLoad(10000);
 
-    $this->assertTrue($this->selenium->isVisible("menuLogoutButton"));
+    $this->assertTrue($this->selenium->isVisible("xpath=//button[@id='menuLogoutButton']"));
 
     $this->selenium->click("menuForumButton");
     $this->selenium->selectWindow("board");
