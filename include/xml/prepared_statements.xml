@@ -67,14 +67,22 @@
     <string name="get_user_row_by_id">SELECT * FROM cusers WHERE id=$1 LIMIT 1</string>
     <string name="get_user_row_by_recovery_hash">SELECT * FROM cusers WHERE recovery_hash=$1 LIMIT 1</string>
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
+    <string name="get_user_country_by_username">SELECT country from cusers WHERE username=$1</string>
     <string name="get_user_country_by_id">SELECT country from cusers WHERE id=$1</string>
+    <string name="get_user_email_by_username">SELECT email from cusers WHERE username=$1</string>
+    <string name="get_country_from_countries">SELECT name, code FROM countries ORDER BY name ASC</string>
+    <string name="get_country_from_countries_by_countrycode">SELECT name, code FROM countries WHERE code=$1 ORDER BY name ASC</string>
     <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
     <string name="update_recovery_hash_recovery_time_by_id">UPDATE cusers SET recovery_hash=$1, recovery_time=$2 WHERE id=$3</string>
     <string name="update_password_and_hash_by_username">UPDATE cusers SET password=$1, recovery_hash=$2 WHERE username=$3</string>
+    <string name="update_user_email">UPDATE cusers SET email=$1 WHERE username=$2</string>
+    <string name="update_user_country">UPDATE cusers SET country=$1 WHERE username=$2</string>
+    <string name="update_password_by_username">UPDATE cusers SET password=$1 WHERE username=$2</string>
+    
     <!-- <string name="update_phpbb_user_password_by_username">UPDATE phpbb_users SET user_password=$1 WHERE username=$2</string> -->
     
-    <string name="get_country_from_countries">SELECT name, code FROM countries ORDER BY name ASC</string>
+
     
     <string name="save_catroid_version_info">UPDATE projects SET version_code=$2, version_name=$3 WHERE id=$1</string>
     

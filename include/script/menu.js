@@ -19,7 +19,8 @@
 
 var Menu = Class.$extend( {
   __init__ : function(basePath, userLogin_userId) {
-	this.userLogin_userId = userLogin_userId;
+
+    this.userLogin_userId = userLogin_userId;
     this.basePath = basePath;
     
     $("#menuForumButton").click({url:"addons/board",windowName:"board"}, jQuery.proxy(this.openWindow, this));
@@ -65,9 +66,11 @@ var Menu = Class.$extend( {
     
   doLogoutRequest : function(event) {
 	  $.ajax({ 
+          type: "POST",
     	url: self.basePath+"catroid/login/logoutRequest.json", 
     	async: false,
    		success: jQuery.proxy(this.logout, this)
+            alert(self.basePath+"catroid/index");
    	  });
     },
     

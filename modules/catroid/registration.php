@@ -185,7 +185,7 @@ class registration extends CoreAuthenticationNone {
     $user_row = array(
       'username' => $username,
       'user_password' => $password, 
-      'user_email' => $email,
+      'user_email' => '', //$email,
       'group_id' => '2',
       'user_timezone' => '0',
       'user_dst' => '0',
@@ -269,6 +269,7 @@ class registration extends CoreAuthenticationNone {
   
   
   public function checkUsername($username) {
+    $username = trim($username);
     if(empty($username) && strcmp('0', $username) != 0) {
       throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
     }
@@ -335,6 +336,8 @@ class registration extends CoreAuthenticationNone {
   }
 
   public function checkPassword($username, $password) {
+    $username = trim($username);
+    $password = trim($password);
     if((empty($password) && strcmp('0', $password) != 0) || $password == '' || mb_strlen($password) < 1) {
       throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
     }
@@ -351,6 +354,7 @@ class registration extends CoreAuthenticationNone {
   }
 
   public function checkEmail($email) {
+    $email = trim($email);
     if(empty($email) && strcmp('0', $email) != 0) {
       throw new Exception($this->errorHandler->getError('registration', 'email_missing'));
     }
@@ -393,6 +397,7 @@ class registration extends CoreAuthenticationNone {
   }
 
   public function checkCountry($country) {
+    $country = trim($country);
   	if ($country == "undef") {
       return true;
   	} elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {

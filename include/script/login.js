@@ -18,18 +18,14 @@
 
 var Login = Class.$extend( {
   __init__ : function(basePath) {
-    this.basePath = basePath;
     var self = this;
-    //this.enableForm(true);
+    this.basePath = basePath;
 
     $("#loginFormDialog").toggle(true);
     $("#loginFormAnswer").toggle(false);
-    // enable form fields after timeout
     
     $("#loginSubmit").click(
       $.proxy(this.loginSubmit, this));
-//    $("#logoutSubmit").click(
-//      $.proxy(this.logoutSubmit, this));
     $("#loginUsername").keypress(
       $.proxy(this.loginCatchKeypress, this));
     $("#loginPassword").keypress(
@@ -37,12 +33,12 @@ var Login = Class.$extend( {
   },
   
   loginSubmit : function() {
+    var self = this;
     // disable form fields
     $("#loginSubmit").attr("disabled", "disabled");
     $("#loginUsername").attr("disabled", "disabled");
     $("#loginPassword").attr("disabled", "disabled");
     
-    var self = this;
     $.ajax({
       type: "POST",
       url: this.basePath + 'catroid/login/loginRequest.json',

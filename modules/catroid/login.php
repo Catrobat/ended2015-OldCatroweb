@@ -37,7 +37,7 @@ class login extends CoreAuthenticationNone {
   }
 
   public function logoutRequest() {
-    $this->logout($_POST);
+    $this->logout();
   }
 
   public function loginRequest() {
@@ -50,7 +50,7 @@ class login extends CoreAuthenticationNone {
     }
   }
 
-  public function logout($postData) {
+  public function logout() {
     $this->doLogout();
   }
 
@@ -84,7 +84,7 @@ class login extends CoreAuthenticationNone {
         $boardLoginSuccess = true;
         $answer .= 'BOARD Login successfull!<br>';
       } else {
-        $answer = $this->errorHandler->getError('auth', 'board_authentication_failed').'<br>';
+        $answer .= $this->errorHandler->getError('auth', 'board_authentication_failed').'<br>';
       }
 
       if($boardLoginSuccess) {
@@ -94,7 +94,7 @@ class login extends CoreAuthenticationNone {
           $answer .= 'WIKI Login successfull!<br>';
           $statusCode = 200;
         } catch(Exception $e) {
-          $answer = $this->errorHandler->getError('auth', 'wiki_authentication_failed', $e->getMessage()).'<br>';
+          $answer .= $this->errorHandler->getError('auth', 'wiki_authentication_failed', $e->getMessage()).'<br>';
           //logout catroid & board
           $this->doCatroidLogout();
           $this->doBoardLogout();

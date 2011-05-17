@@ -100,5 +100,19 @@
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
       <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
     </passwordrecovery>
+    <profile>
+      <string name="password_repeat_missing">Your repeated password is missing.</string>
+      <string name="password_repeat_differs">Your password differs from the repeated password.</string>
+      <string name="password_old_missing">Your old password is missing.</string>
+      <string name="password_old_wrong">Your old password was incorrect.</string>
+      <string name="password_old_invalid">Your old password is invalid.</string>
+      <string name="password_old_length_invalid">Your old password must have at least 6 characters.</string>
+      <string name="password_new_missing">Your new password is missing.</string>
+      <string name="password_new_invalid">Your new password is invalid.</string>
+      <string name="password_new_length_invalid">Your new password must have at least 6 characters.</string>
+      <string name="username_password_equal">Your password must differ from your nickname.</string>
+      <string name="email_address_exists">The email address already exists.</string>
+      <string name="email_update_failed">There was a problem while updating your email address.</string>
+    </profile>
 </errors>
 
