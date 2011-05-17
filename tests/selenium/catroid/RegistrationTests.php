@@ -26,7 +26,7 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
 
   public function ajaxWait()
   {
-    for($second = 0; $second <= 6; $second++) {
+    for($second = 0; $second <= 600; $second++) {
       if($second >= 6) break;
       try {
         if($this->selenium->isElementPresent("xpath=//input[@id='ajax-loader'][@value='off']")) {

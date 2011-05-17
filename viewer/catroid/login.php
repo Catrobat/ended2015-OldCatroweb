@@ -20,7 +20,7 @@
   <input type="hidden" id="basePath" value="<?php echo BASE_PATH?>">
   <script type="text/javascript">
   	$(document).ready(function() {
-  		new Login($("#basePath").attr("value"));
+  		new Login(<?php echo "'".BASE_PATH."'"; ?>);
   	});
   </script>
 

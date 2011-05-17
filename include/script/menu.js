@@ -19,8 +19,8 @@
 
 var Menu = Class.$extend( {
   __init__ : function(basePath, userLogin_userId) {
-	var self = this;
-	this.userLogin_userId = userLogin_userId;
+    var self = this;
+    this.userLogin_userId = userLogin_userId;
     this.basePath = basePath;
     
     this.openLocation = {
@@ -62,20 +62,15 @@ var Menu = Class.$extend( {
       login: function() {
         location.href = self.basePath+'catroid/login?requesturi=catroid/menu';
       },
-//      logout: function() {
-//        var submitForm = "<form action='"+self.basePath+"catroid/login' method='POST'>";
-//        submitForm += "<input type='hidden' name='logoutSubmit' value='Logout'>";
-//        submitForm += "</form>";
-//
-//        var $form = $(submitForm).appendTo('body');
-//        $form.submit();
-//      }
-      logout : function() {
-        var self = this;
+
+      logout: function() {
         $.ajax({
+          type: "POST",
           url: self.basePath+"catroid/login/logoutRequest.json",
-          async: false,
+          timeout: (5000),
+          
           success: function() {
+            alert(self.basePath+"catroid/index");
             location.href = self.basePath+"catroid/index";
           }
         });
