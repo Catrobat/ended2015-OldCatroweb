@@ -203,6 +203,10 @@ p.detailsTime {
 	margin: 0px;
 }
 
+span.versionInfo {
+  font-size: 0.9em;
+}
+
 p.detailsDescription {
 	padding: 0px;
 	margin: 0px;

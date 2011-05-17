@@ -75,5 +75,8 @@
     <!-- <string name="update_phpbb_user_password_by_username">UPDATE phpbb_users SET user_password=$1 WHERE username=$2</string> -->
     
     <string name="get_country_from_countries">SELECT name, code FROM countries ORDER BY name ASC</string>
+    
+    <string name="save_catroid_version_info">UPDATE projects SET version_code=$2, version_name=$3 WHERE id=$1</string>
+    
 </statements>
 

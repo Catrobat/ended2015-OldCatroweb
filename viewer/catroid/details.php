@@ -67,8 +67,9 @@
     									  <p class="detailsTime">
     									    uploaded<br>
     									    <b><?php echo $this->project['publish_time_in_words']?></b> ago<br>
-    									    by <b><?php echo $this->project['uploaded_by']?></b>
-    									  </p>
+    									    by <b><?php echo $this->project['uploaded_by']?></b><br>
+    										  <span class="versionInfo">Catroid version: <?php echo $this->project['version_code']?> (<?php echo $this->project['version_name']?>)</span>
+    										  </p>
     									</div>
     									<div style="clear:both;"></div>
                     				</div>

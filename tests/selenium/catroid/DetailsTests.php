@@ -23,10 +23,13 @@ require_once 'testsBootstrap.php';
 class DetailsTests extends PHPUnit_Framework_TestCase
 {
   private $selenium;
+  private $adminpath;
 
   public function setUp()
   {
     $path= 'http://'.str_replace('http://', '', TESTS_BASE_PATH).'catroid/';
+    $this->adminpath = 'http://'.ADMIN_AREA_USER.':'.DB_PASS.'@'.str_replace('http://', '', TESTS_BASE_PATH).'admin';
+
     $this->selenium = new Testing_Selenium(TESTS_BROWSER, $path);
     if (TESTS_SLOW_MODE==TRUE) {
       $this->selenium->setSpeed(TESTS_SLOW_MODE_SPEED);
@@ -97,6 +100,14 @@ class DetailsTests extends PHPUnit_Framework_TestCase
       $this->assertEquals($fileSizeOnServer, $fileSizeDisplayed);
     }
 
+    //test the project version display
+    $fileSizeOnServer = round(filesize(CORE_BASE_PATH.PROJECTS_DIRECTORY.$id.PROJECTS_EXTENTION)/1048576, 1);
+    $downloadButtonText = $this->selenium->getText("xpath=//span[@class='detailsDownloadButtonText']");
+    $fileSizeDisplayed = floatval(substr($downloadButtonText, strpos($downloadButtonText, '(')+1, strpos($downloadButtonText, ' ', strpos($downloadButtonText, '('))-strpos($downloadButtonText, '(')));
+    if($fileSizeDisplayed != 0.0) {
+      $this->assertEquals($fileSizeOnServer, $fileSizeDisplayed);
+    }
+    
     //test the home link
     $this->selenium->click("xpath=//div[@class='webHeadTitleName']/a");
     $this->selenium->waitForPageToLoad(10000);
@@ -165,7 +176,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
    * @dataProvider titlesAndDescriptions
    */
   public function testMoreButtonAndQRCode($title, $description) {
-    $this->uploadTestProject($title, $description);
+    $response = $this->uploadTestProject($title, $description);
 
     $projectTitle = $title;
     $projectDescription = $description;
@@ -237,6 +248,19 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
   }
 
+  /**
+   * @dataProvider catroidVersion
+   */
+  public function testDetailsPageVersion4($projectId, $version_name, $version_code) {
+    $this->selenium->open(TESTS_BASE_PATH."catroid/details/$projectId");
+    $this->selenium->waitForPageToLoad("10000");
+    $this->selenium->waitForCondition("", 5000);
+
+    $this->assertTrue($this->selenium->isTextPresent("Catroid version:"));
+    $this->assertTrue($this->selenium->isTextPresent(": ".$version_code." ("));
+    $this->assertTrue($this->selenium->isTextPresent(" (".$version_name.")"));
+  }
+        
   /* *** DATA PROVIDERS *** */
   //choose random ids from database
   public function randomIds() {
@@ -254,11 +278,18 @@ class DetailsTests extends PHPUnit_Framework_TestCase
 
     return $returnArray;
   }
+  
+  public function catroidVersion() {
+    $returnArray = array(
+      array(1, '0.4.3d', 4)
+    );
+    return $returnArray;
+  }
 
   public function titlesAndDescriptions() {
     $returnArray = array(
-    array('more button selenium test', 'This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!'),
-    array('more button special chars test', utf8_decode('This is a description which has special chars like ", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with "special chars" and should have more characters than defined by the threshold in config.php. Thats it!'))
+      array('more button selenium test', 'This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!'),
+      array('more button special chars test', utf8_decode('This is a description which has special chars like ", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with "special chars" and should have more characters than defined by the threshold in config.php. Thats it!'))
     );
 
     return $returnArray;
@@ -310,7 +341,7 @@ class DetailsTests extends PHPUnit_Framework_TestCase
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
     $response = json_decode(curl_exec($ch));
     $this->assertEquals(200, $response->statusCode);
+    return $response;
   }
 }
 ?>
-

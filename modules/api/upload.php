@@ -35,6 +35,8 @@ class upload extends CoreAuthenticationDevice {
 
   //Strict Standards: Redefining already defined constructor for class
   public function _upload() {
+    $this->versionName = "";
+    $this->versionCode = 0;
     $newId = $this->doUpload($_POST, $_FILES, $_SERVER);
     if($newId > 0) {
       $this->answer = 'Upload successfull!';
@@ -52,6 +54,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function doUpload($formData, $fileData, $serverData) {
+    $fileInfo = array("", "");
     $statusCode = 500;
     $fileChecksum = null;
     $newId = 0;
@@ -94,6 +97,7 @@ class upload extends CoreAuthenticationDevice {
                           $answer = 'Upload successfull! QR-Code failed!';
                         }
 
+                        // $fileInfo = 
                         $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
                         $this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
                         
@@ -169,10 +173,15 @@ class upload extends CoreAuthenticationDevice {
     $this->fileChecksum = $fileChecksum;
     $this->projectId = $newId;
     $this->answer = $answer;
+    // $this->versionName = $fileInfo[0];
+    // $this->versionCode = $fileInfo[1];
     return $newId;
   }
 
   public function unzipUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
+    //$versionName = "";
+    //$versionCode = 0;
+    
     $unzipDir = CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId;
     // print "Unzip FILE ".$projectDir.$projectId.PROJECTS_EXTENTION.$unzipDir;
     mkdir(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId);
@@ -196,8 +205,9 @@ class upload extends CoreAuthenticationDevice {
       	 $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
       	 if ($spf) {
       	   $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
-      	   //$versionCode = $this->extractVersionCode($spf);
-      	   //$versionName = $this->extractVersionName($spf);
+      	   $this->versionCode = $this->extractVersionCode($spf);
+      	   $this->versionName = $this->extractVersionName($spf);
+      	   $this->saveVersionInfo($projectId, $this->versionCode, $this->versionName);
       	 }
       }
       if ($filename == "thumbnail.jpg" || $filename == "thumbnail.png") {
@@ -207,6 +217,7 @@ class upload extends CoreAuthenticationDevice {
       }
     }
     zip_close($zip);
+    // return array($versionName, $versionCode);
   }
   
   public function unzipThumbnailFromUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
@@ -314,12 +325,14 @@ class upload extends CoreAuthenticationDevice {
       $projectImageDir = $projectBaseDir.'/images';
       
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL))
-      @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL);
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL);
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE))
-      @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE);
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE);
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG))
-      @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG);
-
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG);
+      if(file_exists(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION))
+        @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION);
+      
       if(is_dir($projectSoundDir)) $this->removeProjectDir($projectSoundDir);
       if(is_dir($projectImageDir)) $this->removeProjectDir($projectImageDir);
       if(is_dir($projectBaseDir)) $this->removeProjectDir($projectBaseDir);
@@ -423,6 +436,9 @@ class upload extends CoreAuthenticationDevice {
   
 function extractVersionCode($xml) {
     $version = 0;
+    if (!preg_match("/versionCode/", $xml))
+      return $version;
+      
     if (preg_match("/<versionCode/", $xml)) {
       $stag = "<versionCode>";
       $etag = "<";
@@ -447,6 +463,9 @@ function extractVersionCode($xml) {
 
  function extractVersionName($xml) {
     $version = 0;
+    if (!preg_match("/versionName/", $xml))
+      return '';
+      
     if (preg_match("/<versionName/", $xml)) {
       $stag = "<versionName>";
       $etag = "<";
@@ -468,7 +487,20 @@ function extractVersionCode($xml) {
     $endtag = preg_split("/".$etag2."/", $starttag[1]);
     return $endtag[0];
   }
-    
+
+  public function saveVersionInfo($projectId, $versionCode, $versionName) {
+    $query = "EXECUTE save_catroid_version_info('$projectId', '$versionCode', '$versionName');";
+    $result = @pg_query($query);
+    if($result) {
+      @pg_free_result($result);
+      return true;
+    } else {
+      return false;
+    }
+    return false;
+  }
+  
+  
   public function __destruct() {
     parent::__destruct();
   }

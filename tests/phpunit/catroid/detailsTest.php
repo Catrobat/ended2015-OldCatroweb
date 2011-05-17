@@ -37,7 +37,7 @@ class detailsTest extends PHPUnit_Framework_TestCase
     $project = $this->obj->getProjectDetails($id);
     $this->assertTrue(is_array($project));
   }
-   
+  
   public function testGetProjectImage()
   {
     $thumbSourceName = 'test_thumbnail.jpg';
@@ -76,6 +76,15 @@ class detailsTest extends PHPUnit_Framework_TestCase
     $this->assertTrue(is_int(strpos($timeInWords, 'year')));
   }
 
+  /**
+   * @dataProvider projectVersionInfo
+   */
+  public function testGetProjectInfo($id, $version_code, $version_name) {
+    $project = $this->obj->getProjectDetails($id);
+    $this->assertEquals($project['version_name'], $version_name);
+    $this->assertEquals($project['version_code'], $version_code);
+  }
+  
   /**
    * @dataProvider randomLongStrings
    */
@@ -132,6 +141,13 @@ class detailsTest extends PHPUnit_Framework_TestCase
     return $returnArray;
   }
 
+  public function projectVersionInfo() {
+    $dataArray = array(
+      array(1, 4, "0.4.3d")
+      );
+    return $dataArray;
+  }
+    
   public function randomLongStrings() {
     $returnArray = array();
     $strLen = 400;

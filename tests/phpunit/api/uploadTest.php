@@ -96,7 +96,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
     
     $this->assertFalse(is_dir($projectPath));
     $this->assertFalse(is_dir($projectPath."/images"));
@@ -108,7 +107,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
   }
-
+  
   /**
    * @dataProvider incorrectPostData
    */
@@ -131,12 +130,81 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->upload->projectId > 0);
     $this->assertTrue(is_string($this->upload->answer));
   }
-  
-  /*public function testSaveFile() {
+
+ /**
+   * @dataProvider correctVersionData
+   */
+  public function testDoUploadCorrectVersion($projectTitle, $projectDescription, $fileName, $fileType, $versionCode, $versionName, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
+    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
+    $fileChecksum = md5_file($testFile);
+    $fileSize = filesize($testFile);
+    
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+    $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
+    $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+    $fileSize = filesize($testFile);
+    $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
+    $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
+    $projectPath = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$insertId;
+    
+    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertNotEquals(0, $insertId);
+    $this->assertTrue(is_file($filePath));
+    $this->assertTrue($this->upload->projectId > 0);
+    $this->assertEquals($this->upload->versionName, $versionName);
+    $this->assertEquals($this->upload->versionCode, $versionCode);
+    $this->assertTrue($this->upload->fileChecksum != null);
+    $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
+    $this->assertTrue(is_string($this->upload->answer));
+
+    // cleanup
+    $this->upload->removeProjectFromFilesystem($filePath, $insertId);
+    $this->upload->removeProjectFromDatabase($insertId);
   }
 
-  public function saveThumbnail() {
-  }*/
+  /**
+   * @dataProvider incorrectVersionData
+   */
+  public function testDoUploadWrongVersion($projectTitle, $projectDescription, $fileName, $fileType, $versionCode, $versionName, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
+    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
+    $fileChecksum = md5_file($testFile);
+    $fileSize = filesize($testFile);
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+    $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
+    $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+    $fileSize = filesize($testFile);
+    $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
+    $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
+    $projectPath = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$insertId;
+
+    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertNotEquals(0, $insertId);
+    $this->assertTrue(is_file($filePath));
+    $this->assertTrue($this->upload->projectId > 0);
+    $this->assertEquals($this->upload->versionName, "");
+    $this->assertEquals($this->upload->versionCode, 0);
+    $this->assertTrue($this->upload->fileChecksum != null);
+    $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
+    $this->assertTrue(is_string($this->upload->answer));
+
+    // cleanup
+    $this->upload->removeProjectFromFilesystem($filePath, $insertId);
+    $this->upload->removeProjectFromDatabase($insertId);
+  }  
+  
+  /**
+   * @dataProvider versionInfo
+   */
+  public function testSaveVersionInfo($projectId, $versionCode, $versionName) {
+    $this->assertTrue($this->upload->saveVersionInfo($projectId, $versionCode, $versionName));
+    $this->assertEquals($this->getVersionInfo($projectId, "versionName"), $versionName);
+    $this->assertEquals($this->getVersionInfo($projectId, "versionCode"), $versionCode);
+  }
+  
+  /*
+   * public function testSaveFile() {}
+   * public function saveThumbnail() {}
+   */
   
   /**
    * @dataProvider testVersion4
@@ -210,7 +278,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
 
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
@@ -248,7 +315,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
 
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
@@ -286,7 +352,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
 
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
@@ -324,7 +389,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
 
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
@@ -359,7 +423,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     //test deleting from filesystem
     $this->upload->removeProjectFromFilesystem($filePath, $insertId);
     $this->assertFalse(is_file($filePath));
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
 
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
@@ -369,27 +432,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
   }
 
   /* *** DATA PROVIDERS *** */
-  public function correctPostDataVersion4() {
-    $fileName = 'test_v4.zip';
-    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
-    $fileChecksum = md5_file($testFile);
-    $fileSize = filesize($testFile);
-    $fileType = 'application/x-zip-compressed';
-    $dataArray = array(
-    array('unitTest version 4', 'my project description for catroid version 4', $testFile, $fileName, $fileChecksum, $fileSize, $fileType));
-    return $dataArray;
-  }
-  public function correctPostDataVersion5() {
-    $fileName = 'test_v5.zip';
-    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
-    $fileChecksum = md5_file($testFile);
-    $fileSize = filesize($testFile);
-    $fileType = 'application/x-zip-compressed';
-    $dataArray = array(
-    array('unitTest version 5', 'my project description for catroid version 5', $testFile, $fileName, $fileChecksum, $fileSize, $fileType));
-    return $dataArray;
-  }
-  
   public function correctPostData() {
     $fileName = 'test.zip';
     $fileNameWithThumbnail = 'test2.zip';
@@ -401,15 +443,15 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileSizeWithThumbnail = filesize($testFileWithThumbnail);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-    array('unitTest', 'my project description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
-//    array('unitTest with empty description', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-//    array('unitTest with a very very very very long title and no description, hopefully not too long', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-//    array('unitTest with special chars: ä, ü, ö', 'jüßt 4 spècia1 char **test** %&()[]{}_|~#', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-//    array('unitTest with included Thumbnail', 'this project contains its thumbnail inside the zip file', $testFileWithThumbnail, $fileNameWithThumbnail, $fileChecksumWithThumbnail, $fileSizeWithThumbnail, $fileType),
-//    array('unitTest with long description', 'this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-//    array('unitTest with IMEI, Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, '12345rtgfb67854', 'catroid_unittest@gmail.com', 'en'),
-//    array('unitTest', 'my project description with thumbnail in root folder.', $testFile, 'test2.zip', $fileChecksum, $fileSize, $fileType),
-//    array('unitTest', 'my project description with thumbnail in images folder.', $testFile, 'test3.zip', $fileChecksum, $fileSize, $fileType),
+      array('unitTest', 'my project description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+      array('unitTest with empty description', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+      array('unitTest with a very very very very long title and no description, hopefully not too long', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+      array('unitTest with special chars: ä, ü, ö', 'jüßt 4 spècia1 char **test** %&()[]{}_|~#', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+      array('unitTest with included Thumbnail', 'this project contains its thumbnail inside the zip file', $testFileWithThumbnail, $fileNameWithThumbnail, $fileChecksumWithThumbnail, $fileSizeWithThumbnail, $fileType),
+      array('unitTest with long description', 'this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+      array('unitTest with IMEI, Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, '12345rtgfb67854', 'catroid_unittest@gmail.com', 'en'),
+      array('unitTest', 'my project description with thumbnail in root folder.', $testFile, 'test2.zip', $fileChecksum, $fileSize, $fileType),
+      array('unitTest', 'my project description with thumbnail in images folder.', $testFile, 'test3.zip', $fileChecksum, $fileSize, $fileType),
     );
     return $dataArray;
   }
@@ -437,6 +479,24 @@ class uploadTest extends PHPUnit_Framework_TestCase
     return $dataArray;
   }
 
+  public function correctVersionData() {
+    $fileType = 'application/x-zip-compressed';
+    $dataArray = array(
+      array('unitTest for correct version info 4', 'my project description for correct version info.', 'test_version4.zip', $fileType, 4, '0.4.3d'),
+      array('unitTest for correct version info 5', 'my project description for correct version info.', 'test_version5.zip', $fileType, 5, '0.5.1')
+    );
+    return $dataArray;
+  }
+
+  public function incorrectVersionData() {
+    $fileType = 'application/x-zip-compressed';
+    $dataArray = array(
+      array('unitTest for incorrect version info 4', 'my project description for incorrect version info.', 'test.zip', $fileType, 0, ''),
+      array('unitTest for incorrect version info 5', 'my project description for incorrect version info.', 'test2.zip', $fileType, 0, '')
+    );
+    return $dataArray;
+  }
+      
   public function correctPostDataThumbailInRootFolderJPG() {
     $fileName = 'test_thumbnail_jpg.zip';
     $testFile = dirname(__FILE__).'/testdata/'.$fileName;
@@ -519,17 +579,43 @@ class uploadTest extends PHPUnit_Framework_TestCase
     return $dataArray;
   }
 
-  public function testVersion4() {
+  public function testVersion4() { // xml, version-code, version-name
     $dataArray = array(
-    array("<project versionCode=\"4\" versionName=\"0.4.3d\"><stage><brick id=\"13\" type=\"0\">", "4", "0.4.3d"));
+      array("<project versionCode=\"4\" versionName=\"0.4.3d\"><stage><brick id=\"13\" type=\"0\">", 4, "0.4.3d"),
+      array("<project><stage><brick id=\"13\" type=\"0\">", 0, "")
+    );
     return $dataArray;
   }
 
   public function testVersion5() {
     $dataArray = array(
-    array("<project><versionName>0.5.1</versionName><versionCode>5</versionCode></project>", "5", "0.5.1"));
+      array("<project><versionName>0.5.1</versionName><versionCode>5</versionCode></project>", 5, "0.5.1"),
+      array("<project><version>0.5.1</version><code>5</code></project>", 0, "")
+    );
+    return $dataArray;
+  }
+
+  public function versionInfo() {
+    $dataArray = array(
+      array(1, 4, "0.5.1"),
+      array(1, 5, "0.4.3.d"),
+      array(1, 6, "1.0"),
+      array(1, 0, "")
+      );
     return $dataArray;
   }
   
+  private function getVersionInfo($projectId, $col) {
+    $query = "EXECUTE get_project_by_id('$projectId');";
+    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $projects = pg_fetch_all($result);
+    pg_free_result($result);
+    foreach($projects as $project) {
+      if ($col == "versionName") return $project['version_name'];
+      if ($col == "versionCode") return $project['version_code'];
+    }
+    return null;
+  }
 }
+
 ?>
