@@ -1,5 +1,17 @@
+# use glob syntax.
+syntax: glob
+single_test_tmp.xml
+*.project
+*.classpath
+*~
+
+# switch to regexp syntax.
 syntax: regexp
+^addons/board/cache$
 ^resources/projects$
 ^resources/qrcodes$
 ^resources/thumbnails$
 ^resources/catroid$
+^tests/selenium-grid/target$
+^tests/selenium-grid/remote-control/"$
+
