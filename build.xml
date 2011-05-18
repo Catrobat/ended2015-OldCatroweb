@@ -357,6 +357,36 @@
     <echo message=""/>
   </target>
 
+  <target name="-selenium-grid-group-test" depends="-start-selenium-grid-local-testsuite, -get-selenium-grid-group-test-parameter">
+    <echo message=""/>
+    <echo message="========== HTTP REPORT ========== "/>
+    <echo message=""/>
+    <echo message="check your test report at:"/>
+    <echo message=" http://localhost/tests/selenium-grid/target/reports"/>
+    <echo message=""/>
+    <echo message=""/>
+
+    <antcall target='selenium-grid.run-group-test'>
+      <param name="group-test" value="${test.group}" />
+      <param name="browser" value="${test.browser}" />
+    </antcall>
+  </target>
+  
+  <target name="-get-selenium-grid-group-test-parameter">
+    <input
+      message="Please enter a group to test (e.g.: firefox): "
+      addproperty="test.group"
+    />
+
+    <echo message=""/>
+    <echo message="========== Notice ========== "/>
+    <echo message=""/>
+    <echo message="you can repeat this test by running:"/>
+    <echo message=" ant run-selenium-group-test -Dtest.browser=${test.browser} -Dtest.group=${test.group}"/>
+    <echo message=""/>
+    <echo message=""/>
+  </target>
+
   <target name="-selenium-grid-tests-remote" depends="-get-selenium-grid-test-browser">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
@@ -667,6 +697,7 @@
   <target name="run-selenium-local-tests" depends="-selenium-grid-tests-admin-local, -selenium-grid-tests-catroid-local" />
   <target name="run-selenium-remote-tests" depends="deploy-test-with-tests, -selenium-grid-tests-remote" />
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
+  <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />
   <target name="run-selenium-api-tests" depends="-selenium-start-server, -selenium-tests-api, -selenium-stop-server" />
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />

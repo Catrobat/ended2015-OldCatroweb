@@ -31,16 +31,16 @@ public class ExternalLinkTester {
   protected String seleniumHost;
   protected int seleniumPort;
   protected String browser;
-  
+
   public ExternalLinkTester(String seleniumHost, int seleniumPort, String browser) {
     this.seleniumHost = seleniumHost;
     this.seleniumPort = seleniumPort;
     this.browser = browser;
     this.selenium = Collections.synchronizedList(new ArrayList<Selenium>());
   }
-  
+
   public void cleanup() {
-    for(Selenium session : this.selenium) { 
+    for(Selenium session : this.selenium) {
       session.close();
       session.stop();
     }
@@ -67,7 +67,7 @@ public class ExternalLinkTester {
     }
     return getSession("http://" + temp[0] + "/", temp[1]);
   }
-  
+
   public Selenium getSession(String basePath, String path) {
     Selenium session = new DefaultSelenium(this.seleniumHost, this.seleniumPort, this.browser, basePath);
     session.start();

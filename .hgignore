@@ -1,5 +1,6 @@
 # use glob syntax.
 syntax: glob
+group_test_tmp.xml
 single_test_tmp.xml
 *.project
 *.classpath
