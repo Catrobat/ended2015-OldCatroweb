@@ -19,86 +19,83 @@
 package at.tugraz.ist.catroweb.catroid;
 
 import org.testng.annotations.Test;
-import com.thoughtworks.selenium.Selenium;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-public class HeaderTests extends BaseTest{
-  
-  @Test(groups = {"catroid", "firefox", "default"}, description = "check menu home button")
- public void headerMenuButtons() throws Throwable {
+public class HeaderTests extends BaseTest {
+  @Test(groups = { "catroid", "firefox", "default" }, description = "check menu home button")
+  public void headerMenuButtons() throws Throwable {
     this.session.open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
     assertFalse(this.session.isElementPresent("headerHomeButton"));
     assertTrue(this.session.isVisible("headerMenuButton"));
-    
+
     this.session.click("headerMenuButton");
     waitForPageToLoad();
     assertTrue(this.session.isVisible("headerHomeButton"));
     assertFalse(this.session.isElementPresent("headerMenuButton"));
-    
+
     this.session.click("headerHomeButton");
     waitForPageToLoad();
     ajaxWait();
-    assertRegExp(".*/catroid/index(/[0-9]+)?",this.session.getLocation());
+    assertRegExp(".*/catroid/index(/[0-9]+)?", this.session.getLocation());
     assertTrue(this.session.isVisible("headerMenuButton"));
     assertFalse(this.session.isElementPresent("headerHomeButton"));
- }
-  
-  @Test(groups = {"catroid", "firefox", "default"}, description = "check header buttons, search bar visibility, etc.")
-  public void  headerButtonsIndex()
-  {   
+  }
+
+  @Test(groups = { "catroid", "firefox", "default" }, description = "check header buttons, search bar visibility, etc.")
+  public void headerButtonsIndex() {
     this.session.open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
 
     assertFalse(this.session.isVisible("headerSearchBox"));
     assertFalse(this.session.isVisible("headerCancelSearchButton"));
     assertTrue(this.session.isVisible("headerSearchButton"));
-    assertTrue(this.session.isVisible("headerMenuButton"));  
-    
+    assertTrue(this.session.isVisible("headerMenuButton"));
+
     this.session.click("headerSearchButton");
-    ajaxWait();    
+    ajaxWait();
     assertTrue(this.session.isVisible("headerSearchBox"));
     assertTrue(this.session.isVisible("headerCancelSearchButton"));
     assertFalse(this.session.isVisible("headerSearchButton"));
     assertFalse(this.session.isVisible("headerMenuButton"));
-    
+
     this.session.click("headerCancelSearchButton");
     ajaxWait();
     assertFalse(this.session.isVisible("headerSearchBox"));
     assertFalse(this.session.isVisible("headerCancelSearchButton"));
     assertTrue(this.session.isVisible("headerSearchButton"));
     assertTrue(this.session.isVisible("headerMenuButton"));
-    
+
     this.session.click("headerMenuButton");
     waitForPageToLoad();
-    assertRegExp(".*/catroid/menu$", this.session.getLocation());    
-  } 
+    assertRegExp(".*/catroid/menu$", this.session.getLocation());
+  }
 
   @Test(groups = { "catroid", "firefox", "default" }, description = "home button: check button visibility")
   public void headerHomeButton() throws Throwable {
     this.session.open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
-    
+
     assertTrue(this.session.isVisible("headerMenuButton"));
     assertTrue(this.session.isVisible("headerSearchButton"));
     assertFalse(this.session.isElementPresent("headerHomeButton"));
-    
-    this.session.click("xpath=//a[@class='license'][4]");    
+
+    this.session.click("xpath=//a[@class='license'][4]");
     waitForPageToLoad();
-    
+
     assertTrue(this.session.isVisible("headerMenuButton"));
     assertTrue(this.session.isVisible("headerHomeButton"));
-    assertFalse(this.session.isElementPresent("headerSearchButton"));    
-    
-    this.session.click("aIndexWebLogoLeft");    
+    assertFalse(this.session.isElementPresent("headerSearchButton"));
+
+    this.session.click("aIndexWebLogoLeft");
     waitForPageToLoad();
     ajaxWait();
-    
+
     assertTrue(this.session.isVisible("headerMenuButton"));
     assertTrue(this.session.isVisible("headerSearchButton"));
-    assertFalse(this.session.isElementPresent("headerHomeButton"));        
+    assertFalse(this.session.isElementPresent("headerHomeButton"));
   }
 }

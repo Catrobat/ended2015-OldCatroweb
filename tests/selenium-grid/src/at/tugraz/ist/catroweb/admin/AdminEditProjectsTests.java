@@ -19,18 +19,16 @@
 package at.tugraz.ist.catroweb.admin;
 
 import org.testng.annotations.Test;
-import com.thoughtworks.selenium.Selenium;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
-public class AdminEditProjectsTests extends BaseTest{
-  
-    @Test(groups = {"catroid", "firefox", "default"}, description = "Header Buttons Index")
-    public void headerButtonsIndex() throws Throwable {
-        this.session.setSpeed("1000");
-        this.session.open("/");
-        this.session.waitForPageToLoad(Config.TIMEOUT);
-    }
-}
 
+public class AdminEditProjectsTests extends BaseTest {
+  @Test(groups = { "catroid", "firefox", "default" }, description = "Header Buttons Index")
+  public void headerButtonsIndex() throws Throwable {
+    this.session.setSpeed("1000");
+    this.session.open(Config.TESTS_BASE_PATH);
+    this.session.waitForPageToLoad(Config.TIMEOUT);
+  }
+}

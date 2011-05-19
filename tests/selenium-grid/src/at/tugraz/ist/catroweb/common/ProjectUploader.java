@@ -38,6 +38,7 @@ import org.apache.http.util.EntityUtils;
 public class ProjectUploader {
   protected List<HashMap<String, String>> uploadedProjects;
   protected String webSite;
+
   public ProjectUploader(String webSite) {
     this.uploadedProjects = Collections.synchronizedList(new ArrayList<HashMap<String, String>>());
     this.webSite = webSite;
@@ -54,7 +55,7 @@ public class ProjectUploader {
     upload(new HashMap<String, String>());
   }
 
-  public void upload(HashMap<String, String> payload) {
+  public String upload(HashMap<String, String> payload) {
     HttpClient httpclient = new DefaultHttpClient();
     HashMap<String, String> verifiedPayload = verifyPayload(payload);
     try {
@@ -74,21 +75,22 @@ public class ProjectUploader {
       HttpEntity resEntity = response.getEntity();
 
       if(resEntity != null) {
-        String projectId = CommonFunctions.getValueFromJSONobject(EntityUtils.toString(resEntity), "projectId");
+        String answer = EntityUtils.toString(resEntity);
+        String projectId = CommonFunctions.getValueFromJSONobject(answer, "projectId");
         verifiedPayload.put("projectId", projectId);
         this.uploadedProjects.add(verifiedPayload);
+        return answer;
       }
-      EntityUtils.consume(resEntity);
     } catch(Exception e) {
       System.out.println("Unknown Exception - upload failed!");
-      e.printStackTrace();
+      return "";
     } finally {
       try {
         httpclient.getConnectionManager().shutdown();
       } catch(Exception ignore) {
       }
-
     }
+    return "";
   }
 
   public String getProjectId(String key) {
@@ -173,19 +175,15 @@ public class ProjectUploader {
       statement.close();
       connection.close();
     } catch(SQLException e) {
-      e.printStackTrace();
+      System.out.println("ProjectUploader: deleteProject: SQL Exception couldn't execute sql query!");
     }
 
     (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + projectId + Config.PROJECTS_EXTENTION)).delete();
     (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_QR_DIRECTORY + projectId + Config.PROJECTS_QR_EXTENTION)).delete();
-    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_ORIG))
-        .delete();
-    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_SMALL))
-        .delete();
-    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_LARGE))
-        .delete();
-    CommonFunctions.deleteDir(new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_UNZIPPED_DIRECTORY + projectId
-        + Config.FILESYSTEM_SEPARATOR));
+    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_ORIG)).delete();
+    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_SMALL)).delete();
+    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_LARGE)).delete();
+    CommonFunctions.deleteDir(new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_UNZIPPED_DIRECTORY + projectId + Config.FILESYSTEM_SEPARATOR));
   }
 
   private HashMap<String, String> getProject(String key) {

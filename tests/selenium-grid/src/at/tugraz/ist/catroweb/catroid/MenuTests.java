@@ -25,7 +25,6 @@ import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
 public class MenuTests extends BaseTest{
-
   @Test(groups = {"menu", "firefox", "default"}, description = "check button visibility")
   public void buttonVisibility() throws Throwable {    
     this.session.open(Config.TESTS_BASE_PATH);

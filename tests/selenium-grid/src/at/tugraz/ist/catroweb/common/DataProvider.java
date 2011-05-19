@@ -20,65 +20,51 @@ package at.tugraz.ist.catroweb.common;
 
 import java.util.HashMap;
 
-public class DataProvider  {
-
-  /** Description of getRandomLongString()
-   * 
-   * @return      random long string
-   */
+public class DataProvider {
   public static String getRandomLongString() {
-    String str="";
+    String str = "";
     int strLen = 200;
     String chars = "abcdefghijklmnopqrstuvwxyz1234567890";
-    for(int i=0;i<strLen;i++) {
-        java.util.Random rand = new java.util.Random();
-        str += chars.charAt(rand.nextInt(chars.length()));
+    for(int i = 0; i < strLen; i++) {
+      java.util.Random rand = new java.util.Random();
+      str += chars.charAt(rand.nextInt(chars.length()));
     }
     return str;
   }
-  
-	/** Description of getLoginUserDefault()
-	 * 
-	 * @return			default test username
-	 */
-	public static String getLoginUserDefault()
-	{	
-		return "catroweb";
-	}
-	
-	 /** Description of getLoginPasswordDefault()
-   * 
-   * @return      default test passsword
-   */
-  public static String getLoginPasswordDefault()
-  { 
+
+  public static String getLoginUserDefault() {
+    return "catroweb";
+  }
+
+  public static String getLoginPasswordDefault() {
     return "cat.roid.web";
-  }	
-  
-  public static HashMap<String, String> getUploadPayload(String projectTitle, String projectDescription, String filename, String fileChecksum, String deviceIMEI, String userEmail, String userLanguage, String token){
+  }
+
+  public static HashMap<String, String> getUploadPayload(String projectTitle, String projectDescription, String filename, String fileChecksum,
+      String deviceIMEI, String userEmail, String userLanguage, String token) {
     HashMap<String, String> data = new HashMap<String, String>();
-    if (!projectTitle.isEmpty()){
-        data.put("projectTitle", projectTitle);
+    if(!projectTitle.isEmpty()) {
+      data.put("projectTitle", projectTitle);
     }
-    if (!projectDescription.isEmpty()){
+    if(!projectDescription.isEmpty()) {
       data.put("projectDescription", projectDescription);
     }
-    if (!filename.isEmpty()){      
-      data.put("upload",  Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + Config.FILESYSTEM_SEPARATOR + filename);
+    if(!filename.isEmpty()) {
+      data.put("upload", Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + Config.FILESYSTEM_SEPARATOR + filename);
     }
-    if (!fileChecksum.isEmpty()){
+    if(!fileChecksum.isEmpty()) {
       data.put("fileChecksum", fileChecksum);
     }
-    if (!deviceIMEI.isEmpty()){
+    if(!deviceIMEI.isEmpty()) {
       data.put("deviceIMEI", deviceIMEI);
     }
-    if (!userEmail.isEmpty()){
+    if(!userEmail.isEmpty()) {
       data.put("userEmail", userEmail);
     }
-    if (!userLanguage.isEmpty()){
+    if(!userLanguage.isEmpty()) {
       data.put("userLanguage", userLanguage);
     }
-    if (!token.isEmpty()){
+    if(!token.isEmpty()) {
       data.put("token", token);
     }
     return data;

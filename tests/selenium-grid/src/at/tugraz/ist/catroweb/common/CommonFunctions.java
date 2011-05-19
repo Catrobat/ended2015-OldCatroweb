@@ -25,7 +25,6 @@ import java.util.Map;
 import org.json.simple.JSONValue;
 
 public class CommonFunctions {
- 
   public static void deleteDir(File directory) {
     if(directory.isDirectory()) {
       String[] children = directory.list();
@@ -45,12 +44,20 @@ public class CommonFunctions {
   }
 
   public static String getValueFromJSONobject(String json, String key) {
+    if(json.indexOf("{") != 0) {
+      System.out.println("********************************************************************");
+      System.out.println("> Invalid json object!");
+      System.out.println(json);
+      System.out.println("********************************************************************");
+      return "";
+    }
+
     Map<?, ?> array = (Map<?, ?>) JSONValue.parse(json);
-    Iterator<?> iter = array.entrySet().iterator();    
+    Iterator<?> iter = array.entrySet().iterator();
     while(iter.hasNext()) {
       Map.Entry<?, ?> entry = (Map.Entry<?, ?>) iter.next();
       if(entry.getKey().equals(key)) {
-        return (String)entry.getValue();
+        return (String) entry.getValue();
       }
     }
     return "";

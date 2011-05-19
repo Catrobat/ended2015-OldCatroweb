@@ -19,24 +19,17 @@
 package at.tugraz.ist.catroweb.common;
 
 public class Config {
+  public static final String TESTS_BASE_PATH = "/";
+  // public static final String TESTS_BASE_PATH = "/catroweb/";
 
   public static final String DB_USER = "website";
   public static final String DB_PASS = "cat.roid.web";
   public static final String DB_HOST = "jdbc:postgresql://localhost/";
   public static final String DB_NAME = "catroweb";
 
-  /**
-   * test base path
-   */
-  public static final String TESTS_BASE_PATH = "/";
-  // public static final String TESTS_BASE_PATH = "/catroweb/";
-
-  /**
-   * filesystem base path
-   */
-  public static final String FILESYSTEM_SEPARATOR = System.getProperty("file.separator");  
+  public static final String FILESYSTEM_SEPARATOR = System.getProperty("file.separator");
   public static final String FILESYSTEM_BASE_PATH = System.getProperty("user.dir") + FILESYSTEM_SEPARATOR;
-  
+
   public static final String SELENIUM_GRID_TESTDATA = "tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "testdata"
       + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "projects" + FILESYSTEM_SEPARATOR;
@@ -47,7 +40,7 @@ public class Config {
   public static final String PROJECTS_THUMBNAIL_EXTENTION_ORIG = "_original.jpg";
   public static final String PROJECTS_THUMBNAIL_EXTENTION_SMALL = "_small.jpg";
   public static final String PROJECTS_THUMBNAIL_EXTENTION_LARGE = "_large.jpg";
-  
+
   public static final int PROJECT_PAGE_LOAD_MAX_PROJECTS = 5;
   public static final int PROJECT_PAGE_SHOW_MAX_PAGES = 5;
   public static final String PROJECTS_EXTENTION = ".zip";

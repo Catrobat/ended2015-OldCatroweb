@@ -18,39 +18,28 @@
 
 package at.tugraz.ist.catroweb.api;
 
-import java.util.HashMap;
-
-import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
+import org.testng.annotations.Test;
 
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-public class UploadTests extends BaseTest{
-  
-  @Test(groups = {"upload", "firefox", "default"}, description = "upload valid projects")    
+public class UploadTests extends BaseTest {
+  @Test(groups = { "upload", "firefox", "default" }, description = "upload valid projects")
   public void uploadValidProjects() {
-    this.session.open("/");
+    this.session.open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
     ajaxWait();
-    //projectUploader.upload();
+    projectUploader.upload(DataProvider.getUploadPayload("testing project upload", "some description for my test project.", "test.zip",
+        "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0"));
   }
-  
-  @Test(groups = {"upload", "firefox", "default"}, description = "upload invalid projects")    
+
+  @Test(groups = { "upload", "firefox", "default" }, description = "upload invalid projects")
   public void uploadInvalidProjects() {
-    this.session.open("/");
+    this.session.open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
     ajaxWait();
-    /*
-    $returnArray = array(
-        array('insulting word in description', 'fuck the project!!!!', 'test.zip', '0'),
-        array('fucking word in title', 'some description', 'test.zip', '0'),
-        array('no token given', 'some description', 'test.zip', ''),
-        array('wrong token given', 'some description', 'test.zip', '123'),
-        );
-*/      
-    projectUploader.upload(DataProvider.getUploadPayload("insulting word in description", "fuck the project!!!!", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0"));
-    
+    projectUploader.upload(DataProvider.getUploadPayload("insulting word in description", "fuck the project!!!!", "test.zip",
+        "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0"));
   }
-  
 }
