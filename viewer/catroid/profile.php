@@ -105,7 +105,7 @@
 											</div>
           		   			<br>
           		   			<div id="profileCancelDiv">
-                      <input type="button" name="profileCancel" id="profileCancel" value="Cancel the process" class="button orange compact profileSubmitButton">
+                      <input type="button" name="profileCancel" id="profileCancel" value="Cancel" class="button orange compact profileSubmitButton">
                       </div>
                       <br>
                       <br>

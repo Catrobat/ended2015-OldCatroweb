@@ -69,15 +69,15 @@ var Menu = Class.$extend( {
   },
     
   doLogoutRequest : function(event) {
-	  $.ajax({ 
-    	url: this.basePath+"catroid/login/logoutRequest.json", 
-    	async: false,
-   		success: jQuery.proxy(this.logout, this)
-   	  });
-    },
+	$.ajax({ 
+      url: this.basePath+"catroid/login/logoutRequest.json", 
+  	  async: false,
+ 		success: jQuery.proxy(this.doLogout, this)
+ 	});
+  },
     
-  logout: function(event) {
-	  location.href = this.basePath+"catroid/index"; 
+  doLogout: function(event) {
+	  window.location.href = this.basePath+"catroid/login"; 
   },
 
   toggleProfileBox : function() {
@@ -94,4 +94,5 @@ var Menu = Class.$extend( {
     $("#cancelHeaderButton").toggle(false);
     $("#headerProfileBox").toggle(false);
   }
+  
 });

@@ -22,32 +22,25 @@ var HeaderMenu = Class.$extend( {
   var self = this;
     this.basePath = basePath;
     
-    this.openLocation = {
-      home: function() {
-        location.href = self.basePath+'catroid/index';
-      },        
-      menu: function() {
-        location.href = self.basePath+'catroid/menu';
-      },
-      login: function() {
-        location.href = self.basePath+'catroid/login';
-      }
-    };
-
     if($("#normalHeaderButtons").length != 0) {
       $("#normalHeaderButtons").toggle();
     }
 
-    $("#headerMenuButton").click(jQuery.proxy(this.openLocation, "menu"));
-    $("#headerHomeButton").click(jQuery.proxy(this.openLocation, "home"));
-    $("#headerSearchButton").click($.proxy(this.toggleSearchBox, this));
-    $("#headerProfileButton").click($.proxy(this.toggleProfileBox, this));
-    $("#headerCancelButton").click($.proxy(this.toggleAllBoxes, this));
-    $("#loginSubmitButton").click($.proxy(this.toggleLoginSubmit, this));
-    $("#logoutSubmitButton").click($.proxy(this.toggleAllBoxes, this));
+    $("#headerHomeButton").click({url:"catroid/index"}, jQuery.proxy(this.openLocation, this));
+    $("#headerMenuButton").click({url:"catroid/menu"}, jQuery.proxy(this.openLocation, this));
+    $("#headerSearchButton").click(jQuery.proxy(this.toggleSearchBox, this));
+    $("#headerProfileButton").click(jQuery.proxy(this.toggleProfileBox, this));
+    $("#headerCancelButton").click(jQuery.proxy(this.toggleAllBoxes, this));
+    $("#loginSubmitButton").click(jQuery.proxy(this.doLoginSubmit, this));
+    $("#logoutSubmitButton").click(jQuery.proxy(this.doLogoutRequest, this));
+    //$("#menuLogoutButton").click(jQuery.proxy(this.doLogoutRequest, this));
     
   },
-
+  
+  openLocation : function(event) {
+    location.href = this.basePath+event.data.url;
+  },
+  
   toggleSearchBox : function() {
     $("#normalHeaderButtons").toggle(false);
     $("#cancelHeaderButton").toggle(true);
@@ -62,10 +55,61 @@ var HeaderMenu = Class.$extend( {
     $("#cancelHeaderButton").toggle(true);
     $("#headerProfileBox").toggle(true);
     if($("#headerLoginBox").css("display") == "block") {
-      $("#loginUsrname").focus();
+      $("#loginUsername").focus();
     }
   },
 
+  doLoginSubmit : function() {
+    var self = this;
+    
+    $("#loginSubmitButton").attr("disabled", "disabled");
+    $("#loginUsername").attr("disabled", "disabled");
+    $("#loginPassword").attr("disabled", "disabled");
+    
+    alert(this.basePath + 'catroid/login/loginRequest.json');
+    $.ajax({
+      type: "POST",
+      url: self.basePath + 'catroid/login/loginRequest.json',
+      data: ({
+          loginUsername: $("#loginUsername").val(),
+          loginPassword: $("#loginPassword").val()
+      }),
+      timeout: (5000),
+      
+      success : function(result){
+        //alert('test2');
+        if(result.statusCode == 200) {
+          alert('200 '+self.basePath);
+          window.location.href = self.basePath+"catroid/login"; 
+          //window.location.reload(false);   
+        }
+        else {
+          alert(self.basePath+'else'+result.answer+result.statusCode);
+          location.href = self.basePath+'catroid/login';
+        }
+        // enable form fields
+      },
+      error : function(result, errCode) {
+        alert('error : function()'+result.statusCode);
+        location.href = self.basePath+'catroid/menu';
+      }
+    });
+  },
+  
+  doLogoutRequest : function(event) {
+    $.ajax({ 
+      url: this.basePath+"catroid/login/logoutRequest.json", 
+      async: false,
+      success: jQuery.proxy(this.doLogout, this)
+    });
+  },
+  
+  doLogout: function(event) {
+    alert(this.basePath);
+    window.location.href = this.basePath+"catroid/login"; 
+    //window.location = this.basePath+"catroid/login"; 
+  },
+  
   toggleAllBoxes : function() {
     $("#normalHeaderButtons").toggle(true);
     $("#cancelHeaderButton").toggle(false);
