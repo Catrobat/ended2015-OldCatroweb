@@ -333,6 +333,46 @@ class tools extends CoreAuthenticationAdmin {
     return;
   }
 
+  public function blockUser($user_id, $user_name) {
+    $query = "EXECUTE admin_block_user('$user_id', '$user_name');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  }
+
+  public function unblockUser($user_id, $user_name) {
+    $query = "EXECUTE admin_unblock_user('$user_id', '$user_name');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  }
+  
+  public function isBlockedUser($user_id, $user_name) {
+    $query = "EXECUTE admin_is_blocked_user('$user_id', '$user_name');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    if(pg_num_rows($result)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function blockIp($ip) {
+    $query = "EXECUTE admin_block_ip('$ip');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  }
+
+  public function unblockIp($ip) {
+    $query = "EXECUTE admin_unblock_ip('$ip');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  }
+  
+  public function isBlockedIp($ip) {
+    $query = "EXECUTE admin_is_blocked_ip('$ip%');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    if(pg_num_rows($result)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   public function __destruct() {
     parent::__destruct();
   }

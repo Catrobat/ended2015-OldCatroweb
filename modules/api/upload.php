@@ -187,6 +187,10 @@ class upload extends CoreAuthenticationDevice {
     mkdir(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId);
     mkdir(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images");
     mkdir(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds");
+    // change rights
+    chmod(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId, "0666");
+    chmod(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images", "0666");
+    chmod(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds", "0666");
 
     $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
     while ($zip_entry = zip_read($zip)) {
@@ -248,16 +252,19 @@ class upload extends CoreAuthenticationDevice {
        
       // thumbnail with original filesize
       imagejpeg($thumbImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 100);
-
+      chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, "0666");
+      
       // small thumbnail for preview 240x400
       $smallImage = imagecreatetruecolor(240, $hsmallopt);
       imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, $hsmallopt, $w, $h);
       imagejpeg($smallImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 50);
-
+      chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, "0666");
+      
       // large thumbnail for details-view 480x800
       $newImage = imagecreatetruecolor(480, $hlargeopt);
       imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, $hlargeopt, $w, $h);
       imagejpeg($newImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
+      chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, "0666");
     }
   }
 
@@ -266,6 +273,7 @@ class upload extends CoreAuthenticationDevice {
     if ($fp) {
       fwrite($fp, $filecontent, $filesize);
       fclose($fp);
+      chmod($targetDir."/".$filename, "0666");
     }
   }
 

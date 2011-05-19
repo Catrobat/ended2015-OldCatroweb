@@ -56,6 +56,30 @@ abstract class CoreModule extends CoreObjectWeb {
                 $module instanceof CoreModule &&
                 $module instanceof CoreAuthentication);
     }
+    
+    public static function requestFromBlockedIp($vmodule, $vclass) {
+      $ip = getenv("REMOTE_ADDR");
+      $query = "EXECUTE admin_is_blocked_ip('$ip%');";
+      $result = pg_query($query) or die('db query_failed '.pg_last_error());
+      if(pg_num_rows($result)) {
+        // show these pages even when ip is blocked
+        if ($vmodule == "catroid") {  
+          switch ($vclass) {
+            case "privacypolicy": return false;
+            case "terms": return false;
+            case "copyrightpolicy": return false;
+            case "imprint": return false;
+            case "contactus": return false;
+            case "errorPage": return false;
+            default: return true;
+          }
+        }
+        if ($vmodule == "api") return false; //todo: handle upload block somewhere else
+        return true;
+      } else {
+        return false;
+      }
+    }
 
     public function __set($property, $value) {
         $this->data[$property] = $value;
