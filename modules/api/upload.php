@@ -311,7 +311,7 @@ class upload extends CoreAuthenticationDevice {
     $dh = opendir($dir);
     while (($file = readdir($dh)) !== false) {
        if ($file != "." && $file != "..")
-         unlink($dir."/".$file);
+         @unlink($dir."/".$file);
     }
     closedir($dh);
     rmdir($dir);
