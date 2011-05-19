@@ -400,13 +400,13 @@
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-admin-tests -DwebSite=http://catroidwebtest.ist.tugraz.at -Dbrowser=${browser}" />
+             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-admin-tests -DwebSite=http://catroidwebtest.ist.tugraz.at/ -Dbrowser=${browser}" />
 
     <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidwebtest.ist.tugraz.at -Dbrowser=${browser}" />
+             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidwebtest.ist.tugraz.at/ -Dbrowser=${browser}" />
   </target>
 
   <target name="-get-selenium-grid-test-browser">

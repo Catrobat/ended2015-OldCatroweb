@@ -41,6 +41,11 @@
       <include name="selenium-java-client-driver-${selenium.version}.jar"/>
       <include name="testng-5.7-jdk15.jar"/>
       <include name="commons-logging-1.0.4.jar"/>
+      <include name="httpclient-4.1.1.jar"/>
+      <include name="httpcore-4.1.jar"/>
+      <include name="httpmime-4.1.1.jar"/>
+      <include name="postgresql-9.0-801.jdbc4.jar"/>
+      <include name="json_simple.jar"/>
     </fileset>
     <pathelement location="${selenium-grid.basedir}/tools/target/classes"/>
     <pathelement location="${selenium-grid.basedir}/tools/target/dist/lib/selenium-grid-tools-standalone-${version}.jar"/>
