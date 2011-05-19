@@ -274,10 +274,10 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
     }
 
-//    if(!$this->badWordsFilter->areThereInsultingWords($username)) {
-//			$statusCode = 506;
-//			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
-//    }
+    if($this->badWordsFilter->areThereInsultingWords($username)) {
+			$statusCode = 506;
+			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
+    }
     
     //username must not look like an IP-address
     $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
@@ -337,7 +337,7 @@ class registration extends CoreAuthenticationNone {
 
   public function checkPassword($username, $password) {
     $username = trim($username);
-    $password = trim($password);
+    //$password = trim($password);
     if((empty($password) && strcmp('0', $password) != 0) || $password == '' || mb_strlen($password) < 1) {
       throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
     }

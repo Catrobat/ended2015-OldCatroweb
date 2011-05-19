@@ -191,6 +191,7 @@ class passwordrecovery extends CoreAuthenticationNone {
   }
   
   public function checkUserData($userData) {
+    $userData = trim($userData);
     if(empty($userData) && strcmp('0', $userData) != 0) {
       throw new Exception($this->errorHandler->getError('passwordrecovery', 'userdata_missing'));
     }

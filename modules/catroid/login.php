@@ -146,6 +146,7 @@ class login extends CoreAuthenticationNone {
 
     $user = $postData['loginUsername'];
     $user = utf8_clean_string($user);
+    $user = trim($user);
     $pass = md5($postData['loginPassword']);
     $query = "EXECUTE get_user_login('$user', '$pass')";
 
@@ -175,7 +176,7 @@ class login extends CoreAuthenticationNone {
     $user->session_begin();
     $auth->acl($user->data);
     $user->setup();
-    $auth->login($postData['loginUsername'], $postData['loginPassword'], false, 1);
+    $auth->login(trim($postData['loginUsername']), $postData['loginPassword'], false, 1);
     return($user->data['user_id']);
   }
 
@@ -199,6 +200,7 @@ class login extends CoreAuthenticationNone {
     $login_vars['action'] = "login";
     $username = $postData['loginUsername'];
     $username = utf8_clean_string($username);
+    $username = trim($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $login_vars['lgname'] = $username;
     $login_vars['lgpassword'] = $postData['loginPassword'];
