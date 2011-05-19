@@ -37,9 +37,10 @@ import org.apache.http.util.EntityUtils;
 
 public class ProjectUploader {
   protected List<HashMap<String, String>> uploadedProjects;
-
-  public ProjectUploader() {
+  protected String webSite;
+  public ProjectUploader(String webSite) {
     this.uploadedProjects = Collections.synchronizedList(new ArrayList<HashMap<String, String>>());
+    this.webSite = webSite;
   }
 
   public void cleanup() {
@@ -67,7 +68,7 @@ public class ProjectUploader {
       reqEntity.addPart("userLanguage", new StringBody(verifiedPayload.get("userLanguage")));
       reqEntity.addPart("token", new StringBody(verifiedPayload.get("token")));
 
-      HttpPost httppost = new HttpPost(this.webSite + CommonConfig.TESTS_BASE_PATH.substring(1) + "api/upload/upload.json");
+      HttpPost httppost = new HttpPost(this.webSite + Config.TESTS_BASE_PATH.substring(1) + "api/upload/upload.json");
       httppost.setEntity(reqEntity);
       HttpResponse response = httpclient.execute(httppost);
       HttpEntity resEntity = response.getEntity();
@@ -113,49 +114,49 @@ public class ProjectUploader {
   private HashMap<String, String> verifyPayload(HashMap<String, String> payload) {
     HashMap<String, String> data = new HashMap<String, String>();
 
-    String projectTitle = CommonConfig.DEFAULT_UPLOAD_TITLE;
+    String projectTitle = Config.DEFAULT_UPLOAD_TITLE;
     if(payload.containsKey("projectTitle")) {
       projectTitle = payload.get("projectTitle");
     }
     data.put("projectTitle", projectTitle);
 
-    String projectDescription = CommonConfig.DEFAULT_UPLOAD_DESCRIPTION;
+    String projectDescription = Config.DEFAULT_UPLOAD_DESCRIPTION;
     if(payload.containsKey("projectDescription")) {
       projectDescription = payload.get("projectDescription");
     }
     data.put("projectDescription", projectDescription);
 
-    String upload = CommonConfig.DEFAULT_UPLOAD_FILE;
+    String upload = Config.DEFAULT_UPLOAD_FILE;
     if(payload.containsKey("upload")) {
       upload = payload.get("upload");
     }
     data.put("upload", upload);
 
-    String fileChecksum = CommonConfig.DEFAULT_UPLOAD_CHECKSUM;
+    String fileChecksum = Config.DEFAULT_UPLOAD_CHECKSUM;
     if(payload.containsKey("fileChecksum")) {
       fileChecksum = payload.get("fileChecksum");
     }
     data.put("fileChecksum", fileChecksum);
 
-    String deviceIMEI = CommonConfig.DEFAULT_UPLOAD_IMEI;
+    String deviceIMEI = Config.DEFAULT_UPLOAD_IMEI;
     if(payload.containsKey("deviceIMEI")) {
       deviceIMEI = payload.get("deviceIMEI");
     }
     data.put("deviceIMEI", deviceIMEI);
 
-    String userEmail = CommonConfig.DEFAULT_UPLOAD_EMAIL;
+    String userEmail = Config.DEFAULT_UPLOAD_EMAIL;
     if(payload.containsKey("userEmail")) {
       userEmail = payload.get("userEmail");
     }
     data.put("userEmail", userEmail);
 
-    String userLanguage = CommonConfig.DEFAULT_UPLOAD_LANGUAGE;
+    String userLanguage = Config.DEFAULT_UPLOAD_LANGUAGE;
     if(payload.containsKey("userLanguage")) {
       userLanguage = payload.get("userLanguage");
     }
     data.put("userLanguage", userLanguage);
 
-    String token = CommonConfig.DEFAULT_UPLOAD_TOKEN;
+    String token = Config.DEFAULT_UPLOAD_TOKEN;
     if(payload.containsKey("token")) {
       token = payload.get("token");
     }
@@ -166,7 +167,7 @@ public class ProjectUploader {
 
   private void deleteProject(String projectId) {
     try {
-      Connection connection = DriverManager.getConnection(CommonConfig.DB_HOST + CommonConfig.DB_NAME, CommonConfig.DB_USER, CommonConfig.DB_PASS);
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
       statement.executeQuery("DELETE FROM projects WHERE id='" + projectId + "'");
       statement.close();
@@ -175,16 +176,16 @@ public class ProjectUploader {
       e.printStackTrace();
     }
 
-    (new File(CommonConfig.FILESYSTEM_BASE_PATH + CommonConfig.PROJECTS_DIRECTORY + projectId + CommonConfig.PROJECTS_EXTENTION)).delete();
-    (new File(CommonConfig.FILESYSTEM_BASE_PATH + CommonConfig.PROJECTS_QR_DIRECTORY + projectId + CommonConfig.PROJECTS_QR_EXTENTION)).delete();
-    (new File(CommonConfig.FILESYSTEM_BASE_PATH + CommonConfig.PROJECTS_THUMBNAIL_DIRECTORY + projectId + CommonConfig.PROJECTS_THUMBNAIL_EXTENTION_ORIG))
+    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + projectId + Config.PROJECTS_EXTENTION)).delete();
+    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_QR_DIRECTORY + projectId + Config.PROJECTS_QR_EXTENTION)).delete();
+    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_ORIG))
         .delete();
-    (new File(CommonConfig.FILESYSTEM_BASE_PATH + CommonConfig.PROJECTS_THUMBNAIL_DIRECTORY + projectId + CommonConfig.PROJECTS_THUMBNAIL_EXTENTION_SMALL))
+    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_SMALL))
         .delete();
-    (new File(CommonConfig.FILESYSTEM_BASE_PATH + CommonConfig.PROJECTS_THUMBNAIL_DIRECTORY + projectId + CommonConfig.PROJECTS_THUMBNAIL_EXTENTION_LARGE))
+    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_LARGE))
         .delete();
-    CommonFunctions.deleteDir(new File(CommonConfig.FILESYSTEM_BASE_PATH + CommonConfig.PROJECTS_UNZIPPED_DIRECTORY + projectId
-        + CommonConfig.FILESYSTEM_SEPARATOR));
+    CommonFunctions.deleteDir(new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_UNZIPPED_DIRECTORY + projectId
+        + Config.FILESYSTEM_SEPARATOR));
   }
 
   private HashMap<String, String> getProject(String key) {

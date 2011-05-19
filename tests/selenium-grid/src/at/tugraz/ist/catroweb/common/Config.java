@@ -18,7 +18,7 @@
 
 package at.tugraz.ist.catroweb.common;
 
-public class CommonConfig {
+public class Config {
 
   public static final String DB_USER = "website";
   public static final String DB_PASS = "cat.roid.web";
@@ -34,9 +34,9 @@ public class CommonConfig {
   /**
    * filesystem base path
    */
-  public static final String FILESYSTEM_SEPARATOR = System.getProperty("file.separator");
-  
+  public static final String FILESYSTEM_SEPARATOR = System.getProperty("file.separator");  
   public static final String FILESYSTEM_BASE_PATH = System.getProperty("user.dir") + FILESYSTEM_SEPARATOR;
+  
   public static final String SELENIUM_GRID_TESTDATA = "tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "testdata"
       + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "projects" + FILESYSTEM_SEPARATOR;
@@ -47,8 +47,9 @@ public class CommonConfig {
   public static final String PROJECTS_THUMBNAIL_EXTENTION_ORIG = "_original.jpg";
   public static final String PROJECTS_THUMBNAIL_EXTENTION_SMALL = "_small.jpg";
   public static final String PROJECTS_THUMBNAIL_EXTENTION_LARGE = "_large.jpg";
-  public static final String PROJECT_PAGE_LOAD_MAX_PROJECTS = "5";
-  public static final String PROJECT_PAGE_SHOW_MAX_PAGES = "5";
+  
+  public static final int PROJECT_PAGE_LOAD_MAX_PROJECTS = 5;
+  public static final int PROJECT_PAGE_SHOW_MAX_PAGES = 5;
   public static final String PROJECTS_EXTENTION = ".zip";
 
   public static final String DEFAULT_UPLOAD_TITLE = "Testproject";
@@ -60,43 +61,10 @@ public class CommonConfig {
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";
 
-  /**
-   * determines if the message is printed to the std out usage:
-   * org.testng.Reporter.log(message,true)
-   * 
-   * @true: std out + HTML.report
-   * @false: HTML report only
-   */
   public static final boolean REPORTER_LOG_TO_STD_OUT = true;
-
-  /**
-   * set slow mode (selenium)
-   */
   public static final boolean TESTS_SLOW_MODE = false;
-
-  /**
-   * value used if slow mode is on; execution time in ms for each command
-   * (selenium)
-   */
   public static final int TESTS_SLOW_SPEED = 1000;
-
-  /**
-   * selenium waitForPageToLoad-command: waits 10000ms
-   */
   public static final String WAIT_FOR_PAGE_TO_LOAD_LONG = "10000";
-
-  /**
-   * selenium waitForPageToLoad-command: waits 1000ms
-   */
-  // public static final String WAIT_FOR_PAGE_TO_LOAD_SHORT = "1000";
-
-  /**
-   * selenium setTimout-command: waits 120000ms
-   */
   public static final String TIMEOUT = "120000";
-
-  /**
-   * timeout for ajax request: waits 5000ms
-   */
   public static final String TIMEOUT_AJAX = "5000";
 }

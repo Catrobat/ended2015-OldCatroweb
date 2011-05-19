@@ -18,7 +18,9 @@
 
 package at.tugraz.ist.catroweb.common;
 
-public class CommonDataProvider  {
+import java.util.HashMap;
+
+public class DataProvider  {
 
   /** Description of getRandomLongString()
    * 
@@ -52,4 +54,33 @@ public class CommonDataProvider  {
   { 
     return "cat.roid.web";
   }	
+  
+  public static HashMap<String, String> getUploadPayload(String projectTitle, String projectDescription, String filename, String fileChecksum, String deviceIMEI, String userEmail, String userLanguage, String token){
+    HashMap<String, String> data = new HashMap<String, String>();
+    if (!projectTitle.isEmpty()){
+        data.put("projectTitle", projectTitle);
+    }
+    if (!projectDescription.isEmpty()){
+      data.put("projectDescription", projectDescription);
+    }
+    if (!filename.isEmpty()){      
+      data.put("upload",  Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + Config.FILESYSTEM_SEPARATOR + filename);
+    }
+    if (!fileChecksum.isEmpty()){
+      data.put("fileChecksum", fileChecksum);
+    }
+    if (!deviceIMEI.isEmpty()){
+      data.put("deviceIMEI", deviceIMEI);
+    }
+    if (!userEmail.isEmpty()){
+      data.put("userEmail", userEmail);
+    }
+    if (!userLanguage.isEmpty()){
+      data.put("userLanguage", userLanguage);
+    }
+    if (!token.isEmpty()){
+      data.put("token", token);
+    }
+    return data;
+  }
 }
