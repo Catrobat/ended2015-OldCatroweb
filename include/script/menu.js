@@ -50,6 +50,10 @@ var Menu = Class.$extend( {
       $("#menuLoginButton").toggle(true);
       $("#menuLogoutButton").toggle(false);
     }
+    
+    $("#headerLoginButton").click($.proxy(this.toggleProfileBox, this));
+    $("#headerCancelButton").click($.proxy(this.toggleAllBoxes, this));
+    
   },
   
   goBack : function(event) {
@@ -75,4 +79,19 @@ var Menu = Class.$extend( {
   logout: function(event) {
 	  location.href = this.basePath+"catroid/index"; 
   },
+
+  toggleProfileBox : function() {
+    $("#normalHeaderButtons").toggle(false);
+    $("#cancelHeaderButton").toggle(true);
+    $("#headerProfileBox").toggle(true);
+    if($("#headerLoginBox").css("display") == "block") {
+      $("#loginUsrname").focus();
+    }
+  },
+
+  toggleAllBoxes : function() {
+    $("#normalHeaderButtons").toggle(true);
+    $("#cancelHeaderButton").toggle(false);
+    $("#headerProfileBox").toggle(false);
+  }
 });

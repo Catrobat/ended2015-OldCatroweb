@@ -41,17 +41,37 @@ var HeaderMenu = Class.$extend( {
     $("#headerMenuButton").click(jQuery.proxy(this.openLocation, "menu"));
     $("#headerHomeButton").click(jQuery.proxy(this.openLocation, "home"));
     $("#headerSearchButton").click($.proxy(this.toggleSearchBox, this));
-    $("#headerCancelSearchButton").click($.proxy(this.toggleSearchBox, this));
-    $("#headerLoginButton").click(jQuery.proxy(this.openLocation, "login"));
+    $("#headerProfileButton").click($.proxy(this.toggleProfileBox, this));
+    $("#headerCancelButton").click($.proxy(this.toggleAllBoxes, this));
+    $("#loginSubmitButton").click($.proxy(this.toggleLoginSubmit, this));
+    $("#logoutSubmitButton").click($.proxy(this.toggleAllBoxes, this));
+    
   },
 
   toggleSearchBox : function() {
-    $("#normalHeaderButtons").toggle();
-    $("#cancelHeaderButton").toggle();
-    $("#headerSearchBox").toggle();
+    $("#normalHeaderButtons").toggle(false);
+    $("#cancelHeaderButton").toggle(true);
+    $("#headerSearchBox").toggle(true);
     if($("#headerSearchBox").css("display") == "block") {
       $("#searchQuery").focus();
     }
-  }
+  },
+
+  toggleProfileBox : function() {
+    $("#normalHeaderButtons").toggle(false);
+    $("#cancelHeaderButton").toggle(true);
+    $("#headerProfileBox").toggle(true);
+    if($("#headerLoginBox").css("display") == "block") {
+      $("#loginUsrname").focus();
+    }
+  },
+
+  toggleAllBoxes : function() {
+    $("#normalHeaderButtons").toggle(true);
+    $("#cancelHeaderButton").toggle(false);
+    $("#headerSearchBox").toggle(false);
+    $("#headerProfileBox").toggle(false);
+  } 
+  
 });
 

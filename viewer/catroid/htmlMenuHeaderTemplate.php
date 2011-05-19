@@ -40,8 +40,35 @@
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">            
             <button type="button" class="webHeadButtons button orange  medium" id="headerHomeButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/home.png" alt="Home" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="Search" /></button>
+          </div>
+          <div id="cancelHeaderButton" class="webHeadButtons">
+            <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelButton">
+              <span class="webHeadCancelButtonText">Cancel</span>
+            </button>
           </div>
           <div style="clear:both;"></div>
+        </div>
+      </div>
+      <div id="headerProfileBox" style="display:none;">
+        <div class="webHeadBoxSpacer"></div>
+        <div class="blueBoxMain">
+          <div class="webMainHead">
+            <?php if($this->module->session->userLogin_userId <= 0) { ?>
+              <form id="loginForm">
+              	<input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="your nickname" autofocus  />
+                <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="your password"  />             
+                <input type="submit" class="button orange webHeadSubmitButton" value="Login" />
+              </form>							
+            <?php } else { ?>
+              <form id="logoutForm">
+								
+								<div id="headerProfileBoxText" class="headerProfileBoxText" >You are logged in as <a href="/catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
+								<div class="headerProfileBoxLogoutSubmit" ><input type="submit" id="logoutSubmitButton" class="button orange webHeadSubmitButton" value="Logout" /></div>
+              	<div style="clear:both;"></div>
+              </form>
+            <?php } ?>
+          </div>
         </div>
       </div>
     </div> <!--  WEBMAINTOP -->
