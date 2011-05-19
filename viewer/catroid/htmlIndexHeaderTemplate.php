@@ -37,11 +37,12 @@
             </div>
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">
-            <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="Menu" /></button>
             <button type="button" class="webHeadButtons button orange medium" id="headerSearchButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/search.png" alt="Search" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="Menu" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="Profile" /></button>
           </div>
           <div id="cancelHeaderButton" class="webHeadButtons">
-            <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelSearchButton">
+            <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelButton">
               <span class="webHeadCancelButtonText">Cancel</span>
             </button>
           </div>
@@ -49,13 +50,34 @@
         </div>
       </div>
       <div id="headerSearchBox" style="display:none;">
-        <div class="webHeadSearchBoxSpacer"></div>
+        <div class="webHeadBoxSpacer"></div>
         <div class="blueBoxMain">
           <div class="webMainHead">
             <form id="searchForm">
               <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
               <input type="submit" class="webHeadSearchSubmit" value="Search" />
             </form>
+          </div>
+        </div>
+      </div>
+      <div id="headerProfileBox" style="display:none;">
+        <div class="webHeadBoxSpacer"></div>
+        <div class="blueBoxMain">
+          <div class="webMainHead">
+            <?php if($this->module->session->userLogin_userId <= 0) { ?>
+              <form id="loginForm">
+              	<input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="your nickname" autofocus  />
+                <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="your password"  />             
+                <input type="loginSubmitButton" class="button orange webHeadSubmitButton" value="Login" />
+              </form>							
+            <?php } else { ?>
+              <form id="logoutForm">
+								
+								<div id="headerProfileBoxText" class="headerProfileBoxText" >You are logged in as <a href="/catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
+								<div class="headerProfileBoxLogoutSubmit" ><input type="submit" id="logoutSubmitButton" class="button orange webHeadSubmitButton" value="Logout" /></div>
+              	<div style="clear:both;"></div>
+              </form>
+            <?php } ?>
           </div>
         </div>
       </div>
