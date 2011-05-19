@@ -598,9 +598,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function versionInfo() {
     $dataArray = array(
       array(1, 4, "0.5.1"),
-      array(1, 5, "0.4.3.d"),
+      array(1, 5, "0.4.3d"),
       array(1, 6, "1.0"),
-      array(1, 0, "")
+      array(1, 0, ""),
+      array(1, 4, "0.4.3d")
       );
     return $dataArray;
   }
