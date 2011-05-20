@@ -49,7 +49,7 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
 
   public function testApproveButtonGood()
   {
-    $this->uploadProjectWithAnUnapprovedWord();
+    $response = $this->uploadProjectWithAnUnapprovedWord();
 
     $this->selenium->open($this->adminpath);
     $this->selenium->click("aAdministrationTools");
@@ -63,12 +63,12 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("The word was succesfully approved!"));
 
-    $this->deletePreviouslyUploadedProjectAndUnapporvedWord();
+    $this->deletePreviouslyUploadedProjectAndUnapporvedWord($response->projectId);
   }
 
   public function testApproveButtonBad()
   {
-    $this->uploadProjectWithAnUnapprovedWord();
+    $response = $this->uploadProjectWithAnUnapprovedWord();
 
     $this->selenium->open($this->adminpath);
     $this->selenium->click("aAdministrationTools");
@@ -82,12 +82,12 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("The word was succesfully approved!"));
 
-    $this->deletePreviouslyUploadedProjectAndUnapporvedWord();
+    $this->deletePreviouslyUploadedProjectAndUnapporvedWord($response->projectId);
   }
 
   public function testApproveButtonNoSelection()
   {
-    $this->uploadProjectWithAnUnapprovedWord();
+    $response = $this->uploadProjectWithAnUnapprovedWord();
 
     $this->selenium->open($this->adminpath);
     $this->selenium->click("aAdministrationTools");
@@ -100,12 +100,12 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $this->assertTrue($this->selenium->isTextPresent("Error: no word meaning selected!"));
 
-    $this->deletePreviouslyUploadedProjectAndUnapporvedWord();
+    $this->deletePreviouslyUploadedProjectAndUnapporvedWord($response->projectId);
   }
 
   public function testDeleteButton()
   {
-    $this->uploadProjectWithAnUnapprovedWord();
+   $response = $this->uploadProjectWithAnUnapprovedWord();
 
     $this->selenium->open($this->adminpath);
     $this->selenium->click("aAdministrationTools");
@@ -119,15 +119,15 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
     $this->assertTrue($this->selenium->isTextPresent("The word was succesfully deleted!"));
     $this->assertFalse($this->selenium->isTextPresent($this->unapprovedWord));
 
-    $this->deletePreviouslyUploadedProjectAndUnapporvedWord();
+    $this->deletePreviouslyUploadedProjectAndUnapporvedWord($response->projectId);
   }
 
   private function uploadProjectWithAnUnapprovedWord() {
     $this->deleteWord($this->unapprovedWord);
-    $this->uploadTestProject($this->unapprovedWord);
+    return $this->uploadTestProject($this->unapprovedWord);
   }
 
-  private function deletePreviouslyUploadedProjectAndUnapporvedWord() {
+  private function deletePreviouslyUploadedProjectAndUnapporvedWord($project_id) {
     $this->selenium->selectWindow(null);
     $this->selenium->open($this->adminpath);
     $this->selenium->waitForPageToLoad(10000);
@@ -141,6 +141,15 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
     $this->selenium->waitForPageToLoad(10000);
     $this->assertFalse($this->selenium->isTextPresent($this->unapprovedWord));
 
+    $this->selenium->open($this->adminpath);
+    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->click("aAdministrationTools");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->click("aAdminToolsEditProjects");
+    $this->selenium->waitForPageToLoad(10000);
+    $this->selenium->click("xpath=//input[@id='delete$project_id']");
+    $this->selenium->waitForPageToLoad(10000);
+    
     $this->deleteWord($this->unapprovedWord);
   }
 
@@ -175,12 +184,13 @@ class AdminBadWordsFilterTest extends PHPUnit_Framework_TestCase
         "token"=>"0",
         "upload"=>"@$uploadTestFile",
         "projectTitle"=>$title,
-    	"projectDescription"=>$description,
+    	  "projectDescription"=>$description,
         "fileChecksum"=>md5_file($uploadTestFile)
     );
     curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
     $response = json_decode(curl_exec($ch));
     $this->assertEquals(200, $response->statusCode);
+    return $response;
   }
   
   private function randomString() {
