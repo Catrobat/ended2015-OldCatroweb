@@ -297,7 +297,7 @@
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message=" http://localhost/tests/selenium-grid/target/reports"/>
+    <echo message=" http://localhost/tests/selenium-grid/target/reports/admin"/>
     <echo message=" "/>
     <echo message=""/>
 
@@ -311,11 +311,25 @@
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message=" http://localhost/tests/selenium-grid/target/reports"/>
+    <echo message=" http://localhost/tests/selenium-grid/target/reports/catroid"/>
     <echo message=" "/>
     <echo message=""/>
 
     <antcall target='selenium-grid.run-catroid-tests'>
+      <param name="browser" value="${test.browser}" />
+    </antcall>
+  </target>
+
+  <target name="-selenium-grid-tests-api-local" depends="-start-selenium-grid-local-testsuite">
+    <echo message=""/>
+    <echo message="========== HTTP REPORT ========== "/>
+    <echo message=""/>
+    <echo message="check your test report at:"/>
+    <echo message=" http://localhost/tests/selenium-grid/target/reports/api"/>
+    <echo message=" "/>
+    <echo message=""/>
+
+    <antcall target='selenium-grid.run-api-tests'>
       <param name="browser" value="${test.browser}" />
     </antcall>
   </target>
@@ -407,6 +421,12 @@
              username="${host.user}"
              password="${host.pass}"
              command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidwebtest.ist.tugraz.at/ -Dbrowser=${browser}" />
+
+    <sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-api-tests -DwebSite=http://catroidwebtest.ist.tugraz.at/ -Dbrowser=${browser}" />
   </target>
 
   <target name="-get-selenium-grid-test-browser">
@@ -694,7 +714,7 @@
   <target name="run-selenium-test" depends="-selenium-test" />
   <target name="run-selenium-admin-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-stop-server" />
   <target name="run-selenium-catroid-tests" depends="-selenium-start-server, -selenium-tests-catroid, -selenium-stop-server" />
-  <target name="run-selenium-local-tests" depends="-selenium-grid-tests-admin-local, -selenium-grid-tests-catroid-local" />
+  <target name="run-selenium-local-tests" depends="-selenium-grid-tests-admin-local, -selenium-grid-tests-catroid-local, -selenium-grid-tests-api-local" />
   <target name="run-selenium-remote-tests" depends="deploy-test-with-tests, -selenium-grid-tests-remote" />
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
   <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />

@@ -76,9 +76,11 @@ public class ProjectUploader {
 
       if(resEntity != null) {
         String answer = EntityUtils.toString(resEntity);
-        String projectId = CommonFunctions.getValueFromJSONobject(answer, "projectId");
-        verifiedPayload.put("projectId", projectId);
-        this.uploadedProjects.add(verifiedPayload);
+        if(CommonFunctions.getValueFromJSONobject(answer, "statusCode").equals("200")) {
+          String projectId = CommonFunctions.getValueFromJSONobject(answer, "projectId");
+          verifiedPayload.put("projectId", projectId);
+          this.uploadedProjects.add(verifiedPayload);
+        }
         return answer;
       }
     } catch(Exception e) {
@@ -168,22 +170,26 @@ public class ProjectUploader {
   }
 
   private void deleteProject(String projectId) {
-    try {
-      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
-      Statement statement = connection.createStatement();
-      statement.executeQuery("DELETE FROM projects WHERE id='" + projectId + "'");
-      statement.close();
-      connection.close();
-    } catch(SQLException e) {
-      System.out.println("ProjectUploader: deleteProject: SQL Exception couldn't execute sql query!");
-    }
+    if(!projectId.equals("")) {
+      try {
+        Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+        Statement statement = connection.createStatement();
+        statement.executeUpdate("DELETE FROM projects WHERE id='" + projectId + "';");
+        statement.close();
+        connection.close();
+      } catch(SQLException e) {
+        System.out.println("ProjectUploader: deleteProject: SQL Exception couldn't execute sql query!");
+      }
 
-    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + projectId + Config.PROJECTS_EXTENTION)).delete();
-    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_QR_DIRECTORY + projectId + Config.PROJECTS_QR_EXTENTION)).delete();
-    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_ORIG)).delete();
-    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_SMALL)).delete();
-    (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_LARGE)).delete();
-    CommonFunctions.deleteDir(new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_UNZIPPED_DIRECTORY + projectId + Config.FILESYSTEM_SEPARATOR));
+      (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + projectId + Config.PROJECTS_EXTENTION)).delete();
+      (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_QR_DIRECTORY + projectId + Config.PROJECTS_QR_EXTENTION)).delete();
+      (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_ORIG)).delete();
+      (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_SMALL)).delete();
+      (new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_THUMBNAIL_DIRECTORY + projectId + Config.PROJECTS_THUMBNAIL_EXTENTION_LARGE)).delete();
+      CommonFunctions.deleteDir(new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_UNZIPPED_DIRECTORY + projectId + Config.FILESYSTEM_SEPARATOR));
+    } else {
+      System.out.println("ProjectUploader: deleteProject: invalid project id:'" + projectId + "' - couldn't delete!");
+    }
   }
 
   private HashMap<String, String> getProject(String key) {
