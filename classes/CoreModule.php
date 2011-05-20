@@ -58,6 +58,7 @@ abstract class CoreModule extends CoreObjectWeb {
     }
     
     public static function requestFromBlockedIp($vmodule, $vclass) {
+      return false; //deactivated IP-checker till prepared_statements-problem solved.
       $ip = getenv("REMOTE_ADDR");
       $query = "EXECUTE admin_is_blocked_ip('$ip%');";
       $result = pg_query($query) or die('db query_failed '.pg_last_error());
