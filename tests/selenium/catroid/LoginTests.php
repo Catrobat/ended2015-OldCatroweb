@@ -58,9 +58,8 @@ class LoginTests extends PHPUnit_Framework_TestCase
    */
   public function testLogin($user, $pass, $wrongUser, $wrongPass)
   {
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
+    $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertEquals('Login', $this->selenium->getText("xpath=//div[@class='webMainContentTitle']"));
 
     //wiki username creation
     $wikiUsername = ucfirst(strtolower($user));
@@ -87,21 +86,37 @@ class LoginTests extends PHPUnit_Framework_TestCase
     $this->selenium->selectWindow(null);
 
     // test login
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
+    $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginUsername']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginPassword']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginSubmit']"));
+    $this->assertTrue($this->selenium->isVisible("headerProfileButton"));
+    $this->selenium->click("headerProfileButton");
+    $this->assertFalse($this->selenium->isVisible("headerProfileButton"));
+    $this->assertTrue($this->selenium->isVisible("headerCancelButton"));
+    $this->assertTrue($this->selenium->isVisible("loginSubmitButton"));
+    $this->assertTrue($this->selenium->isVisible("loginUsername"));
+    $this->assertTrue($this->selenium->isVisible("loginPassword"));
+    $this->selenium->click("headerCancelButton");
+    $this->assertTrue($this->selenium->isVisible("headerProfileButton"));
+    $this->assertFalse($this->selenium->isVisible("headerCancelButton"));
+    $this->assertFalse($this->selenium->isVisible("loginSubmitButton"));
+    $this->assertFalse($this->selenium->isVisible("loginUsername"));
+    $this->assertFalse($this->selenium->isVisible("loginPassword"));
+    $this->selenium->click("headerProfileButton");
+    $this->assertFalse($this->selenium->isVisible("headerProfileButton"));
+    $this->assertTrue($this->selenium->isVisible("headerCancelButton"));
+    $this->assertTrue($this->selenium->isVisible("loginSubmitButton"));
+    $this->assertTrue($this->selenium->isVisible("loginUsername"));
+    $this->assertTrue($this->selenium->isVisible("loginPassword"));
 
-    $this->selenium->type("xpath=//input[@name='loginUsername']", $user);
-    $this->selenium->type("xpath=//input[@name='loginPassword']", $pass);
-
-    $this->selenium->click("xpath=//input[@name='loginSubmit']");
-    $this->selenium->waitForPageToLoad(10000);
-
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
-    $this->ajaxWait();
-    $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
+    $this->selenium->type("loginUsername", $user);
+    $this->selenium->type("loginPassword", $pass);
+    
+    $this->selenium->click("loginSubmitButton");
+    $this->selenium->waitForCondition("", 5000);
+    $this->assertTrue($this->selenium->isVisible("headerProfileButton"));
+    $this->selenium->click("headerProfileButton");
+    $this->assertTrue($this->selenium->isVisible("logoutSubmitButton"));
+    $this->selenium->click("headerCancelButton");
 
     $this->selenium->click("headerMenuButton");
     $this->selenium->waitForPageToLoad(10000);
@@ -129,15 +144,17 @@ class LoginTests extends PHPUnit_Framework_TestCase
     $this->selenium->selectWindow(null);
 
     // test logout
-    $this->selenium->click("menuLogoutButton");
-    $this->ajaxWait();
-    $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
-
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
+    $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginUsername']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginPassword']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginSubmit']"));
+    $this->assertTrue($this->selenium->isVisible("headerProfileButton"));
+    $this->selenium->click("headerProfileButton");
+    $this->assertTrue($this->selenium->isVisible("logoutSubmitButton"));
+    $this->selenium->click("logoutSubmitButton");
+    $this->selenium->waitForCondition("", 5000);
+    $this->assertTrue($this->selenium->isVisible("headerProfileButton"));
+    $this->selenium->click("headerProfileButton");
+    $this->assertTrue($this->selenium->isVisible("loginSubmitButton"));
+    $this->selenium->click("headerCancelButton");
 
     $this->selenium->click("headerMenuButton");
     $this->selenium->waitForPageToLoad(10000);
@@ -160,19 +177,35 @@ class LoginTests extends PHPUnit_Framework_TestCase
     $this->selenium->selectWindow(null);
 
     // test login with wrong user/pass
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginUsername']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginPassword']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginSubmit']"));
-    $this->assertFalse($this->selenium->isElementPresent("xpath=//input[@name='logoutSubmit']"));
+     $this->selenium->open(TESTS_BASE_PATH);
+    $this->selenium->waitForPageToLoad(10000);
+    $this->assertTrue($this->selenium->isVisible("headerProfileButton"));
+    $this->selenium->click("headerProfileButton");
+    $this->assertFalse($this->selenium->isVisible("headerProfileButton"));
+    $this->assertTrue($this->selenium->isVisible("headerCancelButton"));
+    $this->assertTrue($this->selenium->isVisible("loginSubmitButton"));
+    $this->assertTrue($this->selenium->isVisible("loginUsername"));
+    $this->assertTrue($this->selenium->isVisible("loginPassword"));
+    $this->selenium->click("headerCancelButton");
+    $this->assertTrue($this->selenium->isVisible("headerProfileButton"));
+    $this->assertFalse($this->selenium->isVisible("headerCancelButton"));
+    $this->assertFalse($this->selenium->isVisible("loginSubmitButton"));
+    $this->assertFalse($this->selenium->isVisible("loginUsername"));
+    $this->assertFalse($this->selenium->isVisible("loginPassword"));
+    $this->selenium->click("headerProfileButton");
+    $this->assertFalse($this->selenium->isVisible("headerProfileButton"));
+    $this->assertTrue($this->selenium->isVisible("headerCancelButton"));
+    $this->assertTrue($this->selenium->isVisible("loginSubmitButton"));
+    $this->assertTrue($this->selenium->isVisible("loginUsername"));
+    $this->assertTrue($this->selenium->isVisible("loginPassword"));
 
-    $this->selenium->type("xpath=//input[@name='loginUsername']", $wrongUser);
-    $this->selenium->type("xpath=//input[@name='loginPassword']", $wrongPass);
-
-    $this->selenium->click("xpath=//input[@name='loginSubmit']");
-    //$this->selenium->waitForPageToLoad(10000);
-    $this->selenium->waitForCondition('', 3000);
-    $this->assertTrue($this->selenium->isTextPresent("The catroid authentication failed."));
+    $this->selenium->type("loginUsername", $wrongUser);
+    $this->selenium->type("loginPassword", $wrongPass);
+    
+    $this->selenium->click("loginSubmitButton");
+    $this->selenium->waitForCondition("", 5000);
+    $this->assertTrue($this->selenium->isVisible("loginSubmitButton"));
+    $this->selenium->click("headerCancelButton");    
 
     $this->selenium->click("headerMenuButton");
     $this->selenium->waitForPageToLoad(10000);
