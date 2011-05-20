@@ -16,19 +16,30 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package at.tugraz.ist.catroweb.admin;
+package at.tugraz.ist.catroweb.api;
 
-import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
+import org.testng.annotations.Test;
 
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-public class AdminEditProjectsTests extends BaseTest {
-  @Test(groups = { "catroid", "firefox", "default" }, description = "Header Buttons Index")
-  public void headerButtonsIndex() throws Throwable {
-    this.session.setSpeed("1000");
+public class UploadTests extends BaseTest {
+  @Test(groups = { "upload", "firefox", "default" }, description = "upload valid projects")
+  public void uploadValidProjects() {
     this.session.open(Config.TESTS_BASE_PATH);
-    this.session.waitForPageToLoad(Config.TIMEOUT);
+    waitForPageToLoad();
+    ajaxWait();
+    projectUploader.upload(DataProvider.getUploadPayload("testing project upload", "some description for my test project.", "test.zip",
+        "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0"));
+  }
+
+  @Test(groups = { "upload", "firefox", "default" }, description = "upload invalid projects")
+  public void uploadInvalidProjects() {
+    this.session.open(Config.TESTS_BASE_PATH);
+    waitForPageToLoad();
+    ajaxWait();
+    projectUploader.upload(DataProvider.getUploadPayload("insulting word in description", "fuck the project!!!!", "test.zip",
+        "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0"));
   }
 }

@@ -18,42 +18,53 @@
 
 package at.tugraz.ist.catroweb.common;
 
-public class CommonFunctions  {
-  /** Description of setSpeed()
-   * @return			selenium string to use with setSpeed();
-   */
-  public static String setSpeed() {
-    if(CommonConfig.TESTS_SLOW_MODE) {
-      System.out.println("********************************************************************");
-      System.out.println("* WARNING: You are running this test in slow mode!                 *");
-      System.out.println("********************************************************************");
-      return String.valueOf(CommonConfig.TESTS_SLOW_SPEED);
+import java.io.File;
+import java.util.Iterator;
+import java.util.Map;
+
+import org.json.simple.JSONValue;
+
+public class CommonFunctions {
+  public static void deleteDir(File directory) {
+    if(directory.isDirectory()) {
+      String[] children = directory.list();
+
+      for(String child : children) {
+        File item = new File(directory, child);
+
+        if(item.isFile()) {
+          item.delete();
+        }
+        if(item.isDirectory()) {
+          deleteDir(item);
+        }
+      }
+      directory.delete();
     }
-    return "1";		
-  }
-	
-  /** Description of getAjaxWaitString()	  
-  * @return			selenium string to use with waitForCondition();
-  */
-  public static String getAjaxWaitString() {
-    return "selenium.browserbot.getCurrentWindow().jQuery.active == 0";
-  }
-	
-  /** Description of getWaitForConditionIsElementPresentString(String locator)
-  *  i.e.  session().waitForCondition(getWaitForConditionIsElementPresentString(locator,"10000"));
-  * @param locator	locator to be waited on
-  * @return			selenium string condition 
-  */
-  public static String getWaitForConditionIsTextPresentString(String locator) {
-    return "value = selenium.isTextPresent('"+locator+"'); value == true";
   }
 
-  /** Description of getWaitForConditionIsElementPresentString(String locator)
-  *  i.e.  session().waitForCondition(getWaitForConditionIsElementPresentString(locator,"10000"));
-  * @param locator	locator to be waited on
-  * @return			selenium string condition 
-  */
-  public static String getWaitForConditionIsElementPresentString(String locator) {
-    return "value = selenium.isElementPresent('"+locator.replace("'", "\\'")+ "'); value == true";
+  public static String getValueFromJSONobject(String json, String key) {
+    if(json.indexOf("{") != 0) {
+      System.out.println("********************************************************************");
+      System.out.println("CommonFunctions: getValueFromJSONobject: Invalid json object!");
+      System.out.println(json);
+      System.out.println("********************************************************************");
+      return "";
+    }
+
+    Map<?, ?> array = (Map<?, ?>) JSONValue.parse(json);
+    Iterator<?> iter = array.entrySet().iterator();
+    while(iter.hasNext()) {
+      Map.Entry<?, ?> entry = (Map.Entry<?, ?>) iter.next();
+      if(entry.getKey().equals(key)) {
+        if(entry.getValue() instanceof String) {
+          return (String) entry.getValue();
+        } else if(entry.getValue() instanceof Integer) {
+          return Integer.toString((Integer) entry.getValue());
+        }
+        return "";
+      }
+    }
+    return "";
   }
 }

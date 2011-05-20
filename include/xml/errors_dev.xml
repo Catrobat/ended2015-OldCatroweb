@@ -114,4 +114,8 @@
       <string name="email_address_exists">The email address already exists.</string>
       <string name="email_update_failed">There was a problem while updating the email address.</string>
     </profile>
+    <viewer>
+      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
+      <string name="user_is_blocked">Your Account has been blocked.</string>
+    </viewer>
 </errors>

@@ -41,6 +41,11 @@
       <include name="selenium-java-client-driver-${selenium.version}.jar"/>
       <include name="testng-5.7-jdk15.jar"/>
       <include name="commons-logging-1.0.4.jar"/>
+      <include name="httpclient-4.1.1.jar"/>
+      <include name="httpcore-4.1.jar"/>
+      <include name="httpmime-4.1.1.jar"/>
+      <include name="postgresql-9.0-801.jdbc4.jar"/>
+      <include name="json_simple.jar"/>
     </fileset>
     <pathelement location="${selenium-grid.basedir}/tools/target/classes"/>
     <pathelement location="${selenium-grid.basedir}/tools/target/dist/lib/selenium-grid-tools-standalone-${version}.jar"/>
@@ -56,7 +61,6 @@
   <import file="${selenium-grid.basedir}/common-build.xml"/>
 
   <target name="run-admin-tests" depends="compile" description="Run Catroid Test Suite">
-    <echo>${seleniumHost}</echo>
     <java classpathref="runtime.classpath"
         classname="org.testng.TestNG"
         failonerror="true">
@@ -77,7 +81,6 @@
   </target>
 
   <target name="run-catroid-tests" depends="compile" description="Run Catroid Test Suite">
-    <echo>${seleniumHost}</echo>
     <java classpathref="runtime.classpath"
         classname="org.testng.TestNG"
         failonerror="true">
@@ -97,9 +100,27 @@
     </java>
   </target>
 
-  <target name="run-single-test" depends="compile" description="Run a single Test">
-    <echo>${seleniumHost}</echo>
+  <target name="run-api-tests" depends="compile" description="Run Api Test Suite">
+    <java classpathref="runtime.classpath"
+        classname="org.testng.TestNG"
+        failonerror="true">
 
+      <sysproperty key="java.security.policy" file="${selenium-grid.basedir}/testng.policy"/>
+      <sysproperty key="webSite" value="${webSite}" />
+      <sysproperty key="seleniumHost" value="${seleniumHost}" />
+      <sysproperty key="seleniumPort" value="${seleniumPort}" />
+      <sysproperty key="browser" value="${browser}" />
+      <arg value="-d" />
+      <arg value="${selenium-grid.basedir}/target/reports/api" />
+      <arg value="-parallel"/>
+      <arg value="methods"/>
+      <arg value="-threadcount"/>
+      <arg value="15"/>
+      <arg value="${selenium-grid.basedir}/api.xml"/>
+    </java>
+  </target>
+
+  <target name="run-single-test" depends="compile" description="Run a single Test">
     <copy file="${selenium-grid.basedir}/single_test.xml" tofile="${selenium-grid.basedir}/single_test_tmp.xml" overwrite="true">
       <filterset>
         <filter token="CLASS" value="at.tugraz.ist.catroweb.${single-test-class}"/>
@@ -125,8 +146,6 @@
   </target>
 
   <target name="run-group-test" depends="compile" description="Run a group Tests">
-    <echo>${seleniumHost}</echo>
-
     <copy file="${selenium-grid.basedir}/group_test.xml" tofile="${selenium-grid.basedir}/group_test_tmp.xml" overwrite="true">
       <filterset>
         <filter token="GROUP" value="${group-test}"/>

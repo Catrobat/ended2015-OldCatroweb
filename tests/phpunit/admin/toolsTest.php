@@ -32,43 +32,81 @@ class toolsTest extends PHPUnit_Framework_TestCase
 		@unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_thumbnail.jpg');
 	}
 
-  public function testRemoveInconsistantProjectFiles() {
-    $projectDirectory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
-    $testFileName = "99999999.zip";
-    $testFile = $projectDirectory.$testFileName;
-    $testFileHandle = fopen($testFile, 'w') or die("can't create file");
-    fclose($testFileHandle);
+//  public function testRemoveInconsistantProjectFiles() {
+//    $projectDirectory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
+//    $testFileName = "99999999.zip";
+//    $testFile = $projectDirectory.$testFileName;
+//    $testFileHandle = fopen($testFile, 'w') or die("can't create file");
+//    fclose($testFileHandle);
+//
+//    $fileExistsBefore = is_file($testFile);
+//    $this->tools->removeInconsistantProjectFiles();
+//    $fileExistsAfter = is_file($testFile);
+//
+//    $this->assertTrue($fileExistsBefore && !$fileExistsAfter);
+//  }
+//
+//  public function testUploadThumbnail() {
+//    $thumbName = 'test_thumbnail.jpg';
+//    $fileData = array('upload'=>array('name'=>$thumbName, 'type'=>'image/jpeg',
+//                        'tmp_name'=>dirname(__FILE__).'/testdata/'.$thumbName, 'error'=>0, 'size'=>4482));
+//    $this->assertTrue($this->tools->uploadThumbnail($fileData));
+//    $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbName));
+//  }
+//
+//  /**
+//   * @dataProvider randomIds
+//   */
+//  public function testResolveInappropriateProject($id) {
+//    $this->assertTrue($this->tools->resolveInappropriateProject($id));
+//    $query = "SELECT * FROM projects WHERE id='$id' AND visible=false";
+//    $result = @pg_query($query);
+//    $this->assertEquals(0, pg_num_rows($result));
+//    pg_free_result($result);
+//    $query = "SELECT * FROM flagged_projects WHERE project_id='$id' AND resolved=false";
+//    $result = @pg_query($query);
+//    $this->assertEquals(0, pg_num_rows($result));
+//    pg_free_result($result);
+//  }
 
-    $fileExistsBefore = is_file($testFile);
-    $this->tools->removeInconsistantProjectFiles();
-    $fileExistsAfter = is_file($testFile);
+  /**
+   * @dataProvider blockUser
+   */
+	public function testBlockUser($user_id, $user_name, $check_user_id, $check_user_name) {
+	   $this->tools->blockUser($user_id, $user_name);
+	   $this->assertTrue($this->tools->isBlockedUser($check_user_id, $check_user_name));
+	   $this->tools->unblockUser($user_id, $user_name);
+	   $this->assertFalse($this->tools->isBlockedUser($check_user_id, $check_user_name));
+	}
 
-    $this->assertTrue($fileExistsBefore && !$fileExistsAfter);
-  }
-
-  public function testUploadThumbnail() {
-    $thumbName = 'test_thumbnail.jpg';
-    $fileData = array('upload'=>array('name'=>$thumbName, 'type'=>'image/jpeg',
-                        'tmp_name'=>dirname(__FILE__).'/testdata/'.$thumbName, 'error'=>0, 'size'=>4482));
-    $this->assertTrue($this->tools->uploadThumbnail($fileData));
-    $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbName));
+	/**
+   * @dataProvider unblockedUser
+   */
+	public function testUnblockedUser($user_id, $user_name, $check_user_id, $check_user_name) {
+	   $this->tools->blockUser($user_id, $user_name);
+	   $this->assertFalse($this->tools->isBlockedUser($check_user_id, $check_user_name));
+	   $this->tools->unblockUser($user_id, $user_name);
+	}
+	
+  /**
+   * @dataProvider blockIp
+   */
+  public function testBlockIp($ip, $check_ip) {
+	   $this->tools->blockIp($ip);
+	   $this->assertTrue($this->tools->isBlockedIp($check_ip));
+	   $this->tools->unblockIp($ip);
+	   $this->assertFalse($this->tools->isBlockedIp($check_ip));
   }
 
   /**
-   * @dataProvider randomIds
+   * @dataProvider unblockedIp
    */
-  public function testResolveInappropriateProject($id) {
-    $this->assertTrue($this->tools->resolveInappropriateProject($id));
-    $query = "SELECT * FROM projects WHERE id='$id' AND visible=false";
-    $result = @pg_query($query);
-    $this->assertEquals(0, pg_num_rows($result));
-    pg_free_result($result);
-    $query = "SELECT * FROM flagged_projects WHERE project_id='$id' AND resolved=false";
-    $result = @pg_query($query);
-    $this->assertEquals(0, pg_num_rows($result));
-    pg_free_result($result);
+  public function testUnblockedIp($ip, $check_ip) {
+	   $this->tools->blockIp($ip);
+	   $this->assertFalse($this->tools->isBlockedIp($check_ip));
+	   $this->tools->unblockIp($ip);
   }
-
+  
   /* *** DATA PROVIDERS *** */
   //choose random ids from database
   public function randomIds() {
@@ -87,6 +125,43 @@ class toolsTest extends PHPUnit_Framework_TestCase
     return $returnArray;
   }
 
+  public function blockUser() {
+    $dataArray = array(
+      array(0, "anonymous", 0, "anonymous"),
+      array(1, "catroweb", 1, "catroweb")
+    );
+    return $dataArray;
+  }
+
+  public function unblockedUser() {
+    $dataArray = array(
+      array(0, "anonymous", 1, "catroweb"),
+      array(1, "catroweb", 0, "anonymous")
+    );
+    return $dataArray;
+  }
+  
+  public function blockIp() {
+    $dataArray = array(
+      array("127.0.0.1", "127.0.0.1"),
+      array("127.0.0.", "127.0.0.9"),
+      array("127.0.0.2", "127.0.0.2"),
+      array("127.", "127.0.0.1"),
+      array("127.", "127.0.0.2"),
+      array("127.", "127.29.12.33")
+      );
+    return $dataArray;
+  }
+  
+  public function unblockedIp() {
+    $dataArray = array(
+      array("127.0.0.1", "127.0.0.2"),
+      array("127.0.0.", "127.12.0.1"),
+      array("127.0.0.2", "127.0.0.1")
+    );
+    return $dataArray;
+  }  
+  
 //  public function testApproveWordGood() {
 //		$unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft";
 //		$this->deleteWord($unapprovedWord);

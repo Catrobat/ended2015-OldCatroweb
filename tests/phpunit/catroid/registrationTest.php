@@ -240,8 +240,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('#1'), // hash sign not allowed (because of wiki)
     array('unit_test'), // underscores not allowed (because of wiki)
     array('<i>'), // underscores not allowed (because of wiki)
-    array('xxx'), //IP address style (because of wiki)
-    array('shit'), //IP address style (because of wiki)
+    array('shit'), // its a messword
     array('129.0.12.123') //IP address style (because of wiki)
     );
     return $dataArray;

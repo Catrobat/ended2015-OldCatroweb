@@ -27,12 +27,15 @@ class errorPage extends CoreAuthenticationNone {
   public function __default() {
   	$type = $this->session->errorType;
   	$code = $this->session->errorCode;
+  	$mode = $this->session->errorMode;
   	$extraInfo = $this->session->errorExtraInfo;
   	$errorMessage = $this->errorHandler->getError($type, $code);
   	if($extraInfo && DEVELOPMENT_MODE) {
       $errorMessage .= ':<br/>'.$extraInfo;
     }
-    $errorMessage .= "<br /><a href='".BASE_PATH."'>Click to go back to startpage.</a>";
+    if ($mode != 'blocked_ip')
+      $errorMessage .= "<br /><a href='".BASE_PATH."'>Click to go back to startpage.</a>";
+    
     $this->errorMessage = $errorMessage;
 	}
 

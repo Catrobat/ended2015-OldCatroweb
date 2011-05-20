@@ -18,15 +18,9 @@
 
 package at.tugraz.ist.catroweb.common;
 
-public class CommonStrings  {
-  /**
-  * set selenium slow mode
-  */
+public class CommonStrings {
   public static final String WEBSITE_TITLE = "Catroid Website";
 
-  /**
-  * Labels for newest projects
-  */
   public static final String NEWEST_PROJECTS_PAGE_TITLE = "Newest Projects";
   public static final String NEWEST_PROJECTS_PAGE_PREV_BUTTON = "« Newer";
   public static final String NEWEST_PROJECTS_PAGE_NEXT_BUTTON = "Older »";

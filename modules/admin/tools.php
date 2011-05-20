@@ -62,6 +62,19 @@ class tools extends CoreAuthenticationAdmin {
     $this->projects = $this->retrieveAllProjectsFromDatabase();
   }
 
+  public function editBlockedIps() {
+    /*if(isset($_POST['delete'])) {
+      if($this->deleteProject($_POST['projectId'])) {
+        $answer = "The project was succesfully deleted!";
+      } else {
+        $answer = "Error: could NOT delete the project!";
+      }
+      $this->answer = $answer;
+    }*/
+    $this->htmlFile = "editBlockedIps.php";
+    $this->projects = $this->retrieveAllProjectsFromDatabase();
+  }
+  
   public function toggleProjects() {
     if(isset($_POST['toggle'])) {
       if ($_POST['toggle'] == "visible") {
@@ -231,15 +244,30 @@ class tools extends CoreAuthenticationAdmin {
     $fileName = $project['source'];
     $thumbnailSmallName = $project['id'].PROJECTS_THUMBNAIL_EXTENTION_SMALL;
     $thumbnailLargeName = $project['id'].PROJECTS_THUMBNAIL_EXTENTION_LARGE;
-
+    $thumbnailLargeName = $project['id'].PROJECTS_THUMBNAIL_EXTENTION_LARGE;
+    
+    if($id > 0) {
+      $projectBaseDir = CORE_BASE_PATH.'/'.PROJECTS_UNZIPPED_DIRECTORY.$id;
+      $projectSoundDir = $projectBaseDir.'/sounds';
+      $projectImageDir = $projectBaseDir.'/images';
+      
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_SMALL))
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_SMALL);
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_LARGE))
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_LARGE);
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_ORIG))
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_ORIG);
+      if(file_exists(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION))
+        @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION);
+      
+      if(is_dir($projectSoundDir)) $this->removeProjectDir($projectSoundDir);
+      if(is_dir($projectImageDir)) $this->removeProjectDir($projectImageDir);
+      if(is_dir($projectBaseDir)) $this->removeProjectDir($projectBaseDir);
+    }
+    
     $sourceFile = $directory.$fileName;
-    $thumbnailSmallFile = $thumbnailDirectory.$thumbnailSmallName;
-    $thumbnailLargeFile = $thumbnailDirectory.$thumbnailLargeName;
     $qrCodeFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$project['id'].PROJECTS_QR_EXTENTION;
-    if(!$this->deleteFile($sourceFile) ||
-    !$this->deleteFile($thumbnailSmallFile) ||
-    !$this->deleteFile($thumbnailLargeFile) ||
-    !$this->deleteFile($qrCodeFile)) {
+    if(!$this->deleteFile($sourceFile) || !$this->deleteFile($qrCodeFile)) {
       return false;
     } else {
       $query = "EXECUTE delete_project_by_id('$id');";
@@ -247,6 +275,16 @@ class tools extends CoreAuthenticationAdmin {
       return true;
     }
   }
+  
+  private function removeProjectDir($dir) {
+    $dh = opendir($dir);
+    while (($file = readdir($dh)) !== false) {
+       if ($file != "." && $file != "..")
+         @unlink($dir."/".$file);
+    }
+    closedir($dh);
+    rmdir($dir);
+  }  
 
   public function hideProject($id) {
     $query = "EXECUTE hide_project('$id');";
@@ -333,6 +371,46 @@ class tools extends CoreAuthenticationAdmin {
     return;
   }
 
+  public function blockUser($user_id, $user_name) {
+    $query = "EXECUTE admin_block_user('$user_id', '$user_name');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  }
+
+  public function unblockUser($user_id, $user_name) {
+    $query = "EXECUTE admin_unblock_user('$user_id', '$user_name');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  }
+  
+  public function isBlockedUser($user_id, $user_name) {
+    $query = "EXECUTE admin_is_blocked_user('$user_id', '$user_name');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    if(pg_num_rows($result)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public function blockIp($ip) {
+    $query = "EXECUTE admin_block_ip('$ip');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  }
+
+  public function unblockIp($ip) {
+    $query = "EXECUTE admin_unblock_ip('$ip');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  }
+  
+  public function isBlockedIp($ip) {
+    $query = "EXECUTE admin_is_blocked_ip('$ip%');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    if(pg_num_rows($result)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+  
   public function __destruct() {
     parent::__destruct();
   }
