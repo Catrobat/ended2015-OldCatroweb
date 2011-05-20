@@ -19,22 +19,20 @@
 
 var HeaderMenu = Class.$extend( {
   __init__ : function(basePath) {
-  var self = this;
     this.basePath = basePath;
     
     if($("#normalHeaderButtons").length != 0) {
       $("#normalHeaderButtons").toggle();
     }
-
     $("#headerHomeButton").click({url:"catroid/index"}, jQuery.proxy(this.openLocation, this));
     $("#headerMenuButton").click({url:"catroid/menu"}, jQuery.proxy(this.openLocation, this));
     $("#headerSearchButton").click(jQuery.proxy(this.toggleSearchBox, this));
     $("#headerProfileButton").click(jQuery.proxy(this.toggleProfileBox, this));
     $("#headerCancelButton").click(jQuery.proxy(this.toggleAllBoxes, this));
-    $("#loginSubmitButton").click(jQuery.proxy(this.doLoginSubmit, this));
+    $("#loginSubmitButton").click(jQuery.proxy(this.doLoginRequest, this));
     $("#logoutSubmitButton").click(jQuery.proxy(this.doLogoutRequest, this));
-    //$("#menuLogoutButton").click(jQuery.proxy(this.doLogoutRequest, this));
-    
+    $("#loginUsername").keypress($.proxy(this.loginCatchKeypress, this));
+    $("#loginPassword").keypress($.proxy(this.loginCatchKeypress, this));
   },
   
   openLocation : function(event) {
@@ -59,55 +57,54 @@ var HeaderMenu = Class.$extend( {
     }
   },
 
-  doLoginSubmit : function() {
-    var self = this;
-    
+  doLoginRequest : function() {
     $("#loginSubmitButton").attr("disabled", "disabled");
     $("#loginUsername").attr("disabled", "disabled");
     $("#loginPassword").attr("disabled", "disabled");
-    
-    alert(this.basePath + 'catroid/login/loginRequest.json');
+    var url = this.basePath + 'catroid/login/loginRequest.json';
     $.ajax({
       type: "POST",
-      url: self.basePath + 'catroid/login/loginRequest.json',
+      url: url,
       data: ({
           loginUsername: $("#loginUsername").val(),
           loginPassword: $("#loginPassword").val()
       }),
       timeout: (5000),
-      
-      success : function(result){
-        //alert('test2');
-        if(result.statusCode == 200) {
-          alert('200 '+self.basePath);
-          window.location.href = self.basePath+"catroid/login"; 
-          //window.location.reload(false);   
-        }
-        else {
-          alert(self.basePath+'else'+result.answer+result.statusCode);
-          location.href = self.basePath+'catroid/login';
-        }
-        // enable form fields
-      },
-      error : function(result, errCode) {
-        alert('error : function()'+result.statusCode);
-        location.href = self.basePath+'catroid/menu';
-      }
+      success : jQuery.proxy(this.loginSuccess, this),
+      error : jQuery.proxy(this.loginError, this)
     });
+  },
+  
+  loginSuccess : function(result) {
+	if(result.statusCode == 200) {
+      location.reload();
+    } else {
+      alert("error: "+result.answer);
+    }
+	$("#loginSubmitButton").removeAttr("disabled");
+    $("#loginUsername").removeAttr("disabled");
+    $("#loginPassword").removeAttr("disabled");
+  },
+  
+  loginError : function(result, errCode) {
+	alert("loginError");
   },
   
   doLogoutRequest : function(event) {
     $.ajax({ 
       url: this.basePath+"catroid/login/logoutRequest.json", 
       async: false,
-      success: jQuery.proxy(this.doLogout, this)
+      success: jQuery.proxy(this.logoutSuccess, this),
+      error: jQuery.proxy(this.logoutError, this)
     });
   },
   
-  doLogout: function(event) {
-    alert(this.basePath);
-    window.location.href = this.basePath+"catroid/login"; 
-    //window.location = this.basePath+"catroid/login"; 
+  logoutSuccess: function(result) {
+    location.reload();
+  },
+  
+  logoutError: function(result, errCode) {
+	alert("logoutError"); 
   },
   
   toggleAllBoxes : function() {
@@ -115,7 +112,14 @@ var HeaderMenu = Class.$extend( {
     $("#cancelHeaderButton").toggle(false);
     $("#headerSearchBox").toggle(false);
     $("#headerProfileBox").toggle(false);
-  } 
+  },
+  
+  loginCatchKeypress : function(event) {
+	if(event.which == '13') {
+	  event.preventDefault();
+	  this.doLoginRequest();
+	}
+  }
   
 });
 

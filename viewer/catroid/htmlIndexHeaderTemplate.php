@@ -70,13 +70,13 @@
               		Nick: <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="your nickname"  />
                 	Password: <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="your password"  />
                 </div>         
-                <div class="headerProfileBoxSubmitDiv" ><input id="loginSubmitButton" type="submit" class="button orange webHeadSubmitButton" value="Login" /></div>
+                <div class="headerProfileBoxSubmitDiv" ><input id="loginSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Login" /></div>
               	<div style="clear:both;"></div>
               </form>
             <?php } else { ?>
               <form id="logoutForm">
 								<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >You are logged in as <a href="/catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
-								<div class="headerProfileBoxSubmitDiv" ><input id="logoutSubmitButton" type="submit" class="button orange webHeadSubmitButton" value="Logout" /></div>
+								<div class="headerProfileBoxSubmitDiv" ><input id="logoutSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Logout" /></div>
               	<div style="clear:both;"></div>
               </form>
             <?php } ?>
