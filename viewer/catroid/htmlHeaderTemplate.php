@@ -40,8 +40,37 @@
           <div id="normalHeaderButtons" class="webHeadButtons">
             <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="Menu" /></button>           
             <button type="button" class="webHeadButtons button orange medium" id="headerHomeButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/home.png" alt="Home" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="Profile" /></button>
+          </div>
+          <div id="cancelHeaderButton" class="webHeadButtons">
+            <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelButton">
+              <span class="webHeadCancelButtonText">Cancel</span>
+            </button>
           </div>
           <div style="clear:both;"></div>
+        </div>
+      </div>
+      <div id="headerProfileBox" class="headerProfileBox" style="display:none;">
+        <div class="webHeadBoxSpacer"></div>
+        <div class="blueBoxMain">
+          <div class="webMainHead">
+            <?php if($this->module->session->userLogin_userId <= 0) { ?>
+              <form id="loginForm">
+              	<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >
+              		Nick: <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="your nickname"  />
+                	Password: <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="your password"  />
+                </div>         
+                <div class="headerProfileBoxSubmitDiv" ><input id="loginSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Login" /></div>
+              	<div style="clear:both;"></div>
+              </form>
+            <?php } else { ?>
+              <form id="logoutForm">
+								<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >You are logged in as <a href="/catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
+								<div class="headerProfileBoxSubmitDiv" ><input id="logoutSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Logout" /></div>
+              	<div style="clear:both;"></div>
+              </form>
+            <?php } ?>
+          </div>
         </div>
       </div>      
     </div> <!--  WEBMAINTOP -->

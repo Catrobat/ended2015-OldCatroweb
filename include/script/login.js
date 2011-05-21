@@ -39,30 +39,61 @@ var Login = Class.$extend( {
     $("#loginUsername").attr("disabled", "disabled");
     $("#loginPassword").attr("disabled", "disabled");
     
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'catroid/login/loginRequest.json',
-      data: "loginUsername="+$("#loginUsername").val()+"&loginPassword="+$("#loginPassword").val()+"&requesturi="+$("#requesturi").val(),
-      timeout: (5000),
-      
-      success : function(result){
-        if(result.statusCode == 200) {
-          location.href = self.basePath+result.requesturi;
+//    $.ajax({
+//      type: "POST",
+//      url: this.basePath + 'catroid/login/loginRequest.json',
+//      data: "loginUsername="+$("#loginUsername").val()+"&loginPassword="+$("#loginPassword").val()+"&requesturi="+$("#requesturi").val(),
+//      timeout: (5000),
+//      
+//      success : function(result){
+//        if(result.statusCode == 200) {
+//          alert(self.basePath+'ok');
+//          location.href = self.basePath+result.requesturi;
+//        }
+//        else {
+//          $("#loginFormAnswer").toggle(true);
+//          $("#errorMsg").html(result.answer);
+//        }
+//        // enable form fields
+//        $("#loginSubmit").removeAttr("disabled");
+//        $("#loginUsername").removeAttr("disabled");
+//        $("#loginPassword").removeAttr("disabled");
+//      },
+//      error : function(result, errCode) {
+//        alert(self.basePath+'error');
+//        if(errCode == "timeout") {
+//          window.location.reload(false);
+//        }
+//      }
+      $.ajax({
+        type: "POST",
+        url: self.basePath + 'catroid/login/loginRequest.json',
+        data: ({
+            loginUsername: $("#loginUsername").val(),
+            loginPassword: $("#loginPassword").val(),
+            requesturi : $("#requesturi").val()
+        }),
+        timeout: (5000),
+        
+        success : function(result){
+          //alert('test2');
+          if(result.statusCode == 200) {
+            alert('200');
+            location.href = self.basePath+result.requesturi;
+          }
+          else {
+            $("#loginFormAnswer").toggle(true);
+            $("#errorMsg").html(result.answer);
+          }
+//        // enable form fields
+          $("#loginSubmit").removeAttr("disabled");
+          $("#loginUsername").removeAttr("disabled");
+          $("#loginPassword").removeAttr("disabled");
+        },
+        error : function(result, errCode) {
+          alert('error : function()'+result.statusCode);
+          window.location.reload(false);
         }
-        else {
-          $("#loginFormAnswer").toggle(true);
-          $("#errorMsg").html(result.answer);
-        }
-        // enable form fields
-        $("#loginSubmit").removeAttr("disabled");
-        $("#loginUsername").removeAttr("disabled");
-        $("#loginPassword").removeAttr("disabled");
-      },
-      error : function(result, errCode) {
-        if(errCode == "timeout") {
-          window.location.reload(false);   
-        }
-      }
     });
   },
   

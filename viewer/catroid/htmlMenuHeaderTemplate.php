@@ -50,21 +50,23 @@
           <div style="clear:both;"></div>
         </div>
       </div>
-      <div id="headerProfileBox" style="display:none;">
+      <div id="headerProfileBox" class="headerProfileBox" style="display:none;">
         <div class="webHeadBoxSpacer"></div>
         <div class="blueBoxMain">
           <div class="webMainHead">
             <?php if($this->module->session->userLogin_userId <= 0) { ?>
               <form id="loginForm">
-              	<input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="your nickname" autofocus  />
-                <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="your password"  />             
-                <input type="submit" class="button orange webHeadSubmitButton" value="Login" />
-              </form>							
+              	<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >
+              		Nick: <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="your nickname"  />
+                	Password: <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="your password"  />
+                </div>         
+                <div class="headerProfileBoxSubmitDiv" ><input id="loginSubmitButton" type="submit" class="button orange webHeadSubmitButton" value="Login" /></div>
+              	<div style="clear:both;"></div>
+              </form>
             <?php } else { ?>
               <form id="logoutForm">
-								
-								<div id="headerProfileBoxText" class="headerProfileBoxText" >You are logged in as <a href="/catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
-								<div class="headerProfileBoxLogoutSubmit" ><input type="submit" id="logoutSubmitButton" class="button orange webHeadSubmitButton" value="Logout" /></div>
+								<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >You are logged in as <a href="/catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
+								<div class="headerProfileBoxSubmitDiv" ><input id="logoutSubmitButton" type="submit" class="button orange webHeadSubmitButton" value="Logout" /></div>
               	<div style="clear:both;"></div>
               </form>
             <?php } ?>

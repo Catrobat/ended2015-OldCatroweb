@@ -122,17 +122,17 @@ div.webHeadBoxSpacer {
   height:5px;
 }
 div.headerProfileBox {
-
+	font-size:1.0em;
+  text-align: center;
 }
-div.headerProfileBoxText {
+div.headerProfileBoxLeft {
   width: 66%;
   padding-top: 0.5%; 
   padding-left: 4%;
-  font-size:1.3em;
   text-align: left;
   float: left;
 }
-div.headerProfileBoxLogoutSubmit {
+div.headerProfileBoxSubmitDiv {
 	width: 20%;
   text-align: right;
   padding-right: 3%;
@@ -279,6 +279,12 @@ button.webHeadCancelButton {
   width:149px;
   height:70px;
   margin-top:8px;
+}
+input.webHeadLoginBox {
+  width:25%;
+  font-size:1.0em;
+  margin-left:0%;
+  margin-right:2%;
 }
 input.webHeadSearchBox {
 	width:76%;

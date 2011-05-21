@@ -26,6 +26,8 @@
   <a id="aAdminToolsInappropriateProjects" href="<?php echo BASE_PATH;?>admin/tools/inappropriateProjects">inappropriate projects</a><br />
   <a id="aAdminToolsApproveWords" href="<?php echo BASE_PATH;?>admin/tools/approveWords">approve unapproved words</a><br />
   <br />
+  <a id="aAdminToolsBlockIp" href="<?php echo BASE_PATH;?>admin/tools/editBlockedIps">block IPs</a><br />
+  <br />
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/index">&lt;- back</a>
   <br /><br />
   <?php if($this->answer) {

@@ -19,35 +19,26 @@
 
 var HeaderMenu = Class.$extend( {
   __init__ : function(basePath) {
-  var self = this;
     this.basePath = basePath;
     
-    this.openLocation = {
-      home: function() {
-        location.href = self.basePath+'catroid/index';
-      },        
-      menu: function() {
-        location.href = self.basePath+'catroid/menu';
-      },
-      login: function() {
-        location.href = self.basePath+'catroid/login';
-      }
-    };
-
     if($("#normalHeaderButtons").length != 0) {
       $("#normalHeaderButtons").toggle();
     }
-
-    $("#headerMenuButton").click(jQuery.proxy(this.openLocation, "menu"));
-    $("#headerHomeButton").click(jQuery.proxy(this.openLocation, "home"));
-    $("#headerSearchButton").click($.proxy(this.toggleSearchBox, this));
-    $("#headerProfileButton").click($.proxy(this.toggleProfileBox, this));
-    $("#headerCancelButton").click($.proxy(this.toggleAllBoxes, this));
-    $("#loginSubmitButton").click($.proxy(this.toggleLoginSubmit, this));
-    $("#logoutSubmitButton").click($.proxy(this.toggleAllBoxes, this));
-    
+    $("#headerHomeButton").click({url:"catroid/index"}, jQuery.proxy(this.openLocation, this));
+    $("#headerMenuButton").click({url:"catroid/menu"}, jQuery.proxy(this.openLocation, this));
+    $("#headerSearchButton").click(jQuery.proxy(this.toggleSearchBox, this));
+    $("#headerProfileButton").click(jQuery.proxy(this.toggleProfileBox, this));
+    $("#headerCancelButton").click(jQuery.proxy(this.toggleAllBoxes, this));
+    $("#loginSubmitButton").click(jQuery.proxy(this.doLoginRequest, this));
+    $("#logoutSubmitButton").click(jQuery.proxy(this.doLogoutRequest, this));
+    $("#loginUsername").keypress($.proxy(this.loginCatchKeypress, this));
+    $("#loginPassword").keypress($.proxy(this.loginCatchKeypress, this));
   },
-
+  
+  openLocation : function(event) {
+    location.href = this.basePath+event.data.url;
+  },
+  
   toggleSearchBox : function() {
     $("#normalHeaderButtons").toggle(false);
     $("#cancelHeaderButton").toggle(true);
@@ -62,16 +53,73 @@ var HeaderMenu = Class.$extend( {
     $("#cancelHeaderButton").toggle(true);
     $("#headerProfileBox").toggle(true);
     if($("#headerLoginBox").css("display") == "block") {
-      $("#loginUsrname").focus();
+      $("#loginUsername").focus();
     }
   },
 
+  doLoginRequest : function() {
+    $("#loginSubmitButton").attr("disabled", "disabled");
+    $("#loginUsername").attr("disabled", "disabled");
+    $("#loginPassword").attr("disabled", "disabled");
+    var url = this.basePath + 'catroid/login/loginRequest.json';
+    $.ajax({
+      type: "POST",
+      url: url,
+      data: ({
+          loginUsername: $("#loginUsername").val(),
+          loginPassword: $("#loginPassword").val()
+      }),
+      timeout: (5000),
+      success : jQuery.proxy(this.loginSuccess, this),
+      error : jQuery.proxy(this.loginError, this)
+    });
+  },
+  
+  loginSuccess : function(result) {
+	if(result.statusCode == 200) {
+      location.reload();
+    } else {
+      alert("error: "+result.answer);
+    }
+	$("#loginSubmitButton").removeAttr("disabled");
+    $("#loginUsername").removeAttr("disabled");
+    $("#loginPassword").removeAttr("disabled");
+  },
+  
+  loginError : function(result, errCode) {
+	alert("loginError");
+  },
+  
+  doLogoutRequest : function(event) {
+    $.ajax({ 
+      url: this.basePath+"catroid/login/logoutRequest.json", 
+      async: false,
+      success: jQuery.proxy(this.logoutSuccess, this),
+      error: jQuery.proxy(this.logoutError, this)
+    });
+  },
+  
+  logoutSuccess: function(result) {
+    location.reload();
+  },
+  
+  logoutError: function(result, errCode) {
+	alert("logoutError"); 
+  },
+  
   toggleAllBoxes : function() {
     $("#normalHeaderButtons").toggle(true);
     $("#cancelHeaderButton").toggle(false);
     $("#headerSearchBox").toggle(false);
     $("#headerProfileBox").toggle(false);
-  } 
+  },
+  
+  loginCatchKeypress : function(event) {
+	if(event.which == '13') {
+	  event.preventDefault();
+	  this.doLoginRequest();
+	}
+  }
   
 });
 
