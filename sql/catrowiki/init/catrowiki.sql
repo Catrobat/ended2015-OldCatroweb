@@ -133,7 +133,7 @@ CREATE TABLE archive (
 );
 
 
-ALTER TABLE public.archive OWNER TO website;
+-- ALTER TABLE public.archive OWNER TO website;
 
 --
 -- TOC entry 1663 (class 1259 OID 34577)
@@ -149,7 +149,7 @@ CREATE SEQUENCE category_cat_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.category_cat_id_seq OWNER TO website;
+-- ALTER TABLE public.category_cat_id_seq OWNER TO website;
 
 --
 -- TOC entry 2230 (class 0 OID 0)
@@ -176,7 +176,7 @@ CREATE TABLE category (
 );
 
 
-ALTER TABLE public.category OWNER TO website;
+-- ALTER TABLE public.category OWNER TO website;
 
 --
 -- TOC entry 1631 (class 1259 OID 34195)
@@ -192,7 +192,7 @@ CREATE TABLE categorylinks (
 );
 
 
-ALTER TABLE public.categorylinks OWNER TO website;
+-- ALTER TABLE public.categorylinks OWNER TO website;
 
 --
 -- TOC entry 1665 (class 1259 OID 34594)
@@ -209,7 +209,7 @@ CREATE TABLE change_tag (
 );
 
 
-ALTER TABLE public.change_tag OWNER TO website;
+-- ALTER TABLE public.change_tag OWNER TO website;
 
 --
 -- TOC entry 1633 (class 1259 OID 34221)
@@ -223,7 +223,7 @@ CREATE TABLE external_user (
 );
 
 
-ALTER TABLE public.external_user OWNER TO website;
+-- ALTER TABLE public.external_user OWNER TO website;
 
 --
 -- TOC entry 1632 (class 1259 OID 34208)
@@ -238,7 +238,7 @@ CREATE TABLE externallinks (
 );
 
 
-ALTER TABLE public.externallinks OWNER TO website;
+-- ALTER TABLE public.externallinks OWNER TO website;
 
 --
 -- TOC entry 1641 (class 1259 OID 34335)
@@ -254,7 +254,7 @@ CREATE SEQUENCE filearchive_fa_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.filearchive_fa_id_seq OWNER TO website;
+-- ALTER TABLE public.filearchive_fa_id_seq OWNER TO website;
 
 --
 -- TOC entry 2231 (class 0 OID 0)
@@ -296,7 +296,7 @@ CREATE TABLE filearchive (
 );
 
 
-ALTER TABLE public.filearchive OWNER TO website;
+-- ALTER TABLE public.filearchive OWNER TO website;
 
 --
 -- TOC entry 1636 (class 1259 OID 34256)
@@ -309,7 +309,7 @@ CREATE TABLE hitcounter (
 );
 
 
-ALTER TABLE public.hitcounter OWNER TO website;
+-- ALTER TABLE public.hitcounter OWNER TO website;
 
 --
 -- TOC entry 1639 (class 1259 OID 34291)
@@ -335,7 +335,7 @@ CREATE TABLE image (
 );
 
 
-ALTER TABLE public.image OWNER TO website;
+-- ALTER TABLE public.image OWNER TO website;
 
 --
 -- TOC entry 1630 (class 1259 OID 34183)
@@ -349,7 +349,7 @@ CREATE TABLE imagelinks (
 );
 
 
-ALTER TABLE public.imagelinks OWNER TO website;
+-- ALTER TABLE public.imagelinks OWNER TO website;
 
 --
 -- TOC entry 1647 (class 1259 OID 34420)
@@ -365,7 +365,7 @@ CREATE TABLE interwiki (
 );
 
 
-ALTER TABLE public.interwiki OWNER TO website;
+-- ALTER TABLE public.interwiki OWNER TO website;
 
 --
 -- TOC entry 1637 (class 1259 OID 34259)
@@ -381,7 +381,7 @@ CREATE SEQUENCE ipblocks_ipb_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.ipblocks_ipb_id_seq OWNER TO website;
+-- ALTER TABLE public.ipblocks_ipb_id_seq OWNER TO website;
 
 --
 -- TOC entry 2232 (class 0 OID 0)
@@ -419,7 +419,7 @@ CREATE TABLE ipblocks (
 );
 
 
-ALTER TABLE public.ipblocks OWNER TO website;
+-- ALTER TABLE public.ipblocks OWNER TO website;
 
 --
 -- TOC entry 1658 (class 1259 OID 34527)
@@ -435,7 +435,7 @@ CREATE SEQUENCE job_job_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.job_job_id_seq OWNER TO website;
+-- ALTER TABLE public.job_job_id_seq OWNER TO website;
 
 --
 -- TOC entry 2233 (class 0 OID 0)
@@ -461,7 +461,7 @@ CREATE TABLE job (
 );
 
 
-ALTER TABLE public.job OWNER TO website;
+-- ALTER TABLE public.job OWNER TO website;
 
 --
 -- TOC entry 1670 (class 1259 OID 34641)
@@ -476,7 +476,7 @@ CREATE TABLE l10n_cache (
 );
 
 
-ALTER TABLE public.l10n_cache OWNER TO website;
+-- ALTER TABLE public.l10n_cache OWNER TO website;
 
 --
 -- TOC entry 1634 (class 1259 OID 34230)
@@ -491,7 +491,7 @@ CREATE TABLE langlinks (
 );
 
 
-ALTER TABLE public.langlinks OWNER TO website;
+-- ALTER TABLE public.langlinks OWNER TO website;
 
 --
 -- TOC entry 1655 (class 1259 OID 34500)
@@ -506,7 +506,7 @@ CREATE TABLE log_search (
 );
 
 
-ALTER TABLE public.log_search OWNER TO website;
+-- ALTER TABLE public.log_search OWNER TO website;
 
 --
 -- TOC entry 1653 (class 1259 OID 34476)
@@ -522,7 +522,7 @@ CREATE SEQUENCE logging_log_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.logging_log_id_seq OWNER TO website;
+-- ALTER TABLE public.logging_log_id_seq OWNER TO website;
 
 --
 -- TOC entry 2234 (class 0 OID 0)
@@ -555,7 +555,7 @@ CREATE TABLE logging (
 );
 
 
-ALTER TABLE public.logging OWNER TO website;
+-- ALTER TABLE public.logging OWNER TO website;
 
 --
 -- TOC entry 1646 (class 1259 OID 34412)
@@ -572,7 +572,7 @@ CREATE TABLE math (
 );
 
 
-ALTER TABLE public.math OWNER TO website;
+-- ALTER TABLE public.math OWNER TO website;
 
 --
 -- TOC entry 1669 (class 1259 OID 34634)
@@ -597,7 +597,7 @@ CREATE TABLE mediawiki_version (
 );
 
 
-ALTER TABLE public.mediawiki_version OWNER TO website;
+-- ALTER TABLE public.mediawiki_version OWNER TO website;
 
 --
 -- TOC entry 1613 (class 1259 OID 33996)
@@ -612,7 +612,7 @@ CREATE SEQUENCE user_user_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.user_user_id_seq OWNER TO website;
+-- ALTER TABLE public.user_user_id_seq OWNER TO website;
 
 --
 -- TOC entry 2235 (class 0 OID 0)
@@ -648,7 +648,7 @@ CREATE TABLE mwuser (
 );
 
 
-ALTER TABLE public.mwuser OWNER TO website;
+-- ALTER TABLE public.mwuser OWNER TO website;
 
 --
 -- TOC entry 1651 (class 1259 OID 34458)
@@ -663,7 +663,7 @@ CREATE TABLE objectcache (
 );
 
 
-ALTER TABLE public.objectcache OWNER TO website;
+-- ALTER TABLE public.objectcache OWNER TO website;
 
 --
 -- TOC entry 1640 (class 1259 OID 34311)
@@ -691,7 +691,7 @@ CREATE TABLE oldimage (
 );
 
 
-ALTER TABLE public.oldimage OWNER TO website;
+-- ALTER TABLE public.oldimage OWNER TO website;
 
 --
 -- TOC entry 1617 (class 1259 OID 34035)
@@ -706,7 +706,7 @@ CREATE SEQUENCE page_page_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.page_page_id_seq OWNER TO website;
+-- ALTER TABLE public.page_page_id_seq OWNER TO website;
 
 --
 -- TOC entry 2236 (class 0 OID 0)
@@ -739,7 +739,7 @@ CREATE TABLE page (
 );
 
 
-ALTER TABLE public.page OWNER TO website;
+-- ALTER TABLE public.page OWNER TO website;
 
 --
 -- TOC entry 1625 (class 1259 OID 34117)
@@ -754,7 +754,7 @@ CREATE TABLE page_props (
 );
 
 
-ALTER TABLE public.page_props OWNER TO website;
+-- ALTER TABLE public.page_props OWNER TO website;
 
 --
 -- TOC entry 1623 (class 1259 OID 34099)
@@ -770,7 +770,7 @@ CREATE SEQUENCE page_restrictions_pr_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.page_restrictions_pr_id_seq OWNER TO website;
+-- ALTER TABLE public.page_restrictions_pr_id_seq OWNER TO website;
 
 --
 -- TOC entry 2237 (class 0 OID 0)
@@ -798,7 +798,7 @@ CREATE TABLE page_restrictions (
 );
 
 
-ALTER TABLE public.page_restrictions OWNER TO website;
+-- ALTER TABLE public.page_restrictions OWNER TO website;
 
 --
 -- TOC entry 1621 (class 1259 OID 34088)
@@ -813,7 +813,7 @@ CREATE SEQUENCE text_old_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.text_old_id_seq OWNER TO website;
+-- ALTER TABLE public.text_old_id_seq OWNER TO website;
 
 --
 -- TOC entry 2238 (class 0 OID 0)
@@ -838,7 +838,7 @@ CREATE TABLE pagecontent (
 );
 
 
-ALTER TABLE public.pagecontent OWNER TO website;
+-- ALTER TABLE public.pagecontent OWNER TO website;
 
 --
 -- TOC entry 1628 (class 1259 OID 34158)
@@ -853,7 +853,7 @@ CREATE TABLE pagelinks (
 );
 
 
-ALTER TABLE public.pagelinks OWNER TO website;
+-- ALTER TABLE public.pagelinks OWNER TO website;
 
 --
 -- TOC entry 1660 (class 1259 OID 34546)
@@ -870,7 +870,7 @@ CREATE TABLE profiling (
 );
 
 
-ALTER TABLE public.profiling OWNER TO website;
+-- ALTER TABLE public.profiling OWNER TO website;
 
 --
 -- TOC entry 1661 (class 1259 OID 34556)
@@ -889,7 +889,7 @@ CREATE TABLE protected_titles (
 );
 
 
-ALTER TABLE public.protected_titles OWNER TO website;
+-- ALTER TABLE public.protected_titles OWNER TO website;
 
 --
 -- TOC entry 1648 (class 1259 OID 34429)
@@ -905,7 +905,7 @@ CREATE TABLE querycache (
 );
 
 
-ALTER TABLE public.querycache OWNER TO website;
+-- ALTER TABLE public.querycache OWNER TO website;
 
 --
 -- TOC entry 1649 (class 1259 OID 34436)
@@ -919,7 +919,7 @@ CREATE TABLE querycache_info (
 );
 
 
-ALTER TABLE public.querycache_info OWNER TO website;
+-- ALTER TABLE public.querycache_info OWNER TO website;
 
 --
 -- TOC entry 1650 (class 1259 OID 34444)
@@ -937,7 +937,7 @@ CREATE TABLE querycachetwo (
 );
 
 
-ALTER TABLE public.querycachetwo OWNER TO website;
+-- ALTER TABLE public.querycachetwo OWNER TO website;
 
 --
 -- TOC entry 1643 (class 1259 OID 34364)
@@ -953,7 +953,7 @@ CREATE SEQUENCE recentchanges_rc_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.recentchanges_rc_id_seq OWNER TO website;
+-- ALTER TABLE public.recentchanges_rc_id_seq OWNER TO website;
 
 --
 -- TOC entry 2239 (class 0 OID 0)
@@ -1000,7 +1000,7 @@ CREATE TABLE recentchanges (
 );
 
 
-ALTER TABLE public.recentchanges OWNER TO website;
+-- ALTER TABLE public.recentchanges OWNER TO website;
 
 --
 -- TOC entry 1627 (class 1259 OID 34146)
@@ -1017,7 +1017,7 @@ CREATE TABLE redirect (
 );
 
 
-ALTER TABLE public.redirect OWNER TO website;
+-- ALTER TABLE public.redirect OWNER TO website;
 
 --
 -- TOC entry 1619 (class 1259 OID 34060)
@@ -1032,7 +1032,7 @@ CREATE SEQUENCE revision_rev_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.revision_rev_id_seq OWNER TO website;
+-- ALTER TABLE public.revision_rev_id_seq OWNER TO website;
 
 --
 -- TOC entry 2240 (class 0 OID 0)
@@ -1064,7 +1064,7 @@ CREATE TABLE revision (
 );
 
 
-ALTER TABLE public.revision OWNER TO website;
+-- ALTER TABLE public.revision OWNER TO website;
 
 --
 -- TOC entry 1635 (class 1259 OID 34243)
@@ -1085,7 +1085,7 @@ CREATE TABLE site_stats (
 );
 
 
-ALTER TABLE public.site_stats OWNER TO website;
+-- ALTER TABLE public.site_stats OWNER TO website;
 
 --
 -- TOC entry 1666 (class 1259 OID 34604)
@@ -1101,7 +1101,7 @@ CREATE TABLE tag_summary (
 );
 
 
-ALTER TABLE public.tag_summary OWNER TO website;
+-- ALTER TABLE public.tag_summary OWNER TO website;
 
 --
 -- TOC entry 1629 (class 1259 OID 34170)
@@ -1116,7 +1116,7 @@ CREATE TABLE templatelinks (
 );
 
 
-ALTER TABLE public.templatelinks OWNER TO website;
+-- ALTER TABLE public.templatelinks OWNER TO website;
 
 --
 -- TOC entry 1656 (class 1259 OID 34510)
@@ -1132,7 +1132,7 @@ CREATE SEQUENCE trackbacks_tb_id_seq
     CACHE 1;
 
 
-ALTER TABLE public.trackbacks_tb_id_seq OWNER TO website;
+-- ALTER TABLE public.trackbacks_tb_id_seq OWNER TO website;
 
 --
 -- TOC entry 2241 (class 0 OID 0)
@@ -1159,7 +1159,7 @@ CREATE TABLE trackbacks (
 );
 
 
-ALTER TABLE public.trackbacks OWNER TO website;
+-- ALTER TABLE public.trackbacks OWNER TO website;
 
 --
 -- TOC entry 1652 (class 1259 OID 34468)
@@ -1174,7 +1174,7 @@ CREATE TABLE transcache (
 );
 
 
-ALTER TABLE public.transcache OWNER TO website;
+-- ALTER TABLE public.transcache OWNER TO website;
 
 --
 -- TOC entry 1662 (class 1259 OID 34569)
@@ -1187,7 +1187,7 @@ CREATE TABLE updatelog (
 );
 
 
-ALTER TABLE public.updatelog OWNER TO website;
+-- ALTER TABLE public.updatelog OWNER TO website;
 
 --
 -- TOC entry 1615 (class 1259 OID 34010)
@@ -1201,7 +1201,7 @@ CREATE TABLE user_groups (
 );
 
 
-ALTER TABLE public.user_groups OWNER TO website;
+-- ALTER TABLE public.user_groups OWNER TO website;
 
 --
 -- TOC entry 1616 (class 1259 OID 34022)
@@ -1216,7 +1216,7 @@ CREATE TABLE user_newtalk (
 );
 
 
-ALTER TABLE public.user_newtalk OWNER TO website;
+-- ALTER TABLE public.user_newtalk OWNER TO website;
 
 --
 -- TOC entry 1668 (class 1259 OID 34621)
@@ -1231,7 +1231,7 @@ CREATE TABLE user_properties (
 );
 
 
-ALTER TABLE public.user_properties OWNER TO website;
+-- ALTER TABLE public.user_properties OWNER TO website;
 
 --
 -- TOC entry 1667 (class 1259 OID 34613)
@@ -1244,7 +1244,7 @@ CREATE TABLE valid_tag (
 );
 
 
-ALTER TABLE public.valid_tag OWNER TO website;
+-- ALTER TABLE public.valid_tag OWNER TO website;
 
 --
 -- TOC entry 1645 (class 1259 OID 34398)
@@ -1260,7 +1260,7 @@ CREATE TABLE watchlist (
 );
 
 
-ALTER TABLE public.watchlist OWNER TO website;
+-- ALTER TABLE public.watchlist OWNER TO website;
 
 --
 -- TOC entry 2187 (class 0 OID 34131)
