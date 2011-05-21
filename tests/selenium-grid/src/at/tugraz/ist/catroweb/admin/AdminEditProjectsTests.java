@@ -18,6 +18,8 @@
 
 package at.tugraz.ist.catroweb.admin;
 
+import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
+
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -27,8 +29,8 @@ import at.tugraz.ist.catroweb.common.*;
 public class AdminEditProjectsTests extends BaseTest {
   @Test(groups = { "catroid", "firefox", "default" }, description = "Header Buttons Index")
   public void headerButtonsIndex() throws Throwable {
-    this.session.setSpeed("1000");
-    this.session.open(Config.TESTS_BASE_PATH);
-    this.session.waitForPageToLoad(Config.TIMEOUT);
+    session().setSpeed("1000");
+    session().open(Config.TESTS_BASE_PATH);
+    session().waitForPageToLoad(Config.TIMEOUT);
   }
 }

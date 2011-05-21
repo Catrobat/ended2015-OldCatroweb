@@ -57,12 +57,7 @@ public class CommonFunctions {
     while(iter.hasNext()) {
       Map.Entry<?, ?> entry = (Map.Entry<?, ?>) iter.next();
       if(entry.getKey().equals(key)) {
-        if(entry.getValue() instanceof String) {
-          return (String) entry.getValue();
-        } else if(entry.getValue() instanceof Integer) {
-          return Integer.toString((Integer) entry.getValue());
-        }
-        return "";
+        return entry.getValue().toString();
       }
     }
     return "";

@@ -20,7 +20,7 @@ package at.tugraz.ist.catroweb.common;
 
 import java.util.HashMap;
 
-public class DataProvider {
+public class CommonData {
   public static String getRandomLongString() {
     String str = "";
     int strLen = 200;
@@ -50,7 +50,7 @@ public class DataProvider {
       data.put("projectDescription", projectDescription);
     }
     if(!filename.isEmpty()) {
-      data.put("upload", Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + Config.FILESYSTEM_SEPARATOR + filename);
+      data.put("upload", Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + filename);
     }
     if(!fileChecksum.isEmpty()) {
       data.put("fileChecksum", fileChecksum);

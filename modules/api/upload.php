@@ -182,15 +182,15 @@ class upload extends CoreAuthenticationDevice {
     //$versionName = "";
     //$versionCode = 0;
     
-    $unzipDir = CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId;
+    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId;    
     // print "Unzip FILE ".$projectDir.$projectId.PROJECTS_EXTENTION.$unzipDir;
-    mkdir(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId);
-    mkdir(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images");
-    mkdir(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds");
+    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId);
+    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images");
+    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds");
     // change rights
-    chmod(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId, "0666");
-    chmod(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images", "0666");
-    chmod(CORE_BASE_PATH."/".PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds", "0666");
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId, 0766);
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images", 0766);
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds", 0766);
 
     $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
     while ($zip_entry = zip_read($zip)) {
@@ -221,11 +221,14 @@ class upload extends CoreAuthenticationDevice {
       }
     }
     zip_close($zip);
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images", 0666);
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds", 0666);
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId, 0666);
     // return array($versionName, $versionCode);
   }
   
   public function unzipThumbnailFromUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
-    $unzipDir = CORE_BASE_PATH.'/'.PROJECTS_UNZIPPED_DIRECTORY;
+    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY;
     $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
     while ($zip_entry = zip_read($zip)) {
       $filename = zip_entry_name($zip_entry);
@@ -240,7 +243,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function saveThumbnail($filename, $thumbnail) {
-    $thumbnailDir = CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY;
+    $thumbnailDir = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;
 
     $thumbImage = imagecreatefromstring($thumbnail);
     if ($thumbImage) {
@@ -252,19 +255,19 @@ class upload extends CoreAuthenticationDevice {
        
       // thumbnail with original filesize
       imagejpeg($thumbImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 100);
-      chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, "0666");
+      chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 0666);
       
       // small thumbnail for preview 240x400
       $smallImage = imagecreatetruecolor(240, $hsmallopt);
       imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, $hsmallopt, $w, $h);
       imagejpeg($smallImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 50);
-      chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, "0666");
+      chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 0666);
       
       // large thumbnail for details-view 480x800
       $newImage = imagecreatetruecolor(480, $hlargeopt);
       imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, $hlargeopt, $w, $h);
       imagejpeg($newImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
-      chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, "0666");
+      chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 0666);
     }
   }
 
@@ -273,7 +276,7 @@ class upload extends CoreAuthenticationDevice {
     if ($fp) {
       fwrite($fp, $filecontent, $filesize);
       fclose($fp);
-      chmod($targetDir."/".$filename, "0666");
+      chmod($targetDir."/".$filename, 0666);
     }
   }
 
@@ -363,6 +366,7 @@ class upload extends CoreAuthenticationDevice {
     }
     if(@imagepng($qrImageHandle, $destinationPath, 9)) {
       @imagedestroy($qrImageHandle);
+      chmod($destinationPath, 0666);
       return true;
     } else {
       $this->sendQRFailNotificationEmail($projectId, $projectTitle);

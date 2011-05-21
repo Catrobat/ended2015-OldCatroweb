@@ -19,6 +19,7 @@
 package at.tugraz.ist.catroweb.common;
 
 import java.io.File;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -56,18 +57,19 @@ public class ProjectUploader {
   }
 
   public String upload(HashMap<String, String> payload) {
-    HttpClient httpclient = new DefaultHttpClient();
     HashMap<String, String> verifiedPayload = verifyPayload(payload);
+    Charset utf8 = Charset.forName("UTF-8");
+    HttpClient httpclient = new DefaultHttpClient();
     try {
       MultipartEntity reqEntity = new MultipartEntity();
-      reqEntity.addPart("projectTitle", new StringBody(verifiedPayload.get("projectTitle")));
-      reqEntity.addPart("projectDescription", new StringBody(verifiedPayload.get("projectDescription")));
+      reqEntity.addPart("projectTitle", new StringBody(verifiedPayload.get("projectTitle"), utf8));
+      reqEntity.addPart("projectDescription", new StringBody(verifiedPayload.get("projectDescription"), utf8));
       reqEntity.addPart("upload", new FileBody(new File(verifiedPayload.get("upload"))));
-      reqEntity.addPart("fileChecksum", new StringBody(verifiedPayload.get("fileChecksum")));
-      reqEntity.addPart("deviceIMEI", new StringBody(verifiedPayload.get("deviceIMEI")));
-      reqEntity.addPart("userEmail", new StringBody(verifiedPayload.get("userEmail")));
-      reqEntity.addPart("userLanguage", new StringBody(verifiedPayload.get("userLanguage")));
-      reqEntity.addPart("token", new StringBody(verifiedPayload.get("token")));
+      reqEntity.addPart("fileChecksum", new StringBody(verifiedPayload.get("fileChecksum"), utf8));
+      reqEntity.addPart("deviceIMEI", new StringBody(verifiedPayload.get("deviceIMEI"), utf8));
+      reqEntity.addPart("userEmail", new StringBody(verifiedPayload.get("userEmail"), utf8));
+      reqEntity.addPart("userLanguage", new StringBody(verifiedPayload.get("userLanguage"), utf8));
+      reqEntity.addPart("token", new StringBody(verifiedPayload.get("token"), utf8));
 
       HttpPost httppost = new HttpPost(this.webSite + Config.TESTS_BASE_PATH.substring(1) + "api/upload/upload.json");
       httppost.setEntity(reqEntity);

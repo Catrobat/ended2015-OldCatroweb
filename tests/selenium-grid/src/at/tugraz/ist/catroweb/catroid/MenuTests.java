@@ -18,6 +18,8 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
+import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
+
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -27,117 +29,117 @@ import at.tugraz.ist.catroweb.common.*;
 public class MenuTests extends BaseTest{
   @Test(groups = {"menu", "firefox", "default"}, description = "check button visibility")
   public void buttonVisibility() throws Throwable {    
-    this.session.open(Config.TESTS_BASE_PATH);
+    session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
-    this.session.click("headerMenuButton");
+    session().click("headerMenuButton");
     waitForPageToLoad(); 
-    assertRegExp(".*/catroid/menu$", this.session.getLocation());
+    assertRegExp(".*/catroid/menu$", session().getLocation());
     
-    assertTrue(this.session.isVisible("menuProfileButton"));
-    assertTrue(this.session.isVisible("menuForumButton"));
-    assertTrue(this.session.isVisible("menuWikiButton"));
+    assertTrue(session().isVisible("menuProfileButton"));
+    assertTrue(session().isVisible("menuForumButton"));
+    assertTrue(session().isVisible("menuWikiButton"));
 
-    assertTrue(this.session.isVisible("menuWallButton"));
-    assertTrue(this.session.isVisible("menuLoginButton"));
-    assertTrue(this.session.isVisible("menuSettingsButton"));
+    assertTrue(session().isVisible("menuWallButton"));
+    assertTrue(session().isVisible("menuLoginButton"));
+    assertTrue(session().isVisible("menuSettingsButton"));
 
-    assertFalse(this.session.isEditable("menuWallButton"));
-    assertFalse(this.session.isEditable("menuSettingsButton"));
+    assertFalse(session().isEditable("menuWallButton"));
+    assertFalse(session().isEditable("menuSettingsButton"));
 
-    this.session.click("menuLoginButton");
+    session().click("menuLoginButton");
     waitForPageToLoad();
 
-    assertRegExp(".*/catroid/login[?]requesturi=catroid/menu",this.session.getLocation());
-    this.session.type("xpath=//input[@name='loginUsername']", DataProvider.getLoginUserDefault());
-    this.session.type("xpath=//input[@name='loginPassword']", DataProvider.getLoginPasswordDefault());
-    this.session.click("xpath=//input[@name='loginSubmit']");
+    assertRegExp(".*/catroid/login[?]requesturi=catroid/menu",session().getLocation());
+    session().type("xpath=//input[@name='loginUsername']", CommonData.getLoginUserDefault());
+    session().type("xpath=//input[@name='loginPassword']", CommonData.getLoginPasswordDefault());
+    session().click("xpath=//input[@name='loginSubmit']");
     ajaxWait();
     waitForPageToLoad();  
 
-    assertRegExp(".*/catroid/menu$",this.session.getLocation());
-    assertTrue(this.session.isVisible("menuLogoutButton"));
-    assertFalse(this.session.isVisible("menuLoginButton"));
+    assertRegExp(".*/catroid/menu$",session().getLocation());
+    assertTrue(session().isVisible("menuLogoutButton"));
+    assertFalse(session().isVisible("menuLoginButton"));
 
-    this.session.click("menuLogoutButton");
+    session().click("menuLogoutButton");
     waitForPageToLoad();
-    assertRegExp(".*/catroid/index(/[0-9]+)?",this.session.getLocation());
+    assertRegExp(".*/catroid/index(/[0-9]+)?",session().getLocation());
    
-    this.session.click("headerMenuButton");
+    session().click("headerMenuButton");
     waitForPageToLoad();
    
-    assertFalse(this.session.isVisible("menuLogoutButton"));
-    assertTrue(this.session.isVisible("menuLoginButton"));
+    assertFalse(session().isVisible("menuLogoutButton"));
+    assertTrue(session().isVisible("menuLoginButton"));
   }
 
   @Test(groups = {"menu", "firefox", "default"}, description = "check board + wiki links; logged in/out")
   public void boardAndWikiLinks() throws Throwable {
-    this.session.open(Config.TESTS_BASE_PATH);
+    session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
-    this.session.click("headerMenuButton");
+    session().click("headerMenuButton");
     waitForPageToLoad();
-    assertRegExp(".*/catroid/menu$",this.session.getLocation());
+    assertRegExp(".*/catroid/menu$",session().getLocation());
     
-    this.session.click("menuForumButton");
-    this.session.waitForPopUp("board", Config.TIMEOUT);
-    this.session.selectWindow("board");
+    session().click("menuForumButton");
+    session().waitForPopUp("board", Config.TIMEOUT);
+    session().selectWindow("board");
     
-    assertRegExp(".*/addons/board(/)?$",this.session.getLocation());
-    assertTrue(this.session.isTextPresent(("Board index")));
-    assertTrue(this.session.isTextPresent(("Login")));
-    this.session.close();
-    this.session.selectWindow(null);
+    assertRegExp(".*/addons/board(/)?$",session().getLocation());
+    assertTrue(session().isTextPresent(("Board index")));
+    assertTrue(session().isTextPresent(("Login")));
+    session().close();
+    session().selectWindow(null);
     
-    this.session.click("menuWikiButton");    
-    this.session.waitForPopUp("wiki", Config.TIMEOUT);
-    this.session.selectWindow("wiki");
-    assertRegExp(".*/wiki/Main_Page$",this.session.getLocation());    
+    session().click("menuWikiButton");    
+    session().waitForPopUp("wiki", Config.TIMEOUT);
+    session().selectWindow("wiki");
+    assertRegExp(".*/wiki/Main_Page$",session().getLocation());    
     
-    assertTrue(this.session.isTextPresent(("Main Page")));
-    assertFalse(this.session.isElementPresent("pt-userpage"));
-    this.session.close();
-    this.session.selectWindow(null);
+    assertTrue(session().isTextPresent(("Main Page")));
+    assertFalse(session().isElementPresent("pt-userpage"));
+    session().close();
+    session().selectWindow(null);
     
-    this.session.click("menuLoginButton");
+    session().click("menuLoginButton");
     waitForPageToLoad();   
-    this.session.type("xpath=//input[@name='loginUsername']", DataProvider.getLoginUserDefault());
-    this.session.type("xpath=//input[@name='loginPassword']", DataProvider.getLoginPasswordDefault());
-    this.session.click("xpath=//input[@name='loginSubmit']");
+    session().type("xpath=//input[@name='loginUsername']", CommonData.getLoginUserDefault());
+    session().type("xpath=//input[@name='loginPassword']", CommonData.getLoginPasswordDefault());
+    session().click("xpath=//input[@name='loginSubmit']");
     ajaxWait();
     waitForPageToLoad();   
 
-    this.session.click("menuForumButton");
-    this.session.waitForPopUp("board", Config.TIMEOUT);
-    this.session.selectWindow("board");
-    assertRegExp(".*/addons/board(/)?$",this.session.getLocation());
+    session().click("menuForumButton");
+    session().waitForPopUp("board", Config.TIMEOUT);
+    session().selectWindow("board");
+    assertRegExp(".*/addons/board(/)?$",session().getLocation());
     
-    assertTrue(this.session.isTextPresent(("Board index")));
-    assertTrue(this.session.isTextPresent(DataProvider.getLoginUserDefault()));
-    this.session.close();
-    this.session.selectWindow(null);
+    assertTrue(session().isTextPresent(("Board index")));
+    assertTrue(session().isTextPresent(CommonData.getLoginUserDefault()));
+    session().close();
+    session().selectWindow(null);
 
-    this.session.click("menuWikiButton");
-    this.session.waitForPopUp("wiki", Config.TIMEOUT);
-    this.session.selectWindow("wiki");
-    assertRegExp(".*/wiki/Main_Page[?]action=purge$",this.session.getLocation());
+    session().click("menuWikiButton");
+    session().waitForPopUp("wiki", Config.TIMEOUT);
+    session().selectWindow("wiki");
+    assertRegExp(".*/wiki/Main_Page[?]action=purge$",session().getLocation());
     
-    assertTrue(this.session.isTextPresent(("Main Page")));
-    assertTrue(this.session.isElementPresent("pt-userpage"));
-    this.session.close();
-    this.session.selectWindow(null);
+    assertTrue(session().isTextPresent(("Main Page")));
+    assertTrue(session().isElementPresent("pt-userpage"));
+    session().close();
+    session().selectWindow(null);
  }
   
   @Test(groups = { "example", "firefox", "default" }, description = "check menu home button")
   public void homeButton() {
-    this.session.open(Config.TESTS_BASE_PATH);
+    session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();   
-    this.session.click("headerMenuButton");
+    session().click("headerMenuButton");
     waitForPageToLoad();   
-    assertRegExp(".*/catroid/menu$",this.session.getLocation());
+    assertRegExp(".*/catroid/menu$",session().getLocation());
      
-    assertTrue(this.session.isElementPresent("headerHomeButton"));
-    this.session.click("headerHomeButton");
+    assertTrue(session().isElementPresent("headerHomeButton"));
+    session().click("headerHomeButton");
     waitForPageToLoad();
-    assertFalse(this.session.isElementPresent("headerHomeButton"));
-    assertRegExp(".*/catroid/index(/[0-9]+)?",this.session.getLocation());
+    assertFalse(session().isElementPresent("headerHomeButton"));
+    assertRegExp(".*/catroid/index(/[0-9]+)?",session().getLocation());
   }
 }
