@@ -92,7 +92,7 @@ class UploadTests extends PHPUnit_Framework_TestCase
     $returnArray = array(
     array('testing project upload', 'some description for my test project.', 'test.zip', '0'),
     array('my test project with spaces', 'some description for my test project.', 'test.zip', '0'),
-    array(('my spÄc1al c´har t3ßt pröjec+'), 'some description with -äöüÜÖÄß- for my test project.%&()[]{}_|~#', 'test.zip', '0'),
+    array("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", 'test.zip', '0'),
     array('my_test_project_with_looong_description', 'some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ', 'test.zip', '0'),
     array('project with thumbnail', 'this project has its own thumbnail inside the zip', 'test2.zip', '0')
     );

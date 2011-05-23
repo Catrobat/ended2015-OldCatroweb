@@ -62,7 +62,7 @@ class upload extends CoreAuthenticationDevice {
     $projectDescription = '';
     if(isset($formData['projectTitle']) && $formData['projectTitle'] && isset($fileData['upload']['tmp_name']) && $fileData['upload']['error'] == 0) {
       if(intval($fileData['upload']['size']) <= PROJECTS_MAX_SIZE) {
-        $projectTitle = $formData['projectTitle'];
+        $projectTitle = pg_escape_string($formData['projectTitle']);
         if(($this->checkValidProjectTitle($projectTitle))){
           if(!$this->badWordsFilter->areThereInsultingWords($projectTitle)) {
             if(isset($formData['projectDescription'])) {

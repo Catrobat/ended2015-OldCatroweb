@@ -446,7 +446,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
       array('unitTest', 'my project description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
       array('unitTest with empty description', '', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
       array('unitTest with a very very very very long title and no description, hopefully not too long', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-      array('unitTest with special chars: ä, ü, ö', 'jüßt 4 spècia1 char **test** %&()[]{}_|~#', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+      array("unitTest with special chars: ä, ü, ö ' ", "jüßt 4 spècia1 char **test** ' %&()[]{}_|~#", $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
       array('unitTest with included Thumbnail', 'this project contains its thumbnail inside the zip file', $testFileWithThumbnail, $fileNameWithThumbnail, $fileChecksumWithThumbnail, $fileSizeWithThumbnail, $fileType),
       array('unitTest with long description', 'this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
       array('unitTest with IMEI, Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, '12345rtgfb67854', 'catroid_unittest@gmail.com', 'en'),
