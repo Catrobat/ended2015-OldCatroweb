@@ -107,6 +107,7 @@ public class AdminTests extends BaseTest {
 
     session().open(Config.TESTS_BASE_PATH + "catroid/details/" + id);
     waitForPageToLoad();
+    ajaxWait();
     session().click("reportAsInappropriateButton");
     session().type("reportInappropriateReason", "my selenium reason");
     session().click("reportInappropriateReportButton");

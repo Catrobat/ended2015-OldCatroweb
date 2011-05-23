@@ -24,8 +24,10 @@ import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStor
 
 import static org.testng.AssertJUnit.assertTrue;
 import org.testng.Reporter;
-import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 
 import at.tugraz.ist.catroweb.common.Config;
@@ -35,25 +37,34 @@ public class BaseTest {
   protected ProjectUploader projectUploader;
   protected String webSite;
 
+  @BeforeClass(alwaysRun = true)
+  @Parameters( { "webSite" })
+  protected void constructor(String webSite) {
+    this.webSite = webSite;
+    projectUploader = new ProjectUploader(webSite);
+  }
+
+  @AfterClass(alwaysRun = true)
+  protected void destructor() {
+    projectUploader.cleanup();
+  }
+
   @BeforeMethod(alwaysRun = true)
   @Parameters( { "seleniumHost", "seleniumPort", "browser", "webSite" })
   protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
-    this.webSite = webSite;
     startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
     System.out.println("======================= START SESSION =====================");
     session().setSpeed(setSpeed());
     session().setTimeout(Config.TIMEOUT);
     System.out.println(" base path:\t" + webSite + Config.TESTS_BASE_PATH.substring(1));
     System.out.println("===========================================================");
-    projectUploader = new ProjectUploader(webSite);
   }
 
   @AfterMethod(alwaysRun = true)
   protected void closeSession() {
-    projectUploader.cleanup();
     closeSeleniumSession();
   }
-
+  
   private String setSpeed() {
     if(Config.TESTS_SLOW_MODE) {
       System.out.println("***  WARNING:  You are running this test in slow mode!  ***");

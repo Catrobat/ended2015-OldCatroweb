@@ -45,7 +45,7 @@ public class ProjectUploader {
     this.webSite = webSite;
   }
 
-  public void cleanup() {
+  public synchronized void cleanup() {
     for(HashMap<String, String> item : this.uploadedProjects) {
       deleteProject(item.get("projectId"));
     }
@@ -56,7 +56,7 @@ public class ProjectUploader {
     upload(new HashMap<String, String>());
   }
 
-  public String upload(HashMap<String, String> payload) {
+  public synchronized String upload(HashMap<String, String> payload) {
     HashMap<String, String> verifiedPayload = verifyPayload(payload);
     Charset utf8 = Charset.forName("UTF-8");
     HttpClient httpclient = new DefaultHttpClient();
@@ -107,7 +107,7 @@ public class ProjectUploader {
     return "";
   }
 
-  public void remove(String key) {
+  public synchronized void remove(String key) {
     String projectId = getProjectId(key);
     if(projectId.equals("")) {
       projectId = key;
