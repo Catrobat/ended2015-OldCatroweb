@@ -30,8 +30,8 @@ public class EditProjectsTests extends BaseTest {
   @Test(groups = { "admin" }, description = "delete project button")
   public void deleteButton() throws Throwable {
     String projectTitle = "Testproject for AdminEditProjects Upload Test Title DELETE";
-    projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
-    String projectId = projectUploader.getProjectId(projectTitle);
+    String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
+    String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
     // check that project is shown on index-page
     session().open(Config.TESTS_BASE_PATH);
@@ -74,8 +74,8 @@ public class EditProjectsTests extends BaseTest {
   @Test(groups = { "admin" }, description = "set invisible button")
   public void invisibleButton() throws Throwable {
     String projectTitle = "Testproject for AdminEditProjects Upload Test Title INVISIBLE";
-    projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
-    String projectId = projectUploader.getProjectId(projectTitle);
+    String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
+    String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
     // check that project is shown on index-page
     session().open(Config.TESTS_BASE_PATH);
