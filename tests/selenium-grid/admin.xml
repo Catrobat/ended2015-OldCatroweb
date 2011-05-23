@@ -21,11 +21,16 @@
   <test name="EditProjectsTests" >
     <classes>
       <class name="at.tugraz.ist.catroweb.admin.EditProjectsTests" />
-   </classes>
+    </classes>
   </test>
   <test name="AdminTests" >
     <classes>
       <class name="at.tugraz.ist.catroweb.admin.AdminTests" />
-   </classes>
+    </classes>
+  </test>
+  <test name="UploadTest" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.admin.UploadTest" />
+    </classes>
   </test>
 </suite>
