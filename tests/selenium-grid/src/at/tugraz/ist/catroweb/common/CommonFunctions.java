@@ -53,9 +53,11 @@ public class CommonFunctions {
       System.out.println("CommonFunctions: getValueFromJSONobject: Invalid json object!");
       System.out.println(json);
       System.out.println("********************************************************************");
-      return "";
-    }
 
+      String[] temp = json.split("[{]", 2);
+      json = "{"+temp[1];
+    }
+    
     Map<?, ?> array = (Map<?, ?>) JSONValue.parse(json);
     Iterator<?> iter = array.entrySet().iterator();
     while(iter.hasNext()) {
