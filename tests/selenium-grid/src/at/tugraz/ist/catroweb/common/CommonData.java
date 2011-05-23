@@ -18,6 +18,11 @@
 
 package at.tugraz.ist.catroweb.common;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.HashMap;
 
 public class CommonData {
@@ -66,6 +71,34 @@ public class CommonData {
     }
     if(!token.isEmpty()) {
       data.put("token", token);
+    }
+    return data;
+  }
+  
+  public static HashMap<String, String>  getRandomProject()
+  {
+    HashMap<String, String> data = new HashMap<String, String>();    
+    String id = "-1";
+    String title = "";
+    String description = "";   
+    try {
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery("SELECT * FROM projects WHERE visible=true ORDER BY random() LIMIT 1");
+      if (rs.next()) {        
+        id = rs.getString("id");
+        title = rs.getString("title");
+        description = rs.getString("description");
+        
+        data.put("id", id);
+        data.put("title", title);
+        data.put("description", description);
+        statement.close();
+        connection.close();
+      }      
+    } catch(SQLException e) {
+      System.out.println("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
+      System.out.println(e.getMessage());
     }
     return data;
   }

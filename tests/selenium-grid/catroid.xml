@@ -38,4 +38,14 @@
       <class name="at.tugraz.ist.catroweb.catroid.MenuTests" />
     </classes>
   </test>
+  <test name="IpTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.IpTests" />
+    </classes>
+  </test>
+  <test name="DetailsTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.DetailsTests" />
+    </classes>
+  </test>
 </suite>

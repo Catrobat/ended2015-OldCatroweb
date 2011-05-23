@@ -33,17 +33,20 @@ public class HeaderTests extends BaseTest {
     waitForPageToLoad();
     assertFalse(session().isElementPresent("headerHomeButton"));
     assertTrue(session().isVisible("headerMenuButton"));
+    assertTrue(session().isVisible("headerProfileButton"));
 
     session().click("headerMenuButton");
     waitForPageToLoad();
     assertTrue(session().isVisible("headerHomeButton"));
     assertFalse(session().isElementPresent("headerMenuButton"));
+    assertTrue(session().isVisible("headerProfileButton"));
 
     session().click("headerHomeButton");
     waitForPageToLoad();
     ajaxWait();
     assertRegExp(".*/catroid/index(/[0-9]+)?", session().getLocation());
     assertTrue(session().isVisible("headerMenuButton"));
+    assertTrue(session().isVisible("headerProfileButton"));
     assertFalse(session().isElementPresent("headerHomeButton"));
   }
 
@@ -51,25 +54,28 @@ public class HeaderTests extends BaseTest {
   public void headerButtonsIndex() {
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
-
+   
     assertFalse(session().isVisible("headerSearchBox"));
-    assertFalse(session().isVisible("headerCancelSearchButton"));
+    assertFalse(session().isVisible("headerCancelButton"));
     assertTrue(session().isVisible("headerSearchButton"));
     assertTrue(session().isVisible("headerMenuButton"));
+    assertTrue(session().isVisible("headerProfileButton"));
 
     session().click("headerSearchButton");
     ajaxWait();
     assertTrue(session().isVisible("headerSearchBox"));
-    assertTrue(session().isVisible("headerCancelSearchButton"));
+    assertTrue(session().isVisible("headerCancelButton"));
     assertFalse(session().isVisible("headerSearchButton"));
     assertFalse(session().isVisible("headerMenuButton"));
+    assertFalse(session().isVisible("headerProfileButton"));
 
-    session().click("headerCancelSearchButton");
+    session().click("headerCancelButton");
     ajaxWait();
     assertFalse(session().isVisible("headerSearchBox"));
-    assertFalse(session().isVisible("headerCancelSearchButton"));
+    assertFalse(session().isVisible("headerCancelButton"));
     assertTrue(session().isVisible("headerSearchButton"));
     assertTrue(session().isVisible("headerMenuButton"));
+    assertTrue(session().isVisible("headerProfileButton"));
 
     session().click("headerMenuButton");
     waitForPageToLoad();

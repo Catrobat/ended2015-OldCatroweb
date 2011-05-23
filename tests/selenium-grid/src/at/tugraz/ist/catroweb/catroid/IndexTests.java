@@ -29,7 +29,7 @@ import at.tugraz.ist.catroweb.common.*;
 public class IndexTests extends BaseTest {
   @Test(groups = { "index", "firefox", "default" }, description = "location tests")
   public void location() {
-    session().open(Config.TESTS_BASE_PATH + "/catroid/index/9999999999999999999");
+    session().open(Config.TESTS_BASE_PATH + "catroid/index/9999999999999999999");
     waitForPageToLoad();
     ajaxWait();
     // test page title and header title
@@ -38,7 +38,7 @@ public class IndexTests extends BaseTest {
     assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
 
     String location = CommonData.getRandomLongString();
-    session().open(Config.TESTS_BASE_PATH + "/catroid/index/" + location);
+    session().open(Config.TESTS_BASE_PATH + "catroid/index/" + location);
     waitForPageToLoad();
     ajaxWait();
 
@@ -48,7 +48,7 @@ public class IndexTests extends BaseTest {
     assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
 
     location = CommonData.getRandomLongString();
-    session().open(Config.TESTS_BASE_PATH + "/catroid/details/" + location);
+    session().open(Config.TESTS_BASE_PATH + "catroid/details/" + location);
     waitForPageToLoad();
     ajaxWait();
     // test page title and header title
@@ -74,13 +74,10 @@ public class IndexTests extends BaseTest {
 
     // test catroid download link
     assertTrue(session().isElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']"));
-    session().click("xpath=//a[@id='aIndexWebLogoMiddle']");
-    session().selectWindow("_blank");
-    waitForPageToLoad();
+    clickAndWaitForPopUp("xpath=//a[@id='aIndexWebLogoMiddle']", "_blank");
     assertTrue(session().isTextPresent("Catroid_0-4-3d.apk"));
     assertTrue(session().isTextPresent("Paintroid_0.6.4b.apk"));
-    session().close();
-    session().selectWindow(null);
+    closePopUp();
 
     // test links to details page
     session().click("xpath=//a[@class='projectListDetailsLink']");
@@ -105,8 +102,13 @@ public class IndexTests extends BaseTest {
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
     ajaxWait();
-    waitForElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']");
-    // TODO $this->doUpload();
+    
+    for(int i=0;i<Config.PROJECT_PAGE_LOAD_MAX_PROJECTS*(Config.PROJECT_PAGE_SHOW_MAX_PAGES+1); i++) {
+      System.out.print(".");
+      projectUploader.upload();
+    }    
+    waitForElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']");    
+    
     assertFalse(session().isVisible("fewerProjects"));
     assertTrue(session().isVisible("moreProjects"));
     assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
