@@ -26,7 +26,7 @@ import org.json.simple.JSONValue;
 
 public class CommonFunctions {
   public static String getAdminPath(String webSite) {
-    return "http://" + Config.ADMIN_AREA_USER + ":" + Config.DB_PASS + "@" + webSite.replace("http://", "") + "admin";
+    return "http://" + Config.ADMIN_AREA_USER + ":" + Config.DB_PASS + "@" + webSite.replace("http://", "") + Config.TESTS_BASE_PATH.substring(1) + "admin";
   }
 
   public static void deleteDir(File directory) {

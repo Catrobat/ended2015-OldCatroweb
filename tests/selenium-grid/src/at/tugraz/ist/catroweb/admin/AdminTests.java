@@ -98,10 +98,12 @@ public class AdminTests extends BaseTest {
     assertTrue(session().isTextPresent("Catroid Administration Site"));
   }
 
-  @Test(dataProvider = "randomIds", groups = { "admin" }, description = "check report as inappropriate functionality")
-  public void inappropriateProjects(String[] dataset) throws Throwable {
-    String id = dataset[0];
-    String title = dataset[1];
+
+  @Test(groups = { "admin" }, description = "check report as inappropriate functionality")
+  public void inappropriateProjects() throws Throwable {
+	String title = "Testproject " + CommonData.getRandomLongString();
+	String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "", ""));
+	String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
     session().open(Config.TESTS_BASE_PATH + "catroid/details/" + id);
     waitForPageToLoad();
@@ -123,24 +125,5 @@ public class AdminTests extends BaseTest {
     waitForPageToLoad();
     assertTrue(session().isTextPresent("The project was succesfully restored and set to visible!"));
     assertFalse(session().isTextPresent(id));
-  }
-
-  // choose random ids from database
-  @DataProvider(name = "randomIds")
-  public Object[][] randomIds() {
-    try {
-      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
-      Statement statement = connection.createStatement();
-      ResultSet result = statement.executeQuery("SELECT id, title, description FROM projects WHERE visible=true ORDER BY random() LIMIT 1;");
-      result.next();
-      String[] entry = { result.getString(1), result.getString(2), result.getString(3) };
-      result.close();
-      statement.close();
-      connection.close();
-      return new Object[][] { { entry } };
-    } catch(SQLException e) {
-      System.out.println("AdminTests: randomIds: SQL Exception couldn't execute sql query!");
-    }
-    return new Object[][] {};
   }
 }
