@@ -25,6 +25,10 @@ import java.util.Map;
 import org.json.simple.JSONValue;
 
 public class CommonFunctions {
+  public static String getAdminPath(String webSite) {
+    return "http://" + Config.ADMIN_AREA_USER + ":" + Config.DB_PASS + "@" + webSite.replace("http://", "") + "admin";
+  }
+
   public static void deleteDir(File directory) {
     if(directory.isDirectory()) {
       String[] children = directory.list();

@@ -33,10 +33,12 @@ import at.tugraz.ist.catroweb.common.ProjectUploader;
 
 public class BaseTest {
   protected ProjectUploader projectUploader;
+  protected String webSite;
 
   @BeforeMethod(alwaysRun = true)
   @Parameters( { "seleniumHost", "seleniumPort", "browser", "webSite" })
   protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
+    this.webSite = webSite;
     startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
     System.out.println("======================= START SESSION =====================");
     session().setSpeed(setSpeed());

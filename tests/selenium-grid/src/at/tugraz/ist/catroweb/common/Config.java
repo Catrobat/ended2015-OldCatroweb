@@ -19,6 +19,13 @@
 package at.tugraz.ist.catroweb.common;
 
 public class Config {
+  public static final boolean REPORTER_LOG_TO_STD_OUT = true;
+  public static final boolean TESTS_SLOW_MODE = false;
+  public static final int TESTS_SLOW_SPEED = 1000;
+  public static final String WAIT_FOR_PAGE_TO_LOAD_LONG = "10000";
+  public static final String TIMEOUT = "120000";
+  public static final String TIMEOUT_AJAX = "5000";
+
   public static final String TESTS_BASE_PATH = "/";
   // public static final String TESTS_BASE_PATH = "/catroweb/";
 
@@ -26,6 +33,7 @@ public class Config {
   public static final String DB_PASS = "cat.roid.web";
   public static final String DB_HOST = "jdbc:postgresql://localhost/";
   public static final String DB_NAME = "catroweb";
+  public static final String ADMIN_AREA_USER = "admin";
 
   public static final String FILESYSTEM_SEPARATOR = System.getProperty("file.separator");
   public static final String FILESYSTEM_BASE_PATH = System.getProperty("user.dir") + FILESYSTEM_SEPARATOR;
@@ -53,11 +61,4 @@ public class Config {
   public static final String DEFAULT_UPLOAD_EMAIL = "webmaster@catroid.org";
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";
-
-  public static final boolean REPORTER_LOG_TO_STD_OUT = true;
-  public static final boolean TESTS_SLOW_MODE = false;
-  public static final int TESTS_SLOW_SPEED = 1000;
-  public static final String WAIT_FOR_PAGE_TO_LOAD_LONG = "10000";
-  public static final String TIMEOUT = "120000";
-  public static final String TIMEOUT_AJAX = "5000";
 }
