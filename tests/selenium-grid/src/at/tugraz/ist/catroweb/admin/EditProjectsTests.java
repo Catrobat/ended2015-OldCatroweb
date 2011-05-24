@@ -29,7 +29,8 @@ import at.tugraz.ist.catroweb.common.*;
 public class EditProjectsTests extends BaseTest {
   @Test(groups = { "admin" }, description = "delete project button")
   public void deleteButton() throws Throwable {
-    String projectTitle = "Testproject for AdminEditProjects Upload Test Title DELETE";
+    String projectTitle = "Testproject_delete_test_"+CommonData.getRandomLongString();
+    
     String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
@@ -73,7 +74,7 @@ public class EditProjectsTests extends BaseTest {
 
   @Test(groups = { "admin" }, description = "set invisible button")
   public void invisibleButton() throws Throwable {
-    String projectTitle = "Testproject for AdminEditProjects Upload Test Title INVISIBLE";
+    String projectTitle = "Testproject_invisible_test_"+CommonData.getRandomLongString();
     String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 

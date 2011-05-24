@@ -106,9 +106,10 @@ public class IndexTests extends BaseTest {
     for(int i=0;i<Config.PROJECT_PAGE_LOAD_MAX_PROJECTS*(Config.PROJECT_PAGE_SHOW_MAX_PAGES+1); i++) {
       System.out.print(".");
       projectUploader.upload();
-    }    
-    waitForElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']");    
-    
+    }
+    session().refresh();
+    waitForPageToLoad();
+    ajaxWait();
     assertFalse(session().isVisible("fewerProjects"));
     assertTrue(session().isVisible("moreProjects"));
     assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));

@@ -40,7 +40,7 @@
   </test>
   <test name="IpTests" >
     <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.IpTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.BlockedIpTests" />
     </classes>
   </test>
   <test name="DetailsTests" >
