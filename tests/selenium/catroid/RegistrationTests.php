@@ -88,20 +88,20 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
     $this->selenium->type("xpath=//input[@name='registrationCity']", $regData['registrationCity']);
 
     $this->selenium->click("xpath=//input[@name='registrationSubmit']");
-    $this->selenium->waitForCondition('', 3000);
+    $this->selenium->waitForCondition('', 4000);
     $this->assertTrue($this->selenium->isTextPresent("CATROID registration successfull!"));
     $this->assertTrue($this->selenium->isTextPresent("BOARD registration successfull!"));
     $this->assertTrue($this->selenium->isTextPresent("WIKI registration successfull!"));
 
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
+    $this->selenium->open(TESTS_BASE_PATH);
     $this->selenium->waitForPageToLoad(10000);
+    
+    $this->selenium->click("headerProfileButton");
+    $this->selenium->type("loginUsername", $regData['registrationUsername']);
+    $this->selenium->type("loginPassword", $regData['registrationPassword']);
+    $this->selenium->click("loginSubmitButton");
+    $this->selenium->waitForCondition("", 5000);
 
-    $this->selenium->type("xpath=//input[@name='loginUsername']", $regData['registrationUsername']);
-    $this->selenium->type("xpath=//input[@name='loginPassword']", $regData['registrationPassword']);
-
-    $this->selenium->click("xpath=//input[@name='loginSubmit']");
-    $this->selenium->waitForPageToLoad(10000);
-    $this->ajaxWait();
     $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
 
     $this->selenium->click("headerMenuButton");
@@ -130,19 +130,15 @@ class RegistrationTests extends PHPUnit_Framework_TestCase
 
     $this->selenium->click("menuLogoutButton");
     $this->ajaxWait();
-    $this->assertTrue($this->selenium->isTextPresent("Newest Projects"));
 
-    $this->selenium->open(TESTS_BASE_PATH.'catroid/login/');
-    $this->selenium->waitForPageToLoad(10000);
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginUsername']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginPassword']"));
-    $this->assertTrue($this->selenium->isElementPresent("xpath=//input[@name='loginSubmit']"));
-
+    $this->selenium->click("headerProfileButton");
+    $this->assertTrue($this->selenium->isVisible("loginSubmitButton"));
+    $this->assertTrue($this->selenium->isVisible("loginUsername"));
+    $this->assertTrue($this->selenium->isVisible("loginPassword"));
+    
     $this->selenium->click("headerMenuButton");
     $this->selenium->waitForPageToLoad(10000);
-
-    $this->assertTrue($this->selenium->isVisible("menuLoginButton"));
-
+    
     $this->selenium->click("menuForumButton");
     $this->selenium->selectWindow("board");
     $this->selenium->waitForPageToLoad(10000);

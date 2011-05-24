@@ -17,29 +17,29 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 class registration extends CoreAuthenticationNone {
-  
+
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
     $this->addCss('registration.css?'.VERSION);
     $this->addCss('buttons.css?'.VERSION);
-    
+
     $this->addJs('registration.js');
-    
+
     $this->initRegistration();
   }
 
   public function __default() {
 
   }
-  
+
   public function registrationRequest() {
     if($_POST) {
       $this->doRegistration($_POST, $_SERVER);
       $this->initRegistration();
     }
   }
-    
+
   public function doRegistration($postData, $serverData) {
     $answer = '';
     $statusCode = 500;
@@ -71,8 +71,8 @@ class registration extends CoreAuthenticationNone {
     } catch(Exception $e) {
       $registrationDataValid = false;
       $answer .= $e->getMessage().'<br>';
-    } 
-   
+    }
+     
     if($registrationDataValid) {
       try {
         $catroidUserId = $this->doCatroidRegistration($postData, $serverData);
@@ -131,7 +131,7 @@ class registration extends CoreAuthenticationNone {
       return false;
     }
   }
-  
+
   public function doCatroidRegistration($postData, $serverData) {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
@@ -155,11 +155,11 @@ class registration extends CoreAuthenticationNone {
 
     $gender = $postData['registrationGender'];
     $city = $postData['registrationCity'];
-    
+
     $md5user = md5($username);
     $md5pass = md5($password);
-    $authToken = md5($md5user.":".$md5pass); 
-    
+    $authToken = md5($md5user.":".$md5pass);
+
     $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', '$city', '$ip_registered', '$status', '$authToken')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
@@ -211,9 +211,9 @@ class registration extends CoreAuthenticationNone {
     }
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-    
+
     $username = $postData['registrationUsername'];
-    $username = utf8_clean_string($username); 
+    $username = utf8_clean_string($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
 
     $userToken = md5($username);
@@ -266,8 +266,8 @@ class registration extends CoreAuthenticationNone {
     }
     return true;
   }
-  
-  
+
+
   public function checkUsername($username) {
     $username = trim($username);
     if(empty($username) && strcmp('0', $username) != 0) {
@@ -275,10 +275,10 @@ class registration extends CoreAuthenticationNone {
     }
 
     if($this->badWordsFilter->areThereInsultingWords($username)) {
-			$statusCode = 506;
-			throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
+      $statusCode = 506;
+      throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
     }
-    
+
     //username must not look like an IP-address
     $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
     $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
@@ -307,24 +307,15 @@ class registration extends CoreAuthenticationNone {
     if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
     }
-    
+
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
     $usernameClean = utf8_clean_string(($username));
     if(empty($usernameClean)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
-
-    $query = "EXECUTE get_user_row_by_username('".($username)."')";
-    $result = pg_query($this->dbConnection, $query);
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-    }
-    if(pg_num_rows($result) > 0) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_already_exists'));
-    }
-
-    $query = "EXECUTE get_user_row_by_username_clean('$usernameClean')";
+    
+    $query = "EXECUTE get_user_row_by_username_or_username_clean('$username', '$usernameClean')";
     $result = pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -358,7 +349,7 @@ class registration extends CoreAuthenticationNone {
     if(empty($email) && strcmp('0', $email) != 0) {
       throw new Exception($this->errorHandler->getError('registration', 'email_missing'));
     }
-    
+
     $name = '[a-zA-Z0-9]((\.|\-|_)?[a-zA-Z0-9])*';
     $domain = '[a-zA-Z]((\.|\-)?[a-zA-Z0-9])*';
     $tld = '[a-zA-Z]{2,8}';
@@ -386,27 +377,27 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
     }
   }
-    
+
   public function checkBirth($month,$year) {
-  	$cyear = strftime("%Y");
-  	if (($month >= 1 && $month <= 12) && ($year <= $cyear && $year >= $cyear-100)) {
-  	  return true;
-  	} else {
+    $cyear = strftime("%Y");
+    if (($month >= 1 && $month <= 12) && ($year <= $cyear && $year >= $cyear-100)) {
+      return true;
+    } else {
       throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
-    }    
+    }
   }
 
   public function checkCountry($country) {
     $country = $country;
-  	if ($country == "undef") {
+    if ($country == "undef") {
       return true;
-  	} elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
-  	  return true;
-  	} else {
+    } elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
+      return true;
+    } else {
       throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
     }
   }
-  
+
   public function initRegistration() {
     $answer = '';
     try {
@@ -424,27 +415,27 @@ class registration extends CoreAuthenticationNone {
 
   private function initBirth() {
     $this->months = array(
-      1=>"Jan",
-      2=>"Feb",
-      3=>"Mar",
-      4=>"Apr",
-      5=>"May",
-      6=>"Jun",
-      7=>"Jul",
-      8=>"Aug",
-      9=>"Sep",
-      10=>"Oct",
-      11=>"Nov",
-      12=>"Dec"
+    1=>"Jan",
+    2=>"Feb",
+    3=>"Mar",
+    4=>"Apr",
+    5=>"May",
+    6=>"Jun",
+    7=>"Jul",
+    8=>"Aug",
+    9=>"Sep",
+    10=>"Oct",
+    11=>"Nov",
+    12=>"Dec"
     );
   }
-  
+
   private function initCountryCodes() {
     $query = "EXECUTE get_country_from_countries";
     $result = @pg_query($this->dbConnection, $query);
 
     if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
 
     if(pg_num_rows($result) > 0) {
@@ -460,14 +451,14 @@ class registration extends CoreAuthenticationNone {
       // if user country is not in list
       $countryCodeList[$x] = "undef";
       $countryNameList[$x] = "undefined";
-      pg_free_result($result);      
+      pg_free_result($result);
     } else {
       throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
     }
     $this->countryCodeList = $countryCodeList;
     $this->countryNameList = $countryNameList;
   }
-    
+
   public function deleteRegistration($userId, $boardUserId, $wikiUserId) {
     try {
       $this->undoWikiRegistration($userId);
@@ -485,9 +476,9 @@ class registration extends CoreAuthenticationNone {
       $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage()).'<br>';
     }
     return true;
-    
+
   }
-  
+
   public function __destruct() {
     parent::__destruct();
   }
