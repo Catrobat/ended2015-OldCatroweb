@@ -44,8 +44,8 @@ public class BadWordsFilterTests extends BaseTest {
     session().click("aAdminToolsApproveWords");
     waitForPageToLoad();
     assertTrue(session().isTextPresent(unapprovedWord));
-    session().select("meaning", "label=good");
-    session().click("xpath=//input[@name='approveButton']");
+    session().select("id=meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord), "label=good");
+    session().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
     session().getConfirmation();
     waitForPageToLoad();
     assertTrue(session().isTextPresent("The word was succesfully approved!"));
@@ -70,8 +70,8 @@ public class BadWordsFilterTests extends BaseTest {
     session().click("aAdminToolsApproveWords");
     waitForPageToLoad();
     assertTrue(session().isTextPresent(unapprovedWord));
-    session().select("meaning", "label=bad");
-    session().click("xpath=//input[@name='approveButton']");
+    session().select("id=meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord), "label=bad");
+    session().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
     session().getConfirmation();
     waitForPageToLoad();
     assertTrue(session().isTextPresent("The word was succesfully approved!"));
@@ -96,7 +96,7 @@ public class BadWordsFilterTests extends BaseTest {
     session().click("aAdminToolsApproveWords");
     waitForPageToLoad();
     assertTrue(session().isTextPresent(unapprovedWord));
-    session().click("xpath=//input[@name='approveButton']");
+    session().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
     session().getConfirmation();
     waitForPageToLoad();
     assertTrue(session().isTextPresent("Error: no word meaning selected!"));
@@ -121,7 +121,7 @@ public class BadWordsFilterTests extends BaseTest {
     session().click("aAdminToolsApproveWords");
     waitForPageToLoad();
     assertTrue(session().isTextPresent(unapprovedWord));
-    session().click("xpath=//input[@name='deleteButton']");
+    session().click("xpath=//input[@id='delete" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
     session().getConfirmation();
     waitForPageToLoad();
     assertTrue(session().isTextPresent("The word was succesfully deleted!"));

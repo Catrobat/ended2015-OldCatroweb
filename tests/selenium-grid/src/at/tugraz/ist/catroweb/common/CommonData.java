@@ -88,21 +88,15 @@ public class CommonData {
 
   public static HashMap<String, String> getRandomProject() {
     HashMap<String, String> data = new HashMap<String, String>();
-    String id = "-1";
-    String title = "";
-    String description = "";
     try {
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
-      ResultSet rs = statement.executeQuery("SELECT * FROM projects WHERE visible=true ORDER BY random() LIMIT 1");
-      if(rs.next()) {
-        id = rs.getString("id");
-        title = rs.getString("title");
-        description = rs.getString("description");
-
-        data.put("id", id);
-        data.put("title", title);
-        data.put("description", description);
+      ResultSet result = statement.executeQuery("SELECT * FROM projects WHERE visible=true ORDER BY random() LIMIT 1");
+      if(result.next()) {
+        data.put("id", result.getString("id"));
+        data.put("title", result.getString("title"));
+        data.put("description", result.getString("description"));
+        result.close();
         statement.close();
         connection.close();
       }

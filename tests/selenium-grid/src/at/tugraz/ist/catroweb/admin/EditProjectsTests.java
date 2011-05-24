@@ -67,7 +67,6 @@ public class EditProjectsTests extends BaseTest {
     // check that project is not shown on index-page
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
-    ajaxWait();
     assertTrue(session().isElementPresent("xpath=//img[@id='aIndexWebLogoLeft']"));
     assertFalse(session().isTextPresent(projectTitle));
   }

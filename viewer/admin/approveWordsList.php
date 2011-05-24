@@ -55,7 +55,7 @@
 		  <td><?php echo $word['word']?></td>
 		  <td>
 		    <form id="approveForm<?php echo $word['id']?>" class="admin" action="approveWords" method="POST">
-		      <select name="meaning">
+		      <select name="meaning" id="meaning<?php echo $word['id']?>">
             <option value="-1">-</option>
             <option value="1">good</option>
             <option value="0">bad</option>

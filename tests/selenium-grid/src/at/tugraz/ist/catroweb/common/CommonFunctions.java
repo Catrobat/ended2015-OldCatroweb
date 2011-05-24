@@ -19,6 +19,11 @@
 package at.tugraz.ist.catroweb.common;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -55,9 +60,9 @@ public class CommonFunctions {
       System.out.println("********************************************************************");
 
       String[] temp = json.split("[{]", 2);
-      json = "{"+temp[1];
+      json = "{" + temp[1];
     }
-    
+
     Map<?, ?> array = (Map<?, ?>) JSONValue.parse(json);
     Iterator<?> iter = array.entrySet().iterator();
     while(iter.hasNext()) {
@@ -67,5 +72,24 @@ public class CommonFunctions {
       }
     }
     return "";
+  }
+
+  public static String getUnapprovedWordId(String word) {
+    String id = "";
+    try {
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      ResultSet result = statement.executeQuery("SELECT id FROM wordlist WHERE word='" + word + "' LIMIT 1");
+      if(result.next()) {
+        id = result.getString(1);
+        result.close();
+        statement.close();
+        connection.close();
+      }
+    } catch(SQLException e) {
+      System.out.println("CommonFunctions: getUnapprovedWordId: SQL Exception couldn't execute sql query!");
+      System.out.println(e.getMessage());
+    }
+    return id;
   }
 }
