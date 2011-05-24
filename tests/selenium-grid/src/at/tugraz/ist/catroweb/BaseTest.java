@@ -99,11 +99,11 @@ public class BaseTest {
   }
 
   public void waitForElementPresent(String locator) {
-    session().waitForCondition("value = selenium.isElementPresent('" + locator.replace("'", "\\'") + "'); value == true", Config.WAIT_FOR_PAGE_TO_LOAD_LONG);
+    session().waitForCondition("value = selenium.isElementPresent('" + locator.replace("'", "\\'") + "'); value == true", Config.WAIT_FOR_PAGE_TO_LOAD);
   }
 
   protected void waitForTextPresent(String text) {
-    session().waitForCondition("value = selenium.isTextPresent('" + text + "'); value == true", Config.WAIT_FOR_PAGE_TO_LOAD_LONG);
+    session().waitForCondition("value = selenium.isTextPresent('" + text + "'); value == true", Config.WAIT_FOR_PAGE_TO_LOAD);
   }
 
   protected void log(int message) {

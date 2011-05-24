@@ -22,9 +22,10 @@ public class Config {
   public static final boolean REPORTER_LOG_TO_STD_OUT = true;
   public static final boolean TESTS_SLOW_MODE = false;
   public static final int TESTS_SLOW_SPEED = 1000;
-  public static final String WAIT_FOR_PAGE_TO_LOAD_LONG = "10000";
+  public static final String WAIT_FOR_PAGE_TO_LOAD = "10000";
   public static final String TIMEOUT = "120000";
   public static final String TIMEOUT_AJAX = "5000";
+  public static final long TIMEOUT_THREAD = 2000;
 
   public static final String TESTS_BASE_PATH = "/";
   // public static final String TESTS_BASE_PATH = "/catroweb/";

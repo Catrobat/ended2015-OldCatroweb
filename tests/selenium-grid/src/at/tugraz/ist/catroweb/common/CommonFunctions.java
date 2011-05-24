@@ -19,11 +19,13 @@
 package at.tugraz.ist.catroweb.common;
 
 import java.io.File;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
@@ -72,6 +74,41 @@ public class CommonFunctions {
       }
     }
     return "";
+  }
+  
+  public static double getFileSizeRounded(String filepath) {
+    double filesize = 0.0;
+    try {
+      File file = new File(filepath);    
+      if (file.exists()) {
+        BigDecimal bd = new BigDecimal(((double) file.length()/(1024*1024)));
+        bd = bd.setScale(1,BigDecimal.ROUND_DOWN);
+        filesize = bd.doubleValue();
+      }
+    }
+    catch (Exception e) {
+      System.out.println("Error: CommonFunctions.getFileSizeRounded("+filepath+")"+e.getMessage());
+    }
+    return filesize;
+  }
+  
+  public static HashMap<String, String> getVersionInfo(String id) {
+    HashMap<String, String> data = new HashMap<String, String>();      
+    try {
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      ResultSet rs = statement.executeQuery("SELECT version_name, version_code FROM projects WHERE id='" + id + "';");
+      if (rs.next()) { 
+        data.put("version_name", rs.getString("version_name"));
+        data.put("version_code", rs.getString("version_code"));        
+        statement.close();
+        connection.close();
+      }      
+    } catch(SQLException e) {
+      System.out.println("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
+      System.out.println(e.getMessage());
+    }
+    return data;   
   }
 
   public static String getUnapprovedWordId(String word) {
