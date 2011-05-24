@@ -54,6 +54,7 @@ public class HeaderTests extends BaseTest {
   public void headerButtonsIndex() {
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
+    ajaxWait();
    
     assertFalse(session().isVisible("headerSearchBox"));
     assertFalse(session().isVisible("headerCancelButton"));
