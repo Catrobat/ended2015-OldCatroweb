@@ -83,6 +83,7 @@
       <string name="username_invalid_lessgreater">The nickname is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.</string>
       <string name="username_invalid_squarebracket">The nickname is invalid. Square brackets ([ or ]) are not allowed.</string>
     	<string name="username_already_exists">This nickname already exists.</string>
+    	<string name="username_blacklisted">This nickname is not allowed.</string>
     	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
     	<string name="country_missing">Your country is missing.</string>
       <string name="birth_missing">Your birthday is missing.</string>

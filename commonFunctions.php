@@ -1,6 +1,6 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2011 The Catroid Team 
+ *    Copyright (C) 2010-2011 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
@@ -16,19 +16,40 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-  
-  set_include_path(get_include_path() . PATH_SEPARATOR . './include/lib/');
-  spl_autoload_register('__autoload');
-  require_once('config.php');
-  require_once('passwords.php');
-  require_once('commonFunctions.php');
-  function __autoload($class) {
-    $classfile = CORE_BASE_PATH.'classes/'.$class.'.php';
-    if(is_file($classfile))
-  	  include_once $classfile;
-  }
 
-  $controller = new CoreController();
-  $controller->parseURL($_GET);
-  $controller->execute();
+/* Guideline for commonFunctions:
+ * - keep them very short
+ * - give them meaningful names
+ * - only put them here if they are used in more than one class
+ * - or if they provide a set of data (e.g. array)
+ * - no interaction with framework (e.g. database, errorHandler, etc.)
+ */
+
+function getUsernameBlacklistArray() {
+  $usernameBlacklist = array(
+    'admin',
+    'catroid',
+    'kittyroid'
+   );
+   return $usernameBlacklist;
+}
+
+function getMonthsArray() {
+  $months = array(
+    1=>"Jan",
+    2=>"Feb",
+    3=>"Mar",
+    4=>"Apr",
+    5=>"May",
+    6=>"Jun",
+    7=>"Jul",
+    8=>"Aug",
+    9=>"Sep",
+    10=>"Oct",
+    11=>"Nov",
+    12=>"Dec"
+  );
+  return $months;
+}
+
 ?>

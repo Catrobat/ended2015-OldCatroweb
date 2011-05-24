@@ -315,6 +315,10 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
     
+    if(in_array($username, getUsernameBlacklistArray()) || in_array($usernameClean, getUsernameBlacklistArray())) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_blacklisted'));
+    }
+    
     $query = "EXECUTE get_user_row_by_username_or_username_clean('$username', '$usernameClean')";
     $result = pg_query($this->dbConnection, $query);
     if(!$result) {
@@ -401,7 +405,7 @@ class registration extends CoreAuthenticationNone {
   public function initRegistration() {
     $answer = '';
     try {
-      $this->initBirth();
+      $this->months = getMonthsArray();
     } catch(Exception $e) {
       $answer .= $e->getMessage().'<br>';
     }
@@ -411,23 +415,6 @@ class registration extends CoreAuthenticationNone {
       $answer .= $e->getMessage().'<br>';
     }
     $this->answer .= $answer;
-  }
-
-  private function initBirth() {
-    $this->months = array(
-    1=>"Jan",
-    2=>"Feb",
-    3=>"Mar",
-    4=>"Apr",
-    5=>"May",
-    6=>"Jun",
-    7=>"Jul",
-    8=>"Aug",
-    9=>"Sep",
-    10=>"Oct",
-    11=>"Nov",
-    12=>"Dec"
-    );
   }
 
   private function initCountryCodes() {

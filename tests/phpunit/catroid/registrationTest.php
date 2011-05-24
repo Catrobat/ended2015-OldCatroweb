@@ -239,8 +239,11 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('h|ol|y'), // vertical bars not allowed (because of wiki)
     array('#1'), // hash sign not allowed (because of wiki)
     array('unit_test'), // underscores not allowed (because of wiki)
-    array('<i>'), // underscores not allowed (because of wiki)
+    array('<i>'), // <> not allowed (because of wiki)
     array('shit'), // its a messword
+    array('admin'), // not allowed because nick is in blacklist
+    array('caTRoid'), // not allowed because nick is in blacklist
+    array('kittyroiD '), // not allowed because nick is in blacklist
     array('129.0.12.123') //IP address style (because of wiki)
     );
     return $dataArray;
