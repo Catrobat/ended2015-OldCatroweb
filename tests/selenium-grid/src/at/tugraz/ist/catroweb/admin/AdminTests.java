@@ -18,11 +18,8 @@
 
 package at.tugraz.ist.catroweb.admin;
 
-import java.sql.*;
-
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
 
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -98,12 +95,11 @@ public class AdminTests extends BaseTest {
     assertTrue(session().isTextPresent("Catroid Administration Site"));
   }
 
-
   @Test(groups = { "admin" }, description = "check report as inappropriate functionality")
   public void inappropriateProjects() throws Throwable {
-	String title = "Testproject " + CommonData.getRandomLongString();
-	String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "", ""));
-	String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
+    String title = "Testproject " + CommonData.getRandomLongString();
+    String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "", ""));
+    String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
     session().open(Config.TESTS_BASE_PATH + "catroid/details/" + id);
     waitForPageToLoad();

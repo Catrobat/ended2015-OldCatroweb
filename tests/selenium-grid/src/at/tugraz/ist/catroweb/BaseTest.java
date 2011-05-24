@@ -64,7 +64,7 @@ public class BaseTest {
   protected void closeSession() {
     closeSeleniumSession();
   }
-  
+
   private String setSpeed() {
     if(Config.TESTS_SLOW_MODE) {
       System.out.println("***  WARNING:  You are running this test in slow mode!  ***");
@@ -106,11 +106,10 @@ public class BaseTest {
     session().waitForCondition("value = selenium.isTextPresent('" + text + "'); value == true", Config.WAIT_FOR_PAGE_TO_LOAD_LONG);
   }
 
-
-  protected void log(int message) {    
+  protected void log(int message) {
     Reporter.log(String.valueOf(message), Config.REPORTER_LOG_TO_STD_OUT);
   }
-  
+
   protected void log(String message) {
     Reporter.log(message, Config.REPORTER_LOG_TO_STD_OUT);
   }

@@ -29,8 +29,8 @@ import at.tugraz.ist.catroweb.common.*;
 public class EditProjectsTests extends BaseTest {
   @Test(groups = { "admin" }, description = "delete project button")
   public void deleteButton() throws Throwable {
-    String projectTitle = "Testproject_delete_test_"+CommonData.getRandomLongString();
-    
+    String projectTitle = "Testproject_delete_test_" + CommonData.getRandomLongString();
+
     String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 

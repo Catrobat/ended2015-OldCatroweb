@@ -26,6 +26,17 @@ import java.sql.Statement;
 import java.util.HashMap;
 
 public class CommonData {
+  public static String getRandomShortString() {
+    String str = "";
+    int strLen = 10;
+    String chars = "abcdefghijklmnopqrstuvwxyz";
+    for(int i = 0; i < strLen; i++) {
+      java.util.Random rand = new java.util.Random();
+      str += chars.charAt(rand.nextInt(chars.length()));
+    }
+    return str;
+  }
+
   public static String getRandomLongString() {
     String str = "";
     int strLen = 200;
@@ -74,28 +85,27 @@ public class CommonData {
     }
     return data;
   }
-  
-  public static HashMap<String, String>  getRandomProject()
-  {
-    HashMap<String, String> data = new HashMap<String, String>();    
+
+  public static HashMap<String, String> getRandomProject() {
+    HashMap<String, String> data = new HashMap<String, String>();
     String id = "-1";
     String title = "";
-    String description = "";   
+    String description = "";
     try {
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
       ResultSet rs = statement.executeQuery("SELECT * FROM projects WHERE visible=true ORDER BY random() LIMIT 1");
-      if (rs.next()) {        
+      if(rs.next()) {
         id = rs.getString("id");
         title = rs.getString("title");
         description = rs.getString("description");
-        
+
         data.put("id", id);
         data.put("title", title);
         data.put("description", description);
         statement.close();
         connection.close();
-      }      
+      }
     } catch(SQLException e) {
       System.out.println("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
       System.out.println(e.getMessage());

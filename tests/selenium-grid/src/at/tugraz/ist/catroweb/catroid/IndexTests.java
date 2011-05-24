@@ -102,8 +102,8 @@ public class IndexTests extends BaseTest {
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
     ajaxWait();
-    
-    for(int i=0;i<Config.PROJECT_PAGE_LOAD_MAX_PROJECTS*(Config.PROJECT_PAGE_SHOW_MAX_PAGES+1); i++) {
+
+    for(int i = 0; i < Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1); i++) {
       System.out.print(".");
       projectUploader.upload();
     }

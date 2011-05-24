@@ -18,6 +18,11 @@
   -->
 
 <suite name="Admin Test Suite" parallel="methods" thread-count="7" verbose="3" >
+  <test name="BadWordsFilterTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.admin.BadWordsFilterTests" />
+    </classes>
+  </test>
   <test name="EditProjectsTests" >
     <classes>
       <class name="at.tugraz.ist.catroweb.admin.EditProjectsTests" />
