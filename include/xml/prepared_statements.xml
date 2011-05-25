@@ -92,6 +92,8 @@
     <string name="admin_block_ip">INSERT INTO blocked_ips (ip_address) VALUES ($1)</string>
     <string name="admin_unblock_ip">DELETE FROM blocked_ips WHERE ip_address=$1</string>
     <string name="admin_is_blocked_ip">SELECT * FROM blocked_ips WHERE substr($1, 1, length(ip_address)) = ip_address</string>
+    <string name="admin_remove_all_blocked_ips">DELETE FROM blocked_ips</string>
+    <string name="get_all_blocked_ips">SELECT * FROM blocked_ips</string>
     
     
 </statements>

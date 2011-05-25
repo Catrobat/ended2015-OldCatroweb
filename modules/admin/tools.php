@@ -72,7 +72,7 @@ class tools extends CoreAuthenticationAdmin {
       $this->answer = $answer;
     }*/
     $this->htmlFile = "editBlockedIps.php";
-    $this->projects = $this->retrieveAllProjectsFromDatabase();
+    $this->blockedips = $this->getListOfBlockedIpsFromDatabase();
   }
   
   public function toggleProjects() {
@@ -217,7 +217,13 @@ class tools extends CoreAuthenticationAdmin {
     pg_free_result($result);
     return($projects);
   }
-
+  
+  private function getListOfBlockedIpsFromDatabase() {
+    $query = 'EXECUTE get_all_blocked_ips;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    return pg_fetch_all($result);
+  }
+  
   public function resolveInappropriateProject($projectId) {
     $query = "EXECUTE show_project('$projectId')";
     $query2 = "EXECUTE set_resolved_on_inappropriate('$projectId')";
@@ -409,6 +415,11 @@ class tools extends CoreAuthenticationAdmin {
     } else {
       return false;
     }
+  }
+  
+  public function removeAllBlockedIps() {
+    $query = "EXECUTE admin_remove_all_blocked_ips;";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
   }
   
   public function __destruct() {

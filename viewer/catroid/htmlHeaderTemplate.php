@@ -20,6 +20,7 @@
     <script type="text/javascript">
       $(document).ready(function() {        
         new HeaderMenu(<?php echo "'".BASE_PATH."'"; ?>);
+        new Login(<?php echo "'".BASE_PATH."'"; ?>);
       });
     </script>
     <div class="webMainTop">
@@ -55,6 +56,11 @@
         <div class="blueBoxMain">
           <div class="webMainHead">
             <?php if($this->module->session->userLogin_userId <= 0) { ?>
+              <div class="loginInfoText" id="loginInfoText">
+           		<div class="loginErrorMsg" id="loginErrorMsg">
+            	   <!-- error messages here -->
+              	</div>
+              </div>
               <form id="loginForm">
               	<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >
               		Nick: <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="your nickname"  />
@@ -65,8 +71,8 @@
               </form>
             <?php } else { ?>
               <form id="logoutForm">
-								<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >You are logged in as <a href="/catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
-								<div class="headerProfileBoxSubmitDiv" ><input id="logoutSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Logout" /></div>
+				<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >You are logged in as <a href="/catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
+				<div class="headerProfileBoxSubmitDiv" ><input id="logoutSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Logout" /></div>
               	<div style="clear:both;"></div>
               </form>
             <?php } ?>

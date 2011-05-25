@@ -52,4 +52,16 @@ function getMonthsArray() {
   return $months;
 }
 
+function getIpBlockClassWhitelistArray() {
+  $whitelistClasses = array(
+  	"privacypolicy",
+    "terms",
+    "copyrightpolicy",
+    "imprint",
+    "contactus",
+    "errorPage"
+  );
+  return $whitelistClasses;
+}
+
 ?>

@@ -92,6 +92,7 @@ class toolsTest extends PHPUnit_Framework_TestCase
    * @dataProvider blockIp
    */
   public function testBlockIp($ip, $check_ip) {
+     $this->tools->removeAllBlockedIps();
 	   $this->tools->blockIp($ip);
 	   $this->assertTrue($this->tools->isBlockedIp($check_ip));
 	   $this->tools->unblockIp($ip);

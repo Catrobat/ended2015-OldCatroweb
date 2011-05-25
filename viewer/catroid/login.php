@@ -32,37 +32,15 @@
             	  <div class ="whiteBoxMain">
             	    <div class="loginText">
             	    <div class="loginFormContainer">
-            	    	<div class="loginFormAnswer" id="loginFormAnswer">
-            	    		<div class="errorMsg" id="errorMsg">
-            	    		<!-- error messages here -->
-              		   	</div>
-            		   	</div>
-            		   	<div class="loginFormDialog" id="loginFormDialog">
-        	  		   		<form method="post" class="loginForm" id="loginForm" >
-	     	  		   				<div class="loginH2">Please enter your nickname and your password:</div>
-        	  		   				Nickname: <br>
-        	  		   				<input type="text" name="loginUsername" id="loginUsername" ><br>
-        	  		   				Password:<br> 
-        	  		   				<input type="text" name="loginPassword" id="loginPassword"><br>
-        	  		   				<?php //var_dump($this->requesturi); 
-        	  		   				if(($this->requesturi) || (isset($this->requesturi)) || $this->requesturi != '') { ?>
-        	  		   				  <input type="hidden" name="requesturi" id="requesturi" value="<?php echo htmlspecialchars($this->requesturi); ?>"> 
-        	  		   				<?php } else { ?>
-        	  		   				  <input type="hidden" name="requesturi" id="requesturi" value="<?php echo htmlspecialchars($_GET['requesturi']); ?>">
-        	  		   				<?php } ?>
-        	  		   				<br>
-                        	<input type="button" name="loginSubmit" id="loginSubmit" value="Login" class="button orange compact loginSubmitButton">
-        	  		   				<br>
-         	  		   		</form>
-      	  		   		</div>
-										<br>
-      	  		   		<br>
-      	  		   		<?php if($this->module->session->userLogin_userId <= 0) {?>
-										<div class="loginHelper"><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Create a new account now</a> <br>or<br> <a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>
-										<?php }?>
-            		   	<br>
+     	  		   		<?php if($this->module->session->userLogin_userId <= 0) {?>
+							<div class="loginHelper">
+								<a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Create a new account now</a>
+								<br>or<br>
+								<a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a>
+							</div>
+						<?php }?>
                      </div> <!-- loginFormContainer -->
-								</div> <!-- login Text -->
+					</div> <!-- login Text -->
               </div> <!--  White Box -->            	
            </div> <!--  license Main -->  		   		
   		  </div> <!-- mainContent close //-->

@@ -20,12 +20,30 @@
 abstract class CoreAuthentication extends CoreModule {
     function __construct() {
         parent::__construct();
+        $this->requestFromBlockedIp($_REQUEST["module"], $_REQUEST["class"]);
     }
 
     abstract function authenticate();
 
     function __destruct() {
         parent::__destruct();
+    }
+    
+    private function requestFromBlockedIp($vmodule, $vclass) {
+      $badIp = false;
+      $ip = getenv("REMOTE_ADDR");
+      if (strlen($ip) >= 7 and strlen($ip) <= 15) {
+        $query = "SELECT * FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
+        $result = pg_query($query) or die('db query_failed '.pg_last_error());
+        if(pg_num_rows($result)) {
+          if (($vmodule == "catroid") && !in_array($vclass, getIpBlockClassWhitelistArray()))
+            $badIp = true;
+        }
+      } else {
+        $badIp = true;
+      }
+      if ($badIp)
+        $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked', '', 'blocked_ip');
     }
 }
 

@@ -26,18 +26,20 @@
   <title>Catroid Website</title>
   <link href="<?php echo BASE_PATH?>include/css/baseStyle.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
   <link href="<?php echo BASE_PATH?>include/css/buttons.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
+  <link href="<?php echo BASE_PATH?>include/css/login.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
 <?php while($css = $this->getCss()) {?>
-  <link href="<?php echo BASE_PATH?>include/css/<?php echo $css?>" media="screen" rel="stylesheet" type="text/css" />
+  <link href="<?php echo BASE_PATH?>include/css/<?php echo $css.'?'.VERSION?>" media="screen" rel="stylesheet" type="text/css" />
 <?php }?>
 <?php if(!$this->isMobile) {?>
   <link href="<?php echo BASE_PATH?>include/css/baseStyleDesktop.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
 <?php }?>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js?<?php echo VERSION; ?>" ></script>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/jquery.js?<?php echo VERSION; ?>" ></script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js?<?php echo VERSION; ?>" ></script>    
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js?<?php echo VERSION; ?>" ></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/login.js?<?php echo VERSION; ?>" ></script>    
   
 <?php while($js = $this->getJs()) {?>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/<?php echo $js?>"></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/<?php echo $js.'?'.VERSION?>"></script>
 <?php }?>
   <link rel="icon" href="<?php echo BASE_PATH?>images/layout/favicon.png" type="image/png" />
 </head>
