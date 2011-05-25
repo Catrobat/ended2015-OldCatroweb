@@ -20,7 +20,6 @@
 var HeaderMenu = Class.$extend( {
   __init__ : function(basePath) {
     this.basePath = basePath;
-    
     if($("#normalHeaderButtons").length != 0) {
       $("#normalHeaderButtons").toggle();
     }
@@ -29,10 +28,6 @@ var HeaderMenu = Class.$extend( {
     $("#headerSearchButton").click(jQuery.proxy(this.toggleSearchBox, this));
     $("#headerProfileButton").click(jQuery.proxy(this.toggleProfileBox, this));
     $("#headerCancelButton").click(jQuery.proxy(this.toggleAllBoxes, this));
-    $("#loginSubmitButton").click(jQuery.proxy(this.doLoginRequest, this));
-    $("#logoutSubmitButton").click(jQuery.proxy(this.doLogoutRequest, this));
-    $("#loginUsername").keypress($.proxy(this.loginCatchKeypress, this));
-    $("#loginPassword").keypress($.proxy(this.loginCatchKeypress, this));
   },
   
   openLocation : function(event) {
@@ -56,69 +51,12 @@ var HeaderMenu = Class.$extend( {
       $("#loginUsername").focus();
     }
   },
-
-  doLoginRequest : function() {
-    $("#loginSubmitButton").attr("disabled", "disabled");
-    $("#loginUsername").attr("disabled", "disabled");
-    $("#loginPassword").attr("disabled", "disabled");
-    var url = this.basePath + 'catroid/login/loginRequest.json';
-    $.ajax({
-      type: "POST",
-      url: url,
-      data: ({
-          loginUsername: $("#loginUsername").val(),
-          loginPassword: $("#loginPassword").val()
-      }),
-      timeout: (5000),
-      success : jQuery.proxy(this.loginSuccess, this),
-      error : jQuery.proxy(this.loginError, this)
-    });
-  },
-  
-  loginSuccess : function(result) {
-	if(result.statusCode == 200) {
-      location.reload();
-    } else {
-      alert("error: "+result.answer);
-    }
-	$("#loginSubmitButton").removeAttr("disabled");
-    $("#loginUsername").removeAttr("disabled");
-    $("#loginPassword").removeAttr("disabled");
-  },
-  
-  loginError : function(result, errCode) {
-	alert("loginError");
-  },
-  
-  doLogoutRequest : function(event) {
-    $.ajax({ 
-      url: this.basePath+"catroid/login/logoutRequest.json", 
-      async: false,
-      success: jQuery.proxy(this.logoutSuccess, this),
-      error: jQuery.proxy(this.logoutError, this)
-    });
-  },
-  
-  logoutSuccess: function(result) {
-    location.reload();
-  },
-  
-  logoutError: function(result, errCode) {
-	alert("logoutError"); 
-  },
   
   toggleAllBoxes : function() {
     $("#normalHeaderButtons").toggle(true);
     $("#cancelHeaderButton").toggle(false);
     $("#headerSearchBox").toggle(false);
     $("#headerProfileBox").toggle(false);
-  },
-  
-  loginCatchKeypress : function(event) {
-	if(event.which == '13') {
-	  event.preventDefault();
-	  this.doLoginRequest();
-	}
   }
   
 });

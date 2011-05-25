@@ -20,6 +20,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
         new HeaderMenu(<?php echo "'".BASE_PATH."'"; ?>);
+        new Login(<?php echo "'".BASE_PATH."'"; ?>);
         new Menu(<?php echo "'".BASE_PATH."', '".$this->module->session->userLogin_userId."'"; ?>);
       });
     </script>
