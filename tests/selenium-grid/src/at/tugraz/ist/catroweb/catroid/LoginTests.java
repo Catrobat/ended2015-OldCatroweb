@@ -33,7 +33,7 @@ public class LoginTests extends BaseTest {
   @Test(dataProvider = "validLoginData", groups = { "catroid" }, description = "check login with valid data")
   public void validLogin(HashMap<String, String> dataset) throws Throwable {
     // log out if necessary
-    session().open(Config.TESTS_BASE_PATH + "catroid/login/");
+    session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
 
     // wiki username creation
@@ -83,7 +83,8 @@ public class LoginTests extends BaseTest {
     session().type("loginPassword", dataset.get("password"));
 
     session().click("loginSubmitButton");
-    Thread.sleep(Config.TIMEOUT_THREAD);
+    waitForPageToLoad();
+    
     assertTrue(session().isVisible("headerProfileButton"));
     session().click("headerProfileButton");
     assertTrue(session().isVisible("logoutSubmitButton"));
@@ -139,7 +140,7 @@ public class LoginTests extends BaseTest {
   @Test(dataProvider = "invalidLoginData", groups = { "catroid" }, description = "check login with invalid data")
   public void invalidLogin(HashMap<String, String> dataset) throws Throwable {
     // log out if necessary
-    session().open(Config.TESTS_BASE_PATH + "catroid/login/");
+    session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
 
     // wiki username creation
