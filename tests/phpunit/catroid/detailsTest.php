@@ -111,9 +111,9 @@ class detailsTest extends PHPUnit_Framework_TestCase
    * @dataProvider randomIds
    */
   public function testGetQRCodeImage($id) {
-    //@copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION);
+    @copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION);
     $this->assertTrue(is_string($this->obj->getQRCodeImage($id)));
-    //@unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION);
+    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION);
     $this->assertFalse(is_string($this->obj->getQRCodeImage('non_existing_id')));
   }
   

@@ -61,6 +61,7 @@ class BlockedIpTests extends PHPUnit_Framework_TestCase
    * @dataProvider blockedIps
    */
   public function testBlockedIps($project_id, $blocked_ip) {
+    $this->removeAllBlockedIps();
     $this->blockIp($blocked_ip);
     $this->selenium->open(TESTS_BASE_PATH.'catroid/details/'.$project_id);
     $this->selenium->waitForPageToLoad(10000);
@@ -78,6 +79,7 @@ class BlockedIpTests extends PHPUnit_Framework_TestCase
    * @dataProvider unblockedIps
    */
   public function testUnblockedIps($project_id, $unblocked_ip) {
+    $this->removeAllBlockedIps();
     $this->blockIp($unblocked_ip);
     $this->selenium->open(TESTS_BASE_PATH.'catroid/details/'.$project_id);
     $this->selenium->waitForPageToLoad(10000);
@@ -120,6 +122,11 @@ class BlockedIpTests extends PHPUnit_Framework_TestCase
 
   private function unblockIp($ip) {
     $query = "DELETE FROM blocked_ips WHERE ip_address = '$ip';";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  }
+
+  private function removeAllBlockedIps() {
+    $query = "DELETE FROM blocked_ips;";
     $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
   }
   
