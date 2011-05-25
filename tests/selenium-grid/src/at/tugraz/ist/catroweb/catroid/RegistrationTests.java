@@ -82,24 +82,18 @@ public class RegistrationTests extends BaseTest {
 
     assertTrue(session().isVisible("xpath=//button[@id='menuLogoutButton']"));
 
-    session().click("menuForumButton");
-    session().selectWindow("board");
-    waitForPageToLoad();
+    clickAndWaitForPopUp("menuForumButton", "board");
     assertFalse(session().isTextPresent("Login"));
     assertTrue(session().isTextPresent("Logout"));
-    session().close();
-    session().selectWindow(null);
+    closePopUp();
 
-    session().click("menuWikiButton");
-    session().selectWindow("wiki");
-    waitForPageToLoad();
+    clickAndWaitForPopUp("menuWikiButton", "wiki");
     assertTrue(session().isTextPresent(wikiUsername));
     session().click("xpath=//li[@id='pt-preferences']/a");
     waitForPageToLoad();
     assertEquals("Preferences", session().getText("firstHeading"));
     assertFalse(session().isTextPresent("Not logged in"));
-    session().close();
-    session().selectWindow(null);
+    closePopUp();
 
     session().click("menuLogoutButton");
     waitForPageToLoad();
