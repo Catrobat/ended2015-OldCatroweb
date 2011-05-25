@@ -58,6 +58,19 @@ div.loginInfoText
   margin-bottom: 1.5%;
 }
 
+div.loginErrorMsg {
+  color: #DF0101;
+  display: inline-block;
+  display: none;
+  text-align: left;
+  padding: .2em .5em .2em .5em;
+  -webkit-border-radius: .5em; 
+  -moz-border-radius: .5em;
+  border-radius: .5em;  
+  border: solid 1px #b7b7b7;
+  background: #fff;
+}
+
 input.loginSubmitButton
 {
   margin-top: 2.5%;

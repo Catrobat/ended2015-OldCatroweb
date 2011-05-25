@@ -25,7 +25,6 @@ class login extends CoreAuthenticationNone {
     $this->setupBoard();
     $this->addCss('login.css?'.VERSION);
     $this->addCss('buttons.css?'.VERSION);
-    $this->addJs('login.js');
   }
 
   public function __default() {
