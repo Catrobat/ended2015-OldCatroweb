@@ -125,18 +125,7 @@ public class DetailsTests extends BaseTest {
     assertTrue(session().isTextPresent("The project was succesfully restored and set to visible!"));
     assertFalse(session().isTextPresent(id));
   }
-
-  /*
-   * array('more button selenium test', 'This is a description which should have
-   * more characters than defined by the threshold in config.php. And once
-   * again: This is a description which should have more characters than defined
-   * by the threshold in config.php. Thats it!'), array('more button special
-   * chars test', utf8_decode('This is a description which has special chars
-   * like
-   * ", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with "
-   * special chars" and should have more characters than defined by the
-   * threshold in config.php. Thats it!'))
-   */
+  
   @Test(dataProvider = "titlesAndDescriptions", groups = { "catroid", "firefox", "default" }, description = "test more button + QR Code image")
   public void moreButton(HashMap<String, String> dataset) throws Throwable {
     projectUploader.upload(dataset);

@@ -18,6 +18,16 @@
   -->
 
 <suite name="Catroid Test Suite" parallel="methods" thread-count="7" verbose="3" >
+  <test name="BlockIpTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.BlockedIpTests" />
+    </classes>
+  </test>
+  <test name="DetailsTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.DetailsTests" />
+    </classes>
+  </test>
   <test name="HeaderTests" >
     <classes>
       <class name="at.tugraz.ist.catroweb.catroid.HeaderTests" />
@@ -33,19 +43,34 @@
       <class name="at.tugraz.ist.catroweb.catroid.LicenseTests" />
     </classes>
   </test>
+  <test name="LoginTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.LoginTests" />
+    </classes>
+  </test>
   <test name="MenuTests" >
     <classes>
       <class name="at.tugraz.ist.catroweb.catroid.MenuTests" />
     </classes>
   </test>
-  <test name="IpTests" >
+  <test name="PasswordRecoveryTests" >
     <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.BlockedIpTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.PasswordRecoveryTests" />
     </classes>
   </test>
-  <test name="DetailsTests" >
+  <test name="ProfileTests" >
     <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.DetailsTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.ProfileTests" />
+    </classes>
+  </test>
+  <test name="RegistrationTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.RegistrationTests" />
+    </classes>
+  </test>
+  <test name="SearchTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.SearchTests" />
     </classes>
   </test>
 </suite>

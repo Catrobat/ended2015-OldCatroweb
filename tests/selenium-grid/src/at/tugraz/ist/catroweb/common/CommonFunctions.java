@@ -97,10 +97,11 @@ public class CommonFunctions {
     try {
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
-      ResultSet rs = statement.executeQuery("SELECT version_name, version_code FROM projects WHERE id='" + id + "';");
-      if (rs.next()) { 
-        data.put("version_name", rs.getString("version_name"));
-        data.put("version_code", rs.getString("version_code"));        
+      ResultSet result = statement.executeQuery("SELECT version_name, version_code FROM projects WHERE id='" + id + "';");
+      if (result.next()) { 
+        data.put("version_name", result.getString("version_name"));
+        data.put("version_code", result.getString("version_code"));
+        result.close();        
         statement.close();
         connection.close();
       }      
@@ -109,6 +110,31 @@ public class CommonFunctions {
       System.out.println(e.getMessage());
     }
     return data;   
+  }
+  
+  public static int getProjectsCount(boolean visible_projects_only) {
+    int count = 0;      
+    try {
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      String query = "SELECT COUNT(*) FROM projects ";
+      if (visible_projects_only)
+        query += "WHERE visible='true';";
+      else
+        query += ";";
+      
+      ResultSet result = statement.executeQuery(query);
+      if (result.next()) { 
+        count = result.getInt(1);
+        result.close();        
+        statement.close();
+        connection.close();
+      }      
+    } catch(SQLException e) {
+      System.out.println("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
+      System.out.println(e.getMessage());
+    }
+    return count;   
   }
 
   public static String getUnapprovedWordId(String word) {
