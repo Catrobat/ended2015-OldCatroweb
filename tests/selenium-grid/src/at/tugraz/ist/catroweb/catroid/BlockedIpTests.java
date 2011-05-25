@@ -36,22 +36,21 @@ public class BlockedIpTests extends BaseTest {
   
   @Test(dataProvider = "blockedIps", groups = { "catroid", "firefox", "default" }, description = "test blocked ips")
   public void blockedIps(String project_id, String blocked_ip) throws Throwable {
-    log("*** blockedIps test: functionality currently not available");
-    //   TODO
-//    session().open(Config.TESTS_BASE_PATH);
-//    waitForPageToLoad();
-//    
-//    blockIp(blocked_ip);    
-//    session().open(Config.TESTS_BASE_PATH+"catroid/details/"+project_id);
-//    waitForPageToLoad();
-//    assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-//    assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
-//    
-//    session().open(Config.TESTS_BASE_PATH);
-//    waitForPageToLoad();
-//    assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-//    assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
-//    unblockIp(blocked_ip);   
+    // log("*** blockedIps test: functionality currently not available");
+    session().open(Config.TESTS_BASE_PATH);
+    waitForPageToLoad();
+    
+    blockIp(blocked_ip);    
+    session().open(Config.TESTS_BASE_PATH+"catroid/details/"+project_id);
+    waitForPageToLoad();
+    assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
+    assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
+    
+    session().open(Config.TESTS_BASE_PATH);
+    waitForPageToLoad();
+    assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
+    assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
+    unblockIp(blocked_ip);   
   }
   
   /**
@@ -59,19 +58,18 @@ public class BlockedIpTests extends BaseTest {
    */
   @Test(dataProvider = "unblockedIps", groups = { "catroid", "firefox", "default" }, description = "test unblocked ips")
   public void unblockedIps(String project_id, String unblocked_ip) throws Throwable {
-    log("*** unblockedIps test: functionality currently not available");
-    //TODO
-//    blockIp(unblocked_ip);
-//    session().open(Config.TESTS_BASE_PATH+"catroid/details/"+project_id);
-//    waitForPageToLoad();
-//    assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-//    assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
-//    
-//    session().open(Config.TESTS_BASE_PATH);
-//    waitForPageToLoad();
-//    assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-//    assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
-//    unblockIp(unblocked_ip);
+    // log("*** unblockedIps test: functionality currently not available");
+    blockIp(unblocked_ip);
+    session().open(Config.TESTS_BASE_PATH+"catroid/details/"+project_id);
+    waitForPageToLoad();
+    assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
+    assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
+    
+    session().open(Config.TESTS_BASE_PATH);
+    waitForPageToLoad();
+    assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
+    assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
+    unblockIp(unblocked_ip);
   }
   
   @DataProvider(name="blockedIps")
@@ -109,11 +107,11 @@ public class BlockedIpTests extends BaseTest {
     }
   }
   
-  private void  unblockIp(String ip) {
+  private void unblockIp(String ip) {
     try {
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
-      statement.executeUpdate("DELETE FROM blocked_ips WHERE id_address='" + ip + "';");
+      statement.executeUpdate("DELETE FROM blocked_ips WHERE ip_address='" + ip + "';");
       statement.close();
       connection.close();
     } catch(SQLException e) {
