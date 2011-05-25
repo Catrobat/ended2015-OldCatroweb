@@ -57,34 +57,34 @@ abstract class CoreModule extends CoreObjectWeb {
                 $module instanceof CoreAuthentication);
     }
     
-    public static function requestFromBlockedIp($vmodule, $vclass) {
-      // return false; //deactivated IP-checker till prepared_statements-problem solved.
-      $ip = getenv("REMOTE_ADDR");
-      if (strlen($ip) >= 7 and strlen($ip) <= 15) {
-        $query = "SELECT * FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
-        $result = pg_query($query) or die('db query_failed '.pg_last_error());
-        if(pg_num_rows($result)) {
-          // show these pages even when ip is blocked
-          if ($vmodule == "catroid") {
-            switch ($vclass) {
-              case "privacypolicy": return false;
-              case "terms": return false;
-              case "copyrightpolicy": return false;
-              case "imprint": return false;
-              case "contactus": return false;
-              case "errorPage": return false;
-              default: return true;
-            }
-          }
-          if ($vmodule == "api") return false; //todo: handle upload block somewhere else
-          return true;
-        } else {
-          return false;
-        }
-      } else {
-        return true;
-      }
-    }
+//    public static function requestFromBlockedIp($vmodule, $vclass) {
+//      // return false; //deactivated IP-checker till prepared_statements-problem solved.
+//      $ip = getenv("REMOTE_ADDR");
+//      if (strlen($ip) >= 7 and strlen($ip) <= 15) {
+//        $query = "SELECT * FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
+//        $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
+//        if(pg_num_rows($result)) {
+//          // show these pages even when ip is blocked
+//          if ($vmodule == "catroid") {
+//            switch ($vclass) {
+//              case "privacypolicy": return false;
+//              case "terms": return false;
+//              case "copyrightpolicy": return false;
+//              case "imprint": return false;
+//              case "contactus": return false;
+//              case "errorPage": return false;
+//              default: return true;
+//            }
+//          }
+//          if ($vmodule == "api") return false; //todo: handle upload block somewhere else
+//          return true;
+//        } else {
+//          return false;
+//        }
+//      } else {
+//        return true;
+//      }
+//    }
 
     public function __set($property, $value) {
         $this->data[$property] = $value;
