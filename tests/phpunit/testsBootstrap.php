@@ -22,6 +22,7 @@
   spl_autoload_register('__autoload');
   require_once(dirname(__FILE__).'/../../config.php');
   require_once(dirname(__FILE__).'/../../passwords.php');
+  require_once(dirname(__FILE__).'/../../commonFunctions.php');
   set_include_path(get_include_path() . PATH_SEPARATOR . CORE_BASE_PATH.'addons/board/includes/utf/');
   set_include_path(get_include_path() . PATH_SEPARATOR . CORE_BASE_PATH.'classes/');
   function __autoload($class) {
