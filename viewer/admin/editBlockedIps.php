@@ -19,10 +19,13 @@
 ?>
 <body>
   <script type="text/javascript">
-  function removeipform(id, name) {
+  function submitRemoveIpForm(id, name) {
     if (confirm("Remove blocking of IP-Address '"+name+"'?"))
       document.getElementById(id).submit();
   }
+  function submitBlockIpForm(id) {
+	    document.getElementById(id).submit();
+	}
   </script>
   <h2>Administration Tools - List of blocked IP-Addresses</h2>
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
@@ -32,9 +35,9 @@
   <div class="projectList">
 
 			  Add new IP-Address to block: 
-			  <form id="newblockipform<?php echo $ipN ?>" class="admin" action="addBlockedIp" method="POST">
+			  <form id="newblockipform" class="admin" action="addBlockedIp" method="POST">
           <input type="text" name="blockip" value=""/>
-          <input type="button" value="add IP-Address" name="addButton" id="add<?php $ipN ?>" onclick="javascript:submitRemoveIpForm('removeipform<?php echo $ipN ?>', '<?php echo $ip ?>');" /> <!-- chg -->
+          <input type="button" value="add IP-Address" name="addButton" id="addip" onclick="submitBlockIpForm('newblockipform');" />
         </form>
 
 			<br/>
@@ -46,6 +49,7 @@
           <th>Remove IP-blocking</th>
         </tr>
       <?php
+        $i=0;
         if($this->blockedips) {
         foreach($this->blockedips as $blockedip) {
           $ip = $blockedip['ip_address'];
@@ -54,14 +58,16 @@
         <tr>
           <td><?php echo $ip ?></td>
           <td>
-            <form id="removeipform<?php echo $ipN ?>" class="admin" action="removeBlockedIp" method="POST">
-              <input type="hidden" name="blockedIp" value="<?php echo $ip ?>"/>
+            <form id="removeipform<?php echo $i ?>" class="admin" action="removeBlockedIp" method="POST">
+              <input type="hidden" name="blockedip" value="<?php echo $ip ?>"/>
               <input type="hidden" name="remove" value="remove"/>
-              <input type="button" value="remove" name="removeButton" id="removeip<?php $ipN ?>" onclick="javascript:submitRemoveIpForm('removeip<?php echo $ipN ?>', '<?php echo $ip ?>');" /> <!-- chg -->
+              <input type="button" value="remove" name="removeButton" id="<?php echo "removeip$i"; ?>" onclick="javascript:submitRemoveIpForm('removeipform<?php echo $i ?>', '<?php echo $ip ?>');" />
             </form>
           </td>
         </tr>
-      <?php }}?>
+      <?php           
+        $i++;
+        }}?>
       </table>
   </div>
 </body>

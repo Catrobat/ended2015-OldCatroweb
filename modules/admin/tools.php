@@ -62,15 +62,35 @@ class tools extends CoreAuthenticationAdmin {
     $this->projects = $this->retrieveAllProjectsFromDatabase();
   }
 
+  public function addBlockedIp() {
+    if(isset($_POST['blockip'])) {
+      $this->blockIp($_POST['blockip']);
+      $answer = "The IP-address <b>".$_POST["blockip"]."</b> was added to blacklist.";
+      $this->answer = $answer;
+    }
+    $this->htmlFile = "editBlockedIps.php";
+    $this->blockedips = $this->getListOfBlockedIpsFromDatabase();
+  }
+
+  public function removeBlockedIp() {
+    if(isset($_POST['blockedip'])) {
+      $this->unblockIp($_POST['blockedip']);
+      $answer = "The IP-address <b>".$_POST["blockedip"]."</b> was removed from blacklist.";
+      $this->answer = $answer;
+    }
+    $this->htmlFile = "editBlockedIps.php";
+    $this->blockedips = $this->getListOfBlockedIpsFromDatabase();
+  }
+  
   public function editBlockedIps() {
-    /*if(isset($_POST['delete'])) {
-      if($this->deleteProject($_POST['projectId'])) {
-        $answer = "The project was succesfully deleted!";
+    if(isset($_POST['blockip'])) {
+      if($this->blockIp($_POST['blockip'])) {
+        $answer = "The IP-address <b>".$_POST["blockip"]."</b> was added to blacklist.";
       } else {
-        $answer = "Error: could NOT delete the project!";
+        $answer = "Error: could NOT add IP-address to blacklist!";
       }
       $this->answer = $answer;
-    }*/
+    }
     $this->htmlFile = "editBlockedIps.php";
     $this->blockedips = $this->getListOfBlockedIpsFromDatabase();
   }
@@ -398,13 +418,17 @@ class tools extends CoreAuthenticationAdmin {
   }
 
   public function blockIp($ip) {
-    $query = "EXECUTE admin_block_ip('$ip');";
-    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    if (strlen($ip) >= 1) {
+      $query = "EXECUTE admin_block_ip('$ip');";
+      $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    }
   }
 
   public function unblockIp($ip) {
-    $query = "EXECUTE admin_unblock_ip('$ip');";
-    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    if (strlen($ip) >= 1) {
+      $query = "EXECUTE admin_unblock_ip('$ip');";
+      $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    }
   }
   
   public function isBlockedIp($ip) {

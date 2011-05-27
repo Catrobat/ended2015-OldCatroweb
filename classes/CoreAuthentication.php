@@ -20,7 +20,8 @@
 abstract class CoreAuthentication extends CoreModule {
     function __construct() {
         parent::__construct();
-        $this->requestFromBlockedIp($_REQUEST["module"], $_REQUEST["class"]);
+        if (getenv("REMOTE_ADDR")) 
+           $this->requestFromBlockedIp($_REQUEST["module"], $_REQUEST["class"]);
     }
 
     abstract function authenticate();

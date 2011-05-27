@@ -32,42 +32,42 @@ class toolsTest extends PHPUnit_Framework_TestCase
 		@unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_thumbnail.jpg');
 	}
 
-//  public function testRemoveInconsistantProjectFiles() {
-//    $projectDirectory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
-//    $testFileName = "99999999.zip";
-//    $testFile = $projectDirectory.$testFileName;
-//    $testFileHandle = fopen($testFile, 'w') or die("can't create file");
-//    fclose($testFileHandle);
-//
-//    $fileExistsBefore = is_file($testFile);
-//    $this->tools->removeInconsistantProjectFiles();
-//    $fileExistsAfter = is_file($testFile);
-//
-//    $this->assertTrue($fileExistsBefore && !$fileExistsAfter);
-//  }
-//
-//  public function testUploadThumbnail() {
-//    $thumbName = 'test_thumbnail.jpg';
-//    $fileData = array('upload'=>array('name'=>$thumbName, 'type'=>'image/jpeg',
-//                        'tmp_name'=>dirname(__FILE__).'/testdata/'.$thumbName, 'error'=>0, 'size'=>4482));
-//    $this->assertTrue($this->tools->uploadThumbnail($fileData));
-//    $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbName));
-//  }
-//
-//  /**
-//   * @dataProvider randomIds
-//   */
-//  public function testResolveInappropriateProject($id) {
-//    $this->assertTrue($this->tools->resolveInappropriateProject($id));
-//    $query = "SELECT * FROM projects WHERE id='$id' AND visible=false";
-//    $result = @pg_query($query);
-//    $this->assertEquals(0, pg_num_rows($result));
-//    pg_free_result($result);
-//    $query = "SELECT * FROM flagged_projects WHERE project_id='$id' AND resolved=false";
-//    $result = @pg_query($query);
-//    $this->assertEquals(0, pg_num_rows($result));
-//    pg_free_result($result);
-//  }
+  public function testRemoveInconsistantProjectFiles() {
+    $projectDirectory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
+    $testFileName = "99999999.zip";
+    $testFile = $projectDirectory.$testFileName;
+    $testFileHandle = fopen($testFile, 'w') or die("can't create file");
+    fclose($testFileHandle);
+
+    $fileExistsBefore = is_file($testFile);
+    $this->tools->removeInconsistantProjectFiles();
+    $fileExistsAfter = is_file($testFile);
+
+    $this->assertTrue($fileExistsBefore && !$fileExistsAfter);
+  }
+
+  public function testUploadThumbnail() {
+    $thumbName = 'test_thumbnail.jpg';
+    $fileData = array('upload'=>array('name'=>$thumbName, 'type'=>'image/jpeg',
+                        'tmp_name'=>dirname(__FILE__).'/testdata/'.$thumbName, 'error'=>0, 'size'=>4482));
+    $this->assertTrue($this->tools->uploadThumbnail($fileData));
+    $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbName));
+  }
+
+  /**
+   * @dataProvider randomIds
+   */
+  public function testResolveInappropriateProject($id) {
+    $this->assertTrue($this->tools->resolveInappropriateProject($id));
+    $query = "SELECT * FROM projects WHERE id='$id' AND visible=false";
+    $result = @pg_query($query);
+    $this->assertEquals(0, pg_num_rows($result));
+    pg_free_result($result);
+    $query = "SELECT * FROM flagged_projects WHERE project_id='$id' AND resolved=false";
+    $result = @pg_query($query);
+    $this->assertEquals(0, pg_num_rows($result));
+    pg_free_result($result);
+  }
 
   /**
    * @dataProvider blockUser
@@ -346,28 +346,28 @@ class toolsTest extends PHPUnit_Framework_TestCase
 //		$this->assertFalse($this->isProjectInDatabase($insertId));
 //		$this->assertTrue($this->getWordId($unapprovedWord) == -1);
 //	}
-//
-//	private function deleteWord($word) {
-//		$query = "DELETE FROM wordlist WHERE word='$word'";
-//		$result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
-//		if($result) {
-//			pg_free_result($result);
-//		}
-//	}
-//
-//	private function getWordId($word) {
-//		$query = "SELECT * FROM wordlist WHERE word='$word'";
-//		$result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
-//		if($result) {
-//			$word =  pg_fetch_all($result);
-//			pg_free_result($result);
-//
-//			if($word) {
-//				return $word[0]['id'];
-//			}
-//		}
-//		return -1;
-//	}
+
+	private function deleteWord($word) {
+		$query = "DELETE FROM wordlist WHERE word='$word'";
+		$result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+		if($result) {
+			pg_free_result($result);
+		}
+	}
+
+	private function getWordId($word) {
+		$query = "SELECT * FROM wordlist WHERE word='$word'";
+		$result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+		if($result) {
+			$word =  pg_fetch_all($result);
+			pg_free_result($result);
+
+			if($word) {
+				return $word[0]['id'];
+			}
+		}
+		return -1;
+	}
 
 	private function isProjectInDatabase($projectId) {
 		$query = "EXECUTE get_project_by_id('$projectId');";
