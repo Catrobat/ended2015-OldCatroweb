@@ -20,8 +20,10 @@
 abstract class CoreAuthentication extends CoreModule {
     function __construct() {
         parent::__construct();
+        isset($_REQUEST["module"]) ? $vmodule = $_REQUEST["module"] : $vmodule = MVC_DEFAULT_MODULE;
+        isset($_REQUEST["class"]) ? $vclass = $_REQUEST["class"] : $vclass = MVC_DEFAULT_CLASS;
         if (getenv("REMOTE_ADDR")) 
-           $this->requestFromBlockedIp($_REQUEST["module"], $_REQUEST["class"]);
+          $this->requestFromBlockedIp($vmodule, $vclass);
     }
 
     abstract function authenticate();
@@ -32,13 +34,15 @@ abstract class CoreAuthentication extends CoreModule {
     
     private function requestFromBlockedIp($vmodule, $vclass) {
       $badIp = false;
-      $ip = getenv("REMOTE_ADDR");
+      if(($vmodule =! "catroid") || in_array($vclass, getIpBlockClassWhitelistArray())) {
+        return;
+      }
+      $ip = $_SERVER["REMOTE_ADDR"];
       if (strlen($ip) >= 7 and strlen($ip) <= 15) {
         $query = "SELECT * FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
         $result = pg_query($query) or die('db query_failed '.pg_last_error());
         if(pg_num_rows($result)) {
-          if (($vmodule == "catroid") && !in_array($vclass, getIpBlockClassWhitelistArray()))
-            $badIp = true;
+          $badIp = true;            
         }
       } else {
         $badIp = true;
