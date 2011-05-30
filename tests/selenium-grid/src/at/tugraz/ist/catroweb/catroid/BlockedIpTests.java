@@ -57,7 +57,7 @@ public class BlockedIpTests extends BaseTest {
   /**
    * @dataProvider unblockedIps
    */
-  @Test(dataProvider = "unblockedIps", groups = { "catroid", "firefox", "default" }, description = "test unblocked ips")
+  @Test(dataProvider = "unblockedIps", dependsOnMethods = { "blockedIps" }, groups = { "catroid", "firefox", "default" }, description = "test unblocked ips")
   public void unblockedIps(String project_id, String unblocked_ip) throws Throwable {
     // log("*** unblockedIps test: functionality currently not available");
     blockIp(unblocked_ip);

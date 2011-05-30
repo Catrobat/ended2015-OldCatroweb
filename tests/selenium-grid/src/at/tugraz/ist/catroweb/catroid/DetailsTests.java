@@ -46,6 +46,7 @@ public class DetailsTests extends BaseTest {
     int numOfViews = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
     session().refresh();
     waitForPageToLoad();
+    ajaxWait();
     int numOfViewsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
     assertEquals(numOfViews + 1, numOfViewsAfter);
 
@@ -121,26 +122,25 @@ public class DetailsTests extends BaseTest {
     session().type("reportInappropriateReason", "my selenium reason 2");
     session().focus("reportInappropriateReason");
     session().keyPress("reportInappropriateReason", "\\13");
-    Thread.sleep(200);
+    Thread.sleep(Config.TIMEOUT_THREAD);
     assertFalse(session().isVisible("reportInappropriateReason"));
     assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
 
     session().open(CommonFunctions.getAdminPath(this.webSite) + "/tools/inappropriateProjects");
     waitForPageToLoad();
     session().click("resolve" + id);
-    Thread.sleep(200);
+    Thread.sleep(Config.TIMEOUT_THREAD);
     assertTrue(session().isTextPresent("The project was succesfully restored and set to visible!"));
     assertFalse(session().isTextPresent(id));
   }
 
   @Test(dataProvider = "titlesAndDescriptions", groups = { "catroid", "firefox", "default" }, description = "test more button + QR Code image")
   public void moreButton(HashMap<String, String> dataset) throws Throwable {
-    projectUploader.upload(dataset);
-    session().open(Config.TESTS_BASE_PATH);
+    String response = projectUploader.upload(dataset);
+    String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
+    session().open(Config.TESTS_BASE_PATH + "/catroid/details/" + projectId);
     waitForPageToLoad();
-    ajaxWait();
-    session().click("xpath=//a[@class='projectListDetailsLink']");
-    waitForPageToLoad();
+    
     assertTrue(session().isElementPresent("showFullDescriptionButton"));
     String shortDescriptionFromPage = session().getText("xpath=//p[@id='detailsDescription']");
     assertFalse(shortDescriptionFromPage.equals(dataset.get("projectDescription")));
@@ -185,7 +185,9 @@ public class DetailsTests extends BaseTest {
     ajaxWait();
     session().click("xpath=//a[@class='projectListDetailsLink']");
     waitForPageToLoad();
-
+    ajaxWait();
+    waitForElementPresent("xpath=//button[@id='showQrCodeInfoButton']");
+    
     assertTrue(session().isElementPresent("xpath=//button[@id='showQrCodeInfoButton']"));
     assertTrue(session().isElementPresent("xpath=//div[@id='qrcodeInfo']"));
     assertTrue(session().isElementPresent("xpath=//button[@id='hideQrCodeInfoButton']"));

@@ -59,6 +59,7 @@ public class SearchTests extends BaseTest {
     session().type("searchQuery", projectDescription);
     session().click("xpath=//input[@class='webHeadSearchSubmit']");
     ajaxWait();
+    waitForTextPresent(projectTitle);
     assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
 
     assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
@@ -80,6 +81,7 @@ public class SearchTests extends BaseTest {
       session().type("searchQuery", projectTitle.substring(i, i + 1));
       session().click("xpath=//input[@class='webHeadSearchSubmit']");
       ajaxWait();
+      waitForTextPresent(projectTitle);
 
       assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
       assertTrue(session().isTextPresent(projectTitle));
@@ -239,7 +241,7 @@ public class SearchTests extends BaseTest {
 
   @DataProvider(name = "specialChars")
   public Object[][] specialChars() {
-    Object[][] returnArray = new Object[][] { { "äöü\"$%&/=?`+*~#_-.:,;|" }, };
+    Object[][] returnArray = new Object[][] { { "_äöü\"$%&/=?`+*~#-.:,;|" }, };
     return returnArray;
   }
 
