@@ -38,15 +38,12 @@ abstract class CoreAuthentication extends CoreModule {
         return;
       }
       $ip = $_SERVER["REMOTE_ADDR"];
-      if (strlen($ip) >= 7 and strlen($ip) <= 15) {
-        $query = "SELECT * FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
-        $result = pg_query($query) or die('db query_failed '.pg_last_error());
-        if(pg_num_rows($result)) {
-          $badIp = true;            
-        }
-      } else {
-        $badIp = true;
+      $query = "SELECT * FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
+      $result = pg_query($query) or die('db query_failed '.pg_last_error());
+      if(pg_num_rows($result)) {
+        $badIp = true;            
       }
+
       if ($badIp)
         $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked', '', 'blocked_ip');
     }
