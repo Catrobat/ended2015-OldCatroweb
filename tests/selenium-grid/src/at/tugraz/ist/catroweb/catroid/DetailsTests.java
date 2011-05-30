@@ -32,8 +32,12 @@ import at.tugraz.ist.catroweb.common.*;
 
 public class DetailsTests extends BaseTest {
 
-  @Test(dataProvider = "randomIds", groups = { "catroid", "firefox", "default" }, description = "view + download counter test")
-  public void detailsPageCounter(String id, String title, String description) throws Throwable {
+  @Test(dataProvider = "detailsProject", groups = { "catroid", "firefox", "default" }, description = "view + download counter test")
+  public void detailsPageCounter(HashMap<String, String> dataset) throws Throwable {
+    String response = projectUploader.upload(dataset);    
+    String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
+    String title = dataset.get("projectTitle");
+    //String description CommonFunctions.getValueFromJSONobject(response, "projectDescription");
     session().open(Config.TESTS_BASE_PATH + "catroid/details/" + id);
     waitForPageToLoad();
     // project title
@@ -76,10 +80,13 @@ public class DetailsTests extends BaseTest {
     assertRegExp("^Catroid version: " + versionInfo.get("version_code") + " [(]" + versionInfo.get("version_name") + "[)]$", versionInfoText);
   }
 
-  @Test(dataProvider = "randomIds", groups = { "catroid", "firefox", "default" }, description = "test inappropriate button")
-  public void inappropriateButton(String id, String title, String description) throws Throwable {
+  @Test(dataProvider = "detailsProject", groups = { "catroid", "firefox", "default" }, description = "test inappropriate button")
+  public void inappropriateButton(HashMap<String, String> dataset) throws Throwable {
+    String response = projectUploader.upload(dataset);
+    String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
     session().open(CommonFunctions.getAdminPath(this.webSite));
     waitForPageToLoad();
+    log(id);
 
     session().open(Config.TESTS_BASE_PATH + "catroid/details/" + id);
     waitForPageToLoad();
@@ -125,7 +132,7 @@ public class DetailsTests extends BaseTest {
     assertTrue(session().isTextPresent("The project was succesfully restored and set to visible!"));
     assertFalse(session().isTextPresent(id));
   }
-  
+
   @Test(dataProvider = "titlesAndDescriptions", groups = { "catroid", "firefox", "default" }, description = "test more button + QR Code image")
   public void moreButton(HashMap<String, String> dataset) throws Throwable {
     projectUploader.upload(dataset);
@@ -149,13 +156,12 @@ public class DetailsTests extends BaseTest {
   }
 
   @Test(groups = { "catroid", "firefox", "default" }, description = "test QR Code image")
-  public void QRCodeImage() throws Throwable {    
-    HashMap<String,String> data = CommonData.getRandomProject();
-    File qrCodeFile = new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_QR_DIRECTORY + data.get("projectDescription")
+  public void QRCodeImage() throws Throwable {
+    HashMap<String, String> data = CommonData.getRandomProject();
+    File qrCodeFile = new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_QR_DIRECTORY + data.get("projectDescription") + Config.PROJECTS_QR_EXTENTION);
+    File qrCodeFileNew = new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_QR_DIRECTORY + data.get("projectDescription") + "_new"
         + Config.PROJECTS_QR_EXTENTION);
-    File qrCodeFileNew = new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_QR_DIRECTORY + data.get("projectDescription")
-        + "_new" + Config.PROJECTS_QR_EXTENTION);
-    
+
     if (qrCodeFile.exists()) {
       assertTrue(qrCodeFile.renameTo(qrCodeFileNew));
       session().refresh();
@@ -171,15 +177,15 @@ public class DetailsTests extends BaseTest {
       assertFalse(session().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
     }
   }
-  
+
   @Test(groups = { "catroid", "firefox", "default" }, description = "test QR Code info")
-  public void QRCodeInfo() throws Throwable {    
+  public void QRCodeInfo() throws Throwable {
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
     ajaxWait();
     session().click("xpath=//a[@class='projectListDetailsLink']");
     waitForPageToLoad();
-    
+
     assertTrue(session().isElementPresent("xpath=//button[@id='showQrCodeInfoButton']"));
     assertTrue(session().isElementPresent("xpath=//div[@id='qrcodeInfo']"));
     assertTrue(session().isElementPresent("xpath=//button[@id='hideQrCodeInfoButton']"));
@@ -212,10 +218,11 @@ public class DetailsTests extends BaseTest {
     return returnArray;
   }
 
-  @DataProvider(name = "randomIds")
-  public Object[][] randomIds() {
-    HashMap<String, String> data = CommonData.getRandomProject();
-    Object[][] returnArray = new Object[][] { { data.get("id"), data.get("title"), data.get("description") }, };
+  @DataProvider(name = "detailsProject")
+  public Object[][] detailsProject() {
+    Object[][] returnArray = new Object[][] { { CommonData.getUploadPayload("details_test1", "details_test_description", "test.zip",
+        "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") }, };
     return returnArray;
   }
+
 }

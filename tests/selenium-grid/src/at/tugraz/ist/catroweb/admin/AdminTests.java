@@ -88,9 +88,24 @@ public class AdminTests extends BaseTest {
     assertTrue(session().isTextPresent("Administration Tools - List of unapproved Words"));
     session().goBack();
     waitForPageToLoad();
-
-    assertTrue(session().isTextPresent("- back"));
+    
+    session().click("xpath=//a[6]");
+    waitForPageToLoad();
+    assertTrue(session().isTextPresent("Administration Tools - List of blocked IP-Addresses"));
+    session().goBack();
+    waitForPageToLoad();
+    
+    /*
     session().click("xpath=//a[7]");
+    waitForPageToLoad();
+    assertTrue(session().isTextPresent("Administration Tools - "));
+    session().goBack();
+    waitForPageToLoad();
+    */
+    
+    log("AdminTests: check block Users link");
+    assertTrue(session().isTextPresent("- back"));
+    session().click("xpath=//a[8]");
     waitForPageToLoad();
     assertTrue(session().isTextPresent("Catroid Administration Site"));
   }
