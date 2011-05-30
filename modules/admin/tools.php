@@ -95,6 +95,20 @@ class tools extends CoreAuthenticationAdmin {
     $this->blockedips = $this->getListOfBlockedIpsFromDatabase();
   }
   
+  public function editBlockedUsers() {
+    if(isset($_POST['blockuser'])) {
+      if($this->blockUser($_POST['blockuser'])) {
+        $answer = "The username <b>".$_POST["blockuser"]."</b> was added to blacklist.";
+      } else {
+        $answer = "Error: could NOT add username <b>".$_POST["blockuser"]."</b> to blacklist!";
+      }
+      $this->answer = $answer;
+    }
+    $this->htmlFile = "editBlockedUsers.php";
+    $this->blockedusers = $this->getListOfBlockedUsersFromDatabase();
+  }
+  
+  
   public function toggleProjects() {
     if(isset($_POST['toggle'])) {
       if ($_POST['toggle'] == "visible") {
@@ -240,6 +254,12 @@ class tools extends CoreAuthenticationAdmin {
   
   private function getListOfBlockedIpsFromDatabase() {
     $query = 'EXECUTE get_all_blocked_ips;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    return pg_fetch_all($result);
+  }
+
+  private function getListOfBlockedUsersFromDatabase() {
+    $query = 'EXECUTE get_all_blocked_users;';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     return pg_fetch_all($result);
   }

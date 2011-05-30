@@ -40,6 +40,7 @@
   <property name="sqlupdate.dir" value="${sql.dir}/catroweb/updates" />
   <property name="htaccess.file" value=".htaccess" />
   <property name="config.file" value="config.php" />
+  <property name="commonFunctions.file" value="commonFunctions.php" />
   <property name="index.file" value="index.php" />
   <property name="thumbnail.small.file" value="${thumbnails.dir}/thumbnail_small.jpg" />
   <property name="thumbnail.large.file" value="${thumbnails.dir}/thumbnail_large.jpg" />
@@ -574,6 +575,7 @@
   <target name="-copy-rootfiles">
     <copy file="${htaccess.file}" toDir="${catroid.dir}" />
     <copy file="${config.file}" toDir="${catroid.dir}" />
+    <copy file="${commonFunctions.file}" toDir="${catroid.dir}" />
     <copy file="${index.file}" toDir="${catroid.dir}" />
   </target>
 
@@ -663,7 +665,7 @@
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="rm -rf ${host.catroid.dir}/${index.file} ${host.catroid.dir}/${config.file} ${host.catroid.dir}/${htaccess.file}" />
+             command="rm -rf ${host.catroid.dir}/${index.file} ${host.catroid.dir}/${config.file} ${host.catroid.dir}/${commonFunctions.file} ${host.catroid.dir}/${htaccess.file}" />
   </target>
   
   <target name="-undeploy-board">

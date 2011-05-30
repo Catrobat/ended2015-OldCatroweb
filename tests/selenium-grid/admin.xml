@@ -23,6 +23,11 @@
       <class name="at.tugraz.ist.catroweb.admin.BadWordsFilterTests" />
     </classes>
   </test>
+  <test name="BlockedIpTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.admin.BlockedIpTests" />
+    </classes>
+  </test>
   <test name="EditProjectsTests" >
     <classes>
       <class name="at.tugraz.ist.catroweb.admin.EditProjectsTests" />

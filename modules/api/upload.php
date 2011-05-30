@@ -188,9 +188,9 @@ class upload extends CoreAuthenticationDevice {
     mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images");
     mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds");
     // change rights
-    // chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId, 0766);
-    // chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images", 0766);
-    // chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds", 0766);
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId, 0777);
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images", 0777);
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds", 0777);
 
     $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
     while ($zip_entry = zip_read($zip)) {
@@ -221,10 +221,7 @@ class upload extends CoreAuthenticationDevice {
       }
     }
     zip_close($zip);
-    // chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images", 0666);
-    // chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds", 0666);
-    // chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId, 0666);
-    // return array($versionName, $versionCode);
+    return array($versionName, $versionCode);
   }
   
   public function unzipThumbnailFromUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
