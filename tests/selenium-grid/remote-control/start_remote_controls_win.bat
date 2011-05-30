@@ -1,14 +1,14 @@
 @echo off
 cls
 
-if "%ANT_HOME%"=="" (
-  echo ***
-  echo get and intall ant:
-  echo https://code.google.com/p/winant/downloads/list
-  echo ***
-  pause
-  exit /B 
-)
+rem if "%ANT_HOME%"=="" (
+rem echo ***
+rem echo get and intall ant:
+rem echo https://code.google.com/p/winant/downloads/list
+rem   echo ***
+rem   pause
+rem   exit /B 
+rem )
   
 ipconfig | find "IPv4" > %TEMP%.\TEMP.DAT
 for /F "tokens=2 delims=:" %%a in (%TEMP%.\TEMP.DAT) do set IP=%%a
