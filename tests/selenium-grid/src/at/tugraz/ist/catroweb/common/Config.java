@@ -24,11 +24,11 @@ public class Config {
   public static final int TESTS_SLOW_SPEED = 1000;
   public static final String WAIT_FOR_PAGE_TO_LOAD = "10000";
   public static final String TIMEOUT = "120000";
-  public static final String TIMEOUT_AJAX = "5000";
+  public static final String TIMEOUT_AJAX = "30000";
   public static final long TIMEOUT_THREAD = 2000;
 
   public static final String TESTS_BASE_PATH = "/";
-  // public static final String TESTS_BASE_PATH = "/catroweb/";
+  //public static final String TESTS_BASE_PATH = "/catroweb/";
 
   public static final String DB_USER = "website";
   public static final String DB_PASS = "cat.roid.web";
@@ -39,8 +39,7 @@ public class Config {
   public static final String FILESYSTEM_SEPARATOR = System.getProperty("file.separator");
   public static final String FILESYSTEM_BASE_PATH = System.getProperty("user.dir") + FILESYSTEM_SEPARATOR;
 
-  public static final String SELENIUM_GRID_TESTDATA = "tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "testdata"
-      + FILESYSTEM_SEPARATOR;
+  public static String SELENIUM_GRID_TESTDATA = "tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "testdata" + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "projects" + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_UNZIPPED_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "catroid" + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_QR_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "qrcodes" + FILESYSTEM_SEPARATOR;
@@ -56,10 +55,23 @@ public class Config {
 
   public static final String DEFAULT_UPLOAD_TITLE = "Testproject";
   public static final String DEFAULT_UPLOAD_DESCRIPTION = "This is my testproject...";
-  public static final String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test.zip";
+  public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test.zip";
   public static final String DEFAULT_UPLOAD_CHECKSUM = "72ed87fbd5119885009522f08b7ee79f";
   public static final String DEFAULT_UPLOAD_IMEI = "b1946ac92492d2347c6235b4d2611184";
   public static final String DEFAULT_UPLOAD_EMAIL = "webmaster@catroid.org";
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";
+
+  public static void setSeleniumGridTestdata(String basedir) {
+    String path = basedir.replace(System.getProperty("user.dir"), "");
+    if(path.indexOf(FILESYSTEM_SEPARATOR) == 0) {
+      path = path.substring(1);
+    }
+    if(path.lastIndexOf(FILESYSTEM_SEPARATOR) != -1 && path.lastIndexOf(FILESYSTEM_SEPARATOR) != path.length()) {
+      path += FILESYSTEM_SEPARATOR;
+    }
+
+    SELENIUM_GRID_TESTDATA = path + "testdata" + FILESYSTEM_SEPARATOR;
+    DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test.zip";
+  }
 }

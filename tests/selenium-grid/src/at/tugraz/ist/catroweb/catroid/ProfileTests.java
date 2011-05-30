@@ -20,10 +20,6 @@ package at.tugraz.ist.catroweb.catroid;
 
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.HashMap;
 
 import org.testng.annotations.DataProvider;
@@ -140,12 +136,11 @@ public class ProfileTests extends BaseTest {
     session().type("xpath=//input[@id='profileNewPassword']", dataset.get("registrationPassword"));
     session().click("xpath=//input[@id='profilePasswordSubmit']");
     ajaxWait();
+    Thread.sleep(Config.TIMEOUT_THREAD);
 
     assertTrue(session().isTextPresent("You updated your password successfully."));
 
     session().click("xpath=//a[@id='profileChangeEmailText']");
-    ajaxWait();
-
     session().type("xpath=//input[@id='profileEmail']", dataset.get("changedEmail"));
     session().click("xpath=//input[@id='profileEmailSubmit']");
     waitForPageToLoad();
@@ -156,28 +151,16 @@ public class ProfileTests extends BaseTest {
 
     session().click("xpath=//a[@id='profileChangeEmailText']");
     ajaxWait();
+    Thread.sleep(Config.TIMEOUT_THREAD);
 
     session().type("xpath=//input[@id='profileEmail']", dataset.get("registrationEmail"));
     session().click("xpath=//input[@id='profileEmailSubmit']");
     waitForPageToLoad();
     ajaxWait();
 
-    session().getAlert();
     assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
 
-    deleteUserFromDatabase(dataset.get("registrationUsername"));
-  }
-
-  private void deleteUserFromDatabase(String username) {
-    try {
-      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
-      Statement statement = connection.createStatement();
-      statement.executeUpdate("DELETE FROM cusers WHERE username='" + username + "';");
-      statement.close();
-      connection.close();
-    } catch(SQLException e) {
-      System.out.println("ProjectUploader: deleteProject: SQL Exception couldn't execute sql query!");
-    }
+    CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
   }
 
   @DataProvider(name = "loginData")
@@ -186,7 +169,7 @@ public class ProfileTests extends BaseTest {
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {
-        put("registrationUsername", "myUnitTest" + randomString);
+        put("registrationUsername", "ProfileTest" + randomString);
         put("registrationPassword", "myPassword123");
         put("changedPassword", "anotherPassword123");
         put("shortPassword", "short");

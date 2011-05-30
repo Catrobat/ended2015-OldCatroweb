@@ -35,6 +35,7 @@ import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.postgresql.Driver;
 
 public class ProjectUploader {
   protected List<HashMap<String, String>> uploadedProjects;
@@ -174,11 +175,15 @@ public class ProjectUploader {
   private void deleteProject(String projectId) {
     if(!projectId.equals("")) {
       try {
+        Driver driver = new Driver();
+        DriverManager.registerDriver(driver);
+
         Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
         Statement statement = connection.createStatement();
         statement.executeUpdate("DELETE FROM projects WHERE id='" + projectId + "';");
         statement.close();
         connection.close();
+        DriverManager.deregisterDriver(driver);
       } catch(SQLException e) {
         System.out.println("ProjectUploader: deleteProject: SQL Exception couldn't execute sql query!");
       }

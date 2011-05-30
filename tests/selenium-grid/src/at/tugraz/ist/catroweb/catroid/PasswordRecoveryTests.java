@@ -74,8 +74,8 @@ public class PasswordRecoveryTests extends BaseTest {
     session().type("xpath=//select[@name='registrationCountry']", dataset.get("registrationCountry"));
     session().type("xpath=//input[@name='registrationCity']", dataset.get("registrationCity"));
     session().click("xpath=//input[@name='registrationSubmit']");
-
     ajaxWait();
+
     assertTrue(session().isTextPresent("CATROID registration successfull!"));
     assertTrue(session().isTextPresent("BOARD registration successfull!"));
     assertTrue(session().isTextPresent("WIKI registration successfull!"));
@@ -148,6 +148,7 @@ public class PasswordRecoveryTests extends BaseTest {
     session().type("loginUsername", dataset.get("registrationUsername"));
     session().type("loginPassword", dataset.get("registrationPassword") + " new");
     session().click("loginSubmitButton");
+    waitForPageToLoad();
     ajaxWait();
 
     // check login
@@ -187,6 +188,8 @@ public class PasswordRecoveryTests extends BaseTest {
     waitForPageToLoad();
     assertTrue(session().isTextPresent("Sorry! Your recovery url has expired. Please try again."));
     assertTrue(session().isElementPresent("xpath=//input[@name='passwordNextSubmit']"));
+    
+    CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
   }
 
   @DataProvider(name = "passwordRecoveryResetUsernames")

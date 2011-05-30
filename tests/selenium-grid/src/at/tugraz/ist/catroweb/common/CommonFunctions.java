@@ -20,6 +20,9 @@ package at.tugraz.ist.catroweb.common;
 
 import java.io.File;
 import java.math.BigDecimal;
+import java.nio.charset.Charset;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -30,6 +33,7 @@ import java.util.Iterator;
 import java.util.Map;
 
 import org.json.simple.JSONValue;
+import org.postgresql.Driver;
 
 public class CommonFunctions {
   public static String getAdminPath(String webSite) {
@@ -75,84 +79,134 @@ public class CommonFunctions {
     }
     return "";
   }
-  
+
   public static double getFileSizeRounded(String filepath) {
     double filesize = 0.0;
     try {
-      File file = new File(filepath);    
-      if (file.exists()) {
-        BigDecimal bd = new BigDecimal(((double) file.length()/(1024*1024)));
-        bd = bd.setScale(1,BigDecimal.ROUND_DOWN);
+      File file = new File(filepath);
+      if(file.exists()) {
+        BigDecimal bd = new BigDecimal(((double) file.length() / (1024 * 1024)));
+        bd = bd.setScale(1, BigDecimal.ROUND_DOWN);
         filesize = bd.doubleValue();
       }
-    }
-    catch (Exception e) {
-      System.out.println("Error: CommonFunctions.getFileSizeRounded("+filepath+")"+e.getMessage());
+    } catch(Exception e) {
+      System.out.println("Error: CommonFunctions.getFileSizeRounded(" + filepath + ")" + e.getMessage());
     }
     return filesize;
   }
-  
+
   public static HashMap<String, String> getVersionInfo(String id) {
-    HashMap<String, String> data = new HashMap<String, String>();      
+    HashMap<String, String> data = new HashMap<String, String>();
     try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery("SELECT version_name, version_code FROM projects WHERE id='" + id + "';");
-      if (result.next()) { 
+      if(result.next()) {
         data.put("version_name", result.getString("version_name"));
         data.put("version_code", result.getString("version_code"));
-        result.close();        
-        statement.close();
-        connection.close();
-      }      
+      }
+      result.close();
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
       System.out.println("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
       System.out.println(e.getMessage());
     }
-    return data;   
+    return data;
   }
-  
+
   public static int getProjectsCount(boolean visible_projects_only) {
-    int count = 0;      
+    int count = 0;
     try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
       String query = "SELECT COUNT(*) FROM projects ";
-      if (visible_projects_only)
+      if(visible_projects_only)
         query += "WHERE visible='true';";
       else
         query += ";";
-      
+
       ResultSet result = statement.executeQuery(query);
-      if (result.next()) { 
+      if(result.next()) {
         count = result.getInt(1);
-        result.close();        
-        statement.close();
-        connection.close();
-      }      
+      }
+      result.close();
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
       System.out.println("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
       System.out.println(e.getMessage());
     }
-    return count;   
+    return count;
+  }
+
+  public static void deleteUserFromDatabase(String username) {
+    try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      statement.executeUpdate("DELETE FROM cusers WHERE username='" + username + "';");
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
+    } catch(SQLException e) {
+      System.out.println("CommonFunctions: removeUserFromBD: SQL Exception couldn't execute sql query!");
+      System.out.println(e.getMessage());
+    }
   }
 
   public static String getUnapprovedWordId(String word) {
     String id = "";
     try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery("SELECT id FROM wordlist WHERE word='" + word + "' LIMIT 1");
       if(result.next()) {
         id = result.getString(1);
-        result.close();
-        statement.close();
-        connection.close();
       }
+      result.close();
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
       System.out.println("CommonFunctions: getUnapprovedWordId: SQL Exception couldn't execute sql query!");
       System.out.println(e.getMessage());
     }
     return id;
+  }
+
+  public static String md5(String text) {
+    try {
+      MessageDigest messageDigest;
+      messageDigest = MessageDigest.getInstance("MD5");
+      messageDigest.reset();
+      messageDigest.update(text.getBytes(Charset.forName("UTF8")));
+      byte[] resultByte = messageDigest.digest();
+
+      StringBuilder md5StringBuilder = new StringBuilder(2 * resultByte.length);
+      for(byte b : resultByte) {
+        md5StringBuilder.append("0123456789abcdef".charAt((b & 0xF0) >> 4));
+        md5StringBuilder.append("0123456789abcdef".charAt((b & 0x0F)));
+      }
+
+      return md5StringBuilder.toString();
+    } catch(NoSuchAlgorithmException e) {
+      System.out.println("CommonFunvtions: md5: coulnd't create md5 hash");
+      System.out.println(e.getMessage());
+    }
+    return "";
   }
 }

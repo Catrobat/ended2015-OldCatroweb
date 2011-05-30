@@ -76,7 +76,7 @@
               </form>
             <?php } else { ?>
               <form id="logoutForm">
-								<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >You are logged in as <a href="/catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
+								<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >You are logged in as <a href="<?php echo BASE_PATH; ?>catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
 								<div class="headerProfileBoxSubmitDiv" ><input id="logoutSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Logout" /></div>
               	<div style="clear:both;"></div>
               </form>

@@ -38,9 +38,10 @@ public class BaseTest {
   protected String webSite;
 
   @BeforeClass(alwaysRun = true)
-  @Parameters( { "webSite" })
-  protected void constructor(String webSite) {
+  @Parameters( { "webSite", "basedir" })
+  protected void constructor(String webSite, String basedir) {
     this.webSite = webSite;
+    Config.setSeleniumGridTestdata(basedir);
     projectUploader = new ProjectUploader(webSite);
   }
 

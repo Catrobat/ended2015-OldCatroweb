@@ -44,13 +44,10 @@ public class LoginTests extends BaseTest {
     waitForPageToLoad();
 
     assertTrue(session().isVisible("menuLoginButton"));
-    session().click("menuForumButton");
-    session().selectWindow("board");
-    waitForPageToLoad();
+    clickAndWaitForPopUp("menuForumButton", "board");
     assertTrue(session().isTextPresent("Login"));
     assertFalse(session().isTextPresent("Logout"));
-    session().close();
-    session().selectWindow(null);
+    closePopUp();
 
     clickAndWaitForPopUp("menuWikiButton", "wiki");
     assertFalse(session().isTextPresent(wikiUsername));
@@ -180,20 +177,14 @@ public class LoginTests extends BaseTest {
 
     assertTrue(session().isVisible("menuLoginButton"));
 
-    session().click("menuForumButton");
-    session().selectWindow("board");
-    waitForPageToLoad();
+    clickAndWaitForPopUp("menuForumButton", "board");
     assertTrue(session().isTextPresent("Login"));
     assertFalse(session().isTextPresent("Logout"));
-    session().close();
-    session().selectWindow(null);
+    closePopUp();
 
-    session().click("menuWikiButton");
-    session().selectWindow("wiki");
-    waitForPageToLoad();
+    clickAndWaitForPopUp("menuWikiButton", "wiki");
     assertFalse(session().isTextPresent(wikiUsername));
-    session().close();
-    session().selectWindow(null);
+    closePopUp();
   }
 
   @DataProvider(name = "validLoginData")

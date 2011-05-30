@@ -17,7 +17,7 @@
       along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<suite name="API Test Suite" parallel="methods" thread-count="7" verbose="3" >
+<suite name="API Test Suite" parallel="methods" thread-count="10" verbose="2" >
   <test name="UploadTests" >
     <classes>
       <class name="at.tugraz.ist.catroweb.api.UploadTests" />

@@ -74,6 +74,7 @@ public class RegistrationTests extends BaseTest {
     session().type("loginPassword", dataset.get("registrationPassword"));
     session().click("loginSubmitButton");
     ajaxWait();
+    Thread.sleep(Config.TIMEOUT_THREAD);
 
     assertTrue(session().isTextPresent("Newest Projects"));
 
@@ -115,6 +116,8 @@ public class RegistrationTests extends BaseTest {
     clickAndWaitForPopUp("menuWikiButton", "wiki");
     assertFalse(session().isTextPresent(wikiUsername));
     closePopUp();
+    
+    CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
   }
 
   @Test(dataProvider = "invalidRegistrationData", groups = { "catroid" }, description = "check registration with invalid data")
@@ -182,7 +185,7 @@ public class RegistrationTests extends BaseTest {
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {
-        put("registrationUsername", "myUnitTest" + randomString1);
+        put("registrationUsername", "RegistrationTestValid" + randomString1);
         put("registrationPassword", "myPassword123");
         put("registrationEmail", "test" + randomString1 + "@selenium.at");
         put("registrationGender", "male");
@@ -193,7 +196,7 @@ public class RegistrationTests extends BaseTest {
       }
     } }, { new HashMap<String, String>() {
       {
-        put("registrationUsername", "myUnitTest" + randomString2);
+        put("registrationUsername", "RegistrationTestValid" + randomString2);
         put("registrationPassword", "anotherPassword123");
         put("registrationEmail", "test" + randomString2 + "@selenium.at");
         put("registrationGender", "female");

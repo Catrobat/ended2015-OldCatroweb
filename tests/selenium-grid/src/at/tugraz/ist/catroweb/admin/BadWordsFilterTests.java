@@ -25,6 +25,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.postgresql.Driver;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -138,11 +139,15 @@ public class BadWordsFilterTests extends BaseTest {
   private void deletePreviouslyUploadedProjectAndUnapporvedWord(String word) {
     projectUploader.remove(word);
     try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
       statement.executeUpdate("DELETE FROM wordlist WHERE word='" + word + "';");
       statement.close();
       connection.close();
+      DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
       System.out.println("BadWordsFilterTests: deletePreviouslyUploadedProjectAndUnapporvedWord: SQL Exception couldn't execute sql query!");
     }

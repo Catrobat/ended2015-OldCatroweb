@@ -17,7 +17,7 @@
       along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<suite name="Catroid Run Single Test">
+<suite name="Catroid Run Single Test" verbose="2">
   <test name="SingleTest">
     <classes>
       <class name="@CLASS@">

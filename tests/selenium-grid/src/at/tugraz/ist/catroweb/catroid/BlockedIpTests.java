@@ -25,6 +25,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.postgresql.Driver;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -33,26 +34,26 @@ import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
 public class BlockedIpTests extends BaseTest {
-  
+
   @Test(dataProvider = "blockedIps", groups = { "catroid", "firefox", "default" }, description = "test blocked ips")
   public void blockedIps(String project_id, String blocked_ip) throws Throwable {
     // log("*** blockedIps test: functionality currently not available");
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
-    
-    blockIp(blocked_ip);    
-    session().open(Config.TESTS_BASE_PATH+"catroid/details/"+project_id);
+
+    blockIp(blocked_ip);
+    session().open(Config.TESTS_BASE_PATH + "catroid/details/" + project_id);
     waitForPageToLoad();
     assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
     assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
-    
+
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
     assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
     assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
-    unblockIp(blocked_ip);   
+    unblockIp(blocked_ip);
   }
-  
+
   /**
    * @dataProvider unblockedIps
    */
@@ -60,60 +61,58 @@ public class BlockedIpTests extends BaseTest {
   public void unblockedIps(String project_id, String unblocked_ip) throws Throwable {
     // log("*** unblockedIps test: functionality currently not available");
     blockIp(unblocked_ip);
-    session().open(Config.TESTS_BASE_PATH+"catroid/details/"+project_id);
+    session().open(Config.TESTS_BASE_PATH + "catroid/details/" + project_id);
     waitForPageToLoad();
     assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
     assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
-    
+
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
     assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
     assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
     unblockIp(unblocked_ip);
   }
-  
-  @DataProvider(name="blockedIps")
-  public Object[][] blockedIpsData(){
-    Object[][] returnArray = new Object[][] {
-        {"1", "127.0.0.1"},
-        {"1", "127.0.0."},
-        {"1", "127.0."},
-        {"1", "127."}        
-      };
-     return returnArray;
+
+  @DataProvider(name = "blockedIps")
+  public Object[][] blockedIpsData() {
+    Object[][] returnArray = new Object[][] { { "1", "127.0.0.1" }, { "1", "127.0.0." }, { "1", "127.0." }, { "1", "127." } };
+    return returnArray;
   }
-  
-  @DataProvider(name="unblockedIps")
-  public Object[][] unblockedIpsData(){
-    Object[][] returnArray = new Object[][] {
-        {"1", "127.0.0.2"},
-        {"1", "127.12.0."},
-        {"1", "127.12."},
-        {"1", "129.0.0.1"}
-      };
-     return returnArray;
+
+  @DataProvider(name = "unblockedIps")
+  public Object[][] unblockedIpsData() {
+    Object[][] returnArray = new Object[][] { { "1", "127.0.0.2" }, { "1", "127.12.0." }, { "1", "127.12." }, { "1", "129.0.0.1" } };
+    return returnArray;
   }
-  
+
   private void blockIp(String ip) {
     try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
-      Statement statement = connection.createStatement();      
-      statement.executeUpdate("INSERT INTO blocked_ips(ip_address) " + "VALUES ('"+ip+"')");
+      Statement statement = connection.createStatement();
+      statement.executeUpdate("INSERT INTO blocked_ips(ip_address) " + "VALUES ('" + ip + "')");
       statement.close();
       connection.close();
+      DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
       System.out.println("BlockedIpTests: blockIp: SQL Exception couldn't execute sql query!");
       System.out.println(e.getMessage());
     }
   }
-  
+
   private void unblockIp(String ip) {
     try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
       statement.executeUpdate("DELETE FROM blocked_ips WHERE ip_address='" + ip + "';");
       statement.close();
       connection.close();
+      DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
       System.out.println("BlockedIpTests: unblockIp: SQL Exception couldn't execute sql query!");
       System.out.println(e.getMessage());

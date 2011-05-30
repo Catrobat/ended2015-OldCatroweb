@@ -25,6 +25,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
 
+import org.postgresql.Driver;
+
 public class CommonData {
   public static String getRandomShortString() {
     String str = "";
@@ -89,6 +91,9 @@ public class CommonData {
   public static HashMap<String, String> getRandomProject() {
     HashMap<String, String> data = new HashMap<String, String>();
     try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
       ResultSet result = statement.executeQuery("SELECT * FROM projects WHERE visible=true ORDER BY random() LIMIT 1");
@@ -96,10 +101,11 @@ public class CommonData {
         data.put("id", result.getString("id"));
         data.put("title", result.getString("title"));
         data.put("description", result.getString("description"));
-        result.close();
-        statement.close();
-        connection.close();
       }
+      result.close();
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
       System.out.println("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
       System.out.println(e.getMessage());
