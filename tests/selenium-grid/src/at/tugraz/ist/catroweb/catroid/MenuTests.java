@@ -26,7 +26,7 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-@Test(groups = { "catroid", "menutests" })
+@Test(groups = { "catroid", "MenuTests" })
 public class MenuTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "check button visibility")

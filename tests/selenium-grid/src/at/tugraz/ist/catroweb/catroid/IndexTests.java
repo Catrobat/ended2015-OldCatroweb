@@ -26,7 +26,7 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-@Test(groups = { "catroid", "indextests" })
+@Test(groups = { "catroid", "IndexTests" })
 public class IndexTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "location tests")
@@ -45,7 +45,7 @@ public class IndexTests extends BaseTest {
     // test page title and header title
     assertTrue(session().getTitle().matches("^Catroid Website -.*"));
     assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
-    assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
+    assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
 
     location = CommonData.getRandomLongString();
     openLocation("catroid/details/" + location);

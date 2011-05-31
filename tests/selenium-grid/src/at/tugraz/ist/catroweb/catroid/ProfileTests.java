@@ -29,7 +29,7 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-@Test(groups = { "catroid", "profiletests" })
+@Test(groups = { "catroid", "ProfileTests" })
 public class ProfileTests extends BaseTest {
 
   @Test(dataProvider = "loginData", groups = { "functionality", "visibility" }, description = "check profile page")

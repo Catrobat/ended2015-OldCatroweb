@@ -26,7 +26,7 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-@Test(groups = { "catroid", "licensetests" })
+@Test(groups = { "catroid", "LicenseTests" })
 public class LicenseTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "check privacy policy link/page")

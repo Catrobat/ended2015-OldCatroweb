@@ -29,7 +29,7 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-@Test(groups = { "catroid", "passwordrecoverytests" })
+@Test(groups = { "catroid", "PasswordRecoveryTests" })
 public class PasswordRecoveryTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "check password recovery intro")

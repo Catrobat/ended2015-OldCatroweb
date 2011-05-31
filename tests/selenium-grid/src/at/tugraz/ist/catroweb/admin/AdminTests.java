@@ -26,11 +26,12 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "admin", "AdminTests" })
 public class AdminTests extends BaseTest {
-  @Test(groups = { "admin" }, description = "check admin area login")
+
+  @Test(groups = { "visiblity" }, description = "check admin area login")
   public void successfulLogin() throws Throwable {
-    session().open(CommonFunctions.getAdminPath(this.webSite));
-    waitForPageToLoad();
+    openAdminLocation();
     assertRegExp(".*Administration - Catroid Website.*", session().getTitle());
     assertTrue(session().isTextPresent("Administration Tools"));
     session().click("xpath=//a[2]");
@@ -41,10 +42,9 @@ public class AdminTests extends BaseTest {
     assertTrue(session().isTextPresent("Catroid Administration Site"));
   }
 
-  @Test(groups = { "admin" }, description = "clicks all available links in the admin area")
+  @Test(groups = { "visibility" }, description = "clicks all available links in the admin area")
   public void clickAllLinks() throws Throwable {
-    session().open(CommonFunctions.getAdminPath(this.webSite));
-    waitForPageToLoad();
+    openAdminLocation();
     assertRegExp(".*Administration - Catroid Website.*", session().getTitle());
     assertTrue(session().isTextPresent("Catroid Administration Site"));
 
@@ -88,21 +88,19 @@ public class AdminTests extends BaseTest {
     assertTrue(session().isTextPresent("Administration Tools - List of unapproved Words"));
     session().goBack();
     waitForPageToLoad();
-    
+
     session().click("xpath=//a[6]");
     waitForPageToLoad();
     assertTrue(session().isTextPresent("Administration Tools - List of blocked IP-Addresses"));
     session().goBack();
     waitForPageToLoad();
-    
+
     /*
-    session().click("xpath=//a[7]");
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("Administration Tools - "));
-    session().goBack();
-    waitForPageToLoad();
-    */
-    
+     * session().click("xpath=//a[7]"); waitForPageToLoad();
+     * assertTrue(session().isTextPresent("Administration Tools - "));
+     * session().goBack(); waitForPageToLoad();
+     */
+
     log("AdminTests: check block Users link");
     assertTrue(session().isTextPresent("- back"));
     session().click("xpath=//a[8]");
@@ -110,22 +108,20 @@ public class AdminTests extends BaseTest {
     assertTrue(session().isTextPresent("Catroid Administration Site"));
   }
 
-  @Test(groups = { "admin" }, description = "check report as inappropriate functionality")
+  @Test(groups = { "functionality", "upload", "popupwindows" }, description = "check report as inappropriate functionality")
   public void inappropriateProjects() throws Throwable {
     String title = "Testproject " + CommonData.getRandomLongString();
     String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "", ""));
     String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-    session().open(Config.TESTS_BASE_PATH + "catroid/details/" + id);
-    waitForPageToLoad();
+    openLocation("catroid/details/" + id);
     ajaxWait();
     session().click("reportAsInappropriateButton");
     session().type("reportInappropriateReason", "my selenium reason");
     session().click("reportInappropriateReportButton");
     ajaxWait();
     assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
-    session().open(CommonFunctions.getAdminPath(this.webSite) + "/tools/inappropriateProjects");
-    waitForPageToLoad();
+    openAdminLocation("/tools/inappropriateProjects");
     assertTrue(session().isTextPresent(id));
 
     clickAndWaitForPopUp("xpath=//a[@id='detailsLink" + id + "']", "_blank");

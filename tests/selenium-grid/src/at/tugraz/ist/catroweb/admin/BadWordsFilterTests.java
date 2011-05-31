@@ -32,14 +32,16 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "admin", "BadWordsFilterTests" })
 public class BadWordsFilterTests extends BaseTest {
-  @Test(groups = { "admin" }, description = "approve an unapproved word as good")
+
+  @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word as good")
   public void approveButtonGood() throws Throwable {
     String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString();
     String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
-    session().open(CommonFunctions.getAdminPath(this.webSite));
+    openAdminLocation();
     session().click("aAdministrationTools");
     waitForPageToLoad();
     session().click("aAdminToolsApproveWords");
@@ -51,21 +53,20 @@ public class BadWordsFilterTests extends BaseTest {
     waitForPageToLoad();
     assertTrue(session().isTextPresent("The word was succesfully approved!"));
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     assertTrue(session().isTextPresent(unapprovedWord));
 
     deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
   }
 
-  @Test(groups = { "admin" }, description = "approve an unapproved word as bad")
+  @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word as bad")
   public void approveButtonBad() throws Throwable {
     String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString();
     String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
-    session().open(CommonFunctions.getAdminPath(this.webSite));
+    openAdminLocation();
     session().click("aAdministrationTools");
     waitForPageToLoad();
     session().click("aAdminToolsApproveWords");
@@ -77,21 +78,20 @@ public class BadWordsFilterTests extends BaseTest {
     waitForPageToLoad();
     assertTrue(session().isTextPresent("The word was succesfully approved!"));
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     assertFalse(session().isTextPresent(unapprovedWord));
 
     deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
   }
 
-  @Test(groups = { "admin" }, description = "approve an unapproved word with no selection")
+  @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word with no selection")
   public void approveButtonNoSelection() throws Throwable {
     String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString();
     String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
-    session().open(CommonFunctions.getAdminPath(this.webSite));
+    openAdminLocation();
     session().click("aAdministrationTools");
     waitForPageToLoad();
     session().click("aAdminToolsApproveWords");
@@ -102,20 +102,19 @@ public class BadWordsFilterTests extends BaseTest {
     waitForPageToLoad();
     assertTrue(session().isTextPresent("Error: no word meaning selected!"));
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     waitForTextPresent(unapprovedWord);
 
     deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
   }
 
-  @Test(groups = { "admin" }, description = "remove word from database")
+  @Test(groups = { "functionality", "upload" }, description = "remove word from database")
   public void testDeleteButton() throws Throwable {
     String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString();
     String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
-    session().open(CommonFunctions.getAdminPath(this.webSite));
+    openAdminLocation();
     session().click("aAdministrationTools");
     waitForPageToLoad();
     session().click("aAdminToolsApproveWords");
@@ -127,8 +126,7 @@ public class BadWordsFilterTests extends BaseTest {
     assertTrue(session().isTextPresent("The word was succesfully deleted!"));
     assertFalse(session().isTextPresent(unapprovedWord));
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     waitForTextPresent(unapprovedWord);
 
@@ -147,7 +145,7 @@ public class BadWordsFilterTests extends BaseTest {
       statement.close();
       connection.close();
       DriverManager.deregisterDriver(driver);
-    } catch(SQLException e) {
+    } catch (SQLException e) {
       System.out.println("BadWordsFilterTests: deletePreviouslyUploadedProjectAndUnapporvedWord: SQL Exception couldn't execute sql query!");
     }
   }

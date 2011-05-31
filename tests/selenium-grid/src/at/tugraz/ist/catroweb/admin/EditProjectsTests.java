@@ -26,8 +26,10 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "admin", "EditProjectsTests" })
 public class EditProjectsTests extends BaseTest {
-  @Test(groups = { "admin" }, description = "delete project button")
+
+  @Test(groups = { "functionality", "upload" }, description = "delete project button")
   public void deleteButton() throws Throwable {
     String projectTitle = "Testproject_delete_test_" + CommonData.getRandomLongString();
 
@@ -35,13 +37,11 @@ public class EditProjectsTests extends BaseTest {
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
     // check that project is shown on index-page
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     assertTrue(session().isTextPresent(projectTitle));
 
-    session().open(CommonFunctions.getAdminPath(this.webSite));
-    waitForPageToLoad();
+    openAdminLocation();
     session().click("aAdministrationTools");
     waitForPageToLoad();
     session().click("aAdminToolsEditProjects");
@@ -65,27 +65,24 @@ public class EditProjectsTests extends BaseTest {
     assertFalse(session().isTextPresent(projectTitle));
 
     // check that project is not shown on index-page
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     assertTrue(session().isElementPresent("xpath=//img[@id='aIndexWebLogoLeft']"));
     assertFalse(session().isTextPresent(projectTitle));
   }
 
-  @Test(groups = { "admin" }, description = "set invisible button")
+  @Test(groups = { "functionality", "upload" }, description = "set invisible button")
   public void invisibleButton() throws Throwable {
-    String projectTitle = "Testproject_invisible_test_"+CommonData.getRandomLongString();
+    String projectTitle = "Testproject_invisible_test_" + CommonData.getRandomLongString();
     String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
     // check that project is shown on index-page
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     assertTrue(session().isTextPresent(projectTitle));
 
     // toggle project visibility to "hidden"
-    session().open(CommonFunctions.getAdminPath(this.webSite));
-    waitForPageToLoad();
+    openAdminLocation();
     session().click("aAdministrationTools");
     waitForPageToLoad();
     session().click("aAdminToolsEditProjects");
@@ -99,14 +96,12 @@ public class EditProjectsTests extends BaseTest {
     assertTrue(session().isTextPresent("The project was succesfully set to state invisible"));
 
     // project is NOT shown on index-page
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     assertFalse(session().isTextPresent(projectTitle));
 
     // toggle project visibility to "hidden"
-    session().open(CommonFunctions.getAdminPath(this.webSite));
-    waitForPageToLoad();
+    openAdminLocation();
     session().click("aAdministrationTools");
     waitForPageToLoad();
     session().click("aAdminToolsEditProjects");
@@ -120,14 +115,12 @@ public class EditProjectsTests extends BaseTest {
     assertTrue(session().isTextPresent("The project was succesfully set to state visible"));
 
     // project is shown again on index-page
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     assertTrue(session().isTextPresent(projectTitle));
 
     // and delete project
-    session().open(CommonFunctions.getAdminPath(this.webSite));
-    waitForPageToLoad();
+    openAdminLocation();
     session().click("aAdministrationTools");
     waitForPageToLoad();
     session().click("aAdminToolsEditProjects");
@@ -143,8 +136,7 @@ public class EditProjectsTests extends BaseTest {
     assertFalse(session().isTextPresent(projectTitle));
 
     // and finally project is NOT shown on index-page
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     assertFalse(session().isTextPresent(projectTitle));
   }

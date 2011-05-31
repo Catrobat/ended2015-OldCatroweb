@@ -29,18 +29,19 @@ import org.testng.annotations.DataProvider;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "api", "UploadTests" })
 public class UploadTests extends BaseTest {
-  @Test(dataProvider = "validProjectsForUpload", groups = { "upload", "firefox", "default" }, description = "upload valid projects")
+  
+  @Test(dataProvider = "validProjectsForUpload", groups = { "upload", "functionality" }, description = "upload valid projects")
   public void uploadValidProjects(HashMap<String, String> dataset) {
     String response = projectUploader.upload(dataset);
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();    
     ajaxWait();
     assertTrue(session().isTextPresent(dataset.get("projectTitle")));
   }
 
-  @Test(dataProvider = "validProjectsForUpload", groups = { "upload", "firefox", "default" }, description = "upload invalid projects")
+  @Test(dataProvider = "validProjectsForUpload", groups = {"upload", "functionality"  }, description = "upload invalid projects")
   public void uploadInvalidProjects(HashMap<String, String> dataset) {
     String response = projectUploader.upload(dataset);
     assertNotSame("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));

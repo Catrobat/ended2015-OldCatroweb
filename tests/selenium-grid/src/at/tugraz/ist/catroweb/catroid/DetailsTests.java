@@ -30,7 +30,7 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-@Test(groups = { "catroid", "detailstests" })
+@Test(groups = { "catroid", "DetailsTests" })
 public class DetailsTests extends BaseTest {
 
   @Test(dataProvider = "detailsProject", groups = { "functionality", "upload" }, description = "view + download counter test")
@@ -38,21 +38,26 @@ public class DetailsTests extends BaseTest {
     String response = projectUploader.upload(dataset);
     String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
     String title = dataset.get("projectTitle");
-    // String description CommonFunctions.getValueFromJSONobject(response,
-    // "projectDescription");
-    openLocation("catroid/details/" + id);
+    int numOfViews = -1;
+    int numOfViewsAfter = -1;
+    int numOfDownloads = -1;
+    int numOfDownloadsAfter = -1;
+    
+    openLocation("catroid/details/" + id);    
+    waitForElementPresent("xpath=//p[@class='detailsStats']/b");
     // project title
     assertEquals(title, session().getText("xpath=//div[@class='detailsProjectTitle']"));
     // test the view counter
-    int numOfViews = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
+    numOfViews = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
     session().refresh();
     waitForPageToLoad();
     ajaxWait();
-    int numOfViewsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
+    waitForElementPresent("xpath=//p[@class='detailsStats']/b");
+    numOfViewsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
     assertEquals(numOfViews + 1, numOfViewsAfter);
 
     // test the download counter
-    int numOfDownloads = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
+    numOfDownloads = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
     session().click("xpath=//div[@class='detailsDownloadButton']/a[1]");
 
     Thread.sleep(Config.TIMEOUT_THREAD);
@@ -60,13 +65,15 @@ public class DetailsTests extends BaseTest {
     session().refresh();
     waitForPageToLoad();
 
-    int numOfDownloadsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
+    waitForElementPresent("xpath=//p[@class='detailsStats'][2]/b");
+    numOfDownloadsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
     assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
     session().click("xpath=//div[@class='detailsMainImage']/a[1]");
     Thread.sleep(Config.TIMEOUT_THREAD);
     session().keyPressNative("27"); // press escape key
     session().refresh();
     waitForPageToLoad();
+    waitForElementPresent("xpath=//p[@class='detailsStats'][2]/b");
     numOfDownloadsAfter = Integer.valueOf(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
     assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
 
@@ -77,7 +84,6 @@ public class DetailsTests extends BaseTest {
     assertEquals(String.valueOf(filesize), displayedfilesize);
 
     HashMap<String, String> versionInfo = CommonFunctions.getVersionInfo(id);
-    // Catroid version: 4 (0.4.3d)
     String versionInfoText = session().getText("xpath=//span[@class='versionInfo']");
     assertRegExp("^Catroid version: " + versionInfo.get("version_code") + " [(]" + versionInfo.get("version_name") + "[)]$", versionInfoText);
   }
@@ -181,6 +187,7 @@ public class DetailsTests extends BaseTest {
     session().click("xpath=//a[@class='projectListDetailsLink']");
     waitForPageToLoad();
     ajaxWait();
+    Thread.sleep(Config.TIMEOUT_THREAD);
     waitForElementPresent("xpath=//button[@id='showQrCodeInfoButton']");
 
     assertTrue(session().isElementPresent("xpath=//button[@id='showQrCodeInfoButton']"));
@@ -197,6 +204,20 @@ public class DetailsTests extends BaseTest {
     assertTrue(session().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
     assertFalse(session().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
     assertFalse(session().isVisible("xpath=//div[@id='qrcodeInfo']"));
+  }
+
+  @Test(groups = { "visibility" }, description = "check if invalid project id redirects to errorpage")
+  public void invalidProjectID() throws Throwable {
+    String invalidProject = CommonData.getRandomShortString();
+    openLocation("catroid/details/" + invalidProject);
+    assertRegExp(".*/catroid/errorPage", session().getLocation());
+    assertTrue(session().isTextPresent("No entry was found for the given ID.:"));
+    assertTrue(session().isTextPresent("ID: " + invalidProject));
+    assertFalse(session().isElementPresent("xpath=//div[@class='detailsFlexDiv']"));
+    session().click("xpath=//div[@class='errorMessage']/a");
+    waitForPageToLoad();
+    ajaxWait();
+    assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
   }
 
   @DataProvider(name = "titlesAndDescriptions")

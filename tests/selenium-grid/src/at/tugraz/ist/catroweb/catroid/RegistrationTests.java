@@ -29,7 +29,7 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-@Test(groups = { "catroid", "registrationtests" })
+@Test(groups = { "catroid", "RegistrationTests" })
 public class RegistrationTests extends BaseTest {
 
   @Test(dataProvider = "validRegistrationData", groups = { "functionality" }, description = "check registration with valid data")

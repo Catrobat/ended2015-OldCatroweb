@@ -33,7 +33,7 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
-@Test(groups = { "catroid", "blockediptests" })
+@Test(groups = { "catroid", "BlockedIpTests" })
 public class BlockedIpTests extends BaseTest {
 
   @Test(dataProvider = "blockedIps", groups = { "functionality" }, description = "test blocked ips")
