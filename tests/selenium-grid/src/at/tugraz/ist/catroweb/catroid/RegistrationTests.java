@@ -29,18 +29,18 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "catroid", "registrationtests" })
 public class RegistrationTests extends BaseTest {
-  @Test(dataProvider = "validRegistrationData", groups = { "catroid" }, description = "check registration with valid data")
+
+  @Test(dataProvider = "validRegistrationData", groups = { "functionality" }, description = "check registration with valid data")
   public void validRegistration(HashMap<String, String> dataset) throws Throwable {
     // log out if necessary
-    session().open(Config.TESTS_BASE_PATH + "catroid/login/");
-    waitForPageToLoad();
+    openLocation("catroid/login/");
 
     // wiki username creation
     String wikiUsername = dataset.get("registrationUsername").substring(0, 1).toUpperCase() + dataset.get("registrationUsername").substring(1).toLowerCase();
 
-    session().open(Config.TESTS_BASE_PATH + "catroid/registration/");
-    waitForPageToLoad();
+    openLocation("catroid/registration/");
     assertTrue(session().isElementPresent("xpath=//input[@name='registrationUsername']"));
     assertTrue(session().isElementPresent("xpath=//input[@name='registrationPassword']"));
     assertTrue(session().isElementPresent("xpath=//input[@name='registrationEmail']"));
@@ -66,8 +66,7 @@ public class RegistrationTests extends BaseTest {
     assertTrue(session().isTextPresent("BOARD registration successfull!"));
     assertTrue(session().isTextPresent("WIKI registration successfull!"));
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
 
     session().click("headerProfileButton");
     session().type("loginUsername", dataset.get("registrationUsername"));
@@ -116,17 +115,16 @@ public class RegistrationTests extends BaseTest {
     clickAndWaitForPopUp("menuWikiButton", "wiki");
     assertFalse(session().isTextPresent(wikiUsername));
     closePopUp();
-    
+
     CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
   }
 
-  @Test(dataProvider = "invalidRegistrationData", groups = { "catroid" }, description = "check registration with invalid data")
+  @Test(dataProvider = "invalidRegistrationData", groups = { "functionality", "popupwindows" }, description = "check registration with invalid data")
   public void invalidRegistration(HashMap<String, String> dataset) throws Throwable {
     // wiki username creation
     String wikiUsername = dataset.get("registrationUsername").substring(0, 1).toUpperCase() + dataset.get("registrationUsername").substring(1).toLowerCase();
 
-    session().open(Config.TESTS_BASE_PATH + "catroid/registration/");
-    waitForPageToLoad();
+    openLocation("catroid/registration/");
     assertTrue(session().isElementPresent("xpath=//input[@name='registrationUsername']"));
     assertTrue(session().isElementPresent("xpath=//input[@name='registrationPassword']"));
     assertTrue(session().isElementPresent("xpath=//input[@name='registrationEmail']"));
@@ -153,9 +151,7 @@ public class RegistrationTests extends BaseTest {
     assertFalse(session().isTextPresent("BOARD registration successfull!"));
     assertFalse(session().isTextPresent("WIKI registration successfull!"));
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
-
+    openLocation();
     session().click("headerProfileButton");
     session().type("loginUsername", dataset.get("registrationUsername"));
     session().type("loginPassword", dataset.get("registrationPassword"));

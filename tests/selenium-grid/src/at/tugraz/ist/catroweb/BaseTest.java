@@ -30,6 +30,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 
+import at.tugraz.ist.catroweb.common.CommonFunctions;
 import at.tugraz.ist.catroweb.common.Config;
 import at.tugraz.ist.catroweb.common.ProjectUploader;
 
@@ -83,6 +84,26 @@ public class BaseTest {
   public static void assertRegExp(String pattern, String string) {
     assertTrue(string.matches(pattern));
   }
+  
+  protected void openLocation() {
+    openLocation("");
+  }
+  
+  protected void openLocation(String location) {
+    session().open(Config.TESTS_BASE_PATH + location);
+    waitForPageToLoad();
+  }
+  
+  protected void openAdminLocation() {
+    session().open(CommonFunctions.getAdminPath(this.webSite));
+    waitForPageToLoad();
+  }
+  
+  protected void openAdminLocation(String location) {
+    session().open(CommonFunctions.getAdminPath(this.webSite) + location);
+    waitForPageToLoad();
+  }
+  
 
   protected void clickAndWaitForPopUp(String xpath, String windowname) {
     session().click(xpath);

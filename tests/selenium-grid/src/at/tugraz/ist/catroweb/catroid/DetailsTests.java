@@ -30,16 +30,17 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "catroid", "detailstests" })
 public class DetailsTests extends BaseTest {
 
-  @Test(dataProvider = "detailsProject", groups = { "catroid", "firefox", "default" }, description = "view + download counter test")
+  @Test(dataProvider = "detailsProject", groups = { "functionality", "upload" }, description = "view + download counter test")
   public void detailsPageCounter(HashMap<String, String> dataset) throws Throwable {
-    String response = projectUploader.upload(dataset);    
+    String response = projectUploader.upload(dataset);
     String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
     String title = dataset.get("projectTitle");
-    //String description CommonFunctions.getValueFromJSONobject(response, "projectDescription");
-    session().open(Config.TESTS_BASE_PATH + "catroid/details/" + id);
-    waitForPageToLoad();
+    // String description CommonFunctions.getValueFromJSONobject(response,
+    // "projectDescription");
+    openLocation("catroid/details/" + id);
     // project title
     assertEquals(title, session().getText("xpath=//div[@class='detailsProjectTitle']"));
     // test the view counter
@@ -81,16 +82,13 @@ public class DetailsTests extends BaseTest {
     assertRegExp("^Catroid version: " + versionInfo.get("version_code") + " [(]" + versionInfo.get("version_name") + "[)]$", versionInfoText);
   }
 
-  @Test(dataProvider = "detailsProject", groups = { "catroid", "firefox", "default" }, description = "test inappropriate button")
+  @Test(dataProvider = "detailsProject", groups = { "functionality", "upload" }, description = "test inappropriate button")
   public void inappropriateButton(HashMap<String, String> dataset) throws Throwable {
     String response = projectUploader.upload(dataset);
     String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
-    session().open(CommonFunctions.getAdminPath(this.webSite));
-    waitForPageToLoad();
-    log(id);
+    openAdminLocation();
 
-    session().open(Config.TESTS_BASE_PATH + "catroid/details/" + id);
-    waitForPageToLoad();
+    openLocation("catroid/details/" + id);
     assertTrue(session().isElementPresent("reportAsInappropriateButton"));
     session().click("reportAsInappropriateButton");
     assertTrue(session().isVisible("reportInappropriateReason"));
@@ -103,9 +101,9 @@ public class DetailsTests extends BaseTest {
     session().click("reportInappropriateCancelButton");
     assertFalse(session().isVisible("reportInappropriateReason"));
     session().click("reportAsInappropriateButton");
-    Thread.sleep(100);
+    Thread.sleep(Config.TIMEOUT_THREAD);
     session().click("reportInappropriateReportButton");
-    Thread.sleep(100);
+    Thread.sleep(Config.TIMEOUT_THREAD);
     assertFalse(session().isVisible("reportInappropriateReason"));
     assertFalse(session().isTextPresent("You reported this project as inappropriate!"));
     session().click("reportAsInappropriateButton");
@@ -126,21 +124,19 @@ public class DetailsTests extends BaseTest {
     assertFalse(session().isVisible("reportInappropriateReason"));
     assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
 
-    session().open(CommonFunctions.getAdminPath(this.webSite) + "/tools/inappropriateProjects");
-    waitForPageToLoad();
+    openAdminLocation("/tools/inappropriateProjects");
     session().click("resolve" + id);
     Thread.sleep(Config.TIMEOUT_THREAD);
     assertTrue(session().isTextPresent("The project was succesfully restored and set to visible!"));
     assertFalse(session().isTextPresent(id));
   }
 
-  @Test(dataProvider = "titlesAndDescriptions", groups = { "catroid", "firefox", "default" }, description = "test more button + QR Code image")
+  @Test(dataProvider = "titlesAndDescriptions", groups = { "visibility", "upload" }, description = "test more button + QR Code image")
   public void moreButton(HashMap<String, String> dataset) throws Throwable {
     String response = projectUploader.upload(dataset);
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
-    session().open(Config.TESTS_BASE_PATH + "/catroid/details/" + projectId);
-    waitForPageToLoad();
-    
+    openLocation("/catroid/details/" + projectId);
+
     assertTrue(session().isElementPresent("showFullDescriptionButton"));
     String shortDescriptionFromPage = session().getText("xpath=//p[@id='detailsDescription']");
     assertFalse(shortDescriptionFromPage.equals(dataset.get("projectDescription")));
@@ -151,11 +147,11 @@ public class DetailsTests extends BaseTest {
     assertFalse(fullDescriptionFromPage.equals(shortDescriptionFromPage));
     assertTrue(session().isElementPresent("showShortDescriptionButton"));
     session().click("showShortDescriptionButton");
-    Thread.sleep(200);
+    Thread.sleep(Config.TIMEOUT_THREAD);
     assertEquals(shortDescriptionFromPage, session().getText("xpath=//p[@id='detailsDescription']"));
   }
 
-  @Test(groups = { "catroid", "firefox", "default" }, description = "test QR Code image")
+  @Test(groups = { "visibility" }, description = "test QR Code image")
   public void QRCodeImage() throws Throwable {
     HashMap<String, String> data = CommonData.getRandomProject();
     File qrCodeFile = new File(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_QR_DIRECTORY + data.get("projectDescription") + Config.PROJECTS_QR_EXTENTION);
@@ -178,16 +174,15 @@ public class DetailsTests extends BaseTest {
     }
   }
 
-  @Test(groups = { "catroid", "firefox", "default" }, description = "test QR Code info")
+  @Test(groups = { "visibility" }, description = "test QR Code info")
   public void QRCodeInfo() throws Throwable {
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     session().click("xpath=//a[@class='projectListDetailsLink']");
     waitForPageToLoad();
     ajaxWait();
     waitForElementPresent("xpath=//button[@id='showQrCodeInfoButton']");
-    
+
     assertTrue(session().isElementPresent("xpath=//button[@id='showQrCodeInfoButton']"));
     assertTrue(session().isElementPresent("xpath=//div[@id='qrcodeInfo']"));
     assertTrue(session().isElementPresent("xpath=//button[@id='hideQrCodeInfoButton']"));

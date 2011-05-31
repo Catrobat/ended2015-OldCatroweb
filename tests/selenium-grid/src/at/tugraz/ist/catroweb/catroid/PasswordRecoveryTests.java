@@ -29,11 +29,12 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "catroid", "passwordrecoverytests" })
 public class PasswordRecoveryTests extends BaseTest {
-  @Test(groups = { "catroid" }, description = "check password recovery intro")
+
+  @Test(groups = { "visibility" }, description = "check password recovery intro")
   public void passwordRecoveryIntro() throws Throwable {
-    session().open(Config.TESTS_BASE_PATH + "catroid/login");
-    waitForPageToLoad();
+    openLocation("catroid/login");
 
     // check password recovery link
     assertTrue(session().isTextPresent("Login"));
@@ -49,11 +50,10 @@ public class PasswordRecoveryTests extends BaseTest {
     assertTrue(session().isTextPresent("Change your password"));
   }
 
-  @Test(dataProvider = "passwordRecoveryResetUsernames", groups = { "catroid" }, description = "check password recovery")
+  @Test(dataProvider = "passwordRecoveryResetUsernames", groups = { "functionality", "popupwindows" }, description = "check password recovery")
   public void passwordRecoveryReset(HashMap<String, String> dataset) throws Throwable {
     // do registration process first, to create a new user with known password
-    session().open(Config.TESTS_BASE_PATH + "catroid/registration");
-    waitForPageToLoad();
+    openLocation("catroid/registration");
 
     assertTrue(session().isElementPresent("xpath=//input[@name='registrationUsername']"));
     assertTrue(session().isElementPresent("xpath=//input[@name='registrationPassword']"));
@@ -82,8 +82,7 @@ public class PasswordRecoveryTests extends BaseTest {
 
     // goto lost password page and test reset by email and nickname, at first
     // use some wrong nickname or email
-    session().open(Config.TESTS_BASE_PATH + "catroid/passwordrecovery");
-    waitForPageToLoad();
+    openLocation("catroid/passwordrecovery");
     assertTrue(session().isTextPresent("Enter your nickname or email address:"));
     assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoveryUserdata']"));
     assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoverySubmit']"));
@@ -125,8 +124,7 @@ public class PasswordRecoveryTests extends BaseTest {
 
     // and try to login with the old credentials to verify password recovery
     // worked
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     session().click("headerProfileButton");
     assertTrue(session().isVisible("loginSubmitButton"));
@@ -188,7 +186,7 @@ public class PasswordRecoveryTests extends BaseTest {
     waitForPageToLoad();
     assertTrue(session().isTextPresent("Sorry! Your recovery url has expired. Please try again."));
     assertTrue(session().isElementPresent("xpath=//input[@name='passwordNextSubmit']"));
-    
+
     CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
   }
 

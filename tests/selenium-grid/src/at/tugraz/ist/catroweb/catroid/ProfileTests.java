@@ -29,11 +29,13 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "catroid", "profiletests" })
 public class ProfileTests extends BaseTest {
-  @Test(dataProvider = "loginData", groups = { "catroid" }, description = "check profile page")
+
+  @Test(dataProvider = "loginData", groups = { "functionality", "visibility" }, description = "check profile page")
   public void profilePage(HashMap<String, String> dataset) throws Throwable {
-    session().open(Config.TESTS_BASE_PATH + "catroid/registration/");
-    waitForPageToLoad();
+
+    openLocation("catroid/registration/");
 
     session().type("xpath=//input[@name='registrationUsername']", dataset.get("registrationUsername"));
     session().type("xpath=//input[@name='registrationPassword']", dataset.get("registrationPassword"));
@@ -50,8 +52,7 @@ public class ProfileTests extends BaseTest {
     assertTrue(session().isTextPresent("BOARD registration successfull!"));
     assertTrue(session().isTextPresent("WIKI registration successfull!"));
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
 
     session().click("headerProfileButton");

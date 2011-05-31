@@ -29,12 +29,13 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "catroid", "logintests" })
 public class LoginTests extends BaseTest {
-  @Test(dataProvider = "validLoginData", groups = { "catroid" }, description = "check login with valid data")
+
+  @Test(dataProvider = "validLoginData", groups = { "functionality", "popupwindows" }, description = "check login with valid data")
   public void validLogin(HashMap<String, String> dataset) throws Throwable {
     // log out if necessary
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
 
     // wiki username creation
     String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
@@ -54,8 +55,7 @@ public class LoginTests extends BaseTest {
     closePopUp();
 
     // test login
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     assertTrue(session().isVisible("headerProfileButton"));
     session().click("headerProfileButton");
     assertFalse(session().isVisible("headerProfileButton"));
@@ -81,7 +81,7 @@ public class LoginTests extends BaseTest {
 
     session().click("loginSubmitButton");
     waitForPageToLoad();
-    
+
     assertTrue(session().isVisible("headerProfileButton"));
     session().click("headerProfileButton");
     assertTrue(session().isVisible("logoutSubmitButton"));
@@ -107,8 +107,7 @@ public class LoginTests extends BaseTest {
     closePopUp();
 
     // test logout
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     assertTrue(session().isVisible("headerProfileButton"));
     session().click("headerProfileButton");
     assertTrue(session().isVisible("logoutSubmitButton"));
@@ -134,11 +133,10 @@ public class LoginTests extends BaseTest {
     closePopUp();
   }
 
-  @Test(dataProvider = "invalidLoginData", groups = { "catroid" }, description = "check login with invalid data")
+  @Test(dataProvider = "invalidLoginData", groups = { "functionality", "popupwindows" }, description = "check login with invalid data")
   public void invalidLogin(HashMap<String, String> dataset) throws Throwable {
     // log out if necessary
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
 
     // wiki username creation
     String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();

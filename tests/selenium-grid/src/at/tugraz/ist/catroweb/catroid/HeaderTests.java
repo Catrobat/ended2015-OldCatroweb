@@ -26,11 +26,12 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "catroid", "headertests" })
 public class HeaderTests extends BaseTest {
-  @Test(groups = { "catroid", "firefox", "default" }, description = "check menu home button")
+
+  @Test(groups = { "visibility" }, description = "check menu home button")
   public void headerMenuButtons() throws Throwable {
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     assertFalse(session().isElementPresent("headerHomeButton"));
     assertTrue(session().isVisible("headerMenuButton"));
     assertTrue(session().isVisible("headerProfileButton"));
@@ -50,12 +51,11 @@ public class HeaderTests extends BaseTest {
     assertFalse(session().isElementPresent("headerHomeButton"));
   }
 
-  @Test(groups = { "catroid", "firefox", "default" }, description = "check header buttons, search bar visibility, etc.")
+  @Test(groups = { "visibility" }, description = "check header buttons, search bar visibility, etc.")
   public void headerButtonsIndex() {
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
-   
+
     assertFalse(session().isVisible("headerSearchBox"));
     assertFalse(session().isVisible("headerCancelButton"));
     assertTrue(session().isVisible("headerSearchButton"));
@@ -83,10 +83,9 @@ public class HeaderTests extends BaseTest {
     assertRegExp(".*/catroid/menu$", session().getLocation());
   }
 
-  @Test(groups = { "catroid", "firefox", "default" }, description = "home button: check button visibility")
+  @Test(groups = { "visibility" }, description = "home button: check button visibility")
   public void headerHomeButton() throws Throwable {
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
 
     assertTrue(session().isVisible("headerMenuButton"));
     assertTrue(session().isVisible("headerSearchButton"));

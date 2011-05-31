@@ -26,11 +26,12 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "catroid", "licensetests" })
 public class LicenseTests extends BaseTest {
-  @Test(groups = { "license", "firefox", "default" }, description = "check privacy policy link/page")
+
+  @Test(groups = { "visibility" }, description = "check privacy policy link/page")
   public void privacyPolicy() throws Throwable {
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     session().click("xpath=//a[@class='license']");
     waitForPageToLoad();
 
@@ -38,10 +39,9 @@ public class LicenseTests extends BaseTest {
     session().isElementPresent("xpath=//p[@class='licenseText']/a");
   }
 
-  @Test(groups = { "license", "firefox", "default" }, description = "check terms of use link/page")
+  @Test(groups = { "visibility", "popupwindows" }, description = "check terms of use link/page")
   public void termsOfUse() throws Throwable {
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     session().click("xpath=//a[@class='license'][2]");
     waitForPageToLoad();
 
@@ -68,10 +68,9 @@ public class LicenseTests extends BaseTest {
     closePopUp();
   }
 
-  @Test(groups = { "license", "firefox", "default" }, description = "check copyright policy link/page")
+  @Test(groups = { "visibility", "popupwindows" }, description = "check copyright policy link/page")
   public void copyrightPolicy() throws Throwable {
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     session().click("xpath=//a[@class='license'][3]");
     waitForPageToLoad();
 
@@ -88,10 +87,9 @@ public class LicenseTests extends BaseTest {
     closePopUp();
   }
 
-  @Test(groups = { "license", "firefox", "default" }, description = "check imprint link/page")
+  @Test(groups = { "visibility", "popupwindows" }, description = "check imprint link/page")
   public void imprint() throws Throwable {
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     session().click("xpath=//a[@class='license'][4]");
     waitForPageToLoad();
 

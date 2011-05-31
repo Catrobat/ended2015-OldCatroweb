@@ -29,17 +29,17 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "catroid", "SearchTests" })
 public class SearchTests extends BaseTest {
 
-  @Test(dataProvider = "randomProjects", groups = { "catroid", "firefox", "default" }, description = "search for random title and description")
+  @Test(dataProvider = "randomProjects", groups = { "functionality", "upload" }, description = "search for random title and description")
   public void titleAndDescription(HashMap<String, String> dataset) throws Throwable {
     projectUploader.upload(dataset);
 
     String projectTitle = dataset.get("projectTitle");
     String projectDescription = dataset.get("projectDescription");
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
 
     assertFalse(session().isVisible("headerSearchBox"));
@@ -66,14 +66,13 @@ public class SearchTests extends BaseTest {
     assertTrue(session().isTextPresent(projectTitle));
   }
 
-  @Test(dataProvider = "specialChars", groups = { "catroid", "firefox", "default" }, description = "search forspecial chars")
+  @Test(dataProvider = "specialChars", groups = { "functionality", "upload" }, description = "search forspecial chars")
   public void specialChars(String specialchars) throws Throwable {
     String projectTitle = "search_test_" + specialchars;
     projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(), "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "",
         "", "0"));
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
 
     for (int i = projectTitle.length() - specialchars.length(); i < projectTitle.length(); i++) {
@@ -97,7 +96,7 @@ public class SearchTests extends BaseTest {
     }
   }
 
-  @Test(groups = { "catroid", "firefox", "default" }, description = "TODO! when bugfix available")
+  @Test(groups = { "visibility", "upload" }, description = "TODO! when bugfix available")
   public void checkButtonVisibility() throws Throwable {
     /*
      * 
@@ -119,7 +118,7 @@ public class SearchTests extends BaseTest {
      */
   }
 
-  @Test(groups = { "catroid", "firefox", "default" }, description = "search test with page navigation")
+  @Test(groups = { "functionality", "upload" }, description = "search test with page navigation")
   public void pageNavigation() throws Throwable {
     String projectTitle = CommonData.getRandomShortString() + "_";
 
@@ -131,8 +130,7 @@ public class SearchTests extends BaseTest {
           "", "0"));
     }
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
 
     session().click("headerSearchButton");
@@ -182,26 +180,23 @@ public class SearchTests extends BaseTest {
     assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (1) + "$", session().getTitle());
   }
 
-  @Test(groups = { "catroid", "firefox", "default" }, description = "search and hide project")
+  @Test(groups = { "functionality", "upload" }, description = "search and hide project")
   public void searchAndHideProject() throws Throwable {
     String projectTitle = "search_test_" + CommonData.getRandomShortString();
     projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0"));
 
     String projectID = projectUploader.getProjectId(projectTitle);
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
 
     // hide project
-    session().open(CommonFunctions.getAdminPath(this.webSite) + "/tools/editProjects");
-    waitForPageToLoad();
+    openAdminLocation("/tools/editProjects");
     session().click("toggle" + projectID);
     session().getConfirmation();
     waitForPageToLoad();
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     session().click("headerSearchButton");
     session().type("searchQuery", projectTitle);
@@ -217,14 +212,12 @@ public class SearchTests extends BaseTest {
     assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
 
     // unhide project
-    session().open(CommonFunctions.getAdminPath(this.webSite) + "/tools/editProjects");
-    waitForPageToLoad();
+    openAdminLocation("/tools/editProjects");
     session().click("toggle" + projectID);
     session().getConfirmation();
     waitForPageToLoad();
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     session().click("headerSearchButton");
     session().type("searchQuery", projectTitle);

@@ -26,11 +26,12 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "catroid", "indextests" })
 public class IndexTests extends BaseTest {
-  @Test(groups = { "index", "firefox", "default" }, description = "location tests")
+
+  @Test(groups = { "visibility" }, description = "location tests")
   public void location() {
-    session().open(Config.TESTS_BASE_PATH + "catroid/index/9999999999999999999");
-    waitForPageToLoad();
+    openLocation("catroid/index/9999999999999999999");
     ajaxWait();
     // test page title and header title
     assertTrue(session().getTitle().matches("^Catroid Website -.*"));
@@ -38,8 +39,7 @@ public class IndexTests extends BaseTest {
     assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
 
     String location = CommonData.getRandomLongString();
-    session().open(Config.TESTS_BASE_PATH + "catroid/index/" + location);
-    waitForPageToLoad();
+    openLocation("catroid/index/" + location);
     ajaxWait();
 
     // test page title and header title
@@ -48,18 +48,16 @@ public class IndexTests extends BaseTest {
     assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
 
     location = CommonData.getRandomLongString();
-    session().open(Config.TESTS_BASE_PATH + "catroid/details/" + location);
-    waitForPageToLoad();
+    openLocation("catroid/details/" + location);
     ajaxWait();
     // test page title and header title
     assertRegExp(".*/catroid/errorPage", session().getLocation());
     assertTrue(session().isTextPresent(location));
   }
 
-  @Test(groups = { "index", "firefox", "default" }, description = "click download,header,details -links ")
+  @Test(groups = { "visibility", "popupwindows" }, description = "click download,header,details -links ")
   public void index() throws Throwable {
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     // test page title and header title
     assertTrue(session().getTitle().matches("^Catroid Website -.*"));
@@ -97,13 +95,12 @@ public class IndexTests extends BaseTest {
     assertTrue(session().isElementPresent("xpath=//img[@class='catroidLettering']"));
   }
 
-  @Test(groups = { "index", "firefox", "default" }, description = "page navigation tests")
+  @Test(groups = { "functionality" , "upload"}, description = "page navigation tests")
   public void pageNavigation() throws Throwable {
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
 
-    for(int i = 0; i < Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1); i++) {
+    for (int i = 0; i < Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1); i++) {
       System.out.print(".");
       projectUploader.upload();
     }
@@ -114,7 +111,7 @@ public class IndexTests extends BaseTest {
     assertTrue(session().isVisible("moreProjects"));
     assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
     int i = 0;
-    for(i = 0; i < Config.PROJECT_PAGE_SHOW_MAX_PAGES; i++) {
+    for (i = 0; i < Config.PROJECT_PAGE_SHOW_MAX_PAGES; i++) {
       session().click("moreProjects");
       ajaxWait();
       assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (i + 2) + "$", session().getTitle());

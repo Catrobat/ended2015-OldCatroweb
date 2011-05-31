@@ -30,19 +30,21 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "catroid", "ReportAsInappropriateTests" })
 public class ReportAsInappropriateTests extends BaseTest {
-  @Test(dataProvider = "loginDataAndReportOwnProject", groups = { "catroid" }, description = "login and report own project as inappropriate")
+
+  @Test(dataProvider = "loginDataAndReportOwnProject", groups = { "functionality", "upload" }, description = "login and report own project as inappropriate")
   public void reportOwnProjectAsInappropriate(HashMap<String, String> dataset) throws Throwable {
     // upload project
     Random rand = new Random();
     String projectTitle = "Testproject for report as inappropriate " + rand.nextInt(9999);
-    String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"), dataset
-        .get("projectChecksum"), "", "", "", dataset.get("token")));
+    String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
+        dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
     // login first
-    session().open(Config.TESTS_BASE_PATH);
+    openLocation();
     session().click("headerProfileButton");
     session().type("loginUsername", dataset.get("username"));
     session().type("loginPassword", dataset.get("password"));
@@ -57,8 +59,7 @@ public class ReportAsInappropriateTests extends BaseTest {
     assertTrue(session().isTextPresent(projectTitle));
 
     // goto details page
-    session().open(Config.TESTS_BASE_PATH + "catroid/details/" + projectId);
-    waitForPageToLoad();
+    openLocation("catroid/details/" + projectId);
     ajaxWait();
     assertTrue(session().isTextPresent(projectTitle));
     assertTrue(session().isTextPresent(dataset.get("projectDescription")));
@@ -75,36 +76,33 @@ public class ReportAsInappropriateTests extends BaseTest {
     waitForPageToLoad();
     ajaxWait();
 
-    session().open(Config.TESTS_BASE_PATH + "catroid/details/" + projectId);
+    openLocation("catroid/details/" + projectId);
     assertTrue(session().isTextPresent(projectTitle));
     assertTrue(session().isTextPresent(dataset.get("projectDescription")));
     // report as inappropriate visible again after logout
     assertTrue(session().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
 
-    session().open(Config.TESTS_BASE_PATH + "catroid/logout");
-    waitForPageToLoad();
+    openLocation("catroid/logout");
     ajaxWait();
   }
 
-  @Test(dataProvider = "loginDataAndReportOwnProjectAnonymous", groups = { "catroid" }, description = "report own project as inappropriate anonymously")
+  @Test(dataProvider = "loginDataAndReportOwnProjectAnonymous", groups = { "functionality", "upload" }, description = "report own project as inappropriate anonymously")
   public void testReportAnonymousProjectAsInappropriate(HashMap<String, String> dataset) throws Throwable {
     // upload project
     Random rand = new Random();
     String projectTitle = "Testproject for report as inappropriate (anonymous user) " + rand.nextInt(9999);
-    String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"), dataset
-        .get("projectChecksum"), "", "", "", dataset.get("token")));
+    String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
+        dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     Thread.sleep(Config.TIMEOUT_THREAD);
     assertTrue(session().isTextPresent(projectTitle));
 
     // goto details page
-    session().open(Config.TESTS_BASE_PATH + "catroid/details/" + projectId);
-    waitForPageToLoad();
+    openLocation("catroid/details/" + projectId);
     ajaxWait();
     assertTrue(session().isTextPresent(projectTitle));
     assertTrue(session().isTextPresent(dataset.get("projectDescription")));
@@ -126,8 +124,7 @@ public class ReportAsInappropriateTests extends BaseTest {
     assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
 
     // project is hidden
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     assertFalse(session().isTextPresent(projectTitle));
   }
