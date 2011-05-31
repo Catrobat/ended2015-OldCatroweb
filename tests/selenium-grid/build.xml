@@ -64,48 +64,6 @@
     <delete dir="${selenium-grid.basedir}/target/classes" quiet="true"/>
   </target>
 
-  <target name="run-api-tests" depends="-delete-java-bin, compile" description="Run Api Test Suite">
-    <java classpathref="runtime.classpath"
-        classname="org.testng.TestNG"
-        failonerror="true">
-
-      <sysproperty key="java.security.policy" file="${selenium-grid.basedir}/testng.policy"/>
-      <sysproperty key="basedir" value="${selenium-grid.basedir}" />
-      <sysproperty key="webSite" value="${webSite}" />
-      <sysproperty key="seleniumHost" value="${seleniumHost}" />
-      <sysproperty key="seleniumPort" value="${seleniumPort}" />
-      <sysproperty key="browser" value="${browser}" />
-      <arg value="-d" />
-      <arg value="${selenium-grid.basedir}/target/reports/api" />
-      <arg value="-parallel"/>
-      <arg value="methods"/>
-      <arg value="-threadcount"/>
-      <arg value="15"/>
-      <arg value="${selenium-grid.basedir}/api.xml"/>
-    </java>
-  </target>
-
-  <target name="run-admin-tests" depends="-delete-java-bin, compile" description="Run Catroid Test Suite">
-    <java classpathref="runtime.classpath"
-        classname="org.testng.TestNG"
-        failonerror="true">
-
-      <sysproperty key="java.security.policy" file="${selenium-grid.basedir}/testng.policy"/>
-      <sysproperty key="basedir" value="${selenium-grid.basedir}" />
-      <sysproperty key="webSite" value="${webSite}" />
-      <sysproperty key="seleniumHost" value="${seleniumHost}" />
-      <sysproperty key="seleniumPort" value="${seleniumPort}" />
-      <sysproperty key="browser" value="${browser}" />
-      <arg value="-d" />
-      <arg value="${selenium-grid.basedir}/target/reports/admin" />
-      <arg value="-parallel"/>
-      <arg value="methods"/>
-      <arg value="-threadcount"/>
-      <arg value="15"/>
-      <arg value="${selenium-grid.basedir}/admin.xml"/>
-    </java>
-  </target>
-
   <target name="run-catroid-tests" depends="-delete-java-bin, compile" description="Run Catroid Test Suite">
     <java classpathref="runtime.classpath"
         classname="org.testng.TestNG"
@@ -118,7 +76,7 @@
       <sysproperty key="seleniumPort" value="${seleniumPort}" />
       <sysproperty key="browser" value="${browser}" />
       <arg value="-d" />
-      <arg value="${selenium-grid.basedir}/target/reports/catroid" />
+      <arg value="${selenium-grid.basedir}/target/reports" />
       <arg value="-parallel"/>
       <arg value="methods"/>
       <arg value="-threadcount"/>

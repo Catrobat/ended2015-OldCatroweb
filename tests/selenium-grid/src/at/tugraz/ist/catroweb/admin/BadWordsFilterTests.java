@@ -104,8 +104,7 @@ public class BadWordsFilterTests extends BaseTest {
 
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
-    ajaxWait();
-    assertTrue(session().isTextPresent(unapprovedWord));
+    waitForTextPresent(unapprovedWord);
 
     deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
   }
@@ -131,7 +130,7 @@ public class BadWordsFilterTests extends BaseTest {
     session().open(Config.TESTS_BASE_PATH);
     waitForPageToLoad();
     ajaxWait();
-    assertTrue(session().isTextPresent(unapprovedWord));
+    waitForTextPresent(unapprovedWord);
 
     deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
   }

@@ -55,11 +55,11 @@ public class BaseTest {
   @Parameters( { "seleniumHost", "seleniumPort", "browser", "webSite" })
   protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
     startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
-    System.out.println("======================= START SESSION =====================");
+    System.out.println("====================== START SESSION ===================");
     session().setSpeed(setSpeed());
     session().setTimeout(Config.TIMEOUT);
     System.out.println(" base path:\t" + webSite + Config.TESTS_BASE_PATH.substring(1));
-    System.out.println("===========================================================");
+    System.out.println("========================================================");
   }
 
   @AfterMethod(alwaysRun = true)

@@ -30,13 +30,8 @@ public class UploadTest extends BaseTest {
   @Test(groups = { "admin" }, description = "upload and delete a project")
   public void uploadTest() throws Throwable {
     String projectTitle = "testproject" + CommonData.getRandomLongString();
-    projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
-
-    // verify creation & click download
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
-    ajaxWait();
-    assertTrue(session().isTextPresent(projectTitle));
+    String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
+    String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
     // delete project
     session().open(CommonFunctions.getAdminPath(this.webSite));
@@ -45,7 +40,7 @@ public class UploadTest extends BaseTest {
     session().click("aAdminToolsEditProjects");
     waitForPageToLoad();
     assertTrue(session().isTextPresent(projectTitle));
-    session().click("xpath=//input[@name='deleteButton']");
+    session().click("xpath=//input[@id='delete" + projectId + "']");
     session().getConfirmation();
     waitForPageToLoad();
     assertFalse(session().isTextPresent(projectTitle));

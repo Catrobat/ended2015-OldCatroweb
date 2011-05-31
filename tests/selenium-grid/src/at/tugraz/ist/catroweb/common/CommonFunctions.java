@@ -60,10 +60,10 @@ public class CommonFunctions {
 
   public static String getValueFromJSONobject(String json, String key) {
     if(json.indexOf("{") != 0) {
-      System.out.println("********************************************************************");
+      System.out.println("********************************************************");
       System.out.println("CommonFunctions: getValueFromJSONobject: Invalid json object!");
       System.out.println(json);
-      System.out.println("********************************************************************");
+      System.out.println("********************************************************");
 
       String[] temp = json.split("[{]", 2);
       json = "{" + temp[1];

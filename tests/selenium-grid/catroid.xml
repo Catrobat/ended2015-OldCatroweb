@@ -17,65 +17,39 @@
       along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<suite name="Catroid Test Suite" parallel="methods" thread-count="7" verbose="2" >
-  <test name="BlockIpTests" >
+<suite name="Catroid Test Suite" parallel="methods" thread-count="20" verbose="2" >
+  <test name="ApiTests" >
+    <packages>
+      <package name="at.tugraz.ist.catroweb.api" />
+    </packages>
+  </test>
+  <test name="AdminTests" >
+    <packages>
+      <package name="at.tugraz.ist.catroweb.admin" />
+    </packages>
+  </test>
+  <test name="CatroidTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.DetailsTests" />
+<!--
+      <class name="at.tugraz.ist.catroweb.catroid.HeaderTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.IndexTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.LicenseTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.LoginTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.MenuTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.PasswordRecoveryTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.ProfileTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.RegistrationTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.ReportAsInappropriateTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.SearchTests" />
+-->
+    </classes>
+  </test>
+<!--
+  <test name="BlockedIpTests" >
     <classes>
       <class name="at.tugraz.ist.catroweb.catroid.BlockedIpTests" />
     </classes>
   </test>
-  <test name="DetailsTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.DetailsTests" />
-    </classes>
-  </test>
-  <test name="HeaderTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.HeaderTests" />
-   </classes>
-  </test>
-  <test name="IndexTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.IndexTests" />
-   </classes>
-  </test>
-  <test name="LicenseTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.LicenseTests" />
-    </classes>
-  </test>
-  <test name="LoginTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.LoginTests" />
-    </classes>
-  </test>
-  <test name="MenuTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.MenuTests" />
-    </classes>
-  </test>
-  <test name="PasswordRecoveryTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.PasswordRecoveryTests" />
-    </classes>
-  </test>
-  <test name="ProfileTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.ProfileTests" />
-    </classes>
-  </test>
-  <test name="RegistrationTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.RegistrationTests" />
-    </classes>
-  </test>
-  <test name="ReportAsInappropriateTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.ReportAsInappropriateTests" />
-    </classes>
-  </test>
-  <test name="SearchTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.SearchTests" />
-    </classes>
-  </test>
+-->
 </suite>
