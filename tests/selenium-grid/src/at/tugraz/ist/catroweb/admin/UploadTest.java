@@ -26,15 +26,17 @@ import static org.testng.AssertJUnit.*;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+@Test(groups = { "admin", "UploadTest" })
 public class UploadTest extends BaseTest {
-  @Test(groups = { "admin" }, description = "upload and delete a project")
+  
+  @Test(groups = { "upload" }, description = "upload and delete a project")
   public void uploadTest() throws Throwable {
     String projectTitle = "testproject" + CommonData.getRandomLongString();
     String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
     // delete project
-    session().open(CommonFunctions.getAdminPath(this.webSite));
+    openAdminLocation();    
     session().click("aAdministrationTools");
     waitForPageToLoad();
     session().click("aAdminToolsEditProjects");
@@ -46,8 +48,7 @@ public class UploadTest extends BaseTest {
     assertFalse(session().isTextPresent(projectTitle));
 
     // verify deletion
-    session().open(Config.TESTS_BASE_PATH);
-    waitForPageToLoad();
+    openLocation();
     ajaxWait();
     assertFalse(session().isTextPresent(projectTitle));
   }
