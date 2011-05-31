@@ -221,7 +221,6 @@ class upload extends CoreAuthenticationDevice {
       }
     }
     zip_close($zip);
-    return array($versionName, $versionCode);
   }
   
   public function unzipThumbnailFromUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
