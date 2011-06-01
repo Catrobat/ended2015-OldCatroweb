@@ -28,7 +28,7 @@ public class Config {
   public static final long TIMEOUT_THREAD = 2000;
 
   public static final String TESTS_BASE_PATH = "/";
-  //public static final String TESTS_BASE_PATH = "/catroweb/";
+  // public static final String TESTS_BASE_PATH = "/catroweb/";
 
   public static final String DB_USER = "website";
   public static final String DB_PASS = "cat.roid.web";
@@ -37,9 +37,9 @@ public class Config {
   public static final String ADMIN_AREA_USER = "admin";
 
   public static final String FILESYSTEM_SEPARATOR = System.getProperty("file.separator");
-  public static final String FILESYSTEM_BASE_PATH = System.getProperty("user.dir") + FILESYSTEM_SEPARATOR;
+  public static String FILESYSTEM_BASE_PATH = System.getProperty("user.dir") + FILESYSTEM_SEPARATOR;
 
-  public static String SELENIUM_GRID_TESTDATA = "tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "testdata" + FILESYSTEM_SEPARATOR;
+  public static final String SELENIUM_GRID_TESTDATA = "tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "testdata" + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "projects" + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_UNZIPPED_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "catroid" + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_QR_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "qrcodes" + FILESYSTEM_SEPARATOR;
@@ -63,15 +63,9 @@ public class Config {
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";
 
   public static void setSeleniumGridTestdata(String basedir) {
-    String path = basedir.replace(System.getProperty("user.dir"), "");
-    if(path.indexOf(FILESYSTEM_SEPARATOR) == 0) {
-      path = path.substring(1);
+    if (FILESYSTEM_BASE_PATH.matches(".*tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "$")) {
+      FILESYSTEM_BASE_PATH = FILESYSTEM_BASE_PATH.substring(0, FILESYSTEM_BASE_PATH.indexOf("tests"+FILESYSTEM_SEPARATOR +  "selenium-grid"));
+      DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test.zip";
     }
-    if(path.lastIndexOf(FILESYSTEM_SEPARATOR) != -1 && path.lastIndexOf(FILESYSTEM_SEPARATOR) != path.length()) {
-      path += FILESYSTEM_SEPARATOR;
-    }
-
-    SELENIUM_GRID_TESTDATA = path + "testdata" + FILESYSTEM_SEPARATOR;
-    DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test.zip";
   }
 }
