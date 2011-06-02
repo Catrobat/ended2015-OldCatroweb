@@ -166,7 +166,7 @@ public class LoginTests extends BaseTest {
 
     session().click("loginSubmitButton");
     ajaxWait();
-    session().getAlert();
+    
     assertTrue(session().isVisible("loginSubmitButton"));
     session().click("headerCancelButton");
 

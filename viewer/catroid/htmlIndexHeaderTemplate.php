@@ -66,20 +66,32 @@
         <div class="blueBoxMain">
           <div class="webMainHead">
             <?php if($this->module->session->userLogin_userId <= 0) { ?>
+              <div class="loginInfoText" id="loginInfoText">
+           		<div class="loginErrorMsg" id="loginErrorMsg">
+            	   <!-- errorMsg -->
+              	</div>
+              </div>
               <form id="loginForm">
               	<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >
-              		Nick: <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="your nickname"  />
-                	Password: <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="your password"  />
+              	  <?php if($this->module->clientDetection->isMobile()) {?>
+              		Nick:<br><input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="nickname"  /><br>
+                	Password:<br><input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="password"  /><br>
+                    <input id="loginSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Login" />
+              	  <?php } else {?>
+                    Nick: <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="nickname"  />
+                    Password: <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="password"  />
+                    <input id="loginSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Login" />
+              	  <?php }?>
                 </div>         
-                <div class="headerProfileBoxSubmitDiv" ><input id="loginSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Login" /></div>
-              	<div style="clear:both;"></div>
               </form>
             <?php } else { ?>
-              <form id="logoutForm">
-								<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >You are logged in as <a href="<?php echo BASE_PATH; ?>catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!</div>
-								<div class="headerProfileBoxSubmitDiv" ><input id="logoutSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Logout" /></div>
-              	<div style="clear:both;"></div>
-              </form>
+              <div id="headerProfileBoxLeft" class="headerProfileBoxLeft">
+               You are logged in as
+               <a href="<?php echo BASE_PATH; ?>catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!<br>
+               <div class="headerProfileBoxSubmitDiv" >
+                <input id="logoutSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Logout" />
+               </div>
+             </div>
             <?php } ?>
           </div>
         </div>

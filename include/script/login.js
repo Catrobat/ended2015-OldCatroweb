@@ -16,8 +16,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
-var Login = Class.$extend( {
+var Login = Class.$extend({
   __init__ : function(basePath) {
     this.basePath = basePath;
     $("#loginSubmitButton").click(jQuery.proxy(this.doLoginRequest, this));
@@ -27,61 +26,70 @@ var Login = Class.$extend( {
   },
 
   doLoginRequest : function() {
-    $("#loginSubmitButton").attr("disabled", "disabled");
-    $("#loginUsername").attr("disabled", "disabled");
-    $("#loginPassword").attr("disabled", "disabled");
+    $("#loginInfoText").toggle(false);
+    this.disableForm();
     var url = this.basePath + 'catroid/login/loginRequest.json';
     $.ajax({
-      type: "POST",
-      url: url,
-      data: ({
-          loginUsername: $("#loginUsername").val(),
-          loginPassword: $("#loginPassword").val()
+      type : "POST",
+      url : url,
+      data : ({
+        loginUsername : $("#loginUsername").val(),
+        loginPassword : $("#loginPassword").val()
       }),
-      timeout: (5000),
+      timeout : (5000),
       success : jQuery.proxy(this.loginSuccess, this),
       error : jQuery.proxy(this.loginError, this)
     });
   },
-  
+
   loginSuccess : function(result) {
-	if(result.statusCode == 200) {
+    if (result.statusCode == 200) {
       location.reload();
     } else {
-      alert("error: "+result.answer);
+      $("#loginInfoText").toggle(true);
+      $("#loginErrorMsg").html(result.answer);
+      this.enableForm();
     }
-	$("#loginSubmitButton").removeAttr("disabled");
-    $("#loginUsername").removeAttr("disabled");
-    $("#loginPassword").removeAttr("disabled");
   },
-  
+
   loginError : function(result, errCode) {
-	alert("loginError");
+    alert("loginError");
   },
-  
+
   doLogoutRequest : function(event) {
-    $.ajax({ 
-      url: this.basePath+"catroid/login/logoutRequest.json", 
-      async: false,
-      success: jQuery.proxy(this.logoutSuccess, this),
-      error: jQuery.proxy(this.logoutError, this)
+    $.ajax({
+      url : this.basePath + "catroid/login/logoutRequest.json",
+      async : false,
+      success : jQuery.proxy(this.logoutSuccess, this),
+      error : jQuery.proxy(this.logoutError, this)
     });
   },
-  
-  logoutSuccess: function(result) {
+
+  logoutSuccess : function(result) {
     location.reload();
   },
-  
-  logoutError: function(result, errCode) {
-	alert("logoutError"); 
+
+  logoutError : function(result, errCode) {
+    alert("logoutError");
+  },
+
+  loginCatchKeypress : function(event) {
+    if (event.which == '13') {
+      event.preventDefault();
+      this.doLoginRequest();
+    }
   },
   
-  loginCatchKeypress : function(event) {
-	if(event.which == '13') {
-	  event.preventDefault();
-	  this.doLoginRequest();
-	}
-  }
+  disableForm : function() {
+    $("#loginSubmitButton").attr("disabled", "disabled");
+    $("#loginUsername").attr("disabled", "disabled");
+    $("#loginPassword").attr("disabled", "disabled");
+  },
   
-});
+  enableForm : function() {
+    $("#loginSubmitButton").removeAttr("disabled");
+    $("#loginUsername").removeAttr("disabled");
+    $("#loginPassword").removeAttr("disabled");
+  }
 
+});
