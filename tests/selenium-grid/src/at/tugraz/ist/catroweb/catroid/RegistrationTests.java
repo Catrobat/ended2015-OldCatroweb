@@ -158,7 +158,6 @@ public class RegistrationTests extends BaseTest {
     session().click("loginSubmitButton");
     ajaxWait();
 
-    session().getAlert();
     session().click("headerMenuButton");
     waitForPageToLoad();
 
