@@ -23,7 +23,6 @@ class profile extends CoreAuthenticationNone {
     parent::__construct();
     $this->setupBoard();
     $this->addCss('profile.css');
-    $this->addCss('buttons.css');
     $this->addJs("profile.js");
     $this->initProfileData($this->requestedUser);
   }

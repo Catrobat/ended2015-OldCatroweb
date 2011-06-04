@@ -23,8 +23,7 @@ class login extends CoreAuthenticationNone {
     parent::__construct();
 
     $this->setupBoard();
-    $this->addCss('login.css?'.VERSION);
-    $this->addCss('buttons.css?'.VERSION);
+    $this->addCss('login.css');
   }
 
   public function __default() {
@@ -32,7 +31,6 @@ class login extends CoreAuthenticationNone {
       header("Location: ".BASE_PATH."catroid/index");
       exit;
     }
-
   }
 
   public function logoutRequest() {

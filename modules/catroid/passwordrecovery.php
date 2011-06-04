@@ -21,9 +21,7 @@ class passwordrecovery extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
-    $this->addCss('passwordrecovery.css?'.VERSION);
-    $this->addCss('buttons.css?'.VERSION);
-    
+    $this->addCss('passwordrecovery.css');    
     $this->addJs('passwordRecovery.js');
   }
 

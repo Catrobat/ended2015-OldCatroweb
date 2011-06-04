@@ -59,15 +59,7 @@ div.loginErrorMsg {
   border: solid 1px #b7b7b7;
   background: #fff;
 }
-/*
-input.loginSubmitButton {
-  margin-top: 2.5%;
-  margin-bottom: 2.5%;
-  color: black;
-  font-size: 0.8em;
-  font-weight: bold;
-}
-*/
+
 p.loginText {
   margin: 0;
   padding: 0;

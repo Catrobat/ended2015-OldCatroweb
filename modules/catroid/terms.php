@@ -20,8 +20,7 @@
 class terms extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
-    $this->addCss('license.css?'.VERSION);
-    $this->addCss('buttons.css?'.VERSION);
+    $this->addCss('license.css');
   }
 
   public function __default() {
