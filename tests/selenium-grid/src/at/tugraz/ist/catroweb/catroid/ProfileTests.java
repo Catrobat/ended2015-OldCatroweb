@@ -48,40 +48,17 @@ public class ProfileTests extends BaseTest {
 
     session().click("xpath=//input[@name='registrationSubmit']");
     ajaxWait();
-    assertTrue(session().isTextPresent("CATROID registration successfull!"));
-    assertTrue(session().isTextPresent("BOARD registration successfull!"));
-    assertTrue(session().isTextPresent("WIKI registration successfull!"));
-
-    openLocation();
-    ajaxWait();
-
-    session().click("headerProfileButton");
-    session().type("loginUsername", dataset.get("registrationUsername"));
-    session().type("loginPassword", dataset.get("registrationPassword"));
-    session().click("loginSubmitButton");
     waitForPageToLoad();
-    ajaxWait();
-    assertTrue(session().isVisible("headerProfileButton"));
+    
     session().click("headerProfileButton");
-    assertTrue(session().isVisible("logoutSubmitButton"));
+    assertTrue(session().isTextPresent("You are logged in as "+dataset.get("registrationUsername")+"!"));
+    assertTrue(session().isElementPresent("logoutSubmitButton"));
     session().click("headerCancelButton");
-
-    session().click("xpath=//button[@id='headerMenuButton']");
-    waitForPageToLoad();
-    ajaxWait();
-
-    assertTrue(session().isVisible("xpath=//button[@id='menuProfileButton']"));
-    assertFalse(session().isVisible("xpath=//button[@id='menuLoginButton']"));
-    assertTrue(session().isVisible("xpath=//button[@id='menuLogoutButton']"));
-
-    assertTrue(session().isTextPresent("Profile"));
-    session().click("xpath=//button[@id='menuProfileButton']");
-    waitForPageToLoad();
-
-    assertTrue(session().isTextPresent(dataset.get("registrationUsername") + "\'s Profile"));
+    
+    assertTrue(session().isTextPresent(dataset.get("registrationUsername")+"\'s Profile"));
     assertTrue(session().isTextPresent("change my password"));
     assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
-    assertTrue(session().isTextPresent("from "));
+    assertTrue(session().isTextPresent("from "));    
 
     session().click("xpath=//a[@id='profileChangePassword']");
     ajaxWait();
@@ -137,8 +114,7 @@ public class ProfileTests extends BaseTest {
     session().type("xpath=//input[@id='profileNewPassword']", dataset.get("registrationPassword"));
     session().click("xpath=//input[@id='profilePasswordSubmit']");
     ajaxWait();
-    Thread.sleep(Config.TIMEOUT_THREAD);
-
+    
     assertTrue(session().isTextPresent("You updated your password successfully."));
 
     session().click("xpath=//a[@id='profileChangeEmailText']");
