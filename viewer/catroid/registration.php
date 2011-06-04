@@ -32,12 +32,6 @@
             	  <div class ="whiteBoxMain">
             	    <div class="registrationText">
             	    <div class="registrationFormContainer">
-                        <!-- 
-            	    	<div class="registrationFormAnswer" id="registrationFormAnswer">
-            	    		<div class="errorMsg" id="errorMsg">
-              		   	    </div>
-            		    </div>
-                        -->
                         <div class="registrationInfoText" id="registrationInfoText">
                           <div class="registrationErrorMsg" id="registrationErrorMsg">
                             <!-- errorMsg -->

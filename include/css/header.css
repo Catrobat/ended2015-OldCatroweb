@@ -71,7 +71,7 @@ div.headerProfileBox {
 
 div.headerSearchBox {
   font-size: 1.0em;
-  text-align: right;
+  text-align: center;
 }
 
 div.headerSearchBoxRight {
@@ -111,14 +111,6 @@ img.webHeadSymbolOnButton {
   border: 0px;
 }
 
-input.webHeadLoginSubmit {
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
-  color: black;
-  font-size: 1.0em;
-  font-weight: bold;
-}
-
 button.webHeadButtons {
   width: 70px;
   height: 70px;
@@ -144,6 +136,22 @@ input.webHeadSearchBox {
   font-size: 1.0em;
   margin-left: 0%;
   margin-right: 2%;
+}
+
+input.webHeadLoginSubmit {
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  color: black;
+  font-size: 1.0em;
+  font-weight: bold;
+}
+
+input.webHeadLogoutSubmit {
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  color: black;
+  font-size: 1.0em;
+  font-weight: bold;
 }
 
 input.webHeadSearchSubmit {

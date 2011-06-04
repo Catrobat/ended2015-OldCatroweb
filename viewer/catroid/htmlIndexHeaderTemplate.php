@@ -56,8 +56,13 @@
           <div class="webMainHead">
             <form id="searchForm">
               <div class="headerSearchBoxRight" >
+              <?php if($this->module->clientDetection->isMobile()) {?>
+                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  /><br>             
+                <input type="submit" class="webHeadSearchSubmit button orange" value="Search" />
+              <?php } else {?>
                 <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
                 <input type="submit" class="webHeadSearchSubmit button orange" value="Search" />
+              <?php }?>
               </div>
             </form>
           </div>
@@ -91,7 +96,7 @@
                You are logged in as
                <a href="<?php echo BASE_PATH; ?>catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!<br>
                <div class="headerProfileBoxSubmitDiv" >
-                <input id="logoutSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Logout" />
+                <input id="logoutSubmitButton" type="button" class="button orange webHeadLogoutSubmit" value="Logout" />
                </div>
              </div>
             <?php } ?>

@@ -79,7 +79,7 @@
                You are logged in as
                <a href="<?php echo BASE_PATH; ?>catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!<br>
                <div class="headerProfileBoxSubmitDiv" >
-                <input id="logoutSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Logout" />
+                <input id="logoutSubmitButton" type="button" class="button orange webHeadLogoutSubmit" value="Logout" />
                </div>
              </div>
             <?php } ?>
