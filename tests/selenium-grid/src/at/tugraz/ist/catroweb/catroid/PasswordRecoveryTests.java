@@ -192,7 +192,7 @@ public class PasswordRecoveryTests extends BaseTest {
 
   @DataProvider(name = "passwordRecoveryResetUsernames")
   public Object[][] passwordRecoveryResetUsernames() {
-    final String randomString1 = CommonData.getRandomShortString();
+    final String randomString1 = CommonData.getRandomShortString(10);
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {

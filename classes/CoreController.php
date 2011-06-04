@@ -53,10 +53,6 @@ class CoreController {
           if (!CoreModule::isValid($instance)) {
             die("Requested module is not a valid CORE module!");
           }
-//          if (CoreModule::requestFromBlockedIp($this->module, $this->class)) {
-//            // if (CoreModule::$this->class != "errorPage")
-//              $instance->errorHandler->showErrorPage('viewer', 'ip_is_blocked', '', 'blocked_ip');
-//          }
           $instance->moduleName = $this->module;
           try {
             if(!$instance->authenticate() && !method_exists($instance, MVC_DEFAULT_AUTH_FAILED_METHOD)) {

@@ -37,7 +37,7 @@ public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word as good")
   public void approveButtonGood() throws Throwable {
-    String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString();
+    String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString(10);
     String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
@@ -62,7 +62,7 @@ public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word as bad")
   public void approveButtonBad() throws Throwable {
-    String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString();
+    String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString(10);
     String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
@@ -87,7 +87,7 @@ public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word with no selection")
   public void approveButtonNoSelection() throws Throwable {
-    String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString();
+    String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString(10);
     String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
@@ -110,7 +110,7 @@ public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "remove word from database")
   public void testDeleteButton() throws Throwable {
-    String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString();
+    String unapprovedWord = "donaudampfschiffahrtselektrizitaetenhauptbetriebswerkbauunterbeamtengesellschaft" + CommonData.getRandomShortString(10);
     String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
     assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 

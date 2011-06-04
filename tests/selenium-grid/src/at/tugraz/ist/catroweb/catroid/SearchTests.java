@@ -69,7 +69,7 @@ public class SearchTests extends BaseTest {
   @Test(dataProvider = "specialChars", groups = { "functionality", "upload" }, description = "search forspecial chars")
   public void specialChars(String specialchars) throws Throwable {
     String projectTitle = "search_test_" + specialchars;
-    projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(), "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "",
+    projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(200), "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "",
         "", "0"));
 
     openLocation();
@@ -86,7 +86,7 @@ public class SearchTests extends BaseTest {
       assertTrue(session().isTextPresent(projectTitle));
       assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
 
-      session().type("searchQuery", CommonData.getRandomShortString());
+      session().type("searchQuery", CommonData.getRandomShortString(10));
       session().click("xpath=//input[@class='webHeadSearchSubmit']");
       ajaxWait();
 
@@ -120,7 +120,7 @@ public class SearchTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "search test with page navigation")
   public void pageNavigation() throws Throwable {
-    String projectTitle = CommonData.getRandomShortString() + "_";
+    String projectTitle = CommonData.getRandomShortString(10) + "_";
 
     int uploadCount = Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1);
 
@@ -182,7 +182,7 @@ public class SearchTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "search and hide project")
   public void searchAndHideProject() throws Throwable {
-    String projectTitle = "search_test_" + CommonData.getRandomShortString();
+    String projectTitle = "search_test_" + CommonData.getRandomShortString(10);
     projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0"));
 
     String projectID = projectUploader.getProjectId(projectTitle);
@@ -243,10 +243,10 @@ public class SearchTests extends BaseTest {
     Object[][] returnArray = new Object[][] {
         { CommonData
             .getUploadPayload(
-                "search_test_long_description_" + CommonData.getRandomShortString(),
+                "search_test_long_description_" + CommonData.getRandomShortString(10),
                 "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!",
                 "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
-        { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(), CommonData.getRandomShortString(), "test.zip",
+        { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "test.zip",
             "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") }, };
     return returnArray;
   }

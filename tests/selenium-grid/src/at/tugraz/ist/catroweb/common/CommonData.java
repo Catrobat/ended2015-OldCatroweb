@@ -28,9 +28,8 @@ import java.util.HashMap;
 import org.postgresql.Driver;
 
 public class CommonData {
-  public static String getRandomShortString() {
+  public static String getRandomShortString(int strLen) {
     String str = "";
-    int strLen = 10;
     String chars = "abcdefghijklmnopqrstuvwxyz";
     for(int i = 0; i < strLen; i++) {
       java.util.Random rand = new java.util.Random();
@@ -39,15 +38,24 @@ public class CommonData {
     return str;
   }
 
-  public static String getRandomLongString() {
+  public static String getRandomLongString(int strLen) {
     String str = "";
-    int strLen = 200;
     String chars = "abcdefghijklmnopqrstuvwxyz1234567890";
     for(int i = 0; i < strLen; i++) {
       java.util.Random rand = new java.util.Random();
       str += chars.charAt(rand.nextInt(chars.length()));
     }
     return str;
+  }
+  
+  public static String getRandomChineseString(int strLen) {
+	String str = "";
+	String chars = "诶比西迪伊艾弗吉艾尺艾杰开艾勒艾马艾娜哦屁吉吾艾儿艾丝提伊吾维豆贝尔维艾克斯吾艾贼德";
+	for(int i = 0; i < strLen; i++) {
+	  java.util.Random rand = new java.util.Random();
+	  str += chars.charAt(rand.nextInt(chars.length()));
+	}
+	return str;
   }
 
   public static String getLoginUserDefault() {

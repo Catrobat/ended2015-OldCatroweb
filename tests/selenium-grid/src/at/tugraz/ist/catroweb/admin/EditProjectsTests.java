@@ -31,7 +31,7 @@ public class EditProjectsTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "delete project button")
   public void deleteButton() throws Throwable {
-    String projectTitle = "Testproject_delete_test_" + CommonData.getRandomLongString();
+    String projectTitle = "Testproject_delete_test_" + CommonData.getRandomLongString(200);
 
     String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
@@ -72,7 +72,7 @@ public class EditProjectsTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "set invisible button")
   public void invisibleButton() throws Throwable {
-    String projectTitle = "Testproject_invisible_test_" + CommonData.getRandomLongString();
+    String projectTitle = "Testproject_invisible_test_" + CommonData.getRandomLongString(200);
     String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
     String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 

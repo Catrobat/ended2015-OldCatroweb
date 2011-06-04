@@ -166,7 +166,7 @@ public class ProfileTests extends BaseTest {
 
   @DataProvider(name = "loginData")
   public Object[][] loginData() {
-    final String randomString = CommonData.getRandomShortString();
+    final String randomString = CommonData.getRandomShortString(10);
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {

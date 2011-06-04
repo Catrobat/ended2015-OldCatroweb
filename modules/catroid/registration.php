@@ -21,9 +21,8 @@ class registration extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
-    $this->addCss('registration.css?'.VERSION);
-    $this->addCss('buttons.css?'.VERSION);
-
+    $this->addCss('registration.css');
+    $this->addCss('buttons.css');
     $this->addJs('registration.js');
 
     $this->initRegistration();
@@ -125,6 +124,10 @@ class registration extends CoreAuthenticationNone {
     $this->statusCode = $statusCode;
 
     if($boardRegistrationSuccess && $wikiRegistrationSuccess && $catroidRegistrationSuccess) {
+      $this->statusCode = 200;
+      require_once 'login.php';
+      $login = new login();
+      $login->doLogin(array('loginUsername'=>$postData['registrationUsername'], 'loginPassword'=>$postData['registrationPassword']));
       return array("catroidUserId"=>$catroidUserId, "boardUserId"=>$boardUserId, "wikiUserId"=>$wikiUserId);
     } else {
       $this->postData = $postData;
@@ -325,7 +328,7 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
     if(pg_num_rows($result) > 0) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_aready_exists'));
+      throw new Exception($this->errorHandler->getError('registration', 'username_already_exists'));
     }
     return true;
   }

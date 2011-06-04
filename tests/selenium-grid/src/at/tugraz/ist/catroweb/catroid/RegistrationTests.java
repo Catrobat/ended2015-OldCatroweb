@@ -34,9 +34,6 @@ public class RegistrationTests extends BaseTest {
 
   @Test(dataProvider = "validRegistrationData", groups = { "functionality" }, description = "check registration with valid data")
   public void validRegistration(HashMap<String, String> dataset) throws Throwable {
-    // log out if necessary
-    openLocation("catroid/login/");
-
     // wiki username creation
     String wikiUsername = dataset.get("registrationUsername").substring(0, 1).toUpperCase() + dataset.get("registrationUsername").substring(1).toLowerCase();
 
@@ -62,20 +59,13 @@ public class RegistrationTests extends BaseTest {
 
     session().click("xpath=//input[@name='registrationSubmit']");
     ajaxWait();
-    assertTrue(session().isTextPresent("CATROID registration successfull!"));
-    assertTrue(session().isTextPresent("BOARD registration successfull!"));
-    assertTrue(session().isTextPresent("WIKI registration successfull!"));
-
-    openLocation();
-
+    waitForPageToLoad();
+    assertTrue(session().isTextPresent(dataset.get("registrationUsername")+"'s Profile"));
+    
     session().click("headerProfileButton");
-    session().type("loginUsername", dataset.get("registrationUsername"));
-    session().type("loginPassword", dataset.get("registrationPassword"));
-    session().click("loginSubmitButton");
-    ajaxWait();
-    Thread.sleep(Config.TIMEOUT_THREAD);
-
-    assertTrue(session().isTextPresent("Newest Projects"));
+    assertTrue(session().isTextPresent("You are logged in as "+dataset.get("registrationUsername")+"!"));
+    assertTrue(session().isElementPresent("logoutSubmitButton"));
+    session().click("headerCancelButton");
 
     session().click("headerMenuButton");
     waitForPageToLoad();
@@ -175,8 +165,11 @@ public class RegistrationTests extends BaseTest {
 
   @DataProvider(name = "validRegistrationData")
   public Object[][] validRegistrationData() {
-    final String randomString1 = CommonData.getRandomShortString();
-    final String randomString2 = CommonData.getRandomShortString();
+    final String randomString1 = CommonData.getRandomShortString(10);
+    final String randomString2 = CommonData.getRandomShortString(10);
+    final String randomString3 = CommonData.getRandomShortString(10);
+    final String chineseString1 = CommonData.getRandomChineseString(10);
+    final String chineseString2 = CommonData.getRandomChineseString(10);
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {
@@ -200,14 +193,25 @@ public class RegistrationTests extends BaseTest {
         put("registrationCountry", "DE");
         put("registrationCity", "Berlin");
       }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", chineseString1);
+        put("registrationPassword", chineseString2);
+        put("registrationEmail", "test" + randomString3 + "@selenium.at");
+        put("registrationGender", "male");
+        put("registrationMonth", "10");
+        put("registrationYear", "1911");
+        put("registrationCountry", "CN");
+        put("registrationCity", "Bejing");
+      }
     } } };
     return dataArray;
   }
 
   @DataProvider(name = "invalidRegistrationData")
   public Object[][] invalidRegistrationData() {
-    final String randomString1 = CommonData.getRandomShortString();
-    final String randomString2 = CommonData.getRandomShortString();
+    final String randomString1 = CommonData.getRandomShortString(10);
+    final String randomString2 = CommonData.getRandomShortString(10);
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {

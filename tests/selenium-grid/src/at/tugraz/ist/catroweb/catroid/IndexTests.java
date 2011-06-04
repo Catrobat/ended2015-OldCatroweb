@@ -38,7 +38,7 @@ public class IndexTests extends BaseTest {
     assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
     assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
 
-    String location = CommonData.getRandomLongString();
+    String location = CommonData.getRandomLongString(200);
     openLocation("catroid/index/" + location);
     ajaxWait();
 
@@ -47,7 +47,7 @@ public class IndexTests extends BaseTest {
     assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
     assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
 
-    location = CommonData.getRandomLongString();
+    location = CommonData.getRandomLongString(200);
     openLocation("catroid/details/" + location);
     ajaxWait();
     // test page title and header title

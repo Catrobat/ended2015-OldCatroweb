@@ -19,13 +19,10 @@
 var Registration = Class.$extend( {
   __init__ : function(basePath) {
     this.basePath = basePath;
-	var self = this;
     $("#registrationFormDialog").toggle(true);
     $("#registrationFormAnswer").toggle(false);
-   
     $("#registrationSubmit").click(
       $.proxy(this.registrationSubmit, this));
-    
     $("#registrationUsername").keypress(
       $.proxy(this.registrationCatchKeypress, this));
     $("#registrationPassword").keypress(
@@ -45,7 +42,49 @@ var Registration = Class.$extend( {
   },
   
   registrationSubmit : function() {
-    // disable form fields
+    this.disableForm();
+    var url = this.basePath + 'catroid/registration/registrationRequest.json';
+    $.ajax({
+      type : "POST",
+      url : url,
+      data : ({
+        registrationUsername : $("#registrationUsername").val(),
+        registrationPassword : $("#registrationPassword").val(),
+        registrationEmail : $("#registrationEmail").val(),
+        registrationCountry : $("#registrationCountry").val(),
+        registrationCity : $("#registrationCity").val(),
+        registrationMonth : $("#registrationMonth").val(),
+        registrationYear : $("#registrationYear").val(),
+        registrationGender : $("#registrationGender").val()
+      }),
+      timeout : (5000),
+      success : jQuery.proxy(this.registrationSuccess, this),
+      error : jQuery.proxy(this.registrationError, this)
+    });
+  },
+
+  registrationSuccess : function(response) {
+    if(response.statusCode == 200) {
+      location.href = this.basePath+'catroid/profile';
+    } else {
+      $("#registrationFormAnswer").toggle(true);
+      $("#errorMsg").html(response.answer);
+      this.enableForm();
+    }
+  },
+  
+  registrationError : function(response, errCode) {
+    alert("loginError");
+  },
+  
+  registrationCatchKeypress : function(event) {
+    if(event.which == '13') {
+      event.preventDefault();
+      this.registrationSubmit();
+    }
+  },
+  
+  disableForm : function() {
     $("#registrationUsername").attr("disabled", "disabled");
     $("#registrationPassword").attr("disabled", "disabled");
     $("#registrationEmail").attr("disabled", "disabled");
@@ -55,27 +94,9 @@ var Registration = Class.$extend( {
     $("#registrationYear").attr("disabled", "disabled");
     $("#registrationGender").attr("disabled", "disabled");
     $("#registrationSubmit").attr("disabled", "disabled");
-
-    var url = this.basePath + 'catroid/registration/registrationRequest.json';
-    $.post(url, {
-      registrationUsername : $("#registrationUsername").val(),
-      registrationPassword : $("#registrationPassword").val(),
-      registrationEmail : $("#registrationEmail").val(),
-      registrationCountry : $("#registrationCountry").val(),
-      registrationCity : $("#registrationCity").val(),
-      registrationMonth : $("#registrationMonth").val(),
-      registrationYear : $("#registrationYear").val(),
-      registrationGender : $("#registrationGender").val()
-    }, $.proxy(this.registrationSuccess, this), "json");
   },
-
-  registrationSuccess : function(response) {
-    $("#registrationFormAnswer").toggle(true);
-	$("#errorMsg").html(response.answer);
-
-	if(response.statusCode == 200) {
-      location.href = self.basePath+'catroid/login';
-    }
+  
+  enableForm : function() {
     $("#registrationUsername").removeAttr("disabled");
     $("#registrationPassword").removeAttr("disabled");
     $("#registrationEmail").removeAttr("disabled");
@@ -85,14 +106,6 @@ var Registration = Class.$extend( {
     $("#registrationYear").removeAttr("disabled");
     $("#registrationGender").removeAttr("disabled");
     $("#registrationSubmit").removeAttr("disabled");
-
-  },
-  
-  registrationCatchKeypress : function(event) {
-    if(event.which == '13') {
-      event.preventDefault();
-      this.registrationSubmit();
-    }
   }
 
 });

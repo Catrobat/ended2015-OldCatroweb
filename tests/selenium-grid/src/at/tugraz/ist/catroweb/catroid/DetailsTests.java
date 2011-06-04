@@ -208,7 +208,7 @@ public class DetailsTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "check if invalid project id redirects to errorpage")
   public void invalidProjectID() throws Throwable {
-    String invalidProject = CommonData.getRandomShortString();
+    String invalidProject = CommonData.getRandomShortString(10);
     openLocation("catroid/details/" + invalidProject);
     assertRegExp(".*/catroid/errorPage", session().getLocation());
     assertTrue(session().isTextPresent("No entry was found for the given ID.:"));

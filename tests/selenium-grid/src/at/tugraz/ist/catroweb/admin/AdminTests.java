@@ -110,7 +110,7 @@ public class AdminTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload", "popupwindows" }, description = "check report as inappropriate functionality")
   public void inappropriateProjects() throws Throwable {
-    String title = "Testproject " + CommonData.getRandomLongString();
+    String title = "Testproject " + CommonData.getRandomLongString(200);
     String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "", ""));
     String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
