@@ -47,7 +47,8 @@ public class SearchTests extends BaseTest {
     assertTrue(session().isVisible("headerSearchBox"));
 
     session().type("searchQuery", projectTitle);
-    session().click("xpath=//input[@class='webHeadSearchSubmit']");
+    //session().click("xpath=//input[@class='webHeadSearchSubmit']");
+    session().click("webHeadSearchSubmit");
     ajaxWait();
 
     assertFalse(session().isVisible("fewerProjects"));
@@ -57,7 +58,8 @@ public class SearchTests extends BaseTest {
 
     // test description
     session().type("searchQuery", projectDescription);
-    session().click("xpath=//input[@class='webHeadSearchSubmit']");
+    //session().click("xpath=//input[@class='webHeadSearchSubmit']");
+    session().click("webHeadSearchSubmit");
     ajaxWait();
     waitForTextPresent(projectTitle);
     assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
@@ -78,7 +80,8 @@ public class SearchTests extends BaseTest {
     for (int i = projectTitle.length() - specialchars.length(); i < projectTitle.length(); i++) {
       session().click("headerSearchButton");
       session().type("searchQuery", projectTitle.substring(i, i + 1));
-      session().click("xpath=//input[@class='webHeadSearchSubmit']");
+      //session().click("xpath=//input[@class='webHeadSearchSubmit']");
+      session().click("webHeadSearchSubmit");
       ajaxWait();
       waitForTextPresent(projectTitle);
 
@@ -87,7 +90,8 @@ public class SearchTests extends BaseTest {
       assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
 
       session().type("searchQuery", CommonData.getRandomShortString(10));
-      session().click("xpath=//input[@class='webHeadSearchSubmit']");
+      //session().click("xpath=//input[@class='webHeadSearchSubmit']");
+      session().click("webHeadSearchSubmit");
       ajaxWait();
 
       assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
@@ -135,7 +139,8 @@ public class SearchTests extends BaseTest {
 
     session().click("headerSearchButton");
     session().type("searchQuery", projectTitle);
-    session().click("xpath=//input[@class='webHeadSearchSubmit']");
+    //session().click("xpath=//input[@class='webHeadSearchSubmit']");
+    session().click("webHeadSearchSubmit");
     ajaxWait();
 
     int i = 0;
@@ -200,7 +205,8 @@ public class SearchTests extends BaseTest {
     ajaxWait();
     session().click("headerSearchButton");
     session().type("searchQuery", projectTitle);
-    session().click("xpath=//input[@class='webHeadSearchSubmit']");
+    //session().click("xpath=//input[@class='webHeadSearchSubmit']");
+    session().click("webHeadSearchSubmit");
     ajaxWait();
 
     assertFalse(session().isTextPresent(projectTitle));
@@ -221,7 +227,8 @@ public class SearchTests extends BaseTest {
     ajaxWait();
     session().click("headerSearchButton");
     session().type("searchQuery", projectTitle);
-    session().click("xpath=//input[@class='webHeadSearchSubmit']");
+    //session().click("xpath=//input[@class='webHeadSearchSubmit']");
+    session().click("webHeadSearchSubmit");
     ajaxWait();
 
     assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));

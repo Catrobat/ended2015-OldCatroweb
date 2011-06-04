@@ -58,10 +58,10 @@
               <div class="headerSearchBoxRight" >
               <?php if($this->module->clientDetection->isMobile()) {?>
                 <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  /><br>             
-                <input type="submit" class="webHeadSearchSubmit button orange" value="Search" />
+                <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="Search" />
               <?php } else {?>
                 <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
-                <input type="submit" class="webHeadSearchSubmit button orange" value="Search" />
+                <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="Search" />
               <?php }?>
               </div>
             </form>
