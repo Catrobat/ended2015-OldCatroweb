@@ -66,11 +66,11 @@
               	  <?php if($this->module->clientDetection->isMobile()) {?>
               		Nick:<br><input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="nickname"  /><br>
                 	Password:<br><input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="password"  /><br>
-                    <input id="loginSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Login" />
+                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="Login" />
               	  <?php } else {?>
                     Nick: <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="nickname"  />
                     Password: <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="password"  />
-                    <input id="loginSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Login" />
+                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="Login" />
               	  <?php }?>
                 </div>         
               </form>

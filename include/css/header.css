@@ -1,0 +1,176 @@
+/*    Catroid: An on-device graphical programming language for Android devices
+ *    Copyright (C) 2010-2011 The Catroid Team 
+ *    (<http://code.google.com/p/catroid/wiki/Credits>)
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Affero General Public License as
+ *    published by the Free Software Foundation, either version 3 of the
+ *    License, or (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Affero General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Affero General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+div.webMainHead {
+  
+}
+
+div.webHeadLogo {
+  cursor: pointer;
+  float: left;
+  margin-left: 2%;
+  min-height: 79px;
+  padding-top: 15px;
+  text-align: left;
+  width: 18%;
+}
+
+div.webHeadTitle {
+  background-position: right top;
+  background-repeat: no-repeat;
+  float: left;
+  margin-left: 3%;
+  margin-top: 0;
+  min-height: 84px;
+  text-align: center;
+  width: 45%;
+}
+
+div.webHeadButtons {
+  display: none;
+  min-height: 84px;
+  width: 30%;
+  text-align: right;
+  margin-top: 0px;
+  /*padding-right: 1%;*/
+  margin-right: 2%;
+  float: right;
+}
+
+div.webHeadTitleName {
+  margin-top: 10px;
+}
+
+div.webHeadTitleDownload {
+  margin-top: 12px;
+}
+
+div.webHeadBoxSpacer {
+  width: 100%;
+  height: 5px;
+}
+
+div.headerProfileBox {
+  font-size: 1.0em;
+  text-align: center;
+}
+
+div.headerSearchBox {
+  font-size: 1.0em;
+  text-align: right;
+}
+
+div.headerSearchBoxRight {
+  width: 95%;
+  padding-top: 0.5%;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.3em;
+}
+
+div.headerProfileBoxLeft {
+  width: 95%;
+  padding-top: 0.5%;
+  padding-left: 1%;
+  padding-right: 1%;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 1.3em;
+}
+
+div.headerProfileBoxSubmitDiv {
+  display: inline-block;
+  text-align: center;
+  margin-top: 15px;
+}
+
+span.webHeadCancelButtonText {
+  font-size: 2em;
+  font-weight: bold;
+}
+
+img.webHeadSymbolOnButton {
+  width: 36px;
+  height: 36px;
+  border: 0px;
+}
+
+input.webHeadLoginSubmit {
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  color: black;
+  font-size: 1.0em;
+  font-weight: bold;
+}
+
+button.webHeadButtons {
+  width: 70px;
+  height: 70px;
+  margin-top: 8px;
+}
+
+button.webHeadCancelButton {
+  width: 149px;
+  height: 70px;
+  margin-top: 8px;
+  color: black;
+}
+
+input.webHeadLoginBox {
+  width: 25%;
+  font-size: 1.0em;
+  margin-left: 0%;
+  margin-right: 2%;
+}
+
+input.webHeadSearchBox {
+  width: 50%;
+  font-size: 1.0em;
+  margin-left: 0%;
+  margin-right: 2%;
+}
+
+input.webHeadSearchSubmit {
+  margin-top: 0.5%;
+  margin-bottom: 0.5%;
+  color: black;
+  font-size: 1.0em;
+  font-weight: bold;
+}
+
+span.webHeadTitleName {
+  color: #ffffff;
+  text-shadow: 0.1em 0.1em #333333;
+  font-size: 1.5em;
+  font-weight: bold;
+  letter-spacing: 0.2em;
+}
+
+span.webHeadTitleBeta {
+  color: #ffffff;
+  font-size: 1.1em;
+  letter-spacing: 0.1em;
+}
+
+a.webHeadTitleDownload {
+  color: #ffffff;
+  font-size: 0.9em;
+  letter-spacing: 0.2em;
+  font-weight: bold;
+}

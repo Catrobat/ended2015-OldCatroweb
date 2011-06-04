@@ -50,13 +50,15 @@
           <div style="clear:both;"></div>
         </div>
       </div>
-      <div id="headerSearchBox" style="display:none;">
+      <div id="headerSearchBox" class="headerSearchBox" style="display:none;">
         <div class="webHeadBoxSpacer"></div>
         <div class="blueBoxMain">
           <div class="webMainHead">
             <form id="searchForm">
-              <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
-              <input type="submit" class="webHeadSearchSubmit" value="Search" />
+              <div class="headerSearchBoxRight" >
+                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
+                <input type="submit" class="webHeadSearchSubmit button orange" value="Search" />
+              </div>
             </form>
           </div>
         </div>
@@ -76,11 +78,11 @@
               	  <?php if($this->module->clientDetection->isMobile()) {?>
               		Nick:<br><input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="nickname"  /><br>
                 	Password:<br><input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="password"  /><br>
-                    <input id="loginSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Login" />
+                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="Login" />
               	  <?php } else {?>
                     Nick: <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="nickname"  />
                     Password: <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="password"  />
-                    <input id="loginSubmitButton" type="button" class="button orange webHeadSubmitButton" value="Login" />
+                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="Login" />
               	  <?php }?>
                 </div>         
               </form>

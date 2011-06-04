@@ -32,11 +32,18 @@
             	  <div class ="whiteBoxMain">
             	    <div class="registrationText">
             	    <div class="registrationFormContainer">
+                        <!-- 
             	    	<div class="registrationFormAnswer" id="registrationFormAnswer">
             	    		<div class="errorMsg" id="errorMsg">
-            	    		<!-- error messages here -->
-              		   	</div>
-            		   	</div>
+              		   	    </div>
+            		    </div>
+                        -->
+                        <div class="registrationInfoText" id="registrationInfoText">
+                          <div class="registrationErrorMsg" id="registrationErrorMsg">
+                            <!-- errorMsg -->
+                          </div>
+                        </div>
+                         
                   	<form method="post" name="registrationFormDialog" id="registrationFormDialog">
       	  		   			<div class="registrationH2">Please choose your nickname. </div>
           		   			Nickname<br>

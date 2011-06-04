@@ -15,53 +15,60 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-div.registrationMain
-{
+div.registrationMain {
   margin-left: 2.5%;
   margin-right: 2.5%;
 }
-p.registrationText
-{ 
-  margin:0;
-  padding:0;
-}
-div.registrationText
-{
-  padding: 1.5%; 
-  padding-left: 4%;
-  padding-right: 4%;  
-  font-size:1.0em;
+
+p.registrationText {
+  margin: 0;
+  padding: 0;
 }
 
-div.registrationFormContainer
-{
-  padding: 1.5%; 
+div.registrationText {
+  padding: 1.5%;
   padding-left: 4%;
-  padding-right: 4%;  
-  font-size:1.3em;
+  padding-right: 4%;
+  font-size: 1.0em;
 }
 
-div.registrationInfoText
-{
-  font-size:0.9em;
-  margin-left: 1.5%;
-  margin-top: 1.5%; 
+div.registrationFormContainer {
+  padding: 1.5%;
+  padding-left: 4%;
+  padding-right: 4%;
+  font-size: 1.3em;
+}
+
+div.registrationInfoText {
+  display: none;
+  width: 85%;
+  font-size: 1.0em;
+  padding: 5px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+div.registrationErrorMsg {
+  color: #DF0101;
+  text-align: center;
+  padding: .2em;
+  -webkit-border-radius: .5em;
+  -moz-border-radius: .5em;
+  border-radius: .5em;
+  border: solid 1px #b7b7b7;
+  background: #fff;
+}
+
+div.registrationH2 {
+  font-size: 0.9em;
+  margin-top: 1.5%;
   margin-bottom: 1.5%;
 }
 
-div.registrationH2
-{
-  font-size:0.9em;
-  margin-top: 1.5%; 
-  margin-bottom: 1.5%;
-}
-
-input.registrationSubmitButton
-{
+input.registrationSubmitButton {
   margin-top: 2.5%;
   margin-bottom: 2.5%;
   color: black;
-  font-size:0.8em;
+  font-size: 0.8em;
   font-weight: bold;
 }

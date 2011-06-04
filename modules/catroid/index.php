@@ -21,30 +21,31 @@ class index extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     if($this->clientDetection->isBrowser(CoreClientDetection::BROWSER_FIREFOX) ||
-      $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_FIREFOX_MOBILE) ||
-      $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_SAFARI) ||
-      $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_CHROME) ||
-      $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_ANDROID)) {
-        $this->addCss('projectList.css?'.VERSION);
+    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_FIREFOX_MOBILE) ||
+    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_SAFARI) ||
+    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_CHROME) ||
+    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_ANDROID)) {
+      $this->addCss('projectList.css');
     } else {
-      $this->addCss('projectList_nohtml5.css?'.VERSION);
+      $this->addCss('projectList_nohtml5.css');
     }
-    $this->addCss('buttons.css?'.VERSION);
-    $this->addJs('newestProjects.js?'.VERSION);
-    $this->addJs('searchProjects.js?'.VERSION);
-    $this->addJs('index.js?'.VERSION);
+    $this->addJs('newestProjects.js');
+    $this->addJs('searchProjects.js');
+    $this->addJs('index.js');
     $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
-    
+  }
+
+  public function __default() {
     $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);
-    
-    if(!$this->session->pageNr) {      
+
+    if(!$this->session->pageNr) {
       $this->session->pageNr = 1;
       $this->session->task = "newestProjects";
     }
     if(isset($_REQUEST['method']) || isset($_REQUEST['p'])) {
-    	if(isset($_REQUEST['method'])) {
+      if(isset($_REQUEST['method'])) {
         $this->session->pageNr = intval($_REQUEST['method']);
-    	}
+      }
       if(isset($_REQUEST['p'])) {
         $this->session->pageNr = intval($_REQUEST['p']);
       }
@@ -52,25 +53,25 @@ class index extends CoreAuthenticationNone {
         $this->session->pageNr = 1;
       }
       if($this->session->pageNr > $this->numberOfPages) {
-        $this->session->pageNr = $this->numberOfPages; 
+        $this->session->pageNr = $this->numberOfPages;
       }
     }
     if(isset($_SERVER['HTTP_REFERER']) && !$this->session->referer) {
-    	$this->session->referer = $_SERVER['HTTP_REFERER'];
+      $this->session->referer = $_SERVER['HTTP_REFERER'];
     }
     if(isset($_SERVER['HTTP_REFERER']) && $this->session->referer != $_SERVER['HTTP_REFERER']) {
       $this->session->referer = $_SERVER['HTTP_REFERER'];
       $this->session->task = "newestProjects";
     }
-    
+
     if(isset($_REQUEST['q'])) {
-    	$this->session->searchQuery = $_REQUEST['q'];
+      $this->session->searchQuery = $_REQUEST['q'];
     }
-    
+
     if(!$this->session->task) {
       $this->session->task = "newestProjects";
     }
-      
+
     $this->task = $this->session->task;
     $this->pageNr = $this->session->pageNr;
     $this->searchQuery = "";
@@ -85,16 +86,12 @@ class index extends CoreAuthenticationNone {
     $this->error = $error;
   }
 
-  public function __default() {
-    
-  }
-
   public function getNumberOfVisibleProjects() {
     $query = 'EXECUTE get_number_of_visible_projects;';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $number = pg_fetch_all($result);
     pg_free_result($result);
-    
+
     if($number[0]['count']) {
       return $number[0]['count'];
     }

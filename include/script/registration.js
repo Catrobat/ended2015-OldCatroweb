@@ -42,6 +42,7 @@ var Registration = Class.$extend( {
   },
   
   registrationSubmit : function() {
+    $("#registrationInfoText").toggle(false);
     this.disableForm();
     var url = this.basePath + 'catroid/registration/registrationRequest.json';
     $.ajax({
@@ -67,8 +68,8 @@ var Registration = Class.$extend( {
     if(response.statusCode == 200) {
       location.href = this.basePath+'catroid/profile';
     } else {
-      $("#registrationFormAnswer").toggle(true);
-      $("#errorMsg").html(response.answer);
+      $("#registrationInfoText").toggle(true);
+      $("#registrationErrorMsg").html(response.answer);
       this.enableForm();
     }
   },

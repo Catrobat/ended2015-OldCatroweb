@@ -50,6 +50,12 @@ div.webMainContent {
   min-height: 250px;
 }
 
+div.webMainLicense {
+  text-align: center;
+  font-size: 1em;
+  color: #606060;
+}
+
 div.webMainContentTitle {
   text-align: center;
   width: 100%;
@@ -85,250 +91,9 @@ div.whiteBoxMain {
   padding-bottom: 0.8%;
 }
 
-div.webMainHead {
-  
-}
-
-div.webHeadLogo {
-  cursor: pointer;
-  float: left;
-  margin-left: 2%;
-  min-height: 79px;
-  padding-top: 15px;
-  text-align: left;
-  width: 18%;
-}
-
-div.webHeadTitle {
-  background-position: right top;
-  background-repeat: no-repeat;
-  float: left;
-  margin-left: 3%;
-  margin-top: 0;
-  min-height: 84px;
-  text-align: center;
-  width: 45%;
-}
-
-div.webHeadButtons {
-  display: none;
-  min-height: 84px;
-  width: 30%;
-  text-align: right;
-  margin-top: 0px;
-  /*padding-right: 1%;*/
-  margin-right: 2%;
-  float: right;
-}
-
-div.webHeadTitleName {
-  margin-top: 10px;
-}
-
-div.webHeadTitleDownload {
-  margin-top: 12px;
-}
-
-div.webHeadBoxSpacer {
-  width: 100%;
-  height: 5px;
-}
-
-div.headerProfileBox {
-  font-size: 1.0em;
-  text-align: center;
-}
-
-div.headerProfileBoxLeft {
-  width: 95%;
-  padding-top: 0.5%;
-  padding-left: 1%;
-  padding-right: 1%;
-  margin-left:auto;
-  margin-right:auto;
-  font-size: 1.3em;
-}
-
-div.headerProfileBoxSubmitDiv {
-  display: inline-block;
-  text-align: center;
-  margin-top: 15px;
-}
-/*
-div.headerProfileBoxProfileSubmit {
-  width: 20%;
-  text-align: left;
-  padding-left: 3%;
-  float: left;
-}
-*/
-
-div.errorMsg.off { /*color: #DF0101;*/
-  color: #000000;
-  display: inline-block;
-  zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
-  *display: inline;
-  vertical-align: baseline;
-  /*margin: 0 2px;*/
-  outline: none;
-  /*cursor: pointer;*/
-  text-align: left;
-  text-decoration: none;
-  /*font: 14px/100% Arial, Helvetica, sans-serif;*/
-  padding: .2em .5em .2em .5em;
-  /*text-shadow: 0 1px 1px rgba(0,0,0,.3);*/
-  -webkit-border-radius: .5em;
-  -moz-border-radius: .5em;
-  border-radius: .5em;
-  /*-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-  box-shadow: 0 1px 2px rgba(0,0,0,.2);*/
-  /*border: solid 1px #b7b7b7;*/
-  background: #F5A9A9;
-  /*background: -webkit-gradient(linear, left top, left bottom, from(#F6CECE), to(#ededed));
-  background: -moz-linear-gradient(top,  #F6CECE,  #ededed);
-  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#F6CECE', endColorstr='#ededed');*/
-}
-
-div.errorMsg {
-  color: #DF0101;
-  /*color: #000000;*/
-  width: 100%;
-  display: inline-block;
-  zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
-  *display: inline;
-  vertical-align: baseline;
-  /*margin: 0 2px;*/
-  outline: none;
-  /*cursor: pointer;*/
-  text-align: left;
-  text-decoration: none;
-  /*font: 14px/100% Arial, Helvetica, sans-serif;*/
-  padding: .2em .5em .2em .5em;
-  /*text-shadow: 0 1px 1px rgba(0,0,0,.3);*/
-  -webkit-border-radius: .5em;
-  -moz-border-radius: .5em;
-  border-radius: .5em;
-  /*-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-  box-shadow: 0 1px 2px rgba(0,0,0,.2);*/
-  border: solid 1px #b7b7b7;
-  background: #fff;
-  /*background: -webkit-gradient(linear, left top, left bottom, from(#F6CECE), to(#ededed));
-  background: -moz-linear-gradient(top,  #F6CECE,  #ededed);
-  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#F6CECE', endColorstr='#ededed');*/
-}
-
-div.okMsg.off {
-  color: #e8f0de;
-  border: solid 1px #b7b7b7;
-  background: #fff;
-  background: -webkit-gradient(linear, left top, left bottom, from(#fff),
-    to(#ededed) );
-  background: -moz-linear-gradient(top, #fff, #ededed);
-  filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr =
-    '#ffffff', endColorstr = '#ededed' );
-}
-
-div.okMsg {
-  color: #088A08;
-  /*color: #000000;*/
-  width: 100%;
-  display: inline-block;
-  zoom: 1; /* zoom and *display = ie7 hack for display:inline-block */
-  *display: inline;
-  vertical-align: baseline;
-  /*margin: 0 2px;*/
-  outline: none;
-  /*cursor: pointer;*/
-  text-align: left;
-  text-decoration: none;
-  /*font: 14px/100% Arial, Helvetica, sans-serif;*/
-  padding: .2em .5em .2em .5em;
-  /*text-shadow: 0 1px 1px rgba(0,0,0,.3);*/
-  -webkit-border-radius: .5em;
-  -moz-border-radius: .5em;
-  border-radius: .5em;
-  /*-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-  -moz-box-shadow: 0 1px 2px rgba(0,0,0,.2);
-  box-shadow: 0 1px 2px rgba(0,0,0,.2);*/
-  border: solid 1px #b7b7b7;
-  background: #fff;
-  /*background: -webkit-gradient(linear, left top, left bottom, from(#F6CECE), to(#ededed));
-  background: -moz-linear-gradient(top,  #F6CECE,  #ededed);
-  filter:  progid:DXImageTransform.Microsoft.gradient(startColorstr='#F6CECE', endColorstr='#ededed');*/
-}
-
-.white {
-  color: #606060;
-  border: solid 1px #b7b7b7;
-  background: #fff;
-  background: -webkit-gradient(linear, left top, left bottom, from(#fff),
-    to(#ededed) );
-  background: -moz-linear-gradient(top, #fff, #ededed);
-  filter: progid : DXImageTransform.Microsoft.gradient ( startColorstr =
-    '#ffffff', endColorstr = '#ededed' );
-}
-
-span.webHeadCancelButtonText {
-  font-size: 2em;
-  font-weight: bold;
-}
-
-img.webHeadSymbolOnButton {
-  width: 36px;
-  height: 36px;
-  border: 0px;
-}
-
-input.webHeadSubmitButton {
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
-  color: black;
-  font-size: 1.0em;
-  font-weight: bold;
-}
-
-button.webHeadButtons {
-  width: 70px;
-  height: 70px;
-  margin-top: 8px;
-}
-
-button.webHeadCancelButton {
-  width: 149px;
-  height: 70px;
-  margin-top: 8px;
-}
-
-input.webHeadLoginBox {
-  width: 25%;
-  font-size: 1.0em;
-  margin-left: 0%;
-  margin-right: 2%;
-}
-
-input.webHeadSearchBox {
-  width: 76%;
-  font-size: 2.3em;
-  margin-left: 1%;
-}
-
-input.webHeadSearchSubmit {
-  width: 20%;
-  font-size: 2.3em;
-  margin-right: 1%;
-}
-
 select.registration {
   margin: 1.2% 1% 1.2% 0.4%;
   max-width: 60%;
-}
-
-div.webMainLicense {
-  text-align: center;
-  font-size: 1em;
-  color: #606060;
 }
 
 span.webMainBottomSpacer {
@@ -351,27 +116,6 @@ img.catroidLogo {
 img.catroidBrick {
   border: none;
   width: 50%;
-}
-
-span.webHeadTitleName {
-  color: #ffffff;
-  text-shadow: 0.1em 0.1em #333333;
-  font-size: 1.5em;
-  font-weight: bold;
-  letter-spacing: 0.2em;
-}
-
-span.webHeadTitleBeta {
-  color: #ffffff;
-  font-size: 1.1em;
-  letter-spacing: 0.1em;
-}
-
-a.webHeadTitleDownload {
-  color: #ffffff;
-  font-size: 0.9em;
-  letter-spacing: 0.2em;
-  font-weight: bold;
 }
 
 a.downloadLink:link {
