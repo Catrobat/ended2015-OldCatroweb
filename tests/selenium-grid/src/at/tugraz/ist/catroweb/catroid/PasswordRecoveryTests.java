@@ -75,10 +75,8 @@ public class PasswordRecoveryTests extends BaseTest {
     session().type("xpath=//input[@name='registrationCity']", dataset.get("registrationCity"));
     session().click("xpath=//input[@name='registrationSubmit']");
     ajaxWait();
-
-    assertTrue(session().isTextPresent("CATROID registration successfull!"));
-    assertTrue(session().isTextPresent("BOARD registration successfull!"));
-    assertTrue(session().isTextPresent("WIKI registration successfull!"));
+    waitForPageToLoad();
+    assertTrue(session().isTextPresent(dataset.get("registrationUsername")+"'s Profile"));
 
     // goto lost password page and test reset by email and nickname, at first
     // use some wrong nickname or email
