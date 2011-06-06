@@ -31,107 +31,122 @@ public class AdminTests extends BaseTest {
 
   @Test(groups = { "visiblity" }, description = "check admin area login")
   public void successfulLogin() throws Throwable {
-    openAdminLocation();
-    assertRegExp(".*Administration - Catroid Website.*", session().getTitle());
-    assertTrue(session().isTextPresent("Administration Tools"));
-    session().click("xpath=//a[2]");
-    waitForPageToLoad();
-    assertRegExp(".*Catroid Website.*", session().getTitle());
-    session().goBack();
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("Catroid Administration Site"));
+    try {
+      openAdminLocation();
+      assertRegExp(".*Administration - Catroid Website.*", session().getTitle());
+      assertTrue(session().isTextPresent("Administration Tools"));
+      session().click("xpath=//a[2]");
+      waitForPageToLoad();
+      assertRegExp(".*Catroid Website.*", session().getTitle());
+      session().goBack();
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("Catroid Administration Site"));
+    } catch(AssertionError e) {
+      captureScreen("AdminTests.successfulLogin");
+      throw e;
+    }
   }
 
   @Test(groups = { "visibility" }, description = "clicks all available links in the admin area")
   public void clickAllLinks() throws Throwable {
-    openAdminLocation();
-    assertRegExp(".*Administration - Catroid Website.*", session().getTitle());
-    assertTrue(session().isTextPresent("Catroid Administration Site"));
+    try {
+      openAdminLocation();
+      assertRegExp(".*Administration - Catroid Website.*", session().getTitle());
+      assertTrue(session().isTextPresent("Catroid Administration Site"));
 
-    session().click("xpath=//a[1]");
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("Administration Tools"));
-    assertTrue(session().isTextPresent("remove inconsistant project files"));
-    assertTrue(session().isTextPresent("edit projects"));
-    assertTrue(session().isTextPresent("thumbnail uploader"));
-    assertTrue(session().isTextPresent("inappropriate projects"));
-    assertTrue(session().isTextPresent("approve unapproved words"));
+      session().click("xpath=//a[1]");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("Administration Tools"));
+      assertTrue(session().isTextPresent("remove inconsistant project files"));
+      assertTrue(session().isTextPresent("edit projects"));
+      assertTrue(session().isTextPresent("thumbnail uploader"));
+      assertTrue(session().isTextPresent("inappropriate projects"));
+      assertTrue(session().isTextPresent("approve unapproved words"));
 
-    assertRegExp(".*Administration - Catroid Website.*", session().getTitle());
+      assertRegExp(".*Administration - Catroid Website.*", session().getTitle());
 
-    session().click("xpath=//a[1]");
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("Answer"));
-    session().goBack();
-    waitForPageToLoad();
+      session().click("xpath=//a[1]");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("Answer"));
+      session().goBack();
+      waitForPageToLoad();
 
-    session().click("xpath=//a[2]");
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("Administration Tools - List of available projects"));
-    session().goBack();
-    waitForPageToLoad();
+      session().click("xpath=//a[2]");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("Administration Tools - List of available projects"));
+      session().goBack();
+      waitForPageToLoad();
 
-    session().click("xpath=//a[3]");
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("Administration Tools - Thumbnail Uploader"));
-    session().goBack();
-    waitForPageToLoad();
+      session().click("xpath=//a[3]");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("Administration Tools - Thumbnail Uploader"));
+      session().goBack();
+      waitForPageToLoad();
 
-    session().click("xpath=//a[4]");
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("Administration Tools - List of inappropriate projects"));
-    session().goBack();
-    waitForPageToLoad();
+      session().click("xpath=//a[4]");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("Administration Tools - List of inappropriate projects"));
+      session().goBack();
+      waitForPageToLoad();
 
-    session().click("xpath=//a[5]");
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("Administration Tools - List of unapproved Words"));
-    session().goBack();
-    waitForPageToLoad();
+      session().click("xpath=//a[5]");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("Administration Tools - List of unapproved Words"));
+      session().goBack();
+      waitForPageToLoad();
 
-    session().click("xpath=//a[6]");
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("Administration Tools - List of blocked IP-Addresses"));
-    session().goBack();
-    waitForPageToLoad();
+      session().click("xpath=//a[6]");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("Administration Tools - List of blocked IP-Addresses"));
+      session().goBack();
+      waitForPageToLoad();
 
-    /*
-     * session().click("xpath=//a[7]"); waitForPageToLoad();
-     * assertTrue(session().isTextPresent("Administration Tools - "));
-     * session().goBack(); waitForPageToLoad();
-     */
+      /*
+       * session().click("xpath=//a[7]"); waitForPageToLoad();
+       * assertTrue(session().isTextPresent("Administration Tools - "));
+       * session().goBack(); waitForPageToLoad();
+       */
 
-    log("AdminTests: check block Users link");
-    assertTrue(session().isTextPresent("- back"));
-    session().click("xpath=//a[8]");
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("Catroid Administration Site"));
+      log("AdminTests: check block Users link");
+      assertTrue(session().isTextPresent("- back"));
+      session().click("xpath=//a[8]");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("Catroid Administration Site"));
+    } catch(AssertionError e) {
+      captureScreen("AdminTests.clickAllLinks");
+      throw e;
+    }
   }
 
   @Test(groups = { "functionality", "upload", "popupwindows" }, description = "check report as inappropriate functionality")
   public void inappropriateProjects() throws Throwable {
-    String title = "Testproject " + CommonData.getRandomLongString(200);
-    String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "", ""));
-    String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
+    try {
+      String title = "Testproject " + CommonData.getRandomLongString(200);
+      String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "", ""));
+      String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-    openLocation("catroid/details/" + id);
-    ajaxWait();
-    session().click("reportAsInappropriateButton");
-    session().type("reportInappropriateReason", "my selenium reason");
-    session().click("reportInappropriateReportButton");
-    ajaxWait();
-    assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
-    openAdminLocation("/tools/inappropriateProjects");
-    assertTrue(session().isTextPresent(id));
+      openLocation("catroid/details/" + id);
+      ajaxWait();
+      session().click("reportAsInappropriateButton");
+      session().type("reportInappropriateReason", "my selenium reason");
+      session().click("reportInappropriateReportButton");
+      ajaxWait();
+      assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
+      openAdminLocation("/tools/inappropriateProjects");
+      assertTrue(session().isTextPresent(id));
 
-    clickAndWaitForPopUp("xpath=//a[@id='detailsLink" + id + "']", "_blank");
-    assertTrue(session().isTextPresent(title));
-    closePopUp();
+      clickAndWaitForPopUp("xpath=//a[@id='detailsLink" + id + "']", "_blank");
+      assertTrue(session().isTextPresent(title));
+      closePopUp();
 
-    session().click("resolve" + id);
-    session().getConfirmation();
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent("The project was succesfully restored and set to visible!"));
-    assertFalse(session().isTextPresent(id));
+      session().click("resolve" + id);
+      session().getConfirmation();
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("The project was succesfully restored and set to visible!"));
+      assertFalse(session().isTextPresent(id));
+    } catch(AssertionError e) {
+      captureScreen("AdminTests.inappropriateProjects");
+      throw e;
+    }
   }
 }

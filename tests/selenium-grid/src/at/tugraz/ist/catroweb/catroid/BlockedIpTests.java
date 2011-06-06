@@ -37,33 +37,40 @@ import at.tugraz.ist.catroweb.common.*;
 public class BlockedIpTests extends BaseTest {
 
   @Test(dataProvider = "blockedIps", groups = { "functionality" }, description = "test blocked ips")
-  public void blockedIps(String project_id, String blocked_ip) throws Throwable {
-    openLocation();
-    blockIp(blocked_ip);
-    openLocation("catroid/details/" + project_id);
-    assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-    assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
+  public void blockedIps(String projectId, String blockedIp) throws Throwable {
+    try {
+      openLocation();
+      blockIp(blockedIp);
+      openLocation("catroid/details/" + projectId);
+      assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
+      assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
 
-    openLocation();
-    assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-    assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
-    unblockIp(blocked_ip);
+      openLocation();
+      assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
+      assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
+      unblockIp(blockedIp);
+    } catch(AssertionError e) {
+      captureScreen("BlockedIpTests.blockedIps." + blockedIp);
+      throw e;
+    }
   }
 
-  /**
-   * @dataProvider unblockedIps
-   */
   @Test(dataProvider = "unblockedIps", dependsOnMethods = { "blockedIps" }, groups = { "functionality" }, description = "test unblocked ips")
-  public void unblockedIps(String project_id, String unblocked_ip) throws Throwable {
-    blockIp(unblocked_ip);
-    openLocation("catroid/details/" + project_id);
-    assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-    assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
+  public void unblockedIps(String projectId, String unblockedIp) throws Throwable {
+    try {
+      blockIp(unblockedIp);
+      openLocation("catroid/details/" + projectId);
+      assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
+      assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
 
-    openLocation();
-    assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-    assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
-    unblockIp(unblocked_ip);
+      openLocation();
+      assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
+      assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
+      unblockIp(unblockedIp);
+    } catch(AssertionError e) {
+      captureScreen("BlockedIpTests.unblockedIps." + unblockedIp);
+      throw e;
+    }
   }
 
   @DataProvider(name = "blockedIps")
@@ -89,7 +96,7 @@ public class BlockedIpTests extends BaseTest {
       statement.close();
       connection.close();
       DriverManager.deregisterDriver(driver);
-    } catch (SQLException e) {
+    } catch(SQLException e) {
       System.out.println("BlockedIpTests: blockIp: SQL Exception couldn't execute sql query!");
       System.out.println(e.getMessage());
     }
@@ -106,7 +113,7 @@ public class BlockedIpTests extends BaseTest {
       statement.close();
       connection.close();
       DriverManager.deregisterDriver(driver);
-    } catch (SQLException e) {
+    } catch(SQLException e) {
       System.out.println("BlockedIpTests: unblockIp: SQL Exception couldn't execute sql query!");
       System.out.println(e.getMessage());
     }

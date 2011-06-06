@@ -22,13 +22,20 @@ import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStor
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.startSeleniumSession;
 
+import java.io.File;
+import java.io.FileOutputStream;
+
 import static org.testng.AssertJUnit.assertTrue;
+
+import org.apache.commons.codec.binary.Base64;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
+
+import com.thoughtworks.selenium.SeleniumException;
 
 import at.tugraz.ist.catroweb.common.CommonFunctions;
 import at.tugraz.ist.catroweb.common.Config;
@@ -84,26 +91,25 @@ public class BaseTest {
   public static void assertRegExp(String pattern, String string) {
     assertTrue(string.matches(pattern));
   }
-  
+
   protected void openLocation() {
     openLocation("");
   }
-  
+
   protected void openLocation(String location) {
     session().open(Config.TESTS_BASE_PATH + location);
     waitForPageToLoad();
   }
-  
+
   protected void openAdminLocation() {
     session().open(CommonFunctions.getAdminPath(this.webSite));
     waitForPageToLoad();
   }
-  
+
   protected void openAdminLocation(String location) {
     session().open(CommonFunctions.getAdminPath(this.webSite) + location);
     waitForPageToLoad();
   }
-  
 
   protected void clickAndWaitForPopUp(String xpath, String windowname) {
     session().click(xpath);
@@ -125,7 +131,18 @@ public class BaseTest {
   }
 
   protected void waitForTextPresent(String text) {
-    session().waitForCondition("value = selenium.isTextPresent('" + text + "'); value == true", Config.WAIT_FOR_PAGE_TO_LOAD);
+    boolean wait = true;
+    while(wait) {
+      try {
+        session().waitForCondition("value = selenium.isTextPresent('" + text + "'); value == true", Config.WAIT_FOR_PAGE_TO_LOAD);
+        wait = false;
+      } catch(SeleniumException e) {
+        if(e.getMessage().matches(".*Timed out after.*")) {
+          wait = false;
+        }
+      }
+    }
+    assertTrue(session().isTextPresent(text));
   }
 
   protected void log(int message) {
@@ -134,5 +151,20 @@ public class BaseTest {
 
   protected void log(String message) {
     Reporter.log(message, Config.REPORTER_LOG_TO_STD_OUT);
+  }
+
+  protected void captureScreen(String imageName) {
+    String imageExtension = ".png";
+    String imagePath = Config.SELENIUM_GRID_TARGET + imageName + imageExtension;
+    try {
+      String base64Screenshot = session().captureEntirePageScreenshotToString("");
+      byte[] decodedScreenshot = Base64.decodeBase64(base64Screenshot.getBytes());
+      FileOutputStream fos = new FileOutputStream(new File(Config.FILESYSTEM_BASE_PATH + imagePath));
+      fos.write(decodedScreenshot);
+      fos.close();
+      Reporter.log("<a href=\"" + this.webSite + imagePath + "\">Screenshot</a>");
+    } catch(Exception e) {
+      e.printStackTrace();
+    }
   }
 }

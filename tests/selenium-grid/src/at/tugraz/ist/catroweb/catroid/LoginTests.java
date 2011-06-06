@@ -34,157 +34,166 @@ public class LoginTests extends BaseTest {
 
   @Test(dataProvider = "validLoginData", groups = { "functionality", "popupwindows" }, description = "check login with valid data")
   public void validLogin(HashMap<String, String> dataset) throws Throwable {
-    // log out if necessary
-    openLocation();
+    try {
+      openLocation();
 
-    // wiki username creation
-    String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
+      // wiki username creation
+      String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
 
-    // check if we are not logged in to board & wiki
-    session().click("headerMenuButton");
-    waitForPageToLoad();
+      // check if we are not logged in to board & wiki
+      session().click("headerMenuButton");
+      waitForPageToLoad();
 
-    assertTrue(session().isVisible("menuLoginButton"));
-    clickAndWaitForPopUp("menuForumButton", "board");
-    assertTrue(session().isTextPresent("Login"));
-    assertFalse(session().isTextPresent("Logout"));
-    closePopUp();
+      assertTrue(session().isVisible("menuLoginButton"));
+      clickAndWaitForPopUp("menuForumButton", "board");
+      assertTrue(session().isTextPresent("Login"));
+      assertFalse(session().isTextPresent("Logout"));
+      closePopUp();
 
-    clickAndWaitForPopUp("menuWikiButton", "wiki");
-    assertFalse(session().isTextPresent(wikiUsername));
-    closePopUp();
+      clickAndWaitForPopUp("menuWikiButton", "wiki");
+      assertFalse(session().isTextPresent(wikiUsername));
+      closePopUp();
 
-    // test login
-    openLocation();
-    assertTrue(session().isVisible("headerProfileButton"));
-    session().click("headerProfileButton");
-    assertFalse(session().isVisible("headerProfileButton"));
-    assertTrue(session().isVisible("headerCancelButton"));
-    assertTrue(session().isVisible("loginSubmitButton"));
-    assertTrue(session().isVisible("loginUsername"));
-    assertTrue(session().isVisible("loginPassword"));
-    session().click("headerCancelButton");
-    assertTrue(session().isVisible("headerProfileButton"));
-    assertFalse(session().isVisible("headerCancelButton"));
-    assertFalse(session().isVisible("loginSubmitButton"));
-    assertFalse(session().isVisible("loginUsername"));
-    assertFalse(session().isVisible("loginPassword"));
-    session().click("headerProfileButton");
-    assertFalse(session().isVisible("headerProfileButton"));
-    assertTrue(session().isVisible("headerCancelButton"));
-    assertTrue(session().isVisible("loginSubmitButton"));
-    assertTrue(session().isVisible("loginUsername"));
-    assertTrue(session().isVisible("loginPassword"));
+      // test login
+      openLocation();
+      assertTrue(session().isVisible("headerProfileButton"));
+      session().click("headerProfileButton");
+      assertFalse(session().isVisible("headerProfileButton"));
+      assertTrue(session().isVisible("headerCancelButton"));
+      assertTrue(session().isVisible("loginSubmitButton"));
+      assertTrue(session().isVisible("loginUsername"));
+      assertTrue(session().isVisible("loginPassword"));
+      session().click("headerCancelButton");
+      assertTrue(session().isVisible("headerProfileButton"));
+      assertFalse(session().isVisible("headerCancelButton"));
+      assertFalse(session().isVisible("loginSubmitButton"));
+      assertFalse(session().isVisible("loginUsername"));
+      assertFalse(session().isVisible("loginPassword"));
+      session().click("headerProfileButton");
+      assertFalse(session().isVisible("headerProfileButton"));
+      assertTrue(session().isVisible("headerCancelButton"));
+      assertTrue(session().isVisible("loginSubmitButton"));
+      assertTrue(session().isVisible("loginUsername"));
+      assertTrue(session().isVisible("loginPassword"));
 
-    session().type("loginUsername", dataset.get("username"));
-    session().type("loginPassword", dataset.get("password"));
+      session().type("loginUsername", dataset.get("username"));
+      session().type("loginPassword", dataset.get("password"));
 
-    session().click("loginSubmitButton");
-    waitForPageToLoad();
+      session().click("loginSubmitButton");
+      waitForPageToLoad();
 
-    assertTrue(session().isVisible("headerProfileButton"));
-    session().click("headerProfileButton");
-    assertTrue(session().isVisible("logoutSubmitButton"));
-    session().click("headerCancelButton");
+      assertTrue(session().isVisible("headerProfileButton"));
+      session().click("headerProfileButton");
+      assertTrue(session().isVisible("logoutSubmitButton"));
+      session().click("headerCancelButton");
 
-    session().click("headerMenuButton");
-    waitForPageToLoad();
+      session().click("headerMenuButton");
+      waitForPageToLoad();
 
-    assertTrue(session().isVisible("menuLogoutButton"));
+      assertTrue(session().isVisible("menuLogoutButton"));
 
-    clickAndWaitForPopUp("menuForumButton", "board");
-    assertFalse(session().isTextPresent("Login"));
-    assertTrue(session().isTextPresent("Logout"));
-    assertTrue(session().isTextPresent(dataset.get("username")));
-    closePopUp();
+      clickAndWaitForPopUp("menuForumButton", "board");
+      assertFalse(session().isTextPresent("Login"));
+      assertTrue(session().isTextPresent("Logout"));
+      assertTrue(session().isTextPresent(dataset.get("username")));
+      closePopUp();
 
-    clickAndWaitForPopUp("menuWikiButton", "wiki");
-    assertTrue(session().isTextPresent(wikiUsername));
-    session().click("xpath=//li[@id='pt-preferences']/a");
-    waitForPageToLoad();
-    assertEquals("Preferences", session().getText("firstHeading"));
-    assertFalse(session().isTextPresent("Not logged in"));
-    closePopUp();
+      clickAndWaitForPopUp("menuWikiButton", "wiki");
+      assertTrue(session().isTextPresent(wikiUsername));
+      session().click("xpath=//li[@id='pt-preferences']/a");
+      waitForPageToLoad();
+      assertEquals("Preferences", session().getText("firstHeading"));
+      assertFalse(session().isTextPresent("Not logged in"));
+      closePopUp();
 
-    // test logout
-    openLocation();
-    assertTrue(session().isVisible("headerProfileButton"));
-    session().click("headerProfileButton");
-    assertTrue(session().isVisible("logoutSubmitButton"));
-    session().click("logoutSubmitButton");
-    Thread.sleep(Config.TIMEOUT_THREAD);
-    assertTrue(session().isVisible("headerProfileButton"));
-    session().click("headerProfileButton");
-    assertTrue(session().isVisible("loginSubmitButton"));
-    session().click("headerCancelButton");
+      // test logout
+      openLocation();
+      assertTrue(session().isVisible("headerProfileButton"));
+      session().click("headerProfileButton");
+      assertTrue(session().isVisible("logoutSubmitButton"));
+      session().click("logoutSubmitButton");
+      Thread.sleep(Config.TIMEOUT_THREAD);
+      assertTrue(session().isVisible("headerProfileButton"));
+      session().click("headerProfileButton");
+      assertTrue(session().isVisible("loginSubmitButton"));
+      session().click("headerCancelButton");
 
-    session().click("headerMenuButton");
-    waitForPageToLoad();
+      session().click("headerMenuButton");
+      waitForPageToLoad();
 
-    assertTrue(session().isVisible("menuLoginButton"));
+      assertTrue(session().isVisible("menuLoginButton"));
 
-    clickAndWaitForPopUp("menuForumButton", "board");
-    assertTrue(session().isTextPresent("Login"));
-    assertFalse(session().isTextPresent("Logout"));
-    closePopUp();
+      clickAndWaitForPopUp("menuForumButton", "board");
+      assertTrue(session().isTextPresent("Login"));
+      assertFalse(session().isTextPresent("Logout"));
+      closePopUp();
 
-    clickAndWaitForPopUp("menuWikiButton", "wiki");
-    assertFalse(session().isTextPresent(wikiUsername));
-    closePopUp();
+      clickAndWaitForPopUp("menuWikiButton", "wiki");
+      assertFalse(session().isTextPresent(wikiUsername));
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("LoginTests.validLogin." + dataset.get("username"));
+      throw e;
+    }
   }
 
   @Test(dataProvider = "invalidLoginData", groups = { "functionality", "popupwindows" }, description = "check login with invalid data")
   public void invalidLogin(HashMap<String, String> dataset) throws Throwable {
-    // log out if necessary
-    openLocation();
+    try {
+      openLocation();
 
-    // wiki username creation
-    String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
+      // wiki username creation
+      String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
 
-    assertTrue(session().isVisible("headerProfileButton"));
-    session().click("headerProfileButton");
-    assertFalse(session().isVisible("headerProfileButton"));
-    assertTrue(session().isVisible("headerCancelButton"));
-    assertTrue(session().isVisible("loginSubmitButton"));
-    assertTrue(session().isVisible("loginUsername"));
-    assertTrue(session().isVisible("loginPassword"));
-    session().click("headerCancelButton");
-    assertTrue(session().isVisible("headerProfileButton"));
-    assertFalse(session().isVisible("headerCancelButton"));
-    assertFalse(session().isVisible("loginSubmitButton"));
-    assertFalse(session().isVisible("loginUsername"));
-    assertFalse(session().isVisible("loginPassword"));
-    session().click("headerProfileButton");
-    assertFalse(session().isVisible("headerProfileButton"));
-    assertTrue(session().isVisible("headerCancelButton"));
-    assertTrue(session().isVisible("loginSubmitButton"));
-    assertTrue(session().isVisible("loginUsername"));
-    assertTrue(session().isVisible("loginPassword"));
+      assertTrue(session().isVisible("headerProfileButton"));
+      session().click("headerProfileButton");
+      assertFalse(session().isVisible("headerProfileButton"));
+      assertTrue(session().isVisible("headerCancelButton"));
+      assertTrue(session().isVisible("loginSubmitButton"));
+      assertTrue(session().isVisible("loginUsername"));
+      assertTrue(session().isVisible("loginPassword"));
+      session().click("headerCancelButton");
+      assertTrue(session().isVisible("headerProfileButton"));
+      assertFalse(session().isVisible("headerCancelButton"));
+      assertFalse(session().isVisible("loginSubmitButton"));
+      assertFalse(session().isVisible("loginUsername"));
+      assertFalse(session().isVisible("loginPassword"));
+      session().click("headerProfileButton");
+      assertFalse(session().isVisible("headerProfileButton"));
+      assertTrue(session().isVisible("headerCancelButton"));
+      assertTrue(session().isVisible("loginSubmitButton"));
+      assertTrue(session().isVisible("loginUsername"));
+      assertTrue(session().isVisible("loginPassword"));
 
-    session().type("loginUsername", dataset.get("username"));
-    session().type("loginPassword", dataset.get("password"));
+      session().type("loginUsername", dataset.get("username"));
+      session().type("loginPassword", dataset.get("password"));
 
-    session().click("loginSubmitButton");
-    ajaxWait();
-    
-    assertTrue(session().isVisible("loginSubmitButton"));
-    session().click("headerCancelButton");
+      session().click("loginSubmitButton");
+      ajaxWait();
 
-    session().click("headerMenuButton");
-    waitForPageToLoad();
+      assertTrue(session().isVisible("loginSubmitButton"));
+      session().click("headerCancelButton");
 
-    assertTrue(session().isVisible("menuLoginButton"));
+      session().click("headerMenuButton");
+      waitForPageToLoad();
 
-    clickAndWaitForPopUp("menuForumButton", "board");
-    assertTrue(session().isTextPresent("Login"));
-    assertFalse(session().isTextPresent("Logout"));
-    closePopUp();
+      assertTrue(session().isVisible("menuLoginButton"));
 
-    clickAndWaitForPopUp("menuWikiButton", "wiki");
-    assertFalse(session().isTextPresent(wikiUsername));
-    closePopUp();
+      clickAndWaitForPopUp("menuForumButton", "board");
+      assertTrue(session().isTextPresent("Login"));
+      assertFalse(session().isTextPresent("Logout"));
+      closePopUp();
+
+      clickAndWaitForPopUp("menuWikiButton", "wiki");
+      assertFalse(session().isTextPresent(wikiUsername));
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
+      throw e;
+    }
   }
 
+  @SuppressWarnings("serial")
   @DataProvider(name = "validLoginData")
   public Object[][] validLoginData() {
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
@@ -196,6 +205,7 @@ public class LoginTests extends BaseTest {
     return dataArray;
   }
 
+  @SuppressWarnings("serial")
   @DataProvider(name = "invalidLoginData")
   public Object[][] invalidLoginData() {
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {

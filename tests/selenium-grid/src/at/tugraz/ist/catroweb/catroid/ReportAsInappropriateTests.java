@@ -35,100 +35,115 @@ public class ReportAsInappropriateTests extends BaseTest {
 
   @Test(dataProvider = "loginDataAndReportOwnProject", groups = { "functionality", "upload" }, description = "login and report own project as inappropriate")
   public void reportOwnProjectAsInappropriate(HashMap<String, String> dataset) throws Throwable {
-    // upload project
-    Random rand = new Random();
-    String projectTitle = "Testproject for report as inappropriate " + rand.nextInt(9999);
-    String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
-        dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
-    assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
-    String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
+    try {
+      // upload project
+      Random rand = new Random();
+      String projectTitle = "Testproject for report as inappropriate " + rand.nextInt(9999);
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
+          dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-    // login first
-    openLocation();
-    session().click("headerProfileButton");
-    session().type("loginUsername", dataset.get("username"));
-    session().type("loginPassword", dataset.get("password"));
-    session().click("loginSubmitButton");
-    waitForPageToLoad();
-    ajaxWait();
-    Thread.sleep(Config.TIMEOUT_THREAD);
-    assertTrue(session().isVisible("headerProfileButton"));
-    session().click("headerProfileButton");
-    assertTrue(session().isVisible("logoutSubmitButton"));
-    session().click("headerCancelButton");
-    assertTrue(session().isTextPresent(projectTitle));
+      // login first
+      openLocation();
+      session().click("headerProfileButton");
+      session().type("loginUsername", dataset.get("username"));
+      session().type("loginPassword", dataset.get("password"));
+      session().click("loginSubmitButton");
+      waitForPageToLoad();
+      ajaxWait();
+      Thread.sleep(Config.TIMEOUT_THREAD);
+      assertTrue(session().isVisible("headerProfileButton"));
+      session().click("headerProfileButton");
+      assertTrue(session().isVisible("logoutSubmitButton"));
+      session().click("headerCancelButton");
+      assertTrue(session().isTextPresent(projectTitle));
 
-    // goto details page
-    openLocation("catroid/details/" + projectId);
-    ajaxWait();
-    assertTrue(session().isTextPresent(projectTitle));
-    assertTrue(session().isTextPresent(dataset.get("projectDescription")));
+      // goto details page
+      openLocation("catroid/details/" + projectId);
+      ajaxWait();
+      assertTrue(session().isTextPresent(projectTitle));
+      assertTrue(session().isTextPresent(dataset.get("projectDescription")));
 
-    // report as inappropriate not visible
-    assertFalse(session().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
+      // report as inappropriate not visible
+      assertFalse(session().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
 
-    assertTrue(session().isElementPresent("xpath=//button[@id='headerMenuButton']"));
-    session().click("xpath=//button[@id='headerMenuButton']");
-    waitForPageToLoad();
-    ajaxWait();
+      assertTrue(session().isElementPresent("xpath=//button[@id='headerMenuButton']"));
+      session().click("xpath=//button[@id='headerMenuButton']");
+      waitForPageToLoad();
+      ajaxWait();
 
-    session().click("xpath=//button[@id='menuLogoutButton']");
-    waitForPageToLoad();
-    ajaxWait();
+      session().click("xpath=//button[@id='menuLogoutButton']");
+      waitForPageToLoad();
+      ajaxWait();
 
-    openLocation("catroid/details/" + projectId);
-    assertTrue(session().isTextPresent(projectTitle));
-    assertTrue(session().isTextPresent(dataset.get("projectDescription")));
-    // report as inappropriate visible again after logout
-    assertTrue(session().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
+      openLocation("catroid/details/" + projectId);
+      assertTrue(session().isTextPresent(projectTitle));
+      assertTrue(session().isTextPresent(dataset.get("projectDescription")));
+      // report as inappropriate visible again after logout
+      assertTrue(session().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
 
-    openLocation("catroid/logout");
-    ajaxWait();
+      openLocation("catroid/logout");
+      ajaxWait();
+    } catch(AssertionError e) {
+      captureScreen("ReportAsInappropriateTests.reportOwnProjectAsInappropriate");
+      throw e;
+    }
   }
 
   @Test(dataProvider = "loginDataAndReportOwnProjectAnonymous", groups = { "functionality", "upload" }, description = "report own project as inappropriate anonymously")
   public void testReportAnonymousProjectAsInappropriate(HashMap<String, String> dataset) throws Throwable {
-    // upload project
-    Random rand = new Random();
-    String projectTitle = "Testproject for report as inappropriate (anonymous user) " + rand.nextInt(9999);
-    String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
-        dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
-    assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
-    String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
+    try {
+      // upload project
+      Random rand = new Random();
+      String projectTitle = "Testproject for report as inappropriate (anonymous user) " + rand.nextInt(9999);
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
+          dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-    openLocation();
-    ajaxWait();
-    Thread.sleep(Config.TIMEOUT_THREAD);
-    assertTrue(session().isTextPresent(projectTitle));
+      openLocation();
+      ajaxWait();
+      Thread.sleep(Config.TIMEOUT_THREAD);
+      assertTrue(session().isTextPresent(projectTitle));
 
-    // goto details page
-    openLocation("catroid/details/" + projectId);
-    ajaxWait();
-    assertTrue(session().isTextPresent(projectTitle));
-    assertTrue(session().isTextPresent(dataset.get("projectDescription")));
+      // goto details page
+      openLocation("catroid/details/" + projectId);
+      ajaxWait();
+      assertTrue(session().isTextPresent(projectTitle));
+      assertTrue(session().isTextPresent(dataset.get("projectDescription")));
 
-    // report as inappropriate
-    assertTrue(session().isElementPresent("reportAsInappropriateButton"));
-    session().click("reportAsInappropriateButton");
+      // report as inappropriate
+      assertTrue(session().isElementPresent("reportAsInappropriateButton"));
+      session().click("reportAsInappropriateButton");
 
-    assertTrue(session().isVisible("reportInappropriateReason"));
-    assertTrue(session().isVisible("reportInappropriateReportButton"));
-    assertTrue(session().isVisible("reportInappropriateCancelButton"));
+      assertTrue(session().isVisible("reportInappropriateReason"));
+      assertTrue(session().isVisible("reportInappropriateReportButton"));
+      assertTrue(session().isVisible("reportInappropriateCancelButton"));
 
-    session().click("reportAsInappropriateButton");
-    session().type("reportInappropriateReason", "my selenium reason");
-    session().click("reportInappropriateReportButton");
-    ajaxWait();
+      session().click("reportAsInappropriateButton");
+      session().type("reportInappropriateReason", "my selenium reason");
+      session().click("reportInappropriateReportButton");
+      ajaxWait();
 
-    assertFalse(session().isVisible("reportInappropriateReason"));
-    assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
+      assertFalse(session().isVisible("reportInappropriateReason"));
+      assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
 
-    // project is hidden
-    openLocation();
-    ajaxWait();
-    assertFalse(session().isTextPresent(projectTitle));
+      // project is hidden
+      openLocation();
+      ajaxWait();
+      assertFalse(session().isTextPresent(projectTitle));
+    } catch(AssertionError e) {
+      captureScreen("ReportAsInappropriateTests.testReportAnonymousProjectAsInappropriate");
+      throw e;
+    }
   }
 
+  private String createToken(String username, String password) {
+    return CommonFunctions.md5(CommonFunctions.md5(username) + ":" + CommonFunctions.md5(password));
+  }
+
+  @SuppressWarnings("serial")
   @DataProvider(name = "loginDataAndReportOwnProject")
   public Object[][] loginDataAndReportOwnProject() {
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
@@ -136,18 +151,15 @@ public class ReportAsInappropriateTests extends BaseTest {
         put("projectDescription", "some description for my test project connected to my user id after registration and login at catroid.org.");
         put("projectSource", "test2.zip");
         put("projectChecksum", "149c6b242dc410650a061292cd40f7d5");
-        put("username", "catroweb");
-        put("password", "cat.roid.web");
-        put("token", createToken("catroweb", "cat.roid.web"));
+        put("username", CommonData.getLoginUserDefault());
+        put("password", CommonData.getLoginPasswordDefault());
+        put("token", createToken(CommonData.getLoginUserDefault(), CommonData.getLoginPasswordDefault()));
       }
     } } };
     return dataArray;
   }
 
-  private String createToken(String username, String password) {
-    return CommonFunctions.md5(CommonFunctions.md5(username) + ":" + CommonFunctions.md5(password));
-  }
-
+  @SuppressWarnings("serial")
   @DataProvider(name = "loginDataAndReportOwnProjectAnonymous")
   public Object[][] loginDataAndReportOwnProjectAnonymous() {
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {

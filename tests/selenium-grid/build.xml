@@ -41,6 +41,7 @@
       <include name="selenium-java-client-driver-${selenium.version}.jar"/>
       <include name="testng-5.7-jdk15.jar"/>
       <include name="commons-logging-1.0.4.jar"/>
+      <include name="commons-codec-1.5.jar"/>
       <include name="httpclient-4.1.1.jar"/>
       <include name="httpcore-4.1.jar"/>
       <include name="httpmime-4.1.1.jar"/>

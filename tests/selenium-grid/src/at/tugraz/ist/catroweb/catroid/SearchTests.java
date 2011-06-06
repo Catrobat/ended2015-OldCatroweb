@@ -34,209 +34,237 @@ public class SearchTests extends BaseTest {
 
   @Test(dataProvider = "randomProjects", groups = { "functionality", "upload" }, description = "search for random title and description")
   public void titleAndDescription(HashMap<String, String> dataset) throws Throwable {
-    projectUploader.upload(dataset);
+    try {
+      projectUploader.upload(dataset);
 
-    String projectTitle = dataset.get("projectTitle");
-    String projectDescription = dataset.get("projectDescription");
+      String projectTitle = dataset.get("projectTitle");
+      String projectDescription = dataset.get("projectDescription");
 
-    openLocation();
-    ajaxWait();
+      openLocation();
+      ajaxWait();
 
-    assertFalse(session().isVisible("headerSearchBox"));
-    session().click("headerSearchButton");
-    assertTrue(session().isVisible("headerSearchBox"));
+      assertFalse(session().isVisible("headerSearchBox"));
+      session().click("headerSearchButton");
+      assertTrue(session().isVisible("headerSearchBox"));
 
-    session().type("searchQuery", projectTitle);
-    //session().click("xpath=//input[@class='webHeadSearchSubmit']");
-    session().click("webHeadSearchSubmit");
-    ajaxWait();
+      session().type("searchQuery", projectTitle);
+      // session().click("xpath=//input[@class='webHeadSearchSubmit']");
+      session().click("webHeadSearchSubmit");
+      ajaxWait();
 
-    assertFalse(session().isVisible("fewerProjects"));
-    assertFalse(session().isVisible("moreProjects"));
-    assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-    assertTrue(session().isTextPresent(projectTitle));
+      assertFalse(session().isVisible("fewerProjects"));
+      assertFalse(session().isVisible("moreProjects"));
+      assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+      assertTrue(session().isTextPresent(projectTitle));
 
-    // test description
-    session().type("searchQuery", projectDescription);
-    //session().click("xpath=//input[@class='webHeadSearchSubmit']");
-    session().click("webHeadSearchSubmit");
-    ajaxWait();
-    waitForTextPresent(projectTitle);
-    assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+      // test description
+      session().type("searchQuery", projectDescription);
+      // session().click("xpath=//input[@class='webHeadSearchSubmit']");
+      session().click("webHeadSearchSubmit");
+      ajaxWait();
+      waitForTextPresent(projectTitle);
+      assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
 
-    assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
-    assertTrue(session().isTextPresent(projectTitle));
+      assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
+      assertTrue(session().isTextPresent(projectTitle));
+    } catch(AssertionError e) {
+      captureScreen("SearchTests.titleAndDescription." + dataset.get("projectTitle"));
+      throw e;
+    }
   }
 
   @Test(dataProvider = "specialChars", groups = { "functionality", "upload" }, description = "search forspecial chars")
   public void specialChars(String specialchars) throws Throwable {
-    String projectTitle = "search_test_" + specialchars;
-    projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(200), "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "",
-        "", "0"));
+    try {
+      String projectTitle = "search_test_" + specialchars;
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(200), "test.zip", "72ed87fbd5119885009522f08b7ee79f", "",
+          "", "", "0"));
 
-    openLocation();
-    ajaxWait();
-
-    for (int i = projectTitle.length() - specialchars.length(); i < projectTitle.length(); i++) {
-      session().click("headerSearchButton");
-      session().type("searchQuery", projectTitle.substring(i, i + 1));
-      //session().click("xpath=//input[@class='webHeadSearchSubmit']");
-      session().click("webHeadSearchSubmit");
-      ajaxWait();
-      waitForTextPresent(projectTitle);
-
-      assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-      assertTrue(session().isTextPresent(projectTitle));
-      assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
-
-      session().type("searchQuery", CommonData.getRandomShortString(10));
-      //session().click("xpath=//input[@class='webHeadSearchSubmit']");
-      session().click("webHeadSearchSubmit");
+      openLocation();
       ajaxWait();
 
-      assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-      assertFalse(session().isTextPresent(projectTitle));
-      assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
+      for(int i = projectTitle.length() - specialchars.length(); i < projectTitle.length(); i++) {
+        session().click("headerSearchButton");
+        session().type("searchQuery", projectTitle.substring(i, i + 1));
+        // session().click("xpath=//input[@class='webHeadSearchSubmit']");
+        session().click("webHeadSearchSubmit");
+        ajaxWait();
+        waitForTextPresent(projectTitle);
+
+        assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+        assertTrue(session().isTextPresent(projectTitle));
+        assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
+
+        session().type("searchQuery", CommonData.getRandomShortString(10));
+        // session().click("xpath=//input[@class='webHeadSearchSubmit']");
+        session().click("webHeadSearchSubmit");
+        ajaxWait();
+
+        assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+        assertFalse(session().isTextPresent(projectTitle));
+        assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
+      }
+    } catch(AssertionError e) {
+      captureScreen("SearchTests.specialChars." + specialchars);
+      throw e;
     }
   }
 
   @Test(groups = { "visibility", "upload" }, description = "TODO! when bugfix available")
   public void checkButtonVisibility() throws Throwable {
-    /*
-     * 
-     * assertFalse(session().isVisible("fewerProjects"));
-     * assertFalse(session().isVisible("moreProjects"));
-     */
-    // TODO, when bugfix available
-    /*
-     * session().click("headerCancelButton"); ajaxWait();
-     * assertFalse(session().isTextPresent
-     * (CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-     * assertTrue(session().isTextPresent
-     * (CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
-     * 
-     * session().click("headerSearchButton"); session().type("searchQuery",
-     * projectTitle);
-     * session().click("xpath=//input[@class='webHeadSearchSubmit']");
-     * ajaxWait();
-     */
+    try {
+      /*
+       * 
+       * assertFalse(session().isVisible("fewerProjects"));
+       * assertFalse(session().isVisible("moreProjects"));
+       */
+      // TODO, when bugfix available
+      /*
+       * session().click("headerCancelButton"); ajaxWait();
+       * assertFalse(session().isTextPresent
+       * (CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+       * assertTrue(session().isTextPresent
+       * (CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+       * 
+       * session().click("headerSearchButton"); session().type("searchQuery",
+       * projectTitle);
+       * session().click("xpath=//input[@class='webHeadSearchSubmit']");
+       * ajaxWait();
+       */
+    } catch(AssertionError e) {
+      captureScreen("SearchTests.checkButtonVisibility");
+      throw e;
+    }
   }
 
   @Test(groups = { "functionality", "upload" }, description = "search test with page navigation")
   public void pageNavigation() throws Throwable {
-    String projectTitle = CommonData.getRandomShortString(10) + "_";
+    try {
+      String projectTitle = CommonData.getRandomShortString(10) + "_";
 
-    int uploadCount = Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1);
+      int uploadCount = Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1);
 
-    System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
-    for (int i = 0; i < uploadCount; i++) {
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle + "_" + i, "pagenavigationtest", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "",
-          "", "0"));
-    }
+      System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
+      for(int i = 0; i < uploadCount; i++) {
+        projectUploader.upload(CommonData.getUploadPayload(projectTitle + "_" + i, "pagenavigationtest", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "",
+            "", "", "0"));
+      }
 
-    openLocation();
-    ajaxWait();
-
-    session().click("headerSearchButton");
-    session().type("searchQuery", projectTitle);
-    //session().click("xpath=//input[@class='webHeadSearchSubmit']");
-    session().click("webHeadSearchSubmit");
-    ajaxWait();
-
-    int i = 0;
-    for (i = 0; i < Config.PROJECT_PAGE_SHOW_MAX_PAGES; i++) {
-      session().click("moreProjects");
+      openLocation();
       ajaxWait();
-      assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i + 2) + "", session()
+
+      session().click("headerSearchButton");
+      session().type("searchQuery", projectTitle);
+      // session().click("xpath=//input[@class='webHeadSearchSubmit']");
+      session().click("webHeadSearchSubmit");
+      ajaxWait();
+
+      int i = 0;
+      for(i = 0; i < Config.PROJECT_PAGE_SHOW_MAX_PAGES; i++) {
+        session().click("moreProjects");
+        ajaxWait();
+        assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i + 2) + "", session()
+            .getTitle());
+      }
+
+      assertTrue(session().isVisible("fewerProjects"));
+      assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_PREV_BUTTON));
+      session().click("fewerProjects");
+      ajaxWait();
+      assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session()
           .getTitle());
+
+      assertFalse(session().isVisible("fewerProjects"));
+      assertTrue(session().isVisible("moreProjects"));
+
+      // test session
+      session().refresh();
+      waitForPageToLoad();
+      ajaxWait();
+      assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session()
+          .getTitle());
+
+      assertTrue(session().isVisible("fewerProjects"));
+      assertTrue(session().isVisible("moreProjects"));
+      // test links to details page
+      session().click("xpath=//a[@class='projectListDetailsLink'][1]");
+      waitForPageToLoad();
+      assertRegExp(".*/catroid/details.*", session().getLocation());
+      session().goBack();
+      waitForPageToLoad();
+      ajaxWait();
+      assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session()
+          .getTitle());
+
+      assertTrue(session().isVisible("fewerProjects"));
+      assertTrue(session().isVisible("moreProjects"));
+      // test header click
+      session().click("aIndexWebLogoLeft");
+      ajaxWait();
+      assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (1) + "$", session().getTitle());
+    } catch(AssertionError e) {
+      captureScreen("SearchTests.pageNavigation");
+      throw e;
     }
-
-    assertTrue(session().isVisible("fewerProjects"));
-    assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_PREV_BUTTON));
-    session().click("fewerProjects");
-    ajaxWait();
-    assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session().getTitle());
-
-    assertFalse(session().isVisible("fewerProjects"));
-    assertTrue(session().isVisible("moreProjects"));
-
-    // test session
-    session().refresh();
-    waitForPageToLoad();
-    ajaxWait();
-    assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session().getTitle());
-
-    assertTrue(session().isVisible("fewerProjects"));
-    assertTrue(session().isVisible("moreProjects"));
-    // test links to details page
-    session().click("xpath=//a[@class='projectListDetailsLink'][1]");
-    waitForPageToLoad();
-    assertRegExp(".*/catroid/details.*", session().getLocation());
-    session().goBack();
-    waitForPageToLoad();
-    ajaxWait();
-    assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session().getTitle());
-
-    assertTrue(session().isVisible("fewerProjects"));
-    assertTrue(session().isVisible("moreProjects"));
-    // test header click
-    session().click("aIndexWebLogoLeft");
-    ajaxWait();
-    assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (1) + "$", session().getTitle());
   }
 
   @Test(groups = { "functionality", "upload" }, description = "search and hide project")
   public void searchAndHideProject() throws Throwable {
-    String projectTitle = "search_test_" + CommonData.getRandomShortString(10);
-    projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0"));
+    try {
+      String projectTitle = "search_test_" + CommonData.getRandomShortString(10);
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0"));
 
-    String projectID = projectUploader.getProjectId(projectTitle);
+      String projectID = projectUploader.getProjectId(projectTitle);
 
-    openLocation();
-    ajaxWait();
+      openLocation();
+      ajaxWait();
 
-    // hide project
-    openAdminLocation("/tools/editProjects");
-    session().click("toggle" + projectID);
-    session().getConfirmation();
-    waitForPageToLoad();
+      // hide project
+      openAdminLocation("/tools/editProjects");
+      session().click("toggle" + projectID);
+      session().getConfirmation();
+      waitForPageToLoad();
 
-    openLocation();
-    ajaxWait();
-    session().click("headerSearchButton");
-    session().type("searchQuery", projectTitle);
-    //session().click("xpath=//input[@class='webHeadSearchSubmit']");
-    session().click("webHeadSearchSubmit");
-    ajaxWait();
+      openLocation();
+      ajaxWait();
+      session().click("headerSearchButton");
+      session().type("searchQuery", projectTitle);
+      // session().click("xpath=//input[@class='webHeadSearchSubmit']");
+      session().click("webHeadSearchSubmit");
+      ajaxWait();
 
-    assertFalse(session().isTextPresent(projectTitle));
-    assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
+      assertFalse(session().isTextPresent(projectTitle));
+      assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
 
-    session().click("aIndexWebLogoLeft");
-    ajaxWait();
-    assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-    assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+      session().click("aIndexWebLogoLeft");
+      ajaxWait();
+      assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+      assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
 
-    // unhide project
-    openAdminLocation("/tools/editProjects");
-    session().click("toggle" + projectID);
-    session().getConfirmation();
-    waitForPageToLoad();
+      // unhide project
+      openAdminLocation("/tools/editProjects");
+      session().click("toggle" + projectID);
+      session().getConfirmation();
+      waitForPageToLoad();
 
-    openLocation();
-    ajaxWait();
-    session().click("headerSearchButton");
-    session().type("searchQuery", projectTitle);
-    //session().click("xpath=//input[@class='webHeadSearchSubmit']");
-    session().click("webHeadSearchSubmit");
-    ajaxWait();
+      openLocation();
+      ajaxWait();
+      session().click("headerSearchButton");
+      session().type("searchQuery", projectTitle);
+      // session().click("xpath=//input[@class='webHeadSearchSubmit']");
+      session().click("webHeadSearchSubmit");
+      ajaxWait();
 
-    assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-    assertTrue(session().isTextPresent(projectTitle));
-    assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
+      assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+      assertTrue(session().isTextPresent(projectTitle));
+      assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
 
-    assertFalse(session().isVisible("fewerProjects"));
-    assertFalse(session().isVisible("moreProjects"));
+      assertFalse(session().isVisible("fewerProjects"));
+      assertFalse(session().isVisible("moreProjects"));
+    } catch(AssertionError e) {
+      captureScreen("SearchTests.searchAndHideProject");
+      throw e;
+    }
   }
 
   @DataProvider(name = "specialChars")

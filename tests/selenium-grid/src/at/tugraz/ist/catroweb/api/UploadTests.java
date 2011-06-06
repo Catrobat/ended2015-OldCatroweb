@@ -31,42 +31,58 @@ import at.tugraz.ist.catroweb.common.*;
 
 @Test(groups = { "api", "UploadTests" })
 public class UploadTests extends BaseTest {
-  
+
   @Test(dataProvider = "validProjectsForUpload", groups = { "upload", "functionality" }, description = "upload valid projects")
   public void uploadValidProjects(HashMap<String, String> dataset) {
-    String response = projectUploader.upload(dataset);
-    assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
-    openLocation();    
-    ajaxWait();
-    assertTrue(session().isTextPresent(dataset.get("projectTitle")));
+    try {
+      String response = projectUploader.upload(dataset);
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      openLocation();
+      ajaxWait();
+      assertTrue(session().isTextPresent(dataset.get("projectTitle")));
+    } catch(AssertionError e) {
+      captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
+      throw e;
+    }
   }
 
-  @Test(dataProvider = "validProjectsForUpload", groups = {"upload", "functionality"  }, description = "upload invalid projects")
+  @Test(dataProvider = "invalidProjectsForUpload", groups = { "upload", "functionality" }, description = "upload invalid projects")
   public void uploadInvalidProjects(HashMap<String, String> dataset) {
-    String response = projectUploader.upload(dataset);
-    assertNotSame("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+    try {
+      String response = projectUploader.upload(dataset);
+      assertNotSame("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+    } catch(AssertionError e) {
+      captureScreen("UploadTests.uploadInvalidProjects." + dataset.get("projectTitle"));
+      throw e;
+    }
   }
 
-  @DataProvider(name="validProjectsForUpload")
-  public Object[][] validProjectsForUpload(){
+  @DataProvider(name = "validProjectsForUpload")
+  public Object[][] validProjectsForUpload() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
-        { CommonData.getUploadPayload("my test project with spaces", "some description for my test project.", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
-        { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
-        { CommonData.getUploadPayload("my_test_project_with_looong_description", "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
-        { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip", "149c6b242dc410650a061292cd40f7d5", "", "", "", "0") }
-      };
-     return returnArray;
+        { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "",
+            "", "", "0") },
+        { CommonData.getUploadPayload("my test project with spaces", "some description for my test project.", "test.zip", "72ed87fbd5119885009522f08b7ee79f",
+            "", "", "", "0") },
+        { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test.zip",
+            "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
+        { CommonData
+            .getUploadPayload(
+                "my_test_project_with_looong_description",
+                "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ",
+                "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
+        { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip",
+            "149c6b242dc410650a061292cd40f7d5", "", "", "", "0") } };
+    return returnArray;
   }
-  
-  @DataProvider(name="invalidProjectsForUpload")
-  public Object[][] invalidProjectsForUpload(){
+
+  @DataProvider(name = "invalidProjectsForUpload")
+  public Object[][] invalidProjectsForUpload() {
     Object[][] returnArray = new Object[][] {
         { CommonData.getUploadPayload("insulting word in description", "fuck the project!!!!", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
         { CommonData.getUploadPayload("fucking word in title", "some description", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
         { CommonData.getUploadPayload("no token given", "some description", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", " ") },
-        { CommonData.getUploadPayload("wrong token given", "some description", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "123") }
-      };
-     return returnArray;
+        { CommonData.getUploadPayload("wrong token given", "some description", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "123") } };
+    return returnArray;
   }
 }

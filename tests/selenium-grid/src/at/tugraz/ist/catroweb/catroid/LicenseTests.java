@@ -24,84 +24,103 @@ import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
-import at.tugraz.ist.catroweb.common.*;
 
 @Test(groups = { "catroid", "LicenseTests" })
 public class LicenseTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "check privacy policy link/page")
   public void privacyPolicy() throws Throwable {
-    openLocation();
-    session().click("xpath=//a[@class='license']");
-    waitForPageToLoad();
+    try {
+      openLocation();
+      session().click("xpath=//a[@class='license']");
+      waitForPageToLoad();
 
-    assertTrue(session().isTextPresent("Privacy Policy"));
-    session().isElementPresent("xpath=//p[@class='licenseText']/a");
+      assertTrue(session().isTextPresent("Privacy Policy"));
+      session().isElementPresent("xpath=//p[@class='licenseText']/a");
+    } catch(AssertionError e) {
+      captureScreen("LicenseTests.privacyPolicy");
+      throw e;
+    }
   }
 
   @Test(groups = { "visibility", "popupwindows" }, description = "check terms of use link/page")
   public void termsOfUse() throws Throwable {
-    openLocation();
-    session().click("xpath=//a[@class='license'][2]");
-    waitForPageToLoad();
+    try {
+      openLocation();
+      session().click("xpath=//a[@class='license'][2]");
+      waitForPageToLoad();
 
-    assertTrue(session().isTextPresent("Welcome to the Catroid community!"));
-    assertTrue(session().isTextPresent("As part of the Catroid community, you are sharing projects and ideas with people:"));
-    clickAndWaitForPopUp("xpath=//p[@class='licenseText'][3]/a", "_blank");
-    assertRegExp("test", "test");
-    assertRegExp(".*Creative Commons — Attribution-ShareAlike 2.0 Generic — CC BY-SA 2.0.*", session().getTitle());
-    closePopUp();
+      assertTrue(session().isTextPresent("Welcome to the Catroid community!"));
+      assertTrue(session().isTextPresent("As part of the Catroid community, you are sharing projects and ideas with people:"));
+      clickAndWaitForPopUp("xpath=//p[@class='licenseText'][3]/a", "_blank");
+      assertRegExp("test", "test");
+      assertRegExp(".*Creative Commons — Attribution-ShareAlike 2.0 Generic — CC BY-SA 2.0.*", session().getTitle());
+      closePopUp();
 
-    clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[2]", "_blank");
-    assertTrue(session().isTextPresent("GNU GENERAL PUBLIC LICENSE"));
-    assertTrue(session().isTextPresent("Version 3, 29 June 2007"));
-    closePopUp();
+      clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[2]", "_blank");
+      assertTrue(session().isTextPresent("GNU GENERAL PUBLIC LICENSE"));
+      assertTrue(session().isTextPresent("Version 3, 29 June 2007"));
+      closePopUp();
 
-    clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[3]", "_blank");
-    assertTrue(session().isTextPresent("GNU AFFERO GENERAL PUBLIC LICENSE"));
-    assertTrue(session().isTextPresent("Version 3, 19 November 2007"));
-    closePopUp();
+      clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[3]", "_blank");
+      assertTrue(session().isTextPresent("GNU AFFERO GENERAL PUBLIC LICENSE"));
+      assertTrue(session().isTextPresent("Version 3, 19 November 2007"));
+      closePopUp();
 
-    clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[4]", "_blank");
-    assertRegExp(".*catroid -.*", session().getTitle());
-    assertRegExp(".*An on-device graphical programming language for Android inspired by Scratch.*", session().getTitle());
-    closePopUp();
+      clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[4]", "_blank");
+      assertRegExp(".*catroid -.*", session().getTitle());
+      assertRegExp(".*An on-device graphical programming language for Android inspired by Scratch.*", session().getTitle());
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("LicenseTests.termsOfUse");
+      throw e;
+    }
   }
 
   @Test(groups = { "visibility", "popupwindows" }, description = "check copyright policy link/page")
   public void copyrightPolicy() throws Throwable {
-    openLocation();
-    session().click("xpath=//a[@class='license'][3]");
-    waitForPageToLoad();
+    try {
+      openLocation();
+      session().click("xpath=//a[@class='license'][3]");
+      waitForPageToLoad();
 
-    assertTrue(session().isTextPresent("Copyright Policy"));
-    session().isElementPresent("xpath=//p[@class='licenseText']/a");
-    clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[2]", "_blank");
-    assertTrue(session().isTextPresent("Directive 2001/29/EC of the European Parliament and of the Council"));
-    assertTrue(session().isTextPresent("32001L0029"));
-    closePopUp();
+      assertTrue(session().isTextPresent("Copyright Policy"));
+      session().isElementPresent("xpath=//p[@class='licenseText']/a");
+      clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[2]", "_blank");
+      assertTrue(session().isTextPresent("Directive 2001/29/EC of the European Parliament and of the Council"));
+      assertTrue(session().isTextPresent("32001L0029"));
+      closePopUp();
 
-    clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[3]", "_blank");
-    assertTrue(session().isTextPresent("Chilling Effects"));
-    assertTrue(session().isTextPresent("Chilling Effects Clearinghouse - www.chillingeffects.org"));
-    closePopUp();
+      clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[3]", "_blank");
+      assertTrue(session().isTextPresent("Chilling Effects"));
+      assertTrue(session().isTextPresent("Chilling Effects Clearinghouse - www.chillingeffects.org"));
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("LicenseTests.copyrightPolicy");
+      throw e;
+    }
   }
 
   @Test(groups = { "visibility", "popupwindows" }, description = "check imprint link/page")
   public void imprint() throws Throwable {
-    openLocation();
-    session().click("xpath=//a[@class='license'][4]");
-    waitForPageToLoad();
+    try {
+      openLocation();
+      session().click("xpath=//a[@class='license'][4]");
+      waitForPageToLoad();
 
-    assertTrue(session().isTextPresent("Address"));
-    assertTrue(session().isTextPresent("Institut für Softwaretechnologie"));
-    assertTrue(session().isTextPresent("Technische Universität Graz"));
-    assertTrue(session().isTextPresent("Inffeldgasse 16B/II"));
-    assertTrue(session().isTextPresent("8010 Graz"));
-    assertTrue(session().isTextPresent("Austria"));
+      assertTrue(session().isTextPresent("Address"));
+      assertTrue(session().isTextPresent("Institut für Softwaretechnologie"));
+      assertTrue(session().isTextPresent("Technische Universität Graz"));
+      assertTrue(session().isTextPresent("Inffeldgasse 16B/II"));
+      assertTrue(session().isTextPresent("8010 Graz"));
+      assertTrue(session().isTextPresent("Austria"));
 
-    clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a", "_blank");
-    assertRegExp(".*IST web - Index.*", session().getTitle());
-    closePopUp();
+      clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a", "_blank");
+      assertRegExp(".*IST web - Index.*", session().getTitle());
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("LicenseTests.imprint");
+      throw e;
+    }
   }
 }

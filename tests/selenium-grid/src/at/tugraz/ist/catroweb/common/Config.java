@@ -40,6 +40,7 @@ public class Config {
   public static String FILESYSTEM_BASE_PATH = System.getProperty("user.dir") + FILESYSTEM_SEPARATOR;
 
   public static final String SELENIUM_GRID_TESTDATA = "tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "testdata" + FILESYSTEM_SEPARATOR;
+  public static final String SELENIUM_GRID_TARGET = "tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "target" + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "projects" + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_UNZIPPED_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "catroid" + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_QR_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "qrcodes" + FILESYSTEM_SEPARATOR;

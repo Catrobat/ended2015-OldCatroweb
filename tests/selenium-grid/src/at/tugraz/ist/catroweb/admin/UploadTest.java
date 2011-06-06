@@ -28,28 +28,33 @@ import at.tugraz.ist.catroweb.common.*;
 
 @Test(groups = { "admin", "UploadTest" })
 public class UploadTest extends BaseTest {
-  
+
   @Test(groups = { "upload" }, description = "upload and delete a project")
   public void uploadTest() throws Throwable {
-    String projectTitle = "testproject" + CommonData.getRandomLongString(200);
-    String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
-    String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
+    try {
+      String projectTitle = "testproject" + CommonData.getRandomLongString(200);
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
+      String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-    // delete project
-    openAdminLocation();    
-    session().click("aAdministrationTools");
-    waitForPageToLoad();
-    session().click("aAdminToolsEditProjects");
-    waitForPageToLoad();
-    assertTrue(session().isTextPresent(projectTitle));
-    session().click("xpath=//input[@id='delete" + projectId + "']");
-    session().getConfirmation();
-    waitForPageToLoad();
-    assertFalse(session().isTextPresent(projectTitle));
+      // delete project
+      openAdminLocation();
+      session().click("aAdministrationTools");
+      waitForPageToLoad();
+      session().click("aAdminToolsEditProjects");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent(projectTitle));
+      session().click("xpath=//input[@id='delete" + projectId + "']");
+      session().getConfirmation();
+      waitForPageToLoad();
+      assertFalse(session().isTextPresent(projectTitle));
 
-    // verify deletion
-    openLocation();
-    ajaxWait();
-    assertFalse(session().isTextPresent(projectTitle));
+      // verify deletion
+      openLocation();
+      ajaxWait();
+      assertFalse(session().isTextPresent(projectTitle));
+    } catch(AssertionError e) {
+      captureScreen("UploadTest.uploadTest");
+      throw e;
+    }
   }
 }

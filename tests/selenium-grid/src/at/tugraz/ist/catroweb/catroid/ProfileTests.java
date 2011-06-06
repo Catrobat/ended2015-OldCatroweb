@@ -34,112 +34,117 @@ public class ProfileTests extends BaseTest {
 
   @Test(dataProvider = "loginData", groups = { "functionality", "visibility" }, description = "check profile page")
   public void profilePage(HashMap<String, String> dataset) throws Throwable {
+    try {
+      openLocation("catroid/registration/");
 
-    openLocation("catroid/registration/");
+      session().type("xpath=//input[@name='registrationUsername']", dataset.get("registrationUsername"));
+      session().type("xpath=//input[@name='registrationPassword']", dataset.get("registrationPassword"));
+      session().type("xpath=//input[@name='registrationEmail']", dataset.get("registrationEmail"));
+      session().type("xpath=//select[@name='registrationGender']", dataset.get("registrationGender"));
+      session().type("xpath=//select[@name='registrationMonth']", dataset.get("registrationMonth"));
+      session().type("xpath=//select[@name='registrationYear']", dataset.get("registrationYear"));
+      session().type("xpath=//select[@name='registrationCountry']", dataset.get("registrationCountry"));
+      session().type("xpath=//input[@name='registrationCity']", dataset.get("registrationCity"));
 
-    session().type("xpath=//input[@name='registrationUsername']", dataset.get("registrationUsername"));
-    session().type("xpath=//input[@name='registrationPassword']", dataset.get("registrationPassword"));
-    session().type("xpath=//input[@name='registrationEmail']", dataset.get("registrationEmail"));
-    session().type("xpath=//select[@name='registrationGender']", dataset.get("registrationGender"));
-    session().type("xpath=//select[@name='registrationMonth']", dataset.get("registrationMonth"));
-    session().type("xpath=//select[@name='registrationYear']", dataset.get("registrationYear"));
-    session().type("xpath=//select[@name='registrationCountry']", dataset.get("registrationCountry"));
-    session().type("xpath=//input[@name='registrationCity']", dataset.get("registrationCity"));
+      session().click("xpath=//input[@name='registrationSubmit']");
+      ajaxWait();
+      waitForPageToLoad();
 
-    session().click("xpath=//input[@name='registrationSubmit']");
-    ajaxWait();
-    waitForPageToLoad();
-    
-    session().click("headerProfileButton");
-    assertTrue(session().isTextPresent("You are logged in as "+dataset.get("registrationUsername")+"!"));
-    assertTrue(session().isElementPresent("logoutSubmitButton"));
-    session().click("headerCancelButton");
-    
-    assertTrue(session().isTextPresent(dataset.get("registrationUsername")+"\'s Profile"));
-    assertTrue(session().isTextPresent("change my password"));
-    assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
-    assertTrue(session().isTextPresent("from "));    
+      session().click("headerProfileButton");
+      assertTrue(session().isTextPresent("You are logged in as " + dataset.get("registrationUsername") + "!"));
+      assertTrue(session().isElementPresent("logoutSubmitButton"));
+      session().click("headerCancelButton");
 
-    session().click("xpath=//a[@id='profileChangePassword']");
-    ajaxWait();
+      assertTrue(session().isTextPresent(dataset.get("registrationUsername") + "\'s Profile"));
+      assertTrue(session().isTextPresent("change my password"));
+      assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
+      assertTrue(session().isTextPresent("from "));
 
-    assertTrue(session().isVisible("xpath=//input[@id='profileOldPassword']"));
-    assertTrue(session().isVisible("xpath=//input[@id='profileNewPassword']"));
-    assertTrue(session().isVisible("xpath=//input[@id='profilePasswordSubmit']"));
+      session().click("xpath=//a[@id='profileChangePassword']");
+      ajaxWait();
 
-    session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
-    session().type("xpath=//input[@id='profileNewPassword']", dataset.get("changedPassword"));
-    session().click("xpath=//input[@id='profilePasswordSubmit']");
-    ajaxWait();
+      assertTrue(session().isVisible("xpath=//input[@id='profileOldPassword']"));
+      assertTrue(session().isVisible("xpath=//input[@id='profileNewPassword']"));
+      assertTrue(session().isVisible("xpath=//input[@id='profilePasswordSubmit']"));
 
-    assertTrue(session().isTextPresent("You updated your password successfully."));
+      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
+      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("changedPassword"));
+      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      ajaxWait();
 
-    session().click("xpath=//a[@id='profileChangePassword']");
-    ajaxWait();
+      assertTrue(session().isTextPresent("You updated your password successfully."));
 
-    session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
-    session().type("xpath=//input[@id='profileNewPassword']", dataset.get("shortPassword"));
-    session().click("xpath=//input[@id='profilePasswordSubmit']");
-    ajaxWait();
+      session().click("xpath=//a[@id='profileChangePassword']");
+      ajaxWait();
 
-    assertTrue(session().isTextPresent("The old password was incorrect."));
-    assertTrue(session().isTextPresent("The new password must have at least 6 characters."));
+      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
+      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("shortPassword"));
+      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      ajaxWait();
 
-    session().type("xpath=//input[@id='profileOldPassword']", dataset.get("changedPassword"));
-    session().type("xpath=//input[@id='profileNewPassword']", dataset.get("emptyPassword"));
-    session().click("xpath=//input[@id='profilePasswordSubmit']");
-    ajaxWait();
+      assertTrue(session().isTextPresent("The old password was incorrect."));
+      assertTrue(session().isTextPresent("The new password must have at least 6 characters."));
 
-    assertTrue(session().isTextPresent("The new password is missing."));
+      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("changedPassword"));
+      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("emptyPassword"));
+      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      ajaxWait();
 
-    session().type("xpath=//input[@id='profileOldPassword']", dataset.get("emptyPassword"));
-    session().type("xpath=//input[@id='profileNewPassword']", dataset.get("shortPassword"));
-    session().click("xpath=//input[@id='profilePasswordSubmit']");
-    ajaxWait();
+      assertTrue(session().isTextPresent("The new password is missing."));
 
-    assertTrue(session().isTextPresent("The old password is missing."));
-    assertTrue(session().isTextPresent("The new password must have at least 6 characters."));
+      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("emptyPassword"));
+      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("shortPassword"));
+      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      ajaxWait();
 
-    session().type("xpath=//input[@id='profileOldPassword']", dataset.get("changedPassword"));
-    session().type("xpath=//input[@id='profileNewPassword']", dataset.get("registrationPassword"));
-    session().click("xpath=//input[@id='profilePasswordSubmit']");
-    ajaxWait();
+      assertTrue(session().isTextPresent("The old password is missing."));
+      assertTrue(session().isTextPresent("The new password must have at least 6 characters."));
 
-    assertTrue(session().isTextPresent("You updated your password successfully."));
+      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("changedPassword"));
+      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("registrationPassword"));
+      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      ajaxWait();
 
-    session().click("xpath=//a[@id='profileChangePassword']");
-    ajaxWait();
+      assertTrue(session().isTextPresent("You updated your password successfully."));
 
-    session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
-    session().type("xpath=//input[@id='profileNewPassword']", dataset.get("registrationPassword"));
-    session().click("xpath=//input[@id='profilePasswordSubmit']");
-    ajaxWait();
-    
-    assertTrue(session().isTextPresent("You updated your password successfully."));
+      session().click("xpath=//a[@id='profileChangePassword']");
+      ajaxWait();
 
-    session().click("xpath=//a[@id='profileChangeEmailText']");
-    session().type("xpath=//input[@id='profileEmail']", dataset.get("changedEmail"));
-    session().click("xpath=//input[@id='profileEmailSubmit']");
-    waitForPageToLoad();
-    ajaxWait();
+      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
+      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("registrationPassword"));
+      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      ajaxWait();
 
-    session().getAlert();
-    assertTrue(session().isTextPresent(dataset.get("changedEmail")));
+      assertTrue(session().isTextPresent("You updated your password successfully."));
 
-    session().click("xpath=//a[@id='profileChangeEmailText']");
-    ajaxWait();
-    Thread.sleep(Config.TIMEOUT_THREAD);
+      session().click("xpath=//a[@id='profileChangeEmailText']");
+      session().type("xpath=//input[@id='profileEmail']", dataset.get("changedEmail"));
+      session().click("xpath=//input[@id='profileEmailSubmit']");
+      waitForPageToLoad();
+      ajaxWait();
 
-    session().type("xpath=//input[@id='profileEmail']", dataset.get("registrationEmail"));
-    session().click("xpath=//input[@id='profileEmailSubmit']");
-    waitForPageToLoad();
-    ajaxWait();
+      session().getAlert();
+      assertTrue(session().isTextPresent(dataset.get("changedEmail")));
 
-    assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
+      session().click("xpath=//a[@id='profileChangeEmailText']");
+      ajaxWait();
+      Thread.sleep(Config.TIMEOUT_THREAD);
 
-    CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+      session().type("xpath=//input[@id='profileEmail']", dataset.get("registrationEmail"));
+      session().click("xpath=//input[@id='profileEmailSubmit']");
+      waitForPageToLoad();
+      ajaxWait();
+
+      assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
+
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+    } catch(AssertionError e) {
+      captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
+      throw e;
+    }
   }
 
+  @SuppressWarnings("serial")
   @DataProvider(name = "loginData")
   public Object[][] loginData() {
     final String randomString = CommonData.getRandomShortString(10);
