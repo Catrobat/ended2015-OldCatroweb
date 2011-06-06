@@ -20,7 +20,7 @@
 class imprint extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
-    $this->addCss('license.css')
+    $this->addCss('license.css');
   }
 
   public function __default() {
