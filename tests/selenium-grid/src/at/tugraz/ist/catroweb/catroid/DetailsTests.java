@@ -50,12 +50,13 @@ public class DetailsTests extends BaseTest {
       assertEquals(title, session().getText("xpath=//div[@class='detailsProjectTitle']"));
       // test the view counter
       numOfViews = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
+        
       session().refresh();
       waitForPageToLoad();
       ajaxWait();
       waitForElementPresent("xpath=//p[@class='detailsStats']/b");
       numOfViewsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
-      assertEquals(numOfViews + 1, numOfViewsAfter);
+      assertEquals(numOfViews+1, numOfViewsAfter);
 
       // test the download counter
       numOfDownloads = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
@@ -113,9 +114,8 @@ public class DetailsTests extends BaseTest {
       session().click("reportInappropriateCancelButton");
       assertFalse(session().isVisible("reportInappropriateReason"));
       session().click("reportAsInappropriateButton");
-      Thread.sleep(Config.TIMEOUT_THREAD);
       session().click("reportInappropriateReportButton");
-      Thread.sleep(Config.TIMEOUT_THREAD);
+      ajaxWait();
       assertFalse(session().isVisible("reportInappropriateReason"));
       assertFalse(session().isTextPresent("You reported this project as inappropriate!"));
       session().click("reportAsInappropriateButton");
@@ -132,7 +132,7 @@ public class DetailsTests extends BaseTest {
       session().type("reportInappropriateReason", "my selenium reason 2");
       session().focus("reportInappropriateReason");
       session().keyPress("reportInappropriateReason", "\\13");
-      Thread.sleep(Config.TIMEOUT_THREAD);
+      ajaxWait();
       assertFalse(session().isVisible("reportInappropriateReason"));
       assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
 
@@ -242,7 +242,7 @@ public class DetailsTests extends BaseTest {
       session().click("xpath=//div[@class='errorMessage']/a");
       waitForPageToLoad();
       ajaxWait();
-      assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+      waitForTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE);
     } catch(AssertionError e) {
       captureScreen("DetailsTests.invalidProjectID");
       throw e;

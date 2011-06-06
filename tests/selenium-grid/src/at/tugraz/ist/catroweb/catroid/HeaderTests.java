@@ -103,9 +103,10 @@ public class HeaderTests extends BaseTest {
 
       session().click("xpath=//a[@class='license'][4]");
       waitForPageToLoad();
-
-      assertTrue(session().isVisible("headerMenuButton"));
+      Thread.sleep(500);
       assertTrue(session().isVisible("headerHomeButton"));
+      assertTrue(session().isVisible("headerMenuButton"));      
+      assertTrue(session().isVisible("headerProfileButton"));      
       assertFalse(session().isElementPresent("headerSearchButton"));
 
       session().click("aIndexWebLogoLeft");
@@ -114,6 +115,7 @@ public class HeaderTests extends BaseTest {
 
       assertTrue(session().isVisible("headerMenuButton"));
       assertTrue(session().isVisible("headerSearchButton"));
+      assertTrue(session().isVisible("headerProfileButton"));
       assertFalse(session().isElementPresent("headerHomeButton"));
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerHomeButton");
