@@ -75,7 +75,8 @@ var Registration = Class.$extend( {
   },
   
   registrationError : function(response, errCode) {
-    alert("loginError");
+    //alert("registrationError");
+    this.enableForm();
   },
   
   registrationCatchKeypress : function(event) {
