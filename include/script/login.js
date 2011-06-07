@@ -53,7 +53,8 @@ var Login = Class.$extend({
   },
 
   loginError : function(result, errCode) {
-    alert("loginError");
+    //alert("loginError");
+    this.enableForm();
   },
 
   doLogoutRequest : function(event) {
@@ -70,7 +71,7 @@ var Login = Class.$extend({
   },
 
   logoutError : function(result, errCode) {
-    alert("logoutError");
+    //alert("logoutError");
   },
 
   loginCatchKeypress : function(event) {
