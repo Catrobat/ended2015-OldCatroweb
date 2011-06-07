@@ -209,7 +209,7 @@ var NewestProjects = Class.$extend( {
     $.ajax({
       url: self.basePath+"catroid/loadNewestProjects/"+pageNr+".json",
       cache: false,
-      timeout: (5000),
+      timeout: (30000),
     
       success: function(result) {
         if(result != "") {
