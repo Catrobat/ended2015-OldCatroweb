@@ -44,11 +44,13 @@ import at.tugraz.ist.catroweb.common.ProjectUploader;
 public class BaseTest {
   protected ProjectUploader projectUploader;
   protected String webSite;
+  protected int num;
 
   @BeforeClass(alwaysRun = true)
   @Parameters( { "webSite", "basedir" })
   protected void constructor(String webSite, String basedir) {
     this.webSite = webSite;
+    num = 0;
     Config.setSeleniumGridTestdata(basedir);
     projectUploader = new ProjectUploader(webSite);
   }
@@ -84,8 +86,12 @@ public class BaseTest {
   }
 
   protected void ajaxWait() {
-    session().waitForCondition("typeof selenium.browserbot.getCurrentWindow().jQuery == 'function'", Config.TIMEOUT_AJAX);
-    session().waitForCondition("selenium.browserbot.getCurrentWindow().jQuery.active == 0", Config.TIMEOUT_AJAX);
+    try {
+      session().waitForCondition("typeof selenium.browserbot.getCurrentWindow().jQuery == 'function'", Config.TIMEOUT_AJAX);
+      session().waitForCondition("selenium.browserbot.getCurrentWindow().jQuery.active == 0", Config.TIMEOUT_AJAX);
+    } catch(Exception e) {
+      captureScreen("ajaxWait." + num++);
+    }
   }
 
   public static void assertRegExp(String pattern, String string) {
@@ -143,6 +149,25 @@ public class BaseTest {
       }
     }
     assertTrue(session().isTextPresent(text));
+  }
+  
+  public void clickLastVisibleProject() {
+    while(session().isVisible("moreProjects")) {
+      session().click("moreProjects");
+      ajaxWait();
+    }
+    String[] allLinks = session().getAllLinks();
+    String lastLink = "";
+    for(String link : allLinks) {
+      try {
+        if ((link.matches("projectListDetailsLinkThumb.*"))&&(session().isVisible(link))) {
+          lastLink  = link;
+        }
+      } catch(Exception e) {
+      }
+    }
+    session().click(lastLink);
+    waitForPageToLoad();
   }
 
   protected void log(int message) {

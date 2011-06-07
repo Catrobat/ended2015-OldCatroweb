@@ -131,16 +131,24 @@ public class PasswordRecoveryTests extends BaseTest {
       openLocation();
       ajaxWait();
       session().click("headerProfileButton");
+      assertTrue(session().isVisible("logoutSubmitButton"));
+      session().click("logoutSubmitButton");
+      waitForPageToLoad();
+      ajaxWait();
+
+      session().click("headerProfileButton");
+      Thread.sleep(Config.TIMEOUT_THREAD);
+      waitForElementPresent("xpath=//input[@id='loginSubmitButton']");
       assertTrue(session().isVisible("loginSubmitButton"));
       assertTrue(session().isVisible("loginUsername"));
       assertTrue(session().isVisible("loginPassword"));
+
       session().type("loginUsername", dataset.get("registrationUsername"));
       session().type("loginPassword", dataset.get("registrationPassword"));
       session().click("loginSubmitButton");
       ajaxWait();
 
       // check bad login
-      session().getAlert();
       assertTrue(session().isVisible("loginSubmitButton"));
 
       // and try to login now with the new credentials

@@ -69,8 +69,8 @@ public class IndexTests extends BaseTest {
       openLocation();
       ajaxWait();
       // test page title and header title
-      assertTrue(session().getTitle().matches("^Catroid Website -.*"));
-      assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+      assertTrue(session().getTitle().matches("^Catroid Website.*"));
+      waitForTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE);
 
       // test catroid header text
       assertTrue(session().isElementPresent("xpath=//img[@class='catroidLettering']"));
@@ -78,25 +78,15 @@ public class IndexTests extends BaseTest {
       assertTrue(session().isElementPresent("xpath=//div[@class='webHeadLogo']"));
       session().click("xpath=//div[@id='aIndexWebLogoLeft']");
       ajaxWait();
-
       // test catroid download link
       assertTrue(session().isElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']"));
       clickAndWaitForPopUp("xpath=//a[@id='aIndexWebLogoMiddle']", "_blank");
       assertTrue(session().isTextPresent("Catroid_0-4-3d.apk"));
       assertTrue(session().isTextPresent("Paintroid_0.6.4b.apk"));
       closePopUp();
-
-      // test links to details page
-      //
-      while(session().isVisible("moreProjects")) {
-        session().click("moreProjects");
-        ajaxWait();
-      }
-
-      session().click("xpath=//div[@id='projectListDescription0']");
-      waitForPageToLoad();
+      
+      clickLastVisibleProject();
       assertRegExp(".*/catroid/details/[0-9]+", session().getLocation());
-      captureScreen("IndexTests11.index");
       session().goBack();
       waitForPageToLoad();
       ajaxWait();

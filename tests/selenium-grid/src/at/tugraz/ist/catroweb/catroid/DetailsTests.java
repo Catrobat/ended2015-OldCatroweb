@@ -62,6 +62,7 @@ public class DetailsTests extends BaseTest {
       numOfDownloads = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
       session().click("xpath=//div[@class='detailsDownloadButton']/a[1]");
 
+      log("numOfDownloads: " + numOfDownloads);
       Thread.sleep(Config.TIMEOUT_THREAD);
       session().keyPressNative("27"); // press escape key
       session().refresh();
@@ -69,6 +70,7 @@ public class DetailsTests extends BaseTest {
 
       waitForElementPresent("xpath=//p[@class='detailsStats'][2]/b");
       numOfDownloadsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
+      log("numOfDownloadsAfter1:" + numOfDownloadsAfter);
       assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
       session().click("xpath=//div[@class='detailsMainImage']/a[1]");
       Thread.sleep(Config.TIMEOUT_THREAD);
@@ -77,6 +79,7 @@ public class DetailsTests extends BaseTest {
       waitForPageToLoad();
       waitForElementPresent("xpath=//p[@class='detailsStats'][2]/b");
       numOfDownloadsAfter = Integer.valueOf(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
+      log("numOfDownloadsAfter2: " + numOfDownloadsAfter);
       assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
 
       // check file size
@@ -205,9 +208,7 @@ public class DetailsTests extends BaseTest {
     try {
       openLocation();
       ajaxWait();
-      session().click("xpath=//a[@class='projectListDetailsLink']");
-      waitForPageToLoad();
-      ajaxWait();
+      clickLastVisibleProject();
       waitForElementPresent("xpath=//button[@id='showQrCodeInfoButton']");
 
       assertTrue(session().isElementPresent("xpath=//button[@id='showQrCodeInfoButton']"));
@@ -224,7 +225,7 @@ public class DetailsTests extends BaseTest {
       assertTrue(session().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
       assertFalse(session().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
       assertFalse(session().isVisible("xpath=//div[@id='qrcodeInfo']"));
-    } catch(AssertionError e) {
+    } catch(Exception e) {
       captureScreen("DetailsTests.QRCodeInfo");
       throw e;
     }

@@ -18,6 +18,8 @@
 
 package at.tugraz.ist.catroweb.common;
 
+import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
+
 import java.io.File;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
