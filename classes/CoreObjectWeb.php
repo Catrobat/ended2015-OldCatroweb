@@ -17,7 +17,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-abstract class CoreObjectWeb extends CoreObjectDatabase {
+abstract class CoreObjectWeb extends CoreDatabase {
   public $session;
   public $cssFiles;
   public $jsFiles;

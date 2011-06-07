@@ -17,7 +17,8 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-abstract class CoreObjectDatabase extends CoreObjectDatabaseCommon {
+abstract class CoreDatabase extends CoreObject {
+  
   public function singleton() {
     if(!is_null(parent::$dbConnection)) {
       return parent::$dbConnection;
@@ -26,42 +27,6 @@ abstract class CoreObjectDatabase extends CoreObjectDatabaseCommon {
     or die('Connection to Database failed: ' . pg_last_error());
     return parent::$dbConnection;
   }
-  //public $dbConnection;
-  /*
-  public function __construct() {
-    parent::__construct();
-  }
-  */
-  /*
-  public function __construct() {
-    parent::__construct();
-    $connection = null;
-    if($connection === null) {
-      $connection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
-      or die('Connection to Database failed: ' . pg_last_error());
-    }
-    
-    $statementsXmlFile = CORE_BASE_PATH.XML_PATH.'prepared_statements.xml';
-    if(CorePreparePreparedStatements::getInstance()->setStatements($statementsXmlFile)) {
-      //CorePreparePreparedStatements::getInstance()->prepare($connection);
-    }
-	
-    $this->dbConnection = $connection;
-  }
-  */
-  
-  
 
-  /*
-  public function __destruct() {
-    parent::__destruct();
-    if(is_resource($this->dbConnection)) {
-      if(pg_connection_status($this->dbConnection) == PGSQL_CONNECTION_OK) {
-        //CorePreparePreparedStatements::getInstance()->unPrepare();
-        pg_close($this->dbConnection);        
-      }
-    }
-  }
-  */
 }
 ?>
