@@ -55,13 +55,12 @@ public class RegistrationTests extends BaseTest {
       session().type("xpath=//select[@name='registrationGender']", dataset.get("registrationGender"));
       session().type("xpath=//select[@name='registrationMonth']", dataset.get("registrationMonth"));
       session().type("xpath=//select[@name='registrationYear']", dataset.get("registrationYear"));
-      session().type("xpath=//select[@name='registrationCountry']", dataset.get("registrationCountry"));
+      session().type("xpath=//select  [@name='registrationCountry']", dataset.get("registrationCountry"));
       session().type("xpath=//input[@name='registrationCity']", dataset.get("registrationCity"));
 
       session().click("xpath=//input[@name='registrationSubmit']");
       ajaxWait();
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent(dataset.get("registrationUsername") + "'s Profile"));
+      waitForTextPresent(dataset.get("registrationUsername") + "'s Profile");
 
       session().click("headerProfileButton");
       assertTrue(session().isTextPresent("You are logged in as " + dataset.get("registrationUsername") + "!"));
