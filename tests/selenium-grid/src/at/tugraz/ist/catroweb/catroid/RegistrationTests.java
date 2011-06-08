@@ -230,14 +230,12 @@ public class RegistrationTests extends BaseTest {
   @SuppressWarnings("serial")
   @DataProvider(name = "invalidRegistrationData")
   public Object[][] invalidRegistrationData() {
-    final String randomString1 = CommonData.getRandomShortString(10);
-    final String randomString2 = CommonData.getRandomShortString(10);
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {
-        put("registrationUsername", "myUnitTest_" + randomString1);
+        put("registrationUsername", "myUnitTest_" + CommonData.getRandomShortString(10));
         put("registrationPassword", "myPassword123");
-        put("registrationEmail", "test" + randomString1 + "@selenium.at");
+        put("registrationEmail", "test" + CommonData.getRandomShortString(10) + "@selenium.at");
         put("registrationGender", "male");
         put("registrationMonth", "2");
         put("registrationYear", "1980");
@@ -249,13 +247,25 @@ public class RegistrationTests extends BaseTest {
       {
         put("registrationUsername", "kittyroid");
         put("registrationPassword", "anotherPassword123");
-        put("registrationEmail", "test" + randomString2 + "@selenium.at");
+        put("registrationEmail", "test" + CommonData.getRandomShortString(10) + "@selenium.at");
         put("registrationGender", "female");
         put("registrationMonth", "12");
         put("registrationYear", "1971");
         put("registrationCountry", "DE");
         put("registrationCity", "Berlin");
         put("expectedError", "This nickname is on the blacklist and not allowed.");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "fuck");
+        put("registrationPassword", "anotherPassword456");
+        put("registrationEmail", "test" + CommonData.getRandomShortString(10) + "@selenium.at");
+        put("registrationGender", "female");
+        put("registrationMonth", "12");
+        put("registrationYear", "1971");
+        put("registrationCountry", "DE");
+        put("registrationCity", "Berlin");
+        put("expectedError", "There are insulting words in the username field!");
       }
     } } };
     return dataArray;
