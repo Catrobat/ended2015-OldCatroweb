@@ -123,10 +123,10 @@ class registration extends CoreAuthenticationNone {
     $this->statusCode = $statusCode;
 
     if($boardRegistrationSuccess && $wikiRegistrationSuccess && $catroidRegistrationSuccess) {
-      $this->statusCode = 200;
       require_once 'login.php';
       $login = new login();
       $login->doLogin(array('loginUsername'=>$postData['registrationUsername'], 'loginPassword'=>$postData['registrationPassword']));
+      $this->statusCode = 200;
       return array("catroidUserId"=>$catroidUserId, "boardUserId"=>$boardUserId, "wikiUserId"=>$wikiUserId);
     } else {
       $this->postData = $postData;

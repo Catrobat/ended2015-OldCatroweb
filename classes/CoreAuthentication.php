@@ -41,7 +41,7 @@ abstract class CoreAuthentication extends CoreModule {
      
     $ip = $_SERVER["REMOTE_ADDR"];
     $query = "SELECT ip_address FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
-    $result = pg_query($query) or die('db query_failed '.pg_last_error());
+    $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
 
     if(pg_num_rows($result)) {
       $badIp = true;

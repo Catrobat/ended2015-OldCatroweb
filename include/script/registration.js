@@ -75,7 +75,7 @@ var Registration = Class.$extend( {
   },
   
   registrationError : function(response, errCode) {
-    //alert("registrationError");
+    alert("registrationError");
     this.enableForm();
   },
   

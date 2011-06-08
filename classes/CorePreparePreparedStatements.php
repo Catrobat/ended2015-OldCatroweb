@@ -32,7 +32,6 @@ class CorePreparePreparedStatements {
   public function prepare($connection) {
     $query = "SELECT 1 FROM pg_prepared_statements";
     $result = pg_query($connection, $query);
-    //echo 'num: '.pg_num_rows($result);
     if(!$this->prepared && !pg_num_rows($result)) {
       foreach($this->statements as $key => $value) {
         if($key && $value) {
