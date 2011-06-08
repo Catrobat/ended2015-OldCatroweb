@@ -108,7 +108,7 @@ public class RegistrationTests extends BaseTest {
       closePopUp();
 
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
-    } catch(AssertionError e) {
+    } catch(Exception e) {
       captureScreen("RegistrationTests.validRegistration." + dataset.get("registrationUsername"));
       throw e;
     }
@@ -142,7 +142,7 @@ public class RegistrationTests extends BaseTest {
 
       session().click("xpath=//input[@name='registrationSubmit']");
       ajaxWait();
-      assertTrue(session().isTextPresent(dataset.get("expectedError")));
+      waitForTextPresent(dataset.get("expectedError"));
       assertFalse(session().isTextPresent("CATROID registration successfull!"));
       assertFalse(session().isTextPresent("BOARD registration successfull!"));
       assertFalse(session().isTextPresent("WIKI registration successfull!"));
@@ -167,7 +167,7 @@ public class RegistrationTests extends BaseTest {
       clickAndWaitForPopUp("menuWikiButton", "wiki");
       assertFalse(session().isTextPresent(wikiUsername));
       closePopUp();
-    } catch(AssertionError e) {
+    } catch(Exception e) {
       captureScreen("RegistrationTests.invalidRegistration." + dataset.get("registrationUsername"));
       throw e;
     }

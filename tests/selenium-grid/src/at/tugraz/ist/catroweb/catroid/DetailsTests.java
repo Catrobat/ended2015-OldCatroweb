@@ -62,7 +62,6 @@ public class DetailsTests extends BaseTest {
       numOfDownloads = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
       session().click("xpath=//div[@class='detailsDownloadButton']/a[1]");
 
-      log("numOfDownloads: " + numOfDownloads);
       Thread.sleep(Config.TIMEOUT_THREAD);
       session().keyPressNative("27"); // press escape key
       session().refresh();
@@ -70,7 +69,6 @@ public class DetailsTests extends BaseTest {
 
       waitForElementPresent("xpath=//p[@class='detailsStats'][2]/b");
       numOfDownloadsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
-      log("numOfDownloadsAfter1:" + numOfDownloadsAfter);
       assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
       session().click("xpath=//div[@class='detailsMainImage']/a[1]");
       Thread.sleep(Config.TIMEOUT_THREAD);
@@ -79,7 +77,6 @@ public class DetailsTests extends BaseTest {
       waitForPageToLoad();
       waitForElementPresent("xpath=//p[@class='detailsStats'][2]/b");
       numOfDownloadsAfter = Integer.valueOf(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
-      log("numOfDownloadsAfter2: " + numOfDownloadsAfter);
       assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
 
       // check file size
@@ -91,8 +88,12 @@ public class DetailsTests extends BaseTest {
       HashMap<String, String> versionInfo = CommonFunctions.getVersionInfo(id);
       String versionInfoText = session().getText("xpath=//span[@class='versionInfo']");
       assertRegExp("^Catroid version: " + versionInfo.get("version_code") + " [(]" + versionInfo.get("version_name") + "[)]$", versionInfoText);
-    } catch(AssertionError e) {
+    } catch(Exception e) {
       captureScreen("DetailsTests.detailsPageCounter." + dataset.get("projectTitle"));
+      throw e;
+    }
+    catch(AssertionError e) {
+      captureScreen("BlockedIpTests.unblockedIps." + unblockedIp);
       throw e;
     }
   }
@@ -141,10 +142,9 @@ public class DetailsTests extends BaseTest {
 
       openAdminLocation("/tools/inappropriateProjects");
       session().click("resolve" + id);
-      Thread.sleep(Config.TIMEOUT_THREAD);
-      assertTrue(session().isTextPresent("The project was succesfully restored and set to visible!"));
+      waitForTextPresent("The project was succesfully restored and set to visible!");
       assertFalse(session().isTextPresent(id));
-    } catch(AssertionError e) {
+    } catch(Exception e) {
       captureScreen("DetailsTests.inappropriateButton." + dataset.get("projectTitle"));
       throw e;
     }
@@ -169,7 +169,7 @@ public class DetailsTests extends BaseTest {
       session().click("showShortDescriptionButton");
       Thread.sleep(Config.TIMEOUT_THREAD);
       assertEquals(shortDescriptionFromPage, session().getText("xpath=//p[@id='detailsDescription']"));
-    } catch(AssertionError e) {
+    } catch(Exception e) {
       captureScreen("DetailsTests.moreButton." + dataset.get("projectTitle"));
       throw e;
     }
@@ -197,7 +197,7 @@ public class DetailsTests extends BaseTest {
       } else {
         assertFalse(session().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
       }
-    } catch(AssertionError e) {
+    } catch(Exception e) {
       captureScreen("DetailsTests.QRCodeImage");
       throw e;
     }
@@ -244,7 +244,7 @@ public class DetailsTests extends BaseTest {
       waitForPageToLoad();
       ajaxWait();
       waitForTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE);
-    } catch(AssertionError e) {
+    } catch(Exception e) {
       captureScreen("DetailsTests.invalidProjectID");
       throw e;
     }
