@@ -71,6 +71,15 @@
     <property name="host.board.dir" value="${host.addons.dir}/board" />
     <property name="host.wiki.dir" value="${host.addons.dir}/mediawiki" />
   </target>
+	
+	<target name="-conf-deploy-alex">
+	    <property name="host.ip" value="www.guetler.at" />
+	    <property name="host.root.dir" value="/var/www/vhosts/guetler.at/httpdocs" />
+	    <property name="host.catroid.dir" value="${host.root.dir}/catroweb" />
+	    <property name="host.addons.dir" value="${host.catroid.dir}/addons" />
+	    <property name="host.board.dir" value="${host.addons.dir}/board" />
+	    <property name="host.wiki.dir" value="${host.addons.dir}/mediawiki" />
+	</target>
   
   <target name="-conf-deploy-catroid-test">
     <property name="host.ip" value="129.27.202.39" />
@@ -685,6 +694,7 @@
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
   <!-- <target name="deploy-test" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
   <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
+  <target name="deploy-alex" depends="-conf, -clean, -create-dirs, -conf-deploy-alex, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -init-remote-database,-update-remote-database, -cleanup" />
   <target name="deploy-test-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <!-- <target name="deploy-public" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
