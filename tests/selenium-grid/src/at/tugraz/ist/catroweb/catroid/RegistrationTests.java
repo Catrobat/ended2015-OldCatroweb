@@ -60,7 +60,8 @@ public class RegistrationTests extends BaseTest {
 
       session().click("xpath=//input[@name='registrationSubmit']");
       ajaxWait();
-      waitForTextPresent(dataset.get("registrationUsername") + "'s Profile");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent(dataset.get("registrationUsername") + "'s Profile"));
 
       session().click("headerProfileButton");
       assertTrue(session().isTextPresent("You are logged in as " + dataset.get("registrationUsername") + "!"));
