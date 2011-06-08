@@ -134,6 +134,9 @@ public class LoginTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("LoginTests.validLogin." + dataset.get("username"));
       throw e;
+    } catch(Exception e) {
+      captureScreen("LoginTests.validLogin." + dataset.get("username"));
+      throw e;
     }
   }
 
@@ -188,6 +191,9 @@ public class LoginTests extends BaseTest {
       assertFalse(session().isTextPresent(wikiUsername));
       closePopUp();
     } catch(AssertionError e) {
+      captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
+      throw e;
+    } catch(Exception e) {
       captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
       throw e;
     }

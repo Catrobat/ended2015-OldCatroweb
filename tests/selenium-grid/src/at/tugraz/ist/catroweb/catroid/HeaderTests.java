@@ -52,11 +52,14 @@ public class HeaderTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerMenuButtons");
       throw e;
+    } catch(Exception e) {
+      captureScreen("HeaderTests.headerMenuButtons");
+      throw e;
     }
   }
 
   @Test(groups = { "visibility" }, description = "check header buttons, search bar visibility, etc.")
-  public void headerButtonsIndex() {
+  public void headerButtonsIndex() throws Throwable {
     try {
       openLocation();
       ajaxWait();
@@ -89,6 +92,9 @@ public class HeaderTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerButtonsIndex");
       throw e;
+    } catch(Exception e) {
+      captureScreen("HeaderTests.headerButtonsIndex");
+      throw e;
     }
   }
 
@@ -105,8 +111,8 @@ public class HeaderTests extends BaseTest {
       waitForPageToLoad();
       Thread.sleep(500);
       assertTrue(session().isVisible("headerHomeButton"));
-      assertTrue(session().isVisible("headerMenuButton"));      
-      assertTrue(session().isVisible("headerProfileButton"));      
+      assertTrue(session().isVisible("headerMenuButton"));
+      assertTrue(session().isVisible("headerProfileButton"));
       assertFalse(session().isElementPresent("headerSearchButton"));
 
       session().click("aIndexWebLogoLeft");
@@ -118,6 +124,9 @@ public class HeaderTests extends BaseTest {
       assertTrue(session().isVisible("headerProfileButton"));
       assertFalse(session().isElementPresent("headerHomeButton"));
     } catch(AssertionError e) {
+      captureScreen("HeaderTests.headerHomeButton");
+      throw e;
+    } catch(Exception e) {
       captureScreen("HeaderTests.headerHomeButton");
       throw e;
     }

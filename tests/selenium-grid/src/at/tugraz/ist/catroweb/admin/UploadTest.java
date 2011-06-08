@@ -55,6 +55,9 @@ public class UploadTest extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("UploadTest.uploadTest");
       throw e;
+    } catch(Exception e) {
+      captureScreen("UploadTest.uploadTest");
+      throw e;
     }
   }
 }

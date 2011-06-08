@@ -33,7 +33,7 @@ import at.tugraz.ist.catroweb.common.*;
 public class UploadTests extends BaseTest {
 
   @Test(dataProvider = "validProjectsForUpload", groups = { "upload", "functionality" }, description = "upload valid projects")
-  public void uploadValidProjects(HashMap<String, String> dataset) {
+  public void uploadValidProjects(HashMap<String, String> dataset) throws Throwable {
     try {
       String response = projectUploader.upload(dataset);
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
@@ -43,15 +43,21 @@ public class UploadTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
       throw e;
+    } catch(Exception e) {
+      captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
+      throw e;
     }
   }
 
   @Test(dataProvider = "invalidProjectsForUpload", groups = { "upload", "functionality" }, description = "upload invalid projects")
-  public void uploadInvalidProjects(HashMap<String, String> dataset) {
+  public void uploadInvalidProjects(HashMap<String, String> dataset) throws Throwable {
     try {
       String response = projectUploader.upload(dataset);
       assertNotSame("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
     } catch(AssertionError e) {
+      captureScreen("UploadTests.uploadInvalidProjects." + dataset.get("projectTitle"));
+      throw e;
+    } catch(Exception e) {
       captureScreen("UploadTests.uploadInvalidProjects." + dataset.get("projectTitle"));
       throw e;
     }

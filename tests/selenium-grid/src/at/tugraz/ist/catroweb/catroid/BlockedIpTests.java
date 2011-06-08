@@ -49,10 +49,10 @@ public class BlockedIpTests extends BaseTest {
       assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
       assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
       unblockIp(blockedIp);
-    } catch(Exception e) {
+    } catch(AssertionError e) {
       captureScreen("BlockedIpTests.blockedIps." + blockedIp);
       throw e;
-    } catch(AssertionError e) {
+    } catch(Exception e) {
       captureScreen("BlockedIpTests.blockedIps." + blockedIp);
       throw e;
     }
@@ -70,14 +70,13 @@ public class BlockedIpTests extends BaseTest {
       assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
       assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
       unblockIp(unblockedIp);
-    } catch(Exception e) {
-      captureScreen("BlockedIpTests.unblockedIps." + unblockedIp);
-      throw e;
     } catch(AssertionError e) {
       captureScreen("BlockedIpTests.unblockedIps." + unblockedIp);
       throw e;
+    } catch(Exception e) {
+      captureScreen("BlockedIpTests.unblockedIps." + unblockedIp);
+      throw e;
     }
-    
   }
 
   @DataProvider(name = "blockedIps")

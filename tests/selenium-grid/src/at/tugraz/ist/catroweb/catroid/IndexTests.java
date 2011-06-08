@@ -59,6 +59,9 @@ public class IndexTests extends BaseTest {
     // } catch(AssertionError e) {
     // captureScreen("IndexTests.location");
     // throw e;
+    // } catch(Exception e) {
+    // captureScreen("IndexTests.location");
+    // throw e;
     // }
 
   }
@@ -84,7 +87,7 @@ public class IndexTests extends BaseTest {
       assertTrue(session().isTextPresent("Catroid_0-4-3d.apk"));
       assertTrue(session().isTextPresent("Paintroid_0.6.4b.apk"));
       closePopUp();
-      
+
       clickLastVisibleProject();
       assertRegExp(".*/catroid/details/[0-9]+", session().getLocation());
       session().goBack();
@@ -100,6 +103,9 @@ public class IndexTests extends BaseTest {
       ajaxWait();
       assertTrue(session().isElementPresent("xpath=//img[@class='catroidLettering']"));
     } catch(AssertionError e) {
+      captureScreen("IndexTests.index");
+      throw e;
+    } catch(Exception e) {
       captureScreen("IndexTests.index");
       throw e;
     }
@@ -156,6 +162,9 @@ public class IndexTests extends BaseTest {
       ajaxWait();
       assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (1) + "$", session().getTitle());
     } catch(AssertionError e) {
+      captureScreen("IndexTests.pageNavigation");
+      throw e;
+    } catch(Exception e) {
       captureScreen("IndexTests.pageNavigation");
       throw e;
     }

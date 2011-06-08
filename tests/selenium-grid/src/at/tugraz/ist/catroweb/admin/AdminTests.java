@@ -44,6 +44,9 @@ public class AdminTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("AdminTests.successfulLogin");
       throw e;
+    } catch(Exception e) {
+      captureScreen("AdminTests.successfulLogin");
+      throw e;
     }
   }
 
@@ -115,6 +118,9 @@ public class AdminTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("AdminTests.clickAllLinks");
       throw e;
+    } catch(Exception e) {
+      captureScreen("AdminTests.clickAllLinks");
+      throw e;
     }
   }
 
@@ -145,6 +151,9 @@ public class AdminTests extends BaseTest {
       assertTrue(session().isTextPresent("The project was succesfully restored and set to visible!"));
       assertFalse(session().isTextPresent(id));
     } catch(AssertionError e) {
+      captureScreen("AdminTests.inappropriateProjects");
+      throw e;
+    } catch(Exception e) {
       captureScreen("AdminTests.inappropriateProjects");
       throw e;
     }

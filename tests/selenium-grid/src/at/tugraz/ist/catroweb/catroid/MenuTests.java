@@ -75,6 +75,9 @@ public class MenuTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("MenuTests.buttonVisibility");
       throw e;
+    } catch(Exception e) {
+      captureScreen("MenuTests.buttonVisibility");
+      throw e;
     }
   }
 
@@ -138,11 +141,14 @@ public class MenuTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("MenuTests.boardAndWikiLinks");
       throw e;
+    } catch(Exception e) {
+      captureScreen("MenuTests.boardAndWikiLinks");
+      throw e;
     }
   }
 
   @Test(groups = { "visibility" }, description = "check menu home button")
-  public void homeButton() {
+  public void homeButton() throws Throwable {
     try {
       openLocation();
       session().click("headerMenuButton");
@@ -155,6 +161,9 @@ public class MenuTests extends BaseTest {
       assertFalse(session().isElementPresent("headerHomeButton"));
       assertRegExp(".*/catroid/index(/[0-9]+)?", session().getLocation());
     } catch(AssertionError e) {
+      captureScreen("MenuTests.homeButton");
+      throw e;
+    } catch(Exception e) {
       captureScreen("MenuTests.homeButton");
       throw e;
     }

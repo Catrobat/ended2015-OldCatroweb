@@ -52,6 +52,9 @@ public class PasswordRecoveryTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("PasswordRecoveryTests.passwordRecoveryIntro");
       throw e;
+    } catch(Exception e) {
+      captureScreen("PasswordRecoveryTests.passwordRecoveryIntro");
+      throw e;
     }
   }
 
@@ -203,9 +206,13 @@ public class PasswordRecoveryTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("PasswordRecoveryTests.passwordRecoveryReset." + dataset.get("registrationUsername"));
       throw e;
+    } catch(Exception e) {
+      captureScreen("PasswordRecoveryTests.passwordRecoveryReset." + dataset.get("registrationUsername"));
+      throw e;
     }
   }
 
+  @SuppressWarnings("serial")
   @DataProvider(name = "passwordRecoveryResetUsernames")
   public Object[][] passwordRecoveryResetUsernames() {
     final String randomString1 = CommonData.getRandomShortString(10);

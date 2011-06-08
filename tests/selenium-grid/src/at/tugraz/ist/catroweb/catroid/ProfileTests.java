@@ -141,6 +141,9 @@ public class ProfileTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
       throw e;
+    } catch(Exception e) {
+      captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
+      throw e;
     }
   }
 

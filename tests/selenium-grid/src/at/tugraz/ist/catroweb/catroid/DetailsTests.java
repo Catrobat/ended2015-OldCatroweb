@@ -50,13 +50,13 @@ public class DetailsTests extends BaseTest {
       assertEquals(title, session().getText("xpath=//div[@class='detailsProjectTitle']"));
       // test the view counter
       numOfViews = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
-        
+
       session().refresh();
       waitForPageToLoad();
       ajaxWait();
       waitForElementPresent("xpath=//p[@class='detailsStats']/b");
       numOfViewsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
-      assertEquals(numOfViews+1, numOfViewsAfter);
+      assertEquals(numOfViews + 1, numOfViewsAfter);
 
       // test the download counter
       numOfDownloads = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
@@ -88,12 +88,11 @@ public class DetailsTests extends BaseTest {
       HashMap<String, String> versionInfo = CommonFunctions.getVersionInfo(id);
       String versionInfoText = session().getText("xpath=//span[@class='versionInfo']");
       assertRegExp("^Catroid version: " + versionInfo.get("version_code") + " [(]" + versionInfo.get("version_name") + "[)]$", versionInfoText);
-    } catch(Exception e) {
+    } catch(AssertionError e) {
       captureScreen("DetailsTests.detailsPageCounter." + dataset.get("projectTitle"));
       throw e;
-    }
-    catch(AssertionError e) {
-      captureScreen("BlockedIpTests.unblockedIps." + unblockedIp);
+    } catch(Exception e) {
+      captureScreen("DetailsTests.detailsPageCounter." + dataset.get("projectTitle"));
       throw e;
     }
   }
@@ -144,6 +143,9 @@ public class DetailsTests extends BaseTest {
       session().click("resolve" + id);
       waitForTextPresent("The project was succesfully restored and set to visible!");
       assertFalse(session().isTextPresent(id));
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.inappropriateButton." + dataset.get("projectTitle"));
+      throw e;
     } catch(Exception e) {
       captureScreen("DetailsTests.inappropriateButton." + dataset.get("projectTitle"));
       throw e;
@@ -169,6 +171,9 @@ public class DetailsTests extends BaseTest {
       session().click("showShortDescriptionButton");
       Thread.sleep(Config.TIMEOUT_THREAD);
       assertEquals(shortDescriptionFromPage, session().getText("xpath=//p[@id='detailsDescription']"));
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.moreButton." + dataset.get("projectTitle"));
+      throw e;
     } catch(Exception e) {
       captureScreen("DetailsTests.moreButton." + dataset.get("projectTitle"));
       throw e;
@@ -197,6 +202,9 @@ public class DetailsTests extends BaseTest {
       } else {
         assertFalse(session().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
       }
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.QRCodeImage");
+      throw e;
     } catch(Exception e) {
       captureScreen("DetailsTests.QRCodeImage");
       throw e;
@@ -225,6 +233,9 @@ public class DetailsTests extends BaseTest {
       assertTrue(session().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
       assertFalse(session().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
       assertFalse(session().isVisible("xpath=//div[@id='qrcodeInfo']"));
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.QRCodeInfo");
+      throw e;
     } catch(Exception e) {
       captureScreen("DetailsTests.QRCodeInfo");
       throw e;
@@ -244,6 +255,9 @@ public class DetailsTests extends BaseTest {
       waitForPageToLoad();
       ajaxWait();
       waitForTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE);
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.invalidProjectID");
+      throw e;
     } catch(Exception e) {
       captureScreen("DetailsTests.invalidProjectID");
       throw e;

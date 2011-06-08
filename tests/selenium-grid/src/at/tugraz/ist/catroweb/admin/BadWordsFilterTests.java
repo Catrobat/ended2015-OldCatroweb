@@ -62,6 +62,9 @@ public class BadWordsFilterTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonGood");
       throw e;
+    }catch(Exception e) {
+      captureScreen("BadWordsFilterTests.approveButtonGood");
+      throw e;
     }
   }
 
@@ -90,6 +93,9 @@ public class BadWordsFilterTests extends BaseTest {
 
       deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
     } catch(AssertionError e) {
+      captureScreen("BadWordsFilterTests.approveButtonBad");
+      throw e;
+    }catch(Exception e) {
       captureScreen("BadWordsFilterTests.approveButtonBad");
       throw e;
     }
@@ -121,6 +127,9 @@ public class BadWordsFilterTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonNoSelection");
       throw e;
+    }catch(Exception e) {
+      captureScreen("BadWordsFilterTests.approveButtonNoSelection");
+      throw e;
     }
   }
 
@@ -149,6 +158,9 @@ public class BadWordsFilterTests extends BaseTest {
 
       deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
     } catch(AssertionError e) {
+      captureScreen("BadWordsFilterTests.testDeleteButton");
+      throw e;
+    } catch(Exception e) {
       captureScreen("BadWordsFilterTests.testDeleteButton");
       throw e;
     }

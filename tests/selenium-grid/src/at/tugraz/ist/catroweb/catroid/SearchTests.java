@@ -70,6 +70,9 @@ public class SearchTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("SearchTests.titleAndDescription." + dataset.get("projectTitle"));
       throw e;
+    } catch(Exception e) {
+      captureScreen("SearchTests.titleAndDescription." + dataset.get("projectTitle"));
+      throw e;
     }
   }
 
@@ -107,6 +110,9 @@ public class SearchTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("SearchTests.specialChars." + specialchars);
       throw e;
+    } catch(Exception e) {
+      captureScreen("SearchTests.specialChars." + specialchars);
+      throw e;
     }
   }
 
@@ -132,6 +138,9 @@ public class SearchTests extends BaseTest {
        * ajaxWait();
        */
     } catch(AssertionError e) {
+      captureScreen("SearchTests.checkButtonVisibility");
+      throw e;
+    } catch(Exception e) {
       captureScreen("SearchTests.checkButtonVisibility");
       throw e;
     }
@@ -205,6 +214,9 @@ public class SearchTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("SearchTests.pageNavigation");
       throw e;
+    } catch(Exception e) {
+      captureScreen("SearchTests.pageNavigation");
+      throw e;
     }
   }
 
@@ -262,6 +274,9 @@ public class SearchTests extends BaseTest {
       assertFalse(session().isVisible("fewerProjects"));
       assertFalse(session().isVisible("moreProjects"));
     } catch(AssertionError e) {
+      captureScreen("SearchTests.searchAndHideProject");
+      throw e;
+    } catch(Exception e) {
       captureScreen("SearchTests.searchAndHideProject");
       throw e;
     }

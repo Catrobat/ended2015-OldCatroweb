@@ -40,6 +40,9 @@ public class LicenseTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("LicenseTests.privacyPolicy");
       throw e;
+    } catch(Exception e) {
+      captureScreen("LicenseTests.privacyPolicy");
+      throw e;
     }
   }
 
@@ -74,6 +77,9 @@ public class LicenseTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("LicenseTests.termsOfUse");
       throw e;
+    } catch(Exception e) {
+      captureScreen("LicenseTests.termsOfUse");
+      throw e;
     }
   }
 
@@ -98,6 +104,9 @@ public class LicenseTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("LicenseTests.copyrightPolicy");
       throw e;
+    } catch(Exception e) {
+      captureScreen("LicenseTests.copyrightPolicy");
+      throw e;
     }
   }
 
@@ -119,6 +128,9 @@ public class LicenseTests extends BaseTest {
       assertRegExp(".*IST web - Index.*", session().getTitle());
       closePopUp();
     } catch(AssertionError e) {
+      captureScreen("LicenseTests.imprint");
+      throw e;
+    } catch(Exception e) {
       captureScreen("LicenseTests.imprint");
       throw e;
     }

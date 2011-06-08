@@ -88,6 +88,9 @@ public class ReportAsInappropriateTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("ReportAsInappropriateTests.reportOwnProjectAsInappropriate");
       throw e;
+    } catch(Exception e) {
+      captureScreen("ReportAsInappropriateTests.reportOwnProjectAsInappropriate");
+      throw e;
     }
   }
 
@@ -134,6 +137,9 @@ public class ReportAsInappropriateTests extends BaseTest {
       ajaxWait();
       assertFalse(session().isTextPresent(projectTitle));
     } catch(AssertionError e) {
+      captureScreen("ReportAsInappropriateTests.testReportAnonymousProjectAsInappropriate");
+      throw e;
+    } catch(Exception e) {
       captureScreen("ReportAsInappropriateTests.testReportAnonymousProjectAsInappropriate");
       throw e;
     }

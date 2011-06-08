@@ -72,6 +72,9 @@ public class EditProjectsTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("EditProjectsTests.deleteButton");
       throw e;
+    }catch(Exception e) {
+      captureScreen("EditProjectsTests.deleteButton");
+      throw e;
     }
   }
 
@@ -146,6 +149,9 @@ public class EditProjectsTests extends BaseTest {
       ajaxWait();
       assertFalse(session().isTextPresent(projectTitle));
     } catch(AssertionError e) {
+      captureScreen("EditProjectsTests.invisibleButton");
+      throw e;
+    } catch(Exception e) {
       captureScreen("EditProjectsTests.invisibleButton");
       throw e;
     }
