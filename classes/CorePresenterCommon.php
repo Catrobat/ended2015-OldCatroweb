@@ -19,13 +19,10 @@
 
 abstract class CorePresenterCommon {
     protected $module;
-    public $viewHelper;
     public $isMobile;
 
     public function __construct(CoreModule $module) {
         $this->module = $module;
-        $this->module->getCoreRegistry()->setViewHelper(new CoreViewHelper());
-        $this->viewHelper = $this->module->getCoreRegistry()->getViewHelper();
         $this->isMobile = $this->module->clientDetection->isMobile();
     }
 

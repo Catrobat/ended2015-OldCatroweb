@@ -20,7 +20,6 @@
 class CoreRegistry {
   const KEY_ERROR = 'errorHandler';
   const KEY_MAIL = 'mailHandler';
-  const KEY_VIEWHELPER = 'viewHelper';
   const KEY_CLIENTDETECTION = 'clientDetection';
   const KEY_BADWORDS = 'badWordsFilter';
 
@@ -63,14 +62,6 @@ class CoreRegistry {
 
   public function getMailHandler() {
     return $this->get(self::KEY_MAIL);
-  }
-
-  public function setViewHelper(CoreViewHelper $viewHelper) {
-    $this->set(self::KEY_VIEWHELPER, $viewHelper);
-  }
-
-  public function getViewHelper() {
-    return $this->get(self::KEY_VIEWHELPER);
   }
 
   public function setClientDetection(CoreClientDetection $clientDetection) {

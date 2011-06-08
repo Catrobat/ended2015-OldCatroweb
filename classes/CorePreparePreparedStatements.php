@@ -30,11 +30,13 @@ class CorePreparePreparedStatements {
   }
 
   public function prepare($connection) {
-    if(!$this->prepared) {
+    $query = "SELECT 1 FROM pg_prepared_statements";
+    $result = pg_query($connection, $query);
+    //echo 'num: '.pg_num_rows($result);
+    if(!$this->prepared && !pg_num_rows($result)) {
       foreach($this->statements as $key => $value) {
         if($key && $value) {
-          pg_prepare($connection, $key, $value)
-          or die("Couldn't prepare statement: " . pg_last_error());
+          pg_prepare($connection, $key, $value) or die("Couldn't prepare statement: " . pg_last_error());
         }
       }
 

@@ -36,7 +36,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
 
   public function testDatabaseResource() {
     $this->assertTrue(is_resource($this->testModel->dbConnection));
-    $this->assertEquals('pgsql link', get_resource_type($this->testModel->dbConnection));
+    $this->assertEquals('pgsql link persistent', get_resource_type($this->testModel->dbConnection));
   }
 
   public function testModelProperties() {
@@ -117,17 +117,6 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
   /*
    * corePreseterTests
    */
-  
-  public function testViewHelperGetLink() {      
-      $myLink = 'my/link';
-      $myLinkText = 'myLinkText';
-      $myLinkClass = 'myLinkClass';
-      $view = new CorePresenter_html($this->testModel);
-      $testLink = $view->viewHelper->getLink($myLink, $myLinkText, $myLinkClass);
-      $this->assertTrue(is_int(strpos($testLink, $myLink)));
-      $this->assertTrue(is_int(strpos($testLink, $myLinkText)));
-      $this->assertTrue(is_int(strpos($testLink, $myLinkClass)));
-    }
 
     public function testHtmlPresenter() {
       $view = new CorePresenter_html($this->testModel);

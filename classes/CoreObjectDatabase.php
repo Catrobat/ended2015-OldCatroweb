@@ -21,28 +21,20 @@ abstract class CoreObjectDatabase extends CoreObject {
   public $dbConnection;
   public function __construct() {
     parent::__construct();
-    $connection = null;
-    if($connection === null) {
-      $connection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
-      or die('Connection to Database failed: ' . pg_last_error());
-    }
-    
-    $statementsXmlFile = CORE_BASE_PATH.XML_PATH.'prepared_statements.xml';
-    if(CorePreparePreparedStatements::getInstance()->setStatements($statementsXmlFile)) {
-      CorePreparePreparedStatements::getInstance()->prepare($connection);
-    }
-
-    $this->dbConnection = $connection;
+    $this->dbConnection = CoreDatabase::singleton()->getConnection();
   }
 
   public function __destruct() {
     parent::__destruct();
+    unset($this->dbConnection);
+    /*
     if(is_resource($this->dbConnection)) {
       if(pg_connection_status($this->dbConnection) == PGSQL_CONNECTION_OK) {
         CorePreparePreparedStatements::getInstance()->unPrepare();
         pg_close($this->dbConnection);        
       }
     }
+    */
   }
 }
 ?>

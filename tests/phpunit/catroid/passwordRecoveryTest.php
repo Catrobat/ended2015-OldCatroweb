@@ -59,15 +59,6 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
     try {
       $this->catroidUserId = $this->registrationObj->doCatroidRegistration($postData, $serverData);
       $this->assertGreaterThan(0, intval($this->catroidUserId));
-      // check DBData vs Postdata
-      $query = "EXECUTE get_user_row_by_username('".utf8_encode($postData['username'])."')";
-      $result = pg_query($query);
-      $this->assertTrue($result["country"] == $postData["country"]);
-      $this->assertTrue($result["email"] == $postData["email"]);
-      $this->assertTrue($result["gender"] == $postData["gender"]);
-      $this->assertTrue($result["city"] == $postData["city"]);
-      $this->assertTrue($result["province"] == $postData["province"]);
-      
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
