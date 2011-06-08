@@ -108,11 +108,13 @@ public class RegistrationTests extends BaseTest {
       closePopUp();
 
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
-    } catch(AssertionError e) {
-      captureScreen("RegistrationTests.validRegistration." + dataset.get("registrationUsername"));
+    } catch(AssertionError e) {      
+      captureScreen("RegistrationTests.validRegistration." + CommonFunctions.getTimeStamp()); 
+      log("RegistrationTests.validRegistration.: " + dataset.get("registrationUsername"));      
       throw e;
     } catch(Exception e) {
-      captureScreen("RegistrationTests.validRegistration." + dataset.get("registrationUsername"));
+      captureScreen("RegistrationTests.validRegistration." + CommonFunctions.getTimeStamp()); 
+      log("RegistrationTests.validRegistration.: " + dataset.get("registrationUsername"));      
       throw e;
     }
   }
