@@ -18,8 +18,6 @@
 
 package at.tugraz.ist.catroweb.common;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import java.io.File;
 import java.math.BigDecimal;
 import java.nio.charset.Charset;
@@ -165,6 +163,22 @@ public class CommonFunctions {
       System.out.println("CommonFunctions: removeUserFromBD: SQL Exception couldn't execute sql query!");
       System.out.println(e.getMessage());
     }
+  }
+
+  public static String getTimeStamp() {
+    java.util.Date time = new java.util.Date();
+    return(new java.sql.Time(time.getTime()).toString());
+  }
+
+  public static String getIPAddress() {
+    try {
+      java.net.InetAddress i = java.net.InetAddress.getLocalHost();
+      return i.getHostAddress();
+    } catch(Exception e) {
+      System.out.print ("CommonFunctions: getIPAddress: ");
+      System.out.println(e.getMessage());
+    }
+    return "";
   }
 
   public static String getUnapprovedWordId(String word) {

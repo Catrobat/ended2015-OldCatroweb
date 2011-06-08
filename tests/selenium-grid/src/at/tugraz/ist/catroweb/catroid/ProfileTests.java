@@ -117,6 +117,8 @@ public class ProfileTests extends BaseTest {
 
       assertTrue(session().isTextPresent("You updated your password successfully."));
 
+      log("ProfileTests: test=profilePage ---> TODO: change email");
+      /*
       session().click("xpath=//a[@id='profileChangeEmailText']");
       session().type("xpath=//input[@id='profileEmail']", dataset.get("changedEmail"));
       session().click("xpath=//input[@id='profileEmailSubmit']");
@@ -136,7 +138,7 @@ public class ProfileTests extends BaseTest {
       ajaxWait();
 
       assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
-
+*/
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));

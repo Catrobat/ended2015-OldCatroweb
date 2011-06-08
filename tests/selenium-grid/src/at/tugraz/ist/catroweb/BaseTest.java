@@ -165,11 +165,13 @@ public class BaseTest {
   }
 
   protected void log(int message) {
-    Reporter.log(String.valueOf(message), Config.REPORTER_LOG_TO_STD_OUT);
+    
+    Reporter.log(String.valueOf(message) + " @" + CommonFunctions.getIPAddress(), Config.REPORTER_LOG_TO_STD_OUT);
   }
 
   protected void log(String message) {
     Reporter.log(message, Config.REPORTER_LOG_TO_STD_OUT);
+    Reporter.log(message + " @" + CommonFunctions.getIPAddress(), Config.REPORTER_LOG_TO_STD_OUT);
   }
 
   protected void captureScreen(String imageName) {

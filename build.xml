@@ -325,6 +325,14 @@
       <param name="browser" value="${test.browser}" />
     </antcall>
   </target>
+  
+  <target name="-selenium-grid-stop-hub">
+    <echo message="NOTICE: To stop hub on windows execute the following command:" />
+    <echo message="curl -d action=shutdown http://localhost:4444/lifecycle-manager" />   
+    <exec dir="${tests.dir}" executable="wget" osfamily="Unix">
+      <arg line=" -q --post-data action=shutdown http://localhost:4444/lifecycle-manager"/>
+    </exec>
+  </target>
 
   <target name="-selenium-grid-single-test" depends="-start-selenium-grid-local-testsuite, -get-selenium-grid-single-test-parameters">
     <echo message=""/>
@@ -710,6 +718,7 @@
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
   <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />
   <target name="run-selenium-api-tests" depends="-selenium-start-server, -selenium-tests-api, -selenium-stop-server" />
+  <target name="stop-selenium-grid-hub" depends="-selenium-grid-stop-hub"/>
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />
   <target name="deploy-test-board" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />
