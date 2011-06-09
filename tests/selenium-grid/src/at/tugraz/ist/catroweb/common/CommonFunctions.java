@@ -170,17 +170,6 @@ public class CommonFunctions {
     return(new java.sql.Time(time.getTime()).toString());
   }
 
-  public static String getIPAddress() {
-    try {
-      java.net.InetAddress i = java.net.InetAddress.getLocalHost();
-      return i.getHostAddress();
-    } catch(Exception e) {
-      System.out.print ("CommonFunctions: getIPAddress: ");
-      System.out.println(e.getMessage());
-    }
-    return "";
-  }
-
   public static String getUnapprovedWordId(String word) {
     String id = "";
     try {

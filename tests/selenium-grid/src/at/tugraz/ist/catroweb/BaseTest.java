@@ -84,8 +84,8 @@ public class BaseTest {
   }
 
   protected void ajaxWait() {
-      session().waitForCondition("typeof selenium.browserbot.getCurrentWindow().jQuery == 'function'", Config.TIMEOUT_AJAX);
-      session().waitForCondition("selenium.browserbot.getCurrentWindow().jQuery.active == 0", Config.TIMEOUT_AJAX);
+    session().waitForCondition("typeof selenium.browserbot.getCurrentWindow().jQuery == 'function'", Config.TIMEOUT_AJAX);
+    session().waitForCondition("selenium.browserbot.getCurrentWindow().jQuery.active == 0", Config.TIMEOUT_AJAX);
   }
 
   public static void assertRegExp(String pattern, String string) {
@@ -144,7 +144,7 @@ public class BaseTest {
     }
     assertTrue(session().isTextPresent(text));
   }
-  
+
   public void clickLastVisibleProject() {
     while(session().isVisible("moreProjects")) {
       session().click("moreProjects");
@@ -154,8 +154,8 @@ public class BaseTest {
     String lastLink = "";
     for(String link : allLinks) {
       try {
-        if ((link.matches("projectListDetailsLinkThumb.*"))&&(session().isVisible(link))) {
-          lastLink  = link;
+        if((link.matches("projectListDetailsLinkThumb.*")) && (session().isVisible(link))) {
+          lastLink = link;
         }
       } catch(Exception e) {
       }
@@ -165,13 +165,11 @@ public class BaseTest {
   }
 
   protected void log(int message) {
-    
-    Reporter.log(String.valueOf(message) + " @" + CommonFunctions.getIPAddress(), Config.REPORTER_LOG_TO_STD_OUT);
+    Reporter.log(String.valueOf(message), Config.REPORTER_LOG_TO_STD_OUT);
   }
 
   protected void log(String message) {
     Reporter.log(message, Config.REPORTER_LOG_TO_STD_OUT);
-    Reporter.log(message + " @" + CommonFunctions.getIPAddress(), Config.REPORTER_LOG_TO_STD_OUT);
   }
 
   protected void captureScreen(String imageName) {
@@ -183,7 +181,7 @@ public class BaseTest {
       FileOutputStream fos = new FileOutputStream(new File(Config.FILESYSTEM_BASE_PATH + imagePath));
       fos.write(decodedScreenshot);
       fos.close();
-      Reporter.log("<a href=\"" + this.webSite + imagePath + "\">Screenshot</a>");
+      Reporter.log("<a href=\"" + this.webSite + Config.TESTS_BASE_PATH.substring(1) + imagePath + "\">Screenshot (" + imageName + ")</a>");
     } catch(Exception e) {
       e.printStackTrace();
     }
