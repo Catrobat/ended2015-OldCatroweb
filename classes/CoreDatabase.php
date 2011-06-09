@@ -22,8 +22,11 @@ class CoreDatabase {
 
   private function __construct() {
      $connectionString = "host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS;
-     $this->dbConnection = pg_pconnect($connectionString)
-     or die('Connection to Database failed: ' . pg_last_error());
+     if(DATABASE_CONNECTION_PERSISTENT) {
+       $this->dbConnection = pg_pconnect($connectionString) or die('Persistent Connection to Database failed: ' . pg_last_error());
+     } else { 
+       $this->dbConnection = pg_connect($connectionString) or die('Connection to Database failed: ' . pg_last_error());
+     }
      $this->prepare();
   }
 
