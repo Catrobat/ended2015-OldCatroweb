@@ -14,6 +14,7 @@ ipconfig | find "IPv4" > %TEMP%.\TEMP.DAT
 for /F "tokens=2 delims=:" %%a in (%TEMP%.\TEMP.DAT) do set IP=%%a
 del %TEMP%.\TEMP.DAT
 set host=%IP:~1%
+set host=129.27.126.192
 
 set profile=
 set /P profile=Please enter an environment to test [*firefox]: %=%

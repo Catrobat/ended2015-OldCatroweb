@@ -24,6 +24,7 @@
     </packages>
   </test>
   
+  
   <test name="AdminTests" >
     <packages>
       <package name="at.tugraz.ist.catroweb.admin" />
@@ -44,11 +45,4 @@
       <class name="at.tugraz.ist.catroweb.catroid.SearchTests" />
     </classes>
   </test>
-<!--
-  <test name="BlockedIpTests" >
-    <classes>
-      <class name="at.tugraz.ist.catroweb.catroid.BlockedIpTests" />
-    </classes>
-  </test>
--->
 </suite>
