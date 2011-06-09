@@ -51,6 +51,20 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $this->assertTrue(is_string($this->testModel->errorHandler->getError('db', 'query_failed')));
   }
 
+  public function testLanguageHandlerCheckParamCount() {
+    $msg = "this is a test message with a {*firstParam*} and a {*secondParam*} in it";
+    $this->assertTrue($this->testModel->languageHandler->checkParamCount($msg, 2));
+    $msg = "this is a test message without parameters.";
+    $this->assertTrue($this->testModel->languageHandler->checkParamCount($msg, 0));
+  }
+  
+  /**
+   * @dataProvider languageHandlerMsgs
+   */
+  public function testLanguageHandlerParseString($msg, $expectedMsg, $args) {
+    $this->assertEquals($expectedMsg, $this->testModel->languageHandler->parseString($msg, $args));
+  }
+
   public function testMailHandler() {
     $mailSubject = "This is a mail subject";
     $mailText = "This is some text for the email body.";
@@ -58,7 +72,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->testModel->mailHandler->sendAdministrationMail('', ''));
     $this->assertFalse($this->testModel->mailHandler->sendAdministrationMail('', $mailText));
     $this->assertFalse($this->testModel->mailHandler->sendAdministrationMail($mailSubject, ''));
-    //$this->assertFalse($this->testModel->mailHandler->sendAdministrationMail($mailSubject, $mailText));    
+    //$this->assertFalse($this->testModel->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
   public function testPreparedStatements() {
@@ -113,7 +127,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($numJs, $jsCounter);
     $this->assertEquals(null, $this->testModel->getJs());
   }
-  
+
   /*
    * corePreseterTests
    */
@@ -148,7 +162,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
   public function testBadwordsFilterBad($badWord) {
     $this->assertEquals(1, $this->testModel->badWordsFilter->areThereInsultingWords($badWord));
   }
-  
+
   /**
    * @dataProvider goodWords
    */
@@ -159,22 +173,32 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
   /* DATA PROVIDERS */
   public function badWords() {
     $badWords = array(
-          array("fuck"), 
-          array("shit"),
-          array("ass"),
-          array("this is a sucking text with some really bad words in it. so go home asshole!"),
-          array("f*uck"));
+    array("fuck"),
+    array("shit"),
+    array("ass"),
+    array("this is a sucking text with some really bad words in it. so go home asshole!"),
+    array("f*uck"));
     return $badWords;
   }
-  
+
   public function goodWords() {
     $goodWords = array(
-          array("test"), 
+    array("test"),
           array("backslash\\"),
-          array("catroid"),
-          array("here comes some text which does not have any insulting word inside."),
-          array("project"));
+    array("catroid"),
+    array("here comes some text which does not have any insulting word inside."),
+    array("project"));
     return $goodWords;
+  }
+  
+  public function languageHandlerMsgs() {
+    $msgs = array(
+    array("this is a test message with variable {*firstParam123*} and {*secondParam012*} in it.", "this is a test message with variable numbers: 12345 and characters: abcde in it.", array('numbers: 12345', 'characters: abcde')),
+    array("message without parameters", "message without parameters", array()),
+    array("message without parameters but with special chars like äÖüß and _[] {}*<br>", "message without parameters but with special chars like äÖüß and _[] {}*<br>", array()),
+    array("here come some special chars: {*specialChars*}", "here come some special chars: {[}]*_Üöß^", array("{[}]*_Üöß^"))
+    );
+    return $msgs;
   }
 }
 ?>

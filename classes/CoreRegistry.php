@@ -19,6 +19,7 @@
 
 class CoreRegistry {
   const KEY_ERROR = 'errorHandler';
+  const KEY_LANGUAGE = 'languageHandler';
   const KEY_MAIL = 'mailHandler';
   const KEY_CLIENTDETECTION = 'clientDetection';
   const KEY_BADWORDS = 'badWordsFilter';
@@ -56,6 +57,14 @@ class CoreRegistry {
     return $this->get(self::KEY_ERROR);
   }
 
+  public function setLanguageHandler(CoreLanguageHandler $lang) {
+    $this->set(self::KEY_LANGUAGE, $lang);
+  }
+
+  public function getLanguageHandler() {
+    return $this->get(self::KEY_LANGUAGE);
+  }
+
   public function setMailHandler(CoreMailHandler $mail) {
     $this->set(self::KEY_MAIL, $mail);
   }
@@ -71,7 +80,7 @@ class CoreRegistry {
   public function getClientDetection() {
     return $this->get(self::KEY_CLIENTDETECTION);
   }
-  
+
   public function setBadwordsFilter(CoreBadwordsFilter $badWordsFilter) {
     $this->set(self::KEY_BADWORDS, $badWordsFilter);
   }
@@ -79,14 +88,14 @@ class CoreRegistry {
   public function getBadwordsFilter() {
     return $this->get(self::KEY_BADWORDS);
   }
-  
+
   private function __clone() {
   }
 
   public function __destruct() {
 
   }
-  
+
 }
 
 ?>
