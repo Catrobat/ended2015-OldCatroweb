@@ -25,6 +25,9 @@ abstract class CoreAuthentication extends CoreModule {
     if (getenv("REMOTE_ADDR"))  {
       $this->requestFromBlockedIp($vmodule, $vclass);
     }
+    if (isset($this->session->userLogin_userNickname, $vmodule, $vclass)) { //todo: fix - user session is unknown at this time
+      $this->requestFromBlockedUser($this->session->userLogin_userNickname);
+    }
   }
 
   abstract function authenticate();
@@ -35,7 +38,7 @@ abstract class CoreAuthentication extends CoreModule {
 
   private function requestFromBlockedIp($vmodule, $vclass) {
     $badIp = false;
-    if(($vmodule =! "catroid") || in_array($vclass, getIpBlockClassWhitelistArray())) {
+    if(($vmodule != "catroid") || in_array($vclass, getIpBlockClassWhitelistArray())) {
       return;
     }
      
@@ -51,6 +54,25 @@ abstract class CoreAuthentication extends CoreModule {
       $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked', '', 'blocked_ip');
     }
   }
+
+  private function requestFromBlockedUser($user, $vmodule, $vclass) {
+    $badUser = false;
+    
+    if(in_array($vclass, getIpBlockClassWhitelistArray())) {
+      return;
+    }
+    
+    if ($user) {
+        $query = "SELECT user_name FROM blocked_cusers WHERE user_name like '".$user."'";
+        $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
+        if(pg_num_rows($result))
+          $badUser = true;
+    }
+    if ($badUser) {
+      $this->errorHandler->showErrorPage('viewer', 'user_is_blocked', '', 'blocked_user');
+    }
+  }
+  
 }
 
 ?>

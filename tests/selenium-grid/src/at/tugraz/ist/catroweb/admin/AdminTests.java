@@ -104,6 +104,12 @@ public class AdminTests extends BaseTest {
       session().goBack();
       waitForPageToLoad();
 
+      session().click("xpath=//a[7]");
+      waitForPageToLoad();
+      assertTrue(session().isTextPresent("Administration Tools - List of blocked users"));
+      session().goBack();
+      waitForPageToLoad();
+      
       /*
        * session().click("xpath=//a[7]"); waitForPageToLoad();
        * assertTrue(session().isTextPresent("Administration Tools - "));
