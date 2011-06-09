@@ -26,6 +26,7 @@ class CoreLanguageHandler {
 
   public function __construct($moduleName, $className, $browserLanguage) {
     $this->moduleName = $moduleName;
+    //print "\n\nmodulename: $moduleName\n\n";
     $this->className = $className;
     $this->browserLanguage = $browserLanguage;
     $this->setSiteLanguage();

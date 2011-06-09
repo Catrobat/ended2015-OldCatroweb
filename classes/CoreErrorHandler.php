@@ -81,7 +81,6 @@ class CoreErrorHandler {
     $this->session->errorType = $type;
     $this->session->errorCode = $code;
     $this->session->errorExtraInfo = $extraInfo;
-    $this->session->errorMode = $errorMode;
     $this->session->errorArgs = $args;
     $this->sendNotificationEmail($type, $code, $extraInfo);
     if(!headers_sent()) {

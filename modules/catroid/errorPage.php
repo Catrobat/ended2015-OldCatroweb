@@ -33,9 +33,6 @@ class errorPage extends CoreAuthenticationNone {
   	if($extraInfo && DEVELOPMENT_MODE) {
       $errorMessage .= ':<br/>'.$extraInfo;
     }
-    if ($mode != 'blocked_ip')
-      $errorMessage .= "<br /><a href='".BASE_PATH."'>Click to go back to startpage.</a>";
-    
     $this->errorMessage = $errorMessage;
 	}
 

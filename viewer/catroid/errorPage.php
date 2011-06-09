@@ -27,8 +27,6 @@
     		   		<div class="whiteBoxMain">
       					<div class="errorMessage">
       					  <?php echo $this->errorMessage;?>
-      					  <br>
-      					  <a href="<?php echo BASE_PATH?>">Click to go back to startpage.</a>
       					</div>
       				</div>
     			</div>

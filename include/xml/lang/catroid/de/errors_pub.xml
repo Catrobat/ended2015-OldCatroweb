@@ -48,6 +48,8 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">This page cannot be displayed.</string>
+    	<string name="ajax_request_page_not_found">Konnte Modul für Ajax Request nicht finden.</string>
+    	<string name="device_auth_invalid_token">Authentication of device failed: invalid auth-token!</string>
     </viewer>
     <auth>
     	<string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
@@ -70,6 +72,7 @@
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">Your password is invalid.</string>
     	<string name="password_length_invalid">Your password must have at least 6 characters.</string>
+    	<string name="username_password_equal">The password must differ from the nickname.</string>
     	<string name="username_missing">Your nickname is missing.</string>
     	<string name="username_invalid">Your nickname is invalid.</string>
       <string name="username_invalid_underscore">The nickname is invalid. Underscores (_) are not allowed.</string>
@@ -79,6 +82,7 @@
       <string name="username_invalid_lessgreater">The nickname is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.</string>
       <string name="username_invalid_squarebracket">The nickname is invalid. Square brackets ([ or ]) are not allowed.</string>
     	<string name="username_already_exists">This nickname already exists.</string>
+    	<string name="username_blacklisted">This nickname is on the blacklist and not allowed.</string>
     	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
     	<string name="country_missing">Your country is missing.</string>
       <string name="birth_missing">Your birthday is missing.</string>
@@ -94,5 +98,23 @@
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
       <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
     </passwordrecovery>
+    <profile>
+      <string name="password_repeat_missing">The repeated password is missing.</string>
+      <string name="password_repeat_differs">The password differs from the repeated password.</string>
+      <string name="password_old_missing">The old password is missing.</string>
+      <string name="password_old_wrong">The old password was incorrect.</string>
+      <string name="password_old_invalid">The old password is invalid.</string>
+      <string name="password_old_length_invalid">The old password must have at least 6 characters.</string>
+      <string name="password_new_missing">The new password is missing.</string>
+      <string name="password_new_invalid">The new password is invalid.</string>
+      <string name="password_new_length_invalid">The new password must have at least 6 characters.</string>
+      <string name="username_password_equal">The password must differ from the nickname.</string>
+      <string name="email_address_exists">The email address already exists.</string>
+      <string name="email_update_failed">There was a problem while updating the email address.</string>
+    </profile>
+    <viewer>
+      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
+      <string name="user_is_blocked">Your Account has been blocked.</string>
+    </viewer>
 </errors>
 

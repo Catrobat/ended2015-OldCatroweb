@@ -49,6 +49,7 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">Konnte den HTML Viewer nicht finden.</string>
+    	<string name="ajax_request_page_not_found">Konnte Modul für Ajax Request nicht finden.</string>
     </viewer>
     <auth>
     	<string name="password_or_username_wrong">Das Passwort oder der Nickname ist falsch.</string>
@@ -57,6 +58,7 @@
     	<string name="wiki_authentication_failed">Die Authentifizierung mit dem Mediawiki ist fehlgeschlagen.</string>
     	<string name="catroid_authentication_failed">Die Authentifizierung auf der Seite ist fehlgeschlagen.</string>
     	<string name="wiki_api_response_incorrect">Die Mediawiki-API lieferte eine falsche Antwort.</string>
+    	<string name="device_auth_invalid_token">Authentication of device failed: invalid auth-token!</string>
     </auth>
     <registration>
     	<string name="board_registration_failed">Die Registrierung im Forum ist fehlgeschlagen.</string>
@@ -70,6 +72,7 @@
     	<string name="password_repeat_differs">Das Passwort und die Passwortwiederholung unterscheiden sich.</string>
     	<string name="password_invalid">Das Passwort ist ungültig.</string>
     	<string name="password_length_invalid">Das Passwort muss mindestens {*minPasswordLength*} Zeichen beinhalten.</string>
+    	<string name="username_password_equal">The password must differ from the nickname.</string>
     	<string name="username_missing">Du hast keinen Nickname angegeben.</string>
     	<string name="username_invalid">Der Nickname ist ungültig.</string>
     	<string name="username_invalid_underscore">Der Nickname ist ungültig. Underscores (_) sind nicht erlaubt.</string>
@@ -79,6 +82,7 @@
     	<string name="username_invalid_lessgreater">Der Nickname ist ungültig. Größer/Kleiner Zeichen (&lt; oder &gt;) sind nicht erlaubt.</string>
     	<string name="username_invalid_squarebracket">Der Nickname ist ungültig. Eckige Klammern ([ oder ]) sind nicht erlaubt.</string>
     	<string name="username_already_exists">Der Nickname existiert bereits.</string>
+    	<string name="username_blacklisted">This nickname is on the blacklist and not allowed.</string>
     	<string name="country_codes_not_available">Keine Ländercodes in der Datenbank gefunden.</string>
     	<string name="country_missing">Du hast kein Land angegeben.</string>
     	<string name="birth_missing">Du hast keinen Geburtstag angegeben.</string>
@@ -98,4 +102,22 @@
       <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
       <string name="catroid_password_recovery_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal oder kontaktiere den Administrator unter webmaster@catroid.org.</string>
     </passwordrecovery>
+    <profile>
+      <string name="password_repeat_missing">The repeated password is missing.</string>
+      <string name="password_repeat_differs">The password differs from the repeated password.</string>
+      <string name="password_old_missing">The old password is missing.</string>
+      <string name="password_old_wrong">The old password was incorrect.</string>
+      <string name="password_old_invalid">The old password is invalid.</string>
+      <string name="password_old_length_invalid">The old password must have at least 6 characters.</string>
+      <string name="password_new_missing">The new password is missing.</string>
+      <string name="password_new_invalid">The new password is invalid.</string>
+      <string name="password_new_length_invalid">The new password must have at least 6 characters.</string>
+      <string name="username_password_equal">The password must differ from the nickname.</string>
+      <string name="email_address_exists">The email address already exists.</string>
+      <string name="email_update_failed">There was a problem while updating the email address.</string>
+    </profile>
+    <viewer>
+      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
+      <string name="user_is_blocked">Your Account has been blocked.</string>
+    </viewer>
 </errors>
