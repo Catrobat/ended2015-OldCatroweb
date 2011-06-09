@@ -50,8 +50,8 @@ public class ReportAsInappropriateTests extends BaseTest {
       session().type("loginUsername", dataset.get("username"));
       session().type("loginPassword", dataset.get("password"));
       session().click("loginSubmitButton");
-      waitForPageToLoad();
       ajaxWait();
+      waitForPageToLoad();
       Thread.sleep(Config.TIMEOUT_THREAD);
       assertTrue(session().isVisible("headerProfileButton"));
       session().click("headerProfileButton");
@@ -67,12 +67,18 @@ public class ReportAsInappropriateTests extends BaseTest {
 
       // report as inappropriate not visible
       assertFalse(session().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
-
+      
+      // check if reportAsInappropriate button is visible for a foreign project
+      openLocation();
+      ajaxWait();
+      clickLastVisibleProject();
+      waitForElementPresent("xpath=//button[@id='reportAsInappropriateButton']");
+      
+      // logout
       assertTrue(session().isElementPresent("xpath=//button[@id='headerMenuButton']"));
       session().click("xpath=//button[@id='headerMenuButton']");
       waitForPageToLoad();
       ajaxWait();
-
       session().click("xpath=//button[@id='menuLogoutButton']");
       waitForPageToLoad();
       ajaxWait();
