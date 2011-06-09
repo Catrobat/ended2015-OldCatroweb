@@ -68,7 +68,7 @@ public class UploadTests extends BaseTest {
     Object[][] returnArray = new Object[][] {
         { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "",
             "", "", "0") },
-        { CommonData.getUploadPayload("my test project with spaces", "some description for my test project.", "test.zip", "72ed87fbd5119885009522f08b7ee79f",
+        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test.zip", "72ED87fbd5119885009522F08b7ee79F",
             "", "", "", "0") },
         { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test.zip",
             "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },

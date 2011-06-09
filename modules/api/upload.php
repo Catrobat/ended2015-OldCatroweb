@@ -97,7 +97,6 @@ class upload extends CoreAuthenticationDevice {
                           $answer = 'Upload successfull! QR-Code failed!';
                         }
 
-                        // $fileInfo = 
                         $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
                         $this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
                         
@@ -301,7 +300,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function checkFileChecksum($uploadChecksum, $clientChecksum) {
-    if(strcmp($uploadChecksum, $clientChecksum) == 0) {
+    if(strcmp(strtolower($uploadChecksum), strtolower($clientChecksum)) == 0) {
       return true;
     } else {
       return false;
