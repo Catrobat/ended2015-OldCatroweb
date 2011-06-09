@@ -111,7 +111,7 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
    * @dataProvider randomLongStrings
    */
   public function testShortenTitle($string) {   
-    $short = $this->obj->shortenTitle($string);
+    $short = makeShortString($string, PROJECT_TITLE_MAX_DISPLAY_LENGTH);
     $this->assertEquals(PROJECT_TITLE_MAX_DISPLAY_LENGTH, strlen($short));
     $this->assertEquals(0, strcmp(substr($string, 0, strlen($short)), $short));
   }

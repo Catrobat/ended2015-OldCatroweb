@@ -18,7 +18,8 @@
  */
 
 /* Guideline for commonFunctions:
- * - keep them very short
+ * - as soon as the same method-code is used in more than one class, consider putting the method in here
+ * - keep them as short as possible
  * - give them meaningful names
  * - only put them here if they are used in more than one class
  * - or if they provide a set of data (e.g. array)
@@ -30,24 +31,24 @@ function getUsernameBlacklistArray() {
     'admin',
     'catroid',
     'kittyroid'
-   );
-   return $usernameBlacklist;
+    );
+    return $usernameBlacklist;
 }
 
 function getMonthsArray() {
   $months = array(
-    1=>"Jan",
-    2=>"Feb",
-    3=>"Mar",
-    4=>"Apr",
-    5=>"May",
-    6=>"Jun",
-    7=>"Jul",
-    8=>"Aug",
-    9=>"Sep",
-    10=>"Oct",
-    11=>"Nov",
-    12=>"Dec"
+  1=>"Jan",
+  2=>"Feb",
+  3=>"Mar",
+  4=>"Apr",
+  5=>"May",
+  6=>"Jun",
+  7=>"Jul",
+  8=>"Aug",
+  9=>"Sep",
+  10=>"Oct",
+  11=>"Nov",
+  12=>"Dec"
   );
   return $months;
 }
@@ -60,8 +61,86 @@ function getIpBlockClassWhitelistArray() {
     "imprint",
     "contactus",
     "errorPage"
-  );
-  return $whitelistClasses;
+    );
+    return $whitelistClasses;
+}
+
+function convertBytesToMegabytes($numOfBytes) {
+  $mb = round($numOfBytes/1048576, 1);
+  if($mb < 0.1) {
+    $mb = html_entity_decode("< 0.1");
+  }
+  return $mb;
+}
+
+function makeShortString($string, $maxLength, $suffix = '') {
+  if(strlen($string) > $maxLength) {
+    return mb_substr($string, 0, $maxLength-mb_strlen($suffix, 'UTF-8'), 'UTF-8').$suffix;
+  }
+  return $string;
+}
+
+function getProjectThumbnailUrl($projectId) {
+  $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
+  $thumbFile = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
+  if(!is_file($thumbFile)) {
+    $thumb = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_SMALL;
+  }
+  return $thumb;
+}
+
+function getProjectImageUrl($projectId) {
+  $img = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE;
+  $imgFile = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE;
+  if(!is_file($imgFile)) {
+    $img = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_LARGE;
+  }
+  return $img;
+}
+
+function getProjectQRCodeUrl($projectId) {
+  $qr = BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
+  $qrFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
+  if(!is_file($qrFile)) {
+    return false;
+  }
+  return $qr;
+}
+
+function getTimeInWords($fromTime, $toTime = 0) {
+  if($toTime == 0) {
+    $toTime = time();
+  }
+  $seconds = round(abs($toTime - $fromTime));
+  $minutes = round($seconds/60);
+  if ($minutes <= 1) {
+    return ($minutes == 0) ? 'less than a minute' : '1 minute';
+  }
+  if ($minutes < 45) {
+    return $minutes.' minutes';
+  }
+  if ($minutes < 90) {
+    return 'about 1 hour';
+  }
+  if ($minutes < 1440) {
+    return 'about '.round(floatval($minutes)/60.0).' hours';
+  }
+  if ($minutes < 2880) {
+    return '1 day';
+  }
+  if ($minutes < 43200) {
+    return 'about '.round(floatval($minutes)/1440).' days';
+  }
+  if ($minutes < 86400) {
+    return 'about 1 month';
+  }
+  if ($minutes < 525600) {
+    return round(floatval($minutes)/43200).' months';
+  }
+  if ($minutes < 1051199) {
+    return 'about 1 year';
+  }
+  return 'over '.round(floatval($minutes)/525600) . ' years';
 }
 
 ?>

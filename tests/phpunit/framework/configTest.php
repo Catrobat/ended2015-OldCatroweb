@@ -21,7 +21,6 @@ require_once('frameworkTestsBootstrap.php');
 
 class configTest extends PHPUnit_Framework_TestCase
 {
-  protected $obj;
 
   public function testConfig()
   {

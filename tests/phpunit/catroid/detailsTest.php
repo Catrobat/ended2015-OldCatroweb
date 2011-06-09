@@ -42,38 +42,11 @@ class detailsTest extends PHPUnit_Framework_TestCase
   {
     $thumbSourceName = 'test_thumbnail.jpg';
     $thumbDestName = 'test_large.jpg';
-    $thumb = $this->obj->getProjectImage('test');
+    $thumb = getProjectImageUrl('test');
     $this->assertFalse(strpos($thumb, $thumbDestName));
     copy(dirname(__FILE__).'/testdata/'.$thumbSourceName, CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbDestName);
-    $thumb = $this->obj->getProjectImage('test');
+    $thumb = getProjectImageUrl('test');
     $this->assertTrue(is_int(strpos($thumb, $thumbDestName)));
-  }
-
-  public function testGetTimeInWords() {
-    $fromTime = time() - 10;
-    $timeInWords = $this->obj->getTimeInWords($fromTime, time());
-    $this->assertTrue(is_string($timeInWords));
-    $this->assertTrue(is_int(strpos($timeInWords, 'less')) && is_int(strpos($timeInWords, 'minute')));
-
-    $fromTime = time() - 66;
-    $timeInWords = $this->obj->getTimeInWords($fromTime, time());
-    $this->assertFalse(strpos($timeInWords, 'less'));
-    $this->assertTrue(is_int(strpos($timeInWords, 'minute')));
-
-    $fromTime = time() - 60*60*24-1;
-    $timeInWords = $this->obj->getTimeInWords($fromTime, time());
-    $this->assertFalse(strpos($timeInWords, 'minute'));
-    $this->assertTrue(is_int(strpos($timeInWords, 'day')));
-
-    $fromTime = time() - 60*60*24*31-1;
-    $timeInWords = $this->obj->getTimeInWords($fromTime, time());
-    $this->assertFalse(strpos($timeInWords, 'day'));
-    $this->assertTrue(is_int(strpos($timeInWords, 'month')));
-
-    $fromTime = time() - 60*60*24*32*12-1;
-    $timeInWords = $this->obj->getTimeInWords($fromTime, time());
-    $this->assertFalse(strpos($timeInWords, 'month'));
-    $this->assertTrue(is_int(strpos($timeInWords, 'year')));
   }
 
   /**
@@ -89,7 +62,7 @@ class detailsTest extends PHPUnit_Framework_TestCase
    * @dataProvider randomLongStrings
    */
   public function testShortenDescription($string) {
-    $short = $this->obj->shortenDescription($string);
+    $short = makeShortString($string, PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...'); //$this->obj->shortenDescription($string);
 
     $this->assertEquals(PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, strlen($short));
     $this->assertEquals(substr($string, 0, strlen($short)-3).'...', $short);
@@ -112,14 +85,14 @@ class detailsTest extends PHPUnit_Framework_TestCase
    */
   public function testGetQRCodeImage($id) {
     @copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION);
-    $this->assertTrue(is_string($this->obj->getQRCodeImage($id)));
-    $this->assertFalse(is_string($this->obj->getQRCodeImage('non_existing_id')));
+    $this->assertTrue(is_string(getProjectQRCodeUrl($id)));
+    $this->assertFalse(getProjectQRCodeUrl('non_existing_id'));
   }
   
   public function testGetFilesizeInMegabytes() {
     $bytes = 1234567890;
     $megabytes = round($bytes/1048576, 1);
-    $this->assertEquals($megabytes, $this->obj->getFilesizeInMegabytes($bytes));
+    $this->assertEquals($megabytes, convertBytesToMegabytes($bytes));
   }
 
   /* *** DATA PROVIDERS *** */

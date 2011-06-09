@@ -24,6 +24,7 @@
   spl_autoload_register('__autoload');
   require_once(dirname(__FILE__).'/../../config.php');
   require_once(dirname(__FILE__).'/../../passwords.php');
+  require_once(dirname(__FILE__).'/../../commonFunctions.php');
   function __autoload($class) {
     include_once CORE_BASE_PATH.'classes/'.$class.'.php';
   }

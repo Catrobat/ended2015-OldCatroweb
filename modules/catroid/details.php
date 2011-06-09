@@ -58,91 +58,26 @@ class details extends CoreAuthenticationNone {
       $this->errorHandler->showErrorPage('db', 'no_entry_for_id', 'ID: '.$projectId);
       exit();
     }
-    $project['image'] = $this->getProjectImage($project['id']);
-    $project['publish_time_in_words'] = $this->getTimeInWords(strtotime($project['upload_time']), time());
+    $project['image'] = getProjectImageUrl($project['id']);
+    $project['publish_time_in_words'] = getTimeInWords(strtotime($project['upload_time']), time());
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
     $project['title'] = $project['title'];
-    $project['fileSize'] = $this->getFilesizeInMegabytes($project['filesize_bytes']);
+    $project['fileSize'] = convertBytesToMegabytes($project['filesize_bytes']);
     if($project['description']) {
       $project['description'] = $project['description'];
     } else {
       $project['description'] = '';
     }
-    $project['description_short'] = $this->shortenDescription($project['description']);
-    $project['qr_code_image'] = $this->getQRCodeImage($projectId);
+    $project['description_short'] = makeShortString($project['description'], PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
+    $project['qr_code_image'] = getProjectQRCodeUrl($projectId);
     $this->incrementViewCounter($projectId);
     return $project;
-  }
-
-  public function getProjectImage($projectId) {
-    $img = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE;
-    $img_file = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE;
-    if(!is_file($img_file))
-      $img = BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.PROJECTS_THUMBNAIL_DEFAULT.PROJECTS_THUMBNAIL_EXTENTION_LARGE;
-    return $img;
-  }
-
-  public function getQRCodeImage($projectId) {
-    $qrImg = BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
-    $qrImgFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
-    if(!is_file($qrImgFile)) {
-      return false;
-    }
-
-    return $qrImg;
-  }
-
-  public function getTimeInWords($fromTime, $toTime = 0) {
-    if($toTime == 0) {
-      $toTime = time();
-    }
-    $seconds = round(abs($toTime - $fromTime));
-    $minutes = round($seconds/60);
-    if ($minutes <= 1) {
-      return ($minutes == 0) ? 'less than a minute' : '1 minute';
-    }
-    if ($minutes < 45) {
-      return $minutes.' minutes';
-    }
-    if ($minutes < 90) {
-      return 'about 1 hour';
-    }
-    if ($minutes < 1440) {
-      return 'about '.round(floatval($minutes)/60.0).' hours';
-    }
-    if ($minutes < 2880) {
-      return '1 day';
-    }
-    if ($minutes < 43200) {
-      return 'about '.round(floatval($minutes)/1440).' days';
-    }
-    if ($minutes < 86400) {
-      return 'about 1 month';
-    }
-    if ($minutes < 525600) {
-      return round(floatval($minutes)/43200).' months';
-    }
-    if ($minutes < 1051199) {
-      return 'about 1 year';
-    }
-    return 'over '.round(floatval($minutes)/525600) . ' years';
-  }
-
-  public function shortenDescription($string) {
-    if(strlen($string) > PROJECT_SHORT_DESCRIPTION_MAX_LENGTH) {
-      return substr($string, 0, PROJECT_SHORT_DESCRIPTION_MAX_LENGTH-3).'...';
-    }
-    return false;
   }
 
   public function incrementViewCounter($projectId) {
     $query = "EXECUTE increment_view_counter('$projectId');";
     $result = pg_query($query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
     return;
-  }
-  
-  public function getFilesizeInMegabytes($bytes) {
-    return round($bytes/1048576, 1);
   }
 
   public function __destruct() {

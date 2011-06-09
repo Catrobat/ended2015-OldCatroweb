@@ -71,48 +71,11 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
     $this->deleteUploadedProjects();
   }
   
-  public function testGetThumbnail() {
-    $thumbSourceName = 'test_thumbnail.jpg';
-    $thumbDestName = 'test_small.jpg';
-    $thumb = $this->obj->getThumbnail('test');
-    $this->assertFalse(strpos($thumb, $thumbDestName));
-    copy(dirname(__FILE__).'/testdata/'.$thumbSourceName, CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbDestName);
-    $thumb = $this->obj->getThumbnail('test');
-    $this->assertTrue(is_int(strpos($thumb, $thumbDestName)));
-  }
-  
-  public function testGetTimeInWords() {
-    $fromTime = time() - 10;
-    $timeInWords = $this->obj->getTimeInWords($fromTime, time());
-    $this->assertTrue(is_string($timeInWords));
-    $this->assertTrue(is_int(strpos($timeInWords, 'less')) && is_int(strpos($timeInWords, 'minute')));
-
-    $fromTime = time() - 66;
-    $timeInWords = $this->obj->getTimeInWords($fromTime, time());
-    $this->assertFalse(strpos($timeInWords, 'less'));
-    $this->assertTrue(is_int(strpos($timeInWords, 'minute')));
-
-    $fromTime = time() - 60*60*24-1;
-    $timeInWords = $this->obj->getTimeInWords($fromTime, time());
-    $this->assertFalse(strpos($timeInWords, 'minute'));
-    $this->assertTrue(is_int(strpos($timeInWords, 'day')));
-
-    $fromTime = time() - 60*60*24*31-1;
-    $timeInWords = $this->obj->getTimeInWords($fromTime, time());
-    $this->assertFalse(strpos($timeInWords, 'day'));
-    $this->assertTrue(is_int(strpos($timeInWords, 'month')));
-
-    $fromTime = time() - 60*60*24*32*12-1;
-    $timeInWords = $this->obj->getTimeInWords($fromTime, time());
-    $this->assertFalse(strpos($timeInWords, 'month'));
-    $this->assertTrue(is_int(strpos($timeInWords, 'year')));
-  }
-  
   /**
    * @dataProvider randomLongStrings
    */
   public function testShortenTitle($string) {
-    $short = $this->obj->shortenTitle($string);
+    $short = makeShortString($string, PROJECT_TITLE_MAX_DISPLAY_LENGTH);
 
     $this->assertEquals(PROJECT_TITLE_MAX_DISPLAY_LENGTH, strlen($short));
     $this->assertEquals(0, strcmp(substr($string, 0, strlen($short)), $short));
