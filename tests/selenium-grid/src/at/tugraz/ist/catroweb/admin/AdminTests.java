@@ -29,7 +29,7 @@ import at.tugraz.ist.catroweb.common.*;
 @Test(groups = { "admin", "AdminTests" })
 public class AdminTests extends BaseTest {
 
-  @Test(groups = { "visiblity" }, description = "check admin area login")
+  @Test(groups = { "visibility" }, description = "check admin area login")
   public void successfulLogin() throws Throwable {
     try {
       openAdminLocation();

@@ -151,14 +151,14 @@ public class SearchTests extends BaseTest {
   @Test(groups = { "functionality", "upload" }, description = "search test with page navigation")
   public void pageNavigation() throws Throwable {
     try {
-      String projectTitle = CommonData.getRandomShortString(10) ;
+      String projectTitle = CommonData.getRandomShortString(10);
 
       int uploadCount = Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1);
 
       System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
       for(int i = 0; i < uploadCount; i++) {
-        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "",
-            "", "", "0"));
+        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "",
+            "0"));
       }
 
       openLocation();

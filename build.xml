@@ -388,7 +388,7 @@
   
   <target name="-get-selenium-grid-group-test-parameter">
     <input
-      message="Please enter a group to test (e.g.: firefox): "
+      message="Please enter a group to test (e.g.: admin, api, catroid): "
       addproperty="test.group"
     />
 

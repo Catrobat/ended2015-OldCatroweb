@@ -17,7 +17,7 @@
       along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
 
-<suite name="Catroid Run Group Test" verbose="2">
+<suite name="Catroid Run Group Test" parallel="methods" thread-count="20" verbose="2">
   <test name="GroupTest">
     <groups>
       <run>
@@ -26,9 +26,8 @@
     </groups>
 
     <packages>
+      <package name="at.tugraz.ist.catroweb.api" />
       <package name="at.tugraz.ist.catroweb.admin" />
-    </packages>
-    <packages>
       <package name="at.tugraz.ist.catroweb.catroid" />
     </packages>
   </test>
