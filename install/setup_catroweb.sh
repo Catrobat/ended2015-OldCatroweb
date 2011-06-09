@@ -1,17 +1,22 @@
 #!/bin/bash
 # tested on Ubuntu Lucid Lynx (10.04)
 
+#the place where a new folder containing the files goes
 WORKSPACE=~/Workspace/
+#name of the new folder 
 TARGET=catroweb
 
 cd ${WORKSPACE}
-mkdir -p ${TARGET}
 
 echo ""
 echo "check and install necessary packages..."
 sudo add-apt-repository ppa:mercurial-ppa/releases
 sudo apt-get update
-sudo apt-get install eclipse apache2 php5 php5-gd php5-curl php-pear postgresql phppgadmin mercurial --yes --quiet
+sudo apt-get install eclipse apache2 php5 php5-gd php5-curl php-pear postgresql phppgadmin mercurial sun-java6-jdk --yes --quiet
+
+echo ""
+echo "set java version"
+sudo update-java-alternatives -s java-6-sun
 
 echo ""
 echo "configure mercurial, get googlecode fingerprint..."
