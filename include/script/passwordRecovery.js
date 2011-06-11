@@ -80,7 +80,7 @@ var PasswordRecovery = Class.$extend( {
       type: "POST",
       url: this.basePath + 'catroid/passwordrecovery/passwordRecoveryChangeMyPasswordRequest.json',
       data: "c="+$("#c").val()+"&passwordSavePassword="+$("#passwordSavePassword").val(),
-      timeout: (5000),
+      timeout: (this.ajaxTimeout),
       
       success: function(result){
         if(result['statusCode'] == 200) {

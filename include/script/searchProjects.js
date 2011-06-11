@@ -229,7 +229,7 @@ var SearchProjects = Class.$extend( {
         query : self.searchQuery,
         page : pageNr
       },
-      timeout: (5000),
+      timeout: (this.ajaxTimeout),
     
       success: function(result) {
         if(result != "") {

@@ -58,7 +58,7 @@ var Registration = Class.$extend( {
         registrationYear : $("#registrationYear").val(),
         registrationGender : $("#registrationGender").val()
       }),
-      timeout : (5000),
+      timeout : (this.ajaxTimeout),
       success : jQuery.proxy(this.registrationSuccess, this),
       error : jQuery.proxy(this.registrationError, this)
     });

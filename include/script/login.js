@@ -36,7 +36,7 @@ var Login = Class.$extend({
         loginUsername : $("#loginUsername").val(),
         loginPassword : $("#loginPassword").val()
       }),
-      timeout : (5000),
+      timeout : (this.ajaxTimeout),
       success : jQuery.proxy(this.loginSuccess, this),
       error : jQuery.proxy(this.loginError, this)
     });
