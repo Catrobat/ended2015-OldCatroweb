@@ -18,9 +18,8 @@
 
 
 var SearchProjects = Class.$extend( {
-  __init__ : function(parent, basePath, maxLoadProjects, maxLoadPages, pageNr, searchQuery, strings) {
-	  this.parent = parent;
-    this.basePath = basePath;
+  __include__ : [__baseClassVars],
+  __init__ : function(maxLoadProjects, maxLoadPages, pageNr, searchQuery, strings) {
     this.strings = strings;
     this.maxLoadProjects = parseInt(maxLoadProjects);
     this.maxVisibleProjects = parseInt(maxLoadPages) * maxLoadProjects;

@@ -18,10 +18,10 @@
 
 
 var Menu = Class.$extend( {
-  __init__ : function(basePath, userLogin_userId) {
+  __include__ : [__baseClassVars],
+  __init__ : function(userLogin_userId) {
 
     this.userLogin_userId = userLogin_userId;
-    this.basePath = basePath;
     
     $("#menuForumButton").click({url:"addons/board",windowName:"board"}, jQuery.proxy(this.openWindow, this));
     $("#headerHomeButton").click({url:"catroid/index"}, jQuery.proxy(this.openLocation, this));

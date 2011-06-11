@@ -17,8 +17,8 @@
  */
 
 var Login = Class.$extend({
-  __init__ : function(basePath) {
-    this.basePath = basePath;
+  __include__ : [__baseClassVars],
+  __init__ : function() {
     $("#loginSubmitButton").click(jQuery.proxy(this.doLoginRequest, this));
     $("#logoutSubmitButton").click(jQuery.proxy(this.doLogoutRequest, this));
     $("#loginUsername").keypress($.proxy(this.loginCatchKeypress, this));

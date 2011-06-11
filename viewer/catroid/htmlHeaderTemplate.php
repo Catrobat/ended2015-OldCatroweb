@@ -19,8 +19,8 @@
 ?>
     <script type="text/javascript">
       $(document).ready(function() {        
-        new HeaderMenu(<?php echo "'".BASE_PATH."'"; ?>);
-        new Login(<?php echo "'".BASE_PATH."'"; ?>);
+        new HeaderMenu();
+        new Login();
       });
     </script>
     <div class="webMainTop">

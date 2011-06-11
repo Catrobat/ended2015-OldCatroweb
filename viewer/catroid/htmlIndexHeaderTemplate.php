@@ -19,9 +19,9 @@
 ?>
     <script type="text/javascript">
       $(document).ready(function() {
-        new Index(<?php echo "'".BASE_PATH."', '".PROJECT_PAGE_LOAD_MAX_PROJECTS."', '".PROJECT_PAGE_SHOW_MAX_PAGES."', '".$this->module->session->pageNr."', '".$this->module->session->searchQuery."', '".$this->module->session->task."', { loading: 'loading...' }"; ?>);
-        new HeaderMenu(<?php echo "'".BASE_PATH."'"; ?>);
-        new Login(<?php echo "'".BASE_PATH."'"; ?>);
+        new Index(<?php echo "'".PROJECT_PAGE_LOAD_MAX_PROJECTS."', '".PROJECT_PAGE_SHOW_MAX_PAGES."', '".$this->module->session->pageNr."', '".$this->module->session->searchQuery."', '".$this->module->session->task."', { loading: 'loading...' }"; ?>);
+        new HeaderMenu();
+        new Login();
       });
     </script>
     <div class="webMainTop">

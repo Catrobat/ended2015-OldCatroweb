@@ -17,8 +17,8 @@
  */
 
 var ProjectDetails = Class.$extend( {
-  __init__ : function(basePath) {
-    this.basePath = basePath;
+  __include__ : [__baseClassVars],
+  __init__ : function() {
     $("#qrcodeInfo").toggle(false);
     $("#hideQrCodeInfoButton").toggle(false);
     $("#showQrCodeInfoButton").click($.proxy(this.showQrCodeInfo, this));

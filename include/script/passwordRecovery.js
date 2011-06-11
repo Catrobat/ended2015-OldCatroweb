@@ -17,8 +17,8 @@
  */
 
 var PasswordRecovery = Class.$extend( {
-  __init__ : function(basePath) {
-    this.basePath = basePath;
+  __include__ : [__baseClassVars],
+  __init__ : function() {
 
     var self = this;
     $("#passwordRecoveryFormDialog").toggle(true);

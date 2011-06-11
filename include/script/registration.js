@@ -17,8 +17,8 @@
  */
 
 var Registration = Class.$extend( {
-  __init__ : function(basePath) {
-    this.basePath = basePath;
+  __include__ : [__baseClassVars],
+  __init__ : function() {
     $("#registrationFormDialog").toggle(true);
     $("#registrationFormAnswer").toggle(false);
     $("#registrationSubmit").click(

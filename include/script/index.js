@@ -18,10 +18,11 @@
 
 
 var Index = Class.$extend( {
-  __init__ : function(basePath, maxLoadProjects, maxLoadPages, pageNr, searchQuery, task, strings) {
+  __include__ : [__baseClassVars],
+  __init__ : function(maxLoadProjects, maxLoadPages, pageNr, searchQuery, task, strings) {
     var self = this;
-    this.newestProjects = new NewestProjects(this, basePath, maxLoadProjects, maxLoadPages, pageNr, strings);
-    this.searchProjects = new SearchProjects(this, basePath, maxLoadProjects, maxLoadPages, pageNr, searchQuery, strings);
+    this.newestProjects = new NewestProjects(maxLoadProjects, maxLoadPages, pageNr, strings);
+    this.searchProjects = new SearchProjects(maxLoadProjects, maxLoadPages, pageNr, searchQuery, strings);
 
     this.task = task;
     this.state = "newestProjects";

@@ -17,9 +17,9 @@
  */
 
 var Profile = Class.$extend( {
-  __init__ : function(basePath) {
-    this.basePath = basePath;
-	var self = this;
+  __include__ : [__baseClassVars],
+  __init__ : function() {
+    var self = this;
     $("#profileFormAnswer").toggle(false);
     $("#errorMsg").toggle(false);
     $("#okMsg").toggle(false);
