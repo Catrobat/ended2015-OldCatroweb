@@ -26,7 +26,6 @@ class CoreLanguageHandler {
 
   public function __construct($moduleName, $className, $browserLanguage) {
     $this->moduleName = $moduleName;
-    //print "\n\nmodulename: $moduleName\n\n";
     $this->className = $className;
     $this->browserLanguage = $browserLanguage;
     $this->setSiteLanguage();
@@ -107,7 +106,6 @@ class CoreLanguageHandler {
     $defaultLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.SITE_DEFAULT_LANGUAGE.'/'.$fileName;
     $selectedLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->language.'/'.$fileName;
     if(!file_exists($defaultLanguagefile)) {
-      //print "not exist: $defaultLanguagefile\n";
       return false;
     }
     if(!file_exists($selectedLanguagefile)) {
@@ -136,7 +134,6 @@ class CoreLanguageHandler {
   private function setSiteLanguage() {
     if(isset($_GET['userLanguage'])) {
       $lang = $_GET['userLanguage'];
-      setcookie('site_language', $lang, 0, "/", '', false, true);
     } else if(isset($_COOKIE['site_language'])) {
       $lang = $_COOKIE['site_language'];
     } else if(isset($_POST['userLanguage'])) {
@@ -144,11 +141,11 @@ class CoreLanguageHandler {
     } else {
       $lang = $this->browserLanguage;
     }
-    $supportedLanguages = getSupportedLanguagesArray();
-    if(!isset($supportedLanguages[$lang])) {
+    if(!in_array($lang, getSupportedLanguagesArray())) {
       $lang = SITE_DEFAULT_LANGUAGE;
     }
     $this->language = $lang;
+    setcookie('site_language', $lang, 0, "/", '', false, true);
   }
 
   public function __destruct() {

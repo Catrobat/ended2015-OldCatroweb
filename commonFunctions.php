@@ -143,4 +143,11 @@ function getTimeInWords($fromTime, $toTime = 0) {
   return 'over '.round(floatval($minutes)/525600) . ' years';
 }
 
+function getSupportedLanguagesArray() {
+  $supportedLanguages = array(
+  	'de',
+  	'en');
+  return $supportedLanguages;
+}
+
 ?>

@@ -70,10 +70,4 @@ define('USER_MAX_USERNAME_LENGTH',32);
 define('USER_MIN_PASSWORD_LENGTH',6);
 define('USER_MAX_PASSWORD_LENGTH',32);
 define('DATABASE_CONNECTION_PERSISTENT',true);
-function getSupportedLanguagesArray() {
-  $supportedLanguages = array(
-  	'de'=>1,
-  	'en'=>1);
-  return $supportedLanguages;
-}
 ?>
