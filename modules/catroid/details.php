@@ -59,7 +59,8 @@ class details extends CoreAuthenticationNone {
       exit();
     }
     $project['image'] = getProjectImageUrl($project['id']);
-    $project['publish_time_in_words'] = getTimeInWords(strtotime($project['upload_time']), time());
+    $project['publish_time_in_words'] = getTimeInWords(strtotime($project['upload_time']), $this->languageHandler, time());
+    $project['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $project['uploaded_by']);
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
     $project['title'] = $project['title'];
     $project['fileSize'] = convertBytesToMegabytes($project['filesize_bytes']);

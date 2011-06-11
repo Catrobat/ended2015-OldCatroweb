@@ -23,7 +23,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    
+
     $labels = array();
     $labels['websitetitle'] = "Catroid Website";
     $labels['title'] = "Search Results";
@@ -35,7 +35,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
 
   public function __default() {
     if(isset($_REQUEST['query'])) {
-    	$this->searchQuery = $_REQUEST['query'];
+      $this->searchQuery = $_REQUEST['query'];
     }
     if(isset($_REQUEST['page'])) {
       $this->pageNr = intval($_REQUEST['page'])-1;
@@ -49,46 +49,47 @@ class loadSearchProjects extends CoreAuthenticationNone {
       return "NIL";
     }
 
-  	$searchTerms = explode(" ", $keywords);
-  	$keywordsCount = 3;
-  	$searchQuery = "";
-  	$searchRequest = "";
+    $searchTerms = explode(" ", $keywords);
+    $keywordsCount = 3;
+    $searchQuery = "";
+    $searchRequest = "";
 
     foreach($searchTerms as $term) {
-      if ($term != "") { 
+      if ($term != "") {
         $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$".$keywordsCount;
         $searchQuery .= " OR description ILIKE \$".$keywordsCount;
         $searchTerm = pg_escape_string(preg_replace("/\\\/", "\\\\\\", $term));
         $searchTerm = preg_replace(array("/\%/", "/\_/"), array("\\\\\%", "\\\\\_"), $searchTerm);
-        $searchRequest .= ", '%".$searchTerm."%'";      
+        $searchRequest .= ", '%".$searchTerm."%'";
         $keywordsCount++;
       }
     }
-  	
-  	pg_prepare($this->dbConnection, "get_search_results", "SELECT projects.id, projects.title, projects.upload_time, cusers.username AS uploaded_by FROM projects, cusers WHERE ($searchQuery) AND visible = 't' AND cusers.id=projects.user_id ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")
-  	or die("Couldn't prepare statement: " . pg_last_error());
-    $query = 'EXECUTE get_search_results('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).$searchRequest.');';    
-  	$result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-  	$projects = pg_fetch_all($result);
-  	pg_query('DEALLOCATE get_search_results');
+     
+    pg_prepare($this->dbConnection, "get_search_results", "SELECT projects.id, projects.title, projects.upload_time, cusers.username AS uploaded_by FROM projects, cusers WHERE ($searchQuery) AND visible = 't' AND cusers.id=projects.user_id ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")
+    or die("Couldn't prepare statement: " . pg_last_error());
+    $query = 'EXECUTE get_search_results('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).$searchRequest.');';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $projects = pg_fetch_all($result);
+    pg_query('DEALLOCATE get_search_results');
     pg_free_result($result);
     if($projects[0]['id']) {
       $i=0;
       foreach($projects as $project) {
         $projects[$i]['title'] = $projects[$i]['title'];
         $projects[$i]['title_short'] = makeShortString($project['title'], PROJECT_TITLE_MAX_DISPLAY_LENGTH);
-        $projects[$i]['upload_time'] =  getTimeInWords(strtotime($project['upload_time']), time());
+        $projects[$i]['upload_time'] =  $this->languageHandler->getString('uploaded', getTimeInWords(strtotime($project['upload_time']), $this->languageHandler, time()));
         $projects[$i]['thumbnail'] = getProjectThumbnailUrl($project['id']);
+        $projects[$i]['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $projects[$i]['uploaded_by']);
         $i++;
       }
       return($projects);
     } elseif($pageNr == 0) {
-    	 $projects[0]['id'] = 0;
-       $projects[0]['title'] = "Your search returned no results";
-       $projects[0]['title_short'] = "Your search returned no results";
-       $projects[0]['upload_time'] =  "";
-       $projects[0]['thumbnail'] = BASE_PATH."images/symbols/thumbnail_gray.png";
-       return($projects);
+        $projects[0]['id'] = 0;
+        $projects[0]['title'] = "Your search returned no results";
+        $projects[0]['title_short'] = "Your search returned no results";
+        $projects[0]['upload_time'] =  "";
+        $projects[0]['thumbnail'] = BASE_PATH."images/symbols/thumbnail_gray.png";
+      return($projects);
     } else {
       return "NIL";
     }

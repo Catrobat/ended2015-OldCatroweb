@@ -36,6 +36,7 @@ abstract class CoreModule extends CoreObjectWeb {
   public function __construct() {
     parent::__construct();
     $this->name = $this->me->getName();
+    $this->setModuleName();
     $this->coreRegistry->setMailHandler(new CoreMailHandler());
     $this->mailHandler = $this->coreRegistry->getMailHandler();
     $this->coreRegistry->setClientDetection(new CoreClientDetection());
@@ -61,35 +62,6 @@ abstract class CoreModule extends CoreObjectWeb {
     $module instanceof CoreAuthentication);
   }
     
-//    public static function requestFromBlockedIp($vmodule, $vclass) {
-//      // return false; //deactivated IP-checker till prepared_statements-problem solved.
-//      $ip = getenv("REMOTE_ADDR");
-//      if (strlen($ip) >= 7 and strlen($ip) <= 15) {
-//        $query = "SELECT * FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
-//        $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
-//        if(pg_num_rows($result)) {
-//          // show these pages even when ip is blocked
-//          if ($vmodule == "catroid") {
-//            switch ($vclass) {
-//              case "privacypolicy": return false;
-//              case "terms": return false;
-//              case "copyrightpolicy": return false;
-//              case "imprint": return false;
-//              case "contactus": return false;
-//              case "errorPage": return false;
-//              default: return true;
-//            }
-//          }
-//          if ($vmodule == "api") return false; //todo: handle upload block somewhere else
-//          return true;
-//        } else {
-//          return false;
-//        }
-//      } else {
-//        return true;
-//      }
-//    }
-
   public function __set($property, $value) {
     $this->data[$property] = $value;
   }
@@ -115,10 +87,21 @@ abstract class CoreModule extends CoreObjectWeb {
       $this->session->SITE_LANGUAGE = $this->languageHandler->getLanguage();
     }
   }
+  
+  private function setModuleName() {
+    $path = $this->me->getFileName();
+    $path = substr($path, 0, strpos($path, basename($path))-1);
+    if(strpos($path, "\\") === false) {
+      $needle = '/';
+    } else {
+      $needle = '\\';
+    }
+    $this->moduleName = substr($path, strrpos($path, $needle)+1);
+  }
 
   private function getModuleName() {
-    if(isset($_REQUEST['module'])) {
-      return $_REQUEST['module'];
+    if($this->moduleName) {
+      return $this->moduleName;
     } else {
       return MVC_DEFAULT_MODULE;
     }

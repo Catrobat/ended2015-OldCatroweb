@@ -65,9 +65,9 @@
                     					<div style="float:left;"><img class="projectDetailsTimeSymbol" src="<?php echo BASE_PATH?>images/symbols/clock2.png" alt="publish time image"></div>
     									<div style="float:left;">
     									  <p class="detailsTime">
-    									    uploaded<br>
-    									    <b><?php echo $this->project['publish_time_in_words']?></b> ago<br>
-    									    by <b><?php echo $this->project['uploaded_by']?></b><br>
+    									    <?php echo $this->languageHandler->getString('uploaded')?><br>
+    									    <b><?php echo $this->project['publish_time_in_words']?></b><br>
+    									    <b><?php echo $this->project['uploaded_by_string']?></b><br>
     										  <span class="versionInfo">Catroid version: <?php echo $this->project['version_code']?> (<?php echo $this->project['version_name']?>)</span>
     										  </p>
     									</div>

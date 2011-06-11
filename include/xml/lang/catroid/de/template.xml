@@ -23,4 +23,16 @@
 	<string name="template_footer_copyright_policy_link">Copyright Bestimmungen</string>
 	<string name="template_footer_imprint_link">Impressum</string>
 	<string name="template_footer_contact_link">Kontakt</string>
+	<string name="template_common_one_minute_ago">vor 1 Minute</string>
+	<string name="template_common_less_than_a_minute_ago">vor weniger als 1 Minute</string>
+	<string name="template_common_minutes_ago">vor {*minuteCount*} Minuten</string>
+	<string name="template_common_one_hour_ago">vor 1 Stunde</string>
+	<string name="template_common_hours_ago">vor {*hourCount*} Stunden</string>
+	<string name="template_common_one_day_ago">vor 1 Tag</string>
+	<string name="template_common_days_ago">vor {*dayCount*} Tagen</string>
+	<string name="template_common_one_month_ago">vor 1 Monat</string>
+	<string name="template_common_months_ago">vor {*monthCount*} Monaten</string>
+	<string name="template_common_one_year_ago">vor 1 Jahr</string>
+	<string name="template_common_years_ago">vor {*yearCount*} Jahren</string>
+	<string name="template_common_over_years_ago">vor über {*yearCount*} Jahren</string>
 </strings>

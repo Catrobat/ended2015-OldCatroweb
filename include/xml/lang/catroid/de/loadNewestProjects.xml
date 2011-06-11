@@ -19,16 +19,5 @@
 
 <strings>
 	<string name="uploaded">hochgeladen {*timeString*}</string>
-	<string name="one_minute_ago">vor 1 Minute</string>
-	<string name="less_than_a_minute_ago">vor weniger als 1 Minute</string>
-	<string name="minutes_ago">vor {*minuteCount*} Minuten</string>
-	<string name="one_hour_ago">vor 1 Stunde</string>
-	<string name="hours_ago">vor {*hourCount*} Stunden</string>
-	<string name="one_day_ago">vor 1 Tag</string>
-	<string name="days_ago">vor {*dayCount*} Tagen</string>
-	<string name="one_month_ago">vor 1 Monat</string>
-	<string name="months_ago">vor {*monthCount*} Monaten</string>
-	<string name="one_year_ago">vor 1 Jahr</string>
-	<string name="years_ago">vor {*yearCount*} Jahren</string>
-	<string name="over_years_ago">vor über {*yearCount*} Jahren</string>
+	<string name="uploaded_by">von {*nicknameString*}</string>
 </strings>

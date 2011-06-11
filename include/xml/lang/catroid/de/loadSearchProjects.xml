@@ -18,6 +18,6 @@
   -->
 
 <strings>
-	<string name="uploaded">uploaded {*timeString*}</string>
-	<string name="uploaded_by">by {*nicknameString*}</string>
+	<string name="uploaded">hochgeladen {*timeString*}</string>
+	<string name="uploaded_by">von {*nicknameString*}</string>
 </strings>

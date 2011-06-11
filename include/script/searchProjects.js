@@ -396,9 +396,8 @@ var SearchProjects = Class.$extend( {
           else {
             $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='#'>"+content[i]['title']+"</a></div>");            
           }
-          // + author $("#projectListDescription"+i).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
           if (content[i]['upload_time'] != "") {
-            $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago by "+content[i]['uploaded_by']);          
+            $("#projectListDescription"+i).html(content[i]['upload_time']+" "+content[i]['uploaded_by_string']);          
           } 
           else {
             $("#projectListDescription"+i).html("");            
