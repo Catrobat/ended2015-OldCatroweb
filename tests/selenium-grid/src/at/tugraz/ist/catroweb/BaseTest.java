@@ -97,7 +97,7 @@ public class BaseTest {
   }
 
   protected void openLocation(String location) {
-    session().open(Config.TESTS_BASE_PATH + location);
+    session().open(Config.TESTS_BASE_PATH + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
     waitForPageToLoad();
   }
 
