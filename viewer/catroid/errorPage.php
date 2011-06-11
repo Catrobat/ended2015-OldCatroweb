@@ -25,7 +25,9 @@
             	<div class="webMainContentTitle">Error</div>
             	<div class="errorDiv">
     		   		<div class="whiteBoxMain">
-      					<div class="errorMessage"><?php echo $this->errorMessage;?></div>
+      					<div class="errorMessage">
+      					  <?php echo $this->errorMessage;?>
+      					</div>
       				</div>
     			</div>
     		</div>
