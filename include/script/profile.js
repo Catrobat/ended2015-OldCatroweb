@@ -17,9 +17,9 @@
  */
 
 var Profile = Class.$extend( {
-  __init__ : function(basePath) {
-    this.basePath = basePath;
-	var self = this;
+  __include__ : [__baseClassVars],
+  __init__ : function() {
+    var self = this;
     $("#profileFormAnswer").toggle(false);
     $("#errorMsg").toggle(false);
     $("#okMsg").toggle(false);
@@ -69,7 +69,7 @@ var Profile = Class.$extend( {
       type: "POST",
       url: self.basePath + 'catroid/profile/profilePasswordRequestQuery.json',
       data: "profileOldPassword="+$("#profileOldPassword").val()+"&profileNewPassword="+$("#profileNewPassword").val(),
-      timeout: (5000),
+      timeout: (this.ajaxTimeout),
 
       success: function(result){
         if(result.statusCode == 200) {
@@ -136,7 +136,7 @@ var Profile = Class.$extend( {
       type: "POST",
       url: self.basePath + 'catroid/profile/profileCountryRequestQuery.json',
       data: "profileCountry="+$("#profileCountry").val(),
-      timeout: (5000),
+      timeout: (this.ajaxTimeout),
       
       success: function(result){
         if(result.statusCode == 200) {

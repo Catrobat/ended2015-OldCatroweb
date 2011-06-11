@@ -16,10 +16,9 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-
 var HeaderMenu = Class.$extend( {
-  __init__ : function(basePath) {
-    this.basePath = basePath;
+  __include__ : [__baseClassVars],
+  __init__ : function() {
     if($("#normalHeaderButtons").length != 0) {
       $("#normalHeaderButtons").toggle();
     }
@@ -60,4 +59,3 @@ var HeaderMenu = Class.$extend( {
   }
   
 });
-
