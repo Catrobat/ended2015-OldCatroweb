@@ -46,7 +46,6 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function checkValidProjectTitle($title) {
-    //print "\n\n***** ".$this->languageHandler->getString('default_project_name')." *****\n\n";
     if(strcmp($title, $this->languageHandler->getString('default_project_name')) == 0) {
       return false;
     } else {
