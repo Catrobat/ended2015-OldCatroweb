@@ -19,6 +19,15 @@
 var Login = Class.$extend({
   __include__ : [__baseClassVars],
   __init__ : function() {
+    
+    var uri = location.search;
+    var vals = location.search.split("?requesturi=");
+    if(vals.length == 2) {
+      this.requestUri = vals[1];
+    } else {
+      this.requestUri = null;
+    }
+
     $("#loginSubmitButton").click(jQuery.proxy(this.doLoginRequest, this));
     $("#logoutSubmitButton").click(jQuery.proxy(this.doLogoutRequest, this));
     $("#loginUsername").keypress($.proxy(this.loginCatchKeypress, this));
@@ -44,7 +53,11 @@ var Login = Class.$extend({
 
   loginSuccess : function(result) {
     if (result.statusCode == 200) {
-      location.reload();
+      if(this.requestUri) {
+        location.href = this.basePath+this.requestUri;
+      } else {
+        location.reload();
+      }      
     } else {
       $("#loginInfoText").toggle(true);
       $("#loginErrorMsg").html(result.answer);

@@ -20,7 +20,8 @@
   <input type="hidden" id="basePath" value="<?php echo BASE_PATH?>">
   <script type="text/javascript">
   	$(document).ready(function() {
-  	 new Login(<?php echo "'".BASE_PATH."'"; ?>);
+  	  var __hm = new HeaderMenu();
+      __hm.toggleProfileBox();
   	});
   </script>
 

@@ -18,9 +18,7 @@
 
 var HeaderMenu = Class.$extend( {
   __include__ : [__baseClassVars],
-  
-  __init__ : function(basePath) {
-    //alert(this.basePath);
+  __init__ : function() {
     if($("#normalHeaderButtons").length != 0) {
       $("#normalHeaderButtons").toggle();
     }
@@ -61,4 +59,3 @@ var HeaderMenu = Class.$extend( {
   }
   
 });
-
