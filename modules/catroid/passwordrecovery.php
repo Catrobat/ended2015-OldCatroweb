@@ -234,40 +234,6 @@ class passwordrecovery extends CoreAuthenticationNone {
     return $hash;
   }
   
-//  public function checkUsername($username) {
-//    if(empty($username) && strcmp('0', $username) != 0) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
-//    }
-//    //username must not look like an IP-address
-//    $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
-//    $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
-//    $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
-//    $regEx = '/^'.$ip.'$/';
-//    if(preg_match($regEx, $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
-//    }
-//    // # < > [ ] | { }
-//    if(preg_match('/_|^_$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
-//    }
-//    if(preg_match('/#|^#$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'));
-//    }
-//    if(preg_match('/\||^\|$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'));
-//    }
-//    if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'));
-//    }
-//    if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'));
-//    }
-//    if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
-//    }
-//    return true;
-//  }
-  
   public function checkPassword($username, $password) {
     if((empty($password) && strcmp('0', $password) != 0) || $password == '' || mb_strlen($password) < 1) {
       throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
@@ -277,7 +243,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
       $regEx = '/^'.$text.'$/';
       if(!preg_match($regEx, $password)) {
-        throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid'));
+        throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid', '', USER_MIN_PASSWORD_LENGTH));
       }
     } else {
       throw new Exception($this->errorHandler->getError('registration', 'username_password_equal'));
@@ -360,16 +326,6 @@ class passwordrecovery extends CoreAuthenticationNone {
     else {
       $difftime = ($hashtime - $timenow);
     }
-    
-//    $sec = floor(($difftime) % 60);
-//    $min = floor(($difftime / (60)) % 60);
-//    $std = floor(($difftime / (60*60)));
-//
-//    echo "$hashtime".' $hashtime &nbsp;&nbsp;<br>';
-//    echo "$timenow".' $timenow &nbsp;&nbsp;<br>';
-//    echo "$difftime".' $difftime&nbsp;&nbsp;<br>';
-//    echo $std." Stunden&nbsp;".$min." Minuten ".$sec." Sekunden".'<br>';
-
     return $difftime;
   }   
 

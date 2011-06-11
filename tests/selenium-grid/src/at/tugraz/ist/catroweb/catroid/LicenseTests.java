@@ -118,8 +118,8 @@ public class LicenseTests extends BaseTest {
       waitForPageToLoad();
 
       assertTrue(session().isTextPresent("Address"));
-      assertTrue(session().isTextPresent("Institut für Softwaretechnologie"));
-      assertTrue(session().isTextPresent("Technische Universität Graz"));
+      assertTrue(session().isTextPresent("Institute for Software Technology"));
+      assertTrue(session().isTextPresent("Graz University of Technology"));
       assertTrue(session().isTextPresent("Inffeldgasse 16B/II"));
       assertTrue(session().isTextPresent("8010 Graz"));
       assertTrue(session().isTextPresent("Austria"));
