@@ -38,6 +38,7 @@ import org.testng.annotations.Parameters;
 import com.thoughtworks.selenium.SeleniumException;
 
 import at.tugraz.ist.catroweb.common.CommonFunctions;
+import at.tugraz.ist.catroweb.common.CommonStrings;
 import at.tugraz.ist.catroweb.common.Config;
 import at.tugraz.ist.catroweb.common.ProjectUploader;
 
@@ -46,7 +47,7 @@ public class BaseTest {
   protected String webSite;
 
   @BeforeClass(alwaysRun = true)
-  @Parameters( { "webSite", "basedir" })
+  @Parameters({ "webSite", "basedir" })
   protected void constructor(String webSite, String basedir) {
     this.webSite = webSite;
     Config.setSeleniumGridTestdata(basedir);
@@ -59,7 +60,7 @@ public class BaseTest {
   }
 
   @BeforeMethod(alwaysRun = true)
-  @Parameters( { "seleniumHost", "seleniumPort", "browser", "webSite" })
+  @Parameters({ "seleniumHost", "seleniumPort", "browser", "webSite" })
   protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite) {
     startSeleniumSession(seleniumHost, seleniumPort, browser, webSite);
     System.out.println("====================== START SESSION ===================");
@@ -89,7 +90,7 @@ public class BaseTest {
   }
 
   public static void assertRegExp(String pattern, String string) {
-    assertTrue(string.matches(pattern));
+    assertTrue(string.matches(pattern)); 
   }
 
   protected void openLocation() {
@@ -111,6 +112,11 @@ public class BaseTest {
     waitForPageToLoad();
   }
 
+  /**
+   * works only in firefox 3.6 !
+   * @param xpath 
+   * @param windowname
+   */
   protected void clickAndWaitForPopUp(String xpath, String windowname) {
     session().click(xpath);
     session().waitForPopUp(windowname, Config.TIMEOUT);
@@ -120,6 +126,24 @@ public class BaseTest {
   protected void closePopUp() {
     session().close();
     session().selectWindow(null);
+  }
+
+  protected void assertProjectPresent(String project) {
+    openLocation();
+    session().click("headerSearchButton");
+    session().type("searchQuery", project);
+    session().click("webHeadSearchSubmit");
+    ajaxWait();
+    waitForTextPresent(project);
+  }
+  
+  protected void assertProjectNotPresent(String project) {
+    openLocation();
+    session().click("headerSearchButton");
+    session().type("searchQuery", project);
+    session().click("webHeadSearchSubmit");
+    ajaxWait();
+    waitForTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS);
   }
 
   public void waitForPageToLoad() {

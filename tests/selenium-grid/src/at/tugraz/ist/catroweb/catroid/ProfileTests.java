@@ -72,7 +72,7 @@ public class ProfileTests extends BaseTest {
       session().click("xpath=//input[@id='profilePasswordSubmit']");
       ajaxWait();
 
-      assertTrue(session().isTextPresent("You updated your password successfully."));
+      waitForTextPresent("You updated your password successfully.");
 
       session().click("xpath=//a[@id='profileChangePassword']");
       ajaxWait();

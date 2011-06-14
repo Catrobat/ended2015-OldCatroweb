@@ -53,7 +53,8 @@ public class Config {
   public static final int PROJECT_PAGE_LOAD_MAX_PROJECTS = 5;
   public static final int PROJECT_PAGE_SHOW_MAX_PAGES = 5;
   public static final String PROJECTS_EXTENTION = ".zip";
-
+  public static final int PROJECT_SHORT_DESCRIPTION_MAX_LENGTH = 178;
+  
   public static final String DEFAULT_UPLOAD_TITLE = "Testproject";
   public static final String DEFAULT_UPLOAD_DESCRIPTION = "This is my testproject...";
   public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test.zip";

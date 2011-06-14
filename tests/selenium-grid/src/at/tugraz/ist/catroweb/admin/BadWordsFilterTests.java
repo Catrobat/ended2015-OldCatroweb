@@ -54,9 +54,7 @@ public class BadWordsFilterTests extends BaseTest {
       waitForPageToLoad();
       assertTrue(session().isTextPresent("The word was succesfully approved!"));
 
-      openLocation();
-      ajaxWait();
-      waitForTextPresent(unapprovedWord);
+      assertProjectPresent(unapprovedWord);
 
       deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
     } catch(AssertionError e) {
@@ -87,9 +85,7 @@ public class BadWordsFilterTests extends BaseTest {
       waitForPageToLoad();
       assertTrue(session().isTextPresent("The word was succesfully approved!"));
 
-      openLocation();
-      ajaxWait();
-      assertFalse(session().isTextPresent(unapprovedWord));
+      assertProjectNotPresent(unapprovedWord);
 
       deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
     } catch(AssertionError e) {
@@ -118,10 +114,8 @@ public class BadWordsFilterTests extends BaseTest {
       session().getConfirmation();
       waitForPageToLoad();
       assertTrue(session().isTextPresent("Error: no word meaning selected!"));
-
-      openLocation();
-      ajaxWait();
-      waitForTextPresent(unapprovedWord);
+      
+      assertProjectPresent(unapprovedWord);
 
       deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
     } catch(AssertionError e) {
@@ -152,9 +146,7 @@ public class BadWordsFilterTests extends BaseTest {
       assertTrue(session().isTextPresent("The word was succesfully deleted!"));
       assertFalse(session().isTextPresent(unapprovedWord));
 
-      openLocation();
-      ajaxWait();
-      waitForTextPresent(unapprovedWord);
+      assertProjectPresent(unapprovedWord);
 
       deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
     } catch(AssertionError e) {

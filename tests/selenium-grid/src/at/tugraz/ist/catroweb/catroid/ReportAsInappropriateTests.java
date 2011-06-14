@@ -38,7 +38,7 @@ public class ReportAsInappropriateTests extends BaseTest {
     try {
       // upload project
       Random rand = new Random();
-      String projectTitle = "Testproject for report as inappropriate " + rand.nextInt(9999);
+      String projectTitle = "Testproject_for_report_as_inappropriate_" + rand.nextInt(9999);
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
           dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
@@ -57,7 +57,7 @@ public class ReportAsInappropriateTests extends BaseTest {
       session().click("headerProfileButton");
       assertTrue(session().isVisible("logoutSubmitButton"));
       session().click("headerCancelButton");
-      assertTrue(session().isTextPresent(projectTitle));
+      assertProjectPresent(projectTitle);
 
       // goto details page
       openLocation("catroid/details/" + projectId);
@@ -69,9 +69,8 @@ public class ReportAsInappropriateTests extends BaseTest {
       assertFalse(session().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
       
       // check if reportAsInappropriate button is visible for a foreign project
-      openLocation();
+      openLocation("catroid/details/1");
       ajaxWait();
-      clickLastVisibleProject();
       waitForElementPresent("xpath=//button[@id='reportAsInappropriateButton']");
       
       // logout
@@ -105,16 +104,13 @@ public class ReportAsInappropriateTests extends BaseTest {
     try {
       // upload project
       Random rand = new Random();
-      String projectTitle = "Testproject for report as inappropriate (anonymous user) " + rand.nextInt(9999);
+      String projectTitle = "Testproject_for_report_as_inappropriate_(anonymous user)_" + rand.nextInt(9999);
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
           dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-      openLocation();
-      ajaxWait();
-      Thread.sleep(Config.TIMEOUT_THREAD);
-      assertTrue(session().isTextPresent(projectTitle));
+      assertProjectPresent(projectTitle);
 
       // goto details page
       openLocation("catroid/details/" + projectId);
