@@ -34,33 +34,21 @@ var Profile = Class.$extend( {
     $("#countryLinkNameDyn").toggle(false);
     
 
-    $("#profilePasswordSubmit").click(
-        $.proxy(this.profilePasswordSubmit, this));
-    $("#profileEmailSubmit").click(
-        $.proxy(this.profileEmailSubmit, this)); 
-    $("#profileCountrySubmit").click(
-      $.proxy(this.profileCountrySubmit, this));
-    $("#profileCancel").click(
-        $.proxy(this.profileCancel, this));    
-    //profileChangeCountry
-    $("#profileChangePassword").click(
-        $.proxy(this.profileChangePassword, this));
-    $("#profileChangeEmailText").click(
-      $.proxy(this.profileChangeEmail, this));
-    $("#profileChangeEmail").click(
-        $.proxy(this.profileChangeEmail, this));
-    $("#profileChangeCountry").click(
-        $.proxy(this.profileChangeCountry, this));
-    $("#profileChangeCountryText").click(
-        $.proxy(this.profileChangeCountry, this));
-    $("#profileCountry").keypress(
-      $.proxy(this.profileCountryCatchKeypress, this));
-    $("#profileEmail").keypress(
-      $.proxy(this.profileEmailCatchKeypress, this));
-    $("#profileOldPassword").keypress(
-        $.proxy(this.profilePasswordCatchKeypress, this));
-    $("#profileNewPassword").keypress(
-        $.proxy(this.profilePasswordCatchKeypress, this));
+    $("#profilePasswordSubmit").click($.proxy(this.profilePasswordSubmit, this));
+    $("#profileEmailSubmit").click($.proxy(this.profileEmailSubmit, this)); 
+    $("#profileCountrySubmit").click($.proxy(this.profileCountrySubmit, this));
+    $("#profileCancel").click($.proxy(this.profileCancel, this));    
+
+    $("#profileChangePassword").click($.proxy(this.profileChangePassword, this));
+    $("#profileChangeEmail").click($.proxy(this.profileChangeEmail, this));
+    $("#profileChangeEmailAddress").click($.proxy(this.profileChangeEmail, this));
+    $("#profileChangeCountry").click($.proxy(this.profileChangeCountry, this));
+    $("#profileChangeCountryText").click($.proxy(this.profileChangeCountry, this));
+    
+    $("#profileCountry").keypress($.proxy(this.profileCountryCatchKeypress, this));
+    $("#profileEmail").keypress($.proxy(this.profileEmailCatchKeypress, this));
+    $("#profileOldPassword").keypress($.proxy(this.profilePasswordCatchKeypress, this));
+    $("#profileNewPassword").keypress($.proxy(this.profilePasswordCatchKeypress, this));
   },
   
   profilePasswordSubmit : function() {
@@ -106,14 +94,7 @@ var Profile = Class.$extend( {
       success: function(result){
         alert($("#profileEmail").val());
         if(result.statusCode == 200) {
-//          $("#profileFormAnswer").toggle(true);
-//          $("#errorMsg").toggle(false);
           window.location.reload(false);
-//          $("#okMsg").toggle(true);
-//          $("#okMsg").html(result.answer_ok);
-//          $("#profileEmail").val("");
-//          $("#profileEmailDiv").toggle(false);
-          //window.location.reload(false);
         }
         else {
           $("#profileFormAnswer").toggle(true);
@@ -146,7 +127,6 @@ var Profile = Class.$extend( {
           window.location.reload(false);
           $("#okMsg").toggle(true);
           $("#okMsg").html(result.answer_ok);
-          //window.location.reload(false);
         }
         else {
           $("#profileFormAnswer").toggle(true);
@@ -164,29 +144,19 @@ var Profile = Class.$extend( {
   },
  
   profileChangePassword : function() {
-    //$("#errorMsg").toggle(false);
-    //$("#okMsg").toggle(false);
-    //$("#profileFormAnswer").toggle();
     $("#profileCancelDiv").toggle(true);
     $("#profilePasswordDiv").toggle();
     $("#profileOldPassword").focus();
   },
 
   profileChangeEmail : function() {
-    //$("#errorMsg").toggle(false);
-    //$("#okMsg").toggle(false);
-    //$("#profileFormAnswer").toggle();
     $("#profileCancelDiv").toggle(true);
     $("#profileEmailTextDiv").toggle();
     $("#profileEmailChangeDiv").toggle();
-    $("#profileEmailDiv").toggle();
     $("#profileEmail").focus();
   },
   
   profileChangeCountry : function() {
-    //$("#errorMsg").toggle(false);
-    //$("#okMsg").toggle(false);
-    //$("#profileFormAnswer").toggle();
     $("#profileCancelDiv").toggle(true);
     $("#profileCountryTextDiv").toggle();
     $("#profileCountryDiv").toggle();

@@ -49,25 +49,25 @@
             		   	?>
                   	<form method="POST" name="profileFormDialog" id="profileFormDialog" action="">
                   	  <input type="hidden" id="profileUser" name="profileUser" value="<?php echo $this->requestedUser; ?>">
-          		   			<a href="#" class="profileText" id="profileChangePassword">change my password</a><br>
+          		   			<a href="javascript:;" class="profileText" id="profileChangePassword">change my password</a><br>
           		   			<div id="profilePasswordDiv">
           		   			<input type="text" id="profileOldPassword" name="profileOldPassword" value="<?php echo htmlspecialchars($this->postData['profileOldPassword']); ?>" required="required" placeholder="enter your old password" ><br>
           		   			<input type="text" id="profileNewPassword" name="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" required="required" placeholder="enter your new password" ><br>
           		   			<input type="button" name="profilePasswordSubmit" id="profilePasswordSubmit" value="Send my changes" class="button orange compact profileSubmitButton">
           		   			</div>
           		   			<br>
-          		   			<div id="profileEmailTextDiv">
-          		   			<a href="#" class="profileText" id="profileChangeEmailText"><?php echo $this->userEmail; ?></a><br>
-          		   			</div>
 											<div id="profileEmailChangeDiv">
-          		   			<a href="#" class="profileText" id="profileChangeEmail">change my e-mail address</a><br>
-          		   			<input type="email" id="profileEmail" name="profileEmail" value="<?php echo htmlspecialchars($this->postData['profileEmail'])?>" required="required" placeholder="enter new email address" ><br>
-          		   			<input type="button" name="profileEmailSubmit" id="profileEmailSubmit" value="Send my changes" class="button orange compact profileSubmitButton">
+          		   			 <a href="javascript:;" class="profileText" id="profileChangeEmailAddress">change my e-mail address</a><br>
+          		   			 <input type="email" id="profileEmail" name="profileEmail" value="<?php echo htmlspecialchars($this->postData['profileEmail'])?>" required="required" placeholder="enter new email address" ><br>
+          		   			 <input type="button" name="profileEmailSubmit" id="profileEmailSubmit" value="Send my changes" class="button orange compact profileSubmitButton">
+          		   			</div>
+          		   			<div id="profileEmailTextDiv">
+          		   			 <a href="javascript:;" class="profileText" id="profileChangeEmail"><?php echo $this->userEmail ?></a><br>
           		   			</div>
           		   			<br>
           		   			<div id="profileCountryDiv">
-          		   			<a href="#" class="profileText" id="profileChangeCountry">change my country</a><br>
-          		   			<select id="profileCountry" name="profileCountry" class="profile" id="profileCountry" required="required" >
+          		   			<a href="javascript:;" class="profileText" id="profileChangeCountry">change my country</a><br>
+          		   			<select id="profileCountry" name="profileCountry" class="profile" required="required" >
           		   		<?php // country 
           		   			$x = 0;
           		   			$sumCount = count($this->countryCodeList);
@@ -86,7 +86,6 @@
           		   		?>
           		   			</select><br>
           		   			<input type="button" name="profileCountrySubmit" id="profileCountrySubmit" value="Send my changes" class="button orange compact profileSubmitButton">
-          		   			<br>
           		   			</div>
 											<div id="profileCountryTextDiv">
           		   		<?php 
@@ -94,7 +93,7 @@
           		   			$sumCount = count($this->countryCodeList);
           		   			while($x < $sumCount+1) {
           		   			  if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
-                          echo 'from <a href="#" class="profileText" id="profileChangeCountryText">'.$this->countryNameList[$x].'</a>';
+                          echo 'from <a href="javascript:;" class="profileText" id="profileChangeCountryText">'.$this->countryNameList[$x].'</a>';
                           break;
                         }
                         $x++;           
