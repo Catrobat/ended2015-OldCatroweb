@@ -12,7 +12,7 @@ echo ""
 echo "check and install necessary packages..."
 sudo add-apt-repository ppa:mercurial-ppa/releases
 sudo apt-get update
-sudo apt-get install eclipse apache2 php5 php5-gd php5-curl php-pear postgresql phppgadmin mercurial sun-java6-jdk --yes --quiet
+sudo apt-get install eclipse apache2 php5 php5-gd php5-curl php-pear postgresql phppgadmin mercurial --yes --quiet
 
 echo ""
 echo "set java version"
