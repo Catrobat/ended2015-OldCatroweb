@@ -22,7 +22,7 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-            	<div class="webMainContentTitle">Error</div>
+            	<div class="webMainContentTitle"><?php echo $this->languageHandler->getString('error_title')?></div>
             	<div class="errorDiv">
     		   		<div class="whiteBoxMain">
       					<div class="errorMessage">

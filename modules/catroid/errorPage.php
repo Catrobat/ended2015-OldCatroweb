@@ -22,6 +22,7 @@ class errorPage extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->addCss('errorPage.css');
+    $this->setWebsiteTitle($this->languageHandler->getString('error_title'));
   }
 
   public function __default() {

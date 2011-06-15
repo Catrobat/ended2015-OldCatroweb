@@ -30,14 +30,14 @@
             	   		<br><br>
             	   		<?php echo $this->languageHandler->getString('copyright_policy_part2',
             	   					'<a class="nolink" href="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32001L0029:EN:HTML" target="_blank">'.$this->languageHandler->getString('directive_link').'</a>')?>
-						<br><br>
-						<?php echo $this->languageHandler->getString('copyright_policy_part3')?>
-						<br><br>
-						<?php echo $this->languageHandler->getString('copyright_policy_part4')?>
-						<br><br>
-						<?php echo $this->languageHandler->getString('copyright_policy_part5',
+						        <br><br>
+						        <?php echo $this->languageHandler->getString('copyright_policy_part3')?>
+						        <br><br>
+						        <?php echo $this->languageHandler->getString('copyright_policy_part4')?>
+						        <br><br>
+						        <?php echo $this->languageHandler->getString('copyright_policy_part5',
             	   					'<a class="nolink" href="http://chillingeffects.org" target="_blank">'.$this->languageHandler->getString('chilling_link').'</a>')?>          	   					
-					</p>
+										</p>
                     </div> <!-- License Text -->
                   </div> <!--  White Box -->            	
             	</div> <!--  license Main -->

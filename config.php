@@ -50,6 +50,7 @@ define('DEFAULT_HTML_TEMPLATE_NAME', 'htmlTemplate.php');
 define('DEFAULT_HTML_HEADER_TEMPLATE_NAME', 'htmlHeaderTemplate.php');
 define('DEFAULT_HTML_FOOTER_TEMPLATE_NAME', 'htmlFooterTemplate.php');
 define('SITE_DEFAULT_LANGUAGE', 'en');
+define('SITE_DEFAULT_TITLE', 'Catroid Website');
 define('MVC_DEFAULT_MODULE', 'catroid');
 define('MVC_DEFAULT_CLASS', 'index');
 define('MVC_DEFAULT_METHOD', '__default');
