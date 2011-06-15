@@ -46,7 +46,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function checkValidProjectTitle($title) {
-    if(strcmp($title, PROJECT_DEFAULT_SAVEFILE_NAME) == 0) {
+    if(strcmp($title, $this->languageHandler->getString('default_project_name')) == 0) {
       return false;
     } else {
       return true;

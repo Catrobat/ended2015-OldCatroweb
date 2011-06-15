@@ -22,6 +22,7 @@ class errorPage extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->addCss('errorPage.css');
+    $this->setWebsiteTitle($this->languageHandler->getString('error_title'));
   }
 
   public function __default() {
@@ -33,9 +34,6 @@ class errorPage extends CoreAuthenticationNone {
   	if($extraInfo && DEVELOPMENT_MODE) {
       $errorMessage .= ':<br/>'.$extraInfo;
     }
-    if ($mode != 'blocked_ip')
-      $errorMessage .= "<br /><a href='".BASE_PATH."'>Click to go back to startpage.</a>";
-    
     $this->errorMessage = $errorMessage;
 	}
 

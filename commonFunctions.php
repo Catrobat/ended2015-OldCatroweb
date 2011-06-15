@@ -107,40 +107,47 @@ function getProjectQRCodeUrl($projectId) {
   return $qr;
 }
 
-function getTimeInWords($fromTime, $toTime = 0) {
+function getTimeInWords($fromTime, $languageHandler, $toTime = 0) {
   if($toTime == 0) {
     $toTime = time();
   }
   $seconds = round(abs($toTime - $fromTime));
   $minutes = round($seconds/60);
   if ($minutes <= 1) {
-    return ($minutes == 0) ? 'less than a minute' : '1 minute';
+    return ($minutes == 0) ? $languageHandler->getString('template_common_less_than_a_minute_ago') : $languageHandler->getString('one_minute_ago');
   }
   if ($minutes < 45) {
-    return $minutes.' minutes';
+    return $languageHandler->getString('template_common_minutes_ago', $minutes);
   }
   if ($minutes < 90) {
-    return 'about 1 hour';
+    return $languageHandler->getString('template_common_one_hour_ago');
   }
   if ($minutes < 1440) {
-    return 'about '.round(floatval($minutes)/60.0).' hours';
+    return $languageHandler->getString('template_common_hours_ago', round(floatval($minutes)/60.0));
   }
   if ($minutes < 2880) {
-    return '1 day';
+    return $languageHandler->getString('template_common_one_day_ago');
   }
   if ($minutes < 43200) {
-    return 'about '.round(floatval($minutes)/1440).' days';
+    return $languageHandler->getString('template_common_days_ago', round(floatval($minutes)/1440));
   }
   if ($minutes < 86400) {
-    return 'about 1 month';
+    return $languageHandler->getString('template_common_one_month_ago');
   }
   if ($minutes < 525600) {
-    return round(floatval($minutes)/43200).' months';
+    return $languageHandler->getString('template_common_months_ago', round(floatval($minutes)/43200));
   }
   if ($minutes < 1051199) {
-    return 'about 1 year';
+    return $languageHandler->getString('template_common_one_year_ago');
   }
-  return 'over '.round(floatval($minutes)/525600) . ' years';
+  return $languageHandler->getString('template_common_over_years_ago', round(floatval($minutes)/525600));
+}
+
+function getSupportedLanguagesArray() {
+  $supportedLanguages = array(
+  	'de',
+  	'en');
+  return $supportedLanguages;
 }
 
 ?>

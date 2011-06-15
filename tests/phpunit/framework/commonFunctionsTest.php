@@ -87,28 +87,31 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testGetTimeInWords() {
+    require_once('frameworkTestModel.php');
+    $testModel = new frameworkTestModel();
+
     $fromTime = time() - 10;
-    $timeInWords = getTimeInWords($fromTime, time());
+    $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertTrue(is_string($timeInWords));
     $this->assertTrue(is_int(strpos($timeInWords, 'less')) && is_int(strpos($timeInWords, 'minute')));
 
     $fromTime = time() - 66;
-    $timeInWords = getTimeInWords($fromTime, time());
+    $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertFalse(strpos($timeInWords, 'less'));
     $this->assertTrue(is_int(strpos($timeInWords, 'minute')));
 
     $fromTime = time() - 60*60*24-1;
-    $timeInWords = getTimeInWords($fromTime, time());
+    $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertFalse(strpos($timeInWords, 'minute'));
     $this->assertTrue(is_int(strpos($timeInWords, 'day')));
 
     $fromTime = time() - 60*60*24*31-1;
-    $timeInWords = getTimeInWords($fromTime, time());
+    $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertFalse(strpos($timeInWords, 'day'));
     $this->assertTrue(is_int(strpos($timeInWords, 'month')));
 
     $fromTime = time() - 60*60*24*32*12-1;
-    $timeInWords = getTimeInWords($fromTime, time());
+    $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertFalse(strpos($timeInWords, 'month'));
     $this->assertTrue(is_int(strpos($timeInWords, 'year')));
   }
