@@ -31,9 +31,9 @@ class CoreErrorHandler {
   }
 
   private function setErrors() {
-    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->session->SITE_LANGUAGE.'/errors_pub.xml';
+    $file = CORE_BASE_PATH.LANGUAGE_PATH.'errors/'.$this->session->SITE_LANGUAGE.'/'.DEFAULT_PUB_ERRORS_FILE;
     if(DEVELOPMENT_MODE) {
-      $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->session->SITE_LANGUAGE.'/errors_dev.xml';
+      $file = CORE_BASE_PATH.LANGUAGE_PATH.'errors/'.$this->session->SITE_LANGUAGE.'/'.DEFAULT_DEV_ERRORS_FILE;
     }
     if(file_exists($file)) {
       $xml = simplexml_load_file($file);

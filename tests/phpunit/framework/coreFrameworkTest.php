@@ -169,6 +169,16 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
   public function testBadwordsFilterGood($goodWord) {
     $this->assertEquals(0, $this->testModel->badWordsFilter->areThereInsultingWords($goodWord));
   }
+  
+  /**
+   * @dataProvider forbiddenClassNames
+   */
+  public function testForbiddenClassNames($className) {
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/api/'.$className));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/admin/'.$className));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/catroid/'.$className));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/test/'.$className));
+  }
 
   /* DATA PROVIDERS */
   public function badWords() {
@@ -184,7 +194,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
   public function goodWords() {
     $goodWords = array(
     array("test"),
-          array("backslash\\"),
+    array("backslash\\"),
     array("catroid"),
     array("here comes some text which does not have any insulting word inside."),
     array("project"));
@@ -199,6 +209,15 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     array("here come some special chars: {*specialChars*}", "here come some special chars: {[}]*_Üöß^", array("{[}]*_Üöß^"))
     );
     return $msgs;
+  }
+  
+  public function forbiddenClassNames() {
+    $names = array(
+    array(DEFAULT_DEV_ERRORS_FILE),
+    array(DEFAULT_PUB_ERRORS_FILE),
+    array(DEFAULT_TEMPLATE_LANGUAGE_FILE)
+    );
+    return $names;
   }
 }
 ?>

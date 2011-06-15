@@ -27,7 +27,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
     $labels['websitetitle'] = SITE_DEFAULT_TITLE;
     $labels['title'] = $this->languageHandler->getString('title');
     $labels['prevButton'] = $this->languageHandler->getString('prev_button', '&laquo;');
-    $labels['nextButton'] = $this->languageHandler->getString('next_button', '&raquo');
+    $labels['nextButton'] = $this->languageHandler->getString('next_button', '&raquo;');
     $labels['loadingButton'] = $this->languageHandler->getString('loading_button');
     $this->labels = $labels;
   }

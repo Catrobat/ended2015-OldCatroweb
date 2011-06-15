@@ -51,7 +51,7 @@ class CoreLanguageHandler {
   }
 
   private function setTemplateStrings() {
-    $file = $this->getLanguageFile('template.xml');
+    $file = $this->getLanguageFile(DEFAULT_TEMPLATE_LANGUAGE_FILE);
     if(!$file) {
       //die("text string file not found!"); //at least an english string xml file must exist for each module -> see phpunit/catroid/languageTest.php
       return false;

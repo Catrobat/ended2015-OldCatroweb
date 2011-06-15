@@ -43,18 +43,16 @@ class languageTest extends PHPUnit_Framework_TestCase
   }
 
   public function testErrorXmlFiles() {
-    foreach($this->file_listing as $module=>$files) {
-      $errorDevFile = CORE_BASE_PATH.LANGUAGE_PATH.$module.'/'.SITE_DEFAULT_LANGUAGE.'/errors_dev.xml';
-      $errorPubFile = CORE_BASE_PATH.LANGUAGE_PATH.$module.'/'.SITE_DEFAULT_LANGUAGE.'/errors_pub.xml';
-      if(!file_exists($errorDevFile)) {
-        print "Error XML File missing:\n$errorDevFile\n";
-      }
-      if(!file_exists($errorPubFile)) {
-        print "Error XML File missing:\n$errorPubFile\n";
-      }
-      $this->assertTrue(file_exists($errorDevFile));
-      $this->assertTrue(file_exists($errorPubFile));
+    $errorDevFile = CORE_BASE_PATH.LANGUAGE_PATH.'errors/'.SITE_DEFAULT_LANGUAGE.'/errors_dev.xml';
+    $errorPubFile = CORE_BASE_PATH.LANGUAGE_PATH.'errors/'.SITE_DEFAULT_LANGUAGE.'/errors_pub.xml';
+    if(!file_exists($errorDevFile)) {
+      print "Error XML File missing:\n$errorDevFile\n";
     }
+    if(!file_exists($errorPubFile)) {
+      print "Error XML File missing:\n$errorPubFile\n";
+    }
+    $this->assertTrue(file_exists($errorDevFile));
+    $this->assertTrue(file_exists($errorPubFile));
   }
 
   public function testTemplateXmlFiles() {
