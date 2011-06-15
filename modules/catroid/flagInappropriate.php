@@ -48,7 +48,7 @@ class flagInappropriate extends CoreAuthenticationNone {
             @pg_query($query);
           }
         }
-        $answer = $this->setWebsiteTitle($this->languageHandler->getString('msg_flagged_successful'));
+        $answer = $this->languageHandler->getString('msg_flagged_successful');
         $statusCode = 200;
       } else {
         $answer = $this->errorHandler->getError('flag', 'sql_insert_failed').pg_last_error();

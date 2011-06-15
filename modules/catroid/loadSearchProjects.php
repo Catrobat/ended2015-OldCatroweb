@@ -24,15 +24,8 @@ class loadSearchProjects extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
 
-//    $labels = array();
-//    $labels['websitetitle'] = "Catroid Website";
-//    $labels['title'] = "Search Results";
-//    $labels['prevButton'] = "&laquo; Previous";
-//    $labels['nextButton'] = "Next &raquo;";
-//    $labels['loadingButton'] = "loading...";
-//    $this->labels = $labels;
     $labels = array();
-    $labels['websitetitle'] = $this->languageHandler->getString('websitetitle');
+    $labels['websitetitle'] = SITE_DEFAULT_TITLE;
     $labels['title'] = $this->languageHandler->getString('title');
     $labels['prevButton'] = $this->languageHandler->getString('prev_button', '&laquo;');
     $labels['nextButton'] = $this->languageHandler->getString('next_button', '&raquo');
