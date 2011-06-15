@@ -19,7 +19,8 @@
  
  
 <strings>
+    <string name="enable_javascript">Please enable javascript in your browser.</string>
     <string name="newest_projects">Newest Projects</string>
     <string name="newer">Newer</string>
-	<string name="older">Older</string>
+	  <string name="older">Older</string>
 </strings>

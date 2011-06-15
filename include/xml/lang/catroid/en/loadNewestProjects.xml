@@ -18,6 +18,11 @@
   -->
 
 <strings>
-	<string name="uploaded">uploaded {*timeString*}</string>
-	<string name="uploaded_by">by {*nicknameString*}</string>
+  <string name="uploaded">uploaded</string>
+  <string name="uploaded_by">by {*nicknameString*}</string>
+	<string name="websitetitle">Catroid Website</string>
+	<string name="title">Newest Projects</string>
+	<string name="prev_button">{*character*} Newer</string>
+	<string name="next_button">Older {*character*}</string>
+	<string name="loading_button">loading...</string>
 </strings>

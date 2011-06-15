@@ -19,5 +19,5 @@
  
  
 <strings>
-
+  <string name="msg_flagged_successful">You reported this project as inappropriate!</string>
 </strings>

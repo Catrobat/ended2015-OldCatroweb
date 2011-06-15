@@ -24,11 +24,11 @@ class loadNewestProjects extends CoreAuthenticationNone {
     parent::__construct();
     
     $labels = array();
-    $labels['websitetitle'] = "Catroid Website";
-    $labels['title'] = "Newest Projects";
-    $labels['prevButton'] = "&laquo; Newer";
-    $labels['nextButton'] = "Older &raquo;";
-    $labels['loadingButton'] = "loading...";
+    $labels['websitetitle'] = $this->languageHandler->getString('websitetitle');
+    $labels['title'] = $this->languageHandler->getString('title');
+    $labels['prevButton'] = $this->languageHandler->getString('prev_button', '&laquo;');
+    $labels['nextButton'] = $this->languageHandler->getString('next_button', '&raquo');
+    $labels['loadingButton'] = $this->languageHandler->getString('loading_button');
     $this->labels = $labels;
   }
 

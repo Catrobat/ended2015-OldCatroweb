@@ -67,7 +67,7 @@
     									    <?php echo $this->languageHandler->getString('uploaded')?><br>
     									    <b><?php echo $this->project['publish_time_in_words']?></b><br>
     									    <b><?php echo $this->project['uploaded_by_string']?></b><br>
-    										  <span class="versionInfo">Catroid version: <?php echo $this->project['version_code']?> (<?php echo $this->project['version_name']?>)</span>
+    										  <span class="versionInfo"><?php echo $this->languageHandler->getString('version_info_text').' '; echo $this->project['version_code']; ?> (<?php echo $this->project['version_name']?>)</span>
     										  </p>
     									</div>
     									<div style="clear:both;"></div>
@@ -76,7 +76,7 @@
                             			<a class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id'].PROJECTS_EXTENTION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                             				<img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button">
                             				<span class="detailsDownloadButtonText">
-                            					Download (<?php echo $this->project['fileSize']?> MB)
+                            					<?php echo $this->languageHandler->getString('download')?> (<?php echo $this->project['fileSize']?> MB)
                             				</span>
                             			</a>
                     				</div>
@@ -85,9 +85,9 @@
         									<img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_image']?>" alt="qr code image">
                             			</div>
                             			<div class="detailsQRCodeText">
-                    							<div id="qrcodeInfo" class="qrcodeInfo">You can download this project directly to your mobile phone - when you have a barcode-reader app installed. Just open the app on your mobile phone and point the camera to the above QR-Code and the download will be started immediately.</div>
-                        					<button type="button" id="showQrCodeInfoButton" class="button white medium"><span class="showQrCodeInfoButton">QR Code - what's this?</span></button>
-                        					<button type="button" id="hideQrCodeInfoButton" class="button white medium"><span class="hideQrCodeInfoButton">QR Code - what's this?</span></button>
+                    							<div id="qrcodeInfo" class="qrcodeInfo"><?php echo $this->languageHandler->getString('qrcode_info')?></div>
+                        					<button type="button" id="showQrCodeInfoButton" class="button white medium"><span class="showQrCodeInfoButton"><?php echo $this->languageHandler->getString('show_qr_code_info_button')?></span></button>
+                        					<button type="button" id="hideQrCodeInfoButton" class="button white medium"><span class="hideQrCodeInfoButton"><?php echo $this->languageHandler->getString('hide_qr_code_info_button')?></span></button>
                             			</div>
                     			    <?php }?>
                     				<div class="detailsProjectDescription">
@@ -98,10 +98,10 @@
                     						<input type="hidden" id="fullDescriptionText" value="<?php echo htmlspecialchars($this->project['description'])?>">
                     						<input type="hidden" id="shortDescriptionText" value="<?php echo htmlspecialchars($this->project['description_short'])?>">
                     						<button type="button" id="showFullDescriptionButton" class="button green compact showFullDescriptionButton">
-                        					  	<span class="detailsMoreButtonText">more</span>
+                        					  	<span class="detailsMoreButtonText"><?php echo $this->languageHandler->getString('text_more')?></span>
                         					</button>
                         					<button type="button" id="showShortDescriptionButton" class="button green compact showShortDescriptionButton">
-                        					  	<span class="detailsLessButtonText">less</span>
+                        					  	<span class="detailsLessButtonText"><?php echo $this->languageHandler->getString('text_less')?></span>
                         					</button>
                     					<?php } else {?>
                     						<p class="detailsDescription">
@@ -116,11 +116,11 @@
                         			    <div class="detailsStatistics">
                         					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view7.png" alt="view count image">
                     					<!-- <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view8.png" alt="view count image"> -->
-                        					<b><?php echo $this->project['view_count']?></b> views</p>
+                        					<b><?php echo $this->project['view_count']?></b> <?php echo $this->languageHandler->getString('views')?></p>
                         					<div style="height:10px;"></div>
                         					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down1.png" alt="download count image">
                     					<!-- <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down_2.png" alt="download count image"> -->
-                        					<b><?php echo $this->project['download_count']?></b> downloads</p>
+                        					<b><?php echo $this->project['download_count']?></b> <?php echo $this->languageHandler->getString('downloads')?></p>
                     					</div>
                         			</div>
                     			<?php 
@@ -131,16 +131,16 @@
                         		<div class="detailsMainStats">
                         			<div class="detailsFlagButton" id="detailsFlagButton">
                       		   			<button type="button" class="button white medium" id="reportAsInappropriateButton">
-                      		   				<span class="detailsFlagButtonText">report as inappropriate</span>                            			
+                      		   				<span class="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>                            			
                                   </button>
                             	</div>
                             	<div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
                             			<form method="POST" class="reportInappropriateForm">
-                            				<span class="reportInappropriateLabel">Why do you think this project is inappropriate?</span><br>
+                            				<span class="reportInappropriateLabel"><?php echo $this->languageHandler->getString('report_as_inappropriate_label')?></span><br>
                             				<input type="hidden" id="reportInappropriateProjectId" value="<?php echo $this->project['id']?>">
-      															<input type="text" class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="enter a reason" required>
-      															<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateReportButton" value="Report">
-      															<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateCancelButton" value="Cancel">
+      															<input type="text" class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="<?php echo $this->languageHandler->getString('flag_reason_placeholder')?>" required>
+      															<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateReportButton" value="<?php echo $this->languageHandler->getString('report')?>">
+      															<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateCancelButton" value="<?php echo $this->languageHandler->getString('cancel')?>">
     									    				</form>
                             	</div>
                             	<div class="reportAsInappropriateAnswer" id="reportAsInappropriateAnswer"></div>

@@ -20,4 +20,9 @@
 <strings>
 	<string name="uploaded">uploaded {*timeString*}</string>
 	<string name="uploaded_by">by {*nicknameString*}</string>
+  <string name="websitetitle">Catroid Website</string>
+  <string name="title">Search Results</string>
+  <string name="prev_button">{*character*} Previous</string>
+  <string name="next_button">Next {*character*}</string>
+  <string name="loading_button">loading...</string>
 </strings>
