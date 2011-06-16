@@ -75,7 +75,7 @@ class registration extends CoreAuthenticationNone {
       try {
         $catroidUserId = $this->doCatroidRegistration($postData, $serverData);
         $catroidRegistrationSuccess = true;
-        $answer .= 'CATROID registration successfull!<br>';
+        $answer .= $this->languageHandler->getString('catroid_success').'<br>';
       } catch(Exception $e) {
         $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage()).'<br>';
       }
@@ -83,7 +83,7 @@ class registration extends CoreAuthenticationNone {
         try {
           $boardUserId = $this->doBoardRegistration($postData);
           $boardRegistrationSuccess = true;
-          $answer .= 'BOARD registration successfull!<br>';
+          $answer .= $this->languageHandler->getString('board_success').'<br>';
         } catch(Exception $e) {
           $answer = $this->errorHandler->getError('registration', 'board_registration_failed', $e->getMessage()).'<br>';
         }
@@ -91,7 +91,7 @@ class registration extends CoreAuthenticationNone {
           try {
             $wikiUserId = $this->doWikiRegistration($postData);
             $wikiRegistrationSuccess = true;
-            $answer .= 'WIKI registration successfull!<br>';
+            $answer .= $this->languageHandler->getString('wiki_success').'<br>';
           } catch(Exception $e) {
             $answer = $this->errorHandler->getError('registration', 'wiki_registration_failed', $e->getMessage()).'<br>';
           }

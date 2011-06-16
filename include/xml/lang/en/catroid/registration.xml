@@ -19,5 +19,30 @@
  
  
 <strings>
+  <string name="title">Create a new account</string>
+  <string name="headline">Please enter a nickname, a password, your email address and the country where you live. </string>
+  <string name="nickname">Nickname</string>
+  <string name="enter_nickname">enter a nickname</string>
+  <string name="password">Password</string>
+  <string name="enter_password">enter a password</string>
+  <string name="email">E-Mail Address</string>
+  <string name="enter_email">enter your email address</string>
+  <string name="country">Country</string>
+  <string name="select_country">select your country</string>
+  <string name="city">City</string>
+  <string name="enter_city">enter your city</string>
+  <string name="birth">Birthday</string>
+  <string name="select_month">select your month</string>
+  <string name="select_year">select your year</string>
+  <string name="gender">Gender</string>
+  <string name="select_gender">select your gender</string>
+  <string name="female">female</string>
+  <string name="male">male</string>
+  <string name="create">Create my account</string>
+  <string name="login">Login</string>
+  <string name="password_recover">click here if you forgot your password?</string>
+  <string name="catroid_success">CATROID registration successfull!</string>
+  <string name="board_success">BOARD registration successfull!</string>
+  <string name="wiki_success">WIKI registration successfull!</string>
 
 </strings>

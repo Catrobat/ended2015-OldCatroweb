@@ -26,7 +26,7 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle">Create a new account</div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
                 <div class="registrationMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="registrationText">
@@ -38,21 +38,21 @@
                         </div>
                          
                   	<form method="post" name="registrationFormDialog" id="registrationFormDialog">
-      	  		   			<div class="registrationH2">Please choose your nickname. </div>
-          		   			Nickname<br>
-          		   			<input type="text" id="registrationUsername" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>" required="required" placeholder="enter a nickname" ><br>
-          		   			Password<br>
-          		   			<input type="text" id="registrationPassword" name="registrationPassword" value="<?php if($this->passOk) { echo htmlspecialchars($this->postData['registrationPassword']); }?>" required="required" placeholder="enter a password" ><br>
-          		   			Email<br>
-          		   			<input type="email" id="registrationEmail" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" required="required" placeholder="enter your email address" ><br>
-          		   			Country<br>
+      	  		   			<div class="registrationH2"><?php //echo $this->languageHandler->getString('headline')?></div>
+          		   			<?php echo $this->languageHandler->getString('nickname')?><br>
+          		   			<input type="text" id="registrationUsername" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_nickname')?>" ><br>
+          		   			<?php echo $this->languageHandler->getString('password')?><br>
+          		   			<input type="text" id="registrationPassword" name="registrationPassword" value="<?php if($this->passOk) { echo htmlspecialchars($this->postData['registrationPassword']); }?>" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" ><br>
+          		   			<?php echo $this->languageHandler->getString('email')?><br>
+          		   			<input type="email" id="registrationEmail" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_email')?>" ><br>
+          		   			<?php echo $this->languageHandler->getString('country')?><br>
           		   			<select id="registrationCountry" name="registrationCountry" class="registration" id="registrationCountry" required="required" >
           		   			<?php // country 
           		   			$x = 0;
           		   			$sumCount = count($this->countryCodeList);
           		   			while($x < $sumCount+1) {
                         if($x == 0) {
-                          echo '<option value="0" selected>select your country</option>';
+                          echo '<option value="0" selected>'.$this->languageHandler->getString('select_country').'</option>';
                         }
                         else {
                           echo "<option value=\"" . $this->countryCodeList[$x] . "\">" . $this->countryNameList[$x] . "</option>\r";
@@ -61,16 +61,16 @@
           		   			}
           		   			?>
           		   			</select><br>
-          		   			City<br>
-          		   			<input type="text" id="registrationCity" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>" placeholder="enter your city"><br>
-          		   			Birthday<br>
+          		   			<?php echo $this->languageHandler->getString('city')?><br>
+          		   			<input type="text" id="registrationCity" name="registrationCity" value="<?php echo htmlspecialchars($this->postData['registrationCity'])?>" placeholder="<?php echo $this->languageHandler->getString('enter_city')?>"><br>
+          		   			<?php echo $this->languageHandler->getString('birth')?><br>
           		   			
           		   			<select id="registrationMonth" name="registrationMonth" class="registration" >
           		   			<?php // month 
         		   			    $x = 0;
                         while($x < 13) {
                           if($x == 0) {
-                            echo '<option value="0" selected>select your month</option>';
+                            echo '<option value="0" selected>'.$this->languageHandler->getString('select_month').'</option>';
                           }
                           else {
                             echo "<option value=\"" . $x . "\">" . $this->months[$x] . "</option>\r";
@@ -86,7 +86,7 @@
                         while($x < 101) {
                           $year--;
                           if($x == 0) {
-                            echo '<option value="0" selected>select <our year</option>';
+                            echo '<option value="0" selected>'.$this->languageHandler->getString('select_year').'</option>';
                           }
                           else {
                             echo "<option value=\"" . $year . "\" >" . $year . "</option>\r";
@@ -95,19 +95,19 @@
                         }          		   			
           		   			?>
           		   			</select><br>
-          		   			Gender<br>
+          		   			<?php echo $this->languageHandler->getString('gender')?><br>
 											<select id="registrationGender" name="registrationGender" class="registration" >
-												<option value="0" selected>select your gender</option>
-												<option value="female">female</option>
-												<option value="male">male</option>
+												<option value="0" selected><?php echo $this->languageHandler->getString('select_gender')?></option>
+												<option value="female"><?php echo $this->languageHandler->getString('female')?></option>
+												<option value="male"><?php echo $this->languageHandler->getString('male')?></option>
                       </select>
           		   			<br>
           		   			<br>
-                      <input type="button" name="registrationSubmit" id="registrationSubmit" value="Create my account now" class="button orange compact registrationSubmitButton">
+                      <input type="button" name="registrationSubmit" id="registrationSubmit" value="<?php echo $this->languageHandler->getString('create')?>" class="button orange compact registrationSubmitButton">
                       <br>
                       <br>
                       <br> 
-											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>
+											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login"><?php echo $this->languageHandler->getString('login')?></a> <br>or<br><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></div>
             		   	</form>
                   </div> <!-- registrationFormContainer -->
 								</div> <!-- Registration Text -->
