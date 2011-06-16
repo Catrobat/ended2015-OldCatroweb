@@ -70,7 +70,7 @@ class login extends CoreAuthenticationNone {
     try {
       $catroidUserId = $this->doCatroidLogin($postData);
       $catroidLoginSuccess = true;
-      $answer .= 'CATROID Login successfull!<br>';
+      $answer .= $this->languageHandler->getString('catroid_login_success').'<br>';
     } catch(Exception $e) {
       $answer .= $this->errorHandler->getError('auth', 'catroid_authentication_failed', $e->getMessage()).'<br>';
     }
@@ -79,7 +79,7 @@ class login extends CoreAuthenticationNone {
       $boardUserId = $this->doBoardLogin($postData);
       if($boardUserId > 1) {
         $boardLoginSuccess = true;
-        $answer .= 'BOARD Login successfull!<br>';
+        $answer .= $this->languageHandler->getString('board_login_success').'<br>';
       } else {
         $answer .= $this->errorHandler->getError('auth', 'board_authentication_failed').'<br>';
       }
@@ -88,7 +88,7 @@ class login extends CoreAuthenticationNone {
         try {
           $this->doWikiLogin($postData);
           $wikiLoginSuccess = true;
-          $answer .= 'WIKI Login successfull!<br>';
+          $answer .= $this->languageHandler->getString('wiki_login_success').'<br>';
           $statusCode = 200;
         } catch(Exception $e) {
           $answer .= $this->errorHandler->getError('auth', 'wiki_authentication_failed', $e->getMessage()).'<br>';
@@ -118,19 +118,19 @@ class login extends CoreAuthenticationNone {
 
     //catroid logout
     $this->doCatroidLogout();
-    $answer .= 'CATROID Logout successfull!<br>';
+    $answer .= $this->languageHandler->getString('catroid_logout_success').'<br>';
 
     //board logout
     $this->doBoardLogout();
-    $answer .= 'BOARD Logout successfull!<br>';
+    $answer .= $this->languageHandler->getString('catroid_logout_success').'<br>';
 
     //wiki logout
     try {
       $this->doWikiLogout();
-      $answer .= 'WIKI Logout successfull!<br>';
+      $answer .= $this->languageHandler->getString('catroid_logout_success').'<br>';
       $statusCode = 200;
     } catch (Exception $e) {
-      $answer .= 'ERROR: WIKI Logout: '.$e->getMessage().'!<br>';
+      $answer .= $this->languageHandler->getString('wiki_logout_error', ' '.$e->getMessage().'!<br>');
     }
 
     $this->statusCode = $statusCode;

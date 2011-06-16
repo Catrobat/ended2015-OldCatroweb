@@ -28,16 +28,16 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle">Login</div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
                 <div class="loginMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="loginText">
             	    <div class="loginFormContainer">
      	  		   		<?php if($this->module->session->userLogin_userId <= 0) {?>
 							<div class="loginHelper">
-								<a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Create a new account now</a>
+								<a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration"><?php echo $this->languageHandler->getString('account_link')?></a>
 								<br>or<br>
-								<a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a>
+								<a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_link')?></a>
 							</div>
 						<?php }?>
                      </div> <!-- loginFormContainer -->

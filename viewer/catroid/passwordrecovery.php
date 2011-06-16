@@ -26,7 +26,7 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle">Change your password</div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
                 <div class="passwordRecoveryMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="passwordRecoveryText">
@@ -48,24 +48,22 @@
  
       	  		   			    if($this->showForm == 1) { ?>
       	  		   			      <form method="post" name="passwordRecoveryFormDialog" id="passwordRecoveryFormDialog" action="">
-          										<div class="passwordRecoveryHeadline">Please enter your new password:</div>
+          										<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('headline')?></div>
           										<input type="hidden" id="c" name="c" value="<?php echo $_GET['c']; ?>">
 															<input type="text" id="passwordSavePassword" name="passwordSavePassword" >
 															<br>
-          										<input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="Change my password now" class="button orange compact passwordRecoverySubmitButton">
+          										<input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="<?php echo $this->languageHandler->getString('change_password')?>" class="button orange compact passwordRecoverySubmitButton">
           									</form>
 	      	  		   					<br> 
-														<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // showForm == 1
       	  		   			    else if($this->showForm == 2) {
       	  		   			?>
 														<form method="post" action="./passwordrecovery">
-															<div class="passwordRecoveryHeadline">Sorry! Your recovery url has expired. Please try again.</div>
+															<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('expired_url')?></div>
 															<br>
-															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="Next" class="button orange compact passwordRecoverySubmitButton">
+															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="<?php echo $this->languageHandler->getString('next')?>" class="button orange compact passwordRecoverySubmitButton">
 														</form>
 	      	  		   					<br>
-														<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // showForm == 2
       	  		   			  } // get['c']
       	  		   			  else if(isset($_POST['passwordSaveSubmit'])) {
@@ -73,41 +71,38 @@
       	  		   			    //echo ( $this->passwordRecoveryForm );
       	  		   			    if($this->showForm == 1) { ?>
       	  		   			      <form method="post" name="passwordRecoveryFormDialog" id="passwordRecoveryFormDialog" action="">
-          										<div class="passwordRecoveryHeadline">Please enter your new password:</div>
+          										<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('headline')?></div>
           										<input type="hidden" id="c" name="c" value="<?php echo $_POST['c']; ?>">
 															<input type="text" id="passwordSavePassword" name="passwordSavePassword" >
 															<br>
-          										<input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="Change my password now" class="button orange compact passwordRecoverySubmitButton">
+          										<input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="<?php echo $this->languageHandler->getString('change_password')?>" class="button orange compact passwordRecoverySubmitButton">
           									</form>
 	      	  		   					<br>
-	      	  		   					<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // showForm == 1
       	  		   			    else if($this->showForm == 2) {
       	  		   			?>
 														<form method="post" action="./passwordrecovery">
-															<div class="passwordRecoveryHeadline">Sorry! Your recovery url has expired. Please try again.</div>
+															<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('expired_url')?></div>
 															<br>
-															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="Next" class="button orange compact passwordRecoverySubmitButton">
+															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="<?php echo $this->languageHandler->getString('next')?>" class="button orange compact passwordRecoverySubmitButton">
 														</form>
 	      	  		   					<br>
-	      	  		   					<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // showForm == 2
            		   			  } // $_POST['passwordSaveSubmit'])
       	  		   				else {
         		   	      ?>
       	  		   				<form method="post" name="passwordRecoveryFormDialog" id="passwordRecoveryFormDialog" action=""> <!-- action="./passwordrecovery"> -->
-  												<div class="passwordRecoveryHeadline">Enter your nickname or email address:</div>
-      	  		   					<input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="nickname or email" >
+  												<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('enter_userdata')?></div>
+      	  		   					<input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>" >
       	  		   					<br>
 												  <br>
-                        	<input type="button" id="passwordRecoverySubmit" name="passwordRecoverySubmit" value="Send me my password recovery link" class="button orange compact passwordRecoverySubmitButton">
+                        	<input type="button" id="passwordRecoverySendLink" name="passwordRecoverySendLink" value="<?php echo $this->languageHandler->getString('send_link')?>" class="button orange compact passwordRecoverySubmitButton">
       	  		   				</form>
     	  		   				<br>
 	      	  		   		<br>
-											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">create a new account now!</a></div>
       	  		   			<?php } // else
-
                       ?>
+											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login"><?php echo $this->languageHandler->getString('login')?></a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration"><?php echo $this->languageHandler->getString('new_account')?></a></div>
                   </div> <!-- loginFormContainer -->
 								</div> <!-- login Text -->
               </div> <!--  White Box -->            	
