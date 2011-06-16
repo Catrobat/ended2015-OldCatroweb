@@ -72,7 +72,6 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->testModel->mailHandler->sendAdministrationMail('', ''));
     $this->assertFalse($this->testModel->mailHandler->sendAdministrationMail('', $mailText));
     $this->assertFalse($this->testModel->mailHandler->sendAdministrationMail($mailSubject, ''));
-    //$this->assertFalse($this->testModel->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
   public function testPreparedStatements() {

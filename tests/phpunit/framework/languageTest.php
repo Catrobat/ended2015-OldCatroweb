@@ -53,6 +53,25 @@ class languageTest extends PHPUnit_Framework_TestCase
     }
     $this->assertTrue(file_exists($errorDevFile));
     $this->assertTrue(file_exists($errorPubFile));
+
+    $errorsDevXml = simplexml_load_file($errorDevFile);
+    $errorsPubXml = simplexml_load_file($errorPubFile);
+    if(count($errorsDevXml->children()) != count($errorsPubXml->children())) {
+      print "Error XMLs for DEV and PUB differ in ErrorType Nodes!";
+    }
+    $this->assertEquals(count($errorsDevXml->children()), count($errorsPubXml->children()));
+
+    $errorsDevNodeCount = array();
+    foreach($errorsDevXml->children() as $error_type) {
+      //print "\n".strval($error_type->getName()).": ".count($error_type->children())." nodes\n";
+      $errorsDevNodeCount[strval($error_type->getName())] = count($error_type->children());
+    }
+    foreach($errorsPubXml->children() as $error_type) {
+      if($errorsDevNodeCount[strval($error_type->getName())] != count($error_type->children())) {
+        print "ErrorTypeNode ".strval($error_type->getName()).": children Nodes differ in number!";
+      }
+      $this->assertEquals($errorsDevNodeCount[strval($error_type->getName())], count($error_type->children()));
+    }
   }
 
   public function testTemplateXmlFiles() {

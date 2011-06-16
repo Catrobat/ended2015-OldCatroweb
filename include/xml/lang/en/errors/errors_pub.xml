@@ -97,6 +97,8 @@
       <string name="userdata_not_exists">Your nickname or email address was not found.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
       <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
+      <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
+      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
     </passwordrecovery>
     <profile>
       <string name="password_repeat_missing">The repeated password is missing.</string>
