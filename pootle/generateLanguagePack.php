@@ -25,6 +25,21 @@ if(!isset($_SERVER['argv'][1])) {
 generateLanguagePack($_SERVER['argv'][1]);
 
 function generateLanguagePack($lang) {
+    $license = "<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)\n
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.\n
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.\n
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->";
   $file = $lang.'/strings.xml';
   if(!is_file($file)) {
     print "ERROR: Strings.xml not found: $file";
@@ -57,18 +72,18 @@ function generateLanguagePack($lang) {
     }
   }
 
-  generateStringXmlFiles($lang, $stringsXmlArray);
-  generateErrorXmlFiles($lang, $errorsXmlArray);
+  generateStringXmlFiles($lang, $stringsXmlArray, $license);
+  generateErrorXmlFiles($lang, $errorsXmlArray, $license);
 }
 
-function generateStringXmlFiles($lang, $array) {
+function generateStringXmlFiles($lang, $array, $license) {
   foreach($array as $module => $classes) {
     $folder = $lang.'/'.$module;
     if(!is_dir($folder)) {
       mkdir($folder);
     }
     foreach($classes as $class => $stringNames) {
-      $xml = new SimpleXMLElement("<strings></strings>");
+      $xml = new SimpleXMLElement($license."<strings></strings>");
       foreach($stringNames as $stringName => $string) {
         $destString = $xml->addChild('string', strval($string));
         $destString->addAttribute('name', $stringName);
@@ -79,13 +94,13 @@ function generateStringXmlFiles($lang, $array) {
   }
 }
 
-function generateErrorXmlFiles($lang, $array) {
+function generateErrorXmlFiles($lang, $array, $license) {
   $folder = $lang.'/errors';
   if(!is_dir($folder)) {
     mkdir($folder);
   }
   foreach($array as $class => $types) {
-    $xml = new SimpleXMLElement("<errors></errors>");
+    $xml = new SimpleXMLElement($license."<errors></errors>");
     foreach($types as $type => $stringNames) {
       $destType = $xml->addChild($type);
       foreach($stringNames as $stringName => $string) {
