@@ -37,7 +37,7 @@ function generateStringsXml() {
   if($dom->save(SITE_DEFAULT_LANGUAGE.'/strings.xml')) {
     print "XML successfully generated: ".SITE_DEFAULT_LANGUAGE.'/strings.xml';
   } else {
-    print "Error generating XML!";
+    print "ERROR: Error while generating XML: ".SITE_DEFAULT_LANGUAGE.'/strings.xml';
   }
 }
 
@@ -54,7 +54,8 @@ function addTemplateStringNodes($destXml, $file_listing) {
   foreach($file_listing as $module=>$files) {
     $template = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$module.'/'.DEFAULT_TEMPLATE_LANGUAGE_FILE;
     if(!file_exists($template)) {
-      print "Template XML File missing:\n$template\n";
+      print "ERROR: Template XML File missing:\n$template\n";
+      exit();
     }
     $xml = simplexml_load_file($template);
     foreach($xml->children() as $string) {
@@ -75,7 +76,7 @@ function addStringNodes($destXml, $file_listing) {
       $class = substr($file, 0, strpos($file, '.'));
       $languageFile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$module.'/'.$class.'.xml';
       if(!file_exists($languageFile)) {
-        print "Language XML File missing:\n$languageFile\n";
+        print "ERROR: Language XML File missing:\n$languageFile\n";
         exit();
       }
       $xml = simplexml_load_file($languageFile);
@@ -100,9 +101,11 @@ function addErrorsStringNodes($destXml) {
   $errorsPub = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$errorsModuleName.'/'.DEFAULT_PUB_ERRORS_FILE;
   if(!file_exists($errorsDev)) {
     print "Error XML File missing:\n$errorsDev\n";
+    exit();
   }
   if(!file_exists($errorsPub)) {
     print "Error XML File missing:\n$errorsPub\n";
+    exit();
   }
 
   $xml = simplexml_load_file($errorsDev);

@@ -27,7 +27,7 @@ generateLanguagePack($_SERVER['argv'][1]);
 function generateLanguagePack($lang) {
   $file = $lang.'/strings.xml';
   if(!is_file($file)) {
-    print "Strings.xml not found: $file";
+    print "ERROR: Strings.xml not found: $file";
     exit();
   }
 
@@ -40,7 +40,7 @@ function generateLanguagePack($lang) {
     if($string->getName() && $attributes['name']) {
       $nameParts = explode('$', strval($attributes['name']));
       if(count($nameParts) < 3 || count($nameParts) > 4 || (count($nameParts) != 4 && strcmp($nameParts[0], 'errors') == 0)) {
-        print "Error: invalid stringName: ".strval($attributes['name']);
+        print "ERROR: invalid stringName: ".strval($attributes['name']);
         exit();
       }
       if(count($nameParts) == 3) {
@@ -106,7 +106,7 @@ function writeXmlFile($xml, $xmlFile) {
   if($dom->save($xmlFile)) {
     print_r("XML successfully generated: $xmlFile\n");
   } else {
-    print_r("Error while generating XML: $xmlFile\n");
+    print_r("ERROR: Error while generating XML: $xmlFile\n");
   }
 }
 

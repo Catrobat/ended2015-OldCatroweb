@@ -37,6 +37,7 @@
   <property name="tests.dir" value="${basedir}/tests/phpunit/" />
   <property name="viewer.dir" value="viewer" />
   <property name="sql.dir" value="sql" />
+  <property name="pootle.dir" value="pootle" />
   <property name="sqlupdate.dir" value="${sql.dir}/catroweb/updates" />
   <property name="htaccess.file" value=".htaccess" />
   <property name="config.file" value="config.php" />
@@ -519,6 +520,32 @@
       <arg line=" dbinit.php"/>
     </exec>
   </target>
+	
+  <target name="-generate-strings-xml">
+	<exec dir="${pootle.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+	  <arg value="/c"/>
+	  <arg value="php"/>
+	  <arg line=" generateStringsXml.php"/>
+	</exec>
+	<exec dir="${pootle.dir}" executable="php" failonerror="true" osfamily="Unix">
+	  <arg line=" generateStringsXml.php"/>
+	</exec>
+  </target>
+	
+  <target name="-generate-language-pack">
+  	<input
+  	  message="Enter the language-shortcut for the language-pack: "
+  	  addproperty="language.shortcut"
+  	/>
+	<exec dir="${pootle.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+	  <arg value="/c"/>
+	  <arg value="php"/>
+	  <arg line=" generateLanguagePack.php ${language.shortcut}"/>
+	</exec>
+	<exec dir="${pootle.dir}" executable="php" failonerror="true" osfamily="Unix">
+	  <arg line=" generateLanguagePack.php ${language.shortcut}"/>
+	</exec>
+  </target>
 
   <target name="-clean">
     <delete dir="${build.dir}"/>
@@ -725,5 +752,7 @@
   <target name="deploy-test-wiki" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-wiki, -user-pass-prompt, -undeploy-wiki, -deploy-wiki, -cleanup" />
   <target name="update-db" depends="-update-local-database" />
   <target name="init-db" depends="-init-local-database, -update-local-database" />
+  <target name="generate-strings-xml" depends="-generate-strings-xml" />
+  <target name="generate-language-pack" depends="-generate-language-pack" />
   
 </project>
