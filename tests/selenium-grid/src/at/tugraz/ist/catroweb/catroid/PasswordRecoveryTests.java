@@ -91,20 +91,20 @@ public class PasswordRecoveryTests extends BaseTest {
       openLocation("catroid/passwordrecovery");
       assertTrue(session().isTextPresent("Enter your nickname or email address:"));
       assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoveryUserdata']"));
-      assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoverySubmit']"));
+      assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoverySendLink']"));
       session().type("xpath=//input[@name='passwordRecoveryUserdata']", dataset.get("registrationUsername") + " to test");
-      session().click("xpath=//input[@name='passwordRecoverySubmit']");
+      session().click("xpath=//input[@name='passwordRecoverySendLink']");
       ajaxWait();
 
       // check error message
       assertTrue(session().isTextPresent("Enter your nickname or email address:"));
       assertTrue(session().isTextPresent("The nickname or email address was not found."));
       assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoveryUserdata']"));
-      assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoverySubmit']"));
+      assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoverySendLink']"));
 
       // now use real name
       session().type("xpath=//input[@name='passwordRecoveryUserdata']", dataset.get("registrationUsername"));
-      session().click("xpath=//input[@name='passwordRecoverySubmit']");
+      session().click("xpath=//input[@name='passwordRecoverySendLink']");
       ajaxWait();
       assertTrue(session().isTextPresent(Config.TESTS_BASE_PATH + "catroid/passwordrecovery?c="));
       assertTrue(session().isTextPresent("An email was sent to your email address. Please check your inbox."));

@@ -19,5 +19,12 @@
  
  
 <strings>
-
+  <string name="title">Login</string>
+  <string name="profile">Profile</string>
+  <string name="forum">Forum</string>
+  <string name="wiki">Help</string>
+  <string name="wall">Wall</string>
+  <string name="login">Login</string>
+  <string name="logout">Logout</string>
+  <string name="settings">Settings</string>
 </strings>

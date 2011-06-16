@@ -29,8 +29,8 @@ var PasswordRecovery = Class.$extend( {
     $("#okMsg").toggle(false);
     $("#passwordRecoveryFormAnswer").toggle(false);
 
-    $("#passwordRecoverySubmit").click(
-      $.proxy(this.passwordRecoverySubmit, this));
+    $("#passwordRecoverySendLink").click(
+      $.proxy(this.passwordRecoverySendLink, this));
     $("#passwordRecoveryUserdata").keypress(
       $.proxy(this.passwordRecoveryUserdataCatchKeypress, this));
  
@@ -43,9 +43,9 @@ var PasswordRecovery = Class.$extend( {
         $.proxy(this.passwordLoginSubmit, this));  
   },
   
-  passwordRecoverySubmit : function() {
+  passwordRecoverySendLink : function() {
     // disable form fields
-    $("#passwordRecoverySubmit").attr("disabled", "disabled");
+    $("#passwordRecoverySendLink").attr("disabled", "disabled");
     $("#passwordRecoveryUserdata").attr("disabled", "disabled");
 
     var url = this.basePath + 'catroid/passwordrecovery/passwordRecoverySendMailRequest.json';
@@ -66,7 +66,7 @@ var PasswordRecovery = Class.$extend( {
       $("#okMsg").toggle(true);
       $("#okMsg").html(response.answer_ok);
     }
-    $("#passwordRecoverySubmit").removeAttr("disabled");
+    $("#passwordRecoverySendLink").removeAttr("disabled");
     $("#passwordRecoveryUserdata").removeAttr("disabled");
   },
  
