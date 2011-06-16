@@ -328,7 +328,6 @@ class registration extends CoreAuthenticationNone {
 
   public function checkPassword($username, $password) {
     $username = trim($username);
-    //$password = trim($password);
     if((empty($password) && strcmp('0', $password) != 0) || $password == '' || mb_strlen($password) < 1) {
       throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
     }
