@@ -103,8 +103,6 @@ class CoreLanguageHandler {
   }
 
   private function getLanguageFile($fileName) {
-    //$defaultLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.SITE_DEFAULT_LANGUAGE.'/'.$fileName;
-    //$selectedLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.$this->moduleName.'/'.$this->language.'/'.$fileName;
     $defaultLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$this->moduleName.'/'.$fileName;
     $selectedLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.$this->language.'/'.$this->moduleName.'/'.$fileName;
     if(!file_exists($defaultLanguagefile)) {

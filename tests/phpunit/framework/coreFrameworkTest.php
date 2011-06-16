@@ -57,7 +57,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $msg = "this is a test message without parameters.";
     $this->assertTrue($this->testModel->languageHandler->checkParamCount($msg, 0));
   }
-  
+
   /**
    * @dataProvider languageHandlerMsgs
    */
@@ -132,30 +132,30 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
    * corePreseterTests
    */
 
-    public function testHtmlPresenter() {
-      $view = new CorePresenter_html($this->testModel);
-      $this->assertFalse($view->display());
-      $this->assertEquals(10, $view->testValue);
-    }
+  public function testHtmlPresenter() {
+    $view = new CorePresenter_html($this->testModel);
+    $this->assertFalse($view->display());
+    $this->assertEquals(10, $view->testValue);
+  }
 
-    public function testJsonPresenter() {
-      $view = new CorePresenter_json($this->testModel);
-      $tmpAssocArray = json_decode($view->getJsonString(), true);
-      $this->assertEquals(10, $tmpAssocArray['testValue']);
-    }
+  public function testJsonPresenter() {
+    $view = new CorePresenter_json($this->testModel);
+    $tmpAssocArray = json_decode($view->getJsonString(), true);
+    $this->assertEquals(10, $tmpAssocArray['testValue']);
+  }
 
-    public function testHttpPresenter() {
-      $view = new CorePresenter_http($this->testModel);
-      $this->assertEquals(500, $view->getStatusCode());
-    }
+  public function testHttpPresenter() {
+    $view = new CorePresenter_http($this->testModel);
+    $this->assertEquals(500, $view->getStatusCode());
+  }
 
-    public function testXmlPresenter() {
-      $view = new CorePresenter_xml($this->testModel);
-      $xml = simplexml_load_string($view->getXmlString());
-      $values = $xml->children();
-      $this->assertEquals(10, intval($values[0]));
-    }
-    
+  public function testXmlPresenter() {
+    $view = new CorePresenter_xml($this->testModel);
+    $xml = simplexml_load_string($view->getXmlString());
+    $values = $xml->children();
+    $this->assertEquals(10, intval($values[0]));
+  }
+
   /**
    * @dataProvider badWords
    */
@@ -169,15 +169,22 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
   public function testBadwordsFilterGood($goodWord) {
     $this->assertEquals(0, $this->testModel->badWordsFilter->areThereInsultingWords($goodWord));
   }
-  
+
   /**
    * @dataProvider forbiddenClassNames
    */
   public function testForbiddenClassNames($className) {
-    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/api/'.$className));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/admin/'.$className));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/catroid/'.$className));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/test/'.$className));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/api/'.$className.'.php'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/admin/'.$className.'.php'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/catroid/'.$className.'.php'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/test/'.$className.'.php'));
+  }
+
+  /**
+   * @dataProvider forbiddenModuleNames
+   */
+  public function testForbiddenModuleNames($moduleName) {
+    $this->assertFalse(is_dir(CORE_BASE_PATH.'modules/'.$moduleName));
   }
 
   /* DATA PROVIDERS */
@@ -200,7 +207,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     array("project"));
     return $goodWords;
   }
-  
+
   public function languageHandlerMsgs() {
     $msgs = array(
     array("this is a test message with variable {*firstParam123*} and {*secondParam012*} in it.", "this is a test message with variable numbers: 12345 and characters: abcde in it.", array('numbers: 12345', 'characters: abcde')),
@@ -210,12 +217,29 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     );
     return $msgs;
   }
-  
+
   public function forbiddenClassNames() {
     $names = array(
-    array(DEFAULT_DEV_ERRORS_FILE),
-    array(DEFAULT_PUB_ERRORS_FILE),
-    array(DEFAULT_TEMPLATE_LANGUAGE_FILE)
+    array(substr(DEFAULT_DEV_ERRORS_FILE, 0, strpos(DEFAULT_DEV_ERRORS_FILE, '.'))),
+    array(substr(DEFAULT_PUB_ERRORS_FILE, 0, strpos(DEFAULT_PUB_ERRORS_FILE, '.'))),
+    array(substr(DEFAULT_TEMPLATE_LANGUAGE_FILE, 0, strpos(DEFAULT_TEMPLATE_LANGUAGE_FILE, '.')))
+    );
+    return $names;
+  }
+
+  public function forbiddenModuleNames() {
+    $names = array(
+    array('errors'),
+    array('addons'),
+    array('classes'),
+    array('images'),
+    array('include'),
+    array('install'),
+    array('modules'),
+    array('resources'),
+    array('sql'),
+    array('tests'),
+    array('viewer')
     );
     return $names;
   }
