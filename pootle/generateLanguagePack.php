@@ -17,7 +17,12 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-generateLanguagePack('en');
+if(!isset($_SERVER['argv'][1])) {
+  print "usage: php generateLanguagePack.php <languageShortcut>";
+  exit();
+}
+
+generateLanguagePack($_SERVER['argv'][1]);
 
 function generateLanguagePack($lang) {
   $file = $lang.'/strings.xml';
