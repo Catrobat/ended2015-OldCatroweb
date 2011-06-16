@@ -30,11 +30,12 @@ function mergeStringsXmlFiles($file_listing) {
   $stringsXml = new SimpleXMLElement("<resources></resources>");
   $stringsXml = addStringNodes($stringsXml, $file_listing);
   $stringsXml = addTemplateStringNodes($stringsXml, $file_listing);
-  
+  $stringsXml = addErrorsStringNodes($stringsXml);
   return $stringsXml;
 }
 
 function addTemplateStringNodes($destXml, $file_listing) {
+  $templateNodeName = substr(DEFAULT_TEMPLATE_LANGUAGE_FILE, 0, strpos(DEFAULT_TEMPLATE_LANGUAGE_FILE, '.'));
   foreach($file_listing as $module=>$files) {
     $template = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$module.'/'.DEFAULT_TEMPLATE_LANGUAGE_FILE;
     if(!file_exists($template)) {
@@ -44,7 +45,7 @@ function addTemplateStringNodes($destXml, $file_listing) {
     foreach($xml->children() as $string) {
       $attributes = $string->attributes();
       if($string->getName() && $attributes['name']) {
-        $destStringName = $module.'$template$'.strval($attributes['name']);
+        $destStringName = $module.'$'.$templateNodeName.'$'.strval($attributes['name']);
         $destString = $destXml->addChild('string', strval($string));
         $destString->addAttribute('name', $destStringName);
       }
@@ -70,6 +71,44 @@ function addStringNodes($destXml, $file_listing) {
           $destString = $destXml->addChild('string', strval($string));
           $destString->addAttribute('name', $destStringName);
         }
+      }
+    }
+  }
+  return $destXml;
+}
+
+function addErrorsStringNodes($destXml) {
+  $errorsModuleName = 'errors';
+  $errorsDevNodeName = substr(DEFAULT_DEV_ERRORS_FILE, 0, strpos(DEFAULT_DEV_ERRORS_FILE, '.'));
+  $errorsPubNodeName = substr(DEFAULT_PUB_ERRORS_FILE, 0, strpos(DEFAULT_PUB_ERRORS_FILE, '.'));
+  $errorsDev = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$errorsModuleName.'/'.DEFAULT_DEV_ERRORS_FILE;
+  $errorsPub = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$errorsModuleName.'/'.DEFAULT_PUB_ERRORS_FILE;
+  if(!file_exists($errorsDev)) {
+    print "Error XML File missing:\n$errorsDev\n";
+  }
+  if(!file_exists($errorsPub)) {
+    print "Error XML File missing:\n$errorsPub\n";
+  }
+
+  $xml = simplexml_load_file($errorsDev);
+  foreach($xml->children() as $error_type) {
+    foreach($error_type as $error) {
+      $attributes = $error->attributes();
+      if($error_type->getName() && $attributes['name']) {
+        $destStringName = $errorsModuleName.'$'.$errorsDevNodeName.'$'.strval($error_type->getName()).'$'.strval($attributes['name']);
+        $destString = $destXml->addChild('string', strval($error));
+        $destString->addAttribute('name', $destStringName);
+      }
+    }
+  }
+  $xml = simplexml_load_file($errorsPub);
+  foreach($xml->children() as $error_type) {
+    foreach($error_type as $error) {
+      $attributes = $error->attributes();
+      if($error_type->getName() && $attributes['name']) {
+        $destStringName = $errorsModuleName.'$'.$errorsPubNodeName.'$'.strval($error_type->getName()).'$'.strval($attributes['name']);
+        $destString = $destXml->addChild('string', strval($error));
+        $destString->addAttribute('name', $destStringName);
       }
     }
   }
