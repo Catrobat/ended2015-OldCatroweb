@@ -22,10 +22,13 @@ require_once('testsBootstrap.php');
 class uploadTest extends PHPUnit_Framework_TestCase
 {
   protected $upload;
+  protected $dbConnection;
 
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/api/upload.php';
     $this->upload = new upload();
+    $this->dbConnection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
+    or die('Connection to Database failed: ' . pg_last_error());
   }
 
   /**
@@ -56,28 +59,28 @@ class uploadTest extends PHPUnit_Framework_TestCase
 
     if($uploadImei) {
       $query = "SELECT upload_imei FROM projects WHERE id='$insertId'";
-      $result = pg_query($query);
+      $result = pg_query($this->dbConnection, $query);
       $row = pg_fetch_row($result);
       $this->assertEquals($uploadImei, $row[0]);
       pg_free_result($result);
     }
     if($uploadEmail) {
       $query = "SELECT upload_email FROM projects WHERE id='$insertId'";
-      $result = pg_query($query);
+      $result = pg_query($this->dbConnection, $query);
       $row = pg_fetch_row($result);
       $this->assertEquals($uploadEmail, $row[0]);
       pg_free_result($result);
     }
     if($uploadLanguage) {
       $query = "SELECT upload_language FROM projects WHERE id='$insertId'";
-      $result = pg_query($query);
+      $result = pg_query($this->dbConnection, $query);
       $row = pg_fetch_row($result);
       $this->assertEquals($uploadLanguage, $row[0]);
       pg_free_result($result);
     }
     if($fileSize) {
       $query = "SELECT filesize_bytes FROM projects WHERE id='$insertId'";
-      $result = pg_query($query);
+      $result = pg_query($this->dbConnection, $query);
       $row = pg_fetch_row($result);
       $this->assertEquals($fileSize, $row[0]);
       pg_free_result($result);
@@ -104,7 +107,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
-    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
   }
   
@@ -201,11 +204,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($this->getVersionInfo($projectId, "versionCode"), $versionCode);
   }
   
-  /*
-   * public function testSaveFile() {}
-   * public function saveThumbnail() {}
-   */
-  
   /**
    * @dataProvider testVersion4
    */
@@ -282,7 +280,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
-    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
   }
 
@@ -319,7 +317,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
-    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
   }
 
@@ -356,7 +354,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
-    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
   }
 
@@ -393,7 +391,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
-    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
   }
 
@@ -427,7 +425,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
     $query = "SELECT * FROM projects WHERE id='$insertId'";
-    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
     $this->assertEquals(0, pg_num_rows($result));
   }
 
@@ -607,8 +605,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   }
   
   private function getVersionInfo($projectId, $col) {
-    $query = "EXECUTE get_project_by_id('$projectId');";
-    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $query = "SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$projectId AND cusers.id=projects.user_id LIMIT 1";
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
     $projects = pg_fetch_all($result);
     pg_free_result($result);
     foreach($projects as $project) {
