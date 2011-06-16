@@ -34,7 +34,7 @@ class languageTest extends PHPUnit_Framework_TestCase
 
   public function testLanguageFolders() {
     foreach($this->file_listing as $module=>$files) {
-      $folder = CORE_BASE_PATH.LANGUAGE_PATH.$module.'/'.SITE_DEFAULT_LANGUAGE;
+      $folder = CORE_BASE_PATH.LANGUAGE_PATH.'/'.SITE_DEFAULT_LANGUAGE.'/'.$module;
       if(!is_dir($folder)) {
         print "Language folder missing:\n$folder\n";
       }
@@ -43,8 +43,8 @@ class languageTest extends PHPUnit_Framework_TestCase
   }
 
   public function testErrorXmlFiles() {
-    $errorDevFile = CORE_BASE_PATH.LANGUAGE_PATH.'errors/'.SITE_DEFAULT_LANGUAGE.'/errors_dev.xml';
-    $errorPubFile = CORE_BASE_PATH.LANGUAGE_PATH.'errors/'.SITE_DEFAULT_LANGUAGE.'/errors_pub.xml';
+    $errorDevFile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/errors/'.DEFAULT_DEV_ERRORS_FILE;
+    $errorPubFile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/errors/'.DEFAULT_PUB_ERRORS_FILE;
     if(!file_exists($errorDevFile)) {
       print "Error XML File missing:\n$errorDevFile\n";
     }
@@ -57,7 +57,7 @@ class languageTest extends PHPUnit_Framework_TestCase
 
   public function testTemplateXmlFiles() {
     foreach($this->file_listing as $module=>$files) {
-      $template = CORE_BASE_PATH.LANGUAGE_PATH.$module.'/'.SITE_DEFAULT_LANGUAGE.'/template.xml';
+      $template = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$module.'/'.DEFAULT_TEMPLATE_LANGUAGE_FILE;
       if(!file_exists($template)) {
         print "Template XML File missing:\n$template\n";
       }
@@ -70,7 +70,7 @@ class languageTest extends PHPUnit_Framework_TestCase
       foreach($files as $file) {
         $class = substr($file, 0, strpos($file, '.'));
 
-        $languageFile = CORE_BASE_PATH.LANGUAGE_PATH.$module.'/'.SITE_DEFAULT_LANGUAGE.'/'.$class.'.xml';
+        $languageFile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$module.'/'.$class.'.xml';
         if(!file_exists($languageFile)) {
           print "Language XML File missing:\n$languageFile\n";
         }

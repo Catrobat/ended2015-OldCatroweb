@@ -18,7 +18,7 @@
  */
 
 define('VERSION','0.6.2');
-define('BASE_PATH','http://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
+@define('BASE_PATH','http://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');
 define('XML_PATH','include/xml/');
 define('LANGUAGE_PATH','include/xml/lang/');
