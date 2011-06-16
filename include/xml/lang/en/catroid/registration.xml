@@ -41,8 +41,4 @@
   <string name="create">Create my account</string>
   <string name="login">Login</string>
   <string name="password_recover">click here if you forgot your password?</string>
-  <string name="catroid_success">CATROID registration successfull!</string>
-  <string name="board_success">BOARD registration successfull!</string>
-  <string name="wiki_success">WIKI registration successfull!</string>
-
 </strings>

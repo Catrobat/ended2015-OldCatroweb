@@ -17,23 +17,16 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class register extends CoreAuthenticationDevice {
+require_once 'registration.php';
+
+class register extends registration {
 
   public function __construct() {
     parent::__construct();
   }
 
   public function __default() {
-  }
-
-  public function __authenticationFailed() {
-    $this->statusCode = 601;
-    $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_token');
-  }
-
-  public function check() {
-    $this->statusCode = 200;
-    return true;
+    echo 'hi';
   }
   
   public function __destruct() {
