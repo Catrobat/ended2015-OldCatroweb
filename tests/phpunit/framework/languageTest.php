@@ -27,7 +27,7 @@ class languageTest extends PHPUnit_Framework_TestCase
 
   protected function setUp() {
     $this->file_listing = array();
-    $this->whitelist = array("Snoopy.php", "aliveCheckerDB.php", "aliveCheckerHost.php");
+    $this->whitelist = array("aliveCheckerDB.php", "aliveCheckerHost.php");
     $this->whitelist_folders = array();
     $this->walkThroughDirectory(CORE_BASE_PATH.'modules/');
   }
