@@ -59,7 +59,7 @@
       	  		   			    else if($this->showForm == 2) {
       	  		   			?>
 														<form method="post" action="./passwordrecovery">
-															<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('expired_url')?></div>
+															<div class="errorMsg"><?php echo $this->languageHandler->getString('expired_url')?></div>
 															<br>
 															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="<?php echo $this->languageHandler->getString('next')?>" class="button orange compact passwordRecoverySubmitButton">
 														</form>
@@ -75,6 +75,7 @@
           										<input type="hidden" id="c" name="c" value="<?php echo $_POST['c']; ?>">
 															<input type="text" id="passwordSavePassword" name="passwordSavePassword" >
 															<br>
+												      <br>
           										<input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="<?php echo $this->languageHandler->getString('change_password')?>" class="button orange compact passwordRecoverySubmitButton">
           									</form>
 	      	  		   					<br>
@@ -82,7 +83,7 @@
       	  		   			    else if($this->showForm == 2) {
       	  		   			?>
 														<form method="post" action="./passwordrecovery">
-															<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('expired_url')?></div>
+															<div class="errorMsg"><?php echo $this->languageHandler->getString('expired_url')?></div>
 															<br>
 															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="<?php echo $this->languageHandler->getString('next')?>" class="button orange compact passwordRecoverySubmitButton">
 														</form>

@@ -61,8 +61,8 @@ class passwordrecovery extends CoreAuthenticationNone {
       $this->checkUserData($userData);
       $userHash = $this->createUserHash($userData);
       $this->sendPasswordRecoveryEmail($userHash, $sendPasswordRecoveryEmail);
-      $this->answer_ok .= 'An email was sent to your email address. ';
-      $this->answer_ok .= 'Please check your inbox.';
+      $this->answer_ok .= $this->languageHandler->getString('sent_1');
+      $this->answer_ok .= $this->languageHandler->getString('sent_2');
       return $userHash;
     } catch(Exception $e) {
       $this->answer .= $e->getMessage().'<br>';
@@ -127,7 +127,7 @@ class passwordrecovery extends CoreAuthenticationNone {
         $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
         return false;
       }
-      $this->answer_ok .= 'Your new password is set.<br>';
+      $this->answer_ok .= $this->languageHandler->getString('password_ok').'<br>';
     }
     return $passwordDataValid;
   }
@@ -294,13 +294,14 @@ class passwordrecovery extends CoreAuthenticationNone {
     }
     if($sendPasswordRecoveryEmail) {
       $userMailAddress = $this->userData['email'];
-      $mailSubject = '[CATROID] Your Catroid.org Password!';
-      $mailText = "Hello ".$this->userData['username']."!\n\n";
-      $mailText .= "Please click on the following link to create your new password:\n";
-      $mailText .= $resetPasswordLink."\n\n";
-      $mailText .= "You can use your nickname and your password at any time to access the catroid community.\n\n";
-      $mailText .= "To do so, just visit the following page: http://www.catroid.org/catroid/login\n\n\n";
-      $mailText .= "Catroid\nwww.catroid.org";
+      $mailSubject = $this->languageHandler->getString('mail_subject');
+      $mailText =    $this->languageHandler->getString('mail_text_row1', $this->userData['username']) . "!\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row2') . "\n";
+      $mailText .=   $resetPasswordLink."\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row3') . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row4') . "\n\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row5') . "\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row6');
       if (DEVELOPMENT_MODE)
         $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
       

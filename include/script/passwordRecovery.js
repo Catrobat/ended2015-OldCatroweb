@@ -65,6 +65,7 @@ var PasswordRecovery = Class.$extend( {
       $("#errorMsg").toggle(false);
       $("#okMsg").toggle(true);
       $("#okMsg").html(response.answer_ok);
+      $("#passwordRecoveryFormDialog").toggle(false);
     }
     $("#passwordRecoverySendLink").removeAttr("disabled");
     $("#passwordRecoveryUserdata").removeAttr("disabled");

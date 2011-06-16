@@ -56,7 +56,7 @@ class profile extends CoreAuthenticationNone {
     if($postData) {
       if($this->doChangePassword($this->session->userLogin_userNickname, $postData['profileOldPassword'], $postData['profileNewPassword'])) {
         $this->statusCode = 200;
-        $this->answer_ok .= "You updated your password successfully.";
+        $this->answer_ok .= $this->languageHandler->getString('password_success');
         return true;
       } else {
         $this->statusCode = 500;
@@ -70,7 +70,7 @@ class profile extends CoreAuthenticationNone {
     if($postData) {
       if($this->doChangeUserEmail($this->session->userLogin_userNickname, $postData['profileEmail'])) {
         $this->statusCode = 200;
-        $this->answer_ok .= "You updated your email address successfully.";
+        $this->answer_ok .= $this->languageHandler->getString('email_success');
         return true;
       } else {
         $this->statusCode = 500;
@@ -84,7 +84,7 @@ class profile extends CoreAuthenticationNone {
     if($postData) {
       if($this->doChangeUserCountry($this->session->userLogin_userNickname, $postData['profileCountry'])) {
         $this->statusCode = 200;
-        $this->answer_ok .= "You updated your country successfully.";
+        $this->answer_ok .= $this->languageHandler->getString('password_success');
         return true;
       } else {
         $this->statusCode = 500;
@@ -175,7 +175,6 @@ class profile extends CoreAuthenticationNone {
     }
     if($userCountryValid) {
       try {
-        $this->answer .= "Hallo <br>";
         $query = "EXECUTE update_user_country('$countryCode', '$username')";
         $result = @pg_query($this->dbConnection, $query);
         if(!$result) {
