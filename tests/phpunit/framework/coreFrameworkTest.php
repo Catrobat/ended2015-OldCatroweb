@@ -235,6 +235,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     array('include'),
     array('install'),
     array('modules'),
+    array('pootle'),
     array('resources'),
     array('sql'),
     array('tests'),

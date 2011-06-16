@@ -17,14 +17,29 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-require_once '../../../config.php';
+require_once '../config.php';
 
-$filesWhitelist = array("aliveCheckerDB.php", "aliveCheckerHost.php");
-$modulesWhitelist = array("test");
+generateStringsXml();
 
-$file_listing = walkThroughDirectory(CORE_BASE_PATH.'modules/', $filesWhitelist, $modulesWhitelist);
-$mergedXmlObject = mergeStringsXmlFiles($file_listing);
-$mergedXmlObject->asXML('strings.xml');
+function generateStringsXml() {
+  $filesWhitelist = array("aliveCheckerDB.php", "aliveCheckerHost.php");
+  $modulesWhitelist = array("test");
+
+  $file_listing = walkThroughDirectory(CORE_BASE_PATH.'modules/', $filesWhitelist, $modulesWhitelist);
+  $mergedXmlObject = mergeStringsXmlFiles($file_listing);
+  if(!is_dir(SITE_DEFAULT_LANGUAGE)) {
+    mkdir(SITE_DEFAULT_LANGUAGE);
+  }
+  $dom = new DOMDocument('1.0');
+  $dom->preserveWhiteSpace = false;
+  $dom->formatOutput = true;
+  $dom->loadXML($mergedXmlObject->asXML());
+  if($dom->save(SITE_DEFAULT_LANGUAGE.'/strings.xml')) {
+    print "XML successfully generated: ".SITE_DEFAULT_LANGUAGE.'/strings.xml';
+  } else {
+    print "Error generating XML!";
+  }
+}
 
 function mergeStringsXmlFiles($file_listing) {
   $stringsXml = new SimpleXMLElement("<resources></resources>");
