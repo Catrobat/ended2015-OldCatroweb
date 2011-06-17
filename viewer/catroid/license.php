@@ -22,7 +22,7 @@
   <div class="blueBoxMain">
     <div class="webMainContent">
       <div class="webMainContentTitle">
-      <?php echo $this->languageHandler->getString('license_title')?>
+      <?php echo $this->languageHandler->getString('title')?>
       </div>
       <div class="licenseMain">
         <div class="whiteBoxMain">

@@ -19,7 +19,7 @@
  
  
 <strings>
-  <string name="license_title">License</string>
+  <string name="title">License</string>
   <string name="license_text_part1">All projects shared on the Catroid website, as well as the Catroid support materials, are shared under the Creative Commons license with the conditions Attribution - Share Alike.</string>
   <string name="license_text_part2">The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the GNU General Public License {*emailLink1*}, 
                   the source code of the website is available under the GNU Affero General Public License {*emailLink2*}.</string>
