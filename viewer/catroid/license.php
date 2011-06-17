@@ -18,26 +18,34 @@
  */
 ?>
 
-  <div class="webMainMiddle">
-  		<div class="blueBoxMain">
-  		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('license')?></div>
-                <div class="licenseMain">            	
-            	  <div class ="whiteBoxMain">
-            	    <div class="licenseText"><p class="licenseText">
-                  <?php echo $this->languageHandler->getString('p1')?>
-                  <br><br>
-                  <?php echo $this->languageHandler->getString('p2', 
-                  																						 '<a href="http://www.gnu.org/licenses/gpl.html" target="_blank" id="gnugpl">http://www.gnu.org/licenses/gpl.html</a>', 
-                  																						 '<a href="http://www.gnu.org/licenses/agpl.html" target="_blank" id="gnuagpl">http://www.gnu.org/licenses/agpl.html</a>' 
-                                                               )?>
-                  <br><br>
-                  <?php echo $this->languageHandler->getString('p3', '<a href="http://code.google.com/p/catroid" target="_blank" id="googlecode">Google Code</a>')?>
-            	    </p>
-                  </div> <!-- License Text -->
-                  </div> <!--  White Box -->            	
-            	</div> <!--  license Main -->
-  		   		
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>  
+<div class="webMainMiddle">
+  <div class="blueBoxMain">
+    <div class="webMainContent">
+      <div class="webMainContentTitle">
+      <?php echo $this->languageHandler->getString('license_title')?>
+      </div>
+      <div class="licenseMain">
+        <div class="whiteBoxMain">
+          <div class="licenseText">
+            <p class="licenseText">
+            <?php echo $this->languageHandler->getString('license_text_part1')?>
+              <br> <br>
+              <?php
+              echo $this->languageHandler->getString('license_text_part2', '<a href="http://www.gnu.org/licenses/gpl.html" target="_blank" id="gnugpl">http://www.gnu.org/licenses/gpl.html</a>',
+                  									   '<a href="http://www.gnu.org/licenses/agpl.html" target="_blank" id="gnuagpl">http://www.gnu.org/licenses/agpl.html</a>')
+              ?>
+              <br> <br>
+              <?php echo $this->languageHandler->getString('license_text_part3', '<a href="http://code.google.com/p/catroid" target="_blank" id="googlecode">Google Code</a>')?>
+            </p>
+          </div>
+          <!-- License Text -->
+        </div>
+        <!--  White Box -->
+      </div>
+      <!--  license Main -->
+
+    </div>
+    <!-- mainContent close //-->
+  </div>
+  <!-- blueBoxMain close //-->
+</div>
