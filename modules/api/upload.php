@@ -39,7 +39,7 @@ class upload extends CoreAuthenticationDevice {
     $this->versionCode = 0;
     $newId = $this->doUpload($_POST, $_FILES, $_SERVER);
     if($newId > 0) {
-      $this->answer = 'Upload successfull!';
+      $this->answer = $this->languageHandler->getString('upload_successfull');
     } else {
       $this->sendUploadFailAdminEmail($_POST, $_FILES, $_SERVER);
     }
@@ -92,9 +92,9 @@ class upload extends CoreAuthenticationDevice {
                       if($this->checkFileChecksum($fileChecksum, $formData['fileChecksum'])) {
                         $statusCode = 200;
                         if($this->getQRCode($newId, $projectTitle)) {
-                          $answer = 'Upload successfull!';
+                          $answer = $this->languageHandler->getString('upload_successfull');
                         } else {
-                          $answer = 'Upload successfull! QR-Code failed!';
+                          $answer = $this->languageHandler->getString('upload_successfull').' '.$this->languageHandler->getString('qr_failed');
                         }
 
                         $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);

@@ -127,7 +127,6 @@ public class ProfileTests extends BaseTest {
       waitForPageToLoad();
       ajaxWait();
 
-      //session().getAlert();
       assertTrue(session().isTextPresent(dataset.get("changedEmail")));
 
       session().click("xpath=//a[@id='profileChangeEmailOpen']");

@@ -30,7 +30,9 @@ function getUsernameBlacklistArray() {
   $usernameBlacklist = array(
     'admin',
     'catroid',
-    'kittyroid'
+		'administrator',
+    'catroweb',
+  	'kittyroid'
     );
     return $usernameBlacklist;
 }

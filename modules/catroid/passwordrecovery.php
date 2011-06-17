@@ -263,7 +263,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       if(pg_num_rows($result) > 0) {
         $this->userData = pg_fetch_assoc($result);
 
-        $hoursDifference = $this->timeDifference();
+        $hoursDifference = $this->getTimeDifference();
         if($hoursDifference < 24*60*60) {
           $this->showForm = 1;
         }
@@ -316,7 +316,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     return true;
   }
   
-  public function timeDifference() {
+  public function getTimeDifference() {
     $date = new DateTime();
     $timenow = $date->format('U');
     $hashtime = $this->userData['recovery_time'];
