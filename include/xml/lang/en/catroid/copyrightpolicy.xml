@@ -18,7 +18,7 @@
   -->
 
 <strings>
-	<string name="copyright_policy_title">Copyright Policy</string>
+	<string name="title">Copyright Policy</string>
 	<string name="email_link">email</string>
 	<string name="directive_link">Directive 2001/29/EC</string>
 	<string name="chilling_link">chillingeffects.org</string>

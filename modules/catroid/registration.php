@@ -23,6 +23,7 @@ class registration extends CoreAuthenticationNone {
     $this->addCss('registration.css');
     $this->addJs('registration.js');
     $this->initRegistration();
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {

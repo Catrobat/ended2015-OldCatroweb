@@ -18,7 +18,7 @@
   -->
 
 <strings>
-	<string name="privacy_policy_title">Privacy Policy</string>
+	<string name="title">Privacy Policy</string>
 	<string name="privacy_policy_contact_link">Contact Us</string>
 	<string name="privacy_policy_using_software_head">Using the Catroid Software</string>
 	<string name="privacy_policy_using_website_head">Using the Catroid Website</string>

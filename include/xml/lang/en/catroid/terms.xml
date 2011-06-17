@@ -18,7 +18,7 @@
   -->
 
 <strings>
-	<string name="terms_of_use_title">Terms of use</string>
+	<string name="title">Terms of use</string>
 	<string name="share_alike_licence_link">Attribution - Share Alike</string>
 	<string name="gnu_licence_link">GNU General Public License</string>
 	<string name="gnu_affero_licence_link">GNU Affero General Public License</string>

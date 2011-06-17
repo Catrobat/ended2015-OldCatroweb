@@ -18,7 +18,7 @@
   -->
 
 <strings>
-	<string name="imprint_title">Impressum</string>
+	<string name="title">Impressum</string>
 	<string name="institute_for_software_technology">Institut für Softwaretechnologie</string>
 	<string name="graz_university_of_technology">Technische Universität Graz</string>
 	<string name="address">Adresse</string>

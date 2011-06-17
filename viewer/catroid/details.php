@@ -40,7 +40,7 @@
                 						<img class="projectDetailsImage" src="<?php echo $this->project['image']?>" alt="project thumbnail">
                 					</a>
             					<div class="detailsLicenseLink">
-            					  <a class="licenseLink" href="<?php echo BASE_PATH?>catroid/projectlicense">Some rights reserved</a>
+            					  <a class="licenseLink" href="<?php echo BASE_PATH?>catroid/projectlicense"><?php echo $this->languageHandler->getString('some_rights_reserved')?></a>
                 					</div>
                 				</div>
                 				<?php if(!$this->isMobile) {?>
@@ -49,11 +49,11 @@
                     					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view7.png" alt="view count image">                    					
                     					<!--   <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view8.png" alt="view count image">
                     					-->
-                        					<b><?php echo $this->project['view_count']?></b> views</p>
+                        					<b><?php echo $this->project['view_count']?></b> <?php echo $this->languageHandler->getString('views')?></p>
                         					<div style="height:10px;"></div>
                         					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down1.png" alt="download count image">
                     					<!-- <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down_2.png" alt="download count image"> -->
-                        					<b><?php echo $this->project['download_count']?></b> downloads</p>
+                        					<b><?php echo $this->project['download_count']?></b> <?php echo $this->languageHandler->getString('downloads')?></p>
                     					</div>
                         			</div>
                     			<?php }?>

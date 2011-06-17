@@ -38,13 +38,13 @@
             </div>
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">
-            <button type="button" class="webHeadButtons button orange medium" id="headerSearchButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/search.png" alt="Search" /></button>
-            <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="Menu" /></button>
-            <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="Profile" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerSearchButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/search.png" alt="<?php echo $this->languageHandler->getString('search')?>" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="<?php echo $this->languageHandler->getString('menu')?>" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="<?php echo $this->languageHandler->getString('profile')?>" /></button>
           </div>
           <div id="cancelHeaderButton" class="webHeadButtons">
             <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelButton">
-              <span class="webHeadCancelButtonText">Cancel</span>
+              <span class="webHeadCancelButtonText"><?php echo $this->languageHandler->getString('cancel')?></span>
             </button>
           </div>
           <div style="clear:both;"></div>
@@ -57,11 +57,11 @@
             <form id="searchForm">
               <div class="headerSearchBoxRight" >
               <?php if($this->module->clientDetection->isMobile()) {?>
-                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  /><br>             
-                <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="Search" />
+                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="<?php echo $this->languageHandler->getString('search_for_projects')?>" autofocus  /><br>             
+                <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="<?php echo $this->languageHandler->getString('search')?>" />
               <?php } else {?>
-                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="Search for projects" autofocus  />             
-                <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="Search" />
+                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="<?php echo $this->languageHandler->getString('search_for_projects')?>" autofocus  />             
+                <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="<?php echo $this->languageHandler->getString('search')?>" />
               <?php }?>
               </div>
             </form>
@@ -76,27 +76,27 @@
               <div class="loginInfoText" id="loginInfoText">
            		<div class="loginErrorMsg" id="loginErrorMsg">
             	   <!-- errorMsg -->
-              	</div>
+              </div>
               </div>
               <form id="loginForm">
               	<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >
               	  <?php if($this->module->clientDetection->isMobile()) {?>
-              		Nick:<br><input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="nickname"  /><br>
-                	Password:<br><input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="password"  /><br>
-                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="Login" />
+              		  <?php echo $this->languageHandler->getString('nick')?><br><input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>"  /><br>
+                	  <?php echo $this->languageHandler->getString('password')?><br><input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>"  /><br>
+                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="<?php echo $this->languageHandler->getString('login')?>" />
               	  <?php } else {?>
-                    Nick: <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="nickname"  />
-                    Password: <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="password"  />
-                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="Login" />
+                    <?php echo $this->languageHandler->getString('nick')?> <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>"  />
+                    <?php echo $this->languageHandler->getString('password')?> <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>"  />
+                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="<?php echo $this->languageHandler->getString('login')?>" />
               	  <?php }?>
                 </div>         
               </form>
             <?php } else { ?>
               <div id="headerProfileBoxLeft" class="headerProfileBoxLeft">
-               You are logged in as
+               <?php echo $this->languageHandler->getString('logged_in_as')?>
                <a href="<?php echo BASE_PATH; ?>catroid/profile" class="profileText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!<br>
                <div class="headerProfileBoxSubmitDiv" >
-                <input id="logoutSubmitButton" type="button" class="button orange webHeadLogoutSubmit" value="Logout" />
+                 <input id="logoutSubmitButton" type="button" class="button orange webHeadLogoutSubmit" value="<?php echo $this->languageHandler->getString('logout')?>" />
                </div>
              </div>
             <?php } ?>

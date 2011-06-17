@@ -21,7 +21,7 @@
   <div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('imprint_title')?></div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
                 <div class="licenseMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="imprintText">
