@@ -36,4 +36,16 @@
 	<string name="template_common_one_year_ago">about 1 year ago</string>
 	<string name="template_common_years_ago">about {*yearCount*} years ago</string>
 	<string name="template_common_over_years_ago">over {*yearCount*} years ago</string>
+	<string name="template_common_january">January</string>
+	<string name="template_common_february">February</string>
+	<string name="template_common_march">March</string>
+	<string name="template_common_april">April</string>
+	<string name="template_common_may">May</string>
+	<string name="template_common_june">June</string>
+	<string name="template_common_july">July</string>
+	<string name="template_common_august">August</string>
+	<string name="template_common_september">September</string>
+	<string name="template_common_october">October</string>
+	<string name="template_common_november">November</string>
+	<string name="template_common_december">December</string>
 </strings>
