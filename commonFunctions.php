@@ -35,20 +35,20 @@ function getUsernameBlacklistArray() {
     return $usernameBlacklist;
 }
 
-function getMonthsArray() {
+function getMonthsArray($languageHandler) {
   $months = array(
-  1=>"Jan",
-  2=>"Feb",
-  3=>"Mar",
-  4=>"Apr",
-  5=>"May",
-  6=>"Jun",
-  7=>"Jul",
-  8=>"Aug",
-  9=>"Sep",
-  10=>"Oct",
-  11=>"Nov",
-  12=>"Dec"
+  1=>$languageHandler->getString('template_common_january'),
+  2=>$languageHandler->getString('template_common_february'),
+  3=>$languageHandler->getString('template_common_march'),
+  4=>$languageHandler->getString('template_common_april'),
+  5=>$languageHandler->getString('template_common_may'),
+  6=>$languageHandler->getString('template_common_june'),
+  7=>$languageHandler->getString('template_common_july'),
+  8=>$languageHandler->getString('template_common_august'),
+  9=>$languageHandler->getString('template_common_september'),
+  10=>$languageHandler->getString('template_common_october'),
+  11=>$languageHandler->getString('template_common_november'),
+  12=>$languageHandler->getString('template_common_december')
   );
   return $months;
 }

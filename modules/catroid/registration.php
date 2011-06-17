@@ -31,7 +31,7 @@ class registration extends CoreAuthenticationNone {
   public function initRegistration() {
     $answer = '';
     try {
-      $this->months = getMonthsArray();
+      $this->months = getMonthsArray($this->languageHandler);
     } catch(Exception $e) {
       $answer .= $e->getMessage().'<br>';
     }
