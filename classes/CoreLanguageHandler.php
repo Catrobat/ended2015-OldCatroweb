@@ -134,7 +134,6 @@ class CoreLanguageHandler {
   private function setSiteLanguage() {
     if(isset($_REQUEST['userLanguage'])) {
       $lang = $_REQUEST['userLanguage'];
-      setcookie('site_language', $lang, 0, "/", '', false, true);
     } else if(isset($_COOKIE['site_language'])) {
       $lang = $_COOKIE['site_language'];
     } else {
@@ -143,7 +142,14 @@ class CoreLanguageHandler {
     if(!in_array($lang, getSupportedLanguagesArray())) {
       $lang = SITE_DEFAULT_LANGUAGE;
     }
+    $this->setLanguageCookie($lang);
     $this->language = $lang;
+  }
+  
+  public function setLanguageCookie($lang) {
+    if(!defined('UNITTESTS')) {
+      setcookie('site_language', $lang, 0, "/", '', false, true);
+    }
   }
 
   public function __destruct() {

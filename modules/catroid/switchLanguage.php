@@ -1,6 +1,6 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2011 The Catroid Team 
+ *    Copyright (C) 2010-2011 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
@@ -17,16 +17,24 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-  session_start();
-  $_SERVER['SERVER_NAME'] = '127.0.0.1';
-  $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
-  $_SERVER['REQUEST_URI'] = 'just/a/test';
-  spl_autoload_register('__autoload');
-  require_once(dirname(__FILE__).'/../../config.php');
-  require_once(dirname(__FILE__).'/../../passwords.php');
-  require_once(dirname(__FILE__).'/../../commonFunctions.php');
-  function __autoload($class) {
-    include_once CORE_BASE_PATH.'classes/'.$class.'.php';
+class switchLanguage extends CoreAuthenticationNone {
+  public function __construct() {
+    parent::__construct();
   }
-  define('UNITTESTS', true);
+
+  public function __default() {
+  }
+
+  public function switchIt() {
+    $this->statusCode = 500;
+    if(isset($_POST['language'])) {
+      $this->languageHandler->setLanguageCookie($_POST['language']);
+      $this->statusCode = 200;
+    }    
+  }
+
+  public function __destruct() {
+    parent::__destruct();
+  }
+}
 ?>

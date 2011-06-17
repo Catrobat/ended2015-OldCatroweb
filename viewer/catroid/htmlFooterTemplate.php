@@ -17,6 +17,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
+    <script type="text/javascript">
+      $(document).ready(function() {        
+        new LanguageHandler();
+      });
+    </script>
     <div class="webMainBottom">
       <div class="blueBoxMain">
         <div class="webMainLicense"> 
@@ -29,8 +34,18 @@
           <a class="license" id="_imprint" href="<?php echo BASE_PATH?>catroid/imprint"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a>
           <span class="webMainBottomSpacer">|</span>
           <a class="license" id="_contactus" href="<?php echo BASE_PATH?>catroid/contactus"><?php echo $this->languageHandler->getString('template_footer_contact_link')?></a>
-          <span class="webMainBottomSpacer">|</font>
-          <?php echo $this->languageHandler->getLanguage()?> 
+          <span class="webMainBottomSpacer">|</span>
+          <select id="switchLanguage" class="languageSwitchSelect">
+            <?php 
+              $supportedLanguages = getSupportedLanguagesArray();
+              foreach($supportedLanguages as $lang) {
+                $selected = "";
+                if(strcmp($lang, $this->languageHandler->getLanguage()) == 0) {
+                  $selected = "selected";
+                }?>
+                <option <?php echo $selected?> value="<?php echo $lang?>"><?php echo $lang?></option>
+            <?php }?>
+          </select>
         </div>
       </div>
     </div> <!--  WEBMAINBOTTOM -->

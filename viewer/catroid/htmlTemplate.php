@@ -41,7 +41,8 @@
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js?<?php echo VERSION; ?>" ></script>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/jquery.js?<?php echo VERSION; ?>" ></script>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js?<?php echo VERSION; ?>" ></script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/login.js?<?php echo VERSION; ?>" ></script>    
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/login.js?<?php echo VERSION; ?>" ></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/languageHandler.js?<?php echo VERSION; ?>" ></script>    
   
 <?php while($js = $this->getJs()) {?>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/<?php echo $js.'?'.VERSION?>"></script>

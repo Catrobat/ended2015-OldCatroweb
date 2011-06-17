@@ -26,10 +26,9 @@
   set_include_path(get_include_path() . PATH_SEPARATOR . CORE_BASE_PATH.'addons/board/includes/utf/');
   set_include_path(get_include_path() . PATH_SEPARATOR . CORE_BASE_PATH.'classes/');
   function __autoload($class) {
-    //include_once CORE_BASE_PATH.'classes/'.$class.'.php';
     include_once $class.'.php';
   }
   $connection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
-    or die('Connection to Database failed: ' . pg_last_error());
-  
+    or die('Connection to Database failed: ' . pg_last_error());  
+  define('UNITTESTS', true);
 ?>

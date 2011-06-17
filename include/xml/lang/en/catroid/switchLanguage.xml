@@ -18,14 +18,5 @@
   -->
 
 <strings>
-	<string name="title">Impressum</string>
-	<string name="institute_for_software_technology">Institut für Softwaretechnologie</string>
-	<string name="graz_university_of_technology">Technische Universität Graz</string>
-	<string name="address">Adresse</string>
-	<string name="address_street">Inffeldgasse 16B/II</string>
-	<string name="address_city">8010 Graz</string>
-	<string name="address_country">Österreich</string>
-	<string name="contact">Kontakt</string>
-	<string name="contact_text">E-Mail: {*email*}</string>
-	<string name="development_text">Catroid wird am {*institute*} an der Technischen Universität Graz in Österreich entwickelt.</string>
+
 </strings>
