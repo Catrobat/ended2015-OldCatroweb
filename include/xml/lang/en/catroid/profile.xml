@@ -18,7 +18,7 @@
   -->
 
 <strings>
-  <string name="title">'s Profile</string>
+  <string name="title">{*nickname*}'s Profile</string>
   <string name="password">change my password</string>
   <string name="old_password">enter your old password</string>
   <string name="new_password">enter your new password</string>

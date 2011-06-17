@@ -27,9 +27,7 @@
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
               <div class="webMainContentTitle">
-              <?php 
-                  echo $this->requestedUser; 
-              ?><?php echo $this->languageHandler->getString('title')?>
+                <?php echo $this->languageHandler->getString('title', $this->requestedUser)?>
               </div> <!-- webMainContentTitle --> 
 						  <div class="profileMain">            	
             	  <div class ="whiteBoxMain">
