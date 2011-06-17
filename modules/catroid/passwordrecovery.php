@@ -23,6 +23,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     $this->setupBoard();
     $this->addCss('passwordrecovery.css');    
     $this->addJs('passwordRecovery.js');
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {

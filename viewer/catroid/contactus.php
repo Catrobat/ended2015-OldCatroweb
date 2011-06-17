@@ -20,7 +20,7 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('contact_title')?></div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
                 <div class="licenseMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="contactText"><p class="licenseText">

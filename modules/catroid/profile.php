@@ -25,6 +25,7 @@ class profile extends CoreAuthenticationNone {
     $this->addCss('profile.css');
     $this->addJs("profile.js");
     $this->initProfileData($this->requestedUser);
+    $this->setWebsiteTitle($this->session->userLogin_userNickname.$this->languageHandler->getString('title'));
   }
 
   public function __default() {

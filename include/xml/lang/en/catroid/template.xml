@@ -48,4 +48,20 @@
 	<string name="template_common_october">October</string>
 	<string name="template_common_november">November</string>
 	<string name="template_common_december">December</string>
+	<string name="nick">Nick:</string>
+	<string name="password">Password:</string>
+	<string name="login">Login</string>
+	<string name="logout">Logout</string>
+	<string name="cancel">Cancel</string>
+	<string name="logged_in_as">You are logged in as</string>
+	<string name="enter_nick">enter your nickname</string>
+	<string name="enter_password">enter your password</string>
+	<string name="menu">Menu</string>
+	<string name="home">Home</string>
+	<string name="profile">Profile</string>
+	<string name="search">Search</string>
+	<string name="search_for_projects">Search for projects</string>
+	
+	
+	
 </strings>

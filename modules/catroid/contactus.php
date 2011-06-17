@@ -21,7 +21,7 @@ class contactus extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->addCss('license.css');
-    $this->setWebsiteTitle($this->languageHandler->getString('contact_title'));
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {
