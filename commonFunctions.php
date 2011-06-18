@@ -153,24 +153,36 @@ function getSupportedLanguagesArray() {
 }
 
 function copyDir($src, $dst) {
-  if (file_exists($dst)) removeDir($dst);
-  if (is_dir($src)) {
+  if(file_exists($dst)) {
+    removeDir($dst);
+  }
+  if(is_dir($src)) {
     mkdir($dst, 0777, true);
     $files = scandir($src);
-    foreach ($files as $file)
-    if ($file != "." && $file != "..") copyDir("$src/$file", "$dst/$file");
+    foreach($files as $file) {
+      if($file != "." && $file != "..") {
+        copyDir("$src/$file", "$dst/$file");
+      }
+    }
   }
-  else if (file_exists($src)) copy($src, $dst);
+  else if(file_exists($src)) {
+    copy($src, $dst);
+  }
 }
 
 function removeDir($dir) {
-  if (is_dir($dir)) {
+  if(is_dir($dir)) {
     $files = scandir($dir);
-    foreach ($files as $file)
-    if ($file != "." && $file != "..") removeDir("$dir/$file");
+    foreach($files as $file) {
+      if($file != "." && $file != "..") {
+        removeDir("$dir/$file");
+      }
+    }
     rmdir($dir);
   }
-  else if (file_exists($dir)) unlink($dir);
+  else if(file_exists($dir)) {
+    unlink($dir);
+  }
 }
 
 ?>
