@@ -26,12 +26,7 @@ function generateStringsXml($coreBasePath = CORE_BASE_PATH, $stringsXmlDestinati
   if(!is_dir($stringsXmlDestination.SITE_DEFAULT_LANGUAGE)) {
     mkdir($stringsXmlDestination.SITE_DEFAULT_LANGUAGE, 0777, true);
   }
-  $dom = new DOMDocument('1.0');
-  $dom->preserveWhiteSpace = false;
-  $dom->formatOutput = true;
-  $dom->loadXML($mergedXmlObject->asXML());
-  if($dom->save($stringsXmlDestination.SITE_DEFAULT_LANGUAGE.'/strings.xml')) {
-    //print "\nXML successfully generated: ".$stringsXmlDestination.SITE_DEFAULT_LANGUAGE.'/strings.xml'."\n";
+  if($mergedXmlObject->asXML($stringsXmlDestination.SITE_DEFAULT_LANGUAGE.'/strings.xml')) {
     return true;
   } else {
     print "\nERROR: Error while generating XML: ".$stringsXmlDestination.SITE_DEFAULT_LANGUAGE.'/strings.xml'."\n";
@@ -74,7 +69,7 @@ function addTemplateStringNodes($destXml, $file_listing, $coreBasePath) {
       $attributes = $string->attributes();
       if($string->getName() && $attributes['name']) {
         $destStringName = $module.'$'.$templateNodeName.'$'.strval($attributes['name']);
-        $destString = $destXml->addChild('string', strval($string));
+        $destString = $destXml->addChild('string', preg_replace('/\s+/', ' ', trim(strval($string))));
         $destString->addAttribute('name', $destStringName);
       }
     }
@@ -96,7 +91,7 @@ function addStringNodes($destXml, $file_listing, $coreBasePath) {
         $attributes = $string->attributes();
         if($string->getName() && $attributes['name']) {
           $destStringName = $module.'$'.$class.'$'.strval($attributes['name']);
-          $destString = $destXml->addChild('string', strval($string));
+          $destString = $destXml->addChild('string', preg_replace('/\s+/', ' ', trim(strval($string))));
           $destString->addAttribute('name', $destStringName);
         }
       }
@@ -126,7 +121,7 @@ function addErrorsStringNodes($destXml, $coreBasePath) {
       $attributes = $error->attributes();
       if($error_type->getName() && $attributes['name']) {
         $destStringName = $errorsModuleName.'$'.$errorsDevNodeName.'$'.strval($error_type->getName()).'$'.strval($attributes['name']);
-        $destString = $destXml->addChild('string', strval($error));
+        $destString = $destXml->addChild('string', preg_replace('/\s+/', ' ', trim(strval($error))));
         $destString->addAttribute('name', $destStringName);
       }
     }
@@ -137,7 +132,7 @@ function addErrorsStringNodes($destXml, $coreBasePath) {
       $attributes = $error->attributes();
       if($error_type->getName() && $attributes['name']) {
         $destStringName = $errorsModuleName.'$'.$errorsPubNodeName.'$'.strval($error_type->getName()).'$'.strval($attributes['name']);
-        $destString = $destXml->addChild('string', strval($error));
+        $destString = $destXml->addChild('string', preg_replace('/\s+/', ' ', trim(strval($error))));
         $destString->addAttribute('name', $destStringName);
       }
     }

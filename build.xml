@@ -522,6 +522,14 @@
   </target>
 	
   <target name="-generate-strings-xml">
+  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+  	  <arg value="/c"/>
+  	  <arg value="phpunit.bat"/>
+  	  <arg line=" framework/languageTest.php"/>
+  	</exec>
+  	<exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+  	  <arg line=" framework/languageTest.php"/>
+  	</exec>
 	<exec dir="${pootle.dir}" executable="cmd" failonerror="true" osfamily="Windows">
 	  <arg value="/c"/>
 	  <arg value="php"/>
@@ -537,6 +545,14 @@
   	  message="Enter the language-shortcut for the language-pack: "
   	  addproperty="language.shortcut"
   	/>
+  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+  	  <arg value="/c"/>
+  	  <arg value="phpunit.bat"/>
+  	  <arg line=" framework/languageTest.php"/>
+  	</exec>
+  	<exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+  	  <arg line=" framework/languageTest.php"/>
+    </exec>
 	<exec dir="${pootle.dir}" executable="cmd" failonerror="true" osfamily="Windows">
 	  <arg value="/c"/>
 	  <arg value="php"/>

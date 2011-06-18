@@ -19,11 +19,11 @@
  
  
 <strings>
-  <string name="title">Menu</string>
-  <string name="profile">Profile</string>
-  <string name="forum">Forum</string>
-  <string name="wiki">Help</string>
-  <string name="wall">Wall</string>
-  <string name="registration">Sign up</string>
-  <string name="settings">Settings</string>
+  <string name="catroid_login_success">CATROID Login successfull!</string>
+  <string name="board_login_success">BOARD Login successfull!</string>
+  <string name="wiki_login_success">WIKI Login successfull!</string>
+  <string name="catroid_logout_success">CATROID Logout successfull!</string>
+  <string name="board_logout_success">BOARD Logout successfull!</string>
+  <string name="wiki_logout_success">WIKI Logout successfull!</string>
+  <string name="wiki_logout_error">ERROR: WIKI Logout:</string>
 </strings>

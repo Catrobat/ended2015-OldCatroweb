@@ -170,8 +170,6 @@ public class PasswordRecoveryTests extends BaseTest {
       session().click("headerMenuButton");
       waitForPageToLoad();
 
-      assertTrue(session().isVisible("menuLogoutButton"));
-
       clickAndWaitForPopUp("menuForumButton", "board");
       assertFalse(session().isTextPresent("Login"));
       assertTrue(session().isTextPresent("Logout"));

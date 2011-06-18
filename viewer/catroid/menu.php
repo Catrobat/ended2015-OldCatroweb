@@ -23,9 +23,14 @@
           <div class="menuListRow">
             <div class="whiteBoxMain">
               <div class="menuListElementRow">
-                <button id="menuProfileButton" type="button" class="menuElementButton button pink medium" title="Profile">
+                <button id="menuProfileButton" type="button" class="menuElementButton button red medium" title="Profile">
                   <span class="menuElementButtonLabel">
                     <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('profile')?>
+                  </span>
+                </button>
+                <button id="menuRegistrationButton" type="button" class="menuElementButton button red medium" title="Registration">
+                  <span class="menuElementButtonLabel">
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('registration')?>
                   </span>
                 </button>
               </div>
@@ -51,18 +56,6 @@
                 <button id="menuWallButton" type="button" class="menuElementButton button green medium" title="Wall">
                   <span class="menuElementButtonLabel">
                     <img src="<?php echo BASE_PATH; ?>images/symbols/menu_wall.png" alt="Wall" /><br /><?php echo $this->languageHandler->getString('wall')?>
-                  </span>
-                </button>
-              </div>
-              <div class="menuListElementRow">
-                <button id="menuLoginButton" type="button" class="menuElementButton button red medium" title="Login"  style="display:none">
-                  <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_login.png" alt="Login" /><br /><?php echo $this->languageHandler->getString('login')?>
-                  </span>
-                </button>
-                <button id="menuLogoutButton" type="button" class="menuElementButton button red medium" title="Logout" style="display:none">
-                  <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_logout.png" alt="Logout" /><br /><?php echo $this->languageHandler->getString('logout')?>
                   </span>
                 </button>
               </div>
