@@ -33,8 +33,8 @@ function getUsernameBlacklistArray() {
 		'administrator',
     'catroweb',
   	'kittyroid'
-    );
-    return $usernameBlacklist;
+  	);
+  	return $usernameBlacklist;
 }
 
 function getMonthsArray($languageHandler) {
@@ -150,6 +150,27 @@ function getSupportedLanguagesArray() {
   	'de',
   	'en');
   return $supportedLanguages;
+}
+
+function copyDir($src, $dst) {
+  if (file_exists($dst)) removeDir($dst);
+  if (is_dir($src)) {
+    mkdir($dst, 0777, true);
+    $files = scandir($src);
+    foreach ($files as $file)
+    if ($file != "." && $file != "..") copyDir("$src/$file", "$dst/$file");
+  }
+  else if (file_exists($src)) copy($src, $dst);
+}
+
+function removeDir($dir) {
+  if (is_dir($dir)) {
+    $files = scandir($dir);
+    foreach ($files as $file)
+    if ($file != "." && $file != "..") removeDir("$dir/$file");
+    rmdir($dir);
+  }
+  else if (file_exists($dir)) unlink($dir);
 }
 
 ?>
