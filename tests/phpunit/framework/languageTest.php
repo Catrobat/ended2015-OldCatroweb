@@ -19,8 +19,7 @@
 
 require_once('frameworkTestsBootstrap.php');
 
-class languageTest extends PHPUnit_Framework_TestCase
-{
+class languageTest extends PHPUnit_Framework_TestCase {
   protected $file_listing;
   protected $whitelist;
   protected $whitelist_folders;
@@ -31,12 +30,20 @@ class languageTest extends PHPUnit_Framework_TestCase
     $this->whitelist_folders = array();
     $this->walkThroughDirectory(CORE_BASE_PATH.'modules/');
   }
+  
+  protected function tearDown() {
+    $testdata = dirname(__FILE__).'/testdata/languageTestData/';
+    $runtimeFolder1 = $testdata.'testOutput1/';
+    $runtimeFolder2 = $testdata.'testOutput2/';
+    removeDir($runtimeFolder1);
+    removeDir($runtimeFolder2);
+  }
 
   public function testLanguageFolders() {
     foreach($this->file_listing as $module=>$files) {
       $folder = CORE_BASE_PATH.LANGUAGE_PATH.'/'.SITE_DEFAULT_LANGUAGE.'/'.$module;
       if(!is_dir($folder)) {
-        print "Language folder missing:\n$folder\n";
+        print "\nLanguage folder missing:\n$folder\n";
       }
       $this->assertTrue(is_dir($folder));
     }
@@ -46,10 +53,10 @@ class languageTest extends PHPUnit_Framework_TestCase
     $errorDevFile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/errors/'.DEFAULT_DEV_ERRORS_FILE;
     $errorPubFile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/errors/'.DEFAULT_PUB_ERRORS_FILE;
     if(!file_exists($errorDevFile)) {
-      print "Error XML File missing:\n$errorDevFile\n";
+      print "\nError XML File missing:\n$errorDevFile\n";
     }
     if(!file_exists($errorPubFile)) {
-      print "Error XML File missing:\n$errorPubFile\n";
+      print "\nError XML File missing:\n$errorPubFile\n";
     }
     $this->assertTrue(file_exists($errorDevFile));
     $this->assertTrue(file_exists($errorPubFile));
@@ -57,18 +64,17 @@ class languageTest extends PHPUnit_Framework_TestCase
     $errorsDevXml = simplexml_load_file($errorDevFile);
     $errorsPubXml = simplexml_load_file($errorPubFile);
     if(count($errorsDevXml->children()) != count($errorsPubXml->children())) {
-      print "Error XMLs for DEV and PUB differ in ErrorType Nodes!";
+      print "\nError XMLs for DEV and PUB differ in ErrorType Nodes!";
     }
     $this->assertEquals(count($errorsDevXml->children()), count($errorsPubXml->children()));
 
     $errorsDevNodeCount = array();
     foreach($errorsDevXml->children() as $error_type) {
-      //print "\n".strval($error_type->getName()).": ".count($error_type->children())." nodes\n";
       $errorsDevNodeCount[strval($error_type->getName())] = count($error_type->children());
     }
     foreach($errorsPubXml->children() as $error_type) {
       if($errorsDevNodeCount[strval($error_type->getName())] != count($error_type->children())) {
-        print "ErrorTypeNode ".strval($error_type->getName()).": children Nodes differ in number!";
+        print "\nErrorTypeNode ".strval($error_type->getName()).": children Nodes differ in number!";
       }
       $this->assertEquals($errorsDevNodeCount[strval($error_type->getName())], count($error_type->children()));
     }
@@ -78,9 +84,22 @@ class languageTest extends PHPUnit_Framework_TestCase
     foreach($this->file_listing as $module=>$files) {
       $template = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$module.'/'.DEFAULT_TEMPLATE_LANGUAGE_FILE;
       if(!file_exists($template)) {
-        print "Template XML File missing:\n$template\n";
+        print "\nTemplate XML File missing:\n$template\n";
       }
       $this->assertTrue(file_exists($template));
+
+      $xml = simplexml_load_file($template);
+      foreach($xml->children() as $string) {
+        $attributes = $string->attributes();
+        if($string->getName() && $attributes['name']) {
+          $name = strval($attributes['name']);
+          if(strcmp(substr($name, 0, strpos($name, '_')+1), 'template_') != 0) {
+            print "\n'template_' - prefix missing in stringname '$name' in file $template.\n";
+            print "change the stringname to 'template_$name' instead!\n";
+          }
+          $this->assertEquals(0, strcmp(substr($name, 0, strpos($name, '_')+1), 'template_'));
+        }
+      }
     }
   }
 
@@ -88,14 +107,32 @@ class languageTest extends PHPUnit_Framework_TestCase
     foreach($this->file_listing as $module=>$files) {
       foreach($files as $file) {
         $class = substr($file, 0, strpos($file, '.'));
-
         $languageFile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$module.'/'.$class.'.xml';
         if(!file_exists($languageFile)) {
-          print "Language XML File missing:\n$languageFile\n";
+          print "\nLanguage XML File missing:\n$languageFile\n";
         }
         $this->assertTrue(file_exists($languageFile));
       }
     }
+  }
+  
+  public function testLanguageScripts() {
+    require_once CORE_BASE_PATH.'pootle/generateStringsXmlFunctions.php';
+    require_once CORE_BASE_PATH.'pootle/generateLanguagePackFunctions.php';
+    $testdata = dirname(__FILE__).'/testdata/languageTestData/';
+    $runtimeFolder1 = $testdata.'testOutput1/';
+    $runtimeFolder2 = $testdata.'testOutput2/';
+    removeDir($runtimeFolder1);
+    removeDir($runtimeFolder2);
+    generateStringsXml($testdata, $runtimeFolder1);
+    generateLanguagePack(SITE_DEFAULT_LANGUAGE, $runtimeFolder1, $runtimeFolder1.'include/xml/lang/');
+    copyDir($testdata.'modules/', $runtimeFolder1.'modules/');
+    generateStringsXml($runtimeFolder1, $runtimeFolder2);
+    $stringsXmlFile1 = $runtimeFolder1.SITE_DEFAULT_LANGUAGE.'/strings.xml';
+    $stringsXmlFile2 = $runtimeFolder2.SITE_DEFAULT_LANGUAGE.'/strings.xml';
+    $this->assertEquals(md5_file($stringsXmlFile1), md5_file($stringsXmlFile2));
+    removeDir($runtimeFolder1);
+    removeDir($runtimeFolder2);
   }
 
   public function walkThroughDirectory($directory, $module = null) {

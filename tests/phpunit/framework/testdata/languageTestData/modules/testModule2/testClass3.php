@@ -1,6 +1,6 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2011 The Catroid Team
+ *    Copyright (C) 2010-2011 The Catroid Team 
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
@@ -15,12 +15,7 @@
  *
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+ */ 
 
-require_once '../config.php';
-require_once 'generateStringsXmlFunctions.php';
-
-generateStringsXml();
-print "\nXML successfully generated: pootle/".SITE_DEFAULT_LANGUAGE.'/strings.xml'."\n";
-
+//just a dummy file for language testing
 ?>
