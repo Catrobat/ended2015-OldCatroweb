@@ -44,7 +44,6 @@ public class LoginTests extends BaseTest {
       session().click("headerMenuButton");
       waitForPageToLoad();
 
-      assertTrue(session().isVisible("menuLoginButton"));
       clickAndWaitForPopUp("menuForumButton", "board");
       assertTrue(session().isTextPresent("Login"));
       assertFalse(session().isTextPresent("Logout"));
@@ -90,8 +89,6 @@ public class LoginTests extends BaseTest {
       session().click("headerMenuButton");
       waitForPageToLoad();
 
-      assertTrue(session().isVisible("menuLogoutButton"));
-
       clickAndWaitForPopUp("menuForumButton", "board");
       assertFalse(session().isTextPresent("Login"));
       assertTrue(session().isTextPresent("Logout"));
@@ -120,8 +117,6 @@ public class LoginTests extends BaseTest {
 
       session().click("headerMenuButton");
       waitForPageToLoad();
-
-      assertTrue(session().isVisible("menuLoginButton"));
 
       clickAndWaitForPopUp("menuForumButton", "board");
       assertTrue(session().isTextPresent("Login"));
@@ -179,8 +174,6 @@ public class LoginTests extends BaseTest {
 
       session().click("headerMenuButton");
       waitForPageToLoad();
-
-      assertTrue(session().isVisible("menuLoginButton"));
 
       clickAndWaitForPopUp("menuForumButton", "board");
       assertTrue(session().isTextPresent("Login"));

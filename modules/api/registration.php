@@ -117,7 +117,7 @@ class registration extends CoreAuthenticationNone {
     $this->statusCode = $statusCode;
 
     if($boardRegistrationSuccess && $wikiRegistrationSuccess && $catroidRegistrationSuccess) {
-      require_once 'login.php';
+      require_once 'modules/api/login.php';
       $login = new login();
       $login->doLogin(array('loginUsername'=>$postData['registrationUsername'], 'loginPassword'=>$postData['registrationPassword']));
       $this->statusCode = 200;

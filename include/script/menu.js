@@ -28,27 +28,22 @@ var Menu = Class.$extend( {
     $("#headerBackButton").click(jQuery.proxy(this.goBack, this));
     $("#menuWallButton").click({url:"catroid/wall"}, jQuery.proxy(this.openLocation, this));
     $("#menuSettingsButton").click({url:"catroid/settings"}, jQuery.proxy(this.openLocation, this));
-    $("#menuLoginButton").click({url:"catroid/login?requesturi=catroid/menu"}, jQuery.proxy(this.openLocation, this));
-    $("#menuLogoutButton").click(jQuery.proxy(this.doLogoutRequest, this));
     if(this.userLogin_userId == 0) {
     	$("#menuWikiButton").click({url:"wiki",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
     } else {
     	$("#menuWikiButton").click({url:"wiki/Main_Page?action=purge",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
     }
-    if(this.userLogin_userId == 0) {
-    	$("#menuProfileButton").click({url:"catroid/login"}, jQuery.proxy(this.openLocation, this));
-    } else {
-    	$("#menuProfileButton").click({url:"catroid/profile"}, jQuery.proxy(this.openLocation, this));
-    }
-    
+
+   	$("#menuProfileButton").click({url:"catroid/profile"}, jQuery.proxy(this.openLocation, this));
+   	$("#menuRegistrationButton").click({url:"catroid/registration"}, jQuery.proxy(this.openLocation, this));
     $("#menuWallButton").attr('disabled', true).removeClass('green').addClass('gray');
     $("#menuSettingsButton").attr('disabled', true).removeClass('rosy').addClass('gray');
     if(this.userLogin_userId > 0) {
-      $("#menuLoginButton").toggle(false);
-      $("#menuLogoutButton").toggle(true);
+      $("#menuRegistrationButton").toggle(false);
+      $("#menuProfileButton").toggle(true);
     } else {
-      $("#menuLoginButton").toggle(true);
-      $("#menuLogoutButton").toggle(false);
+      $("#menuRegistrationButton").toggle(true);
+      $("#menuProfileButton").toggle(false);
     }
     
     $("#headerLoginButton").click($.proxy(this.toggleProfileBox, this));
@@ -66,18 +61,6 @@ var Menu = Class.$extend( {
     
   openWindow : function(event) {
   	 window.open(this.basePath+event.data.url, event.data.windowName);
-  },
-    
-  doLogoutRequest : function(event) {
-	$.ajax({ 
-      url: this.basePath+"catroid/login/logoutRequest.json", 
-  	  async: false,
- 		success: jQuery.proxy(this.doLogout, this)
- 	});
-  },
-    
-  doLogout: function(event) {
-	  window.location.href = this.basePath+"catroid/login"; 
   },
 
   toggleProfileBox : function() {
