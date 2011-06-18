@@ -115,6 +115,28 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     $this->assertFalse(strpos($timeInWords, 'month'));
     $this->assertTrue(is_int(strpos($timeInWords, 'year')));
   }
+  
+  public function testGetSupportedLanguagesArray() {
+    $this->assertTrue(in_array(SITE_DEFAULT_LANGUAGE, getSupportedLanguagesArray()));
+  }
+  
+  public function testCopyAndRemoveDir() {
+    $testFolder = dirname(__FILE__).'/testdata/commonFunctionsTestData/testfolder/';
+    $runtimeFolder = dirname(__FILE__).'/testdata/commonFunctionsTestData/runtimeFolder/';
+    copyDir($testFolder, $runtimeFolder);
+    $this->assertTrue(is_dir($runtimeFolder));
+    $this->assertTrue(is_dir($runtimeFolder.'subfolder1'));
+    $this->assertTrue(is_dir($runtimeFolder.'subfolder2'));
+    $this->assertTrue(is_dir($runtimeFolder.'subfolder2/subfolder1'));
+    $this->assertTrue(is_file($runtimeFolder.'subfolder2/subfolder1/test.txt'));
+    $this->assertEquals(md5_file($runtimeFolder.'subfolder2/subfolder1/test.txt'), md5_file($testFolder.'subfolder2/subfolder1/test.txt'));
+    removeDir($runtimeFolder);
+    $this->assertFalse(is_dir($runtimeFolder));
+    $this->assertFalse(is_dir($runtimeFolder.'subfolder1'));
+    $this->assertFalse(is_dir($runtimeFolder.'subfolder2'));
+    $this->assertFalse(is_dir($runtimeFolder.'subfolder2/subfolder1'));
+    $this->assertFalse(is_file($runtimeFolder.'subfolder2/subfolder1/test.txt'));     
+  }
 
 
   public function randomLongStrings() {
