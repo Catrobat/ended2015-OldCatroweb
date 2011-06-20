@@ -111,21 +111,21 @@ class passwordrecovery extends CoreAuthenticationNone {
               try {
                 $wikiPasswordRecoverySuccess = $this->doUpdateWikiPassword($username, $password);
                 if(!$wikiPasswordRecoverySuccess) {
-                  $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+                  $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
                   return false;
                 }
               } catch(Exception $e) {
-                $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+                $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
                 return false;
               }                  
             }        
           } catch(Exception $e) {
-            $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+            $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
             return false;
           }                  
         }
       } catch(Exception $e) {
-        $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+        $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
         return false;
       }
       $this->answer_ok .= $this->languageHandler->getString('password_ok').'<br>';
@@ -307,7 +307,7 @@ class passwordrecovery extends CoreAuthenticationNone {
         $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
       
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
-        throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed'));
+        throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL));
       }
     }
     else {

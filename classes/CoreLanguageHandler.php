@@ -19,6 +19,7 @@
 
 class CoreLanguageHandler {
   private $strings = array();
+  private $defaultLanguageStrings = array();
   private $moduleName = '';
   private $className = '';
   private $language = '';
@@ -29,6 +30,10 @@ class CoreLanguageHandler {
     $this->className = $className;
     $this->browserLanguage = $browserLanguage;
     $this->setSiteLanguage();
+    if(strcmp($this->language, SITE_DEFAULT_LANGUAGE) != 0) {
+      $this->setDefaultStrings();
+      $this->setDefaultTemplateStrings();
+    }
     $this->setStrings();
     $this->setTemplateStrings();
   }
@@ -36,12 +41,9 @@ class CoreLanguageHandler {
   private function setStrings() {
     $file = $this->getLanguageFile($this->className.'.xml');
     if(!$file) {
-      //die("text string file not found!"); //at least an english string xml file must exist for each module -> see phpunit/catroid/languageTest.php
       return false;
     }
-
     $xml = simplexml_load_file($file);
-
     foreach($xml->children() as $string) {
       $attributes = $string->attributes();
       if($string->getName() && $attributes['name']) {
@@ -50,19 +52,44 @@ class CoreLanguageHandler {
     }
   }
 
+  private function setDefaultStrings() {
+    $file = $this->getDefaultLanguageFile($this->className.'.xml');
+    if(!$file) {
+      return false;
+    }
+    $xml = simplexml_load_file($file);
+    foreach($xml->children() as $string) {
+      $attributes = $string->attributes();
+      if($string->getName() && $attributes['name']) {
+        $this->defaultLanguageStrings[strval($attributes['name'])] = strval($string);
+      }
+    }
+  }
+
   private function setTemplateStrings() {
     $file = $this->getLanguageFile(DEFAULT_TEMPLATE_LANGUAGE_FILE);
     if(!$file) {
-      //die("text string file not found!"); //at least an english string xml file must exist for each module -> see phpunit/catroid/languageTest.php
       return false;
     }
-
     $xml = simplexml_load_file($file);
-
     foreach($xml->children() as $string) {
       $attributes = $string->attributes();
       if($string->getName() && $attributes['name']) {
         $this->strings[strval($attributes['name'])] = strval($string);
+      }
+    }
+  }
+
+  private function setDefaultTemplateStrings() {
+    $file = $this->getDefaultLanguageFile(DEFAULT_TEMPLATE_LANGUAGE_FILE);
+    if(!$file) {
+      return false;
+    }
+    $xml = simplexml_load_file($file);
+    foreach($xml->children() as $string) {
+      $attributes = $string->attributes();
+      if($string->getName() && $attributes['name']) {
+        $this->defaultLanguageStrings[strval($attributes['name'])] = strval($string);
       }
     }
   }
@@ -74,6 +101,8 @@ class CoreLanguageHandler {
       $args = array_slice(func_get_args(), 1);
     }
     if(isset($this->strings[$code])) {
+      return $this->parseString($this->strings[$code], $args);
+    } else if(isset($this->defaultLanguageStrings[$code])) {
       return $this->parseString($this->strings[$code], $args);
     } else {
       return 'unknown string: "'.$code.'"!';
@@ -103,22 +132,19 @@ class CoreLanguageHandler {
   }
 
   private function getLanguageFile($fileName) {
-    $defaultLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$this->moduleName.'/'.$fileName;
     $selectedLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.$this->language.'/'.$this->moduleName.'/'.$fileName;
+    if(!file_exists($selectedLanguagefile)) {
+      return false;
+    }
+    return $selectedLanguagefile;
+  }
+
+  private function getDefaultLanguageFile($fileName) {
+    $defaultLanguagefile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$this->moduleName.'/'.$fileName;
     if(!file_exists($defaultLanguagefile)) {
       return false;
     }
-    if(!file_exists($selectedLanguagefile)) {
-      return $defaultLanguagefile;
-    }
-    $defaultLanguageXml = simplexml_load_file($defaultLanguagefile);
-    $selectedLanguageXml = simplexml_load_file($selectedLanguagefile);
-
-    if(count($defaultLanguageXml->children()) == count($selectedLanguageXml->children())) {
-      return $selectedLanguagefile;
-    } else {
-      return $defaultLanguagefile;
-    }
+    return $defaultLanguagefile;
   }
 
   public function checkParamCount($msg, $num) {
@@ -145,7 +171,7 @@ class CoreLanguageHandler {
     $this->setLanguageCookie($lang);
     $this->language = $lang;
   }
-  
+
   public function setLanguageCookie($lang) {
     if(!defined('UNITTESTS')) {
       setcookie('site_language', $lang, 0, "/", '', false, true);

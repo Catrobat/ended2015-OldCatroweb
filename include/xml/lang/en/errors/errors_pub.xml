@@ -24,7 +24,7 @@
         <string name="no_entry_for_id">Ooooops something went wrong. Please try again!</string>
     </db>
     <sendmail>
-      <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at webmaster@catroid.org.</string>
+      <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
     </sendmail>
     <upload>
         <string name="missing_post_data">You need to specify a title for your project!</string>
@@ -71,7 +71,7 @@
     	<string name="password_repeat_missing">Your repeated password is missing.</string>
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">Your password is invalid.</string>
-    	<string name="password_length_invalid">Your password must have at least 6 characters.</string>
+    	<string name="password_length_invalid">Your password must have at least {*minimumPasswordLength*} and maximal {*maximumPasswordLength*} characters.</string>
     	<string name="username_password_equal">The password must differ from the nickname.</string>
     	<string name="username_missing">Your nickname is missing.</string>
     	<string name="username_invalid">Your nickname is invalid.</string>
@@ -96,9 +96,9 @@
       <string name="userdata_missing">Your nickname or email address is missing.</string>
       <string name="userdata_not_exists">Your nickname or email address was not found.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
-      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
-      <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
-      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
+      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at  {*webmasterEmailAddress*}.</string>
+      <string name="passwordhash_invalid">Sorry! Your recovery URL has expired.</string>
+      <string name="password_missing">The password is missing.</string>
     </passwordrecovery>
     <profile>
       <string name="password_repeat_missing">The repeated password is missing.</string>
@@ -106,10 +106,9 @@
       <string name="password_old_missing">The old password is missing.</string>
       <string name="password_old_wrong">The old password was incorrect.</string>
       <string name="password_old_invalid">The old password is invalid.</string>
-      <string name="password_old_length_invalid">The old password must have at least 6 characters.</string>
       <string name="password_new_missing">The new password is missing.</string>
       <string name="password_new_invalid">The new password is invalid.</string>
-      <string name="password_new_length_invalid">The new password must have at least 6 characters.</string>
+      <string name="password_new_length_invalid">The new password must have at least {*minimumPasswordLength*} characters.</string>
       <string name="username_password_equal">The password must differ from the nickname.</string>
       <string name="email_address_exists">The email address already exists.</string>
       <string name="email_update_failed">There was a problem while updating the email address.</string>

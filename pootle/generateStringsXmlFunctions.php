@@ -34,6 +34,16 @@ function generateStringsXml($coreBasePath = CORE_BASE_PATH, $stringsXmlDestinati
 }
 
 function mergeStringsXmlFiles($file_listing, $coreBasePath) {
+  $uniqueStrings = array();
+  addStringNodes($file_listing, $coreBasePath, &$uniqueStrings);
+  addTemplateStringNodes($file_listing, $coreBasePath, &$uniqueStrings);
+  addErrorsStringNodes($coreBasePath, &$uniqueStrings);
+  
+  $stringsXml = buildXml($uniqueStrings);
+  return $stringsXml;
+}
+
+function buildXml($uniqueStrings) {
   $license = "<!--
 Catroid: An on-device graphical programming language for Android devices
 Copyright (C) 2010-2011 The Catroid Team
@@ -49,14 +59,17 @@ GNU Affero General Public License for more details.\n
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->";
-  $stringsXml = new SimpleXMLElement($license."<resources></resources>");
-  $stringsXml = addStringNodes($stringsXml, $file_listing, $coreBasePath);
-  $stringsXml = addTemplateStringNodes($stringsXml, $file_listing, $coreBasePath);
-  $stringsXml = addErrorsStringNodes($stringsXml, $coreBasePath);
-  return $stringsXml;
+  $destXml = new SimpleXMLElement($license."<resources></resources>");
+  foreach($uniqueStrings as $strings) {
+    $clearedString = $strings['string'];
+    $destStringName = $strings['stringName'];
+    $destString = $destXml->addChild('string', $clearedString);
+    $destString->addAttribute('name', $destStringName);
+  }
+  return $destXml;
 }
 
-function addTemplateStringNodes($destXml, $file_listing, $coreBasePath) {
+function addTemplateStringNodes($file_listing, $coreBasePath, $uniqueStrings) {
   $templateNodeName = substr(DEFAULT_TEMPLATE_LANGUAGE_FILE, 0, strpos(DEFAULT_TEMPLATE_LANGUAGE_FILE, '.'));
   foreach($file_listing as $module=>$files) {
     $template = $coreBasePath.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$module.'/'.DEFAULT_TEMPLATE_LANGUAGE_FILE;
@@ -68,16 +81,20 @@ function addTemplateStringNodes($destXml, $file_listing, $coreBasePath) {
     foreach($xml->children() as $string) {
       $attributes = $string->attributes();
       if($string->getName() && $attributes['name']) {
+        $clearedString = preg_replace('/\s+/', ' ', trim(strval($string)));
         $destStringName = $module.'$'.$templateNodeName.'$'.strval($attributes['name']);
-        $destString = $destXml->addChild('string', preg_replace('/\s+/', ' ', trim(strval($string))));
-        $destString->addAttribute('name', $destStringName);
+        if(isset($uniqueStrings[md5($clearedString)]['stringName'])) {
+          $uniqueStrings[md5($clearedString)]['stringName'] .= '%'.$destStringName;
+        } else {
+          $uniqueStrings[md5($clearedString)]['stringName'] = $destStringName;
+          $uniqueStrings[md5($clearedString)]['string'] = $clearedString;
+        }
       }
     }
   }
-  return $destXml;
 }
 
-function addStringNodes($destXml, $file_listing, $coreBasePath) {
+function addStringNodes($file_listing, $coreBasePath, $uniqueStrings) {
   foreach($file_listing as $module=>$files) {
     foreach($files as $file) {
       $class = substr($file, 0, strpos($file, '.'));
@@ -90,17 +107,21 @@ function addStringNodes($destXml, $file_listing, $coreBasePath) {
       foreach($xml->children() as $string) {
         $attributes = $string->attributes();
         if($string->getName() && $attributes['name']) {
+          $clearedString = preg_replace('/\s+/', ' ', trim(strval($string)));
           $destStringName = $module.'$'.$class.'$'.strval($attributes['name']);
-          $destString = $destXml->addChild('string', preg_replace('/\s+/', ' ', trim(strval($string))));
-          $destString->addAttribute('name', $destStringName);
+          if(isset($uniqueStrings[md5($clearedString)]['stringName'])) {
+            $uniqueStrings[md5($clearedString)]['stringName'] .= '%'.$destStringName;
+          } else {
+            $uniqueStrings[md5($clearedString)]['stringName'] = $destStringName;
+            $uniqueStrings[md5($clearedString)]['string'] = $clearedString;
+          }
         }
       }
     }
   }
-  return $destXml;
 }
 
-function addErrorsStringNodes($destXml, $coreBasePath) {
+function addErrorsStringNodes($coreBasePath, $uniqueStrings) {
   $errorsModuleName = 'errors';
   $errorsDevNodeName = substr(DEFAULT_DEV_ERRORS_FILE, 0, strpos(DEFAULT_DEV_ERRORS_FILE, '.'));
   $errorsPubNodeName = substr(DEFAULT_PUB_ERRORS_FILE, 0, strpos(DEFAULT_PUB_ERRORS_FILE, '.'));
@@ -120,9 +141,14 @@ function addErrorsStringNodes($destXml, $coreBasePath) {
     foreach($error_type as $error) {
       $attributes = $error->attributes();
       if($error_type->getName() && $attributes['name']) {
+        $clearedString = preg_replace('/\s+/', ' ', trim(strval($error)));
         $destStringName = $errorsModuleName.'$'.$errorsDevNodeName.'$'.strval($error_type->getName()).'$'.strval($attributes['name']);
-        $destString = $destXml->addChild('string', preg_replace('/\s+/', ' ', trim(strval($error))));
-        $destString->addAttribute('name', $destStringName);
+        if(isset($uniqueStrings[md5($clearedString)]['stringName'])) {
+          $uniqueStrings[md5($clearedString)]['stringName'] .= '%'.$destStringName;
+        } else {
+          $uniqueStrings[md5($clearedString)]['stringName'] = $destStringName;
+          $uniqueStrings[md5($clearedString)]['string'] = $clearedString;
+        }
       }
     }
   }
@@ -131,13 +157,17 @@ function addErrorsStringNodes($destXml, $coreBasePath) {
     foreach($error_type as $error) {
       $attributes = $error->attributes();
       if($error_type->getName() && $attributes['name']) {
+        $clearedString = preg_replace('/\s+/', ' ', trim(strval($error)));
         $destStringName = $errorsModuleName.'$'.$errorsPubNodeName.'$'.strval($error_type->getName()).'$'.strval($attributes['name']);
-        $destString = $destXml->addChild('string', preg_replace('/\s+/', ' ', trim(strval($error))));
-        $destString->addAttribute('name', $destStringName);
+        if(isset($uniqueStrings[md5($clearedString)]['stringName'])) {
+          $uniqueStrings[md5($clearedString)]['stringName'] .= '%'.$destStringName;
+        } else {
+          $uniqueStrings[md5($clearedString)]['stringName'] = $destStringName;
+          $uniqueStrings[md5($clearedString)]['string'] = $clearedString;
+        }
       }
     }
   }
-  return $destXml;
 }
 
 function walkThroughDirectory($directory, $whitelist = array(), $whitelist_folders = array(), $module = null) {

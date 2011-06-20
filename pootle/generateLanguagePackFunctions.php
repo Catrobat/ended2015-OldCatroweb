@@ -46,21 +46,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   foreach($xml->children() as $string) {
     $attributes = $string->attributes();
     if($string->getName() && $attributes['name']) {
-      $nameParts = explode('$', strval($attributes['name']));
-      if(count($nameParts) < 3 || count($nameParts) > 4 || (count($nameParts) != 4 && strcmp($nameParts[0], 'errors') == 0)) {
-        print "ERROR: invalid stringName: ".strval($attributes['name']);
-        exit();
-      }
-      if(count($nameParts) == 3) {
-        $module = $nameParts[0];
-        $class = $nameParts[1];
-        $stringName = $nameParts[2];
-        $stringsXmlArray[$module][$class][$stringName] = strval($string);
-      } elseif(count($nameParts) == 4) {
-        $class = $nameParts[1];
-        $type = $nameParts[2];
-        $errorName = $nameParts[3];
-        $errorsXmlArray[$class][$type][$errorName] = strval($string);
+      $uniqueParts = explode('%', strval($attributes['name']));
+      foreach($uniqueParts as $nameAttribute) {   
+        $nameParts = explode('$', $nameAttribute);
+        if(count($nameParts) < 3 || count($nameParts) > 4 || (count($nameParts) != 4 && strcmp($nameParts[0], 'errors') == 0)) {
+          print "ERROR: invalid stringName: ".$nameAttribute;
+          exit();
+        }
+        if(count($nameParts) == 3) {
+          $module = $nameParts[0];
+          $class = $nameParts[1];
+          $stringName = $nameParts[2];
+          $stringsXmlArray[$module][$class][$stringName] = strval($string);
+        } elseif(count($nameParts) == 4) {
+          $class = $nameParts[1];
+          $type = $nameParts[2];
+          $errorName = $nameParts[3];
+          $errorsXmlArray[$class][$type][$errorName] = strval($string);
+        }
       }
     }
   }
@@ -112,7 +115,6 @@ function writeXmlFile($xml, $xmlFile) {
   $dom->formatOutput = true;
   $dom->loadXML($xml->asXML());
   if($dom->save($xmlFile)) {
-    //print_r("XML successfully generated: $xmlFile\n");
     return true;
   } else {
     print_r("ERROR: Error while generating XML: $xmlFile\n");
