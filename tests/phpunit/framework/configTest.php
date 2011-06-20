@@ -54,6 +54,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(DEFAULT_PUB_ERRORS_FILE, 'errors_pub.xml');
     $this->assertEquals(DEFAULT_TEMPLATE_LANGUAGE_FILE, 'template.xml');
     $this->assertEquals(SITE_DEFAULT_LANGUAGE, 'en');
+    $this->assertEquals(SITE_DEFAULT_TITLE, 'Catroid Website');
     $this->assertEquals(MVC_DEFAULT_MODULE, 'catroid');
     $this->assertEquals(MVC_DEFAULT_CLASS, 'index');
     $this->assertEquals(MVC_DEFAULT_METHOD, '__default');

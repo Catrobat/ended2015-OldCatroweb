@@ -300,9 +300,9 @@ class passwordrecovery extends CoreAuthenticationNone {
       $mailText .=   $this->languageHandler->getString('mail_text_row2') . "\n";
       $mailText .=   $resetPasswordLink."\n\n";
       $mailText .=   $this->languageHandler->getString('mail_text_row3') . "\n\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row4') . "\n\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row4', 'http://www.catroid.org/catroid/login') . "\n\n\n";
       $mailText .=   $this->languageHandler->getString('mail_text_row5') . "\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row6');
+      $mailText .=   "www.catroid.org";
       if (DEVELOPMENT_MODE)
         $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
       
