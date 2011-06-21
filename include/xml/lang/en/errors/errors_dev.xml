@@ -71,7 +71,7 @@
     	<string name="password_repeat_missing">The repeated password is missing.</string>
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">The password is invalid.</string>
-    	<string name="password_length_invalid">The password must have at least {*minimumPasswordLength*} and maximal {*maximumPasswordLength*} characters.</string>
+    	<string name="password_length_invalid">Your password must have at least {*minimumPasswordLength*} and maximal {*maximumPasswordLength*} characters.</string>
     	<string name="username_password_equal">The password must differ from the nickname.</string>
     	<string name="username_missing">The nickname is missing.</string>
     	<string name="username_invalid">The nickname is invalid.</string>
@@ -99,7 +99,7 @@
       <string name="userdata_not_exists">The nickname or email address was not found.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
       <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at {*webmasterEmailAddress*}.</string>
-      <string name="passwordhash_invalid">Sorry! Your recovery url has expired.</string>
+      <string name="passwordhash_invalid">Sorry! Your recovery URL has expired.</string>
       <string name="password_missing">The password is missing.</string>
     </passwordrecovery>
     <profile>
