@@ -17,7 +17,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function generateLanguagePack($lang, $stringsXlfDestination = '', $languagePackDestination = '', $sourceXlfFile = 'catweb.xlf') {
+function generateLanguagePackFromXlf($lang, $stringsXlfDestination = '', $languagePackDestination = '', $sourceXlfFile = 'catweb.xlf') {
   $license = "<!--
 Catroid: An on-device graphical programming language for Android devices
 Copyright (C) 2010-2011 The Catroid Team

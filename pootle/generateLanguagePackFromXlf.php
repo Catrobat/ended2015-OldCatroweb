@@ -20,11 +20,11 @@
 require_once 'generateLanguagePackFromXlfFunctions.php';
 
 if(!isset($_SERVER['argv'][1])) {
-  print "usage: php generateLanguagePack.php <languageShortcut>";
+  print "usage: php generateLanguagePackFromXlf.php <languageShortcut>";
   exit();
 }
 
-generateLanguagePack($_SERVER['argv'][1]);
+generateLanguagePackFromXlf($_SERVER['argv'][1]);
 print_r("XML language files successfully generated.\n");
 
 ?>

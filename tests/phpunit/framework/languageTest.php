@@ -118,6 +118,7 @@ class languageTest extends PHPUnit_Framework_TestCase {
   
   public function testLanguageScripts() {
     require_once CORE_BASE_PATH.'pootle/generateStringsXmlFunctions.php';
+    require_once CORE_BASE_PATH.'pootle/generatePootleFileFunctions.php';
     require_once CORE_BASE_PATH.'pootle/generateLanguagePackFunctions.php';
     $testdata = dirname(__FILE__).'/testdata/languageTestData/';
     $runtimeFolder1 = $testdata.'testOutput1/';
@@ -125,12 +126,17 @@ class languageTest extends PHPUnit_Framework_TestCase {
     removeDir($runtimeFolder1);
     removeDir($runtimeFolder2);
     generateStringsXml($testdata, $runtimeFolder1);
+    generatePootleFile($runtimeFolder1);
     generateLanguagePack(SITE_DEFAULT_LANGUAGE, $runtimeFolder1, $runtimeFolder1.'include/xml/lang/');
     copyDir($testdata.'modules/', $runtimeFolder1.'modules/');
     generateStringsXml($runtimeFolder1, $runtimeFolder2);
+    generatePootleFile($runtimeFolder2);
     $stringsXmlFile1 = $runtimeFolder1.SITE_DEFAULT_LANGUAGE.'/strings.xml';
     $stringsXmlFile2 = $runtimeFolder2.SITE_DEFAULT_LANGUAGE.'/strings.xml';
+    $pootleFile1 = $runtimeFolder1.SITE_DEFAULT_LANGUAGE.'/catweb.pot';
+    $pootleFile2 = $runtimeFolder2.SITE_DEFAULT_LANGUAGE.'/catweb.pot';
     $this->assertEquals(md5_file($stringsXmlFile1), md5_file($stringsXmlFile2));
+    $this->assertEquals(md5_file($pootleFile1), md5_file($pootleFile2));
     removeDir($runtimeFolder1);
     removeDir($runtimeFolder2);
   }
