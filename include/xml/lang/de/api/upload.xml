@@ -18,10 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded_by">von {*nicknameString*}</string>
-  <string name="title">Neueste Projekte</string>
-  <string name="uploaded">hochgeladen {*timeString*}</string>
-  <string name="prev_button">{*character*} Neuer</string>
-  <string name="next_button">&#xC4;lter {*character*}</string>
-  <string name="loading_button">laden...</string>
+  <string name="default_project_name">standardProjekt</string>
+  <string name="upload_successfull">Dein Projekt wurde erfolgreich hinaufgeladen!</string>
+  <string name="qr_failed">W&#xE4;hrend dem Generieren des QR-Codes ist ein Fehler aufgetreten.</string>
 </strings>

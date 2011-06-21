@@ -18,10 +18,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded_by">von {*nicknameString*}</string>
-  <string name="title">Neueste Projekte</string>
-  <string name="uploaded">hochgeladen {*timeString*}</string>
-  <string name="prev_button">{*character*} Neuer</string>
-  <string name="next_button">&#xC4;lter {*character*}</string>
-  <string name="loading_button">laden...</string>
+  <string name="title">Lizenz</string>
+  <string name="license_text_part1">Sowohl alle Projekte die auf die Catroid Webseite hochgeladen werden als auch jegliches Supportmaterial von Catroid sind unter der Creative Commons Lizenz frei verf&#xFC;gbar.</string>
+  <string name="license_text_part2">Die Ben&#xFC;tzung der Catroid Software und der Catroid Webseite ist v&#xF6;llig kostenlos. Der Quellcode der Catroid Software ist unter der GNU General Public Lizenz {*licenseLink1*} und der Quellcode der Catroid Webseite unter der GNU Affero General Public Lizenz {*licenseLink2*} frei verf&#xFC;gbar.</string>
+  <string name="license_text_part3">Du kannst das Projekt auf {*googleCodeLink*} besuchen.</string>
 </strings>

@@ -18,10 +18,11 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded_by">von {*nicknameString*}</string>
-  <string name="title">Neueste Projekte</string>
-  <string name="uploaded">hochgeladen {*timeString*}</string>
-  <string name="prev_button">{*character*} Neuer</string>
-  <string name="next_button">&#xC4;lter {*character*}</string>
-  <string name="loading_button">laden...</string>
+  <string name="catroid_login_success">CATROID Login erfolgreich!</string>
+  <string name="board_login_success">FORUM Login erfolgreich!</string>
+  <string name="wiki_login_success">WIKI Login erfolgreich!</string>
+  <string name="catroid_logout_success">CATROID Logout erfolgreich!</string>
+  <string name="board_logout_success">FORUM Logout erfolgreich!</string>
+  <string name="wiki_logout_success">WIKI Logout erfolgreich!</string>
+  <string name="wiki_logout_error">FEHLER: WIKI Logout:</string>
 </strings>
