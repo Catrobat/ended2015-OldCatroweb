@@ -61,7 +61,8 @@ class CorePresenter_html extends CorePresenterCommon {
         } else {
             $pageTemplateFile = $this->module->pageTemplateFile;
         }
-
+        
+        header('Content-language: '.$this->languageHandler->getLanguage());
         include(CORE_BASE_PATH.'viewer/'.$this->module->moduleName.'/'.$pageTemplateFile);
 
         return true;

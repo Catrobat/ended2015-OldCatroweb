@@ -19,9 +19,11 @@
 ?>
 
 <!DOCTYPE HTML>
-<html>
+<html lang="<?php echo $this->languageHandler->getLanguage()?>">
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta http-equiv="Content-Language" content="<?php echo $this->languageHandler->getLanguage()?>" />
+  <meta name="dc.language" content="<?php echo $this->languageHandler->getLanguage()?>" />
   <!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.3, initial-scale=1.0, user-scalable=yes" /> -->
   <title><?php echo $this->getWebsiteTitle() ?></title>
   <link href="<?php echo BASE_PATH?>include/css/baseStyle.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
