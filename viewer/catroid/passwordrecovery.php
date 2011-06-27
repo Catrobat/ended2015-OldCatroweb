@@ -17,10 +17,9 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-  <input type="hidden" id="basePath" value="<?php echo BASE_PATH?>">
   <script type="text/javascript">
   	$(document).ready(function() {
-  		new PasswordRecovery($("#basePath").attr("value"));
+  		new PasswordRecovery();
   	});
   </script>
   

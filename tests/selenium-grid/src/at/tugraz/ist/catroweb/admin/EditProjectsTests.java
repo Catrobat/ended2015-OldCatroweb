@@ -86,9 +86,7 @@ public class EditProjectsTests extends BaseTest {
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       // check that project is shown on index-page
-      openLocation();
-      ajaxWait();
-      waitForTextPresent(projectTitle);
+      assertProjectPresent(projectTitle);
 
       // toggle project visibility to "hidden"
       openAdminLocation();

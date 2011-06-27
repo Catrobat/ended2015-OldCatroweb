@@ -84,8 +84,7 @@ public class PasswordRecoveryTests extends BaseTest {
       session().type("xpath=//input[@name='registrationCity']", dataset.get("registrationCity"));
       session().click("xpath=//input[@name='registrationSubmit']");
       ajaxWait();
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent(dataset.get("registrationUsername") + "'s Profile"));
+      waitForTextPresent(dataset.get("registrationUsername"));
 
       // goto lost password page and test reset by email and nickname, at first
       // use some wrong nickname or email
@@ -207,6 +206,7 @@ public class PasswordRecoveryTests extends BaseTest {
       captureScreen("PasswordRecoveryTests.passwordRecoveryReset." + dataset.get("registrationUsername"));
       throw e;
     } catch(Exception e) {
+      log(dataset.get("registrationUsername"));
       captureScreen("PasswordRecoveryTests.passwordRecoveryReset." + dataset.get("registrationUsername"));
       throw e;
     }

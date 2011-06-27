@@ -19,8 +19,8 @@
 ?>
     <script type="text/javascript">
       $(document).ready(function() {        
-        new HeaderMenu(<?php echo "'".BASE_PATH."'"; ?>);
-        new Login(<?php echo "'".BASE_PATH."'"; ?>);
+        new HeaderMenu();
+        new Login();
       });
     </script>
     <div class="webMainTop">
@@ -77,7 +77,7 @@
             <?php } else { ?>
 			 <div id="headerProfileBoxLeft" class="headerProfileBoxLeft">
                You are logged in as
-               <a href="<?php echo BASE_PATH; ?>catroid/profile" class="profileText" id="profileChangeEmailText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!<br>
+               <a href="<?php echo BASE_PATH; ?>catroid/profile" class="profileText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!<br>
                <div class="headerProfileBoxSubmitDiv" >
                 <input id="logoutSubmitButton" type="button" class="button orange webHeadLogoutSubmit" value="Logout" />
                </div>

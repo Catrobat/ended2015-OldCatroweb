@@ -72,7 +72,7 @@ public class ProfileTests extends BaseTest {
       session().click("xpath=//input[@id='profilePasswordSubmit']");
       ajaxWait();
 
-      assertTrue(session().isTextPresent("You updated your password successfully."));
+      waitForTextPresent("You updated your password successfully.");
 
       session().click("xpath=//a[@id='profileChangePassword']");
       ajaxWait();
@@ -117,9 +117,7 @@ public class ProfileTests extends BaseTest {
 
       assertTrue(session().isTextPresent("You updated your password successfully."));
 
-      log("ProfileTests: test=profilePage ---> TODO: change email");
-      /*
-      session().click("xpath=//a[@id='profileChangeEmailText']");
+      session().click("xpath=//a[@id='profileChangeEmail']");
       session().type("xpath=//input[@id='profileEmail']", dataset.get("changedEmail"));
       session().click("xpath=//input[@id='profileEmailSubmit']");
       waitForPageToLoad();
@@ -128,7 +126,7 @@ public class ProfileTests extends BaseTest {
       session().getAlert();
       assertTrue(session().isTextPresent(dataset.get("changedEmail")));
 
-      session().click("xpath=//a[@id='profileChangeEmailText']");
+      session().click("xpath=//a[@id='profileChangeEmail']");
       ajaxWait();
       Thread.sleep(Config.TIMEOUT_THREAD);
 
@@ -138,7 +136,7 @@ public class ProfileTests extends BaseTest {
       ajaxWait();
 
       assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
-*/
+
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));

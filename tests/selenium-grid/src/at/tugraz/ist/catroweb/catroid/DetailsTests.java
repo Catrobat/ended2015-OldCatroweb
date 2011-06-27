@@ -241,6 +241,24 @@ public class DetailsTests extends BaseTest {
       throw e;
     }
   }
+  
+  @Test(groups = { "visibility" }, description = "test if project size is visible inside download-button")
+  public void ProjectSizeInfo() throws Throwable {
+    try {
+      openLocation();
+      ajaxWait();
+      clickLastVisibleProject();
+      waitForElementPresent("xpath=//span[@class='detailsDownloadButtonText']");
+      assertRegExp(".*Download.*MB.*", session().getText("xpath=//span[@class='detailsDownloadButtonText']"));
+      
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.ProjectSizeInfo");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("DetailsTests.ProjectSizeInfo");
+      throw e;
+    }
+  }
 
   @Test(groups = { "visibility" }, description = "check if invalid project id redirects to errorpage")
   public void invalidProjectID() throws Throwable {

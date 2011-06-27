@@ -18,9 +18,8 @@
 
 
 var SearchProjects = Class.$extend( {
-  __init__ : function(parent, basePath, maxLoadProjects, maxLoadPages, pageNr, searchQuery, strings) {
-	  this.parent = parent;
-    this.basePath = basePath;
+  __include__ : [__baseClassVars],
+  __init__ : function(maxLoadProjects, maxLoadPages, pageNr, searchQuery, strings) {
     this.strings = strings;
     this.maxLoadProjects = parseInt(maxLoadProjects);
     this.maxVisibleProjects = parseInt(maxLoadPages) * maxLoadProjects;
@@ -230,7 +229,7 @@ var SearchProjects = Class.$extend( {
         query : self.searchQuery,
         page : pageNr
       },
-      timeout: (5000),
+      timeout: (this.ajaxTimeout),
     
       success: function(result) {
         if(result != "") {

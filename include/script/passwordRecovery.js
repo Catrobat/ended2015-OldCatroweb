@@ -17,8 +17,8 @@
  */
 
 var PasswordRecovery = Class.$extend( {
-  __init__ : function(basePath) {
-    this.basePath = basePath;
+  __include__ : [__baseClassVars],
+  __init__ : function() {
 
     var self = this;
     $("#passwordRecoveryFormDialog").toggle(true);
@@ -80,7 +80,7 @@ var PasswordRecovery = Class.$extend( {
       type: "POST",
       url: this.basePath + 'catroid/passwordrecovery/passwordRecoveryChangeMyPasswordRequest.json',
       data: "c="+$("#c").val()+"&passwordSavePassword="+$("#passwordSavePassword").val(),
-      timeout: (5000),
+      timeout: (this.ajaxTimeout),
       
       success: function(result){
         if(result['statusCode'] == 200) {

@@ -38,7 +38,7 @@ public class ReportAsInappropriateTests extends BaseTest {
     try {
       // upload project
       Random rand = new Random();
-      String projectTitle = "Testproject for report as inappropriate " + rand.nextInt(9999);
+      String projectTitle = "Testproject_for_report_as_inappropriate_" + rand.nextInt(9999);
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
           dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
@@ -50,14 +50,14 @@ public class ReportAsInappropriateTests extends BaseTest {
       session().type("loginUsername", dataset.get("username"));
       session().type("loginPassword", dataset.get("password"));
       session().click("loginSubmitButton");
-      waitForPageToLoad();
       ajaxWait();
+      waitForPageToLoad();
       Thread.sleep(Config.TIMEOUT_THREAD);
       assertTrue(session().isVisible("headerProfileButton"));
       session().click("headerProfileButton");
       assertTrue(session().isVisible("logoutSubmitButton"));
       session().click("headerCancelButton");
-      assertTrue(session().isTextPresent(projectTitle));
+      assertProjectPresent(projectTitle);
 
       // goto details page
       openLocation("catroid/details/" + projectId);
@@ -67,12 +67,17 @@ public class ReportAsInappropriateTests extends BaseTest {
 
       // report as inappropriate not visible
       assertFalse(session().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
-
+      
+      // check if reportAsInappropriate button is visible for a foreign project
+      openLocation("catroid/details/1");
+      ajaxWait();
+      waitForElementPresent("xpath=//button[@id='reportAsInappropriateButton']");
+      
+      // logout
       assertTrue(session().isElementPresent("xpath=//button[@id='headerMenuButton']"));
       session().click("xpath=//button[@id='headerMenuButton']");
       waitForPageToLoad();
       ajaxWait();
-
       session().click("xpath=//button[@id='menuLogoutButton']");
       waitForPageToLoad();
       ajaxWait();
@@ -99,16 +104,13 @@ public class ReportAsInappropriateTests extends BaseTest {
     try {
       // upload project
       Random rand = new Random();
-      String projectTitle = "Testproject for report as inappropriate (anonymous user) " + rand.nextInt(9999);
+      String projectTitle = "Testproject_for_report_as_inappropriate_(anonymous user)_" + rand.nextInt(9999);
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
           dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-      openLocation();
-      ajaxWait();
-      Thread.sleep(Config.TIMEOUT_THREAD);
-      assertTrue(session().isTextPresent(projectTitle));
+      assertProjectPresent(projectTitle);
 
       // goto details page
       openLocation("catroid/details/" + projectId);

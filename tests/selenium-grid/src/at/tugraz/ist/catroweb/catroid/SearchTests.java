@@ -81,7 +81,8 @@ public class SearchTests extends BaseTest {
   @Test(dataProvider = "specialChars", groups = { "functionality", "upload" }, description = "search forspecial chars")
   public void specialChars(String specialchars) throws Throwable {
     try {
-      String projectTitle = "search_test_" + specialchars;
+      String projectPrefix = "searchtest";
+      String projectTitle = projectPrefix + specialchars;
       projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(200), "test.zip", "72ed87fbd5119885009522f08b7ee79f", "",
           "", "", "0"));
 
@@ -90,7 +91,7 @@ public class SearchTests extends BaseTest {
 
       for(int i = projectTitle.length() - specialchars.length(); i < projectTitle.length(); i++) {
         session().click("headerSearchButton");
-        session().type("searchQuery", projectTitle.substring(i, i + 1));
+        session().type("searchQuery", projectPrefix + projectTitle.substring(projectPrefix.length(), i + 1));
         // session().click("xpath=//input[@class='webHeadSearchSubmit']");
         session().click("webHeadSearchSubmit");
         ajaxWait();
@@ -151,16 +152,15 @@ public class SearchTests extends BaseTest {
   @Test(groups = { "functionality", "upload" }, description = "search test with page navigation")
   public void pageNavigation() throws Throwable {
     try {
-      String projectTitle = CommonData.getRandomShortString(10) ;
+      String projectTitle = CommonData.getRandomShortString(10);
 
       int uploadCount = Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1);
 
       System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
       for(int i = 0; i < uploadCount; i++) {
-        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "",
-            "", "", "0"));
+        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "",
+            "0"));
       }
-
       openLocation();
       ajaxWait();
 
@@ -296,7 +296,7 @@ public class SearchTests extends BaseTest {
         { CommonData
             .getUploadPayload(
                 "search_test_long_description_" + CommonData.getRandomShortString(10),
-                "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!",
+                "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH),
                 "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
         { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "test.zip",
             "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") }, };

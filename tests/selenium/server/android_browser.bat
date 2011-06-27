@@ -1,1 +1,0 @@
-E:\Programme\Android\android-sdk-windows\platform-tools\adb.exe -s emulator-5554 shell am start -a android.intent.action.VIEW -d %1

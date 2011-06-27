@@ -18,10 +18,9 @@
 
 
 var NewestProjects = Class.$extend( {
-  __init__ : function(parent, basePath, maxLoadProjects, maxLoadPages, pageNr, strings) {
-	  this.parent = parent;
+  __include__ : [__baseClassVars],
+  __init__ : function(maxLoadProjects, maxLoadPages, pageNr, strings) {
 	  this.strings = strings;
-    this.basePath = basePath;
     this.maxLoadProjects = parseInt(maxLoadProjects);
     this.maxVisibleProjects = parseInt(maxLoadPages) * maxLoadProjects;
     this.pageNr = { prev : parseInt(pageNr)-1, current : parseInt(pageNr), next : parseInt(pageNr)+1 };
@@ -209,7 +208,7 @@ var NewestProjects = Class.$extend( {
     $.ajax({
       url: self.basePath+"catroid/loadNewestProjects/"+pageNr+".json",
       cache: false,
-      timeout: (30000),
+      timeout: (this.ajaxTimeout),
     
       success: function(result) {
         if(result != "") {
