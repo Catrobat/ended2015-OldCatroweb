@@ -214,4 +214,37 @@ public class CommonFunctions {
     }
     return "";
   }
+
+  public static void removeAllBlockedIps() {
+    try {
+	  Driver driver = new Driver();
+	  DriverManager.registerDriver(driver);
+	  Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+	  Statement statement = connection.createStatement();
+	  statement.executeUpdate("DELETE FROM blocked_ips;");
+	  statement.close();
+	  connection.close();
+	  DriverManager.deregisterDriver(driver);
+	} catch(SQLException e) {
+	  System.out.println("CommonFunctions: removeAllBlockedIps: SQL Exception couldn't execute sql query!");
+	  System.out.println(e.getMessage());
+	}
+  }
+
+  public static void removeAllBlockedUsers() {
+    try {
+	  Driver driver = new Driver();
+	  DriverManager.registerDriver(driver);
+	  Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+	  Statement statement = connection.createStatement();
+	  statement.executeUpdate("DELETE FROM blocked_cusers;");
+	  statement.close();
+	  connection.close();
+	  DriverManager.deregisterDriver(driver);
+	} catch(SQLException e) {
+	  System.out.println("CommonFunctions: removeAllBlockedUsers: SQL Exception couldn't execute sql query!");
+	  System.out.println(e.getMessage());
+	}
+  }
+
 }
