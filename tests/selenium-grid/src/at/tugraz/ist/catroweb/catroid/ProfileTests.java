@@ -60,7 +60,11 @@ public class ProfileTests extends BaseTest {
       assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
       assertTrue(session().isTextPresent("from "));
 
-      session().click("xpath=//a[@id='profileChangePassword']");
+      session().click("xpath=//a[@id='profileChangePasswordOpen']");
+      ajaxWait();
+      session().click("xpath=//a[@id='profileChangePasswordClose']");
+      ajaxWait();
+      session().click("xpath=//a[@id='profileChangePasswordOpen']");
       ajaxWait();
 
       assertTrue(session().isVisible("xpath=//input[@id='profileOldPassword']"));
@@ -74,7 +78,7 @@ public class ProfileTests extends BaseTest {
 
       waitForTextPresent("You updated your password successfully.");
 
-      session().click("xpath=//a[@id='profileChangePassword']");
+      session().click("xpath=//a[@id='profileChangePasswordOpen']");
       ajaxWait();
 
       session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
@@ -107,7 +111,7 @@ public class ProfileTests extends BaseTest {
 
       assertTrue(session().isTextPresent("You updated your password successfully."));
 
-      session().click("xpath=//a[@id='profileChangePassword']");
+      session().click("xpath=//a[@id='profileChangePasswordOpen']");
       ajaxWait();
 
       session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
@@ -117,16 +121,15 @@ public class ProfileTests extends BaseTest {
 
       assertTrue(session().isTextPresent("You updated your password successfully."));
 
-      session().click("xpath=//a[@id='profileChangeEmail']");
+      session().click("xpath=//a[@id='profileChangeEmailOpen']");
       session().type("xpath=//input[@id='profileEmail']", dataset.get("changedEmail"));
       session().click("xpath=//input[@id='profileEmailSubmit']");
       waitForPageToLoad();
       ajaxWait();
 
-      session().getAlert();
       assertTrue(session().isTextPresent(dataset.get("changedEmail")));
 
-      session().click("xpath=//a[@id='profileChangeEmail']");
+      session().click("xpath=//a[@id='profileChangeEmailOpen']");
       ajaxWait();
       Thread.sleep(Config.TIMEOUT_THREAD);
 

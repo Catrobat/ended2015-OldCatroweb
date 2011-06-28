@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="template_footer_contact_link">Kontakt</string>
+  <string name="template_header_cancel">Abbrechen</string>
+  <string name="template_footer_imprint_link">Impressum</string>
+  <string name="template_header_login">Einloggen</string>
+  <string name="template_header_menu">Men&#xFC;</string>
+  <string name="template_header_profile">Profil</string>
+  <string name="template_footer_terms_of_use_link">Nutzungsbedingungen</string>
+  <string name="template_footer_privacy_policy_link">Datenschutzrichtlinien</string>
+  <string name="template_footer_copyright_policy_link">Copyright Bestimmungen</string>
+  <string name="template_common_one_minute_ago">vor 1 Minute</string>
+  <string name="template_common_less_than_a_minute_ago">vor weniger als 1 Minute</string>
+  <string name="template_common_minutes_ago">vor {*minuteCount*} Minuten</string>
+  <string name="template_common_one_hour_ago">vor 1 Stunde</string>
+  <string name="template_common_hours_ago">vor {*hourCount*} Stunden</string>
+  <string name="template_common_one_day_ago">vor 1 Tag</string>
+  <string name="template_common_days_ago">vor {*dayCount*} Tagen</string>
+  <string name="template_common_one_month_ago">vor 1 Monat</string>
+  <string name="template_common_months_ago">vor {*monthCount*} Monaten</string>
+  <string name="template_common_one_year_ago">vor 1 Jahr</string>
+  <string name="template_common_years_ago">vor {*yearCount*} Jahren</string>
+  <string name="template_common_over_years_ago">vor &#xFC;ber {*yearCount*} Jahren</string>
+  <string name="template_common_january">Januar</string>
+  <string name="template_common_february">Februar</string>
+  <string name="template_common_march">M&#xE4;rz</string>
+  <string name="template_common_april">April</string>
+  <string name="template_common_may">Mai</string>
+  <string name="template_common_june">Juni</string>
+  <string name="template_common_july">Juli</string>
+  <string name="template_common_august">August</string>
+  <string name="template_common_september">September</string>
+  <string name="template_common_october">Oktober</string>
+  <string name="template_common_november">November</string>
+  <string name="template_common_december">Dezember</string>
+  <string name="template_header_nick">Benutzername:</string>
+  <string name="template_header_password">Passwort:</string>
+  <string name="template_header_logout">Ausloggen</string>
+  <string name="template_header_logged_in_as">Du bist angemeldet als</string>
+  <string name="template_header_enter_nick">gib Deinen Benutzernamen ein</string>
+  <string name="template_header_enter_password">gib Dein Passwort ein</string>
+  <string name="template_header_home">Start</string>
+  <string name="template_header_search">Suche</string>
+  <string name="template_header_search_for_projects">Nach Projekten suchen</string>
+</strings>

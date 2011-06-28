@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<errors>
+  <viewer>
+    <string name="ajax_request_page_not_found">Etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
+    <string name="ip_is_blocked">Deine IP-Adresse wurde geblockt. Bitte kontaktiere den Administrator.</string>
+    <string name="user_is_blocked">Dein Konto wurde gesperrt. Bitte kontaktiere den Administrator.</string>
+    <string name="html_file_not_found">Diese Seite kann nicht angezeigt werden.</string>
+  </viewer>
+  <auth>
+    <string name="board_authentication_failed">Anmeldung im Forum fehlgeschlagen!</string>
+    <string name="wiki_authentication_failed">Anmeldung im Wiki fehlgeschlagen!</string>
+    <string name="wiki_api_response_incorrect">Bei der Anmeldung ist etwas schiefgelaufen. Bitte noch einmal probieren!</string>
+    <string name="device_auth_invalid_token">Leider konnten wir dich nicht identifizieren. Sind Dein Benutzername und Dein Passwort korrekt eingetragen?</string>
+    <string name="password_or_username_wrong">Das Passwort oder der Benutzername war falsch!</string>
+    <string name="username_not_found">Der Benutzername konnte nicht gefunden werden.</string>
+    <string name="catroid_authentication_failed">Bitte &#xFC;berpr&#xFC;fe den Benutzernamen und das Passwort!</string>
+  </auth>
+  <registration>
+    <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
+    <string name="wiki_registration_failed">Registrierung im Wiki fehlgeschlagen!</string>
+    <string name="catroid_registration_failed">Registrierung fehlgeschlagen!</string>
+    <string name="email_already_exists">Die E-Mail Adresse existiert bereits!</string>
+    <string name="password_repeat_differs">Das wiederholte Passwort ist anders als das urspr&#xFC;ngliche Passwort.</string>
+    <string name="password_length_invalid">Dein Passwort muss mindestens {*minimumPasswordLength*} Zeichen und h&#xF6;chstens {*maximumPasswordLength*} Zeichen lang sein.</string>
+    <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
+    <string name="username_invalid_underscore">Der Benutzername ist ung&#xFC;ltig. Unterstriche (_) sind nicht erlaubt.</string>
+    <string name="username_invalid_hash">Der Benutzername ist ung&#xFC;ltig. Rautezeichen (#) sind nicht erlaubt.</string>
+    <string name="username_invalid_verticalbar">Der Benutzername ist ung&#xFC;ltig. Vertikale Striche Unterstriche (|) sind nicht erlaubt.</string>
+    <string name="username_invalid_curlybrace">Der Benutzername ist ung&#xFC;ltig. Geschweifte Klammern ({ oder }) sind nicht erlaubt.</string>
+    <string name="username_invalid_lessgreater">Der Benutzername ist ung&#xFC;ltig. Spitze Klammern (&lt; oder &gt;) sind nicht erlaubt.</string>
+    <string name="username_invalid_squarebracket">Der Benutzername ist ung&#xFC;ltig. Eckige Klammern ([ oder ]) sind nicht erlaubt.</string>
+    <string name="username_already_exists">Der Benutzername existiert bereits.</string>
+    <string name="username_blacklisted">Der Benutzername ist reserviert und deswegen nicht erlaubt.</string>
+    <string name="insulting_words_in_email_field">Die E-Mail Adresse enth&#xE4;lt anst&#xF6;&#xDF;ige W&#xF6;rter und ist deswegen nicht erlaubt.</string>
+    <string name="insulting_words_in_city_field">Die Stadt enth&#xE4;lt anst&#xF6;&#xDF;ige W&#xF6;rter und ist deswegen nicht erlaubt.</string>
+    <string name="email_invalid">Die E-mail Adresse ist ung&#xFC;ltig!</string>
+    <string name="email_missing">Bitte gib Deine E-Mail Adresse ein!</string>
+    <string name="password_missing">Bitte gib ein Passwort ein.</string>
+    <string name="password_repeat_missing">Bitte gib das Passwort zweimal ein.</string>
+    <string name="password_invalid">Das Passwort ist ung&#xFC;ltig.</string>
+    <string name="username_missing">Bitte gib einen Benutzernamen ein.</string>
+    <string name="username_invalid">Der Benutzername ist ung&#xFC;ltig.</string>
+    <string name="country_codes_not_available">W&#xE4;hrend der Auswahl des Landes ist ein Fehler passiert. Bitte lade die Seite neu und versuch es nocheinmal!</string>
+    <string name="country_missing">Bitte gib das Land an in dem Du lebst.</string>
+    <string name="birth_missing">Bitte gib Dein Geburtsdatum an.</string>
+    <string name="gender_missing">Bitte gib Dein Geschlecht an.</string>
+    <string name="insulting_words_in_username_field">Der Benutzername enth&#xE4;lt anst&#xF6;&#xDF;ige W&#xF6;rter und ist deswegen nicht erlaubt.</string>
+  </registration>
+  <passwordrecovery>
+    <string name="password_missing">Du hast kein Passwort angegeben.</string>
+    <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
+    <string name="catroid_password_recovery_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal oder kontaktiere uns unter {*webmasterEmailAddress*}.</string>
+    <string name="passwordhash_invalid">Es tut uns leid! Dein Wiederherstellungslink ist abgelaufen.</string>
+    <string name="userdata_invalid">Der Benutzername oder die E-Mail Adresse ist ung&#xFC;ltig.</string>
+    <string name="userdata_missing">Bitte gib deinen Benutzernamen oder deine E-Mail Adresse ein.</string>
+    <string name="userdata_not_exists">Der Benutzername oder die E-Mail Adresse konnte nicht gefunden werden.</string>
+  </passwordrecovery>
+  <profile>
+    <string name="password_repeat_missing">Bitte gib das Passwort zweimal ein.</string>
+    <string name="password_repeat_differs">Das wiederholte Passwort ist anders als das urspr&#xFC;ngliche Passwort.</string>
+    <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
+    <string name="password_old_missing">Bitte gib Dein altes Passwort ein.</string>
+    <string name="password_old_wrong">Das alte Passwort war falsch.</string>
+    <string name="password_old_invalid">Das alte Passwort ist falsch.</string>
+    <string name="password_new_missing">Bitte gib ein neues Passwort ein.</string>
+    <string name="password_new_invalid">Das neue Passwort ist ung&#xFC;ltig.</string>
+    <string name="password_new_length_invalid">Dein neues Passwort muss mindestens {*minimumPasswordLength*} Zeichen lang sein.</string>
+    <string name="email_address_exists">Die E-Mail Adresse existiert bereits.</string>
+    <string name="email_update_failed">Es gab ein Problem w&#xE4;hrend dem Aktualisieren der E-Mail Adresse. Bitte probier es noch einmal.</string>
+  </profile>
+  <db>
+    <string name="query_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
+    <string name="connection_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
+    <string name="no_entry_for_id">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
+  </db>
+  <sendmail>
+    <string name="sendmail_failed">W&#xE4;hrend dem Senden der E-Mail ist ein Fehler aufgetreten. Bitte kontaktiere uns unter {*webmasterEmailAddress*}.</string>
+  </sendmail>
+  <upload>
+    <string name="missing_post_data">Du musst einen Titel f&#xFC;r dein Projekt angeben!</string>
+    <string name="missing_post_file_checksum">Leider konnte dein Projekt nicht hochgeladen werden. Bitte verwende immer die neueste Version der Catroid Software.</string>
+    <string name="copy_failed">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte noch einmal versuchen!</string>
+    <string name="rename_failed">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte noch einmal versuchen!</string>
+    <string name="sql_insert_failed">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte noch einmal versuchen!</string>
+    <string name="invalid_file_checksum">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte noch einmal versuchen!</string>
+    <string name="bad_words_filter_error">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte noch einmal versuchen!</string>
+    <string name="project_exceed_filesize_limit">Dein Projekt &#xFC;berschreitet das Gr&#xF6;&#xDF;en-Limit!</string>
+    <string name="project_title_default">Du musst dein Projekt umbenennen bevor du es hochladen kannst!</string>
+    <string name="insulting_words_in_project_title">Bitte verwende keine anst&#xF6;&#xDF;igen Begriffe im Titel Deines Projekts.</string>
+    <string name="insulting_words_in_project_description">Bitte verwende keine anst&#xF6;&#xDF;igen Begriffe in der Beschreibung Deines Projekts.</string>
+  </upload>
+  <download>
+    <string name="file_not_found">Das gew&#xFC;nschte Projekt ist nicht verf&#xFC;gbar. Bitte sp&#xE4;ter noch einmal versuchen!</string>
+  </download>
+  <flag>
+    <string name="missing_post_data">Du musst eine Begr&#xFC;ndung angeben, warum Du das Projekt f&#xFC;r anst&#xF6;&#xDF;ig h&#xE4;ltst.</string>
+    <string name="sql_insert_failed">W&#xE4;hrend dem Melden ist etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
+  </flag>
+</errors>

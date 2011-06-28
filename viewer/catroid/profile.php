@@ -27,9 +27,7 @@
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
               <div class="webMainContentTitle">
-              <?php 
-                  echo $this->requestedUser; 
-              ?>'s Profile
+                <?php echo $this->languageHandler->getString('title', $this->requestedUser)?>
               </div> <!-- webMainContentTitle --> 
 						  <div class="profileMain">            	
             	  <div class ="whiteBoxMain">
@@ -48,67 +46,63 @@
                       if($this->ownProfile) {            		   	
             		   	?>
                   	<form method="POST" name="profileFormDialog" id="profileFormDialog" action="">
-                  	  <input type="hidden" id="profileUser" name="profileUser" value="<?php echo $this->requestedUser; ?>">
-          		   			<a href="javascript:;" class="profileText" id="profileChangePassword">change my password</a><br>
+                      <input type="hidden" id="profileUser" name="profileUser" value="<?php echo $this->requestedUser; ?>">
           		   			<div id="profilePasswordDiv">
-          		   			<input type="text" id="profileOldPassword" name="profileOldPassword" value="<?php echo htmlspecialchars($this->postData['profileOldPassword']); ?>" required="required" placeholder="enter your old password" ><br>
-          		   			<input type="text" id="profileNewPassword" name="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" required="required" placeholder="enter your new password" ><br>
-          		   			<input type="button" name="profilePasswordSubmit" id="profilePasswordSubmit" value="Send my changes" class="button orange compact profileSubmitButton">
+                        <a href="javascript:;" class="profileText" id="profileChangePasswordOpen"><?php echo $this->languageHandler->getString('password')?></a><br>
+          		   			</div>  
+                      <div id="profilePasswordDivOpened">
+          		   			  <a href="javascript:;" class="profileText" id="profileChangePasswordClose"><?php echo $this->languageHandler->getString('password')?></a><br>
+                        <input type="text" id="profileOldPassword" name="profileOldPassword" value="<?php echo htmlspecialchars($this->postData['profileOldPassword']); ?>" required="required" placeholder="<?php echo $this->languageHandler->getString('old_password')?>" ><br>
+          		   			  <input type="text" id="profileNewPassword" name="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" required="required" placeholder="<?php echo $this->languageHandler->getString('new_password')?>" ><br>
+          		   			  <input type="button" name="profilePasswordSubmit" id="profilePasswordSubmit" value="<?php echo $this->languageHandler->getString('send')?>" class="button orange compact profileSubmitButton">
           		   			</div>
           		   			<br>
 											<div id="profileEmailChangeDiv">
-          		   			 <a href="javascript:;" class="profileText" id="profileChangeEmailAddress">change my e-mail address</a><br>
-          		   			 <input type="email" id="profileEmail" name="profileEmail" value="<?php echo htmlspecialchars($this->postData['profileEmail'])?>" required="required" placeholder="enter new email address" ><br>
-          		   			 <input type="button" name="profileEmailSubmit" id="profileEmailSubmit" value="Send my changes" class="button orange compact profileSubmitButton">
+          		   			  <a href="javascript:;" class="profileText" id="profileChangeEmailClose"><?php echo $this->languageHandler->getString('email')?></a><br>
+          		   			  <input type="email" id="profileEmail" name="profileEmail" value="<?php echo htmlspecialchars($this->postData['profileEmail'])?>" required="required" placeholder="<?php echo $this->languageHandler->getString('new_email')?>" ><br>
+          		   			  <input type="button" name="profileEmailSubmit" id="profileEmailSubmit" value="<?php echo $this->languageHandler->getString('send')?>" class="button orange compact profileSubmitButton">
           		   			</div>
           		   			<div id="profileEmailTextDiv">
-          		   			 <a href="javascript:;" class="profileText" id="profileChangeEmail"><?php echo $this->userEmail ?></a><br>
+          		   			  <a href="javascript:;" class="profileText" id="profileChangeEmailOpen"><?php echo $this->userEmail ?></a><br>
           		   			</div>
           		   			<br>
           		   			<div id="profileCountryDiv">
-          		   			<a href="javascript:;" class="profileText" id="profileChangeCountry">change my country</a><br>
-          		   			<select id="profileCountry" name="profileCountry" class="profile" required="required" >
-          		   		<?php // country 
-          		   			$x = 0;
-          		   			$sumCount = count($this->countryCodeList);
-          		   			while($x < $sumCount+1) {
-          		   			  if($x == 0) {
-                          echo '<option value="0" >select your country</option>\r';
-                        }
-          		   			  else if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
-                          echo "<option value=\"" . $this->countryCodeList[$x] . "\" selected >" . $this->countryNameList[$x] . "</option>\r";
-                        }
-                        else {
-                          echo "<option value=\"" . $this->countryCodeList[$x] . "\" >" . $this->countryNameList[$x] . "</option>\r";
-                        }
-                        $x++;           
-          		   			}
-          		   		?>
+          		   			  <a href="javascript:;" class="profileText" id="profileChangeCountryClose"><?php echo $this->languageHandler->getString('country')?></a><br>
+          		   			  <select id="profileCountry" name="profileCountry" class="profile" required="required" >
+              		   		<?php // country 
+              		   			$x = 0;
+              		   			$sumCount = count($this->countryCodeList);
+              		   			while($x < $sumCount+1) {
+              		   			  if($x == 0) {
+                              echo '<option value="0" >select your country</option>\r';
+                            }
+              		   			  else if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
+                              echo "<option value=\"" . $this->countryCodeList[$x] . "\" selected >" . $this->countryNameList[$x] . "</option>\r";
+                            }
+                            else {
+                              echo "<option value=\"" . $this->countryCodeList[$x] . "\" >" . $this->countryNameList[$x] . "</option>\r";
+                            }
+                            $x++;           
+              		   			}
+              		   		?>
           		   			</select><br>
-          		   			<input type="button" name="profileCountrySubmit" id="profileCountrySubmit" value="Send my changes" class="button orange compact profileSubmitButton">
+          		   			<input type="button" name="profileCountrySubmit" id="profileCountrySubmit" value="<?php echo $this->languageHandler->getString('send')?>" class="button orange compact profileSubmitButton">
           		   			</div>
 											<div id="profileCountryTextDiv">
-          		   		<?php 
-          		   			$x = 0;
-          		   			$sumCount = count($this->countryCodeList);
-          		   			while($x < $sumCount+1) {
-          		   			  if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
-                          echo 'from <a href="javascript:;" class="profileText" id="profileChangeCountryText">'.$this->countryNameList[$x].'</a>';
-                          break;
-                        }
-                        $x++;           
-          		   			}
-          		   		?>
-          		   			<br>
+              		   		<?php 
+              		   			$x = 0;
+              		   			$sumCount = count($this->countryCodeList);
+              		   			while($x < $sumCount+1) {
+              		   			  if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
+                              echo 'from <a href="javascript:;" class="profileText" id="profileChangeCountryOpen">'.$this->countryNameList[$x].'</a>';
+                              break;
+                            }
+                            $x++;           
+              		   			}
+              		   		?>
+              		   	  <br>
 											</div>
-          		   			<br>
-          		   			<div id="profileCancelDiv">
-                      <input type="button" name="profileCancel" id="profileCancel" value="Cancel" class="button orange compact profileSubmitButton">
-                      </div>
                       <br>
-                      <br>
-                      <br> 
-											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login">Login</a> <br>or<br><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a></div>
             		   	</form>
             		   	<?php 
                       }

@@ -364,9 +364,7 @@ var NewestProjects = Class.$extend( {
           $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");
           $("#projectListTitle"+i).unbind('click');
           $("#projectListTitle"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
-          // + author $("#projectListDescription"+i).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
-          //$("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago");          
-          $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago by "+content[i]['uploaded_by']);
+          $("#projectListDescription"+i).html(content[i]['upload_time']+" "+content[i]['uploaded_by_string']);
         }
       }
       else {

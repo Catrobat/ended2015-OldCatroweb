@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="login">Einloggen</string>
+  <string name="password_recover">klick hier, wenn Du Dein Passwort vergessen hast</string>
+  <string name="title">Einen neuen Account anlegen</string>
+  <string name="headline">Bitte gib einen Benutzernamen, ein Passwort, Deine E-Mail-Adresse und das Land an in dem Du lebst.</string>
+  <string name="nickname">Benutzername</string>
+  <string name="enter_nickname">gib einen Benutzernamen ein</string>
+  <string name="password">Passwort</string>
+  <string name="enter_password">gib ein Passwort ein</string>
+  <string name="email">E-Mail Adresse</string>
+  <string name="enter_email">gib Deine E-Mail Adresse ein</string>
+  <string name="country">Land</string>
+  <string name="select_country">w&#xE4;hle dein Land aus</string>
+  <string name="city">Stadt</string>
+  <string name="enter_city">gib Deine Stadt ein</string>
+  <string name="birth">Geburtstag</string>
+  <string name="select_month">Monat</string>
+  <string name="select_year">Jahr</string>
+  <string name="gender">Geschlecht</string>
+  <string name="select_gender">w&#xE4;hle Dein Geschlecht aus</string>
+  <string name="female">weiblich</string>
+  <string name="male">m&#xE4;nnlich</string>
+  <string name="create">Meinen Account anlegen</string>
+</strings>

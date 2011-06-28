@@ -20,11 +20,11 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle">Contact us</div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
                 <div class="licenseMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="contactText"><p class="licenseText">
-            	    If you have any questions or suggestions, please send an email to <a class="downloadLink" href="mailto:webmaster@catroid.org">webmaster@catroid.org</a>.
+            	      <?php echo $this->languageHandler->getString('contact_text', '<a class="downloadLink" href="mailto:'.CONTACT_EMAIL.'">'.CONTACT_EMAIL.'</a>')?>
 					</p>            	    
                    </div> <!-- License Text -->
                    </div> <!--  White Box -->            	

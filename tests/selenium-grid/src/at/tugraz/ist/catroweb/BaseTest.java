@@ -98,7 +98,15 @@ public class BaseTest {
   }
 
   protected void openLocation(String location) {
-    session().open(Config.TESTS_BASE_PATH + location);
+    openLocation(location, true);
+  }
+  
+  protected void openLocation(String location, Boolean forceDefaultLanguage) {
+  	if(forceDefaultLanguage == true) {
+  		session().open(Config.TESTS_BASE_PATH + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+  	} else {
+  		session().open(Config.TESTS_BASE_PATH + location);
+  	}
     waitForPageToLoad();
   }
 

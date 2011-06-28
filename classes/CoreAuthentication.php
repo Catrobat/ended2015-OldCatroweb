@@ -51,7 +51,7 @@ abstract class CoreAuthentication extends CoreModule {
     }
 
     if ($badIp) {
-      $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked', '', 'blocked_ip');
+      $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked', '');
     }
   }
 

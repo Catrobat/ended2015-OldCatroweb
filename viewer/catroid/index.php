@@ -25,7 +25,7 @@
             <noscript>
                <div class="projectListRow">
                  <div class="whiteBoxMain">
-                   <div class="webMainContentTitle">Please enable javascript in your browser.</div>                   
+                   <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('enable_javascript')?></div>                   
                  </div>
                </div>
             </noscript>  

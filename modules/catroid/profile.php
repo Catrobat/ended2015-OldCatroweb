@@ -25,6 +25,7 @@ class profile extends CoreAuthenticationNone {
     $this->addCss('profile.css');
     $this->addJs("profile.js");
     $this->initProfileData($this->requestedUser);
+    $this->setWebsiteTitle($this->session->userLogin_userNickname.$this->languageHandler->getString('title'));
   }
 
   public function __default() {
@@ -56,7 +57,7 @@ class profile extends CoreAuthenticationNone {
     if($postData) {
       if($this->doChangePassword($this->session->userLogin_userNickname, $postData['profileOldPassword'], $postData['profileNewPassword'])) {
         $this->statusCode = 200;
-        $this->answer_ok .= "You updated your password successfully.";
+        $this->answer_ok .= $this->languageHandler->getString('password_success');
         return true;
       } else {
         $this->statusCode = 500;
@@ -70,7 +71,7 @@ class profile extends CoreAuthenticationNone {
     if($postData) {
       if($this->doChangeUserEmail($this->session->userLogin_userNickname, $postData['profileEmail'])) {
         $this->statusCode = 200;
-        $this->answer_ok .= "You updated your email address successfully.";
+        $this->answer_ok .= $this->languageHandler->getString('email_success');
         return true;
       } else {
         $this->statusCode = 500;
@@ -84,7 +85,7 @@ class profile extends CoreAuthenticationNone {
     if($postData) {
       if($this->doChangeUserCountry($this->session->userLogin_userNickname, $postData['profileCountry'])) {
         $this->statusCode = 200;
-        $this->answer_ok .= "You updated your country successfully.";
+        $this->answer_ok .= $this->languageHandler->getString('password_success');
         return true;
       } else {
         $this->statusCode = 500;
@@ -175,7 +176,6 @@ class profile extends CoreAuthenticationNone {
     }
     if($userCountryValid) {
       try {
-        $this->answer .= "Hallo <br>";
         $query = "EXECUTE update_user_country('$countryCode', '$username')";
         $result = @pg_query($this->dbConnection, $query);
         if(!$result) {
@@ -280,7 +280,7 @@ class profile extends CoreAuthenticationNone {
       $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
       $regEx = '/^'.$text.'$/';
       if(!preg_match($regEx, $newPassword)) {
-        throw new Exception($this->errorHandler->getError('profile', 'password_new_length_invalid'));
+        throw new Exception($this->errorHandler->getError('profile', 'password_new_length_invalid', '', USER_MIN_PASSWORD_LENGTH));
       }
     } else {
       throw new Exception($this->errorHandler->getError('profile', 'username_password_equal'));

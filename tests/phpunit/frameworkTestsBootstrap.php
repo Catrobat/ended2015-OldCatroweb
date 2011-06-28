@@ -28,4 +28,5 @@
   function __autoload($class) {
     include_once CORE_BASE_PATH.'classes/'.$class.'.php';
   }
+  define('UNITTESTS', true);
 ?>

@@ -24,7 +24,7 @@ class loginTest extends PHPUnit_Framework_TestCase
   protected $obj;
 
   protected function setUp() {
-    require_once CORE_BASE_PATH.'modules/catroid/login.php';
+    require_once CORE_BASE_PATH.'modules/api/login.php';
     $this->obj = new login();
   }
 
