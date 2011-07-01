@@ -19,13 +19,14 @@
 ?>
 <body>
   <script type="text/javascript">
-  function submitRemoveUserForm(id, name) {
-    if (confirm("Remove blocking of User '"+name+"'?"))
-      document.getElementById(id).submit();
-  }
-  function submitBlockUserForm(id) {
-	    document.getElementById(id).submit();
-	}
+  function blockUser(id, name) {
+	    if (confirm("Block user '"+name+"'?"))
+	      document.getElementById('addBlockedUser'+id).submit();
+	  }
+  function unblockUser(id, name) {
+	    if (confirm("Unblock user '"+name+"'?"))
+	      document.getElementById('removeBlockedUser'+id).submit();
+	  }
   </script>
   <h2>Administration Tools - List of blocked users</h2>
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
@@ -34,39 +35,58 @@
   }?>
   <div class="projectList">
 
-			  Add new username to block: 
-			  <form id="newblockuserform" class="admin" action="addBlockedUser" method="POST">
-          <input type="text" name="blockuser" value=""/>
-          <input type="button" value="add username" name="addButton" id="adduser" onclick="submitBlockUserForm('newblockuserform');" />
-        </form>
-
-			<br/>
-			<br/>
+		  <p>List of all users:</p>
 
       <table class="projectTable">
         <tr>
+          <th>ID</th>
           <th>Username</th>
-          <th>Remove blocking</th>
+          <th>E-Mail</th>
+          <th>Gender</th>
+          <th>Country</th>
+          <th>Block user</th>
+          <th>Unblock user</th>
         </tr>
       <?php
         $i=0;
-        if($this->blockedusers) {
-        foreach($this->blockedusers as $blockeduser) {
-          $user = $blockeduser["user_name"];
-          ?>
-        <tr>
-          <td><?php echo $user ?></td>
-          <td>
-            <form id="removeuserform<?php echo $i ?>" class="admin" action="removeBlockedUser" method="POST">
-              <input type="hidden" name="blockeduser" value="<?php echo $user ?>"/>
-              <input type="hidden" name="remove" value="remove"/>
-              <input type="button" value="remove" name="removeButton" id="<?php echo "removeuser$i"; ?>" onclick="javascript:submitRemoveUserForm('removeuserform<?php echo $i ?>', '<?php echo $user ?>');" />
-            </form>
-          </td>
+        if($this->allusers) {
+        foreach($this->allusers as $alluser) {
+          $id = $alluser["id"];
+          $username = $alluser["username"];
+          $email = $alluser["email"];
+          $gender = $alluser["gender"];
+          $country = $alluser["country"];
+          $user_id = $alluser["user_id"];
+          if ($id < 1) {
+            $block_user = "-";
+            $unblock_user = "-";
+          } else {
+            if (!$user_id) {
+              $block_user = "<form id=\"addBlockedUser$id\" class=\"admin\" action=\"addBlockedUser\" method=\"POST\">";
+              $block_user.= "<input type=\"hidden\" name=\"blockUserValue\" value=\"".$id."\"><input type=\"button\" value=\"block user\" id=\"blockUser".$id."\" onclick=\"javascript:blockUser(".$id.", '$username');\">";
+              $block_user.= "</form>";
+              $unblock_user = "-";
+            } else {
+              $block_user = "-";
+              $unblock_user = "<form id=\"removeBlockedUser$id\" class=\"admin\" action=\"removeBlockedUser\" method=\"POST\">";
+              $unblock_user.= "<input type=\"hidden\" name=\"unblockUserValue\" value=\"".$id."\"><input type=\"button\" value=\"unblock user\" id=\"unblockUser".$id."\" onclick=\"javascript:unblockUser(".$id.", '$username');\">";
+              $unblock_user.= "</form>";
+            }
+          }
+      ?>
+	    <tr>
+          <td><?php echo $id ?></td>
+          <td><?php echo $username ?></td>
+          <td><?php echo $email ?></td>
+          <td><?php echo $gender ?></td>
+          <td><?php echo $country ?></td>
+          <td><?php echo $block_user ?></td> 
+          <td><?php echo $unblock_user ?></td> 
         </tr>
       <?php           
         $i++;
         }}?>
       </table>
+
   </div>
 </body>

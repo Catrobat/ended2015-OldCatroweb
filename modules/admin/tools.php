@@ -96,23 +96,25 @@ class tools extends CoreAuthenticationAdmin {
   }
 
   public function addBlockedUser() {
-    if(isset($_POST['blockuser'])) {
-      $this->blockUser(null, $_POST['blockuser']);
-      $answer = "The username <b>".$_POST["blockuser"]."</b> was added to blacklist.";
+    if(isset($_POST['blockUserValue'])) {
+      $username = $this->blockUserID($_POST['blockUserValue']);
+      $answer = "The username <b>".$username."</b> was added to blacklist.";
       $this->answer = $answer;
     }
     $this->htmlFile = "editBlockedUsers.php";
     $this->blockedusers = $this->getListOfBlockedUsersFromDatabase();
+    $this->allusers = $this->getListOfUsersFromDatabase();
   }
 
   public function removeBlockedUser() {
-    if(isset($_POST['blockeduser'])) {
-      $this->unblockUser(null, $_POST['blockeduser']);
-      $answer = "The username <b>".$_POST["blockeduser"]."</b> was removed from blacklist.";
+    if(isset($_POST['unblockUserValue'])) {
+      $username = $this->unblockUserID($_POST['unblockUserValue']);
+      $answer = "The username <b>".$username."</b> was removed from blacklist.";
       $this->answer = $answer;
     }
     $this->htmlFile = "editBlockedUsers.php";
     $this->blockedusers = $this->getListOfBlockedUsersFromDatabase();
+    $this->allusers = $this->getListOfUsersFromDatabase();
   }
   
   public function editBlockedUsers() {
@@ -126,6 +128,7 @@ class tools extends CoreAuthenticationAdmin {
     }
     $this->htmlFile = "editBlockedUsers.php";
     $this->blockedusers = $this->getListOfBlockedUsersFromDatabase();
+    $this->allusers = $this->getListOfUsersFromDatabase();
   }
   
   
@@ -280,6 +283,12 @@ class tools extends CoreAuthenticationAdmin {
 
   private function getListOfBlockedUsersFromDatabase() {
     $query = 'EXECUTE get_all_blocked_users;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    return pg_fetch_all($result);
+  }
+
+  private function getListOfUsersFromDatabase() {
+    $query = 'EXECUTE get_all_users;';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     return pg_fetch_all($result);
   }
@@ -445,12 +454,37 @@ class tools extends CoreAuthenticationAdmin {
     $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
   }
 
+  public function blockUserID($user_id) {
+    $query = "EXECUTE admin_block_user_id('$user_id');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    return $this->getUsernameById($user_id);
+  }
+  
   public function unblockUser($user_id, $user_name) {
     if ($user_id === null)
       $query = "EXECUTE admin_unblock_username('$user_name');";
     else
       $query = "EXECUTE admin_unblock_user('$user_id', '$user_name');";
     $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  }
+
+  public function unblockUserID($user_id) {
+    $query = "EXECUTE admin_unblock_user_id('$user_id');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    return $this->getUsernameById($user_id);
+  }
+  
+  private function getUsernameById($user_id) {
+    $query = "EXECUTE get_user_by_id ('$user_id');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $users = pg_fetch_all($result);
+    if($users) {
+        foreach($users as $user) {
+          $username = $user["username"];
+          return $username;
+        }
+    }
+    return "UserID: ".$user_id; 
   }
   
   public function isBlockedUser($user_id, $user_name) {

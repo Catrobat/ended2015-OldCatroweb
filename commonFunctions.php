@@ -65,6 +65,20 @@ function getIpBlockClassWhitelistArray() {
     return $whitelistClasses;
 }
 
+function getUserBlockClassWhitelistArray() {
+  $whitelistClasses = array(
+  	"privacypolicy",
+    "terms",
+    "copyrightpolicy",
+    "imprint",
+    "contactus",
+    "errorPage",
+    "login",
+    "logout"
+    );
+    return $whitelistClasses;
+}
+
 function convertBytesToMegabytes($numOfBytes) {
   $mb = round($numOfBytes/1048576, 1);
   if($mb < 0.1) {

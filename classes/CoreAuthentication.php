@@ -25,9 +25,11 @@ abstract class CoreAuthentication extends CoreModule {
     if (getenv("REMOTE_ADDR"))  {
       $this->requestFromBlockedIp($vmodule, $vclass);
     }
-    if (isset($this->session->userLogin_userNickname, $vmodule, $vclass)) { //todo: fix - user session is unknown at this time
-      $this->requestFromBlockedUser($this->session->userLogin_userNickname);
-    }
+    /*echo("UserID: ".$this->session->userLogin_userId);
+    if (isset($this->session->userLogin_userId) && $this->session->userLogin_userId > 0) { // , $vmodule, $vclass)) { //todo: fix - user session is unknown at this time
+      // $this->errorHandler->showErrorPage('viewer', 'user_is_blocked', '', 'blocked_user');
+      $this->requestFromBlockedUser($this->session->userLogin_userId, $vmodule, $vclass);
+    }*/
   }
 
   abstract function authenticate();
@@ -38,7 +40,7 @@ abstract class CoreAuthentication extends CoreModule {
 
   private function requestFromBlockedIp($vmodule, $vclass) {
     $badIp = false;
-    if(($vmodule != "catroid") || in_array($vclass, getIpBlockClassWhitelistArray())) {
+    if(($vmodule != "catroid") || in_array($vclass, getUserBlockClassWhitelistArray())) {
       return;
     }
      
@@ -55,15 +57,15 @@ abstract class CoreAuthentication extends CoreModule {
     }
   }
 
-  private function requestFromBlockedUser($user, $vmodule, $vclass) {
-    $badUser = false;
+  private function requestFromBlockedUser($userId, $vmodule, $vclass) {
+    $badUser = true;
     
-    if(in_array($vclass, getIpBlockClassWhitelistArray())) {
+    if(($vmodule != "catroid") || in_array($vclass, getIpBlockClassWhitelistArray())) {
       return;
     }
     
-    if ($user) {
-        $query = "SELECT user_name FROM blocked_cusers WHERE user_name like '".$user."'";
+    if ($userId) {
+        $query = "SELECT b.user_id FROM blocked_cusers b WHERE b.user_id = ".$userId;
         $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
         if(pg_num_rows($result))
           $badUser = true;

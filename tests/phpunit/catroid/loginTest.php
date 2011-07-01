@@ -22,6 +22,7 @@ require_once('testsBootstrap.php');
 class loginTest extends PHPUnit_Framework_TestCase
 {
   protected $obj;
+  protected $tools;
 
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/catroid/login.php';

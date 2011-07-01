@@ -28,7 +28,8 @@ class login extends CoreAuthenticationNone {
 
   public function __default() {
     if($this->session->userLogin_userId > 0) {
-      header("Location: ".BASE_PATH."catroid/index");
+      // header("Location: ".BASE_PATH."catroid/index");
+      header("Location: http://orf.at");
       exit;
     }
   }
@@ -66,7 +67,7 @@ class login extends CoreAuthenticationNone {
     $boardLoginSuccess = false;
     $wikiLoginSuccess = false;
     $catroidLoginSuccess = false;
-
+        
     try {
       $catroidUserId = $this->doCatroidLogin($postData);
       $catroidLoginSuccess = true;
@@ -151,11 +152,15 @@ class login extends CoreAuthenticationNone {
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
-
     if(pg_num_rows($result) > 0) {
       $user = pg_fetch_assoc($result);
-      $this->session->userLogin_userId = $user['id'];
-      $this->session->userLogin_userNickname = ($user['username']);
+      if ($this->isBlockedUser($user['id'])) {
+        return false;
+      } else {
+        $this->session->userLogin_userId = $user['id'];
+        $this->session->userLogin_userNickname = ($user['username']);
+        return true;
+      }
     } else {
       throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'));
     }
@@ -256,6 +261,19 @@ class login extends CoreAuthenticationNone {
     setcookie('catrowikiToken', '', $cookieexpire_over, "/", $cookiedomain, false, true);
   }
 
+  public function isBlockedUser($userId) {
+    if ($userId) {
+        $query = "SELECT b.user_id FROM blocked_cusers b WHERE b.user_id = ".$userId;
+        $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
+        if(pg_num_rows($result) >= 1)
+          return true;
+        else 
+          return false;
+    }
+    return false;
+  }  
+  
+  
   public function __destruct() {
     parent::__destruct();
   }

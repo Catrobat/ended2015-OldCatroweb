@@ -39,6 +39,7 @@ public class BlockedIpTests extends BaseTest {
   @Test(dataProvider = "blockedIps", groups = { "functionality" }, description = "test blocked ips")
   public void blockedIps(String projectId, String blockedIp) throws Throwable {
     try {
+    	unblockAllIPs();
       openLocation();
       blockIp(blockedIp);
       openLocation("catroid/details/" + projectId);
@@ -61,6 +62,7 @@ public class BlockedIpTests extends BaseTest {
   @Test(dataProvider = "unblockedIps", dependsOnMethods = { "blockedIps" }, groups = { "functionality" }, description = "test unblocked ips")
   public void unblockedIps(String projectId, String unblockedIp) throws Throwable {
     try {
+    	unblockAllIPs();
       blockIp(unblockedIp);
       openLocation("catroid/details/" + projectId);
       assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
@@ -124,4 +126,21 @@ public class BlockedIpTests extends BaseTest {
       System.out.println(e.getMessage());
     }
   }
-}
+  
+ private void unblockAllIPs() {
+	    try {
+	      Driver driver = new Driver();
+	      DriverManager.registerDriver(driver);
+
+	      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+	      Statement statement = connection.createStatement();
+	      statement.executeUpdate("DELETE FROM blocked_ips;");
+	      statement.close();
+	      connection.close();
+	      DriverManager.deregisterDriver(driver);
+	    } catch(SQLException e) {
+	      System.out.println("BlockedIpTests: unblockAllIPs: SQL Exception couldn't execute sql query!");
+	      System.out.println(e.getMessage());
+	    }
+	  }
+  }

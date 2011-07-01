@@ -23,7 +23,9 @@ abstract class CoreAuthenticationUser extends CoreAuthentication {
     }
 
     function authenticate() {
-      if($this->session->userLogin_userId > 0) {
+      return false;
+      if($this->session->userLogin_userId > 0 && !isBlockedUser($this->session->userLogin_username)) {
+        //todo: fix // isBlockedUser($this->session->userLogin_userNickname);
         return true;
       } else {
         $requesturi = $_SERVER['REQUEST_URI'];
@@ -32,11 +34,25 @@ abstract class CoreAuthenticationUser extends CoreAuthentication {
          
         header("Location: ".BASE_PATH."catroid/login?requesturi=".$requesturi);
         exit;
-        //return false;
       }
     }
 
-    function __destruct() {
+    private function isBlockedUser($user) {
+      return true;
+      $badUser = false;
+      if ($user) {
+        $query = "SELECT b.user_id, u.username FROM b.blocked_cusers, u.cusers where u.username like '".$user."'";
+        $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
+        if(pg_num_rows($result))
+        $badUser = true;
+      }
+      if ($badUser) {
+        $this->errorHandler->showErrorPage('viewer', 'user_is_blocked', '', 'blocked_user');
+      }
+      return !$badUser;
+    }
+
+   function __destruct() {
         parent::__destruct();
     }
 }
