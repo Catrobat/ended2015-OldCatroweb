@@ -21,5 +21,6 @@
 <strings>
   <string name="title">Login</string>
   <string name="account_link">Create a new account now</string>
+  <string name="or">or</string>
   <string name="password_link">click here if you forgot your password?</string>  
 </strings>

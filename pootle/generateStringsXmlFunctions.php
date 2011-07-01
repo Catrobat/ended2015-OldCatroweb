@@ -35,9 +35,9 @@ function generateStringsXml($coreBasePath = CORE_BASE_PATH, $stringsXmlDestinati
 
 function mergeStringsXmlFiles($file_listing, $coreBasePath) {
   $uniqueStrings = array();
-  addStringNodes($file_listing, $coreBasePath, &$uniqueStrings);
-  addTemplateStringNodes($file_listing, $coreBasePath, &$uniqueStrings);
-  addErrorsStringNodes($coreBasePath, &$uniqueStrings);
+  addStringNodes($file_listing, $coreBasePath, $uniqueStrings);
+  addTemplateStringNodes($file_listing, $coreBasePath, $uniqueStrings);
+  addErrorsStringNodes($coreBasePath, $uniqueStrings);
   
   $stringsXml = buildXml($uniqueStrings);
   return $stringsXml;
@@ -69,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   return $destXml;
 }
 
-function addTemplateStringNodes($file_listing, $coreBasePath, $uniqueStrings) {
+function addTemplateStringNodes($file_listing, $coreBasePath, &$uniqueStrings) {
   $templateNodeName = substr(DEFAULT_TEMPLATE_LANGUAGE_FILE, 0, strpos(DEFAULT_TEMPLATE_LANGUAGE_FILE, '.'));
   foreach($file_listing as $module=>$files) {
     $template = $coreBasePath.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$module.'/'.DEFAULT_TEMPLATE_LANGUAGE_FILE;
@@ -94,7 +94,7 @@ function addTemplateStringNodes($file_listing, $coreBasePath, $uniqueStrings) {
   }
 }
 
-function addStringNodes($file_listing, $coreBasePath, $uniqueStrings) {
+function addStringNodes($file_listing, $coreBasePath, &$uniqueStrings) {
   foreach($file_listing as $module=>$files) {
     foreach($files as $file) {
       $class = substr($file, 0, strpos($file, '.'));
@@ -121,7 +121,7 @@ function addStringNodes($file_listing, $coreBasePath, $uniqueStrings) {
   }
 }
 
-function addErrorsStringNodes($coreBasePath, $uniqueStrings) {
+function addErrorsStringNodes($coreBasePath, &$uniqueStrings) {
   $errorsModuleName = 'errors';
   $errorsDevNodeName = substr(DEFAULT_DEV_ERRORS_FILE, 0, strpos(DEFAULT_DEV_ERRORS_FILE, '.'));
   $errorsPubNodeName = substr(DEFAULT_PUB_ERRORS_FILE, 0, strpos(DEFAULT_PUB_ERRORS_FILE, '.'));

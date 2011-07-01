@@ -1,6 +1,6 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2011 The Catroid Team
+ *    Copyright (C) 2010-2011 The Catroid Team 
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
@@ -29,7 +29,7 @@
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
               <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
-                <div class="loginMain">
+                <div class="loginMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="loginText">
             	    <div class="loginFormContainer">
@@ -42,8 +42,8 @@
 						<?php }?>
                      </div> <!-- loginFormContainer -->
 					</div> <!-- login Text -->
-              </div> <!--  White Box -->
-           </div> <!--  license Main -->
+              </div> <!--  White Box -->            	
+           </div> <!--  license Main -->  		   		
   		  </div> <!-- mainContent close //-->
   		</div> <!-- blueBoxMain close //-->
   	</div>
