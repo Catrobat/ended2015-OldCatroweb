@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Syarat-syarat Pengunaan</string>
+  <string name="share_alike_licence_link">Pengiktirafan - Perkongsian Serupa</string>
+  <string name="gnu_licence_link">GNU General Public License</string>
+  <string name="gnu_affero_licence_link">GNU Affero General Public License</string>
+  <string name="google_code_link">Kod Google </string>
+  <string name="terms_of_use_catroid_community_list_head">Selamat datang ke laman komuniti Catroid! Sebagai sebahagian daripada komuniti Catroid, anda berkongsi projek dan idea dengan orang lain:</string>
+  <string name="terms_of_use_catroid_community_list_element1">dari negara-negara dan budaya yang berbeza</string>
+  <string name="terms_of_use_catroid_community_list_element2">dari lingkungan usia (dari kanak-kanak kepada remaja dan datuk nenek)</string>
+  <string name="terms_of_use_catroid_community_list_element3">dangan tahap pengalaman yang pelbagai</string>
+  <string name="terms_of_use_catroid_help_list_head">Kami memerlukan bantuan anda untuk mencipta satu suasana yang sentiasa menyokong antara satu sama lain dalam komuniti ini. Anda boleh membantu dengan:</string>
+  <string name="terms_of_use_catroid_help_list_element1">Hormati orang lain. Semasa berkongsi projek, ingat bahawa orang dari linkungan usia yang berbeza dan latar belakang yang berbeza akan melihat sumbangan anda.</string>
+  <string name="terms_of_use_catroid_help_list_element2">Beri kredit. Anda bebas untuk mengubah project orang lain - dengan syarat anda memberi kredit kepada orang tersebut. Salah satu tempat untuk memberikan kredit ialah pada huraian projek anda.</string>
+  <string name="terms_of_use_catroid_help_list_element3">Jujur. Jangan menyamar sebagai orang lain semasa atau cuba untuk menipu komuniti yang lain.</string>
+  <string name="terms_of_use_catroid_help_list_element4">Simpan privasi maklumat peribadi. Jangan kongsi alamat emel, number telefon atau maklumat peribadi orang lain.</string>
+  <string name="terms_of_use_catroid_help_list_element5">Kekalkan keharmonian laman komuniti. Jika anda mendapati orang lain memberikan komen yang menghina, terlalu ganas atau komen yang tidak wajar, hanya klik pada butang 'lapor sebagai tidak sesuai'. Kumpulan Catroid akan mengkaji dan boleh memindahkan sebarang projek, komen.</string>
+  <string name="terms_of_use_project_licence">Semua projek yang dikongsi di laman web Catroid, serta bahan-bahan sokongan Catroid, dikongsi bersama di bawah lesen Creative Common dengan syarat {*shareAlikeLink*}.</string>
+  <string name="terms_of_use_software_licence">Perisian Catroid dan laman web Catroid adalah percuma. Kod sumber perisian Catroid boleh didapati di bawah sumber kod {*gnuLink*}, kod sumber laman web Catroid boleh didapati di bawah {*gnuAfferoLink*}.</string>
+  <string name="terms_of_use_google_code">Anda boleh lawat project di {*googleCodeLink*}</string>
+  <string name="terms_of_use_check_back">Periksa laman ini dari semasa ke semasa, kerana pihak kami sentiasa mencuba untuk memperbaiki garis panduan kami. Sila emel cadangan menganai Syarat-syarat Pengunaan ke {*emailLink*}.</string>
+  <string name="terms_of_use_thanks">Terima kasih kerana menyertai dan menyumbangkan kepada komuniti Catroid!</string>
+  <string name="terms_of_use_team">Kumpulan Catroid</string>
+</strings>

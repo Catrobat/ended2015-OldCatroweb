@@ -19,7 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="title">Copyright Bestimmungen</string>
-  <string name="email_link">E-Mail</string>
   <string name="directive_link">Directive 2001/29/EC</string>
   <string name="chilling_link">chillingeffects.org</string>
   <string name="copyright_policy_part1">Das Catroid Entwicklerteam respektiert sowohl alle Benutzer der Webseite als auch deren geistiges Eigentum. Wenn Du denkst, dass deine Arbeit unrechtm&#xE4;&#xDF;ig kopiert wurde, dann schicke uns ein {*emailLink*}.</string>
@@ -27,4 +26,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="copyright_policy_part3">Wenn Du &#xFC;berlegst ob jemand Dein Copyright verletzt hat oder nicht, bedenke bitte, dass Catroid ein Non-Profit Projekt ist, das Kindern beim Erlernen von Pogrammiertechniken helfen soll.</string>
   <string name="copyright_policy_part4">Wir hoffen Du siehst Catroid nicht nur als M&#xF6;glichkeit Deine Werke popul&#xE4;r zu machen sondern auch als eine M&#xF6;glichkeit, dass Deine Freunde etwas von Dir lernen k&#xF6;nnen.</string>
   <string name="copyright_policy_part5">Wenn Du eine Urheberrechtsverletzung meldest, beachte bitte, dass wir deine Meldung an Organisationen wie {*chillingEffectsLink*} weiterleiten. Bitte beachte auch, dass du verantwortlich bist f&#xFC;r Sch&#xE4;den und Kosten die entstehen falls  Du Verst&#xF6;&#xDF;e f&#xE4;lschlicherweise meldest.</string>
+  <string name="email_link">E-Mail</string>
 </strings>

@@ -148,7 +148,9 @@ function getTimeInWords($fromTime, $languageHandler, $toTime = 0) {
 function getSupportedLanguagesArray() {
   $supportedLanguages = array(
   	'de',
-  	'en');
+  	'en',
+  	'ms',
+  	'cn');
   return $supportedLanguages;
 }
 

@@ -18,8 +18,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="enable_javascript">Du musst Javascript ein deinem Browser aktivieren um die Seite zu sehen.</string>
   <string name="newest_projects">Neueste Projekte</string>
   <string name="newer">Neuer</string>
   <string name="older">&#xC4;lter</string>
+  <string name="enable_javascript">Du musst Javascript ein deinem Browser aktivieren um die Seite zu sehen.</string>
 </strings>
