@@ -20,14 +20,11 @@ package at.tugraz.ist.catroweb.catroid;
 
 import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
 
-import java.util.HashMap;
-
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
-import at.tugraz.ist.catroweb.common.CommonData;
 
 @Test(groups = { "catroid", "WebsiteTitleTests" })
 public class WebsiteTitleTests extends BaseTest {

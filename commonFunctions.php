@@ -150,7 +150,9 @@ function getSupportedLanguagesArray() {
   	'de',
   	'en',
   	'ms',
-  	'cn');
+  	'cn',
+    'cn-tw'
+  );
   return $supportedLanguages;
 }
 
