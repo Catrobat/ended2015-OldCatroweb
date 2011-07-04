@@ -119,7 +119,7 @@ public class PasswordRecoveryTests extends BaseTest {
       ajaxWait();
       assertTrue(session().isTextPresent("Please enter your new password:"));
       assertTrue(session().isElementPresent("xpath=//input[@name='passwordSavePassword']"));
-      assertTrue(session().isTextPresent("The password must have at least 6 characters."));
+      assertTrue(session().isTextPresent("password must have at least"));
 
       // enter the new password correctly
       session().type("xpath=//input[@name='passwordSavePassword']", dataset.get("registrationPassword") + " new");

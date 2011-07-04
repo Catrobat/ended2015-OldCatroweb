@@ -101,6 +101,7 @@
       <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at {*webmasterEmailAddress*}.</string>
       <string name="passwordhash_invalid">Sorry! Your recovery URL has expired.</string>
       <string name="password_missing">The password is missing.</string>
+      <string name="password_length_invalid">Your password must have at least {*minimumPasswordLength*} and maximal {*maximumPasswordLength*} characters.</string>
     </passwordrecovery>
     <profile>
       <string name="password_repeat_missing">The repeated password is missing.</string>

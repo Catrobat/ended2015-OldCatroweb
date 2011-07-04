@@ -22,6 +22,7 @@ class login extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->addCss('login.css');
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {
