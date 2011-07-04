@@ -763,8 +763,6 @@
   <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="run-tests" depends="-phpunit-tests, -selenium-tests" />
   <target name="run-phpunit-tests" depends="-phpunit-tests" />
-  <target name="run-selenium-tests" depends="-selenium-tests" />
-  <target name="run-selenium-test" depends="-selenium-test" />
   <target name="run-selenium-admin-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-stop-server" />
   <target name="run-selenium-catroid-tests" depends="-selenium-start-server, -selenium-tests-catroid, -selenium-stop-server" />
   <target name="run-selenium-local-tests" depends="-selenium-grid-tests-catroid-local" />
