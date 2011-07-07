@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">&#x57F7;&#x7167;&#x689D;&#x4F8B;</string>
+  <string name="license_text_part1">&#x5168;&#x90E8;&#x88AB;&#x653E;&#x4E0A;Catroid&#x7DB2;&#x7AD9;&#x5171;&#x5206;&#x4EAB;&#x7684;&#x5C08;&#x6848;&#xFF0C;&#x5305;&#x62EC;Catroid&#x652F;&#x6301;&#x7684;&#x984C;&#x6750;&#xFF0C;&#x662F;&#x6709;&#x5275;&#x610F;&#x516C;&#x7528;&#x6388;&#x6B0A;&#x689D;&#x6B3E;- &#x76F8;&#x540C;&#x65B9;&#x5F0F;&#x5171;&#x4EAB;&#x7684;&#x689D;&#x4F8B;&#x7D04;&#x675F;&#x3002;</string>
+  <string name="license_text_part2">Catroid&#x8EDF;&#x9AD4;&#x548C;&#x7DB2;&#x7AD9;&#x662F;&#x514D;&#x6536;&#x8CBB;&#x7684;&#x3002;Catroid&#x8EDF;&#x9AD4;&#x7684;&#x6E90;&#x4EE3;&#x78BC;&#x6709;&#x6548;&#x65BC;GNU&#x901A;&#x7528;&#x516C;&#x5171;&#x6388;&#x6743;&#x6761;&#x6B3E;{*emailLink1*}&#xFF0C;Catroid&#x7DB2;&#x7AD9;&#x7684;&#x6E90;&#x4EE3;&#x78BC;&#x6709;&#x6548;&#x65BC;Affero&#x901A;&#x7528;&#x516C;&#x5171;&#x6388;&#x6743;&#x6761;&#x6B3E;{*emailLink2*}.</string>
+  <string name="license_text_part3">&#x60A8;&#x53EF;&#x5728;{*emailLink*}&#x700F;&#x89BD;&#x5C08;&#x6848;&#x3002;</string>
+</strings>

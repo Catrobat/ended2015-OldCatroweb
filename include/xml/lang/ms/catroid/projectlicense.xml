@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Lesen untuk main - Beri kredit dan kongsi</string>
+  <string name="project_licence_title">Lesen untuk main - Beri kredit dan kongsi</string>
+  <string name="creative_commons_link">Creative Commons</string>
+  <string name="terms_of_use_link">Syarat-syarat Pengunaan</string>
+  <string name="share_alike_link">Sumbangan Kreatif yang sama - Kongsi Lesen Bersama</string>
+  <string name="project_licence_part1">Bayangkan setiap projek Catroid sebagai sebiji kek yang sangat istimewa beserta dengan resipi (blok pengaturcaraan). Setiap ahli komuniti Catroid akan berkongsi kek masing-masing beserta dengan resipi. Ini bermakna, anda boleh belajar cara untuk membuat kek sambil menikmati kek tersebut.</string>
+  <string name="project_licence_part2">Tiada resepi rahsia: setiap cara- cara untuk membuat kek ialah untuk dikongsi bersama kepada semua untuk digunakan, diubah malah sebagai inspirasi untuk idea-idea baru.</string>
+  <string name="project_licence_part3">Anda boleh menikmati kek sambil mengunakan resipi orang lain untuk membuat kek anda sendiri, mungkin dengan mengunakan bahan-bahan yang berlainan. Kebebasan ini datang dengan dua syarat yang mudah:</string>
+  <string name="project_licence_part3_list_element1">kongsi kek anda bersama-sama dengan resipi</string>
+  <string name="project_licence_part3_list_element2">beri kredit kepada sesiapa yang menjadi pendorong inspirasi anda</string>
+  <string name="project_licence_part4">Sesetengah orang memberikan nama kepada perkongsian ini : dikenali sebagai {*shareAlikeLink*}. Dalam pengaturan komunit Catroid, pihak kami membuat keputusan untuk mengunakan kaedah ini kerana pihak kami percaya kaedah ini akan membantu proses pembelajaran dan kreativiti dikalangan ahli komuniti. Dengan berkongsi resipi dan bahan-bahan (skrip dan hasil kerja), orang lain dapat membina idea antara satu sama lain dan setiap orang akan mendapat manfaat.</string>
+  <string name="project_licence_part5">Dalam mereka bentuk laman web Catroid, pihak kami memasukan ciri-ciri untuk mengalakkan orang ramai untuk berkongsi dan memberikan kredit kepada orang lain. Pada setiap projek, anda boleh memuat turun skrip asal projek tersebut. Jika anda mengubah projek tersebut (mengubah skrip atau hasil kerja dan kongsi hasil), kami mengalakkan anda memberikan kredit pada Nota Projek, dengan menyatakan orang dan projek yang menjadi sumber inspirasi anda.</string>
+  <string name="project_licence_learn_more">Belajar dengan lebih lanjut mengenai {*termsOfUseLink*} komuniti Catroid dan inisiatif {*creativeCommonsLink*} .</string>
+  <string name="project_licence_team">Kumpulan Catroid</string>
+</strings>

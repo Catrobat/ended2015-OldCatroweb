@@ -22,10 +22,12 @@ class CorePresenter_html extends CorePresenterCommon {
     private $header = null;
     private $footer = null;
     private $data;
+    private $languageHandler = null;
 
     public function __construct(CoreModule $module) {
         parent::__construct($module);
         $this->data = $this->module->getData();
+        $this->languageHandler = $this->module->languageHandler;
     }
 
     public function display() {
@@ -59,7 +61,8 @@ class CorePresenter_html extends CorePresenterCommon {
         } else {
             $pageTemplateFile = $this->module->pageTemplateFile;
         }
-
+        
+        header('Content-language: '.$this->languageHandler->getLanguage());
         include(CORE_BASE_PATH.'viewer/'.$this->module->moduleName.'/'.$pageTemplateFile);
 
         return true;

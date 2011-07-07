@@ -31,26 +31,11 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
 
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/catroid/passwordrecovery.php';
-    require_once CORE_BASE_PATH.'modules/catroid/registration.php';
+    require_once CORE_BASE_PATH.'modules/api/registration.php';
     $this->passwordrecoveryObj = new passwordrecovery();
     $this->registrationObj = new registration();
     $this->userHash;
   }
-  
-//  protected function tearDown() {
-//      //undo catroid registration
-//    try {
-//      $this->assertTrue($this->registrationObj->undoCatroidRegistration($this->catroidUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//    //undo wiki registration
-//    try {
-//      $this->assertTrue($this->registrationObj->undoWikiRegistration($this->wikiUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//  }
   
   /**
    * @dataProvider validRegistrationData
@@ -151,115 +136,6 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
       return;
     }
   }
-  
-  public function testUndoRegistration() {
-      //undo catroid registration
-
-  }
-  
-  
-//  /**
-//   * @dataProvider validRegistrationData
-//   */
-//  public function testDoRegistration($postData, $serverData) {
-//    try {
-//      $this->oneCatroidUserId = $this->obj->doCatroidRegistration($postData, $serverData);
-//      $this->assertGreaterThan(0, intval($catroidUserId));
-//      // check DBData vs Postdata
-//      $query = "EXECUTE get_user_row_by_username('".utf8_encode($postData['username'])."')";
-//      $result = pg_query($query);
-//      $this->assertTrue($result["country"] == $postData["country"]);
-//      $this->assertTrue($result["email"] == $postData["email"]);
-//      $this->assertTrue($result["gender"] == $postData["gender"]);
-//      $this->assertTrue($result["city"] == $postData["city"]);
-//      $this->assertTrue($result["province"] == $postData["province"]);
-//      
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//
-//    try {
-//      $this->oneBoardUserId = $this->obj->doBoardRegistration($postData);
-//      $this->assertGreaterThan(0, intval($this->boardUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }  
-//    
-//    try {
-//      $this->oneWikiUserId = $this->obj->doWikiRegistration($postData);
-//      $this->assertGreaterThan(0, intval($this->wikiUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//    //undo wiki registration
-//
-//  }
-//  
- 
-//  /**
-//   * @dataProvider validRegistrationData
-//   */
-//  public function testDeleteRegistration($catroidUserId, $boardUserId, $wikiUserId) {
-//    //undo catroid registration
-//    try {
-//      $this->assertTrue($this->obj->undoCatroidRegistration($catroidUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//    
-//    try {
-//      $this->assertTrue($this->obj->undoBoardRegistration($boardUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//    
-//    try {
-//      $wikiUserId = $this->obj->doWikiRegistration($postData);
-//      $this->assertGreaterThan(0, intval($wikiUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//    //undo wiki registration
-//      try {
-//      $this->assertTrue($this->obj->undoWikiRegistration($wikiUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//  }
-  
-//  
-//  /**
-//   * @dataProvider validRegistrationData
-//   */
-//  public function testDoRegistration($postData, $serverData) {
-//    try {
-//      $catroidUserId = $this->obj->doCatroidRegistration($postData, $serverData);
-//      $this->assertGreaterThan(0, intval($catroidUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//    //undo catroid registration
-//    try {
-//      $this->assertTrue($this->obj->undoCatroidRegistration($catroidUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//    
-//    try {
-//      $wikiUserId = $this->obj->doWikiRegistration($postData);
-//      $this->assertGreaterThan(0, intval($wikiUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//    //undo wiki registration
-//    try {
-//      $this->assertTrue($this->obj->undoWikiRegistration($wikiUserId));
-//    } catch(Exception $e) {
-//      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-//    }
-//  }
-
-
   
   /* *** DATA PROVIDERS *** */
   public function validUserData() {

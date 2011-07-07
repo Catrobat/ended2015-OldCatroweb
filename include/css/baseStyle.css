@@ -96,6 +96,12 @@ select.registration {
   max-width: 60%;
 }
 
+select.languageSwitchSelect {
+  background-color: #d7e0f5;
+  border: solid white 1px;
+  color: #222222;
+}
+
 span.webMainBottomSpacer {
   color: #7777AA;
 }

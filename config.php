@@ -17,10 +17,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('VERSION','0.6.2');
-define('BASE_PATH','http://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
+define('VERSION','0.6.2_I18N');
+@define('BASE_PATH','http://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');
 define('XML_PATH','include/xml/');
+define('LANGUAGE_PATH','include/xml/lang/');
 define('CSS_PATH','include/css/');
 define('SCRIPT_PATH','include/script/');
 define('PROJECTS_DIRECTORY','resources/projects/');
@@ -41,7 +42,6 @@ define('PROJECT_PAGE_LOAD_MAX_PROJECTS', 5);
 define('PROJECT_PAGE_SHOW_MAX_PAGES', 5);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
 define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
-define('PROJECT_DEFAULT_SAVEFILE_NAME', 'defaultProject');
 define('DEVELOPMENT_MODE',true);
 define('SEND_NOTIFICATION_EMAIL',false);
 define('SEND_NOTIFICATION_USER_EMAIL',false);
@@ -49,6 +49,11 @@ define('DEVELOPMENT_STATUS','[beta]');
 define('DEFAULT_HTML_TEMPLATE_NAME', 'htmlTemplate.php');
 define('DEFAULT_HTML_HEADER_TEMPLATE_NAME', 'htmlHeaderTemplate.php');
 define('DEFAULT_HTML_FOOTER_TEMPLATE_NAME', 'htmlFooterTemplate.php');
+define('DEFAULT_DEV_ERRORS_FILE', 'errors_dev.xml');
+define('DEFAULT_PUB_ERRORS_FILE', 'errors_pub.xml');
+define('DEFAULT_TEMPLATE_LANGUAGE_FILE', 'template.xml');
+define('SITE_DEFAULT_LANGUAGE', 'en');
+define('SITE_DEFAULT_TITLE', 'Catroid Website');
 define('MVC_DEFAULT_MODULE', 'catroid');
 define('MVC_DEFAULT_CLASS', 'index');
 define('MVC_DEFAULT_METHOD', '__default');
@@ -59,6 +64,7 @@ define('USER_EMAIL_SUBJECT_PREFIX','CATROID.ORG');
 define('ADMIN_EMAIL_WEBMASTER','webmaster@catroid.org');
 define('ADMIN_EMAIL_NOREPLY','noreply@catroid.org');
 define('ADMIN_EMAIL_SUBJECT_PREFIX','CATROID.ORG');
+define('CONTACT_EMAIL','webmaster@catroid.org');
 define('USER_STATUS_STRING_ACTIVE','active');
 define('USER_STATUS_STRING_INACTIVE','inactive');
 define('USER_STATUS_STRING_DELETED','deleted');

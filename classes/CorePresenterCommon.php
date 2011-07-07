@@ -35,7 +35,11 @@ abstract class CorePresenterCommon {
     public function getJs() {
       return $this->module->getJs();
     }
-
+  
+    public function getWebsiteTitle() {
+      return $this->module->getWebsiteTitle();
+    }
+    
     public function __destruct() {
 
     }

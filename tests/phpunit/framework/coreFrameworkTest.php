@@ -51,6 +51,20 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $this->assertTrue(is_string($this->testModel->errorHandler->getError('db', 'query_failed')));
   }
 
+  public function testLanguageHandlerCheckParamCount() {
+    $msg = "this is a test message with a {*firstParam*} and a {*secondParam*} in it";
+    $this->assertTrue($this->testModel->languageHandler->checkParamCount($msg, 2));
+    $msg = "this is a test message without parameters.";
+    $this->assertTrue($this->testModel->languageHandler->checkParamCount($msg, 0));
+  }
+
+  /**
+   * @dataProvider languageHandlerMsgs
+   */
+  public function testLanguageHandlerParseString($msg, $expectedMsg, $args) {
+    $this->assertEquals($expectedMsg, $this->testModel->languageHandler->parseString($msg, $args));
+  }
+
   public function testMailHandler() {
     $mailSubject = "This is a mail subject";
     $mailText = "This is some text for the email body.";
@@ -58,7 +72,6 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->testModel->mailHandler->sendAdministrationMail('', ''));
     $this->assertFalse($this->testModel->mailHandler->sendAdministrationMail('', $mailText));
     $this->assertFalse($this->testModel->mailHandler->sendAdministrationMail($mailSubject, ''));
-    //$this->assertFalse($this->testModel->mailHandler->sendAdministrationMail($mailSubject, $mailText));    
   }
 
   public function testPreparedStatements() {
@@ -113,42 +126,42 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($numJs, $jsCounter);
     $this->assertEquals(null, $this->testModel->getJs());
   }
-  
+
   /*
    * corePreseterTests
    */
 
-    public function testHtmlPresenter() {
-      $view = new CorePresenter_html($this->testModel);
-      $this->assertFalse($view->display());
-      $this->assertEquals(10, $view->testValue);
-    }
+  public function testHtmlPresenter() {
+    $view = new CorePresenter_html($this->testModel);
+    $this->assertFalse($view->display());
+    $this->assertEquals(10, $view->testValue);
+  }
 
-    public function testJsonPresenter() {
-      $view = new CorePresenter_json($this->testModel);
-      $tmpAssocArray = json_decode($view->getJsonString(), true);
-      $this->assertEquals(10, $tmpAssocArray['testValue']);
-    }
+  public function testJsonPresenter() {
+    $view = new CorePresenter_json($this->testModel);
+    $tmpAssocArray = json_decode($view->getJsonString(), true);
+    $this->assertEquals(10, $tmpAssocArray['testValue']);
+  }
 
-    public function testHttpPresenter() {
-      $view = new CorePresenter_http($this->testModel);
-      $this->assertEquals(500, $view->getStatusCode());
-    }
+  public function testHttpPresenter() {
+    $view = new CorePresenter_http($this->testModel);
+    $this->assertEquals(500, $view->getStatusCode());
+  }
 
-    public function testXmlPresenter() {
-      $view = new CorePresenter_xml($this->testModel);
-      $xml = simplexml_load_string($view->getXmlString());
-      $values = $xml->children();
-      $this->assertEquals(10, intval($values[0]));
-    }
-    
+  public function testXmlPresenter() {
+    $view = new CorePresenter_xml($this->testModel);
+    $xml = simplexml_load_string($view->getXmlString());
+    $values = $xml->children();
+    $this->assertEquals(10, intval($values[0]));
+  }
+
   /**
    * @dataProvider badWords
    */
   public function testBadwordsFilterBad($badWord) {
     $this->assertEquals(1, $this->testModel->badWordsFilter->areThereInsultingWords($badWord));
   }
-  
+
   /**
    * @dataProvider goodWords
    */
@@ -156,25 +169,79 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(0, $this->testModel->badWordsFilter->areThereInsultingWords($goodWord));
   }
 
+  /**
+   * @dataProvider forbiddenClassNames
+   */
+  public function testForbiddenClassNames($className) {
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/api/'.$className.'.php'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/admin/'.$className.'.php'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/catroid/'.$className.'.php'));
+    $this->assertFalse(is_file(CORE_BASE_PATH.'modules/test/'.$className.'.php'));
+  }
+
+  /**
+   * @dataProvider forbiddenModuleNames
+   */
+  public function testForbiddenModuleNames($moduleName) {
+    $this->assertFalse(is_dir(CORE_BASE_PATH.'modules/'.$moduleName));
+  }
+
   /* DATA PROVIDERS */
   public function badWords() {
     $badWords = array(
-          array("fuck"), 
-          array("shit"),
-          array("ass"),
-          array("this is a sucking text with some really bad words in it. so go home asshole!"),
-          array("f*uck"));
+    array("fuck"),
+    array("shit"),
+    array("ass"),
+    array("this is a sucking text with some really bad words in it. so go home asshole!"),
+    array("f*uck"));
     return $badWords;
   }
-  
+
   public function goodWords() {
     $goodWords = array(
-          array("test"), 
-          array("backslash\\"),
-          array("catroid"),
-          array("here comes some text which does not have any insulting word inside."),
-          array("project"));
+    array("test"),
+    array("backslash\\"),
+    array("catroid"),
+    array("here comes some text which does not have any insulting word inside."),
+    array("project"));
     return $goodWords;
+  }
+
+  public function languageHandlerMsgs() {
+    $msgs = array(
+    array("this is a test message with variable {*firstParam123*} and {*secondParam012*} in it.", "this is a test message with variable numbers: 12345 and characters: abcde in it.", array('numbers: 12345', 'characters: abcde')),
+    array("message without parameters", "message without parameters", array()),
+    array("message without parameters but with special chars like äÖüß and _[] {}*<br>", "message without parameters but with special chars like äÖüß and _[] {}*<br>", array()),
+    array("here come some special chars: {*specialChars*}", "here come some special chars: {[}]*_Üöß^", array("{[}]*_Üöß^"))
+    );
+    return $msgs;
+  }
+
+  public function forbiddenClassNames() {
+    $names = array(
+    array(substr(DEFAULT_DEV_ERRORS_FILE, 0, strpos(DEFAULT_DEV_ERRORS_FILE, '.'))),
+    array(substr(DEFAULT_PUB_ERRORS_FILE, 0, strpos(DEFAULT_PUB_ERRORS_FILE, '.'))),
+    array(substr(DEFAULT_TEMPLATE_LANGUAGE_FILE, 0, strpos(DEFAULT_TEMPLATE_LANGUAGE_FILE, '.')))
+    );
+    return $names;
+  }
+
+  public function forbiddenModuleNames() {
+    $names = array(
+    array('errors'),
+    array('addons'),
+    array('classes'),
+    array('images'),
+    array('include'),
+    array('install'),
+    array('modules'),
+    array('pootle'),
+    array('resources'),
+    array('sql'),
+    array('tests'),
+    array('viewer')
+    );
+    return $names;
   }
 }
 ?>

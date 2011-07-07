@@ -24,7 +24,7 @@ class configTest extends PHPUnit_Framework_TestCase
 
   public function testConfig()
   {
-    $this->assertEquals(VERSION, '0.6.2');
+    $this->assertEquals(VERSION, '0.6.2_I18N');
     $this->assertEquals(XML_PATH, 'include/xml/');
     $this->assertEquals(CSS_PATH, 'include/css/');
     $this->assertEquals(SCRIPT_PATH, 'include/script/');
@@ -47,11 +47,15 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECT_PAGE_SHOW_MAX_PAGES, 5);
     $this->assertEquals(PROJECT_ROW_MAX_PROJECTS, 3);
     $this->assertEquals(PROJECT_FLAG_NOTIFICATION_THRESHOLD, 1);
-    $this->assertEquals(PROJECT_DEFAULT_SAVEFILE_NAME, 'defaultProject');
     $this->assertEquals(DEVELOPMENT_STATUS, '[beta]');
     $this->assertEquals(DEFAULT_HTML_TEMPLATE_NAME, 'htmlTemplate.php');
     $this->assertEquals(DEFAULT_HTML_HEADER_TEMPLATE_NAME, 'htmlHeaderTemplate.php');
     $this->assertEquals(DEFAULT_HTML_FOOTER_TEMPLATE_NAME, 'htmlFooterTemplate.php');
+    $this->assertEquals(DEFAULT_DEV_ERRORS_FILE, 'errors_dev.xml');
+    $this->assertEquals(DEFAULT_PUB_ERRORS_FILE, 'errors_pub.xml');
+    $this->assertEquals(DEFAULT_TEMPLATE_LANGUAGE_FILE, 'template.xml');
+    $this->assertEquals(SITE_DEFAULT_LANGUAGE, 'en');
+    $this->assertEquals(SITE_DEFAULT_TITLE, 'Catroid Website');
     $this->assertEquals(MVC_DEFAULT_MODULE, 'catroid');
     $this->assertEquals(MVC_DEFAULT_CLASS, 'index');
     $this->assertEquals(MVC_DEFAULT_METHOD, '__default');
@@ -71,7 +75,6 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(USER_MIN_PASSWORD_LENGTH, 6);
     $this->assertEquals(USER_MAX_PASSWORD_LENGTH, 32);
     $this->assertEquals(DATABASE_CONNECTION_PERSISTENT, true);
-    
   }
 }
 ?>

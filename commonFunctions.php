@@ -30,25 +30,27 @@ function getUsernameBlacklistArray() {
   $usernameBlacklist = array(
     'admin',
     'catroid',
-    'kittyroid'
-    );
-    return $usernameBlacklist;
+		'administrator',
+    'catroweb',
+  	'kittyroid'
+  	);
+  	return $usernameBlacklist;
 }
 
-function getMonthsArray() {
+function getMonthsArray($languageHandler) {
   $months = array(
-  1=>"Jan",
-  2=>"Feb",
-  3=>"Mar",
-  4=>"Apr",
-  5=>"May",
-  6=>"Jun",
-  7=>"Jul",
-  8=>"Aug",
-  9=>"Sep",
-  10=>"Oct",
-  11=>"Nov",
-  12=>"Dec"
+  1=>$languageHandler->getString('template_common_january'),
+  2=>$languageHandler->getString('template_common_february'),
+  3=>$languageHandler->getString('template_common_march'),
+  4=>$languageHandler->getString('template_common_april'),
+  5=>$languageHandler->getString('template_common_may'),
+  6=>$languageHandler->getString('template_common_june'),
+  7=>$languageHandler->getString('template_common_july'),
+  8=>$languageHandler->getString('template_common_august'),
+  9=>$languageHandler->getString('template_common_september'),
+  10=>$languageHandler->getString('template_common_october'),
+  11=>$languageHandler->getString('template_common_november'),
+  12=>$languageHandler->getString('template_common_december')
   );
   return $months;
 }
@@ -121,40 +123,84 @@ function getProjectQRCodeUrl($projectId) {
   return $qr;
 }
 
-function getTimeInWords($fromTime, $toTime = 0) {
+function getTimeInWords($fromTime, $languageHandler, $toTime = 0) {
   if($toTime == 0) {
     $toTime = time();
   }
   $seconds = round(abs($toTime - $fromTime));
   $minutes = round($seconds/60);
   if ($minutes <= 1) {
-    return ($minutes == 0) ? 'less than a minute' : '1 minute';
+    return ($minutes == 0) ? $languageHandler->getString('template_common_less_than_a_minute_ago') : $languageHandler->getString('one_minute_ago');
   }
   if ($minutes < 45) {
-    return $minutes.' minutes';
+    return $languageHandler->getString('template_common_minutes_ago', $minutes);
   }
   if ($minutes < 90) {
-    return 'about 1 hour';
+    return $languageHandler->getString('template_common_one_hour_ago');
   }
   if ($minutes < 1440) {
-    return 'about '.round(floatval($minutes)/60.0).' hours';
+    return $languageHandler->getString('template_common_hours_ago', round(floatval($minutes)/60.0));
   }
   if ($minutes < 2880) {
-    return '1 day';
+    return $languageHandler->getString('template_common_one_day_ago');
   }
   if ($minutes < 43200) {
-    return 'about '.round(floatval($minutes)/1440).' days';
+    return $languageHandler->getString('template_common_days_ago', round(floatval($minutes)/1440));
   }
   if ($minutes < 86400) {
-    return 'about 1 month';
+    return $languageHandler->getString('template_common_one_month_ago');
   }
   if ($minutes < 525600) {
-    return round(floatval($minutes)/43200).' months';
+    return $languageHandler->getString('template_common_months_ago', round(floatval($minutes)/43200));
   }
   if ($minutes < 1051199) {
-    return 'about 1 year';
+    return $languageHandler->getString('template_common_one_year_ago');
   }
-  return 'over '.round(floatval($minutes)/525600) . ' years';
+  return $languageHandler->getString('template_common_over_years_ago', round(floatval($minutes)/525600));
+}
+
+function getSupportedLanguagesArray() {
+  $supportedLanguages = array(
+  	'de',
+  	'en',
+  	'ms',
+  	'cn',
+    'cn-tw'
+  );
+  return $supportedLanguages;
+}
+
+function copyDir($src, $dst) {
+  if(file_exists($dst)) {
+    removeDir($dst);
+  }
+  if(is_dir($src)) {
+    mkdir($dst, 0777, true);
+    $files = scandir($src);
+    foreach($files as $file) {
+      if($file != "." && $file != "..") {
+        copyDir("$src/$file", "$dst/$file");
+      }
+    }
+  }
+  else if(file_exists($src)) {
+    copy($src, $dst);
+  }
+}
+
+function removeDir($dir) {
+  if(is_dir($dir)) {
+    $files = scandir($dir);
+    foreach($files as $file) {
+      if($file != "." && $file != "..") {
+        removeDir("$dir/$file");
+      }
+    }
+    rmdir($dir);
+  }
+  else if(file_exists($dir)) {
+    unlink($dir);
+  }
 }
 
 ?>

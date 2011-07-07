@@ -71,8 +71,6 @@ public class RegistrationTests extends BaseTest {
       session().click("headerMenuButton");
       waitForPageToLoad();
 
-      assertTrue(session().isVisible("xpath=//button[@id='menuLogoutButton']"));
-
       clickAndWaitForPopUp("menuForumButton", "board");
       assertFalse(session().isTextPresent("Login"));
       assertTrue(session().isTextPresent("Logout"));
@@ -85,11 +83,14 @@ public class RegistrationTests extends BaseTest {
       assertEquals("Preferences", session().getText("firstHeading"));
       assertFalse(session().isTextPresent("Not logged in"));
       closePopUp();
-
-      session().click("menuLogoutButton");
-      waitForPageToLoad();
-      ajaxWait();
-
+      
+      openLocation();
+      assertTrue(session().isVisible("headerProfileButton"));
+      session().click("headerProfileButton");
+      assertTrue(session().isVisible("logoutSubmitButton"));
+      session().click("logoutSubmitButton");
+      Thread.sleep(Config.TIMEOUT_THREAD);
+      
       session().click("headerProfileButton");
       assertTrue(session().isVisible("loginSubmitButton"));
       assertTrue(session().isVisible("loginUsername"));
@@ -161,8 +162,6 @@ public class RegistrationTests extends BaseTest {
 
       session().click("headerMenuButton");
       waitForPageToLoad();
-
-      assertTrue(session().isVisible("menuLoginButton"));
 
       clickAndWaitForPopUp("menuForumButton", "board");
       assertTrue(session().isTextPresent("Login"));
