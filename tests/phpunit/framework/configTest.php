@@ -32,7 +32,8 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECTS_UNZIPPED_DIRECTORY, 'resources/catroid/');
     $this->assertEquals(PROJECTS_QR_DIRECTORY, 'resources/qrcodes/');
     $this->assertEquals(PROJECTS_QR_EXTENTION, '_qr.png');
-    $this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://qrcode.kaywa.com/img.php?s=5&d=');
+    $this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://catroidwebtest.ist.tugraz.at/api/qrCodeGenerator/generate.png?url=');
+    //$this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://qrcode.kaywa.com/img.php?s=5&d=');
     $this->assertEquals(PROJECTS_THUMBNAIL_DIRECTORY, 'resources/thumbnails/');
     $this->assertEquals(PROJECTS_THUMBNAIL_DEFAULT, 'thumbnail');
     $this->assertEquals(PROJECTS_THUMBNAIL_EXTENTION_ORIG, '_original.jpg');
