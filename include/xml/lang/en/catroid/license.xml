@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Catroid: An on-device graphical programming language for Android devices
+      Copyright (C) 2010-2011 The Catroid Team
+      (<http://code.google.com/p/catroid/wiki/Credits>)
+ 
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU Affero General Public License as
+      published by the Free Software Foundation, either version 3 of the
+      License, or (at your option) any later version.
+  
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU Affero General Public License for more details.
+  
+      You should have received a copy of the GNU Affero General Public License
+      along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+ 
+ 
+<strings>
+  <string name="title">License</string>
+  <string name="license_text_part1">All projects shared on the Catroid website, as well as the Catroid support materials, are shared under the Creative Commons license with the conditions Attribution - Share Alike.</string>
+  <string name="license_text_part2">The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the GNU General Public License {*emailLink1*}, 
+                  the source code of the website is available under the GNU Affero General Public License {*emailLink2*}.</string>
+  <string name="license_text_part3">You can visit the project at {*emailLink*}.</string>
+
+
+
+</strings>

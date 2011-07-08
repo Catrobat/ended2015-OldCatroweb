@@ -21,12 +21,14 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
   public $session;
   public $cssFiles;
   public $jsFiles;
+  public $websiteTitle;
 
   public function __construct() {
     parent::__construct();
     $this->session = CoreSession::getInstance();
     $this->cssFiles = array();
     $this->jsFiles = array();
+    $this->websiteTitle = SITE_DEFAULT_TITLE;
   }
 
   public function _destruct() {
@@ -47,6 +49,14 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
 
   public function getJs() {
     return array_shift($this->jsFiles);
+  }
+  
+  public function setWebsiteTitle($title) {
+    $this->websiteTitle .= ' - ' . $title;
+  }
+  
+  public function getWebsiteTitle() {
+    return $this->websiteTitle;
   }
 
   public function setupBoard() {

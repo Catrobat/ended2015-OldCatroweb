@@ -21,17 +21,19 @@ class CoreErrorHandler {
   private $errors = array();
   private $session;
   private $mailHandler;
+  private $moduleName;
 
-  public function __construct($session, $mailHandler) {
+  public function __construct($session, $mailHandler, $moduleName) {
     $this->session = $session;
     $this->mailHandler = $mailHandler;
+    $this->moduleName = $moduleName;
     $this->setErrors();
   }
 
   private function setErrors() {
-    $file = CORE_BASE_PATH.XML_PATH.'errors_pub.xml';
+    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->session->SITE_LANGUAGE.'/'.'errors/'.DEFAULT_PUB_ERRORS_FILE;
     if(DEVELOPMENT_MODE) {
-      $file = CORE_BASE_PATH.XML_PATH.'errors_dev.xml';
+      $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->session->SITE_LANGUAGE.'/'.'errors/'.DEFAULT_DEV_ERRORS_FILE;
     }
     if(file_exists($file)) {
       $xml = simplexml_load_file($file);
@@ -54,39 +56,32 @@ class CoreErrorHandler {
   }
 
   public function getError($type, $code, $extraInfo = '') {
+    $numargs = func_num_args();
+    $args = array();
+    if($numargs > 3) {
+      $args = array_slice(func_get_args(), 3);
+    }
     if(isset($this->errors[$type][$code])) {
       if(DEVELOPMENT_MODE && $extraInfo != '') {
-        return $this->errors[$type][$code].'<br>'.$extraInfo;
+        return $this->parseErrorMessage($this->errors[$type][$code], $args).'<br>'.$extraInfo;
       } else {
-        return $this->errors[$type][$code];
+        return $this->parseErrorMessage($this->errors[$type][$code], $args);
       }
     } else {
       return 'unknown error: "'.$code.'"!';
     }
   }
 
-  public function showError($type, $code, $extraInfo = '') {
-    if(!$this->errors[strval($type)][strval($code)]) {
-      echo "unknown error: \"".$code."\"!";
-      echo "<br /><a href='".BASE_PATH."'>Go back to start.</a>";
-      exit();
+  public function showErrorPage($type, $code, $extraInfo = '') {
+    $numargs = func_num_args();
+    $args = array();
+    if($numargs > 3) {
+      $args = array_slice(func_get_args(), 3);
     }
-
-    echo 'ERROR: '.$this->errors[strval($type)][strval($code)];
-    if(DEVELOPMENT_MODE) {
-      echo ': <br />'.$extraInfo;
-    }
-    else {
-      echo "<br /><a href='".BASE_PATH."'>Go back to start.</a>";
-    }
-    exit();
-  }
-
-  public function showErrorPage($type, $code, $extraInfo = '', $errorMode = '') {
     $this->session->errorType = $type;
     $this->session->errorCode = $code;
     $this->session->errorExtraInfo = $extraInfo;
-    $this->session->errorMode = $errorMode;
+    $this->session->errorArgs = $args;
     $this->sendNotificationEmail($type, $code, $extraInfo);
     if(!headers_sent()) {
       header("Location: ".BASE_PATH."catroid/errorPage");
@@ -95,7 +90,7 @@ class CoreErrorHandler {
       return false;
     }
   }
-  
+
   private function sendNotificationEmail($type, $code, $extraInfo) {
     $http_ref = "";
     if (isset($_SERVER["HTTP_REFERER"])) $http_ref = $_SERVER["HTTP_REFERER"];
@@ -112,11 +107,35 @@ class CoreErrorHandler {
     $mailText .= "--- *** ---\n\n";
     $mailText .= "--- USER DETAILS ---\n";
     $mailText .= "User IP: <".$_SERVER['REMOTE_ADDR'].">\n";
-    $mailText .= "User HTTP Referer: <".$http_ref.">\n";    
+    $mailText .= "User HTTP Referer: <".$http_ref.">\n";
     $mailText .= "--- *** ---\n\n";
     $mailText .= "You should check this!";
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+  }
+
+  public function parseErrorMessage($msg, $args) {
+    if(count($args) <= 0) {
+      return $msg;
+    }
+    if(!$this->checkParamCount($msg, count($args))) {
+      return $msg;
+    }
+    for($i=0; $i<count($args); $i++) {
+      $pattern = "/[{][\*][a-zA-Z0-9_]+[\*][}]/";
+      $msg = preg_replace($pattern, $args[$i], $msg, 1);
+    }
+    return $msg;
+  }
+
+  public function checkParamCount($msg, $num) {
+    $ret = array();
+    $paramCount = preg_match_all("/[{][\*][a-zA-Z0-9_]+[\*][}]/", $msg, $ret);
+    if($paramCount == $num) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   public function __destruct() {

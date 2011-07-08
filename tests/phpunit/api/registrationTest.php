@@ -25,7 +25,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
   protected $backupGlobals = FALSE;
 
   protected function setUp() {
-    require_once CORE_BASE_PATH.'modules/catroid/registration.php';
+    require_once CORE_BASE_PATH.'modules/api/registration.php';
     $this->obj = new registration();
   }
 

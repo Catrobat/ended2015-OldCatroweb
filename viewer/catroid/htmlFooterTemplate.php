@@ -17,18 +17,35 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
+    <script type="text/javascript">
+      $(document).ready(function() {        
+        new LanguageHandler();
+      });
+    </script>
     <div class="webMainBottom">
       <div class="blueBoxMain">
         <div class="webMainLicense"> 
-          <a class="license" id="_privacy" href="<?php echo BASE_PATH?>catroid/privacypolicy">Privacy policy</a>
+          <a class="license" id="_privacy" href="<?php echo BASE_PATH?>catroid/privacypolicy"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a>
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_termsofuse" href="<?php echo BASE_PATH?>catroid/terms">Terms of Use </a>  	      
+          <a class="license" id="_termsofuse" href="<?php echo BASE_PATH?>catroid/terms"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>  	      
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_copyright" href="<?php echo BASE_PATH?>catroid/copyrightpolicy">Copyright policy</a>
+          <a class="license" id="_copyright" href="<?php echo BASE_PATH?>catroid/copyrightpolicy"><?php echo $this->languageHandler->getString('template_footer_copyright_policy_link')?></a>
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_imprint" href="<?php echo BASE_PATH?>catroid/imprint">Imprint</a>
+          <a class="license" id="_imprint" href="<?php echo BASE_PATH?>catroid/imprint"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a>
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_contactus" href="<?php echo BASE_PATH?>catroid/contactus">Contact</a> 
+          <a class="license" id="_contactus" href="<?php echo BASE_PATH?>catroid/contactus"><?php echo $this->languageHandler->getString('template_footer_contact_link')?></a>
+          <span class="webMainBottomSpacer">|</span>
+          <select id="switchLanguage" class="languageSwitchSelect">
+            <?php 
+              $supportedLanguages = getSupportedLanguagesArray();
+              foreach($supportedLanguages as $lang) {
+                $selected = "";
+                if(strcmp($lang, $this->languageHandler->getLanguage()) == 0) {
+                  $selected = "selected";
+                }?>
+                <option <?php echo $selected?> value="<?php echo $lang?>"><?php echo $lang?></option>
+            <?php }?>
+          </select>
         </div>
       </div>
     </div> <!--  WEBMAINBOTTOM -->

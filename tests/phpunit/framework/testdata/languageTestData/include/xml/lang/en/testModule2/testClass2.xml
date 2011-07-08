@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Catroid: An on-device graphical programming language for Android devices
+      Copyright (C) 2010-2011 The Catroid Team
+      (<http://code.google.com/p/catroid/wiki/Credits>)
+ 
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU Affero General Public License as
+      published by the Free Software Foundation, either version 3 of the
+      License, or (at your option) any later version.
+  
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU Affero General Public License for more details.
+  
+      You should have received a copy of the GNU Affero General Public License
+      along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<strings>
+	<string name="title">Terms of use</string>
+	<string name="share_alike_licence_link">Attribution - Share Alike</string>
+	<string name="gnu_licence_link">GNU General Public License</string>
+	<string name="gnu_affero_licence_link">GNU Affero General Public License</string>
+	<string name="google_code_link">Google Code</string>
+	<string name="terms_of_use_catroid_community_list_head">Welcome to the Catroid community! As part of the Catroid community, you are sharing projects and ideas with people:</string>
+	<string name="terms_of_use_catroid_community_list_element1">from many different countries and cultures</string>
+	<string name="terms_of_use_catroid_community_list_element2">of all ages (from young children to teens and grandparents)</string>
+	<string name="terms_of_use_catroid_community_list_element3">with all levels of experience</string>
+	<string name="terms_of_use_catroid_help_list_head">We need your help to make this community a supportive place for every member. Here's how you can help:</string>
+	<string name="terms_of_use_catroid_help_list_element1">Be respectful. When sharing projects remember that people of many different ages and backgrounds will see your contributions.</string>
+	<string name="terms_of_use_catroid_help_list_element2">Give credit. Feel free to make modified versions of other people's projects - just make sure to give them credit. One place to give credit is in your Project description.</string>
+	<string name="terms_of_use_catroid_help_list_element3">Be honest. Don't pretend to be someone other than who you are or try to trick the community.</string>
+	<string name="terms_of_use_catroid_help_list_element4">Keep personal information private. Don't share your email address, phone number, or other personal contact information.</string>
+	<string name="terms_of_use_catroid_help_list_element5">
+		Help keep the site friendly. If you feel others would find a project or comment mean, insulting, too violent, or otherwise inappropriate,  
+		just klick the "report as inappropriate" button. The Catroid team will review, and may remove any project, comment or post.
+	</string>
+	<string name="terms_of_use_project_licence">
+		All projects shared on the Catroid website, as well as the Catroid support materials, are shared under the Creative Commons license with the
+		conditions {*shareAlikeLink*}.
+	</string>
+	<string name="terms_of_use_software_licence">
+		The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under
+		the {*gnuLink*}, the source code of the website is available under the {*gnuAfferoLink*}.
+	</string>
+	<string name="terms_of_use_google_code">
+		You can visit the project at {*googleCodeLink*}.
+	</string>
+	<string name="terms_of_use_check_back">
+		Check back here from time-to-time, because we are always trying to improve our guidelines.
+		Please mail any suggestions regarding these Terms of Use to {*emailLink*}.
+	</string>
+	<string name="terms_of_use_thanks">Thank you for joining and contributing to the Catroid community!</string>
+	<string name="terms_of_use_team">The Catroid Team</string>
+</strings>

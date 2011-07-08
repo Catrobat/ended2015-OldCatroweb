@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="login">&#x767B;&#x5F55;</string>
+  <string name="password_recover">&#x5FD8;&#x8BB0;&#x4E86;&#x60A8;&#x7684;&#x5BC6;&#x7801;&#xFF1F;</string>
+  <string name="title">&#x6CE8;&#x518C;&#x65B0;&#x5E10;&#x53F7;</string>
+  <string name="headline">&#x8BF7;&#x8F93;&#x5165;&#x6635;&#x79F0;&#xFF0C;&#x5BC6;&#x7801;&#xFF0C;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x548C;&#x60A8;&#x7684;&#x56FD;&#x5BB6;&#x3002;</string>
+  <string name="nickname">&#x6635;&#x79F0;</string>
+  <string name="enter_nickname">&#x8F93;&#x5165;&#x6635;&#x79F0;</string>
+  <string name="password">&#x5BC6;&#x7801;</string>
+  <string name="enter_password">&#x8F93;&#x5165;&#x5BC6;&#x7801;</string>
+  <string name="email">&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;</string>
+  <string name="enter_email">&#x8F93;&#x5165;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;</string>
+  <string name="country">&#x56FD;&#x5BB6;</string>
+  <string name="select_country">&#x9009;&#x62E9;&#x60A8;&#x7684;&#x56FD;&#x5BB6;</string>
+  <string name="city">&#x5E02;</string>
+  <string name="enter_city">&#x8F93;&#x5165;&#x60A8;&#x7684;&#x5E02;</string>
+  <string name="birth">&#x751F;&#x65E5;</string>
+  <string name="select_month">&#x9009;&#x62E9;&#x6708;&#x4EFD;</string>
+  <string name="select_year">&#x9009;&#x62E9;&#x5E74;&#x4EFD;</string>
+  <string name="gender">&#x6027;&#x522B;</string>
+  <string name="select_gender">&#x9009;&#x62E9;&#x6027;&#x522B;</string>
+  <string name="female">&#x5973;</string>
+  <string name="male">&#x7537;</string>
+  <string name="create">&#x521B;&#x5EFA;&#x6211;&#x7684;&#x5E10;&#x53F7;</string>
+</strings>
