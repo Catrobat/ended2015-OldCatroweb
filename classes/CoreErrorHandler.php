@@ -19,21 +19,27 @@
 
 class CoreErrorHandler {
   private $errors = array();
+  private $defaultLanguageErrors = array();
   private $session;
   private $mailHandler;
   private $moduleName;
+  private $language;
 
   public function __construct($session, $mailHandler, $moduleName) {
     $this->session = $session;
     $this->mailHandler = $mailHandler;
     $this->moduleName = $moduleName;
+    $this->language = $this->session->SITE_LANGUAGE;
+    if(strcmp($this->language, SITE_DEFAULT_LANGUAGE) != 0) {
+      $this->setDefaultErrors();
+    }
     $this->setErrors();
   }
 
   private function setErrors() {
-    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->session->SITE_LANGUAGE.'/'.'errors/'.DEFAULT_PUB_ERRORS_FILE;
+    $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->language.'/'.'errors/'.DEFAULT_PUB_ERRORS_FILE;
     if(DEVELOPMENT_MODE) {
-      $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->session->SITE_LANGUAGE.'/'.'errors/'.DEFAULT_DEV_ERRORS_FILE;
+      $file = CORE_BASE_PATH.LANGUAGE_PATH.$this->language.'/'.'errors/'.DEFAULT_DEV_ERRORS_FILE;
     }
     if(file_exists($file)) {
       $xml = simplexml_load_file($file);
@@ -46,6 +52,27 @@ class CoreErrorHandler {
         $attributes = $error->attributes();
         if($error_type->getName() && $attributes['name']) {
           $this->errors[strval($error_type->getName())][strval($attributes['name'])] = strval($error);
+        }
+      }
+    }
+  }
+
+  private function setDefaultErrors() {
+    $file = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.'errors/'.DEFAULT_PUB_ERRORS_FILE;
+    if(DEVELOPMENT_MODE) {
+      $file = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.'errors/'.DEFAULT_DEV_ERRORS_FILE;
+    }
+    if(file_exists($file)) {
+      $xml = simplexml_load_file($file);
+    } else {
+      return false;
+    }
+
+    foreach($xml->children() as $error_type) {
+      foreach($error_type as $error) {
+        $attributes = $error->attributes();
+        if($error_type->getName() && $attributes['name']) {
+          $this->defaultLanguageErrors[strval($error_type->getName())][strval($attributes['name'])] = strval($error);
         }
       }
     }
@@ -66,6 +93,12 @@ class CoreErrorHandler {
         return $this->parseErrorMessage($this->errors[$type][$code], $args).'<br>'.$extraInfo;
       } else {
         return $this->parseErrorMessage($this->errors[$type][$code], $args);
+      }
+    } elseif(isset($this->defaultLanguageErrors[$type][$code])) {
+      if(DEVELOPMENT_MODE && $extraInfo != '') {
+        return $this->parseErrorMessage($this->defaultLanguageErrors[$type][$code], $args).'<br>'.$extraInfo;
+      } else {
+        return $this->parseErrorMessage($this->defaultLanguageErrors[$type][$code], $args);
       }
     } else {
       return 'unknown error: "'.$code.'"!';
