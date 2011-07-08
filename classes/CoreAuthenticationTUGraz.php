@@ -1,6 +1,6 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2011 The Catroid Team
+ *    Copyright (C) 2010-2011 The Catroid Team 
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
@@ -17,31 +17,25 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class qrCodeGenerator extends CoreAuthenticationTUGraz {
+abstract class CoreAuthenticationTUGraz extends CoreAuthentication {
+    function __construct() {
+        parent::__construct();
+    }
 
-  public function __construct() {
-    parent::__construct();
-  }
-
-  public function __default() {
-    echo 'ok';
-    exit();
-  }
-
-  public function generate() {
-    $this->generateQrCode($_REQUEST['url']);
-  }
-  
-  public function generateQrCode($url) {
-    if($url) {
-      $this->qr = shell_exec("qrencode \"".$url."\" -s 5 -o -");
-    } else {
+    function authenticate() {
+      if(isset($_SERVER["REMOTE_ADDR"])) {
+        $ip = $_SERVER["REMOTE_ADDR"];
+        if(strcmp($ip, '127.0.0.1')==0 || strcmp(substr($ip, 0, 6), '129.27')==0) {
+          return true;
+        }
+      }
+      $this->errorHandler->showErrorPage('auth', 'not_a_tugraz_ip');
       return false;
     }
-  }
-  
-  public function __destruct() {
-    parent::__destruct();
-  }
+
+    function __destruct() {
+        parent::__destruct();
+    }
 }
+
 ?>
