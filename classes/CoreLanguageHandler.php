@@ -165,9 +165,11 @@ class CoreLanguageHandler {
     } else {
       $lang = $this->browserLanguage;
     }
-    if(!in_array($lang, getSupportedLanguagesArray())) {
+    $supportedLanguages = getSupportedLanguagesArray($this);
+    if(!isset($supportedLanguages[$lang]) || !$supportedLanguages[$lang]['supported']) {
       $lang = SITE_DEFAULT_LANGUAGE;
     }
+    
     $this->setLanguageCookie($lang);
     $this->language = $lang;
   }

@@ -37,13 +37,15 @@
           <span class="webMainBottomSpacer">|</span>
           <select id="switchLanguage" class="languageSwitchSelect">
             <?php 
-              $supportedLanguages = getSupportedLanguagesArray();
-              foreach($supportedLanguages as $lang) {
-                $selected = "";
-                if(strcmp($lang, $this->languageHandler->getLanguage()) == 0) {
-                  $selected = "selected";
-                }?>
-                <option <?php echo $selected?> value="<?php echo $lang?>"><?php echo $lang?></option>
+              $supportedLanguages = getSupportedLanguagesArray($this->languageHandler);
+              foreach($supportedLanguages as $lang => $details) {
+                if($details['supported']) {
+                  $selected = "";
+                  if(strcmp($lang, $this->languageHandler->getLanguage()) == 0) {
+                    $selected = "selected";
+                  }?>
+                  <option <?php echo $selected?> value="<?php echo $lang?>"><?php echo $details['name'].' - '.$details['nameNative']?></option>
+                <?php }?>
             <?php }?>
           </select>
         </div>
