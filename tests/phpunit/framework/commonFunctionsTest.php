@@ -117,7 +117,11 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
   }
   
   public function testGetSupportedLanguagesArray() {
-    $this->assertTrue(in_array(SITE_DEFAULT_LANGUAGE, getSupportedLanguagesArray()));
+    require_once('frameworkTestModel.php');
+    $testModel = new frameworkTestModel();
+    $supportedLanguages = getSupportedLanguagesArray($testModel->languageHandler);
+    $this->assertTrue(isset($supportedLanguages[SITE_DEFAULT_LANGUAGE]));
+    $this->assertTrue($supportedLanguages[SITE_DEFAULT_LANGUAGE]['supported']);
   }
   
   public function testCopyAndRemoveDir() {

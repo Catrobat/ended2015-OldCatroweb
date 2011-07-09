@@ -31,7 +31,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
     $this->file_listing = array();
     $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js", "java");
     $this->whitelist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php", "strings.xml");
-    $this->whitelist_folders = array("addons", "pear", "target", "resources");
+    $this->whitelist_folders = array("addons", "pear", "target", "resources", "pootle");
 
     $this->license = array(
     "Catroid: An on-device graphical programming language for Android devices",
