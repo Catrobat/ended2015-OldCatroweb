@@ -1,4 +1,4 @@
-﻿/*
+/*
 Navicat PGSQL Data Transfer
 
 Source Server         : local
