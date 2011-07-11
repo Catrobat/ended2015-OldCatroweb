@@ -1,4 +1,4 @@
-﻿/*
+/*
 Navicat PGSQL Data Transfer
 
 Source Server         : local
@@ -37,4 +37,3 @@ WITH (OIDS=FALSE)
 ;;
 
 INSERT INTO "public"."projects" VALUES ('1', 'testproject', 'description', '1.zip', now(), '127.0.0.1', 0, 0, true, 0);
-
