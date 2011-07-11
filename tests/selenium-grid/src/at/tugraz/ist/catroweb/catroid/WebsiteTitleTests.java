@@ -38,17 +38,9 @@ public class WebsiteTitleTests extends BaseTest {
     try {
       openLocation("catroid/"+actualPage);
       waitForPageToLoad();
-      session().isTextPresent("Catroid Website - "); //xpath=html/title
       website_html_title = session().getTitle();
-      
       website_title = session().getText("xpath=//div[@class='webMainContentTitle']");
-      
-      //reg exp to find string in html title
-      String search_string = website_html_title;
-      log(website_html_title);
-      log(website_title);
-      assertTrue(search_string.matches(".*"+website_title+".*"));
-
+      assertTrue(website_html_title.matches(".*"+website_title+".*"));
     } catch(AssertionError e) {
       captureScreen("LicenseTests.privacyPolicy");
       throw e;

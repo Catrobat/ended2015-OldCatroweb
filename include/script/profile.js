@@ -24,6 +24,21 @@ var Profile = Class.$extend( {
     $("#errorMsg").toggle(false);
     $("#okMsg").toggle(false);
 	
+    $("#profileAddNewEmailField").toggle(true);
+    $("#profileRemoveNewEmailField").toggle(false);
+    $("#profileAddEmailButton").toggle(false);
+
+    var email_count = $('#profileEmailTextDiv').children('a').size();
+    var x=0;
+    for(x; x<email_count; x++) {
+      // how can I set the click event to the ID as emailaddress
+      // ID: case-sensitiv, must begin with a letter A-Z or a-z, can be followed by: letters (A-Za-z), digits (0-9), hyphens ("-"), underscores ("_"), colons (":"), and periods (".")
+      $('#'+x).click(function(event) {
+        self.profileChangeEmailOpen(event.target.id);
+      });
+    }
+    $("#profileChangeEmailClose").click($.proxy(this.profileChangeEmailClose, this));
+    
     $("#profilePasswordDiv").toggle(true);
     $("#profilePasswordDivOpened").toggle(false);
     $("#profileEmailTextDiv").toggle(true);
@@ -33,14 +48,15 @@ var Profile = Class.$extend( {
     $("#countryLinkName").toggle(true);
     $("#countryLinkNameDyn").toggle(false);
     
+    $("#profileAddNewEmailField").click($.proxy(this.addEmailInputField, this));
+    $("#profileRemoveNewEmailField").click($.proxy(this.removeEmailInputField, this));
     $("#profilePasswordSubmit").click($.proxy(this.profilePasswordSubmit, this));
     $("#profileEmailSubmit").click($.proxy(this.profileEmailSubmit, this)); 
     $("#profileCountrySubmit").click($.proxy(this.profileCountrySubmit, this));
 
     $("#profileChangePasswordOpen").click($.proxy(this.profileChangePasswordOpen, this));
     $("#profileChangePasswordClose").click($.proxy(this.profileChangePasswordClose, this));
-    $("#profileChangeEmailOpen").click($.proxy(this.profileChangeEmailOpen, this));
-    $("#profileChangeEmailClose").click($.proxy(this.profileChangeEmailClose, this));
+
     $("#profileChangeCountryOpen").click($.proxy(this.profileChangeCountryOpen, this));
     $("#profileChangeCountryClose").click($.proxy(this.profileChangeCountryClose, this));
     
@@ -109,6 +125,48 @@ var Profile = Class.$extend( {
     });
   },
   
+  addEmailInputField : function() { 
+    var self = this;
+    $.ajax({
+      type: "POST",
+      url: self.basePath + 'catroid/profile/profileAddEmailTextFieldRequestQuery.json',
+      data: "userName="+$("#profileUser").val(),
+        
+      success: function(result){
+        if(result.statusCode == 200) {
+          $("#profileAddEmailButton").toggle(true);
+          
+          var old = document.getElementById('emailTextFields').innerHTML; 
+          var row_one = "<a href='javascript:;' class='profileText' id='profileChangeEmailClose'>" + result.addEmailLanguageString + "</a><br>";
+          var row_two = "<input type='email' id='profileEmail' name='profileEmail' value='' required='required' placeholder='" + result.addEmailPlaceholderLanguageString + "' ><br>"; 
+          document.getElementById('emailTextFields').innerHTML = old + row_one + row_two; 
+          $("#profileAddNewEmailField").attr("disabled", "disabled");
+          $("#profileRemoveNewEmailField").toggle(true);
+        }
+        else {
+          $("#profileFormAnswer").toggle(true);
+          $("#errorMsg").toggle(true);
+          $("#errorMsg").html(result.answer);
+          $("#okMsg").toggle(false);
+        }
+      },
+      error : function(result, errCode) {
+        if(errCode == "timeout") {
+          window.location.reload(false);   
+        }
+      }
+    });
+  },
+  
+  
+  removeEmailInputField : function() { 
+      $("#profileAddEmailButton").toggle(false);
+      document.getElementById('emailTextFields').innerHTML = '<div id="emailTextFields"></div>'; 
+      $("#profileAddNewEmailField").removeAttr('disabled');
+      $("#profileRemoveNewEmailField").toggle(false);
+  },
+   
+  
   profileCountrySubmit : function() {
     var self = this;
     $.ajax({
@@ -135,7 +193,7 @@ var Profile = Class.$extend( {
       },
       error : function(result, errCode) {
         if(errCode == "timeout") {
-          window.location.reload(false);   
+          window.location.reload(false);
         }
       }
     });
@@ -159,10 +217,10 @@ var Profile = Class.$extend( {
     $("#okMsg").html("");
   },
 
-  profileChangeEmailOpen : function() {
+  profileChangeEmailOpen : function(id) {
     $("#profileEmailTextDiv").toggle(false);
     $("#profileEmailChangeDiv").toggle(true);
-    $("#profileEmail").focus();
+    $("#profileEmail").val($('#profileEmailTextDiv').children('a')[id].text);
   },
 
   profileChangeEmailClose : function() {

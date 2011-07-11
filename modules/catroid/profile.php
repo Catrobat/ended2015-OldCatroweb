@@ -78,6 +78,29 @@ class profile extends CoreAuthenticationNone {
       }
     }
   }
+  
+  // all necessary data for the text field generatrion
+  public function profileAddEmailTextFieldRequestQuery() {
+    $postData = $_POST;
+    if($postData) {
+//      if($this->checkEmail($email)) {
+//        if($this->getUserEmails($postData['username'])) {
+//          $this->statusCode = 200;
+//          $this->answer_ok .= $this->languageHandler->getString('email_success');
+//          return true;
+//        }
+//      } else {
+//        $this->statusCode = 500;
+//        return false;
+//      }
+    }
+    
+    $this->statusCode = 200;
+    $this->addNewEmailLanguageString = $this->languageHandler->getString('add_new_email'); 
+    $this->addNewEmailPlaceholderLanguageString = $this->languageHandler->getString('add_new_email_placeholder');
+    //$this->add_new_email = $this->languageHandler->getString('add_new_email');
+    
+  }
 
   public function profileCountryRequestQuery() {
     $postData = $_POST;
@@ -327,6 +350,13 @@ class profile extends CoreAuthenticationNone {
     return true;
   }
   
+  // get all user emails here! 
+  private function getUserEmails($username = 0) {
+
+    $this->userEmailsCount = 2;
+    return true;
+  }
+  
   private function checkCountry($countryCode) {
     $countryCode = trim($countryCode);
     if($countryCode == "undef") {
@@ -353,6 +383,7 @@ class profile extends CoreAuthenticationNone {
     }
     try {
       $this->initUserData($requestedUser);
+      $this->getUserEmails();
     } catch(Exception $e) {
       $answer .= $e->getMessage().'<br>';
     }
