@@ -38,14 +38,14 @@ class flagInappropriate extends CoreAuthenticationNone {
       $projectId = $postData['projectId'];
       $flagReason = pg_escape_string($postData['flagReason']);
       $query = "EXECUTE insert_new_flagged_project('$projectId', '$flagReason', '$userIp')";
-      $result = @pg_query($query);
+      $result = @pg_query($this->dbConnection, $query);
       if($result) {
         if(($numberOfFlags = $this->getProjectFlags($projectId)) >= PROJECT_FLAG_NOTIFICATION_THRESHOLD) {
           $this->hideProject($projectId);
           if($sendNotificationEmail) {
             $this->sendNotificationEmail($projectId, $flagReason);
             $query = "EXECUTE set_mail_sent_on_inappropriate('$projectId')";
-            @pg_query($query);
+            @pg_query($this->dbConnection, $query);
           }
         }
         $answer = 'You reported this project as inappropriate!';
@@ -64,7 +64,7 @@ class flagInappropriate extends CoreAuthenticationNone {
   
   public function getProjectFlags($projectId) {
     $query = "EXECUTE get_flags_for_project('$projectId')";
-    $result = @pg_query($query);
+    $result = @pg_query($this->dbConnection, $query);
     if($result) {
       return pg_num_rows($result);
     } else {
@@ -74,7 +74,7 @@ class flagInappropriate extends CoreAuthenticationNone {
   
   public function hideProject($projectId) {
     $query = "EXECUTE hide_project('$projectId')";
-    $result = @pg_query($query);
+    $result = @pg_query($this->dbConnection, $query);
     if($result) {
       return true;
     } else {
@@ -84,7 +84,7 @@ class flagInappropriate extends CoreAuthenticationNone {
   
   public function sendNotificationEmail($projectId, $flagReason) {
     $query = "EXECUTE get_project_by_id('$projectId');";
-    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $project = pg_fetch_assoc($result);
     pg_free_result($result);
     

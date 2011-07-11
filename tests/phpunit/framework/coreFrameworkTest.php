@@ -36,7 +36,11 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
 
   public function testDatabaseResource() {
     $this->assertTrue(is_resource($this->testModel->dbConnection));
-    $this->assertEquals('pgsql link persistent', get_resource_type($this->testModel->dbConnection));
+    if(DATABASE_CONNECTION_PERSISTENT) {
+      $this->assertEquals('pgsql link persistent', get_resource_type($this->testModel->dbConnection));
+    } else {
+      $this->assertEquals('pgsql link', get_resource_type($this->testModel->dbConnection));
+    }
   }
 
   public function testModelProperties() {

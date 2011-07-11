@@ -29,7 +29,7 @@ class aliveCheckerDB extends CoreAuthenticationNone {
 
 	public function checkAlive() {
     $query = 'SELECT 1';
-    $result = pg_query($query) or exit();
+    $result = @pg_query($this->dbConnection, $query) or exit();
     if($result) {
       return 200;
     } else {

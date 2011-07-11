@@ -29,7 +29,7 @@
     //include_once CORE_BASE_PATH.'classes/'.$class.'.php';
     include_once $class.'.php';
   }
+  
   $connection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
     or die('Connection to Database failed: ' . pg_last_error());
-  
 ?>

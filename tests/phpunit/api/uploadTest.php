@@ -22,10 +22,14 @@ require_once('testsBootstrap.php');
 class uploadTest extends PHPUnit_Framework_TestCase
 {
   protected $upload;
+  protected $dbConnection;
 
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/api/upload.php';
     $this->upload = new upload();
+    
+    $this->dbConnection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
+    or die('Connection to Database failed: ' . pg_last_error());
   }
 
   /**
@@ -616,6 +620,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
       if ($col == "versionCode") return $project['version_code'];
     }
     return null;
+  }
+  
+  protected function tearDown() {
+    pg_close($this->dbConnection);
   }
 }
 
