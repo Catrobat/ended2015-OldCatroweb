@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!--  Catroid: An on-device graphical programming language for Android devices
+      Copyright (C) 2010-2011 The Catroid Team
+      (<http://code.google.com/p/catroid/wiki/Credits>)
+ 
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU Affero General Public License as
+      published by the Free Software Foundation, either version 3 of the
+      License, or License, or (at your option) any later version.
+  
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU Affero General Public License for more details.
+  
+      You should have received a copy of the GNU Affero General Public License
+      along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+ 
+<project name="selenium-tools" basedir=".">
+  <description>Selenium Grid Tools (hub and remote-control)</description>
+  <dirname property="selenium-tools.basedir" file="${ant.file.selenium-tools}"/>
+  <property name="selenium-tools.version" value="2.0.0" />
+
+  <!-- *** launch and stop hub ********************************************* -->
+  <target name="launch-hub" description="Launch Selenium Grid Hub">
+    <condition property="hub-socket.open">
+      <socket server="localhost" port="4444"/>
+    </condition>
+    <antcall target="-start-hub"/>
+  </target>
+
+  <target name="-start-hub" unless="hub-socket.open">
+    <exec dir="${selenium-tools.basedir}" executable="java" spawn="true">
+      <arg line="-jar selenium-server-standalone-${selenium-tools.version}.jar -role hub"/>
+    </exec>
+
+    <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
+      <socket server="localhost" port="4444"/>
+    </waitfor>
+    <echo message="webinterface: http://localhost:4444/grid/console"/>
+  </target>
+  
+  <target name="stop-hub" description="Stop Selenium Grid Hub">
+    <exec dir="${selenium-tools.basedir}" executable="bash" osfamily="Unix">
+      <arg value="-c"/>
+      <arg value="kill -9 `ps ux | awk '/java -jar selenium-server-standalone-${selenium-tools.version}.jar -role hub/ &amp;&amp; !/awk/ {print $2}'`"/>
+    </exec>
+    <exec dir="${selenium-tools.basedir}" executable="cmd" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="WMIC PROCESS where (Commandline=&quot;java -jar selenium-server-standalone-${selenium-tools.version}.jar -role hub&quot;) call terminate"/>
+    </exec>
+  </target>
+ 
+  <!-- *** launch and stop remote-controls ********************************* -->
+  <property name="role" value="rc"/>
+  <property name="hubURL" value="http://localhost:4444/grid/register"/>
+  <property name="port" value="5555"/>
+  <property name="browserName" value="firefox"/>
+  <property name="browserVersion" value="3.6"/>
+  <property name="maxInstances" value="3"/>
+  <property name="nodeTimeout" value="30"/>
+  <target name="launch-remote-control" description="Launch A Selenium Grid Remote Control">
+    <condition property="remote-socket.open">
+      <socket server="localhost" port="${port}"/>
+    </condition>
+    <antcall target="-start-remote-control"/>
+  </target>
+  
+  <target name="-start-remote-control" unless="remote-socket.open">
+    <exec dir="${selenium-tools.basedir}" executable="java" spawn="true">
+      <arg line="-jar selenium-server-standalone-${selenium-tools.version}.jar -role ${role} -hub ${hubURL} -port ${port} -browser browserName=${browserName},version=${browserVersion},maxInstances=${maxInstances} -nodeTimeout ${nodeTimeout}"/>
+    </exec>
+
+    <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
+      <socket server="localhost" port="${port}"/>
+    </waitfor>
+  </target>
+
+  <target name="stop-remote-controls" description="Stop All Selenium Grid Remote Controls">
+    <exec dir="${selenium-tools.basedir}" executable="bash" osfamily="Unix">
+      <arg value="-c"/>
+      <arg value="kill -9 `ps ux | awk '/java -jar selenium-server-standalone-${selenium-tools.version}.jar -role rc/ &amp;&amp; !/awk/ {print $2}'`"/>
+    </exec>
+    <exec dir="${selenium-tools.basedir}" executable="bash" osfamily="Unix">
+      <arg value="-c"/>
+      <arg value="kill -9 `ps ux | awk '/java -jar selenium-server-standalone-${selenium-tools.version}.jar -role webdriver/ &amp;&amp; !/awk/ {print $2}'`"/>
+    </exec>    
+
+    <exec dir="${selenium-tools.basedir}" executable="cmd" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="WMIC PROCESS where &quot;Commandline like 'java -jar selenium-server-standalone-${selenium-tools.version}.jar -role rc%'&quot; call terminate"/>
+    </exec>
+    <exec dir="${selenium-tools.basedir}" executable="cmd" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="WMIC PROCESS where &quot;Commandline like 'java -jar selenium-server-standalone-${selenium-tools.version}.jar -role webdriver%'&quot; call terminate"/>
+    </exec>
+  </target>
+</project>

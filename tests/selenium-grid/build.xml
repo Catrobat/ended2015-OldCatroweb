@@ -34,7 +34,7 @@
   <property name="webSite" value="http://localhost/"/>
   <property name="seleniumHost" value="localhost"/>
   <property name="seleniumPort" value="4444"/>
-  <property name="browser" value="*firefox"/>
+  <property name="browser" value="firefox"/>
 
   <path id="compile.classpath">
     <fileset dir="${selenium-grid.basedir}/lib">

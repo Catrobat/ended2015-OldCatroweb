@@ -48,6 +48,7 @@
   <property name="file.encoding" value="UTF-8" />
 
   <import file="tests/selenium-grid/build.xml"/>
+  <import file="tests/selenium-grid/tools/build.xml"/>
 
   <target name="-conf">
     <property name="build.dir" value="build" />
@@ -193,123 +194,28 @@
     </exec>
   </target>
 
-  <target name="-start-selenium-grid-hub">
-    <condition property="hub-socket.open">
-      <socket server="localhost" port="4444"/>
-    </condition>
-    <antcall target="-launch-selenium-grid-hub"/>
+  <target name="-start-selenium-grid-remote-control" depends="-get-selenium-grid-test-browser">
+    <property name="test.role" value="rc"/>
+    <property name="test.hubURL" value="http://localhost:4444/grid/register"/>
+    <property name="test.port" value="5555"/>
+    <property name="test.browserName" value="firefox"/>
+    <property name="test.browserVersion" value="3.6"/>
+    <property name="test.maxInstances" value="3"/>
+    <property name="test.nodeTimeout" value="30"/>
+    <antcall target='selenium-tools.launch-remote-control'>
+      <param name="role" value="${test.role}"/>
+      <param name="hubURL" value="${test.hubURL}"/>
+      <param name="port" value="${test.port}"/>
+      <param name="browserName" value="${test.browserName}"/>
+      <param name="browserVersion" value="${test.browserVersion}"/>
+      <param name="maxInstances" value="${test.maxInstances}"/>
+      <param name="nodeTimeout" value="${test.nodeTimeout}"/>
+    </antcall>
   </target>
 
-  <target name="-launch-selenium-grid-hub" unless="hub-socket.open">
-    <exec dir="${selenium-grid.dir}/hub" executable="cmd" osfamily="Windows" spawn="true">
-      <arg value="/c"/>
-      <arg value="ant"/>
-      <arg line="launch-hub"/>
-    </exec>
-    <exec dir="${selenium-grid.dir}/hub" executable="ant" osfamily="Unix" spawn="true">
-      <arg line="launch-hub"/>
-    </exec>
-
-    <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">
-      <socket server="localhost" port="4444"/>
-    </waitfor>
-  </target>
-
-  <target name="-start-selenium-grid-rc5555">
-    <condition property="rc5555-socket.open">
-      <socket server="localhost" port="5555"/>
-    </condition>
-    <antcall target="-launch-selenium-grid-rc5555"/>
-  </target>
-
-  <target name="-launch-selenium-grid-rc5555" unless="rc5555-socket.open">
-    <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
-      <arg value="/c"/>
-      <arg value="ant"/>
-      <arg line="launch-remote-control -Dport=5555 -Denvironment=${test.browser}"/>
-    </exec>
-    <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
-      <arg line="launch-remote-control -Dport=5555 -Denvironment=${test.browser}"/>
-    </exec>
-
-    <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
-      <socket server="localhost" port="5555"/>
-    </waitfor>
-  </target>
-
-  <target name="-start-selenium-grid-rc5556">
-    <condition property="rc5556-socket.open">
-      <socket server="localhost" port="5556"/>
-    </condition>
-    <antcall target="-launch-selenium-grid-rc5556"/>
-  </target>
-
-  <target name="-launch-selenium-grid-rc5556" unless="rc5556-socket.open">
-    <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
-      <arg value="/c"/>
-      <arg value="ant"/>
-      <arg line="launch-remote-control -Dport=5556 -Denvironment=${test.browser}"/>
-    </exec>
-    <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
-      <arg line="launch-remote-control -Dport=5556 -Denvironment=${test.browser}"/>
-    </exec>
-
-    <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
-      <socket server="localhost" port="5556"/>
-    </waitfor>
-  </target>
-
-  <target name="-start-selenium-grid-rc5557">
-    <condition property="rc5557-socket.open">
-      <socket server="localhost" port="5557"/>
-    </condition>
-    <antcall target="-launch-selenium-grid-rc5557"/>
-  </target>
-
-  <target name="-launch-selenium-grid-rc5557" unless="rc5557-socket.open">
-    <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
-      <arg value="/c"/>
-      <arg value="ant"/>
-      <arg line="launch-remote-control -Dport=5557 -Denvironment=${test.browser}"/>
-    </exec>
-    <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
-      <arg line="launch-remote-control -Dport=5557 -Denvironment=${test.browser}"/>
-    </exec>
-
-    <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
-      <socket server="localhost" port="5557"/>
-    </waitfor>
-  </target>
-
-  <target name="-start-selenium-grid-rc5558">
-    <condition property="rc5558-socket.open">
-      <socket server="localhost" port="5558"/>
-    </condition>
-    <antcall target="-launch-selenium-grid-rc5558"/>
-  </target>
-
-  <target name="-launch-selenium-grid-rc5558" unless="rc5558-socket.open">
-    <exec dir="${selenium-grid.dir}/remote-control" executable="cmd" osfamily="Windows" spawn="true">
-      <arg value="/c"/>
-      <arg value="ant"/>
-      <arg line="launch-remote-control -Dport=5558 -Denvironment=${test.browser}"/>
-    </exec>
-    <exec dir="${selenium-grid.dir}/remote-control" executable="ant" osfamily="Unix" spawn="true">
-      <arg line="launch-remote-control -Dport=5558 -Denvironment=${test.browser}"/>
-    </exec>
-
-    <waitfor maxwait="1" maxwaitunit="minute" checkevery="100">
-      <socket server="localhost" port="5558"/>
-    </waitfor>
-  </target>
-
-  <target name="-start-selenium-grid-local-testsuite" depends="-get-selenium-grid-test-browser, -start-selenium-grid-hub">
-    <parallel>
-      <ant target='-start-selenium-grid-rc5555'/>
-      <ant target='-start-selenium-grid-rc5556'/>
-      <ant target='-start-selenium-grid-rc5557'/>
-      <ant target='-start-selenium-grid-rc5558'/>
-    </parallel>
+  <target name="-start-selenium-grid-local-testsuite">
+    <antcall target='-start-selenium-grid-remote-control'/>
+    <antcall target='selenium-tools.launch-hub'/>
   </target>
 
   <target name="-selenium-grid-tests-catroid-local" depends="-start-selenium-grid-local-testsuite">
@@ -322,16 +228,13 @@
     <echo message=""/>
 
     <antcall target='selenium-grid.run-catroid-tests'>
-      <param name="browser" value="${test.browser}" />
+      <param name="browser" value="${test.browserName}" />
     </antcall>
   </target>
   
-  <target name="-selenium-grid-stop-hub">
-    <echo message="NOTICE: To stop hub on windows execute the following command:" />
-    <echo message="curl -d action=shutdown http://localhost:4444/lifecycle-manager" />   
-    <exec dir="${tests.dir}" executable="wget" osfamily="Unix">
-      <arg line=" -q --post-data action=shutdown http://localhost:4444/lifecycle-manager"/>
-    </exec>
+  <target name="-selenium-grid-stop">
+    <antcall target='selenium-tools.stop-hub'/>
+    <antcall target='selenium-tools.stop-remote-controls'/>
   </target>
 
   <target name="-selenium-grid-single-test" depends="-start-selenium-grid-local-testsuite, -get-selenium-grid-single-test-parameters">
@@ -346,7 +249,7 @@
     <antcall target='selenium-grid.run-single-test'>
       <param name="single-test-class" value="${test.class}" />
       <param name="single-test-method" value="${test.method}" />
-      <param name="browser" value="${test.browser}" />
+      <param name="browser" value="${test.browserName}" />
     </antcall>
   </target>
   
@@ -366,7 +269,7 @@
     <echo message="========== Notice ========== "/>
     <echo message=""/>
     <echo message="you can repeat this test by running:"/>
-    <echo message=" ant run-selenium-single-test -Dtest.browser=${test.browser} -Dtest.class=${test.class} -Dtest.method=${test.method}"/>
+    <echo message=" ant run-selenium-single-test -Dtest.browserName=${test.browserName} -Dtest.class=${test.class} -Dtest.method=${test.method}"/>
     <echo message=""/>
     <echo message=""/>
   </target>
@@ -382,7 +285,7 @@
 
     <antcall target='selenium-grid.run-group-test'>
       <param name="group-test" value="${test.group}" />
-      <param name="browser" value="${test.browser}" />
+      <param name="browser" value="${test.browserName}" />
     </antcall>
   </target>
   
@@ -396,7 +299,7 @@
     <echo message="========== Notice ========== "/>
     <echo message=""/>
     <echo message="you can repeat this test by running:"/>
-    <echo message=" ant run-selenium-group-test -Dtest.browser=${test.browser} -Dtest.group=${test.group}"/>
+    <echo message=" ant run-selenium-group-test -Dtest.browserName=${test.browserName} -Dtest.group=${test.group}"/>
     <echo message=""/>
     <echo message=""/>
   </target>
@@ -420,8 +323,8 @@
   <target name="-get-selenium-grid-test-browser">
     <input
       message="Please enter an environment to test: "
-      addproperty="test.browser"
-      defaultvalue="*firefox"
+      addproperty="test.browserName"
+      defaultvalue="firefox"
     />
   </target>
   
@@ -718,7 +621,7 @@
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
   <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />
   <target name="run-selenium-api-tests" depends="-selenium-start-server, -selenium-tests-api, -selenium-stop-server" />
-  <target name="stop-selenium-grid-hub" depends="-selenium-grid-stop-hub"/>
+  <target name="stop-selenium-grid" depends="-selenium-grid-stop"/>
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />
   <target name="deploy-test-board" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />
