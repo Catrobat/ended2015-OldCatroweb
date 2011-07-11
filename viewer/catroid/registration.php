@@ -46,13 +46,13 @@
           		   			<?php echo $this->languageHandler->getString('email')?><br>
           		   			<input type="email" id="registrationEmail" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_email')?>" ><br>
           		   			<?php echo $this->languageHandler->getString('country')?><br>
-          		   			<select id="registrationCountry" name="registrationCountry" class="registration" id="registrationCountry" required="required" >
+          		   			<select id="registrationCountry" name="registrationCountry" class="registration" required="required" >
           		   			<?php // country 
           		   			$x = 0;
           		   			$sumCount = count($this->countryCodeList);
           		   			while($x < $sumCount+1) {
                         if($x == 0) {
-                          echo '<option value="0" selected>'.$this->languageHandler->getString('select_country').'</option>';
+                          echo '<option value="" selected>'.$this->languageHandler->getString('select_country').'</option>';
                         }
                         else {
                           echo "<option value=\"" . $this->countryCodeList[$x] . "\">" . $this->countryNameList[$x] . "</option>\r";
@@ -70,7 +70,7 @@
         		   			    $x = 0;
                         while($x < 13) {
                           if($x == 0) {
-                            echo '<option value="0" selected>'.$this->languageHandler->getString('select_month').'</option>';
+                            echo '<option value="" selected>'.$this->languageHandler->getString('select_month').'</option>';
                           }
                           else {
                             echo "<option value=\"" . $x . "\">" . $this->months[$x] . "</option>\r";
@@ -86,7 +86,7 @@
                         while($x < 101) {
                           $year--;
                           if($x == 0) {
-                            echo '<option value="0" selected>'.$this->languageHandler->getString('select_year').'</option>';
+                            echo '<option value="" selected>'.$this->languageHandler->getString('select_year').'</option>';
                           }
                           else {
                             echo "<option value=\"" . $year . "\" >" . $year . "</option>\r";
@@ -97,7 +97,7 @@
           		   			</select><br>
           		   			<?php echo $this->languageHandler->getString('gender')?><br>
 											<select id="registrationGender" name="registrationGender" class="registration" >
-												<option value="0" selected><?php echo $this->languageHandler->getString('select_gender')?></option>
+												<option value="" selected><?php echo $this->languageHandler->getString('select_gender')?></option>
 												<option value="female"><?php echo $this->languageHandler->getString('female')?></option>
 												<option value="male"><?php echo $this->languageHandler->getString('male')?></option>
                       </select>
@@ -107,7 +107,7 @@
                       <br>
                       <br>
                       <br> 
-											<div class="passwordRecoveryHelper"><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/login"><?php echo $this->languageHandler->getString('login')?></a> <br>or<br><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></div>
+											<div class="passwordRecoveryHelper"><a target="_self" href="<?php echo BASE_PATH?>catroid/login"><?php echo $this->languageHandler->getString('login')?></a> <br>or<br><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></div>
             		   	</form>
                   </div> <!-- registrationFormContainer -->
 								</div> <!-- Registration Text -->

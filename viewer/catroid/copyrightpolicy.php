@@ -26,7 +26,7 @@
             	    <div class="licenseText">
             	    <p class="licenseText"> 
             	   		<?php echo $this->languageHandler->getString('copyright_policy_part1',
-            	   					'<a href="mailto:'.CONTACT_EMAIL.'?subject=Copyright Issue">'.$this->languageHandler->getString('email_link').'</a>')?>
+            	   					'<a href="mailto:'.CONTACT_EMAIL.'?subject='.rawurlencode($this->languageHandler->getString('title')).'">'.$this->languageHandler->getString('email_link').'</a>')?>
             	   		<br><br>
             	   		<?php echo $this->languageHandler->getString('copyright_policy_part2',
             	   					'<a class="nolink" href="http://eur-lex.europa.eu/LexUriServ/LexUriServ.do?uri=CELEX:32001L0029:EN:HTML" target="_blank">'.$this->languageHandler->getString('directive_link').'</a>')?>

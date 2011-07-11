@@ -84,7 +84,7 @@ function getUserBlockClassWhitelistArray() {
 function convertBytesToMegabytes($numOfBytes) {
   $mb = round($numOfBytes/1048576, 1);
   if($mb < 0.1) {
-    $mb = html_entity_decode("< 0.1");
+    $mb = "&lt; 0.1";
   }
   return $mb;
 }
@@ -130,7 +130,7 @@ function getTimeInWords($fromTime, $languageHandler, $toTime = 0) {
   $seconds = round(abs($toTime - $fromTime));
   $minutes = round($seconds/60);
   if ($minutes <= 1) {
-    return ($minutes == 0) ? $languageHandler->getString('template_common_less_than_a_minute_ago') : $languageHandler->getString('one_minute_ago');
+    return ($minutes == 0) ? $languageHandler->getString('template_common_less_than_a_minute_ago') : $languageHandler->getString('template_common_one_minute_ago');
   }
   if ($minutes < 45) {
     return $languageHandler->getString('template_common_minutes_ago', $minutes);

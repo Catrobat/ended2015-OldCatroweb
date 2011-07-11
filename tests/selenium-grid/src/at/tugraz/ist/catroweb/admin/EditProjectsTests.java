@@ -67,7 +67,7 @@ public class EditProjectsTests extends BaseTest {
 
       // check that project is not shown on index-page
       openLocation();
-      assertTrue(session().isElementPresent("xpath=//img[@id='aIndexWebLogoLeft']"));
+      assertTrue(session().isElementPresent("xpath=//div[@id='aIndexWebLogoLeft']"));
       assertFalse(session().isTextPresent(projectTitle));
     } catch(AssertionError e) {
       captureScreen("EditProjectsTests.deleteButton");

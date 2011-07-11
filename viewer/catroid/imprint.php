@@ -29,14 +29,14 @@
             	        <?php echo $this->languageHandler->getString('development_text', '<br><a href="http://www.ist.tugraz.at" target="_blank">'
             	                  .$this->languageHandler->getString('institute_for_software_technology').'</a><br>')?>
             	        <br><br>            	                 	     
-            	        <font class="licenseHeader"><?php echo $this->languageHandler->getString('address')?></font><br>
+            	        <span class="licenseHeader"><?php echo $this->languageHandler->getString('address')?></span><br>
             	        <?php echo $this->languageHandler->getString('institute_for_software_technology')?><br>
             	        <?php echo $this->languageHandler->getString('graz_university_of_technology')?><br>
             	        <?php echo $this->languageHandler->getString('address_street')?><br>
             	        <?php echo $this->languageHandler->getString('address_city')?><br>
             	        <?php echo $this->languageHandler->getString('address_country')?>
             	        <br><br>
-            	        <font class="imprintHeader"><?php echo $this->languageHandler->getString('contact')?></font><br>
+            	        <span class="imprintHeader"><?php echo $this->languageHandler->getString('contact')?></span><br>
             	        <?php echo $this->languageHandler->getString('contact_text', CONTACT_EMAIL)?>
             	      </p>
                     </div> <!-- imprintText -->

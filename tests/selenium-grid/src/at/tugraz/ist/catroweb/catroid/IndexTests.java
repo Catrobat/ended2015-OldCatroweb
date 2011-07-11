@@ -194,21 +194,18 @@ public class IndexTests extends BaseTest {
 		try {
 			openLocation("catroid/imprint/");
 			assertTrue(session().isTextPresent("Graz University of Technology"));
-			assertTrue(session().isElementPresent("xpath=//meta[@http-equiv='Content-Language']"));
-			assertTrue(session().isElementPresent("xpath=//meta[@content='"+Config.SITE_DEFAULT_LANGUAGE+"']"));
+			assertTrue(session().isElementPresent("xpath=//html[@lang='"+Config.SITE_DEFAULT_LANGUAGE+"']"));
 			openLocation("catroid/imprint/", false);
 			assertTrue(session().isElementPresent("switchLanguage"));
 			session().select("switchLanguage", "value=de");
 			waitForPageToLoad();
 			assertTrue(session().isTextPresent("Technische Universität Graz"));
 			assertTrue(session().isElementPresent("switchLanguage"));
-			assertTrue(session().isElementPresent("xpath=//meta[@http-equiv='Content-Language']"));
-			assertTrue(session().isElementPresent("xpath=//meta[@content='de']"));
+			assertTrue(session().isElementPresent("xpath=//html[@lang='de']"));
 			session().select("switchLanguage", "value=en");
 			waitForPageToLoad();
 			assertTrue(session().isTextPresent("Graz University of Technology"));
-			assertTrue(session().isElementPresent("xpath=//meta[@http-equiv='Content-Language']"));
-			assertTrue(session().isElementPresent("xpath=//meta[@content='en']"));
+			assertTrue(session().isElementPresent("xpath=//html[@lang='en']"));
 		} catch (AssertionError e) {
 			captureScreen("IndexTests.pageNavigation");
 			throw e;
