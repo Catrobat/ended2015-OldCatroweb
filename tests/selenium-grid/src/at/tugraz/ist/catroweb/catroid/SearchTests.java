@@ -83,7 +83,7 @@ public class SearchTests extends BaseTest {
     try {
       String projectPrefix = "searchtest";
       String projectTitle = projectPrefix + specialchars;
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(200), "test.zip", "72ed87fbd5119885009522f08b7ee79f", "",
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(200), "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "",
           "", "", "0"));
 
       openLocation();
@@ -158,7 +158,7 @@ public class SearchTests extends BaseTest {
 
       System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
       for(int i = 0; i < uploadCount; i++) {
-        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "",
+        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "",
             "0"));
       }
       openLocation();
@@ -226,7 +226,7 @@ public class SearchTests extends BaseTest {
   public void searchAndHideProject() throws Throwable {
     try {
       String projectTitle = "search_test_" + CommonData.getRandomShortString(10);
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0"));
 
       String projectID = projectUploader.getProjectId(projectTitle);
 
@@ -297,9 +297,9 @@ public class SearchTests extends BaseTest {
             .getUploadPayload(
                 "search_test_long_description_" + CommonData.getRandomShortString(10),
                 "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH),
-                "test.zip", "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") },
+                "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") },
         { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "test.zip",
-            "72ed87fbd5119885009522f08b7ee79f", "", "", "", "0") }, };
+            "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") }, };
     return returnArray;
   }
 }

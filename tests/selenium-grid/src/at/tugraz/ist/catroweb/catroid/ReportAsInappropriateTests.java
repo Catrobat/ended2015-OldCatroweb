@@ -158,7 +158,7 @@ public class ReportAsInappropriateTests extends BaseTest {
       {
         put("projectDescription", "some description for my test project connected to my user id after registration and login at catroid.org.");
         put("projectSource", "test2.zip");
-        put("projectChecksum", "149c6b242dc410650a061292cd40f7d5");
+        put("projectChecksum", "63f6285f32df9afea00c2ac0befa2947");
         put("username", CommonData.getLoginUserDefault());
         put("password", CommonData.getLoginPasswordDefault());
         put("token", createToken(CommonData.getLoginUserDefault(), CommonData.getLoginPasswordDefault()));
@@ -174,7 +174,7 @@ public class ReportAsInappropriateTests extends BaseTest {
       {
         put("projectDescription", "some description for my test project connected to anonymous user id (0) after registration and login at catroid.org.");
         put("projectSource", "test2.zip");
-        put("projectChecksum", "149c6b242dc410650a061292cd40f7d5");
+        put("projectChecksum", "63f6285f32df9afea00c2ac0befa2947");
         put("token", "0");
       }
     } } };
