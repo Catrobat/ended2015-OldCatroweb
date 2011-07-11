@@ -30,7 +30,24 @@ SET search_path = public, pg_catalog;
 -- Dependencies: 3
 -- Name: add_interwiki(text, integer, smallint); Type: FUNCTION; Schema: public; Owner: website
 --
-CREATE language plpgsql;
+
+--CREATE IF NOT EXISTS language plpgsql; start
+CREATE OR REPLACE FUNCTION public.create_plpgsql_language ()
+  RETURNS TEXT
+  AS $$
+    CREATE LANGUAGE plpgsql;
+    SELECT 'language plpgsql created'::TEXT;
+  $$
+LANGUAGE 'sql';
+
+SELECT CASE WHEN (SELECT true::BOOLEAN FROM pg_language WHERE lanname='plpgsql') THEN
+  (SELECT 'language already installed'::TEXT)
+ELSE
+  (SELECT public.create_plpgsql_language())
+END;
+
+DROP FUNCTION public.create_plpgsql_language ();
+--CREATE IF NOT EXISTS language plpgsql; end
 
 CREATE FUNCTION add_interwiki(text, integer, smallint) RETURNS integer
     LANGUAGE sql
