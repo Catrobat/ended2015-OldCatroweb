@@ -83,7 +83,10 @@ public class DetailsTests extends BaseTest {
       double filesize = CommonFunctions.getFileSizeRounded(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + id + Config.PROJECTS_EXTENTION);
       String downloadButtonText = session().getText("xpath=//span[@class='detailsDownloadButtonText']");
       String displayedfilesize = downloadButtonText.substring(downloadButtonText.indexOf("(") + 1, downloadButtonText.indexOf(" MB)"));
-      assertEquals(String.valueOf(filesize), displayedfilesize);
+      if (displayedfilesize.startsWith("<"))
+        assertEquals("< " + String.valueOf(filesize), displayedfilesize);  // smaller files are displayed as "< 0.1 MB"
+      else
+        assertEquals(String.valueOf(filesize), displayedfilesize);
 
       HashMap<String, String> versionInfo = CommonFunctions.getVersionInfo(id);
       String versionInfoText = session().getText("xpath=//span[@class='versionInfo']");
@@ -300,8 +303,10 @@ public class DetailsTests extends BaseTest {
 
   @DataProvider(name = "detailsProject")
   public Object[][] detailsProject() {
-    Object[][] returnArray = new Object[][] { { CommonData.getUploadPayload("details_test1", "details_test_description", "test.zip",
-        "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") }, };
+    Object[][] returnArray = new Object[][] { { CommonData.getUploadPayload("details_test1small", "details_test_description", "test.zip",
+        "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") },
+        {CommonData.getUploadPayload("details_test2big", "details_test_description", "test2.zip",
+            "63f6285f32df9afea00c2ac0befa2947", "", "", "", "0") },};
     return returnArray;
   }
 }

@@ -86,7 +86,8 @@ public class CommonFunctions {
       File file = new File(filepath);
       if(file.exists()) {
         BigDecimal bd = new BigDecimal(((double) file.length() / (1024 * 1024)));
-        bd = bd.setScale(1, BigDecimal.ROUND_DOWN);
+        System.out.println(": "+ bd.floatValue());
+        bd = bd.setScale(1, BigDecimal.ROUND_UP);
         filesize = bd.doubleValue();
       }
     } catch(Exception e) {

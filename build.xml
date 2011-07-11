@@ -206,7 +206,7 @@
       <param name="role" value="${test.role}"/>
       <param name="hubURL" value="${test.hubURL}"/>
       <param name="port" value="${test.port}"/>
-      <param name="browserName" value="${test.browserName}"/>
+      <param name="browserName" value="${browserName}"/>
       <param name="browserVersion" value="${test.browserVersion}"/>
       <param name="maxInstances" value="${test.maxInstances}"/>
       <param name="nodeTimeout" value="${test.nodeTimeout}"/>
@@ -228,7 +228,7 @@
     <echo message=""/>
 
     <antcall target='selenium-grid.run-catroid-tests'>
-      <param name="browser" value="${test.browserName}" />
+      <param name="browser" value="${browserName}" />
     </antcall>
   </target>
   
@@ -249,7 +249,7 @@
     <antcall target='selenium-grid.run-single-test'>
       <param name="single-test-class" value="${test.class}" />
       <param name="single-test-method" value="${test.method}" />
-      <param name="browser" value="${test.browserName}" />
+      <param name="browser" value="${browserName}" />
     </antcall>
   </target>
   
@@ -269,7 +269,7 @@
     <echo message="========== Notice ========== "/>
     <echo message=""/>
     <echo message="you can repeat this test by running:"/>
-    <echo message=" ant run-selenium-single-test -Dtest.browserName=${test.browserName} -Dtest.class=${test.class} -Dtest.method=${test.method}"/>
+    <echo message=" ant run-selenium-single-test -Dtest.browserName=${browserName} -Dtest.class=${test.class} -Dtest.method=${test.method}"/>
     <echo message=""/>
     <echo message=""/>
   </target>
@@ -285,7 +285,7 @@
 
     <antcall target='selenium-grid.run-group-test'>
       <param name="group-test" value="${test.group}" />
-      <param name="browser" value="${test.browserName}" />
+      <param name="browser" value="${browserName}" />
     </antcall>
   </target>
   
@@ -299,7 +299,7 @@
     <echo message="========== Notice ========== "/>
     <echo message=""/>
     <echo message="you can repeat this test by running:"/>
-    <echo message=" ant run-selenium-group-test -Dtest.browserName=${test.browserName} -Dtest.group=${test.group}"/>
+    <echo message=" ant run-selenium-group-test -Dtest.browserName=${browserName} -Dtest.group=${test.group}"/>
     <echo message=""/>
     <echo message=""/>
   </target>
