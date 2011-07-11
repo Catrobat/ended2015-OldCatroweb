@@ -81,8 +81,9 @@ var Index = Class.$extend( {
   search : function() {     
     if (this.state == "searchProjects")
       this.searchProjects.triggerSearch(true);
-    else {
-      this.searchProjects.triggerSearch(false);
+    else if ($.trim($("#searchQuery").val()) != "") {
+      //this.searchProjects.triggerSearch(false);
+      this.searchProjects.triggerSearch(true);
       this.switchState("searchProjects");      
     }
     return false;
@@ -90,11 +91,11 @@ var Index = Class.$extend( {
 
   cancelSearch : function() {
     this.switchState("newestProjects");
+    this.newestProjects.showStartPage();
   },
   
   startPage : function() {
     this.switchState("newestProjects");
-    this.newestProjects.showStartPage();
   }
 
 });

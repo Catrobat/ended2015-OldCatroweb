@@ -40,8 +40,8 @@
 	text-decoration: none;
 }
 .button:active {
-	position: relative;
-	top: 1px;
+	/*position: relative;
+	top: 1px;*/
 }
 
 .compact {

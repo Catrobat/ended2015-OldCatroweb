@@ -41,7 +41,7 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testConvertBytesToMegabytes() {
-    $this->assertEquals(convertBytesToMegabytes(10), '< 0.1');
+    $this->assertEquals(convertBytesToMegabytes(10), '&lt; 0.1');
     $this->assertEquals(convertBytesToMegabytes(1500000), 1.4);
   }
 

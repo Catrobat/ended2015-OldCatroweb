@@ -44,7 +44,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
     $this->content = $this->retrieveSearchResultsFromDatabase($this->searchQuery, $this->pageNr);
   }
 
-  public function retrieveSearchResultsFromDatabase($keywords, $pageNr) {
+  public function retrieveSearchResultsFromDatabase($keywords, $pageNr) {    
     if($pageNr < 0) {
       return "NIL";
     }

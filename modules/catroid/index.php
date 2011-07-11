@@ -66,6 +66,7 @@ class index extends CoreAuthenticationNone {
 
     if(isset($_REQUEST['q'])) {
       $this->session->searchQuery = $_REQUEST['q'];
+      $this->session->task = "searchProjects";
     }
 
     if(!$this->session->task) {

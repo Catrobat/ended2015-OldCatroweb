@@ -59,7 +59,7 @@
   <property name="port" value="5555"/>
   <property name="browserName" value="firefox"/>
   <property name="browserVersion" value="3.6"/>
-  <property name="maxInstances" value="3"/>
+  <property name="maxInstances" value="6"/>
   <property name="nodeTimeout" value="30"/>
   <target name="launch-remote-control" description="Launch A Selenium Grid Remote Control">
     <condition property="remote-socket.open">

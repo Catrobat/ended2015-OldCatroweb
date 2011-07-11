@@ -67,6 +67,7 @@ var SearchProjects = Class.$extend( {
     if(this.initialized) {
       $("#projectContainer").children().remove();
       this.initialized = false;
+      this.searchQuery = "";
     }
   },
   
@@ -182,8 +183,9 @@ var SearchProjects = Class.$extend( {
   },
 
   triggerSearch : function(loadAndCache) {
-    var search = $.trim($("#searchQuery").val());    
-    if(search != "" && this.searchQuery != search) {
+    var search = $.trim($("#searchQuery").val());  
+    //if(search != "" && this.searchQuery != search) {
+    if(search != "") {
       if(this.blockAjaxRequest()) {
         this.searchQuery = search;
       

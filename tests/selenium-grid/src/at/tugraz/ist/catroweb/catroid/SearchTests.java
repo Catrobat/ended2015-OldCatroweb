@@ -222,12 +222,47 @@ public class SearchTests extends BaseTest {
     }
   }
 
+  @Test(groups = { "functionality", "upload" }, description = "search project, upload project with identical name, reload")
+  public void identicalSearchQuery() throws Throwable {
+    try {
+      String projectTitle = "search_identical"; //+ CommonData.getRandomShortString(10);
+      String projectTitle1 = projectTitle + "_1";
+      String projectTitle2 = projectTitle + "_2";
+
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0"));
+      openLocation();
+      ajaxWait();
+
+      session().click("headerSearchButton");
+      session().type("searchQuery", projectTitle);
+      session().click("webHeadSearchSubmit");
+      ajaxWait();
+
+      waitForTextPresent(projectTitle1);
+      assertFalse(session().isTextPresent(projectTitle2));
+      
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle2, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "",
+          "", "0"));
+      session().refresh();
+      session().click("webHeadSearchSubmit");
+      ajaxWait();
+      
+      waitForTextPresent(projectTitle1);
+      assertTrue(session().isTextPresent(projectTitle2));
+    } catch(AssertionError e) {
+      captureScreen("SearchTests.identicalSearchQuery");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("SearchTests.searchAndHideProjectidenticalSearchQuery");
+      throw e;
+    }
+  }
+
   @Test(groups = { "functionality", "upload" }, description = "search and hide project")
   public void searchAndHideProject() throws Throwable {
     try {
       String projectTitle = "search_test_" + CommonData.getRandomShortString(10);
       projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0"));
-
       String projectID = projectUploader.getProjectId(projectTitle);
 
       openLocation();
@@ -293,11 +328,9 @@ public class SearchTests extends BaseTest {
   @DataProvider(name = "randomProjects")
   public Object[][] randomProjects() {
     Object[][] returnArray = new Object[][] {
-        { CommonData
-            .getUploadPayload(
-                "search_test_long_description_" + CommonData.getRandomShortString(10),
-                "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH),
-                "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") },
+        { CommonData.getUploadPayload("search_test_long_description_" + CommonData.getRandomShortString(10),
+            "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH), "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d",
+            "", "", "", "0") },
         { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "test.zip",
             "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") }, };
     return returnArray;
