@@ -74,7 +74,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(USER_MAX_USERNAME_LENGTH, 32);
     $this->assertEquals(USER_MIN_PASSWORD_LENGTH, 6);
     $this->assertEquals(USER_MAX_PASSWORD_LENGTH, 32);
-    $this->assertEquals(DATABASE_CONNECTION_PERSISTENT, false);
+    $this->assertEquals(DATABASE_CONNECTION_PERSISTENT, true);
   }
 }
 ?>

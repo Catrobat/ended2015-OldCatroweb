@@ -24,11 +24,16 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
   protected $obj;
   protected $upload;    
   protected $insertIDArray = array();
+  protected $dbConnection;
+  
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/catroid/loadNewestProjects.php';
     $this->obj = new loadNewestProjects();
     require_once CORE_BASE_PATH.'modules/api/upload.php';
-    $this->upload = new upload();  
+    $this->upload = new upload();
+    
+    $this->dbConnection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
+    or die('Connection to Database failed: ' . pg_last_error());  
   } 
   
 
@@ -52,7 +57,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
     }        
     
     $query = 'SELECT * FROM projects WHERE visible=true LIMIT '.(PROJECT_PAGE_LOAD_MAX_PROJECTS).' OFFSET 0';
-    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
     $numDbEntries =  pg_num_rows($result);
     
     // test that projects is a valid db serach result
@@ -124,7 +129,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
        //test deleting from filesystem
        $this->upload->removeProjectFromDatabase($insertId);
        $query = "SELECT * FROM projects WHERE id='$insertId'";
-       $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+       $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
        $this->assertEquals(0, pg_num_rows($result));
     }
   }
@@ -147,6 +152,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
   }
   
   protected function tearDown() {
+    pg_close($this->dbConnection);
     @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_small.jpg');
   }
 }

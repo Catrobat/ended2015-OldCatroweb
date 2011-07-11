@@ -68,9 +68,9 @@ class loadSearchProjects extends CoreAuthenticationNone {
     pg_prepare($this->dbConnection, "get_search_results", "SELECT projects.id, projects.title, projects.upload_time, cusers.username AS uploaded_by FROM projects, cusers WHERE ($searchQuery) AND visible = 't' AND cusers.id=projects.user_id ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2")
     or die("Couldn't prepare statement: " . pg_last_error());
     $query = 'EXECUTE get_search_results('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).$searchRequest.');';
-    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $projects = pg_fetch_all($result);
-    pg_query('DEALLOCATE get_search_results');
+    pg_query($this->dbConnection, 'DEALLOCATE get_search_results');
     pg_free_result($result);
     if($projects[0]['id']) {
       $i=0;
