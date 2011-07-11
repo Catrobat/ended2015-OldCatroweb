@@ -119,5 +119,12 @@
       <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
       <string name="user_is_blocked">Your Account has been blocked.</string>
     </viewer>
+    <admin>
+      <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
+      <string name="pootle_retrieve_xlf_failed">Could not retrieve XLF-file from Pootle-server.</string>
+      <string name="pootle_not_valid_xml">Could not generate XML-object from XLF-string.</string>
+      <string name="pootle_invalid_stringname_in_xml">Invalid string name in source XLF-file: {*stringName*}</string>
+      <string name="pootle_could_not_write_xml_file">Could not write XML-file to language directory: {*fileName*}</string>
+    </admin>
 </errors>
 
