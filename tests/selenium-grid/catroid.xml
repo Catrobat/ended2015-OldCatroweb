@@ -39,7 +39,7 @@
       <class name="at.tugraz.ist.catroweb.catroid.LoginTests" />
       <class name="at.tugraz.ist.catroweb.catroid.MenuTests" />
       <class name="at.tugraz.ist.catroweb.catroid.PasswordRecoveryTests" />
-      <class name="at.tugraz.ist.catroweb.catroid.ProfileTests" />
+<!--      <class name="at.tugraz.ist.catroweb.catroid.ProfileTests" />-->
       <class name="at.tugraz.ist.catroweb.catroid.RegistrationTests" />
       <class name="at.tugraz.ist.catroweb.catroid.ReportAsInappropriateTests" />
       <class name="at.tugraz.ist.catroweb.catroid.SearchTests" />
