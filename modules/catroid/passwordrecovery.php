@@ -23,6 +23,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     $this->setupBoard();
     $this->addCss('passwordrecovery.css');    
     $this->addJs('passwordRecovery.js');
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {
@@ -61,8 +62,8 @@ class passwordrecovery extends CoreAuthenticationNone {
       $this->checkUserData($userData);
       $userHash = $this->createUserHash($userData);
       $this->sendPasswordRecoveryEmail($userHash, $sendPasswordRecoveryEmail);
-      $this->answer_ok .= 'An email was sent to your email address. ';
-      $this->answer_ok .= 'Please check your inbox.';
+      $this->answer_ok .= $this->languageHandler->getString('sent_1');
+      $this->answer_ok .= $this->languageHandler->getString('sent_2');
       return $userHash;
     } catch(Exception $e) {
       $this->answer .= $e->getMessage().'<br>';
@@ -110,24 +111,24 @@ class passwordrecovery extends CoreAuthenticationNone {
               try {
                 $wikiPasswordRecoverySuccess = $this->doUpdateWikiPassword($username, $password);
                 if(!$wikiPasswordRecoverySuccess) {
-                  $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+                  $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
                   return false;
                 }
               } catch(Exception $e) {
-                $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+                $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
                 return false;
               }                  
             }        
           } catch(Exception $e) {
-            $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+            $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
             return false;
           }                  
         }
       } catch(Exception $e) {
-        $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+        $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
         return false;
       }
-      $this->answer_ok .= 'Your new password is set.<br>';
+      $this->answer_ok .= $this->languageHandler->getString('password_ok').'<br>';
     }
     return $passwordDataValid;
   }
@@ -234,40 +235,6 @@ class passwordrecovery extends CoreAuthenticationNone {
     return $hash;
   }
   
-//  public function checkUsername($username) {
-//    if(empty($username) && strcmp('0', $username) != 0) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
-//    }
-//    //username must not look like an IP-address
-//    $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
-//    $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
-//    $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
-//    $regEx = '/^'.$ip.'$/';
-//    if(preg_match($regEx, $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
-//    }
-//    // # < > [ ] | { }
-//    if(preg_match('/_|^_$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
-//    }
-//    if(preg_match('/#|^#$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'));
-//    }
-//    if(preg_match('/\||^\|$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'));
-//    }
-//    if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'));
-//    }
-//    if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'));
-//    }
-//    if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
-//    }
-//    return true;
-//  }
-  
   public function checkPassword($username, $password) {
     if((empty($password) && strcmp('0', $password) != 0) || $password == '' || mb_strlen($password) < 1) {
       throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
@@ -277,7 +244,8 @@ class passwordrecovery extends CoreAuthenticationNone {
       $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
       $regEx = '/^'.$text.'$/';
       if(!preg_match($regEx, $password)) {
-        throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid'));
+        //throw new Exception($this->errorHandler->getError('passwordrecovery', 'password_length_invalid', '', USER_MIN_PASSWORD_LENGTH));
+        throw new Exception($this->errorHandler->getError('passwordrecovery', 'password_length_invalid', '', USER_MIN_PASSWORD_LENGTH, USER_MAX_PASSWORD_LENGTH));
       }
     } else {
       throw new Exception($this->errorHandler->getError('registration', 'username_password_equal'));
@@ -297,7 +265,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       if(pg_num_rows($result) > 0) {
         $this->userData = pg_fetch_assoc($result);
 
-        $hoursDifference = $this->timeDifference();
+        $hoursDifference = $this->getTimeDifference();
         if($hoursDifference < 24*60*60) {
           $this->showForm = 1;
         }
@@ -328,18 +296,19 @@ class passwordrecovery extends CoreAuthenticationNone {
     }
     if($sendPasswordRecoveryEmail) {
       $userMailAddress = $this->userData['email'];
-      $mailSubject = '[CATROID] Your Catroid.org Password!';
-      $mailText = "Hello ".$this->userData['username']."!\n\n";
-      $mailText .= "Please click on the following link to create your new password:\n";
-      $mailText .= $resetPasswordLink."\n\n";
-      $mailText .= "You can use your nickname and your password at any time to access the catroid community.\n\n";
-      $mailText .= "To do so, just visit the following page: http://www.catroid.org/catroid/login\n\n\n";
-      $mailText .= "Catroid\nwww.catroid.org";
+      $mailSubject = $this->languageHandler->getString('mail_subject');
+      $mailText =    $this->languageHandler->getString('mail_text_row1', $this->userData['username']) . "!\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row2') . "\n";
+      $mailText .=   $resetPasswordLink."\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row3') . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row4', 'http://www.catroid.org/catroid/login') . "\n\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row5') . "\n";
+      $mailText .=   "www.catroid.org";
       if (DEVELOPMENT_MODE)
         $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
       
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
-        throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed'));
+        throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL));
       }
     }
     else {
@@ -349,7 +318,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     return true;
   }
   
-  public function timeDifference() {
+  public function getTimeDifference() {
     $date = new DateTime();
     $timenow = $date->format('U');
     $hashtime = $this->userData['recovery_time'];
@@ -360,16 +329,6 @@ class passwordrecovery extends CoreAuthenticationNone {
     else {
       $difftime = ($hashtime - $timenow);
     }
-    
-//    $sec = floor(($difftime) % 60);
-//    $min = floor(($difftime / (60)) % 60);
-//    $std = floor(($difftime / (60*60)));
-//
-//    echo "$hashtime".' $hashtime &nbsp;&nbsp;<br>';
-//    echo "$timenow".' $timenow &nbsp;&nbsp;<br>';
-//    echo "$difftime".' $difftime&nbsp;&nbsp;<br>';
-//    echo $std." Stunden&nbsp;".$min." Minuten ".$sec." Sekunden".'<br>';
-
     return $difftime;
   }   
 

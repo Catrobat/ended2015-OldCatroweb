@@ -269,10 +269,6 @@ public class DetailsTests extends BaseTest {
       assertTrue(session().isTextPresent("No entry was found for the given ID.:"));
       assertTrue(session().isTextPresent("ID: " + invalidProject));
       assertFalse(session().isElementPresent("xpath=//div[@class='detailsFlexDiv']"));
-      session().click("xpath=//div[@class='errorMessage']/a");
-      waitForPageToLoad();
-      ajaxWait();
-      waitForTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE);
     } catch(AssertionError e) {
       captureScreen("DetailsTests.invalidProjectID");
       throw e;

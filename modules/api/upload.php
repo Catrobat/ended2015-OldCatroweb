@@ -39,14 +39,14 @@ class upload extends CoreAuthenticationDevice {
     $this->versionCode = 0;
     $newId = $this->doUpload($_POST, $_FILES, $_SERVER);
     if($newId > 0) {
-      $this->answer = 'Upload successfull!';
+      $this->answer = $this->languageHandler->getString('upload_successfull');
     } else {
       $this->sendUploadFailAdminEmail($_POST, $_FILES, $_SERVER);
     }
   }
 
   public function checkValidProjectTitle($title) {
-    if(strcmp($title, PROJECT_DEFAULT_SAVEFILE_NAME) == 0) {
+    if(strcmp($title, $this->languageHandler->getString('default_project_name')) == 0) {
       return false;
     } else {
       return true;
@@ -80,7 +80,7 @@ class upload extends CoreAuthenticationDevice {
               if($fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $updir)) {
                 $this->session->userLogin_userId ? $userId = $this->session->userLogin_userId : $userId = 0;
                 $query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$upfile', '$uploadIp', '$uploadImei', '$uploadEmail', '$uploadLanguage', '$fileSize', '$userId');";
-                $result = pg_query($query);
+                $result = pg_query($this->dbConnection, $query);
                 if($result) {
                   $line = pg_fetch_assoc($result);
                   $newId = $line['id'];
@@ -92,9 +92,9 @@ class upload extends CoreAuthenticationDevice {
                       if($this->checkFileChecksum($fileChecksum, $formData['fileChecksum'])) {
                         $statusCode = 200;
                         if($this->getQRCode($newId, $projectTitle)) {
-                          $answer = 'Upload successfull!';
+                          $answer = $this->languageHandler->getString('upload_successfull');
                         } else {
-                          $answer = 'Upload successfull! QR-Code failed!';
+                          $answer = $this->languageHandler->getString('upload_successfull').' '.$this->languageHandler->getString('qr_failed');
                         }
 
                         $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
@@ -280,7 +280,7 @@ class upload extends CoreAuthenticationDevice {
     $newName = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newFileName;
     if(@rename($oldName, $newName)) {
       $query = "EXECUTE set_project_new_filename('$newFileName', '$newId');";
-      $result = @pg_query($query);
+      $result = @pg_query($this->dbConnection, $query);
       if($result) {
         @pg_free_result($result);
         return true;
@@ -309,7 +309,7 @@ class upload extends CoreAuthenticationDevice {
 
   public function removeProjectFromDatabase($projectId) {
     $query = "EXECUTE delete_project_by_id('$projectId');";
-    @pg_query($query);
+    @pg_query($this->dbConnection, $query);
     return;
   }
   
@@ -497,7 +497,7 @@ function extractVersionCode($xml) {
 
   public function saveVersionInfo($projectId, $versionCode, $versionName) {
     $query = "EXECUTE save_catroid_version_info('$projectId', '$versionCode', '$versionName');";
-    $result = @pg_query($query);
+    $result = @pg_query($this->dbConnection, $query);
     if($result) {
       @pg_free_result($result);
       return true;

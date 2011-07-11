@@ -74,13 +74,11 @@ public class ReportAsInappropriateTests extends BaseTest {
       waitForElementPresent("xpath=//button[@id='reportAsInappropriateButton']");
       
       // logout
-      assertTrue(session().isElementPresent("xpath=//button[@id='headerMenuButton']"));
-      session().click("xpath=//button[@id='headerMenuButton']");
-      waitForPageToLoad();
-      ajaxWait();
-      session().click("xpath=//button[@id='menuLogoutButton']");
-      waitForPageToLoad();
-      ajaxWait();
+      assertTrue(session().isVisible("headerProfileButton"));
+      session().click("headerProfileButton");
+      assertTrue(session().isVisible("logoutSubmitButton"));
+      session().click("logoutSubmitButton");
+      Thread.sleep(Config.TIMEOUT_THREAD);
 
       openLocation("catroid/details/" + projectId);
       assertTrue(session().isTextPresent(projectTitle));

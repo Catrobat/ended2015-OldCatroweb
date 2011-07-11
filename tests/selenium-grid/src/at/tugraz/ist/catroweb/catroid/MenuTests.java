@@ -37,12 +37,11 @@ public class MenuTests extends BaseTest {
       waitForPageToLoad();
       assertRegExp(".*/catroid/menu$", session().getLocation());
 
-      assertTrue(session().isVisible("menuProfileButton"));
+      assertTrue(session().isVisible("menuRegistrationButton"));
       assertTrue(session().isVisible("menuForumButton"));
       assertTrue(session().isVisible("menuWikiButton"));
 
       assertTrue(session().isVisible("menuWallButton"));
-      assertTrue(session().isVisible("menuLoginButton"));
       assertTrue(session().isVisible("menuSettingsButton"));
 
       assertFalse(session().isEditable("menuWallButton"));

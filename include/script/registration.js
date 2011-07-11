@@ -44,7 +44,7 @@ var Registration = Class.$extend( {
   registrationSubmit : function() {
     $("#registrationInfoText").toggle(false);
     this.disableForm();
-    var url = this.basePath + 'catroid/registration/registrationRequest.json';
+    var url = this.basePath + 'api/registration/registrationRequest.json';
     $.ajax({
       type : "POST",
       url : url,

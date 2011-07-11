@@ -63,6 +63,8 @@ public class Config {
   public static final String DEFAULT_UPLOAD_EMAIL = "webmaster@catroid.org";
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";
+  
+  public static final String SITE_DEFAULT_LANGUAGE = "en";
 
   public static void setSeleniumGridTestdata(String basedir) {
     if (FILESYSTEM_BASE_PATH.matches(".*tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "$")) {

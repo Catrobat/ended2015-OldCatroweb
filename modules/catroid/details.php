@@ -33,11 +33,14 @@ class details extends CoreAuthenticationNone {
     $this->addJs('projectDetails.js');
 
     $this->isMobile = $this->clientDetection->isMobile();
+    //$this->setWebsiteTitle($this->project['title']);
   }
 
   public function __default() {
     $projectId = $_REQUEST['method'];
     $this->project = $this->getProjectDetails($projectId);
+    
+    $this->setWebsiteTitle($this->project['title']);
   }
 
   public function getProjectDetails($projectId) {
@@ -59,7 +62,8 @@ class details extends CoreAuthenticationNone {
       exit();
     }
     $project['image'] = getProjectImageUrl($project['id']);
-    $project['publish_time_in_words'] = getTimeInWords(strtotime($project['upload_time']), time());
+    $project['publish_time_in_words'] = getTimeInWords(strtotime($project['upload_time']), $this->languageHandler, time());
+    $project['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $project['uploaded_by']);
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
     $project['title'] = $project['title'];
     $project['fileSize'] = convertBytesToMegabytes($project['filesize_bytes']);
@@ -68,7 +72,11 @@ class details extends CoreAuthenticationNone {
     } else {
       $project['description'] = '';
     }
-    $project['description_short'] = makeShortString($project['description'], PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
+    if(mb_strlen($project['description'], 'UTF-8') > PROJECT_SHORT_DESCRIPTION_MAX_LENGTH) {
+      $project['description_short'] = makeShortString($project['description'], PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
+    } else {
+      $project['description_short'] = '';
+    }
     $project['qr_code_image'] = getProjectQRCodeUrl($projectId);
     $this->incrementViewCounter($projectId);
     return $project;

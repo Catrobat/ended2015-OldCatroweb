@@ -87,30 +87,59 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testGetTimeInWords() {
+    require_once('frameworkTestModel.php');
+    $testModel = new frameworkTestModel();
+
     $fromTime = time() - 10;
-    $timeInWords = getTimeInWords($fromTime, time());
+    $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertTrue(is_string($timeInWords));
     $this->assertTrue(is_int(strpos($timeInWords, 'less')) && is_int(strpos($timeInWords, 'minute')));
 
     $fromTime = time() - 66;
-    $timeInWords = getTimeInWords($fromTime, time());
+    $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertFalse(strpos($timeInWords, 'less'));
     $this->assertTrue(is_int(strpos($timeInWords, 'minute')));
 
     $fromTime = time() - 60*60*24-1;
-    $timeInWords = getTimeInWords($fromTime, time());
+    $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertFalse(strpos($timeInWords, 'minute'));
     $this->assertTrue(is_int(strpos($timeInWords, 'day')));
 
     $fromTime = time() - 60*60*24*31-1;
-    $timeInWords = getTimeInWords($fromTime, time());
+    $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertFalse(strpos($timeInWords, 'day'));
     $this->assertTrue(is_int(strpos($timeInWords, 'month')));
 
     $fromTime = time() - 60*60*24*32*12-1;
-    $timeInWords = getTimeInWords($fromTime, time());
+    $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertFalse(strpos($timeInWords, 'month'));
     $this->assertTrue(is_int(strpos($timeInWords, 'year')));
+  }
+  
+  public function testGetSupportedLanguagesArray() {
+    require_once('frameworkTestModel.php');
+    $testModel = new frameworkTestModel();
+    $supportedLanguages = getSupportedLanguagesArray($testModel->languageHandler);
+    $this->assertTrue(isset($supportedLanguages[SITE_DEFAULT_LANGUAGE]));
+    $this->assertTrue($supportedLanguages[SITE_DEFAULT_LANGUAGE]['supported']);
+  }
+  
+  public function testCopyAndRemoveDir() {
+    $testFolder = dirname(__FILE__).'/testdata/commonFunctionsTestData/testfolder/';
+    $runtimeFolder = dirname(__FILE__).'/testdata/commonFunctionsTestData/runtimeFolder/';
+    copyDir($testFolder, $runtimeFolder);
+    $this->assertTrue(is_dir($runtimeFolder));
+    $this->assertTrue(is_dir($runtimeFolder.'subfolder1'));
+    $this->assertTrue(is_dir($runtimeFolder.'subfolder2'));
+    $this->assertTrue(is_dir($runtimeFolder.'subfolder2/subfolder1'));
+    $this->assertTrue(is_file($runtimeFolder.'subfolder2/subfolder1/test.txt'));
+    $this->assertEquals(md5_file($runtimeFolder.'subfolder2/subfolder1/test.txt'), md5_file($testFolder.'subfolder2/subfolder1/test.txt'));
+    removeDir($runtimeFolder);
+    $this->assertFalse(is_dir($runtimeFolder));
+    $this->assertFalse(is_dir($runtimeFolder.'subfolder1'));
+    $this->assertFalse(is_dir($runtimeFolder.'subfolder2'));
+    $this->assertFalse(is_dir($runtimeFolder.'subfolder2/subfolder1'));
+    $this->assertFalse(is_file($runtimeFolder.'subfolder2/subfolder1/test.txt'));     
   }
 
 

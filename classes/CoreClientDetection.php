@@ -135,6 +135,7 @@
 	class CoreClientDetection {
 		private $_agent = '';
 		private $_browser_name = '';
+		private $_browser_language = '';
 		private $_version = '';
 		private $_platform = '';
 		private $_os = '';
@@ -214,6 +215,7 @@
 			else {
 				$this->determine();
 			}
+			$this->setBrowserLanguage();
 		}
 
 		/**
@@ -243,6 +245,10 @@
 		* @return string Name of the browser
 		*/
 		public function getBrowser() { return $this->_browser_name; }
+		/**
+		* added by [TG], 2011-04-18
+		*/
+		public function getBrowserLanguage() { return $this->_browser_language; }
 		/**
 		* Set the name of the browser
 		* @param $browser The name of the Browser
@@ -303,6 +309,16 @@
 		 * @param boolean $value is the browser a mobile brower or not
 		 */
 		protected function setMobile($value=true) { $this->_is_mobile = $value; }
+	    /**
+	     * added by [TG], 2011-04-18
+	     */
+		private function setBrowserLanguage() {
+		  if(isset($_SERVER['HTTP_ACCEPT_LANGUAGE'])) {
+		    $this->_browser_language = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);
+		  } else {
+		    $this->_browser_language = SITE_DEFAULT_LANGUAGE;
+		  }
+		}
 		/**
 		 * Set the Browser to be a robot
 		 * @param boolean $value is the browser a robot or not

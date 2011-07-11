@@ -16,8 +16,7 @@
       You should have received a copy of the GNU Affero General Public License
       along with this program.  If not, see <http://www.gnu.org/licenses/>.
   -->
- 
-
+  
 <errors>
     <db>
         <string name="query_failed">Ooooops something went wrong. Please try again!</string>
@@ -25,7 +24,7 @@
         <string name="no_entry_for_id">Ooooops something went wrong. Please try again!</string>
     </db>
     <sendmail>
-      <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at webmaster@catroid.org.</string>
+      <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
     </sendmail>
     <upload>
         <string name="missing_post_data">You need to specify a title for your project!</string>
@@ -49,7 +48,7 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">This page cannot be displayed.</string>
-    	<string name="ajax_request_page_not_found">This page cannot be displayed.</string>
+    	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
     </viewer>
     <auth>
     	<string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
@@ -57,8 +56,8 @@
     	<string name="board_authentication_failed">The board authentication failed.</string>
     	<string name="wiki_authentication_failed">The wiki authentication failed.</string>
     	<string name="catroid_authentication_failed">Sorry, there was a problem: check your nickname and password.</string>
-    	<string name="wiki_api_response_incorrect">The response of the mediawiki API was incorrect.</string>
-    	<string name="device_auth_invalid_token">The authentication with the website failed. Please enter your correct Username and Password.</string>
+    	<string name="wiki_api_response_incorrect">Ooooops something went wrong. Please try again!</string>
+    	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your nickname and password!</string>
         <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
     </auth>
     <registration>
@@ -73,8 +72,8 @@
     	<string name="password_repeat_missing">Your repeated password is missing.</string>
     	<string name="password_repeat_differs">The password differs from the repeated password.</string>
     	<string name="password_invalid">Your password is invalid.</string>
-    	<string name="password_length_invalid">Your password must have at least 6 characters.</string>
-    	<string name="username_password_equal">The password must differ from your nickname.</string>
+    	<string name="password_length_invalid">Your password must have at least {*minimumPasswordLength*} and maximal {*maximumPasswordLength*} characters.</string>
+    	<string name="username_password_equal">The password must differ from the nickname.</string>
     	<string name="username_missing">Your nickname is missing.</string>
     	<string name="username_invalid">Your nickname is invalid.</string>
       <string name="username_invalid_underscore">The nickname is invalid. Underscores (_) are not allowed.</string>
@@ -84,7 +83,7 @@
       <string name="username_invalid_lessgreater">The nickname is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.</string>
       <string name="username_invalid_squarebracket">The nickname is invalid. Square brackets ([ or ]) are not allowed.</string>
     	<string name="username_already_exists">This nickname already exists.</string>
-    	<string name="username_blacklisted">This nickname is not allowed.</string>
+    	<string name="username_blacklisted">This nickname is on the blacklist and not allowed.</string>
     	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
     	<string name="country_missing">Your country is missing.</string>
       <string name="birth_missing">Your birthday is missing.</string>
@@ -97,24 +96,28 @@
       <string name="userdata_invalid">Your nickname or email address is invalid.</string>
       <string name="userdata_missing">Your nickname or email address is missing.</string>
       <string name="userdata_not_exists">Your nickname or email address was not found.</string>
-      <string name="passwordhash_invalid">Sorry! Your recovery url has expired. Please try again.</string>
-      <string name="password_missing">The password is missing.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
-      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at webmaster@catroid.org.</string>
+      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at  {*webmasterEmailAddress*}.</string>
+      <string name="passwordhash_invalid">Sorry! Your recovery URL has expired.</string>
+      <string name="password_missing">The password is missing.</string>
+      <string name="password_length_invalid">Your password must have at least {*minimumPasswordLength*} and maximal {*maximumPasswordLength*} characters.</string>
     </passwordrecovery>
     <profile>
-      <string name="password_repeat_missing">Your repeated password is missing.</string>
-      <string name="password_repeat_differs">Your password differs from the repeated password.</string>
-      <string name="password_old_missing">Your old password is missing.</string>
-      <string name="password_old_wrong">Your old password was incorrect.</string>
-      <string name="password_old_invalid">Your old password is invalid.</string>
-      <string name="password_old_length_invalid">Your old password must have at least 6 characters.</string>
-      <string name="password_new_missing">Your new password is missing.</string>
-      <string name="password_new_invalid">Your new password is invalid.</string>
-      <string name="password_new_length_invalid">Your new password must have at least 6 characters.</string>
-      <string name="username_password_equal">Your password must differ from your nickname.</string>
+      <string name="password_repeat_missing">The repeated password is missing.</string>
+      <string name="password_repeat_differs">The password differs from the repeated password.</string>
+      <string name="password_old_missing">The old password is missing.</string>
+      <string name="password_old_wrong">The old password was incorrect.</string>
+      <string name="password_old_invalid">The old password is invalid.</string>
+      <string name="password_new_missing">The new password is missing.</string>
+      <string name="password_new_invalid">The new password is invalid.</string>
+      <string name="password_new_length_invalid">The new password must have at least {*minimumPasswordLength*} characters.</string>
+      <string name="username_password_equal">The password must differ from the nickname.</string>
       <string name="email_address_exists">The email address already exists.</string>
-      <string name="email_update_failed">There was a problem while updating your email address.</string>
+      <string name="email_update_failed">There was a problem while updating the email address.</string>
     </profile>
+    <viewer>
+      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
+      <string name="user_is_blocked">Your Account has been blocked.</string>
+    </viewer>
 </errors>
 

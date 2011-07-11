@@ -37,7 +37,7 @@ var Login = Class.$extend({
   doLoginRequest : function() {
     $("#loginInfoText").toggle(false);
     this.disableForm();
-    var url = this.basePath + 'catroid/login/loginRequest.json';
+    var url = this.basePath + 'api/login/loginRequest.json';
     $.ajax({
       type : "POST",
       url : url,
@@ -72,7 +72,7 @@ var Login = Class.$extend({
 
   doLogoutRequest : function(event) {
     $.ajax({
-      url : this.basePath + "catroid/login/logoutRequest.json",
+      url : this.basePath + "api/login/logoutRequest.json",
       async : false,
       success : jQuery.proxy(this.logoutSuccess, this),
       error : jQuery.proxy(this.logoutError, this)

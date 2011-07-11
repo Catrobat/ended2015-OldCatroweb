@@ -30,25 +30,27 @@ function getUsernameBlacklistArray() {
   $usernameBlacklist = array(
     'admin',
     'catroid',
-    'kittyroid'
-    );
-    return $usernameBlacklist;
+	'administrator',
+    'catroweb',
+  	'kittyroid'
+  	);
+  	return $usernameBlacklist;
 }
 
-function getMonthsArray() {
+function getMonthsArray($languageHandler) {
   $months = array(
-  1=>"Jan",
-  2=>"Feb",
-  3=>"Mar",
-  4=>"Apr",
-  5=>"May",
-  6=>"Jun",
-  7=>"Jul",
-  8=>"Aug",
-  9=>"Sep",
-  10=>"Oct",
-  11=>"Nov",
-  12=>"Dec"
+  1=>$languageHandler->getString('template_common_january'),
+  2=>$languageHandler->getString('template_common_february'),
+  3=>$languageHandler->getString('template_common_march'),
+  4=>$languageHandler->getString('template_common_april'),
+  5=>$languageHandler->getString('template_common_may'),
+  6=>$languageHandler->getString('template_common_june'),
+  7=>$languageHandler->getString('template_common_july'),
+  8=>$languageHandler->getString('template_common_august'),
+  9=>$languageHandler->getString('template_common_september'),
+  10=>$languageHandler->getString('template_common_october'),
+  11=>$languageHandler->getString('template_common_november'),
+  12=>$languageHandler->getString('template_common_december')
   );
   return $months;
 }
@@ -121,40 +123,122 @@ function getProjectQRCodeUrl($projectId) {
   return $qr;
 }
 
-function getTimeInWords($fromTime, $toTime = 0) {
+function getTimeInWords($fromTime, $languageHandler, $toTime = 0) {
   if($toTime == 0) {
     $toTime = time();
   }
   $seconds = round(abs($toTime - $fromTime));
   $minutes = round($seconds/60);
   if ($minutes <= 1) {
-    return ($minutes == 0) ? 'less than a minute' : '1 minute';
+    return ($minutes == 0) ? $languageHandler->getString('template_common_less_than_a_minute_ago') : $languageHandler->getString('one_minute_ago');
   }
   if ($minutes < 45) {
-    return $minutes.' minutes';
+    return $languageHandler->getString('template_common_minutes_ago', $minutes);
   }
   if ($minutes < 90) {
-    return 'about 1 hour';
+    return $languageHandler->getString('template_common_one_hour_ago');
   }
   if ($minutes < 1440) {
-    return 'about '.round(floatval($minutes)/60.0).' hours';
+    return $languageHandler->getString('template_common_hours_ago', round(floatval($minutes)/60.0));
   }
   if ($minutes < 2880) {
-    return '1 day';
+    return $languageHandler->getString('template_common_one_day_ago');
   }
   if ($minutes < 43200) {
-    return 'about '.round(floatval($minutes)/1440).' days';
+    return $languageHandler->getString('template_common_days_ago', round(floatval($minutes)/1440));
   }
   if ($minutes < 86400) {
-    return 'about 1 month';
+    return $languageHandler->getString('template_common_one_month_ago');
   }
   if ($minutes < 525600) {
-    return round(floatval($minutes)/43200).' months';
+    return $languageHandler->getString('template_common_months_ago', round(floatval($minutes)/43200));
   }
   if ($minutes < 1051199) {
-    return 'about 1 year';
+    return $languageHandler->getString('template_common_one_year_ago');
   }
-  return 'over '.round(floatval($minutes)/525600) . ' years';
+  return $languageHandler->getString('template_common_over_years_ago', round(floatval($minutes)/525600));
+}
+
+function getSupportedLanguagesArray($languageHandler) {
+  $supportedLanguages = array(
+  'ar'=>array('name'=>$languageHandler->getString('template_common_arabic'), 'nameNative'=>'‫العربية‬', 'supported'=>false),
+  'bg'=>array('name'=>$languageHandler->getString('template_common_bulgarian'), 'nameNative'=>'‪български‬', 'supported'=>false),
+  'ca'=>array('name'=>$languageHandler->getString('template_common_catalan'), 'nameNative'=>'‪català‬', 'supported'=>false),
+  'zh-CN'=>array('name'=>$languageHandler->getString('template_common_chinese_simplified_han'), 'nameNative'=>'‪中文（简体中文）‬', 'supported'=>true),
+  'zh-TW'=>array('name'=>$languageHandler->getString('template_common_chinese_traditional_han'), 'nameNative'=>'‪中文 (繁體中文)‬', 'supported'=>true),
+  'hr'=>array('name'=>$languageHandler->getString('template_common_croatian'), 'nameNative'=>'‪hrvatski‬', 'supported'=>false),
+  'cs'=>array('name'=>$languageHandler->getString('template_common_czech'), 'nameNative'=>'‪čeština‬', 'supported'=>false),
+  'da'=>array('name'=>$languageHandler->getString('template_common_danish'), 'nameNative'=>'‪dansk‬', 'supported'=>false),
+  'nl'=>array('name'=>$languageHandler->getString('template_common_dutch'), 'nameNative'=>'‪Nederlands‬', 'supported'=>false),
+  'en-GB'=>array('name'=>$languageHandler->getString('template_common_english_united_kingdom'), 'nameNative'=>'‪English (United Kingdom)‬', 'supported'=>false),
+  'en'=>array('name'=>$languageHandler->getString('template_common_english_united_states'), 'nameNative'=>'‪English (United States)‬', 'supported'=>true),
+  'et'=>array('name'=>$languageHandler->getString('template_common_estonian'), 'nameNative'=>'‪eesti‬', 'supported'=>false),
+  'fil'=>array('name'=>$languageHandler->getString('template_common_filipino'), 'nameNative'=>'‪Filipino‬', 'supported'=>false),
+  'fi'=>array('name'=>$languageHandler->getString('template_common_finnish'), 'nameNative'=>'‪suomi‬', 'supported'=>false),
+  'fr'=>array('name'=>$languageHandler->getString('template_common_french'), 'nameNative'=>'‪français‬', 'supported'=>false),
+  'de'=>array('name'=>$languageHandler->getString('template_common_german'), 'nameNative'=>'‪Deutsch‬', 'supported'=>true),
+  'el'=>array('name'=>$languageHandler->getString('template_common_greek'), 'nameNative'=>'‪Ελληνικά‬', 'supported'=>false),
+  'iw'=>array('name'=>$languageHandler->getString('template_common_hebrew'), 'nameNative'=>'‫עברית‬', 'supported'=>false),
+  'hi'=>array('name'=>$languageHandler->getString('template_common_hindi'), 'nameNative'=>'‪हिन्दी‬', 'supported'=>false),
+  'hu'=>array('name'=>$languageHandler->getString('template_common_hungarian'), 'nameNative'=>'‪magyar‬', 'supported'=>false),
+  'id'=>array('name'=>$languageHandler->getString('template_common_indonesian'), 'nameNative'=>'‪Bahasa Indonesia‬', 'supported'=>false),
+  'it'=>array('name'=>$languageHandler->getString('template_common_italian'), 'nameNative'=>'‪italiano‬', 'supported'=>false),
+  'ja'=>array('name'=>$languageHandler->getString('template_common_japanese'), 'nameNative'=>'‪日本語‬', 'supported'=>false),
+  'ko'=>array('name'=>$languageHandler->getString('template_common_korean'), 'nameNative'=>'‪한국어‬', 'supported'=>false),
+  'lv'=>array('name'=>$languageHandler->getString('template_common_latvian'), 'nameNative'=>'‪latviešu‬', 'supported'=>false),
+  'lt'=>array('name'=>$languageHandler->getString('template_common_lithuanian'), 'nameNative'=>'‪lietuvių‬', 'supported'=>false),
+  'ms'=>array('name'=>$languageHandler->getString('template_common_malay'), 'nameNative'=>'‪Bahasa Melayu‬', 'supported'=>true),
+  'no'=>array('name'=>$languageHandler->getString('template_common_norwegian'), 'nameNative'=>'‪norsk‬', 'supported'=>false),
+  'fa'=>array('name'=>$languageHandler->getString('template_common_persian'), 'nameNative'=>'‫فارسی‬', 'supported'=>false),
+  'pl'=>array('name'=>$languageHandler->getString('template_common_polish'), 'nameNative'=>'‪polski‬', 'supported'=>false),
+  'pt-BR'=>array('name'=>$languageHandler->getString('template_common_portuguese_brazil'), 'nameNative'=>'‪português (Brasil)‬', 'supported'=>false),
+  'pt-PT'=>array('name'=>$languageHandler->getString('template_common_portuguese_portugal'), 'nameNative'=>'‪português (Portugal)‬', 'supported'=>false),
+  'ro'=>array('name'=>$languageHandler->getString('template_common_romanian'), 'nameNative'=>'‪română‬', 'supported'=>false),
+  'ru'=>array('name'=>$languageHandler->getString('template_common_russian'), 'nameNative'=>'‪русский‬', 'supported'=>false),
+  'sr'=>array('name'=>$languageHandler->getString('template_common_serbian'), 'nameNative'=>'‪Српски‬', 'supported'=>false),
+  'sk'=>array('name'=>$languageHandler->getString('template_common_slovak'), 'nameNative'=>'‪slovenčina‬', 'supported'=>false),
+  'sl'=>array('name'=>$languageHandler->getString('template_common_slovenian'), 'nameNative'=>'‪slovenščina‬', 'supported'=>false),
+  'es-419'=>array('name'=>$languageHandler->getString('template_common_spanish_latin_america'), 'nameNative'=>'‪español (Latinoamérica)‬', 'supported'=>false),
+  'es'=>array('name'=>$languageHandler->getString('template_common_spanish_spain'), 'nameNative'=>'‪español (España)‬', 'supported'=>false),
+  'sv'=>array('name'=>$languageHandler->getString('template_common_swedish'), 'nameNative'=>'‪svenska‬', 'supported'=>false),
+  'th'=>array('name'=>$languageHandler->getString('template_common_thai'), 'nameNative'=>'‪ไทย‬', 'supported'=>false),
+  'tr'=>array('name'=>$languageHandler->getString('template_common_turkish'), 'nameNative'=>'‪Türkçe‬', 'supported'=>false),
+  'uk'=>array('name'=>$languageHandler->getString('template_common_ukrainian'), 'nameNative'=>'‪українська‬', 'supported'=>false),
+  'vi'=>array('name'=>$languageHandler->getString('template_common_vietnamese'), 'nameNative'=>'‪Tiếng Việt‬', 'supported'=>false));
+  return $supportedLanguages;
+}
+
+function copyDir($src, $dst) {
+  if(file_exists($dst)) {
+    removeDir($dst);
+  }
+  if(is_dir($src)) {
+    mkdir($dst, 0777, true);
+    $files = scandir($src);
+    foreach($files as $file) {
+      if($file != "." && $file != "..") {
+        copyDir("$src/$file", "$dst/$file");
+      }
+    }
+  }
+  else if(file_exists($src)) {
+    copy($src, $dst);
+  }
+}
+
+function removeDir($dir) {
+  if(is_dir($dir)) {
+    $files = scandir($dir);
+    foreach($files as $file) {
+      if($file != "." && $file != "..") {
+        removeDir("$dir/$file");
+      }
+    }
+    rmdir($dir);
+  }
+  else if(file_exists($dir)) {
+    unlink($dir);
+  }
 }
 
 ?>
