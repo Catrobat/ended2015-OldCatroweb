@@ -119,36 +119,6 @@ public class SearchTests extends BaseTest {
     }
   }
 
-  @Test(groups = { "visibility", "upload" }, description = "TODO! when bugfix available")
-  public void checkButtonVisibility() throws Throwable {
-    try {
-      /*
-       * 
-       * assertFalse(session().isVisible("fewerProjects"));
-       * assertFalse(session().isVisible("moreProjects"));
-       */
-      // TODO, when bugfix available
-      /*
-       * session().click("headerCancelButton"); ajaxWait();
-       * assertFalse(session().isTextPresent
-       * (CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-       * assertTrue(session().isTextPresent
-       * (CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
-       * 
-       * session().click("headerSearchButton"); session().type("searchQuery",
-       * projectTitle);
-       * session().click("xpath=//input[@class='webHeadSearchSubmit']");
-       * ajaxWait();
-       */
-    } catch(AssertionError e) {
-      captureScreen("SearchTests.checkButtonVisibility");
-      throw e;
-    } catch(Exception e) {
-      captureScreen("SearchTests.checkButtonVisibility");
-      throw e;
-    }
-  }
-
   @Test(groups = { "functionality", "upload" }, description = "search test with page navigation")
   public void pageNavigation() throws Throwable {
     try {
@@ -244,8 +214,9 @@ public class SearchTests extends BaseTest {
       projectUploader.upload(CommonData.getUploadPayload(projectTitle2, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "",
           "", "0"));
       session().refresh();
-      session().click("webHeadSearchSubmit");
+      waitForPageToLoad();
       ajaxWait();
+      session().click("webHeadSearchSubmit");
       
       waitForTextPresent(projectTitle1);
       assertTrue(session().isTextPresent(projectTitle2));

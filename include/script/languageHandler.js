@@ -40,7 +40,7 @@ var LanguageHandler = Class.$extend({
 
   switchLanguageSuccess : function(result) {
     if(result.statusCode == 200) {
-      location.reload();      
+      location.reload();
     }
     this.enableForm();
   },

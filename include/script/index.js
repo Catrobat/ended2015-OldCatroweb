@@ -90,10 +90,10 @@ var Index = Class.$extend( {
 
   cancelSearch : function() {
     this.switchState("newestProjects");
-    this.newestProjects.showStartPage();
   },
   
   startPage : function() {
     this.switchState("newestProjects");
+    this.newestProjects.showStartPage();
   }
 });

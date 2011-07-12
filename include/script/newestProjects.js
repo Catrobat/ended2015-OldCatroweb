@@ -71,6 +71,7 @@ var NewestProjects = Class.$extend( {
       stateObject.pageLabels = this.pageLabels;
       stateObject.pageContent = this.pageContent;
       stateObject.newestProjects = true;
+      stateObject.language = $("#switchLanguage").val();
 	      
       history.pushState(stateObject, this.pageLabels['websitetitle'] + " - " + 
           this.pageLabels['title'] + " - " + this.pageNr.current, 
@@ -87,8 +88,14 @@ var NewestProjects = Class.$extend( {
 
       if(state.newestProjects) {
         this.pageNr = state.pageNr;
-        this.pageLabels = state.pageLabels;
-        this.pageContent = state.pageContent;
+        if(state.language == $("#switchLanguage").val()) {
+          this.pageContent = state.pageContent;
+          this.pageLabels = state.pageLabels;
+        } else {
+          this.pageLabels = new Array();
+          this.pageContent = { prev : null, current : null, next : null };
+          this.loadAndCachePage();
+        }
       }      
       $("#normalHeaderButtons").toggle(true);
       $("#cancelHeaderButton").toggle(false);
@@ -118,7 +125,6 @@ var NewestProjects = Class.$extend( {
     if(!this.ajaxRequestMutex) {
       this.ajaxRequestMutex = true;
       $("#projectContainer").fadeTo(100, 0.60);
-      $("#ajax-loader").val("on");
       return true;
     }
     return false;
@@ -126,7 +132,6 @@ var NewestProjects = Class.$extend( {
 	  
   unblockAjaxRequest : function() {
     $("#projectContainer").fadeTo(10, 1.0);
-    $("#ajax-loader").val("off");
     this.ajaxRequestMutex = false;
   },
 
@@ -322,8 +327,6 @@ var NewestProjects = Class.$extend( {
       $("#projectContainer").append(containerContent);
       $("#projectContainer").append($("<div />").addClass("projectListSpacer"));
       $("#projectContainer").append($("<div />").addClass("webMainNavigationButtons").append(navigationButtonNext.attr("id", "moreProjects").append($("<span />").addClass("navigationButtons"))));
-      
-      $("#projectContainer").append($("<div />").append($("<input />").attr("type", "hidden").attr("id", "ajax-loader")));
     }
   },
   

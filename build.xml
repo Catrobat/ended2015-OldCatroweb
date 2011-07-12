@@ -201,7 +201,7 @@
     <property name="test.port" value="5555"/>
     <property name="test.browserName" value="firefox"/>
     <property name="test.browserVersion" value="3.6"/>
-    <property name="test.maxInstances" value="3"/>
+    <property name="test.maxInstances" value="5"/>
     <property name="test.nodeTimeout" value="30"/>
     <antcall target='selenium-tools.launch-remote-control'>
       <param name="role" value="${test.role}"/>
