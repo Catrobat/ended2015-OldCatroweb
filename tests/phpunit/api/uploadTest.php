@@ -34,8 +34,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider correctPostData
    */
-  public function testDoUpload($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+  public function testDoUpload($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $fileSize = filesize($testFile);
@@ -56,14 +56,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
     $this->assertTrue(is_string($this->upload->answer));
 
-
-    if($uploadImei) {
-      $query = "SELECT upload_imei FROM projects WHERE id='$insertId'";
-      $result = pg_query($this->dbConnection, $query);
-      $row = pg_fetch_row($result);
-      $this->assertEquals($uploadImei, $row[0]);
-      pg_free_result($result);
-    }
     if($uploadEmail) {
       $query = "SELECT upload_email FROM projects WHERE id='$insertId'";
       $result = pg_query($this->dbConnection, $query);
@@ -114,8 +106,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider incorrectPostData
    */
-  public function testDoUploadFail($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $expectedStatusCode, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+  public function testDoUploadFail($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $expectedStatusCode, $uploadEmail = '', $uploadLanguage = '') {
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
@@ -137,12 +129,12 @@ class uploadTest extends PHPUnit_Framework_TestCase
  /**
    * @dataProvider correctVersionData
    */
-  public function testDoUploadCorrectVersion($projectTitle, $projectDescription, $fileName, $fileType, $versionCode, $versionName, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
+  public function testDoUploadCorrectVersion($projectTitle, $projectDescription, $fileName, $fileType, $versionCode, $versionName, $uploadEmail = '', $uploadLanguage = '') {
     $testFile = dirname(__FILE__).'/testdata/'.$fileName;
     $fileChecksum = md5_file($testFile);
     $fileSize = filesize($testFile);
     
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $fileSize = filesize($testFile);
@@ -168,11 +160,11 @@ class uploadTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider incorrectVersionData
    */
-  public function testDoUploadWrongVersion($projectTitle, $projectDescription, $fileName, $fileType, $versionCode, $versionName, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
+  public function testDoUploadWrongVersion($projectTitle, $projectDescription, $fileName, $fileType, $versionCode, $versionName, $uploadEmail = '', $uploadLanguage = '') {
     $testFile = dirname(__FILE__).'/testdata/'.$fileName;
     $fileChecksum = md5_file($testFile);
     $fileSize = filesize($testFile);
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $fileSize = filesize($testFile);
@@ -250,8 +242,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider correctPostDataThumbailInRootFolderJPG
    */
-  public function testDoUploadWithThumbnailInRootFolderJPG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+  public function testDoUploadWithThumbnailInRootFolderJPG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
@@ -287,8 +279,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider correctPostDataThumbailInImagesFolderJPG
    */
-  public function testDoUploadWithThumbnailInImagesFolderJPG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+  public function testDoUploadWithThumbnailInImagesFolderJPG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
@@ -324,8 +316,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider correctPostDataThumbailInRootFolderPNG
    */
-  public function testDoUploadWithThumbnailInRootFolderPNG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+  public function testDoUploadWithThumbnailInRootFolderPNG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
@@ -361,8 +353,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider correctPostDataThumbailInImagesFolderPNG
    */
-  public function testDoUploadWithThumbnailInImagesFolderPNG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+  public function testDoUploadWithThumbnailInImagesFolderPNG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
@@ -398,8 +390,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider incorrectPostDataWithThumbnail
    */
-  public function testDoUploadWithThumbnailFail($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadImei = '', $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'deviceIMEI'=>$uploadImei, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
+  public function testDoUploadWithThumbnailFail($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
+    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
@@ -447,7 +439,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
       array("unitTest with special chars: ä, ü, ö ' ", "jüßt 4 spècia1 char **test** ' %&()[]{}_|~#", $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
       array('unitTest with included Thumbnail', 'this project contains its thumbnail inside the zip file', $testFileWithThumbnail, $fileNameWithThumbnail, $fileChecksumWithThumbnail, $fileSizeWithThumbnail, $fileType),
       array('unitTest with long description and uppercase fileChecksum', 'this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description.', $testFile, $fileName, strtoupper($fileChecksum), $fileSize, $fileType),
-      array('unitTest with IMEI, Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, '12345rtgfb67854', 'catroid_unittest@gmail.com', 'en'),
+      array('unitTest with Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, 'catroid_unittest@gmail.com', 'en'),
       array('unitTest', 'my project description with thumbnail in root folder.', $testFile, 'test2.zip', $fileChecksum, $fileSize, $fileType),
       array('unitTest', 'my project description with thumbnail in images folder.', $testFile, 'test3.zip', $fileChecksum, $fileSize, $fileType),
     );

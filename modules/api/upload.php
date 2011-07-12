@@ -73,13 +73,12 @@ class upload extends CoreAuthenticationDevice {
               $upfile = $projectName.PROJECTS_EXTENTION;
               $updir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$upfile;
               $uploadIp = $serverData['REMOTE_ADDR'];
-              isset($formData['deviceIMEI']) ? $uploadImei = $formData['deviceIMEI'] : $uploadImei = '';
               isset($formData['userEmail']) ? $uploadEmail = $formData['userEmail'] : $uploadEmail = '';
               isset($formData['userLanguage']) ? $uploadLanguage = $formData['userLanguage'] : $uploadLanguage = '';
 
               if($fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $updir)) {
                 $this->session->userLogin_userId ? $userId = $this->session->userLogin_userId : $userId = 0;
-                $query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$upfile', '$uploadIp', '$uploadImei', '$uploadEmail', '$uploadLanguage', '$fileSize', '$userId');";
+                $query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$upfile', '$uploadIp', '$uploadEmail', '$uploadLanguage', '$fileSize', '$userId');";
                 $result = pg_query($this->dbConnection, $query);
                 if($result) {
                   $line = pg_fetch_assoc($result);
@@ -427,8 +426,6 @@ class upload extends CoreAuthenticationDevice {
     $mailText .= "Project Description: ".$formData['projectDescription']."\n";
     if(isset($fileData['upload']))
     $mailText .= "Project Size: ".intval($fileData['upload']['size'])." Byte\n";
-    if(isset($formData['deviceIMEI']))
-    $mailText .= "Device IMEI: ".$formData['deviceIMEI']."\n";
     if(isset($formData['userEmail']))
     $mailText .= "User Email: ".$formData['userEmail']."\n";
     if(isset($formData['userLanguage']))

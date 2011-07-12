@@ -40,7 +40,7 @@ public class ReportAsInappropriateTests extends BaseTest {
       Random rand = new Random();
       String projectTitle = "Testproject_for_report_as_inappropriate_" + rand.nextInt(9999);
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
-          dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
+          dataset.get("projectChecksum"), "", "", dataset.get("token")));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
@@ -104,7 +104,7 @@ public class ReportAsInappropriateTests extends BaseTest {
       Random rand = new Random();
       String projectTitle = "Testproject_for_report_as_inappropriate_(anonymous user)_" + rand.nextInt(9999);
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), dataset.get("projectSource"),
-          dataset.get("projectChecksum"), "", "", "", dataset.get("token")));
+          dataset.get("projectChecksum"), "", "", dataset.get("token")));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 

@@ -84,7 +84,7 @@ public class SearchTests extends BaseTest {
       String projectPrefix = "searchtest";
       String projectTitle = projectPrefix + specialchars;
       projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(200), "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "",
-          "", "", "0"));
+          "", "0"));
 
       openLocation();
       ajaxWait();
@@ -128,7 +128,7 @@ public class SearchTests extends BaseTest {
 
       System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
       for(int i = 0; i < uploadCount; i++) {
-        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "",
+        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "",
             "0"));
       }
       openLocation();
@@ -199,7 +199,7 @@ public class SearchTests extends BaseTest {
       String projectTitle1 = projectTitle + "_1";
       String projectTitle2 = projectTitle + "_2";
 
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0"));
       openLocation();
       ajaxWait();
 
@@ -211,7 +211,7 @@ public class SearchTests extends BaseTest {
       waitForTextPresent(projectTitle1);
       assertFalse(session().isTextPresent(projectTitle2));
       
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle2, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "",
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle2, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "",
           "", "0"));
       session().refresh();
       waitForPageToLoad();
@@ -233,7 +233,7 @@ public class SearchTests extends BaseTest {
   public void searchAndHideProject() throws Throwable {
     try {
       String projectTitle = "search_test_" + CommonData.getRandomShortString(10);
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0"));
       String projectID = projectUploader.getProjectId(projectTitle);
 
       openLocation();
@@ -301,9 +301,9 @@ public class SearchTests extends BaseTest {
     Object[][] returnArray = new Object[][] {
         { CommonData.getUploadPayload("search_test_long_description_" + CommonData.getRandomShortString(10),
             "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH), "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d",
-            "", "", "", "0") },
+            "", "", "0") },
         { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "test.zip",
-            "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") }, };
+            "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") }, };
     return returnArray;
   }
 }

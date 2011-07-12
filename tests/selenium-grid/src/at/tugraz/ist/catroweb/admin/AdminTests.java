@@ -134,7 +134,7 @@ public class AdminTests extends BaseTest {
   public void inappropriateProjects() throws Throwable {
     try {
       String title = "Testproject " + CommonData.getRandomLongString(200);
-      String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", ""));
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       openLocation("catroid/details/" + id);

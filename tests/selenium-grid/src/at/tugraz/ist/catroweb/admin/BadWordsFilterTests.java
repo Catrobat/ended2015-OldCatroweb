@@ -39,7 +39,7 @@ public class BadWordsFilterTests extends BaseTest {
   public void approveButtonGood() throws Throwable {
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttongood" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "",""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
@@ -70,7 +70,7 @@ public class BadWordsFilterTests extends BaseTest {
   public void approveButtonBad() throws Throwable {
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttonbad" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
@@ -101,7 +101,7 @@ public class BadWordsFilterTests extends BaseTest {
   public void approveButtonNoSelection() throws Throwable {
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttonnoselection" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
@@ -131,7 +131,7 @@ public class BadWordsFilterTests extends BaseTest {
   public void testDeleteButton() throws Throwable {
     try {
       String unapprovedWord = "badwordsfilterteststestdeletebutton" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();

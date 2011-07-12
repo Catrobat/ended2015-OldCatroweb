@@ -293,20 +293,20 @@ public class DetailsTests extends BaseTest {
             .getUploadPayload(
                 "more button selenium test",
                 "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!",
-                "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") },
+                "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") },
         { CommonData
             .getUploadPayload(
                 "more button special chars test",
                 "This is a description which has special chars like \", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with \"special chars\" and should have more characters than defined by the threshold in config.php. Thats it!",
-                "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") }, };
+                "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") }, };
     return returnArray;
   }
 
   @DataProvider(name = "detailsProject")
   public Object[][] detailsProject() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") },
-        { CommonData.getUploadPayload("details_test2big", "details_test_description", "test2.zip", "63f6285f32df9afea00c2ac0befa2947", "", "", "", "0") }, };
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") },
+        { CommonData.getUploadPayload("details_test2big", "details_test_description", "test2.zip", "63f6285f32df9afea00c2ac0befa2947", "", "", "0") }, };
     return returnArray;
   }
 }
