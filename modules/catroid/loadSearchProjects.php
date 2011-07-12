@@ -85,8 +85,8 @@ class loadSearchProjects extends CoreAuthenticationNone {
       return($projects);
     } elseif($pageNr == 0) {
         $projects[0]['id'] = 0;
-        $projects[0]['title'] = "Your search returned no results";
-        $projects[0]['title_short'] = "Your search returned no results";
+        $projects[0]['title'] = $this->languageHandler->getString("no_results");
+        $projects[0]['title_short'] = $this->languageHandler->getString("no_results");
         $projects[0]['upload_time'] =  "";
         $projects[0]['thumbnail'] = BASE_PATH."images/symbols/thumbnail_gray.png";
       return($projects);
