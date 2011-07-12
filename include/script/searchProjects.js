@@ -184,7 +184,6 @@ var SearchProjects = Class.$extend( {
 
   triggerSearch : function(loadAndCache) {
     var search = $.trim($("#searchQuery").val());  
-    //if(search != "" && this.searchQuery != search) {
     if(search != "") {
       if(this.blockAjaxRequest()) {
         this.searchQuery = search;
