@@ -67,14 +67,14 @@
             <form id="resolveForm<?php echo $project['id']?>" class="admin" action="inappropriateProjects" method="POST">
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
               <input type="hidden" name="resolve" value="resolve"/>
-              <input type="button" value="resolve" name="resolveButton" id="resolve<?php echo $project['id']?>" onclick="javascript:submitResolveForm('<?php echo $project['id']?>', '<?php echo $project['title']?>');" />
+              <input type="button" value="resolve" name="resolveButton" id="resolve<?php echo $project['id']?>" onclick="javascript:submitResolveForm('<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" />
             </form>
           </td>
           <td>
             <form id="deleteForm<?php echo $project['id']?>" class="admin" action="inappropriateProjects" method="POST">
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
               <input type="hidden" name="delete" value="delete"/>
-              <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitDeleteForm('<?php echo $project['id']?>', '<?php echo $project['title']?>');" /> <!-- chg -->
+              <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitDeleteForm('<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" /> <!-- chg -->
             </form>
           </td>
         </tr>

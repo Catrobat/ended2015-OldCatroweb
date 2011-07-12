@@ -63,13 +63,13 @@
           } else {
             if (!$user_id) {
               $block_user = "<form id=\"addBlockedUser$id\" class=\"admin\" action=\"addBlockedUser\" method=\"POST\">";
-              $block_user.= "<input type=\"hidden\" name=\"blockUserValue\" value=\"".$id."\"><input type=\"button\" value=\"block user\" id=\"blockUser".$id."\" onclick=\"javascript:blockUser(".$id.", '$username');\">";
+              $block_user.= "<input type=\"hidden\" name=\"blockUserValue\" value=\"".$id."\"><input type=\"button\" value=\"block user\" id=\"blockUser".$id."\" onclick=\"javascript:blockUser(".$id.", '".addslashes(htmlspecialchars($username))."');\">";
               $block_user.= "</form>";
               $unblock_user = "-";
             } else {
               $block_user = "-";
               $unblock_user = "<form id=\"removeBlockedUser$id\" class=\"admin\" action=\"removeBlockedUser\" method=\"POST\">";
-              $unblock_user.= "<input type=\"hidden\" name=\"unblockUserValue\" value=\"".$id."\"><input type=\"button\" value=\"unblock user\" id=\"unblockUser".$id."\" onclick=\"javascript:unblockUser(".$id.", '$username');\">";
+              $unblock_user.= "<input type=\"hidden\" name=\"unblockUserValue\" value=\"".$id."\"><input type=\"button\" value=\"unblock user\" id=\"unblockUser".$id."\" onclick=\"javascript:unblockUser(".$id.", '".addslashes(htmlspecialchars($username))."');\">";
               $unblock_user.= "</form>";
             }
           }
