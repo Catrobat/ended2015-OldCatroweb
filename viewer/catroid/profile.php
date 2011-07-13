@@ -19,7 +19,16 @@
 ?>
   <script type="text/javascript">
   	$(document).ready(function() {
-  		new Profile();
+  	  var languageStringsObject = { 
+          "emailDeleteAlertTitle" : "<?php echo $this->languageHandler->getString('alertbox_really_want_to_delete_email'); ?>",
+  	      "addNewEmailButtonLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email_button'); ?>",
+  	      "addNewEmailLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email'); ?>",
+          "addNewEmailPlaceholderLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email_placeholder'); ?>",
+          "changeEmailLanguageString" : "<?php echo $this->languageHandler->getString('email'); ?>",
+          "changeEmailDeleteButtonLanguageString" : "<?php echo $this->languageHandler->getString('delete_email'); ?>",
+          "changeEmailSaveChangesLanguageString" : "<?php echo $this->languageHandler->getString('send'); ?>"
+          };
+  		new Profile(languageStringsObject);
   	});
   </script>
   
@@ -69,24 +78,20 @@
                           $emails_count = $this->userEmailsCount;
                           for($x; $x < $emails_count; $x++) {
                             if($x < $emails_count-1) { ?>
-            		   			      <a href="javascript:;" class="profileText" id="<?php echo $x ?>"><?php echo $x.$this->userEmail ?></a> <br>
+            		   			      <div id="div<?php echo $x; ?>"><a href="javascript:;" class="profileText" id="<?php echo $x; ?>"><?php echo $x.$this->userEmail ?></a></div>
                         <?php }
                             else { ?>
-                              <a href="javascript:;" class="profileText" id="<?php echo $x ?>"><?php echo $x.$this->userEmail ?></a> <input type="button" name="buttonProfileAddNewEmailField" id="buttonProfileAddNewEmailField" value=" + " class="button orange compact profileSubmitButton"> <input type="button" name="buttonProfileRemoveNewEmailField" id="buttonProfileRemoveNewEmailField" value=" _ " class="button orange compact profileSubmitButton"><br>
+                              <div id="div<?php echo $x; ?>"><a href="javascript:;" class="profileText" id="<?php echo $x; ?>"><?php echo $x.$this->userEmail ?></a></div>
+                              <input type="button" name="buttonProfileAddNewEmailField" id="buttonProfileAddNewEmailField" value=" <?php echo $this->languageHandler->getString('add_email') ?> " class="button orange compact profileSubmitButton">
                         <?php }
                           }
                         ?>
           		   			</div>
-                      <div id="profileEmailChangeDiv">
-                        <a href="javascript:;" class="profileText" id="profileChangeEmailClose"><?php echo $this->languageHandler->getString('email')?></a><br>
-                        <input type="email" id="profileEmail" name="profileEmail" value="" required="required" placeholder="" > <input type="button" name="buttonProfileDeleteEmailAddress" id="buttonProfileDeleteEmailAddress" value=" <?php echo $this->languageHandler->getString('delete_email') ?> " class="button orange compact profileSubmitButton"><br>
-                        <input type="button" name="profileEmailSubmit" id="profileEmailSubmit" value="<?php echo $this->languageHandler->getString('send')?>" class="button orange compact profileSubmitButton">
-                      </div>
                       <div id="profileAdditionalEmailInputFields">
                         <div id="emailTextFields">
                         </div>
                         <div id="emailAddButton">
-                          <input type="button" name="profileAddEmailButton" id="profileAddEmailButton" value="<?php echo $this->languageHandler->getString('add_new_email_button')?>" class="button orange compact profileSubmitButton">
+                          <input type="button" name="buttonProfileSaveNewEmailSubmit" id="buttonProfileSaveNewEmailSubmit" value="<?php echo $this->languageHandler->getString('add_new_email_button')?>" class="button orange compact profileSubmitButton"> <input type="button" name="buttonProfileRemoveNewEmailField" id="buttonProfileRemoveNewEmailField" value=" <?php echo $this->languageHandler->getString('cancel') ?> " class="button orange compact profileSubmitButton">
                         </div>
                       </div>
           		   			<br>

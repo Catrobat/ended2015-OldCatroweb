@@ -99,11 +99,14 @@ class upload extends CoreAuthenticationDevice {
                         $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
                         $this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
                         
+                        // do native app python execution here!!
+                        
                         $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
                         if($unapprovedWords) {
                           $this->badWordsFilter->mapUnapprovedWordsToProject($newId);
                           $this->sendUnapprovedWordlistPerEmail();
                         }
+                        
                       } else {
                         //Error: file checksum incorrect
                         $statusCode = 501;

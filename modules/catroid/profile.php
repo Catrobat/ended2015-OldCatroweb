@@ -65,23 +65,23 @@ class profile extends CoreAuthenticationNone {
     }
   }
   
-  public function profileEmailRequestQuery() {
-    $postData = $_POST;
-    if($postData) {
-      if($this->doChangeUserEmail($this->session->userLogin_userNickname, $postData['profileEmail'])) {
-        $this->statusCode = 200;
-        $this->answer_ok .= $this->languageHandler->getString('email_success');
-        return true;
-      } else {
-        $this->statusCode = 500;
-        return false;
-      }
-    }
-  }
+//  public function profileEmailRequestQuery() {
+//    $postData = $_POST;
+//    if($postData) {
+//      if($this->doChangeEmailAddress($this->session->userLogin_userNickname, $postData['profileEmail'])) {
+//        $this->statusCode = 200;
+//        $this->answer_ok .= $this->languageHandler->getString('email_success');
+//        return true;
+//      } else {
+//        $this->statusCode = 500;
+//        return false;
+//      }
+//    }
+//  }
   
   
   // all necessary data for the text field generatrion
-  public function profileAddRemoveEmailRequestQuery() {
+  public function profileEmailRequestQuery() {
     $postData = $_POST;
     if($postData) {
       $emailRequest = $postData['emailRequest'];
@@ -144,18 +144,6 @@ class profile extends CoreAuthenticationNone {
   }
   
   
-  // all necessary data for the email text field creation
-  public function profileAddEmailTextFieldRequestQuery() {
-    $this->addNewEmailLanguageString = $this->languageHandler->getString('add_new_email'); 
-    $this->addNewEmailPlaceholderLanguageString = $this->languageHandler->getString('add_new_email_placeholder');
-    $this->addNewEmailButtonLanguageString = $this->languageHandler->getString('add_new_email_button');
-    $this->emailNotDeletableText = $this->languageHandler->getString('email_not_deleteable');
-    //$this->emailCount = getNumberOfUserEmails(); 
-    $this->statusCode = 200; 
-    
-  }
-  
-  
   public function profileGetEmailCountRequestQuery() {
     $this->emailCount = $this->getNumberOfUserEmails();
   }
@@ -208,7 +196,7 @@ class profile extends CoreAuthenticationNone {
     
     if($userEmailValid) {
       try {
-        $query = "EXECUTE add_user_email('$email', '$username')";
+        $query = "EXECUTE update_user_email('$email', '$username')";
         $result = @pg_query($this->dbConnection, $query);
         if(!$result) {
           throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -219,7 +207,7 @@ class profile extends CoreAuthenticationNone {
       }
     }
     return $userEmailValid;
-  } 
+  }
   
   private function doDeleteEmailAddress($username, $email) {
     $userEmailValid = false;
@@ -294,29 +282,6 @@ class profile extends CoreAuthenticationNone {
     return $userPasswordValid;
   }
 
-  private function doChangeUserEmail($username, $email) {
-    $userEmailValid = false;
-    try {
-      $userEmailValid = $this->checkEmail($email);
-    } catch(Exception $e) {
-      $this->answer .= $e->getMessage().'<br>';
-    }
-    
-    if($userEmailValid) {
-      try {
-        $query = "EXECUTE update_user_email('$email', '$username')";
-        $result = @pg_query($this->dbConnection, $query);
-        if(!$result) {
-          throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-        }
-      } catch(Exception $e) {
-        $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage()).'<br>';
-        $userEmailValid = false;
-      }
-    }
-    return $userEmailValid;
-  }
-  
   private function doChangeUserCountry($username, $countryCode) {
     $userCountryValid = false;
     try {
@@ -488,7 +453,7 @@ class profile extends CoreAuthenticationNone {
   // get all user emails here! 
   private function getNumberOfUserEmails($username = 0) {
 
-    $this->userEmailsCount = 2;
+    $this->userEmailsCount = 4;
     return $this->userEmailsCount;
   }
   

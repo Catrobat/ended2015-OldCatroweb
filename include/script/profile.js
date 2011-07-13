@@ -18,25 +18,34 @@
 
 var Profile = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function() {
+  __init__ : function(languageStringsObject) {
     
     var self = this;
     this.emailCount = 0;
-    this.emailDeleteAlertTitle = '1';
+    this.id = 0;
+    
     this.emailDeleteAlertText = '';
     this.emailDeleteAlertConfirm = '';
     this.emailDeleteAlertCancel = '';
     this.emailNotDeletableText = '';
     
+    this.emailDeleteAlertTitle = languageStringsObject.emailDeleteAlertTitle;
+    this.addNewEmailLanguageString = languageStringsObject.addNewEmailLanguageString;
+    this.addNewEmailPlaceholderLanguageString = languageStringsObject.addNewEmailPlaceholderLanguageString;
+    this.addNewEmailButtonLanguageString = languageStringsObject.addNewEmailButtonLanguageString;
+    this.changeEmailLanguageString = languageStringsObject.changeEmailLanguageString;
+    this.changeEmailDeleteButtonLanguageString = languageStringsObject.changeEmailDeleteButtonLanguageString;
+    this.changeEmailSaveChangesLanguageString = languageStringsObject.changeEmailSaveChangesLanguageString;
+        
     $("#profileFormAnswer").toggle(true);
     $("#errorMsg").toggle(false);
     $("#okMsg").toggle(false);
 	
     $("#buttonProfileAddNewEmailField").toggle(true);
     $("#buttonProfileRemoveNewEmailField").toggle(false);
-    $("#profileAddEmailButton").toggle(false);
+    $("#buttonProfileSaveNewEmailSubmit").toggle(false);
 
-    var email_count = $('#profileEmailTextDiv').children('a').size();
+    var email_count = $('#profileEmailTextDiv').children('div').size();
     var x=0;
     for(x; x<email_count; x++) {
       // html tag ID: case-sensitiv, must begin with a letter A-Z or a-z, can be followed by: letters (A-Za-z), digits (0-9), hyphens ("-"), underscores ("_"), colons (":"), and periods (".")
@@ -45,8 +54,6 @@ var Profile = Class.$extend( {
       });
     }
     jQuery.proxy(this.profileGetEmailCount(), this);
-    
-    $("#profileChangeEmailClose").click($.proxy(this.profileChangeEmailClose, this));
     
     $("#profilePasswordDiv").toggle(true);
     $("#profilePasswordDivOpened").toggle(false);
@@ -57,12 +64,10 @@ var Profile = Class.$extend( {
     $("#countryLinkName").toggle(true);
     $("#countryLinkNameDyn").toggle(false);
     
-    $("#buttonProfileAddNewEmailField").click($.proxy(this.addEmailInputField, this));
-    $("#buttonProfileRemoveNewEmailField").click($.proxy(this.removeEmailInputField, this));
-    $("#buttonProfileDeleteEmailAddress").click($.proxy(this.profileDeleteEmailAddress, this));
+    $("#buttonProfileAddNewEmailField").click($.proxy(this.profileAddEmailInputField, this));
+    $("#buttonProfileRemoveNewEmailField").click($.proxy(this.profileRemoveEmailInputField, this));
     
     $("#profilePasswordSubmit").click($.proxy(this.profilePasswordSubmit, this));
-    $("#profileEmailSubmit").click($.proxy(this.profileEmailSubmit, this)); 
     $("#profileCountrySubmit").click($.proxy(this.profileCountrySubmit, this));
 
     $("#profileChangePasswordOpen").click($.proxy(this.profileChangePasswordOpen, this));
@@ -149,7 +154,7 @@ var Profile = Class.$extend( {
     if(confirm(this.emailDeleteAlertTitle)){
       $.ajax({
         type: "POST",
-        url: this.basePath + 'catroid/profile/profileAddRemoveEmailRequestQuery.json',
+        url: this.basePath + 'catroid/profile/profileEmailRequestQuery.json',
         data : ({
           emailRequest : 'delete',
           profileEmailOldValue : this.emailTextValue,
@@ -162,12 +167,28 @@ var Profile = Class.$extend( {
       });
     }
     else {
-      jQuery.proxy(this.profileDeleteEmailAddressError, this);
+      jQuery.proxy(this.profileDeleteEmailAddressCancel, this);
     }
   },
 
   profileDeleteEmailAddressSuccess : function() {
     alert('OK');
+    if(result.statusCode == 200) {
+      window.location.reload(false);
+//      $("#profileFormAnswer").toggle(true);
+//      $("#okMsg").toggle(true);
+//      $("#errorMsg").toggle(false);
+//      $("#okMsg").html(result.answer_ok);
+//      $("#profileEmailTextDiv").toggle(true);
+//      $("#profileEmailChangeDiv").toggle(false);
+//      $("#profileEmail").val("");
+    }
+    else if(result.statusCode == 500) {
+      $("#profileFormAnswer").toggle(true);
+      $("#okMsg").toggle(false);
+      $("#errorMsg").toggle(true);
+      $("#errorMsg").html(result.answer);
+    }
   },
   
   profileDeleteEmailAddressCancel : function() {
@@ -186,11 +207,12 @@ var Profile = Class.$extend( {
       type: "POST",
       url: this.basePath + 'catroid/profile/profileEmailRequestQuery.json',
       data : ({
+        emailRequest : 'change',
         profileEmailNewValue : $("#profileEmail").val(),
         profileEmailOldValue : this.emailTextValue,
         //profileEmailInputId : this.emailId
       }),
-      timeout : (this.ajaxTimeout),
+      timeout : this.ajaxTimeout,
       success : jQuery.proxy(this.profileChangeEmailSubmitSuccess, this),
       error : jQuery.proxy(this.profileChangeEmailSubmitError, this)
     });
@@ -224,37 +246,43 @@ var Profile = Class.$extend( {
   
 
   profileCountrySubmit : function() {
-    var self = this;
+    $("#buttonProfileAddNewEmailField").attr("disabled", "true");
     $.ajax({
       type: "POST",
-      url: self.basePath + 'catroid/profile/profileCountryRequestQuery.json',
-      data: "profileCountry="+$("#profileCountry").val(),
-      timeout: (this.ajaxTimeout),
-      
-      success: function(result){
-        if(result.statusCode == 200) {
-          $("#profileCountry").selectedIndex = "#profileCountry";
-          $("#profileFormAnswer").toggle(false);
-          $("#errorMsg").toggle(false);
-          window.location.reload(false);
-          $("#okMsg").toggle(true);
-          $("#okMsg").html(result.answer_ok);
-        }
-        else {
-          $("#profileFormAnswer").toggle(true);
-          $("#okMsg").toggle(false);
-          $("#errorMsg").toggle(true);
-          $("#errorMsg").html(result.answer);
-        }
-      },
-      error : function(result, errCode) {
-        if(errCode == "timeout") {
-          window.location.reload(false);
-        }
-      }
+      url: this.basePath + 'catroid/profile/profileCountryRequestQuery.json',
+      data : ({
+        profileCountry : $("#profileCountry").val()
+      }),
+      timeout : (this.ajaxTimeout),
+      success : jQuery.proxy(this.profileCountryRequestSuccess, this),
+      error : jQuery.proxy(this.profileCountryRequestError, this)
     });
   },
- 
+    
+  profileCountryRequestSuccess : function(result) {
+    if(result.statusCode == 200) {
+      $("#profileCountry").selectedIndex = "#profileCountry";
+      $("#profileFormAnswer").toggle(false);
+      $("#errorMsg").toggle(false);
+      window.location.reload(false);
+      $("#okMsg").toggle(true);
+      $("#okMsg").html(result.answer_ok);
+    }
+    else {
+      $("#profileFormAnswer").toggle(true);
+      $("#okMsg").toggle(false);
+      $("#errorMsg").toggle(true);
+      $("#errorMsg").html(result.answer);
+    }
+  },
+  
+  profileCountryRequestError : function() {
+    if(errCode == "timeout") {
+      window.location.reload(false);
+    }
+  },
+    
+    
   profileChangePasswordOpen : function() {
     $("#profilePasswordDiv").toggle(false);
     $("#profilePasswordDivOpened").toggle(true);
@@ -274,14 +302,25 @@ var Profile = Class.$extend( {
   },
 
   profileChangeEmailOpen : function(id) {
-    document.getElementById('emailTextFields').innerHTML = '<div id="emailTextFields"></div>'; 
-    this.emailTextValue = $('#profileEmailTextDiv').children('a')[id].text;
-    $("#profileAddEmailButton").toggle(false);
-    $("#buttonProfileAddNewEmailField").removeAttr('disabled');
-    $("#buttonProfileRemoveNewEmailField").toggle(false);
-    $("#profileEmailTextDiv").toggle(false);
+    $("#buttonProfileAddNewEmailField").toggle(false);
+    $("#buttonProfileRemoveNewEmailField").toggle(false);    
+    this.id = id;
+    
+    var div = document.createElement('div');
+    div.setAttribute('id', 'changeEmailTextFieldDiv');
+    var row_one = "<a href='javascript:;' class='profileText' id='profileChangeEmailClose'>"+this.changeEmailLanguageString+"</a><br>";
+    var row_two = "<input type='email' id='profileEmail' name='profileEmail' value='' required='required' placeholder='' > <input type='button' name='buttonProfileDeleteEmailAddress' id='buttonProfileDeleteEmailAddress' value='" +this.changeEmailDeleteButtonLanguageString+ "' class='button white compact '><br>";
+    var row_three = "<input type='button' name='buttonProfileChangeEmailSubmit' id='buttonProfileChangeEmailSubmit' value='"+this.changeEmailSaveChangesLanguageString+"' class='button orange compact profileSubmitButton'>";
+    var row_end = "</div>";
+    div.innerHTML = row_one + row_two + row_three + row_end; 
+    
+    document.getElementById('div'+this.id).appendChild(div);
+    
+    this.emailTextValue = $('#profileEmailTextDiv').find('a')[this.id].text;
+    $("#buttonProfileSaveNewEmailSubmit").toggle(false);
     $("#profileEmailChangeDiv").toggle(true);
     $("#profileEmail").val(this.emailTextValue);
+    $("#"+this.id).toggle(false);
     
     if(this.emailCount <= 1) {
       $("#buttonProfileDeleteEmailAddress").toggle(false);
@@ -289,17 +328,26 @@ var Profile = Class.$extend( {
     else {
       $("#buttonProfileDeleteEmailAddress").toggle(true);
     }
+    
+    $("#profileChangeEmailClose").click($.proxy(this.profileChangeEmailClose, this));
+    $("#buttonProfileDeleteEmailAddress").click($.proxy(this.profileDeleteEmailAddress, this));
+    $("#buttonProfileChangeEmailSubmit").click($.proxy(this.profileEmailSubmit, this));
   },
 
   profileChangeEmailClose : function() {
-    $("#profileEmailTextDiv").toggle(true);
-    $("#profileEmailChangeDiv").toggle(false);
+    $("#buttonProfileAddNewEmailField").toggle(true);
     $("#profileEmail").val("");
     $("#profileFormAnswer").toggle(false);
     $("#errorMsg").toggle(false);
     $("#okMsg").toggle(false);
     $("#errorMsg").html("");
     $("#okMsg").html("");
+    
+    $("#"+this.id).toggle(true);
+    var changeEmailDiv = document.getElementById('div'+this.id);
+    var changeEmailTextFieldDiv = document.getElementById('changeEmailTextFieldDiv');
+    
+    changeEmailDiv.removeChild(changeEmailTextFieldDiv);
   },
 
   
@@ -313,6 +361,32 @@ var Profile = Class.$extend( {
     $("#profileCountryDiv").toggle(false);
     $("#profileCountryTextDiv").toggle(true);
   },
+  
+  
+  
+  profileAddEmailInputField : function() { 
+    $("#buttonProfileAddNewEmailField").attr("disabled", "true");
+    $("#buttonProfileSaveNewEmailSubmit").toggle(true);
+
+    var old = document.getElementById('emailTextFields').innerHTML; 
+    var row_one = "<a href='javascript:;' class='profileText' id='profileChangeEmailClose'>" + this.addNewEmailLanguageString + "</a><br>";
+    var row_two = "<input type='email' id='profileEmail'"+  +" name='profileEmail' value='' required='required' placeholder='" + this.addNewEmailPlaceholderLanguageString + "' ><br>"; 
+    document.getElementById('emailTextFields').innerHTML = old + row_one + row_two; 
+    $("#buttonProfileAddNewEmailField").toggle(false);
+    $("#buttonProfileRemoveNewEmailField").toggle(true);
+  },
+    
+
+  
+  
+  profileRemoveEmailInputField : function() { 
+      $("#buttonProfileSaveNewEmailSubmit").toggle(false);
+      $("#buttonProfileAddNewEmailField").toggle(true);
+      document.getElementById('emailTextFields').innerHTML = '<div id="emailTextFields"></div>'; 
+      $("#buttonProfileAddNewEmailField").removeAttr('disabled');
+      $("#buttonProfileRemoveNewEmailField").toggle(false);
+  },  
+    
   
   profileCancel : function() {
     $("#errorMsg").toggle(false);
@@ -332,52 +406,6 @@ var Profile = Class.$extend( {
     $("#profileCountryDiv").toggle(false);
     $("#profileCountryTextDiv").toggle(true);
   },
-  
-  
-  addEmailInputField : function() { 
-    $("#buttonProfileAddNewEmailField").attr("disabled", "true");
-    var self = this;
-    $.ajax({
-      type: "POST",
-      url: self.basePath + 'catroid/profile/profileAddEmailTextFieldRequestQuery.json',
-      data: "userName="+$("#profileUser").val(),
-        
-      success: function(result){
-        if(result.statusCode == 200) {
-          
-          $("#profileAddEmailButton").toggle(true);
-          var old = document.getElementById('emailTextFields').innerHTML; 
-          var row_one = "<a href='javascript:;' class='profileText' id='profileChangeEmailClose'>" + result.addNewEmailLanguageString + "</a><br>";
-          var row_two = "<input type='email' id='profileEmail'"+  +" name='profileEmail' value='' required='required' placeholder='" + result.addNewEmailPlaceholderLanguageString + "' ><br>"; 
-          document.getElementById('emailTextFields').innerHTML = old + row_one + row_two; 
-          
-          $("#buttonProfileRemoveNewEmailField").toggle(true);
-        }
-        else if(result.statusCode == 300) {
-
-        }
-        else {
-          $("#profileFormAnswer").toggle(true);
-          $("#errorMsg").toggle(true);
-          $("#errorMsg").html(result.answer);
-          $("#okMsg").toggle(false);
-        }
-      },
-      error : function(result, errCode) {
-        if(errCode == "timeout") {
-          window.location.reload(false);   
-        }
-      }
-    });
-  },
-    
-  removeEmailInputField : function() { 
-      $("#profileAddEmailButton").toggle(false);
-      document.getElementById('emailTextFields').innerHTML = '<div id="emailTextFields"></div>'; 
-      $("#buttonProfileAddNewEmailField").removeAttr('disabled');
-      $("#buttonProfileRemoveNewEmailField").toggle(false);
-  },  
-  
   
   profilePasswordCatchKeypress : function(event) {
     if(event.which == '13') {
