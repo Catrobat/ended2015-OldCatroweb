@@ -64,28 +64,28 @@ class login extends CoreAuthenticationNone {
     try {
       $catroidUserId = $this->doCatroidLogin($postData);
       $catroidLoginSuccess = true;
-      $answer .= $this->languageHandler->getString('catroid_login_success').'<br>';
+      $answer .= $this->languageHandler->getString('catroid_login_success');
     } catch(Exception $e) {
-      $answer .= $this->errorHandler->getError('auth', 'catroid_authentication_failed', $e->getMessage()).'<br>';
+      $answer .= $this->errorHandler->getError('auth', 'catroid_authentication_failed', $e->getMessage());
     }
 
     if($catroidLoginSuccess) {
       $boardUserId = $this->doBoardLogin($postData);
       if($boardUserId > 1) {
         $boardLoginSuccess = true;
-        $answer .= $this->languageHandler->getString('board_login_success').'<br>';
+        $answer .= $this->languageHandler->getString('board_login_success');
       } else {
-        $answer .= $this->errorHandler->getError('auth', 'board_authentication_failed').'<br>';
+        $answer .= $this->errorHandler->getError('auth', 'board_authentication_failed');
       }
 
       if($boardLoginSuccess) {
         try {
           $this->doWikiLogin($postData);
           $wikiLoginSuccess = true;
-          $answer .= $this->languageHandler->getString('wiki_login_success').'<br>';
+          $answer .= $this->languageHandler->getString('wiki_login_success');
           $statusCode = 200;
         } catch(Exception $e) {
-          $answer .= $this->errorHandler->getError('auth', 'wiki_authentication_failed', $e->getMessage()).'<br>';
+          $answer .= $this->errorHandler->getError('auth', 'wiki_authentication_failed', $e->getMessage());
           //logout catroid & board
           $this->doCatroidLogout();
           $this->doBoardLogout();

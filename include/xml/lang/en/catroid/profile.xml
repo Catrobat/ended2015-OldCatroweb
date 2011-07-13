@@ -23,14 +23,24 @@
   <string name="old_password">enter your old password</string>
   <string name="new_password">enter your new password</string>
   <string name="email">change my e-mail address</string>
-  <string name="new_email">enter new email address</string>
-  <string name="send">Send my changes</string>
+  <string name="delete_email">X</string>
+  <string name="email_not_deleteable">You cannot delete all e-mail addresses!</string>
+  <string name="new_email">enter new e-mail address</string>
+  <string name="send">Save my changes</string>
   <string name="country">change my country</string>
+  <string name="city">change my city</string>
+  <string name="new_city">enter your new city</string>
+  <string name="birth">change my birthday</string>
+  <string name="month">select month</string>
+  <string name="year">select year</string>
+  <string name="gender">change my gender</string>
+  <string name="new_gender">select gender</string>
+
   <string name="cancel">Cancel</string>
-  <string name="email_success">You updated your email address successfully.</string>
+  <string name="email_success">You updated your e-mail address successfully.</string>
   <string name="password_success">You updated your password successfully.</string>
   <string name="country_success">You updated your country successfully.</string>
-
-
-
+  <string name="add_new_email">enter your new e-mail address</string>
+  <string name="add_new_email_placeholder">alternative e-mail address</string>
+  <string name="add_new_email_button">Save my new e-mail address</string>
 </strings>

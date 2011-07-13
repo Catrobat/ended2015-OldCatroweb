@@ -39,6 +39,12 @@
               		   	</div>
             	    		<div class="okMsg" id="okMsg">
             	    		<!-- ok messages here -->
+                      <?php 
+                        if($this->session->answerOk != '' || strlen($this->session->answerOk) != 0) {
+                          echo $this->session->answerOk;
+                          echo 'hallo';
+                        }
+                      ?>
               		   	</div>
             		   	</div>
             		   	<br>
@@ -66,21 +72,21 @@
             		   			      <a href="javascript:;" class="profileText" id="<?php echo $x ?>"><?php echo $x.$this->userEmail ?></a> <br>
                         <?php }
                             else { ?>
-                              <a href="javascript:;" class="profileText" id="<?php echo $x ?>"><?php echo $x.$this->userEmail ?></a> <input type="button" name="profileAddNewEmailField" id="profileAddNewEmailField" value=" + " class="button orange compact profileSubmitButton"> <input type="button" name="profileRemoveNewEmailField" id="profileRemoveNewEmailField" value=" _ " class="button orange compact profileSubmitButton"><br>
+                              <a href="javascript:;" class="profileText" id="<?php echo $x ?>"><?php echo $x.$this->userEmail ?></a> <input type="button" name="buttonProfileAddNewEmailField" id="buttonProfileAddNewEmailField" value=" + " class="button orange compact profileSubmitButton"> <input type="button" name="buttonProfileRemoveNewEmailField" id="buttonProfileRemoveNewEmailField" value=" _ " class="button orange compact profileSubmitButton"><br>
                         <?php }
                           }
                         ?>
           		   			</div>
                       <div id="profileEmailChangeDiv">
                         <a href="javascript:;" class="profileText" id="profileChangeEmailClose"><?php echo $this->languageHandler->getString('email')?></a><br>
-                        <input type="email" id="profileEmail" name="profileEmail" value="" required="required" placeholder="<?php //echo $this->languageHandler->getString('new_email')?>" ><br>
+                        <input type="email" id="profileEmail" name="profileEmail" value="" required="required" placeholder="" > <input type="button" name="buttonProfileDeleteEmailAddress" id="buttonProfileDeleteEmailAddress" value=" <?php echo $this->languageHandler->getString('delete_email') ?> " class="button orange compact profileSubmitButton"><br>
                         <input type="button" name="profileEmailSubmit" id="profileEmailSubmit" value="<?php echo $this->languageHandler->getString('send')?>" class="button orange compact profileSubmitButton">
                       </div>
                       <div id="profileAdditionalEmailInputFields">
                         <div id="emailTextFields">
                         </div>
                         <div id="emailAddButton">
-                          <input type="button" name="profileAddEmailButton" id="profileAddEmailButton" value="<?php echo $this->languageHandler->getString('add')?>" class="button orange compact profileSubmitButton">
+                          <input type="button" name="profileAddEmailButton" id="profileAddEmailButton" value="<?php echo $this->languageHandler->getString('add_new_email_button')?>" class="button orange compact profileSubmitButton">
                         </div>
                       </div>
           		   			<br>
@@ -121,6 +127,33 @@
               		   	  <br>
 											</div>
                       <br>
+                      <div id="profileCityDiv">
+                        <a href="javascript:;" class="profileText" id="profileChangeCityOpen"><?php echo $this->languageHandler->getString('city')?></a><br>
+                      </div>  
+                      <div id="profileCityDivOpened">
+                        <a href="javascript:;" class="profileText" id="profileChangeCityClose"><?php echo $this->languageHandler->getString('city')?></a><br>
+                        <input type="text" id="profileCity" name="profileCity" value="<?php echo htmlspecialchars($this->postData['profileCity']); ?>" required="required" placeholder="<?php echo $this->languageHandler->getString('new_city')?>" ><br>
+                        <input type="button" name="profileCitySubmit" id="profileCitySubmit" value="<?php echo $this->languageHandler->getString('send')?>" class="button orange compact profileSubmitButton">
+                      </div>
+                      <br>
+                      <div id="profileBirthDiv">
+                        <a href="javascript:;" class="profileText" id="profileChangeBirthOpen"><?php echo $this->languageHandler->getString('birth')?></a><br>
+                      </div>  
+                      <div id="profileBirthDivOpened">
+                        <a href="javascript:;" class="profileText" id="profileChangeBirthClose"><?php echo $this->languageHandler->getString('birth')?></a><br>
+                        <input type="text" id="profileBirth" name="profileBirth" value="<?php echo htmlspecialchars($this->postData['profileBirth']); ?>" required="required" placeholder="<?php echo $this->languageHandler->getString('new_birth')?>" ><br>
+                        <input type="button" name="profileBirthSubmit" id="profileBirthSubmit" value="<?php echo $this->languageHandler->getString('send')?>" class="button orange compact profileSubmitButton">
+                      </div>
+                      <br>
+                      <div id="profileGenderDiv">
+                        <a href="javascript:;" class="profileText" id="profileChangeGenderOpen"><?php echo $this->languageHandler->getString('gender')?></a><br>
+                      </div>  
+                      <div id="profileGenderDivOpened">
+                        <a href="javascript:;" class="profileText" id="profileChangeGenderClose"><?php echo $this->languageHandler->getString('gender')?></a><br>
+                        <input type="text" id="profileGender" name="profileGender" value="<?php echo htmlspecialchars($this->postData['profileGender']); ?>" required="required" placeholder="<?php echo $this->languageHandler->getString('new_gender')?>" ><br>
+                        <input type="button" name="profileGenderSubmit" id="profileGenderSubmit" value="<?php echo $this->languageHandler->getString('send')?>" class="button orange compact profileSubmitButton">
+                      </div>
+                      <br>
             		   	</form>
             		   	<?php 
                       }
@@ -142,8 +175,7 @@
                     <?php
                       }
           		   		?>
-	          		   		<br>
-          		   			<br>
+
           		   			<br>
           		   			<br>
 										

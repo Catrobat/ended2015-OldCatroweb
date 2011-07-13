@@ -21,7 +21,7 @@ class passwordrecovery extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
-    $this->addCss('passwordrecovery.css');    
+    $this->addCss('passwordrecovery.css');
     $this->addJs('passwordRecovery.js');
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
@@ -98,7 +98,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       $passwordDataValid = true;
     } catch(Exception $e) {
       $passwordDataValid = false;
-      $this->answer .= $e->getMessage().'<br>';
+      $this->answer .= $e->getMessage();
     }
     if($passwordDataValid) {
       try {
@@ -128,7 +128,10 @@ class passwordrecovery extends CoreAuthenticationNone {
         $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
         return false;
       }
-      $this->answer_ok .= $this->languageHandler->getString('password_ok').'<br>';
+      $this->saving_password = $this->languageHandler->getString('saving_password');
+      $this->answer_ok = $this->languageHandler->getString('password_ok'); //.'&requesturi=catroid/profile'
+      $this->username = $username;
+
     }
     return $passwordDataValid;
   }

@@ -41,28 +41,24 @@
             		   	</div>
   		   						<div id="loginOk">
     		   						<br>
-    		   						<input type="submit" id="passwordLoginSubmit" name="passwordLoginSubmit" value="Please login now" class="button orange compact passwordRecoverySubmitButton">
+    		   						<input type="submit" id="loginOkForwardSubmit" name="loginOkForwardSubmit" value="<?php echo $this->languageHandler->getString('login_ok_submit')?>" class="button orange compact passwordRecoverySubmitButton">
   									</div>
       	  		   			<?php 
       	  		   			  if(isset($_GET['c'])) {
  
       	  		   			    if($this->showForm == 1) { ?>
-      	  		   			      <form method="post" name="passwordRecoveryFormDialog" id="passwordRecoveryFormDialog" action="">
           										<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('headline')?></div>
-          										<input type="hidden" id="c" name="c" value="<?php echo $_GET['c']; ?>">
+          										<input type="hidden" id="passwordRecoveryHash" name="passwordRecoveryHash" value="<?php echo $_GET['c']; ?>">
 															<input type="text" id="passwordSavePassword" name="passwordSavePassword" >
 															<br>
           										<input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="<?php echo $this->languageHandler->getString('change_password')?>" class="button orange compact passwordRecoverySubmitButton">
-          									</form>
 	      	  		   					<br> 
       	  		   			<?php } // showForm == 1
       	  		   			    else if($this->showForm == 2) {
       	  		   			?>
-														<form method="post" action="./passwordrecovery">
 															<div class="errorMsg"><?php echo $this->languageHandler->getString('expired_url')?></div>
 															<br>
 															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="<?php echo $this->languageHandler->getString('next')?>" class="button orange compact passwordRecoverySubmitButton">
-														</form>
 	      	  		   					<br>
       	  		   			<?php } // showForm == 2
       	  		   			  } // get['c']
@@ -70,33 +66,29 @@
  
       	  		   			    //echo ( $this->passwordRecoveryForm );
       	  		   			    if($this->showForm == 1) { ?>
-      	  		   			      <form method="post" name="passwordRecoveryFormDialog" id="passwordRecoveryFormDialog" action="">
           										<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('headline')?></div>
           										<input type="hidden" id="c" name="c" value="<?php echo $_POST['c']; ?>">
 															<input type="text" id="passwordSavePassword" name="passwordSavePassword" >
 															<br>
 												      <br>
           										<input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="<?php echo $this->languageHandler->getString('change_password')?>" class="button orange compact passwordRecoverySubmitButton">
-          									</form>
-	      	  		   					<br>
+        	  		   					<br>
       	  		   			<?php } // showForm == 1
       	  		   			    else if($this->showForm == 2) {
       	  		   			?>
-														<form method="post" action="./passwordrecovery">
 															<div class="errorMsg"><?php echo $this->languageHandler->getString('expired_url')?></div>
 															<br>
 															<input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="<?php echo $this->languageHandler->getString('next')?>" class="button orange compact passwordRecoverySubmitButton">
-														</form>
 	      	  		   					<br>
       	  		   			<?php } // showForm == 2
            		   			  } // $_POST['passwordSaveSubmit'])
       	  		   				else {
         		   	      ?>
-											<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('enter_userdata')?></div>
-   	  		   					<input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>" >
-   	  		   					<br>
-										  <br>
-                     	<input type="button" id="passwordRecoverySendLink" name="passwordRecoverySendLink" value="<?php echo $this->languageHandler->getString('send_link')?>" class="button orange compact passwordRecoverySubmitButton">
+  												<div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('enter_userdata')?></div>
+      	  		   					<input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>" >
+      	  		   					<br>
+												  <br>
+                        	<input type="button" id="passwordRecoverySendLink" name="passwordRecoverySendLink" value="<?php echo $this->languageHandler->getString('send_link')?>" class="button orange compact passwordRecoverySubmitButton">
     	  		   				<br>
 	      	  		   		<br>
       	  		   			<?php } // else
