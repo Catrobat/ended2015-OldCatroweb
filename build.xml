@@ -393,6 +393,14 @@
              password="${host.pass}"
              command="cd ${host.catroid.dir}/${sql.dir}/; php dbupdate.php" />  
   </target>
+
+  <target name="-update-sql-diagram">
+  <sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="cd ${host.catroid.dir}/${sql.dir}/; chmod +x create_diagram.sh; ./create_diagram.sh" />  
+  </target>
   
   <target name="-init-remote-database">
 	<sshexec host="${host.ip}"
@@ -658,7 +666,7 @@
   <!-- <target name="deploy-local" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" /> -->
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
   <!-- <target name="deploy-test" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
-  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
+  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -update-sql-diagram, -cleanup" />
   <target name="deploy-alex" depends="-conf, -clean, -create-dirs, -conf-deploy-alex, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -init-remote-database,-update-remote-database, -cleanup" />
   <target name="deploy-test-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
