@@ -128,8 +128,8 @@ public class SearchTests extends BaseTest {
 
       System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
       for(int i = 0; i < uploadCount; i++) {
-        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "",
-            "0"));
+        projectUploader
+            .upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0"));
       }
       openLocation();
       ajaxWait();
@@ -152,6 +152,7 @@ public class SearchTests extends BaseTest {
       assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_PREV_BUTTON));
       session().click("fewerProjects");
       ajaxWait();
+
       assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session()
           .getTitle());
 
@@ -162,10 +163,11 @@ public class SearchTests extends BaseTest {
       session().refresh();
       waitForPageToLoad();
       ajaxWait();
+
       assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session()
           .getTitle());
 
-      assertTrue(session().isVisible("fewerProjects"));
+      assertFalse(session().isVisible("fewerProjects"));
       assertTrue(session().isVisible("moreProjects"));
       // test links to details page
       session().click("xpath=//a[@class='projectListDetailsLink'][1]");
@@ -174,10 +176,15 @@ public class SearchTests extends BaseTest {
       session().goBack();
       waitForPageToLoad();
       ajaxWait();
+      waitForTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE);
+      // log(CommonStrings.WEBSITE_TITLE + " - " +
+      // CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - "
+      // + (i) + "");
+      // log(session().getTitle());
       assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session()
           .getTitle());
 
-      assertTrue(session().isVisible("fewerProjects"));
+      assertFalse(session().isVisible("fewerProjects"));
       assertTrue(session().isVisible("moreProjects"));
       // test header click
       session().click("aIndexWebLogoLeft");
@@ -195,11 +202,13 @@ public class SearchTests extends BaseTest {
   @Test(groups = { "functionality", "upload" }, description = "search project, upload project with identical name, reload")
   public void identicalSearchQuery() throws Throwable {
     try {
-      String projectTitle = "search_identical"; //+ CommonData.getRandomShortString(10);
+      String projectTitle = "search_identical"; // +
+                                                // CommonData.getRandomShortString(10);
       String projectTitle1 = projectTitle + "_1";
       String projectTitle2 = projectTitle + "_2";
 
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "",
+          "0"));
       openLocation();
       ajaxWait();
 
@@ -210,14 +219,14 @@ public class SearchTests extends BaseTest {
 
       waitForTextPresent(projectTitle1);
       assertFalse(session().isTextPresent(projectTitle2));
-      
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle2, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "",
-          "", "0"));
+
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle2, "identical_search_project_2", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "",
+          "0"));
       session().refresh();
       waitForPageToLoad();
       ajaxWait();
       session().click("webHeadSearchSubmit");
-      
+
       waitForTextPresent(projectTitle1);
       assertTrue(session().isTextPresent(projectTitle2));
     } catch(AssertionError e) {

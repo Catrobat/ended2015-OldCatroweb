@@ -40,6 +40,11 @@ public class AdminTests extends BaseTest {
       assertRegExp(".*Catroid Website.*", session().getTitle());
       session().goBack();
       waitForPageToLoad();
+      if (session().isTextPresent("Catroid Administration Site") == false)
+      {
+        session().goBack();
+        waitForPageToLoad();
+      }
       assertTrue(session().isTextPresent("Catroid Administration Site"));
     } catch(AssertionError e) {
       captureScreen("AdminTests.successfulLogin");
