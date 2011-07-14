@@ -8,7 +8,7 @@ user_id int4 NOT NULL,
 email character varying(255) DEFAULT NULL NOT NULL,
 email_count int4 NOT NULL,
 PRIMARY KEY ("id"),
-CONSTRAINT "cusersID" FOREIGN KEY ("user_id") REFERENCES "public"."cusers" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+CONSTRAINT "cusersId" FOREIGN KEY ("user_id") REFERENCES "public"."cusers" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 )
 WITH (
   OIDS=FALSE
