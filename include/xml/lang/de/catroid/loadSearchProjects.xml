@@ -24,5 +24,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="title">Suchergebnisse</string>
   <string name="prev_button">{*character*} Vorherige</string>
   <string name="next_button">N&#xE4;chste {*character*}</string>
-  <string name="no_results">Deine Suche ergab keine Ergebnisse.</string>
 </strings>

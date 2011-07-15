@@ -29,6 +29,10 @@
   <?php while($js = $this->getJs()) {?>
   	<script type="text/javascript" src="<?php echo BASE_PATH.SCRIPT_PATH.$js?>"></script>
   <?php }?>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/baseClassVars.js?<?php echo VERSION; ?>" ></script>
+  <script type="text/javascript">
+    __baseClassVars.basePath = <?php echo "'".BASE_PATH."'"; ?>;
+  </script>
 </head>
   <?php include($this->header);?>
   <?php include($this->viewer);?>

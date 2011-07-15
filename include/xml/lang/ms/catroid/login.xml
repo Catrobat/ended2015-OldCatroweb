@@ -20,5 +20,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <strings>
   <string name="title">Logmasuk</string>
   <string name="account_link">Buka akaun baru sekarang</string>
+  <string name="or">atau</string>
   <string name="password_link">Klik disini jika terlupa kata laluan anda?</string>
 </strings>

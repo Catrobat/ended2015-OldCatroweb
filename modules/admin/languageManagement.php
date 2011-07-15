@@ -46,34 +46,40 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
   public function __default() {
     /*
-    $lang = 'de';
-    $dest = CORE_BASE_PATH.'pootle/';
-    $this->generateLanguagePackFromXlf(array('lang'=>$lang, 'dest'=>$dest));
-    */
+     $lang = 'de';
+     $dest = CORE_BASE_PATH.'pootle/';
+     $this->generateLanguagePackFromXlf(array('lang'=>$lang, 'dest'=>$dest));
+     */
   }
 
   public function generateLanguagePack() {
     try {
       $answer = $this->generateLanguagePackFromXlf($_REQUEST);
       $this->statusCode = 200;
-      $this->answer = $answer;
+      $this->answer = 'answ: '.$answer;
     } catch(Exception $e) {
       $this->statusCode = 500;
-      $this->answer = $e->getMessage();
+      $this->answer = 'err: '.$e->getMessage();
       return false;
     }
   }
 
-  private function generateLanguagePackFromXlf($requestData) {
+  public function generateLanguagePackFromXlf($requestData) {
     if(isset($requestData['lang'])) {
       $lang = $requestData['lang'];
       if(isset($requestData['dest'])) {
-        $dest = CORE_BASE_PATH.$requestData['dest'];
+        $dest = $requestData['dest'];
       } else {
         $dest = CORE_BASE_PATH.LANGUAGE_PATH;
-      }      
+      }
+      if(isset($requestData['source'])) {
+        $source = $requestData['source'];
+      } else {
+        $pootleFriendlyLang = preg_replace("^-^", "_", $lang);
+        $source = ADMIN_POOTLE_ROOT_URL.$pootleFriendlyLang.'/catweb/catweb.po/export/xlf';
+      }
       try {
-        $xmlArrays = $this->getXmlArrays($this->getXmlObject($this->getXlfFromPootle($lang)));
+        $xmlArrays = $this->getXmlArrays($this->getXmlObject($this->loadXlfFile($source)));
         $this->generateStringXmlFiles($lang, $xmlArrays[0], $dest);
         $this->generateErrorXmlFiles($lang, $xmlArrays[1], $dest);
       } catch(Exception $e) {
@@ -85,12 +91,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     return($this->languageHandler->getString('pootle_language_successfully_created', $lang));
   }
 
-  private function getXlfFromPootle($lang) {
-    $pootleFriendlyLang = preg_replace("^-^", "_", $lang);
-    $url = ADMIN_POOTLE_ROOT_URL.$pootleFriendlyLang.'/catweb/catweb.po/export/xlf';
-    $data = @fopen($url, "r");
+  private function loadXlfFile($source) {
+    $data = @fopen($source, "r");
     if(!$data) {
-      throw new Exception($this->errorHandler->getError('admin', 'pootle_retrieve_xlf_failed'));
+      throw new Exception($this->errorHandler->getError('admin', 'pootle_load_xlf_failed', '', $source));
     }
     return stream_get_contents($data);
   }

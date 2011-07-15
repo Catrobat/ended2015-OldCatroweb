@@ -97,7 +97,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="userdata_not_exists">Der Nickname oder die E-Mail Adresse konnte nicht gefunden werden.</string>
     <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
     <string name="catroid_password_recovery_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal oder kontaktiere uns unter {*webmasterEmailAddress*}.</string>
-    <string name="password_length_invalid">Dein Passwort muss mindestens {*minimumPasswordLength*} Zeichen und h&#xF6;chstens {*maximumPasswordLength*} Zeichen lang sein.</string>
   </passwordrecovery>
   <profile>
     <string name="password_repeat_differs">Das wiederholte Passwort ist anders als das urspr&#xFC;ngliche Passwort.</string>

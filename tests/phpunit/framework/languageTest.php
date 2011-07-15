@@ -30,13 +30,13 @@ class languageTest extends PHPUnit_Framework_TestCase {
     $this->whitelist_folders = array();
     $this->walkThroughDirectory(CORE_BASE_PATH.'modules/');
   }
-  
+
   protected function tearDown() {
     $testdata = dirname(__FILE__).'/testdata/languageTestData/';
     $runtimeFolder1 = $testdata.'testOutput1/';
     $runtimeFolder2 = $testdata.'testOutput2/';
-    removeDir($runtimeFolder1);
-    removeDir($runtimeFolder2);
+    //removeDir($runtimeFolder1);
+    //removeDir($runtimeFolder2);
   }
 
   public function testLanguageFolders() {
@@ -115,19 +115,21 @@ class languageTest extends PHPUnit_Framework_TestCase {
       }
     }
   }
-  
+
   public function testLanguageScripts() {
     require_once CORE_BASE_PATH.'pootle/generateStringsXmlFunctions.php';
     require_once CORE_BASE_PATH.'pootle/generatePootleFileFunctions.php';
-    require_once CORE_BASE_PATH.'pootle/generateLanguagePackFunctions.php';
+    require_once CORE_BASE_PATH.'modules/admin/languageManagement.php';
+    $languageManagement = new languageManagement();
     $testdata = dirname(__FILE__).'/testdata/languageTestData/';
     $runtimeFolder1 = $testdata.'testOutput1/';
     $runtimeFolder2 = $testdata.'testOutput2/';
     removeDir($runtimeFolder1);
     removeDir($runtimeFolder2);
     generateStringsXml($testdata, $runtimeFolder1);
-    generatePootleFile($runtimeFolder1);
-    generateLanguagePack(SITE_DEFAULT_LANGUAGE, $runtimeFolder1, $runtimeFolder1.'include/xml/lang/');
+    generatePootleFile($runtimeFolder1);    
+    $requestData = array('lang'=>SITE_DEFAULT_LANGUAGE, 'dest'=>$runtimeFolder1.'include/xml/lang/', 'source'=>$testdata.'catweb.xlf');
+    $languageManagement->generateLanguagePackFromXlf($requestData);
     copyDir($testdata.'modules/', $runtimeFolder1.'modules/');
     generateStringsXml($runtimeFolder1, $runtimeFolder2);
     generatePootleFile($runtimeFolder2);
