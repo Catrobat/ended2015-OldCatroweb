@@ -24,7 +24,7 @@ restore backup:
     e.g. restore_pootle_backup.sh data/pootle-Friday.tgz
   
   Again, be sure that all file paths are set correct and your connection to the
-  server work without entering the password.
+  server works without entering the password.
   
-For the backup username and password have a look into our Twiki!!!
+For the backup username and password have a look into our TWiki (Catroweb / Hints/ Backup)!!!
 

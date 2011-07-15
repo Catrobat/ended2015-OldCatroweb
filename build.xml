@@ -73,15 +73,15 @@
     <property name="host.board.dir" value="${host.addons.dir}/board" />
     <property name="host.wiki.dir" value="${host.addons.dir}/mediawiki" />
   </target>
-	
-	<target name="-conf-deploy-alex">
-	    <property name="host.ip" value="www.guetler.at" />
-	    <property name="host.root.dir" value="/var/www/vhosts/guetler.at/httpdocs" />
-	    <property name="host.catroid.dir" value="${host.root.dir}/catroweb" />
-	    <property name="host.addons.dir" value="${host.catroid.dir}/addons" />
-	    <property name="host.board.dir" value="${host.addons.dir}/board" />
-	    <property name="host.wiki.dir" value="${host.addons.dir}/mediawiki" />
-	</target>
+  
+  <target name="-conf-deploy-alex">
+      <property name="host.ip" value="www.guetler.at" />
+      <property name="host.root.dir" value="/var/www/vhosts/guetler.at/httpdocs" />
+      <property name="host.catroid.dir" value="${host.root.dir}/catroweb" />
+      <property name="host.addons.dir" value="${host.catroid.dir}/addons" />
+      <property name="host.board.dir" value="${host.addons.dir}/board" />
+      <property name="host.wiki.dir" value="${host.addons.dir}/mediawiki" />
+  </target>
   
   <target name="-conf-deploy-catroid-test">
     <property name="host.ip" value="129.27.202.39" />
@@ -92,14 +92,23 @@
     <property name="host.wiki.dir" value="${host.addons.dir}/mediawiki" />
   </target>
   
+  <target name="-conf-deploy-testlocal-test">
+    <property name="host.ip" value="192.168.6.100" />
+    <property name="host.root.dir" value="/var/www" />
+    <property name="host.catroid.dir" value="${host.root.dir}/catroid" />
+    <property name="host.addons.dir" value="${host.catroid.dir}/addons" />
+    <property name="host.board.dir" value="${host.addons.dir}/board" />
+    <property name="host.wiki.dir" value="${host.addons.dir}/mediawiki" />
+  </target>
+  
   <target name="-validator-tests">
-  	<input message="Did you validate the page on http://validator.w3.org?"
-  		   validargs="y,n"
-  		   addproperty="do.continue" />
-  	<condition property="do.abort">
-  		<equals arg1="n" arg2="${do.continue}" />
-  	</condition>
-  	<fail if="do.abort">You have to validate the page on http://validator.w3.org before you can continue!</fail>
+    <input message="Did you validate the page on http://validator.w3.org?"
+         validargs="y,n"
+         addproperty="do.continue" />
+    <condition property="do.abort">
+      <equals arg1="n" arg2="${do.continue}" />
+    </condition>
+    <fail if="do.abort">You have to validate the page on http://validator.w3.org before you can continue!</fail>
   </target>
   
   <target name="-selenium-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-tests-catroid, -selenium-tests-api, -selenium-stop-server"/>
@@ -107,14 +116,14 @@
   <target name="-selenium-test" depends="-selenium-start-server, -selenium-test-specific, -selenium-stop-server"/>
   
   <target name="-selenium-start-server">
-  	<java jar="${selenium.dir}/server/selenium-server.jar" fork="true" spawn="true"/>
-  	<sleep seconds="3" />
+    <java jar="${selenium.dir}/server/selenium-server.jar" fork="true" spawn="true"/>
+    <sleep seconds="3" />
   </target>
 
   <target name="-selenium-start-server-android">
-  	<java jar="${selenium.dir}/server/selenium-server-1.0.2-SNAPSHOT-standalone.jar" fork="true" spawn="true">
-  		<arg line=" -proxyInjectionMode" />
-  	</java>
+    <java jar="${selenium.dir}/server/selenium-server-1.0.2-SNAPSHOT-standalone.jar" fork="true" spawn="true">
+      <arg line=" -proxyInjectionMode" />
+    </java>
   </target>
 
   <target name="-selenium-start-android-emulator">
@@ -135,7 +144,7 @@
   </target>
   
   <target name="-selenium-tests-catroid">
-  	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="phpunit.bat"/>
       <arg line=" CatroidTestSuite.php"/>
@@ -146,7 +155,7 @@
   </target>
   
   <target name="-selenium-tests-admin">
-  	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="phpunit.bat"/>
       <arg line=" AdminTestSuite.php"/>
@@ -157,7 +166,7 @@
   </target>
   
   <target name="-selenium-tests-api">
-  	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="phpunit.bat"/>
       <arg line=" ApiTestSuite.php"/>
@@ -168,7 +177,7 @@
   </target>
   
   <target name="-selenium-test-specific">
-  	<exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="phpunit.bat"/>
       <arg line=" ${test}"/>
@@ -320,6 +329,22 @@
              password="${host.pass}"
              command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidwebtest.ist.tugraz.at/ -Dbrowser=${browser}" />
   </target>
+  
+  <target name="-selenium-grid-tests-testlocal" depends="-get-selenium-grid-test-browser">
+    <echo message=""/>
+    <echo message="========== HTTP REPORT ========== "/>
+    <echo message=""/>
+    <echo message="check your test report at:"/>
+    <echo message=" http://catroidlocaltest.ist.tugraz.at/tests/selenium-grid/target/reports"/>
+    <echo message=" "/>
+    <echo message=""/>
+
+    <sshexec host="${host.ip}"
+           trust="true"
+           username="${host.user}"
+           password="${host.pass}"
+           command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidlocal.ist.tugraz.at/ -Dbrowser=${browser}" />
+  </target>
 
   <target name="-get-selenium-grid-test-browser">
     <input
@@ -332,7 +357,7 @@
   <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api"/>
   
   <target name="-unittest-catroid">
-  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="phpunit.bat"/>
       <arg line=" catroid"/>
@@ -343,7 +368,7 @@
   </target>
   
   <target name="-unittest-admin">
-  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="phpunit.bat"/>
       <arg line=" admin"/>
@@ -354,7 +379,7 @@
   </target>
   
   <target name="-unittest-framework">
-  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="phpunit.bat"/>
       <arg line=" framework"/>
@@ -365,7 +390,7 @@
   </target>
   
   <target name="-unittest-api">
-  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="phpunit.bat"/>
       <arg line=" api"/>
@@ -387,7 +412,7 @@
   </target>
   
   <target name="-update-remote-database">
-	<sshexec host="${host.ip}"
+  <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
              password="${host.pass}"
@@ -403,7 +428,7 @@
   </target>
   
   <target name="-init-remote-database">
-	<sshexec host="${host.ip}"
+  <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
              password="${host.pass}"
@@ -411,7 +436,7 @@
   </target>
   
   <target name="-update-local-database">
-	<exec dir="${sql.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+  <exec dir="${sql.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="php"/>
       <arg line=" dbupdate.php"/>
@@ -422,7 +447,7 @@
   </target>
   
   <target name="-init-local-database">
-	<exec dir="${sql.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+  <exec dir="${sql.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="php"/>
       <arg line=" dbinit.php"/>
@@ -431,58 +456,58 @@
       <arg line=" dbinit.php"/>
     </exec>
   </target>
-	
+  
   <target name="-generate-strings-xml">
-  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
-  	  <arg value="/c"/>
-  	  <arg value="phpunit.bat"/>
-  	  <arg line=" framework/languageTest.php"/>
-  	</exec>
-  	<exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
-  	  <arg line=" framework/languageTest.php"/>
-  	</exec>
-	<exec dir="${pootle.dir}" executable="cmd" failonerror="true" osfamily="Windows">
-	  <arg value="/c"/>
-	  <arg value="php"/>
-	  <arg line=" generateStringsXml.php"/>
-	</exec>
-	<exec dir="${pootle.dir}" executable="php" failonerror="true" osfamily="Unix">
-	  <arg line=" generateStringsXml.php"/>
-	</exec>
-  </target>
-	
-  <target name="-generate-pootle-file" depends="-generate-strings-xml">
-	<exec dir="${pootle.dir}" executable="cmd" failonerror="true" osfamily="Windows">
-	  <arg value="/c"/>
-	  <arg value="php"/>
-	  <arg line=" generatePootleFile.php"/>
-	</exec>
-	<exec dir="${pootle.dir}" executable="php" failonerror="true" osfamily="Unix">
-	  <arg line=" generatePootleFile.php"/>
-	</exec>
-  </target>
-	
-  <target name="-generate-language-pack">
-  	<input
-  	  message="Enter the language-shortcut for the language-pack: "
-  	  addproperty="language.shortcut"
-  	/>
-  	<exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
-  	  <arg value="/c"/>
-  	  <arg value="phpunit.bat"/>
-  	  <arg line=" framework/languageTest.php"/>
-  	</exec>
-  	<exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
-  	  <arg line=" framework/languageTest.php"/>
+    <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" framework/languageTest.php"/>
     </exec>
-	<exec dir="${pootle.dir}" executable="cmd" failonerror="true" osfamily="Windows">
-	  <arg value="/c"/>
-	  <arg value="php"/>
-	  <arg line=" generateLanguagePackFromXlf.php ${language.shortcut}"/>
-	</exec>
-	<exec dir="${pootle.dir}" executable="php" failonerror="true" osfamily="Unix">
-	  <arg line=" generateLanguagePackFromXlf.php ${language.shortcut}"/>
-	</exec>
+    <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" framework/languageTest.php"/>
+    </exec>
+  <exec dir="${pootle.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <arg value="/c"/>
+    <arg value="php"/>
+    <arg line=" generateStringsXml.php"/>
+  </exec>
+  <exec dir="${pootle.dir}" executable="php" failonerror="true" osfamily="Unix">
+    <arg line=" generateStringsXml.php"/>
+  </exec>
+  </target>
+  
+  <target name="-generate-pootle-file" depends="-generate-strings-xml">
+  <exec dir="${pootle.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <arg value="/c"/>
+    <arg value="php"/>
+    <arg line=" generatePootleFile.php"/>
+  </exec>
+  <exec dir="${pootle.dir}" executable="php" failonerror="true" osfamily="Unix">
+    <arg line=" generatePootleFile.php"/>
+  </exec>
+  </target>
+  
+  <target name="-generate-language-pack">
+    <input
+      message="Enter the language-shortcut for the language-pack: "
+      addproperty="language.shortcut"
+    />
+    <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" framework/languageTest.php"/>
+    </exec>
+    <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" framework/languageTest.php"/>
+    </exec>
+  <exec dir="${pootle.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    <arg value="/c"/>
+    <arg value="php"/>
+    <arg line=" generateLanguagePackFromXlf.php ${language.shortcut}"/>
+  </exec>
+  <exec dir="${pootle.dir}" executable="php" failonerror="true" osfamily="Unix">
+    <arg line=" generateLanguagePackFromXlf.php ${language.shortcut}"/>
+  </exec>
   </target>
 
   <target name="-clean">
@@ -591,7 +616,7 @@
   <target name="-copy-wiki">
     <copy todir="${catroid.dir}/${wiki.dir}">
       <fileset dir="${wiki.dir}"/>
-    </copy>	<exec dir="${sql.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+    </copy> <exec dir="${sql.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="php"/>
       <arg line=" dbupdate.php"/>
@@ -635,7 +660,7 @@
   </target>
   
   <target name="-deploy-board">
-  	<sshexec host="${host.ip}"
+    <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
              password="${host.pass}"
@@ -645,14 +670,14 @@
       <fileset dir="${catroid.dir}/${board.dir}" />
     </scp>
     <sshexec host="${host.ip}"
-	         trust="true"
-	         username="${host.user}"
-	         password="${host.pass}"
-	         command="chmod -R 777 ${host.board.dir}/cache ${host.board.dir}/files ${host.board.dir}/store ${host.board.dir}/images/avatars/upload" />
+           trust="true"
+           username="${host.user}"
+           password="${host.pass}"
+           command="chmod -R 777 ${host.board.dir}/cache ${host.board.dir}/files ${host.board.dir}/store ${host.board.dir}/images/avatars/upload" />
   </target>
   
   <target name="-deploy-wiki">
-  	<sshexec host="${host.ip}"
+    <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
              password="${host.pass}"
@@ -669,6 +694,7 @@
   <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -update-sql-diagram, -cleanup" />
   <target name="deploy-alex" depends="-conf, -clean, -create-dirs, -conf-deploy-alex, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -init-remote-database,-update-remote-database, -cleanup" />
+  <target name="deploy-testlocal-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-testlocal-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="deploy-test-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <!-- <target name="deploy-public" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
   <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
@@ -678,6 +704,7 @@
   <target name="run-selenium-catroid-tests" depends="-selenium-start-server, -selenium-tests-catroid, -selenium-stop-server" />
   <target name="run-selenium-local-tests" depends="-selenium-grid-tests-catroid-local" />
   <target name="run-selenium-remote-tests" depends="deploy-test-with-tests, -selenium-grid-tests-remote" />
+  <target name="run-selenium-testlocal-tests" depends="deploy-testlocal-with-tests, -selenium-grid-tests-testlocal" />
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
   <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />
   <target name="run-selenium-api-tests" depends="-selenium-start-server, -selenium-tests-api, -selenium-stop-server" />

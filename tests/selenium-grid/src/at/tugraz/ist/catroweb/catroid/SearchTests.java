@@ -167,7 +167,7 @@ public class SearchTests extends BaseTest {
       assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session()
           .getTitle());
 
-      assertFalse(session().isVisible("fewerProjects"));
+      assertTrue(session().isVisible("fewerProjects"));
       assertTrue(session().isVisible("moreProjects"));
       // test links to details page
       session().click("xpath=//a[@class='projectListDetailsLink'][1]");
