@@ -22,10 +22,15 @@ function generateStringsXml($coreBasePath = CORE_BASE_PATH, $stringsXmlDestinati
   $modulesWhitelist = array("test");
 
   $file_listing = walkThroughDirectory($coreBasePath.'modules/', $filesWhitelist, $modulesWhitelist);
-
-  sort($file_listing['testModule1']);
-  sort($file_listing['testModule2']);
-  asort($file_listing);
+  $modArr = array();
+  $fileArr = array();
+  $i = 0;
+  foreach($file_listing as $mod => $file) {
+    $modArr[$i] = $mod;
+    $fileArr[$i] = $file;
+    $i++;
+  }
+  array_multisort($file_listing, $modArr, SORT_ASC, $fileArr, SORT_ASC);
 
   $mergedXmlObject = mergeStringsXmlFiles($file_listing, $coreBasePath);
   if(!is_dir($stringsXmlDestination.SITE_DEFAULT_LANGUAGE)) {
