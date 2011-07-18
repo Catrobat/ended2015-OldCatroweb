@@ -23,15 +23,15 @@ class licenseTest extends PHPUnit_Framework_TestCase
 {
   protected $file_listing;
   protected $allowed_extensions;
-  protected $whitelist;
-  protected $whitelist_folders;
+  protected $blacklist;
+  protected $blacklist_folders;
   protected $license;
 
   protected function setUp() {
     $this->file_listing = array();
     $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js", "java");
-    $this->whitelist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php", "strings.xml");
-    $this->whitelist_folders = array("addons", "pear", "target", "resources", "pootle");
+    $this->blacklist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php", "strings.xml");
+    $this->blacklist_folders = array("addons", "pear", "target", "resources", "pootle", "phpPgAdmin");
 
     $this->license = array(
     "Catroid: An on-device graphical programming language for Android devices",
@@ -73,14 +73,14 @@ class licenseTest extends PHPUnit_Framework_TestCase
         while(($file = readdir($directory_handler)) !== false) {
           if($file != "." && $file != "..") {
             if(is_dir($directory . $file)) {
-              if(!in_array($file, $this->whitelist_folders)) {
+              if(!in_array($file, $this->blacklist_folders)) {
                 $this->walkThroughDirectory($directory . $file . "/");
               }
             }
 
             $file_extension = strtolower(pathinfo($file, PATHINFO_EXTENSION));
             if(in_array($file_extension, $this->allowed_extensions) &&
-              !in_array($file, $this->whitelist)) {
+              !in_array($file, $this->blacklist)) {
               array_push($this->file_listing, $directory . $file);
             }
           }
