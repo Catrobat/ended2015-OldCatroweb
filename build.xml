@@ -43,6 +43,7 @@
   <property name="config.file" value="config.php" />
   <property name="commonFunctions.file" value="commonFunctions.php" />
   <property name="index.file" value="index.php" />
+  <property name="build.file" value="build.xml" />
   <property name="thumbnail.small.file" value="${thumbnails.dir}/thumbnail_small.jpg" />
   <property name="thumbnail.large.file" value="${thumbnails.dir}/thumbnail_large.jpg" />
   <property name="build.sysclasspath" value="last" />
@@ -93,7 +94,7 @@
   </target>
   
   <target name="-conf-deploy-testlocal-test">
-    <property name="host.ip" value="192.168.6.100" />
+    <property name="host.ip" value="catroidlocaltest" />
     <property name="host.root.dir" value="/var/www" />
     <property name="host.catroid.dir" value="${host.root.dir}/catroid" />
     <property name="host.addons.dir" value="${host.catroid.dir}/addons" />
@@ -314,28 +315,12 @@
     <echo message=""/>
   </target>
 
-  <target name="-selenium-grid-tests-remote" depends="-get-selenium-grid-test-browser">
-    <echo message=""/>
-    <echo message="========== HTTP REPORT ========== "/>
-    <echo message=""/>
-    <echo message="check your test report at:"/>
-    <echo message=" http://catroidwebtest.ist.tugraz.at/tests/selenium-grid/target/reports"/>
-    <echo message=" "/>
-    <echo message=""/>
-
-    <sshexec host="${host.ip}"
-             trust="true"
-             username="${host.user}"
-             password="${host.pass}"
-             command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidwebtest.ist.tugraz.at/ -Dbrowser=${browser}" />
-  </target>
-  
   <target name="-selenium-grid-tests-testlocal" depends="-get-selenium-grid-test-browser">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message=" http://catroidlocaltest.ist.tugraz.at/tests/selenium-grid/target/reports"/>
+    <echo message=" http://catroidlocaltest/tests/selenium-grid/target/reports"/>
     <echo message=" "/>
     <echo message=""/>
 
@@ -343,7 +328,7 @@
            trust="true"
            username="${host.user}"
            password="${host.pass}"
-           command="cd ${host.catroid.dir}/${selenium-grid.dir}/; ant run-catroid-tests -DwebSite=http://catroidlocal.ist.tugraz.at/ -Dbrowser=${browser}" />
+           command="export DISPLAY=:0.0; sudo xhost +; cd ${host.catroid.dir}; ant stop-selenium-grid; ant run-selenium-local-tests -DwebSite=http://catroidlocaltest/ -Dtest.browserName=${browserName} -DmaxInstances=10" />
   </target>
 
   <target name="-get-selenium-grid-test-browser">
@@ -596,8 +581,9 @@
 
   <target name="-copy-selenium-tests">
     <copy todir="${catroid.dir}/${selenium-grid.dir}">
-      <fileset dir="${selenium-grid.dir}" excludes="target/, hub/, remote-control/"/>
+      <fileset dir="${selenium-grid.dir}" excludes="target/"/>
     </copy>
+    <copy file="${build.file}" toDir="${catroid.dir}" />
   </target>
   
   <target name="-copy-board">
@@ -703,11 +689,10 @@
   <target name="run-selenium-admin-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-stop-server" />
   <target name="run-selenium-catroid-tests" depends="-selenium-start-server, -selenium-tests-catroid, -selenium-stop-server" />
   <target name="run-selenium-local-tests" depends="-selenium-grid-tests-catroid-local" />
-  <target name="run-selenium-remote-tests" depends="deploy-test-with-tests, -selenium-grid-tests-remote" />
-  <target name="run-selenium-testlocal-tests" depends="deploy-testlocal-with-tests, -selenium-grid-tests-testlocal" />
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
   <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />
   <target name="run-selenium-api-tests" depends="-selenium-start-server, -selenium-tests-api, -selenium-stop-server" />
+  <target name="run-selenium-remote-tests" depends="deploy-testlocal-with-tests, -selenium-grid-tests-testlocal" />
   <target name="stop-selenium-grid" depends="-selenium-grid-stop"/>
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />
