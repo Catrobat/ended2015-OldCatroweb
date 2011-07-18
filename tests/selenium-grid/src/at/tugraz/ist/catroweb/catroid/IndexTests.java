@@ -46,7 +46,7 @@ public class IndexTests extends BaseTest {
 
       assertTrue(session().getTitle().matches("^Catroid Website -.*"));
       assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
-      assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
+      assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
 
       location = CommonData.getRandomLongString(200);
       openLocation("catroid/details/" + location);
