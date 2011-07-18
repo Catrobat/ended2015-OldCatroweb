@@ -22,6 +22,11 @@ function generateStringsXml($coreBasePath = CORE_BASE_PATH, $stringsXmlDestinati
   $modulesWhitelist = array("test");
 
   $file_listing = walkThroughDirectory($coreBasePath.'modules/', $filesWhitelist, $modulesWhitelist);
+
+  sort($file_listing['testModule1']);
+  sort($file_listing['testModule2']);
+  asort($file_listing);
+
   $mergedXmlObject = mergeStringsXmlFiles($file_listing, $coreBasePath);
   if(!is_dir($stringsXmlDestination.SITE_DEFAULT_LANGUAGE)) {
     mkdir($stringsXmlDestination.SITE_DEFAULT_LANGUAGE, 0777, true);
