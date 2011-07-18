@@ -35,8 +35,8 @@ class languageTest extends PHPUnit_Framework_TestCase {
     $testdata = dirname(__FILE__).'/testdata/languageTestData/';
     $runtimeFolder1 = $testdata.'testOutput1/';
     $runtimeFolder2 = $testdata.'testOutput2/';
-    //removeDir($runtimeFolder1);
-    //removeDir($runtimeFolder2);
+    removeDir($runtimeFolder1);
+    removeDir($runtimeFolder2);
   }
 
   public function testLanguageFolders() {
