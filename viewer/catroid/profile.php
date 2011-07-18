@@ -27,7 +27,8 @@
           "addNewEmailPlaceholderLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email_placeholder'); ?>",
           "changeEmailLanguageString" : "<?php echo $this->languageHandler->getString('email'); ?>",
           "changeEmailDeleteButtonLanguageString" : "<?php echo $this->languageHandler->getString('delete_email'); ?>",
-          "changeEmailSaveChangesLanguageString" : "<?php echo $this->languageHandler->getString('save_button'); ?>"
+          "changeEmailSaveChangesLanguageString" : "<?php echo $this->languageHandler->getString('save_button'); ?>",
+          "emailAddressStringChangedLanguageString" : "<?php echo $this->languageHandler->getString('email_address_string_changed'); ?>"
           };
   		new Profile(languageStringsObject);
   	});
@@ -55,7 +56,6 @@
             		   	<?php 
                       if($this->ownProfile) {            		   	
             		   	?>
-                  	<form method="POST" name="profileFormDialog" id="profileFormDialog" action="">
                       <input type="hidden" id="profileUser" name="profileUser" value="<?php echo $this->requestedUser; ?>">
           		   			<div id="profilePasswordDiv">
                         <a href="javascript:;" class="profileText" id="profileChangePasswordOpen"><?php echo $this->languageHandler->getString('password')?></a><br>
@@ -153,7 +153,6 @@
                         <input type="button" name="profileGenderSubmit" id="profileGenderSubmit" value="<?php echo $this->languageHandler->getString('save_button')?>" class="button orange compact profileSubmitButton">
                       </div>
                       <br>
-            		   	</form>
             		   	<?php 
                       }
                       else {

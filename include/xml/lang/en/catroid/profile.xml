@@ -45,4 +45,5 @@
   <string name="add_new_email">enter your new e-mail address</string>
   <string name="add_new_email_placeholder">alternative e-mail address</string>
   <string name="add_new_email_button">Save my new e-mail address</string>
+  <string name="email_address_string_changed">Error while deleting this e-mail address. Do you have any unsaved changes?</string>
 </strings>

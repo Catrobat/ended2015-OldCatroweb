@@ -22,6 +22,7 @@ var Profile = Class.$extend( {
     
     var self = this;
     this.emailCount = languageStringsObject.emailCount;
+    this.emailText = '';
     this.id = 0;
     
     this.emailDeleteAlertTitle = languageStringsObject.emailDeleteAlertTitle;
@@ -31,6 +32,7 @@ var Profile = Class.$extend( {
     this.changeEmailLanguageString = languageStringsObject.changeEmailLanguageString;
     this.changeEmailDeleteButtonLanguageString = languageStringsObject.changeEmailDeleteButtonLanguageString;
     this.changeEmailSaveChangesLanguageString = languageStringsObject.changeEmailSaveChangesLanguageString;
+    this.emailAddressStringChangedLanguageString = languageStringsObject.emailAddressStringChangedLanguageString;
         
     $("#profileFormAnswer").toggle(true);
     $("#errorMsg").toggle(false);
@@ -60,6 +62,7 @@ var Profile = Class.$extend( {
     
     $("#buttonProfileOpenAddNewEmailField").click($.proxy(this.profileOpenAddEmailInputField, this));
     $("#buttonProfileCloseAddNewEmailField").click($.proxy(this.profileCloseAddEmailInputField, this));
+    $("#buttonProfileSaveNewEmailSubmit").click($.proxy(this.profileAddEmailRequestSubmit, this));
     
     $("#profilePasswordSubmit").click($.proxy(this.profilePasswordRequestSubmit, this));
     $("#profileCountrySubmit").click($.proxy(this.profileCountryRequestSubmit, this));
@@ -118,40 +121,50 @@ var Profile = Class.$extend( {
 
   
   profileDeleteEmailRequestSubmit : function() {
-    if(confirm(this.emailDeleteAlertTitle)){
-      $.ajax({
-        type: "POST",
-        url: this.basePath + 'catroid/profile/profileEmailRequestQuery.json',
-        data : ({
-          requestType : 'delete',
-          profileEmail : $("#profileEmail").val()
-        }),
-        timeout : (this.ajaxTimeout),
-        success : jQuery.proxy(this.profileDeleteEmailRequestSubmitSuccess, this),
-        error : jQuery.proxy(this.profileDeleteEmailRequestSubmitError, this)
-      });
+    if ( $("#profileEmail").val() == this.emailText ) {
+      if(confirm(this.emailDeleteAlertTitle)) {
+        $.ajax({
+          type: "POST",
+          url: this.basePath + 'catroid/profile/profileEmailRequestQuery.json',
+          data : ({
+            requestType : 'delete',
+            profileEmail : $("#profileEmail").val()
+          }),
+          timeout : (this.ajaxTimeout),
+          success : jQuery.proxy(this.profileDeleteEmailRequestSubmitSuccess, this),
+          error : jQuery.proxy(this.profileDeleteEmailRequestSubmitError, this)
+        });
+      }
+      else {
+        jQuery.proxy(this.profileDeleteEmailRequestSubmitCancel, this);
+      }
     }
     else {
-      jQuery.proxy(this.profileDeleteEmailRequestSubmitCancel, this);
+      $("#profileFormAnswer").toggle(true);
+      $("#okMsg").toggle(false);
+      $("#errorMsg").toggle(true);
+      $("#errorMsg").html(this.emailAddressStringChangedLanguageString);
     }
   },
 
   profileDeleteEmailRequestSubmitSuccess : function(result) {
     if(result.statusCode == 200) {
-      $("#profileFormAnswer").toggle(true);
-      $("#okMsg").toggle(true);
-      $("#okMsg").html(result.answer_ok);
       window.location.reload(false);
+//      $("#profileFormAnswer").toggle(true);
+//      $("#okMsg").toggle(true);
+//      $("#okMsg").html(result.answer_ok);
     }
     else if(result.statusCode == 500) {
-      alert('failed 500');
+      //alert('failed 500');
       $("#profileFormAnswer").toggle(true);
       $("#okMsg").toggle(false);
       $("#errorMsg").toggle(true);
       $("#errorMsg").html(result.answer);
     }
     else {
-      alert('success ERROR');
+      //alert('success ERROR');
+      $("#profileFormAnswer").toggle(true);
+      $("#okMsg").toggle(false);
       $("#errorMsg").toggle(true);
       $("#errorMsg").html(result.answer);
     }
@@ -177,8 +190,7 @@ var Profile = Class.$extend( {
       url: this.basePath + 'catroid/profile/profileEmailRequestQuery.json',
       data : ({
         requestType : 'add',
-        profileEmailNewValue : $("#profileEmail").val(),
-        profileEmailOldValue : this.emailTextValue,
+        profileNewEmail : $("#profileNewEmail").val()
       }),
       timeout : this.ajaxTimeout,
       success : jQuery.proxy(this.profileAddEmailRequestSubmitSuccess, this),
@@ -207,19 +219,20 @@ var Profile = Class.$extend( {
   
   
   profileChangeEmailRequestSubmit : function() {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'catroid/profile/profileEmailRequestQuery.json',
-      data : ({
-        requestType : 'change',
-        profileNewEmail : $("#profileEmail").val(),
-        profileOldEmail : this.emailTextValue,
-      }),
-      timeout : (this.ajaxTimeout),
-      success : jQuery.proxy(this.profileChangeEmailRequestSubmitSuccess, this),
-      error : jQuery.proxy(this.profileChangeEmailRequestSubmitError, this)
-    });
-    
+    if ( $("#profileEmail").val() != this.emailText ) {
+      $.ajax({
+        type: "POST",
+        url: this.basePath + 'catroid/profile/profileEmailRequestQuery.json',
+        data : ({
+          requestType : 'change',
+          profileNewEmail : $("#profileEmail").val(),
+          profileOldEmail : this.emailText,
+        }),
+        timeout : (this.ajaxTimeout),
+        success : jQuery.proxy(this.profileChangeEmailRequestSubmitSuccess, this),
+        error : jQuery.proxy(this.profileChangeEmailRequestSubmitError, this)
+      });
+    }
   },
     
   profileChangeEmailRequestSubmitSuccess : function(result) {
@@ -227,7 +240,6 @@ var Profile = Class.$extend( {
       window.location.reload(false);
     }
     else if(result.statusCode == 500) {
-      alert('success 500');
       $("#profileFormAnswer").toggle(true);
       $("#okMsg").toggle(false);
       $("#errorMsg").toggle(true);
@@ -324,9 +336,9 @@ var Profile = Class.$extend( {
     document.getElementById('div'+this.id).appendChild(div);
 
     $("#"+this.id).toggle(false);
-    this.emailTextValue = $('#profileEmailTextDiv').find('a')[this.id].text;
+    this.emailText = $('#profileEmailTextDiv').find('a')[this.id].text;
     $("#profileEmailChangeDiv").toggle(true);
-    $("#profileEmail").val(this.emailTextValue);
+    $("#profileEmail").val(this.emailText);
     
     if(this.emailCount <= 1) {
       $("#buttonProfileDeleteEmailAddress").toggle(false);
@@ -378,7 +390,7 @@ var Profile = Class.$extend( {
     var div = document.createElement('div');
     div.setAttribute('id', 'emailTextFieldsDiv');
     var row_one = "<a href='javascript:;' class='profileText' id='profileAddNewEmailInputField'>" + this.addNewEmailLanguageString + "</a><br>";
-    var row_two = "<input type='email' id='profileEmail'"+  +" name='profileEmail' value='' required='required' placeholder='" + this.addNewEmailPlaceholderLanguageString + "' ><br>";
+    var row_two = "<input type='email' id='profileNewEmail' name='profileNewEmail' value='' required='required' placeholder='" + this.addNewEmailPlaceholderLanguageString + "' ><br>";
     div.innerHTML = row_one + row_two; 
     document.getElementById('emailTextFields').appendChild(div);
     

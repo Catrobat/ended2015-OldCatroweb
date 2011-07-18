@@ -87,7 +87,6 @@ class profile extends CoreAuthenticationNone {
       $requestType = $postData['requestType'];
       switch($requestType) {
         case 'change':
-          $this->answer .= 'hello change';
           if($this->doChangeEmailAddress($this->session->userLogin_userNickname, $postData['profileNewEmail'], $postData['profileOldEmail'])) {
             $this->statusCode = 200;
             $this->answer_ok .= $this->languageHandler->getString('email_change_successful');
@@ -193,63 +192,83 @@ class profile extends CoreAuthenticationNone {
   }
   
   private function doAddEmailAddress($username, $email) {
-    $user_id = false;
+    $user_id = 0;
+    $email_valid = false;
     try {
-      $user_id = $this->checkEmail($email);
+      $this->checkEmail($email);
+      $user_id = $this->session->userLogin_userId;
+      $user_emails = $this->getUserEmailsArray($user_id);
+      $x = 0;
+      while($x<count($user_emails)) {
+        if(strcmp($email, $user_emails[$x]) == 0) {
+           throw new Exception($this->errorHandler->getError('profile', 'email_address_exists'));
+        }
+        else {
+          $email_valid = true;
+          break;
+        }      
+      }
     } catch(Exception $e) {
       $this->answer .= $e->getMessage().'<br>';
     }
     
-    if($user_id) {
+    if($email_valid) {
       try {
-        $query = "EXECUTE add_user_email('$email', '$username')";
+        $query = "EXECUTE add_user_email('$user_id', '$email')";
         $result = @pg_query($this->dbConnection, $query);
         if(!$result) {
           throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
         }
       } catch(Exception $e) {
         $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage()).'<br>';
-        $userEmailValid = false;
+        $email_valid = false;
       }
     }
-    return $userEmailValid;
+    return $email_valid;
   } 
   
   private function doDeleteEmailAddress($username, $email) {
-    $user_id = false;
-    try {
-      $user_id = $this->checkEmail($email);
-    } catch(Exception $e) {
-      $this->answer .= $e->getMessage().'<br>';
-    }
-    $this->answer .= $email.'<br>'.$username.'<br>';
+    $email_valid = true;
+    $user_id = $this->session->userLogin_userId;
+//    try {
+//      //$user_id = $this->checkEmail($email);
+//      
+//      $user_emails = $this->getUserEmailsArray($user_id);
+//      $x = 0;
+//      while($x<count($user_emails)) {
+//        if(strcmp($email, $user_emails[$x]) != 0) {
+//           throw new Exception($this->errorHandler->getError('profile', 'email_address_string_changed'));
+//        }
+//        else {
+//          $email_valid = true;
+//          break;
+//        }      
+//      }
+//    } catch(Exception $e) {
+//      $this->answer .= $e->getMessage().'<br>';
+//    }
     
-    if($user_id) {
+    if($email_valid) {
       try {
         $this->answer .= 'get_user_email_by_email '.$email.'<br>';
         $query = "EXECUTE get_user_email_by_email('$email')";
         $result = @pg_query($this->dbConnection, $query);
         if(!$result) { 
-          $this->answer .= $email.' got it from cusers<br>';
           throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
         }
         
         if(pg_num_rows($result) > 0) {
-          $this->answer .= '(result)<br>';
-
           $query = "EXECUTE update_user_email_from_additional_email_by_user_email('$username', '$user_id')";
           $result = @pg_query($this->dbConnection, $query);
           if(!$result) {
-            $this->answer .= '(update_user_email_from_additional_email_by_user_email)<br>';
-            $user_id = false;
+            $email_valid = false;
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
           }
           
           $query = "EXECUTE delete_user_email_from_additional_email_by_user_email('$user_id')";
           $result = @pg_query($this->dbConnection, $query);
           if(!$result) {
-            $this->answer .= '(delete_user_additional_email_by_email)<br>';
-            $user_id = false;
+            $email_valid = false;
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
           }
         }
@@ -258,17 +277,17 @@ class profile extends CoreAuthenticationNone {
           $query = "EXECUTE delete_user_additional_email_by_email('$email')";
           $result = @pg_query($this->dbConnection, $query);
           if(!$result) {
-            $user_id = false;
+            $email_valid = false;
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
           }
         }
       } catch(Exception $e) {
         $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage()).'<br>';
-        $user_id = false;
+        $email_valid = false;
       }
     }
-    $this->$user_id = $user_id;
-    return $user_id;
+    //$this->$email_valid = $email_valid;
+    return $email_valid;
   } 
 
   private function doChangePassword($username, $oldPassword, $newPassword) {
@@ -478,12 +497,17 @@ class profile extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
     
-    if(strcmp($email1, $email2) != 0 && $email2) {
-      if(pg_num_rows($result) > 0) {
-        $email_valid = false;
-        throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
-      }
+    if(pg_num_rows($result) > 0) {
+      $email_valid = false;
+      throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
     }
+//    
+//    if(strcmp($email1, $email2) != 0 && $email2) {
+//      if(pg_num_rows($result) > 0) {
+//        $email_valid = false;
+//        throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
+//      }
+//    }
     
     $email_valid = true;
     
@@ -527,8 +551,6 @@ class profile extends CoreAuthenticationNone {
     }
     try {
       $this->fillDynamicProfileData($requestedUser);
-      //$this->userEmailsCount = $this->getUserEmailsCount($this->session->userLogin_userId);
-      //$this->userEmailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
     } catch(Exception $e) {
       $answer .= $e->getMessage().'<br>';
     }
@@ -542,7 +564,7 @@ class profile extends CoreAuthenticationNone {
 //      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
 //    }
     
-    $userCountryCode = $this->getUserCountry($this->session->userLogin_userId); 
+    $userCountryCode = $this->getUserCountry($userName); 
     if($userCountryCode) {   
       $this->userCountryCode = $userCountryCode;
     }
@@ -615,15 +637,13 @@ class profile extends CoreAuthenticationNone {
     $x=0;
     while($userEmails = pg_fetch_assoc($result)) {
       $userEmailsArray[$x] = $userEmails['email'];
-      $this->answer .= $userEmailsArray[$x] .'<br>'; 
       $x++;
     }
     return $userEmailsArray;
   }
   
-  // get number of user's emails here! 
-  private function getUserCountry($user_id) {
-    $query = "EXECUTE get_user_country_by_id('$user_id')";
+  private function getUserCountry($userName) {
+    $query = "EXECUTE get_user_country_by_username('$userName')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 

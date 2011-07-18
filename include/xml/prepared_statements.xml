@@ -65,6 +65,8 @@
     
     <string name="get_user_row_by_email">SELECT u.* FROM cusers u, cusers_additional_email e WHERE (u.email=$1 OR e.email=$1) AND u.id=e.user_id</string>
     
+    
+    <string name="add_user_email">INSERT INTO cusers_additional_email (user_id, email) VALUES ($1, $2)</string>
     <string name="get_user_row_by_id">SELECT * FROM cusers WHERE id=$1 LIMIT 1</string>
     <string name="get_user_row_by_recovery_hash">SELECT * FROM cusers WHERE recovery_hash=$1 LIMIT 1</string>
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
