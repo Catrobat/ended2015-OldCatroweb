@@ -23,16 +23,20 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Administration - Catroid Website</title>
+  <link href="<?php echo BASE_PATH?>include/css/adminLayout.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
   <?php while($css = $this->getCss()) {?>
   	<link href="<?php echo BASE_PATH.CSS_PATH.$css?>" media="screen" rel="stylesheet" type="text/css" />
-  <?php }?>
-  <?php while($js = $this->getJs()) {?>
-  	<script type="text/javascript" src="<?php echo BASE_PATH.SCRIPT_PATH.$js?>"></script>
   <?php }?>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/baseClassVars.js?<?php echo VERSION; ?>" ></script>
   <script type="text/javascript">
     __baseClassVars.basePath = <?php echo "'".BASE_PATH."'"; ?>;
+    __baseClassVars.corePath = <?php echo "'".CORE_BASE_PATH."'"; ?>;
   </script>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js?<?php echo VERSION; ?>" ></script>
+  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/jquery.js?<?php echo VERSION; ?>" ></script>
+  <?php while($js = $this->getJs()) {?>
+  	<script type="text/javascript" src="<?php echo BASE_PATH.SCRIPT_PATH.$js?>"></script>
+  <?php }?>
 </head>
   <?php include($this->header);?>
   <?php include($this->viewer);?>

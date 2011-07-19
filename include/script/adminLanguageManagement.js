@@ -31,7 +31,7 @@ var AdminLanguageManagement = Class.$extend({
       url : url,
       data : ({
         lang : $("#supportedLanguageSelect").val(),
-        //dest : 'pootle/'
+        //dest : this.corePath+'pootle/'
       }),
       timeout : (this.ajaxTimeout),
       success : jQuery.proxy(this.updateSuccess, this),

@@ -22,10 +22,6 @@ class languageManagement extends CoreAuthenticationAdmin {
 
   public function __construct() {
     parent::__construct();
-    $this->addCss('adminLayout.css?'.VERSION);
-    $this->addJs('baseClassVars.js?'.VERSION);
-    $this->addJs('classy.js?'.VERSION);
-    $this->addJs('jquery.js?'.VERSION);
     $this->addJs('adminLanguageManagement.js?'.VERSION);
     $this->licenseString = "<!--
 Catroid: An on-device graphical programming language for Android devices
@@ -45,11 +41,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   }
 
   public function __default() {
-    /*
-     $lang = 'de';
-     $dest = CORE_BASE_PATH.'pootle/';
-     $this->generateLanguagePackFromXlf(array('lang'=>$lang, 'dest'=>$dest));
-     */
+
   }
 
   public function generateLanguagePack() {
