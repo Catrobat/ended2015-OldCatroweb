@@ -18,23 +18,23 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="uploaded">hochgeladen</string>
   <string name="uploaded_by">von {*nicknameString*}</string>
+  <string name="download">Herunterladen</string>
   <string name="report">Melden</string>
   <string name="cancel">Abbrechen</string>
+  <string name="report_as_inappropriate">Als unpassend melden</string>
   <string name="report_as_inappropriate_label">Warum ist dieses Projekt unpassend?</string>
   <string name="why_you_think_inappropriate">Warum ist dieses Projekt unpassend?</string>
   <string name="enter_a_reason">Bitte eine Begr&#xFC;ndung eingeben.</string>
   <string name="some_rights_reserved">Einige Rechte vorbehalten</string>
+  <string name="views">mal gesehen</string>
+  <string name="downloads">mal heruntergeladen</string>
   <string name="version_info_text">Catroid Version:</string>
+  <string name="text_more">mehr</string>
   <string name="text_less">weniger</string>
   <string name="qrcode_info">Du kannst dieses Projekt direkt auf dein Handy laden wenn du einen Barcode-Reader installiert hast. Mach mit dem Barcode-Reader ganz einfach ein Foto vom QR-Code und der Download wird sofort gestartet.</string>
   <string name="show_qr_code_info_button">QR-Code - Was ist das?</string>
   <string name="hide_qr_code_info_button">QR-Code - Info schlie&#xDF;en</string>
   <string name="flag_reason_placeholder">Bitte eine Begr&#xFC;ndung eingeben.</string>
-  <string name="uploaded">hochgeladen</string>
-  <string name="download">Herunterladen</string>
-  <string name="report_as_inappropriate">Als unpassend melden</string>
-  <string name="views">mal gesehen</string>
-  <string name="downloads">mal heruntergeladen</string>
-  <string name="text_more">mehr</string>
 </strings>

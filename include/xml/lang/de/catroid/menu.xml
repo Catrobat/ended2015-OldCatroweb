@@ -20,9 +20,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <strings>
   <string name="title">Men&#xFC;</string>
   <string name="profile">Profil</string>
-  <string name="registration">Anmelden</string>
   <string name="forum">Forum</string>
   <string name="wiki">Hilfe</string>
   <string name="wall">Wand</string>
+  <string name="registration">Anmelden</string>
   <string name="settings">Einstellungen</string>
 </strings>
