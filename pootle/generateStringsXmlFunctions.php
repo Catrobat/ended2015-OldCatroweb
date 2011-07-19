@@ -18,7 +18,7 @@
  */
 
 function generateStringsXml($coreBasePath = CORE_BASE_PATH, $stringsXmlDestination = '') {
-  $filesWhitelist = array("aliveCheckerDB.php", "aliveCheckerHost.php");
+  $filesWhitelist = array("aliveCheckerDB.php", "aliveCheckerHost.php", "qrCodeGenerator.php");
   $modulesWhitelist = array("test");
 
   $file_listing = walkThroughDirectory($coreBasePath.'modules/', $filesWhitelist, $modulesWhitelist);

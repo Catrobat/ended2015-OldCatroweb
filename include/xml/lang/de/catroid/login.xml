@@ -18,8 +18,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="or">oder</string>
   <string name="title">Einloggen</string>
   <string name="account_link">Lege jetzt einen neuen Benutzer an</string>
+  <string name="or">oder</string>
   <string name="password_link">klick hier, wenn Du Dein Passwort vergessen hast</string>
 </strings>

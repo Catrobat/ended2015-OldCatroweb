@@ -18,14 +18,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="template_footer_contact_link">Kontakt</string>
-  <string name="template_header_cancel">Abbrechen</string>
-  <string name="template_footer_imprint_link">Impressum</string>
-  <string name="template_header_loading">laden...</string>
-  <string name="template_header_login">Einloggen</string>
-  <string name="template_header_menu">Men&#xFC;</string>
-  <string name="template_header_profile">Profil</string>
-  <string name="template_footer_terms_of_use_link">Nutzungsbedingungen</string>
   <string name="template_common_one_minute_ago">vor 1 Minute</string>
   <string name="template_common_less_than_a_minute_ago">vor weniger als 1 Minute</string>
   <string name="template_common_minutes_ago">vor {*minuteCount*} Minuten</string>
@@ -94,15 +86,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_turkish">T&#xFC;rkisch</string>
   <string name="template_common_ukrainian">Ukrainisch</string>
   <string name="template_common_vietnamese">Vietnamesisch</string>
-  <string name="template_footer_privacy_policy_link">Datenschutzrichtlinien</string>
-  <string name="template_footer_copyright_policy_link">Copyright Bestimmungen</string>
-  <string name="template_header_nick">Benutzername:</string>
-  <string name="template_header_password">Passwort:</string>
-  <string name="template_header_logout">Ausloggen</string>
-  <string name="template_header_logged_in_as">Du bist angemeldet als</string>
-  <string name="template_header_enter_nick">gib Deinen Benutzernamen ein</string>
-  <string name="template_header_enter_password">gib Dein Passwort ein</string>
-  <string name="template_header_home">Start</string>
-  <string name="template_header_search">Suche</string>
-  <string name="template_header_search_for_projects">Nach Projekten suchen</string>
 </strings>
