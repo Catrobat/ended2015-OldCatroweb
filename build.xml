@@ -608,6 +608,22 @@
       <arg line=" dbupdate.php"/>
     </exec>
   </target>
+	
+  <target name="-set-catroid-dir-permissions">
+	<sshexec host="${host.ip}"
+	         trust="true"
+	         username="${host.user}"
+	         password="${host.pass}"
+	         command="chmod -R 777 ${host.catroid.dir}/${includes.dir}/xml/lang" />
+  </target>
+	
+  <target name="-set-board-dir-permissions">
+	<sshexec host="${host.ip}"
+	         trust="true"
+	         username="${host.user}"
+	         password="${host.pass}"
+	         command="chmod -R 777 ${host.board.dir}/cache ${host.board.dir}/images/avatars/uploads" />
+  </target>
 
   <target name="-undeploy">
     <sshexec host="${host.ip}"
@@ -674,15 +690,12 @@
     </scp>
   </target>
 
-  <!-- <target name="deploy-local" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" /> -->
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
-  <!-- <target name="deploy-test" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
-  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -update-sql-diagram, -cleanup" />
-  <target name="deploy-alex" depends="-conf, -clean, -create-dirs, -conf-deploy-alex, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
-  <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -init-remote-database,-update-remote-database, -cleanup" />
+  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -update-sql-diagram, -cleanup" />
+  <target name="deploy-alex" depends="-conf, -clean, -create-dirs, -conf-deploy-alex, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -cleanup" />
+  <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -init-remote-database,-update-remote-database, -cleanup" />
   <target name="deploy-testlocal-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-testlocal-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="deploy-test-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
-  <!-- <target name="deploy-public" depends="run-tests, -conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -cleanup" /> -->
   <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="run-tests" depends="-phpunit-tests, -selenium-tests" />
   <target name="run-phpunit-tests" depends="-phpunit-tests" />
