@@ -102,13 +102,12 @@ public class SearchTests extends BaseTest {
         assertFalse(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
 
         session().type("searchQuery", CommonData.getRandomShortString(10));
-        // session().click("xpath=//input[@class='webHeadSearchSubmit']");
         session().click("webHeadSearchSubmit");
         ajaxWait();
-
+        
         assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
         assertFalse(session().isTextPresent(projectTitle));
-        assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
+        waitForTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS);
       }
     } catch(AssertionError e) {
       captureScreen("SearchTests.specialChars");
@@ -146,23 +145,21 @@ public class SearchTests extends BaseTest {
         ajaxWait();
         assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i + 2) + "", session()
             .getTitle());
+        
       }
 
       assertTrue(session().isVisible("fewerProjects"));
       assertTrue(session().isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_PREV_BUTTON));
       session().click("fewerProjects");
       ajaxWait();
-
       assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session()
           .getTitle());
 
-      assertFalse(session().isVisible("fewerProjects"));
       assertTrue(session().isVisible("moreProjects"));
 
       // test session
-      session().refresh();
-      waitForPageToLoad();
-      ajaxWait();
+      openLocation("catroid/search/?q="+projectTitle+"&p="+String.valueOf(i));
+      ajaxWait();      
 
       assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session()
           .getTitle());
@@ -177,15 +174,12 @@ public class SearchTests extends BaseTest {
       waitForPageToLoad();
       ajaxWait();
       waitForTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE);
-      // log(CommonStrings.WEBSITE_TITLE + " - " +
-      // CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - "
-      // + (i) + "");
-      // log(session().getTitle());
       assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (i) + "", session()
           .getTitle());
 
-      assertFalse(session().isVisible("fewerProjects"));
+      assertTrue(session().isVisible("fewerProjects"));
       assertTrue(session().isVisible("moreProjects"));
+
       // test header click
       session().click("aIndexWebLogoLeft");
       ajaxWait();

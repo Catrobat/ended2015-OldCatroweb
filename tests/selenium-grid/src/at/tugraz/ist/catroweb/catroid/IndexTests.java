@@ -31,19 +31,24 @@ public class IndexTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "location tests")
   public void location() throws Throwable {
-    log("TODO: IndexTests: location");
+    String longpagenr = "99999999";
     try {
-      openLocation("catroid/index/9999999999999999999");
+      openLocation("catroid/index/"+longpagenr);
       ajaxWait();
 
       assertTrue(session().getTitle().matches("^Catroid Website -.*"));
       assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
-      assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
-
-      String location = CommonData.getRandomLongString(200);
+      // random page nr should redirect to last page
+      if(CommonFunctions.getProjectsCount(true) > Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * Config.PROJECT_PAGE_SHOW_MAX_PAGES) {
+        assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
+        assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
+      }
+      
+      // random string instead of page nr should redirect to first page
+      String location = CommonData.getRandomLongString(20);
       openLocation("catroid/index/" + location);
       ajaxWait();
-
+      
       assertTrue(session().getTitle().matches("^Catroid Website -.*"));
       assertTrue(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
       assertFalse(session().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
@@ -55,13 +60,20 @@ public class IndexTests extends BaseTest {
       assertRegExp(".*/catroid/errorPage", session().getLocation());
       assertTrue(session().isTextPresent(location));
       
-      openLocation("catroid/search/?q=test&p=9999999");
-      ajaxWait();
-      // test page title and header title
-      assertRegExp(".*/catroid/search/[?]q=test[&]p=1.*", session().getLocation());
-      openLocation("catroid/profile");
+      // random page nr should redirect to last page
+      openLocation("catroid/search/?q=test&p="+longpagenr);
       ajaxWait();
       log(session().getLocation());
+      assertRegExp(".*/catroid/search/[?]q=test[&]p=(?!"+longpagenr+").*", session().getLocation());
+      assertTrue(session().isElementPresent("xpath=//a[@href='"+ this.webSite + "catroid/details/1']"));
+
+      // random string instead of page nr should redirect to first page
+      openLocation("catroid/search/?q=test&p="+CommonData.getRandomShortString(10));
+      ajaxWait();
+      assertRegExp(".*/catroid/search/[?]q=test[&]p=1.*", session().getLocation());
+      
+      openLocation("catroid/profile");
+      ajaxWait();
       assertRegExp(".*/catroid/login.*", session().getLocation());
     } catch(AssertionError e) {
       captureScreen("IndexTests.location");
@@ -120,15 +132,13 @@ public class IndexTests extends BaseTest {
   @Test(groups = { "functionality", "upload" }, description = "page navigation tests")
   public void pageNavigation() throws Throwable {
     try {
-      openLocation();
-      ajaxWait();
 
       for(int i = 0; i < Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1); i++) {
         System.out.print(".");
         projectUploader.upload();
       }
-      session().refresh();
-      waitForPageToLoad();
+      
+      openLocation();
       ajaxWait();
       assertFalse(session().isVisible("fewerProjects"));
       assertTrue(session().isVisible("moreProjects"));

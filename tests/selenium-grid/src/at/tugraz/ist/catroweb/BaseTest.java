@@ -102,6 +102,9 @@ public class BaseTest {
   }
   
   protected void openLocation(String location, Boolean forceDefaultLanguage) {
+    if (location.startsWith("/"))
+      location.substring(1);
+    
   	if(forceDefaultLanguage == true) {
   		session().open(Config.TESTS_BASE_PATH + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
   	} else {
