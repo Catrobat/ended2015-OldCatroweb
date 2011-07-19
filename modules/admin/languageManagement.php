@@ -143,8 +143,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       foreach($classes as $class => $stringNames) {
         $xml = new SimpleXMLElement($this->licenseString."<strings></strings>");
         foreach($stringNames as $stringName => $string) {
-          $destString = $xml->addChild('string', strval($string));
-          $destString->addAttribute('name', $stringName);
+          if(strval($string)) {
+            $destString = $xml->addChild('string', strval($string));
+            $destString->addAttribute('name', $stringName);
+          }
         }
         $xmlFile = $folder.'/'.$class.'.xml';
         try {

@@ -26,23 +26,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="new_password">gib Dein neues Passwort ein</string>
   <string name="email">meine E-Mail Adresse &#xE4;ndern</string>
   <string name="add_email_field_button">gib Deine neue E-Mail Adresse ein</string>
-  <string name="delete_email"/>
   <string name="email_delete_success">Du hast deine E-Mail Adresse erfolgreich ge&#xE4;ndert.</string>
-  <string name="alertbox_really_want_to_delete_email"/>
   <string name="new_email">gib Deine neue E-Mail Adresse ein</string>
   <string name="save_button">Meine &#xC4;nderungen speichern</string>
   <string name="country">mein Land &#xE4;ndern</string>
   <string name="city">mein Land &#xE4;ndern</string>
   <string name="new_city">gib Deine Stadt ein</string>
-  <string name="birth"/>
-  <string name="month"/>
-  <string name="year"/>
-  <string name="gender"/>
-  <string name="new_gender"/>
   <string name="email_update_success">Du hast deine E-Mail Adresse erfolgreich ge&#xE4;ndert.</string>
   <string name="password_success">Du hast Dein Passwort erfolgreich ge&#xE4;ndert.</string>
   <string name="country_success">Du hast Dein Land erfolgreich ge&#xE4;ndert.</string>
   <string name="add_new_email">gib Deine E-Mail Adresse ein</string>
-  <string name="add_new_email_placeholder"/>
-  <string name="email_address_string_changed"/>
 </strings>
