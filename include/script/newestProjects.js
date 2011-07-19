@@ -20,7 +20,6 @@
 var NewestProjects = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function(maxLoadProjects, maxLoadPages, pageNr, strings) {
-    alert(this.corePath);
 	  this.strings = strings;
     this.maxLoadProjects = parseInt(maxLoadProjects);
     this.maxVisibleProjects = parseInt(maxLoadPages) * maxLoadProjects;
