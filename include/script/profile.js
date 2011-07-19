@@ -303,7 +303,6 @@ var Profile = Class.$extend( {
   profileChangePasswordOpen : function() {
     $("#profilePasswordDiv").toggle(false);
     $("#profilePasswordDivOpened").toggle(true);
-    $("#profileOldPassword").focus(true);
   },
   
   profileChangePasswordClose : function() {
@@ -372,7 +371,6 @@ var Profile = Class.$extend( {
   profileChangeCountryOpen : function() {
     $("#profileCountryTextDiv").toggle(false);
     $("#profileCountryDiv").toggle(true);
-    $("#profileCountry").focus();
   },
   
   profileChangeCountryClose : function() {
@@ -381,6 +379,38 @@ var Profile = Class.$extend( {
   },
   
   
+  profileChangeCityOpen : function() {
+    $("#profileCityTextDiv").toggle(false);
+    $("##profileCityDiv").toggle(true);
+  },
+  
+  profileChangeCityClose : function() {
+    $("#profileCityDiv").toggle(false);
+    $("#profileCityTextDiv").toggle(true);
+  },
+  
+  
+  profileChangeBirthdayOpen : function() {
+    $("#profileBirthdayTextDiv").toggle(false);
+    $("#profileBirthdayDiv").toggle(true);
+  },
+  
+  profileChangeBirthdayClose : function() {
+    $("#profileBirthdayDiv").toggle(false);
+    $("#profileBirthdayTextDiv").toggle(true);
+  },
+  
+  
+  profileChangeGenderOpen : function() {
+    $("#profileGenderTextDiv").toggle(false);
+    $("#profileGenderDiv").toggle(true);
+  },
+  
+  profileChangeGenderClose : function() {
+    $("#profileGenderDiv").toggle(false);
+    $("#profileGenderTextDiv").toggle(true);
+  },
+
   
   profileOpenAddEmailInputField : function() { 
     $("#emailTextFields").toggle(true);

@@ -230,6 +230,13 @@ class profile extends CoreAuthenticationNone {
   private function doDeleteEmailAddress($username, $email) {
     $email_valid = true;
     $user_id = $this->session->userLogin_userId;
+    if($user_id == 1) {
+      if(count($this->getUserEmailsArray($user_id) <= 2)) {
+        $this->answer .= $this->errorHandler->getError('profile', 'email_update_of_catroweb_failed', $e->getMessage()).'<br>';
+        return false;
+      }
+    }
+    
 //    try {
 //      //$user_id = $this->checkEmail($email);
 //      
@@ -250,7 +257,6 @@ class profile extends CoreAuthenticationNone {
     
     if($email_valid) {
       try {
-        $this->answer .= 'get_user_email_by_email '.$email.'<br>';
         $query = "EXECUTE get_user_email_by_email('$email')";
         $result = @pg_query($this->dbConnection, $query);
         if(!$result) { 

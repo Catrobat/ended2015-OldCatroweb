@@ -201,7 +201,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
     $userData = utf8_clean_string($userData);  
-    $query = "EXECUTE get_user_row_by_username_clean('".($userData)."')";
+    $query = "EXECUTE get_user_row_by_username_clean('$userData')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -210,7 +210,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       $this->userData = pg_fetch_assoc($result);
     }
     else {
-      $query = "EXECUTE get_user_row_by_email('".($userData)."')";
+      $query = "EXECUTE get_user_row_by_email('$userData')";
       $result = @pg_query($this->dbConnection, $query);
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
