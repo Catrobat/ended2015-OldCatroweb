@@ -24,6 +24,7 @@ var AdminLanguageManagement = Class.$extend({
   },
 
   doUpdateRequest : function() {
+    this.hideAnswerFields();
     this.toggleLoadingMessage();
     var url = this.basePath + 'admin/languageManagement/generateLanguagePack.json';
     $.ajax({
@@ -31,24 +32,19 @@ var AdminLanguageManagement = Class.$extend({
       url : url,
       data : ({
         lang : $("#supportedLanguageSelect").val(),
-        //dest : this.corePath+'pootle/'
+        // dest : this.corePath+'pootle/'
       }),
       timeout : (this.ajaxTimeout),
       success : jQuery.proxy(this.updateSuccess, this),
       error : jQuery.proxy(this.updateError, this)
     });
   },
-  
-  toggleLoadingMessage : function() {
-    $("#doUpdateLink").toggle();
-    $("#doUpdateLoadingMessage").toggle();
-  },
-
+ 
   updateSuccess : function(result) {
     if (result.statusCode == 200) {
-      alert(result.answer);    
+      this.displayAnswer(result.answer);
     } else {
-      alert(result.answer);
+      this.displayError(result.answer);
     }
     this.toggleLoadingMessage();
   },
@@ -56,6 +52,25 @@ var AdminLanguageManagement = Class.$extend({
   updateError : function(result, errCode) {
     alert("updateError");
     this.toggleLoadingMessage();
+  },
+  
+  displayError : function(string) {
+    $("#adminError").toggle(true);
+    $("#adminError").html(string);
+  },
+  
+  displayAnswer : function(string) {
+    $("#adminAnswer").toggle(true);
+    $("#adminAnswer").html(string);
+  },
+  
+  toggleLoadingMessage : function() {
+    $("#doUpdateLink").toggle();
+    $("#doUpdateLoadingMessage").toggle();
+  },
+  
+  hideAnswerFields : function() {
+    $("#adminAnswer").toggle(false);
+    $("#adminError").toggle(false);
   }
-
 });

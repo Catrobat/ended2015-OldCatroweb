@@ -24,24 +24,28 @@
         new AdminLanguageManagement();
       });
     </script>
-  <h2>Language Management</h2>
-  <p>supported languages:</p>
-  <select id="supportedLanguageSelect">
-  <?php
-  $supportedLanguages = getSupportedLanguagesArray($this->languageHandler);
-  foreach($supportedLanguages as $lang => $details) {
-    if($details['supported']) {
-  ?>
-    <option value="<?php echo $lang?>">
-    <?php echo $lang.' - '.$details['name'].' - '.$details['nameNative']?>
-    </option>
-    <?php }?>
-    <?php }?>
-  </select>
-  <a href="javascript:;" id="doUpdateLink">update</a>
-  <span id="doUpdateLoadingMessage" style="display:none;">updating - please wait..</span>
-  
-  <br /><br />
-  <a id="aAdminToolsBackToIndex"
-    href="<?php echo BASE_PATH;?>admin/index">&lt;- back</a>
+  <h2>Administration Tools - Language Management</h2>
+  <div>
+    <p>supported languages:</p>
+    <select id="supportedLanguageSelect">
+    <?php
+    $supportedLanguages = getSupportedLanguagesArray($this->languageHandler);
+    foreach($supportedLanguages as $lang => $details) {
+      if($details['supported'] && $lang != SITE_DEFAULT_LANGUAGE) {
+        ?>
+      <option value="<?php echo $lang?>">
+      <?php echo $lang.' - '.$details['name'].' - '.$details['nameNative']?>
+      </option>
+      <?php }?>
+      <?php }?>
+    </select>
+    <a href="javascript:;" id="doUpdateLink">update</a>
+    <span id="doUpdateLoadingMessage" style="display: none;">updating -
+      please wait..</span> 
+    <br>
+    <div id="adminAnswer" class="adminAnswerMessage"></div>
+    <div id="adminError" class="adminAnswerError"></div>
+    <br><br>
+    <a id="aAdminToolsBackToTools" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a>
+  </div>
 </body>
