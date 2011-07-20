@@ -126,7 +126,6 @@ public class PasswordRecoveryTests extends BaseTest {
       session().click("xpath=//input[@name='passwordSaveSubmit']");
       ajaxWait();
       assertTrue(session().isTextPresent("Your new password is set."));
-      assertFalse(session().isTextPresent("Please enter your new password:"));
 
       // and try to login with the old credentials to verify password recovery
       // worked

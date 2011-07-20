@@ -232,7 +232,7 @@ class profile extends CoreAuthenticationNone {
     $user_id = $this->session->userLogin_userId;
     if($user_id == 1) {
       if(count($this->getUserEmailsArray($user_id) <= 2)) {
-        $this->answer .= $this->errorHandler->getError('profile', 'email_update_of_catroweb_failed', $e->getMessage()).'<br>';
+        $this->answer .= $this->errorHandler->getError('profile', 'email_update_of_catroweb_failed').'<br>';
         return false;
       }
     }
@@ -570,6 +570,8 @@ class profile extends CoreAuthenticationNone {
 //      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
 //    }
     
+    $this->userEmailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
+
     $userCountryCode = $this->getUserCountry($userName); 
     if($userCountryCode) {   
       $this->userCountryCode = $userCountryCode;
@@ -577,9 +579,11 @@ class profile extends CoreAuthenticationNone {
     else {
       $this->userCountryCode = "undefined";
     }
-    
-    $this->userEmailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
-    
+
+    $this->userCity = $this->getUserCity($this->session->userLogin_userId);
+    $this->userBirthArray = $this->getUserBirth($this->session->userLogin_userId);
+    $this->userGender = $this->getUserGender($this->session->userLogin_userId);
+       
 //    $query = "EXECUTE get_user_email_by_username('$userName')";
 //    $result = @pg_query($this->dbConnection, $query);
 //    if(!$result) {
@@ -617,24 +621,12 @@ class profile extends CoreAuthenticationNone {
     $this->countryNameList = $countryNameList;
   }
 
-  // get number of user's emails here! 
-  private function getUserEmailsCount($user_id) {
-
-//    $query = "EXECUTE get_user_emails_by_id_____($user_id)";
-//    $result = @pg_query($this->dbConnection, $query);
-//    if(!$result) {
-//      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-//    }
-//
-//    $userEmails = pg_num_rows($result);
-    return $userEmails;
-  }
  
 
   // get number of user's emails here! 
   private function getUserEmailsArray($user_id) {
 
-    $query = "EXECUTE get_user_emails_by_id($user_id)"; // _
+    $query = "EXECUTE get_user_emails_by_id($user_id)";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -656,11 +648,72 @@ class profile extends CoreAuthenticationNone {
     }
     $userCountry = pg_fetch_assoc($result);
 
-    $this->answer .= $userCountry['country'];
+    //$this->answer .= $userCountry['country'];
     return $userCountry['country'];
   }
   
+  private function getUserCity($user_id) {
+    $userCity = 0;
+    
+    $query = "EXECUTE get_user_city_by_id('$user_id')";
+    $result = @pg_query($this->dbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+    }
+    
+    if(pg_num_rows($result) > 0) {
+      $userCity = pg_fetch_assoc($result);
+      pg_free_result($result);      
+    } else {
+      pg_free_result($result);
+      $userCity = 0;
+    }
+ 
+    return $userCity['city'];
+  }
+  
+  private function getUserBirth($user_id) {
+    $userBirth = 0;
 
+    $months = getMonthsArray($this->languageHandler);
+
+    $query = "EXECUTE get_user_birth_by_id('$user_id')";
+    $result = @pg_query($this->dbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+    }
+    if(pg_num_rows($result) > 0) {
+      $userBirth = pg_fetch_array($result);
+      $userBirth = array('month' => $months[intval($userBirth['month'])], 'year' => $userBirth['year']);
+    } else {
+      pg_free_result($result);
+      $userBirth = 0;
+    }
+    
+    return $userBirth;
+    //return 0; 
+  }
+  
+  private function getUserGender($user_id) {
+    $userGender = 0;
+    
+    $query = "EXECUTE get_user_gender_by_id('$user_id')";
+    $result = @pg_query($this->dbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+    }
+    
+    if(pg_num_rows($result) > 0) {
+      $userGender = pg_fetch_assoc($result);
+      pg_free_result($result);      
+    } else {
+      pg_free_result($result);
+      $userGender = 0;
+    }
+ 
+    return $userGender['gender'];
+  }
+  
   
   public function __destruct() {
     parent::__destruct();

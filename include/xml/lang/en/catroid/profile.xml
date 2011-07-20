@@ -30,10 +30,12 @@
   <string name="alertbox_really_want_to_delete_email">Do you really want to delete this e-mail address?</string>
   <string name="new_email">enter new e-mail address</string>
   <string name="save_button">Save my changes</string>
+  <string name="from">from</string>
   <string name="country">change my country</string>
   <string name="city">change my city</string>
   <string name="new_city">enter your new city</string>
   <string name="birth">change my birthday</string>
+  <string name="born_in">Born in</string>
   <string name="month">select month</string>
   <string name="year">select year</string>
   <string name="gender">change my gender</string>
