@@ -233,7 +233,7 @@
     <antcall target='selenium-tools.launch-hub'/>
   </target>
 
-  <target name="-selenium-grid-tests-catroid-local" depends="-start-selenium-grid-local-testsuite">
+  <target name="-selenium-grid-tests-catroid-local">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -252,7 +252,7 @@
     <antcall target='selenium-tools.stop-remote-controls'/>
   </target>
 
-  <target name="-selenium-grid-single-test" depends="-start-selenium-grid-local-testsuite, -get-selenium-grid-single-test-parameters">
+  <target name="-selenium-grid-single-test" depends="-get-selenium-grid-single-test-parameters">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -289,7 +289,7 @@
     <echo message=""/>
   </target>
 
-  <target name="-selenium-grid-group-test" depends="-start-selenium-grid-local-testsuite, -get-selenium-grid-group-test-parameter">
+  <target name="-selenium-grid-group-test" depends="-get-selenium-grid-group-test-parameter">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
