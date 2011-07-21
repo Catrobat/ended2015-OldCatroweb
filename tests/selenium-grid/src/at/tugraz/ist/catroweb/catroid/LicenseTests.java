@@ -18,6 +18,7 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -27,14 +28,12 @@ import at.tugraz.ist.catroweb.BaseTest;
 public class LicenseTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "check privacy policy link/page")
-  public void privacyPolicy() throws Throwable {
+  public void testPrivacyPolicy() throws Throwable {
     try {
       openLocation();
-      selenium().click("xpath=//a[@class='license']");
-      waitForPageToLoad();
-
-      assertTrue(selenium().isTextPresent("Privacy Policy"));
-      selenium().isElementPresent("xpath=//p[@class='licenseText']/a");
+      driver().findElement(By.xpath("//a[@class='license']")).click();
+      assertTextPresent("Privacy Policy");
+      assertElementPresent("//p[@class='licenseText']/a");
     } catch(AssertionError e) {
       captureScreen("LicenseTests.privacyPolicy");
       throw e;
@@ -48,13 +47,11 @@ public class LicenseTests extends BaseTest {
   public void termsOfUse() throws Throwable {
     try {
       openLocation();
-      selenium().click("xpath=//a[@class='license'][2]");
-      waitForPageToLoad();
+      driver().findElement(By.xpath("//a[@class='license'][2]")).click();
 
-      assertTrue(selenium().isTextPresent("Welcome to the Catroid community!"));
-      assertTrue(selenium().isTextPresent("As part of the Catroid community, you are sharing projects and ideas with people:"));
+      assertTextPresent("Welcome to the Catroid community!");
+      assertTextPresent("As part of the Catroid community, you are sharing projects and ideas with people:");
       clickAndWaitForPopUp("xpath=//p[@class='licenseText'][3]/a", "_blank");
-      assertRegExp("test", "test");
       assertRegExp(".*Creative Commons — Attribution-ShareAlike 2.0 Generic — CC BY-SA 2.0.*", selenium().getTitle());
       closePopUp();
 

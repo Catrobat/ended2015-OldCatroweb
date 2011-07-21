@@ -32,10 +32,13 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.By;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverBackedSelenium;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -100,6 +103,19 @@ public class BaseTest {
     this.seleniumSessions.put(method, selenium);
   }
 
+  protected void startChromeSession(String seleniumHost, int seleniumPort, String browser, String webSite, String method) {
+    System.setProperty("webdriver.chrome.bin", "/opt/google/chrome/google-chrome");
+    System.setProperty("webdriver.chrome.driver", "/home/chris/.workspace/catroweb/tests/selenium-grid/chromedriver");
+
+    WebDriver driver = new ChromeDriver();
+    Selenium selenium = new WebDriverBackedSelenium(driver, webSite);
+    selenium.setSpeed(setSpeed());
+    selenium.setTimeout(Config.TIMEOUT);
+
+    this.driverSessions.put(method, driver);
+    this.seleniumSessions.put(method, selenium);
+  }
+
   protected void startGridSession(String seleniumHost, int seleniumPort, String browser, String webSite, String method) {
     // Selenium selenium = new DefaultSelenium(seleniumHost, seleniumPort,
     // browser, webSite);
@@ -127,7 +143,8 @@ public class BaseTest {
   synchronized protected void closeSession(Method method) {
     String methodName = method.getName();
 
-    // getSeleniumObject(methodName).close();
+    getSeleniumObject(methodName).close();
+    getDriverObject(methodName).quit();
     this.seleniumSessions.remove(methodName);
     this.driverSessions.remove(methodName);
 
@@ -181,10 +198,20 @@ public class BaseTest {
   protected void ajaxWait() {
     selenium().waitForCondition("typeof selenium.browserbot.getCurrentWindow().jQuery == 'function'", Config.TIMEOUT_AJAX);
     selenium().waitForCondition("selenium.browserbot.getCurrentWindow().jQuery.active == 0", Config.TIMEOUT_AJAX);
+    
+//    PageFactory.initElements(new AjaxElementLocatorFactory(driver, 5), this); 
   }
 
   public static void assertRegExp(String pattern, String string) {
     assertTrue(string.matches(pattern));
+  }
+
+  public void assertTextPresent(String text) {
+    assertTrue((driver().findElement(By.tagName("body"))).getText().contains(text));
+  }
+
+  public void assertElementPresent(String element) {
+    assertTrue(driver().findElement(By.xpath(element)).isDisplayed());
   }
 
   protected void openLocation() {
@@ -197,9 +224,9 @@ public class BaseTest {
 
   protected void openLocation(String location, Boolean forceDefaultLanguage) {
     if(forceDefaultLanguage == true) {
-      selenium().open(Config.TESTS_BASE_PATH + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      driver().get(this.webSite + Config.TESTS_BASE_PATH + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
     } else {
-      selenium().open(Config.TESTS_BASE_PATH + location);
+      driver().get(this.webSite + Config.TESTS_BASE_PATH + location);
     }
     waitForPageToLoad();
   }
@@ -218,8 +245,10 @@ public class BaseTest {
    * @param windowname
    */
   protected void clickAndWaitForPopUp(String xpath, String windowname) {
-    selenium().click(xpath);
-    selenium().waitForPopUp(windowname, Config.TIMEOUT);
+    driver().findElement(By.xpath(xpath.replace("xpath=", ""))).click();
+
+//    selenium().waitForPopUp(windowname, Config.TIMEOUT);
+//    driver().switchTo().window(windowname);
 
     selenium().selectWindow(windowname);
   }
