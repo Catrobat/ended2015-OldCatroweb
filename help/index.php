@@ -85,6 +85,9 @@ a {
     ant run-selenium-catroid-tests
     ant run-selenium-single-test
     ant run-selenium-group-test
+    
+    <i>Shut down local Selenium processes</i> 
+    ant stop-selenium-grid
 
 --- remote tests
 
