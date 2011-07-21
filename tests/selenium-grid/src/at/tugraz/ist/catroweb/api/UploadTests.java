@@ -66,29 +66,30 @@ public class UploadTests extends BaseTest {
   @DataProvider(name = "validProjectsForUpload")
   public Object[][] validProjectsForUpload() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "",
+        { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test.zip", "583783A335BD40D3D0195A13432AFABB", "",
             "", "0") },
-        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d",
+        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test.zip", "583783A335BD40D3D0195A13432AFABB",
             "", "", "0") },
         { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test.zip",
-            "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") },
+            "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
         { CommonData
             .getUploadPayload(
                 "my_test_project_with_looong_description",
                 "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ",
-                "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") },
+                "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
         { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip",
-            "63f6285f32df9afea00c2ac0befa2947", "", "", "0") } };
+            "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") } };
     return returnArray;
   }
 
   @DataProvider(name = "invalidProjectsForUpload")
   public Object[][] invalidProjectsForUpload() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("insulting word in description", "fuck the project!!!!", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") },
-        { CommonData.getUploadPayload("fucking word in title", "some description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") },
-        { CommonData.getUploadPayload("no token given", "some description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", " ") },
-        { CommonData.getUploadPayload("wrong token given", "some description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "123") } };
+        { CommonData.getUploadPayload("insulting word in description", "fuck the project!!!!", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
+        { CommonData.getUploadPayload("fucking word in title", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
+        { CommonData.getUploadPayload("no token given", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", " ") },
+        { CommonData.getUploadPayload("wrong checksum", "some description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", " ") },
+        { CommonData.getUploadPayload("wrong token given", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "123") } };
     return returnArray;
   }
 }

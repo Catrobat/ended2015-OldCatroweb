@@ -145,7 +145,6 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
        $this->assertTrue($this->upload->projectId > 0);
        $this->assertTrue($this->upload->fileChecksum != null);
        $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
-       $this->assertTrue(is_string($this->upload->answer));
        array_push($this->insertIDArray, $insertId);
     }    
   }    

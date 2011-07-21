@@ -33,342 +33,297 @@ class upload extends CoreAuthenticationDevice {
     $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_token');
   }
 
-  //Strict Standards: Redefining already defined constructor for class
   public function _upload() {
-    $this->versionName = "";
-    $this->versionCode = 0;
-    $newId = $this->doUpload($_POST, $_FILES, $_SERVER);
-    if($newId > 0) {
+    try {
+      $newId = $this->doUpload($_POST, $_FILES, $_SERVER);
+      $this->statusCode = 200;
       $this->answer = $this->languageHandler->getString('upload_successfull');
-    } else {
+    } catch(Exception $e) {
       $this->sendUploadFailAdminEmail($_POST, $_FILES, $_SERVER);
-    }
-  }
-
-  public function checkValidProjectTitle($title) {
-    if(strcmp($title, $this->languageHandler->getString('default_project_name')) == 0) {
-      return false;
-    } else {
-      return true;
+      $this->answer = $e->getMessage();
     }
   }
 
   public function doUpload($formData, $fileData, $serverData) {
-    $fileInfo = array("", "");
-    $statusCode = 500;
-    $fileChecksum = null;
-    $newId = 0;
-    $answer = null;
-    $projectDescription = '';
-    if(isset($formData['projectTitle']) && $formData['projectTitle'] && isset($fileData['upload']['tmp_name']) && $fileData['upload']['error'] == 0) {
-      if(intval($fileData['upload']['size']) <= PROJECTS_MAX_SIZE) {
-        $projectTitle = pg_escape_string($formData['projectTitle']);
-        if(($this->checkValidProjectTitle($projectTitle))){
-          if(!$this->badWordsFilter->areThereInsultingWords($projectTitle)) {
-            if(isset($formData['projectDescription'])) {
-              $projectDescription = pg_escape_string($formData['projectDescription']);
-            }
-            if(!$this->badWordsFilter->areThereInsultingWords($formData['projectDescription'])) {
-              $projectName = md5(uniqid(time()));
-              $upfile = $projectName.PROJECTS_EXTENTION;
-              $updir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$upfile;
-              $uploadIp = $serverData['REMOTE_ADDR'];
-              isset($formData['userEmail']) ? $uploadEmail = $formData['userEmail'] : $uploadEmail = '';
-              isset($formData['userLanguage']) ? $uploadLanguage = $formData['userLanguage'] : $uploadLanguage = '';
-
-              if($fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $updir)) {
-                $this->session->userLogin_userId ? $userId = $this->session->userLogin_userId : $userId = 0;
-                $query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$upfile', '$uploadIp', '$uploadEmail', '$uploadLanguage', '$fileSize', '$userId');";
-                $result = pg_query($this->dbConnection, $query);
-                if($result) {
-                  $line = pg_fetch_assoc($result);
-                  $newId = $line['id'];
-                  if($this->renameProjectFile($updir, $newId)) {
-                    $projectFile = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENTION;
-                    $projectDir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY;
-                    $fileChecksum = md5_file($projectFile);
-                    if($formData['fileChecksum']) {
-                      if($this->checkFileChecksum($fileChecksum, $formData['fileChecksum'])) {
-                        $statusCode = 200;
-                        if($this->getQRCode($newId, $projectTitle)) {
-                          $answer = $this->languageHandler->getString('upload_successfull');
-                        } else {
-                          $answer = $this->languageHandler->getString('upload_successfull').' '.$this->languageHandler->getString('qr_failed');
-                        }
-
-                        $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
-                        $this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
-                        
-                        // do native app python execution here!!
-                        
-                        $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
-                        if($unapprovedWords) {
-                          $this->badWordsFilter->mapUnapprovedWordsToProject($newId);
-                          $this->sendUnapprovedWordlistPerEmail();
-                        }
-                        
-                      } else {
-                        //Error: file checksum incorrect
-                        $statusCode = 501;
-                        $this->removeProjectFromDatabase($newId);
-                        $this->removeProjectFromFilesystem($projectFile, $newId);
-                        $newId = 0;
-                        $answer = $this->errorHandler->getError('upload', 'invalid_file_checksum');
-                      }
-                    } else {
-                      //Client did not send file checksum; <= release 5
-                      $statusCode = 510;
-                      $this->removeProjectFromDatabase($newId);
-                      $this->removeProjectFromFilesystem($projectFile);
-                      $newId = 0;
-                      $answer = $this->errorHandler->getError('upload', 'missing_post_file_checksum');
-                    }
-                  } else {
-                    //Error during rename
-                    $projectFile = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENTION;
-                    $statusCode = 502;
-                    $newId = 0;
-                    $this->removeProjectFromDatabase($newId);
-                    $this->removeProjectFromFilesystem($projectFile, $newId);
-                    $this->removeProjectFromFilesystem($updir, $newId);
-                    $answer = $this->errorHandler->getError('upload', 'rename_failed');
-                  }
-                } else {
-                  //DB INSERT Error
-                  $statusCode = 503;
-                  $this->removeProjectFromFilesystem($updir, $newId);
-                  $answer = $this->errorHandler->getError('upload', 'sql_insert_failed');
-                }
-          						@pg_free_result($result);
-              } else {
-                //Error during copy
-                $statusCode = 504;
-                $answer = $this->errorHandler->getError('upload', 'copy_failed');
-              }
-            } else {
-              //Error: insulting words in project description
-              $statusCode = 505;
-              $answer = $this->errorHandler->getError('upload', 'insulting_words_in_project_description');
-            }
-          } else {
-            //Error: insulting words in project title
-            $statusCode = 506;
-            $answer = $this->errorHandler->getError('upload', 'insulting_words_in_project_title');
-          }
-        } else {
-          // project title == "defaultSaveFile"
-          $statusCode= 507;
-          $answer = $this->errorHandler->getError('upload', 'project_title_default');
-        }
-      } else {
-        //Error: project file is too big
-        $statusCode = 508;
-        $answer = $this->errorHandler->getError('upload', 'project_exceed_filesize_limit');
-      }
-    } else {
-      //Error: POST-Data not correct or missing
-      $statusCode = 509;
-      $answer = $this->errorHandler->getError('upload', 'missing_post_data');
+    try {
+      $this->checkPostData($formData, $fileData);
+    } catch(Exception $e) {
+      $this->statusCode = 509;
+      throw new Exception($e->getMessage());
     }
-    $this->statusCode = $statusCode;
-    $this->fileChecksum = $fileChecksum;
+
+    try {
+      $this->checkProjectSize($fileData);
+    } catch(Exception $e) {
+      $this->statusCode = 508;
+      throw new Exception($e->getMessage());
+    }
+
+    $projectTitle = pg_escape_string($formData['projectTitle']);
+    isset($formData['projectDescription']) ? $projectDescription=pg_escape_string($formData['projectDescription']) : $projectDescription=null;
+
+    try {
+      $this->checkValidProjectTitle($projectTitle);
+    } catch(Exception $e) {
+      $this->statusCode= 507;
+      throw new Exception($e->getMessage());
+    }
+
+    try {
+      $this->checkTitleForInsultingWords($projectTitle);
+    } catch(Exception $e) {
+      $this->statusCode = 506;
+      throw new Exception($e->getMessage());
+    }
+
+    try {
+      $this->checkDescriptionForInsultingWords($projectDescription);
+    } catch(Exception $e) {
+      $this->statusCode = 505;
+      throw new Exception($e->getMessage());
+    }
+
+    $projectName = md5(uniqid(time()));
+    $uploadFile = $projectName.PROJECTS_EXTENTION;
+    $uploadDir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$uploadFile;
+    $uploadIp = $serverData['REMOTE_ADDR'];
+    isset($formData['userEmail']) ? $uploadEmail=$formData['userEmail'] : $uploadEmail=null;
+    isset($formData['userLanguage']) ? $uploadLanguage=$formData['userLanguage'] : $uploadLanguage=null;
+
+    try {
+      $fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $uploadDir);
+    } catch(Exception $e) {
+      $this->statusCode = 504;
+      throw new Exception($e->getMessage());
+    }
+
+    try {
+      $newId = $this->insertProjectIntoDatabase($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize);
+    } catch(Exception $e) {
+      $this->statusCode = 503;
+      $this->removeProjectFromFilesystem($uploadDir);
+      throw new Exception($e->getMessage());
+    }
+
+    try {
+      $this->renameProjectFile($uploadDir, $newId);
+    } catch(Exception $e) {
+      $this->statusCode = 502;
+      $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENTION;
+      $this->removeProjectFromDatabase($newId);
+      $this->removeProjectFromFilesystem($uploadDir);
+      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENTION, $newId);
+      throw new Exception($e->getMessage());
+    }
+
+    $projectDir = CORE_BASE_PATH.PROJECTS_DIRECTORY;
+    $projectFile = $projectDir.$newId.PROJECTS_EXTENTION;
+    if(!isset($formData['fileChecksum']) || !$formData['fileChecksum']) {
+      $this->statusCode = 510;
+      $this->removeProjectFromDatabase($newId);
+      $this->removeProjectFromFilesystem($projectFile, $newId);
+      throw new Exception($this->errorHandler->getError('upload', 'missing_post_file_checksum'));
+    }
+    $fileChecksum = md5_file($projectFile);
+
+    try {
+      $this->checkFileChecksum($fileChecksum, $formData['fileChecksum']);
+    } catch(Exception $e) {
+      $this->statusCode = 501;
+      $this->removeProjectFromDatabase($newId);
+      $this->removeProjectFromFilesystem($projectFile, $newId);
+      throw new Exception($e->getMessage());
+    }
+
+    try {
+      $this->getQRCode($newId, $projectTitle);
+    } catch(Exception $e) {
+      $this->sendQRFailNotificationEmail($newId, $projectTitle);
+    }
+
+    $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
+    $this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
+
+    $this->statusCode = 200;
     $this->projectId = $newId;
-    $this->answer = $answer;
-    // $this->versionName = $fileInfo[0];
-    // $this->versionCode = $fileInfo[1];
+    $this->fileChecksum = $fileChecksum;
     return $newId;
   }
 
-  public function unzipUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
-    //$versionName = "";
-    //$versionCode = 0;
-    
-    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId;    
-    // print "Unzip FILE ".$projectDir.$projectId.PROJECTS_EXTENTION.$unzipDir;
-    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId);
-    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images");
-    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds");
-    // change rights
-    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId, 0777);
-    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images", 0777);
-    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds", 0777);
-
-    $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
-    while ($zip_entry = zip_read($zip)) {
-      $filename = zip_entry_name($zip_entry);
-      if (preg_match("/images\//", $filename)) {
-      	 $image = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-      	 if ($image)
-      	   $this->saveFile($unzipDir, $filename, $image, zip_entry_filesize($zip_entry));
-      }
-      if (preg_match("/sounds\//", $filename)) {
-      	 $sound = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-      	 if ($sound)
-      	   $this->saveFile($unzipDir, $filename, $sound, zip_entry_filesize($zip_entry));
-      }
-      if (preg_match("/\.spf/", $filename)) {
-      	 $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-      	 if ($spf) {
-      	   $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
-      	   $this->versionCode = $this->extractVersionCode($spf);
-      	   $this->versionName = $this->extractVersionName($spf);
-      	   $this->saveVersionInfo($projectId, $this->versionCode, $this->versionName);
-      	 }
-      }
-      if ($filename == "thumbnail.jpg" || $filename == "thumbnail.png") {
-      	 $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-      	 if ($spf)
-      	   $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
-      }
-    }
-    zip_close($zip);
-  }
-  
-  public function unzipThumbnailFromUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
-    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY;
-    $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
-    while ($zip_entry = zip_read($zip)) {
-      $filename = zip_entry_name($zip_entry);
-      if (preg_match("/thumbnail\./", $filename) || preg_match("/images\/thumbnail\./", $filename)) {
-      	 $thumbnail = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-      	 if ($thumbnail) {
-      	   $this->saveThumbnail($projectId, $thumbnail);
-      	 }
-      }
-    }
-    zip_close($zip);
-  }
-
-  public function saveThumbnail($filename, $thumbnail) {
-    $thumbnailDir = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;
-
-    $thumbImage = imagecreatefromstring($thumbnail);
-    if ($thumbImage) {
-      $w = imagesx($thumbImage);
-      $h = imagesy($thumbImage);
-
-      $wsmall = 0; $hsmall = 0; $hsmallopt = intval(240*$h/$w);
-      $wlarge = 0; $hlarge = 0; $hlargeopt = intval(480*$h/$w);
-       
-      // thumbnail with original filesize
-      imagejpeg($thumbImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 100);
-      // chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 0666);
-      
-      // small thumbnail for preview 240x400
-      $smallImage = imagecreatetruecolor(240, $hsmallopt);
-      imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, $hsmallopt, $w, $h);
-      imagejpeg($smallImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 50);
-      // chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 0666);
-      
-      // large thumbnail for details-view 480x800
-      $newImage = imagecreatetruecolor(480, $hlargeopt);
-      imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, $hlargeopt, $w, $h);
-      imagejpeg($newImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
-      // chmod($thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 0666);
-    }
-  }
-
-  public function saveFile($targetDir, $filename, $filecontent, $filesize) {
-    $fp = fopen($targetDir."/".$filename, "wb+");
-    if ($fp) {
-      fwrite($fp, $filecontent, $filesize);
-      fclose($fp);
-      // chmod($targetDir."/".$filename, 0666);
-    }
-  }
-
-  public function renameProjectFile($oldName, $newId) {
-    $newFileName = $newId.PROJECTS_EXTENTION;
-    $newName = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$newFileName;
-    if(@rename($oldName, $newName)) {
-      $query = "EXECUTE set_project_new_filename('$newFileName', '$newId');";
-      $result = @pg_query($this->dbConnection, $query);
-      if($result) {
-        @pg_free_result($result);
-        return true;
-      } else {
-        return false;
-      }
-    }
-    return false;
-  }
-
-  public function copyProjectToDirectory($tmpFile, $updir) {
-    if(@copy($tmpFile, $updir)) {
-      return filesize($updir);
+  public function copyProjectToDirectory($tmpFile, $uploadDir) {
+    if(@copy($tmpFile, $uploadDir)) {
+      return filesize($uploadDir);
     } else {
-      return false;
+      throw new Exception($this->errorHandler->getError('upload', 'copy_failed'));
     }
   }
 
-  public function checkFileChecksum($uploadChecksum, $clientChecksum) {
-    if(strcmp(strtolower($uploadChecksum), strtolower($clientChecksum)) == 0) {
-      return true;
-    } else {
-      return false;
+  public function removeProjectFromFilesystem($projectFile, $projectId = -1) {
+    @unlink($projectFile);
+    if($projectId > 0) {
+      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL);
+      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE);
+      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG);
+      @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION);
+      removeDir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId);
     }
+    return true;
+  }
+
+  public function renameProjectFile($oldName, $projectId) {
+    $newFileName = $projectId.PROJECTS_EXTENTION;
+    $newName = CORE_BASE_PATH.PROJECTS_DIRECTORY.$newFileName;
+    if(!@rename($oldName, $newName)) {
+      throw new Exception($this->errorHandler->getError('upload', 'rename_failed'));
+    }
+    $query = "EXECUTE set_project_new_filename('$newFileName', '$projectId');";
+    if(!@pg_query($this->dbConnection, $query)) {
+      throw new Exception($this->errorHandler->getError('upload', 'rename_failed', pg_last_error($this->dbConnection)));
+    }
+    return true;
   }
 
   public function removeProjectFromDatabase($projectId) {
     $query = "EXECUTE delete_project_by_id('$projectId');";
     @pg_query($this->dbConnection, $query);
-    return;
-  }
-  
-  private function removeProjectDir($dir) {
-    $dh = opendir($dir);
-    while (($file = readdir($dh)) !== false) {
-       if ($file != "." && $file != "..")
-         @unlink($dir."/".$file);
-    }
-    closedir($dh);
-    rmdir($dir);
-  }
-  
-  public function removeProjectFromFilesystem($projectFile, $projectId=-1) {
-    @unlink($projectFile);
-    if($projectId > 0) {
-      $projectBaseDir = CORE_BASE_PATH.'/'.PROJECTS_UNZIPPED_DIRECTORY.$projectId;
-      $projectSoundDir = $projectBaseDir.'/sounds';
-      $projectImageDir = $projectBaseDir.'/images';
-      
-      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL))
-        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL);
-      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE))
-        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE);
-      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG))
-        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG);
-      if(file_exists(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION))
-        @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION);
-      
-      if(is_dir($projectSoundDir)) $this->removeProjectDir($projectSoundDir);
-      if(is_dir($projectImageDir)) $this->removeProjectDir($projectImageDir);
-      if(is_dir($projectBaseDir)) $this->removeProjectDir($projectBaseDir);
-    }
-    return;
+    return true;
   }
 
-  public function getQRCode($projectId, $projectTitle) {
-    if(!$projectId || !$projectTitle) {
-      $this->sendQRFailNotificationEmail($projectId, $projectTitle);
+  public function checkFileChecksum($uploadChecksum, $clientChecksum) {
+    if(strcmp(strtolower($uploadChecksum), strtolower($clientChecksum)) != 0) {
+      throw new Exception($this->errorHandler->getError('upload', 'invalid_file_checksum'));
+    }
+    return true;
+  }
+
+  public function extractVersionCode($xml) {
+    $version = 0;
+    if (!preg_match("/versionCode/", $xml))
+    return $version;
+
+    if (preg_match("/<versionCode/", $xml)) {
+      $stag = "<versionCode>";
+      $etag = "<";
+      $version = 5;
+    } else {
+      $stag = "<project ";
+      $etag = ">";
+      $stag2 = "versionCode=\"";
+      $etag2 = "\"";
+      $version = 4;
+    }
+    $starttag = preg_split("/".$stag."/", $xml);
+    $endtag = preg_split("/".$etag."/", $starttag[1]);
+    $content = $endtag[0];
+    if ($version >= 5)
+    return $content;
+
+    $starttag = preg_split("/".$stag2."/", $content);
+    $endtag = preg_split("/".$etag2."/", $starttag[1]);
+    return $endtag[0];
+  }
+
+  public function extractVersionName($xml) {
+    $version = 0;
+    if (!preg_match("/versionName/", $xml))
+    return '';
+
+    if (preg_match("/<versionName/", $xml)) {
+      $stag = "<versionName>";
+      $etag = "<";
+      $version = 5;
+    } else {
+      $stag = "<project ";
+      $etag = ">";
+      $stag2 = "versionName=\"";
+      $etag2 = "\"";
+      $version = 4;
+    }
+    $starttag = preg_split("/".$stag."/", $xml);
+    $endtag = preg_split("/".$etag."/", $starttag[1]);
+    $content = $endtag[0];
+    if ($version >= 5)
+    return $content;
+
+    $starttag = preg_split("/".$stag2."/", $content);
+    $endtag = preg_split("/".$etag2."/", $starttag[1]);
+    return $endtag[0];
+  }
+
+  public function saveVersionInfo($projectId, $versionCode, $versionName) {
+    $query = "EXECUTE save_catroid_version_info('$projectId', '$versionCode', '$versionName');";
+    $result = @pg_query($this->dbConnection, $query);
+    if($result) {
+      @pg_free_result($result);
+      return true;
+    } else {
       return false;
     }
+    return false;
+  }
+
+  private function insertProjectIntoDatabase($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize) {
+    $this->session->userLogin_userId ? $userId=$this->session->userLogin_userId : $userId=0;
+    $query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$uploadFile', '$uploadIp', '$uploadEmail', '$uploadLanguage', '$fileSize', '$userId');";
+    $result = @pg_query($this->dbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('upload', 'sql_insert_failed', pg_last_error($this->dbConnection)));
+    }
+    $row = pg_fetch_assoc($result);
+    $insertId = $row['id'];
+    @pg_free_result($result);
+    return $insertId;
+  }
+
+  private function checkPostData($formData, $fileData) {
+    if(!isset($formData['projectTitle']) || !$formData['projectTitle'] || !isset($fileData['upload']['tmp_name']) || $fileData['upload']['error'] != 0) {
+      throw new Exception($this->errorHandler->getError('upload', 'missing_post_data'));
+    }
+    return true;
+  }
+
+  private function checkProjectSize($fileData) {
+    if(intval($fileData['upload']['size']) > PROJECTS_MAX_SIZE) {
+      throw new Exception($this->errorHandler->getError('upload', 'project_exceed_filesize_limit'));
+    }
+    return true;
+  }
+
+  private function checkValidProjectTitle($title) {
+    if(strcmp($title, $this->languageHandler->getString('default_project_name')) == 0) {
+      throw new Exception($this->errorHandler->getError('upload', 'project_title_default'));
+    }
+    return true;
+  }
+
+  private function checkTitleForInsultingWords($title) {
+    if($this->badWordsFilter->areThereInsultingWords($title)) {
+      throw new Exception($this->errorHandler->getError('upload', 'insulting_words_in_project_title'));
+    }
+    return true;
+  }
+
+  private function checkDescriptionForInsultingWords($description) {
+    if($description && $this->badWordsFilter->areThereInsultingWords($description)) {
+      throw new Exception($this->errorHandler->getError('upload', 'insulting_words_in_project_description'));
+    }
+    return true;
+  }
+
+  private function getQRCode($projectId, $projectTitle) {
     $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENTION.'?fname='.urlencode($projectTitle));
     $serviceUrl = PROJECTS_QR_SERVICE_URL.$urlToEncode;
     $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
     $qrImageHandle = @imagecreatefrompng($serviceUrl);
     if(!$qrImageHandle) {
-      $this->sendQRFailNotificationEmail($projectId, $projectTitle);
-      return false;
+      throw new Exception();
     }
-    if(@imagepng($qrImageHandle, $destinationPath, 9)) {
-      @imagedestroy($qrImageHandle);
-      chmod($destinationPath, 0666);
-      return true;
-    } else {
-      $this->sendQRFailNotificationEmail($projectId, $projectTitle);
-      return false;
+    if(!@imagepng($qrImageHandle, $destinationPath, 9)) {
+      throw new Exception();
     }
+    @imagedestroy($qrImageHandle);
+    chmod($destinationPath, 0666);
+    return true;
   }
 
   private function sendQRFailNotificationEmail($projectId, $projectTitle) {
@@ -381,42 +336,7 @@ class upload extends CoreAuthenticationDevice {
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
-  public function areThereInsultingWords($text) {
-    switch($this->badWordsFilter->areThereInsultingWords($text)) {
-      case -1:
-        $statusCode = 510;
-        $this->answer = $this->errorHandler->getError('upload', 'bad_words_filter_error');
-        break;
-      case 0:
-        return false;
-        break;
-      case 1:
-        return true;
-        break;
-      default:
-        return true;
-    }
-  }
-
-  public function sendUnapprovedWordlistPerEmail() {
-    $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
-
-    $mailSubject = '';
-    $unapprovedWordCount = count($unapprovedWords);
-    if($unapprovedWordCount > 1) $mailSubject = 'There are '.$unapprovedWordCount.' new unapproved words!';
-    else $mailSubject = 'There is '.$unapprovedWordCount.' new unapproved word!';
-
-    $mailText = "Hello catroid.org Administrator!\n\n";
-    $mailText .= "New word(s):\n";
-    for($i = 0; $i < $unapprovedWordCount; $i++) {
-      $mailText .= $unapprovedWords[$i].(($unapprovedWordCount-1 == $i) ? "" : ", ");
-    }
-    $mailText .= "You should check this! <a href='".BASE_PATH."admin/tools/approveWords'>follow me!</a>";
-
-    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
-  }
-
-  public function sendUploadFailAdminEmail($formData, $fileData, $serverData) {
+  private function sendUploadFailAdminEmail($formData, $fileData, $serverData) {
     $mailSubject = 'Upload of a project failed!';
     $mailText = "Hello catroid.org Administrator!\n\n";
     $mailText .= "The Upload of a project failed:\n\n";
@@ -440,74 +360,96 @@ class upload extends CoreAuthenticationDevice {
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
-  
-function extractVersionCode($xml) {
-    $version = 0;
-    if (!preg_match("/versionCode/", $xml))
-      return $version;
-      
-    if (preg_match("/<versionCode/", $xml)) {
-      $stag = "<versionCode>";
-      $etag = "<";
-      $version = 5;
-    } else {
-      $stag = "<project ";
-      $etag = ">";
-      $stag2 = "versionCode=\"";
-      $etag2 = "\"";
-      $version = 4;
+
+  private function unzipUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
+    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId;
+    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId);
+    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images");
+    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds");
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId, 0777);
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images", 0777);
+    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds", 0777);
+
+    $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
+    while ($zip_entry = zip_read($zip)) {
+      $filename = zip_entry_name($zip_entry);
+      if (preg_match("/images\//", $filename)) {
+        $image = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+        if ($image)
+        $this->saveFile($unzipDir, $filename, $image, zip_entry_filesize($zip_entry));
+      }
+      if (preg_match("/sounds\//", $filename)) {
+        $sound = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+        if ($sound)
+        $this->saveFile($unzipDir, $filename, $sound, zip_entry_filesize($zip_entry));
+      }
+      if (preg_match("/\.spf/", $filename)) {
+        $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+        if ($spf) {
+          $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
+          $this->versionCode = $this->extractVersionCode($spf);
+          $this->versionName = $this->extractVersionName($spf);
+          $this->saveVersionInfo($projectId, $this->versionCode, $this->versionName);
+        }
+      }
+      if ($filename == "thumbnail.jpg" || $filename == "thumbnail.png") {
+        $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+        if ($spf)
+        $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
+      }
     }
-    $starttag = preg_split("/".$stag."/", $xml);
-    $endtag = preg_split("/".$etag."/", $starttag[1]);
-    $content = $endtag[0];
-    if ($version >= 5)
-      return $content;
-    
-    $starttag = preg_split("/".$stag2."/", $content);
-    $endtag = preg_split("/".$etag2."/", $starttag[1]);
-    return $endtag[0];
+    zip_close($zip);
   }
 
- function extractVersionName($xml) {
-    $version = 0;
-    if (!preg_match("/versionName/", $xml))
-      return '';
-      
-    if (preg_match("/<versionName/", $xml)) {
-      $stag = "<versionName>";
-      $etag = "<";
-      $version = 5;
-    } else {
-      $stag = "<project ";
-      $etag = ">";
-      $stag2 = "versionName=\"";
-      $etag2 = "\"";
-      $version = 4;
+  private function unzipThumbnailFromUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
+    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY;
+    $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
+    while ($zip_entry = zip_read($zip)) {
+      $filename = zip_entry_name($zip_entry);
+      if (preg_match("/thumbnail\./", $filename) || preg_match("/images\/thumbnail\./", $filename)) {
+        $thumbnail = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+        if ($thumbnail) {
+          $this->saveThumbnail($projectId, $thumbnail);
+        }
+      }
     }
-    $starttag = preg_split("/".$stag."/", $xml);
-    $endtag = preg_split("/".$etag."/", $starttag[1]);
-    $content = $endtag[0];
-    if ($version >= 5)
-      return $content;
-    
-    $starttag = preg_split("/".$stag2."/", $content);
-    $endtag = preg_split("/".$etag2."/", $starttag[1]);
-    return $endtag[0];
+    zip_close($zip);
   }
 
-  public function saveVersionInfo($projectId, $versionCode, $versionName) {
-    $query = "EXECUTE save_catroid_version_info('$projectId', '$versionCode', '$versionName');";
-    $result = @pg_query($this->dbConnection, $query);
-    if($result) {
-      @pg_free_result($result);
-      return true;
-    } else {
-      return false;
+  private function saveThumbnail($filename, $thumbnail) {
+    $thumbnailDir = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;
+
+    $thumbImage = imagecreatefromstring($thumbnail);
+    if ($thumbImage) {
+      $w = imagesx($thumbImage);
+      $h = imagesy($thumbImage);
+
+      $wsmall = 0; $hsmall = 0; $hsmallopt = intval(240*$h/$w);
+      $wlarge = 0; $hlarge = 0; $hlargeopt = intval(480*$h/$w);
+       
+      // thumbnail with original filesize
+      imagejpeg($thumbImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 100);
+
+      // small thumbnail for preview 240x400
+      $smallImage = imagecreatetruecolor(240, $hsmallopt);
+      imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, $hsmallopt, $w, $h);
+      imagejpeg($smallImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 50);
+
+      // large thumbnail for details-view 480x800
+      $newImage = imagecreatetruecolor(480, $hlargeopt);
+      imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, $hlargeopt, $w, $h);
+      imagejpeg($newImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
     }
-    return false;
   }
-  
-  
+
+  private function saveFile($targetDir, $filename, $filecontent, $filesize) {
+    $fp = fopen($targetDir."/".$filename, "wb+");
+    if ($fp) {
+      fwrite($fp, $filecontent, $filesize);
+      fclose($fp);
+    }
+  }
+
   public function __destruct() {
     parent::__destruct();
   }
