@@ -36,7 +36,7 @@
         				<div class="detailsFlexDiv">
             				<div class="detailsLeft">
                 				<div class="detailsMainImage">
-                					<a href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id'].PROJECTS_EXTENTION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
+                					<a href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.download?fname=<?php echo urlencode($this->project['title'])?>">
                 						<img class="projectDetailsImage" src="<?php echo $this->project['image']?>" alt="project thumbnail">
                 					</a>
             					<div class="detailsLicenseLink">
@@ -73,7 +73,7 @@
     									<div style="clear:both;"></div>
                     				</div>
                     				<div class="detailsDownloadButton">
-                            			<a class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id'].PROJECTS_EXTENTION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
+                            			<a class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.download?fname=<?php echo urlencode($this->project['title'])?>">
                             				<img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button">
                             				<span class="detailsDownloadButtonText">
                             					<?php echo $this->languageHandler->getString('download')?> (<?php echo $this->project['fileSize']?> MB)
