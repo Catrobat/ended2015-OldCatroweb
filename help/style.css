@@ -1,0 +1,41 @@
+body {
+	background-color: #FCBC55;
+	padding: 30px;
+	font-family: "Trebuchet MS", "Luxi Sans", Verdana, Arial, Helvetica,
+		sans-serif;
+	font-size: 1.2em;
+	background-image: url(CatroidContourShort.svg);
+	background-position: center center;
+	background-repeat: no-repeat;
+	height: 100%;
+}
+
+h1 {
+	text-shadow: 2px 2px 2px rgba(255, 255, 255, .8);
+}
+
+#all {
+	background: #FCCD82;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	border-radius: 10px;
+	padding: 0.8%;
+	min-height: 650px;
+	opacity: 0.9;
+}
+
+a {
+	color: blue;
+}
+
+#antcommands {
+	float: left;
+	word-wrap: break-word;
+}
+
+#links {
+	float: left;
+	word-wrap: break-word;
+	margin-left: 1.8%;
+}

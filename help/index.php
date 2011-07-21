@@ -25,50 +25,8 @@ require_once('../config.php');
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<title>Selenium Grid overview</title>
-<style type="text/css">
-body {
-	background-color: #FCBC55;
-	padding: 30px;
-	font-family: "Trebuchet MS", "Luxi Sans", Verdana, Arial, Helvetica,
-		sans-serif;
-	font-size: 1.2em;
-	background-image: url(CatroidContourShort.svg);
-	background-position: center center;
-	background-repeat: no-repeat;
-	height: 100%;
-}
-
-h1 {
-	text-shadow: 2px 2px 2px rgba(255, 255, 255, .8);
-}
-
-#all {
-	background: #FCCD82;
-	-webkit-border-radius: 10px;
-	-moz-border-radius: 10px;
-	-ms-border-radius: 10px;
-	border-radius: 10px;
-	padding: 0.8%;
-	min-height: 650px;
-	opacity: 0.9;
-}
-
-a {
-	color: blue;
-}
-
-#antcommands {
-	float: left;
-	word-wrap: break-word;
-}
-
-#links {
-	float: left;
-	word-wrap: break-word;
-	margin-left: 1.8%;
-}
-</style>
+<title>Catroid cheat sheet</title>
+<link rel="stylesheet" type="text/css" href="style.css" />
 <meta http-equiv="content-type" content="text/html;charset=utf-8" />
 </head>
 <body>
@@ -83,18 +41,24 @@ a {
     ant run-selenium-local-tests
     ant run-selenium-api-tests      
     ant run-selenium-catroid-tests
-    ant run-selenium-single-test
-    ant run-selenium-group-test
     
-    <i>Shut down local Selenium processes</i> 
+    <i>+ run specific test</i>
+    ant run-selenium-single-test    
+    ant run-selenium-single-test -Dtest.browserName=firefox -Dtest.class=catroid.LicenseTests -Dtest.method=imprint
+    
+    <i>+ run specific group of tests</i>
+    ant run-selenium-group-test
+    ant run-selenium-group-test -Dtest.browserName=firefox -Dtest.group=admin    
+    
+    <i>+ Shut down local Selenium processes</i> 
     ant stop-selenium-grid
 
 --- remote tests
 
-    <i>Connect remote controls to kittyroid test server</i> 
+    <i>+ Connect remote controls to kittyroid test server</i> 
     ant selenium-tools.launch-remote-control -DhubURL http://kittyroidlocal:4444/grid/register
 
-    <i>Start remote test on kityroid test server</i>
+    <i>+ Start remote test on kityroid test server</i>
     ant run-selenium-remote-tests -Dhost.user=catroid -Dhost.pass=cat.roid.web -Dtest.browserName=firefox
 
 --- database 
@@ -105,9 +69,9 @@ a {
 		</div>
 		<div id="links">
 			<h1>Localhost</h1>
-			<a href="http://<? echo $_SERVER['SERVER_NAME']?>:4444/grid/console" target="_blank">Grid	Console</a><br> 
-			<a href="http://<? echo $_SERVER['SERVER_NAME']?>/tests/selenium-grid/target/reports/" target="_blank">Test	Reports</a><br> 
-			<a href="http://<? echo $_SERVER['SERVER_NAME']?>/phppgadmin/" target="_blank">phppgadmin</a><br>
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>:4444/grid/console" target="_blank">Grid	Console</a><br> 
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/tests/selenium-grid/target/reports/" target="_blank">Test	Reports</a><br> 
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/phppgadmin/" target="_blank">phppgadmin</a><br>
 			
 			<h1>kittyroidlocal</h1> 
 			<a href="http://kittyroidlocal:4444/grid/console" target="_blank">Grid Console</a><br>
@@ -126,4 +90,3 @@ a {
 </html>
 <?
 ?>
-
