@@ -226,6 +226,10 @@
 
   <target name="-start-selenium-grid-local-testsuite">
     <antcall target='-start-selenium-grid-remote-control'/>
+    <!--<antcall target='-start-selenium-grid-remote-control'>
+      <param name="test.role" value="webdriver" />
+      <param name="test.port" value="5556" />
+    </antcall>-->
     <antcall target='selenium-tools.launch-hub'/>
   </target>
 
@@ -328,7 +332,7 @@
            trust="true"
            username="${host.user}"
            password="${host.pass}"
-           command="export DISPLAY=:0.0; sudo xhost +; cd ${host.catroid.dir}; ant stop-selenium-grid; ant run-selenium-local-tests -DwebSite=http://kittyroidlocal/ -Dtest.browserName=${browserName} -DmaxInstances=6" />
+           command="export DISPLAY=:0.0; sudo xhost +; cd ${host.catroid.dir}; ant stop-selenium-grid; ant run-selenium-local-tests -DwebSite=http://kittyroidlocal/ -Dtest.browserName=${browserName} -DmaxInstances=1" />
   </target>
 
   <target name="-get-selenium-grid-test-browser">

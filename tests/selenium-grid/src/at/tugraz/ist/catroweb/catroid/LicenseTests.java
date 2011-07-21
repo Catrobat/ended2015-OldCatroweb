@@ -18,8 +18,6 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -32,11 +30,11 @@ public class LicenseTests extends BaseTest {
   public void privacyPolicy() throws Throwable {
     try {
       openLocation();
-      session().click("xpath=//a[@class='license']");
+      selenium().click("xpath=//a[@class='license']");
       waitForPageToLoad();
 
-      assertTrue(session().isTextPresent("Privacy Policy"));
-      session().isElementPresent("xpath=//p[@class='licenseText']/a");
+      assertTrue(selenium().isTextPresent("Privacy Policy"));
+      selenium().isElementPresent("xpath=//p[@class='licenseText']/a");
     } catch(AssertionError e) {
       captureScreen("LicenseTests.privacyPolicy");
       throw e;
@@ -50,29 +48,29 @@ public class LicenseTests extends BaseTest {
   public void termsOfUse() throws Throwable {
     try {
       openLocation();
-      session().click("xpath=//a[@class='license'][2]");
+      selenium().click("xpath=//a[@class='license'][2]");
       waitForPageToLoad();
 
-      assertTrue(session().isTextPresent("Welcome to the Catroid community!"));
-      assertTrue(session().isTextPresent("As part of the Catroid community, you are sharing projects and ideas with people:"));
+      assertTrue(selenium().isTextPresent("Welcome to the Catroid community!"));
+      assertTrue(selenium().isTextPresent("As part of the Catroid community, you are sharing projects and ideas with people:"));
       clickAndWaitForPopUp("xpath=//p[@class='licenseText'][3]/a", "_blank");
       assertRegExp("test", "test");
-      assertRegExp(".*Creative Commons — Attribution-ShareAlike 2.0 Generic — CC BY-SA 2.0.*", session().getTitle());
+      assertRegExp(".*Creative Commons — Attribution-ShareAlike 2.0 Generic — CC BY-SA 2.0.*", selenium().getTitle());
       closePopUp();
 
       clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[2]", "_blank");
-      assertTrue(session().isTextPresent("GNU GENERAL PUBLIC LICENSE"));
-      assertTrue(session().isTextPresent("Version 3, 29 June 2007"));
+      assertTrue(selenium().isTextPresent("GNU GENERAL PUBLIC LICENSE"));
+      assertTrue(selenium().isTextPresent("Version 3, 29 June 2007"));
       closePopUp();
 
       clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[3]", "_blank");
-      assertTrue(session().isTextPresent("GNU AFFERO GENERAL PUBLIC LICENSE"));
-      assertTrue(session().isTextPresent("Version 3, 19 November 2007"));
+      assertTrue(selenium().isTextPresent("GNU AFFERO GENERAL PUBLIC LICENSE"));
+      assertTrue(selenium().isTextPresent("Version 3, 19 November 2007"));
       closePopUp();
 
       clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[4]", "_blank");
-      assertRegExp(".*catroid -.*", session().getTitle());
-      assertRegExp(".*An on-device graphical programming language for Android inspired by Scratch.*", session().getTitle());
+      assertRegExp(".*catroid -.*", selenium().getTitle());
+      assertRegExp(".*An on-device graphical programming language for Android inspired by Scratch.*", selenium().getTitle());
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("LicenseTests.termsOfUse");
@@ -87,19 +85,19 @@ public class LicenseTests extends BaseTest {
   public void copyrightPolicy() throws Throwable {
     try {
       openLocation();
-      session().click("xpath=//a[@class='license'][3]");
+      selenium().click("xpath=//a[@class='license'][3]");
       waitForPageToLoad();
 
-      assertTrue(session().isTextPresent("Copyright Policy"));
-      session().isElementPresent("xpath=//p[@class='licenseText']/a");
+      assertTrue(selenium().isTextPresent("Copyright Policy"));
+      selenium().isElementPresent("xpath=//p[@class='licenseText']/a");
       clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[2]", "_blank");
-      assertTrue(session().isTextPresent("Directive 2001/29/EC of the European Parliament and of the Council"));
-      assertTrue(session().isTextPresent("32001L0029"));
+      assertTrue(selenium().isTextPresent("Directive 2001/29/EC of the European Parliament and of the Council"));
+      assertTrue(selenium().isTextPresent("32001L0029"));
       closePopUp();
 
       clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a[3]", "_blank");
-      assertTrue(session().isTextPresent("Chilling Effects"));
-      assertTrue(session().isTextPresent("Chilling Effects Clearinghouse - www.chillingeffects.org"));
+      assertTrue(selenium().isTextPresent("Chilling Effects"));
+      assertTrue(selenium().isTextPresent("Chilling Effects Clearinghouse - www.chillingeffects.org"));
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("LicenseTests.copyrightPolicy");
@@ -114,18 +112,18 @@ public class LicenseTests extends BaseTest {
   public void imprint() throws Throwable {
     try {
       openLocation();
-      session().click("xpath=//a[@class='license'][4]");
+      selenium().click("xpath=//a[@class='license'][4]");
       waitForPageToLoad();
 
-      assertTrue(session().isTextPresent("Address"));
-      assertTrue(session().isTextPresent("Institute for Software Technology"));
-      assertTrue(session().isTextPresent("Graz University of Technology"));
-      assertTrue(session().isTextPresent("Inffeldgasse 16B/II"));
-      assertTrue(session().isTextPresent("8010 Graz"));
-      assertTrue(session().isTextPresent("Austria"));
+      assertTrue(selenium().isTextPresent("Address"));
+      assertTrue(selenium().isTextPresent("Institute for Software Technology"));
+      assertTrue(selenium().isTextPresent("Graz University of Technology"));
+      assertTrue(selenium().isTextPresent("Inffeldgasse 16B/II"));
+      assertTrue(selenium().isTextPresent("8010 Graz"));
+      assertTrue(selenium().isTextPresent("Austria"));
 
       clickAndWaitForPopUp("xpath=//p[@class='licenseText']/a", "_blank");
-      assertRegExp(".*IST web - Index.*", session().getTitle());
+      assertRegExp(".*IST web - Index.*", selenium().getTitle());
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("LicenseTests.imprint");

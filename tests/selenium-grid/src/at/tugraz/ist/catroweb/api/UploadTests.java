@@ -20,8 +20,6 @@ package at.tugraz.ist.catroweb.api;
 
 import java.util.HashMap;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import static org.testng.AssertJUnit.*;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
@@ -39,7 +37,7 @@ public class UploadTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       openLocation();
       ajaxWait();
-      assertTrue(session().isTextPresent(dataset.get("projectTitle")));
+      assertTrue(selenium().isTextPresent(dataset.get("projectTitle")));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
       throw e;
