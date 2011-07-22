@@ -42,6 +42,7 @@ import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebDriverBackedSelenium;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.android.AndroidDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -96,8 +97,14 @@ public class BaseTest {
     String methodName = method.getName();
     System.out.println("running " + methodName + "...");
 
+    
     if(!this.seleniumSessions.containsKey(methodName)) {
-      startFirefoxSession(seleniumHost, seleniumPort, browser, webSite, methodName);
+      if(browser.matches("^firefox$")) { 
+        startFirefoxSession(seleniumHost, seleniumPort, browser, webSite, methodName);      
+      } 
+      else if(browser.matches("^android$")) {
+        startAndroidSession(seleniumHost, seleniumPort, browser, webSite, methodName);
+      }
     }
   }
 
@@ -126,6 +133,19 @@ public class BaseTest {
     this.driverSessions.put(method, driver);
     this.seleniumSessions.put(method, selenium);
   }
+  
+  protected void startAndroidSession(String seleniumHost, int seleniumPort, String browser, String webSite, String method) {
+//  AndroidProfile profile = new AndroidProfile();
+//  profile.setPreference("network.http.phishy-userpass-length", 255);
+  WebDriver driver = new AndroidDriver();
+  Selenium selenium = new WebDriverBackedSelenium(driver, webSite);
+  selenium.setSpeed(setSpeed());
+  selenium.setTimeout(Config.TIMEOUT);
+//  selenium = null;
+
+  this.driverSessions.put(method, driver);
+  this.seleniumSessions.put(method, selenium);
+}
 
   protected void startGridSession(String seleniumHost, int seleniumPort, String browser, String webSite, String method) {
     // Selenium selenium = new DefaultSelenium(seleniumHost, seleniumPort,
