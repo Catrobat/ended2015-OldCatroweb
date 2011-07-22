@@ -144,6 +144,12 @@ class upload extends CoreAuthenticationDevice {
     $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
     $this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
 
+    $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
+    if($unapprovedWords) {
+      $this->badWordsFilter->mapUnapprovedWordsToProject($newId);
+      $this->sendUnapprovedWordlistPerEmail();
+    }
+
     $this->statusCode = 200;
     $this->projectId = $newId;
     $this->fileChecksum = $fileChecksum;
