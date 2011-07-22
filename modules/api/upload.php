@@ -367,6 +367,24 @@ class upload extends CoreAuthenticationDevice {
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
+  public function sendUnapprovedWordlistPerEmail() {
+    $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
+
+    $mailSubject = '';
+    $unapprovedWordCount = count($unapprovedWords);
+    if($unapprovedWordCount > 1) $mailSubject = 'There are '.$unapprovedWordCount.' new unapproved words!';
+    else $mailSubject = 'There is '.$unapprovedWordCount.' new unapproved word!';
+
+    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText .= "New word(s):\n";
+    for($i = 0; $i < $unapprovedWordCount; $i++) {
+      $mailText .= $unapprovedWords[$i].(($unapprovedWordCount-1 == $i) ? "" : ", ");
+    }
+    $mailText .= "You should check this! <a href='".BASE_PATH."admin/tools/approveWords'>follow me!</a>";
+
+    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+  }
+
   private function unzipUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
     $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId;
     mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId);

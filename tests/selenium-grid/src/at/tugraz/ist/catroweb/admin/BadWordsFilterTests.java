@@ -69,15 +69,13 @@ public class BadWordsFilterTests extends BaseTest {
       String unapprovedWord = "badwordsfiltertestsapprovebuttonbad" + CommonData.getRandomShortString(10);
       String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
-
+      
       openAdminLocation();
       clickLink(By.id("aAdministrationTools"));
       clickLink(By.id("aAdminToolsApproveWords"));
       assertTrue(isTextPresent(unapprovedWord));
       selectOption(By.id("meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord)), "bad");
-      captureScreen("BadWordsFilterTests.approveButtonBad.selection");
       clickOkOnNextConfirmationBox();
-      log(CommonFunctions.getUnapprovedWordId(unapprovedWord));
       clickLink(By.id("approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord)));
       assertTrue(isTextPresent("The word was succesfully approved!"));
 
@@ -101,14 +99,12 @@ public class BadWordsFilterTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      selenium().click("aAdministrationTools");
-      waitForPageToLoad();
-      selenium().click("aAdminToolsApproveWords");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent(unapprovedWord));
-      selenium().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Error: no word meaning selected!"));
+      clickLink(By.id("aAdministrationTools"));
+      clickLink(By.id("aAdminToolsApproveWords"));
+      assertTrue(isTextPresent(unapprovedWord));
+      clickOkOnNextConfirmationBox();
+      clickLink(By.id("approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord)));
+      assertTrue(isTextPresent("Error: no word meaning selected!"));
 
       assertProjectPresent(unapprovedWord);
 
@@ -130,15 +126,13 @@ public class BadWordsFilterTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      selenium().click("aAdministrationTools");
-      waitForPageToLoad();
-      selenium().click("aAdminToolsApproveWords");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent(unapprovedWord));
-      selenium().click("xpath=//input[@id='delete" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("The word was succesfully deleted!"));
-      assertFalse(selenium().isTextPresent(unapprovedWord));
+      clickLink(By.id("aAdministrationTools"));
+      clickLink(By.id("aAdminToolsApproveWords"));
+      assertTrue(isTextPresent(unapprovedWord));
+      clickOkOnNextConfirmationBox();
+      clickLink(By.id("delete" + CommonFunctions.getUnapprovedWordId(unapprovedWord)));
+      assertTrue(isTextPresent("The word was succesfully deleted!"));
+      assertFalse(isTextPresent(unapprovedWord));
 
       assertProjectPresent(unapprovedWord);
 
