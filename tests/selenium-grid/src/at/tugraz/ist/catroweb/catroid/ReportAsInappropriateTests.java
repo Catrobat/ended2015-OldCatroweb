@@ -18,11 +18,10 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import java.util.HashMap;
 import java.util.Random;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -46,27 +45,27 @@ public class ReportAsInappropriateTests extends BaseTest {
 
       // login first
       openLocation();
-      session().click("headerProfileButton");
-      session().type("loginUsername", dataset.get("username"));
-      session().type("loginPassword", dataset.get("password"));
-      session().click("loginSubmitButton");
+      selenium().click("headerProfileButton");
+      selenium().type("loginUsername", dataset.get("username"));
+      selenium().type("loginPassword", dataset.get("password"));
+      selenium().click("loginSubmitButton");
       ajaxWait();
       waitForPageToLoad();
       Thread.sleep(Config.TIMEOUT_THREAD);
-      assertTrue(session().isVisible("headerProfileButton"));
-      session().click("headerProfileButton");
-      assertTrue(session().isVisible("logoutSubmitButton"));
-      session().click("headerCancelButton");
+      assertTrue(selenium().isVisible("headerProfileButton"));
+      selenium().click("headerProfileButton");
+      assertTrue(selenium().isVisible("logoutSubmitButton"));
+      selenium().click("headerCancelButton");
       assertProjectPresent(projectTitle);
 
       // goto details page
       openLocation("catroid/details/" + projectId);
       ajaxWait();
-      assertTrue(session().isTextPresent(projectTitle));
-      assertTrue(session().isTextPresent(dataset.get("projectDescription")));
+      assertTrue(selenium().isTextPresent(projectTitle));
+      assertTrue(selenium().isTextPresent(dataset.get("projectDescription")));
 
       // report as inappropriate not visible
-      assertFalse(session().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
+      assertFalse(selenium().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
       
       // check if reportAsInappropriate button is visible for a foreign project
       openLocation("catroid/details/1");
@@ -74,17 +73,17 @@ public class ReportAsInappropriateTests extends BaseTest {
       waitForElementPresent("xpath=//button[@id='reportAsInappropriateButton']");
       
       // logout
-      assertTrue(session().isVisible("headerProfileButton"));
-      session().click("headerProfileButton");
-      assertTrue(session().isVisible("logoutSubmitButton"));
-      session().click("logoutSubmitButton");
+      assertTrue(selenium().isVisible("headerProfileButton"));
+      selenium().click("headerProfileButton");
+      assertTrue(selenium().isVisible("logoutSubmitButton"));
+      selenium().click("logoutSubmitButton");
       Thread.sleep(Config.TIMEOUT_THREAD);
 
       openLocation("catroid/details/" + projectId);
-      assertTrue(session().isTextPresent(projectTitle));
-      assertTrue(session().isTextPresent(dataset.get("projectDescription")));
+      assertTrue(selenium().isTextPresent(projectTitle));
+      assertTrue(selenium().isTextPresent(dataset.get("projectDescription")));
       // report as inappropriate visible again after logout
-      assertTrue(session().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
+      assertTrue(selenium().isElementPresent("xpath=//button[@id='reportAsInappropriateButton']"));
 
       openLocation("catroid/logout");
       ajaxWait();
@@ -113,29 +112,29 @@ public class ReportAsInappropriateTests extends BaseTest {
       // goto details page
       openLocation("catroid/details/" + projectId);
       ajaxWait();
-      assertTrue(session().isTextPresent(projectTitle));
-      assertTrue(session().isTextPresent(dataset.get("projectDescription")));
+      assertTrue(selenium().isTextPresent(projectTitle));
+      assertTrue(selenium().isTextPresent(dataset.get("projectDescription")));
 
       // report as inappropriate
-      assertTrue(session().isElementPresent("reportAsInappropriateButton"));
-      session().click("reportAsInappropriateButton");
+      assertTrue(selenium().isElementPresent("reportAsInappropriateButton"));
+      selenium().click("reportAsInappropriateButton");
 
-      assertTrue(session().isVisible("reportInappropriateReason"));
-      assertTrue(session().isVisible("reportInappropriateReportButton"));
-      assertTrue(session().isVisible("reportInappropriateCancelButton"));
+      assertTrue(selenium().isVisible("reportInappropriateReason"));
+      assertTrue(selenium().isVisible("reportInappropriateReportButton"));
+      assertTrue(selenium().isVisible("reportInappropriateCancelButton"));
 
-      session().click("reportAsInappropriateButton");
-      session().type("reportInappropriateReason", "my selenium reason");
-      session().click("reportInappropriateReportButton");
+      selenium().click("reportAsInappropriateButton");
+      selenium().type("reportInappropriateReason", "my selenium reason");
+      selenium().click("reportInappropriateReportButton");
       ajaxWait();
 
-      assertFalse(session().isVisible("reportInappropriateReason"));
-      assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
+      assertFalse(selenium().isVisible("reportInappropriateReason"));
+      assertTrue(selenium().isTextPresent("You reported this project as inappropriate!"));
 
       // project is hidden
       openLocation();
       ajaxWait();
-      assertFalse(session().isTextPresent(projectTitle));
+      assertFalse(selenium().isTextPresent(projectTitle));
     } catch(AssertionError e) {
       captureScreen("ReportAsInappropriateTests.testReportAnonymousProjectAsInappropriate");
       throw e;

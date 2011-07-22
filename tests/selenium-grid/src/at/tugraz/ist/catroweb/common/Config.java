@@ -26,6 +26,7 @@ public class Config {
   public static final String TIMEOUT = "60000";
   public static final String TIMEOUT_AJAX = "30000";
   public static final long TIMEOUT_THREAD = 2000;
+  public static final int TIMEOUT_WAIT = 60;
 
   public static final String TESTS_BASE_PATH = "/";
   // public static final String TESTS_BASE_PATH = "/catroweb/";
@@ -58,8 +59,7 @@ public class Config {
   public static final String DEFAULT_UPLOAD_TITLE = "Testproject";
   public static final String DEFAULT_UPLOAD_DESCRIPTION = "This is my testproject...";
   public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test.zip";
-  public static final String DEFAULT_UPLOAD_CHECKSUM = "2c2d13d52cf670ea55b2014b336d1b4d";
-  public static final String DEFAULT_UPLOAD_IMEI = "b1946ac92492d2347c6235b4d2611184";
+  public static final String DEFAULT_UPLOAD_CHECKSUM = "583783A335BD40D3D0195A13432AFABB";
   public static final String DEFAULT_UPLOAD_EMAIL = "webmaster@catroid.org";
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";

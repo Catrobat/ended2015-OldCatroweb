@@ -18,8 +18,6 @@
 
 package at.tugraz.ist.catroweb.admin;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -38,20 +36,19 @@ public class UploadTest extends BaseTest {
 
       // delete project
       openAdminLocation();
-      session().click("aAdministrationTools");
+      selenium().click("aAdministrationTools");
       waitForPageToLoad();
-      session().click("aAdminToolsEditProjects");
+      selenium().click("aAdminToolsEditProjects");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent(projectTitle));
-      session().click("xpath=//input[@id='delete" + projectId + "']");
-      session().getConfirmation();
+      assertTrue(selenium().isTextPresent(projectTitle));
+      selenium().click("xpath=//input[@id='delete" + projectId + "']");
       waitForPageToLoad();
-      assertFalse(session().isTextPresent(projectTitle));
+      assertFalse(selenium().isTextPresent(projectTitle));
 
       // verify deletion
       openLocation();
       ajaxWait();
-      assertFalse(session().isTextPresent(projectTitle));
+      assertFalse(selenium().isTextPresent(projectTitle));
     } catch(AssertionError e) {
       captureScreen("UploadTest.uploadTest");
       throw e;

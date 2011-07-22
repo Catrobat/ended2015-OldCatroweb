@@ -18,7 +18,7 @@
 
 package at.tugraz.ist.catroweb.admin;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
+import java.lang.reflect.Method;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -43,16 +43,15 @@ public class BadWordsFilterTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      session().click("aAdministrationTools");
+      selenium().click("aAdministrationTools");
       waitForPageToLoad();
-      session().click("aAdminToolsApproveWords");
+      selenium().click("aAdminToolsApproveWords");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent(unapprovedWord));
-      session().select("id=meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord), "label=good");
-      session().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      session().getConfirmation();
+      assertTrue(selenium().isTextPresent(unapprovedWord));
+      selenium().select("id=meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord), "label=good");
+      selenium().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("The word was succesfully approved!"));
+      assertTrue(selenium().isTextPresent("The word was succesfully approved!"));
 
       assertProjectPresent(unapprovedWord);
 
@@ -74,16 +73,15 @@ public class BadWordsFilterTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      session().click("aAdministrationTools");
+      selenium().click("aAdministrationTools");
       waitForPageToLoad();
-      session().click("aAdminToolsApproveWords");
+      selenium().click("aAdminToolsApproveWords");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent(unapprovedWord));
-      session().select("id=meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord), "label=bad");
-      session().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      session().getConfirmation();
+      assertTrue(selenium().isTextPresent(unapprovedWord));
+      selenium().select("id=meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord), "label=bad");
+      selenium().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("The word was succesfully approved!"));
+      assertTrue(selenium().isTextPresent("The word was succesfully approved!"));
 
       assertProjectNotPresent(unapprovedWord);
 
@@ -105,15 +103,14 @@ public class BadWordsFilterTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      session().click("aAdministrationTools");
+      selenium().click("aAdministrationTools");
       waitForPageToLoad();
-      session().click("aAdminToolsApproveWords");
+      selenium().click("aAdminToolsApproveWords");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent(unapprovedWord));
-      session().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      session().getConfirmation();
+      assertTrue(selenium().isTextPresent(unapprovedWord));
+      selenium().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("Error: no word meaning selected!"));
+      assertTrue(selenium().isTextPresent("Error: no word meaning selected!"));
       
       assertProjectPresent(unapprovedWord);
 
@@ -135,16 +132,15 @@ public class BadWordsFilterTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      session().click("aAdministrationTools");
+      selenium().click("aAdministrationTools");
       waitForPageToLoad();
-      session().click("aAdminToolsApproveWords");
+      selenium().click("aAdminToolsApproveWords");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent(unapprovedWord));
-      session().click("xpath=//input[@id='delete" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      session().getConfirmation();
+      assertTrue(selenium().isTextPresent(unapprovedWord));
+      selenium().click("xpath=//input[@id='delete" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("The word was succesfully deleted!"));
-      assertFalse(session().isTextPresent(unapprovedWord));
+      assertTrue(selenium().isTextPresent("The word was succesfully deleted!"));
+      assertFalse(selenium().isTextPresent(unapprovedWord));
 
       assertProjectPresent(unapprovedWord);
 

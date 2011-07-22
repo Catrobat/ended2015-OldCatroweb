@@ -226,10 +226,14 @@
 
   <target name="-start-selenium-grid-local-testsuite">
     <antcall target='-start-selenium-grid-remote-control'/>
+    <!--<antcall target='-start-selenium-grid-remote-control'>
+      <param name="test.role" value="webdriver" />
+      <param name="test.port" value="5556" />
+    </antcall>-->
     <antcall target='selenium-tools.launch-hub'/>
   </target>
 
-  <target name="-selenium-grid-tests-catroid-local" depends="-start-selenium-grid-local-testsuite">
+  <target name="-selenium-grid-tests-catroid-local">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -248,7 +252,7 @@
     <antcall target='selenium-tools.stop-remote-controls'/>
   </target>
 
-  <target name="-selenium-grid-single-test" depends="-start-selenium-grid-local-testsuite, -get-selenium-grid-single-test-parameters">
+  <target name="-selenium-grid-single-test" depends="-get-selenium-grid-single-test-parameters">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -285,7 +289,7 @@
     <echo message=""/>
   </target>
 
-  <target name="-selenium-grid-group-test" depends="-start-selenium-grid-local-testsuite, -get-selenium-grid-group-test-parameter">
+  <target name="-selenium-grid-group-test" depends="-get-selenium-grid-group-test-parameter">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -328,7 +332,7 @@
            trust="true"
            username="${host.user}"
            password="${host.pass}"
-           command="export DISPLAY=:0.0; sudo xhost +; cd ${host.catroid.dir}; ant stop-selenium-grid; ant run-selenium-local-tests -DwebSite=http://kittyroidlocal/ -Dtest.browserName=${browserName} -DmaxInstances=6" />
+           command="export DISPLAY=:0.0; sudo xhost +; cd ${host.catroid.dir}; ant stop-selenium-grid; ant run-selenium-local-tests -DwebSite=http://kittyroidlocal/ -Dtest.browserName=${browserName} -DmaxInstances=1" />
   </target>
 
   <target name="-get-selenium-grid-test-browser">

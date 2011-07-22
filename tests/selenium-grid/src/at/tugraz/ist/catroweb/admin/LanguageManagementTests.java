@@ -18,8 +18,6 @@
 
 package at.tugraz.ist.catroweb.admin;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -33,20 +31,20 @@ public class LanguageManagementTests extends BaseTest {
   public void updateLanguagePack() throws Throwable {
     try {
       openAdminLocation("?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
-      session().click("aAdministrationTools");
+      selenium().click("aAdministrationTools");
       waitForPageToLoad();
-      session().click("aAdminToolsLanguageManagement");
+      selenium().click("aAdminToolsLanguageManagement");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("Administration Tools - Language Management"));
-      assertTrue(session().isElementPresent("xpath=//select[@id='supportedLanguageSelect']"));
-      assertTrue(session().isElementPresent("xpath=//a[@id='doUpdateLink']"));
-      session().select("supportedLanguageSelect", "value=de");
-      session().click("xpath=//a[@id='doUpdateLink']");
+      assertTrue(selenium().isTextPresent("Administration Tools - Language Management"));
+      assertTrue(selenium().isElementPresent("xpath=//select[@id='supportedLanguageSelect']"));
+      assertTrue(selenium().isElementPresent("xpath=//a[@id='doUpdateLink']"));
+      selenium().select("supportedLanguageSelect", "value=de");
+      selenium().click("xpath=//a[@id='doUpdateLink']");
       ajaxWait();
-      assertTrue(session().isTextPresent("The language de was successfully updated!"));
-      session().click("aAdminToolsBackToTools");
+      assertTrue(selenium().isTextPresent("The language de was successfully updated!"));
+      selenium().click("aAdminToolsBackToTools");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("Administration Tools"));
+      assertTrue(selenium().isTextPresent("Administration Tools"));
     } catch(AssertionError e) {
       captureScreen("LanguageManagementTests.updateLanguagePack");
       throw e;

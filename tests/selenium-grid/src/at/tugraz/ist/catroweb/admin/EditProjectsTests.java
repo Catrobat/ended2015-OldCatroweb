@@ -18,8 +18,6 @@
 
 package at.tugraz.ist.catroweb.admin;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -43,32 +41,31 @@ public class EditProjectsTests extends BaseTest {
       waitForTextPresent(projectTitle);
 
       openAdminLocation();
-      session().click("aAdministrationTools");
+      selenium().click("aAdministrationTools");
       waitForPageToLoad();
-      session().click("aAdminToolsEditProjects");
+      selenium().click("aAdminToolsEditProjects");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("Administration Tools - List of available projects"));
-      assertTrue(session().isTextPresent("ID"));
-      assertTrue(session().isTextPresent("Title"));
-      assertTrue(session().isTextPresent("Upload Time"));
-      assertTrue(session().isTextPresent("Upload IP"));
-      assertTrue(session().isTextPresent("Downloads"));
-      assertTrue(session().isTextPresent("Flagged"));
-      assertTrue(session().isTextPresent("Visible"));
-      assertTrue(session().isTextPresent("Delete"));
-      assertTrue(session().isElementPresent("xpath=//input[@id='delete" + projectId + "']"));
-      assertTrue(session().isTextPresent(projectTitle));
-      session().click("xpath=//input[@id='delete" + projectId + "']");
-      session().getConfirmation();
+      assertTrue(selenium().isTextPresent("Administration Tools - List of available projects"));
+      assertTrue(selenium().isTextPresent("ID"));
+      assertTrue(selenium().isTextPresent("Title"));
+      assertTrue(selenium().isTextPresent("Upload Time"));
+      assertTrue(selenium().isTextPresent("Upload IP"));
+      assertTrue(selenium().isTextPresent("Downloads"));
+      assertTrue(selenium().isTextPresent("Flagged"));
+      assertTrue(selenium().isTextPresent("Visible"));
+      assertTrue(selenium().isTextPresent("Delete"));
+      assertTrue(selenium().isElementPresent("xpath=//input[@id='delete" + projectId + "']"));
+      assertTrue(selenium().isTextPresent(projectTitle));
+      selenium().click("xpath=//input[@id='delete" + projectId + "']");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("The project was succesfully deleted!"));
-      assertFalse(session().isElementPresent("xpath=//input[@id='delete" + projectId + "']"));
-      assertFalse(session().isTextPresent(projectTitle));
+      assertTrue(selenium().isTextPresent("The project was succesfully deleted!"));
+      assertFalse(selenium().isElementPresent("xpath=//input[@id='delete" + projectId + "']"));
+      assertFalse(selenium().isTextPresent(projectTitle));
 
       // check that project is not shown on index-page
       openLocation();
-      assertTrue(session().isElementPresent("xpath=//div[@id='aIndexWebLogoLeft']"));
-      assertFalse(session().isTextPresent(projectTitle));
+      assertTrue(selenium().isElementPresent("xpath=//div[@id='aIndexWebLogoLeft']"));
+      assertFalse(selenium().isTextPresent(projectTitle));
     } catch(AssertionError e) {
       captureScreen("EditProjectsTests.deleteButton");
       throw e;
@@ -90,62 +87,59 @@ public class EditProjectsTests extends BaseTest {
 
       // toggle project visibility to "hidden"
       openAdminLocation();
-      session().click("aAdministrationTools");
+      selenium().click("aAdministrationTools");
       waitForPageToLoad();
-      session().click("aAdminToolsEditProjects");
+      selenium().click("aAdminToolsEditProjects");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("Administration Tools - List of available projects"));
-      assertTrue(session().isElementPresent("xpath=//input[@id='toggle" + projectId + "']"));
-      assertTrue(session().isTextPresent(projectTitle));
-      session().click("xpath=//input[@id='toggle" + projectId + "']");
-      session().getConfirmation();
+      assertTrue(selenium().isTextPresent("Administration Tools - List of available projects"));
+      assertTrue(selenium().isElementPresent("xpath=//input[@id='toggle" + projectId + "']"));
+      assertTrue(selenium().isTextPresent(projectTitle));
+      selenium().click("xpath=//input[@id='toggle" + projectId + "']");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("The project was succesfully set to state invisible"));
+      assertTrue(selenium().isTextPresent("The project was succesfully set to state invisible"));
 
       // project is NOT shown on index-page
       openLocation();
       ajaxWait();
-      assertFalse(session().isTextPresent(projectTitle));
+      assertFalse(selenium().isTextPresent(projectTitle));
 
       // toggle project visibility to "hidden"
       openAdminLocation();
-      session().click("aAdministrationTools");
+      selenium().click("aAdministrationTools");
       waitForPageToLoad();
-      session().click("aAdminToolsEditProjects");
+      selenium().click("aAdminToolsEditProjects");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("Administration Tools - List of available projects"));
-      assertTrue(session().isElementPresent("xpath=//input[@id='toggle" + projectId + "']"));
-      assertTrue(session().isTextPresent(projectTitle));
-      session().click("xpath=//input[@id='toggle" + projectId + "']");
-      session().getConfirmation();
+      assertTrue(selenium().isTextPresent("Administration Tools - List of available projects"));
+      assertTrue(selenium().isElementPresent("xpath=//input[@id='toggle" + projectId + "']"));
+      assertTrue(selenium().isTextPresent(projectTitle));
+      selenium().click("xpath=//input[@id='toggle" + projectId + "']");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("The project was succesfully set to state visible"));
+      assertTrue(selenium().isTextPresent("The project was succesfully set to state visible"));
 
       // project is shown again on index-page
       openLocation();
       ajaxWait();
-      assertTrue(session().isTextPresent(projectTitle));
+      assertTrue(selenium().isTextPresent(projectTitle));
 
       // and delete project
       openAdminLocation();
-      session().click("aAdministrationTools");
+      selenium().click("aAdministrationTools");
       waitForPageToLoad();
-      session().click("aAdminToolsEditProjects");
+      selenium().click("aAdminToolsEditProjects");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("Administration Tools - List of available projects"));
-      assertTrue(session().isElementPresent("xpath=//input[@id='delete" + projectId + "']"));
-      assertTrue(session().isTextPresent(projectTitle));
-      session().click("xpath=//input[@id='delete" + projectId + "']");
-      session().getConfirmation();
+      assertTrue(selenium().isTextPresent("Administration Tools - List of available projects"));
+      assertTrue(selenium().isElementPresent("xpath=//input[@id='delete" + projectId + "']"));
+      assertTrue(selenium().isTextPresent(projectTitle));
+      selenium().click("xpath=//input[@id='delete" + projectId + "']");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("The project was succesfully deleted!"));
-      assertFalse(session().isElementPresent("xpath=//input[@id='delete" + projectId + "']"));
-      assertFalse(session().isTextPresent(projectTitle));
+      assertTrue(selenium().isTextPresent("The project was succesfully deleted!"));
+      assertFalse(selenium().isElementPresent("xpath=//input[@id='delete" + projectId + "']"));
+      assertFalse(selenium().isTextPresent(projectTitle));
 
       // and finally project is NOT shown on index-page
       openLocation();
       ajaxWait();
-      assertFalse(session().isTextPresent(projectTitle));
+      assertFalse(selenium().isTextPresent(projectTitle));
     } catch(AssertionError e) {
       captureScreen("EditProjectsTests.invisibleButton");
       throw e;
