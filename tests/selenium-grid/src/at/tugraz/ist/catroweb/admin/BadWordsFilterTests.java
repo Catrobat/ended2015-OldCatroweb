@@ -18,13 +18,12 @@
 
 package at.tugraz.ist.catroweb.admin;
 
-import java.lang.reflect.Method;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.openqa.selenium.By;
 import org.postgresql.Driver;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -39,19 +38,18 @@ public class BadWordsFilterTests extends BaseTest {
   public void approveButtonGood() throws Throwable {
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttongood" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "",""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      selenium().click("aAdministrationTools");
-      waitForPageToLoad();
-      selenium().click("aAdminToolsApproveWords");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent(unapprovedWord));
-      selenium().select("id=meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord), "label=good");
-      selenium().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("The word was succesfully approved!"));
+      clickLink(By.id("aAdministrationTools"));
+      clickLink(By.id("aAdminToolsApproveWords"));
+      assertTrue(isTextPresent(unapprovedWord));
+
+      selectOption(By.id("meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord)), "good");
+      clickOkOnNextConfirmationBox();
+      clickLink(By.id("approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord)));
+      assertTrue(isTextPresent("The word was succesfully approved!"));
 
       assertProjectPresent(unapprovedWord);
 
@@ -59,7 +57,7 @@ public class BadWordsFilterTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonGood");
       throw e;
-    }catch(Exception e) {
+    } catch(Exception e) {
       captureScreen("BadWordsFilterTests.approveButtonGood");
       throw e;
     }
@@ -73,15 +71,15 @@ public class BadWordsFilterTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      selenium().click("aAdministrationTools");
-      waitForPageToLoad();
-      selenium().click("aAdminToolsApproveWords");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent(unapprovedWord));
-      selenium().select("id=meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord), "label=bad");
-      selenium().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("The word was succesfully approved!"));
+      clickLink(By.id("aAdministrationTools"));
+      clickLink(By.id("aAdminToolsApproveWords"));
+      assertTrue(isTextPresent(unapprovedWord));
+      selectOption(By.id("meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord)), "bad");
+      captureScreen("BadWordsFilterTests.approveButtonBad.selection");
+      clickOkOnNextConfirmationBox();
+      log(CommonFunctions.getUnapprovedWordId(unapprovedWord));
+      clickLink(By.id("approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord)));
+      assertTrue(isTextPresent("The word was succesfully approved!"));
 
       assertProjectNotPresent(unapprovedWord);
 
@@ -89,7 +87,7 @@ public class BadWordsFilterTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonBad");
       throw e;
-    }catch(Exception e) {
+    } catch(Exception e) {
       captureScreen("BadWordsFilterTests.approveButtonBad");
       throw e;
     }
@@ -111,14 +109,14 @@ public class BadWordsFilterTests extends BaseTest {
       selenium().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
       waitForPageToLoad();
       assertTrue(selenium().isTextPresent("Error: no word meaning selected!"));
-      
+
       assertProjectPresent(unapprovedWord);
 
       deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonNoSelection");
       throw e;
-    }catch(Exception e) {
+    } catch(Exception e) {
       captureScreen("BadWordsFilterTests.approveButtonNoSelection");
       throw e;
     }

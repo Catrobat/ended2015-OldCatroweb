@@ -50,6 +50,7 @@ import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
@@ -254,13 +255,14 @@ public class BaseTest {
     driver().get(CommonFunctions.getAdminPath(this.webSite) + location);
   }
 
-  /**
-   * @param xpath
-   */
-  protected void clickAndWaitForPopUp(String xpath) {
+  protected void clickLink(By selector) {
+    driver().findElement(selector).click();
+  }
+
+  protected void clickAndWaitForPopUp(By selector) {
     String popUpWindow = "";
     Set<String> windowList = driver().getWindowHandles();
-    driver().findElement(By.xpath(xpath)).click();
+    clickLink(selector);
 
     Set<String> tmp = driver().getWindowHandles();
     for(String window : tmp) {
@@ -273,7 +275,7 @@ public class BaseTest {
 
   protected void clickAndWaitForPopUp(String xpath, String windowname) {
     log("clickAndWaitForPopUp(String xpath, String windowname) is deprecated use clickAndWaitForPopUp(String xpath) instead!");
-    clickAndWaitForPopUp(xpath.replace("xpath=", ""));
+    clickAndWaitForPopUp(By.xpath(xpath.replace("xpath=", "")));
   }
 
   protected void closePopUp() {
@@ -285,22 +287,31 @@ public class BaseTest {
     }
   }
 
+  protected void selectOption(By selector, String option) {
+    Select select = new Select(driver().findElement(selector));
+    select.selectByVisibleText(option);
+  }
+
+  protected void clickOkOnNextConfirmationBox() {
+    ((JavascriptExecutor) driver()).executeScript("window.confirm = function(msg){return true;};");
+  }
+
   protected void assertProjectPresent(String project) {
     openLocation();
-    selenium().click("headerSearchButton");
-    selenium().type("searchQuery", project);
-    selenium().click("webHeadSearchSubmit");
+    clickLink(By.id("headerSearchButton"));
+    driver().findElement(By.id("searchQuery")).sendKeys(project);
+    clickLink(By.id("webHeadSearchSubmit"));
     ajaxWait();
-    waitForTextPresent(project);
+    assertTrue(isTextPresent(project));
   }
 
   protected void assertProjectNotPresent(String project) {
     openLocation();
-    selenium().click("headerSearchButton");
-    selenium().type("searchQuery", project);
-    selenium().click("webHeadSearchSubmit");
+    clickLink(By.id("headerSearchButton"));
+    driver().findElement(By.id("searchQuery")).sendKeys(project);
+    clickLink(By.id("webHeadSearchSubmit"));
     ajaxWait();
-    waitForTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS);
+    assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
   }
 
   public void waitForPageToLoad() {

@@ -19,7 +19,6 @@
 package at.tugraz.ist.catroweb.admin;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -35,7 +34,7 @@ public class AdminTests extends BaseTest {
       openAdminLocation();
       assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
       assertTrue(isTextPresent("Administration Tools"));
-      driver().findElement(By.xpath("//a[2]")).click();
+      clickLink(By.xpath("//a[2]"));
       assertRegExp(".*Catroid Website.*", driver().getTitle());
       driver().navigate().back();
       if(isTextPresent("Catroid Administration Site") == false) {
@@ -58,7 +57,7 @@ public class AdminTests extends BaseTest {
       assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
       assertTrue(isTextPresent("Catroid Administration Site"));
 
-      driver().findElement(By.xpath("//a[1]")).click();
+      clickLink(By.xpath("//a[1]"));
       assertTrue(isTextPresent("Administration Tools"));
       assertTrue(isTextPresent("remove inconsistant project files"));
       assertTrue(isTextPresent("edit projects"));
@@ -71,40 +70,40 @@ public class AdminTests extends BaseTest {
 
       assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
 
-      driver().findElement(By.xpath("//a[1]")).click();
+      clickLink(By.xpath("//a[1]"));
       assertTrue(isTextPresent("Answer"));
       driver().navigate().back();
 
-      driver().findElement(By.xpath("//a[2]")).click();
+      clickLink(By.xpath("//a[2]"));
       assertTrue(isTextPresent("Administration Tools - List of available projects"));
       driver().navigate().back();
 
-      driver().findElement(By.xpath("//a[3]")).click();
+      clickLink(By.xpath("//a[3]"));
       assertTrue(isTextPresent("Administration Tools - Thumbnail Uploader"));
       driver().navigate().back();
 
-      driver().findElement(By.xpath("//a[4]")).click();
+      clickLink(By.xpath("//a[4]"));
       assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
       driver().navigate().back();
 
-      driver().findElement(By.xpath("//a[5]")).click();
+      clickLink(By.xpath("//a[5]"));
       assertTrue(isTextPresent("Administration Tools - List of unapproved Words"));
       driver().navigate().back();
 
-      driver().findElement(By.xpath("//a[6]")).click();
+      clickLink(By.xpath("//a[6]"));
       assertTrue(isTextPresent("Administration Tools - Language Management"));
       driver().navigate().back();
 
-      driver().findElement(By.xpath("//a[7]")).click();
+      clickLink(By.xpath("//a[7]"));
       assertTrue(isTextPresent("Administration Tools - List of blocked IP-Addresses"));
       driver().navigate().back();
 
-      driver().findElement(By.xpath("//a[8]")).click();
+      clickLink(By.xpath("//a[8]"));
       assertTrue(isTextPresent("Administration Tools - List of blocked users"));
       driver().navigate().back();
 
       assertTrue(isTextPresent("- back"));
-      driver().findElement(By.xpath("//a[9]")).click();
+      clickLink(By.xpath("//a[9]"));
       assertTrue(isTextPresent("Catroid Administration Site"));
     } catch(AssertionError e) {
       captureScreen("AdminTests.clickAllLinks");
@@ -124,20 +123,20 @@ public class AdminTests extends BaseTest {
 
       openLocation("catroid/details/" + id);
       ajaxWait();
-      driver().findElement(By.id("reportAsInappropriateButton")).click();
+      clickLink(By.id("reportAsInappropriateButton"));
       driver().findElement(By.id("reportInappropriateReason")).sendKeys("my selenium reason");
-      driver().findElement(By.id("reportInappropriateReportButton")).click();
+      clickLink(By.id("reportInappropriateReportButton"));
       ajaxWait();
       assertTrue(isTextPresent("You reported this project as inappropriate!"));
       openAdminLocation("/tools/inappropriateProjects");
       assertTrue(isTextPresent(id));
 
-      clickAndWaitForPopUp("//a[@id='detailsLink" + id + "']");
+      clickAndWaitForPopUp(By.xpath("//a[@id='detailsLink" + id + "']"));
       assertTrue(isTextPresent(title));
       closePopUp();
 
-      ((JavascriptExecutor) driver()).executeScript("window.confirm = function(msg){return true;};");
-      driver().findElement(By.id("resolve" + id)).click();
+      clickOkOnNextConfirmationBox();
+      clickLink(By.id("resolve" + id));
       assertTrue(isTextPresent("The project was succesfully restored and set to visible!"));
       assertFalse(isTextPresent(id));
     } catch(AssertionError e) {

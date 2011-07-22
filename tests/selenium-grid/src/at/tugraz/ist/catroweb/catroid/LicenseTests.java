@@ -18,8 +18,6 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import java.util.Set;
-
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -33,7 +31,7 @@ public class LicenseTests extends BaseTest {
   public void privacyPolicy() throws Throwable {
     try {
       openLocation();
-      driver().findElement(By.xpath("//a[@class='license']")).click();
+      clickLink(By.xpath("//a[@class='license']"));
       assertTrue(isTextPresent("Privacy Policy"));
       assertElementPresent(By.xpath("//p[@class='licenseText']/a"));
     } catch(AssertionError e) {
@@ -49,25 +47,25 @@ public class LicenseTests extends BaseTest {
   public void termsOfUse() throws Throwable {
     try {
       openLocation();
-      driver().findElement(By.xpath("//a[@class='license'][2]")).click();
+      clickLink(By.xpath("//a[@class='license'][2]"));
 
       assertTrue(isTextPresent("Welcome to the Catroid community!"));
       assertTrue(isTextPresent("As part of the Catroid community, you are sharing projects and ideas with people:"));
-      clickAndWaitForPopUp("//p[@class='licenseText'][3]/a");
+      clickAndWaitForPopUp(By.xpath("//p[@class='licenseText'][3]/a"));
       assertRegExp(".*Creative Commons — Attribution-ShareAlike 2.0 Generic — CC BY-SA 2.0.*", driver().getTitle());
       closePopUp();
 
-      clickAndWaitForPopUp("//p[@class='licenseText']/a[2]");
+      clickAndWaitForPopUp(By.xpath("//p[@class='licenseText']/a[2]"));
       assertTrue(isTextPresent("GNU GENERAL PUBLIC LICENSE"));
       assertTrue(isTextPresent("Version 3, 29 June 2007"));
       closePopUp();
 
-      clickAndWaitForPopUp("//p[@class='licenseText']/a[3]");
+      clickAndWaitForPopUp(By.xpath("//p[@class='licenseText']/a[3]"));
       assertTrue(isTextPresent("GNU AFFERO GENERAL PUBLIC LICENSE"));
       assertTrue(isTextPresent("Version 3, 19 November 2007"));
       closePopUp();
 
-      clickAndWaitForPopUp("//p[@class='licenseText']/a[4]");
+      clickAndWaitForPopUp(By.xpath("//p[@class='licenseText']/a[4]"));
       assertRegExp(".*catroid -.*", driver().getTitle());
       assertRegExp(".*An on-device graphical programming language for Android inspired by Scratch.*", driver().getTitle());
       closePopUp();
@@ -84,16 +82,16 @@ public class LicenseTests extends BaseTest {
   public void copyrightPolicy() throws Throwable {
     try {
       openLocation();
-      driver().findElement(By.xpath("//a[@class='license'][3]")).click();
+      clickLink(By.xpath("//a[@class='license'][3]"));
 
       assertTrue(isTextPresent("Copyright Policy"));
       assertElementPresent(By.xpath("//p[@class='licenseText']/a"));
-      clickAndWaitForPopUp("//p[@class='licenseText']/a[2]");
+      clickAndWaitForPopUp(By.xpath("//p[@class='licenseText']/a[2]"));
       assertTrue(isTextPresent("Directive 2001/29/EC of the European Parliament and of the Council"));
       assertTrue(isTextPresent("32001L0029"));
       closePopUp();
 
-      clickAndWaitForPopUp("//p[@class='licenseText']/a[3]");
+      clickAndWaitForPopUp(By.xpath("//p[@class='licenseText']/a[3]"));
       assertTrue(isTextPresent("Chilling Effects"));
       assertTrue(isTextPresent("Chilling Effects Clearinghouse - www.chillingeffects.org"));
       closePopUp();
@@ -110,7 +108,7 @@ public class LicenseTests extends BaseTest {
   public void imprint() throws Throwable {
     try {
       openLocation();
-      driver().findElement(By.xpath("//a[@class='license'][4]")).click();
+      clickLink(By.xpath("//a[@class='license'][4]"));
 
       assertTrue(isTextPresent("Address"));
       assertTrue(isTextPresent("Institute for Software Technology"));
@@ -119,7 +117,7 @@ public class LicenseTests extends BaseTest {
       assertTrue(isTextPresent("8010 Graz"));
       assertTrue(isTextPresent("Austria"));
 
-      clickAndWaitForPopUp("//p[@class='licenseText']/a");
+      clickAndWaitForPopUp(By.xpath("//p[@class='licenseText']/a"));
       assertRegExp(".*IST web - Index.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
