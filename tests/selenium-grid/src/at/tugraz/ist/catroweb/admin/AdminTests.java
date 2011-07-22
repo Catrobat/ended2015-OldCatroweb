@@ -18,6 +18,8 @@
 
 package at.tugraz.ist.catroweb.admin;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -31,19 +33,13 @@ public class AdminTests extends BaseTest {
   public void successfulLogin() throws Throwable {
     try {
       openAdminLocation();
-      assertRegExp(".*Administration - Catroid Website.*", selenium().getTitle());
-      assertTrue(selenium().isTextPresent("Administration Tools"));
-      selenium().click("xpath=//a[2]");
-      waitForPageToLoad();
-      assertRegExp(".*Catroid Website.*", selenium().getTitle());
-      selenium().goBack();
-      waitForPageToLoad();
-      if (selenium().isTextPresent("Catroid Administration Site") == false)
-      {
-        selenium().goBack();
-        waitForPageToLoad();
-      }
-      assertTrue(selenium().isTextPresent("Catroid Administration Site"));
+      assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
+      assertTrue(isTextPresent("Administration Tools"));
+      driver().findElement(By.xpath("//a[2]")).click();
+      assertRegExp(".*Catroid Website.*", driver().getTitle());
+      driver().navigate().back();
+      driver().navigate().back();
+      assertTrue(isTextPresent("Catroid Administration Site"));
     } catch(AssertionError e) {
       captureScreen("AdminTests.successfulLogin");
       throw e;
@@ -57,72 +53,57 @@ public class AdminTests extends BaseTest {
   public void clickAllLinks() throws Throwable {
     try {
       openAdminLocation();
-      assertRegExp(".*Administration - Catroid Website.*", selenium().getTitle());
-      assertTrue(selenium().isTextPresent("Catroid Administration Site"));
+      assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
+      assertTrue(isTextPresent("Catroid Administration Site"));
 
-      selenium().click("xpath=//a[1]");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Administration Tools"));
-      assertTrue(selenium().isTextPresent("remove inconsistant project files"));
-      assertTrue(selenium().isTextPresent("edit projects"));
-      assertTrue(selenium().isTextPresent("thumbnail uploader"));
-      assertTrue(selenium().isTextPresent("inappropriate projects"));
-      assertTrue(selenium().isTextPresent("approve unapproved words"));
+      driver().findElement(By.xpath("//a[1]")).click();
+      assertTrue(isTextPresent("Administration Tools"));
+      assertTrue(isTextPresent("remove inconsistant project files"));
+      assertTrue(isTextPresent("edit projects"));
+      assertTrue(isTextPresent("thumbnail uploader"));
+      assertTrue(isTextPresent("inappropriate projects"));
+      assertTrue(isTextPresent("approve unapproved words"));
+      assertTrue(isTextPresent("manage Languages"));
+      assertTrue(isTextPresent("block IPs"));
+      assertTrue(isTextPresent("block Users"));
 
-      assertRegExp(".*Administration - Catroid Website.*", selenium().getTitle());
+      assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
 
-      selenium().click("xpath=//a[1]");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Answer"));
-      selenium().goBack();
-      waitForPageToLoad();
+      driver().findElement(By.xpath("//a[1]")).click();
+      assertTrue(isTextPresent("Answer"));
+      driver().navigate().back();
 
-      selenium().click("xpath=//a[2]");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Administration Tools - List of available projects"));
-      selenium().goBack();
-      waitForPageToLoad();
+      driver().findElement(By.xpath("//a[2]")).click();
+      assertTrue(isTextPresent("Administration Tools - List of available projects"));
+      driver().navigate().back();
 
-      selenium().click("xpath=//a[3]");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Administration Tools - Thumbnail Uploader"));
-      selenium().goBack();
-      waitForPageToLoad();
+      driver().findElement(By.xpath("//a[3]")).click();
+      assertTrue(isTextPresent("Administration Tools - Thumbnail Uploader"));
+      driver().navigate().back();
 
-      selenium().click("xpath=//a[4]");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Administration Tools - List of inappropriate projects"));
-      selenium().goBack();
-      waitForPageToLoad();
+      driver().findElement(By.xpath("//a[4]")).click();
+      assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
+      driver().navigate().back();
 
-      selenium().click("xpath=//a[5]");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Administration Tools - List of unapproved Words"));
-      selenium().goBack();
-      waitForPageToLoad();
+      driver().findElement(By.xpath("//a[5]")).click();
+      assertTrue(isTextPresent("Administration Tools - List of unapproved Words"));
+      driver().navigate().back();
 
-      selenium().click("xpath=//a[6]");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Administration Tools - Language Management"));
-      selenium().goBack();
-      waitForPageToLoad();
+      driver().findElement(By.xpath("//a[6]")).click();
+      assertTrue(isTextPresent("Administration Tools - Language Management"));
+      driver().navigate().back();
 
-      selenium().click("xpath=//a[7]");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Administration Tools - List of blocked IP-Addresses"));
-      selenium().goBack();
-      waitForPageToLoad();
+      driver().findElement(By.xpath("//a[7]")).click();
+      assertTrue(isTextPresent("Administration Tools - List of blocked IP-Addresses"));
+      driver().navigate().back();
 
-      selenium().click("xpath=//a[8]");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Administration Tools - List of blocked users"));
-      selenium().goBack();
-      waitForPageToLoad();
+      driver().findElement(By.xpath("//a[8]")).click();
+      assertTrue(isTextPresent("Administration Tools - List of blocked users"));
+      driver().navigate().back();
 
-      assertTrue(selenium().isTextPresent("- back"));
-      selenium().click("xpath=//a[9]");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Catroid Administration Site"));
+      assertTrue(isTextPresent("- back"));
+      driver().findElement(By.xpath("//a[9]")).click();
+      assertTrue(isTextPresent("Catroid Administration Site"));
     } catch(AssertionError e) {
       captureScreen("AdminTests.clickAllLinks");
       throw e;
@@ -140,23 +121,23 @@ public class AdminTests extends BaseTest {
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       openLocation("catroid/details/" + id);
-      ajaxWait();
-      selenium().click("reportAsInappropriateButton");
-      selenium().type("reportInappropriateReason", "my selenium reason");
-      selenium().click("reportInappropriateReportButton");
-      ajaxWait();
-      assertTrue(selenium().isTextPresent("You reported this project as inappropriate!"));
+//      ajaxWait();
+      driver().findElement(By.id("reportAsInappropriateButton")).click();
+      driver().findElement(By.id("reportInappropriateReason")).sendKeys("my selenium reason");
+      driver().findElement(By.id("reportInappropriateReportButton")).click();
+//      ajaxWait();
+      assertTrue(isTextPresent("You reported this project as inappropriate!"));
       openAdminLocation("/tools/inappropriateProjects");
-      assertTrue(selenium().isTextPresent(id));
+      assertTrue(isTextPresent(id));
 
-      clickAndWaitForPopUp("xpath=//a[@id='detailsLink" + id + "']", "_blank");
-      assertTrue(selenium().isTextPresent(title));
+      clickAndWaitForPopUp("//a[@id='detailsLink" + id + "']");
+      assertTrue(isTextPresent(title));
       closePopUp();
 
-      selenium().click("resolve" + id);
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("The project was succesfully restored and set to visible!"));
-      assertFalse(selenium().isTextPresent(id));
+      ((JavascriptExecutor) driver()).executeScript("window.confirm = function(msg){return true;};");
+      driver().findElement(By.id("resolve" + id)).click();
+      assertTrue(isTextPresent("The project was succesfully restored and set to visible!"));
+      assertFalse(isTextPresent(id));
     } catch(AssertionError e) {
       captureScreen("AdminTests.inappropriateProjects");
       throw e;

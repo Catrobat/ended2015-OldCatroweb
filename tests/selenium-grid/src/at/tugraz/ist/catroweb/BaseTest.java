@@ -27,12 +27,15 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.TimeUnit;
 
 import static org.testng.AssertJUnit.assertTrue;
 
 import org.apache.commons.codec.binary.Base64;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
@@ -43,6 +46,11 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+import org.openqa.selenium.support.ui.ExpectedCondition;
+import org.openqa.selenium.support.ui.Wait;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Reporter;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.AfterClass;
@@ -98,6 +106,7 @@ public class BaseTest {
     Selenium selenium = new WebDriverBackedSelenium(driver, webSite);
     selenium.setSpeed(setSpeed());
     selenium.setTimeout(Config.TIMEOUT);
+    selenium = null;
 
     this.driverSessions.put(method, driver);
     this.seleniumSessions.put(method, selenium);
@@ -143,7 +152,7 @@ public class BaseTest {
   synchronized protected void closeSession(Method method) {
     String methodName = method.getName();
 
-    getSeleniumObject(methodName).close();
+    // getSeleniumObject(methodName).close();
     getDriverObject(methodName).quit();
     this.seleniumSessions.remove(methodName);
     this.driverSessions.remove(methodName);
@@ -196,22 +205,31 @@ public class BaseTest {
   }
 
   protected void ajaxWait() {
-    selenium().waitForCondition("typeof selenium.browserbot.getCurrentWindow().jQuery == 'function'", Config.TIMEOUT_AJAX);
-    selenium().waitForCondition("selenium.browserbot.getCurrentWindow().jQuery.active == 0", Config.TIMEOUT_AJAX);
-    
-//    PageFactory.initElements(new AjaxElementLocatorFactory(driver, 5), this); 
+    // selenium().waitForCondition("typeof selenium.browserbot.getCurrentWindow().jQuery == 'function'",
+    // Config.TIMEOUT_AJAX);
+    // selenium().waitForCondition("selenium.browserbot.getCurrentWindow().jQuery.active == 0",
+    // Config.TIMEOUT_AJAX);
+
+    PageFactory.initElements(new AjaxElementLocatorFactory(driver(), 30), this);
   }
 
-  public static void assertRegExp(String pattern, String string) {
+  public void assertRegExp(String pattern, String string) {
     assertTrue(string.matches(pattern));
   }
 
-  public void assertTextPresent(String text) {
-    assertTrue((driver().findElement(By.tagName("body"))).getText().contains(text));
+  public boolean isTextPresent(String text) {
+    // https://code.google.com/p/selenium/issues/detail?id=1438
+    driver().switchTo().defaultContent(); // TODO workaround
+    return (driver().findElement(By.tagName("body"))).getText().contains(text);
   }
 
-  public void assertElementPresent(String element) {
-    assertTrue(driver().findElement(By.xpath(element)).isDisplayed());
+  public void assertElementPresent(By selector) {
+    try {
+      driver().findElement(selector);
+      assertTrue(true);
+    } catch(NoSuchElementException e) {
+      assertTrue(false);
+    }
   }
 
   protected void openLocation() {
@@ -228,7 +246,6 @@ public class BaseTest {
     } else {
       driver().get(this.webSite + Config.TESTS_BASE_PATH + location);
     }
-    waitForPageToLoad();
   }
 
   protected void openAdminLocation() {
@@ -237,26 +254,37 @@ public class BaseTest {
 
   protected void openAdminLocation(String location) {
     driver().get(CommonFunctions.getAdminPath(this.webSite) + location);
-    waitForPageToLoad();
   }
 
   /**
    * @param xpath
-   * @param windowname
    */
+  protected void clickAndWaitForPopUp(String xpath) {
+    String popUpWindow = "";
+    Set<String> windowList = driver().getWindowHandles();
+    driver().findElement(By.xpath(xpath)).click();
+
+    Set<String> tmp = driver().getWindowHandles();
+    for(String window : tmp) {
+      if(!tmp.contains(windowList))
+        popUpWindow = window;
+    }
+
+    driver().switchTo().window(popUpWindow);
+  }
+
   protected void clickAndWaitForPopUp(String xpath, String windowname) {
-    driver().findElement(By.xpath(xpath.replace("xpath=", ""))).click();
-
-//    selenium().waitForPopUp(windowname, Config.TIMEOUT);
-//    driver().switchTo().window(windowname);
-
-    selenium().selectWindow(windowname);
+    log("clickAndWaitForPopUp(String xpath, String windowname) is deprecated use clickAndWaitForPopUp(String xpath) instead!");
+    clickAndWaitForPopUp(xpath.replace("xpath=", ""));
   }
 
   protected void closePopUp() {
-    selenium().close();
-    selenium().selectWindow("null");
-    waitForPageToLoad();
+    driver().close();
+    Set<String> windowList = driver().getWindowHandles();
+    for(String window : windowList) {
+      driver().switchTo().window(window);
+      return;
+    }
   }
 
   protected void assertProjectPresent(String project) {
@@ -279,6 +307,27 @@ public class BaseTest {
 
   public void waitForPageToLoad() {
     selenium().waitForPageToLoad(Config.TIMEOUT);
+  }
+
+  public void waitForElementPresent(By selector) {
+    // WebDriverWait wait = new WebDriverWait(driver(), 15);
+    // ExpectedCondition condition = (ExpectedCondition)
+    // driver().findElement(selector);
+    // wait.until(condition);
+
+    // Wait<WebDriver> wait = new WebDriverWait(driver(), 10);
+    // wait.until(new VisibilityOfElementLocated(selector));
+    Wait<WebDriver> wait = new WebDriverWait(driver(), 60);
+    wait.until(elementPresent(selector));
+
+  }
+
+  private ExpectedCondition<WebElement> elementPresent(final By selector) {
+    return new ExpectedCondition<WebElement>() {
+      public WebElement apply(WebDriver driver) {
+        return driver.findElement(selector);
+      }
+    };
   }
 
   public void waitForElementPresent(String locator) {
