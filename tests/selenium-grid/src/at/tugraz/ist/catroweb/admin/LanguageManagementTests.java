@@ -43,7 +43,6 @@ public class LanguageManagementTests extends BaseTest {
       session().select("supportedLanguageSelect", "value=de");
       session().click("xpath=//a[@id='doUpdateLink']");
       ajaxWait();
-      captureScreen("LanguageManagementTests.updateLanguagePack12");
       assertTrue(session().isTextPresent("The language de was successfully updated!"));
       session().click("aAdminToolsBackToTools");
       waitForPageToLoad();
