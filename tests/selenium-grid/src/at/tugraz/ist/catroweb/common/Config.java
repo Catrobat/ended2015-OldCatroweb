@@ -26,9 +26,10 @@ public class Config {
   public static final String TIMEOUT = "60000";
   public static final String TIMEOUT_AJAX = "30000";
   public static final long TIMEOUT_THREAD = 2000;
+  public static final int TIMEOUT_WAIT = 60;
 
   public static final String TESTS_BASE_PATH = "/";
-//  public static final String TESTS_BASE_PATH = "/catroweb/";
+  // public static final String TESTS_BASE_PATH = "/catroweb/";
 
   public static final String DB_USER = "website";
   public static final String DB_PASS = "cat.roid.web";
