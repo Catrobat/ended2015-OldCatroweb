@@ -105,25 +105,25 @@ public class AdminTests extends BaseTest {
 
       session().click("xpath=//a[6]");
       waitForPageToLoad();
-      assertTrue(session().isTextPresent("Administration Tools - List of blocked IP-Addresses"));
+      assertTrue(session().isTextPresent("Administration Tools - Language Management"));
       session().goBack();
       waitForPageToLoad();
 
       session().click("xpath=//a[7]");
       waitForPageToLoad();
+      assertTrue(session().isTextPresent("Administration Tools - List of blocked IP-Addresses"));
+      session().goBack();
+      waitForPageToLoad();
+
+      session().click("xpath=//a[8]");
+      waitForPageToLoad();
       assertTrue(session().isTextPresent("Administration Tools - List of blocked users"));
       session().goBack();
       waitForPageToLoad();
-      
-      /*
-       * session().click("xpath=//a[7]"); waitForPageToLoad();
-       * assertTrue(session().isTextPresent("Administration Tools - "));
-       * session().goBack(); waitForPageToLoad();
-       */
 
       log("AdminTests: check block Users link");
       assertTrue(session().isTextPresent("- back"));
-      session().click("xpath=//a[8]");
+      session().click("xpath=//a[9]");
       waitForPageToLoad();
       assertTrue(session().isTextPresent("Catroid Administration Site"));
     } catch(AssertionError e) {

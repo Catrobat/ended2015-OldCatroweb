@@ -82,7 +82,7 @@ function getUserBlockClassWhitelistArray() {
 }
 
 function convertBytesToMegabytes($numOfBytes) {
-  $mb = round($numOfBytes/1048576, 1);
+  $mb = ceil($numOfBytes/1048576 * 10) / 10;
   if($mb < 0.1) {
     $mb = "&lt; 0.1";
   }
