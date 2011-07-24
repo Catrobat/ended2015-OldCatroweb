@@ -18,8 +18,6 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -43,12 +41,12 @@ public class BlockedIpTests extends BaseTest {
       openLocation();
       blockIp(blockedIp);
       openLocation("catroid/details/" + projectId);
-      assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-      assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
+      assertTrue(selenium().isElementPresent("xpath=//div[@class='errorMessage']"));
+      assertTrue(selenium().isTextPresent("Your IP-Address has been blocked."));
 
       openLocation();
-      assertTrue(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-      assertTrue(session().isTextPresent("Your IP-Address has been blocked."));
+      assertTrue(selenium().isElementPresent("xpath=//div[@class='errorMessage']"));
+      assertTrue(selenium().isTextPresent("Your IP-Address has been blocked."));
       unblockIp(blockedIp);
     } catch(AssertionError e) {
       captureScreen("BlockedIpTests.blockedIps." + blockedIp);
@@ -65,12 +63,12 @@ public class BlockedIpTests extends BaseTest {
     	unblockAllIPs();
       blockIp(unblockedIp);
       openLocation("catroid/details/" + projectId);
-      assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-      assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
+      assertFalse(selenium().isElementPresent("xpath=//div[@class='errorMessage']"));
+      assertFalse(selenium().isTextPresent("Your IP-Address has been blocked."));
 
       openLocation();
-      assertFalse(session().isElementPresent("xpath=//div[@class='errorMessage']"));
-      assertFalse(session().isTextPresent("Your IP-Address has been blocked."));
+      assertFalse(selenium().isElementPresent("xpath=//div[@class='errorMessage']"));
+      assertFalse(selenium().isTextPresent("Your IP-Address has been blocked."));
       unblockIp(unblockedIp);
     } catch(AssertionError e) {
       captureScreen("BlockedIpTests.unblockedIps." + unblockedIp);

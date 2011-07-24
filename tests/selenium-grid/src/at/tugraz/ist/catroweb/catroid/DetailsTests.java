@@ -18,10 +18,11 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import java.io.File;
 import java.util.HashMap;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -45,56 +46,48 @@ public class DetailsTests extends BaseTest {
       int numOfDownloadsAfter = -1;
 
       openLocation("catroid/details/" + id);
-      waitForElementPresent("xpath=//p[@class='detailsStats']/b");
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/b")));
       // project title
-      assertEquals(title, session().getText("xpath=//div[@class='detailsProjectTitle']"));
+      assertEquals(title, driver().findElement(By.xpath("//div[@class='detailsProjectTitle']")).getText());
       // test the view counter
-      numOfViews = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
+      numOfViews = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats']/b")).getText());
 
-      session().refresh();
-      waitForPageToLoad();
+      driver().navigate().refresh();
       ajaxWait();
-      waitForElementPresent("xpath=//p[@class='detailsStats']/b");
-      numOfViewsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats']/b"));
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/b")));
+      numOfViewsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats']/b")).getText());
       assertEquals(numOfViews + 1, numOfViewsAfter);
 
       // test the download counter
-      numOfDownloads = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
-      session().click("xpath=//div[@class='detailsDownloadButton']/a[1]");
+      numOfDownloads = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/b")).getText());
+      driver().findElement(By.xpath("//div[@class='detailsDownloadButton']/a[1]")).click();
 
-      Thread.sleep(Config.TIMEOUT_THREAD);
-      session().keyPressNative("27"); // press escape key
-      session().refresh();
-      waitForPageToLoad();
-
-      waitForElementPresent("xpath=//p[@class='detailsStats'][2]/b");
-      numOfDownloadsAfter = Integer.parseInt(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
+      driver().navigate().refresh();
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/b")));
+      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/b")).getText());
       assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
-      session().click("xpath=//div[@class='detailsMainImage']/a[1]");
-      Thread.sleep(Config.TIMEOUT_THREAD);
-      session().keyPressNative("27"); // press escape key
-      session().refresh();
-      waitForPageToLoad();
-      waitForElementPresent("xpath=//p[@class='detailsStats'][2]/b");
-      numOfDownloadsAfter = Integer.valueOf(session().getText("xpath=//p[@class='detailsStats'][2]/b"));
+
+      driver().findElement(By.xpath("//div[@class='detailsMainImage']/a[1]")).click();
+      driver().navigate().refresh();
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/b")));
+      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/b")).getText());
       assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
 
       // check file size
       double filesize = CommonFunctions.getFileSizeRounded(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + id + Config.PROJECTS_EXTENTION);
-      String downloadButtonText = session().getText("xpath=//span[@class='detailsDownloadButtonText']");
+      String downloadButtonText = driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText();
       String displayedfilesize = downloadButtonText.substring(downloadButtonText.indexOf("(") + 1, downloadButtonText.indexOf(" MB)"));
-      if(displayedfilesize.startsWith("<"))
-        assertEquals("< " + String.valueOf(filesize), displayedfilesize); // smaller
-                                                                          // files
-                                                                          // are
-                                                                          // displayed
-                                                                          // as
-                                                                          // "< 0.1 MB"
-      else
+      if(displayedfilesize.startsWith("<")) {
+        // smaller files are displayed as "< 0.1 MB"
+        assertEquals("< " + String.valueOf(filesize), displayedfilesize);
+      } else {
         assertEquals(String.valueOf(filesize), displayedfilesize);
+      }
 
       HashMap<String, String> versionInfo = CommonFunctions.getVersionInfo(id);
-      String versionInfoText = session().getText("xpath=//span[@class='versionInfo']");
+      String versionInfoText = driver().findElement(By.xpath("//span[@class='versionInfo']")).getText();
       assertRegExp("^Catroid version: " + versionInfo.get("version_code") + " [(]" + versionInfo.get("version_name") + "[)]$", versionInfoText);
     } catch(AssertionError e) {
       captureScreen("DetailsTests.detailsPageCounter." + dataset.get("projectTitle"));
@@ -113,44 +106,47 @@ public class DetailsTests extends BaseTest {
       openAdminLocation();
 
       openLocation("catroid/details/" + id);
-      assertTrue(session().isElementPresent("reportAsInappropriateButton"));
-      session().click("reportAsInappropriateButton");
-      assertTrue(session().isVisible("reportInappropriateReason"));
-      assertTrue(session().isVisible("reportInappropriateReportButton"));
-      assertTrue(session().isVisible("reportInappropriateCancelButton"));
-      session().click("reportAsInappropriateButton");
-      assertFalse(session().isVisible("reportInappropriateReason"));
-      session().click("reportAsInappropriateButton");
-      assertTrue(session().isVisible("reportInappropriateReason"));
-      session().click("reportInappropriateCancelButton");
-      assertFalse(session().isVisible("reportInappropriateReason"));
-      session().click("reportAsInappropriateButton");
-      session().click("reportInappropriateReportButton");
+      assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
+      driver().findElement(By.id("reportAsInappropriateButton")).click();
+      assertTrue(isVisible(By.id("reportInappropriateReason")));
+      assertTrue(isVisible(By.id("reportInappropriateReportButton")));
+      assertTrue(isVisible(By.id("reportInappropriateCancelButton")));
+      driver().findElement(By.id("reportAsInappropriateButton")).click();
+      assertFalse(isVisible(By.id("reportInappropriateReason")));
+      driver().findElement(By.id("reportAsInappropriateButton")).click();
+      assertTrue(isVisible(By.id("reportInappropriateReason")));
+      driver().findElement(By.id("reportInappropriateCancelButton")).click();
+      assertFalse(isVisible(By.id("reportInappropriateReason")));
+      driver().findElement(By.id("reportAsInappropriateButton")).click();
+      driver().findElement(By.id("reportInappropriateReportButton")).click();
       ajaxWait();
-      assertFalse(session().isVisible("reportInappropriateReason"));
-      assertFalse(session().isTextPresent("You reported this project as inappropriate!"));
-      session().click("reportAsInappropriateButton");
-      session().type("reportInappropriateReason", "my selenium reason");
-      session().click("reportInappropriateReportButton");
+      assertFalse(isVisible(By.id("reportInappropriateReason")));
+      assertFalse(isTextPresent("You reported this project as inappropriate!"));
+      driver().findElement(By.id("reportAsInappropriateButton")).click();
+      driver().findElement(By.id("reportInappropriateReason")).sendKeys("my selenium reason");
+      driver().findElement(By.id("reportInappropriateReportButton")).click();
       ajaxWait();
-      assertFalse(session().isVisible("reportInappropriateReason"));
-      assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
+      assertFalse(isVisible(By.id("reportInappropriateReason")));
+      assertTrue(isTextPresent("You reported this project as inappropriate!"));
 
-      session().refresh();
-      waitForPageToLoad();
+      driver().navigate().refresh();
       ajaxWait();
-      session().click("reportAsInappropriateButton");
-      session().type("reportInappropriateReason", "my selenium reason 2");
-      session().focus("reportInappropriateReason");
-      session().keyPress("reportInappropriateReason", "\\13");
-      ajaxWait();
-      assertFalse(session().isVisible("reportInappropriateReason"));
-      assertTrue(session().isTextPresent("You reported this project as inappropriate!"));
+      driver().findElement(By.id("reportAsInappropriateButton")).click();
+      captureScreen("reported1");
+//      driver().findElement(By.id("reportInappropriateReason")).click();
+      driver().findElement(By.id("reportInappropriateReason")).sendKeys("my selenium reason 2");
+      captureScreen("reported2");
+      driver().findElement(By.id("reportInappropriateReason")).sendKeys(Keys.ENTER);
+//      driver().findElement(By.id("reportInappropriateReason")).sendKeys("\\13");
+      captureScreen("reported3");
+      assertFalse(isVisible(By.id("reportInappropriateReason")));
+      assertTrue(isTextPresent("You reported this project as inappropriate!"));
 
       openAdminLocation("/tools/inappropriateProjects");
-      session().click("resolve" + id);
-      waitForTextPresent("The project was succesfully restored and set to visible!");
-      assertFalse(session().isTextPresent(id));
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.id("resolve" + id)).click();
+      assertTrue(isTextPresent("The project was succesfully restored and set to visible!"));
+      assertFalse(isTextPresent(id));
     } catch(AssertionError e) {
       captureScreen("DetailsTests.inappropriateButton." + dataset.get("projectTitle"));
       throw e;
@@ -167,18 +163,18 @@ public class DetailsTests extends BaseTest {
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
       openLocation("catroid/details/" + projectId);
 
-      assertTrue(session().isElementPresent("showFullDescriptionButton"));
-      String shortDescriptionFromPage = session().getText("xpath=//p[@id='detailsDescription']");
+      assertTrue(selenium().isElementPresent("showFullDescriptionButton"));
+      String shortDescriptionFromPage = selenium().getText("xpath=//p[@id='detailsDescription']");
       assertFalse(shortDescriptionFromPage.equals(dataset.get("projectDescription")));
 
-      session().click("showFullDescriptionButton");
-      String fullDescriptionFromPage = session().getText("xpath=//p[@id='detailsDescription']");
+      selenium().click("showFullDescriptionButton");
+      String fullDescriptionFromPage = selenium().getText("xpath=//p[@id='detailsDescription']");
       assertTrue(fullDescriptionFromPage.equals(dataset.get("projectDescription")));
       assertFalse(fullDescriptionFromPage.equals(shortDescriptionFromPage));
-      assertTrue(session().isElementPresent("showShortDescriptionButton"));
-      session().click("showShortDescriptionButton");
+      assertTrue(selenium().isElementPresent("showShortDescriptionButton"));
+      selenium().click("showShortDescriptionButton");
       Thread.sleep(Config.TIMEOUT_THREAD);
-      assertEquals(shortDescriptionFromPage, session().getText("xpath=//p[@id='detailsDescription']"));
+      assertEquals(shortDescriptionFromPage, selenium().getText("xpath=//p[@id='detailsDescription']"));
     } catch(AssertionError e) {
       captureScreen("DetailsTests.moreButton." + dataset.get("projectTitle"));
       throw e;
@@ -198,17 +194,17 @@ public class DetailsTests extends BaseTest {
 
       if(qrCodeFile.exists()) {
         assertTrue(qrCodeFile.renameTo(qrCodeFileNew));
-        session().refresh();
+        selenium().refresh();
         waitForPageToLoad();
         ajaxWait();
-        assertFalse(session().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
+        assertFalse(selenium().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
         assertTrue(qrCodeFileNew.renameTo(qrCodeFile));
-        session().refresh();
+        selenium().refresh();
         waitForPageToLoad();
         ajaxWait();
-        assertTrue(session().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
+        assertTrue(selenium().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
       } else {
-        assertFalse(session().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
+        assertFalse(selenium().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
       }
     } catch(AssertionError e) {
       captureScreen("DetailsTests.QRCodeImage");
@@ -227,20 +223,20 @@ public class DetailsTests extends BaseTest {
       clickLastVisibleProject();
       waitForElementPresent("xpath=//button[@id='showQrCodeInfoButton']");
 
-      assertTrue(session().isElementPresent("xpath=//button[@id='showQrCodeInfoButton']"));
-      assertTrue(session().isElementPresent("xpath=//div[@id='qrcodeInfo']"));
-      assertTrue(session().isElementPresent("xpath=//button[@id='hideQrCodeInfoButton']"));
-      assertTrue(session().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
-      assertFalse(session().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
-      assertFalse(session().isVisible("xpath=//div[@id='qrcodeInfo']"));
-      session().click("showQrCodeInfoButton");
-      assertFalse(session().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
-      assertTrue(session().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
-      assertTrue(session().isVisible("xpath=//div[@id='qrcodeInfo']"));
-      session().click("hideQrCodeInfoButton");
-      assertTrue(session().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
-      assertFalse(session().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
-      assertFalse(session().isVisible("xpath=//div[@id='qrcodeInfo']"));
+      assertTrue(selenium().isElementPresent("xpath=//button[@id='showQrCodeInfoButton']"));
+      assertTrue(selenium().isElementPresent("xpath=//div[@id='qrcodeInfo']"));
+      assertTrue(selenium().isElementPresent("xpath=//button[@id='hideQrCodeInfoButton']"));
+      assertTrue(selenium().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
+      assertFalse(selenium().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
+      assertFalse(selenium().isVisible("xpath=//div[@id='qrcodeInfo']"));
+      selenium().click("showQrCodeInfoButton");
+      assertFalse(selenium().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
+      assertTrue(selenium().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
+      assertTrue(selenium().isVisible("xpath=//div[@id='qrcodeInfo']"));
+      selenium().click("hideQrCodeInfoButton");
+      assertTrue(selenium().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
+      assertFalse(selenium().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
+      assertFalse(selenium().isVisible("xpath=//div[@id='qrcodeInfo']"));
     } catch(AssertionError e) {
       captureScreen("DetailsTests.QRCodeInfo");
       throw e;
@@ -257,7 +253,7 @@ public class DetailsTests extends BaseTest {
       ajaxWait();
       clickLastVisibleProject();
       waitForElementPresent("xpath=//span[@class='detailsDownloadButtonText']");
-      assertRegExp(".*Download.*MB.*", session().getText("xpath=//span[@class='detailsDownloadButtonText']"));
+      assertRegExp(".*Download.*MB.*", selenium().getText("xpath=//span[@class='detailsDownloadButtonText']"));
 
     } catch(AssertionError e) {
       captureScreen("DetailsTests.ProjectSizeInfo");
@@ -273,10 +269,10 @@ public class DetailsTests extends BaseTest {
     try {
       String invalidProject = CommonData.getRandomShortString(10);
       openLocation("catroid/details/" + invalidProject);
-      assertRegExp(".*/catroid/errorPage", session().getLocation());
-      assertTrue(session().isTextPresent("No entry was found for the given ID.:"));
-      assertTrue(session().isTextPresent("ID: " + invalidProject));
-      assertFalse(session().isElementPresent("xpath=//div[@class='detailsFlexDiv']"));
+      assertRegExp(".*/catroid/errorPage", selenium().getLocation());
+      assertTrue(selenium().isTextPresent("No entry was found for the given ID.:"));
+      assertTrue(selenium().isTextPresent("ID: " + invalidProject));
+      assertFalse(selenium().isElementPresent("xpath=//div[@class='detailsFlexDiv']"));
     } catch(AssertionError e) {
       captureScreen("DetailsTests.invalidProjectID");
       throw e;
@@ -293,20 +289,20 @@ public class DetailsTests extends BaseTest {
             .getUploadPayload(
                 "more button selenium test",
                 "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!",
-                "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") },
+                "", "", "", "", "0") },
         { CommonData
             .getUploadPayload(
                 "more button special chars test",
                 "This is a description which has special chars like \", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with \"special chars\" and should have more characters than defined by the threshold in config.php. Thats it!",
-                "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") }, };
+                "", "", "", "", "0") }, };
     return returnArray;
   }
 
   @DataProvider(name = "detailsProject")
   public Object[][] detailsProject() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "0") },
-        { CommonData.getUploadPayload("details_test2big", "details_test_description", "test2.zip", "63f6285f32df9afea00c2ac0befa2947", "", "", "0") }, };
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
+        { CommonData.getUploadPayload("details_test2big", "details_test_description", "test2.zip", "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") }, };
     return returnArray;
   }
 }

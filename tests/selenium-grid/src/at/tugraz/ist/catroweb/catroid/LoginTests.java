@@ -18,8 +18,6 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import java.util.HashMap;
 
 import org.testng.annotations.DataProvider;
@@ -41,90 +39,90 @@ public class LoginTests extends BaseTest {
       String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
 
       // check if we are not logged in to board & wiki
-      session().click("headerMenuButton");
+      selenium().click("headerMenuButton");
       waitForPageToLoad();
 
       clickAndWaitForPopUp("menuForumButton", "board");
-      assertTrue(session().isTextPresent("Login"));
-      assertFalse(session().isTextPresent("Logout"));
+      assertTrue(selenium().isTextPresent("Login"));
+      assertFalse(selenium().isTextPresent("Logout"));
       closePopUp();
 
       clickAndWaitForPopUp("menuWikiButton", "wiki");
-      assertFalse(session().isTextPresent(wikiUsername));
+      assertFalse(selenium().isTextPresent(wikiUsername));
       closePopUp();
 
       // test login
       openLocation();
-      assertTrue(session().isVisible("headerProfileButton"));
-      session().click("headerProfileButton");
-      assertFalse(session().isVisible("headerProfileButton"));
-      assertTrue(session().isVisible("headerCancelButton"));
-      assertTrue(session().isVisible("loginSubmitButton"));
-      assertTrue(session().isVisible("loginUsername"));
-      assertTrue(session().isVisible("loginPassword"));
-      session().click("headerCancelButton");
-      assertTrue(session().isVisible("headerProfileButton"));
-      assertFalse(session().isVisible("headerCancelButton"));
-      assertFalse(session().isVisible("loginSubmitButton"));
-      assertFalse(session().isVisible("loginUsername"));
-      assertFalse(session().isVisible("loginPassword"));
-      session().click("headerProfileButton");
-      assertFalse(session().isVisible("headerProfileButton"));
-      assertTrue(session().isVisible("headerCancelButton"));
-      assertTrue(session().isVisible("loginSubmitButton"));
-      assertTrue(session().isVisible("loginUsername"));
-      assertTrue(session().isVisible("loginPassword"));
+      assertTrue(selenium().isVisible("headerProfileButton"));
+      selenium().click("headerProfileButton");
+      assertFalse(selenium().isVisible("headerProfileButton"));
+      assertTrue(selenium().isVisible("headerCancelButton"));
+      assertTrue(selenium().isVisible("loginSubmitButton"));
+      assertTrue(selenium().isVisible("loginUsername"));
+      assertTrue(selenium().isVisible("loginPassword"));
+      selenium().click("headerCancelButton");
+      assertTrue(selenium().isVisible("headerProfileButton"));
+      assertFalse(selenium().isVisible("headerCancelButton"));
+      assertFalse(selenium().isVisible("loginSubmitButton"));
+      assertFalse(selenium().isVisible("loginUsername"));
+      assertFalse(selenium().isVisible("loginPassword"));
+      selenium().click("headerProfileButton");
+      assertFalse(selenium().isVisible("headerProfileButton"));
+      assertTrue(selenium().isVisible("headerCancelButton"));
+      assertTrue(selenium().isVisible("loginSubmitButton"));
+      assertTrue(selenium().isVisible("loginUsername"));
+      assertTrue(selenium().isVisible("loginPassword"));
 
-      session().type("loginUsername", dataset.get("username"));
-      session().type("loginPassword", dataset.get("password"));
+      selenium().type("loginUsername", dataset.get("username"));
+      selenium().type("loginPassword", dataset.get("password"));
 
-      session().click("loginSubmitButton");
+      selenium().click("loginSubmitButton");
       waitForPageToLoad();
 
-      assertTrue(session().isVisible("headerProfileButton"));
-      session().click("headerProfileButton");
-      assertTrue(session().isVisible("logoutSubmitButton"));
-      session().click("headerCancelButton");
+      assertTrue(selenium().isVisible("headerProfileButton"));
+      selenium().click("headerProfileButton");
+      assertTrue(selenium().isVisible("logoutSubmitButton"));
+      selenium().click("headerCancelButton");
 
-      session().click("headerMenuButton");
+      selenium().click("headerMenuButton");
       waitForPageToLoad();
 
       clickAndWaitForPopUp("menuForumButton", "board");
-      assertFalse(session().isTextPresent("Login"));
-      assertTrue(session().isTextPresent("Logout"));
-      assertTrue(session().isTextPresent(dataset.get("username")));
+      assertFalse(selenium().isTextPresent("Login"));
+      assertTrue(selenium().isTextPresent("Logout"));
+      assertTrue(selenium().isTextPresent(dataset.get("username")));
       closePopUp();
 
       clickAndWaitForPopUp("menuWikiButton", "wiki");
-      assertTrue(session().isTextPresent(wikiUsername));
-      session().click("xpath=//li[@id='pt-preferences']/a");
+      assertTrue(selenium().isTextPresent(wikiUsername));
+      selenium().click("xpath=//li[@id='pt-preferences']/a");
       waitForPageToLoad();
-      assertEquals("Preferences", session().getText("firstHeading"));
-      assertFalse(session().isTextPresent("Not logged in"));
+      assertEquals("Preferences", selenium().getText("firstHeading"));
+      assertFalse(selenium().isTextPresent("Not logged in"));
       closePopUp();
 
       // test logout
       openLocation();
-      assertTrue(session().isVisible("headerProfileButton"));
-      session().click("headerProfileButton");
-      assertTrue(session().isVisible("logoutSubmitButton"));
-      session().click("logoutSubmitButton");
+      assertTrue(selenium().isVisible("headerProfileButton"));
+      selenium().click("headerProfileButton");
+      assertTrue(selenium().isVisible("logoutSubmitButton"));
+      selenium().click("logoutSubmitButton");
       Thread.sleep(Config.TIMEOUT_THREAD);
-      assertTrue(session().isVisible("headerProfileButton"));
-      session().click("headerProfileButton");
-      assertTrue(session().isVisible("loginSubmitButton"));
-      session().click("headerCancelButton");
+      assertTrue(selenium().isVisible("headerProfileButton"));
+      selenium().click("headerProfileButton");
+      assertTrue(selenium().isVisible("loginSubmitButton"));
+      selenium().click("headerCancelButton");
 
-      session().click("headerMenuButton");
+      selenium().click("headerMenuButton");
       waitForPageToLoad();
 
       clickAndWaitForPopUp("menuForumButton", "board");
-      assertTrue(session().isTextPresent("Login"));
-      assertFalse(session().isTextPresent("Logout"));
+      assertTrue(selenium().isTextPresent("Login"));
+      assertFalse(selenium().isTextPresent("Logout"));
       closePopUp();
 
       clickAndWaitForPopUp("menuWikiButton", "wiki");
-      assertFalse(session().isTextPresent(wikiUsername));
+      assertFalse(selenium().isTextPresent(wikiUsername));
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("LoginTests.validLogin." + dataset.get("username"));
@@ -143,45 +141,45 @@ public class LoginTests extends BaseTest {
       // wiki username creation
       String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
 
-      assertTrue(session().isVisible("headerProfileButton"));
-      session().click("headerProfileButton");
-      assertFalse(session().isVisible("headerProfileButton"));
-      assertTrue(session().isVisible("headerCancelButton"));
-      assertTrue(session().isVisible("loginSubmitButton"));
-      assertTrue(session().isVisible("loginUsername"));
-      assertTrue(session().isVisible("loginPassword"));
-      session().click("headerCancelButton");
-      assertTrue(session().isVisible("headerProfileButton"));
-      assertFalse(session().isVisible("headerCancelButton"));
-      assertFalse(session().isVisible("loginSubmitButton"));
-      assertFalse(session().isVisible("loginUsername"));
-      assertFalse(session().isVisible("loginPassword"));
-      session().click("headerProfileButton");
-      assertFalse(session().isVisible("headerProfileButton"));
-      assertTrue(session().isVisible("headerCancelButton"));
-      assertTrue(session().isVisible("loginSubmitButton"));
-      assertTrue(session().isVisible("loginUsername"));
-      assertTrue(session().isVisible("loginPassword"));
+      assertTrue(selenium().isVisible("headerProfileButton"));
+      selenium().click("headerProfileButton");
+      assertFalse(selenium().isVisible("headerProfileButton"));
+      assertTrue(selenium().isVisible("headerCancelButton"));
+      assertTrue(selenium().isVisible("loginSubmitButton"));
+      assertTrue(selenium().isVisible("loginUsername"));
+      assertTrue(selenium().isVisible("loginPassword"));
+      selenium().click("headerCancelButton");
+      assertTrue(selenium().isVisible("headerProfileButton"));
+      assertFalse(selenium().isVisible("headerCancelButton"));
+      assertFalse(selenium().isVisible("loginSubmitButton"));
+      assertFalse(selenium().isVisible("loginUsername"));
+      assertFalse(selenium().isVisible("loginPassword"));
+      selenium().click("headerProfileButton");
+      assertFalse(selenium().isVisible("headerProfileButton"));
+      assertTrue(selenium().isVisible("headerCancelButton"));
+      assertTrue(selenium().isVisible("loginSubmitButton"));
+      assertTrue(selenium().isVisible("loginUsername"));
+      assertTrue(selenium().isVisible("loginPassword"));
 
-      session().type("loginUsername", dataset.get("username"));
-      session().type("loginPassword", dataset.get("password"));
+      selenium().type("loginUsername", dataset.get("username"));
+      selenium().type("loginPassword", dataset.get("password"));
 
-      session().click("loginSubmitButton");
+      selenium().click("loginSubmitButton");
       ajaxWait();
 
-      assertTrue(session().isVisible("loginSubmitButton"));
-      session().click("headerCancelButton");
+      assertTrue(selenium().isVisible("loginSubmitButton"));
+      selenium().click("headerCancelButton");
 
-      session().click("headerMenuButton");
+      selenium().click("headerMenuButton");
       waitForPageToLoad();
 
       clickAndWaitForPopUp("menuForumButton", "board");
-      assertTrue(session().isTextPresent("Login"));
-      assertFalse(session().isTextPresent("Logout"));
+      assertTrue(selenium().isTextPresent("Login"));
+      assertFalse(selenium().isTextPresent("Logout"));
       closePopUp();
 
       clickAndWaitForPopUp("menuWikiButton", "wiki");
-      assertFalse(session().isTextPresent(wikiUsername));
+      assertFalse(selenium().isTextPresent(wikiUsername));
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
