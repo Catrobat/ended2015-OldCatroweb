@@ -140,8 +140,16 @@ class upload extends CoreAuthenticationDevice {
     } catch(Exception $e) {
       $this->sendQRFailNotificationEmail($newId, $projectTitle);
     }
-
-    $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
+    
+    try {
+      $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
+    } catch(Exception $e) {
+      $this->statusCode = 511;
+      $this->removeProjectFromDatabase($newId);
+      $this->removeProjectFromFilesystem($projectFile, $newId);
+      throw new Exception($e->getMessage());
+    }
+    
     $this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
 
     $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
@@ -202,58 +210,33 @@ class upload extends CoreAuthenticationDevice {
     return true;
   }
 
-  public function extractVersionCode($xml) {
-    $version = 0;
-    if (!preg_match("/versionCode/", $xml))
-    return $version;
-
-    if (preg_match("/<versionCode/", $xml)) {
-      $stag = "<versionCode>";
-      $etag = "<";
-      $version = 5;
-    } else {
-      $stag = "<project ";
-      $etag = ">";
-      $stag2 = "versionCode=\"";
-      $etag2 = "\"";
-      $version = 4;
+  public function extractCatroidVersion($xmlString) {
+    $xml = simplexml_load_string($xmlString);
+    if(!$xml) {
+      throw new Exception($this->errorHandler->getError('upload', 'invalid_project_xml'));
     }
-    $starttag = preg_split("/".$stag."/", $xml);
-    $endtag = preg_split("/".$etag."/", $starttag[1]);
-    $content = $endtag[0];
-    if ($version >= 5)
-    return $content;
+    $attributes = $xml->attributes();
+    isset($attributes["versionName"]) && $attributes["versionName"] ? $versionName = strval($attributes["versionName"]) : $versionName = null;
+    isset($attributes["versionCode"]) && $attributes["versionCode"] ? $versionCode = strval($attributes["versionCode"]) : $versionCode = null;
 
-    $starttag = preg_split("/".$stag2."/", $content);
-    $endtag = preg_split("/".$etag2."/", $starttag[1]);
-    return $endtag[0];
-  }
-
-  public function extractVersionName($xml) {
-    $version = 0;
-    if (!preg_match("/versionName/", $xml))
-    return '';
-
-    if (preg_match("/<versionName/", $xml)) {
-      $stag = "<versionName>";
-      $etag = "<";
-      $version = 5;
-    } else {
-      $stag = "<project ";
-      $etag = ">";
-      $stag2 = "versionName=\"";
-      $etag2 = "\"";
-      $version = 4;
+    if(!$versionName || !$versionCode) {
+      $versionCode = null;
+      $versionName = null;
+      foreach($xml->children() as $child) {
+        if(strcmp(strval($child->getName()), 'versionName') == 0) {
+          $versionName = strval($child);
+        } elseif(strcmp(strval($child->getName()), 'versionCode') == 0) {
+          $versionCode = strval($child);
+        }
+      }
     }
-    $starttag = preg_split("/".$stag."/", $xml);
-    $endtag = preg_split("/".$etag."/", $starttag[1]);
-    $content = $endtag[0];
-    if ($version >= 5)
-    return $content;
-
-    $starttag = preg_split("/".$stag2."/", $content);
-    $endtag = preg_split("/".$etag2."/", $starttag[1]);
-    return $endtag[0];
+    
+    if(!$versionName || !$versionCode) {
+      $versionCode = 4;
+      $versionName = '&lt; 0.4.3d';
+    }
+    
+    return(array("versionName"=>$versionName, "versionCode"=>$versionCode));
   }
 
   public function saveVersionInfo($projectId, $versionCode, $versionName) {
@@ -410,9 +393,12 @@ class upload extends CoreAuthenticationDevice {
         $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
         if ($spf) {
           $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
-          $this->versionCode = $this->extractVersionCode($spf);
-          $this->versionName = $this->extractVersionName($spf);
-          $this->saveVersionInfo($projectId, $this->versionCode, $this->versionName);
+          try {
+            $catroidVersion = $this->extractCatroidVersion($spf);
+          } catch(Exception $e) {
+            throw new Exception($e->getMessage());
+          }
+          $this->saveVersionInfo($projectId, $catroidVersion['versionCode'], $catroidVersion['versionName']);
         }
       }
       if ($filename == "thumbnail.jpg" || $filename == "thumbnail.png") {
