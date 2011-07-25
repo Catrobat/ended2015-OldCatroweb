@@ -18,6 +18,7 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -29,43 +30,23 @@ public class WebsiteTitleTests extends BaseTest {
 
   @Test(dataProvider = "websitePages", groups = { "visibility" }, description = "check html website titles/page")
   public void websiteTitle(String actualPage) throws Throwable {
-
-    String website_title;
-    String website_html_title;
-   
     try {
-      openLocation("catroid/"+actualPage);
-      waitForPageToLoad();
-      website_html_title = selenium().getTitle();
-      website_title = selenium().getText("xpath=//div[@class='webMainContentTitle']");
-      assertTrue(website_html_title.matches(".*"+website_title+".*"));
+      openLocation("catroid/" + actualPage);
+      String websiteTitle = driver().findElement(By.xpath("//div[@class='webMainContentTitle']")).getText();
+      assertTrue(driver().getTitle().matches(".*" + websiteTitle + ".*"));
     } catch(AssertionError e) {
       captureScreen("LicenseTests.privacyPolicy");
       throw e;
+    } catch(Exception e) {
+      captureScreen("PasswordRecoveryTests.passwordRecoveryIntro");
+      throw e;
     }
-
   }
-  
+
   @DataProvider(name = "websitePages")
   public Object[][] websitePages() {
-    Object[][] returnArray = new Object[][] { 
-        { "contactus" }, 
-        { "copyrightpolicy" }, 
-        { "details/1" },
-        { "errorPage" },
-        { "imprint" },
-        { "index" },
-        { "license" },
-        { "login" },
-        //{ "menu" }, # has no title div!!
-        { "passwordrecovery" },
-        { "privacypolicy" },
-        { "profile/catroweb" },
-        { "projectlicense" },
-        { "registration" },
-        { "terms" } };
+    Object[][] returnArray = new Object[][] { { "contactus" }, { "copyrightpolicy" }, { "details/1" }, { "errorPage" }, { "imprint" }, { "index" },
+        { "license" }, { "login" }, { "passwordrecovery" }, { "privacypolicy" }, { "profile/catroweb" }, { "projectlicense" }, { "registration" }, { "terms" } };
     return returnArray;
   }
-  
-
 }

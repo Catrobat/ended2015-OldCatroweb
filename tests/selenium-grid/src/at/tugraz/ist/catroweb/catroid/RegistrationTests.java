@@ -20,6 +20,7 @@ package at.tugraz.ist.catroweb.catroid;
 
 import java.util.HashMap;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -37,73 +38,71 @@ public class RegistrationTests extends BaseTest {
       String wikiUsername = dataset.get("registrationUsername").substring(0, 1).toUpperCase() + dataset.get("registrationUsername").substring(1).toLowerCase();
 
       openLocation("catroid/registration/");
-      assertTrue(selenium().isElementPresent("xpath=//input[@name='registrationUsername']"));
-      assertTrue(selenium().isElementPresent("xpath=//input[@name='registrationPassword']"));
-      assertTrue(selenium().isElementPresent("xpath=//input[@name='registrationEmail']"));
-      assertTrue(selenium().isElementPresent("xpath=//select[@name='registrationGender']"));
-      assertTrue(selenium().isElementPresent("xpath=//select[@name='registrationMonth']"));
-      assertTrue(selenium().isElementPresent("xpath=//select[@name='registrationYear']"));
-      assertTrue(selenium().isElementPresent("xpath=//select[@name='registrationCountry']"));
-      assertTrue(selenium().isElementPresent("xpath=//input[@name='registrationCity']"));
-      assertTrue(selenium().isElementPresent("xpath=//input[@name='registrationSubmit']"));
 
-      selenium().type("xpath=//input[@name='registrationUsername']", dataset.get("registrationUsername"));
-      selenium().type("xpath=//input[@name='registrationPassword']", dataset.get("registrationPassword"));
-      selenium().type("xpath=//input[@name='registrationEmail']", dataset.get("registrationEmail"));
-      selenium().type("xpath=//select[@name='registrationGender']", dataset.get("registrationGender"));
-      selenium().type("xpath=//select[@name='registrationMonth']", dataset.get("registrationMonth"));
-      selenium().type("xpath=//select[@name='registrationYear']", dataset.get("registrationYear"));
-      selenium().type("xpath=//select  [@name='registrationCountry']", dataset.get("registrationCountry"));
-      selenium().type("xpath=//input[@name='registrationCity']", dataset.get("registrationCity"));
+      assertTrue(isElementPresent(By.name("registrationUsername")));
+      assertTrue(isElementPresent(By.name("registrationPassword")));
+      assertTrue(isElementPresent(By.name("registrationEmail")));
+      assertTrue(isElementPresent(By.name("registrationMonth")));
+      assertTrue(isElementPresent(By.name("registrationYear")));
+      assertTrue(isElementPresent(By.name("registrationGender")));
+      assertTrue(isElementPresent(By.name("registrationCountry")));
+      assertTrue(isElementPresent(By.name("registrationCity")));
+      assertTrue(isElementPresent(By.name("registrationSubmit")));
 
-      selenium().click("xpath=//input[@name='registrationSubmit']");
+      driver().findElement(By.name("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.name("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.name("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.name("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.name("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.name("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      driver().findElement(By.name("registrationCity")).sendKeys(dataset.get("registrationCity"));
+      driver().findElement(By.name("registrationSubmit")).click();
       ajaxWait();
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent(dataset.get("registrationUsername") + "'s Profile"));
+      assertTrue(isTextPresent(dataset.get("registrationUsername") + "'s Profile"));
 
-      selenium().click("headerProfileButton");
-      assertTrue(selenium().isTextPresent("You are logged in as " + dataset.get("registrationUsername") + "!"));
-      assertTrue(selenium().isElementPresent("logoutSubmitButton"));
-      selenium().click("headerCancelButton");
+      driver().findElement(By.id("headerProfileButton")).click();
+      assertTrue(isTextPresent("You are logged in as " + dataset.get("registrationUsername") + "!"));
+      assertTrue(isElementPresent(By.id("logoutSubmitButton")));
+      driver().findElement(By.id("headerCancelButton")).click();
 
-      selenium().click("headerMenuButton");
-      waitForPageToLoad();
+      driver().findElement(By.id("headerMenuButton")).click();
 
-      clickAndWaitForPopUp("menuForumButton", "board");
-      assertFalse(selenium().isTextPresent("Login"));
-      assertTrue(selenium().isTextPresent("Logout"));
+      clickAndWaitForPopUp(By.id("menuForumButton"));
+      assertFalse(isTextPresent("Login"));
+      assertTrue(isTextPresent("Logout"));
       closePopUp();
 
-      clickAndWaitForPopUp("menuWikiButton", "wiki");
-      assertTrue(selenium().isTextPresent(wikiUsername));
-      selenium().click("xpath=//li[@id='pt-preferences']/a");
-      waitForPageToLoad();
-      assertEquals("Preferences", selenium().getText("firstHeading"));
-      assertFalse(selenium().isTextPresent("Not logged in"));
+      clickAndWaitForPopUp(By.id("menuWikiButton"));
+      driver().findElement(By.id("pt-preferences")).findElement(By.tagName("a")).click();
+      assertEquals("Preferences", driver().findElement(By.id("firstHeading")).getText());
+      assertFalse(isTextPresent("Not logged in"));
       closePopUp();
       
       openLocation();
-      assertTrue(selenium().isVisible("headerProfileButton"));
-      selenium().click("headerProfileButton");
-      assertTrue(selenium().isVisible("logoutSubmitButton"));
-      selenium().click("logoutSubmitButton");
-      Thread.sleep(Config.TIMEOUT_THREAD);
+      assertTrue(isVisible(By.id("headerProfileButton")));
+      driver().findElement(By.id("headerProfileButton")).click();
+      assertTrue(isVisible(By.id("logoutSubmitButton")));
+      driver().findElement(By.id("logoutSubmitButton")).click();
+      ajaxWait();
       
-      selenium().click("headerProfileButton");
-      assertTrue(selenium().isVisible("loginSubmitButton"));
-      assertTrue(selenium().isVisible("loginUsername"));
-      assertTrue(selenium().isVisible("loginPassword"));
+      driver().findElement(By.id("headerProfileButton")).click();
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
 
-      selenium().click("headerMenuButton");
-      waitForPageToLoad();
+      driver().findElement(By.id("headerCancelButton")).click();
+      ajaxWait();
+      driver().findElement(By.id("headerMenuButton")).click();
+      ajaxWait();
 
-      clickAndWaitForPopUp("menuForumButton", "board");
-      assertTrue(selenium().isTextPresent("Login"));
-      assertFalse(selenium().isTextPresent("Logout"));
+      clickAndWaitForPopUp(By.id("menuForumButton"));
+      assertTrue(isTextPresent("Login"));
+      assertFalse(isTextPresent("Logout"));
       closePopUp();
 
-      clickAndWaitForPopUp("menuWikiButton", "wiki");
-      assertFalse(selenium().isTextPresent(wikiUsername));
+      clickAndWaitForPopUp(By.id("menuWikiButton"));
+      assertFalse(isTextPresent(wikiUsername));
       closePopUp();
 
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
@@ -125,49 +124,51 @@ public class RegistrationTests extends BaseTest {
       String wikiUsername = dataset.get("registrationUsername").substring(0, 1).toUpperCase() + dataset.get("registrationUsername").substring(1).toLowerCase();
 
       openLocation("catroid/registration/");
-      assertTrue(selenium().isElementPresent("xpath=//input[@name='registrationUsername']"));
-      assertTrue(selenium().isElementPresent("xpath=//input[@name='registrationPassword']"));
-      assertTrue(selenium().isElementPresent("xpath=//input[@name='registrationEmail']"));
-      assertTrue(selenium().isElementPresent("xpath=//select[@name='registrationGender']"));
-      assertTrue(selenium().isElementPresent("xpath=//select[@name='registrationMonth']"));
-      assertTrue(selenium().isElementPresent("xpath=//select[@name='registrationYear']"));
-      assertTrue(selenium().isElementPresent("xpath=//select[@name='registrationCountry']"));
-      assertTrue(selenium().isElementPresent("xpath=//input[@name='registrationCity']"));
-      assertTrue(selenium().isElementPresent("xpath=//input[@name='registrationSubmit']"));
+      
+      assertTrue(isElementPresent(By.name("registrationUsername")));
+      assertTrue(isElementPresent(By.name("registrationPassword")));
+      assertTrue(isElementPresent(By.name("registrationEmail")));
+      assertTrue(isElementPresent(By.name("registrationMonth")));
+      assertTrue(isElementPresent(By.name("registrationYear")));
+      assertTrue(isElementPresent(By.name("registrationGender")));
+      assertTrue(isElementPresent(By.name("registrationCountry")));
+      assertTrue(isElementPresent(By.name("registrationCity")));
+      assertTrue(isElementPresent(By.name("registrationSubmit")));
 
-      selenium().type("xpath=//input[@name='registrationUsername']", dataset.get("registrationUsername"));
-      selenium().type("xpath=//input[@name='registrationPassword']", dataset.get("registrationPassword"));
-      selenium().type("xpath=//input[@name='registrationEmail']", dataset.get("registrationEmail"));
-      selenium().type("xpath=//select[@name='registrationGender']", dataset.get("registrationGender"));
-      selenium().type("xpath=//select[@name='registrationMonth']", dataset.get("registrationMonth"));
-      selenium().type("xpath=//select[@name='registrationYear']", dataset.get("registrationYear"));
-      selenium().type("xpath=//select[@name='registrationCountry']", dataset.get("registrationCountry"));
-      selenium().type("xpath=//input[@name='registrationCity']", dataset.get("registrationCity"));
-
-      selenium().click("xpath=//input[@name='registrationSubmit']");
+      driver().findElement(By.name("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.name("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.name("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.name("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.name("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.name("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      driver().findElement(By.name("registrationCity")).sendKeys(dataset.get("registrationCity"));
+      driver().findElement(By.name("registrationSubmit")).click();
       ajaxWait();
-      waitForTextPresent(dataset.get("expectedError"));
-      assertFalse(selenium().isTextPresent("CATROID registration successfull!"));
-      assertFalse(selenium().isTextPresent("BOARD registration successfull!"));
-      assertFalse(selenium().isTextPresent("WIKI registration successfull!"));
+      
+      assertTrue(isTextPresent(dataset.get("expectedError")));
+      assertFalse(isTextPresent("CATROID registration successfull!"));
+      assertFalse(isTextPresent("BOARD registration successfull!"));
+      assertFalse(isTextPresent("WIKI registration successfull!"));
 
       openLocation();
-      selenium().click("headerProfileButton");
-      selenium().type("loginUsername", dataset.get("registrationUsername"));
-      selenium().type("loginPassword", dataset.get("registrationPassword"));
-      selenium().click("loginSubmitButton");
+      driver().findElement(By.id("headerProfileButton")).click();
+      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
 
-      selenium().click("headerMenuButton");
-      waitForPageToLoad();
+      openLocation();
+      driver().findElement(By.id("headerMenuButton")).click();
+      ajaxWait();
 
-      clickAndWaitForPopUp("menuForumButton", "board");
-      assertTrue(selenium().isTextPresent("Login"));
-      assertFalse(selenium().isTextPresent("Logout"));
+      clickAndWaitForPopUp(By.id("menuForumButton"));
+      assertTrue(isTextPresent("Login"));
+      assertFalse(isTextPresent("Logout"));
       closePopUp();
 
-      clickAndWaitForPopUp("menuWikiButton", "wiki");
-      assertFalse(selenium().isTextPresent(wikiUsername));
+      clickAndWaitForPopUp(By.id("menuWikiButton"));
+      assertFalse(isTextPresent(wikiUsername));
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("RegistrationTests.invalidRegistration." + dataset.get("registrationUsername"));

@@ -43,6 +43,7 @@
       <class name="at.tugraz.ist.catroweb.catroid.RegistrationTests" />
       <class name="at.tugraz.ist.catroweb.catroid.ReportAsInappropriateTests" />
       <class name="at.tugraz.ist.catroweb.catroid.SearchTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.WebsiteTitleTests" />
     </classes>
   </test>
 </suite>

@@ -18,6 +18,7 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -30,19 +31,18 @@ public class MenuTests extends BaseTest {
   public void buttonVisibility() throws Throwable {
     try {
       openLocation();
-      selenium().click("headerMenuButton");
-      waitForPageToLoad();
-      assertRegExp(".*/catroid/menu$", selenium().getLocation());
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
 
-      assertTrue(selenium().isVisible("menuRegistrationButton"));
-      assertTrue(selenium().isVisible("menuForumButton"));
-      assertTrue(selenium().isVisible("menuWikiButton"));
+      assertTrue(isVisible(By.id("menuRegistrationButton")));
+      assertTrue(isVisible(By.id("menuForumButton")));
+      assertTrue(isVisible(By.id("menuWikiButton")));
 
-      assertTrue(selenium().isVisible("menuWallButton"));
-      assertTrue(selenium().isVisible("menuSettingsButton"));
+      assertTrue(isVisible(By.id("menuWallButton")));
+      assertTrue(isVisible(By.id("menuSettingsButton")));
 
-      assertFalse(selenium().isEditable("menuWallButton"));
-      assertFalse(selenium().isEditable("menuSettingsButton"));
+      assertFalse(isEditable(By.id("menuWallButton")));
+      assertFalse(isEditable(By.id("menuSettingsButton")));
       // TODO LOGIN BROKEN
       // selenium().click("menuLoginButton");
       // waitForPageToLoad();
@@ -81,21 +81,20 @@ public class MenuTests extends BaseTest {
   public void boardAndWikiLinks() throws Throwable {
     try {
       openLocation();
-      selenium().click("headerMenuButton");
-      waitForPageToLoad();
-      assertRegExp(".*/catroid/menu$", selenium().getLocation());
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
 
-      clickAndWaitForPopUp("menuForumButton", "board");
-      assertRegExp(".*/addons/board(/)?$", selenium().getLocation());
-      assertTrue(selenium().isTextPresent(("Board index")));
-      assertTrue(selenium().isTextPresent(("Login")));
+      clickAndWaitForPopUp(By.id("menuForumButton"));
+      assertRegExp(".*/addons/board(/)?$", driver().getCurrentUrl());
+      assertTrue(isTextPresent(("Board index")));
+      assertTrue(isTextPresent(("Login")));
       closePopUp();
 
-      clickAndWaitForPopUp("menuWikiButton", "wiki");
-      assertRegExp(".*/wiki/Main_Page$", selenium().getLocation());
+      clickAndWaitForPopUp(By.id("menuWikiButton"));
+      assertRegExp(".*/wiki/Main_Page$", driver().getCurrentUrl());
 
-      assertTrue(selenium().isTextPresent(("Main Page")));
-      assertFalse(selenium().isElementPresent("pt-userpage"));
+      assertTrue(isTextPresent(("Main Page")));
+      assertFalse(isElementPresent(By.id("pt-userpage")));
       closePopUp();
       // TODO Login Broken
       // selenium().click("menuLoginButton");
@@ -140,15 +139,13 @@ public class MenuTests extends BaseTest {
   public void homeButton() throws Throwable {
     try {
       openLocation();
-      selenium().click("headerMenuButton");
-      waitForPageToLoad();
-      assertRegExp(".*/catroid/menu$", selenium().getLocation());
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
 
-      assertTrue(selenium().isElementPresent("headerHomeButton"));
-      selenium().click("headerHomeButton");
-      waitForPageToLoad();
-      assertFalse(selenium().isElementPresent("headerHomeButton"));
-      assertRegExp(".*/catroid/index(/[0-9]+)?", selenium().getLocation());
+      assertTrue(isElementPresent(By.id("headerHomeButton")));
+      driver().findElement(By.id("headerHomeButton")).click();
+      assertFalse(isElementPresent(By.id("headerHomeButton")));
+      assertRegExp(".*/catroid/index(/[0-9]+)?", driver().getCurrentUrl());
     } catch(AssertionError e) {
       captureScreen("MenuTests.homeButton");
       throw e;

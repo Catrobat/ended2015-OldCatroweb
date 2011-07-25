@@ -54,9 +54,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 
-import com.thoughtworks.selenium.Selenium;
-import com.thoughtworks.selenium.SeleniumException;
-
 import at.tugraz.ist.catroweb.common.CommonFunctions;
 import at.tugraz.ist.catroweb.common.CommonStrings;
 import at.tugraz.ist.catroweb.common.Config;
@@ -65,7 +62,6 @@ import at.tugraz.ist.catroweb.common.ProjectUploader;
 public class BaseTest {
   protected ProjectUploader projectUploader;
   protected String webSite;
-  protected Map<String, Selenium> seleniumSessions;
   protected Map<String, WebDriver> driverSessions;
 
   @BeforeClass(alwaysRun = true)
@@ -74,7 +70,6 @@ public class BaseTest {
     this.webSite = webSite;
     Config.setSeleniumGridTestdata(basedir);
     projectUploader = new ProjectUploader(webSite);
-    this.seleniumSessions = Collections.synchronizedMap(new HashMap<String, Selenium>());
     this.driverSessions = Collections.synchronizedMap(new HashMap<String, WebDriver>());
   }
 
@@ -93,12 +88,6 @@ public class BaseTest {
     } else if(browser.matches("^android$")) {
       startAndroidSession(seleniumHost, seleniumPort, browser, webSite, method.getName());
     }
-
-    /*
-     * Selenium selenium = new WebDriverBackedSelenium(driver(), webSite);
-     * selenium.setSpeed(setSpeed()); selenium.setTimeout(Config.TIMEOUT); //
-     * selenium = null;
-     */
   }
 
   protected void startFirefoxSession(String seleniumHost, int seleniumPort, String method) {
@@ -149,10 +138,6 @@ public class BaseTest {
     log("..." + methodName + " done");
   }
 
-  protected Selenium selenium() {
-    return getSeleniumObject(getCalleeName());
-  }
-
   protected WebDriver driver() {
     return getDriverObject(getCalleeName());
   }
@@ -164,13 +149,6 @@ public class BaseTest {
       if(entry.matches("at.tugraz.ist.catroweb.*") && !entry.matches("at.tugraz.ist.catroweb.BaseTest.*")) {
         return item.getMethodName();
       }
-    }
-    return null;
-  }
-
-  private Selenium getSeleniumObject(String key) {
-    if(this.seleniumSessions.containsKey(key)) {
-      return this.seleniumSessions.get(key);
     }
     return null;
   }
@@ -209,6 +187,10 @@ public class BaseTest {
 
   public boolean isVisible(By selector) {
     return (driver().findElement(selector)).isDisplayed();
+  }
+  
+  public boolean isEditable(By selector) {
+    return (driver().findElement(selector)).isEnabled();
   }
 
   protected void openLocation() {
@@ -249,11 +231,6 @@ public class BaseTest {
     driver().switchTo().window(popUpWindow);
   }
 
-  protected void clickAndWaitForPopUp(String xpath, String windowname) {
-    log("clickAndWaitForPopUp(String xpath, String windowname) is deprecated use clickAndWaitForPopUp(String xpath) instead!");
-    clickAndWaitForPopUp(By.xpath(xpath.replace("xpath=", "")));
-  }
-
   protected void closePopUp() {
     driver().close();
     Set<String> windowList = driver().getWindowHandles();
@@ -285,35 +262,9 @@ public class BaseTest {
     assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
   }
 
-  public void waitForPageToLoad() {
-    log("waitForPageToLoad is deprecated, just remove to function call");
-    selenium().waitForPageToLoad(Config.TIMEOUT);
-  }
-
   public void waitForElementPresent(By selector) {
     Wait<WebDriver> wait = new WebDriverWait(driver(), Config.TIMEOUT_WAIT);
     wait.until(elementPresent(selector));
-  }
-
-  public void waitForElementPresent(String locator) {
-    log("waitForElementPresent is deprecated, just remove to function call");
-    selenium().waitForCondition("value = selenium.isElementPresent('" + locator.replace("'", "\\'") + "'); value == true", Config.WAIT_FOR_PAGE_TO_LOAD);
-  }
-
-  protected void waitForTextPresent(String text) {
-    log("waitForTextPresent is deprecated, just remove to function call");
-    boolean wait = true;
-    while(wait) {
-      try {
-        selenium().waitForCondition("value = selenium.isTextPresent('" + text + "'); value == true", Config.WAIT_FOR_PAGE_TO_LOAD);
-        wait = false;
-      } catch(SeleniumException e) {
-        if(e.getMessage().matches(".*Timed out after.*")) {
-          wait = false;
-        }
-      }
-    }
-    assertTrue(selenium().isTextPresent(text));
   }
 
   public void clickLastVisibleProject() {
