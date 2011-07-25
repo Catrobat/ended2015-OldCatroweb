@@ -441,11 +441,15 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function incorrectPostData() {
     $validFileName = 'test.zip';
     $invalidFileName = 'nonExistingFile.zip';
+    $corruptFileName = 'test_invalid_projectfile.zip';
     $validTestFile = dirname(__FILE__).'/testdata/'.$validFileName;
     $invalidTestFile = dirname(__FILE__).'/testdata/'.$invalidFileName;
+    $corruptTestFile = dirname(__FILE__).'/testdata/'.$corruptFileName;
     $validFileChecksum = md5_file($validTestFile);
+    $corruptFileChecksum = md5_file($corruptTestFile);
     $invalidFileChecksum = 'invalidfilechecksum';
     $validFileSize = filesize($validTestFile);
+    $corruptFileSize = filesize($corruptTestFile);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
     array('unitTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, $validFileChecksum, 0, $fileType, 504),
@@ -456,7 +460,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('unitTestFail3', 'this project has a too large project file', $validTestFile, $validFileName, $validFileChecksum, 200000000, $fileType, 508),
     array('defaultProject', 'this project has the default save file set.', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 507),
     array('my fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 506),
-    array('insulting description', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 505)
+    array('insulting description', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 505),
+    array('invalid project xml', 'this project contains an corrupt spf xml file', $corruptTestFile, $corruptFileName, $corruptFileChecksum, $corruptFileSize, $fileType, 511)
     );
     return $dataArray;
   }
