@@ -18,8 +18,6 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -38,8 +36,8 @@ public class WebsiteTitleTests extends BaseTest {
     try {
       openLocation("catroid/"+actualPage);
       waitForPageToLoad();
-      website_html_title = session().getTitle();
-      website_title = session().getText("xpath=//div[@class='webMainContentTitle']");
+      website_html_title = selenium().getTitle();
+      website_title = selenium().getText("xpath=//div[@class='webMainContentTitle']");
       assertTrue(website_html_title.matches(".*"+website_title+".*"));
     } catch(AssertionError e) {
       captureScreen("LicenseTests.privacyPolicy");

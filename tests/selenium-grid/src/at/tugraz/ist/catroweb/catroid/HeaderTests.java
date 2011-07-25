@@ -18,8 +18,7 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -32,23 +31,21 @@ public class HeaderTests extends BaseTest {
   public void headerMenuButtons() throws Throwable {
     try {
       openLocation();
-      assertFalse(session().isElementPresent("headerHomeButton"));
-      assertTrue(session().isVisible("headerMenuButton"));
-      assertTrue(session().isVisible("headerProfileButton"));
+      assertFalse(isElementPresent(By.id("headerHomeButton")));
+      assertTrue(isVisible(By.id("headerMenuButton")));
+      assertTrue(isVisible(By.id("headerProfileButton")));
 
-      session().click("headerMenuButton");
-      waitForPageToLoad();
-      assertTrue(session().isVisible("headerHomeButton"));
-      assertFalse(session().isElementPresent("headerMenuButton"));
-      assertTrue(session().isVisible("headerProfileButton"));
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertTrue(isVisible(By.id("headerHomeButton")));
+      assertFalse(isElementPresent(By.id("headerMenuButton")));
+      assertTrue(isVisible(By.id("headerProfileButton")));
 
-      session().click("headerHomeButton");
-      waitForPageToLoad();
+      driver().findElement(By.id("headerHomeButton")).click();
       ajaxWait();
-      assertRegExp(".*/catroid/index(/[0-9]+)?", session().getLocation());
-      assertTrue(session().isVisible("headerMenuButton"));
-      assertTrue(session().isVisible("headerProfileButton"));
-      assertFalse(session().isElementPresent("headerHomeButton"));
+      assertRegExp(".*/catroid/index(/[0-9]+)?", driver().getCurrentUrl());
+      assertTrue(isVisible(By.id("headerMenuButton")));
+      assertTrue(isVisible(By.id("headerProfileButton")));
+      assertFalse(isElementPresent(By.id("headerHomeButton")));
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerMenuButtons");
       throw e;
@@ -64,31 +61,30 @@ public class HeaderTests extends BaseTest {
       openLocation();
       ajaxWait();
 
-      assertFalse(session().isVisible("headerSearchBox"));
-      assertFalse(session().isVisible("headerCancelButton"));
-      assertTrue(session().isVisible("headerSearchButton"));
-      assertTrue(session().isVisible("headerMenuButton"));
-      assertTrue(session().isVisible("headerProfileButton"));
+      assertFalse(isVisible(By.id("headerSearchBox")));
+      assertFalse(isVisible(By.id("headerCancelButton")));
+      assertTrue(isVisible(By.id("headerSearchButton")));
+      assertTrue(isVisible(By.id("headerMenuButton")));
+      assertTrue(isVisible(By.id("headerProfileButton")));
 
-      session().click("headerSearchButton");
+      driver().findElement(By.id("headerSearchButton")).click();
       ajaxWait();
-      assertTrue(session().isVisible("headerSearchBox"));
-      assertTrue(session().isVisible("headerCancelButton"));
-      assertFalse(session().isVisible("headerSearchButton"));
-      assertFalse(session().isVisible("headerMenuButton"));
-      assertFalse(session().isVisible("headerProfileButton"));
+      assertTrue(isVisible(By.id("headerSearchBox")));
+      assertTrue(isVisible(By.id("headerCancelButton")));
+      assertFalse(isVisible(By.id("headerSearchButton")));
+      assertFalse(isVisible(By.id("headerMenuButton")));
+      assertFalse(isVisible(By.id("headerProfileButton")));
 
-      session().click("headerCancelButton");
+      driver().findElement(By.id("headerCancelButton")).click();
       ajaxWait();
-      assertFalse(session().isVisible("headerSearchBox"));
-      assertFalse(session().isVisible("headerCancelButton"));
-      assertTrue(session().isVisible("headerSearchButton"));
-      assertTrue(session().isVisible("headerMenuButton"));
-      assertTrue(session().isVisible("headerProfileButton"));
+      assertFalse(isVisible(By.id("headerSearchBox")));
+      assertFalse(isVisible(By.id("headerCancelButton")));
+      assertTrue(isVisible(By.id("headerSearchButton")));
+      assertTrue(isVisible(By.id("headerMenuButton")));
+      assertTrue(isVisible(By.id("headerProfileButton")));
 
-      session().click("headerMenuButton");
-      waitForPageToLoad();
-      assertRegExp(".*/catroid/menu$", session().getLocation());
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerButtonsIndex");
       throw e;
@@ -103,26 +99,23 @@ public class HeaderTests extends BaseTest {
     try {
       openLocation();
 
-      assertTrue(session().isVisible("headerMenuButton"));
-      assertTrue(session().isVisible("headerSearchButton"));
-      assertFalse(session().isElementPresent("headerHomeButton"));
+      assertTrue(isVisible(By.id("headerMenuButton")));
+      assertTrue(isVisible(By.id("headerSearchButton")));
+      assertFalse(isElementPresent(By.id("headerHomeButton")));
 
-      session().click("xpath=//a[@class='license'][4]");
-      waitForPageToLoad();
-      Thread.sleep(500);
-      assertTrue(session().isVisible("headerHomeButton"));
-      assertTrue(session().isVisible("headerMenuButton"));
-      assertTrue(session().isVisible("headerProfileButton"));
-      assertFalse(session().isElementPresent("headerSearchButton"));
+      driver().findElement(By.xpath("//a[@class='license'][4]")).click();
+      assertTrue(isVisible(By.id("headerHomeButton")));
+      assertTrue(isVisible(By.id("headerMenuButton")));
+      assertTrue(isVisible(By.id("headerProfileButton")));
+      assertFalse(isElementPresent(By.id("headerSearchButton")));
 
-      session().click("aIndexWebLogoLeft");
-      waitForPageToLoad();
+      driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
 
-      assertTrue(session().isVisible("headerMenuButton"));
-      assertTrue(session().isVisible("headerSearchButton"));
-      assertTrue(session().isVisible("headerProfileButton"));
-      assertFalse(session().isElementPresent("headerHomeButton"));
+      assertTrue(isVisible(By.id("headerMenuButton")));
+      assertTrue(isVisible(By.id("headerSearchButton")));
+      assertTrue(isVisible(By.id("headerProfileButton")));
+      assertFalse(isElementPresent(By.id("headerHomeButton")));
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerHomeButton");
       throw e;

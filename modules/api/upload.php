@@ -342,23 +342,6 @@ class upload extends CoreAuthenticationDevice {
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
-  private function sendUnapprovedWordlistPerEmail() {
-    $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
-    $mailSubject = '';
-    $unapprovedWordCount = count($unapprovedWords);
-    if($unapprovedWordCount > 1) $mailSubject = 'There are '.$unapprovedWordCount.' new unapproved words!';
-    else $mailSubject = 'There is '.$unapprovedWordCount.' new unapproved word!';
-
-    $mailText = "Hello catroid.org Administrator!\n\n";
-    $mailText .= "New word(s):\n";
-    for($i = 0; $i < $unapprovedWordCount; $i++) {
-      $mailText .= $unapprovedWords[$i].(($unapprovedWordCount-1 == $i) ? "" : ", ");
-    }
-    $mailText .= "You should check this! <a href='".BASE_PATH."admin/tools/approveWords'>follow me!</a>";
-
-    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
-  }
-
   private function sendUploadFailAdminEmail($formData, $fileData, $serverData) {
     $mailSubject = 'Upload of a project failed!';
     $mailText = "Hello catroid.org Administrator!\n\n";
@@ -380,6 +363,24 @@ class upload extends CoreAuthenticationDevice {
     $mailText .= "User IP: ".$serverData['REMOTE_ADDR']."\n";
 
     $mailText .= "You should check this!";
+
+    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+  }
+
+  public function sendUnapprovedWordlistPerEmail() {
+    $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
+
+    $mailSubject = '';
+    $unapprovedWordCount = count($unapprovedWords);
+    if($unapprovedWordCount > 1) $mailSubject = 'There are '.$unapprovedWordCount.' new unapproved words!';
+    else $mailSubject = 'There is '.$unapprovedWordCount.' new unapproved word!';
+
+    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText .= "New word(s):\n";
+    for($i = 0; $i < $unapprovedWordCount; $i++) {
+      $mailText .= $unapprovedWords[$i].(($unapprovedWordCount-1 == $i) ? "" : ", ");
+    }
+    $mailText .= "You should check this! <a href='".BASE_PATH."admin/tools/approveWords'>follow me!</a>";
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
