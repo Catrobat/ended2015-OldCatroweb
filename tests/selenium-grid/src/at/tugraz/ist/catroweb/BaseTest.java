@@ -25,6 +25,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -205,7 +206,7 @@ public class BaseTest {
       return false;
     }
   }
-  
+
   public boolean isVisible(By selector) {
     return (driver().findElement(selector)).isDisplayed();
   }
@@ -316,22 +317,19 @@ public class BaseTest {
   }
 
   public void clickLastVisibleProject() {
-    while(selenium().isVisible("moreProjects")) {
-      selenium().click("moreProjects");
+    while(driver().findElement(By.id("moreProjects")).isDisplayed()) {
+      driver().findElement(By.id("moreProjects")).click();
       ajaxWait();
     }
-    String[] allLinks = selenium().getAllLinks();
-    String lastLink = "";
-    for(String link : allLinks) {
-      try {
-        if((link.matches("projectListDetailsLinkThumb.*")) && (selenium().isVisible(link))) {
-          lastLink = link;
-        }
-      } catch(Exception e) {
+
+    WebElement lastLink = null;
+    List<WebElement> allLinks = driver().findElements(By.tagName("a"));
+    for(WebElement link : allLinks) {
+      if(link.getAttribute("class").equals("projectListDetailsLinkBold") && link.isDisplayed()) {
+        lastLink = link;
       }
     }
-    selenium().click(lastLink);
-    waitForPageToLoad();
+    lastLink.click();
   }
 
   protected void log(int message) {

@@ -133,7 +133,9 @@ public class DetailsTests extends BaseTest {
       ajaxWait();
       driver().findElement(By.id("reportAsInappropriateButton")).click();
       driver().findElement(By.id("reportInappropriateReason")).sendKeys("my selenium reason 2");
-      driver().findElement(By.id("reportInappropriateReason")).sendKeys(Keys.ENTER);
+      driver().findElement(By.id("reportInappropriateReason")).sendKeys("\n"); // press
+                                                                               // enter
+      ajaxWait();
       assertFalse(isVisible(By.id("reportInappropriateReason")));
       assertTrue(isTextPresent("You reported this project as inappropriate!"));
 
@@ -158,18 +160,17 @@ public class DetailsTests extends BaseTest {
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
       openLocation("catroid/details/" + projectId);
 
-      assertTrue(selenium().isElementPresent("showFullDescriptionButton"));
-      String shortDescriptionFromPage = selenium().getText("xpath=//p[@id='detailsDescription']");
+      assertTrue(isElementPresent(By.id("showFullDescriptionButton")));
+      String shortDescriptionFromPage = driver().findElement(By.id("detailsDescription")).getText();
       assertFalse(shortDescriptionFromPage.equals(dataset.get("projectDescription")));
 
-      selenium().click("showFullDescriptionButton");
-      String fullDescriptionFromPage = selenium().getText("xpath=//p[@id='detailsDescription']");
+      driver().findElement(By.id("showFullDescriptionButton")).click();
+      String fullDescriptionFromPage = driver().findElement(By.id("detailsDescription")).getText();
       assertTrue(fullDescriptionFromPage.equals(dataset.get("projectDescription")));
       assertFalse(fullDescriptionFromPage.equals(shortDescriptionFromPage));
-      assertTrue(selenium().isElementPresent("showShortDescriptionButton"));
-      selenium().click("showShortDescriptionButton");
-      Thread.sleep(Config.TIMEOUT_THREAD);
-      assertEquals(shortDescriptionFromPage, selenium().getText("xpath=//p[@id='detailsDescription']"));
+      assertTrue(isElementPresent(By.id("showShortDescriptionButton")));
+      driver().findElement(By.id("showShortDescriptionButton")).click();
+      assertEquals(shortDescriptionFromPage, driver().findElement(By.id("detailsDescription")).getText());
     } catch(AssertionError e) {
       captureScreen("DetailsTests.moreButton." + dataset.get("projectTitle"));
       throw e;
@@ -189,17 +190,15 @@ public class DetailsTests extends BaseTest {
 
       if(qrCodeFile.exists()) {
         assertTrue(qrCodeFile.renameTo(qrCodeFileNew));
-        selenium().refresh();
-        waitForPageToLoad();
+        driver().navigate().refresh();
         ajaxWait();
-        assertFalse(selenium().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
+        assertFalse(isElementPresent(By.xpath("//img[@class='projectDetailsQRImage']")));
         assertTrue(qrCodeFileNew.renameTo(qrCodeFile));
-        selenium().refresh();
-        waitForPageToLoad();
+        driver().navigate().refresh();
         ajaxWait();
-        assertTrue(selenium().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
+        assertTrue(isElementPresent(By.xpath("//img[@class='projectDetailsQRImage']")));
       } else {
-        assertFalse(selenium().isElementPresent("xpath=//img[@class='projectDetailsQRImage']"));
+        assertFalse(isElementPresent(By.xpath("//img[@class='projectDetailsQRImage']")));
       }
     } catch(AssertionError e) {
       captureScreen("DetailsTests.QRCodeImage");
@@ -216,22 +215,22 @@ public class DetailsTests extends BaseTest {
       openLocation();
       ajaxWait();
       clickLastVisibleProject();
-      waitForElementPresent("xpath=//button[@id='showQrCodeInfoButton']");
+      ajaxWait();
 
-      assertTrue(selenium().isElementPresent("xpath=//button[@id='showQrCodeInfoButton']"));
-      assertTrue(selenium().isElementPresent("xpath=//div[@id='qrcodeInfo']"));
-      assertTrue(selenium().isElementPresent("xpath=//button[@id='hideQrCodeInfoButton']"));
-      assertTrue(selenium().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
-      assertFalse(selenium().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
-      assertFalse(selenium().isVisible("xpath=//div[@id='qrcodeInfo']"));
-      selenium().click("showQrCodeInfoButton");
-      assertFalse(selenium().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
-      assertTrue(selenium().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
-      assertTrue(selenium().isVisible("xpath=//div[@id='qrcodeInfo']"));
-      selenium().click("hideQrCodeInfoButton");
-      assertTrue(selenium().isVisible("xpath=//button[@id='showQrCodeInfoButton']"));
-      assertFalse(selenium().isVisible("xpath=//button[@id='hideQrCodeInfoButton']"));
-      assertFalse(selenium().isVisible("xpath=//div[@id='qrcodeInfo']"));
+      assertTrue(isElementPresent(By.id("showQrCodeInfoButton")));
+      assertTrue(isElementPresent(By.id("qrcodeInfo")));
+      assertTrue(isElementPresent(By.id("hideQrCodeInfoButton")));
+      assertTrue(isVisible(By.id("showQrCodeInfoButton")));
+      assertFalse(isVisible(By.id("hideQrCodeInfoButton")));
+      assertFalse(isVisible(By.id("qrcodeInfo")));
+      driver().findElement(By.id("showQrCodeInfoButton")).click();
+      assertFalse(isVisible(By.id("showQrCodeInfoButton")));
+      assertTrue(isVisible(By.id("hideQrCodeInfoButton")));
+      assertTrue(isVisible(By.id("qrcodeInfo")));
+      driver().findElement(By.id("hideQrCodeInfoButton")).click();
+      assertTrue(isVisible(By.id("showQrCodeInfoButton")));
+      assertFalse(isVisible(By.id("hideQrCodeInfoButton")));
+      assertFalse(isVisible(By.id("qrcodeInfo")));
     } catch(AssertionError e) {
       captureScreen("DetailsTests.QRCodeInfo");
       throw e;
@@ -247,9 +246,10 @@ public class DetailsTests extends BaseTest {
       openLocation();
       ajaxWait();
       clickLastVisibleProject();
-      waitForElementPresent("xpath=//span[@class='detailsDownloadButtonText']");
-      assertRegExp(".*Download.*MB.*", selenium().getText("xpath=//span[@class='detailsDownloadButtonText']"));
-
+      ajaxWait();
+      
+      assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
+      assertRegExp(".*Download.*MB.*", driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText());
     } catch(AssertionError e) {
       captureScreen("DetailsTests.ProjectSizeInfo");
       throw e;
@@ -264,10 +264,10 @@ public class DetailsTests extends BaseTest {
     try {
       String invalidProject = CommonData.getRandomShortString(10);
       openLocation("catroid/details/" + invalidProject);
-      assertRegExp(".*/catroid/errorPage", selenium().getLocation());
-      assertTrue(selenium().isTextPresent("No entry was found for the given ID.:"));
-      assertTrue(selenium().isTextPresent("ID: " + invalidProject));
-      assertFalse(selenium().isElementPresent("xpath=//div[@class='detailsFlexDiv']"));
+      assertRegExp(".*/catroid/errorPage", driver().getCurrentUrl());
+      assertTrue(isTextPresent("No entry was found for the given ID.:"));
+      assertTrue(isTextPresent("ID: " + invalidProject));
+      assertFalse(isElementPresent(By.xpath("//div[@class='detailsFlexDiv']")));
     } catch(AssertionError e) {
       captureScreen("DetailsTests.invalidProjectID");
       throw e;

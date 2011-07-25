@@ -23,6 +23,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.openqa.selenium.By;
 import org.postgresql.Driver;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -41,12 +42,12 @@ public class BlockedIpTests extends BaseTest {
       openLocation();
       blockIp(blockedIp);
       openLocation("catroid/details/" + projectId);
-      assertTrue(selenium().isElementPresent("xpath=//div[@class='errorMessage']"));
-      assertTrue(selenium().isTextPresent("Your IP-Address has been blocked."));
+      assertTrue(isElementPresent(By.xpath("//div[@class='errorMessage']")));
+      assertTrue(isTextPresent("Your IP-Address has been blocked."));
 
       openLocation();
-      assertTrue(selenium().isElementPresent("xpath=//div[@class='errorMessage']"));
-      assertTrue(selenium().isTextPresent("Your IP-Address has been blocked."));
+      assertTrue(isElementPresent(By.xpath("//div[@class='errorMessage']")));
+      assertTrue(isTextPresent("Your IP-Address has been blocked."));
       unblockIp(blockedIp);
     } catch(AssertionError e) {
       captureScreen("BlockedIpTests.blockedIps." + blockedIp);
@@ -63,12 +64,12 @@ public class BlockedIpTests extends BaseTest {
     	unblockAllIPs();
       blockIp(unblockedIp);
       openLocation("catroid/details/" + projectId);
-      assertFalse(selenium().isElementPresent("xpath=//div[@class='errorMessage']"));
-      assertFalse(selenium().isTextPresent("Your IP-Address has been blocked."));
+      assertFalse(isElementPresent(By.xpath("//div[@class='errorMessage']")));
+      assertFalse(isTextPresent("Your IP-Address has been blocked."));
 
       openLocation();
-      assertFalse(selenium().isElementPresent("xpath=//div[@class='errorMessage']"));
-      assertFalse(selenium().isTextPresent("Your IP-Address has been blocked."));
+      assertFalse(isElementPresent(By.xpath("//div[@class='errorMessage']")));
+      assertFalse(isTextPresent("Your IP-Address has been blocked."));
       unblockIp(unblockedIp);
     } catch(AssertionError e) {
       captureScreen("BlockedIpTests.unblockedIps." + unblockedIp);

@@ -18,6 +18,8 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -29,49 +31,49 @@ public class IndexTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "location tests")
   public void location() throws Throwable {
-    String longpagenr = "99999999";
+    String longPageNr = "99999999";
     try {
-      openLocation("catroid/index/"+longpagenr);
+      openLocation("catroid/index/" + longPageNr);
       ajaxWait();
 
-      assertTrue(selenium().getTitle().matches("^Catroid Website -.*"));
-      assertTrue(selenium().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+      assertTrue(driver().getTitle().matches("^Catroid Website -.*"));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
       // random page nr should redirect to last page
       if(CommonFunctions.getProjectsCount(true) > Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * Config.PROJECT_PAGE_SHOW_MAX_PAGES) {
-        assertTrue(selenium().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
-        assertFalse(selenium().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
+        assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
+        assertFalse(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
       }
-      
+
       // random string instead of page nr should redirect to first page
       String location = CommonData.getRandomLongString(20);
       openLocation("catroid/index/" + location);
       ajaxWait();
-      
-      assertTrue(selenium().getTitle().matches("^Catroid Website -.*"));
-      assertTrue(selenium().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
-      assertFalse(selenium().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
+
+      assertTrue(driver().getTitle().matches("^Catroid Website -.*"));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+      assertFalse(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
 
       location = CommonData.getRandomLongString(200);
       openLocation("catroid/details/" + location);
       ajaxWait();
       // test page title and header title
-      assertRegExp(".*/catroid/errorPage", selenium().getLocation());
-      assertTrue(selenium().isTextPresent(location));
-      
+      assertRegExp(".*/catroid/errorPage", driver().getCurrentUrl());
+      assertTrue(isTextPresent(location));
+
       // random page nr should redirect to last page
-      openLocation("catroid/search/?q=test&p="+longpagenr);
+      openLocation("catroid/search/?q=test&p=" + longPageNr);
       ajaxWait();
-      assertRegExp(".*/catroid/search/[?]q=test[&]p=(?!"+longpagenr+").*", selenium().getLocation());
-      assertTrue(selenium().isElementPresent("xpath=//a[@href='"+ this.webSite + "catroid/details/1']"));
+      assertRegExp(".*/catroid/search/[?]q=test[&]p=(?!" + longPageNr + ").*", driver().getCurrentUrl());
+      assertTrue(isElementPresent(By.xpath("//a[@href='" + this.webSite + "catroid/details/1']")));
 
       // random string instead of page nr should redirect to first page
-      openLocation("catroid/search/?q=test&p="+CommonData.getRandomShortString(10));
+      openLocation("catroid/search/?q=test&p=" + CommonData.getRandomShortString(10));
       ajaxWait();
-      assertRegExp(".*/catroid/search/[?]q=test[&]p=1.*", selenium().getLocation());
-      
+      assertRegExp(".*/catroid/search/[?]q=test[&]p=1.*", driver().getCurrentUrl());
+
       openLocation("catroid/profile");
       ajaxWait();
-      assertRegExp(".*/catroid/login.*", selenium().getLocation());
+      assertRegExp(".*/catroid/login.*", driver().getCurrentUrl());
     } catch(AssertionError e) {
       captureScreen("IndexTests.location");
       throw e;
@@ -87,36 +89,33 @@ public class IndexTests extends BaseTest {
       openLocation();
       ajaxWait();
       // test page title and header title
-      assertTrue(selenium().getTitle().matches("^Catroid Website.*"));
-      waitForTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE);
+      assertTrue(driver().getTitle().matches("^Catroid Website.*"));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
 
       // test catroid header text
-      assertTrue(selenium().isElementPresent("xpath=//img[@class='catroidLettering']"));
+      assertTrue(isElementPresent(By.xpath("//img[@class='catroidLettering']")));
       // test logo link
-      assertTrue(selenium().isElementPresent("xpath=//div[@class='webHeadLogo']"));
-      selenium().click("xpath=//div[@id='aIndexWebLogoLeft']");
+      assertTrue(isElementPresent(By.xpath("//div[@class='webHeadLogo']")));
+      driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
       // test catroid download link
-      assertTrue(selenium().isElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']"));
-      clickAndWaitForPopUp("xpath=//a[@id='aIndexWebLogoMiddle']", "_blank");
-      assertTrue(selenium().isTextPresent("Catroid_0-4-3d.apk"));
-      assertTrue(selenium().isTextPresent("Paintroid_0.6.4b.apk"));
+      assertTrue(isElementPresent(By.id("aIndexWebLogoMiddle")));
+      clickAndWaitForPopUp(By.id("aIndexWebLogoMiddle"));
+      assertTrue(isTextPresent("Catroid_0-4-3d.apk"));
+      assertTrue(isTextPresent("Paintroid_0.6.4b.apk"));
       closePopUp();
 
       clickLastVisibleProject();
-      assertRegExp(".*/catroid/details/[0-9]+", selenium().getLocation());
-      selenium().goBack();
-      waitForPageToLoad();
+      assertRegExp(".*/catroid/details/[0-9]+", driver().getCurrentUrl());
+      driver().navigate().back();
       ajaxWait();
-      waitForTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE);
-      waitForElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']");
-      assertTrue(selenium().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
-      assertTrue(selenium().isElementPresent("xpath=//a[@id='aIndexWebLogoMiddle']"));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+      assertTrue(isElementPresent(By.id("aIndexWebLogoMiddle")));
 
       // test home link
-      selenium().click("xpath=//div[@id='aIndexWebLogoLeft']");
+      driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
-      assertTrue(selenium().isElementPresent("xpath=//img[@class='catroidLettering']"));
+      assertTrue(isElementPresent(By.xpath("//img[@class='catroidLettering']")));
     } catch(AssertionError e) {
       captureScreen("IndexTests.index");
       throw e;
@@ -132,46 +131,43 @@ public class IndexTests extends BaseTest {
       for(int i = 0; i < Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1); i++) {
         projectUploader.upload();
       }
-      
+
       openLocation();
       ajaxWait();
-      assertFalse(selenium().isVisible("fewerProjects"));
-      assertTrue(selenium().isVisible("moreProjects"));
-      assertTrue(selenium().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
+      assertFalse(isVisible(By.id("fewerProjects")));
+      assertTrue(isVisible(By.id("moreProjects")));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
       int i = 0;
       for(i = 0; i < Config.PROJECT_PAGE_SHOW_MAX_PAGES; i++) {
-        selenium().click("moreProjects");
+        driver().findElement(By.id("moreProjects")).click();
         ajaxWait();
-        assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (i + 2) + "$", selenium().getTitle());
+        assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (i + 2) + "$", driver().getTitle());
       }
 
-      assertTrue(selenium().isVisible("fewerProjects"));
-      assertTrue(selenium().isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
-      selenium().click("fewerProjects");
+      assertTrue(isVisible(By.id("fewerProjects")));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_PREV_BUTTON));
+      driver().findElement(By.id("fewerProjects")).click();
       ajaxWait();
-      assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (i) + "$", selenium().getTitle());
+      assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (i) + "$", driver().getTitle());
 
       // test session
-      selenium().refresh();
-      waitForPageToLoad();
+      driver().navigate().refresh();
       ajaxWait();
-      waitForTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE);
-      assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (i) + "$", selenium().getTitle());
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+      assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (i) + "$", driver().getTitle());
 
       // test links to details page
-      selenium().click("xpath=//a[@class='projectListDetailsLink']");
-      waitForPageToLoad();
-      assertRegExp(".*/catroid/details.*", selenium().getLocation());
-      selenium().goBack();
-      waitForPageToLoad();
+      driver().findElement(By.xpath("//a[@class='projectListDetailsLink']")).click();
+      assertRegExp(".*/catroid/details.*", driver().getCurrentUrl());
+      driver().navigate().back();
       ajaxWait();
-      waitForTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE);
-      assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (i) + "$", selenium().getTitle());
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+      assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (i) + "$", driver().getTitle());
 
       // test header click
-      selenium().click("aIndexWebLogoLeft");
+      driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
-      assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (1) + "$", selenium().getTitle());
+      assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (1) + "$", driver().getTitle());
     } catch(AssertionError e) {
       captureScreen("IndexTests.pageNavigation");
       throw e;
@@ -185,19 +181,17 @@ public class IndexTests extends BaseTest {
   public void languageSelect() throws Throwable {
     try {
       openLocation("catroid/imprint/");
-      assertTrue(selenium().isTextPresent("Graz University of Technology"));
-      assertTrue(selenium().isElementPresent("xpath=//html[@lang='" + Config.SITE_DEFAULT_LANGUAGE + "']"));
+      assertTrue(isTextPresent("Graz University of Technology"));
+      assertTrue(isElementPresent(By.xpath("//html[@lang='" + Config.SITE_DEFAULT_LANGUAGE + "']")));
       openLocation("catroid/imprint/", false);
-      assertTrue(selenium().isElementPresent("switchLanguage"));
-      selenium().select("switchLanguage", "value=de");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Technische Universität Graz"));
-      assertTrue(selenium().isElementPresent("switchLanguage"));
-      assertTrue(selenium().isElementPresent("xpath=//html[@lang='de']"));
-      selenium().select("switchLanguage", "value=en");
-      waitForPageToLoad();
-      assertTrue(selenium().isTextPresent("Graz University of Technology"));
-      assertTrue(selenium().isElementPresent("xpath=//html[@lang='en']"));
+      assertTrue(isElementPresent(By.id("switchLanguage")));
+      (new Select(driver().findElement(By.id("switchLanguage")))).selectByValue("de");
+      assertTrue(isTextPresent("Technische Universität Graz"));
+      assertTrue(isElementPresent(By.id("switchLanguage")));
+      assertTrue(isElementPresent(By.xpath("//html[@lang='de']")));
+      (new Select(driver().findElement(By.id("switchLanguage")))).selectByValue("en");
+      assertTrue(isTextPresent("Graz University of Technology"));
+      assertTrue(isElementPresent(By.xpath("//html[@lang='en']")));
     } catch(AssertionError e) {
       captureScreen("IndexTests.pageNavigation");
       throw e;
