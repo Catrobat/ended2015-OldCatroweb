@@ -141,10 +141,11 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
     $this->assertTrue($this->upload->projectId > 0);
-    $this->assertEquals($this->upload->versionName, $versionName);
-    $this->assertEquals($this->upload->versionCode, $versionCode);
     $this->assertTrue($this->upload->fileChecksum != null);
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
+    
+    $this->assertEquals($versionName, $this->getVersionInfo($insertId, "versionName"));
+    $this->assertEquals($versionCode, $this->getVersionInfo($insertId, "versionCode"));
 
     // cleanup
     $this->upload->removeProjectFromFilesystem($filePath, $insertId);
@@ -170,11 +171,12 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
     $this->assertTrue($this->upload->projectId > 0);
-    $this->assertEquals($this->upload->versionName, "");
-    $this->assertEquals($this->upload->versionCode, 0);
     $this->assertTrue($this->upload->fileChecksum != null);
     $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
-
+    
+    $this->assertEquals($versionName, $this->getVersionInfo($insertId, "versionName"));
+    $this->assertEquals($versionCode, $this->getVersionInfo($insertId, "versionCode"));
+    
     // cleanup
     $this->upload->removeProjectFromFilesystem($filePath, $insertId);
     $this->upload->removeProjectFromDatabase($insertId);
@@ -190,19 +192,12 @@ class uploadTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * @dataProvider testVersion4
+   * @dataProvider testVersion
    */
-  public function testExtractVersionInfo4($xml, $code, $name) {
-    $this->assertEquals($code, $this->upload->extractVersionCode($xml));
-    $this->assertEquals($name, $this->upload->extractVersionName($xml));
-  }
-
-  /**
-   * @dataProvider testVersion5
-   */
-  public function testExtractVersionInfo5($xml, $code, $name) {
-    $this->assertEquals($code, $this->upload->extractVersionCode($xml));
-    $this->assertEquals($name, $this->upload->extractVersionName($xml));
+  public function testExtractVersionInfo($xml, $code, $name) {
+    $catroidVersion = $this->upload->extractCatroidVersion($xml);
+    $this->assertEquals($code, $catroidVersion['versionCode']);
+    $this->assertEquals($name, $catroidVersion['versionName']);
   }
 
   public function testCheckFileChecksum() {
@@ -446,11 +441,15 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function incorrectPostData() {
     $validFileName = 'test.zip';
     $invalidFileName = 'nonExistingFile.zip';
+    $corruptFileName = 'test_invalid_projectfile.zip';
     $validTestFile = dirname(__FILE__).'/testdata/'.$validFileName;
     $invalidTestFile = dirname(__FILE__).'/testdata/'.$invalidFileName;
+    $corruptTestFile = dirname(__FILE__).'/testdata/'.$corruptFileName;
     $validFileChecksum = md5_file($validTestFile);
+    $corruptFileChecksum = md5_file($corruptTestFile);
     $invalidFileChecksum = 'invalidfilechecksum';
     $validFileSize = filesize($validTestFile);
+    $corruptFileSize = filesize($corruptTestFile);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
     array('unitTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, $validFileChecksum, 0, $fileType, 504),
@@ -461,7 +460,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('unitTestFail3', 'this project has a too large project file', $validTestFile, $validFileName, $validFileChecksum, 200000000, $fileType, 508),
     array('defaultProject', 'this project has the default save file set.', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 507),
     array('my fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 506),
-    array('insulting description', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 505)
+    array('insulting description', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 505),
+    array('invalid project xml', 'this project contains an corrupt spf xml file', $corruptTestFile, $corruptFileName, $corruptFileChecksum, $corruptFileSize, $fileType, 511)
     );
     return $dataArray;
   }
@@ -478,8 +478,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function incorrectVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-    array('unitTest for incorrect version info 4', 'my project description for incorrect version info.', 'test.zip', $fileType, 0, ''),
-    array('unitTest for incorrect version info 5', 'my project description for incorrect version info.', 'test2.zip', $fileType, 0, '')
+    array('unitTest for incorrect version info 4', 'my project description for incorrect version info.', 'test.zip', $fileType, 4, '&lt; 0.4.3d'),
+    array('unitTest for incorrect version info 5', 'my project description for incorrect version info.', 'test2.zip', $fileType, 4, '&lt; 0.4.3d')
     );
     return $dataArray;
   }
@@ -566,10 +566,12 @@ class uploadTest extends PHPUnit_Framework_TestCase
     return $dataArray;
   }
 
-  public function testVersion4() { // xml, version-code, version-name
+  public function testVersion() { // xml, version-code, version-name
     $dataArray = array(
-    array("<project versionCode=\"4\" versionName=\"0.4.3d\"><stage><brick id=\"13\" type=\"0\">", 4, "0.4.3d"),
-    array("<project><stage><brick id=\"13\" type=\"0\">", 0, "")
+    array("<project versionCode=\"4\" versionName=\"0.4.3d\"><stage><brick id=\"13\" type=\"0\"></brick></stage></project>", 4, "0.4.3d"),
+    array("<project><stage><brick id=\"13\" type=\"0\"></brick></stage></project>", 4, "&lt; 0.4.3d"),
+    array("<project><versionName>0.5.1</versionName><versionCode>5</versionCode></project>", 5, "0.5.1"),
+    array("<project><version>0.5.1</version><code>5</code></project>", 4, "&lt; 0.4.3d")
     );
     return $dataArray;
   }
