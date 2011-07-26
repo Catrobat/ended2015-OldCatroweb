@@ -342,7 +342,7 @@
            trust="true"
            username="${host.user}"
            password="${host.pass}"
-           command="export DISPLAY=:0.0; sudo xhost +; cd ${host.catroid.dir}; ant stop-selenium-grid; ant run-selenium-local-tests -DwebSite=http://kittyroidlocal/ -Dtest.browserName=${browserName} -DmaxInstances=1" />
+           command="export DISPLAY=:0.0; sudo xhost +; cd ${host.catroid.dir}; ant stop-selenium-grid; ant run-selenium-local-tests -DwebSite=http://kittyroidlocal/ -Dtest.browserName=${test.browserName} -DmaxInstances=6" />
   </target>
 
   <target name="-get-selenium-grid-test-browser">
