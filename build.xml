@@ -48,6 +48,8 @@
   <property name="thumbnail.large.file" value="${thumbnails.dir}/thumbnail_large.jpg" />
   <property name="build.sysclasspath" value="last" />
   <property name="file.encoding" value="UTF-8" />
+  
+  <property name="android-sdk.dir" value="/home/roms/android-sdk-linux_x86/" />
 
   <import file="tests/selenium-grid/build.xml"/>
   <import file="tests/selenium-grid/tools/build.xml"/>
@@ -113,29 +115,37 @@
   </target>
   
   <target name="-selenium-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-tests-catroid, -selenium-tests-api, -selenium-stop-server"/>
-  <target name="-selenium-android-tests" depends="-selenium-start-server-android, -selenium-start-android-emulator, -selenium-tests-android, -selenium-stop-server"/>
+  <target name="-selenium-android-tests" depends="-selenium-start-android-emulator, -selenium-start-server-android"/>
   <target name="-selenium-test" depends="-selenium-start-server, -selenium-test-specific, -selenium-stop-server"/>
   
   <target name="-selenium-start-server">
     <java jar="${selenium.dir}/server/selenium-server.jar" fork="true" spawn="true"/>
     <sleep seconds="3" />
   </target>
-
-  <target name="-selenium-start-server-android">
-    <java jar="${selenium.dir}/server/selenium-server-1.0.2-SNAPSHOT-standalone.jar" fork="true" spawn="true">
-      <arg line=" -proxyInjectionMode" />
-    </java>
-  </target>
-
+  
   <target name="-selenium-start-android-emulator">
     <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
       <arg value="/c"/>
       <arg value="phpunit.bat"/>
       <arg line=" AndroidBrowserTestSuite.php"/>
     </exec>
-    <exec dir="/home/chris/Desktop/android-sdk-linux_86/tools" executable="/home/chris/Desktop/android-sdk-linux_86/tools/emulator" failonerror="false" osfamily="Unix" spawn="true">
+    <exec dir="${android-sdk.dir}/tools" executable="${android-sdk.dir}/tools/emulator" failonerror="false" osfamily="Unix" spawn="true">
       <arg line=" -http-proxy 'http://localhost:4444' -avd android-2.2"/>
     </exec>
+  </target>
+  
+  <target name="-selenium-start-server-android">
+    <echo message="Setting up port forwarding..." />
+    <exec dir="${android-sdk.dir}/platform-tools" executable="${android-sdk.dir}/platform-tools/adb" failonerror="false" osfamily="Unix" spawn="true">
+      <arg line=" -s emulator-5556 wait-for-device shell input keyevent 82"/>
+    </exec>
+    <exec dir="${android-sdk.dir}/platform-tools" executable="${android-sdk.dir}/platform-tools/adb" failonerror="false" osfamily="Unix" spawn="true">
+      <arg line=" -s emulator-5556 wait-for-device forward tcp:8080 tcp:8080"/>
+    </exec> 
+    <echo message="Starting android webdriver server" />
+    <exec dir="${android-sdk.dir}/platform-tools" executable="${android-sdk.dir}/platform-tools/adb" failonerror="false" osfamily="Unix" spawn="true">
+      <arg line=" -s emulator-5556 wait-for-device shell monkey -p org.openqa.selenium.android.app 1"/>
+    </exec>  
   </target>
   
   <target name="-selenium-stop-server">
@@ -205,7 +215,7 @@
     </exec>
   </target>
 
-  <target name="-start-selenium-grid-remote-control" depends="-get-selenium-grid-test-browser">
+  <target name="-start-selenium-grid-remote-control">
     <property name="test.role" value="rc"/>
     <property name="test.hubURL" value="http://localhost:4444/grid/register"/>
     <property name="test.port" value="5555"/>
@@ -217,7 +227,7 @@
       <param name="role" value="${test.role}"/>
       <param name="hubURL" value="${test.hubURL}"/>
       <param name="port" value="${test.port}"/>
-      <param name="browserName" value="${browserName}"/>
+      <param name="browserName" value="${test.browserName}"/>
       <param name="browserVersion" value="${test.browserVersion}"/>
       <param name="maxInstances" value="${test.maxInstances}"/>
       <param name="nodeTimeout" value="${test.nodeTimeout}"/>
@@ -225,11 +235,15 @@
   </target>
 
   <target name="-start-selenium-grid-local-testsuite">
-    <antcall target='-start-selenium-grid-remote-control'/>
+    <!--<antcall target='-start-selenium-grid-remote-control'/>-->
+    <antcall target='-start-selenium-grid-remote-control'>
+      <param name="test.role" value="webdriver" />
+      <param name="test.port" value="5556" />
+    </antcall>
     <antcall target='selenium-tools.launch-hub'/>
   </target>
 
-  <target name="-selenium-grid-tests-catroid-local" depends="-start-selenium-grid-local-testsuite">
+  <target name="-selenium-grid-tests-catroid-local" depends="-get-selenium-grid-test-browser, -start-selenium-grid-local-testsuite">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -239,7 +253,7 @@
     <echo message=""/>
 
     <antcall target='selenium-grid.run-catroid-tests'>
-      <param name="browser" value="${browserName}" />
+      <param name="browser" value="${test.browserName}" />
     </antcall>
   </target>
   
@@ -248,7 +262,7 @@
     <antcall target='selenium-tools.stop-remote-controls'/>
   </target>
 
-  <target name="-selenium-grid-single-test" depends="-start-selenium-grid-local-testsuite, -get-selenium-grid-single-test-parameters">
+  <target name="-selenium-grid-single-test" depends="-get-selenium-grid-test-browser, -get-selenium-grid-single-test-parameters, -start-selenium-grid-local-testsuite">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -260,7 +274,7 @@
     <antcall target='selenium-grid.run-single-test'>
       <param name="single-test-class" value="${test.class}" />
       <param name="single-test-method" value="${test.method}" />
-      <param name="browser" value="${browserName}" />
+      <param name="browser" value="${test.browserName}" />
     </antcall>
   </target>
   
@@ -280,12 +294,12 @@
     <echo message="========== Notice ========== "/>
     <echo message=""/>
     <echo message="you can repeat this test by running:"/>
-    <echo message=" ant run-selenium-single-test -Dtest.browserName=${browserName} -Dtest.class=${test.class} -Dtest.method=${test.method}"/>
+    <echo message=" ant run-selenium-single-test -Dtest.browserName=${test.browserName} -Dtest.class=${test.class} -Dtest.method=${test.method}"/>
     <echo message=""/>
     <echo message=""/>
   </target>
 
-  <target name="-selenium-grid-group-test" depends="-start-selenium-grid-local-testsuite, -get-selenium-grid-group-test-parameter">
+  <target name="-selenium-grid-group-test" depends="-get-selenium-grid-test-browser, -get-selenium-grid-group-test-parameter, -start-selenium-grid-local-testsuite">
     <echo message=""/>
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
@@ -296,7 +310,7 @@
 
     <antcall target='selenium-grid.run-group-test'>
       <param name="group-test" value="${test.group}" />
-      <param name="browser" value="${browserName}" />
+      <param name="browser" value="${test.browserName}" />
     </antcall>
   </target>
   
@@ -310,7 +324,7 @@
     <echo message="========== Notice ========== "/>
     <echo message=""/>
     <echo message="you can repeat this test by running:"/>
-    <echo message=" ant run-selenium-group-test -Dtest.browserName=${browserName} -Dtest.group=${test.group}"/>
+    <echo message=" ant run-selenium-group-test -Dtest.browserName=${test.browserName} -Dtest.group=${test.group}"/>
     <echo message=""/>
     <echo message=""/>
   </target>
@@ -328,7 +342,7 @@
            trust="true"
            username="${host.user}"
            password="${host.pass}"
-           command="export DISPLAY=:0.0; sudo xhost +; cd ${host.catroid.dir}; ant stop-selenium-grid; ant run-selenium-local-tests -DwebSite=http://kittyroidlocal/ -Dtest.browserName=${browserName} -DmaxInstances=6" />
+           command="export DISPLAY=:0.0; sudo xhost +; cd ${host.catroid.dir}; ant stop-selenium-grid; ant run-selenium-local-tests -DwebSite=http://kittyroidlocal/ -Dtest.browserName=${test.browserName} -DmaxInstances=6" />
   </target>
 
   <target name="-get-selenium-grid-test-browser">

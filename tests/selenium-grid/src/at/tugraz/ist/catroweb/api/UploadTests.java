@@ -20,8 +20,6 @@ package at.tugraz.ist.catroweb.api;
 
 import java.util.HashMap;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import static org.testng.AssertJUnit.*;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
@@ -39,7 +37,7 @@ public class UploadTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       openLocation();
       ajaxWait();
-      assertTrue(session().isTextPresent(dataset.get("projectTitle")));
+      assertTrue(isTextPresent(dataset.get("projectTitle")));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
       throw e;
@@ -54,6 +52,9 @@ public class UploadTests extends BaseTest {
     try {
       String response = projectUploader.upload(dataset);
       assertNotSame("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      openLocation();
+      ajaxWait();
+      assertFalse(isTextPresent(dataset.get("projectTitle")));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadInvalidProjects." + dataset.get("projectTitle"));
       throw e;
@@ -68,8 +69,8 @@ public class UploadTests extends BaseTest {
     Object[][] returnArray = new Object[][] {
         { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test.zip", "583783A335BD40D3D0195A13432AFABB", "",
             "", "0") },
-        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test.zip", "583783A335BD40D3D0195A13432AFABB",
-            "", "", "0") },
+        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test.zip",
+            "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
         { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test.zip",
             "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
         { CommonData
@@ -79,8 +80,11 @@ public class UploadTests extends BaseTest {
                 "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
         { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip",
             "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") },
-            { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention", "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip",
-                "5451117C121B89EE9BFB41C5381F357A", "", "", "0") } };
+        { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention",
+            "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "5451117C121B89EE9BFB41C5381F357A",
+            "", "", "0") },
+        { CommonData.getUploadPayload("project v6 with thumbnail", "this project has its own thumbnail; v6", "test_version_6.zip",
+            "5451117C121B89EE9BFB41C5381F357A", "", "", "0") } };
     return returnArray;
   }
 

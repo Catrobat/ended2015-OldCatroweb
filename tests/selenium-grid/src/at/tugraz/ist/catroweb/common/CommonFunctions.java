@@ -29,10 +29,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
 
-import org.json.simple.JSONValue;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.postgresql.Driver;
 
 public class CommonFunctions {
@@ -69,13 +68,11 @@ public class CommonFunctions {
       json = "{" + temp[1];
     }
 
-    Map<?, ?> array = (Map<?, ?>) JSONValue.parse(json);
-    Iterator<?> iter = array.entrySet().iterator();
-    while(iter.hasNext()) {
-      Map.Entry<?, ?> entry = (Map.Entry<?, ?>) iter.next();
-      if(entry.getKey().equals(key)) {
-        return entry.getValue().toString();
-      }
+    try {
+      JSONObject array = new JSONObject(json);
+      return array.getString(key);
+    } catch(JSONException e) {
+      e.printStackTrace();
     }
     return "";
   }
@@ -217,34 +214,34 @@ public class CommonFunctions {
 
   public static void removeAllBlockedIps() {
     try {
-	  Driver driver = new Driver();
-	  DriverManager.registerDriver(driver);
-	  Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
-	  Statement statement = connection.createStatement();
-	  statement.executeUpdate("DELETE FROM blocked_ips;");
-	  statement.close();
-	  connection.close();
-	  DriverManager.deregisterDriver(driver);
-	} catch(SQLException e) {
-	  System.out.println("CommonFunctions: removeAllBlockedIps: SQL Exception couldn't execute sql query!");
-	  System.out.println(e.getMessage());
-	}
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      statement.executeUpdate("DELETE FROM blocked_ips;");
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
+    } catch(SQLException e) {
+      System.out.println("CommonFunctions: removeAllBlockedIps: SQL Exception couldn't execute sql query!");
+      System.out.println(e.getMessage());
+    }
   }
 
   public static void removeAllBlockedUsers() {
     try {
-	  Driver driver = new Driver();
-	  DriverManager.registerDriver(driver);
-	  Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
-	  Statement statement = connection.createStatement();
-	  statement.executeUpdate("DELETE FROM blocked_cusers;");
-	  statement.close();
-	  connection.close();
-	  DriverManager.deregisterDriver(driver);
-	} catch(SQLException e) {
-	  System.out.println("CommonFunctions: removeAllBlockedUsers: SQL Exception couldn't execute sql query!");
-	  System.out.println(e.getMessage());
-	}
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      statement.executeUpdate("DELETE FROM blocked_cusers;");
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
+    } catch(SQLException e) {
+      System.out.println("CommonFunctions: removeAllBlockedUsers: SQL Exception couldn't execute sql query!");
+      System.out.println(e.getMessage());
+    }
   }
 
 }

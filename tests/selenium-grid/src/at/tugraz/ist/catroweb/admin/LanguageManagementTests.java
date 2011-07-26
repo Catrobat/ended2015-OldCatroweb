@@ -18,8 +18,8 @@
 
 package at.tugraz.ist.catroweb.admin;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
@@ -33,20 +33,17 @@ public class LanguageManagementTests extends BaseTest {
   public void updateLanguagePack() throws Throwable {
     try {
       openAdminLocation("?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
-      session().click("aAdministrationTools");
-      waitForPageToLoad();
-      session().click("aAdminToolsLanguageManagement");
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent("Administration Tools - Language Management"));
-      assertTrue(session().isElementPresent("xpath=//select[@id='supportedLanguageSelect']"));
-      assertTrue(session().isElementPresent("xpath=//a[@id='doUpdateLink']"));
-      session().select("supportedLanguageSelect", "value=de");
-      session().click("xpath=//a[@id='doUpdateLink']");
+      driver().findElement(By.id("aAdministrationTools")).click();
+      driver().findElement(By.id("aAdminToolsLanguageManagement")).click();
+      assertTrue(isTextPresent("Administration Tools - Language Management"));
+      assertTrue(isElementPresent(By.xpath("//select[@id='supportedLanguageSelect']")));
+      assertTrue(isElementPresent(By.xpath("//a[@id='doUpdateLink']")));
+      (new Select(driver().findElement(By.id("supportedLanguageSelect")))).selectByValue("de");
+      driver().findElement(By.id("doUpdateLink")).click();
       ajaxWait();
-      assertTrue(session().isTextPresent("The language de was successfully updated!"));
-      session().click("aAdminToolsBackToTools");
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent("Administration Tools"));
+      assertTrue(isTextPresent("The language de was successfully updated!"));
+      driver().findElement(By.id("aAdminToolsBackToTools")).click();
+      assertTrue(isTextPresent("Administration Tools"));
     } catch(AssertionError e) {
       captureScreen("LanguageManagementTests.updateLanguagePack");
       throw e;
