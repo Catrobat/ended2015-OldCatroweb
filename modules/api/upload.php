@@ -389,7 +389,7 @@ class upload extends CoreAuthenticationDevice {
         if ($sound)
         $this->saveFile($unzipDir, $filename, $sound, zip_entry_filesize($zip_entry));
       }
-      if (preg_match("/\.spf/", $filename)) {
+      if (preg_match("/\.spf/", $filename) || preg_match("/\.xml/", $filename)) {
         $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
         if ($spf) {
           $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
