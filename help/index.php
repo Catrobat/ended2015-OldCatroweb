@@ -53,6 +53,13 @@ require_once('../config.php');
     <i>+ Shut down local Selenium processes</i> 
     ant stop-selenium-grid
 
+--- android tests
+    --> see WIKI for installation instructions!     
+    <i>+ starts android emulator with webdriver configuration</i>
+    ant start-android-emulator
+    <i>+ run tests with -DwebSite=http://10.0.2.2/</i> i.e.:    
+    ant run-selenium-single-test -Dtest.browserName=android -Dtest.class=catroid.LicenseTests -Dtest.method=imprint -DwebSite=http://10.0.2.2/
+
 --- remote tests
 
     <i>+ Connect remote controls to kittyroid test server</i> 

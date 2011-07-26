@@ -130,7 +130,7 @@
       <arg line=" AndroidBrowserTestSuite.php"/>
     </exec>
     <exec dir="${android-sdk.dir}/tools" executable="${android-sdk.dir}/tools/emulator" failonerror="false" osfamily="Unix" spawn="true">
-      <arg line=" -avd android-2.2 -port 5556"/>
+      <arg line=" -avd catroidandroidtest -port 5556"/>
     </exec>
   </target>
   
@@ -721,6 +721,7 @@
   <target name="run-selenium-api-tests" depends="-selenium-start-server, -selenium-tests-api, -selenium-stop-server" />
   <target name="run-selenium-remote-tests" depends="deploy-testlocal-with-tests, -selenium-grid-tests-testlocal" />
   <target name="stop-selenium-grid" depends="-selenium-grid-stop"/>
+  <target name="start-android-emulator" depends="-selenium-start-android-emulator" />
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />
   <target name="deploy-test-board" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />
