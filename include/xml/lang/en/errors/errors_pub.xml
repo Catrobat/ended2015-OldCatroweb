@@ -38,6 +38,7 @@
         <string name="insulting_words_in_project_title">Please don't use offensive language in your project title.</string>
         <string name="insulting_words_in_project_description">Please don't use offensive language in your project description.</string>
         <string name="bad_words_filter_error">Sorry, there was an error during the upload. Try again!</string>
+        <string name="invalid_project_xml">Sorry, your project file is invalid. Try to save it as a new project and upload it again.</string>
     </upload>
     <download>
     	<string name="file_not_found">The requested project is not available at the time. Try again later!</string>
