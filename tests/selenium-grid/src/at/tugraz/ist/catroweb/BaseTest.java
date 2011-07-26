@@ -87,6 +87,8 @@ public class BaseTest {
       startChromeSession(seleniumHost, seleniumPort, method.getName());
     } else if(browser.matches("^android$")) {
       startAndroidSession(seleniumHost, seleniumPort, browser, webSite, method.getName());
+    } else if(browser.matches("^internet$")) {
+    	startIESession(seleniumHost, seleniumPort, method.getName());
     }
   }
 
@@ -98,6 +100,18 @@ public class BaseTest {
     try {
       DesiredCapabilities capabilities = DesiredCapabilities.firefox();
       capabilities.setCapability("firefox_profile", profile);
+      WebDriver driver = new RemoteWebDriver(new URL("http://" + seleniumHost + ":" + seleniumPort + "/wd/hub"), capabilities);
+      driverSessions.put(method, driver);
+    } catch(MalformedURLException e) {
+      e.printStackTrace();
+    }
+  }
+  
+  protected void startIESession(String seleniumHost, int seleniumPort, String method) {
+    log("internet explorer: running " + method + "...");
+
+    try {
+      DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
       WebDriver driver = new RemoteWebDriver(new URL("http://" + seleniumHost + ":" + seleniumPort + "/wd/hub"), capabilities);
       driverSessions.put(method, driver);
     } catch(MalformedURLException e) {

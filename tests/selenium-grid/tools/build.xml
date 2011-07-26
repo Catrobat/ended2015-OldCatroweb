@@ -70,7 +70,7 @@
   
   <target name="-start-remote-control" unless="remote-socket.open">
     <exec dir="${selenium-tools.basedir}" executable="java" spawn="true">
-      <arg line="-jar selenium-server-standalone-${selenium-tools.version}.jar -role ${role} -hub ${hubURL} -port ${port} -browser browserName=${browserName},version=${browserVersion},maxInstances=${maxInstances} -maxSession ${maxInstances} -nodeTimeout ${nodeTimeout}"/>
+      <arg line="-jar selenium-server-standalone-${selenium-tools.version}.jar -role ${role} -hub ${hubURL} -port ${port} -browser &quot;browserName=${browserName},version=${browserVersion},maxInstances=${maxInstances}&quot; -maxSession ${maxInstances} -nodeTimeout ${nodeTimeout}"/>
     </exec>
 
     <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">

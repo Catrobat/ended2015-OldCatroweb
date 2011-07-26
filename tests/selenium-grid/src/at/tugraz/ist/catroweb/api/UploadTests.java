@@ -79,7 +79,9 @@ public class UploadTests extends BaseTest {
                 "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ",
                 "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
         { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip",
-            "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") } };
+            "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") },
+            { CommonData.getUploadPayload("project v6 with thumbnail", "this project has its own thumbnail; v6", "test_version_6.zip",
+                "5451117C121B89EE9BFB41C5381F357A", "", "", "0") } };
     return returnArray;
   }
 
