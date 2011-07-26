@@ -82,9 +82,7 @@ public class UploadTests extends BaseTest {
             "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") },
         { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention",
             "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "5451117C121B89EE9BFB41C5381F357A",
-            "", "", "0") },
-        { CommonData.getUploadPayload("project v6 with thumbnail", "this project has its own thumbnail; v6", "test_version_6.zip",
-            "5451117C121B89EE9BFB41C5381F357A", "", "", "0") } };
+            "", "", "0") } };
     return returnArray;
   }
 

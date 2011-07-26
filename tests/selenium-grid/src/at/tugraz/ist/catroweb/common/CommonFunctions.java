@@ -73,6 +73,11 @@ public class CommonFunctions {
       return array.getString(key);
     } catch(JSONException e) {
       e.printStackTrace();
+    } catch(ArrayIndexOutOfBoundsException e) {
+      System.out.println("********************************************************");
+      System.out.println("CommonFunctions: getValueFromJSONobject: Invalid json object!");
+      System.out.println(json);
+      System.out.println("********************************************************");
     }
     return "";
   }
