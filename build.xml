@@ -130,7 +130,7 @@
       <arg line=" AndroidBrowserTestSuite.php"/>
     </exec>
     <exec dir="${android-sdk.dir}/tools" executable="${android-sdk.dir}/tools/emulator" failonerror="false" osfamily="Unix" spawn="true">
-      <arg line=" -http-proxy 'http://localhost:4444' -avd android-2.2"/>
+      <arg line=" -avd android-2.2 -port 5556"/>
     </exec>
   </target>
   
