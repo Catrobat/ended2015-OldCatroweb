@@ -48,7 +48,11 @@ require_once('../config.php');
     
     <i>+ run specific group of tests</i>
     ant run-selenium-group-test
-    ant run-selenium-group-test -Dtest.browserName=firefox -Dtest.group=admin    
+    ant run-selenium-group-test -Dtest.browserName=firefox -Dtest.group=admin
+    
+    <i>+ run tests on Internet Explorer</i>
+    add following parameters to any selenium command: -Dtest.browserName "internet explorer" -Dtest.browserVersion=9 -Dtest.plattform ",platform=WINDOWS"
+    e.g.: ant run-selenium-local-tests -Dtest.browserName "internet explorer" -Dtest.browserVersion=9 -Dtest.platform ",platform=WINDOWS"
     
     <i>+ Shut down local Selenium processes</i> 
     ant stop-selenium-grid

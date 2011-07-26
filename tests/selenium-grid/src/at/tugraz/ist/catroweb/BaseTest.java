@@ -41,6 +41,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.android.AndroidDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
@@ -65,7 +66,7 @@ public class BaseTest {
   protected Map<String, WebDriver> driverSessions;
 
   @BeforeClass(alwaysRun = true)
-  @Parameters({ "webSite", "basedir" })
+  @Parameters( { "webSite", "basedir" })
   protected void constructor(String webSite, String basedir) {
     this.webSite = webSite;
     Config.setSeleniumGridTestdata(basedir);
@@ -79,16 +80,16 @@ public class BaseTest {
   }
 
   @BeforeMethod(alwaysRun = true)
-  @Parameters({ "seleniumHost", "seleniumPort", "browser", "webSite" })
+  @Parameters( { "seleniumHost", "seleniumPort", "browser", "webSite" })
   protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite, Method method) {
     if(browser.matches("^firefox$")) {
       startFirefoxSession(seleniumHost, seleniumPort, method.getName());
     } else if(browser.matches("^chrome$")) {
       startChromeSession(seleniumHost, seleniumPort, method.getName());
+    } else if(browser.matches("^internet explorer$")) {
+      startInternetExplorerSession(seleniumHost, seleniumPort, method.getName());
     } else if(browser.matches("^android$")) {
       startAndroidSession(seleniumHost, seleniumPort, browser, webSite, method.getName());
-    } else if(browser.matches("^internet$")) {
-    	startIESession(seleniumHost, seleniumPort, method.getName());
     }
   }
 
@@ -106,16 +107,19 @@ public class BaseTest {
       e.printStackTrace();
     }
   }
-  
-  protected void startIESession(String seleniumHost, int seleniumPort, String method) {
+
+  protected void startInternetExplorerSession(String seleniumHost, int seleniumPort, String method) {
     log("internet explorer: running " + method + "...");
 
     try {
       DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+      capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
       WebDriver driver = new RemoteWebDriver(new URL("http://" + seleniumHost + ":" + seleniumPort + "/wd/hub"), capabilities);
       driverSessions.put(method, driver);
     } catch(MalformedURLException e) {
       e.printStackTrace();
+    } catch(Exception e) {
+      log(e.getMessage());
     }
   }
 
@@ -202,7 +206,7 @@ public class BaseTest {
   public boolean isVisible(By selector) {
     return (driver().findElement(selector)).isDisplayed();
   }
-  
+
   public boolean isEditable(By selector) {
     return (driver().findElement(selector)).isEnabled();
   }

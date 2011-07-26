@@ -18,18 +18,11 @@
   -->
 
 <suite name="Catroid Test Suite" parallel="methods" thread-count="20" verbose="2" >
-  <parameter name="webSite" value="http://localhost/" />
-  <parameter name="basedir" value="." />
-  <parameter name="seleniumHost" value="localhost"/>
-  <parameter name="seleniumPort" value="4444" />
-  <parameter name="browser" value="firefox" />
   <test name="ApiTests" >
     <packages>
       <package name="at.tugraz.ist.catroweb.api" />
     </packages>
   </test>
-  
-  
   <test name="AdminTests" >
     <packages>
       <package name="at.tugraz.ist.catroweb.admin" />
@@ -49,6 +42,11 @@
       <class name="at.tugraz.ist.catroweb.catroid.ReportAsInappropriateTests" />
       <class name="at.tugraz.ist.catroweb.catroid.SearchTests" />
       <class name="at.tugraz.ist.catroweb.catroid.WebsiteTitleTests" />
+    </classes>
+  </test>
+  <test name="BlockedIpTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.BlockedIpTests" />
     </classes>
   </test>
 </suite>

@@ -60,6 +60,7 @@
   <property name="browserName" value="firefox"/>
   <property name="browserVersion" value="3.6"/>
   <property name="maxInstances" value="5"/>
+	<property name="platform" value=""/>
   <property name="nodeTimeout" value="30"/>
   <target name="launch-remote-control" description="Launch A Selenium Grid Remote Control">
     <condition property="remote-socket.open">
@@ -70,7 +71,7 @@
   
   <target name="-start-remote-control" unless="remote-socket.open">
     <exec dir="${selenium-tools.basedir}" executable="java" spawn="true">
-      <arg line="-jar selenium-server-standalone-${selenium-tools.version}.jar -role ${role} -hub ${hubURL} -port ${port} -browser &quot;browserName=${browserName},version=${browserVersion},maxInstances=${maxInstances}&quot; -maxSession ${maxInstances} -nodeTimeout ${nodeTimeout}"/>
+      <arg line="-jar selenium-server-standalone-${selenium-tools.version}.jar -role ${role} -hub ${hubURL} -port ${port} -browser &quot;browserName=${browserName},version=${browserVersion},maxInstances=${maxInstances}${platform}&quot; -maxSession ${maxInstances} -nodeTimeout ${nodeTimeout}"/>
     </exec>
 
     <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">

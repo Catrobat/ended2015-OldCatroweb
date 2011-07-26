@@ -23,8 +23,6 @@
   <description>Selenium Grid Distribution</description>
   <dirname property="selenium-grid.basedir" file="${ant.file.selenium-grid}"/>
 
-  <property name="version" value="1.0.8" />
-  <property name="selenium.version" value="1.0.3" />
   <property name="name" value="Selenium Grid Catroid Test Suite"/>
   <property name="artifact" value="selenium-grid-catroid-test-suite"/>
 
@@ -57,10 +55,7 @@
   </target>
 
   <target name="run-catroid-tests" depends="-delete-java-bin, compile" description="Run Catroid Test Suite">
-    <java classpathref="runtime.classpath"
-        classname="org.testng.TestNG"
-        failonerror="true">
-
+    <java classpathref="runtime.classpath" classname="org.testng.TestNG" failonerror="true">
       <sysproperty key="java.security.policy" file="${selenium-grid.basedir}/testng.policy"/>
       <sysproperty key="basedir" value="${selenium-grid.basedir}" />
       <sysproperty key="webSite" value="${webSite}" />
@@ -85,10 +80,7 @@
       </filterset>
     </copy>
 
-    <java classpathref="runtime.classpath"
-        classname="org.testng.TestNG"
-        failonerror="true">
-
+    <java classpathref="runtime.classpath" classname="org.testng.TestNG" failonerror="true">
       <sysproperty key="java.security.policy" file="${selenium-grid.basedir}/testng.policy"/>
       <sysproperty key="basedir" value="${selenium-grid.basedir}" />
       <sysproperty key="webSite" value="${webSite}" />
@@ -110,10 +102,7 @@
       </filterset>
     </copy>
 
-    <java classpathref="runtime.classpath"
-        classname="org.testng.TestNG"
-        failonerror="true">
-
+    <java classpathref="runtime.classpath" classname="org.testng.TestNG" failonerror="true">
       <sysproperty key="java.security.policy" file="${selenium-grid.basedir}/testng.policy"/>
       <sysproperty key="basedir" value="${selenium-grid.basedir}" />
       <sysproperty key="webSite" value="${webSite}" />
@@ -129,9 +118,4 @@
   </target>
 
   <target name="build" depends="compile"/>
-  <target name="dist" depends="build"/>
-  <target name="coverage-analysis" />
-  
 </project>
-
-
