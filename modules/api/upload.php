@@ -60,7 +60,7 @@ class upload extends CoreAuthenticationDevice {
     }
 
     $projectTitle = pg_escape_string($formData['projectTitle']);
-    isset($formData['projectDescription']) ? $projectDescription=pg_escape_string($formData['projectDescription']) : $projectDescription=null;
+    isset($formData['projectDescription']) ? $projectDescription = pg_escape_string($formData['projectDescription']) : $projectDescription = null;
 
     try {
       $this->checkValidProjectTitle($projectTitle);
@@ -87,8 +87,8 @@ class upload extends CoreAuthenticationDevice {
     $uploadFile = $projectName.PROJECTS_EXTENTION;
     $uploadDir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$uploadFile;
     $uploadIp = $serverData['REMOTE_ADDR'];
-    isset($formData['userEmail']) ? $uploadEmail=$formData['userEmail'] : $uploadEmail=null;
-    isset($formData['userLanguage']) ? $uploadLanguage=$formData['userLanguage'] : $uploadLanguage=null;
+    isset($formData['userEmail']) ? $uploadEmail = $formData['userEmail'] : $uploadEmail = null;
+    isset($formData['userLanguage']) ? $uploadLanguage = $formData['userLanguage'] : $uploadLanguage = null;
 
     try {
       $fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $uploadDir);
@@ -140,17 +140,29 @@ class upload extends CoreAuthenticationDevice {
     } catch(Exception $e) {
       $this->sendQRFailNotificationEmail($newId, $projectTitle);
     }
-    
+
     try {
-      $this->unzipUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
+      $this->unzipUploadedFile($newId);
     } catch(Exception $e) {
       $this->statusCode = 511;
       $this->removeProjectFromDatabase($newId);
       $this->removeProjectFromFilesystem($projectFile, $newId);
       throw new Exception($e->getMessage());
     }
-    
-    $this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
+
+    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$newId.'/';
+    try {
+      $projectVersion = $this->extractCatroidVersion($this->getProjectXmlFile($unzipDir));
+    } catch(Exception $e) {
+      $this->statusCode = 512;
+      $this->removeProjectFromDatabase($newId);
+      $this->removeProjectFromFilesystem($projectFile, $newId);
+      throw new Exception($e->getMessage());
+    }
+
+    $this->saveVersionInfo($newId, $projectVersion['versionCode'], $projectVersion['versionName']);
+    $this->extractThumbnail($unzipDir, $newId);
+    //$this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
 
     $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
     if($unapprovedWords) {
@@ -210,8 +222,23 @@ class upload extends CoreAuthenticationDevice {
     return true;
   }
 
-  public function extractCatroidVersion($xmlString) {
-    $xml = simplexml_load_string($xmlString);
+  private function getProjectXmlFile($unzipDir) {
+    $dirHandler = opendir($unzipDir);
+    $xmlFile = null;
+    while(($file = readdir($dirHandler)) !== false) {
+      $details = pathinfo($file);
+      if(isset($details['extension']) && (strcmp($details['extension'], 'spf') == 0 || strcmp($details['extension'], 'xml') == 0)) {
+        $xmlFile = $file;
+      }
+    }
+    if(!$xmlFile) {
+      throw new Exception($this->errorHandler->getError('upload', 'project_xml_not_found'));
+    }
+    return $unzipDir.$xmlFile;
+  }
+
+  public function extractCatroidVersion($xmlFile) {
+    $xml = simplexml_load_file($xmlFile);
     if(!$xml) {
       throw new Exception($this->errorHandler->getError('upload', 'invalid_project_xml'));
     }
@@ -230,12 +257,11 @@ class upload extends CoreAuthenticationDevice {
         }
       }
     }
-    
+
     if(!$versionName || !$versionCode) {
       $versionCode = 4;
       $versionName = '&lt; 0.4.3d';
     }
-    
     return(array("versionName"=>$versionName, "versionCode"=>$versionCode));
   }
 
@@ -367,95 +393,84 @@ class upload extends CoreAuthenticationDevice {
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
-  private function unzipUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
-    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId;
-    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId);
-    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images");
-    mkdir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds");
-    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId, 0777);
-    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/images", 0777);
-    chmod(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId."/sounds", 0777);
-
-    $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
-    while ($zip_entry = zip_read($zip)) {
-      $filename = zip_entry_name($zip_entry);
-      if (preg_match("/images\//", $filename)) {
-        $image = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-        if ($image)
-        $this->saveFile($unzipDir, $filename, $image, zip_entry_filesize($zip_entry));
-      }
-      if (preg_match("/sounds\//", $filename)) {
-        $sound = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-        if ($sound)
-        $this->saveFile($unzipDir, $filename, $sound, zip_entry_filesize($zip_entry));
-      }
-      if (preg_match("/\.spf/", $filename) || preg_match("/\.xml/", $filename)) {
-        $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-        if ($spf) {
-          $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
-          try {
-            $catroidVersion = $this->extractCatroidVersion($spf);
-          } catch(Exception $e) {
-            throw new Exception($e->getMessage());
-          }
-          $this->saveVersionInfo($projectId, $catroidVersion['versionCode'], $catroidVersion['versionName']);
-        }
-      }
-      if ($filename == "thumbnail.jpg" || $filename == "thumbnail.png") {
-        $spf = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-        if ($spf)
-        $this->saveFile($unzipDir, $filename, $spf, zip_entry_filesize($zip_entry));
-      }
+  private function unzipUploadedFile($projectId) {
+    $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.PROJECTS_EXTENTION;
+    $destDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId.'/';
+    if(!unzipFile($projectFile, $destDir)) {
+      throw new Exception($this->errorHandler->getError('upload', 'invalid_project_zip'));
     }
-    zip_close($zip);
+  }
+  /*
+   private function saveFile($targetDir, $filename, $filecontent, $filesize) {
+   $fp = fopen($targetDir."/".$filename, "wb+");
+   if ($fp) {
+   fwrite($fp, $filecontent, $filesize);
+   fclose($fp);
+   }
+   }
+   */
+  /*
+   private function unzipThumbnailFromUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
+   $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY;
+   $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
+   while ($zip_entry = zip_read($zip)) {
+   $filename = zip_entry_name($zip_entry);
+   if (preg_match("/thumbnail\./", $filename) || preg_match("/images\/thumbnail\./", $filename)) {
+   $thumbnail = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
+   if ($thumbnail) {
+   $this->saveThumbnail($projectId, $thumbnail);
+   }
+   }
+   }
+   zip_close($zip);
+   }
+   */
+
+  private function extractThumbnail($unzipDir, $projectId) {
+    $thumbFile = null;
+    $thumbType = null;
+    if(is_file($unzipDir.'thumbnail.png')) {
+      $thumbFile = $unzipDir.'thumbnail.png';
+      $thumbType = 'PNG';
+    } elseif(is_file($unzipDir.'thumbnail.jpg')) {
+      $thumbFile = $unzipDir.'thumbnail.jpg';
+      $thumbType = 'JPG';
+    } elseif(is_file($unzipDir.'images/thumbnail.png')) {
+      $thumbFile = $unzipDir.'images/thumbnail.png';
+      $thumbType = 'PNG';
+    } elseif(is_file($unzipDir.'images/thumbnail.jpg')) {
+      $thumbFile = $unzipDir.'images/thumbnail.jpg';
+      $thumbType = 'JPG';
+    }
+    if($thumbFile && $thumbType) {
+      $this->saveThumbnail($projectId, $thumbFile, $thumbType);
+    }
   }
 
-  private function unzipThumbnailFromUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
-    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY;
-    $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
-    while ($zip_entry = zip_read($zip)) {
-      $filename = zip_entry_name($zip_entry);
-      if (preg_match("/thumbnail\./", $filename) || preg_match("/images\/thumbnail\./", $filename)) {
-        $thumbnail = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-        if ($thumbnail) {
-          $this->saveThumbnail($projectId, $thumbnail);
-        }
-      }
-    }
-    zip_close($zip);
-  }
-
-  private function saveThumbnail($filename, $thumbnail) {
+  private function saveThumbnail($projectId, $thumbnail, $thumbType) {
     $thumbnailDir = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;
 
-    $thumbImage = imagecreatefromstring($thumbnail);
+    if(strcmp($thumbType, 'PNG') == 0) {
+      $thumbImage = imagecreatefrompng($thumbnail);
+    } elseif(strcmp($thumbType, 'JPG') == 0) {
+      $thumbImage = imagecreatefromjpeg($thumbnail);
+    } else {
+      return false;
+    }
+
     if ($thumbImage) {
       $w = imagesx($thumbImage);
       $h = imagesy($thumbImage);
 
       $wsmall = 0; $hsmall = 0; $hsmallopt = intval(240*$h/$w);
       $wlarge = 0; $hlarge = 0; $hlargeopt = intval(480*$h/$w);
-       
-      // thumbnail with original filesize
-      imagejpeg($thumbImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 100);
-
-      // small thumbnail for preview 240x400
+      imagejpeg($thumbImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 100);
       $smallImage = imagecreatetruecolor(240, $hsmallopt);
       imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, $hsmallopt, $w, $h);
-      imagejpeg($smallImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 50);
-
-      // large thumbnail for details-view 480x800
+      imagejpeg($smallImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 50);
       $newImage = imagecreatetruecolor(480, $hlargeopt);
       imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, $hlargeopt, $w, $h);
-      imagejpeg($newImage, $thumbnailDir.$filename.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
-    }
-  }
-
-  private function saveFile($targetDir, $filename, $filecontent, $filesize) {
-    $fp = fopen($targetDir."/".$filename, "wb+");
-    if ($fp) {
-      fwrite($fp, $filecontent, $filesize);
-      fclose($fp);
+      imagejpeg($newImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
     }
   }
 

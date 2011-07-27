@@ -49,6 +49,26 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(1.2 , convertBytesToMegabytes(1234567));
     $this->assertEquals(9.6 , convertBytesToMegabytes(9999999));
   }
+  
+  public function testUnzipFile() {
+    $zipFile = dirname(__FILE__).'/testdata/commonFunctionsTestData/test.zip';
+    $destDir = dirname(__FILE__).'/testdata/commonFunctionsTestData/zipTest/';
+    removeDir($destDir);
+    $this->assertTrue(unzipFile($zipFile, $destDir));
+    $this->assertTrue(is_dir($destDir));
+    $this->assertTrue(is_dir($destDir.'images/'));
+    $this->assertTrue(is_dir($destDir.'sounds/'));
+    $this->assertTrue(is_file($destDir.'introducing catroid.spf'));
+    $this->assertTrue(is_file($destDir.'images/1284732477347cat1-b.png'));
+    removeDir($destDir);
+    $zipFile = dirname(__FILE__).'/testdata/commonFunctionsTestData/not_a_zip.zip';
+    $this->assertFalse(unzipFile($zipFile, $destDir));
+    $this->assertFalse(is_dir($destDir));
+    $this->assertFalse(is_dir($destDir.'images/'));
+    $this->assertFalse(is_dir($destDir.'sounds/'));
+    $this->assertFalse(is_file($destDir.'introducing catroid.spf'));
+    $this->assertFalse(is_file($destDir.'images/1284732477347cat1-b.png'));
+  }
 
   /**
    * @dataProvider randomLongStrings

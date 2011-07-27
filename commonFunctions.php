@@ -241,4 +241,14 @@ function removeDir($dir) {
   }
 }
 
+function unzipFile($zipFile, $destDir) {
+  $zip = new ZipArchive();
+  if($zip->open($zipFile) === TRUE) {
+    if($zip->extractTo($destDir)) {
+      $zip->close();
+      return true;
+    }
+  }
+  return false;
+}
 ?>

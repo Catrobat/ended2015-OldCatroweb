@@ -92,9 +92,9 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
 
-    $this->assertFalse(is_dir($projectPath));
-    $this->assertFalse(is_dir($projectPath."/images"));
-    $this->assertFalse(is_dir($projectPath."/sounds"));
+    //$this->assertFalse(is_dir($projectPath));
+    //$this->assertFalse(is_dir($projectPath."/images"));
+    //$this->assertFalse(is_dir($projectPath."/sounds"));
 
     //test deleting from database
     $this->upload->removeProjectFromDatabase($insertId);
@@ -195,7 +195,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
    * @dataProvider testVersion
    */
   public function testExtractVersionInfo($xml, $code, $name) {
-    $catroidVersion = $this->upload->extractCatroidVersion($xml);
+    $catroidVersion = $this->upload->extractCatroidVersion(dirname(__FILE__).'/testdata/'.$xml);
     $this->assertEquals($code, $catroidVersion['versionCode']);
     $this->assertEquals($name, $catroidVersion['versionName']);
   }
@@ -434,6 +434,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('unitTest with Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, 'catroid_unittest@gmail.com', 'en'),
     array('unitTest', 'my project description with thumbnail in root folder.', $testFile, 'test2.zip', $fileChecksum, $fileSize, $fileType),
     array('unitTest', 'my project description with thumbnail in images folder.', $testFile, 'test3.zip', $fileChecksum, $fileSize, $fileType),
+    array('unitTest', 'project with new extention "catroid".', dirname(__FILE__).'/testdata/test.catroid', 'test.catroid', $fileChecksum, $fileSize, $fileType),
     );
     return $dataArray;
   }
@@ -461,7 +462,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('defaultProject', 'this project has the default save file set.', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 507),
     array('my fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 506),
     array('insulting description', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 505),
-    array('invalid project xml', 'this project contains an corrupt spf xml file', $corruptTestFile, $corruptFileName, $corruptFileChecksum, $corruptFileSize, $fileType, 511)
+    array('invalid project xml', 'this project contains an corrupt spf xml file', $corruptTestFile, $corruptFileName, $corruptFileChecksum, $corruptFileSize, $fileType, 512)
     );
     return $dataArray;
   }
@@ -566,20 +567,18 @@ class uploadTest extends PHPUnit_Framework_TestCase
     return $dataArray;
   }
 
-  public function testVersion() { // xml, version-code, version-name
+  public function testVersion() {
     $dataArray = array(
+    /*
     array("<project versionCode=\"4\" versionName=\"0.4.3d\"><stage><brick id=\"13\" type=\"0\"></brick></stage></project>", 4, "0.4.3d"),
     array("<project><stage><brick id=\"13\" type=\"0\"></brick></stage></project>", 4, "&lt; 0.4.3d"),
     array("<project><versionName>0.5.1</versionName><versionCode>5</versionCode></project>", 5, "0.5.1"),
     array("<project><version>0.5.1</version><code>5</code></project>", 4, "&lt; 0.4.3d")
-    );
-    return $dataArray;
-  }
-
-  public function testVersion5() {
-    $dataArray = array(
-    array("<project><versionName>0.5.1</versionName><versionCode>5</versionCode></project>", 5, "0.5.1"),
-    array("<project><version>0.5.1</version><code>5</code></project>", 0, "")
+    */
+    array("test_v4.spf", 4, "0.4.3d"),
+    array("test_no_version.spf", 4, "&lt; 0.4.3d"),
+    array("test_v5.spf", 5, "0.5.1"),
+    array("test_v5_invalid_tag.spf", 4, "&lt; 0.4.3d")
     );
     return $dataArray;
   }
