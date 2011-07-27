@@ -66,7 +66,7 @@ public class BaseTest {
   protected Map<String, WebDriver> driverSessions;
 
   @BeforeClass(alwaysRun = true)
-  @Parameters( { "webSite", "basedir" })
+  @Parameters({ "webSite", "basedir" })
   protected void constructor(String webSite, String basedir) {
     this.webSite = webSite;
     Config.setSeleniumGridTestdata(basedir);
@@ -80,7 +80,7 @@ public class BaseTest {
   }
 
   @BeforeMethod(alwaysRun = true)
-  @Parameters( { "seleniumHost", "seleniumPort", "browser", "webSite" })
+  @Parameters({ "seleniumHost", "seleniumPort", "browser", "webSite" })
   protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite, Method method) {
     if(browser.matches("^firefox$")) {
       startFirefoxSession(seleniumHost, seleniumPort, method.getName());
@@ -88,6 +88,8 @@ public class BaseTest {
       startChromeSession(seleniumHost, seleniumPort, method.getName());
     } else if(browser.matches("^internet explorer$")) {
       startInternetExplorerSession(seleniumHost, seleniumPort, method.getName());
+    } else if(browser.matches("^opera$")) {
+      startOperaSession(seleniumHost, seleniumPort, method.getName());
     } else if(browser.matches("^android$")) {
       startAndroidSession(seleniumHost, seleniumPort, browser, webSite, method.getName());
     }
@@ -105,6 +107,8 @@ public class BaseTest {
       driverSessions.put(method, driver);
     } catch(MalformedURLException e) {
       e.printStackTrace();
+    } catch(Exception e) {
+      log(e.getMessage());
     }
   }
 
@@ -125,10 +129,8 @@ public class BaseTest {
 
   protected void startChromeSession(String seleniumHost, int seleniumPort, String method) {
     log("chrome: running " + method + "...");
-    // System.setProperty("webdriver.chrome.bin",
-    // "/opt/google/chrome/google-chrome");
-    // System.setProperty("webdriver.chrome.driver",
-    // "/home/chris/.workspace/catroweb/tests/selenium-grid/chromedriver");
+    // System.setProperty("webdriver.chrome.bin", "/opt/google/chrome/google-chrome");
+    // System.setProperty("webdriver.chrome.driver", "/home/chris/.workspace/catroweb/tests/selenium-grid/chromedriver");
 
     try {
       DesiredCapabilities capabilities = DesiredCapabilities.chrome();
@@ -136,12 +138,26 @@ public class BaseTest {
       driverSessions.put(method, driver);
     } catch(MalformedURLException e) {
       e.printStackTrace();
+    } catch(Exception e) {
+      log(e.getMessage());
+    }
+  }
+
+  protected void startOperaSession(String seleniumHost, int seleniumPort, String method) {
+    log("opera: running " + method + "...");
+
+    try {
+      DesiredCapabilities capabilities = DesiredCapabilities.opera();
+      WebDriver driver = new RemoteWebDriver(new URL("http://" + seleniumHost + ":" + seleniumPort + "/wd/hub"), capabilities);
+      driverSessions.put(method, driver);
+    } catch(MalformedURLException e) {
+      e.printStackTrace();
+    } catch(Exception e) {
+      log(e.getMessage());
     }
   }
 
   protected void startAndroidSession(String seleniumHost, int seleniumPort, String browser, String webSite, String method) {
-    // AndroidProfile profile = new AndroidProfile();
-    // profile.setPreference("network.http.phishy-userpass-length", 255);
     WebDriver driver = new AndroidDriver();
     driverSessions.put(method, driver);
   }
