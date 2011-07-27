@@ -49,7 +49,7 @@
   <property name="build.sysclasspath" value="last" />
   <property name="file.encoding" value="UTF-8" />
   
-  <property name="android-sdk.dir" value="/home/roms/android-sdk-linux_x86/" />
+  <property name="android-sdk.dir" value="/home/catroid/Workspace/android-sdk-linux_x86/" />
 
   <import file="tests/selenium-grid/build.xml"/>
   <import file="tests/selenium-grid/tools/build.xml"/>
@@ -130,21 +130,21 @@
       <arg line=" AndroidBrowserTestSuite.php"/>
     </exec>
     <exec dir="${android-sdk.dir}/tools" executable="${android-sdk.dir}/tools/emulator" failonerror="false" osfamily="Unix" spawn="true">
-      <arg line=" -avd catroidandroidtest -port 5556"/>
+      <arg line=" -avd catroidandroidtest -port 5560"/>
     </exec>
   </target>
   
   <target name="-selenium-start-server-android">
     <echo message="Setting up port forwarding..." />
     <exec dir="${android-sdk.dir}/platform-tools" executable="${android-sdk.dir}/platform-tools/adb" failonerror="false" osfamily="Unix" spawn="true">
-      <arg line=" -s emulator-5556 wait-for-device shell input keyevent 82"/>
+      <arg line=" -s emulator-5560 wait-for-device shell input keyevent 82"/>
     </exec>
     <exec dir="${android-sdk.dir}/platform-tools" executable="${android-sdk.dir}/platform-tools/adb" failonerror="false" osfamily="Unix" spawn="true">
-      <arg line=" -s emulator-5556 wait-for-device forward tcp:8080 tcp:8080"/>
+      <arg line=" -s emulator-5560 wait-for-device forward tcp:8080 tcp:8080"/>
     </exec> 
     <echo message="Starting android webdriver server" />
     <exec dir="${android-sdk.dir}/platform-tools" executable="${android-sdk.dir}/platform-tools/adb" failonerror="false" osfamily="Unix" spawn="true">
-      <arg line=" -s emulator-5556 wait-for-device shell monkey -p org.openqa.selenium.android.app 1"/>
+      <arg line=" -s emulator-5560 wait-for-device shell monkey -p org.openqa.selenium.android.app 1"/>
     </exec>  
   </target>
   
@@ -723,7 +723,7 @@
   <target name="run-selenium-api-tests" depends="-selenium-start-server, -selenium-tests-api, -selenium-stop-server" />
   <target name="run-selenium-remote-tests" depends="deploy-testlocal-with-tests, -selenium-grid-tests-testlocal" />
   <target name="stop-selenium-grid" depends="-selenium-grid-stop"/>
-  <target name="start-android-emulator" depends="-selenium-start-android-emulator" />
+  <target name="start-android-emulator" depends="-selenium-start-android-emulator, -selenium-start-server-android" />
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />
   <target name="deploy-test-board" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />
