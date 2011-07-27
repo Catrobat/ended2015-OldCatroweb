@@ -82,7 +82,10 @@ public class UploadTests extends BaseTest {
             "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") },
         { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention",
             "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "5451117C121B89EE9BFB41C5381F357A",
-            "", "", "0") } };
+            "", "", "0") },
+            { CommonData.getUploadPayload("new catroid extention",
+                "this project has catroid as extention", "test.catroid", "583783A335BD40D3D0195A13432AFABB",
+                "", "", "0") } };
     return returnArray;
   }
 
@@ -93,7 +96,9 @@ public class UploadTests extends BaseTest {
         { CommonData.getUploadPayload("fucking word in title", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
         { CommonData.getUploadPayload("no token given", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", " ") },
         { CommonData.getUploadPayload("wrong checksum", "some description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", " ") },
-        { CommonData.getUploadPayload("wrong token given", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "123") } };
+        { CommonData.getUploadPayload("wrong token given", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "123") },
+        { CommonData.getUploadPayload("invalid xml in project file", "some description", "invalid_xml.zip", "AADC2DEDE19CDB559E362DB2E119F038", "", "", " ") },
+        { CommonData.getUploadPayload("invalid zip file", "some description", "not_a_zip.zip", "D1B761A18F525A2A20CAA2A5DA12BBF1", "", "", " ") } };
     return returnArray;
   }
 }
