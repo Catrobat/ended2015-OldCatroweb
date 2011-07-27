@@ -30,7 +30,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
   protected function setUp() {
     $this->file_listing = array();
     $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js", "java");
-    $this->blacklist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php", "strings.xml");
+    $this->blacklist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php", "strings.xml", ".ant-targets-build.xml");
     $this->blacklist_folders = array("addons", "pear", "target", "resources", "pootle", "phpPgAdmin");
 
     $this->license = array(
