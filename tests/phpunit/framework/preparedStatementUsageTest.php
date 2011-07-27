@@ -40,9 +40,12 @@ class preparedStatementUsageTest extends PHPUnit_Framework_TestCase
 
     foreach($this->file_listing as $current_file) {
       $contents = $this->getFileContent($current_file);
-      foreach($this->statements as $key => $value) {
-        if(preg_match("/execute ".$key."/i", $contents)) {
-          $foundKey[$key] = true;
+
+      if(preg_match("/execute/i", $contents)) {
+        foreach($this->statements as $key => $value) {
+          if(!$foundKey[$key] && preg_match("/execute ".$key."/i", $contents)) {
+            $foundKey[$key] = true;
+          }
         }
       }
     }
