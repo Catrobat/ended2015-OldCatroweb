@@ -24,7 +24,6 @@
     <string name="get_number_of_visible_projects">SELECT count(id) FROM projects WHERE visible=true</string>
     <string name="get_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND projects.visible=true AND cusers.id=projects.user_id LIMIT 1</string>
-    <string name="get_project_by_source">SELECT * FROM projects WHERE source=$1 LIMIT 1</string>
     <string name="insert_new_project">INSERT INTO projects (title, description, source, upload_ip, upload_email, upload_language, filesize_bytes, user_id) 
     	VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id</string>
     <string name="increment_download_counter">UPDATE projects SET download_count=download_count+1 WHERE id=$1</string>
@@ -58,7 +57,6 @@
 
     <string name="get_user_login">SELECT * FROM cusers WHERE username_clean=$1 AND password=$2 LIMIT 1</string>
     <string name="get_user_device_login">SELECT * FROM cusers WHERE auth_token=$1 LIMIT 1</string>
-    <string name="get_userid_by_username">SELECT id FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_row_by_username">SELECT * FROM cusers WHERE username=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_clean">SELECT * FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
@@ -67,11 +65,9 @@
     
     
     <string name="add_user_email">INSERT INTO cusers_additional_email (user_id, email) VALUES ($1, $2)</string>
-    <string name="get_user_row_by_id">SELECT * FROM cusers WHERE id=$1 LIMIT 1</string>
     <string name="get_user_row_by_recovery_hash">SELECT * FROM cusers WHERE recovery_hash=$1 LIMIT 1</string>
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
     <string name="get_user_country_by_username">SELECT country from cusers WHERE username=$1</string>
-    <string name="get_user_country_by_id">SELECT country FROM cusers WHERE id=$1</string>
     <string name="get_user_email_by_username">SELECT email FROM cusers WHERE username=$1</string>
     <string name="get_user_email_by_email">SELECT email FROM cusers WHERE email=$1</string>
     <string name="get_user_emails_by_id">SELECT u.email FROM cusers u WHERE u.id=$1 UNION SELECT e.email FROM cusers_additional_email e WHERE e.user_id=$1</string>
@@ -88,7 +84,6 @@
     <string name="delete_user_email_from_additional_email_by_user_email">DELETE FROM cusers_additional_email WHERE email=(SELECT email FROM cusers WHERE id=$1)</string>
     <string name="update_recovery_hash_recovery_time_by_id">UPDATE cusers SET recovery_hash=$1, recovery_time=$2 WHERE id=$3</string>
     <string name="update_password_and_hash_by_username">UPDATE cusers SET password=$1, recovery_hash=$2 WHERE username=$3</string>
-    <string name="DELETE_update_user_email_DELETE">UPDATE cusers SET email=$1 WHERE username=$2</string>
     <string name="update_user_email_by_user_email">UPDATE cusers SET email=$1 WHERE email=$2</string>
     <string name="update_user_email_from_additional_email_by_user_email">UPDATE cusers SET email=(SELECT email FROM cusers_additional_email WHERE user_id=$2 LIMIT 1) WHERE username=$1</string> <!-- hkajläsdfalösjkfä -->    
     <string name="update_user_additional_email_by_user_email">UPDATE cusers_additional_email SET email=$1 WHERE email=$2</string>
@@ -107,7 +102,6 @@
     <string name="admin_unblock_username">DELETE FROM blocked_cusers WHERE user_name=$1</string>
     <string name="admin_unblock_user_id">DELETE FROM blocked_cusers WHERE user_id=$1</string>
     <string name="admin_is_blocked_user">SELECT * FROM blocked_cusers WHERE user_id=$1 AND user_name=$2</string>
-    <string name="admin_remove_all_blocked_users">DELETE FROM blocked_cusers</string>
     <string name="get_all_blocked_users">SELECT * FROM blocked_cusers</string>
     <string name="get_all_users">SELECT u.*, (select min(b.user_id) from blocked_cusers b where b.user_id = u.id) FROM cusers u ORDER BY id ASC</string>
     <string name="get_user_by_id">SELECT * FROM cusers WHERE id=$1</string>

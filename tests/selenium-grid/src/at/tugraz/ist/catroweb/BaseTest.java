@@ -158,6 +158,8 @@ public class BaseTest {
   }
 
   protected void startAndroidSession(String seleniumHost, int seleniumPort, String browser, String webSite, String method) {
+    log("android: running " + method + "...");
+    
     WebDriver driver = new AndroidDriver();
     driverSessions.put(method, driver);
   }
