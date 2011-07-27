@@ -162,7 +162,6 @@ class upload extends CoreAuthenticationDevice {
 
     $this->saveVersionInfo($newId, $projectVersion['versionCode'], $projectVersion['versionName']);
     $this->extractThumbnail($unzipDir, $newId);
-    //$this->unzipThumbnailFromUploadedFile($fileData['upload']['tmp_name'], $projectDir, $newId);
 
     $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
     if($unapprovedWords) {
@@ -400,31 +399,6 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($this->errorHandler->getError('upload', 'invalid_project_zip'));
     }
   }
-  /*
-   private function saveFile($targetDir, $filename, $filecontent, $filesize) {
-   $fp = fopen($targetDir."/".$filename, "wb+");
-   if ($fp) {
-   fwrite($fp, $filecontent, $filesize);
-   fclose($fp);
-   }
-   }
-   */
-  /*
-   private function unzipThumbnailFromUploadedFile($filename, $projectDir, $projectId) { // unzips thumbnail only
-   $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY;
-   $zip = zip_open($projectDir.$projectId.PROJECTS_EXTENTION);
-   while ($zip_entry = zip_read($zip)) {
-   $filename = zip_entry_name($zip_entry);
-   if (preg_match("/thumbnail\./", $filename) || preg_match("/images\/thumbnail\./", $filename)) {
-   $thumbnail = zip_entry_read($zip_entry, zip_entry_filesize($zip_entry));
-   if ($thumbnail) {
-   $this->saveThumbnail($projectId, $thumbnail);
-   }
-   }
-   }
-   zip_close($zip);
-   }
-   */
 
   private function extractThumbnail($unzipDir, $projectId) {
     $thumbFile = null;
@@ -449,7 +423,6 @@ class upload extends CoreAuthenticationDevice {
 
   private function saveThumbnail($projectId, $thumbnail, $thumbType) {
     $thumbnailDir = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;
-
     if(strcmp($thumbType, 'PNG') == 0) {
       $thumbImage = imagecreatefrompng($thumbnail);
     } elseif(strcmp($thumbType, 'JPG') == 0) {
@@ -457,11 +430,9 @@ class upload extends CoreAuthenticationDevice {
     } else {
       return false;
     }
-
     if ($thumbImage) {
       $w = imagesx($thumbImage);
       $h = imagesy($thumbImage);
-
       $wsmall = 0; $hsmall = 0; $hsmallopt = intval(240*$h/$w);
       $wlarge = 0; $hlarge = 0; $hlargeopt = intval(480*$h/$w);
       imagejpeg($thumbImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 100);
