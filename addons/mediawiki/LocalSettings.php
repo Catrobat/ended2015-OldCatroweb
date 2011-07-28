@@ -113,6 +113,14 @@ $wgSecretKey = "18098c1b5fe73ab94b5852523f7b64cf1c425e395e5920f75128555a474457f7
 ## Default skin: you can change the default skin. Use the internal symbolic
 ## names, ie 'vector', 'monobook':
 $wgDefaultSkin = 'monobook';
+$mobile_style = '';
+
+require_once dirname(__FILE__).'/../../classes/CoreClientDetection.php';
+		$clientDetection = new CoreClientDetection();
+		$mobile_style = $clientDetection->isMobile();
+		if ($mobile_style) {
+		 $wgDefaultSkin = 'wptouch';
+		}
 
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation
