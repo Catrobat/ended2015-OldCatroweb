@@ -19,11 +19,14 @@
 var ProjectDetails = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function() {
+    $("#downloadProjectLink").click($.proxy(this.incrementDownloadCounter, this));
+    $("#downloadProjectThumb").click($.proxy(this.incrementDownloadCounter, this));
+
     $("#qrcodeInfo").toggle(false);
     $("#hideQrCodeInfoButton").toggle(false);
     $("#showQrCodeInfoButton").click($.proxy(this.showQrCodeInfo, this));
     $("#hideQrCodeInfoButton").click($.proxy(this.hideQrCodeInfo, this));
-
+    
     $("#reportAsInappropriateDialog").toggle(false);
     $("#reportAsInappropriateAnswer").toggle(false);
     $("#showFullDescriptionButton").click(
@@ -96,6 +99,16 @@ var ProjectDetails = Class.$extend( {
 	  $("#qrcodeInfo").toggle(false);
 	  $("#showQrCodeInfoButton").toggle(true);
 	  $("#hideQrCodeInfoButton").toggle(false);
+  },
+  
+  incrementDownloadCounter : function() {
+    var id = $("#reportInappropriateProjectId").val();
+    $.ajax({
+      type: "POST",
+      url: self.basePath+"catroid/download/" + id,
+      cache: false,
+      data: "incrementID=" + id,        
+    });
   }
 
 });
