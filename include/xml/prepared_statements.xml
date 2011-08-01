@@ -43,6 +43,13 @@
       GROUP BY projects.id, projects.title, projects.upload_time, projects.upload_ip, projects.visible 
       ORDER BY projects.upload_time DESC
     </string>
+    <string name="get_flagged_projects_reason_and_user">
+      SELECT fp.user_id, fp.reason, u.username, fp.time 
+      FROM flagged_projects fp, cusers u 
+      WHERE fp.user_id = u.id
+      AND fp.project_id = $1
+      ORDER BY fp.time
+    </string>
     <string name="update_project_filesize">UPDATE projects SET filesize_bytes=$2 WHERE id=$1</string>
 
     <string name="add_word_to_wordlist">INSERT INTO wordlist (word, good_meaning, approved) VALUES ($1, $2, $3)</string>
@@ -103,7 +110,7 @@
     <string name="admin_unblock_user_id">DELETE FROM blocked_cusers WHERE user_id=$1</string>
     <string name="admin_is_blocked_user">SELECT * FROM blocked_cusers WHERE user_id=$1 AND user_name=$2</string>
     <string name="get_all_blocked_users">SELECT * FROM blocked_cusers</string>
-    <string name="get_all_users">SELECT u.*, (select min(b.user_id) from blocked_cusers b where b.user_id = u.id) FROM cusers u ORDER BY id ASC</string>
+    <string name="get_all_users">SELECT u.*, (select min(b.user_id) from blocked_cusers b where b.user_id = u.id) user_id FROM cusers u ORDER BY id ASC</string>
     <string name="get_user_by_id">SELECT * FROM cusers WHERE id=$1</string>
 
     <string name="admin_block_ip">INSERT INTO blocked_ips (ip_address) VALUES ($1)</string>

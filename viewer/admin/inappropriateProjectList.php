@@ -47,6 +47,7 @@
           <th>Upload Time</th>
           <th>Upload IP</th>
           <th>Flagged</th>
+          <th>Flagged by and reason</th>
           <th>Visible</th>
           <th>Details</th>
           <th>Resolve</th>
@@ -61,6 +62,7 @@
           <td><?php echo date('Y-m-d H:i:s', strtotime($project['upload_time']))?></td>
           <td><?php echo $project['upload_ip']?></td>
           <td><?php echo $project['num_flags'].'x'?></td>
+          <td><?php echo $project['flag_details']?></td>
           <td><?php echo ($project['visible']=='t' ? 'visible' : '<em>invisible</em>');?></td>
           <td><a id="detailsLink<?php echo $project['id']?>" href="<?php echo BASE_PATH.'catroid/details/'.$project['id']?>" target="_blank">link</a></td>
           <td>

@@ -1,0 +1,1 @@
+ALTER TABLE flagged_projects ALTER COLUMN user_id SET DEFAULT 0;
