@@ -39,7 +39,7 @@ h1 {
 	-ms-border-radius: 10px;
 	border-radius: 10px;
 	padding: 0.8%;
-	min-height: 650px;
+	min-height: 950px;
 	opacity: 0.9;
 }
 
@@ -47,9 +47,18 @@ a {
 	color: blue;
 }
 
+pre {
+  white-space: pre-wrap; 
+  white-space: -moz-pre-wrap !important;
+  white-space: -pre-wrap; 
+  white-space: -o-pre-wrap;
+  word-wrap: break-word;
+}
+
 #antcommands {
 	float: left;
 	word-wrap: break-word;
+	width: 70%;
 }
 
 #links {
