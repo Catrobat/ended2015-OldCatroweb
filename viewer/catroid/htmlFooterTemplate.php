@@ -36,17 +36,18 @@
           <a class="license" id="_contactus" href="<?php echo BASE_PATH?>catroid/contactus"><?php echo $this->languageHandler->getString('template_footer_contact_link')?></a>
           <span class="webMainBottomSpacer">|</span>
           <select id="switchLanguage" class="languageSwitchSelect">
-            <?php 
-              $supportedLanguages = getSupportedLanguagesArray($this->languageHandler);
-              foreach($supportedLanguages as $lang => $details) {
-                if($details['supported']) {
-                  $selected = "";
-                  if(strcmp($lang, $this->languageHandler->getLanguage()) == 0) {
-                    $selected = "selected";
-                  }?>
-                  <option <?php echo $selected?> value="<?php echo $lang?>"><?php echo $details['name'].' - '.$details['nameNative']?></option>
-                <?php }?>
-            <?php }?>
+<?php 
+  $supportedLanguages = getSupportedLanguagesArray($this->languageHandler);
+    foreach($supportedLanguages as $lang => $details) {
+      if($details['supported']) {
+        $selected = "";
+        if(strcmp($lang, $this->languageHandler->getLanguage()) == 0) {
+          $selected = "selected ";
+        }
+?>
+            <option <?php echo $selected?>value="<?php echo $lang?>"><?php echo $details['name'].' - '.$details['nameNative']?></option>
+<?php }
+    } ?>
           </select>
         </div>
       </div>
