@@ -103,6 +103,7 @@ var ProjectDetails = Class.$extend( {
   
   incrementDownloadCounter : function() {
     var id = $("#reportInappropriateProjectId").val();
+    var self = this;
     $.ajax({
       type: "POST",
       url: self.basePath+"catroid/download/" + id,
