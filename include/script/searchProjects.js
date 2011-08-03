@@ -87,20 +87,22 @@ var SearchProjects = Class.$extend( {
   },
 
   restoreHistoryState : function(state) {
-    if(state != null) {      
+    if(state != null) {
+      var isLanguageChanged = (state.language != $("#switchLanguage").val());
       this.createSkeleton();
       $("#fewerProjects").click($.proxy(this.prevPage, this));
       $("#moreProjects").click($.proxy(this.nextPage, this));
       if(state.searchProjects) {        
         this.pageNr = state.pageNr;
         this.searchQuery = state.searchQuery;
-        if(state.language == $("#switchLanguage").val()) {
-          this.pageContent = state.pageContent;
-          this.pageLabels = state.pageLabels;
-        } else {
+        if(isLanguageChanged) {
+          this.setLoadingPage();
           this.pageLabels = new Array();
           this.pageContent = { prev : null, current : null, next : null };
           this.loadAndCachePage();
+        } else {
+          this.pageContent = state.pageContent;
+          this.pageLabels = state.pageLabels;
         }
       } 
       $("#searchQuery").val(this.searchQuery);
@@ -109,8 +111,10 @@ var SearchProjects = Class.$extend( {
       $("#headerSearchBox").toggle(true);
       $("#searchQuery").focus();
       
-      this.setDocumentTitle();
-      this.fillSkeletonWithContent();
+      if(!isLanguageChanged) {
+        this.setDocumentTitle();
+        this.fillSkeletonWithContent();
+      }
       this.initialized = true;
     }
   },

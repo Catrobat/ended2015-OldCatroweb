@@ -82,26 +82,31 @@ var NewestProjects = Class.$extend( {
 
   restoreHistoryState : function(state) {
     if(state != null) {
+      var isLanguageChanged = (state.language != $("#switchLanguage").val());
       this.createSkeleton();
       $("#fewerProjects").click($.proxy(this.prevPage, this));
       $("#moreProjects").click($.proxy(this.nextPage, this));
 
       if(state.newestProjects) {
         this.pageNr = state.pageNr;
-        if(state.language == $("#switchLanguage").val()) {
-          this.pageContent = state.pageContent;
-          this.pageLabels = state.pageLabels;
-        } else {
+        if(isLanguageChanged) {
+          this.setLoadingPage();
           this.pageLabels = new Array();
           this.pageContent = { prev : null, current : null, next : null };
           this.loadAndCachePage();
+        } else {
+          this.pageContent = state.pageContent;
+          this.pageLabels = state.pageLabels;
         }
       }      
       $("#normalHeaderButtons").toggle(true);
       $("#cancelHeaderButton").toggle(false);
       $("#headerSearchBox").toggle(false);
-      this.setDocumentTitle();
-      this.fillSkeletonWithContent();
+      
+      if(!isLanguageChanged) {
+        this.setDocumentTitle();
+        this.fillSkeletonWithContent();
+      }
       this.initialized = true;
     }
   },
