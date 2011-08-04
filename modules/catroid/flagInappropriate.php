@@ -35,17 +35,21 @@ class flagInappropriate extends CoreAuthenticationNone {
     $statusCode = 500;
     if(isset($postData['projectId']) && $postData['flagReason'] != '') {
       $userIp = $serverData['REMOTE_ADDR'];
+      $userId = 0;
+      if(isset($this->session) &&  $this->session->userLogin_userId != "") {
+        $userId = $this->session->userLogin_userId;
+      }
       $projectId = $postData['projectId'];
       $flagReason = pg_escape_string($postData['flagReason']);
-      $query = "EXECUTE insert_new_flagged_project('$projectId', '".$this->session->userLogin_userId."', '$flagReason', '$userIp')";
-      $result = @pg_query($this->dbConnection, $query);
+      $query = "EXECUTE insert_new_flagged_project('$projectId', '$userId', '$flagReason', '$userIp')";
+      $result = pg_query($this->dbConnection, $query);
       if($result) {
         if(($numberOfFlags = $this->getProjectFlags($projectId)) >= PROJECT_FLAG_NOTIFICATION_THRESHOLD) {
           $this->hideProject($projectId);
           if($sendNotificationEmail) {
             $this->sendNotificationEmail($projectId, $flagReason);
             $query = "EXECUTE set_mail_sent_on_inappropriate('$projectId')";
-            @pg_query($this->dbConnection, $query);
+            pg_query($this->dbConnection, $query);
           }
         }
         $answer = $this->languageHandler->getString('msg_flagged_successful');
