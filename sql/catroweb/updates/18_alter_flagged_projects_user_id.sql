@@ -1,1 +1,1 @@
-ALTER TABLE flagged_projects ALTER COLUMN user_id SET DEFAULT 0;
+ALTER TABLE flagged_projects ADD COLUMN user_id INTEGER DEFAULT 0;

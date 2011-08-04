@@ -37,7 +37,7 @@ class flagInappropriate extends CoreAuthenticationNone {
       $userIp = $serverData['REMOTE_ADDR'];
       $projectId = $postData['projectId'];
       $flagReason = pg_escape_string($postData['flagReason']);
-      $query = "EXECUTE insert_new_flagged_project('$projectId', '$flagReason', '$userIp')";
+      $query = "EXECUTE insert_new_flagged_project('$projectId', '".$this->session->userLogin_userId."', '$flagReason', '$userIp')";
       $result = @pg_query($this->dbConnection, $query);
       if($result) {
         if(($numberOfFlags = $this->getProjectFlags($projectId)) >= PROJECT_FLAG_NOTIFICATION_THRESHOLD) {

@@ -30,7 +30,7 @@
     <string name="increment_view_counter">UPDATE projects SET view_count=view_count+1 WHERE id=$1</string>
     <string name="set_project_new_filename">UPDATE projects SET source=$1 WHERE id=$2</string>
     <string name="delete_project_by_id">DELETE FROM projects WHERE id=$1</string>
-    <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, reason, user_ip) VALUES ($1, $2, $3)</string>
+    <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, user_id, reason, user_ip) VALUES ($1, $2, $3, $4)</string>
     <string name="get_flags_for_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND resolved=false</string>
     <string name="hide_project">UPDATE projects SET visible=false WHERE id=$1</string>
     <string name="show_project">UPDATE projects SET visible=true WHERE id=$1</string>
