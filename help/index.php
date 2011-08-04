@@ -80,21 +80,22 @@ require_once('../config.php');
 		</div>
 		<div id="links">
 			<h1>Localhost</h1>
-			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>:4444/grid/console" target="_blank">Grid	Console</a><br> 
-			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/tests/selenium-grid/target/reports/" target="_blank">Test	Reports</a><br> 
-			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/phppgadmin/" target="_blank">phppgadmin</a><br>
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>:4444/grid/console" target="_blank">Grid	Console</a><br/> 
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/tests/selenium-grid/target/reports/" target="_blank">Test	Reports</a><br/> 
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/phppgadmin/" target="_blank">phppgadmin</a><br/>
 			
 			<h1>kittyroidlocal</h1> 
-			<a href="http://kittyroidlocal:4444/grid/console" target="_blank">Grid Console</a><br>
+			<a href="http://kittyroidlocal:4444/grid/console" target="_blank">Grid Console</a><br/>
 			<a href="http://kittyroidlocal/tests/selenium-grid/target/reports/" target="_blank">Test Reports</a>
       <h1>Catroidwebtest</h1> 
-      <a href="http://catroidwebtest.ist.tugraz.at/" target="_blank">Catroidwebtest</a><br>
-      <a href="http://catroidwebtest.ist.tugraz.at:8080" target="_blank">Pootle Server</a><br>
-      <a href="http://catroidwebtest.ist.tugraz.at/sql-overview/" target="_blank">SQL	Overview</a><br>
+      <a href="http://catroidwebtest.ist.tugraz.at/" target="_blank">Catroidwebtest</a><br/>
+      <a href="http://catroidwebtest.ist.tugraz.at:8080" target="_blank">Pootle Server</a><br/>
+      <a href="http://catroidwebtest.ist.tugraz.at/sql-overview/" target="_blank">SQL	Overview</a><br/>
       
-      <h1>Other</h1> <a href="http://catroid.org" target="_blank">Catroid.org</a><br>
-			<a href="http://kittyroid.org" target="_blank">Kittyroid.org</a><br> 
-			<a href="http://catroidtest.ist.tugraz.at/" target="_blank">Catroidtest</a><br>		
+      <h1>Other</h1> <a href="http://catroid.org" target="_blank">Catroid.org</a><br/>
+			<a href="http://kittyroid.org" target="_blank">Kittyroid.org</a><br/> 
+			<a href="http://catroidtest.ist.tugraz.at/" target="_blank">Catroidtest</a><br/>
+      <a href="https://selenium.googlecode.com/svn/trunk/java/CHANGELOG" target="_blank">Selenium changelog</a><br/>	
 		</div>
 	</div>
 </body>
