@@ -31,6 +31,14 @@ set_time_limit(0);
 
 walkThroughDirectory(dirname(__FILE__).'/'."catroweb/updates/", $connection_web);
 
+$connection_board = null;
+if($connection_board === null) {
+      $connection_board = pg_connect("host=".DB_HOST_BOARD." dbname=".DB_NAME_BOARD." user=".DB_USER_BOARD." password=".DB_PASS_BOARD)
+      or die('Connection to Database failed: ' . pg_last_error());
+}
+
+walkThroughDirectory(dirname(__FILE__).'/'."catroboard/updates/", $connection_board);
+
 function walkThroughDirectory($directory, $connection) {
     $filearray = array();
     if(is_dir($directory)) {
