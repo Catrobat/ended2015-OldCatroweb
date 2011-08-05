@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
   <profile>
-    <string name="email_address_string_changed"/>
+    <string name="email_address_string_changed">Fehler beim L&#xF6;schen dieser E-Mail Adresse. Gibt es nicht gespeicherte &#xC4;nderungen?</string>
     <string name="password_repeat_missing">Bitte gib das Passwort zweimal ein.</string>
     <string name="password_repeat_differs">Das wiederholte Passwort ist anders als das urspr&#xFC;ngliche Passwort.</string>
     <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
@@ -74,7 +74,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="catroid_authentication_failed">Die Authentifizierung auf der Seite ist fehlgeschlagen.</string>
     <string name="wiki_api_response_incorrect">Bei der Anmeldung ist etwas schiefgelaufen. Bitte noch einmal probieren!</string>
     <string name="device_auth_invalid_token">Leider konnten wir dich nicht identifizieren. Sind Dein Benutzername und Dein Passwort korrekt eingetragen?</string>
-    <string name="not_a_tugraz_ip"/>
+    <string name="not_a_tugraz_ip">Diese Seite kann nur vom "localhost" oder innerhalb des TU Graz Netzwerks aufgerufen werden.</string>
   </auth>
   <registration>
     <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
@@ -119,10 +119,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="passwordhash_invalid">Es tut uns leid! Dein Wiederherstellungslink ist abgelaufen.</string>
   </passwordrecovery>
   <admin>
-    <string name="pootle_post_data_missing"/>
-    <string name="pootle_load_xlf_failed"/>
-    <string name="pootle_not_valid_xml"/>
-    <string name="pootle_invalid_stringname_in_xml"/>
-    <string name="pootle_could_not_write_xml_file"/>
+    <string name="pootle_post_data_missing">POST-Daten fehlen: ben&#xF6;tigt: lang.</string>
+    <string name="pootle_load_xlf_failed">Konnte die XLF-Datei nicht von {*source*} laden.</string>
+    <string name="pootle_not_valid_xml">Konnte kein XML-Objekt von der XLF-Zeichenkette generieren.</string>
+    <string name="pootle_invalid_stringname_in_xml">Ung&#xFC;ltiger Zeichenketten Name in der XLF-Datei: {*stringName*}</string>
+    <string name="pootle_could_not_write_xml_file">Konnte die XML-Datei nicht in das Sprach-Verzeichnis schreiben: {*fileName*}</string>
   </admin>
 </errors>

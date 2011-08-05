@@ -19,7 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
   <profile>
-    <string name="email_address_string_changed"/>
+    <string name="email_address_string_changed">Fehler beim L&#xF6;schen dieser E-Mail Adresse. Gibt es nicht gespeicherte &#xC4;nderungen?</string>
     <string name="password_repeat_missing">Bitte gib das Passwort zweimal ein.</string>
     <string name="password_repeat_differs">Das wiederholte Passwort ist anders als das urspr&#xFC;ngliche Passwort.</string>
     <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
@@ -45,8 +45,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="password_or_username_wrong">Das Passwort oder der Benutzername war falsch!</string>
     <string name="username_not_found">Der Benutzername konnte nicht gefunden werden.</string>
     <string name="catroid_authentication_failed">Bitte &#xFC;berpr&#xFC;fe den Benutzernamen und das Passwort!</string>
-    <string name="device_auth_invalid_token"/>
-    <string name="not_a_tugraz_ip"/>
+    <string name="device_auth_invalid_token">Entschuldigung, deine Authentifizierungsdaten waren falsch. Bitte &#xFC;berpr&#xFC;fe deinen Benutzername und Passwort!</string>
+    <string name="not_a_tugraz_ip">Du darfst diese Seite nicht ansehen.</string>
   </auth>
   <registration>
     <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
@@ -95,11 +95,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="no_entry_for_id">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
   </db>
   <admin>
-    <string name="pootle_post_data_missing"/>
-    <string name="pootle_load_xlf_failed"/>
-    <string name="pootle_not_valid_xml"/>
-    <string name="pootle_invalid_stringname_in_xml"/>
-    <string name="pootle_could_not_write_xml_file"/>
+    <string name="pootle_post_data_missing">POST-Daten fehlen: ben&#xF6;tigt: lang.</string>
+    <string name="pootle_load_xlf_failed">Konnte die XLF-Datei nicht von {*source*} laden.</string>
+    <string name="pootle_not_valid_xml">Konnte kein XML-Objekt von der XLF-Zeichenkette generieren.</string>
+    <string name="pootle_invalid_stringname_in_xml">Ung&#xFC;ltiger Zeichenketten Name in der XLF-Datei: {*stringName*}</string>
+    <string name="pootle_could_not_write_xml_file">Konnte die XML-Datei nicht in das Sprach-Verzeichnis schreiben: {*fileName*}</string>
   </admin>
   <sendmail>
     <string name="sendmail_failed">W&#xE4;hrend dem Senden der E-Mail ist ein Fehler aufgetreten. Bitte kontaktiere uns unter {*webmasterEmailAddress*}.</string>
