@@ -28,7 +28,9 @@
           "changeEmailLanguageString" : "<?php echo $this->languageHandler->getString('email'); ?>",
           "changeEmailDeleteButtonLanguageString" : "<?php echo $this->languageHandler->getString('delete_email'); ?>",
           "changeEmailSaveChangesLanguageString" : "<?php echo $this->languageHandler->getString('save_button'); ?>",
-          "emailAddressStringChangedLanguageString" : "<?php echo $this->languageHandler->getString('email_address_string_changed'); ?>"
+          "emailAddressStringChangedLanguageString" : "<?php echo $this->languageHandler->getString('email_address_string_changed'); ?>",
+          "birthdayChangeLanguageString" : "<?php echo $this->languageHandler->getString('birthday_change_string'); ?>"
+            
           };
   		new Profile(languageStringsObject);
   	});
@@ -54,7 +56,7 @@
             		   	</div>
             		   	<br>
             		   	<?php 
-                      if($this->ownProfile) {            		   	
+                      if($this->ownProfile) {           		   	
             		   	?>
                       <input type="hidden" id="profileUser" name="profileUser" value="<?php echo $this->requestedUser; ?>">
           		   			<div id="profilePasswordDiv">
@@ -76,11 +78,13 @@
                         <?php }
                             else { ?>
                               <div id="div<?php echo $x; ?>"><a href="javascript:;" class="profileText" id="<?php echo $x; ?>"><?php echo $this->userEmailsArray[$x]; ?></a></div>
-                              <input type="button" name="buttonProfileOpenAddNewEmailField" id="buttonProfileOpenAddNewEmailField" value=" <?php echo $this->languageHandler->getString('add_email_field_button') ?> " class="button orange compact profileSubmitButton">
                         <?php }
                           }
                         ?>
           		   			</div>
+                      <div id="buttonProfileOpenAddNewEmailFieldDiv">
+                        <input type="button" name="buttonProfileOpenAddNewEmailField" id="buttonProfileOpenAddNewEmailField" value=" <?php echo $this->languageHandler->getString('add_email_field_button') ?> " class="button orange compact profileSubmitButton">
+                      </div>
                       <div id="profileAdditionalEmailInputFields">
                         <div id="emailTextFields">
                         </div>
@@ -97,8 +101,20 @@
                         <a href="javascript:;" class="profileText" id="profileChangeCityOpen"><?php echo $this->userCity; ?></a><br>
                       </div> 
                       <div id="profileCityDivOpened">
-                        <a href="javascript:;" class="profileText" id="profileChangeCityClose"><?php echo $this->languageHandler->getString('city')?></a><br>
-                        <input type="text" id="profileCity" name="profileCity" value="<?php echo htmlspecialchars($this->postData['profileCity']); ?>" required="required" placeholder="<?php echo $this->languageHandler->getString('new_city')?>" ><br>
+                        <a href="javascript:;" class="profileText" id="profileChangeCityClose"><?php echo $this->languageHandler->getString('change_my_city')?></a><br>
+                        <input type="text" id="profileCity" name="profileCity" value="" required="required" placeholder="<?php echo $this->languageHandler->getString('change_my_city')?>" ><br>
+                        <input type="button" name="profileCitySubmit" id="profileCitySubmit" value="<?php echo $this->languageHandler->getString('save_button')?>" class="button orange compact profileSubmitButton">
+                      </div>
+                      <?php 
+                        }
+                        else {
+                      ?>
+                      <div id="profileEmptyCityDiv">
+                        <a href="javascript:;" class="profileText" id="profileChangeCityOpen"><?php echo $this->languageHandler->getString('enter_a_city'); ?></a><br>
+                      </div> 
+                      <div id="profileEmptyCityDivOpened">
+                        <a href="javascript:;" class="profileText" id="profileChangeCityClose"><?php echo $this->languageHandler->getString('enter_your_city')?></a><br>
+                        <input type="text" id="profileCity" name="profileCity" value="" required="required" placeholder="<?php echo $this->languageHandler->getString('your_city')?>" ><br>
                         <input type="button" name="profileCitySubmit" id="profileCitySubmit" value="<?php echo $this->languageHandler->getString('save_button')?>" class="button orange compact profileSubmitButton">
                       </div>
                       <?php
@@ -142,13 +158,70 @@
 											</div>
                       <br>
                       <?php 
-                        if($this->userBirthArray) {
+                        if(intval($this->userBirthArray['year']) > 1900 && intval($this->userBirthArray['year']) != 0) {
                       ?>
                       <div id="profileBirthDiv">
                         <a href="javascript:;" class="profileText" id="profileChangeBirthOpen"><?php echo $this->languageHandler->getString('born_in').' '.$this->userBirthArray["month"].' '.$this->userBirthArray["year"]; ?></a><br>
                       </div>  
                       <div id="profileBirthDivOpened">
                       <a href="javascript:;" class="profileText" id="profileChangeBirthClose"><?php echo $this->languageHandler->getString('birth')?></a><br>
+                      <?php 
+                        $this->months = getMonthsArray($this->languageHandler);
+                      ?>
+                        <select id="profileMonth" name="profileMonth" class="profile" >
+                      <?php // month 
+                        $x = 0;
+                        while($x < 13) {
+                          if($x == 0 && !$this->userBirthArray["month_id"]) {
+                            echo '<option value="" selected>'.$this->languageHandler->getString('select_month').'</option>';
+                          }
+                          else if($x == 0 && $this->userBirthArray["month_id"]) {
+                            echo '<option value="" >'.$this->languageHandler->getString('select_month').'</option>';
+                          }
+                          else if($x == $this->userBirthArray["month_id"]) {
+                            echo "<option value=\"" . $x . "\" selected>" . $this->months[$x] . "</option>\r";
+                          }                            
+                          else {
+                            echo "<option value=\"" . $x . "\">" . $this->months[$x] . "</option>\r";
+                          }
+                          $x++;
+                        }
+                      ?>
+                        </select> 
+                        <select id="profileYear" name="profileYear" class="profile" >
+                      <?php // year
+                        $year_up = 0;
+                        $year_down = date('Y') + 1;
+                        while($year_up < 101) {
+                          $year_down--;
+                          if($year_up == 0 && !$this->userBirthArray["year"]) {
+                            echo '<option value="" selected >'.$this->languageHandler->getString('select_year').'</option>';
+                          }
+                          else if($year_up == 0 && $this->userBirthArray["year"]) {
+                            echo '<option value="" >'.$this->languageHandler->getString('select_year').'</option>';
+                          }
+                          else if($year_down == $this->userBirthArray["year"]) {
+                            echo "<option value=\"" . $year_down . "\" selected >" . $year_down . "</option>\r";
+                          }
+                          else {
+                            echo "<option value=\"" . $year_down . "\" >" . $year_down . "</option>\r";
+                          }
+                          $year_up++;
+                        }                     
+                      ?>
+                        </select><br>
+                        <input type="button" name="profileBirthSubmit" id="profileBirthSubmit" value="<?php echo $this->languageHandler->getString('save_button')?>" class="button orange compact profileSubmitButton">
+                      </div>
+                      <br>
+                      <?php 
+                        } // end birthday if
+                        else {
+                      ?>
+                      <div id="profileBirthDiv">
+                        <a href="javascript:;" class="profileText" id="profileChangeBirthOpen"><?php echo $this->languageHandler->getString('enter_your_birth_date'); ?></a><br>
+                      </div>  
+                      <div id="profileBirthDivOpened">
+                      <a href="javascript:;" class="profileText" id="profileChangeBirthClose"><?php echo $this->languageHandler->getString('select_birth_year_month')?></a><br>
                       <?php 
                         $this->months = getMonthsArray($this->languageHandler);
                       ?>
@@ -168,17 +241,17 @@
                         </select> 
                         <select id="profileYear" name="profileYear" class="profile" >
                       <?php // year
-                        $x = 0;
-                        $year = date('Y') + 1;
-                        while($x < 101) {
-                          $year--;
-                          if($x == 0) {
-                            echo '<option value="" selected>'.$this->languageHandler->getString('select_year').'</option>';
+                        $year_up = 0;
+                        $year_down = date('Y') + 1;
+                        while($year_up < 101) {
+                          $year_down--;
+                          if($year_up == 0) {
+                            echo '<option value="" selected >'.$this->languageHandler->getString('select_year').'</option>';
                           }
                           else {
-                            echo "<option value=\"" . $year . "\" >" . $year . "</option>\r";
+                            echo "<option value=\"" . $year_down . "\" >" . $year_down . "</option>\r";
                           }
-                          $x++;
+                          $year_up++;
                         }                     
                       ?>
                         </select><br>
@@ -186,11 +259,11 @@
                       </div>
                       <br>
                       <?php 
-                        } // end birthday if
+                        } // end birthday else
                         if($this->userGender) {
                       ?>
                       <div id="profileGenderDiv">
-                        <a href="javascript:;" class="profileText" id="profileChangeGenderOpen"><?php echo $this->userGender; ?></a><br>
+                        <a href="javascript:;" class="profileText" id="profileChangeGenderOpen"><?php echo $this->languageHandler->getString($this->userGender); ?></a><br>
                       </div>  
                       <div id="profileGenderDivOpened">
                         <a href="javascript:;" class="profileText" id="profileChangeGenderClose"><?php echo $this->languageHandler->getString('gender')?></a><br>
@@ -209,33 +282,48 @@
                       } // end own profile if
                       else {
                     ?>
-        		   			<br>
+        		   			  <br>
                     <?php 
-                      echo $this->languageHandler->getString('from');
-                      if($this->userCity) {
+                        echo $this->languageHandler->getString('from');
+                        if($this->userCity) {
                     ?>
-                    <div id="profileCityDiv">
-                      <?php echo $this->userCity; ?><br>
-                    </div> 
+                        <div id="profileCityDiv">
+                    <?php echo $this->userCity.' city'; ?><br>
+                        </div> 
                     <?php
-                      } 
+                        } 
                     ?>
-                    <div id="profileCountryTextDiv">
+                      <div id="profileCountryTextDiv">
           		   		<?php 
-          		   			$x = 0;
-          		   			$sumCount = count($this->countryCodeList);
-          		   			while($x < $sumCount+1) {
-          		   			  if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
-                          echo $this->countryNameList[$x];
-                          break;
-                        }
-                        $x++;           
-          		   			}
+          		   			  $x = 0;
+          		   			  $sumCount = count($this->countryCodeList);
+            		   			while($x < $sumCount+1) {
+            		   			  if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
+                            echo $this->countryNameList[$x].' country';
+                            break;
+                          }
+                          $x++;           
+            		   			}
           		   	  ?>
-          		   		</div>
+          		   			</div>
                     <?php
+                        if(intval($this->userBirthArray['year']) > 1900 && intval($this->userBirthArray['year']) != 0) {
+                    ?>
+                    	<div id="profileBirthDiv">
+                        <?php echo $this->languageHandler->getString('born_in').' '.$this->userBirthArray["month"].' '.$this->userBirthArray["year"]; ?><br>
+                      </div>
+                    <?php 
+                        }
+                        if($this->userGender) {
+                    ?>
+                      <div id="profileGenderDiv">
+                        <?php echo $this->userGender.' gender'; ?><br>
+                      </div> 
+                    <?php 
+                        }
                       }
-          		   		?>
+                    ?> 
+  
 
           		   			<br>
           		   			<br>

@@ -24,6 +24,8 @@ var Profile = Class.$extend( {
     this.emailCount = languageStringsObject.emailCount;
     this.emailText = '';
     this.id = 0;
+    this.year = 0;
+    this.month = 0;
     
     this.emailDeleteAlertTitle = languageStringsObject.emailDeleteAlertTitle;
     this.addNewEmailLanguageString = languageStringsObject.addNewEmailLanguageString;
@@ -33,6 +35,7 @@ var Profile = Class.$extend( {
     this.changeEmailDeleteButtonLanguageString = languageStringsObject.changeEmailDeleteButtonLanguageString;
     this.changeEmailSaveChangesLanguageString = languageStringsObject.changeEmailSaveChangesLanguageString;
     this.emailAddressStringChangedLanguageString = languageStringsObject.emailAddressStringChangedLanguageString;
+    this.birthdayChangeLanguageString = languageStringsObject.birthdayChangeLanguageString;
         
     $("#profileFormAnswer").toggle(true);
     $("#errorMsg").toggle(false);
@@ -57,8 +60,14 @@ var Profile = Class.$extend( {
     $("#profileEmailChangeDiv").toggle(false);
     $("#profileCountryDiv").toggle(false);
     $("#profileCountryTextDiv").toggle(true);
-    $("#profileCityDivOpened").toggle(false);
-    $("#profileCityDiv").toggle(true);
+    if(document.getElementById('profileEmptyCityDiv')) {
+      $("#profileEmptyCityDiv").toggle(true);
+      $("#profileEmptyCityDivOpened").toggle(false);
+    }
+    if(document.getElementById('profileCityDiv')) {
+      $("#profileCityDiv").toggle(true);
+      $("#profileCityDivOpened").toggle(false);
+    }
     $("#profileBirthDivOpened").toggle(false);
     $("#profileBirthDiv").toggle(true);
     $("#profileGenderDivOpened").toggle(false);
@@ -68,12 +77,15 @@ var Profile = Class.$extend( {
     $("#countryLinkNameDyn").toggle(false);
     
     $("#buttonProfileOpenAddNewEmailField").click($.proxy(this.profileOpenAddEmailInputField, this));
-    $("#buttonProfileCloseAddNewEmailField").click($.proxy(this.profileCloseAddEmailInputField, this));
+    $("#buttonProfileCloseAddNewEmailField").click($.proxy(this.profileAddEmailInputFieldClose, this));
     $("#buttonProfileSaveNewEmailSubmit").click($.proxy(this.profileAddEmailRequestSubmit, this));
     
     $("#profilePasswordSubmit").click($.proxy(this.profilePasswordRequestSubmit, this));
     $("#profileCountrySubmit").click($.proxy(this.profileCountryRequestSubmit, this));
-
+    $("#profileCitySubmit").click($.proxy(this.profileCountryRequestSubmit, this));
+    $("#profileBirthSubmit").click($.proxy(this.profileBirthRequestSubmit, this));
+    $("#profileGenderSubmit").click($.proxy(this.profileGenderRequestSubmit, this));
+        
     $("#profileChangePasswordOpen").click($.proxy(this.profileChangePasswordOpen, this));
     $("#profileChangePasswordClose").click($.proxy(this.profileChangePasswordClose, this));
 
@@ -83,12 +95,14 @@ var Profile = Class.$extend( {
     $("#profileChangeCityOpen").click($.proxy(this.profileChangeCityOpen, this));
     $("#profileChangeCityClose").click($.proxy(this.profileChangeCityClose, this));
     
-    $("#profileChangeBirthOpen").click($.proxy(this.profileChangeBirthdayOpen, this));
-    $("#profileChangeBirthClose").click($.proxy(this.profileChangeBirthdayClose, this));
+    $("#profileChangeBirthOpen").click($.proxy(this.profileChangeBirthOpen, this));
+    $("#profileChangeBirthClose").click($.proxy(this.profileChangeBirthClose, this));
     
     $("#profileChangeGenderOpen").click($.proxy(this.profileChangeGenderOpen, this));
     $("#profileChangeGenderClose").click($.proxy(this.profileChangeGenderClose, this));
     
+    //$("#profileCountry").keypress($.proxy(this.profileCountryCatchKeypress, this));
+    $("#profileCity").keypress($.proxy(this.profileCityCatchKeypress, this));
     $("#profileCountry").keypress($.proxy(this.profileCountryCatchKeypress, this));
     $("#profileEmail").keypress($.proxy(this.profileEmailCatchKeypress, this));
     $("#profileOldPassword").keypress($.proxy(this.profilePasswordCatchKeypress, this));
@@ -249,6 +263,9 @@ var Profile = Class.$extend( {
         error : jQuery.proxy(this.profileChangeEmailRequestSubmitError, this)
       });
     }
+    else {
+      jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
+    }
   },
     
   profileChangeEmailRequestSubmitSuccess : function(result) {
@@ -314,11 +331,148 @@ var Profile = Class.$extend( {
       window.location.reload(false);
     }
   },
+
+
+  profileCityRequestSubmit : function() {
+    $("#buttonProfileOpenAddNewEmailField").attr("disabled", "true");
+    $("#profileCity").attr("disabled", "true");
+    $("#profileCitySubmit").attr("disabled", "true");
+    $.ajax({
+      type: "POST",
+      url: this.basePath + 'catroid/profile/profileCityRequestQuery.json',
+      data : ({
+        profileCity : $("#profileCity").val()
+      }),
+      timeout : (this.ajaxTimeout),
+      success : jQuery.proxy(this.profileCityRequestSuccess, this),
+      error : jQuery.proxy(this.profileCityRequestError, this)
+    });
+  },
     
-    
+  profileCityRequestSuccess : function(result) {
+    if(result.statusCode == 200) {
+      $("#profileCity").removeAttr("disabled");
+      $("#profileCitySubmit").removeAttr("disabled");
+      window.location.reload(false);
+    }
+    else {
+      $("#profileCity").removeAttr("disabled");
+      $("#profileCitySubmit").removeAttr("disabled");
+      $("#profileFormAnswer").toggle(true);
+      $("#okMsg").toggle(false);
+      $("#errorMsg").toggle(true);
+      $("#errorMsg").html(result.answer);
+    }
+  },
+  
+  profileCityRequestError : function() {
+    if(errCode == "timeout") {
+      window.location.reload(false);
+    }
+  },
+  
+  
+  profileBirthRequestSubmit : function() {
+    if($("#profileMonth").val() && $("#profileYear").val() || !($("#profileMonth").val()) && !($("#profileYear").val()) ) {
+      $("#buttonProfileOpenAddNewEmailField").attr("disabled", "true");
+      $("#profileMonth").attr("disabled", "true");
+      $("#profileYear").attr("disabled", "true");
+      $("#profileBirthSubmit").attr("disabled", "true");
+      $.ajax({
+        type: "POST",
+        url: this.basePath + 'catroid/profile/profileBirthRequestQuery.json',
+        data : ({
+          profileMonth : $("#profileMonth").val(),
+          profileYear : $("#profileYear").val()
+        }),
+        timeout : (this.ajaxTimeout),
+        success : jQuery.proxy(this.profileBirthRequestSuccess, this),
+        error : jQuery.proxy(this.profileBirthRequestError, this)
+      });
+    }
+    else {
+      $("#profileFormAnswer").toggle(true);
+      $("#errorMsg").toggle(true);
+      $("#errorMsg").html(this.birthdayChangeLanguageString);
+    }
+  },
+  
+  profileBirthRequestSuccess : function(result) {
+    if(result.statusCode == 200) {
+      $("#buttonProfileOpenAddNewEmailField").removeAttr("disabled");
+      $("#profileMonth").removeAttr("disabled");
+      $("#profileYear").removeAttr("disabled");
+      $("#profileBirthSubmit").removeAttr("disabled");
+      window.location.reload(false);
+    }
+    else {
+      $("#buttonProfileOpenAddNewEmailField").removeAttr("disabled");
+      $("#profileMonth").removeAttr("disabled");
+      $("#profileYear").removeAttr("disabled");
+      $("#profileBirthSubmit").removeAttr("disabled");
+      $("#profileFormAnswer").toggle(true);
+      $("#okMsg").toggle(false);
+      $("#errorMsg").toggle(true);
+      $("#errorMsg").html(result.answer);
+    }
+  },
+  
+  profileBirthRequestError : function() {
+    if(errCode == "timeout") {
+      window.location.reload(false);
+    }
+  },
+  
+  profileGenderRequestSubmit : function() {
+    $("#buttonProfileOpenAddNewEmailField").attr("disabled", "true");
+    $("#profileGender").attr("disabled", "true");
+    $("#profileGenderSubmit").attr("disabled", "true");
+    $.ajax({
+      type: "POST",
+      url: this.basePath + 'catroid/profile/profileGenderRequestQuery.json',
+      data : ({
+        profileGender : $("#profileGender").val(),
+      }),
+      timeout : (this.ajaxTimeout),
+      success : jQuery.proxy(this.profileGenderRequestSuccess, this),
+      error : jQuery.proxy(this.profileGenderRequestError, this)
+    });
+  },
+  
+  profileGenderRequestSuccess : function(result) {
+    if(result.statusCode == 200) {
+      $("#buttonProfileOpenAddNewEmailField").removeAttr("disabled");
+      $("#profileGender").removeAttr("disabled");
+      $("#profileGenderSubmit").removeAttr("disabled");
+      window.location.reload(false);
+    }
+    else {
+      $("#buttonProfileOpenAddNewEmailField").attr("disabled", "false");
+      $("#profileGender").removeAttr("disabled");
+      $("#profileGenderSubmit").removeAttr("disabled");
+      $("#profileFormAnswer").toggle(true);
+      $("#okMsg").toggle(false);
+      $("#errorMsg").toggle(true);
+      $("#errorMsg").html(result.answer);
+    }
+  },
+  
+  profileGenderRequestError : function() {
+    if(errCode == "timeout") {
+      window.location.reload(false);
+    }
+  },
+  
   profileChangePasswordOpen : function() {
     $("#profilePasswordDiv").toggle(false);
     $("#profilePasswordDivOpened").toggle(true);
+    
+    jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangeCountryClose(), this);
+    jQuery.proxy(this.profileChangeCityClose(), this);
+    jQuery.proxy(this.profileChangeBirthClose(), this);
+    jQuery.proxy(this.profileChangeGenderClose(), this);
   },
   
   profileChangePasswordClose : function() {
@@ -333,12 +487,152 @@ var Profile = Class.$extend( {
     $("#okMsg").html("");
   },
 
+
+  profileChangeCountryOpen : function() {
+    $("#profileCountryTextDiv").toggle(false);
+    $("#profileCountryDiv").toggle(true);
+    
+    jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangePasswordClose(), this);
+    jQuery.proxy(this.profileChangeCityClose(), this);
+    jQuery.proxy(this.profileChangeBirthClose(), this);
+    jQuery.proxy(this.profileChangeGenderClose(), this);
+  },
+  
+  profileChangeCountryClose : function() {
+    $("#profileCountryDiv").toggle(false);
+    $("#profileCountryTextDiv").toggle(true);
+  },
+  
+  
+  profileChangeCityOpen : function() {
+    if(document.getElementById('profileEmptyCityDiv')) {
+      $("#profileEmptyCityDiv").toggle(false);
+      $("#profileEmptyCityDivOpened").toggle(true);
+    }
+    if(document.getElementById('profileCityDiv')) {
+      $("#profileCityDiv").toggle(false);
+      $("#profileCityDivOpened").toggle(true);
+      
+      var city = $("#profileCityDiv : first-child").text();
+      $("#profileCity").val(city);
+    }
+    
+    jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangePasswordClose(), this);
+    jQuery.proxy(this.profileChangeCountryClose(), this);
+    jQuery.proxy(this.profileChangeBirthClose(), this);
+    jQuery.proxy(this.profileChangeGenderClose(), this);
+  },
+  
+  profileChangeCityClose : function() {
+    $("#profileCity").val("");
+    if(document.getElementById('profileEmptyCityDiv')) {
+      $("#profileEmptyCityDiv").toggle(true);
+      $("#profileEmptyCityDivOpened").toggle(false);
+    }
+    if(document.getElementById('profileCityDiv')) {
+      $("#profileCityDiv").toggle(true);
+      $("#profileCityDivOpened").toggle(false);
+    }
+  },
+  
+  
+  profileChangeBirthOpen : function() {
+    $("#profileBirthDiv").toggle(false);
+    $("#profileBirthDivOpened").toggle(true);
+    this.year = $("#profileYear").val();
+    this.month = $("#profileMonth").val();
+        
+    jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangePasswordClose(), this);
+    jQuery.proxy(this.profileChangeCountryClose(), this);
+    jQuery.proxy(this.profileChangeCityClose(), this);
+    jQuery.proxy(this.profileChangeGenderClose(), this);
+  },
+  
+  profileChangeBirthClose : function() {
+    if($("#profileYear").val()) {
+      $("#profileYear").val(this.year);
+    }
+    if($("#profileMonth").val()) {
+      $("#profileMonth").val(this.month);
+    }
+
+    $("#profileBirthDivOpened").toggle(false);
+    $("#profileBirthDiv").toggle(true);
+  },
+  
+  
+  profileChangeGenderOpen : function() {
+    $("#profileGenderDiv").toggle(false);
+    $("#profileGenderDivOpened").toggle(true);
+    
+    jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangePasswordClose(), this);
+    jQuery.proxy(this.profileChangeCountryClose(), this);
+    jQuery.proxy(this.profileChangeCityClose(), this);
+    jQuery.proxy(this.profileChangeBirthClose(), this);
+  },
+  
+  profileChangeGenderClose : function() {
+    $("#profileGenderDivOpened").toggle(false);
+    $("#profileGenderDiv").toggle(true);
+  },
+
+  
+  profileOpenAddEmailInputField : function() { 
+    $("#emailTextFields").toggle(true);
+    $("#buttonProfileOpenAddNewEmailField").attr("disabled", "true");
+    $("#buttonProfileOpenAddNewEmailFieldDiv").toggle(false);
+    $("#buttonProfileSaveNewEmailSubmit").toggle(true);
+
+    var div = document.createElement('div');
+    div.setAttribute('id', 'emailTextFieldsDiv');
+    var row_zero = '<br>';
+    var row_one = "<a href='javascript:;' class='profileText' id='profileAddNewEmailInputField'>" + this.addNewEmailLanguageString + "</a><br>";
+    var row_two = "<input type='email' id='profileNewEmail' name='profileNewEmail' value='' required='required' placeholder='" + this.addNewEmailPlaceholderLanguageString + "' ><br>";
+    div.innerHTML = row_zero + row_one + row_two; 
+    document.getElementById('emailTextFields').appendChild(div);
+    
+    $("#buttonProfileCloseAddNewEmailField").toggle(true);
+    $("#profileAddNewEmailInputField").click($.proxy(this.profileAddEmailInputFieldClose, this));
+    
+    jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangePasswordClose(), this);
+    jQuery.proxy(this.profileChangeCountryClose(), this);
+    jQuery.proxy(this.profileChangeCityClose(), this);
+    jQuery.proxy(this.profileChangeBirthClose(), this);
+    jQuery.proxy(this.profileChangeGenderClose(), this);
+    
+  },
+    
+
+  profileAddEmailInputFieldClose : function() {
+    if(document.getElementById('emailTextFieldsDiv')) {
+      $("#buttonProfileSaveNewEmailSubmit").toggle(false);
+      $("#buttonProfileOpenAddNewEmailFieldDiv").toggle(true);
+      $("#buttonProfileOpenAddNewEmailField").removeAttr('disabled');
+      
+      var addEmailDiv = document.getElementById('emailTextFields');
+      var addEmailTextFieldDiv = document.getElementById('emailTextFieldsDiv');
+      if(addEmailTextFieldDiv) {
+        addEmailDiv.removeChild(addEmailTextFieldDiv);
+      }      
+      $("#buttonProfileCloseAddNewEmailField").toggle(false);
+    }
+  },  
+    
   
   profileOpenChangeEmailInputField : function(id) {
     if(document.getElementById('changeEmailTextFieldDiv')) {
-      jQuery.proxy(this.profileCloseChangeEmailInputField(), this);
+      jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
     }
-    jQuery.proxy(this.profileCloseAddEmailInputField(), this);
+    jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
     $("#buttonProfileOpenAddNewEmailField").toggle(false);
     
     this.id = id;
@@ -362,26 +656,20 @@ var Profile = Class.$extend( {
       $("#buttonProfileDeleteEmailAddress").toggle(true);
     }
     
-    $("#profileChangeEmailClose").click($.proxy(this.profileCloseChangeEmailInputField, this));
+    $("#profileChangeEmailClose").click($.proxy(this.profileChangeEmailInputFieldClose, this));
     $("#buttonProfileDeleteEmailAddress").click($.proxy(this.profileDeleteEmailRequestSubmit, this));
     $("#buttonProfileChangeEmailSubmit").click($.proxy(this.profileChangeEmailRequestSubmit, this));
     $("#profileEmail").keypress($.proxy(this.profileEmailCatchKeypress, this));
     
-    $("#profileCountryDiv").toggle(false);
-    $("#profileCountryTextDiv").toggle(true);
-    
-    $("#profileCityDivOpened").toggle(false);
-    $("#profileCityDiv").toggle(true);
-    
-    $("#profileBirthDivOpened").toggle(false);
-    $("#profileBirthDiv").toggle(true);
-    
-    $("#profileGenderDivOpened").toggle(false);
-    $("#profileGenderDiv").toggle(true);
-    
+    jQuery.proxy(this.profileAddEmailInputFieldClose(), this);   
+    jQuery.proxy(this.profileChangePasswordClose(), this);
+    jQuery.proxy(this.profileChangeCountryClose(), this);
+    jQuery.proxy(this.profileChangeCityClose(), this);
+    jQuery.proxy(this.profileChangeBirthClose(), this);
+    jQuery.proxy(this.profileChangeGenderClose(), this);
   },
 
-  profileCloseChangeEmailInputField : function() {
+  profileChangeEmailInputFieldClose : function() {
     $("#buttonProfileOpenAddNewEmailField").toggle(true);
     $("#profileEmail").val("");
     $("#profileFormAnswer").toggle(false);
@@ -393,144 +681,11 @@ var Profile = Class.$extend( {
     $("#"+this.id).toggle(true);
     var changeEmailDiv = document.getElementById('div'+this.id);
     var changeEmailTextFieldDiv = document.getElementById('changeEmailTextFieldDiv');
-    changeEmailDiv.removeChild(changeEmailTextFieldDiv);
-  },
-
-  
-  profileChangeCountryOpen : function() {
-    $("#profileCountryTextDiv").toggle(false);
-    $("#profileCountryDiv").toggle(true);
-    
-    $("#profileCityDivOpened").toggle(false);
-    $("#profileCityDiv").toggle(true);
-    
-    $("#profileBirthDivOpened").toggle(false);
-    $("#profileBirthDiv").toggle(true);
-    
-    $("#profileGenderDivOpened").toggle(false);
-    $("#profileGenderDiv").toggle(true);
-    
-    $("#"+this.id).toggle(true);
-    var changeEmailDiv = document.getElementById('div'+this.id);
-    var changeEmailTextFieldDiv = document.getElementById('changeEmailTextFieldDiv');
-    changeEmailDiv.removeChild(changeEmailTextFieldDiv);
-  },
-  
-  profileChangeCountryClose : function() {
-    $("#profileCountryDiv").toggle(false);
-    $("#profileCountryTextDiv").toggle(true);
-  },
-  
-  
-  profileChangeCityOpen : function() {
-    $("#profileCityDiv").toggle(false);
-    $("#profileCityDivOpened").toggle(true);
-    
-    $("#profileCountryDiv").toggle(false);
-    $("#profileCountryTextDiv").toggle(true);
-    
-    $("#profileBirthDivOpened").toggle(false);
-    $("#profileBirthDiv").toggle(true);
-    
-    $("#profileGenderDivOpened").toggle(false);
-    $("#profileGenderDiv").toggle(true);
-    
-    $("#"+this.id).toggle(true);
-    var changeEmailDiv = document.getElementById('div'+this.id);
-    var changeEmailTextFieldDiv = document.getElementById('changeEmailTextFieldDiv');
-    changeEmailDiv.removeChild(changeEmailTextFieldDiv);
-  },
-  
-  profileChangeCityClose : function() {
-    $("#profileCityDivOpened").toggle(false);
-    $("#profileCityDiv").toggle(true);
-  },
-  
-  
-  profileChangeBirthdayOpen : function() {
-    $("#profileBirthDiv").toggle(false);
-    $("#profileBirthDivOpened").toggle(true);
-    
-    $("#profileCountryDiv").toggle(false);
-    $("#profileCountryTextDiv").toggle(true);
-    
-    $("#profileCityDivOpened").toggle(false);
-    $("#profileCityDiv").toggle(true);
-    
-    $("#profileGenderDivOpened").toggle(false);
-    $("#profileGenderDiv").toggle(true);
-    
-    $("#"+this.id).toggle(true);
-    var changeEmailDiv = document.getElementById('div'+this.id);
-    var changeEmailTextFieldDiv = document.getElementById('changeEmailTextFieldDiv');
-    changeEmailDiv.removeChild(changeEmailTextFieldDiv);
-  },
-  
-  profileChangeBirthdayClose : function() {
-    $("#profileBirthDivOpened").toggle(false);
-    $("#profileBirthDiv").toggle(true);
-  },
-  
-  
-  profileChangeGenderOpen : function() {
-    $("#profileGenderDiv").toggle(false);
-    $("#profileGenderDivOpened").toggle(true);
-    
-    $("#profileCountryDiv").toggle(false);
-    $("#profileCountryTextDiv").toggle(true);
-    
-    $("#profileCityDivOpened").toggle(false);
-    $("#profileCityDiv").toggle(true);
-    
-    $("#profileBirthDivOpened").toggle(false);
-    $("#profileBirthDiv").toggle(true);
-    
-    $("#"+this.id).toggle(true);
-    var changeEmailDiv = document.getElementById('div'+this.id);
-    var changeEmailTextFieldDiv = document.getElementById('changeEmailTextFieldDiv');
-    changeEmailDiv.removeChild(changeEmailTextFieldDiv);
-  },
-  
-  profileChangeGenderClose : function() {
-    $("#profileGenderDivOpened").toggle(false);
-    $("#profileGenderDiv").toggle(true);
-  },
-
-  
-  profileOpenAddEmailInputField : function() { 
-    $("#emailTextFields").toggle(true);
-    $("#buttonProfileOpenAddNewEmailField").attr("disabled", "true");
-    $("#buttonProfileSaveNewEmailSubmit").toggle(true);
-
-    var div = document.createElement('div');
-    div.setAttribute('id', 'emailTextFieldsDiv');
-    var row_one = "<a href='javascript:;' class='profileText' id='profileAddNewEmailInputField'>" + this.addNewEmailLanguageString + "</a><br>";
-    var row_two = "<input type='email' id='profileNewEmail' name='profileNewEmail' value='' required='required' placeholder='" + this.addNewEmailPlaceholderLanguageString + "' ><br>";
-    div.innerHTML = row_one + row_two; 
-    document.getElementById('emailTextFields').appendChild(div);
-    
-    $("#buttonProfileOpenAddNewEmailField").toggle(false);
-    $("#buttonProfileCloseAddNewEmailField").toggle(true);
-    $("#profileAddNewEmailInputField").click($.proxy(this.profileCloseAddEmailInputField, this));
-  },
-    
-
-  
-  
-  profileCloseAddEmailInputField : function() {
-    if(document.getElementById('emailTextFieldsDiv')) {
-      $("#buttonProfileSaveNewEmailSubmit").toggle(false);
-      $("#buttonProfileOpenAddNewEmailField").toggle(true);
-      $("#buttonProfileOpenAddNewEmailField").removeAttr('disabled');
-      
-      var addEmailDiv = document.getElementById('emailTextFields');
-      var addEmailTextFieldDiv = document.getElementById('emailTextFieldsDiv');
-      addEmailDiv.removeChild(addEmailTextFieldDiv);
-      
-      $("#buttonProfileCloseAddNewEmailField").toggle(false);
+    if(changeEmailTextFieldDiv) {
+      changeEmailDiv.removeChild(changeEmailTextFieldDiv);
     }
-  },  
-    
+  },
+
   
   profileCancel : function() {
     $("#errorMsg").toggle(false);
@@ -538,17 +693,13 @@ var Profile = Class.$extend( {
     $("#errorMsg").html("");
     $("#okMsg").html("");
     
-    $("#profileFormAnswer").toggle(false);
-    $("#profileCancelDiv").toggle();
-    $("#profilePassword").val("");
-    $("#profileEmail").val("");
-    $("#profileOldPassword").val("");
-    $("#profileNewPassword").val("");
-    $("#profilePasswordDiv").toggle(false);
-    $("#profileEmailTextDiv").toggle(true);
-    $("#profileEmailChangeDiv").toggle(false);
-    $("#profileCountryDiv").toggle(false);
-    $("#profileCountryTextDiv").toggle(true);
+    jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
+    jQuery.proxy(this.profileChangePasswordClose(), this);
+    jQuery.proxy(this.profileChangeCountryClose(), this);
+    jQuery.proxy(this.profileChangeCityClose(), this);
+    jQuery.proxy(this.profileChangeBirthClose(), this);
+    jQuery.proxy(this.profileChangeGenderClose(), this);
   },
   
   profilePasswordCatchKeypress : function(event) {
@@ -568,7 +719,14 @@ var Profile = Class.$extend( {
   profileCountryCatchKeypress : function(event) {
     if(event.which == '13') {
       event.preventDefault();
-      this.profileCountrySubmit();
+      this.profileCountryRequestSubmit();
+    }
+  },
+  
+  profileCityCatchKeypress : function(event) {
+    if(event.which == '13') {
+      event.preventDefault();
+      this.profileCityRequestSubmit();
     }
   }
 

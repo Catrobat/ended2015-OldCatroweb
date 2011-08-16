@@ -155,7 +155,49 @@ class profile extends CoreAuthenticationNone {
     if($postData) {
       if($this->doChangeUserCountry($this->session->userLogin_userNickname, $postData['profileCountry'])) {
         $this->statusCode = 200;
-        $this->answer_ok .= $this->languageHandler->getString('password_success');
+        $this->answer_ok .= $this->languageHandler->getString('country_success');
+        return true;
+      } else {
+        $this->statusCode = 500;
+        return false;
+      }
+    }
+  }
+  
+  public function profileCityRequestQuery() {
+    $postData = $_POST;
+    if($postData) {
+      if($this->doChangeUserCity($this->session->userLogin_userNickname, $postData['profileCity'])) {
+        $this->statusCode = 200;
+        $this->answer_ok .= $this->languageHandler->getString('city_success');
+        return true;
+      } else {
+        $this->statusCode = 500;
+        return false;
+      }
+    }
+  }
+
+  public function profileBirthRequestQuery() {
+    $postData = $_POST;
+    if($postData) {
+      if($this->doChangeUserBirth($this->session->userLogin_userNickname, $postData['profileMonth'], $postData['profileYear'])) {
+        $this->statusCode = 200;
+        $this->answer_ok .= $this->languageHandler->getString('birth_success');
+        return true;
+      } else {
+        $this->statusCode = 500;
+        return false;
+      }
+    }
+  }
+  
+  public function profileGenderRequestQuery() {
+    $postData = $_POST;
+    if($postData) {
+      if($this->doChangeUserGender($this->session->userLogin_userNickname, $postData['profileGender'])) {
+        $this->statusCode = 200;
+        $this->answer_ok .= $this->languageHandler->getString('birth_success');
         return true;
       } else {
         $this->statusCode = 500;
@@ -237,24 +279,6 @@ class profile extends CoreAuthenticationNone {
       }
     }
     
-//    try {
-//      //$user_id = $this->checkEmail($email);
-//      
-//      $user_emails = $this->getUserEmailsArray($user_id);
-//      $x = 0;
-//      while($x<count($user_emails)) {
-//        if(strcmp($email, $user_emails[$x]) != 0) {
-//           throw new Exception($this->errorHandler->getError('profile', 'email_address_string_changed'));
-//        }
-//        else {
-//          $email_valid = true;
-//          break;
-//        }      
-//      }
-//    } catch(Exception $e) {
-//      $this->answer .= $e->getMessage().'<br>';
-//    }
-    
     if($email_valid) {
       try {
         $query = "EXECUTE get_user_email_by_email('$email')";
@@ -292,7 +316,6 @@ class profile extends CoreAuthenticationNone {
         $email_valid = false;
       }
     }
-    //$this->$email_valid = $email_valid;
     return $email_valid;
   } 
 
@@ -361,12 +384,68 @@ class profile extends CoreAuthenticationNone {
           throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
         }
       } catch(Exception $e) {
-        $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage()).'<br>';
+        $this->answer .= $this->errorHandler->getError('profile', 'country_update_failed', $e->getMessage()).'<br>';
         $userCountryValid = false;
       }
     }
     return $userCountryValid;
   }
+
+  private function doChangeUserCity($username, $city) {
+    try {
+      $query = "EXECUTE update_user_city('$city', '$username')";
+      $result = @pg_query($this->dbConnection, $query);
+      if(!$result) {
+        $return_value = false;
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+      }
+      $return_value = true;
+    } catch(Exception $e) {
+      $return_value = false;
+      $this->answer .= $this->errorHandler->getError('profile', 'city_update_failed', $e->getMessage()).'<br>';
+    }
+    return $return_value;
+  }
+  
+  private function doChangeUserBirth($username, $month, $year) {
+    if((empty($year) || !$year || $year <= 1) || (empty($month) || !$month || $month <= 1)) {
+      $date_of_birth = NULL;
+      $query = "EXECUTE delete_user_birth('$username')";
+    }
+    else {
+      $date_of_birth = $year.'-'.sprintf("%02d", $month).'-01 00:00:01';
+      $query = "EXECUTE update_user_birth('$date_of_birth', '$username')";
+    }
+    
+    try {
+      $result = @pg_query($this->dbConnection, $query);
+      if(!$result) {
+        $return_value = false;
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+      }
+      $return_value = true;
+    } catch(Exception $e) {
+      $return_value = false;
+      $this->answer .= $this->errorHandler->getError('profile', 'birth_update_failed', $e->getMessage()).'<br>';
+    }
+    return $return_value;
+  }
+  
+  private function doChangeUserGender($username, $gender) {
+    try {
+      $query = "EXECUTE update_user_gender('$gender', '$username')";
+      $result = @pg_query($this->dbConnection, $query);
+      if(!$result) {
+        $return_value = false;
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+      }
+      $return_value = true;
+    } catch(Exception $e) {
+      $return_value = false;
+      $this->answer .= $this->errorHandler->getError('profile', 'city_update_failed', $e->getMessage()).'<br>';
+    }
+    return $return_value;
+  }  
   
   private function doUpdateCatroidPassword($username, $password) {
     $password = md5($password);
@@ -564,12 +643,6 @@ class profile extends CoreAuthenticationNone {
   }
 
   private function fillDynamicProfileData($userName) {
-//    $query = "EXECUTE get_user_country_by_username('$userName')";
-//    $result = @pg_query($this->dbConnection, $query);
-//    if(!$result) {
-//      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
-//    }
-    
     $this->userEmailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
 
     $userCountryCode = $this->getUserCountry($userName); 
@@ -580,9 +653,9 @@ class profile extends CoreAuthenticationNone {
       $this->userCountryCode = "undefined";
     }
 
-    $this->userCity = $this->getUserCity($this->session->userLogin_userId);
-    $this->userBirthArray = $this->getUserBirth($this->session->userLogin_userId);
-    $this->userGender = $this->getUserGender($this->session->userLogin_userId);
+    $this->userCity = $this->getUserCity($userName);
+    $this->userBirthArray = $this->getUserBirth($userName);
+    $this->userGender = $this->getUserGender($userName);
        
 //    $query = "EXECUTE get_user_email_by_username('$userName')";
 //    $result = @pg_query($this->dbConnection, $query);
@@ -652,10 +725,10 @@ class profile extends CoreAuthenticationNone {
     return $userCountry['country'];
   }
   
-  private function getUserCity($user_id) {
+  private function getUserCity($userName) {
     $userCity = 0;
     
-    $query = "EXECUTE get_user_city_by_id('$user_id')";
+    $query = "EXECUTE get_user_city_by_username('$userName')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
@@ -668,36 +741,34 @@ class profile extends CoreAuthenticationNone {
       pg_free_result($result);
       $userCity = 0;
     }
- 
     return $userCity['city'];
   }
   
-  private function getUserBirth($user_id) {
+  private function getUserBirth($userName) {
     $userBirth = 0;
 
     $months = getMonthsArray($this->languageHandler);
 
-    $query = "EXECUTE get_user_birth_by_id('$user_id')";
+    $query = "EXECUTE get_user_birth_by_username('$userName')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
     }
     if(pg_num_rows($result) > 0) {
       $userBirth = pg_fetch_array($result);
-      $userBirth = array('month' => $months[intval($userBirth['month'])], 'year' => $userBirth['year']);
+      $userBirth = array('month_id' => intval($userBirth['month']), 'month' => $months[intval($userBirth['month'])], 'year' => intval($userBirth['year']));
     } else {
       pg_free_result($result);
-      $userBirth = 0;
+      $userBirth = array('month_id' => 0, 'month' => 0, 'year' => 0);;
     }
-    
     return $userBirth;
     //return 0; 
   }
   
-  private function getUserGender($user_id) {
+  private function getUserGender($userName) {
     $userGender = 0;
     
-    $query = "EXECUTE get_user_gender_by_id('$user_id')";
+    $query = "EXECUTE get_user_gender_by_username('$userName')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 

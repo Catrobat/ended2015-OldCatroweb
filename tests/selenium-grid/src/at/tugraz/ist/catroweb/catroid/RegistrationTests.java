@@ -190,14 +190,14 @@ public class RegistrationTests extends BaseTest {
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {
-        put("registrationUsername", "RegistrationTestValid" + randomString1);
-        put("registrationPassword", "myPassword123");
-        put("registrationEmail", "test" + randomString1 + "@selenium.at");
+        put("registrationUsername", "registrationUsernameWith" + CommonData.getRandomShortString(10));
+        put("registrationPassword", "registrationPassword" + CommonData.getRandomShortString(10));
+        put("registrationEmail", "test" + CommonData.getRandomShortString(10) + "@selenium.at");
         put("registrationGender", "male");
-        put("registrationMonth", "2");
-        put("registrationYear", "1980");
-        put("registrationCountry", "AT");
-        put("registrationCity", "Graz");
+        put("registrationMonth", "10");
+        put("registrationYear", "1911");
+        put("registrationCountry", "CN");
+        put("registrationCity", "Bejing");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -220,6 +220,17 @@ public class RegistrationTests extends BaseTest {
         put("registrationYear", "1911");
         put("registrationCountry", "CN");
         put("registrationCity", "Bejing");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "RegistrationTestValid" + randomString1);
+        put("registrationPassword", "myPassword123");
+        put("registrationEmail", "test" + randomString1 + "@selenium.at");
+        put("registrationGender", "male");
+        put("registrationMonth", "2");
+        put("registrationYear", "1980");
+        put("registrationCountry", "AT");
+        put("registrationCity", "Graz");
       }
     } } };
     return dataArray;

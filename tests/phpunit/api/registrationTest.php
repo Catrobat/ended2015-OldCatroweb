@@ -202,13 +202,13 @@ class registrationTest extends PHPUnit_Framework_TestCase
   public function validUsernames() {
     $dataArray = array(
     array('unittest'),
+    array('unittes\t'),
     array('UniTTesT'),
     array('Unittest'),
     array('0123unItEst234'),
     array('9765786'),
     array('0123'),
     array('unit.te..st'),
-    array('unit test'),
     array('中國'),
     array('1'),
     array('ÜgümEnimem')
@@ -230,6 +230,9 @@ class registrationTest extends PHPUnit_Framework_TestCase
     array('h|ol|y'), // vertical bars not allowed (because of wiki)
     array('#1'), // hash sign not allowed (because of wiki)
     array('unit_test'), // underscores not allowed (because of wiki)
+    array('unit test'),
+    array(' unittest'),
+    array('unittest '),
     array('<i>'), // <> not allowed (because of wiki)
     array('shit'), // its a messword
     array('admin'), // not allowed because nick is in blacklist

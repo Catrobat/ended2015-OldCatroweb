@@ -217,7 +217,7 @@ public class PasswordRecoveryTests extends BaseTest {
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {
-        put("registrationUsername", "John Test " + randomString1);
+        put("registrationUsername", "JohnTest" + randomString1);
         put("registrationPassword", "just a simple password!");
         put("registrationEmail", "john" + randomString1 + "@catroid.org");
         put("registrationGender", "male");

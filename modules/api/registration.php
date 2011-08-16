@@ -265,25 +265,6 @@ class registration extends CoreAuthenticationNone {
 
 
   public function checkUsername($username) {
-    $username = trim($username);
-    if(empty($username) && strcmp('0', $username) != 0) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
-    }
-
-    if($this->badWordsFilter->areThereInsultingWords($username)) {
-      $statusCode = 506;
-      throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
-    }
-
-    //username must not look like an IP-address
-    $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
-    $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
-    $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
-    $regEx = '/^'.$ip.'$/';
-    if(preg_match($regEx, $username)) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
-    }
-
     // # < > [ ] | { }
     if(preg_match('/_|^_$/', $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
@@ -302,6 +283,28 @@ class registration extends CoreAuthenticationNone {
     }
     if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
+    }
+    if(preg_match("/\\s/", $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_spaces'));
+    }
+    
+    //$username = trim($username);
+    if(empty($username) && strcmp('0', $username) != 0) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
+    }
+
+    if($this->badWordsFilter->areThereInsultingWords($username)) {
+      $statusCode = 506;
+      throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
+    }
+
+    //username must not look like an IP-address
+    $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
+    $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
+    $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
+    $regEx = '/^'.$ip.'$/';
+    if(preg_match($regEx, $username)) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
     global $phpbb_root_path;
