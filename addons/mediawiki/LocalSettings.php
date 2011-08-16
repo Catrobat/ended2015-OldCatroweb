@@ -20,7 +20,7 @@ if( defined( 'MW_INSTALL_PATH' ) ) {
 }
 
 $path = array( $IP, "$IP/includes", "$IP/languages" );
-$urlpath = str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']));
+$urlpath = str_replace('//', '/', str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/'));
 set_include_path( implode( PATH_SEPARATOR, $path ) . PATH_SEPARATOR . get_include_path() );
 
 require_once( "$IP/includes/DefaultSettings.php" );
@@ -40,8 +40,8 @@ $wgSitename         = "Catroid";
 ## defaults for all runtime URL paths are based off of this.
 ## For more information on customizing the URLs please see:
 ## http://www.mediawiki.org/wiki/Manual:Short_URL
-$wgScriptPath       = $urlpath . "/addons/mediawiki";
-$wgArticlePath      = $urlpath . "/wiki/$1";
+$wgScriptPath       = $urlpath . "addons/mediawiki";
+$wgArticlePath      = $urlpath . "wiki/$1";
 $wgUsePathInfo = true;
 $wgScriptExtension  = ".php";
 
