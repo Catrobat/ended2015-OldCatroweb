@@ -59,12 +59,6 @@ echo "apply changes to source files..."
 chmod -R 0777 ${WORKSPACE}${TARGET}/resources
 chmod -R 0777 ${WORKSPACE}${TARGET}/addons/board/cache
 
-sed -i "s/\/\/define('TESTS_BASE_PATH','http:\/\/localhost\/${TARGET}\/');/define('TESTS_BASE_PATH','http:\/\/localhost\/${TARGET}\/');/" ${WORKSPACE}${TARGET}/tests/selenium/testsBootstrap.php
-sed -i "s/define('TESTS_BASE_PATH','http:\/\/localhost\/');/\/\/define('TESTS_BASE_PATH','http:\/\/localhost\/');/" ${WORKSPACE}${TARGET}/tests/selenium/testsBootstrap.php
-
-sed -i "s/$wgScriptPath       = \"\/addons\/mediawiki\";/$wgScriptPath       = \"\/${TARGET}\/addons\/mediawiki\";/" ${WORKSPACE}${TARGET}/addons/mediawiki/LocalSettings.php
-sed -i "s/$wgArticlePath       = \"\/wiki\/\$1\";/$wgArticlePath       = \"\/${TARGET}\/wiki\/\$1\";/" ${WORKSPACE}${TARGET}/addons/mediawiki/LocalSettings.php
-
 echo ""
 echo "create postgres user..."
 sudo -u postgres psql -d template1 -c "CREATE USER website WITH PASSWORD 'cat.roid.web';"
