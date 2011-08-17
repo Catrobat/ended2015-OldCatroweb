@@ -207,14 +207,18 @@ class profile extends CoreAuthenticationNone {
   }
   
   private function doChangeEmailAddress($username, $new_email, $old_email) {
-    $user_id = false;
+    $email_valid = true;
+    $new_email = trim($new_email);
+    $old_email = trim($old_email);
+    
     try {
-      $user_id = $this->checkEmail($new_email, $old_email);
+      $email_valid = $this->checkEmail($new_email, $old_email);
     } catch(Exception $e) {
       $this->answer .= $e->getMessage().'<br>';
+      $email_valid = false;
     }
-    
-    if($user_id) {
+
+    if($email_valid) {
       try {
         $query = "EXECUTE update_user_email_by_user_email('$new_email', '$old_email')";
         $result = @pg_query($this->dbConnection, $query);
@@ -226,11 +230,11 @@ class profile extends CoreAuthenticationNone {
           }
         }
       } catch(Exception $e) {
-        $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage()).'<br>';
-        $user_id = false;
+        $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage());
+        $email_valid = false;
       }
     }
-    return $user_id;
+    return $email_valid;
   }
   
   private function doAddEmailAddress($username, $email) {
@@ -273,7 +277,8 @@ class profile extends CoreAuthenticationNone {
     $email_valid = true;
     $user_id = $this->session->userLogin_userId;
     if($user_id == 1) {
-      if(count($this->getUserEmailsArray($user_id) <= 2)) {
+      $this->emailcount = count($this->getUserEmailsArray($user_id)); 
+      if(($this->emailcount <= 2)) {
         $this->answer .= $this->errorHandler->getError('profile', 'email_update_of_catroweb_failed').'<br>';
         return false;
       }
@@ -561,9 +566,9 @@ class profile extends CoreAuthenticationNone {
     return $valid;
   }
   
-  private function checkEmail($email1, $email2 = 0) {
-    $email = trim($email1);
-    if(empty($email1) && strcmp('0', $email1) != 0) {
+  private function checkEmail($new_email, $old_email = 0) {
+    $email_valid = true;
+    if(empty($new_email) && strcmp('0', $new_email) != 0) {
       throw new Exception($this->errorHandler->getError('registration', 'email_missing'));
     }
     
@@ -571,11 +576,12 @@ class profile extends CoreAuthenticationNone {
     $domain = '[a-zA-Z0-9]{2,}((\.|\-)?[a-zA-Z0-9])*';
     $tld = '[a-zA-Z]{2,8}';
     $regEx = '/^('.$name.')@('.$domain.')\.('.$tld.')$/';
-    if(!preg_match($regEx, $email1)) {
+    
+    if(!preg_match($regEx, $new_email)) {
       throw new Exception($this->errorHandler->getError('registration', 'email_invalid'));
     }
     
-    $query = "EXECUTE get_user_row_by_email('$email1');";
+    $query = "EXECUTE get_user_row_by_email('$new_email');";
     $result = pg_query($this->dbConnection, $query);
 
     if(!$result) {
@@ -583,27 +589,21 @@ class profile extends CoreAuthenticationNone {
     }
     
     if(pg_num_rows($result) > 0) {
-      $email_valid = false;
       throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
     }
-//    
-//    if(strcmp($email1, $email2) != 0 && $email2) {
-//      if(pg_num_rows($result) > 0) {
-//        $email_valid = false;
-//        throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
-//      }
-//    }
-    
-    $email_valid = true;
-    
-    if($email2) {
-      $query = "EXECUTE get_user_row_by_email('$email2');";
+
+    if($old_email) {
+      $query = "EXECUTE get_user_row_by_email('$old_email');";
       $result = pg_query($this->dbConnection, $query);
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
       }
-      $user = pg_fetch_assoc($result);
-      $email_valid = $user['id'];
+      if(pg_num_rows($result) != -1) {
+        $email_valid = true;
+      }
+      else {
+        $email_valid = false;        
+      }
     }
     
     return $email_valid;

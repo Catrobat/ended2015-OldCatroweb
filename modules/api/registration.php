@@ -26,9 +26,22 @@ class registration extends CoreAuthenticationNone {
   public function __default() {
   }
 
-  public function registrationRequest() {
+  public function registrationRequest_orig() {
     if($_POST) {
       $this->doRegistration($_POST, $_SERVER);
+    }
+  }
+  
+  public function registrationRequest() {
+    if($_POST) {
+      if($this->doRegistration($_POST, $_SERVER)) {
+        $this->statusCode = 200;
+        //$this->answer_ok .= $this->languageHandler->getString('password_success');
+        return true;
+      } else {
+        $this->statusCode = 500;
+        return false;
+      }
     }
   }
 
@@ -71,6 +84,7 @@ class registration extends CoreAuthenticationNone {
         $catroidRegistrationSuccess = true;
         $answer .= $this->languageHandler->getString('catroid_success').'<br>';
       } catch(Exception $e) {
+        $registrationDataValid = false;
         $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage()).'<br>';
       }
       if($catroidRegistrationSuccess) {
@@ -79,6 +93,7 @@ class registration extends CoreAuthenticationNone {
           $boardRegistrationSuccess = true;
           $answer .= $this->languageHandler->getString('board_success').'<br>';
         } catch(Exception $e) {
+          $registrationDataValid = false;
           $answer = $this->errorHandler->getError('registration', 'board_registration_failed', $e->getMessage()).'<br>';
         }
         if($boardRegistrationSuccess) {
@@ -87,6 +102,7 @@ class registration extends CoreAuthenticationNone {
             $wikiRegistrationSuccess = true;
             $answer .= $this->languageHandler->getString('wiki_success').'<br>';
           } catch(Exception $e) {
+            $registrationDataValid = false;
             $answer = $this->errorHandler->getError('registration', 'wiki_registration_failed', $e->getMessage()).'<br>';
           }
           if(!$wikiRegistrationSuccess) {
@@ -94,11 +110,13 @@ class registration extends CoreAuthenticationNone {
             try {
               $this->undoCatroidRegistration($catroidUserId);
             } catch(Exception $e) {
+              $registrationDataValid = false;
               $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage()).'<br>';
             }
             try {
               $this->undoBoardRegistration($boardUserId);
             } catch(Exception $e) {
+              $registrationDataValid = false;
               $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage()).'<br>';
             }
           }
@@ -107,6 +125,7 @@ class registration extends CoreAuthenticationNone {
           try {
             $this->undoCatroidRegistration($catroidUserId);
           } catch(Exception $e) {
+            $registrationDataValid = false;
             $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage()).'<br>';
           }
         }
@@ -126,6 +145,7 @@ class registration extends CoreAuthenticationNone {
       $this->postData = $postData;
       return false;
     }
+    return $registrationDataValid;
   }
 
   public function doCatroidRegistration($postData, $serverData) {

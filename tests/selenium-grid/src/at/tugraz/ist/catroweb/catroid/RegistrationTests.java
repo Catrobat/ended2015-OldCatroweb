@@ -30,7 +30,7 @@ import at.tugraz.ist.catroweb.common.*;
 
 @Test(groups = { "catroid", "RegistrationTests" })
 public class RegistrationTests extends BaseTest {
-
+ 
   @Test(dataProvider = "validRegistrationData", groups = { "functionality" }, description = "check registration with valid data")
   public void validRegistration(HashMap<String, String> dataset) throws Throwable {
     try {

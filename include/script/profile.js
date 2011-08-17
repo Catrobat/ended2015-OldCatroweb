@@ -23,7 +23,8 @@ var Profile = Class.$extend( {
     var self = this;
     this.emailCount = languageStringsObject.emailCount;
     this.emailText = '';
-    this.id = 0;
+    this.emailId = 0;
+    this.idCount = 0;
     this.year = 0;
     this.month = 0;
     
@@ -49,7 +50,7 @@ var Profile = Class.$extend( {
     var x=0;
     for(x; x<email_count; x++) {
       // html tag ID: case-sensitiv, must begin with a letter A-Z or a-z, can be followed by: letters (A-Za-z), digits (0-9), hyphens ("-"), underscores ("_"), colons (":"), and periods (".")
-      $('#'+x).click(function(event) {
+      $("#email"+x).click(function(event) {
         self.profileOpenChangeEmailInputField(event.target.id);
       });
     }
@@ -133,7 +134,8 @@ var Profile = Class.$extend( {
       $("#okMsg").html(result.answer_ok);
       $("#profileOldPassword").val("");
       $("#profileNewPassword").val("");
-      $("#profilePasswordDiv").toggle(false);
+      $("#profilePasswordDivOpened").toggle(false);
+      $("#profilePasswordDiv").toggle(true);
     }
     else {
       $("#profileFormAnswer").toggle(true);
@@ -186,15 +188,18 @@ var Profile = Class.$extend( {
     }
     else if(result.statusCode == 500) {
       //alert('failed 500');
+      //alert(result.emailcount);
       $("#profileFormAnswer").toggle(true);
-      $("#okMsg").toggle(false);
+      $("#okMsg").toggle(true);
+      $("#okMsg").html(result.answer);
       $("#errorMsg").toggle(true);
       $("#errorMsg").html(result.answer);
     }
     else {
       //alert('success ERROR');
       $("#profileFormAnswer").toggle(true);
-      $("#okMsg").toggle(false);
+      $("#okMsg").toggle(true);
+      $("#okMsg").html(result.answer);
       $("#errorMsg").toggle(true);
       $("#errorMsg").html(result.answer);
     }
@@ -274,21 +279,22 @@ var Profile = Class.$extend( {
     }
     else if(result.statusCode == 500) {
       $("#profileFormAnswer").toggle(true);
-      $("#okMsg").toggle(false);
+      $("#okMsg").toggle(true);
+      $("#okMsg").html(result.answer);
       $("#errorMsg").toggle(true);
       $("#errorMsg").html(result.answer);
     }
     else {
       alert('success else');
       $("#profileFormAnswer").toggle(true);
-      $("#okMsg").toggle(false);
+      $("#okMsg").toggle(true);
+      $("#okMsg").html(result.answer);
       $("#errorMsg").toggle(true);
       $("#errorMsg").html(result.answer);
     }
   },
   
   profileChangeEmailRequestSubmitError : function() {
-    alert('error');
     if(errCode == "timeout") {
       window.location.reload(false);   
     }
@@ -515,7 +521,7 @@ var Profile = Class.$extend( {
       $("#profileCityDiv").toggle(false);
       $("#profileCityDivOpened").toggle(true);
       
-      var city = $("#profileCityDiv : first-child").text();
+      var city = $("#profileCityDiv").find('a').text();
       $("#profileCity").val(city);
     }
     
@@ -629,23 +635,25 @@ var Profile = Class.$extend( {
     
   
   profileOpenChangeEmailInputField : function(id) {
+    this.idCount = id.replace(/email/, "");
+    this.emailId = id;
+    
     if(document.getElementById('changeEmailTextFieldDiv')) {
       jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
     }
     jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
     $("#buttonProfileOpenAddNewEmailField").toggle(false);
     
-    this.id = id;
     var div = document.createElement('div');
     div.setAttribute('id', 'changeEmailTextFieldDiv');
     var row_one = "<a href='javascript:;' class='profileText' id='profileChangeEmailClose'>"+this.changeEmailLanguageString+"</a><br>";
     var row_two = "<input type='email' id='profileEmail' name='profileEmail' value='' required='required' placeholder='' > <input type='button' name='buttonProfileDeleteEmailAddress' id='buttonProfileDeleteEmailAddress' value='" +this.changeEmailDeleteButtonLanguageString+ "' class='button white compact '><br>";
     var row_three = "<input type='button' name='buttonProfileChangeEmailSubmit' id='buttonProfileChangeEmailSubmit' value='"+this.changeEmailSaveChangesLanguageString+"' class='button orange compact profileSubmitButton'>";
     div.innerHTML = row_one + row_two + row_three; 
-    document.getElementById('div'+this.id).appendChild(div);
+    document.getElementById('div'+this.idCount).appendChild(div);
 
-    $("#"+this.id).toggle(false);
-    this.emailText = $('#profileEmailTextDiv').find('a')[this.id].text;
+    $("#"+this.emailId).toggle(false);
+    this.emailText = $('#profileEmailTextDiv').find("#"+this.emailId).text();
     $("#profileEmailChangeDiv").toggle(true);
     $("#profileEmail").val(this.emailText);
     
@@ -678,8 +686,8 @@ var Profile = Class.$extend( {
     $("#errorMsg").html("");
     $("#okMsg").html("");
     
-    $("#"+this.id).toggle(true);
-    var changeEmailDiv = document.getElementById('div'+this.id);
+    $("#"+this.emailId).toggle(true);
+    var changeEmailDiv = document.getElementById('div'+this.idCount);
     var changeEmailTextFieldDiv = document.getElementById('changeEmailTextFieldDiv');
     if(changeEmailTextFieldDiv) {
       changeEmailDiv.removeChild(changeEmailTextFieldDiv);

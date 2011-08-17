@@ -30,7 +30,6 @@
           "changeEmailSaveChangesLanguageString" : "<?php echo $this->languageHandler->getString('save_button'); ?>",
           "emailAddressStringChangedLanguageString" : "<?php echo $this->languageHandler->getString('email_address_string_changed'); ?>",
           "birthdayChangeLanguageString" : "<?php echo $this->languageHandler->getString('birthday_change_string'); ?>"
-            
           };
   		new Profile(languageStringsObject);
   	});
@@ -74,10 +73,10 @@
                           $x = 0;
                           for($x; $x < count($this->userEmailsArray); $x++) {
                             if($x < count($this->userEmailsArray)-1) { ?>
-            		   			      <div id="div<?php echo $x; ?>"><a href="javascript:;" class="profileText" id="<?php echo $x; ?>"><?php echo $this->userEmailsArray[$x]; ?></a></div>
+            		   			      <div id="div<?php echo $x; ?>"><a href="javascript:;" class="profileText" id="email<?php echo $x; ?>"><?php echo $this->userEmailsArray[$x]; ?></a></div>
                         <?php }
                             else { ?>
-                              <div id="div<?php echo $x; ?>"><a href="javascript:;" class="profileText" id="<?php echo $x; ?>"><?php echo $this->userEmailsArray[$x]; ?></a></div>
+                              <div id="div<?php echo $x; ?>"><a href="javascript:;" class="profileText" id="email<?php echo $x; ?>"><?php echo $this->userEmailsArray[$x]; ?></a></div>
                         <?php }
                           }
                         ?>

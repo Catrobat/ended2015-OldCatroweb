@@ -126,6 +126,7 @@ public class DetailsTests extends BaseTest {
       driver().findElement(By.id("reportInappropriateReportButton")).click();
       ajaxWait();
       assertFalse(isVisible(By.id("reportInappropriateReason")));
+      ajaxWait();
       assertTrue(isTextPresent("You reported this project as inappropriate!"));
 
       driver().navigate().refresh();
