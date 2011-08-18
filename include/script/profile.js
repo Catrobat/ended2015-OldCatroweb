@@ -83,7 +83,7 @@ var Profile = Class.$extend( {
     
     $("#profilePasswordSubmit").click($.proxy(this.profilePasswordRequestSubmit, this));
     $("#profileCountrySubmit").click($.proxy(this.profileCountryRequestSubmit, this));
-    $("#profileCitySubmit").click($.proxy(this.profileCountryRequestSubmit, this));
+    $("#profileCitySubmit").click($.proxy(this.profileCityRequestSubmit, this));
     $("#profileBirthSubmit").click($.proxy(this.profileBirthRequestSubmit, this));
     $("#profileGenderSubmit").click($.proxy(this.profileGenderRequestSubmit, this));
         

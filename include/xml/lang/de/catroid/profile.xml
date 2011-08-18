@@ -25,7 +25,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="old_password">gib Dein altes Passwort ein</string>
   <string name="new_password">gib Dein neues Passwort ein</string>
   <string name="email">diese E-Mail Adresse &#xE4;ndern</string>
-  <string name="add_email_field_button">gib eine neue E-Mail Adresse ein</string>
+  <string name="add_email_field_button">neue E-Mail Adresse hinzufügen</string>
+  <string name="add_email_field_text">gib eine neue E-Mail Adresse ein</string>
   <string name="delete_email">E-Mail Adresse l&#xF6;schen</string>
   <string name="email_delete_success">Du hast deine E-Mail Adresse erfolgreich gel&#xF6;scht.</string>
   <string name="alertbox_really_want_to_delete_email">Willst du diese E-Mail Adresse wirklich l&#xF6;schen?</string>
