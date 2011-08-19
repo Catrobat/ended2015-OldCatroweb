@@ -107,7 +107,7 @@
                       <br>
                       <br>
                       <br> 
-											<div class="passwordRecoveryHelper"><a target="_self" href="<?php echo BASE_PATH?>catroid/login"><?php echo $this->languageHandler->getString('login')?></a> <br>or<br><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></div>
+											<div class="passwordRecoveryHelper"><a id="registrationLogin" href="javascript:;"><?php echo $this->languageHandler->getString('login')?></a> <br>or<br><a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></div>
             		   	</form>
                   </div> <!-- registrationFormContainer -->
 								</div> <!-- Registration Text -->

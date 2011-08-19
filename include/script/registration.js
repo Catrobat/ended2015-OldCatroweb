@@ -38,7 +38,19 @@ var Registration = Class.$extend( {
     $("#registrationYear").keypress(
         $.proxy(this.registrationCatchKeypress, this));
     $("#registrationGender").keypress(
-        $.proxy(this.registrationCatchKeypress, this));    
+        $.proxy(this.registrationCatchKeypress, this));   
+    
+    $("#registrationLogin").click($.proxy(this.toggleProfileBox, this));
+  },
+  
+  toggleProfileBox : function() {
+    $("#normalHeaderButtons").toggle(false);
+    $("#cancelHeaderButton").toggle(true);
+    $("#headerProfileBox").toggle(true);
+    if($("#headerLoginBox").css("display") == "block") {
+      $("#loginUsername").focus();
+    }
+    scroll(0,0);
   },
   
   registrationSubmit : function() {

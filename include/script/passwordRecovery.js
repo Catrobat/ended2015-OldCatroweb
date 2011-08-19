@@ -42,7 +42,19 @@ var PasswordRecovery = Class.$extend( {
       $.proxy(this.passwordSavePasswordCatchKeypress, this));
 
     $("#loginOkForwardSubmit").click(
-        $.proxy(this.loginOkSubmit, this));  
+        $.proxy(this.loginOkSubmit, this));
+    
+    $("#passwordRecoveryLogin").click($.proxy(this.toggleProfileBox, this));
+  },
+  
+  toggleProfileBox : function() {
+    $("#normalHeaderButtons").toggle(false);
+    $("#cancelHeaderButton").toggle(true);
+    $("#headerProfileBox").toggle(true);
+    if($("#headerLoginBox").css("display") == "block") {
+      $("#loginUsername").focus();
+    }
+    scroll(0,0);
   },
   
   passwordRecoverySendLink : function() {
@@ -59,7 +71,7 @@ var PasswordRecovery = Class.$extend( {
   passwordRecoverySuccess : function(response) {
     $("#passwordRecoveryFormAnswer").toggle(true);
     if(response.answer) {
-      $("#okMsg").toggle(true);
+      $("#okMsg").toggle(false);
       $("#errorMsg").toggle(true);
       $("#errorMsg").html(response.answer);
     }

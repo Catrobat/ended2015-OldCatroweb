@@ -34,16 +34,15 @@ var Menu = Class.$extend( {
     	$("#menuWikiButton").click({url:"wiki/Main_Page?action=purge",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
     }
 
-    $("#menuLoginButton").click({url:"catroid/login"}, jQuery.proxy(this.openLocation, this));
+    $("#menuLoginButton").click($.proxy(this.toggleProfileBox, this)); //click({url:"catroid/login"}, jQuery.proxy(this.openLocation, this));
     $("#menuRegistrationButton").click({url:"catroid/registration"}, jQuery.proxy(this.openLocation, this));
     $("#menuPasswordRecoveryButton").click({url:"catroid/passwordrecovery"}, jQuery.proxy(this.openLocation, this));
    	$("#menuProfileButton").click({url:"catroid/profile"}, jQuery.proxy(this.openLocation, this));
-   	//$("#menuRegistrationButton").click({url:"catroid/login"}, jQuery.proxy(this.openLocation, this));
     $("#menuWallButton").attr('disabled', true).removeClass('green').addClass('gray');
     $("#menuSettingsButton").attr('disabled', true).removeClass('rosy').addClass('gray');
     if(this.userLogin_userId > 0) {
-      $("#firstRow").toggle(false);
-      $("#secondRow").toggle(true);
+      $("#firstRow").toggle(true);
+      $("#secondRow").toggle(false);
       $("#thirdRow").toggle(false);
       $("#menuRegistrationButton").toggle(false);
       $("#menuProfileButton").attr('disabled', false).removeClass('gray').addClass('green');
@@ -57,9 +56,9 @@ var Menu = Class.$extend( {
       //$("#menuProfileButton").toggle(false);
     }
     
+    $("#forgotPassword").click($.proxy(this.toggleProfileBox, this));
     $("#headerLoginButton").click($.proxy(this.toggleProfileBox, this));
     $("#headerCancelButton").click($.proxy(this.toggleAllBoxes, this));
-    
   },
   
   goBack : function(event) {
@@ -79,8 +78,9 @@ var Menu = Class.$extend( {
     $("#cancelHeaderButton").toggle(true);
     $("#headerProfileBox").toggle(true);
     if($("#headerLoginBox").css("display") == "block") {
-      $("#loginUsrname").focus();
+      $("#loginUsername").focus();
     }
+    scroll(0,0);
   },
 
   toggleAllBoxes : function() {
