@@ -57,34 +57,51 @@ var PasswordRecovery = Class.$extend( {
     scroll(0,0);
   },
   
+  
   passwordRecoverySendLink : function() {
     // disable form fields
     $("#passwordRecoverySendLink").attr("disabled", "disabled");
     $("#passwordRecoveryUserdata").attr("disabled", "disabled");
-
-    var url = this.basePath + 'catroid/passwordrecovery/passwordRecoverySendMailRequest.json';
-    $.post(url, {
-      passwordRecoveryUserdata : $("#passwordRecoveryUserdata").val()
-    }, $.proxy(this.passwordRecoverySuccess, this), "json");
+    
+    $.ajax({
+      type: "POST",
+      url: this.basePath + 'catroid/passwordrecovery/passwordRecoverySendMailRequest.json',
+      data : ({
+        passwordRecoveryUserdata : $("#passwordRecoveryUserdata").val()
+      }),
+      timeout : (this.ajaxTimeout),
+      success : jQuery.proxy(this.passwordRecoverySendMailSuccess, this),
+      error : jQuery.proxy(this.passwordRecoverySendMailError, this)
+      
+    });
   },
   
-  passwordRecoverySuccess : function(response) {
+  passwordRecoverySendMailSuccess : function(result) {
     $("#passwordRecoveryFormAnswer").toggle(true);
-    if(response.answer) {
-      $("#okMsg").toggle(false);
-      $("#errorMsg").toggle(true);
-      $("#errorMsg").html(response.answer);
-    }
-    if(response.answer_ok) {
+    $("#passwordRecoveryFormDialog").toggle(true);
+    if(result.statusCode == 200) {
       $("#errorMsg").toggle(false);
       $("#okMsg").toggle(true);
-      $("#okMsg").html(response.answer_ok);
-      $("#passwordRecoveryFormDialog").toggle(false);
+      $("#okMsg").html(result.answer_ok);
+      //$("#passwordRecoveryFormDialog").toggle(false);
     }
+    else {
+      $("#okMsg").toggle(false);
+      $("#errorMsg").toggle(true);
+      $("#errorMsg").html(result.answer);
+    }
+    // enable form fields
     $("#passwordRecoverySendLink").removeAttr("disabled");
     $("#passwordRecoveryUserdata").removeAttr("disabled");
   },
- 
+    
+  passwordRecoverySendMailError : function() {
+    if(errCode == "timeout") {
+      window.location.reload(false);   
+    }
+  },
+  
+  
   passwordSaveSubmit : function() {
     // disable form fields
     $("#passwordSaveSubmit").attr("disabled", "disabled");

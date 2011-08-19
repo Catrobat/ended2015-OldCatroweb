@@ -34,7 +34,7 @@ var Menu = Class.$extend( {
     	$("#menuWikiButton").click({url:"wiki/Main_Page?action=purge",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
     }
 
-    $("#menuLoginButton").click($.proxy(this.toggleProfileBox, this)); //click({url:"catroid/login"}, jQuery.proxy(this.openLocation, this));
+    $("#menuLoginButton").click($.proxy(this.toggleProfileBox, this));
     $("#menuRegistrationButton").click({url:"catroid/registration"}, jQuery.proxy(this.openLocation, this));
     $("#menuPasswordRecoveryButton").click({url:"catroid/passwordrecovery"}, jQuery.proxy(this.openLocation, this));
    	$("#menuProfileButton").click({url:"catroid/profile"}, jQuery.proxy(this.openLocation, this));
@@ -46,14 +46,12 @@ var Menu = Class.$extend( {
       $("#thirdRow").toggle(false);
       $("#menuRegistrationButton").toggle(false);
       $("#menuProfileButton").attr('disabled', false).removeClass('gray').addClass('green');
-      //$("#menuProfileButton").toggle(true);
     } else {
       $("#firstRow").toggle(true);
       $("#secondRow").toggle(true);
       $("#thirdRow").toggle(false);
       $("#menuRegistrationButton").toggle(true);
       $("#menuProfileButton").attr('disabled', true).removeClass('green').addClass('gray');
-      //$("#menuProfileButton").toggle(false);
     }
     
     $("#forgotPassword").click($.proxy(this.toggleProfileBox, this));

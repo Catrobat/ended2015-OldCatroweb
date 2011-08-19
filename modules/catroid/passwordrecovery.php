@@ -42,6 +42,9 @@ class passwordrecovery extends CoreAuthenticationNone {
         return false;
       }
     }
+    else {
+      $this->answer .= 'out of order';
+    }
   }
   
   public function passwordRecoveryChangeMyPasswordRequest() {
@@ -315,7 +318,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       $mailText .=   $this->languageHandler->getString('mail_text_row8') . "\n";
       $mailText .=   "www.catroid.org";
       if (DEVELOPMENT_MODE)
-        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
+        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$catroidPasswordResetUrl.'">'.$catroidPasswordResetUrl.'</a><br>';
       
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
         throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL));
@@ -323,7 +326,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     }
     else {
       if (DEVELOPMENT_MODE)
-        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
+        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$catroidPasswordResetUrl.'">'.$catroidPasswordResetUrl.'</a><br>';
     }
     return true;
   }

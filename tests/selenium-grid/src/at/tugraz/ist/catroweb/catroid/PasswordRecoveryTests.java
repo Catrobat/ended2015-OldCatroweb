@@ -91,6 +91,8 @@ public class PasswordRecoveryTests extends BaseTest {
       assertTrue(isTextPresent("Enter your nickname or email address:"));
       assertTrue(isElementPresent(By.name("passwordRecoveryUserdata")));
       assertTrue(isElementPresent(By.name("passwordRecoverySendLink")));
+      
+      driver().findElement(By.name("passwordRecoveryUserdata")).clear();
       driver().findElement(By.name("passwordRecoveryUserdata")).sendKeys(dataset.get("registrationUsername") + " to test");
       driver().findElement(By.name("passwordRecoverySendLink")).click();
       ajaxWait();

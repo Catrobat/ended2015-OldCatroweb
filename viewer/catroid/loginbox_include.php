@@ -39,7 +39,6 @@
                     <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="<?php echo $this->languageHandler->getString('template_header_login')?>" />
               	  <?php }?>
                   <br>
-                  <a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration"><?php echo $this->languageHandler->getString('template_header_register')?></a>&nbsp;&nbsp;<?php echo $this->languageHandler->getString('template_header_or')?>&nbsp;&nbsp;<a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('template_header_forgot_password')?></a>
                 </div>     
               </form>
             <?php } else { ?>
