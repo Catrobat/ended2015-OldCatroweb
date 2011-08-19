@@ -59,7 +59,7 @@ var PasswordRecovery = Class.$extend( {
   passwordRecoverySuccess : function(response) {
     $("#passwordRecoveryFormAnswer").toggle(true);
     if(response.answer) {
-      $("#okMsg").toggle(false);
+      $("#okMsg").toggle(true);
       $("#errorMsg").toggle(true);
       $("#errorMsg").html(response.answer);
     }

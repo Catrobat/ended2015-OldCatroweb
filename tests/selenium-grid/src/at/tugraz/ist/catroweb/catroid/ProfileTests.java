@@ -255,6 +255,7 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.name("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
       driver().findElement(By.name("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      //((Select) driver().findElement(By.id("registrationCountry"))).selectByValue(dataset.get("registrationCountryID"));
       driver().findElement(By.name("registrationSubmit")).click();
       ajaxWait();
 
@@ -335,7 +336,7 @@ public class ProfileTests extends BaseTest {
 
   @SuppressWarnings("serial")
   @DataProvider(name = "loginAndAddData")
-  public Object[][] loginDataShort() {
+  public Object[][] loginAndAddData() {
     final String randomString = CommonData.getRandomShortString(10);
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
@@ -344,6 +345,7 @@ public class ProfileTests extends BaseTest {
         put("registrationPassword", "myPassword123");
         put("registrationEmail", "email_" + randomString + "@selenium.at");
         put("registrationCountry", "AUSTRIA");
+        put("registrationCountryID", "AT");
         put("changedCity", "München");
         put("registrationCity", "Graz");
         put("changedMonthID", "4");
@@ -361,7 +363,7 @@ public class ProfileTests extends BaseTest {
   
   @SuppressWarnings("serial")
   @DataProvider(name = "loginAndChangeData")
-  public Object[][] loginData() {
+  public Object[][] loginAndChangeData() {
     final String randomString = CommonData.getRandomShortString(10);
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {

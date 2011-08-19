@@ -35,8 +35,7 @@ class registration extends CoreAuthenticationNone {
   public function registrationRequest() {
     if($_POST) {
       if($this->doRegistration($_POST, $_SERVER)) {
-        $this->statusCode = 200;
-        //$this->answer_ok .= $this->languageHandler->getString('password_success');
+        $this->statusCode = 200;       
         return true;
       } else {
         $this->statusCode = 500;
@@ -52,6 +51,7 @@ class registration extends CoreAuthenticationNone {
     $catroidRegistrationSuccess = false;
     $boardRegistrationSuccess = false;
     $wikiRegistrationSuccess = false;
+    $sendRegistrationMailSuccess = false;
 
     try {
       $this->checkUsername($postData['registrationUsername']);
@@ -101,6 +101,17 @@ class registration extends CoreAuthenticationNone {
             $wikiUserId = $this->doWikiRegistration($postData);
             $wikiRegistrationSuccess = true;
             $answer .= $this->languageHandler->getString('wiki_success').'<br>';
+            
+            if($wikiRegistrationSuccess) {
+              try {
+                $this->sendRegistrationEmail($_POST['registrationPassword'], SEND_NOTIFICATION_USER_EMAIL);
+                $sendRegistrationMailSuccess = true;
+              }
+              catch (Exception $e) {
+                $registrationDataValid = false;
+                $answer = $this->errorHandler->getError('registration', 'board_registration_failed', $e->getMessage()).'<br>';
+              }
+            }
           } catch(Exception $e) {
             $registrationDataValid = false;
             $answer = $this->errorHandler->getError('registration', 'wiki_registration_failed', $e->getMessage()).'<br>';
@@ -135,7 +146,7 @@ class registration extends CoreAuthenticationNone {
     $this->answer .= $answer;
     $this->statusCode = $statusCode;
 
-    if($boardRegistrationSuccess && $wikiRegistrationSuccess && $catroidRegistrationSuccess) {
+    if($boardRegistrationSuccess && $wikiRegistrationSuccess && $catroidRegistrationSuccess && $sendRegistrationMailSuccess) {
       require_once 'modules/api/login.php';
       $login = new login();
       $login->doLogin(array('loginUsername'=>$postData['registrationUsername'], 'loginPassword'=>$postData['registrationPassword']));
@@ -438,6 +449,69 @@ class registration extends CoreAuthenticationNone {
     return true;
 
   }
+  
+  
+  
+ 
+
+  
+//Welcome to VillainROM Forums forums
+//
+//Please keep this e-mail for your records. Your account information is as
+//follows:
+//
+//----------------------------
+//Username: loki6666
+//
+//Board URL: http://www.villainrom.co.uk
+//----------------------------
+//
+//Please visit the following link in order to activate your account:
+//
+//http://www.villainrom.co.uk/ucp.php?mode=activate&u=930&k=BUFZOUA43N
+//
+//Your password has been securely stored in our database and cannot be
+//retrieved. In the event that it is forgotten, you will be able to reset it
+//using the email address associated with your account.
+//
+//Thank you for registering.
+//
+//  
+
+  
+  public function sendRegistrationEmail($password, $sendPasswordRecoveryEmail) {
+    $catroidProfileUrl = BASE_PATH.'catroid/profile';
+    $catroidLoginUrl = BASE_PATH.'catroid/login';
+    
+    if($sendPasswordRecoveryEmail) {
+      $userMailAddress = $this->userData['email'];
+      $mailSubject = $this->languageHandler->getString('mail_subject');
+      $mailText =    $this->languageHandler->getString('mail_text_row1') . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row2') . "\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row3', $this->userData['username']) . "\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row4', $password) . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row5') . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row6') . "\n";
+      $mailText .=   $catroidLoginUrl."\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row7') . "\n";
+      $mailText .=   $catroidProfileUrl."\n\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row8') . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row9') . "\n";
+      $mailText .=   "www.catroid.org";
+      if (DEVELOPMENT_MODE)
+        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
+      
+      if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
+        throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL));
+      }
+    }
+    else {
+      if (DEVELOPMENT_MODE)
+        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
+    }
+    return true;
+  }
+  
 
   public function __destruct() {
     parent::__destruct();

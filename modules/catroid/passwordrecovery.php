@@ -286,7 +286,10 @@ class passwordrecovery extends CoreAuthenticationNone {
   }
  
   public function sendPasswordRecoveryEmail($userHash, $sendPasswordRecoveryEmail) {
-    $resetPasswordLink = BASE_PATH.'catroid/passwordrecovery?c='.$userHash; //$this->userHash;
+    $catroidPasswordResetUrl = BASE_PATH.'catroid/passwordrecovery?c='.$userHash; //$this->userHash;
+    $catroidProfileUrl = BASE_PATH.'catroid/profile';
+    $catroidLoginUrl = BASE_PATH.'catroid/login';
+    
     $userid = $this->userData['id'];
     $recoveryhash = $this->userHash;
     $date = new DateTime();
@@ -301,11 +304,15 @@ class passwordrecovery extends CoreAuthenticationNone {
       $userMailAddress = $this->userData['email'];
       $mailSubject = $this->languageHandler->getString('mail_subject');
       $mailText =    $this->languageHandler->getString('mail_text_row1', $this->userData['username']) . "!\n\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row2') . "\n";
-      $mailText .=   $resetPasswordLink."\n\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row3') . "\n\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row4', 'http://www.catroid.org/catroid/login') . "\n\n\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row5') . "\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row2') . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row3') . "\n";
+      $mailText .=   $catroidPasswordResetUrl."\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row5') . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row6') . "\n";
+      $mailText .=   $catroidLoginUrl."\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row7') . "\n";
+      $mailText .=   $catroidProfileUrl."\n\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row8') . "\n";
       $mailText .=   "www.catroid.org";
       if (DEVELOPMENT_MODE)
         $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';

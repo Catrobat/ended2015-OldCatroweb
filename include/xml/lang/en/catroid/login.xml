@@ -23,4 +23,11 @@
   <string name="account_link">Create a new account now</string>
   <string name="or">or</string>
   <string name="password_link">click here if you forgot your password?</string>  
+  <string name="please_enter_nick_and_password">Please enter your nickname and your password:</string>  
+  <string name="nick">Nickname:</string>
+  <string name="password">Password:</string>
+  <string name="enter_nick">your nickname</string>
+  <string name="enter_password">your password</string>
+  <string name="login">Login now</string>
+  
 </strings>

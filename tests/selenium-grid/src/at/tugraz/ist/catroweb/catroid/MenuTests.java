@@ -34,15 +34,29 @@ public class MenuTests extends BaseTest {
       driver().findElement(By.id("headerMenuButton")).click();
       assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
 
+      assertTrue(isVisible(By.id("menuLoginButton")));
+      assertTrue(isEditable(By.id("menuLoginButton")));
+      
       assertTrue(isVisible(By.id("menuRegistrationButton")));
+      assertTrue(isEditable(By.id("menuRegistrationButton")));
+      
+      assertTrue(isVisible(By.id("menuPasswordRecoveryButton")));
+      assertTrue(isEditable(By.id("menuPasswordRecoveryButton")));
+      
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      assertFalse(isEditable(By.id("menuProfileButton")));
+      
       assertTrue(isVisible(By.id("menuForumButton")));
+      assertTrue(isEditable(By.id("menuForumButton")));
+      
       assertTrue(isVisible(By.id("menuWikiButton")));
+      assertTrue(isEditable(By.id("menuWikiButton")));
 
-      assertTrue(isVisible(By.id("menuWallButton")));
-      assertTrue(isVisible(By.id("menuSettingsButton")));
+      //assertTrue(isVisible(By.id("menuWallButton")));
+      //assertTrue(isVisible(By.id("menuSettingsButton")));
 
-      assertFalse(isEditable(By.id("menuWallButton")));
-      assertFalse(isEditable(By.id("menuSettingsButton")));
+      //assertFalse(isEditable(By.id("menuWallButton")));
+      //assertFalse(isEditable(By.id("menuSettingsButton")));
       // TODO LOGIN BROKEN
       // selenium().click("menuLoginButton");
       // waitForPageToLoad();

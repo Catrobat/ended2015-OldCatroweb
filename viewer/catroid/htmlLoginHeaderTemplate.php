@@ -39,9 +39,9 @@
                 </a>			      			
             </div>
           </div>
-          <div id="normalHeaderButtons" class="webHeadButtons">            
-            <button type="button" class="webHeadButtons button orange  medium" id="headerHomeButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/home.png" alt="<?php echo $this->languageHandler->getString('template_header_home')?>" /></button>
-            <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="<?php echo $this->languageHandler->getString('template_header_search')?>" /></button>
+          <div id="normalHeaderButtons" class="webHeadButtons">
+            <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="<?php echo $this->languageHandler->getString('template_header_menu')?>" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerSearchButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/search.png" alt="<?php echo $this->languageHandler->getString('template_header_search')?>" /></button>
           </div>
           <div id="cancelHeaderButton" class="webHeadButtons">
             <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelButton">
@@ -51,9 +51,22 @@
           <div style="clear:both;"></div>
         </div>
       </div>
-
-<!-- login headerProfileBox here! -->
-    <?php 
-      require_once('loginbox_include.php');
-    ?>
+      <div id="headerSearchBox" class="headerSearchBox" style="display:none;">
+        <div class="webHeadBoxSpacer"></div>
+        <div class="blueBoxMain">
+          <div class="webMainHead">
+            <form id="searchForm">
+              <div class="headerSearchBoxRight" >
+              <?php if($this->module->clientDetection->isMobile()) {?>
+                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="<?php echo $this->languageHandler->getString('template_header_search_for_projects')?>" autofocus  /><br>             
+                <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="<?php echo $this->languageHandler->getString('template_header_search')?>" />
+              <?php } else {?>
+                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="<?php echo $this->languageHandler->getString('template_header_search_for_projects')?>" autofocus  />             
+                <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="<?php echo $this->languageHandler->getString('template_header_search')?>" />
+              <?php }?>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
     </div> <!--  WEBMAINTOP -->

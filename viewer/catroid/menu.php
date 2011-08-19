@@ -21,16 +21,36 @@
       <div class="blueBoxMain">
         <div class="webMainContent">
           <div class="menuListRow">
-            <div class="whiteBoxMain">
+            <div class="whiteBoxMain" id="firstRow">
               <div class="menuListElementRow">
-                <button id="menuProfileButton" type="button" class="menuElementButton button red medium" title="Profile">
+                <button id="menuLoginButton" type="button" class="menuElementButton button green medium" title="Login">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('profile')?>
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Log in now" /><br /><?php echo $this->languageHandler->getString('login')?>
                   </span>
                 </button>
+              </div>
+              <div class="menuListElementRow">
                 <button id="menuRegistrationButton" type="button" class="menuElementButton button red medium" title="Registration">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('registration')?>
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('sign_up')?>
+                  </span>
+                </button>
+              </div>
+              <div class="menuListElementRow">
+                <button id="menuPasswordRecoveryButton" type="button" class="menuElementButton button blue medium" title="Password Recovery">
+                  <span class="menuElementButtonLabel">
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Password Recovery" /><br /><?php echo $this->languageHandler->getString('problem')?>
+                  </span>
+                </button>
+              </div>              
+              <div style="clear:left;"></div>
+            </div> <!-- whiteBoxMain close //-->
+            <div class="menuListSpacer"></div>
+            <div class="whiteBoxMain" id="secondRow">
+              <div class="menuListElementRow">
+                <button id="menuProfileButton" type="button" class="menuElementButton button green medium" title="Profile">
+                  <span class="menuElementButtonLabel">
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('profile')?>
                   </span>
                 </button>
               </div>
@@ -51,7 +71,7 @@
               <div style="clear:left;"></div>
             </div> <!-- whiteBoxMain close //-->
             <div class="menuListSpacer"></div>
-            <div class="whiteBoxMain">
+            <div class="whiteBoxMain" id="thirdRow">
               <div class="menuListElementRow">
                 <button id="menuWallButton" type="button" class="menuElementButton button green medium" title="Wall">
                   <span class="menuElementButtonLabel">
