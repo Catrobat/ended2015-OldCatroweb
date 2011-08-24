@@ -32,23 +32,6 @@ import at.tugraz.ist.catroweb.common.*;
 @Test(groups = { "api", "UploadTests" })
 public class UploadTests extends BaseTest {
 
-  @Test(dataProvider = "validLoginForUpload", groups = { "upload", "functionality" }, description = "upload valid projects")
-  public void validLoginForUpload(HashMap<String, String> dataset) throws Throwable {
-    try {
-      String response = projectUploader.upload(dataset);
-      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
-      openLocation();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("projectTitle")));
-    } catch(AssertionError e) {
-      captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
-      throw e;
-    } catch(Exception e) {
-      captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
-      throw e;
-    }
-  }
-  
   @Test(dataProvider = "validProjectsForUpload", groups = { "upload", "functionality" }, description = "upload valid projects")
   public void uploadValidProjects(HashMap<String, String> dataset) throws Throwable {
     try {
@@ -121,15 +104,4 @@ public class UploadTests extends BaseTest {
     return returnArray;
   }
   
-  @SuppressWarnings("serial")
-  @DataProvider(name = "validLoginData")
-  public Object[][] validLoginData() {
-    Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
-      {
-        put("username", "catroweb");
-        put("password", "cat.roid.web");
-      }
-    } } };
-    return dataArray;
-  }
 }
