@@ -117,6 +117,9 @@
       <string name="email_update_failed">There was a problem while updating the email address.</string>
       <string name="email_update_of_catroweb_failed">Catroweb must have at least 2 e-mail addresses.</string>
       <string name="email_address_string_changed">Error while deleting this e-mail address. Do you have any unsaved changes?</string>
+      <string name="country_update_failed">There was a problem while updating your home country.</string>
+      <string name="city_update_failed">There was a problem while updating the email address.</string>
+      <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
     </profile>
     <viewer>
       <string name="ip_is_blocked">Your IP-Address has been blocked.</string>

@@ -20,12 +20,12 @@
 <suite name="Catroid Test Suite" parallel="methods" thread-count="20" verbose="2" >
   <test name="ApiTests" >
     <packages>
-<!--      <package name="at.tugraz.ist.catroweb.api" />-->
+      <package name="at.tugraz.ist.catroweb.api" />
     </packages>
   </test>
   <test name="AdminTests" >
     <packages>
-<!--      <package name="at.tugraz.ist.catroweb.admin" />-->
+      <package name="at.tugraz.ist.catroweb.admin" />
     </packages>
   </test>
   <test name="CatroidTests" >
@@ -46,7 +46,7 @@
   </test>
   <test name="BlockedIpTests" >
     <classes>
-<!--      <class name="at.tugraz.ist.catroweb.catroid.BlockedIpTests" />-->
+      <class name="at.tugraz.ist.catroweb.catroid.BlockedIpTests" />
     </classes>
   </test>
 </suite>

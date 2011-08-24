@@ -18,10 +18,13 @@ if (!defined('IN_PHPBB'))
 
 include_once($phpbb_root_path . 'includes/db/dbal.' . $phpEx);
 
+/* workaround by catroweb team
 if (!class_exists('phpbb_error_collector'))
 {
 	include($phpbb_root_path . 'includes/error_collector.' . $phpEx);
 }
+*/
+include_once($phpbb_root_path . 'includes/error_collector.' . $phpEx);
 
 /**
 * PostgreSQL Database Abstraction Layer

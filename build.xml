@@ -114,9 +114,7 @@
     <fail if="do.abort">You have to validate the page on http://validator.w3.org before you can continue!</fail>
   </target>
   
-  <target name="-selenium-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-tests-catroid, -selenium-tests-api, -selenium-stop-server"/>
   <target name="-selenium-android-tests" depends="-selenium-start-android-emulator, -selenium-start-server-android"/>
-  <target name="-selenium-test" depends="-selenium-start-server, -selenium-test-specific, -selenium-stop-server"/>
   
   <target name="-selenium-start-server">
     <java jar="${selenium.dir}/server/selenium-server.jar" fork="true" spawn="true"/>
@@ -146,56 +144,6 @@
     <exec dir="${android-sdk.dir}/platform-tools" executable="${android-sdk.dir}/platform-tools/adb" failonerror="false" osfamily="Unix" spawn="true">
       <arg line=" -s emulator-5560 wait-for-device shell monkey -p org.openqa.selenium.android.app 1"/>
     </exec>  
-  </target>
-  
-  <target name="-selenium-stop-server">
-    <get taskname="selenium-shutdown" src="http://localhost:4444/selenium-server/driver/?cmd=shutDownSeleniumServer"
-        dest="result.txt" ignoreerrors="true" />
-    <delete file="${basedir}/result.txt" />
-  </target>
-  
-  <target name="-selenium-tests-catroid">
-    <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
-      <arg value="/c"/>
-      <arg value="phpunit.bat"/>
-      <arg line=" CatroidTestSuite.php"/>
-    </exec>
-    <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
-      <arg line=" CatroidTestSuite.php"/>
-    </exec>
-  </target>
-  
-  <target name="-selenium-tests-admin">
-    <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
-      <arg value="/c"/>
-      <arg value="phpunit.bat"/>
-      <arg line=" AdminTestSuite.php"/>
-    </exec>
-    <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
-      <arg line=" AdminTestSuite.php"/>
-    </exec>
-  </target>
-  
-  <target name="-selenium-tests-api">
-    <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
-      <arg value="/c"/>
-      <arg value="phpunit.bat"/>
-      <arg line=" ApiTestSuite.php"/>
-    </exec>
-    <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
-      <arg line=" ApiTestSuite.php"/>
-    </exec>
-  </target>
-  
-  <target name="-selenium-test-specific">
-    <exec dir="${selenium.dir}" executable="cmd" failonerror="true" osfamily="Windows">
-      <arg value="/c"/>
-      <arg value="phpunit.bat"/>
-      <arg line=" ${test}"/>
-    </exec>
-    <exec dir="${selenium.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
-      <arg line=" ${test}"/>
-    </exec>
   </target>
   
   <target name="-selenium-tests-android">
@@ -709,18 +657,14 @@
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
   <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -update-sql-diagram, -cleanup" />
   <target name="deploy-alex" depends="-conf, -clean, -create-dirs, -conf-deploy-alex, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -cleanup" />
-  <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -init-remote-database,-update-remote-database, -cleanup" />
+  <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -set-catroid-dir-permissions, -undeploy, -deploy, -set-catroid-dir-permissions, -init-remote-database,-update-remote-database, -cleanup" />
   <target name="deploy-testlocal-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-testlocal-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="deploy-test-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
-  <target name="run-tests" depends="-phpunit-tests, -selenium-tests" />
   <target name="run-phpunit-tests" depends="-phpunit-tests" />
-  <target name="run-selenium-admin-tests" depends="-selenium-start-server, -selenium-tests-admin, -selenium-stop-server" />
-  <target name="run-selenium-catroid-tests" depends="-selenium-start-server, -selenium-tests-catroid, -selenium-stop-server" />
   <target name="run-selenium-local-tests" depends="-selenium-grid-tests-catroid-local" />
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
   <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />
-  <target name="run-selenium-api-tests" depends="-selenium-start-server, -selenium-tests-api, -selenium-stop-server" />
   <target name="run-selenium-remote-tests" depends="deploy-testlocal-with-tests, -selenium-grid-tests-testlocal" />
   <target name="stop-selenium-grid" depends="-selenium-grid-stop"/>
   <target name="start-android-emulator" depends="-selenium-start-android-emulator, -selenium-start-server-android" />
