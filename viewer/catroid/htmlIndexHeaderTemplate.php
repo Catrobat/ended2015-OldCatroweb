@@ -70,6 +70,6 @@
       </div>
 <!-- login headerProfileBox here! -->
     <?php 
-      require_once('loginbox_include.php');
+      require_once('loginbox.php');
     ?>
     </div> <!--  WEBMAINTOP -->
