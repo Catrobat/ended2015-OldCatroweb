@@ -27,9 +27,28 @@ import org.testng.annotations.DataProvider;
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
 
+//dataset.get("username")
+
 @Test(groups = { "api", "UploadTests" })
 public class UploadTests extends BaseTest {
 
+  @Test(dataProvider = "validLoginForUpload", groups = { "upload", "functionality" }, description = "upload valid projects")
+  public void validLoginForUpload(HashMap<String, String> dataset) throws Throwable {
+    try {
+      String response = projectUploader.upload(dataset);
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      openLocation();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("projectTitle")));
+    } catch(AssertionError e) {
+      captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
+      throw e;
+    }
+  }
+  
   @Test(dataProvider = "validProjectsForUpload", groups = { "upload", "functionality" }, description = "upload valid projects")
   public void uploadValidProjects(HashMap<String, String> dataset) throws Throwable {
     try {
@@ -100,5 +119,17 @@ public class UploadTests extends BaseTest {
         { CommonData.getUploadPayload("invalid xml in project file", "some description", "invalid_xml.zip", "AADC2DEDE19CDB559E362DB2E119F038", "", "", " ") },
         { CommonData.getUploadPayload("invalid zip file", "some description", "not_a_zip.zip", "D1B761A18F525A2A20CAA2A5DA12BBF1", "", "", " ") } };
     return returnArray;
+  }
+  
+  @SuppressWarnings("serial")
+  @DataProvider(name = "validLoginData")
+  public Object[][] validLoginData() {
+    Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
+      {
+        put("username", "catroweb");
+        put("password", "cat.roid.web");
+      }
+    } } };
+    return dataArray;
   }
 }
