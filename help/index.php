@@ -37,10 +37,7 @@ require_once('../config.php');
 --- local tests
 
     ant run-phpunit-tests		 
-    ant run-selenium-admin-tests    
     ant run-selenium-local-tests
-    ant run-selenium-api-tests      
-    ant run-selenium-catroid-tests
     
     <i>+ run specific test</i>
     ant run-selenium-single-test    
