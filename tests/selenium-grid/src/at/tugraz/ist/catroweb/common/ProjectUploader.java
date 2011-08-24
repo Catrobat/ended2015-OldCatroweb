@@ -62,7 +62,9 @@ public class ProjectUploader {
     Charset utf8 = Charset.forName("UTF-8");
     HttpClient httpclient = new DefaultHttpClient();
     try {
+
       MultipartEntity reqEntity = new MultipartEntity();
+      
       reqEntity.addPart("projectTitle", new StringBody(verifiedPayload.get("projectTitle"), utf8));
       reqEntity.addPart("projectDescription", new StringBody(verifiedPayload.get("projectDescription"), utf8));
       reqEntity.addPart("upload", new FileBody(new File(verifiedPayload.get("upload"))));

@@ -305,7 +305,7 @@
                         if($this->userCity) {
                     ?>
                         <div id="profileCityDiv">
-                    <?php echo $this->userCity.' city'; ?><br>
+                    <?php echo $this->userCity; ?><br>
                         </div> 
                     <?php
                         } 
@@ -316,7 +316,7 @@
           		   			  $sumCount = count($this->countryCodeList);
             		   			while($x < $sumCount+1) {
             		   			  if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
-                            echo $this->countryNameList[$x].' country';
+                            echo $this->countryNameList[$x];
                             break;
                           }
                           $x++;           

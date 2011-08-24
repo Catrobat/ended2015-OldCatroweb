@@ -42,9 +42,6 @@ class passwordrecovery extends CoreAuthenticationNone {
         return false;
       }
     }
-    else {
-      $this->answer .= 'out of order';
-    }
   }
   
   public function passwordRecoveryChangeMyPasswordRequest() {

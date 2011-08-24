@@ -32,12 +32,17 @@ class login extends CoreAuthenticationNone {
   }
 
   public function loginRequest() {
-    $postData = $_POST;
-    if($postData) {
-      if(isset($postData['requesturi'])) {
-        $this->setRequestURI($postData['requesturi']);
+    if($_POST) {
+      if(isset($_POST['requesturi'])) {
+        $this->setRequestURI($_POST['requesturi']);
       }
-      $this->doLogin($postData);
+      if($this->doLogin($_POST)) {
+        $this->statusCode = 200;       
+        return true;
+      } else {
+        $this->statusCode = 500;
+        return false;
+      }
     }
   }
 
@@ -98,6 +103,7 @@ class login extends CoreAuthenticationNone {
 
     $this->statusCode = $statusCode;
     $this->answer = $answer;
+    $this->answer .= "login routine";
 
     if($boardLoginSuccess && $wikiLoginSuccess && $catroidLoginSuccess) {
       return true;
@@ -136,9 +142,10 @@ class login extends CoreAuthenticationNone {
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
 
     $user = $postData['loginUsername'];
-    $user = utf8_clean_string($user);
+    $user = utf8_clean_string($postData['loginUsername']);
     $user = trim($user);
     $pass = md5($postData['loginPassword']);
+    //$pass = md5($password);
     $query = "EXECUTE get_user_login('$user', '$pass')";
 
     $result = @pg_query($this->dbConnection, $query);
@@ -168,6 +175,7 @@ class login extends CoreAuthenticationNone {
     $auth->acl($user->data);
     $user->setup();
     $auth->login(trim($postData['loginUsername']), $postData['loginPassword'], false, 1);
+    //$auth->login(trim($username), $password, false, 1);
     return($user->data['user_id']);
   }
 
@@ -189,8 +197,8 @@ class login extends CoreAuthenticationNone {
     $api_url = $wikiroot . "/api.php";
 
     $login_vars['action'] = "login";
-    $username = $postData['loginUsername'];
-    $username = utf8_clean_string($username);
+    //$username = $postData['loginUsername'];
+    $username = utf8_clean_string($postData['loginUsername']);
     $username = trim($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $login_vars['lgname'] = $username;

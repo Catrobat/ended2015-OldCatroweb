@@ -37,7 +37,7 @@
                 </button>
               </div>
               <div class="menuListElementRow">
-                <button id="menuWikiButton" type="button" class="menuElementButton button orange medium" title="Wiki">
+                <button id="menuWikiButton" type="button" class="menuElementButton button darkorange medium" title="Wiki">
                   <span class="menuElementButtonLabel">
                     <img src="<?php echo BASE_PATH; ?>images/symbols/menu_wiki.png" alt="Wiki" /><br /><?php echo $this->languageHandler->getString('wiki')?>
                   </span>
@@ -62,7 +62,7 @@
                 </button>
               </div>
               <div class="menuListElementRow">
-                <button id="menuPasswordRecoveryButton" type="button" class="menuElementButton button blue medium" title="Password Recovery">
+                <button id="menuPasswordRecoveryButton" type="button" class="menuElementButton button cyan medium" title="Password Recovery">
                   <span class="menuElementButtonLabel">
                     <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Password Recovery" /><br /><?php echo $this->languageHandler->getString('problem')?>
                   </span>

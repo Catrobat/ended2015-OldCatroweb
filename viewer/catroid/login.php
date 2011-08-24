@@ -38,7 +38,7 @@
                     <?php echo $this->languageHandler->getString('nick')?><br>
                     <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>"  /><br>
                     <?php echo $this->languageHandler->getString('password')?><br>
-                    <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>"  /><br>
+                    <input id="loginPassword" type="password" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>"  /><br>
                     <br>
                     <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="<?php echo $this->languageHandler->getString('login')?>" /><br>
                     <br>

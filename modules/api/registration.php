@@ -26,7 +26,8 @@ class registration extends CoreAuthenticationNone {
   public function __default() {
   }
 
-  public function registrationRequest_orig() {
+  public function registerOrCheckToken() {
+    // bekommt 
     if($_POST) {
       $this->doRegistration($_POST, $_SERVER);
     }
@@ -156,7 +157,7 @@ class registration extends CoreAuthenticationNone {
       $this->postData = $postData;
       return false;
     }
-    return $registrationDataValid;
+    //return $registrationDataValid;
   }
 
   public function doCatroidRegistration($postData, $serverData) {
@@ -450,33 +451,6 @@ class registration extends CoreAuthenticationNone {
 
   }
   
-  
-  
- 
-
-  
-//Welcome to VillainROM Forums forums
-//
-//Please keep this e-mail for your records. Your account information is as
-//follows:
-//
-//----------------------------
-//Username: loki6666
-//
-//Board URL: http://www.villainrom.co.uk
-//----------------------------
-//
-//Please visit the following link in order to activate your account:
-//
-//http://www.villainrom.co.uk/ucp.php?mode=activate&u=930&k=BUFZOUA43N
-//
-//Your password has been securely stored in our database and cannot be
-//retrieved. In the event that it is forgotten, you will be able to reset it
-//using the email address associated with your account.
-//
-//Thank you for registering.
-//
-//  
 
   
   public function sendRegistrationEmail($password, $sendPasswordRecoveryEmail) {

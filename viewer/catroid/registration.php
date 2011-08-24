@@ -42,7 +42,7 @@
           		   			<?php echo $this->languageHandler->getString('nickname')?><br>
           		   			<input type="text" id="registrationUsername" name="registrationUsername" value="<?php echo htmlspecialchars($this->postData['registrationUsername'])?>" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_nickname')?>" ><br>
           		   			<?php echo $this->languageHandler->getString('password')?><br>
-          		   			<input type="text" id="registrationPassword" name="registrationPassword" value="<?php if($this->passOk) { echo htmlspecialchars($this->postData['registrationPassword']); }?>" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" ><br>
+          		   			<input type="password" id="registrationPassword" name="registrationPassword" value="<?php if($this->passOk) { echo htmlspecialchars($this->postData['registrationPassword']); }?>" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" ><br>
           		   			<?php echo $this->languageHandler->getString('email')?><br>
           		   			<input type="email" id="registrationEmail" name="registrationEmail" value="<?php echo htmlspecialchars($this->postData['registrationEmail'])?>" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_email')?>" ><br>
           		   			<?php echo $this->languageHandler->getString('country')?><br>
