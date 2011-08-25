@@ -25,8 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="old_password">gib Dein altes Passwort ein</string>
   <string name="new_password">gib Dein neues Passwort ein</string>
   <string name="email">diese E-Mail Adresse &#xE4;ndern</string>
-  <string name="add_email_field_button">neue E-Mail Adresse hinzufügen</string>
-  <string name="add_email_field_text">gib eine neue E-Mail Adresse ein</string>
+  <string name="add_email_field_button">gib eine neue E-Mail Adresse ein</string>
   <string name="delete_email">E-Mail Adresse l&#xF6;schen</string>
   <string name="email_delete_success">Du hast deine E-Mail Adresse erfolgreich gel&#xF6;scht.</string>
   <string name="alertbox_really_want_to_delete_email">Willst du diese E-Mail Adresse wirklich l&#xF6;schen?</string>
@@ -44,6 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="password_success">Du hast Dein Passwort erfolgreich ge&#xE4;ndert.</string>
   <string name="country_success">Du hast Dein Land erfolgreich ge&#xE4;ndert.</string>
   <string name="add_new_email">gib deine neue E-Mail Adresse ein</string>
-  <string name="male">männlich</string>
-  <string name="female">weiblich</string>
+  <string name="add_new_email_placeholder">alternative E-Mail Adresse</string>
+  <string name="email_address_string_changed">Fehler beim L&#xF6;schen dieser E-Mail Adresse. Gibt es nicht gespeicherte &#xC4;nderungen?</string>
 </strings>

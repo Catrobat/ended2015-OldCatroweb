@@ -267,9 +267,17 @@
                         <div id="profileGenderDivOpened">
                           <a href="javascript:;" class="profileText" id="profileChangeGenderClose"><?php echo $this->languageHandler->getString('change_gender')?></a><br>
     											<select id="profileGender" name="profileGender" class="profile" >
-    												<option value="" selected><?php echo $this->languageHandler->getString('gender')?></option>
-    												<option value="female"><?php echo $this->languageHandler->getString('female')?></option>
-    												<option value="male"><?php echo $this->languageHandler->getString('male')?></option>
+                            <?php 
+                              if(strcmp($this->userGender, "female") == 0)
+                                $femaleSelected = "selected";
+                              else if (strcmp($this->userGender, "male") == 0)
+                                $maleSelected = "selected";
+                              else 
+                                $selected = "selected";
+                            ?>
+                            <option value="" <?php echo $selected ?> ><?php echo $this->languageHandler->getString('gender')?></option>
+    												<option value="female" <?php echo $femaleSelected ?> ><?php echo $this->languageHandler->getString('female')?></option>
+    												<option value="male" <?php echo $maleSelected ?> ><?php echo $this->languageHandler->getString('male')?></option>
                           </select>
                           <br>
                           <input type="button" name="profileGenderSubmit" id="profileGenderSubmit" value="<?php echo $this->languageHandler->getString('save_button')?>" class="button orange compact profileSubmitButton">
@@ -297,7 +305,7 @@
             		   	<?php
                         } // end gender else            		   	
                       } // end own profile if
-                      else {
+                      else { // start public profile
                     ?>
         		   			  <br>
                     <?php 
@@ -324,20 +332,6 @@
           		   	  ?>
           		   			</div>
                     <?php
-                        if(intval($this->userBirthArray['year']) > 1900 && intval($this->userBirthArray['year']) != 0) {
-                    ?>
-                    	<div id="profileBirthDiv">
-                        <?php echo $this->languageHandler->getString('born_in').' '.$this->userBirthArray["month"].' '.$this->userBirthArray["year"]; ?><br>
-                      </div>
-                    <?php 
-                        }
-                        if($this->userGender) {
-                    ?>
-                      <div id="profileGenderDiv">
-                        <?php echo $this->userGender.' gender'; ?><br>
-                      </div> 
-                    <?php 
-                        }
                       }
                     ?> 
   

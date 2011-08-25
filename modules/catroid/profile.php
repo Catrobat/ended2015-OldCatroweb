@@ -65,22 +65,6 @@ class profile extends CoreAuthenticationNone {
     }
   }
   
-//  public function profileEmailRequestQuery() {
-//    $postData = $_POST;
-//    if($postData) {
-//      if($this->doChangeEmailAddress($this->session->userLogin_userNickname, $postData['profileEmail'])) {
-//        $this->statusCode = 200;
-//        $this->answer_ok .= $this->languageHandler->getString('email_success');
-//        return true;
-//      } else {
-//        $this->statusCode = 500;
-//        return false;
-//      }
-//    }
-//  }
-  
-  
-  // all necessary data for the text field generatrion
   public function profileEmailRequestQuery() {
     $postData = $_POST;
     if($postData) {
@@ -120,27 +104,6 @@ class profile extends CoreAuthenticationNone {
           }
           break;
       }
-//      if($postData['profileEmail'] == '' || strlen($postData['profileEmail']) == 0 || empty($postData['profileEmail']) || strcmp('', $postData['profileEmail']) != 0) {
-//        if(($postData['profileEmailInputId']) == 0) {
-//          if($this->doAddEmailAddress($this->session->userLogin_userNickname, $postData['profileEmail'])) {
-//            
-//          }
-//        } 
-//      } 
-//      else {
-//        if($this->doAddEmailAddress($this->session->userLogin_userNickname, $postData['profileEmail'])) {
-//  //        if($this->getUserEmails($postData['username'])) {
-//  //          $this->statusCode = 200;
-//  //          $this->answer_ok .= $this->languageHandler->getString('email_success');
-//  //          return true;
-//  //        }
-//  //      } else {
-//  //        $this->statusCode = 500;
-//  //        return false;
-//        }
-//      }
-
-      
     }
   }
   
@@ -255,7 +218,7 @@ class profile extends CoreAuthenticationNone {
         }      
       }
     } catch(Exception $e) {
-      $this->answer .= $e->getMessage().'<br>';
+      $this->answer .= $e->getMessage();
     }
     
     if($email_valid) {
@@ -266,7 +229,7 @@ class profile extends CoreAuthenticationNone {
           throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
         }
       } catch(Exception $e) {
-        $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage()).'<br>';
+        $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage());
         $email_valid = false;
       }
     }
@@ -279,11 +242,12 @@ class profile extends CoreAuthenticationNone {
     if($user_id == 1) {
       $this->emailcount = count($this->getUserEmailsArray($user_id)); 
       if(($this->emailcount <= 2)) {
-        $this->answer .= $this->errorHandler->getError('profile', 'email_update_of_catroweb_failed').'<br>';
+        $this->answer .= $this->errorHandler->getError('profile', 'email_update_of_catroweb_failed');
         return false;
       }
     }
     
+    // check if email was changed before deleting
     if($email_valid) {
       try {
         $query = "EXECUTE get_user_email_by_email('$email')";
@@ -293,7 +257,7 @@ class profile extends CoreAuthenticationNone {
         }
         
         if(pg_num_rows($result) > 0) {
-          $query = "EXECUTE update_user_email_from_additional_email_by_user_email('$username', '$user_id')";
+          $query = "EXECUTE update_user_email_from_additional_email_by_user_email('$user_id')";
           $result = @pg_query($this->dbConnection, $query);
           if(!$result) {
             $email_valid = false;
@@ -308,7 +272,6 @@ class profile extends CoreAuthenticationNone {
           }
         }
         else {
-          $this->answer .= 'delete_user_additional_email_by_email '.$email.'<br>';
           $query = "EXECUTE delete_user_additional_email_by_email('$email')";
           $result = @pg_query($this->dbConnection, $query);
           if(!$result) {
@@ -317,7 +280,7 @@ class profile extends CoreAuthenticationNone {
           }
         }
       } catch(Exception $e) {
-        $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage()).'<br>';
+        $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage());
         $email_valid = false;
       }
     }

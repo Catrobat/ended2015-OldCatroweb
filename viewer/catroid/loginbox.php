@@ -17,6 +17,17 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
+
+
+      <script type="text/javascript">
+        $(document).ready(function() {
+          var languageStringsObject = { 
+              "username_missing" : "<?php echo $this->module->errorHandler->getError('registration', 'username_missing'); ?>",
+              "password_missing" : "<?php echo $this->module->errorHandler->getError('registration', 'password_missing'); ?>"
+              };
+          new Login(languageStringsObject);
+        });
+      </script>
       <div id="headerProfileBox" class="headerProfileBox" style="display:none;">
         <div class="webHeadBoxSpacer"></div>
         <div class="blueBoxMain">
@@ -27,20 +38,20 @@
             	   <!-- errorMsg -->
               	</div>
               </div>
-              <form id="loginForm">
-              	<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >
-              	  <?php if($this->module->clientDetection->isMobile()) {?>
-              		<?php echo $this->languageHandler->getString('template_header_nick')?><br><input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('template_header_enter_nick')?>"  /><br>
-                	<?php echo $this->languageHandler->getString('template_header_password')?><br><input id="loginPassword" type="password" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('template_header_enter_password')?>"  /><br>
-                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="<?php echo $this->languageHandler->getString('template_header_login')?>" />
-              	  <?php } else {?>
-                    <?php echo $this->languageHandler->getString('template_header_nick')?> <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('template_header_enter_nick')?>"  />
-                    <?php echo $this->languageHandler->getString('template_header_password')?> <input id="loginPassword" type="password" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('template_header_enter_password')?>"  />
-                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="<?php echo $this->languageHandler->getString('template_header_login')?>" />
-              	  <?php }?>
-                  <br>
-                </div>     
-              </form>
+            	<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >
+            	  <?php if($this->module->clientDetection->isMobile()) {?>
+            		<?php echo $this->languageHandler->getString('template_header_nick')?><br><input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('template_header_enter_nick')?>"  /><br>
+              	<?php echo $this->languageHandler->getString('template_header_password')?><br><input id="loginPassword" type="password" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('template_header_enter_password')?>"  /><br>
+                  <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="<?php echo $this->languageHandler->getString('template_header_login')?>" />
+            	  <?php } else {?>
+                  <?php echo $this->languageHandler->getString('template_header_nick')?> <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('template_header_enter_nick')?>"  />
+                  <?php echo $this->languageHandler->getString('template_header_password')?> <input id="loginPassword" type="password" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('template_header_enter_password')?>"  />
+                  <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="<?php echo $this->languageHandler->getString('template_header_login')?>" />
+            	  <?php }?>
+                <br>
+                <div class='loginHelper' id='loginHelperDiv'>
+                </div>
+              </div>     
             <?php } else { ?>
               <div id="headerProfileBoxLeft" class="headerProfileBoxLeft">
                <?php echo $this->languageHandler->getString('template_header_logged_in_as')?>
@@ -49,7 +60,8 @@
                 <input id="logoutSubmitButton" type="button" class="button orange webHeadLogoutSubmit" value="<?php echo $this->languageHandler->getString('template_header_logout')?>" />
                </div>
              </div>
-            <?php } ?>
+            <?php }
+            ?>
           </div>
         </div>
       </div>

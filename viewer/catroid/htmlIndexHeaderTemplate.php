@@ -21,7 +21,7 @@
       $(document).ready(function() {
         new Index(<?php echo "'".PROJECT_PAGE_LOAD_MAX_PROJECTS."', '".PROJECT_PAGE_SHOW_MAX_PAGES."', '".$this->module->session->pageNr."', '".$this->module->session->searchQuery."', '".$this->module->session->task."', { loading: '".$this->languageHandler->getString("template_header_loading")."' }"; ?>);
         new HeaderMenu();
-        new Login();
+
       });
     </script>
     <div class="webMainTop">

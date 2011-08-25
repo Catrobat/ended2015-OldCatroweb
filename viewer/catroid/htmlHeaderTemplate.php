@@ -20,7 +20,7 @@
     <script type="text/javascript">
       $(document).ready(function() {        
         new HeaderMenu();
-        new Login();
+
       });
     </script>
     <div class="webMainTop">

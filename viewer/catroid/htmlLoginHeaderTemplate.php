@@ -20,7 +20,7 @@
     <script type="text/javascript">
       $(document).ready(function() {
         new HeaderMenu();
-        new Login();
+
         new Menu(<?php echo "'".$this->module->session->userLogin_userId."'"; ?>);
       });
     </script>

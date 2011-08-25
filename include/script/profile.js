@@ -37,7 +37,7 @@ var Profile = Class.$extend( {
     this.changeEmailSaveChangesLanguageString = languageStringsObject.changeEmailSaveChangesLanguageString;
     this.emailAddressStringChangedLanguageString = languageStringsObject.emailAddressStringChangedLanguageString;
     this.birthdayChangeLanguageString = languageStringsObject.birthdayChangeLanguageString;
-        
+
     $("#profileFormAnswer").toggle(true);
     $("#errorMsg").toggle(false);
     $("#okMsg").toggle(false);
@@ -551,7 +551,8 @@ var Profile = Class.$extend( {
     $("#profileBirthDivOpened").toggle(true);
     this.year = $("#profileYear").val();
     this.month = $("#profileMonth").val();
-        
+    //alert($("#profileYear").val());
+    
     jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
     jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
     jQuery.proxy(this.profileChangePasswordClose(), this);
@@ -635,7 +636,7 @@ var Profile = Class.$extend( {
     
   
   profileOpenChangeEmailInputField : function(id) {
-    this.idCount = id.replace(/email/, "");
+    this.idCount = parseInt(id.replace(/email/, ""));
     this.emailId = id;
     
     if(document.getElementById('changeEmailTextFieldDiv')) {

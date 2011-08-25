@@ -34,11 +34,13 @@ class loginOrRegister extends CoreAuthenticationNone {
       if($this->usernameExists($_POST['registrationUsername'])) {
         $this->answer .= "username exists: ".$_POST['registrationUsername'];
         
+        $this->statusCodePart = "login";        
+        
         require_once 'modules/api/login.php';
         $login = new login();
         if($login->doLogin(array('loginUsername'=>$_POST['registrationUsername'], 'loginPassword'=>$_POST['registrationPassword']))) {
           $this->answer .= $login->answer;
-          $this->statusCode = 200;     
+          $this->statusCode = 200;
           return true;
         } else {
           $this->answer .= $login->answer;
@@ -48,6 +50,8 @@ class loginOrRegister extends CoreAuthenticationNone {
       }
       else {
         $this->answer .= "username NOT exists: ".$_POST['registrationUsername'];
+
+        $this->statusCodePart = "registration";
         
         require_once 'modules/api/registration.php';
         $registration = new registration();

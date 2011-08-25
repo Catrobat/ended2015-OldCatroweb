@@ -91,6 +91,11 @@ div.whiteBoxMain {
   padding-bottom: 0.8%;
 }
 
+div.loginHelper {
+  margin-top: 1% ;
+  margin-bottom: 1% ;
+}
+
 select.registration {
   margin: 1.2% 1% 1.2% 0.4%;
   max-width: 60%;

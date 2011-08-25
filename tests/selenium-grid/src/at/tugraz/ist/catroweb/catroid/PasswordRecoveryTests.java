@@ -34,20 +34,36 @@ public class PasswordRecoveryTests extends BaseTest {
   @Test(groups = { "visibility" }, description = "check password recovery intro")
   public void passwordRecoveryIntro() throws Throwable {
     try {
-      openLocation("catroid/login");
+      openLocation("catroid/menu");
 
       // check password recovery link
-      assertTrue(isTextPresent("Login"));
-      assertTrue(isTextPresent("click here if you forgot your password?"));
-      assertTrue(isElementPresent(By.xpath("//div[@class='loginMain']")));
-      assertTrue(isElementPresent(By.xpath("//div[@class='loginFormContainer']")));
-      assertTrue(isElementPresent(By.xpath("//div[@class='loginHelper']")));
-      assertTrue(isElementPresent(By.id("forgotPassword")));
-      driver().findElement(By.id("forgotPassword")).click();
+      driver().findElement(By.id("menuLoginButton")).click();
       ajaxWait();
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      
+      driver().findElement(By.id("headerCancelButton")).click();
+      ajaxWait();
+      assertFalse(isVisible(By.id("loginUsername")));
+      assertFalse(isVisible(By.id("loginPassword")));
+      assertFalse(isVisible(By.id("loginSubmitButton")));
 
-      // check password recovery form
-      assertTrue(isTextPresent("Change your password"));
+      assertTrue(isVisible(By.id("menuPasswordRecoveryButton")));
+      assertTrue(isEditable(By.id("menuPasswordRecoveryButton")));
+      
+      openLocation("catroid/registration");
+
+      assertTrue(isElementPresent(By.name("registrationUsername")));
+      assertTrue(isElementPresent(By.name("registrationPassword")));
+      assertTrue(isElementPresent(By.name("registrationEmail")));
+      assertTrue(isElementPresent(By.name("registrationMonth")));
+      assertTrue(isElementPresent(By.name("registrationYear")));
+      assertTrue(isElementPresent(By.name("registrationGender")));
+      assertTrue(isElementPresent(By.name("registrationCountry")));
+      assertTrue(isElementPresent(By.name("registrationCity")));
+      assertTrue(isElementPresent(By.name("registrationSubmit")));
+
     } catch(AssertionError e) {
       captureScreen("PasswordRecoveryTests.passwordRecoveryIntro");
       throw e;
@@ -62,16 +78,6 @@ public class PasswordRecoveryTests extends BaseTest {
     try {
       // do registration process first, to create a new user with known password
       openLocation("catroid/registration");
-
-      assertTrue(isElementPresent(By.name("registrationUsername")));
-      assertTrue(isElementPresent(By.name("registrationPassword")));
-      assertTrue(isElementPresent(By.name("registrationEmail")));
-      assertTrue(isElementPresent(By.name("registrationMonth")));
-      assertTrue(isElementPresent(By.name("registrationYear")));
-      assertTrue(isElementPresent(By.name("registrationGender")));
-      assertTrue(isElementPresent(By.name("registrationCountry")));
-      assertTrue(isElementPresent(By.name("registrationCity")));
-      assertTrue(isElementPresent(By.name("registrationSubmit")));
 
       driver().findElement(By.name("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));

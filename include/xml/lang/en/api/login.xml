@@ -26,4 +26,7 @@
   <string name="board_logout_success">BOARD Logout successfull!</string>
   <string name="wiki_logout_success">WIKI Logout successfull!</string>
   <string name="wiki_logout_error">ERROR: WIKI Logout:</string>
+  <string name="create_new_account"> here to create a new account.</string>
+  <string name="or">or</string>
+  <string name="click_if_forgot_password">Click here if you forgot your password</string>
 </strings>

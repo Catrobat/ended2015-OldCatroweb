@@ -41,6 +41,10 @@ class login extends CoreAuthenticationNone {
         return true;
       } else {
         $this->statusCode = 500;
+        if($this->clientDetection->isMobile())
+          $this->helperDiv = "<a id='signUp' target='_self' href='". BASE_PATH ."catroid/passwordrecovery'>". $this->languageHandler->getString('click_if_forgot_password') ."</a><br>". $this->languageHandler->getString('or') ."<br><a id='signUp' target='_self' href='". BASE_PATH ."catroid/registration'>". $this->languageHandler->getString('create_new_account') ."</a>";
+        else 
+          $this->helperDiv = "<a id='signUp' target='_self' href='". BASE_PATH ."catroid/passwordrecovery'>". $this->languageHandler->getString('click_if_forgot_password') ."</a> ". $this->languageHandler->getString('or') ." <a id='signUp' target='_self' href='". BASE_PATH ."catroid/registration'>". $this->languageHandler->getString('create_new_account') ."</a>";
         return false;
       }
     }
@@ -61,10 +65,25 @@ class login extends CoreAuthenticationNone {
 
   public function doLogin($postData) {
     $answer = '';
-    $statusCode = 500;
+    $statusCode = 200;
     $boardLoginSuccess = false;
     $wikiLoginSuccess = false;
     $catroidLoginSuccess = false;
+    $loginDataValid = true;
+    
+    $username = trim($postData['loginUsername']);
+    if(empty($username) && strcmp('', $username) == 0) {
+      $answer .= $this->errorHandler->getError('registration', 'username_missing');
+      $loginDataValid = false;
+    }
+    if(empty($postData['loginPassword']) && strcmp('', $postData['loginPassword']) == 0) {
+      $answer .= $this->errorHandler->getError('registration', 'password_missing');
+      $loginDataValid = false;
+    }
+    if(!$loginDataValid) {
+      $this->answer = $answer;
+      return $loginDataValid;        
+    }
 
     try {
       $catroidUserId = $this->doCatroidLogin($postData);
@@ -103,7 +122,6 @@ class login extends CoreAuthenticationNone {
 
     $this->statusCode = $statusCode;
     $this->answer = $answer;
-    $this->answer .= "login routine";
 
     if($boardLoginSuccess && $wikiLoginSuccess && $catroidLoginSuccess) {
       return true;
