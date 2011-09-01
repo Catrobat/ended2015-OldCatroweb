@@ -127,6 +127,52 @@ public class LoginTests extends BaseTest {
       throw e;
     }
   }
+  
+  @Test(dataProvider = "validLoginData", groups = { "functionality", "popupwindows" }, description = "if logged in, registration page should redirect to profile page")
+  public void redirection(HashMap<String, String> dataset) throws Throwable {
+    try {      
+      openLocation();
+      driver().findElement(By.id("headerProfileButton")).click();
+
+      assertFalse(isTextPresent("You are logged in as"));
+      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
+      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
+
+      driver().findElement(By.id("loginSubmitButton")).click();
+      ajaxWait();
+      
+      driver().findElement(By.id("headerProfileButton")).click();
+      assertTrue(isTextPresent("You are logged in as"));
+      
+      openLocation("catroid/registration/");
+      ajaxWait();
+
+      assertRegExp(".*/catroid/profile/" + dataset.get("username") + ".*", driver().getCurrentUrl());
+      //assertTrue(isElementPresent(By.xpath("//a[@href='" + this.webSite + "catroid/details/1']")));
+      
+      driver().findElement(By.id("headerProfileButton")).click();
+      assertTrue(isVisible(By.id("logoutSubmitButton")));
+      driver().findElement(By.id("logoutSubmitButton")).click();
+      
+      log("FIX THIS! BUG  B6.30W");
+      log(driver().getCurrentUrl());
+      assertTrue(false);
+      
+      openLocation("catroid/registration/");
+      ajaxWait();
+      assertTrue(isTextPresent("Create a new account"));
+      assertRegExp(".*/catroid/registration/.*", driver().getCurrentUrl());
+      
+      
+    } catch(AssertionError e) {
+      captureScreen("LoginTests.validLogin." + dataset.get("username"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("LoginTests.validLogin." + dataset.get("username"));
+      throw e;
+    }
+  }
+  
 
   @Test(dataProvider = "invalidLoginData", groups = { "functionality", "popupwindows" }, description = "check login with invalid data")
   public void invalidLogin(HashMap<String, String> dataset) throws Throwable {

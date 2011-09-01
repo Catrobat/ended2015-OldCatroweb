@@ -20,15 +20,29 @@ class registration extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
+    if ($this->checkLogin()) {
+      // if logged in -> redirect to profile page
+      header("location: /catroid/profile/"); 
+      ob_end_flush(); 
+    }
+    
     $this->addCss('registration.css');
     $this->addJs('registration.js');
     $this->initRegistration();
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
+    
   }
 
   public function __default() {
   }
-
+  
+  public function checkLogin() {
+    if (($this->session->userLogin_userNickname != "")) {
+      return true;
+    }
+    return false;
+  }
+  
   public function initRegistration() {
     $answer = '';
     try {
