@@ -154,9 +154,7 @@ public class LoginTests extends BaseTest {
       assertTrue(isVisible(By.id("logoutSubmitButton")));
       driver().findElement(By.id("logoutSubmitButton")).click();
       
-      log("FIX THIS! BUG  B6.30W");
-      log(driver().getCurrentUrl());
-      assertTrue(false);
+      assertTrue(isTextPresent("from"));
       
       openLocation("catroid/registration/");
       ajaxWait();
