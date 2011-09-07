@@ -22,6 +22,14 @@
   	$(document).ready(function() {
   	  var __hm = new HeaderMenu();
       __hm.toggleProfileBox();
+
+      var languageStringsObject = { 
+          "username_missing" : "<?php echo $this->module->errorHandler->getError('registration', 'username_missing'); ?>",
+          "password_missing" : "<?php echo $this->module->errorHandler->getError('registration', 'password_missing'); ?>"
+          };
+      new Login(languageStringsObject);
+
+      bindAjaxLoader("<?php echo BASE_PATH?>"); 
   	});
   </script>
 

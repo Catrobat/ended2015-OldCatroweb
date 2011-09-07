@@ -19,6 +19,7 @@
  
  
 <strings>
+  <string name="registration_success">Registration successfull!</string>
   <string name="catroid_success">CATROID registration successfull!</string>
   <string name="board_success">BOARD registration successfull!</string>
   <string name="wiki_success">WIKI registration successfull!</string>

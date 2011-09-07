@@ -20,13 +20,18 @@ var Profile = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function(languageStringsObject) {
     
+    //bindAjaxLoader();
+    
     var self = this;
     this.emailCount = languageStringsObject.emailCount;
     this.emailText = '';
     this.emailId = 0;
     this.idCount = 0;
-    this.year = 0;
-    this.month = 0;
+    this.country = $('#profileCountry option:selected').text();
+    this.city = $('#profileCity').text();
+    this.year = $('#profileYear option:selected').text();
+    this.month = $('#profileMonth option:selected').text();
+    this.gender = $('#profileGender option:selected').text();
     
     this.emailDeleteAlertTitle = languageStringsObject.emailDeleteAlertTitle;
     this.addNewEmailLanguageString = languageStringsObject.addNewEmailLanguageString;
@@ -37,7 +42,10 @@ var Profile = Class.$extend( {
     this.changeEmailSaveChangesLanguageString = languageStringsObject.changeEmailSaveChangesLanguageString;
     this.emailAddressStringChangedLanguageString = languageStringsObject.emailAddressStringChangedLanguageString;
     this.birthdayChangeLanguageString = languageStringsObject.birthdayChangeLanguageString;
-
+    this.birthdayLanguageString = languageStringsObject.birthdayChangeLanguageString;
+    this.birthdayBornInLanguageString = languageStringsObject.birthdayBornInLanguageString;
+    this.birthdayAddDateLanguageString = languageStringsObject.birthdayAddDateLanguageString;
+    
     $("#profileFormAnswer").toggle(true);
     $("#errorMsg").toggle(false);
     $("#okMsg").toggle(false);
@@ -145,7 +153,7 @@ var Profile = Class.$extend( {
     }
   },
   
-  profilePasswordRequestSubmitError : function() {
+  profilePasswordRequestSubmitError : function(errCode) {
     if(errCode == "timeout") {
       window.location.reload(false);   
     }
@@ -181,10 +189,15 @@ var Profile = Class.$extend( {
 
   profileDeleteEmailRequestSubmitSuccess : function(result) {
     if(result.statusCode == 200) {
-      window.location.reload(false);
-//      $("#profileFormAnswer").toggle(true);
+//      alert('div'+this.idCount);
+//      document.getElementById('div'+this.idCount).remove();
+////      $("div").remove(":contains('"+this.emailText+"')");
 //      $("#okMsg").toggle(true);
-//      $("#okMsg").html(result.answer_ok);
+//      $("#okMsg").html(result.answer);
+//      alert(this.emailText + "finished!!");
+
+      window.location.reload(false);
+      // set saved values here
     }
     else if(result.statusCode == 500) {
       //alert('failed 500');
@@ -210,12 +223,13 @@ var Profile = Class.$extend( {
   },
   
   profileDeleteEmailRequestSubmitError : function(result) {
-    alert('ERROR timeout');
+    alert('ERROR timeout - result: '+result.answer);
+    $("#profileFormAnswer").toggle(true);
     $("#errorMsg").toggle(true);
     $("#errorMsg").html(result.answer);
-    if(errCode == "timeout") {
-      window.location.reload(false);   
-    }
+//    if(errCode == "timeout") {
+//      window.location.reload(false);   
+//    }
   },
   
   
@@ -227,6 +241,7 @@ var Profile = Class.$extend( {
         requestType : 'add',
         profileNewEmail : $("#profileNewEmail").val()
       }),
+      dataType: "json",
       timeout : this.ajaxTimeout,
       success : jQuery.proxy(this.profileAddEmailRequestSubmitSuccess, this),
       error : jQuery.proxy(this.profileAddEmailRequestSubmitError, this)
@@ -246,7 +261,7 @@ var Profile = Class.$extend( {
     }
   },
   
-  profileAddEmailRequestSubmitError : function() {
+  profileAddEmailRequestSubmitError : function(errCode) {
     if(errCode == "timeout") {
       window.location.reload(false);   
     }
@@ -263,6 +278,7 @@ var Profile = Class.$extend( {
           profileNewEmail : $("#profileEmail").val(),
           profileOldEmail : this.emailText,
         }),
+        dataType: "json",
         timeout : (this.ajaxTimeout),
         success : jQuery.proxy(this.profileChangeEmailRequestSubmitSuccess, this),
         error : jQuery.proxy(this.profileChangeEmailRequestSubmitError, this)
@@ -294,7 +310,7 @@ var Profile = Class.$extend( {
     }
   },
   
-  profileChangeEmailRequestSubmitError : function() {
+  profileChangeEmailRequestSubmitError : function(errCode) {
     if(errCode == "timeout") {
       window.location.reload(false);   
     }
@@ -302,13 +318,14 @@ var Profile = Class.$extend( {
   
 
   profileCountryRequestSubmit : function() {
-    $("#buttonProfileOpenAddNewEmailField").attr("disabled", "true");
+    this.country = $('#profileCountry option:selected').text();
     $.ajax({
       type: "POST",
       url: this.basePath + 'catroid/profile/profileCountryRequestQuery.json',
       data : ({
-        profileCountry : $("#profileCountry").val()
+        profileCountry : $('#profileCountry option:selected').val()
       }),
+      dataType: "json",
       timeout : (this.ajaxTimeout),
       success : jQuery.proxy(this.profileCountryRequestSuccess, this),
       error : jQuery.proxy(this.profileCountryRequestError, this)
@@ -317,12 +334,14 @@ var Profile = Class.$extend( {
     
   profileCountryRequestSuccess : function(result) {
     if(result.statusCode == 200) {
-      $("#profileCountry").selectedIndex = "#profileCountry";
-      $("#profileFormAnswer").toggle(false);
+      $("#profileFormAnswer").toggle(true);
       $("#errorMsg").toggle(false);
-      window.location.reload(false);
       $("#okMsg").toggle(true);
       $("#okMsg").html(result.answer_ok);
+      
+      $("#profileChangeCountryOpen").text(this.country);
+      $("#profileCountry option[text=" + this.country +"]").attr("selected","selected") ;
+      jQuery.proxy(this.profileChangeCountryClose(), this);
     }
     else {
       $("#profileFormAnswer").toggle(true);
@@ -332,7 +351,7 @@ var Profile = Class.$extend( {
     }
   },
   
-  profileCountryRequestError : function() {
+  profileCountryRequestError : function(errCode) {
     if(errCode == "timeout") {
       window.location.reload(false);
     }
@@ -340,15 +359,15 @@ var Profile = Class.$extend( {
 
 
   profileCityRequestSubmit : function() {
-    $("#buttonProfileOpenAddNewEmailField").attr("disabled", "true");
-    $("#profileCity").attr("disabled", "true");
-    $("#profileCitySubmit").attr("disabled", "true");
+    this.city = $("#profileCity").val();
+    alert(this.city);
     $.ajax({
       type: "POST",
       url: this.basePath + 'catroid/profile/profileCityRequestQuery.json',
       data : ({
         profileCity : $("#profileCity").val()
       }),
+      dataType: "json",
       timeout : (this.ajaxTimeout),
       success : jQuery.proxy(this.profileCityRequestSuccess, this),
       error : jQuery.proxy(this.profileCityRequestError, this)
@@ -357,13 +376,15 @@ var Profile = Class.$extend( {
     
   profileCityRequestSuccess : function(result) {
     if(result.statusCode == 200) {
-      $("#profileCity").removeAttr("disabled");
-      $("#profileCitySubmit").removeAttr("disabled");
-      window.location.reload(false);
+      $("#profileFormAnswer").toggle(true);
+      $("#errorMsg").toggle(false);
+      $("#okMsg").toggle(true);
+      $("#okMsg").html(result.answer_ok);
+
+      $("#profileChangeCityOpen").text(this.city);
+      jQuery.proxy(this.profileChangeCityClose(), this);
     }
     else {
-      $("#profileCity").removeAttr("disabled");
-      $("#profileCitySubmit").removeAttr("disabled");
       $("#profileFormAnswer").toggle(true);
       $("#okMsg").toggle(false);
       $("#errorMsg").toggle(true);
@@ -371,7 +392,7 @@ var Profile = Class.$extend( {
     }
   },
   
-  profileCityRequestError : function() {
+  profileCityRequestError : function(errCode) {
     if(errCode == "timeout") {
       window.location.reload(false);
     }
@@ -379,18 +400,24 @@ var Profile = Class.$extend( {
   
   
   profileBirthRequestSubmit : function() {
-    if($("#profileMonth").val() && $("#profileYear").val() || !($("#profileMonth").val()) && !($("#profileYear").val()) ) {
-      $("#buttonProfileOpenAddNewEmailField").attr("disabled", "true");
-      $("#profileMonth").attr("disabled", "true");
-      $("#profileYear").attr("disabled", "true");
-      $("#profileBirthSubmit").attr("disabled", "true");
+    if($("#profileYear option:selected'").val() && $("#profileMonth option:selected'").val() || 
+        (!$("#profileYear option:selected'").val()) && (!$("#profileMonth option:selected'").val())) {
+      if((!$("#profileYear option:selected'").val()) && (!$("#profileMonth option:selected'").val())) {
+        this.year = "";
+        this.month = "";
+      }
+      else {
+        this.year = $("#profileYear option:selected'").text();
+        this.month = $("#profileMonth option:selected'").text();
+      }
       $.ajax({
         type: "POST",
         url: this.basePath + 'catroid/profile/profileBirthRequestQuery.json',
         data : ({
-          profileMonth : $("#profileMonth").val(),
-          profileYear : $("#profileYear").val()
+          profileMonth : $("#profileMonth option:selected'").val(),
+          profileYear : $("#profileYear option:selected'").val()
         }),
+        dataType: "json",
         timeout : (this.ajaxTimeout),
         success : jQuery.proxy(this.profileBirthRequestSuccess, this),
         error : jQuery.proxy(this.profileBirthRequestError, this)
@@ -405,17 +432,20 @@ var Profile = Class.$extend( {
   
   profileBirthRequestSuccess : function(result) {
     if(result.statusCode == 200) {
-      $("#buttonProfileOpenAddNewEmailField").removeAttr("disabled");
-      $("#profileMonth").removeAttr("disabled");
-      $("#profileYear").removeAttr("disabled");
-      $("#profileBirthSubmit").removeAttr("disabled");
-      window.location.reload(false);
+      $("#profileFormAnswer").toggle(true);      
+      $("#errorMsg").toggle(false);
+      $("#okMsg").toggle(true);
+      $("#okMsg").html(result.answer_ok);
+      
+      if(this.month == "" || !this.month || !this.year || this.year == "") {
+        $("#profileChangeBirthOpen").text(this.birthdayAddDateLanguageString);
+      }
+      else {
+        $("#profileChangeBirthOpen").text(this.birthdayBornInLanguageString+ " " +this.month+ " " +this.year);
+      }
+      jQuery.proxy(this.profileChangeBirthClose(), this);
     }
     else {
-      $("#buttonProfileOpenAddNewEmailField").removeAttr("disabled");
-      $("#profileMonth").removeAttr("disabled");
-      $("#profileYear").removeAttr("disabled");
-      $("#profileBirthSubmit").removeAttr("disabled");
       $("#profileFormAnswer").toggle(true);
       $("#okMsg").toggle(false);
       $("#errorMsg").toggle(true);
@@ -423,39 +453,42 @@ var Profile = Class.$extend( {
     }
   },
   
-  profileBirthRequestError : function() {
+  profileBirthRequestError : function(errCode) {
     if(errCode == "timeout") {
       window.location.reload(false);
     }
   },
   
   profileGenderRequestSubmit : function() {
-    $("#buttonProfileOpenAddNewEmailField").attr("disabled", "true");
-    $("#profileGender").attr("disabled", "true");
-    $("#profileGenderSubmit").attr("disabled", "true");
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'catroid/profile/profileGenderRequestQuery.json',
-      data : ({
-        profileGender : $("#profileGender").val(),
-      }),
-      timeout : (this.ajaxTimeout),
-      success : jQuery.proxy(this.profileGenderRequestSuccess, this),
-      error : jQuery.proxy(this.profileGenderRequestError, this)
-    });
+      if($("#profileGender option:selected'").val()) {
+        this.gender = $("#profileGender option:selected'").text();
+      }
+      $.ajax({
+        type: "POST",
+        url: this.basePath + 'catroid/profile/profileGenderRequestQuery.json',
+        data : ({
+          profileGender : $("#profileGender option:selected'").val(),
+        }),
+        dataType: "json",
+        timeout : (this.ajaxTimeout),
+        success : jQuery.proxy(this.profileGenderRequestSuccess, this),
+        error : jQuery.proxy(this.profileGenderRequestError, this)
+      });
   },
   
   profileGenderRequestSuccess : function(result) {
     if(result.statusCode == 200) {
-      $("#buttonProfileOpenAddNewEmailField").removeAttr("disabled");
-      $("#profileGender").removeAttr("disabled");
-      $("#profileGenderSubmit").removeAttr("disabled");
-      window.location.reload(false);
+      $("#profileFormAnswer").toggle(true);      
+      $("#errorMsg").toggle(false);
+      $("#okMsg").toggle(true);
+      $("#okMsg").html(result.answer_ok);
+
+      $("#profileGender option[text=" + this.gender +"]").attr("selected","selected") ;
+      
+      jQuery.proxy(this.profileChangeGenderClose(), this);
     }
     else {
-      $("#buttonProfileOpenAddNewEmailField").attr("disabled", "false");
-      $("#profileGender").removeAttr("disabled");
-      $("#profileGenderSubmit").removeAttr("disabled");
+
       $("#profileFormAnswer").toggle(true);
       $("#okMsg").toggle(false);
       $("#errorMsg").toggle(true);
@@ -463,8 +496,10 @@ var Profile = Class.$extend( {
     }
   },
   
-  profileGenderRequestError : function() {
-    if(errCode == "timeout") {
+  profileGenderRequestError : function(xhr,errCode) {
+    //alert("readyState: "+xhr.readyState+"\nstatus: "+xhr.status);
+    //alert("responseText: "+xhr.responseText+"\nerrCode: "+errCode);
+    if(errCode  == "timeout") {
       window.location.reload(false);
     }
   },
@@ -509,6 +544,7 @@ var Profile = Class.$extend( {
   profileChangeCountryClose : function() {
     $("#profileCountryDiv").toggle(false);
     $("#profileCountryTextDiv").toggle(true);
+    
   },
   
   
@@ -534,7 +570,6 @@ var Profile = Class.$extend( {
   },
   
   profileChangeCityClose : function() {
-    $("#profileCity").val("");
     if(document.getElementById('profileEmptyCityDiv')) {
       $("#profileEmptyCityDiv").toggle(true);
       $("#profileEmptyCityDivOpened").toggle(false);
@@ -549,10 +584,7 @@ var Profile = Class.$extend( {
   profileChangeBirthOpen : function() {
     $("#profileBirthDiv").toggle(false);
     $("#profileBirthDivOpened").toggle(true);
-    this.year = $("#profileYear").val();
-    this.month = $("#profileMonth").val();
-    //alert($("#profileYear").val());
-    
+            
     jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
     jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
     jQuery.proxy(this.profileChangePasswordClose(), this);
@@ -562,13 +594,6 @@ var Profile = Class.$extend( {
   },
   
   profileChangeBirthClose : function() {
-    if($("#profileYear").val()) {
-      $("#profileYear").val(this.year);
-    }
-    if($("#profileMonth").val()) {
-      $("#profileMonth").val(this.month);
-    }
-
     $("#profileBirthDivOpened").toggle(false);
     $("#profileBirthDiv").toggle(true);
   },
@@ -589,6 +614,7 @@ var Profile = Class.$extend( {
   profileChangeGenderClose : function() {
     $("#profileGenderDivOpened").toggle(false);
     $("#profileGenderDiv").toggle(true);
+    $("#profileChangeGenderOpen").text(this.gender);
   },
 
   
@@ -636,12 +662,11 @@ var Profile = Class.$extend( {
     
   
   profileOpenChangeEmailInputField : function(id) {
+    jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
+    
     this.idCount = parseInt(id.replace(/email/, ""));
     this.emailId = id;
     
-    if(document.getElementById('changeEmailTextFieldDiv')) {
-      jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
-    }
     jQuery.proxy(this.profileAddEmailInputFieldClose(), this);
     $("#buttonProfileOpenAddNewEmailField").toggle(false);
     

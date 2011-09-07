@@ -55,10 +55,13 @@
   <string name="cancel">Cancel</string>
   <string name="email_update_success">You updated your e-mail address successfully.</string>
   <string name="password_success">You updated your password successfully.</string>
+  <string name="city_success">You updated your hometown successfully.</string>
   <string name="country_success">You updated your country successfully.</string>
   <string name="birth_success">You updated your birthday date successfully.</string>
+  <string name="gender_success">You updated your gender successfully.</string>
   <string name="add_new_email">enter your new e-mail address</string>
   <string name="add_new_email_placeholder">alternative e-mail address</string>
   <string name="email_address_string_changed">Error while deleting this e-mail address. Do you have any unsaved changes?</string>
-  <string name="birthday_change_string">Please select the month and the year of your birthday.</string>
+  <string name="birthday_is_empty">Please select the month and the year of your birthday or leave fields empty.</string>
+  <string name="country_is_empty">Please select your home country.</string>
 </strings>

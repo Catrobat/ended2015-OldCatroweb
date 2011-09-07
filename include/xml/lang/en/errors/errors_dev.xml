@@ -22,7 +22,7 @@
     <db>
         <string name="query_failed">DB operation failed.</string>
         <string name="connection_failed">DB connection failed.</string>
-        <string name="no_entry_for_id">No entry was found for the given ID.</string>
+        <string name="no_entry_for_id">No entry was found for the given ID</string>
     </db>
     <sendmail>
       <string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>

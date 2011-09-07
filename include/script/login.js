@@ -42,19 +42,13 @@ var Login = Class.$extend({
   doLoginRequest : function() {
     var validLoginData = true;
     var errorMsg = "";
-    if(!$("#loginUsername").val()) {
-      validLoginData = false;
-      errorMsg += this.username_missing;
-    }
-    if(!$("#loginPassword").val()) {
-      validLoginData = false;
-      errorMsg += this.password_missing;
-    }
 
-    if(validLoginData) {
+    if($("#loginUsername").val() && ($("#loginPassword").val())) {
       $("#loginInfoText").toggle(false);
       this.disableForm();
+      
       var url = this.basePath + 'api/login/loginRequest.json';
+
       $.ajax({
         type : "POST",
         url : url,
@@ -67,6 +61,12 @@ var Login = Class.$extend({
         error : jQuery.proxy(this.loginError, this)
       });
     } else {
+      if(!$("#loginUsername").val()) {
+        errorMsg += this.username_missing + "<br>";
+      }
+      if(!$("#loginPassword").val()) {
+        errorMsg += this.password_missing;
+      }
       $("#loginInfoText").toggle(true);
       $("#loginErrorMsg").html(errorMsg);
     }
@@ -90,8 +90,10 @@ var Login = Class.$extend({
   },
 
   loginError : function(result, errCode) {
-    //alert("loginError");
-    this.enableForm();
+    if(errCode == "timeout") {
+      this.enableForm();  
+    }
+    
   },
 
   doLogoutRequest : function(event) {

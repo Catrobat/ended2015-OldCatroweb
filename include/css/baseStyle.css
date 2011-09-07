@@ -16,11 +16,28 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 body {
+  height: 100%;
   background-color: #ffffff;
   color: #222222;
   font-family: "Trebuchet MS", "Luxi Sans", Verdana, Arial, Helvetica,
     sans-serif;
   font-size: 1.3em;
+}
+
+div.webAjaxLoadingContainer
+{
+  width: 100%;
+  min-height: 200%;
+  height:auto !important; /* moderne Browser */
+  height: 200%; /* IE */
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgba(1,1,1,0.1);
+  color: white;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0; 
 }
 
 /* Main Container; contains everything */
@@ -111,6 +128,15 @@ select.languageSwitchSelect {
 span.webMainBottomSpacer {
   color: #7777AA;
 }
+
+img.webAjaxLoadingContainer
+{
+/*  position: relative;*/
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  margin: auto;
+}
+
 
 img.noBorder {
   border: none;

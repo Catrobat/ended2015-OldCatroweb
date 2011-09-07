@@ -21,7 +21,6 @@ class login extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    $this->addCss('login.css');
     $this->htmlHeaderFile = 'htmlLoginHeaderTemplate.php';
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
@@ -29,6 +28,10 @@ class login extends CoreAuthenticationNone {
   public function __default() {
     if($this->session->userLogin_userId > 0) {
       header("Location: ".BASE_PATH."catroid/index");
+      exit;
+    }
+    else {
+      header("Location: ".BASE_PATH."catroid/menu/");
       exit;
     }
   }

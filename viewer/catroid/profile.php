@@ -29,9 +29,13 @@
           "changeEmailDeleteButtonLanguageString" : "<?php echo $this->languageHandler->getString('delete_email'); ?>",
           "changeEmailSaveChangesLanguageString" : "<?php echo $this->languageHandler->getString('save_button'); ?>",
           "emailAddressStringChangedLanguageString" : "<?php echo $this->languageHandler->getString('email_address_string_changed'); ?>",
-          "birthdayChangeLanguageString" : "<?php echo $this->languageHandler->getString('birthday_change_string'); ?>"
+          "birthdayChangeLanguageString" : "<?php echo $this->languageHandler->getString('birthday_is_empty'); ?>",
+          "birthdayBornInLanguageString" : "<?php echo $this->languageHandler->getString('born_in'); ?>",
+          "birthdayAddDateLanguageString" : "<?php echo $this->languageHandler->getString('add_your_birth_date'); ?>"
           };
   		new Profile(languageStringsObject);
+
+      bindAjaxLoader("<?php echo BASE_PATH?>");      
   	});
   </script>
   
@@ -70,15 +74,9 @@
           		   			<br>
           		   			<div id="profileEmailTextDiv">
                         <?php 
-                          $x = 0;
-                          for($x; $x < count($this->userEmailsArray); $x++) {
-                            if($x < count($this->userEmailsArray)-1) { ?>
-            		   			      <div id="div<?php echo $x; ?>"><a href="javascript:;" class="profileText" id="email<?php echo $x; ?>"><?php echo $this->userEmailsArray[$x]; ?></a></div>
-                        <?php }
-                            else { ?>
-                              <div id="div<?php echo $x; ?>"><a href="javascript:;" class="profileText" id="email<?php echo $x; ?>"><?php echo $this->userEmailsArray[$x]; ?></a></div>
-                        <?php }
-                          }
+
+                          echo $this->emailDiv;
+                        
                         ?>
           		   			</div>
                       <div id="buttonProfileOpenAddNewEmailFieldDiv">

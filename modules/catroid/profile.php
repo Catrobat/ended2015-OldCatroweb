@@ -43,7 +43,7 @@ class profile extends CoreAuthenticationNone {
         exit;
       }
       else {
-        header("Location: ".BASE_PATH."catroid/login/".$this->session->userLogin_userNickname);
+        header("Location: ".BASE_PATH."catroid/menu/");
         exit;
       }
     }
@@ -100,6 +100,7 @@ class profile extends CoreAuthenticationNone {
           }
           else {
             $this->statusCode = 500;
+            $this->answer .= "bin eh da!!";
             return false;
           }
           break;
@@ -107,11 +108,9 @@ class profile extends CoreAuthenticationNone {
     }
   }
   
-  
-  public function profileGetEmailCountRequestQuery() {
-      $this->emailCount = $this->getNumberOfUserEmails($this->session->userLogin_userId);
+  public function profileGetUserEmailsArrayRequestQuery() {
+      $this->userEmailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
   }
-  
 
   public function profileCountryRequestQuery() {
     $postData = $_POST;
@@ -160,7 +159,7 @@ class profile extends CoreAuthenticationNone {
     if($postData) {
       if($this->doChangeUserGender($this->session->userLogin_userNickname, $postData['profileGender'])) {
         $this->statusCode = 200;
-        $this->answer_ok .= $this->languageHandler->getString('birth_success');
+        $this->answer_ok .= $this->languageHandler->getString('gender_success');
         return true;
       } else {
         $this->statusCode = 500;
@@ -177,7 +176,7 @@ class profile extends CoreAuthenticationNone {
     try {
       $email_valid = $this->checkEmail($new_email, $old_email);
     } catch(Exception $e) {
-      $this->answer .= $e->getMessage().'<br>';
+      $this->answer .= $e->getMessage();
       $email_valid = false;
     }
 
@@ -237,18 +236,18 @@ class profile extends CoreAuthenticationNone {
   } 
   
   private function doDeleteEmailAddress($username, $email) {
-    $email_valid = true;
+    $delete_email = true;
     $user_id = $this->session->userLogin_userId;
     if($user_id == 1) {
       $this->emailcount = count($this->getUserEmailsArray($user_id)); 
       if(($this->emailcount <= 2)) {
         $this->answer .= $this->errorHandler->getError('profile', 'email_update_of_catroweb_failed');
+        $delete_email = false;
         return false;
       }
     }
     
-    // check if email was changed before deleting
-    if($email_valid) {
+    if($delete_email) {
       try {
         $query = "EXECUTE get_user_email_by_email('$email')";
         $result = @pg_query($this->dbConnection, $query);
@@ -260,14 +259,14 @@ class profile extends CoreAuthenticationNone {
           $query = "EXECUTE update_user_email_from_additional_email_by_user_email('$user_id')";
           $result = @pg_query($this->dbConnection, $query);
           if(!$result) {
-            $email_valid = false;
+            $delete_email = false;
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
           }
           
           $query = "EXECUTE delete_user_email_from_additional_email_by_user_email('$user_id')";
           $result = @pg_query($this->dbConnection, $query);
           if(!$result) {
-            $email_valid = false;
+            $delete_email = false;
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
           }
         }
@@ -275,16 +274,16 @@ class profile extends CoreAuthenticationNone {
           $query = "EXECUTE delete_user_additional_email_by_email('$email')";
           $result = @pg_query($this->dbConnection, $query);
           if(!$result) {
-            $email_valid = false;
+            $delete_email = false;
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
           }
         }
       } catch(Exception $e) {
         $this->answer .= $this->errorHandler->getError('profile', 'email_update_failed', $e->getMessage());
-        $email_valid = false;
+        $delete_email = false;
       }
     }
-    return $email_valid;
+    return $delete_email;
   } 
 
   private function doChangePassword($username, $oldPassword, $newPassword) {
@@ -294,13 +293,13 @@ class profile extends CoreAuthenticationNone {
       $this->checkOldPassword($username, $oldPassword);
     } catch(Exception $e) {
       $userPasswordValid = false;
-      $answer .= $e->getMessage().'<br>';
+      $answer .= $e->getMessage();
     }
     try {
       $this->checkNewPassword($username, $newPassword);
     } catch(Exception $e) {
       $userPasswordValid = false;
-      $answer .= $e->getMessage().'<br>';
+      $answer .= $e->getMessage();
     }
     
     if($userPasswordValid) {
@@ -314,21 +313,21 @@ class profile extends CoreAuthenticationNone {
               try {
                 $wikiPasswordRecoverySuccess = $this->doUpdateWikiPassword($username, $newPassword);
                 if(!$wikiPasswordRecoverySuccess) {
-                  $answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+                  $answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage());
                   $userPasswordValid = false;
                 }
               } catch(Exception $e) {
-                $answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+                $answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage());
                 $userPasswordValid = false;
               }                  
             }        
           } catch(Exception $e) {
-            $answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+            $answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage());
             $userPasswordValid = false;
           }
         }
       } catch(Exception $e) {
-        $answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+        $answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage());
         $userPasswordValid = false;
       }
     }
@@ -339,22 +338,27 @@ class profile extends CoreAuthenticationNone {
 
   private function doChangeUserCountry($username, $countryCode) {
     $userCountryValid = false;
-    try {
-      $userCountryValid = $this->checkCountry($countryCode);
-    } catch(Exception $e) {
-      $this->answer .= $e->getMessage().'<br>';
-    }
-    if($userCountryValid) {
+    if($countryCode || $countryCode != 0) {
       try {
-        $query = "EXECUTE update_user_country('$countryCode', '$username')";
-        $result = @pg_query($this->dbConnection, $query);
-        if(!$result) {
-          throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-        }
+        $userCountryValid = $this->checkCountry($countryCode);
       } catch(Exception $e) {
-        $this->answer .= $this->errorHandler->getError('profile', 'country_update_failed', $e->getMessage()).'<br>';
-        $userCountryValid = false;
+        $this->answer .= $e->getMessage();
       }
+      if($userCountryValid) {
+        try {
+          $query = "EXECUTE update_user_country('$countryCode', '$username')";
+          $result = @pg_query($this->dbConnection, $query);
+          if(!$result) {
+            throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+          }
+        } catch(Exception $e) {
+          $this->answer .= $this->errorHandler->getError('profile', 'country_update_failed', $e->getMessage());
+          $userCountryValid = false;
+        }
+      }
+    }
+    else {
+      $this->answer .= $this->languageHandler->getString('country_is_empty');
     }
     return $userCountryValid;
   }
@@ -370,17 +374,17 @@ class profile extends CoreAuthenticationNone {
       $return_value = true;
     } catch(Exception $e) {
       $return_value = false;
-      $this->answer .= $this->errorHandler->getError('profile', 'city_update_failed', $e->getMessage()).'<br>';
+      $this->answer .= $this->errorHandler->getError('profile', 'city_update_failed', $e->getMessage());
     }
     return $return_value;
   }
   
   private function doChangeUserBirth($username, $month, $year) {
-    if((empty($year) || !$year || $year <= 1) || (empty($month) || !$month || $month <= 1)) {
+    if((empty($year) || !$year || $year <= 1) && (empty($month) || !$month || $month <= 1)) {
       $date_of_birth = NULL;
       $query = "EXECUTE delete_user_birth('$username')";
     }
-    else {
+    else if(($year || $year > 1) && ($month || $month > 1)) {
       $date_of_birth = $year.'-'.sprintf("%02d", $month).'-01 00:00:01';
       $query = "EXECUTE update_user_birth('$date_of_birth', '$username')";
     }
@@ -394,7 +398,7 @@ class profile extends CoreAuthenticationNone {
       $return_value = true;
     } catch(Exception $e) {
       $return_value = false;
-      $this->answer .= $this->errorHandler->getError('profile', 'birth_update_failed', $e->getMessage()).'<br>';
+      $this->answer .= $this->errorHandler->getError('profile', 'birth_update_failed', $e->getMessage());
     }
     return $return_value;
   }
@@ -410,7 +414,7 @@ class profile extends CoreAuthenticationNone {
       $return_value = true;
     } catch(Exception $e) {
       $return_value = false;
-      $this->answer .= $this->errorHandler->getError('profile', 'city_update_failed', $e->getMessage()).'<br>';
+      $this->answer .= $this->errorHandler->getError('profile', 'city_update_failed', $e->getMessage());
     }
     return $return_value;
   }  
@@ -595,19 +599,26 @@ class profile extends CoreAuthenticationNone {
     try {
       $this->initCountryCodes();
     } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
+      $answer .= $e->getMessage();
     }
     try {
       $this->fillDynamicProfileData($requestedUser);
     } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
+      $answer .= $e->getMessage();
     }
+//    try {
+//      $this->createEmailDivHtmlCode($requestedUser);
+//    } catch(Exception $e) {
+//      $answer .= $e->getMessage();
+//    }
     $this->answer .= $answer;
   }
 
   private function fillDynamicProfileData($userName) {
     $this->userEmailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
 
+    $this->emailsArrayToHTMLDiv($this->userEmailsArray);
+    
     $userCountryCode = $this->getUserCountry($userName); 
     if($userCountryCode) {   
       $this->userCountryCode = $userCountryCode;
@@ -658,8 +669,14 @@ class profile extends CoreAuthenticationNone {
   }
 
  
+  
+  private function emailsArrayToHTMLDiv($emailsArray) {
+    $x = 0;
+    for($x; $x < count($emailsArray); $x++) {
+      $this->emailDiv .= "<div id='div". $x ."'><a href='javascript:;' class='profileText' id='email". $x ."'>". $emailsArray[$x] ."</a></div>";
+    }
+  }
 
-  // get number of user's emails here! 
   private function getUserEmailsArray($user_id) {
 
     $query = "EXECUTE get_user_emails_by_id($user_id)";
