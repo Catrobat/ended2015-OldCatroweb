@@ -18,7 +18,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="password_link">&#x5FD8;&#x8A18;&#x5BC6;&#x78BC;&#xFF1F;&#x6309;&#x9019;&#xFF01;</string>
   <string name="title">&#x767B;&#x5165;</string>
   <string name="account_link">&#x5EFA;&#x7ACB;&#x65B0;&#x5E33;&#x6236;</string>
-  <string name="password_link">&#x5FD8;&#x8A18;&#x5BC6;&#x78BC;&#xFF1F;&#x6309;&#x9019;&#xFF01;</string>
+  <string name="password">&#x5BC6;&#x78BC;&#xFF1A;</string>
 </strings>

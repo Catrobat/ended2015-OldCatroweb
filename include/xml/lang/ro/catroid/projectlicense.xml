@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Licen&#x21B;a pentru joac&#x103; - Da&#x21B;i creditul &#x219;i &#xEE;mp&#x103;r&#x21B;i&#x21B;iv&#x103;</string>
+  <string name="project_licence_title">Licen&#x21B;a pentru joac&#x103; - Da&#x21B;i creditul &#x219;i &#xEE;mp&#x103;r&#x21B;i&#x21B;iv&#x103;</string>
+  <string name="creative_commons_link">Creative Commons</string>
+  <string name="terms_of_use_link">Condi&#x219;iile de utilizare</string>
+  <string name="share_alike_link">Creative Commons Attribution-Share Alike License</string>
+  <string name="project_licence_part1">Imagina&#x21B;i c&#x103; fiecare proiect Catroid este un tort, un tort foarte special care vine &#xEE;mpreun&#x103; cu re&#x21B;eta (blocurile de programare). To&#x21B;i membrii comunit&#x103;&#x21B;ii Catroid &#xEE;mp&#x103;r&#x21B;esc torturile &#x219;i re&#x21B;etele. Aceasta semnific&#x103; ca pute&#x21B;i s&#x103; v&#x103; bucura&#x21B;i de torturi &#x219;i s&#x103; &#xEE;nv&#x103;&#x21B;a&#x21B;i cum s&#x103; le preg&#x103;ti&#x21B;i.</string>
+  <string name="project_licence_part2">Nu sunt re&#x21B;ete secrete: instruc&#x21B;iunele despre aceea cum s&#x103; preg&#x103;ti&#x21B;i aceste torturi sunt deschise pentru to&#x21B;i s&#x103; fie folosite, refolosite, modificate &#x219;i s&#x103; serveasc&#x103; ca inspira&#x21B;ie pentru idei noi... adic&#x103; torturi.</string>
+  <string name="project_licence_part3">Pute&#x21B;i m&#xEE;nca torturile la fel ca &#x219;i s&#x103; copia&#x21B;i re&#x21B;etele altor oameni ca s&#x103; face&#x21B;i tortul s&#x103;u propriu, posibil cu alte ingridiente. Aceast&#x103; libertate vine cu dou&#x103; condi&#x21B;ii simple:</string>
+  <string name="project_licence_part3_list_element1">&#xEE;mp&#x103;r&#x21B;i&#x21B;i torturile &#xEE;mpreun&#x103; cu re&#x21B;etele</string>
+  <string name="project_licence_part3_list_element2">da&#x21B;i credit acelora care v&#x103; inspir&#x103;</string>
+  <string name="project_licence_part4">Unii oameni dau nume acestui tip de partajare: ei o numesc {*shareAlikeLink*}. La crearea comunit&#x103;&#x21B;ii Catroid, noi am decis s&#x103; adapt&#x103;m acest mod deoarece noi credem c&#x103; el suport&#x103; &#xEE;nv&#x103;&#x21B;area &#x219;i creativitatea &#xEE;n comunitate. Partaj&#xEE;nd re&#x21B;etele &#x219;i ingridientele (scripturile &#x219;i ilustra&#x21B;iile), oamenii pot construi idei bazate una pe alta, &#x219;i to&#x21B;i vor beneficia de la aceasta.</string>
+  <string name="project_licence_part5">La proiectarea website-ului Catroid noi am inclus unele func&#x21B;ii pentru a &#xEE;ncuraja oamenii s&#x103; partajeze &#x219;i s&#x103; acorde credit altora. Pe fiecare pagin&#x103; a proiectului, dvs. pute&#x21B;i desc&#x103;rca scripturile originale a proiectului. Dac&#x103; modifica&#x21B;i un proiect (modifica&#x21B;i scripturile sau ilustra&#x21B;iile &#x219;i partaja&#x21B;i rezultatul), noi v&#x103; incuraj&#x103;m s&#x103; da&#x21B;i creditul &#xEE;n descrierea proiectului, men&#x21B;ion&#xEE;nd oamenii &#x219;i proiectele care vau inspirat.</string>
+  <string name="project_licence_learn_more">Afla&#x21B;i mai mult despre {*termsOfUseLink*} comunitatea online Catroid &#x219;i despre ini&#x21B;iativa {*creativeCommonsLink*}.</string>
+  <string name="project_licence_team">Comanda Catroid</string>
+</strings>

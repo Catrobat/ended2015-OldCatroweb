@@ -18,8 +18,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="enable_javascript">&#x8ACB;&#x555F;&#x52D5;&#x88DD;&#x7F6E;javascript&#x5728;&#x60A8;&#x7684;&#x4F3A;&#x670D;&#x5668;&#x3002;</string>
   <string name="newest_projects">&#x6700;&#x65B0;&#x5C08;&#x6848;</string>
+  <string name="enable_javascript">&#x8ACB;&#x555F;&#x52D5;&#x88DD;&#x7F6E;javascript&#x5728;&#x60A8;&#x7684;&#x4F3A;&#x670D;&#x5668;&#x3002;</string>
   <string name="newer">&#x4E0A;&#x4E00;&#x9801;</string>
   <string name="older">&#x4E0B;&#x4E00;&#x9801;</string>
 </strings>

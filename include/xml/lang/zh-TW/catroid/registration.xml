@@ -18,8 +18,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="login">&#x767B;&#x5165;</string>
   <string name="password_recover">&#x5FD8;&#x8A18;&#x5BC6;&#x78BC;&#xFF1F;&#x6309;&#x9019;&#xFF01;</string>
+  <string name="login">&#x767B;&#x5165;</string>
   <string name="title">&#x5EFA;&#x7ACB;&#x65B0;&#x5E33;&#x865F;</string>
   <string name="headline">&#x8ACB;&#x8F38;&#x5165;&#x60A8;&#x7684;&#x5462;&#x7A31;&#xFF0C;&#x5BC6;&#x78BC;&#xFF0C;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x548C;&#x5C45;&#x4F4F;&#x570B;&#x5BB6;&#x3002;</string>
   <string name="nickname">&#x5462;&#x7A31;</string>

@@ -18,9 +18,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="uploaded">Telah dimuat naik pada {*timeString*}</string>
   <string name="uploaded_by">oleh {*nicknameString*}</string>
   <string name="title">Projek terbaru</string>
-  <string name="uploaded">Telah dimuat naik pada {*timeString*}</string>
   <string name="prev_button">{*character*} Baru</string>
   <string name="next_button">Lama {*character*}</string>
   <string name="loading_button">sedang dimuat...</string>

@@ -18,8 +18,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded_by">oleh {*nicknameString*}</string>
   <string name="uploaded">Telah dimuat naik pada {*timeString*}</string>
+  <string name="uploaded_by">oleh {*nicknameString*}</string>
   <string name="loading_button">sedang dimuat...</string>
   <string name="title">Cari Keputusan</string>
   <string name="prev_button">{*character*} Sebelum</string>

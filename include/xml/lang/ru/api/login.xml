@@ -25,4 +25,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="board_logout_success">BOARD &#x412;&#x44B;&#x445;&#x43E;&#x434; &#x43F;&#x440;&#x43E;&#x448;&#x435;&#x43B; &#x443;&#x441;&#x43F;&#x435;&#x448;&#x43D;&#x43E;!</string>
   <string name="wiki_logout_success">WIKI &#x412;&#x44B;&#x445;&#x43E;&#x434; &#x43F;&#x440;&#x43E;&#x448;&#x435;&#x43B; &#x443;&#x441;&#x43F;&#x435;&#x448;&#x43D;&#x43E;!</string>
   <string name="wiki_logout_error">&#x41E;&#x428;&#x418;&#x411;&#x41A;&#x410;: WIKI &#x412;&#x44B;&#x445;&#x43E;&#x434;:</string>
+  <string name="or">&#x438;&#x43B;&#x438;</string>
 </strings>

@@ -21,4 +21,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="catroid_success">Pendaftaran CATROID berjaya!</string>
   <string name="board_success">Pendaftaran BOARD berjaya!</string>
   <string name="wiki_success">Pendafataran WIKI berjaya!</string>
+  <string name="mail_text_row6">Anda boleh mengunakan nama samaran atau kata laluan anda pada bila-bila masa untuk mengakses laman komuniti Catroid.</string>
+  <string name="mail_text_row10">Kumpulan Catroid anda</string>
 </strings>

@@ -193,7 +193,7 @@ function getSupportedLanguagesArray($languageHandler) {
     'pl'=>array('name'=>$languageHandler->getString('template_common_polish'), 'nameNative'=>'‪polski‬', 'supported'=>false),
     'pt-BR'=>array('name'=>$languageHandler->getString('template_common_portuguese_brazil'), 'nameNative'=>'‪português (Brasil)‬', 'supported'=>false),
     'pt-PT'=>array('name'=>$languageHandler->getString('template_common_portuguese_portugal'), 'nameNative'=>'‪português (Portugal)‬', 'supported'=>false),
-    'ro'=>array('name'=>$languageHandler->getString('template_common_romanian'), 'nameNative'=>'‪română‬', 'supported'=>false),
+    'ro'=>array('name'=>$languageHandler->getString('template_common_romanian'), 'nameNative'=>'‪română‬', 'supported'=>true),
     'ru'=>array('name'=>$languageHandler->getString('template_common_russian'), 'nameNative'=>'‪русский‬', 'supported'=>true),
     'sr'=>array('name'=>$languageHandler->getString('template_common_serbian'), 'nameNative'=>'‪Српски‬', 'supported'=>false),
     'sk'=>array('name'=>$languageHandler->getString('template_common_slovak'), 'nameNative'=>'‪slovenčina‬', 'supported'=>false),

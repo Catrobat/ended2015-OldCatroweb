@@ -18,8 +18,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="enable_javascript">Sila mengaktifkan javascript di pelayar internet anda.</string>
   <string name="newest_projects">Projek terbaru</string>
+  <string name="enable_javascript">Sila mengaktifkan javascript di pelayar internet anda.</string>
   <string name="newer">Baru</string>
   <string name="older">Lama</string>
 </strings>

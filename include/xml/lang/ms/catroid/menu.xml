@@ -18,11 +18,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="login">Logmasuk</string>
   <string name="title">Menu</string>
   <string name="profile">Profil</string>
   <string name="forum">Forum</string>
+  <string name="sign_up">Daftar</string>
+  <string name="registration">Daftar</string>
   <string name="wiki">Bantu</string>
   <string name="wall">Dinding</string>
-  <string name="registration">Daftar</string>
   <string name="settings">Tetapan</string>
 </strings>

@@ -18,8 +18,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="title">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
-  <string name="account_link">&#x421;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &#x43D;&#x43E;&#x432;&#x443;&#x44E; &#x443;&#x447;&#x435;&#x442;&#x43D;&#x443;&#x44E; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x44C;</string>
   <string name="or">&#x438;&#x43B;&#x438;</string>
   <string name="password_link">&#x43D;&#x430;&#x436;&#x43C;&#x438;&#x442;&#x435; &#x441;&#x44E;&#x434;&#x430; &#x435;&#x441;&#x43B;&#x438; &#x432;&#x44B; &#x437;&#x430;&#x431;&#x44B;&#x43B;&#x438; &#x441;&#x432;&#x43E;&#x439; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;</string>
+  <string name="title">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
+  <string name="account_link">&#x421;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &#x43D;&#x43E;&#x432;&#x443;&#x44E; &#x443;&#x447;&#x435;&#x442;&#x43D;&#x443;&#x44E; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x44C;</string>
+  <string name="password">&#x41F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;:</string>
 </strings>

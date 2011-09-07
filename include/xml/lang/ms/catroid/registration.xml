@@ -18,8 +18,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="login">Logmasuk</string>
   <string name="password_recover">Klik disini jika terlupa kata laluan anda?</string>
+  <string name="login">Logmasuk</string>
   <string name="title">Buka akaun baru</string>
   <string name="headline">Sila masukan nama samaran, alamat emel dan negara anda.</string>
   <string name="nickname">Nama Samaran</string>

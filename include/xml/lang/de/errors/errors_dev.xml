@@ -31,6 +31,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="password_new_length_invalid">Dein neues Passwort muss mindestens {*minimumPasswordLength*} Zeichen lang sein.</string>
     <string name="email_address_exists">Die E-Mail Adresse existiert bereits.</string>
     <string name="email_update_failed">Es gab ein Problem w&#xE4;hrend dem Aktualisieren der E-Mail Adresse. Bitte probier es noch einmal.</string>
+    <string name="city_update_failed">Es gab ein Problem w&#xE4;hrend dem Aktualisieren der E-Mail Adresse. Bitte probier es noch einmal.</string>
+    <string name="email_update_of_catroweb_failed">Fehler beim L&#xF6;schen dieser E-Mail Adresse. Catroweb muss mindestens 2 E-Mail Adressen haben.</string>
+    <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deiner Heimatstadt.</string>
+    <string name="birth_update_failed">Es gab ein Problem beim Aktualisieren deines Geburtstags.</string>
   </profile>
   <db>
     <string name="query_failed">Datenbank Operation fehlgeschlagen.</string>
@@ -52,6 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="insulting_words_in_project_title">Der Titel enth&#xE4;lt Schimpfw&#xF6;rter!</string>
     <string name="insulting_words_in_project_description">Die Beschreibung enth&#xE4;lt Schimpfw&#xF6;rter!</string>
     <string name="bad_words_filter_error">Ein SQL-Statement in der BadWordsFilter Klasse ist fehlgeschlagen!</string>
+    <string name="invalid_project_xml">Die XML-Datei deines Projekts enth&#xE4;lt Fehler!</string>
   </upload>
   <download>
     <string name="file_not_found">Konnte angeforderte Datei nicht auf dem Server finden.</string>

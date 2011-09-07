@@ -18,9 +18,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="uploaded">&#x437;&#x430;&#x433;&#x440;&#x443;&#x436;&#x435;&#x43D;&#x43E; {*timeString*}</string>
   <string name="uploaded_by">&#x43E;&#x442; {*nicknameString*}</string>
   <string name="title">&#x41D;&#x43E;&#x432;&#x435;&#x439;&#x448;&#x438;&#x435; &#x43F;&#x440;&#x43E;&#x435;&#x43A;&#x442;&#x44B;</string>
-  <string name="uploaded">&#x437;&#x430;&#x433;&#x440;&#x443;&#x436;&#x435;&#x43D;&#x43E; {*timeString*}</string>
   <string name="prev_button">{*character*} &#x41D;&#x43E;&#x432;&#x435;&#x435;</string>
   <string name="next_button">&#x421;&#x442;&#x430;&#x440;&#x435;&#x435; {*character*}</string>
   <string name="loading_button">&#x437;&#x430;&#x433;&#x440;&#x443;&#x437;&#x43A;&#x430;...</string>

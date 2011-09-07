@@ -21,4 +21,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="catroid_success">CATROID Registrierung erfolgreich!</string>
   <string name="board_success">FORUM Registrierung erfolgreich!</string>
   <string name="wiki_success">WIKI Registrierung erfolgreich!</string>
+  <string name="mail_subject">[CATROID] Deine Catroid.org Registrierung!</string>
+  <string name="mail_text_row1">Gratulation und willkommen zu der Catroid.org Gemeinschaft!</string>
+  <string name="mail_text_row2">Bitte behalte dieses E-Mail auf. Deine Benutzerkonto-Informationen lauten:</string>
+  <string name="mail_text_row3">Benutzername: {*username*}</string>
+  <string name="mail_text_row5">Passwort: {*password*}</string>
+  <string name="mail_text_row6">Du kannst Deinen Benutzernamen und Dein Passwort jederzeit verwenden um Zugriff auf die Catroid Community zu bekommen.</string>
+  <string name="mail_text_row7">Um diesen Vorgang abzuschlie&#xDF;en, besuche folgende Seite:</string>
+  <string name="mail_text_row8">Um deine Benutzerkonto-Informationen zu bearbeiten, besuche folgende Seite:</string>
+  <string name="mail_text_row9">Wenn du dein Passwort vergessen haben solltest, kannst du es jederzeit mit Hilfe deiner E-Mail Adresse oder deinem Benutzernamen zur&#xFC;cksetzen. </string>
+  <string name="mail_text_row10">Dein Catroid Team</string>
 </strings>

@@ -1,0 +1,89 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="template_common_one_minute_ago">1 minut&#x103; &#xEE;n urm&#x103;</string>
+  <string name="template_common_less_than_a_minute_ago">mai pu&#x21B;in de o minu&#x103; &#xEE;n urm&#x103;</string>
+  <string name="template_common_minutes_ago">{*minuteCount*} minute &#xEE;n urm&#x103;</string>
+  <string name="template_common_one_hour_ago">aproximativ o or&#x103; &#xEE;n urm&#x103;</string>
+  <string name="template_common_hours_ago">aproximativ {*hourCount*} ore &#xEE;n urm&#x103;</string>
+  <string name="template_common_one_day_ago">1 zi &#xEE;n urm&#x103;</string>
+  <string name="template_common_days_ago">aproximativ{*dayCount*} zile &#xEE;n urm&#x103;</string>
+  <string name="template_common_one_month_ago">1 lun&#x103; &#xEE;n urm&#x103;</string>
+  <string name="template_common_months_ago">aproximativ {*monthCount*} lune &#xEE;n urm&#x103;</string>
+  <string name="template_common_one_year_ago">aproximativ 1 an &#xEE;n urm&#x103;</string>
+  <string name="template_common_years_ago">aproximativ {*yearCount*} ani &#xEE;n urm&#x103;</string>
+  <string name="template_common_over_years_ago">ma mult de {*yearCount*} ani &#xEE;n urm&#x103;</string>
+  <string name="template_common_january">Ianuarie</string>
+  <string name="template_common_february">Februarie</string>
+  <string name="template_common_march">Martie</string>
+  <string name="template_common_april">Aprilie</string>
+  <string name="template_common_may">Mai</string>
+  <string name="template_common_june">Iunie</string>
+  <string name="template_common_july">Iulie</string>
+  <string name="template_common_august">August</string>
+  <string name="template_common_september">Septembrie</string>
+  <string name="template_common_october">Octombrie</string>
+  <string name="template_common_november">Noiembrie</string>
+  <string name="template_common_december">Decembrie</string>
+  <string name="template_common_arabic">Arab&#x103;</string>
+  <string name="template_common_bulgarian">Bulgar&#x103;</string>
+  <string name="template_common_catalan">Catalan&#x103;</string>
+  <string name="template_common_chinese_simplified_han">Chinez&#x103; (Simplificat&#x103;)</string>
+  <string name="template_common_chinese_traditional_han">Chinezp (Tradi&#x21B;ional&#x103;)</string>
+  <string name="template_common_croatian">Croat&#x103;</string>
+  <string name="template_common_czech">Ceh&#x103;</string>
+  <string name="template_common_danish">Danez&#x103;</string>
+  <string name="template_common_dutch">Olandez&#x103;</string>
+  <string name="template_common_english_united_kingdom">Englez&#x103; (Regatul Unit)</string>
+  <string name="template_common_english_united_states">Englez&#x103; (Statele Unite)</string>
+  <string name="template_common_estonian">Eston&#x103;</string>
+  <string name="template_common_filipino">Filipinez&#x103;</string>
+  <string name="template_common_finnish">Finlandez&#x103;</string>
+  <string name="template_common_french">Francez&#x103;</string>
+  <string name="template_common_german">German&#x103;</string>
+  <string name="template_common_greek">Greac&#x103;</string>
+  <string name="template_common_hebrew">Ebraic&#x103;</string>
+  <string name="template_common_hindi">Hindi</string>
+  <string name="template_common_hungarian">Maghiar&#x103;</string>
+  <string name="template_common_indonesian">Indonezian&#x103;</string>
+  <string name="template_common_italian">Italian&#x103;</string>
+  <string name="template_common_japanese">Japonez&#x103;</string>
+  <string name="template_common_korean">Coreean&#x103;</string>
+  <string name="template_common_latvian">Leton&#x103;</string>
+  <string name="template_common_lithuanian">Lituanian&#x103;</string>
+  <string name="template_common_malay">Malaezian&#x103;</string>
+  <string name="template_common_norwegian">Norvegian&#x103;</string>
+  <string name="template_common_persian">Persam&#x103;</string>
+  <string name="template_common_polish">Polonez&#x103;</string>
+  <string name="template_common_portuguese_brazil">Portughez&#x103; (Brazilia)</string>
+  <string name="template_common_portuguese_portugal">Portughez&#x103; (Portugalia)</string>
+  <string name="template_common_romanian">Rom&#xE2;m&#x103;</string>
+  <string name="template_common_russian">Rus&#x103;</string>
+  <string name="template_common_serbian">S&#xE2;rb&#x103;</string>
+  <string name="template_common_slovak">Slovac&#x103;</string>
+  <string name="template_common_slovenian">Sloven&#x103;</string>
+  <string name="template_common_spanish_latin_america">Spanoil&#x103; (America Latin&#x103;)</string>
+  <string name="template_common_spanish_spain">Spaniol&#x103; (Spania)</string>
+  <string name="template_common_swedish">Suedez&#x103;</string>
+  <string name="template_common_thai">Tailandez&#x103;</string>
+  <string name="template_common_turkish">Turc&#x103;</string>
+  <string name="template_common_ukrainian">Ucrainean&#x103;</string>
+  <string name="template_common_vietnamese">Vietnamez&#x103;</string>
+</strings>

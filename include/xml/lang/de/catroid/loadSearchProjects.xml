@@ -18,8 +18,8 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded_by">von {*nicknameString*}</string>
   <string name="uploaded">hochgeladen {*timeString*}</string>
+  <string name="uploaded_by">von {*nicknameString*}</string>
   <string name="loading_button">laden...</string>
   <string name="title">Suchergebnisse</string>
   <string name="prev_button">{*character*} Vorherige</string>

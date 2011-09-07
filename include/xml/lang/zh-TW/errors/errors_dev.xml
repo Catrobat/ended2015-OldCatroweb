@@ -18,6 +18,24 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
+  <profile>
+    <string name="email_address_string_changed"/>
+    <string name="password_repeat_missing">&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
+    <string name="password_repeat_differs">&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x3002;</string>
+    <string name="username_password_equal">&#x5BC6;&#x78BC;&#x9700;&#x8207;&#x5462;&#x7A31;&#x4E0D;&#x540C;&#x3002;</string>
+    <string name="password_old_missing">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
+    <string name="password_old_wrong">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x932F;&#x8AA4;&#x3002;</string>
+    <string name="password_old_invalid">&#x820A;&#x5BC6;&#x78BC;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
+    <string name="password_new_missing">&#x65B0;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
+    <string name="password_new_invalid">&#x65B0;&#x5BC6;&#x78BC;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
+    <string name="password_new_length_invalid">&#x65B0;&#x5BC6;&#x78BC;&#x9700;&#x64C1;&#x6709;&#x81F3;&#x5C11;{*minimumPasswordLength*} &#x5B57;&#x7B26;&#x3002;</string>
+    <string name="email_address_exists">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x5DF2;&#x5B58;&#x5728;&#x3002;</string>
+    <string name="email_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
+    <string name="city_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
+    <string name="email_update_of_catroweb_failed"/>
+    <string name="country_update_failed"/>
+    <string name="birth_update_failed"/>
+  </profile>
   <db>
     <string name="query_failed">&#x6578;&#x64DA;&#x5EAB;&#x64CD;&#x4F5C;&#x5931;&#x6557;&#x3002;</string>
     <string name="connection_failed">&#x6578;&#x64DA;&#x5EAB;&#x9023;&#x7DDA;&#x5931;&#x6557;&#x3002;</string>
@@ -38,6 +56,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="insulting_words_in_project_title">&#x5C08;&#x6848;&#x6A19;&#x984C;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
     <string name="insulting_words_in_project_description">&#x5C08;&#x6848;&#x7C21;&#x4ECB;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
     <string name="bad_words_filter_error">&#x5728;BadWordsFilter class&#x88E1;&#x5176;&#x4E2D;&#x4E00;&#x500B;SQL &#x67E5;&#x8A62;&#x5931;&#x6557;&#xFF01;</string>
+    <string name="invalid_project_xml"/>
   </upload>
   <download>
     <string name="file_not_found">&#x5728;&#x4F3A;&#x670D;&#x5668;&#x88E1;&#x7121;&#x6CD5;&#x641C;&#x7372;&#x6B64;&#x6A94;&#x6848;</string>
@@ -60,6 +79,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="catroid_authentication_failed">Catroid &#x8A8D;&#x8B49;&#x5931;&#x6557;&#x3002;</string>
     <string name="wiki_api_response_incorrect">Mediawiki API &#x7684;&#x56DE;&#x61C9;&#x932F;&#x8AA4;&#x3002;</string>
     <string name="device_auth_invalid_token">&#x88DD;&#x7F6E;&#x8A8D;&#x8B49;&#x5931;&#x6557;&#xFF1A;invalid auth-token!</string>
+    <string name="not_a_tugraz_ip"/>
   </auth>
   <registration>
     <string name="board_registration_failed">Board &#x6CE8;&#x518A;&#x5931;&#x6557;&#x3002;</string>
@@ -95,6 +115,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </registration>
   <passwordrecovery>
     <string name="password_missing">&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
+    <string name="password_length_invalid">&#x5BC6;&#x78BC;&#x9700;&#x64C1;&#x6709;&#x81F3;&#x5C11;{*minimumPasswordLength*} &#x548C; &#x6700;&#x591A;{*maximumPasswordLength*} &#x5B57;&#x7B26;&#x3002;</string>
     <string name="userdata_invalid">&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="userdata_missing">&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="userdata_not_exists">&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x7121;&#x6CD5;&#x641C;&#x7372;&#x3002;</string>
@@ -102,17 +123,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="catroid_password_recovery_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x6709;&#x932F;&#x8AA4;&#x4E86;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#x6216;&#x806F;&#x7D61;&#x7BA1;&#x7406;&#x54E1;&#xFF1A;{*webmasterEmailAddress*} &#x3002;</string>
     <string name="passwordhash_invalid">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF01;&#x60A8;&#x7684;&#x5FA9;&#x539F; URL &#x5DF2;&#x7121;&#x6548;&#x3002;</string>
   </passwordrecovery>
-  <profile>
-    <string name="password_repeat_missing">&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_repeat_differs">&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x3002;</string>
-    <string name="username_password_equal">&#x5BC6;&#x78BC;&#x9700;&#x8207;&#x5462;&#x7A31;&#x4E0D;&#x540C;&#x3002;</string>
-    <string name="password_old_missing">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_old_wrong">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x932F;&#x8AA4;&#x3002;</string>
-    <string name="password_old_invalid">&#x820A;&#x5BC6;&#x78BC;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
-    <string name="password_new_missing">&#x65B0;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_new_invalid">&#x65B0;&#x5BC6;&#x78BC;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
-    <string name="password_new_length_invalid">&#x65B0;&#x5BC6;&#x78BC;&#x9700;&#x64C1;&#x6709;&#x81F3;&#x5C11;{*minimumPasswordLength*} &#x5B57;&#x7B26;&#x3002;</string>
-    <string name="email_address_exists">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x5DF2;&#x5B58;&#x5728;&#x3002;</string>
-    <string name="email_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
-  </profile>
+  <admin>
+    <string name="pootle_post_data_missing"/>
+    <string name="pootle_load_xlf_failed"/>
+    <string name="pootle_not_valid_xml"/>
+    <string name="pootle_invalid_stringname_in_xml"/>
+    <string name="pootle_could_not_write_xml_file"/>
+  </admin>
 </errors>

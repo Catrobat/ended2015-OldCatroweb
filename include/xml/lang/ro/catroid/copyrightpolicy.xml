@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Politica drepturilor de autor</string>
+  <string name="email_link">email</string>
+  <string name="directive_link">Directiva 2001/29/EC</string>
+  <string name="chilling_link">chillingeffects.org</string>
+  <string name="copyright_policy_part1">Echipa de dezvoltare Catroid respect&#x103; proprietatea intelectual&#x103; a altora, precum &#x15F;i a utilizatorilor no&#x15F;tri. Dac&#x103; crede&#x163;i c&#x103; munca dumneavoastr&#x103; a fost copiat&#x103; &#xEE;ntr-un mod care constituie &#xEE;nc&#x103;lcarea drepturilor de autor, v&#x103; rug&#x103;m s&#x103; ne trimite&#x163;i un {*emailLink*}.</string>
+  <string name="copyright_policy_part2">Vom procesa cu promptitudine &#x15F;i vom investiga notific&#x103;rile privind presupusele &#xEE;nc&#x103;lc&#x103;ri &#x15F;i vom lua m&#x103;surile necesare &#xEE;n temeiul {*directiveLink*} &#x15F;i a altor legi de proprietate intelectual&#x103; aplicabile. La primirea, echipa de dezvoltare Catroid poate ac&#x163;iona prompt pentru a elimina sau dezactiva accesul la orice material afirmat a fi contraf&#x103;cut. &#xCE;ncalc&#x103;rile repetate a drepturilor de autor vor fi bloca&#x21B;i &#xEE;n condi&#x163;ii corespunz&#x103;toare.</string>
+  <string name="copyright_policy_part3">La evaluarea dac&#x103; un utilizator Catroid a incalcat drepturile dumneavoastr&#x103; de autor, v&#x103; rug&#x103;m s&#x103; re&#x163;ine&#x163;i c&#x103; Catroid este o ini&#x163;iativ&#x103; educa&#x163;ional&#x103; &#x15F;i non-profit, care are scopul de a ajuta copii &#xEE;n &#xEE;nv&#x103;&#x163;are prin furnizarea instrumentelor care le vor ajuta  s&#x103; &#xEE;nve&#x163;e &#x15F;i s&#x103; se exprime cu ajutorul tehnologiilor digitale.</string>
+  <string name="copyright_policy_part4">Sper&#x103;m c&#x103; ve&#x163;i vedea proiectul Catroid nu numai ca o buna modalitate de popularizare a creatiilor voastre, ci, de asemenea, ca o oportunitate de a face ceva bun pentru educa&#x163;ia copiilor.</string>
+  <string name="copyright_policy_part5">Dac&#x103; alege&#x163;i s&#x103; face&#x163;i o pl&#xE2;ngere la &#xEE;nc&#x103;lcarea drepturilor de autor, v&#x103; rug&#x103;m s&#x103; nota&#x21B;i c&#x103; este posibil s&#x103; post&#x103;m pl&#xEE;ngerea dumneavoastr&#x103;, cu informa&#x163;iile personale redactate, la un centru de informare, cum ar fi {*chillingEffectsLink*}. V&#x103; rug&#x103;m, de asemenea, s&#x103; nota&#x21B;i c&#x103; pute&#x163;i fi r&#x103;spunz&#x103;tor pentru daune (incluz&#xE2;nd costurile &#x15F;i onorariul avocatului) dac&#x103; a&#x21B;i eronat o activitate ca una care &#xEE;ncalc&#x103; drepturile dumneavoastr&#x103; de autor.</string>
+</strings>
