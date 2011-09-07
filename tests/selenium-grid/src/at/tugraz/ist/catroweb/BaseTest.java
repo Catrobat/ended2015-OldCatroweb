@@ -101,7 +101,6 @@ public class BaseTest {
   protected void startFirefoxSession(String seleniumHost, int seleniumPort, String method) {
     log("firefox: running " + method + "...");
     FirefoxProfile profile = new FirefoxProfile();
-    profile.setPreference("network.http.phishy-userpass-length", 255);
 
     try {
       DesiredCapabilities capabilities = DesiredCapabilities.firefox();

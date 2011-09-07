@@ -92,13 +92,13 @@ class CoreErrorHandler {
       if(DEVELOPMENT_MODE && $extraInfo != '') {
         return $this->parseErrorMessage($this->errors[$type][$code], $args).'<br>'.$extraInfo;
       } else {
-        return $this->parseErrorMessage($this->errors[$type][$code], $args).'<br>';
+        return $this->parseErrorMessage($this->errors[$type][$code], $args);
       }
     } elseif(isset($this->defaultLanguageErrors[$type][$code])) {
       if(DEVELOPMENT_MODE && $extraInfo != '') {
         return $this->parseErrorMessage($this->defaultLanguageErrors[$type][$code], $args).'<br>'.$extraInfo;
       } else {
-        return $this->parseErrorMessage($this->defaultLanguageErrors[$type][$code], $args).'<br>';
+        return $this->parseErrorMessage($this->defaultLanguageErrors[$type][$code], $args);
       }
     } else {
       return 'unknown error: "'.$code.'"!';
