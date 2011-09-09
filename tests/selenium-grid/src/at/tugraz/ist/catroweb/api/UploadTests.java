@@ -73,8 +73,7 @@ public class UploadTests extends BaseTest {
         { CommonData.getUploadPayload("my_test_project_with_looong_description", "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
         { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip", "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") },
         { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention", "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "5451117C121B89EE9BFB41C5381F357A", "", "", "0") },
-        { CommonData.getUploadPayload("new catroid extention", "this project has catroid as extention", "test.catroid", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
-        { CommonData.getUploadPayload("nativeAppTest", "this project tests the native app building", "NativeAppTest.zip", "3f3750cfcff91694fe2173c7957f62f2", "", "", "0") }
+        { CommonData.getUploadPayload("new catroid extention", "this project has catroid as extention", "test.catroid", "583783A335BD40D3D0195A13432AFABB", "", "", "0") }
     };
     return returnArray;
   }

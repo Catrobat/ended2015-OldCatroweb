@@ -169,10 +169,7 @@ class upload extends CoreAuthenticationDevice {
       $this->sendUnapprovedWordlistPerEmail();
     }
     
-    if($fileData['upload']['name'] == "NativeAppTest.zip") {
-      echo "start building...";
-      $this->buildNativeApp($newId);
-    }
+    $this->buildNativeApp($newId);
 
     $this->statusCode = 200;
     $this->projectId = $newId;

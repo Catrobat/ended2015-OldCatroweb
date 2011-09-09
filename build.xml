@@ -22,6 +22,7 @@
 <project basedir="." default="deploy-local" name="catroid">
   <property name="selenium.dir" value="tests/selenium" />
   <property name="selenium-grid.dir" value="tests/selenium-grid" />
+  <property name="app-building.dir" value="app-building" />
   <property name="framework.dir" value="classes" />
   <property name="images.dir" value="images" />
   <property name="includes.dir" value="include" />
@@ -46,6 +47,7 @@
   <property name="build.file" value="build.xml" />
   <property name="thumbnail.small.file" value="${thumbnails.dir}/thumbnail_small.jpg" />
   <property name="thumbnail.large.file" value="${thumbnails.dir}/thumbnail_large.jpg" />
+  <property name="init-app-building.file" value="${app-building.dir}/init_app_builder.sh" />
   <property name="build.sysclasspath" value="last" />
   <property name="file.encoding" value="UTF-8" />
   
@@ -376,6 +378,14 @@
              command="cd ${host.catroid.dir}/${sql.dir}/; chmod +x create_diagram.sh; ./create_diagram.sh" />  
   </target>
   
+  <target name="-update-app-building">
+  <sshexec host="${host.ip}"
+             trust="true"
+             username="${host.user}"
+             password="${host.pass}"
+             command="cd ${host.catroid.dir}/${app-building.dir}/; chmod +x init_app_builder.sh; ./init_app_builder.sh" />  
+  </target>
+  
   <target name="-init-remote-database">
   <sshexec host="${host.ip}"
              trust="true"
@@ -472,6 +482,7 @@
   <target name="-create-dirs">
     <mkdir dir="${build.dir}" />
     <mkdir dir="${catroid.dir}" />
+    <mkdir dir="${catroid.dir}/${app-building.dir}" />
     <mkdir dir="${catroid.dir}/${framework.dir}" />
     <mkdir dir="${catroid.dir}/${images.dir}" />
     <mkdir dir="${catroid.dir}/${includes.dir}" />
@@ -487,7 +498,7 @@
     <mkdir dir="${catroid.dir}/${selenium-grid.dir}" />
   </target>
 
-  <target name="-copy-files" depends="-copy-rootfiles, -copy-framework, -copy-viewer, -copy-modules, -copy-images, -copy-includes, -copy-thumbnails, -copy-sql" />
+  <target name="-copy-files" depends="-copy-rootfiles, -copy-framework, -copy-viewer, -copy-modules, -copy-images, -copy-includes, -copy-thumbnails, -copy-app-building, -copy-sql" />
 
   <target name="-copy-rootfiles">
     <copy file="${htaccess.file}" toDir="${catroid.dir}" />
@@ -542,6 +553,10 @@
     <copy file="${thumbnail.small.file}" toDir="${catroid.dir}/${thumbnails.dir}" />
     <copy file="${thumbnail.large.file}" toDir="${catroid.dir}/${thumbnails.dir}" />
   </target>
+  
+  <target name="-copy-app-building">
+    <copy file="${init-app-building.file}" toDir="${catroid.dir}/${app-building.dir}" />
+  </target>
 
   <target name="-copy-selenium-tests">
     <copy todir="${catroid.dir}/${selenium-grid.dir}">
@@ -594,7 +609,7 @@
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="rm -rf ${host.catroid.dir}/${images.dir} ${host.catroid.dir}/${includes.dir} ${host.catroid.dir}/${framework.dir} ${host.catroid.dir}/${modules.dir} ${host.catroid.dir}/${viewer.dir} ${host.catroid.dir}/${scripts.dir} ${host.catroid.dir}/${sql.dir} ${host.catroid.dir}/tests" />
+             command="rm -rf ${host.catroid.dir}/${images.dir} ${host.catroid.dir}/${includes.dir} ${host.catroid.dir}/${framework.dir} ${host.catroid.dir}/${modules.dir} ${host.catroid.dir}/${viewer.dir} ${host.catroid.dir}/${scripts.dir} ${host.catroid.dir}/${app-building.dir} ${host.catroid.dir}/${sql.dir} ${host.catroid.dir}/tests" />
     <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
@@ -655,12 +670,12 @@
   </target>
 
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
-  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -update-sql-diagram, -cleanup" />
+  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -update-sql-diagram, -update-app-building, -cleanup" />
   <target name="deploy-alex" depends="-conf, -clean, -create-dirs, -conf-deploy-alex, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -cleanup" />
-  <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -set-catroid-dir-permissions, -undeploy, -deploy, -set-catroid-dir-permissions, -init-remote-database,-update-remote-database, -cleanup" />
+  <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -set-catroid-dir-permissions, -undeploy, -deploy, -set-catroid-dir-permissions, -init-remote-database,-update-remote-database, -update-app-building, -cleanup" />
   <target name="deploy-testlocal-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-testlocal-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
   <target name="deploy-test-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
-  <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
+  <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -update-app-building, -cleanup" />
   <target name="run-phpunit-tests" depends="-phpunit-tests" />
   <target name="run-selenium-local-tests" depends="-selenium-grid-tests-catroid-local" />
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
