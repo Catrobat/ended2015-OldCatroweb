@@ -26,8 +26,6 @@
               "password_missing" : "<?php echo $this->module->errorHandler->getError('registration', 'password_missing'); ?>"
               };
           new Login(languageStringsObject);
-
-          bindAjaxLoader("<?php echo BASE_PATH?>");  
         });
       </script>
       <div id="headerProfileBox" class="headerProfileBox" style="display:none;">

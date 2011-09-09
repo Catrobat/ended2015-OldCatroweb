@@ -21,8 +21,6 @@
   	$(document).ready(function() {
   		new ProjectDetails();
   	});
-
-    bindAjaxLoader("<?php echo BASE_PATH?>");  
   </script>
 
   	<div class="webMainMiddle">

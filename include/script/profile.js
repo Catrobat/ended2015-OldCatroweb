@@ -20,8 +20,6 @@ var Profile = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function(languageStringsObject) {
     
-    //bindAjaxLoader();
-    
     var self = this;
     this.emailCount = languageStringsObject.emailCount;
     this.emailText = '';
