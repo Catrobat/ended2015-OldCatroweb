@@ -59,11 +59,9 @@ import at.tugraz.ist.catroweb.common.CommonFunctions;
 import at.tugraz.ist.catroweb.common.CommonStrings;
 import at.tugraz.ist.catroweb.common.Config;
 import at.tugraz.ist.catroweb.common.ProjectUploader;
-import at.tugraz.ist.catroweb.common.ProjectUploaderLogin;
 
 public class BaseTest {
   protected ProjectUploader projectUploader;
-  protected ProjectUploaderLogin uploaderLoginOrRegister;
   protected String webSite;
   protected Map<String, WebDriver> driverSessions;
 
@@ -73,7 +71,6 @@ public class BaseTest {
     this.webSite = webSite;
     Config.setSeleniumGridTestdata(basedir);
     projectUploader = new ProjectUploader(webSite);
-    uploaderLoginOrRegister = new ProjectUploaderLogin(webSite);
     this.driverSessions = Collections.synchronizedMap(new HashMap<String, WebDriver>());
   }
 

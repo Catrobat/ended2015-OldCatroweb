@@ -24,6 +24,7 @@ define('XML_PATH','include/xml/');
 define('LANGUAGE_PATH','include/xml/lang/');
 define('CSS_PATH','include/css/');
 define('SCRIPT_PATH','include/script/');
+define('PROJECTS_APP_BUILDING_SRC','app-building/catroid-source/');
 define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
 define('PROJECTS_QR_DIRECTORY','resources/qrcodes/');

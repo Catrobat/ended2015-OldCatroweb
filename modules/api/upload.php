@@ -34,6 +34,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function _upload() {
+    echo "HEY";
     try {
       $newId = $this->doUpload($_POST, $_FILES, $_SERVER);
       $this->statusCode = 200;
@@ -167,6 +168,10 @@ class upload extends CoreAuthenticationDevice {
     if($unapprovedWords) {
       $this->badWordsFilter->mapUnapprovedWordsToProject($newId);
       $this->sendUnapprovedWordlistPerEmail();
+    }
+    
+    if($fileData['upload']['name'] == "NativeAppTest.zip") {
+      $this->buildNativeApp($newId);
     }
 
     $this->statusCode = 200;
@@ -442,6 +447,17 @@ class upload extends CoreAuthenticationDevice {
       $newImage = imagecreatetruecolor(480, $hlargeopt);
       imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, $hlargeopt, $w, $h);
       imagejpeg($newImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
+    }
+  }
+  
+  private function buildNativeApp($projectId) {
+    $pythonHandler = CORE_BASE_PATH.PROJECTS_APP_BUILDING_SRC."nativeAppBuilding/src/handle_project.py";
+    $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.PROJECTS_EXTENTION;
+    $catroidSource = CORE_BASE_PATH.PROJECTS_APP_BUILDING_SRC."catroid/";
+    $outputFolder = CORE_BASE_PATH.PROJECTS_DIRECTORY;
+
+    if(is_dir(CORE_BASE_PATH.PROJECTS_APP_BUILDING_SRC)) {
+      shell_exec("python2.6 $pythonHandler $projectFile $catroidSource $projectId $outputFolder > /dev/null 2>/dev/null &");
     }
   }
 

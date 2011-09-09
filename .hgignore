@@ -10,6 +10,8 @@ single_test_tmp.xml
 # switch to regexp syntax.
 syntax: regexp
 ^addons/board/cache$
+^app-building/android-sdk-linux_x86$
+^app-building/catroid-source$
 ^resources/projects$
 ^resources/qrcodes$
 ^resources/thumbnails$
