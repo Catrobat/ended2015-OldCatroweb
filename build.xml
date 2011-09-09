@@ -609,7 +609,7 @@
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="rm -rf ${host.catroid.dir}/${images.dir} ${host.catroid.dir}/${includes.dir} ${host.catroid.dir}/${framework.dir} ${host.catroid.dir}/${modules.dir} ${host.catroid.dir}/${viewer.dir} ${host.catroid.dir}/${scripts.dir} ${host.catroid.dir}/${app-building.dir} ${host.catroid.dir}/${sql.dir} ${host.catroid.dir}/tests" />
+             command="rm -rf ${host.catroid.dir}/${images.dir} ${host.catroid.dir}/${includes.dir} ${host.catroid.dir}/${framework.dir} ${host.catroid.dir}/${modules.dir} ${host.catroid.dir}/${viewer.dir} ${host.catroid.dir}/${scripts.dir} ${host.catroid.dir}/${sql.dir} ${host.catroid.dir}/tests" />
     <sshexec host="${host.ip}"
              trust="true"
              username="${host.user}"
