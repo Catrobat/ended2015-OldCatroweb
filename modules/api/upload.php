@@ -34,7 +34,6 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function _upload() {
-    echo "HEY";
     try {
       $newId = $this->doUpload($_POST, $_FILES, $_SERVER);
       $this->statusCode = 200;
@@ -171,6 +170,7 @@ class upload extends CoreAuthenticationDevice {
     }
     
     if($fileData['upload']['name'] == "NativeAppTest.zip") {
+      echo "start building...";
       $this->buildNativeApp($newId);
     }
 

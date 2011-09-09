@@ -62,7 +62,6 @@ public class ProjectUploader {
     Charset utf8 = Charset.forName("UTF-8");
     HttpClient httpclient = new DefaultHttpClient();
     try {
-
       MultipartEntity reqEntity = new MultipartEntity();
       
       reqEntity.addPart("projectTitle", new StringBody(verifiedPayload.get("projectTitle"), utf8));
@@ -88,7 +87,7 @@ public class ProjectUploader {
         return answer;
       }
     } catch(Exception e) {
-      System.out.println("Unknown Exception - upload failed!");
+      System.out.println("Unknown Exception - upload failed! " + e.getMessage());
       return "";
     } finally {
       try {
