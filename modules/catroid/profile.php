@@ -17,7 +17,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class profile extends CoreAuthenticationNone {
+class profile extends CoreAuthenticationUser {
 
   public function __construct() {
     parent::__construct();
@@ -26,6 +26,10 @@ class profile extends CoreAuthenticationNone {
     $this->addJs("profile.js");
   }
 
+  public function __authenticationFailed() {
+
+  }
+  
   public function __default() {
     if($_GET['method'] && $this->checkUserValid($_GET['method'])) {
       if( strcmp($_GET['method'], $this->session->userLogin_userNickname) == 0 ) {
@@ -43,7 +47,7 @@ class profile extends CoreAuthenticationNone {
         exit;
       }
       else {
-        header("Location: ".BASE_PATH."catroid/menu/");
+        header("Location: ".BASE_PATH."catroid/login/?requesturi=catroid/profile/");
         exit;
       }
     }
@@ -578,7 +582,6 @@ class profile extends CoreAuthenticationNone {
         $email_valid = false;        
       }
     }
-    
     return $email_valid;
   }
   
@@ -612,11 +615,6 @@ class profile extends CoreAuthenticationNone {
     } catch(Exception $e) {
       $answer .= $e->getMessage();
     }
-//    try {
-//      $this->createEmailDivHtmlCode($requestedUser);
-//    } catch(Exception $e) {
-//      $answer .= $e->getMessage();
-//    }
     $this->answer .= $answer;
   }
 
@@ -635,14 +633,6 @@ class profile extends CoreAuthenticationNone {
     $this->userCity = $this->getUserCity($userName);
     $this->userBirthArray = $this->getUserBirth($userName);
     $this->userGender = $this->getUserGender($userName);
-       
-//    $query = "EXECUTE get_user_email_by_username('$userName')";
-//    $result = @pg_query($this->dbConnection, $query);
-//    if(!$result) {
-//      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
-//    }
-//    $userEmailResult = pg_fetch_assoc($result); 
-//    $this->userEmail = $userEmailResult['email'];
   }
   
   private function initCountryCodes() {
@@ -708,7 +698,6 @@ class profile extends CoreAuthenticationNone {
     }
     $userCountry = pg_fetch_assoc($result);
 
-    //$this->answer .= $userCountry['country'];
     return $userCountry['country'];
   }
   
@@ -760,7 +749,6 @@ class profile extends CoreAuthenticationNone {
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
     }
-    
     if(pg_num_rows($result) > 0) {
       $userGender = pg_fetch_assoc($result);
       pg_free_result($result);      
@@ -768,11 +756,9 @@ class profile extends CoreAuthenticationNone {
       pg_free_result($result);
       $userGender = 0;
     }
- 
-    return $userGender['gender'];
+     return $userGender['gender'];
   }
-  
-  
+    
   public function __destruct() {
     parent::__destruct();
   }

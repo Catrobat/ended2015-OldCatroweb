@@ -21,7 +21,7 @@
   <script type="text/javascript">
   	$(document).ready(function() {
   	  var __hm = new HeaderMenu();
-      __hm.toggleProfileBox();
+      __hm.toggleAllBoxes();
 
       var languageStringsObject = { 
           "username_missing" : "<?php echo $this->module->errorHandler->getError('registration', 'username_missing'); ?>",

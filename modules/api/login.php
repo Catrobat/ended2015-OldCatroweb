@@ -29,13 +29,14 @@ class login extends CoreAuthenticationNone {
 
   public function logoutRequest() {
     $this->logout();
+    $this->requesturi = NULL;
   }
 
   public function loginRequest() {
     if($_POST) {
-      if(isset($_POST['requesturi'])) {
-        $this->setRequestURI($_POST['requesturi']);
-      }
+//      if(isset($_POST['requesturi'])) {
+//        $this->setRequestURI($_POST['requesturi']);
+//      }
       if($this->doLogin($_POST)) {
         $this->statusCode = 200;  
         $this->setUserLanguage($this->session->userLogin_userId);     

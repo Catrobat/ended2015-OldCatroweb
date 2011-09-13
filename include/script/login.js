@@ -30,7 +30,7 @@ var Login = Class.$extend({
     } else {
       this.requestUri = null;
     }
-
+    
     $("#loginHelperDiv").toggle(false);
     
     $("#loginSubmitButton").click(jQuery.proxy(this.doLoginRequest, this));
@@ -53,7 +53,8 @@ var Login = Class.$extend({
         url : url,
         data : ({
           loginUsername : $("#loginUsername").val(),
-          loginPassword : $("#loginPassword").val()
+          loginPassword : $("#loginPassword").val(),
+          requesturi : this.requestUri
         }),
         timeout : (this.ajaxTimeout),
         success : jQuery.proxy(this.loginSuccess, this),
@@ -96,15 +97,20 @@ var Login = Class.$extend({
 
   doLogoutRequest : function(event) {
     $.ajax({
+      type : "POST",
       url : this.basePath + "api/login/logoutRequest.json",
-      async : false,
+
       success : jQuery.proxy(this.logoutSuccess, this),
       error : jQuery.proxy(this.logoutError, this)
     });
   },
 
   logoutSuccess : function(result) {
-    location.reload();
+    if(result.requesturi) {
+      location.reload();
+    } else {
+      location.href = this.basePath+'/catroid/index';
+    }
   },
 
   logoutError : function(result, errCode) {

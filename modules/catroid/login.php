@@ -27,12 +27,13 @@ class login extends CoreAuthenticationNone {
 
   public function __default() {
     if($this->session->userLogin_userId > 0) {
-      header("Location: ".BASE_PATH."catroid/index");
-      exit;
-    }
-    else {
-      header("Location: ".BASE_PATH."catroid/menu/");
-      exit;
+      if(isset($_POST['requesturi'])) {
+        header("Location: ".BASE_PATH.$_POST['requesturi']);
+        exit;
+      } else {
+        header("Location: ".BASE_PATH."catroid/index");
+        exit;
+      }
     }
   }
 
