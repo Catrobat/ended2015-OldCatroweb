@@ -142,7 +142,7 @@ public class LoginTests extends BaseTest {
       ajaxWait();
       
       driver().findElement(By.id("headerProfileButton")).click();
-      assertTrue(isTextPresent("You are logged in as"));
+      assertTrue(isTextPresent(dataset.get("username")));
       
       openLocation("catroid/registration/");
       ajaxWait();

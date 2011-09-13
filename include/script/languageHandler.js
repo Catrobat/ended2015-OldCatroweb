@@ -19,6 +19,7 @@
 var LanguageHandler = Class.$extend({
   __include__ : [__baseClassVars],
   __init__ : function() {
+    $("#profileSwitchLanguage").change(jQuery.proxy(this.switchLanguage, this));
     $("#switchLanguage").change(jQuery.proxy(this.switchLanguage, this));
   },
 

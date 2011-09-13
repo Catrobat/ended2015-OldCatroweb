@@ -73,6 +73,8 @@ class profile extends CoreAuthenticationNone {
         case 'change':
           if($this->doChangeEmailAddress($this->session->userLogin_userNickname, $postData['profileNewEmail'], $postData['profileOldEmail'])) {
             $this->statusCode = 200;
+            $this->emailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
+            $this->emailsArrayDiv = $this->emailsArrayToHTMLDiv($this->emailsArray);
             $this->answer_ok .= $this->languageHandler->getString('email_change_successful');
             return true;
           }
@@ -84,6 +86,8 @@ class profile extends CoreAuthenticationNone {
         case 'add':
           if($this->doAddEmailAddress($this->session->userLogin_userNickname, $postData['profileNewEmail'])) {
             $this->statusCode = 200;
+            $this->emailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
+            $this->emailsArrayDiv = $this->emailsArrayToHTMLDiv($this->emailsArray);
             $this->answer_ok .= $this->languageHandler->getString('email_add_successful');
             return true;
           }
@@ -95,6 +99,8 @@ class profile extends CoreAuthenticationNone {
         case 'delete':
           if($this->doDeleteEmailAddress($this->session->userLogin_userNickname, $postData['profileEmail'])) {
             $this->statusCode = 200;
+            $this->emailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
+            $this->emailsArrayDiv = $this->emailsArrayToHTMLDiv($this->emailsArray);
             $this->answer_ok .= $this->languageHandler->getString('email_delete_success');
             return true;
           }
@@ -615,9 +621,8 @@ class profile extends CoreAuthenticationNone {
   }
 
   private function fillDynamicProfileData($userName) {
-    $this->userEmailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
-
-    $this->emailsArrayToHTMLDiv($this->userEmailsArray);
+    $this->emailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
+    $this->emailsArrayDiv = $this->emailsArrayToHTMLDiv($this->emailsArray);
     
     $userCountryCode = $this->getUserCountry($userName); 
     if($userCountryCode) {   
@@ -672,9 +677,11 @@ class profile extends CoreAuthenticationNone {
   
   private function emailsArrayToHTMLDiv($emailsArray) {
     $x = 0;
+    $emailDiv = "";
     for($x; $x < count($emailsArray); $x++) {
-      $this->emailDiv .= "<div id='div". $x ."'><a href='javascript:;' class='profileText' id='email". $x ."'>". $emailsArray[$x] ."</a></div>";
+      $emailDiv .= "<div id='div". $x ."'><a href='javascript:;' class='profileText' id='email". $x ."'>". $emailsArray[$x] ."</a></div>";
     }
+    return $emailDiv;
   }
 
   private function getUserEmailsArray($user_id) {

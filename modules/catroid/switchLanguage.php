@@ -28,10 +28,31 @@ class switchLanguage extends CoreAuthenticationNone {
   public function switchIt() {
     $this->statusCode = 500;
     if(isset($_POST['language'])) {
+      if($this->session->userLogin_userId > 0) {
+        $this->doSaveLanguageToProfile($_POST['language'], $this->session->userLogin_userId);
+      }
+
       $this->languageHandler->setLanguageCookie($_POST['language']);
       $this->statusCode = 200;
     }    
   }
+  
+  private function doSaveLanguageToProfile($language, $id) {
+    try {
+      $query = "EXECUTE update_user_language_by_id('$language','$id')";
+      $result = @pg_query($this->dbConnection, $query);
+      if(!$result) {
+        $return_value = false;
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+      }
+      $return_value = true;
+    } catch(Exception $e) {
+      $return_value = false;
+      $this->answer .= $this->errorHandler->getError('profile', 'language_update_failed', $e->getMessage());
+    }
+    return $return_value;
+
+  } 
 
   public function __destruct() {
     parent::__destruct();

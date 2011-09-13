@@ -34,10 +34,11 @@ class checkTokenOrRegister extends CoreAuthenticationDevice {
         require_once 'modules/api/registration.php';
         $registration = new registration();
         if($registration->doRegistration($_POST, $_SERVER)) {
-          $this->statusCode = 201; 
+          $this->statusCode = 201;
           return true;
         } else {
           $this->statusCode = 500;
+          $this->answer .= $registration->answer;
           return false;
         }
       }

@@ -46,7 +46,6 @@ var Login = Class.$extend({
     if($("#loginUsername").val() && ($("#loginPassword").val())) {
       $("#loginInfoText").toggle(false);
       this.disableForm();
-      
       var url = this.basePath + 'api/login/loginRequest.json';
 
       $.ajax({
@@ -93,7 +92,6 @@ var Login = Class.$extend({
     if(errCode == "timeout") {
       this.enableForm();  
     }
-    
   },
 
   doLogoutRequest : function(event) {
@@ -110,7 +108,9 @@ var Login = Class.$extend({
   },
 
   logoutError : function(result, errCode) {
-    //alert("logoutError");
+    if(errCode == "timeout") {
+      this.enableForm();  
+    }
   },
 
   loginCatchKeypress : function(event) {

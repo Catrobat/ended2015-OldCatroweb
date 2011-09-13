@@ -50,6 +50,8 @@
   <string name="add_gender">add my gender</string>
   <string name="gender">select gender</string>
   <string name="select_gender">select my gender</string>
+  <string name="change_language">change language</string>
+  <string name="select_language">select my language</string>
   <string name="male">male</string>
   <string name="female">female</string>
   <string name="cancel">Cancel</string>

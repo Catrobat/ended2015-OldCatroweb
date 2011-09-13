@@ -67,8 +67,9 @@
     <string name="get_user_row_by_username">SELECT * FROM cusers WHERE username=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_clean">SELECT * FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
-    
-    <string name="get_user_row_by_email">SELECT u.* FROM cusers u, cusers_additional_email e WHERE (u.email=$1 OR e.email=$1) AND u.id=e.user_id</string>
+
+    <string name="get_user_row_by_email">SELECT u.* FROM cusers u, cusers_additional_email e WHERE u.email=$1 OR e.email=$1</string>
+    <string name="get_user_language">SELECT language FROM cusers WHERE id=$1</string>
     
     
     <string name="add_user_email">INSERT INTO cusers_additional_email (user_id, email) VALUES ($1, $2)</string>
@@ -85,7 +86,7 @@
     <string name="get_user_gender_by_username">SELECT gender FROM cusers WHERE username=$1</string>
     <!-- <string name="get_user_language_by_id">SELECT language FROM cusers WHERE id=$1</string> -->
 
-    <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id</string>
+    <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token, language) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
     <!-- <string name="delete_user_email_by_email">DELETE email FROM cusers WHERE email=$1</string> -->
     <string name="delete_user_additional_email_by_email">DELETE FROM cusers_additional_email WHERE email=$1</string>
@@ -100,9 +101,12 @@
     <string name="update_user_city">UPDATE cusers SET city=$1 WHERE username=$2</string>
     <string name="update_user_birth">UPDATE cusers SET date_of_birth=$1 WHERE username=$2</string>
     <string name="update_user_gender">UPDATE cusers SET gender=$1 WHERE username=$2</string>
+    <string name="update_user_language_by_id">UPDATE cusers SET language=$1 WHERE id=$2</string>
+    
     <string name="update_password_by_username">UPDATE cusers SET password=$1 WHERE username=$2</string>
     <string name="delete_user_birth">UPDATE cusers SET date_of_birth=NULL WHERE username=$1</string>
     <!-- <string name="update_phpbb_user_password_by_username">UPDATE phpbb_users SET user_password=$1 WHERE username=$2</string> -->
+    
     
     <string name="save_catroid_version_info">UPDATE projects SET version_code=$2, version_name=$3 WHERE id=$1</string>
     

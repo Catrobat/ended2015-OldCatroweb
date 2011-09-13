@@ -37,7 +37,8 @@ class login extends CoreAuthenticationNone {
         $this->setRequestURI($_POST['requesturi']);
       }
       if($this->doLogin($_POST)) {
-        $this->statusCode = 200;       
+        $this->statusCode = 200;  
+        $this->setUserLanguage($this->session->userLogin_userId);     
         return true;
       } else {
         $this->statusCode = 500;
@@ -60,6 +61,24 @@ class login extends CoreAuthenticationNone {
     }
     else {
       $this->requesturi = "catroid/index";
+    }
+  }
+  
+  private function setUserLanguage($userid) {
+    try {
+      $query = "EXECUTE get_user_language('$userid')";
+      $result = @pg_query($this->dbConnection, $query);
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+      }
+      $language = pg_fetch_assoc($result);
+      if(strlen($language['language']) > 1) {
+        $this->languageHandler->setLanguageCookie($language['language']);
+      }     
+      return $language['language'];
+    } catch(Exception $e) {
+      $this->answer .= $this->errorHandler->getError('profile', 'language_update_failed', $e->getMessage());
+      return false;
     }
   }
 
@@ -121,7 +140,7 @@ class login extends CoreAuthenticationNone {
     }
 
     $this->statusCode = $statusCode;
-    $this->answer = $answer;
+    $this->answer .= $answer;
 
     if($boardLoginSuccess && $wikiLoginSuccess && $catroidLoginSuccess) {
       return true;
@@ -162,10 +181,9 @@ class login extends CoreAuthenticationNone {
     $user = $postData['loginUsername'];
     $user = utf8_clean_string($postData['loginUsername']);
     $user = trim($user);
-    $pass = md5($postData['loginPassword']);
-    //$pass = md5($password);
-    $query = "EXECUTE get_user_login('$user', '$pass')";
-
+    $md5pass = md5($postData['loginPassword']);
+    
+    $query = "EXECUTE get_user_login('$user', '$md5pass')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -176,6 +194,7 @@ class login extends CoreAuthenticationNone {
       $this->session->userLogin_userId = $user['id'];
       $this->session->userLogin_userNickname = ($user['username']);
     } else {
+      $this->answer .= "CatroidLogin: ";
       throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'));
     }
     return true;
@@ -192,6 +211,7 @@ class login extends CoreAuthenticationNone {
     $user->session_begin();
     $auth->acl($user->data);
     $user->setup();
+    
     $auth->login(trim($postData['loginUsername']), $postData['loginPassword'], false, 1);
     //$auth->login(trim($username), $password, false, 1);
     return($user->data['user_id']);

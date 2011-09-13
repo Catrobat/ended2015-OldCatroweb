@@ -20,7 +20,8 @@
   <script type="text/javascript">
   	$(document).ready(function() {
   	  var languageStringsObject = { 
-          "emailCount" : "<?php echo count($this->userEmailsArray); ?>",
+  	      "emailsArrayDiv" : "<?php echo $this->emailsArrayDiv; ?>",
+          "emailCount" : "<?php echo count($this->emailsArray); ?>",
           "emailDeleteAlertTitle" : "<?php echo $this->languageHandler->getString('alertbox_really_want_to_delete_email'); ?>",
   	      "addNewEmailButtonLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email_button'); ?>",
   	      "addNewEmailLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email'); ?>",
@@ -73,7 +74,7 @@
           		   			<div id="profileEmailTextDiv">
                         <?php 
 
-                          echo $this->emailDiv;
+                          //echo $this->userEmailsArrayDiv;
                         
                         ?>
           		   			</div>
@@ -167,20 +168,29 @@
                       <?php // month 
                         $x = 0;
                         while($x < 13) {
+                          $selected = "";
+                          $monthValue = "value";
+                          $monthString = "";
                           if($x == 0 && !$this->userBirthArray["month_id"]) {
-                            echo '<option value="" selected>'.$this->languageHandler->getString('month').'</option>';
+                            $monthString = $this->languageHandler->getString('month');
+                            $selected = "selected";
                           }
                           else if($x == 0 && $this->userBirthArray["month_id"]) {
-                            echo '<option value="" >'.$this->languageHandler->getString('month').'</option>';
+                            $monthString = $this->languageHandler->getString('month');
                           }
                           else if($x == $this->userBirthArray["month_id"]) {
-                            echo "<option value=\"" . $x . "\" selected>" . $this->months[$x] . "</option>\r";
+                            $selected = "selected";
+                            $monthString = $this->months[$x];
+                            $monthValue = "value=\"" . $x ."\"";
                           }                            
                           else {
-                            echo "<option value=\"" . $x . "\">" . $this->months[$x] . "</option>\r";
+                            $monthString = $this->months[$x];
+                            $monthValue = "value=\"" . $x ."\"";
                           }
-                          $x++;
+                          echo "<option " . $monthValue . " ". $selected .">" . $monthString . "</option>\r";
+                          $x++; 
                         }
+                        
                       ?>
                         </select> 
                         <select id="profileYear" name="profileYear" class="profile" >
@@ -189,18 +199,27 @@
                         $year_down = date('Y') + 1;
                         while($year_up < 101) {
                           $year_down--;
+                          $selected = "";
+                          $yearValue = "";
+                          $yearString = "";
                           if($year_up == 0 && !$this->userBirthArray["year"]) {
-                            echo '<option value="" selected >'.$this->languageHandler->getString('year').'</option>';
+                            $yearValue = "value";
+                            $selected = "selected";
                           }
                           else if($year_up == 0 && $this->userBirthArray["year"]) {
-                            echo '<option value="" >'.$this->languageHandler->getString('year').'</option>';
+                            $yearValue = "value";
+                            $yearString = $this->languageHandler->getString('year');     
                           }
                           else if($year_down == $this->userBirthArray["year"]) {
-                            echo "<option value=\"" . $year_down . "\" selected >" . $year_down . "</option>\r";
+                            $yearValue = "value=\"" . $year_down ."\"";
+                            $yearString = $year_down;
+                            $selected = "selected";
                           }
                           else {
-                            echo "<option value=\"" . $year_down . "\" >" . $year_down . "</option>\r";
+                            $yearValue = "value=\"" . $year_down ."\"";
+                            $yearString = $year_down;
                           }
+                          echo "<option " . $yearValue . " ". $selected .">" . $yearString . "</option>\r";
                           $year_up++;
                         }                     
                       ?>
@@ -299,7 +318,43 @@
                       </div>
                       <br>
             		   	<?php
-                        } // end gender else            		   	
+                        } // end gender else  
+                    ?><!--
+                    
+                      <div id="profileLanguageDiv">
+                        <a href="javascript:;" class="profileText" id="profileChangeLanguageOpen"><?php echo $this->languageHandler->getString('change_language'); ?></a><br>
+                      </div>  
+                      --><div id="profileLanguageDivOpened">
+                        <a href="javascript:;" class="profileText" id="profileChangeLanguageClose"><?php echo $this->languageHandler->getString('select_language')?></a><br>
+
+                        <select id="profileSwitchLanguage" class="profile">
+                    <?php 
+                        $supportedLanguages = getSupportedLanguagesArray($this->languageHandler);
+                          foreach($supportedLanguages as $lang => $details) {
+                            if($details['supported']) {
+                              $selected = "";
+                              if(strcmp($lang, $this->languageHandler->getLanguage()) == 0) {
+                                $selected = "selected ";
+                                $this->languageString = $details['name'];
+                              }
+                    ?>
+                          <option <?php echo $selected?>value="<?php echo $lang?>"><?php echo $details['name'].' - '.$details['nameNative']?></option>
+                    <?php 
+                          }
+                        } 
+                    ?>
+                        </select>
+
+                        <br>
+                      </div>
+                      <div id="profileLanguageTextDiv">
+                        <?php 
+                          echo '<a href="javascript:;" class="profileText" id="profileChangeLanguageOpen">'.$this->languageString.'</a>';
+                        ?>
+                        <br>
+                      </div>
+
+                    <?php  
                       } // end own profile if
                       else { // start public profile
                     ?>

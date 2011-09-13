@@ -54,6 +54,11 @@ public class ProfileTests extends BaseTest {
       assertTrue(isElementPresent(By.id("logoutSubmitButton")));
       driver().findElement(By.id("headerCancelButton")).click();
 
+      driver().findElement(By.id("profileChangeLanguageOpen")).click();
+      (new Select(driver().findElement(By.id("profileSwitchLanguage")))).selectByValue(dataset.get("registrationLanguage"));
+//      Select selectLanguage = new Select(driver().findElement(By.id("profileSwitchLanguage")));
+//      selectLanguage.selectByValue(dataset.get("registrationLanguage"));
+      
       assertTrue(isTextPresent(dataset.get("registrationUsername") + "\'s Profile"));
       assertTrue(isTextPresent("change my password"));
       assertTrue(isTextPresent(dataset.get("registrationEmail")));
@@ -145,21 +150,21 @@ public class ProfileTests extends BaseTest {
       ajaxWait();
       assertTrue(isTextPresent(dataset.get("registrationEmail")));
       
-    driver().findElement(By.id("profileChangeCityOpen")).click();
-    ajaxWait();
-    driver().findElement(By.id("profileCity")).clear();
-    driver().findElement(By.id("profileCity")).sendKeys(dataset.get("changedCity"));
-    driver().findElement(By.id("profileCitySubmit")).click();
-    ajaxWait();
-    assertTrue(isTextPresent(dataset.get("changedCity")));
-    
-    driver().findElement(By.id("profileChangeCityOpen")).click();
-    ajaxWait();
-    driver().findElement(By.id("profileCity")).clear();
-    driver().findElement(By.id("profileCity")).sendKeys(dataset.get("registrationCity"));
-    driver().findElement(By.id("profileCitySubmit")).click();
-    ajaxWait();
-    assertTrue(isTextPresent(dataset.get("registrationCity")));
+      driver().findElement(By.id("profileChangeCityOpen")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileCity")).clear();
+      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("changedCity"));
+      driver().findElement(By.id("profileCitySubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("changedCity")));
+      
+      driver().findElement(By.id("profileChangeCityOpen")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileCity")).clear();
+      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("registrationCity"));
+      driver().findElement(By.id("profileCitySubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("registrationCity")));
     
     
 
@@ -188,7 +193,7 @@ public class ProfileTests extends BaseTest {
       selectYear.selectByValue(dataset.get("changedYearEmpty"));
       driver().findElement(By.id("profileBirthSubmit")).click();
       ajaxWait();
-      assertTrue(isTextPresent("Please select the month and the year of your birthday."));
+      assertTrue(isTextPresent("Please select the month and the year of your birthday"));
       
       selectMonth = new Select(driver().findElement(By.id("profileMonth")));
       selectYear = new Select(driver().findElement(By.id("profileYear")));
@@ -196,7 +201,7 @@ public class ProfileTests extends BaseTest {
       selectYear.selectByValue(dataset.get("changedYear"));
       driver().findElement(By.id("profileBirthSubmit")).click();
       ajaxWait();
-      assertTrue(isTextPresent("Please select the month and the year of your birthday.")); 
+      assertTrue(isTextPresent("Please select the month and the year of your birthday")); 
       
       selectMonth = new Select(driver().findElement(By.id("profileMonth")));
       selectYear = new Select(driver().findElement(By.id("profileYear")));
@@ -356,6 +361,7 @@ public class ProfileTests extends BaseTest {
         put("registrationYear", "1999");
         put("changedGender", "female");
         put("registrationGender", "male");
+        put("registrationLanguage", "en");
       }
     } } };
     return dataArray;
@@ -391,6 +397,7 @@ public class ProfileTests extends BaseTest {
         put("changedYear", "1978");
         put("registrationGender", "male");
         put("changedGender", "female");
+        put("registrationLanguage", "en");
       }
     } } };
     return dataArray;

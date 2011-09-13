@@ -96,22 +96,41 @@ class registration extends CoreAuthenticationNone {
             $wikiUserId = $this->doWikiRegistration($postData);
             $wikiRegistrationSuccess = true;
             $answer .= $this->languageHandler->getString('wiki_success');
-            
-            if($wikiRegistrationSuccess) {
-              try {
-                $this->sendRegistrationEmail($_POST['registrationPassword'], SEND_NOTIFICATION_USER_EMAIL);
-                $sendRegistrationMailSuccess = true;
-              }
-              catch (Exception $e) {
-                $registrationDataValid = false;
-                $answer = $this->errorHandler->getError('registration', 'board_registration_failed', $e->getMessage());
-              }
-            }
           } catch(Exception $e) {
             $registrationDataValid = false;
             $answer = $this->errorHandler->getError('registration', 'wiki_registration_failed', $e->getMessage());
           }
-          if(!$wikiRegistrationSuccess) {
+          if($wikiRegistrationSuccess) {
+            try {
+              $this->sendRegistrationEmail($_POST['registrationPassword'], SEND_NOTIFICATION_USER_EMAIL);
+              $sendRegistrationMailSuccess = true;
+            }
+            catch (Exception $e) {
+              $registrationDataValid = false;
+              $answer = $this->errorHandler->getError('registration', 'send_registration_email_failed', $e->getMessage());
+            }
+            if(!$sendRegistrationMailSuccess) {
+              //undo catroid & board reg
+              try {
+                $this->undoCatroidRegistration($catroidUserId);
+              } catch(Exception $e) {
+                $registrationDataValid = false;
+                $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
+              }
+              try {
+                $this->undoBoardRegistration($boardUserId);
+              } catch(Exception $e) {
+                $registrationDataValid = false;
+                $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
+              }
+              try {
+                $this->undoWikiRegistration($catroidUserId);
+              } catch(Exception $e) {
+                $registrationDataValid = false;
+                $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
+              }
+            }
+          } else {
             //undo catroid & board reg
             try {
               $this->undoCatroidRegistration($catroidUserId);
@@ -161,8 +180,9 @@ class registration extends CoreAuthenticationNone {
     $username = $postData['registrationUsername'];
     $md5user = md5($username);
     $usernameClean = utf8_clean_string($username);
-    $password = md5($postData['registrationPassword']);
-    $authToken = md5($md5user.":".$password);
+    $md5password = md5($postData['registrationPassword']);
+    $authToken = md5($md5user.":".$md5password);
+    //$this->password = $authToken;
 
     $email = $postData['registrationEmail'];
     $ip_registered = $serverData['REMOTE_ADDR'];
@@ -180,8 +200,9 @@ class registration extends CoreAuthenticationNone {
 
     $gender = $postData['registrationGender'];
     $city = $postData['registrationCity'];
+    $language = "en";
 
-    $query = "EXECUTE user_registration('$username', '$usernameClean', '$password', '$email', '$date_of_birth', '$gender', '$country', '$city', '$ip_registered', '$status', '$authToken')";
+    $query = "EXECUTE user_registration('$username', '$usernameClean', '$md5password', '$email', '$date_of_birth', '$gender', '$country', '$city', '$ip_registered', '$status', '$authToken', '$language')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -232,14 +253,13 @@ class registration extends CoreAuthenticationNone {
     }
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-
     $username = $postData['registrationUsername'];
     $username = utf8_clean_string($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
-
     $userToken = md5($username);
     $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
     $hash = md5($hexSalt.'-'.md5($postData['registrationPassword']));
+    //$hash = md5($hexSalt.'-'.$this->password);
     $password = ":B:$hexSalt:$hash";
 
     $query = "INSERT INTO mwuser (user_name, user_token, user_password, user_registration) VALUES ('$username', '$userToken', '$password', now()) RETURNING user_id";
@@ -384,9 +404,8 @@ class registration extends CoreAuthenticationNone {
     if(!preg_match($regEx, $email)) {
       throw new Exception($this->errorHandler->getError('registration', 'email_invalid'));
     }
-
     $query = "EXECUTE get_user_row_by_email('$email')";
-    $result = pg_query($this->dbConnection, $query);
+    $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -466,16 +485,10 @@ class registration extends CoreAuthenticationNone {
       $mailText .=   $this->languageHandler->getString('mail_text_row8') . "\n\n";
       $mailText .=   $this->languageHandler->getString('mail_text_row9') . "\n";
       $mailText .=   "www.catroid.org";
-      if (DEVELOPMENT_MODE)
-        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
-      
+
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
         throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL));
       }
-    }
-    else {
-      if (DEVELOPMENT_MODE)
-        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
     }
     return true;
   }

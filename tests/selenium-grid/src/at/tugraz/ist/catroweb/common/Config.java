@@ -20,7 +20,7 @@ package at.tugraz.ist.catroweb.common;
 
 public class Config {
   public static final boolean REPORTER_LOG_TO_STD_OUT = true;
-  public static final boolean TESTS_SLOW_MODE = false;
+  public static final boolean TESTS_SLOW_MODE = true;
   public static final int TESTS_SLOW_SPEED = 1000;
   public static final String WAIT_FOR_PAGE_TO_LOAD = "30000";
   public static final String TIMEOUT = "60000";
