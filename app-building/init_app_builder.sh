@@ -7,10 +7,8 @@ source_folder=catroid-source
 if [ -d ${source_folder} ]; then
   echo "updating catroid source..."
   echo ""
-  cd ${source_folder}
-  hg revert -a
-  hg pull -u
-  cd ..
+  rm -rf ${source_folder}
+  hg clone -r default https://code.google.com/p/catroid/ ${source_folder}
 else
   echo "getting source and android sdk..."
   echo ""
