@@ -265,7 +265,7 @@ public class DetailsTests extends BaseTest {
       String invalidProject = CommonData.getRandomShortString(10);
       openLocation("catroid/details/" + invalidProject);
       assertRegExp(".*/catroid/errorPage", driver().getCurrentUrl());
-      assertTrue(isTextPresent("No entry was found for the given ID.:"));
+      assertTrue(isTextPresent("No entry was found for the given ID:"));
       assertTrue(isTextPresent("ID: " + invalidProject));
       assertFalse(isElementPresent(By.xpath("//div[@class='detailsFlexDiv']")));
     } catch(AssertionError e) {

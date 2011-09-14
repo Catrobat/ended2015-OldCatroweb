@@ -22,7 +22,7 @@ class registration extends CoreAuthenticationNone {
     parent::__construct();
     if ($this->checkLogin()) {
       // if logged in -> redirect to profile page
-      header("location: /catroid/profile/"); 
+      header("location: ".BASE_PATH."catroid/profile/"); 
       ob_end_flush(); 
     }
     
