@@ -76,7 +76,6 @@
     <string name="get_user_row_by_recovery_hash">SELECT * FROM cusers WHERE recovery_hash=$1 LIMIT 1</string>
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
     <string name="get_user_country_by_username">SELECT country from cusers WHERE username=$1</string>
-    <string name="get_user_email_by_username">SELECT email FROM cusers WHERE username=$1</string>
     <string name="get_user_email_by_email">SELECT email FROM cusers WHERE email=$1</string>
     <string name="get_user_emails_by_id">SELECT u.email FROM cusers u WHERE u.id=$1 UNION SELECT e.email FROM cusers_additional_email e WHERE e.user_id=$1</string>
     <string name="get_country_from_countries">SELECT name, code FROM countries ORDER BY name ASC</string>

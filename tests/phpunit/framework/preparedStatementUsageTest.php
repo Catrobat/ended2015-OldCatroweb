@@ -32,7 +32,7 @@ class preparedStatementUsageTest extends PHPUnit_Framework_TestCase
     $this->setStatements(CORE_BASE_PATH.XML_PATH.'prepared_statements.xml');
   }
 
-  public function testPrepairedStatementUsage() {
+  public function testPreparedStatementUsage() {
     $foundKey = array();
     foreach($this->statements as $key => $value) {
       $foundKey[$key] = false;
@@ -51,6 +51,9 @@ class preparedStatementUsageTest extends PHPUnit_Framework_TestCase
     }
 
     foreach($this->statements as $key => $value) {
+      if(!$foundKey[$key]) {
+        echo $key;
+      }
       $this->assertTrue($foundKey[$key]);
     }
   }
