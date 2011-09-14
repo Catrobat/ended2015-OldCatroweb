@@ -27,6 +27,11 @@ var ProjectDetails = Class.$extend( {
     $("#showQrCodeInfoButton").click($.proxy(this.showQrCodeInfo, this));
     $("#hideQrCodeInfoButton").click($.proxy(this.hideQrCodeInfo, this));
     
+    $("#downloadInfo").toggle(false);
+    $("#hideDownloadInfoButton").toggle(false);
+    $("#showDownloadInfoButton").click($.proxy(this.showDownloadInfo, this));
+    $("#hideDownloadInfoButton").click($.proxy(this.hideDownloadInfo, this));
+      
     $("#reportAsInappropriateDialog").toggle(false);
     $("#reportAsInappropriateAnswer").toggle(false);
     $("#showFullDescriptionButton").click(
@@ -100,6 +105,19 @@ var ProjectDetails = Class.$extend( {
 	  $("#showQrCodeInfoButton").toggle(true);
 	  $("#hideQrCodeInfoButton").toggle(false);
   },
+
+  showDownloadInfo : function() {
+    $("#downloadInfo").toggle(true);
+    $("#showDownloadInfoButton").toggle(false);
+    $("#hideDownloadInfoButton").toggle(true);
+  },
+
+  hideDownloadInfo : function() {
+    $("#downloadInfo").toggle(false);
+    $("#showDownloadInfoButton").toggle(true);
+    $("#hideDownloadInfoButton").toggle(false)
+  },
+
   
   incrementDownloadCounter : function() {
     var id = $("#reportInappropriateProjectId").val();

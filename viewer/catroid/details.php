@@ -71,6 +71,24 @@
                       </div>
                       <div style="clear:both;"></div>
                     </div>
+<?php if(file_exists(CORE_BASE_PATH.PROJECTS_DIRECTORY.$this->project['id'].".apk")) {?>
+                    <div class="detailsDownloadButton">
+                      <button type="button" class="button noborderradius blue medium"><span style="font-weight:bold; font-size:1.5em;">Catroid</span></button><button type="button" class="button noborderradius white medium"><span style="font-weight:bold; font-size:1.5em;">App</span></button>
+                      <button type="button" id="showDownloadInfoButton" class="button noborderradius green medium" style="width:17%;"><span style="font-weight:bold; font-size:1.5em;">?</span></button>
+                      <button type="button" id="hideDownloadInfoButton" class="button noborderradius green medium " style="width:17%;"><span style="font-weight:bold; font-size:1.5em;">?</span></button>
+                      <div class="detailsDownloadInfoText" style="margin:0px;padding:0px;">
+                        <div id="downloadInfo" class="downloadInfo">
+                        <?php 
+                          if (0) {  // TODO if catroid-switch selected ...
+                            echo $this->languageHandler->getString('download_info_catroid');
+                          }
+                          else { 
+                            echo $this->languageHandler->getString('download_info_app');
+                          }
+                        ?></div>
+                      </div>
+                    </div>
+<?php }?>                	
                     <div class="detailsDownloadButton">
                       <a id="downloadProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.download?fname=<?php echo urlencode($this->project['title'])?>">
                         <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
