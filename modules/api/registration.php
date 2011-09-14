@@ -435,7 +435,7 @@ class registration extends CoreAuthenticationNone {
 
   public function checkCountry($country) {
     $country = strtoupper($country);
-    if ($country == "undef") {
+    if($country == "UNDEF") {
       return true;
     } elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
       return true;

@@ -201,128 +201,128 @@ class registrationTest extends PHPUnit_Framework_TestCase
   /* *** DATA PROVIDERS *** */
   public function validUsernames() {
     $dataArray = array(
-    array('unittest'),
-    array('unittes\t'),
-    array('UniTTesT'),
-    array('Unittest'),
-    array('0123unItEst234'),
-    array('9765786'),
-    array('0123'),
-    array('unit.te..st'),
-    array('中國'),
-    array('1'),
-    array('ÜgümEnimem')
+      array('unittest'),
+      array('unittes\t'),
+      array('UniTTesT'),
+      array('Unittest'),
+      array('0123unItEst234'),
+      array('9765786'),
+      array('0123'),
+      array('unit.te..st'),
+      array('中國'),
+      array('1'),
+      array('ÜgümEnimem')
     );
     return $dataArray;
   }
 
   public function invalidUsernames() {
     $dataArray = array(
-    array('catroweb'),  //existing username
-    array('Catroweb'),  //all mixed case forms of existing username should also be invalid
-    array('cAtRoWeB'),  //all mixed case forms of existing username should also be invalid
-    array('CATROWEB'),  //all mixed case forms of existing username should also be invalid
-    array('catroweB'),  //all mixed case forms of existing username should also be invalid
-    array(''),  //empty username
-    array('0'),  //zero as username is not allowed
-    array('t[ob]i'),  // squared braces not allowed (because of wiki)
-    array('{ubi}'),  // curly braces not allowed (because of wiki)
-    array('h|ol|y'), // vertical bars not allowed (because of wiki)
-    array('#1'), // hash sign not allowed (because of wiki)
-    array('unit_test'), // underscores not allowed (because of wiki)
-    array('unit test'),
-    array(' unittest'),
-    array('unittest '),
-    array('<i>'), // <> not allowed (because of wiki)
-    array('shit'), // its a messword
-    array('admin'), // not allowed because nick is in blacklist
-    array('caTRoid'), // not allowed because nick is in blacklist
-    array('kittyroiD '), // not allowed because nick is in blacklist
-    array('129.0.12.123') //IP address style (because of wiki)
+      array('catroweb'),  //existing username
+      array('Catroweb'),  //all mixed case forms of existing username should also be invalid
+      array('cAtRoWeB'),  //all mixed case forms of existing username should also be invalid
+      array('CATROWEB'),  //all mixed case forms of existing username should also be invalid
+      array('catroweB'),  //all mixed case forms of existing username should also be invalid
+      array(''),  //empty username
+      array('0'),  //zero as username is not allowed
+      array('t[ob]i'),  // squared braces not allowed (because of wiki)
+      array('{ubi}'),  // curly braces not allowed (because of wiki)
+      array('h|ol|y'), // vertical bars not allowed (because of wiki)
+      array('#1'), // hash sign not allowed (because of wiki)
+      array('unit_test'), // underscores not allowed (because of wiki)
+      array('unit test'),
+      array(' unittest'),
+      array('unittest '),
+      array('<i>'), // <> not allowed (because of wiki)
+      array('shit'), // its a messword
+      array('admin'), // not allowed because nick is in blacklist
+      array('caTRoid'), // not allowed because nick is in blacklist
+      array('kittyroiD '), // not allowed because nick is in blacklist
+      array('129.0.12.123') //IP address style (because of wiki)
     );
     return $dataArray;
   }
 
   public function validEmails() {
     $dataArray = array(
-    array('a@domain.com'),
-    array('a.a@domain.com'),
-    array('a-5@domain.com'),
-    array('a@s5.domain.com'),
-    array('a@s-5.domain.com'),
-    array('a@s.5.domain.com'),
-    array('a@sub.domain-5.com'),
-    array('abc_12345@test.com')
+      array('a@domain.com'),
+      array('a.a@domain.com'),
+      array('a-5@domain.com'),
+      array('a@s5.domain.com'),
+      array('a@s-5.domain.com'),
+      array('a@s.5.domain.com'),
+      array('a@sub.domain-5.com'),
+      array('abc_12345@test.com')
     );
     return $dataArray;
   }
 
   public function invalidEmails() {
     $dataArray = array(
-    array(''),
-    array('webmaster@catroid.org'),
-    array('domain.com'),
-    array('aaa@domain'),
-    array('@domain.com'),
-    array('@domain.com'),
-    array('.a@domain.com'),
-    array('-a@domain.com'),
-    array('a.@domain.com'),
-    array('a-@domain.com'),
-    array('a@.com'),
-    array('a@Ã¤.com'),
-    array('a@.domain.com'),
-    array('a@-domain.com'),
-    array('a@domain..com'),
-    array('a@domain-.com'),
-    array('a@domain.'),
-    array('a@domain. '),
-    array('a@domain.5'),
-    array('a@domain.c.m'),
-    array('a@domain.c-m'),
-    array('a@domain.c5m'),
-    array('special_char_Ã¤Ã¶Ã¼@sub.domÃ„in-5.com')
+      array(''),
+      array('webmaster@catroid.org'),
+      array('domain.com'),
+      array('aaa@domain'),
+      array('@domain.com'),
+      array('@domain.com'),
+      array('.a@domain.com'),
+      array('-a@domain.com'),
+      array('a.@domain.com'),
+      array('a-@domain.com'),
+      array('a@.com'),
+      array('a@Ã¤.com'),
+      array('a@.domain.com'),
+      array('a@-domain.com'),
+      array('a@domain..com'),
+      array('a@domain-.com'),
+      array('a@domain.'),
+      array('a@domain. '),
+      array('a@domain.5'),
+      array('a@domain.c.m'),
+      array('a@domain.c-m'),
+      array('a@domain.c5m'),
+      array('special_char_Ã¤Ã¶Ã¼@sub.domÃ„in-5.com')
     );
     return $dataArray;
   }
   
   public function validPasswords() {
     $dataArray = array(
-    array('mynickname', 'mypassword'),
-    array('mynickname', 'myPassWorD'),
-    array('mynickname', '89277823409'),
-    array('mynickname', '012345'),
-    array('mynickname', 'abcdef'),
-    array('mynickname', 'Äjkasdkfäadfäppöü'),
-    array('mynickname', '______')
+      array('mynickname', 'mypassword'),
+      array('mynickname', 'myPassWorD'),
+      array('mynickname', '89277823409'),
+      array('mynickname', '012345'),
+      array('mynickname', 'abcdef'),
+      array('mynickname', 'Äjkasdkfäadfäppöü'),
+      array('mynickname', '______')
     );
     return $dataArray;
   }
 
   public function invalidPasswords() {
     $dataArray = array(
-    array('short', 'okpassword'),
-    array('longmypasswordmypasmypasswordmypasmypasswordmypasmypasswordmypasmypassword','okpassword'),
-    array('0', '000'),
-    array('', ''),
-    array('mynickname', 'mynickname') // passwords must not be equal to uernames
+      array('short', 'okpassword'),
+      array('longmypasswordmypasmypasswordmypasmypasswordmypasmypasswordmypasmypassword','okpassword'),
+      array('0', '000'),
+      array('', ''),
+      array('mynickname', 'mynickname') // passwords must not be equal to uernames
     );
     return $dataArray;
   }
 
   public function validGender() {
     $dataArray = array(
-    array('male'),
-    array('female'),
+      array('male'),
+      array('female')
     );
     return $dataArray;
   }
 
   public function invalidGender() {
     $dataArray = array(
-    array(''),
-    array('0'),
-    array('some-gender'),
+      array(''),
+      array('0'),
+      array('some-gender')
     );
     return $dataArray;
   }
@@ -368,56 +368,59 @@ class registrationTest extends PHPUnit_Framework_TestCase
 
   public function validCountry() {
     $dataArray = array(
-    array('AT'),
-    array('DE'),
-    array('US'),
-    array('GB'),
-    array('undef'),
+      array('AT'),
+      array('DE'),
+      array('US'),
+      array('GB'),
+      array('undef')
     );
     return $dataArray;
   }
 
   public function invalidCountry() {
     $dataArray = array(
-    array('ATX'),
-    array('DAX'),
-    array('U'),
-    array('A0'),
-    array('AA '),
-    array('undefined'),
-    array('  '),
-    array('0A'),
-    array(''),
-    array('0'),
-    array('-'),
-    array('undefined'),
+      array('ATX'),
+      array('DAX'),
+      array('U'),
+      array('A0'),
+      array('AA '),
+      array('undefined'),
+      array('  '),
+      array('0A'),
+      array(''),
+      array('0'),
+      array('-'),
+      array('undefined')
     );
     return $dataArray;
   }
   
   public function validRegistrationData() {
     $dataArray = array(
-    array(
-    array('registrationUsername'=>'myUnitTest', 'registrationPassword'=>'myPassword123',
-    	    'registrationPasswordRepeat'=>'myPassword123', 'registrationEmail'=>'unittest@unit.test',
-    		'registrationGender'=>'male', 'registrationMonth'=>'1', 'registrationYear'=>'1980',
-    		'registrationCountry'=>'AT', 'registrationProvince'=>'Steiermark', 'registrationCity'=>'Graz',
-            'registrationSubmit'=>'submit'),
-    array('REMOTE_ADDR'=>'127.0.0.1')),
-    array(
-    array('registrationUsername'=>'myÃœnitTÃ„ÃŸt', 'registrationPassword'=>'mySpeÂ§Â§ialChÃ„rPaÃŸÃŸword!!',
-    	    'registrationPasswordRepeat'=>'mySpeÂ§Â§ialChÃ„rPaÃŸÃŸword!!', 'registrationEmail'=>'_123unit@test.test',
-    		'registrationGender'=>'female', 'registrationMonth'=>'2', 'registrationYear'=>'1987',
-    		'registrationCountry'=>'AT', 'registrationProvince'=>'KÃ¤rnten', 'registrationCity'=>'Villach',
-    'registrationSubmit'=>'submit'),
-    array('REMOTE_ADDR'=>'127.0.0.1')),
-    array(
-    array('registrationUsername'=>'1234567', 'registrationPassword'=>'__bla__',
-    	    'registrationPasswordRepeat'=>'__bla__', 'registrationEmail'=>'unit2test@unit.at',
-    		'registrationGender'=>'male', 'registrationMonth'=>'3', 'registrationYear'=>'1989',
-    		'registrationCountry'=>'DE', 'registrationProvince'=>'Bayern', 'registrationCity'=>'MÃ¼nchen',
-    'registrationSubmit'=>'submit'),
-    array('REMOTE_ADDR'=>'127.0.0.1'))
+      array(
+        array('registrationUsername'=>'myUnitTest', 'registrationPassword'=>'myPassword123',
+              'registrationPasswordRepeat'=>'myPassword123', 'registrationEmail'=>'unittest@unit.test',
+              'registrationGender'=>'male', 'registrationMonth'=>'1', 'registrationYear'=>'1980',
+              'registrationCountry'=>'AT', 'registrationProvince'=>'Steiermark', 'registrationCity'=>'Graz',
+              'registrationSubmit'=>'submit'),
+        array('REMOTE_ADDR'=>'127.0.0.1')
+      ),
+      array(
+        array('registrationUsername'=>'myÃœnitTÃ„ÃŸt', 'registrationPassword'=>'mySpeÂ§Â§ialChÃ„rPaÃŸÃŸword!!',
+              'registrationPasswordRepeat'=>'mySpeÂ§Â§ialChÃ„rPaÃŸÃŸword!!', 'registrationEmail'=>'_123unit@test.test',
+              'registrationGender'=>'female', 'registrationMonth'=>'2', 'registrationYear'=>'1987',
+              'registrationCountry'=>'AT', 'registrationProvince'=>'KÃ¤rnten', 'registrationCity'=>'Villach',
+              'registrationSubmit'=>'submit'),
+        array('REMOTE_ADDR'=>'127.0.0.1')
+      ),
+      array(
+        array('registrationUsername'=>'1234567', 'registrationPassword'=>'__bla__',
+    	        'registrationPasswordRepeat'=>'__bla__', 'registrationEmail'=>'unit2test@unit.at',
+              'registrationGender'=>'male', 'registrationMonth'=>'3', 'registrationYear'=>'1989',
+              'registrationCountry'=>'DE', 'registrationProvince'=>'Bayern', 'registrationCity'=>'MÃ¼nchen',
+              'registrationSubmit'=>'submit'),
+        array('REMOTE_ADDR'=>'127.0.0.1')
+      )
     );
     return $dataArray;
   }
