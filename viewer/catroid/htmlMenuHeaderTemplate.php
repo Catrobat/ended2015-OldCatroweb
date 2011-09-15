@@ -20,7 +20,6 @@
     <script type="text/javascript">
       $(document).ready(function() {
         new HeaderMenu();
-
         new Menu(<?php echo "'".$this->module->session->userLogin_userId."'"; ?>);
       });
     </script>
@@ -50,10 +49,7 @@
           </div>
           <div style="clear:both;"></div>
         </div>
-      </div>
+      </div> <!-- login headerProfileBox starts here! -->
+<?php require_once('loginbox.php'); ?>
 
-<!-- login headerProfileBox here! -->
-    <?php 
-      require_once('loginbox.php');
-    ?>
     </div> <!--  WEBMAINTOP -->

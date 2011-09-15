@@ -40,5 +40,6 @@
   <string name="male">male</string>
   <string name="create">Create my account</string>
   <string name="login">Login</string>
+  <string name="or">or</string>
   <string name="password_recover">click here if you forgot your password</string>
 </strings>

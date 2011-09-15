@@ -22,27 +22,27 @@ class registration extends CoreAuthenticationNone {
     parent::__construct();
     if ($this->checkLogin()) {
       // if logged in -> redirect to profile page
-      header("location: ".BASE_PATH."catroid/profile/"); 
-      ob_end_flush(); 
+      header("location: ".BASE_PATH."catroid/profile/");
+      ob_end_flush();
     }
-    
+
     $this->addCss('registration.css');
     $this->addJs('registration.js');
     $this->initRegistration();
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
-    
+
   }
 
   public function __default() {
   }
-  
+
   public function checkLogin() {
     if (($this->session->userLogin_userNickname != "")) {
       return true;
     }
     return false;
   }
-  
+
   public function initRegistration() {
     $answer = '';
     try {
@@ -85,8 +85,44 @@ class registration extends CoreAuthenticationNone {
     }
     $this->countryCodeList = $countryCodeList;
     $this->countryNameList = $countryNameList;
+    $this->countryCodeListHTML = $this->generateCountryCodeList();
+    $this->monthListHTML = $this->generateMonthList();
+    $this->yearListHTML = $this->generateYearList();
   }
 
+  private function generateCountryCodeList() {
+    $whiteSpace="                        ";
+    $optionList = $whiteSpace . "<option value=\"\" selected=\"selected\">" . $this->languageHandler->getString('select_country') . "</option>\r\n";
+    $numOfCountries = count($this->countryCodeList)+1;
+
+    for($i=1; $i<$numOfCountries; $i++) {
+      $optionList .= $whiteSpace . "<option value=\"" . $this->countryCodeList[$i] . "\">" . $this->countryNameList[$i] . "</option>\r\n";
+    }
+    return $optionList;
+  }
+  
+  private function generateMonthList() {
+    $whiteSpace="                        ";
+    $optionList = $whiteSpace . "<option value=\"\" selected=\"selected\">" . $this->languageHandler->getString('select_month') . "</option>\r\n";
+
+    for($i=1; $i<13; $i++) {
+      $optionList .= $whiteSpace . "<option value=\"" . $i . "\">" . $this->months[$i] . "</option>\r\n";
+    }
+    return $optionList;
+  }
+
+  private function generateYearList() {
+    $whiteSpace="                        ";
+    $optionList = $whiteSpace . "<option value=\"\" selected=\"selected\">" . $this->languageHandler->getString('select_year') . "</option>\r\n";
+
+    $year = date('Y') + 1;
+    for($i=1; $i<101; $i++) {
+      $year--;
+      $optionList .= $whiteSpace . "<option value=\"" . $year . "\">" . $year . "</option>\r\n";
+    }
+    return $optionList;
+  }
+  
   public function __destruct() {
     parent::__destruct();
   }

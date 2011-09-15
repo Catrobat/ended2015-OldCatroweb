@@ -25,21 +25,21 @@
               <div class="menuListElementRow">
                 <button id="menuProfileButton" type="button" class="menuElementButton button green medium" title="Profile">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('profile')?>
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('profile')?> 
                   </span>
                 </button>
               </div>
               <div class="menuListElementRow">
                 <button id="menuForumButton" type="button" class="menuElementButton button blue medium" title="Forum">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_forum.png" alt="Forum" /><br /><?php echo $this->languageHandler->getString('forum')?>
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_forum.png" alt="Forum" /><br /><?php echo $this->languageHandler->getString('forum')?> 
                   </span>
                 </button>
               </div>
               <div class="menuListElementRow">
                 <button id="menuWikiButton" type="button" class="menuElementButton button darkorange medium" title="Wiki">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_wiki.png" alt="Wiki" /><br /><?php echo $this->languageHandler->getString('wiki')?>
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_wiki.png" alt="Wiki" /><br /><?php echo $this->languageHandler->getString('wiki')?> 
                   </span>
                 </button>
               </div>              
@@ -50,21 +50,21 @@
               <div class="menuListElementRow">
                 <button id="menuLoginButton" type="button" class="menuElementButton button green medium" title="Login">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Log in now" /><br /><?php echo $this->languageHandler->getString('login')?>
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Log in now" /><br /><?php echo $this->languageHandler->getString('login')?> 
                   </span>
                 </button>
               </div>
               <div class="menuListElementRow">
                 <button id="menuRegistrationButton" type="button" class="menuElementButton button red medium" title="Registration">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('sign_up')?>
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('sign_up')?> 
                   </span>
                 </button>
               </div>
               <div class="menuListElementRow">
                 <button id="menuPasswordRecoveryButton" type="button" class="menuElementButton button cyan medium" title="Password Recovery">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Password Recovery" /><br /><?php echo $this->languageHandler->getString('problem')?>
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Password Recovery" /><br /><?php echo $this->languageHandler->getString('problem')?> 
                   </span>
                 </button>
               </div>  
@@ -75,14 +75,14 @@
               <div class="menuListElementRow">
                 <button id="menuWallButton" type="button" class="menuElementButton button green medium" title="Wall">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_wall.png" alt="Wall" /><br /><?php echo $this->languageHandler->getString('wall')?>
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_wall.png" alt="Wall" /><br /><?php echo $this->languageHandler->getString('wall')?> 
                   </span>
                 </button>
               </div>
               <div class="menuListElementRow">
                 <button id="menuSettingsButton" type="button" class="menuElementButton button rosy medium" title="Settings">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_settings.png" alt="Settings" /><br /><?php echo $this->languageHandler->getString('settings')?>
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_settings.png" alt="Settings" /><br /><?php echo $this->languageHandler->getString('settings')?> 
                   </span>
                 </button>
               </div>

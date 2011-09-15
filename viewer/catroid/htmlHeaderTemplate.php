@@ -20,7 +20,6 @@
     <script type="text/javascript">
       $(document).ready(function() {        
         new HeaderMenu();
-
       });
     </script>
     <div class="webMainTop">
@@ -33,9 +32,9 @@
           </div>
           <div class="webHeadTitle">
             <div class="webHeadTitleName">
-                <a class="noLink" id="aIndexWebLogoMiddle" href="catroid/index">
-                  <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering.png" alt="catroid [beta]" />
-                </a>			      			
+              <a class="noLink" id="aIndexWebLogoMiddle" href="catroid/index">
+                <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering.png" alt="catroid [beta]" />
+              </a>			      			
             </div>
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">
@@ -50,9 +49,6 @@
           </div>
           <div style="clear:both;"></div>
         </div>
-      </div>
-<!-- login headerProfileBox here! -->
-    <?php 
-      require_once('loginbox.php');
-    ?>  
+      </div> <!-- login headerProfileBox starts here! -->
+<?php require_once('loginbox.php'); ?>  
     </div> <!--  WEBMAINTOP -->
