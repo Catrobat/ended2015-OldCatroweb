@@ -55,17 +55,18 @@
           <div class="webMainHead">
             <form id="searchForm">
               <div class="headerSearchBoxRight" >
-              <?php if($this->module->clientDetection->isMobile()) {?>
-                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="<?php echo $this->languageHandler->getString('template_header_search_for_projects')?>" autofocus  /><br>             
+<?php if($this->module->clientDetection->isMobile()) {?>
+                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="<?php echo $this->languageHandler->getString('template_header_search_for_projects')?>" autofocus="autofocus" /><br/>             
                 <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="<?php echo $this->languageHandler->getString('template_header_search')?>" />
-              <?php } else {?>
-                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="<?php echo $this->languageHandler->getString('template_header_search_for_projects')?>" autofocus  />             
+<?php } else {?>
+                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="<?php echo $this->languageHandler->getString('template_header_search_for_projects')?>" autofocus="autofocus" />             
                 <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="<?php echo $this->languageHandler->getString('template_header_search')?>" />
-              <?php }?>
+<?php }?>
               </div>
             </form>
           </div>
         </div>
       </div> <!-- login headerProfileBox starts here! -->
 <?php require_once('loginbox.php'); ?>
+
     </div> <!--  WEBMAINTOP -->

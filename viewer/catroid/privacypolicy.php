@@ -17,33 +17,25 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-  	<div class="webMainMiddle">
-  		<div class="blueBoxMain">
-  		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
-                <div class="licenseMain">            	
-            	  <div class ="whiteBoxMain">
-            	    <div class="licenseText">
-            	      <p class="licenseText">            	          
-						<?php echo $this->languageHandler->getString('privacy_policy_intro')?>
-						<br><br>
-						<span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_using_software_head')?></span>
-						<br><br>
-						<?php echo $this->languageHandler->getString('privacy_policy_using_software')?>
-						<br><br>
-						<span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_using_website_head')?></span>
-						<br><br>
-						<?php echo $this->languageHandler->getString('privacy_policy_using_website')?>
-						<br><br>
-						<span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_contact_head')?></span>
-						<br><br>
-						<?php echo $this->languageHandler->getString('privacy_policy_contact', 
-						  '<a class="license" href="'.BASE_PATH.'catroid/contactus">'.$this->languageHandler->getString('privacy_policy_contact_link').'</a>')?>
-					  </p>
-                   </div> <!-- License Text -->
-                   </div> <!--  White Box -->            	
-            	</div> <!--  license Main -->
-  		   		
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>
+    <div class="webMainMiddle">
+      <div class="blueBoxMain">
+        <div class="webMainContent">
+          <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
+          <div class="licenseMain">            	
+            <div class ="whiteBoxMain">
+              <div class="licenseText">
+                <p class="licenseText">
+                  <?php echo $this->languageHandler->getString('privacy_policy_intro')?> 
+                  <br/><br/><span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_using_software_head')?></span><br/><br/>
+                  <?php echo $this->languageHandler->getString('privacy_policy_using_software')?> 
+                  <br/><br/><span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_using_website_head')?></span><br/><br/>
+                  <?php echo $this->languageHandler->getString('privacy_policy_using_website')?> 
+                  <br/><br/><span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_contact_head')?></span><br/><br/>
+                  <?php echo $this->languageHandler->getString('privacy_policy_contact', '<a class="license" href="'.BASE_PATH.'catroid/contactus">'.$this->languageHandler->getString('privacy_policy_contact_link').'</a>')?> 
+                </p>
+              </div> <!-- License Text -->
+            </div> <!--  White Box -->            	
+          </div> <!--  license Main -->
+        </div> <!-- mainContent close //-->
+      </div> <!-- blueBoxMain close //-->
+    </div>

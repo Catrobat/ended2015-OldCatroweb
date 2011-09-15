@@ -17,32 +17,30 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-
-  <div class="webMainMiddle">
-  		<div class="blueBoxMain">
-  		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
-                <div class="licenseMain">            	
-            	  <div class ="whiteBoxMain">
-            	    <div class="imprintText">
-            	      <p class="licenseText">
-            	        <?php echo $this->languageHandler->getString('development_text', '<br><a href="http://www.ist.tugraz.at" target="_blank">'
-            	                  .$this->languageHandler->getString('institute_for_software_technology').'</a><br>')?>
-            	        <br><br>            	                 	     
-            	        <span class="licenseHeader"><?php echo $this->languageHandler->getString('address')?></span><br>
-            	        <?php echo $this->languageHandler->getString('institute_for_software_technology')?><br>
-            	        <?php echo $this->languageHandler->getString('graz_university_of_technology')?><br>
-            	        <?php echo $this->languageHandler->getString('address_street')?><br>
-            	        <?php echo $this->languageHandler->getString('address_city')?><br>
-            	        <?php echo $this->languageHandler->getString('address_country')?>
-            	        <br><br>
-            	        <span class="imprintHeader"><?php echo $this->languageHandler->getString('contact')?></span><br>
-            	        <?php echo $this->languageHandler->getString('contact_text', CONTACT_EMAIL)?>
-            	      </p>
-                    </div> <!-- imprintText -->
-                  </div> <!--  whiteBoxMain -->            	
-            	</div> <!--  licenseMain -->
-  		   		
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>  
+    <div class="webMainMiddle">
+      <div class="blueBoxMain">
+        <div class="webMainContent">
+          <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
+          <div class="licenseMain">            	
+            <div class ="whiteBoxMain">
+              <div class="imprintText">
+                <p class="licenseText">
+                  <?php echo $this->languageHandler->getString('development_text', '<br><a href="http://www.ist.tugraz.at" target="_blank">'
+                    .$this->languageHandler->getString('institute_for_software_technology').'</a><br>')?> 
+                  <br/><br/>            	                 	     
+                  <span class="licenseHeader"><?php echo $this->languageHandler->getString('address')?></span><br/>
+                  <?php echo $this->languageHandler->getString('institute_for_software_technology')?><br/>
+                  <?php echo $this->languageHandler->getString('graz_university_of_technology')?><br/>
+                  <?php echo $this->languageHandler->getString('address_street')?><br/>
+                  <?php echo $this->languageHandler->getString('address_city')?><br/>
+                  <?php echo $this->languageHandler->getString('address_country')?>
+                  <br/><br/>
+                  <span class="imprintHeader"><?php echo $this->languageHandler->getString('contact')?></span><br/>
+                  <?php echo $this->languageHandler->getString('contact_text', CONTACT_EMAIL)?> 
+                </p>
+              </div> <!-- imprintText -->
+            </div> <!--  whiteBoxMain -->            	
+          </div> <!--  licenseMain -->
+        </div> <!-- mainContent close //-->
+      </div> <!-- blueBoxMain close //-->
+    </div>  
