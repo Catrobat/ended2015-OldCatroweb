@@ -38,31 +38,27 @@
                     <div id="loginOk">
                       <br/><input type="submit" id="loginOkForwardSubmit" name="loginOkForwardSubmit" value="<?php echo $this->languageHandler->getString('login_ok_submit')?>" class="button orange compact passwordRecoverySubmitButton" />
                     </div>
-<?php if(isset($_GET['c'])) { ?>
-<?php   if($this->showForm == 1) { ?>
+<?php if($this->action == "default") { ?>
+                    <div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('enter_userdata')?></div>
+                    <input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>"/><br/><br/>
+                    <input type="button" id="passwordRecoverySendLink" name="passwordRecoverySendLink" value="<?php echo $this->languageHandler->getString('send_link')?>" class="button orange compact passwordRecoverySubmitButton"/><br/><br/>
+<?php }
+      if($this->action == "showPasswordChangeForm") { ?>
                     <div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('headline')?></div>
                     <input type="hidden" id="passwordRecoveryHash" name="passwordRecoveryHash" value="<?php echo htmlentities($_GET['c']); ?>"/>
                     <input type="text" id="passwordSavePassword" name="passwordSavePassword"/><br/>
-                    <input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="<?php echo $this->languageHandler->getString('change_password')?>" class="button orange compact passwordRecoverySubmitButton"/><br/> 
-<?php   } else if($this->showForm == 2) { ?>
-                    <div class="errorMsg"><?php echo $this->languageHandler->getString('expired_url')?></div>
-                    <br/><input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="<?php echo $this->languageHandler->getString('next')?>" class="button orange compact passwordRecoverySubmitButton"/><br/>
-<?php   }?>
-<?php } else if(isset($_POST['passwordSaveSubmit'])) { ?>
-<?php   if($this->showForm == 1) { ?>
+                    <input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="<?php echo $this->languageHandler->getString('change_password')?>" class="button orange compact passwordRecoverySubmitButton"/><br/>
+<?php }
+      if($this->action == "showPasswordSaved") { ?>
                     <div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('headline')?></div>
                     <input type="hidden" id="c" name="c" value="<?php echo htmlentities($_POST['c']); ?>"/>
                     <input type="text" id="passwordSavePassword" name="passwordSavePassword"/><br/><br/>
                     <input type="button" id="passwordSaveSubmit" name="passwordSaveSubmit" value="<?php echo $this->languageHandler->getString('change_password')?>" class="button orange compact passwordRecoverySubmitButton"/><br/>
-<?php   } else if($this->showForm == 2) { ?>
+<?php }
+      if($this->action == "passwordUrlExpired") { ?>
                     <div class="errorMsg"><?php echo $this->languageHandler->getString('expired_url')?></div>
                     <br/><input type="submit" id="passwordNextSubmit" name="passwordNextSubmit" value="<?php echo $this->languageHandler->getString('next')?>" class="button orange compact passwordRecoverySubmitButton"/><br/>
-<?php   }?>
-<?php } else { ?>
-                    <div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('enter_userdata')?></div>
-                    <input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>"/><br/><br/>
-                    <input type="button" id="passwordRecoverySendLink" name="passwordRecoverySendLink" value="<?php echo $this->languageHandler->getString('send_link')?>" class="button orange compact passwordRecoverySubmitButton"/><br/><br/>
-<?php } ?>
+<?php }?>
                     <div class="passwordRecoveryHelper"><a id="passwordRecoveryLogin" href="javascript:;"><?php echo $this->languageHandler->getString('login')?></a> <br>or<br><a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration"><?php echo $this->languageHandler->getString('new_account')?></a></div>
                   </div> <!-- loginFormContainer -->
                 </div> <!-- login Text -->

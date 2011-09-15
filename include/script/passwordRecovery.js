@@ -30,7 +30,7 @@ var PasswordRecovery = Class.$extend( {
     $("#errorMsg").toggle(false);
     $("#okMsg").toggle(false);
     $("#passwordRecoveryFormAnswer").toggle(false);
-
+    
     $("#passwordRecoverySendLink").click(
       $.proxy(this.passwordRecoverySendLink, this));
     $("#passwordRecoveryUserdata").keypress(
@@ -212,11 +212,10 @@ var PasswordRecovery = Class.$extend( {
     location.href = this.basePath+"catroid/profile";
   },
   
-  
   passwordRecoveryUserdataCatchKeypress : function(event) {
     if(event.which == '13') {
       event.preventDefault();
-      this.passwordRecoverySubmit();
+      this.passwordRecoverySendLink();
     }
   },
   
