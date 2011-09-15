@@ -33,7 +33,6 @@ class details extends CoreAuthenticationNone {
     $this->addJs('projectDetails.js');
 
     $this->isMobile = $this->clientDetection->isMobile();
-    $this->isMobile= false;
   }
 
   public function __default() {
