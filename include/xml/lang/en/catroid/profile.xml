@@ -20,15 +20,15 @@
 <strings>
   <string name="title">{*nickname*}'s Profile</string>
   <string name="password">change my password</string>
-  <string name="old_password">enter your old password</string>
-  <string name="new_password">enter your new password</string>
+  <string name="old_password">my old password</string>
+  <string name="new_password">my new password</string>
   <string name="email">change this e-mail address</string>
   <string name="add_email_field_button">add a new e-mail address</string>
   <string name="cancel_button">Cancel</string>
   <string name="delete_email">delete my e-mail address</string>
   <string name="email_delete_success">You deleted your e-mail address successfully.</string>
   <string name="alertbox_really_want_to_delete_email">Do you really want to delete this e-mail address?</string>
-  <string name="new_email">enter new e-mail address</string>
+  <string name="new_email">new e-mail address</string>
   <string name="save_button">save my changes</string>
   <string name="add_new_email_button">save my new e-mail address</string>
   <string name="from">from</string>
@@ -38,7 +38,7 @@
   <string name="select_country">select your country</string>
   <string name="change_city">change my hometown</string>
   <string name="add_city">add my hometown</string>
-  <string name="enter_city">enter your hometown</string>
+  <string name="enter_city">my hometown</string>
   <string name="city">enter hometown</string>
   <string name="change_birth">change my birthday</string>
   <string name="select_birth_year_month">select month and year of your birthday</string>

@@ -77,8 +77,8 @@ class profile extends CoreAuthenticationUser {
         case 'change':
           if($this->doChangeEmailAddress($this->session->userLogin_userNickname, $postData['profileNewEmail'], $postData['profileOldEmail'])) {
             $this->statusCode = 200;
-            $this->emailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
-            $this->emailsArrayDiv = $this->emailsArrayToHTMLDiv($this->emailsArray);
+            $this->emailArray = $this->getUserEmailArray($this->session->userLogin_userId);
+            $this->emailArrayDiv = $this->generateEmailHTMLDiv($this->emailArray);
             $this->answer_ok .= $this->languageHandler->getString('email_change_successful');
             return true;
           }
@@ -90,8 +90,8 @@ class profile extends CoreAuthenticationUser {
         case 'add':
           if($this->doAddEmailAddress($this->session->userLogin_userNickname, $postData['profileNewEmail'])) {
             $this->statusCode = 200;
-            $this->emailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
-            $this->emailsArrayDiv = $this->emailsArrayToHTMLDiv($this->emailsArray);
+            $this->emailArray = $this->getUserEmailArray($this->session->userLogin_userId);
+            $this->emailArrayDiv = $this->generateEmailHTMLDiv($this->emailArray);
             $this->answer_ok .= $this->languageHandler->getString('email_add_successful');
             return true;
           }
@@ -103,8 +103,8 @@ class profile extends CoreAuthenticationUser {
         case 'delete':
           if($this->doDeleteEmailAddress($this->session->userLogin_userNickname, $postData['profileEmail'])) {
             $this->statusCode = 200;
-            $this->emailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
-            $this->emailsArrayDiv = $this->emailsArrayToHTMLDiv($this->emailsArray);
+            $this->emailArray = $this->getUserEmailArray($this->session->userLogin_userId);
+            $this->emailArrayDiv = $this->generateEmailHTMLDiv($this->emailArray);
             $this->answer_ok .= $this->languageHandler->getString('email_delete_success');
             return true;
           }
@@ -118,8 +118,8 @@ class profile extends CoreAuthenticationUser {
     }
   }
   
-  public function profileGetUserEmailsArrayRequestQuery() {
-      $this->userEmailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
+  public function profileGetUserEmailArrayRequestQuery() {
+      $this->userEmailArray = $this->getUserEmailArray($this->session->userLogin_userId);
   }
 
   public function profileCountryRequestQuery() {
@@ -215,7 +215,7 @@ class profile extends CoreAuthenticationUser {
     try {
       $this->checkEmail($email);
       $user_id = $this->session->userLogin_userId;
-      $user_emails = $this->getUserEmailsArray($user_id);
+      $user_emails = $this->getUserEmailArray($user_id);
       $x = 0;
       while($x<count($user_emails)) {
         if(strcmp($email, $user_emails[$x]) == 0) {
@@ -249,7 +249,7 @@ class profile extends CoreAuthenticationUser {
     $delete_email = true;
     $user_id = $this->session->userLogin_userId;
     if($user_id == 1) {
-      $this->emailcount = count($this->getUserEmailsArray($user_id)); 
+      $this->emailcount = count($this->getUserEmailArray($user_id)); 
       if(($this->emailcount <= 2)) {
         $this->answer .= $this->errorHandler->getError('profile', 'email_update_of_catroweb_failed');
         $delete_email = false;
@@ -619,8 +619,8 @@ class profile extends CoreAuthenticationUser {
   }
 
   private function fillDynamicProfileData($userName) {
-    $this->emailsArray = $this->getUserEmailsArray($this->session->userLogin_userId);
-    $this->emailsArrayDiv = $this->emailsArrayToHTMLDiv($this->emailsArray);
+    $this->emailArray = $this->getUserEmailArray($this->session->userLogin_userId);
+    $this->emailArrayDiv = $this->generateEmailHTMLDiv($this->emailArray);
     
     $userCountryCode = $this->getUserCountry($userName); 
     if($userCountryCode) {   
@@ -629,10 +629,20 @@ class profile extends CoreAuthenticationUser {
     else {
       $this->userCountryCode = "undefined";
     }
-
+        
+    $this->countryCodeListHTML = $this->generateCountryCodeList();
+    $this->countryTextHTML = $this->generateCountryTextDiv($this->ownProfile);
     $this->userCity = $this->getUserCity($userName);
     $this->userBirthArray = $this->getUserBirth($userName);
     $this->userGender = $this->getUserGender($userName);
+    
+    $this->monthListHTML = $this->generateMonthList();
+    $this->yearListHTML = $this->generateYearList();
+    $this->genderListHTML = $this->generateGenderList();
+    $this->birthdayOpenText = $this->generateBirthdayOpenText();
+    $this->birthdayCloseText = $this->generateBirthdayCloseText();
+    $this->genderOpenText = $this->generateGenderOpenText();
+    $this->genderCloseText = $this->generateGenderCloseText();
   }
   
   private function initCountryCodes() {
@@ -665,29 +675,30 @@ class profile extends CoreAuthenticationUser {
 
  
   
-  private function emailsArrayToHTMLDiv($emailsArray) {
+  private function generateEmailHTMLDiv($emailArray) {
+    $whiteSpace="                        ";
     $x = 0;
     $emailDiv = "";
-    for($x; $x < count($emailsArray); $x++) {
-      $emailDiv .= "<div id='div". $x ."'><a href='javascript:;' class='profileText' id='email". $x ."'>". $emailsArray[$x] ."</a></div>";
+    for($x; $x < count($emailArray); $x++) {
+      $emailDiv .= $whiteSpace . "<div id='div". $x ."'><a href='javascript:;' class='profileText' id='email". $x ."'>". $emailArray[$x] ."</a></div>";
     }
     return $emailDiv;
   }
 
-  private function getUserEmailsArray($user_id) {
+  private function getUserEmailArray($user_id) {
 
     $query = "EXECUTE get_user_emails_by_id($user_id)";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
-    $userEmailsArray = array();
+    $userEmailArray = array();
     $x=0;
     while($userEmails = pg_fetch_assoc($result)) {
-      $userEmailsArray[$x] = $userEmails['email'];
+      $userEmailArray[$x] = $userEmails['email'];
       $x++;
     }
-    return $userEmailsArray;
+    return $userEmailArray;
   }
   
   private function getUserCountry($userName) {
@@ -758,6 +769,191 @@ class profile extends CoreAuthenticationUser {
     }
      return $userGender['gender'];
   }
+  
+  private function generateCountryCodeList() {
+    $whiteSpace="                          ";
+    $optionList = "";
+		$x = 0;
+		$sumCount = count($this->countryCodeList);
+		while($x < $sumCount+1) {
+		  if($x == 0) {
+        $optionList .= $whiteSpace . "<option value=\"0\" >".$this->languageHandler->getString('country')."</option>\r\n";
+      }
+		  else if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
+        $optionList .= $whiteSpace . "<option value=\"" . $this->countryCodeList[$x] . "\" selected >" . $this->countryNameList[$x] . "</option>\r\n";
+      }
+      else {
+        $optionList .= $whiteSpace . "<option value=\"" . $this->countryCodeList[$x] . "\" >" . $this->countryNameList[$x] . "</option>\r\n";
+      }
+      $x++;           
+		}
+    return $optionList;
+  }
+  
+  private function generateCountryTextDiv($ownProfile) {
+    $whiteSpace="                        ";
+    $textDiv = "";
+  	$x = 0;
+  	$sumCount = count($this->countryCodeList);
+  	while($x < $sumCount+1) {
+  	  if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
+  	    if($ownProfile) { 
+  	      $textDiv .= $whiteSpace . '<a href="javascript:;" class="profileText" id="profileChangeCountryOpen">'.$this->countryNameList[$x]."</a>\n"; 
+  	    }
+  	    else { 
+  	      $textDiv .= $whiteSpace . $this->countryNameList[$x]; 
+  	    }
+        break;
+      }
+      $x++;           
+  	}
+    return $textDiv;
+  }
+  
+  private function generateMonthList() {
+    $whiteSpace="                          ";
+    $optionList = "";
+    $x = 0;
+    
+    $months = getMonthsArray($this->languageHandler);
+    
+    while($x < 13) {
+      $selected = "";
+      $monthValue = "value";
+      $monthString = "";
+      if($x == 0 && !$this->userBirthArray["month_id"]) {
+        $monthString = $this->languageHandler->getString('month');
+        $selected = "selected";
+      }
+      else if($x == 0 && $this->userBirthArray["month_id"]) {
+        $monthString = $this->languageHandler->getString('month');
+      }
+      else if($x == $this->userBirthArray["month_id"]) {
+        $selected = "selected";
+        $monthString = $months[$x];
+        $monthValue = "value=\"" . $x ."\"";
+      }                            
+      else {
+        $monthString = $months[$x];
+        $monthValue = "value=\"" . $x ."\"";
+      }
+      $optionList .= $whiteSpace . "<option " . $monthValue . " ". $selected .">" . $monthString . "</option>\r\n";
+      $x++; 
+    }
+    return $optionList;
+  }
+
+  private function generateYearList() {
+    $whiteSpace="                          ";
+    $optionList = "";
+    $x = 0;
+
+    $year_up = 0;
+    $year_down = date('Y') + 1;
+    if(intval($this->userBirthArray['year']) > 0) {
+      while($year_up < 101) {
+        $year_down--;
+        $selected = "";
+        $yearValue = "";
+        $yearString = "";
+        if($year_up == 0 && !$this->userBirthArray["year"]) {
+          $yearValue = "value";
+          $selected = "selected";
+        }
+        else if($year_up == 0 && $this->userBirthArray["year"]) {
+          $yearValue = "value";
+          $yearString = $this->languageHandler->getString('year');     
+        }
+        else if($year_down == $this->userBirthArray["year"]) {
+          $yearValue = "value=\"" . $year_down ."\"";
+          $yearString = $year_down;
+          $selected = "selected";
+        }
+        else {
+          $yearValue = "value=\"" . $year_down ."\"";
+          $yearString = $year_down;
+        }
+        $optionList .= $whiteSpace . "<option " . $yearValue . " ". $selected .">" . $yearString . "</option>\r\n";
+        $year_up++;
+      }
+    } else {
+      while($year_up < 101) {
+        $year_down--;
+        if($year_up == 0) {
+          $optionList .= $whiteSpace . '<option value="" selected >'.$this->languageHandler->getString('year')."</option>\r\n";
+        }
+        else {
+          $optionList .= $whiteSpace . "<option value=\"" . $year_down . "\" >" . $year_down . "</option>\r\n";
+        }
+        $year_up++;
+      }
+    } 
+    
+    return $optionList;  
+  }
+  
+  private function generateGenderList() {
+    $whiteSpace="                          ";
+    $optionList = "";
+    
+    if(strcmp($this->userGender, "female") == 0) {
+      $optionList .= $whiteSpace . '<option value="" >'.$this->languageHandler->getString('gender')."</option>\r\n";
+      $optionList .= $whiteSpace . "<option value=\"female\" selected >".$this->languageHandler->getString('female')."</option>\r\n";
+      $optionList .= $whiteSpace . "<option value=\"male\" >".$this->languageHandler->getString('male')."</option>\r\n";
+    }
+    else if (strcmp($this->userGender, "male") == 0) {
+      $optionList .= $whiteSpace . '<option value="" >'.$this->languageHandler->getString('gender')."</option>\r\n";
+      $optionList .= $whiteSpace . "<option value=\"female\" >".$this->languageHandler->getString('female')."</option>\r\n";
+      $optionList .= $whiteSpace . "<option value=\"male\" selected >".$this->languageHandler->getString('male')."</option>\r\n";
+    } 
+    else { 
+      $optionList .= $whiteSpace . '<option value="" selected >'.$this->languageHandler->getString('gender')."</option>\r\n";
+      $optionList .= $whiteSpace . "<option value=\"female\" >".$this->languageHandler->getString('female')."</option>\r\n";
+      $optionList .= $whiteSpace . "<option value=\"male\" >".$this->languageHandler->getString('male')."</option>\r\n";
+    }
+    return $optionList;
+  }
+  
+  private function generateBirthdayOpenText() {
+    $text = "";
+    if(intval($this->userBirthArray['year']) > 0) {
+      $text = $this->languageHandler->getString('born_in').' '.$this->userBirthArray["month"].' '.$this->userBirthArray["year"];
+    } else {
+      $text = $this->languageHandler->getString('add_your_birth_date');
+    }
+    return $text;
+  }
+  
+  private function generateBirthdayCloseText() {
+    $text = "";
+    if(intval($this->userBirthArray['year']) > 0) {
+      $text = $this->languageHandler->getString('change_birth');
+    } else {
+      $text = $this->languageHandler->getString('select_birth_year_month');
+    }
+    return $text;
+  }
+
+  private function generateGenderOpenText() {
+    $text = "";
+    if($this->userGender) {
+      $text = $this->languageHandler->getString($this->userGender);
+    } else {
+      $text = $this->languageHandler->getString('add_gender');
+    }
+    return $text;
+  }
+  
+  private function generateGenderCloseText() {
+    $text = "";
+    if($this->userGender) {
+      $text = $this->languageHandler->getString('change_gender');
+    } else {
+      $text = $this->languageHandler->getString('gender');
+    }
+    return $text;
+  }
+  
     
   public function __destruct() {
     parent::__destruct();

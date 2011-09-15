@@ -21,7 +21,7 @@ var Profile = Class.$extend( {
   __init__ : function(languageStringsObject) {
     
     var self = this;
-    this.emailsArrayDiv = languageStringsObject.emailsArrayDiv;
+    this.emailArrayDiv = languageStringsObject.emailArrayDiv;
     this.emailCount = languageStringsObject.emailCount;
     this.emailText = '';
     this.emailId = 0;
@@ -53,7 +53,7 @@ var Profile = Class.$extend( {
     $("#buttonProfileCloseAddNewEmailField").toggle(false);
     $("#buttonProfileSaveNewEmailSubmit").toggle(false);
 
-    jQuery.proxy(this.profileBuildUpEmailsArrayDiv("profileEmailTextDiv", this.emailsArrayDiv), self);
+    jQuery.proxy(this.profileGenerateEmailDiv("profileEmailTextDiv", this.emailArrayDiv), self);
     
     $("#profilePasswordDiv").toggle(true);
     $("#profilePasswordDivOpened").toggle(false);
@@ -190,7 +190,7 @@ var Profile = Class.$extend( {
       $("#okMsg").toggle(true);
       $("#okMsg").html(result.answer_ok);
       
-      jQuery.proxy(this.profileBuildUpEmailsArrayDiv("profileEmailTextDiv", result.emailsArrayDiv), this);
+      jQuery.proxy(this.profileGenerateEmailDiv("profileEmailTextDiv", result.emailArrayDiv), this);
       jQuery.proxy(this.profileCloseAll(""), this);
     }
     else if(result.statusCode == 500) {
@@ -244,7 +244,7 @@ var Profile = Class.$extend( {
       $("#errorMsg").toggle(false);
       $("#okMsg").toggle(true);
       $("#okMsg").html(result.answer_ok);
-      jQuery.proxy(this.profileBuildUpEmailsArrayDiv("profileEmailTextDiv", result.emailsArrayDiv), this);
+      jQuery.proxy(this.profileGenerateEmailDiv("profileEmailTextDiv", result.emailArrayDiv), this);
       jQuery.proxy(this.profileCloseAll(""), this);
     }
     else if(result.statusCode == 500) {
@@ -288,7 +288,7 @@ var Profile = Class.$extend( {
       $("#errorMsg").toggle(false);
       $("#okMsg").toggle(true);
       $("#okMsg").html(result.answer_ok);
-      jQuery.proxy(this.profileBuildUpEmailsArrayDiv("profileEmailTextDiv", result.emailsArrayDiv), this);
+      jQuery.proxy(this.profileGenerateEmailDiv("profileEmailTextDiv", result.emailArrayDiv), this);
       jQuery.proxy(this.profileCloseAll(""), this);
     }
     else if(result.statusCode == 500) {
@@ -454,9 +454,8 @@ var Profile = Class.$extend( {
   },
   
   profileGenderRequestSubmit : function() {
-    if($("#profileGender option:selected'").val()) {
-      this.gender = $("#profileGender option:selected'").text();
-    }
+    this.gender = $("#profileGender option:selected'").text();
+    this.genderVal = $("#profileGender option:selected'").val();
     $.ajax({
       type: "POST",
       url: this.basePath + 'catroid/profile/profileGenderRequestQuery.json',
@@ -476,7 +475,11 @@ var Profile = Class.$extend( {
       $("#errorMsg").toggle(false);
       $("#okMsg").toggle(true);
       $("#okMsg").html(result.answer_ok);
-      $("#profileGender option[text=" + this.gender +"]").attr("selected","selected") ;
+      if(this.genderVal) {
+        $("#profileGender option[text=" + this.gender +"]").attr("selected","selected") ;
+      } else { 
+        $("#profileGender option[val=" + this.genderVal +"]").attr("selected","selected") ;
+      }
       jQuery.proxy(this.profileChangeGenderClose(), this);
     }
     else {
@@ -619,10 +622,7 @@ var Profile = Class.$extend( {
       $("#buttonProfileCloseAddNewEmailField").toggle(false);
     }
   },  
-  
-//  $.fn.myFunction = function() { 
-//    return $(this).addClass('changed'); 
-//}
+
 
   profileOpenChangeEmailInputField : function(id) { 
     jQuery.proxy(this.profileChangeEmailInputFieldClose(), this);
@@ -680,17 +680,14 @@ var Profile = Class.$extend( {
   },
 
   
-  profileBuildUpEmailsArrayDiv : function(emailDiv, emailsArrayDiv) {
+  profileGenerateEmailDiv : function(emailDiv, emailArrayDiv) {
     var self = this;
     $("#"+emailDiv).children().remove();
-    $("#"+emailDiv).append(emailsArrayDiv);
+    $("#"+emailDiv).append(emailArrayDiv);
     var email_count = $('#profileEmailTextDiv').children('div').size();
     var x=0;
     for(x; x<email_count; x++) {
       // html tag ID: case-sensitiv, must begin with a letter A-Z or a-z, can be followed by: letters (A-Za-z), digits (0-9), hyphens ("-"), underscores ("_"), colons (":"), and periods (".")
-//      $("#email"+x).click(function(event) {
-//        self.profileOpenChangeEmailInputField(event.target.id);
-//      });
       $("#email"+x).bind("click", function(event) { self.profileOpenChangeEmailInputField(event.target.id); });
     }
   },

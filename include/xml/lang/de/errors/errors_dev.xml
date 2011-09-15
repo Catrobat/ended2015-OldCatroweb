@@ -39,7 +39,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <db>
     <string name="query_failed">Datenbank Operation fehlgeschlagen.</string>
     <string name="connection_failed">Datenbank Verbindung fehlgeschlagen.</string>
-    <string name="no_entry_for_id">Kein Eintrag f&#xFC;r diese ID gefunden</string>
+    <string name="no_entry_for_id">Kein Eintrag f&#xFC;r diese ID gefunden.</string>
   </db>
   <sendmail>
     <string name="sendmail_failed">Fehler w&#xE4;hrend dem Senden des Emails. Vielleicht funktioniert dein Mailserver nicht?</string>
