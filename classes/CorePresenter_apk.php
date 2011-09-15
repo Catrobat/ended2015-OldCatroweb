@@ -27,7 +27,7 @@
       public function display()
       {
           $data = $this->module->getData();
-          $file = CORE_BASE_PATH.PROJECTS_DIRECTORY.$data['source_file'];
+          $file = CORE_BASE_PATH.PROJECTS_DIRECTORY.$data['id'].APP_EXTENTION;
           $filename = $data['file_name'];
           if(is_file($file)) {
             header("Content-type: application/vnd.android.package-archive");

@@ -45,33 +45,33 @@ public class DetailsTests extends BaseTest {
       int numOfDownloadsAfter = -1;
 
       openLocation("catroid/details/" + id);
-      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/b")));
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
       // project title
       assertEquals(title, driver().findElement(By.xpath("//div[@class='detailsProjectTitle']")).getText());
       // test the view counter
-      numOfViews = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats']/b")).getText());
+      numOfViews = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats']/strong")).getText());
 
       driver().navigate().refresh();
       ajaxWait();
-      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/b")));
-      numOfViewsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats']/b")).getText());
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
+      numOfViewsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats']/strong")).getText());
       assertEquals(numOfViews + 1, numOfViewsAfter);
 
       // test the download counter
-      numOfDownloads = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/b")).getText());
+      numOfDownloads = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
       driver().findElement(By.xpath("//div[@class='detailsDownloadButton']/a[1]")).click();
 
       driver().navigate().refresh();
       ajaxWait();
-      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/b")));
-      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/b")).getText());
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
+      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
       assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
 
       driver().findElement(By.xpath("//div[@class='detailsMainImage']/a[1]")).click();
       driver().navigate().refresh();
       ajaxWait();
-      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/b")));
-      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/b")).getText());
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
+      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
       assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
 
       // check file size
@@ -240,13 +240,119 @@ public class DetailsTests extends BaseTest {
     }
   }
 
+  @Test(groups = { "visibility" }, description = "test download info")
+  public void downloadInfo() throws Throwable {
+    try {
+      openLocation("catroid/details/2");
+      ajaxWait();
+
+      assertTrue(isElementPresent(By.id("downloadCatroidSwitch")));
+      assertTrue(isElementPresent(By.id("downloadAppSwitch")));
+      assertTrue(isElementPresent(By.id("downloadInfoButton")));
+      assertTrue(isVisible(By.id("downloadCatroidSection")));
+      assertFalse(isVisible(By.id("downloadAppSection")));
+      assertFalse(isVisible(By.id("downloadCatroidInfo")));
+      assertFalse(isVisible(By.id("downloadAppInfo")));
+      
+      driver().findElement(By.id("downloadInfoButton")).click();
+      assertTrue(isVisible(By.id("downloadCatroidInfo")));
+      
+      driver().findElement(By.id("downloadAppSwitch")).click();
+      assertFalse(isVisible(By.id("downloadCatroidInfo")));
+      assertTrue(isVisible(By.id("downloadAppInfo")));
+      
+      driver().findElement(By.id("downloadInfoButton")).click();
+      assertFalse(isVisible(By.id("downloadCatroidInfo")));
+      assertFalse(isVisible(By.id("downloadAppInfo")));
+      
+      driver().findElement(By.id("downloadCatroidSwitch")).click();
+      driver().findElement(By.id("downloadInfoButton")).click();
+      assertTrue(isVisible(By.id("downloadCatroidInfo")));
+      assertFalse(isVisible(By.id("downloadAppInfo")));
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.QRCodeInfo");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("DetailsTests.QRCodeInfo");
+      throw e;
+    }
+  }
+
+  @Test(groups = { "visibility" }, description = "test download info")
+  public void testAppDownload() throws Throwable {
+    try {
+      int numOfDownloads = -1;
+      int numOfDownloadsAfter = -1;
+      
+      openLocation("catroid/details/2");
+      ajaxWait();
+
+      assertTrue(isElementPresent(By.id("downloadCatroidSwitch")));
+      assertTrue(isElementPresent(By.id("downloadAppSwitch")));
+      assertTrue(isElementPresent(By.id("downloadInfoButton")));
+      assertTrue(isVisible(By.id("downloadCatroidSection")));
+      assertFalse(isVisible(By.id("downloadAppSection")));
+      assertFalse(isVisible(By.id("downloadCatroidInfo")));
+      assertFalse(isVisible(By.id("downloadAppInfo")));
+      
+      driver().findElement(By.id("downloadAppSwitch")).click();
+      assertTrue(isVisible(By.id("downloadAppButton")));
+      assertRegExp(".*apk.*", driver().findElement(By.id("downloadAppProjectLink")).getAttribute("href"));
+      numOfDownloads = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
+      driver().findElement(By.id("downloadAppProjectLink")).click();
+
+      driver().navigate().refresh();
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
+      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
+      assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
+      
+      driver().findElement(By.id("downloadAppSwitch")).click();
+      assertTrue(isVisible(By.id("downloadAppButton")));
+      assertRegExp(".*apk.*", driver().findElement(By.id("downloadProjectThumb")).getAttribute("href"));
+      driver().findElement(By.id("downloadProjectThumb")).click();
+
+      driver().navigate().refresh();
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
+      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
+      assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
+      
+      // check file size
+      driver().findElement(By.id("downloadAppSwitch")).click();
+      assertTrue(isVisible(By.id("downloadAppButton")));
+      
+      double filesize = CommonFunctions.getFileSizeRounded(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + "2.apk");
+      String downloadButtonText = driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText();
+      String displayedfilesize = downloadButtonText.substring(downloadButtonText.indexOf("(") + 1, downloadButtonText.indexOf(" MB)"));
+      if(displayedfilesize.startsWith("<")) {
+        // smaller files are displayed as "< 0.1 MB"
+        assertEquals("< " + String.valueOf(filesize), displayedfilesize);
+      } else {
+        assertEquals(String.valueOf(filesize), displayedfilesize);
+      }
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.QRCodeInfo");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("DetailsTests.QRCodeInfo");
+      throw e;
+    }
+  }
+
   @Test(groups = { "visibility" }, description = "test if project size is visible inside download-button")
-  public void ProjectSizeInfo() throws Throwable {
+  public void projectSizeInfo() throws Throwable {
     try {
       openLocation();
       ajaxWait();
       clickLastVisibleProject();
       ajaxWait();
+      
+      assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
+      assertRegExp(".*Download.*MB.*", driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText());
+      
+      openLocation("catroid/details/2");
+      driver().findElement(By.id("downloadAppSwitch")).click();
       
       assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
       assertRegExp(".*Download.*MB.*", driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText());

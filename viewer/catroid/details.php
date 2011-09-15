@@ -73,8 +73,8 @@
                     </div>
 <?php if($this->project['is_app_present']) {?>
                     <div class="detailsDownloadButton">
-                      <button type="button" id="downloadCatroidSwitch" class="button noborderradius blue medium"><span style="font-weight:bold; font-size:1.5em;">Catroid</span></button><button type="button" id="downloadAppSwitch" class="button noborderradius white medium"><span style="font-weight:bold; font-size:1.5em;">App</span></button>
-                      <button type="button" id="downloadInfoButton" class="button noborderradius green medium" style="width:17%;"><span style="font-weight:bold; font-size:1.5em;">?</span></button>
+                      <button type="button" id="downloadCatroidSwitch" class="button noborderradius blue medium"><span class="detailsDownloadTypeSwitchText"><?php echo $this->languageHandler->getString('catroid'); ?></span></button><button type="button" id="downloadAppSwitch" class="button noborderradius white medium"><span class="detailsDownloadTypeSwitchText"><?php echo $this->languageHandler->getString('app'); ?></span></button>
+                      <button type="button" id="downloadInfoButton" class="button noborderradius green medium" style="width:17%;"><span class="detailsDownloadTypeSwitchText">?</span></button>
                       <div>
                         <div id="downloadCatroidInfo" class="detailsDownloadInfoText"><?php echo $this->languageHandler->getString('download_info_catroid'); ?></div>
                         <div id="downloadAppInfo" class="detailsDownloadInfoText"><?php echo $this->languageHandler->getString('download_info_app'); ?></div>
@@ -89,7 +89,7 @@
                       </div>
 <?php   if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
                       <div class="detailsQRCode">
-                        <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_app_image']?>" alt="qr code image">
+                        <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_app_image']?>" alt="qr code image"/>
                       </div>
 <?php   }?>
                     </div>
@@ -103,7 +103,7 @@
                       </div>
 <?php if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
                       <div class="detailsQRCode">
-                        <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_catroid_image']?>" alt="qr code image">
+                        <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_catroid_image']?>" alt="qr code image"/>
                       </div>
 <?php }?>
                     </div>

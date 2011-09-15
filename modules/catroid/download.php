@@ -30,6 +30,7 @@ class download extends CoreAuthenticationNone {
       return;
     }
 
+    $this->id = $id;
     $this->source_file = $line['source'];
     $this->file_name = str_replace(' ', '_', $line['title']);
     

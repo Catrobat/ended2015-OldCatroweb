@@ -303,10 +303,13 @@ public class BaseTest {
   }
 
   public void clickLastVisibleProject() {
-    while(driver().findElement(By.id("moreProjects")).isDisplayed()) {
-      driver().findElement(By.id("moreProjects")).click();
-      ajaxWait();
-    }
+    try {
+      while(driver().findElement(By.id("moreProjects")).isDisplayed()) {
+        driver().findElement(By.id("moreProjects")).click();
+        ajaxWait();
+      }
+    } catch(NoSuchElementException ignore) {
+    }      
 
     WebElement lastLink = null;
     List<WebElement> allLinks = driver().findElements(By.tagName("a"));

@@ -20,6 +20,8 @@
 <strings>
 	<string name="uploaded">uploaded</string>
 	<string name="uploaded_by">by {*nicknameString*}</string>
+	<string name="catroid">Catroid</string>
+	<string name="app">App</string>
 	<string name="download">Download</string>
 	<string name="report">Report</string>
 	<string name="cancel">Cancel</string>
