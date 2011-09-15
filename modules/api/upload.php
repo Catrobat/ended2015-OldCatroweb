@@ -328,17 +328,10 @@ class upload extends CoreAuthenticationDevice {
 
   private function getQRCode($projectId, $projectTitle) {
     $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENTION.'?fname='.urlencode($projectTitle));
-    $serviceUrl = PROJECTS_QR_SERVICE_URL.$urlToEncode;
     $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
-    $qrImageHandle = @imagecreatefrompng($serviceUrl);
-    if(!$qrImageHandle) {
+    if(!generateQRCode($urlToEncode, $destinationPath)) {
       throw new Exception();
     }
-    if(!@imagepng($qrImageHandle, $destinationPath, 9)) {
-      throw new Exception();
-    }
-    @imagedestroy($qrImageHandle);
-    chmod($destinationPath, 0666);
     return true;
   }
 

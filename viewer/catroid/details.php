@@ -64,41 +64,50 @@
                       <div style="float:left;">
                         <p class="detailsTime">
                           <?php echo $this->languageHandler->getString('uploaded')?><br/>
-                          <b><?php echo $this->project['publish_time_in_words']?></b><br/>
-                          <b><?php echo $this->project['uploaded_by_string']?></b><br/>
+                          <strong><?php echo $this->project['publish_time_in_words']?></strong><br/>
+                          <strong><?php echo $this->project['uploaded_by_string']?></strong><br/>
                           <span class="versionInfo"><?php echo $this->languageHandler->getString('version_info_text').' '; echo $this->project['version_code']; ?> (<?php echo $this->project['version_name']?>)</span>
                         </p>
                       </div>
                       <div style="clear:both;"></div>
                     </div>
-<?php if(file_exists(CORE_BASE_PATH.PROJECTS_DIRECTORY.$this->project['id'].".apk")) {?>
+<?php if($this->project['is_app_present']) {?>
                     <div class="detailsDownloadButton">
-                      <button type="button" class="button noborderradius blue medium"><span style="font-weight:bold; font-size:1.5em;">Catroid</span></button><button type="button" class="button noborderradius white medium"><span style="font-weight:bold; font-size:1.5em;">App</span></button>
-                      <button type="button" id="showDownloadInfoButton" class="button noborderradius green medium" style="width:17%;"><span style="font-weight:bold; font-size:1.5em;">?</span></button>
-                      <button type="button" id="hideDownloadInfoButton" class="button noborderradius green medium " style="width:17%;"><span style="font-weight:bold; font-size:1.5em;">?</span></button>
-                      <div class="detailsDownloadInfoText" style="margin:0px;padding:0px;">
-                        <div id="downloadInfo" class="downloadInfo">
-                        <?php 
-                          if (0) {  // TODO if catroid-switch selected ...
-                            echo $this->languageHandler->getString('download_info_catroid');
-                          }
-                          else { 
-                            echo $this->languageHandler->getString('download_info_app');
-                          }
-                        ?></div>
+                      <button type="button" id="downloadCatroidSwitch" class="button noborderradius blue medium"><span style="font-weight:bold; font-size:1.5em;">Catroid</span></button><button type="button" id="downloadAppSwitch" class="button noborderradius white medium"><span style="font-weight:bold; font-size:1.5em;">App</span></button>
+                      <button type="button" id="downloadInfoButton" class="button noborderradius green medium" style="width:17%;"><span style="font-weight:bold; font-size:1.5em;">?</span></button>
+                      <div>
+                        <div id="downloadCatroidInfo" class="detailsDownloadInfoText"><?php echo $this->languageHandler->getString('download_info_catroid'); ?></div>
+                        <div id="downloadAppInfo" class="detailsDownloadInfoText"><?php echo $this->languageHandler->getString('download_info_app'); ?></div>
                       </div>
                     </div>
-<?php }?>                	
-                    <div class="detailsDownloadButton">
-                      <a id="downloadProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.download?fname=<?php echo urlencode($this->project['title'])?>">
-                        <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
-                        <span class="detailsDownloadButtonText"><?php echo $this->languageHandler->getString('download')?> (<?php echo $this->project['fileSize']?> MB)</span>
-                      </a>
+                    <div id="downloadAppSection">
+                      <div id="downloadAppButton" class="detailsDownloadButton">
+                        <a id="downloadAppProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.apk?fname=<?php echo urlencode($this->project['title'])?>">
+                          <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
+                          <span class="detailsDownloadButtonText"><?php echo $this->languageHandler->getString('download')?> (<?php echo $this->project['appFileSize']?> MB)</span>
+                        </a>
+                      </div>
+<?php   if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
+                      <div class="detailsQRCode">
+                        <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_app_image']?>" alt="qr code image">
+                      </div>
+<?php   }?>
                     </div>
-<?php if(!$this->isMobile && $this->project['qr_code_image']) {?>
-                    <div class="detailsQRCode">
-                      <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_image']?>" alt="qr code image">
+<?php }?>
+                    <div id="downloadCatroidSection">
+                      <div class="detailsDownloadButton">
+                        <a id="downloadCatroidProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.download?fname=<?php echo urlencode($this->project['title'])?>">
+                          <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
+                          <span class="detailsDownloadButtonText"><?php echo $this->languageHandler->getString('download')?> (<?php echo $this->project['fileSize']?> MB)</span>
+                        </a>
+                      </div>
+<?php if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
+                      <div class="detailsQRCode">
+                        <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_catroid_image']?>" alt="qr code image">
+                      </div>
+<?php }?>
                     </div>
+<?php if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
                     <div class="detailsQRCodeText">
                       <div id="qrcodeInfo" class="qrcodeInfo"><?php echo $this->languageHandler->getString('qrcode_info')?></div>
                       <button type="button" id="showQrCodeInfoButton" class="button white medium"><span class="showQrCodeInfoButton"><?php echo $this->languageHandler->getString('show_qr_code_info_button')?></span></button>

@@ -85,8 +85,7 @@ class detailsTest extends PHPUnit_Framework_TestCase
    */
   public function testGetQRCodeImage($id) {
     @copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION);
-    $this->assertTrue(is_string(getProjectQRCodeUrl($id)));
-    $this->assertFalse(getProjectQRCodeUrl('non_existing_id'));
+    $this->assertTrue(is_string(getCatroidProjectQRCodeUrl($id, 'test')));
   }
   
   public function testGetFilesizeInMegabytes() {

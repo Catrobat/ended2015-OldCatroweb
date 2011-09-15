@@ -33,24 +33,24 @@ function getUsernameBlacklistArray() {
 	  'administrator',
     'catroweb',
   	'kittyroid'
-  );
-  return $usernameBlacklist;
+  	);
+  	return $usernameBlacklist;
 }
 
 function getMonthsArray($languageHandler) {
   $months = array(
-    1=>$languageHandler->getString('template_common_january'),
-    2=>$languageHandler->getString('template_common_february'),
-    3=>$languageHandler->getString('template_common_march'),
-    4=>$languageHandler->getString('template_common_april'),
-    5=>$languageHandler->getString('template_common_may'),
-    6=>$languageHandler->getString('template_common_june'),
-    7=>$languageHandler->getString('template_common_july'),
-    8=>$languageHandler->getString('template_common_august'),
-    9=>$languageHandler->getString('template_common_september'),
-    10=>$languageHandler->getString('template_common_october'),
-    11=>$languageHandler->getString('template_common_november'),
-    12=>$languageHandler->getString('template_common_december')
+  1=>$languageHandler->getString('template_common_january'),
+  2=>$languageHandler->getString('template_common_february'),
+  3=>$languageHandler->getString('template_common_march'),
+  4=>$languageHandler->getString('template_common_april'),
+  5=>$languageHandler->getString('template_common_may'),
+  6=>$languageHandler->getString('template_common_june'),
+  7=>$languageHandler->getString('template_common_july'),
+  8=>$languageHandler->getString('template_common_august'),
+  9=>$languageHandler->getString('template_common_september'),
+  10=>$languageHandler->getString('template_common_october'),
+  11=>$languageHandler->getString('template_common_november'),
+  12=>$languageHandler->getString('template_common_december')
   );
   return $months;
 }
@@ -63,8 +63,8 @@ function getIpBlockClassWhitelistArray() {
     "imprint",
     "contactus",
     "errorPage"
-  );
-  return $whitelistClasses;
+    );
+    return $whitelistClasses;
 }
 
 function getUserBlockClassWhitelistArray() {
@@ -77,8 +77,8 @@ function getUserBlockClassWhitelistArray() {
     "errorPage",
     "login",
     "logout"
-  );
-  return $whitelistClasses;
+    );
+    return $whitelistClasses;
 }
 
 function convertBytesToMegabytes($numOfBytes) {
@@ -114,13 +114,44 @@ function getProjectImageUrl($projectId) {
   return $img;
 }
 
-function getProjectQRCodeUrl($projectId) {
+function getCatroidProjectQRCodeUrl($projectId, $projectTitle) {
   $qr = BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
   $qrFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
   if(!is_file($qrFile)) {
-    return false;
+    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENTION.'?fname='.urlencode($projectTitle));
+    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
+    if(!generateQRCode($urlToEncode, $destinationPath)) {
+      return false;
+    }
   }
   return $qr;
+}
+
+function getAppProjectQRCodeUrl($projectId, $projectTitle) {
+  $qr = BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.APP_QR_EXTENTION;
+  $qrFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.APP_QR_EXTENTION;
+  if(!is_file($qrFile)) {
+    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.APP_EXTENTION.'?fname='.urlencode($projectTitle));
+    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.APP_QR_EXTENTION;
+    if(!generateQRCode($urlToEncode, $destinationPath)) {
+      return false;
+    }
+  }
+  return $qr;
+}
+
+function generateQRCode($urlToEncode, $destinationPath) {
+  $serviceUrl = PROJECTS_QR_SERVICE_URL.$urlToEncode;
+  $qrImageHandle = @imagecreatefrompng($serviceUrl);
+  if(!$qrImageHandle) {
+    return false;
+  }
+  if(!@imagepng($qrImageHandle, $destinationPath, 9)) {
+    return false;
+  }
+  @imagedestroy($qrImageHandle);
+  chmod($destinationPath, 0666);
+  return true;
 }
 
 function getTimeInWords($fromTime, $languageHandler, $toTime = 0) {

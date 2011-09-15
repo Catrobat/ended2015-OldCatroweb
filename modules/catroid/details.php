@@ -33,7 +33,7 @@ class details extends CoreAuthenticationNone {
     $this->addJs('projectDetails.js');
 
     $this->isMobile = $this->clientDetection->isMobile();
-    //$this->setWebsiteTitle($this->project['title']);
+    $this->isMobile= false;
   }
 
   public function __default() {
@@ -65,7 +65,6 @@ class details extends CoreAuthenticationNone {
     $project['publish_time_in_words'] = getTimeInWords(strtotime($project['upload_time']), $this->languageHandler, time());
     $project['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $project['uploaded_by']);
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
-    $project['title'] = $project['title'];
     $project['fileSize'] = convertBytesToMegabytes($project['filesize_bytes']);
     if($project['description']) {
       $project['description'] = $project['description'];
@@ -77,7 +76,14 @@ class details extends CoreAuthenticationNone {
     } else {
       $project['description_short'] = '';
     }
-    $project['qr_code_image'] = getProjectQRCodeUrl($projectId);
+    $project['qr_code_catroid_image'] = getCatroidProjectQRCodeUrl($projectId, $project['title']);
+
+    $project['is_app_present'] = file_exists(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENTION);
+    if($project['is_app_present']) {
+      $project['qr_code_app_image'] = getAppProjectQRCodeUrl($projectId, $project['title']);
+      $project['appFileSize'] = convertBytesToMegabytes(filesize(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENTION));
+    }
+    
     $this->incrementViewCounter($projectId);
     return $project;
   }

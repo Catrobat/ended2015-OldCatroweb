@@ -78,11 +78,28 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(35, strlen(makeShortString($string, 35, '...mysuffix')));
   }
 
-  public function testGetProjectQRCodeUrl() {
+  public function testGetCatroidProjectQRCodeUrl() {
     @copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'test_qr'.PROJECTS_QR_EXTENTION);
-    $this->assertTrue(is_string(getProjectQRCodeUrl('test_qr')));
-    $this->assertFalse(getProjectQRCodeUrl('non_existing_id'));
+    $this->assertTrue(is_string(getCatroidProjectQRCodeUrl('test_qr', 'test')));
+    $this->assertTrue(is_string(getCatroidProjectQRCodeUrl('non_existing_id', 'non_existing')));
     @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'test_qr'.PROJECTS_QR_EXTENTION);
+    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'non_existing_id'.PROJECTS_QR_EXTENTION);
+  }
+  
+  public function testGetAppProjectQRCodeUrl() {
+    @copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'test_qr'.APP_QR_EXTENTION);
+    $this->assertTrue(is_string(getAppProjectQRCodeUrl('test_qr', 'test')));
+    $this->assertTrue(is_string(getAppProjectQRCodeUrl('non_existing_id', 'non_existing')));
+    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'test_qr'.APP_QR_EXTENTION);
+    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'non_existing_id'.APP_QR_EXTENTION);
+  }
+  
+  public function testGenerateQRCode() {
+    $projectId = 'another_non_existing_id';
+    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENTION.'?fname='.urlencode($projectId));
+    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
+    $this->assertTrue(generateQRCode($urlToEncode, $destinationPath));
+    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION);
   }
 
   public function testGetProjectThumbnailUrl() {
