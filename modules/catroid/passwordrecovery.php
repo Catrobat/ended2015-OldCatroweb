@@ -28,7 +28,10 @@ class passwordrecovery extends CoreAuthenticationNone {
 
   public function __default() {
     $this->action = "default";
-
+    $this->passedUserName = "aa";
+    
+    $this->clearUserName($_GET['username']);
+    
     if((isset($_GET['c']))) {
       if($this->showHTMLForm($_GET['c'])) {
         $this->action = "showPasswordChangeForm";
@@ -36,6 +39,17 @@ class passwordrecovery extends CoreAuthenticationNone {
         $this->action = "passwordUrlExpired";
       }
     }
+  }
+  
+  public function clearUserName($username) {
+    $username = preg_replace('/\s\s+/', ' ', $username); 
+    $username= preg_replace("/(<\/?)(\w+)([^>]*>)/e","",$username);
+    $username= preg_replace("/document[.].*=/e","",$username);
+    $username= preg_replace("/window[.].*=/e","",$username);
+    $username= preg_replace("/window[.].*=/e","",$username);
+    $username = htmlentities($username);
+    $username = htmlspecialchars($username);
+    $this->passedUserName = $username;
   }
 
   public function passwordRecoverySendMailRequest() {
