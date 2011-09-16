@@ -74,7 +74,7 @@
                     <div class="detailsDownloadButton">
                       <button type="button" id="downloadCatroidSwitch" class="button noborderradius blueSelected"><span class="detailsDownloadTypeSwitchText"><?php echo $this->languageHandler->getString('project'); ?></span></button><button type="button" id="downloadAppSwitch" class="button noborderradius blue"><span class="detailsDownloadTypeSwitchText"><?php echo $this->languageHandler->getString('app'); ?></span></button>
                       <button type="button" id="downloadInfoButton" class="button noborderradius green" style="width:17%;"><span class="detailsDownloadTypeSwitchText">?</span></button>
-                      <div>
+                      <div class="detailsDownloadInfoTextContainer">
                         <div id="downloadCatroidInfo" class="detailsDownloadInfoText"><?php echo $this->languageHandler->getString('download_info_catroid'); ?></div>
                         <div id="downloadAppInfo" class="detailsDownloadInfoText"><?php echo $this->languageHandler->getString('download_info_app'); ?></div>
                       </div>
