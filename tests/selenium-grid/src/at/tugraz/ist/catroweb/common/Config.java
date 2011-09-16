@@ -20,15 +20,16 @@ package at.tugraz.ist.catroweb.common;
 
 public class Config {
   public static final boolean REPORTER_LOG_TO_STD_OUT = true;
-  public static final boolean TESTS_SLOW_MODE = false;
+  public static final boolean TESTS_SLOW_MODE = true;
   public static final int TESTS_SLOW_SPEED = 1000;
   public static final String WAIT_FOR_PAGE_TO_LOAD = "30000";
   public static final String TIMEOUT = "60000";
   public static final String TIMEOUT_AJAX = "30000";
   public static final long TIMEOUT_THREAD = 2000;
+  public static final int TIMEOUT_WAIT = 60;
 
   public static final String TESTS_BASE_PATH = "/";
-  // public static final String TESTS_BASE_PATH = "/catroweb/";
+//   public static final String TESTS_BASE_PATH = "/catroweb/";
 
   public static final String DB_USER = "website";
   public static final String DB_PASS = "cat.roid.web";
@@ -52,17 +53,18 @@ public class Config {
 
   public static final int PROJECT_PAGE_LOAD_MAX_PROJECTS = 5;
   public static final int PROJECT_PAGE_SHOW_MAX_PAGES = 5;
-  public static final String PROJECTS_EXTENTION = ".zip";
+  public static final String PROJECTS_EXTENTION = ".catroid";
   public static final int PROJECT_SHORT_DESCRIPTION_MAX_LENGTH = 178;
   
   public static final String DEFAULT_UPLOAD_TITLE = "Testproject";
   public static final String DEFAULT_UPLOAD_DESCRIPTION = "This is my testproject...";
   public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test.zip";
-  public static final String DEFAULT_UPLOAD_CHECKSUM = "2c2d13d52cf670ea55b2014b336d1b4d";
-  public static final String DEFAULT_UPLOAD_IMEI = "b1946ac92492d2347c6235b4d2611184";
+  public static final String DEFAULT_UPLOAD_CHECKSUM = "583783A335BD40D3D0195A13432AFABB";
   public static final String DEFAULT_UPLOAD_EMAIL = "webmaster@catroid.org";
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";
+  
+  public static final String SITE_DEFAULT_LANGUAGE = "en";
 
   public static void setSeleniumGridTestdata(String basedir) {
     if (FILESYSTEM_BASE_PATH.matches(".*tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "$")) {

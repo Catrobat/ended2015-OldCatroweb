@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<errors>
+  <profile>
+    <string name="email_address_string_changed">A avut loc o eroare la &#x219;tergerea adresei de e-mail. Ave&#x21B;i unele modific&#x103;ri nesalvate?</string>
+    <string name="password_repeat_missing">Parola repetat&#x103; lipse&#x219;te.</string>
+    <string name="password_repeat_differs">Parola difer&#x103; de parola repetat&#x103;.</string>
+    <string name="username_password_equal">Parola trebuie s&#x103; difere de nume.</string>
+    <string name="password_old_missing">Parola veche lipse&#x219;te.</string>
+    <string name="password_old_wrong">Parola veche este incorect&#x103;.</string>
+    <string name="password_old_invalid">Parola veche este nevalid&#x103;.</string>
+    <string name="password_new_missing">Parola nou&#x103; lispe&#x219;te.</string>
+    <string name="password_new_invalid">Parola nou&#x103; este nevalid&#x103;.</string>
+    <string name="password_new_length_invalid">Parola nou&#x103; trebuie s&#x103; aib&#x103; cel pu&#x21B;in {*minimumPasswordLength*} caractere.</string>
+    <string name="email_address_exists">Aceast&#x103; adresa de email deja exist&#x103;.</string>
+    <string name="email_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
+    <string name="city_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
+    <string name="email_update_of_catroweb_failed"/>
+    <string name="country_update_failed"/>
+    <string name="birth_update_failed"/>
+  </profile>
+  <db>
+    <string name="query_failed">Opera&#x21B;iunea asupra bazei de date a e&#x219;uat.</string>
+    <string name="connection_failed">Conexiunea cu baza de date a e&#x219;uat.</string>
+    <string name="no_entry_for_id">Nu a fost g&#x103;sit&#x103; nici o &#xEE;nscriere pentru acest identificator.</string>
+  </db>
+  <sendmail>
+    <string name="sendmail_failed">La trimiterea email-ului a ap&#x103;rut o eroare. Posibil serverul de po&#x219;t&#x103; electronic&#x103; a dvs. a ie&#x219;it din regul&#x103;?</string>
+  </sendmail>
+  <upload>
+    <string name="missing_post_data">POST-Data este incorect&#x103; sau lipse&#x219;te! Trebuie: projectTitle &#x219;i datele de &#xEE;nc&#x103;rcare a fi&#x219;ierului.</string>
+    <string name="missing_post_file_checksum">Clientul nu a trimis suma de control! Utiliza&#x21B;i o versiune Catroid veche?</string>
+    <string name="copy_failed">Copierea raportului a e&#x219;uat!</string>
+    <string name="rename_failed">Redenumirea raportului a e&#x219;uat!</string>
+    <string name="sql_insert_failed">Interogarea SQL insert_new_project a e&#x219;uat!</string>
+    <string name="invalid_file_checksum">Suma de control a fi&#x219;ierului &#xEE;nc&#x103;rcat difera de cea generat&#x103; de client!</string>
+    <string name="project_exceed_filesize_limit">M&#x103;rimea fisierului proiectului dep&#x103;&#x219;e&#x219;te limita de m&#x103;rime maximal&#x103; a fi&#x219;ierelor!</string>
+    <string name="project_title_default">&#xCE;nc&#x103;rcarea proiectelor numite cu denumirea implicit&#x103; este interzis&#x103;.</string>
+    <string name="insulting_words_in_project_title">&#xCE;n titlul proiectului sunt prezente cuvinte insult&#x103;toare!</string>
+    <string name="insulting_words_in_project_description">&#xCE;n descrierea proiectului sunt prezente cuvinte insult&#x103;toare!</string>
+    <string name="bad_words_filter_error">Una din interog&#x103;rile SQL &#xEE;n clasa BadWordsFilter a e&#x219;uat!</string>
+    <string name="invalid_project_xml"/>
+  </upload>
+  <download>
+    <string name="file_not_found">Fi&#x219;ierul cerut nu a fost g&#x103;sit pe server</string>
+  </download>
+  <flag>
+    <string name="missing_post_data">POST-Data nu este corect&#x103; sau lipse&#x219;te! Necesar: projectID &#x219;i flagReason.</string>
+    <string name="sql_insert_failed">Interogarea SQL insert_new_flagged_project a e&#x219;uat!</string>
+  </flag>
+  <viewer>
+    <string name="html_file_not_found">Fi&#x219;ierul de vizionare a html nu a fost g&#x103;sit.</string>
+    <string name="ajax_request_page_not_found">Nu a fost g&#x103;sit modulul necesar pentru interogarea ajax.</string>
+    <string name="ip_is_blocked">Adresa IP a dumneavoastr&#x103; a fost blocat&#x103;</string>
+    <string name="user_is_blocked">Contul dumneavoastr&#x103; a fost blocat.</string>
+  </viewer>
+  <auth>
+    <string name="password_or_username_wrong">Parola sau numele au fos gre&#x219;ite.</string>
+    <string name="username_not_found">Numele nu a fost g&#x103;sit.</string>
+    <string name="board_authentication_failed">Autentificarea &#xEE;n board a e&#x219;uat.</string>
+    <string name="wiki_authentication_failed">Autentificarea &#xEE;n wiki a e&#x219;uat.</string>
+    <string name="catroid_authentication_failed">Autentificarea &#xEE;n catroid a e&#x219;uat.</string>
+    <string name="wiki_api_response_incorrect">R&#x103;spunsul mediawiki API a fost gre&#x219;it.</string>
+    <string name="device_auth_invalid_token">Autentificarea dispozitivului a e&#x219;uat: auth-token nevalid!</string>
+    <string name="not_a_tugraz_ip">Aceast&#x103; pagin&#x103; poate fi accesat&#x103; doar de pe localhost sau din re&#x21B;eaua Universit&#x103;&#x21B;ii Tehnice din Graz.</string>
+  </auth>
+  <registration>
+    <string name="board_registration_failed">Registrarea &#xEE;n board a e&#x219;uat.</string>
+    <string name="wiki_registration_failed">Registrarea &#xEE;n wiki a e&#x219;uat.</string>
+    <string name="catroid_registration_failed">Registrarea &#xEE;n catroid a e&#x219;uat.</string>
+    <string name="email_already_exists">Aceast&#x103; adres&#x103; email deja exist&#x103;.</string>
+    <string name="email_invalid">Aceast&#x103; adres&#x103; email nu este valid&#x103;.</string>
+    <string name="email_missing">Adresa email lipse&#x219;te.</string>
+    <string name="password_missing">Parola lispe&#x219;te.</string>
+    <string name="password_repeat_missing">Parola repetat&#x103; lipse&#x219;te.</string>
+    <string name="password_repeat_differs">Parola difer&#x103; de parola repetat&#x103;.</string>
+    <string name="password_invalid">Parola este nevalid&#x103;.</string>
+    <string name="password_length_invalid">Parola trebuie sa aib&#x103; nu mai pu&#x21B;in de {*minimumPasswordLength*} &#x219;i nu mai mult de {*maximumPasswordLength*} caractere.</string>
+    <string name="username_password_equal">Parola trebuie s&#x103; difere de nume.</string>
+    <string name="username_missing">Numele lispe&#x219;te.</string>
+    <string name="username_invalid">Numele este nevalid.</string>
+    <string name="username_invalid_underscore">Numele este nevalid. Sublinierele (_) nu sunt permise.</string>
+    <string name="username_invalid_hash">Numele este nevalide. Semnele diez (#) nu sunt permise.</string>
+    <string name="username_invalid_verticalbar">Numele este nevalide. Barele verticale (|) nu sunt permise.</string>
+    <string name="username_invalid_curlybrace">Numele este nevalide. Acoladele ({ sau }) nu sunt permise.</string>
+    <string name="username_invalid_lessgreater">Numele este nevalide. Semnele mai mic &#x219;i mai mare (&lt; sau &gt;) nu sunt permise.</string>
+    <string name="username_invalid_squarebracket">Numele este nevalide. Parantezele p&#x103;trate ([ sau]) nu sunt permise.</string>
+    <string name="username_already_exists">Acest nume deja exista.</string>
+    <string name="username_blacklisted">Acest nume este &#xEE;n lista neagr&#x103; &#x219;i nu este permis.</string>
+    <string name="country_codes_not_available">La moment nu sunt disponibile &#x21B;&#x103;rile din baza de date.</string>
+    <string name="country_missing">Lipse&#x219;te &#x21B;ara.</string>
+    <string name="birth_missing">Lipse&#x219;te data de na&#x219;tere.</string>
+    <string name="gender_missing">Lipse&#x219;te sexul.</string>
+    <string name="insulting_words_in_username_field">&#xCE;n c&#xEE;mpul cu nume sunt cuvinte injurioase.</string>
+    <string name="insulting_words_in_email_field">&#xCE;n c&#xEE;mpul cu adresa email sunt cuvinte injurioase.</string>
+    <string name="insulting_words_in_city_field">&#xCE;n c&#xEE;mpul cu denumirea ora&#x219;ului sunt cuvinte injurioase.</string>
+    <string name="insulting_words_in_province_field">&#xCE;n c&#xEE;mpul cu denumirea provinciei sunt cuvinte injurioase.</string>
+  </registration>
+  <passwordrecovery>
+    <string name="password_missing">Parola lispe&#x219;te.</string>
+    <string name="password_length_invalid">Parola trebuie sa aib&#x103; nu mai pu&#x21B;in de {*minimumPasswordLength*} &#x219;i nu mai mult de {*maximumPasswordLength*} caractere.</string>
+    <string name="userdata_invalid">Numele sau adresa email sunt nevalide.</string>
+    <string name="userdata_missing">Numelea sau adresa email lipsesc.</string>
+    <string name="userdata_not_exists">Numelea sau adresa email nu au fost g&#x103;site.</string>
+    <string name="create_hash_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
+    <string name="catroid_password_recovery_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou sau s&#x103; contacta&#x21B;i administratorul pe {*webmasterEmailAddress*}.</string>
+    <string name="passwordhash_invalid">Scuza&#x21B;i! URL de recupereare a expirat.</string>
+  </passwordrecovery>
+  <admin>
+    <string name="pootle_post_data_missing">POST-data lipse&#x219;te: trebuie: lang.</string>
+    <string name="pootle_load_xlf_failed">Nu a fost &#xEE;nc&#x103;rcat XLF-fi&#x219;ierul de la {*source*}.</string>
+    <string name="pootle_not_valid_xml">Nu sa putut genera XML-obiectul de la XLF-string.</string>
+    <string name="pootle_invalid_stringname_in_xml">Nume nevalid &#xEE;n sursa XLF-fi&#x219;ierului: {*stringName*}</string>
+    <string name="pootle_could_not_write_xml_file">Nu sa &#xEE;nscris XML-fi&#x219;ierul c&#x103;tre mapa cu limbi: {*fileName*}</string>
+  </admin>
+</errors>

@@ -24,11 +24,11 @@ class loadNewestProjects extends CoreAuthenticationNone {
     parent::__construct();
     
     $labels = array();
-    $labels['websitetitle'] = "Catroid Website";
-    $labels['title'] = "Newest Projects";
-    $labels['prevButton'] = "&laquo; Newer";
-    $labels['nextButton'] = "Older &raquo;";
-    $labels['loadingButton'] = "loading...";
+    $labels['websitetitle'] = SITE_DEFAULT_TITLE;
+    $labels['title'] = $this->languageHandler->getString('title');
+    $labels['prevButton'] = $this->languageHandler->getString('prev_button', '&laquo;');
+    $labels['nextButton'] = $this->languageHandler->getString('next_button', '&raquo;');
+    $labels['loadingButton'] = $this->languageHandler->getString('loading_button');
     $this->labels = $labels;
   }
 
@@ -46,7 +46,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
   	}
   	 
     $query = 'EXECUTE get_visible_projects_ordered_by_uploadtime_limited_and_offset('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).');';
-    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $projects = pg_fetch_all($result);
     pg_free_result($result);
     if($projects[0]['id']) {
@@ -54,8 +54,9 @@ class loadNewestProjects extends CoreAuthenticationNone {
       foreach($projects as $project) {
         $projects[$i]['title'] = $projects[$i]['title'];
         $projects[$i]['title_short'] = makeShortString($project['title'], PROJECT_TITLE_MAX_DISPLAY_LENGTH);
-        $projects[$i]['upload_time'] =  getTimeInWords(strtotime($project['upload_time']), time());
+        $projects[$i]['upload_time'] =  $this->languageHandler->getString('uploaded', getTimeInWords(strtotime($project['upload_time']), $this->languageHandler, time()));
         $projects[$i]['thumbnail'] = getProjectThumbnailUrl($project['id']);
+        $projects[$i]['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $projects[$i]['uploaded_by']);
         $i++;
       }
       return($projects);

@@ -26,6 +26,8 @@
   <a id="aAdminToolsInappropriateProjects" href="<?php echo BASE_PATH;?>admin/tools/inappropriateProjects">inappropriate projects</a><br />
   <a id="aAdminToolsApproveWords" href="<?php echo BASE_PATH;?>admin/tools/approveWords">approve unapproved words</a><br />
   <br />
+  <a id="aAdminToolsLanguageManagement" href="<?php echo BASE_PATH;?>admin/languageManagement">manage Languages</a><br />
+  <br />
   <a id="aAdminToolsBlockIp" href="<?php echo BASE_PATH;?>admin/tools/editBlockedIps">block IPs</a><br />
   <a id="aAdminToolsBlockUser" href="<?php echo BASE_PATH;?>admin/tools/editBlockedUsers">block Users</a><br />
   <br />

@@ -38,6 +38,8 @@ class details extends CoreAuthenticationNone {
   public function __default() {
     $projectId = $_REQUEST['method'];
     $this->project = $this->getProjectDetails($projectId);
+    
+    $this->setWebsiteTitle($this->project['title']);
   }
 
   public function getProjectDetails($projectId) {
@@ -59,17 +61,29 @@ class details extends CoreAuthenticationNone {
       exit();
     }
     $project['image'] = getProjectImageUrl($project['id']);
-    $project['publish_time_in_words'] = getTimeInWords(strtotime($project['upload_time']), time());
+    $project['publish_time_in_words'] = getTimeInWords(strtotime($project['upload_time']), $this->languageHandler, time());
+    $project['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $project['uploaded_by']);
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
-    $project['title'] = $project['title'];
     $project['fileSize'] = convertBytesToMegabytes($project['filesize_bytes']);
     if($project['description']) {
       $project['description'] = $project['description'];
     } else {
       $project['description'] = '';
     }
-    $project['description_short'] = makeShortString($project['description'], PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
-    $project['qr_code_image'] = getProjectQRCodeUrl($projectId);
+    if(mb_strlen($project['description'], 'UTF-8') > PROJECT_SHORT_DESCRIPTION_MAX_LENGTH) {
+      $project['description_short'] = makeShortString($project['description'], PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
+    } else {
+      $project['description_short'] = '';
+    }
+    $project['qr_code_catroid_image'] = getCatroidProjectQRCodeUrl($projectId, $project['title']);
+
+    $project['is_app_present'] = file_exists(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENTION);
+    if($project['is_app_present']) {
+      $project['qr_code_app_image'] = getAppProjectQRCodeUrl($projectId, $project['title']);
+      $project['appFileSize'] = convertBytesToMegabytes(filesize(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENTION));
+    }
+    
+    $project['showReportAsInappropriateButton'] = $this->showReportAsInappropriateButton($projectId, $project['user_id']);
     $this->incrementViewCounter($projectId);
     return $project;
   }
@@ -78,6 +92,25 @@ class details extends CoreAuthenticationNone {
     $query = "EXECUTE increment_view_counter('$projectId');";
     $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
     return;
+  }
+  
+  public function showReportAsInappropriateButton($projectId, $userId) {
+    if($this->session->userLogin_userId <= 0) {
+      return false;
+    }
+    if($this->session->userLogin_userId == $userId) {
+      return false;
+    }
+    
+    $query = "EXECUTE has_user_flagged_project('$projectId', '".$this->session->userLogin_userId."');";
+    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
+    $alreadyFlagged = pg_num_rows($result);
+    pg_free_result($result);
+    
+    if($alreadyFlagged > 0) {
+      return false;
+    }
+    return true;
   }
 
   public function __destruct() {

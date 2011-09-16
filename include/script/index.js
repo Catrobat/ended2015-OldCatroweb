@@ -36,7 +36,7 @@ var Index = Class.$extend( {
         self.state = "searchProjects";
       }        
     }
-    setTimeout(this.initialize, 50, this);
+    setTimeout(function() { self.initialize(self); }, 50);
     
     $("#aIndexWebLogoLeft").click($.proxy(this.startPage, this));
     $("#headerMenuButton").click(function() { self.newestProjects.saveStateToSession(self.newestProjects.pageNr.current); });
@@ -57,10 +57,10 @@ var Index = Class.$extend( {
       }      
       return;
     }
-    if (object.task == "newestProjects") {
+    if(object.task == "newestProjects") {
       object.newestProjects.initialize(object.newestProjects);
     }
-    if (object.task == "searchProjects") {
+    if(object.task == "searchProjects") {
       object.searchProjects.initialize(object.searchProjects);
     }            
   },
@@ -81,8 +81,8 @@ var Index = Class.$extend( {
   search : function() {     
     if (this.state == "searchProjects")
       this.searchProjects.triggerSearch(true);
-    else {
-      this.searchProjects.triggerSearch(false);
+    else if($.trim($("#searchQuery").val()) != "") {
+      this.searchProjects.triggerSearch(true);
       this.switchState("searchProjects");      
     }
     return false;
@@ -96,5 +96,4 @@ var Index = Class.$extend( {
     this.switchState("newestProjects");
     this.newestProjects.showStartPage();
   }
-
 });

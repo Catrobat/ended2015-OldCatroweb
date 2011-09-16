@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="or">oder</string>
+  <string name="title">Einloggen</string>
+  <string name="password_link">klick hier, wenn du dein Passwort vergessen hast</string>
+  <string name="account_link">Lege jetzt einen neuen Benutzer an</string>
+  <string name="please_enter_nick_and_password">Bitte gib deinen Benutzernamen und dein Passwort ein:</string>
+  <string name="nick">Nickname:</string>
+  <string name="password">Passwort:</string>
+  <string name="enter_nick">dein Nickname</string>
+  <string name="enter_password">dein Passwort</string>
+  <string name="login">jetzt anmelden</string>
+</strings>

@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Condi&#x219;iile de utilizare</string>
+  <string name="share_alike_licence_link">Attribution - Share Alike</string>
+  <string name="gnu_licence_link">GNU General Public License</string>
+  <string name="gnu_affero_licence_link">GNU Affero General Public License</string>
+  <string name="google_code_link">Google Code</string>
+  <string name="terms_of_use_catroid_community_list_head">Bine a&#x21B;i venit &#xEE;n comunitatea Catroid! Ca o parte a comunit&#x103;&#x21B;ii Catroid, voi &#xEE;mp&#x103;r&#x21B;i&#x21B;i proiectele &#x219;i ideele cu oamenii:</string>
+  <string name="terms_of_use_catroid_community_list_element1">din diferite &#x21B;&#x103;ri &#x219;i culturi</string>
+  <string name="terms_of_use_catroid_community_list_element2">de toate v&#xEE;rstele (de la copii mici p&#xEE;n&#x103; la adolescen&#x21B;i &#x219;i bunici)</string>
+  <string name="terms_of_use_catroid_community_list_element3">cu toate nivelele de experien&#x21B;&#x103;</string>
+  <string name="terms_of_use_catroid_help_list_head">Noi avem nevoie de ajutorul t&#x103;u pentru a face aceast&#x103; comunitate un loc suportiv pentru fiecare mebru. Iac&#x103; cum po&#x21B;i ajuta:</string>
+  <string name="terms_of_use_catroid_help_list_element1">Fi&#x21B;i respectuos. C&#xEE;nd &#xEE;mpar&#x21B;i proiectele, ai &#xEE;n vedere ca oamenii de diferite v&#xEE;rste &#x219;i profesii vor vedea contribu&#x21B;iile tale.</string>
+  <string name="terms_of_use_catroid_help_list_element2">D&#x103; credit. Fii liber s&#x103; faci versiuni modifacte ali proiectelor altor oameni - doar fii sigur c&#x103; le men&#x21B;ionezi pe ei. Un loc pentru a men&#x21B;iona autorii ini&#x21B;iali a proiectului este &#xEE;n descrierea proiectului t&#x103;u.</string>
+  <string name="terms_of_use_catroid_help_list_element3">Fii cinstit. Nu te pretinde a fi altcineva pentru a amagi comunitatea.</string>
+  <string name="terms_of_use_catroid_help_list_element4">P&#x103;streaz&#x103; informa&#x21B;ia ta personal&#x103; &#xEE;n privat. Nu &#xEE;mp&#x103;r&#x21B;i adresa ta email, nump&#x103;ul de telefon &#x219;i alt&#x103; informa&#x21B;ie de contact.</string>
+  <string name="terms_of_use_catroid_help_list_element5">Ajut&#x103; s&#x103; p&#x103;str&#x103;m site-ul prietenos. Dac&#x103; sim&#x21B;i c&#x103; al&#x21B;ii vor gasi un proiect josnic, insult&#x103;tor, prea violent sau necorespunz&#x103;tor &#xEE;n alt mod, pu &#x219;i simplu apas&#x103; pe butonul 'raporteaz&#x103; ca necorespunz&#x103;tor'. Echipa Catroid va revizui raportu, &#x219;i poate &#x219;terge orice proiect sau comentariu.</string>
+  <string name="terms_of_use_project_licence">Toate proiectele partajate pe website-ul Catroid, la fel ca &#x219;i materialele suportive, sunt partajate unb licen&#x21B;a Creative Commons cu condi&#x21B;iile {*shareAlikeLink*}.</string>
+  <string name="terms_of_use_software_licence">Software-ul Catroid &#x219;i website-ul Catroid sun complet gratuite. Codul surs&#x103; a software-ului Catroid este disponibil sub {*gnuLink*}, codul surs&#x103; a website-ului este disponibil sub {*gnuAfferoLink*}.</string>
+  <string name="terms_of_use_google_code">Pute&#x21B;i vizita proiectul la {*googleCodeLink*}.</string>
+  <string name="terms_of_use_check_back">&#xCE;ntorce&#x21B;i-v&#x103; &#xEE;napoi aici din timp &#xEE;n timp, deoarece noi &#xEE;ncerc&#x103;m &#xEE;ntotdeauna s&#x103; &#xEE;mbun&#x103;t&#x103;&#x21B;im ghidurile noastre. V&#x103; rug&#x103;m s&#x103; ne trimite&#x21B;i orice sugestii privind aceste Condi&#x21B;ii De Utilizare la {*emailLink*}.</string>
+  <string name="terms_of_use_thanks">V&#x103; mul&#x21B;umim pentru participare &#x219;i contribuire la comunitatea Catroid!</string>
+  <string name="terms_of_use_team">Echipa Catroid</string>
+</strings>

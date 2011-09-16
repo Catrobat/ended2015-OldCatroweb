@@ -37,4 +37,5 @@ WITH (OIDS=FALSE)
 ;;
 
 INSERT INTO "public"."projects" VALUES ('1', 'testproject', 'description', '1.zip', now(), '127.0.0.1', 0, 0, true, 0);
+INSERT INTO "public"."projects" VALUES ('2', 'nativetest', 'description', '2.catroid', now() + '2 minute'::interval, '127.0.0.1', 0, 0, true, 0);
 

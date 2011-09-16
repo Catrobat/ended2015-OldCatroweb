@@ -18,7 +18,10 @@
 
 var Login = Class.$extend({
   __include__ : [__baseClassVars],
-  __init__ : function() {
+  __init__ : function(languageStringsObject) {
+    
+    this.username_missing = languageStringsObject.username_missing;
+    this.password_missing = languageStringsObject.password_missing;
     
     var uri = location.search;
     var vals = location.search.split("?requesturi=");
@@ -27,7 +30,9 @@ var Login = Class.$extend({
     } else {
       this.requestUri = null;
     }
-
+    
+    $("#loginHelperDiv").toggle(false);
+    
     $("#loginSubmitButton").click(jQuery.proxy(this.doLoginRequest, this));
     $("#logoutSubmitButton").click(jQuery.proxy(this.doLogoutRequest, this));
     $("#loginUsername").keypress($.proxy(this.loginCatchKeypress, this));
@@ -35,24 +40,41 @@ var Login = Class.$extend({
   },
 
   doLoginRequest : function() {
-    $("#loginInfoText").toggle(false);
-    this.disableForm();
-    var url = this.basePath + 'catroid/login/loginRequest.json';
-    $.ajax({
-      type : "POST",
-      url : url,
-      data : ({
-        loginUsername : $("#loginUsername").val(),
-        loginPassword : $("#loginPassword").val()
-      }),
-      timeout : (this.ajaxTimeout),
-      success : jQuery.proxy(this.loginSuccess, this),
-      error : jQuery.proxy(this.loginError, this)
-    });
+    var validLoginData = true;
+    var errorMsg = "";
+
+    if($("#loginUsername").val() && ($("#loginPassword").val())) {
+      $("#loginInfoText").toggle(false);
+      this.disableForm();
+      var url = this.basePath + 'api/login/loginRequest.json';
+
+      $.ajax({
+        type : "POST",
+        url : url,
+        data : ({
+          loginUsername : $("#loginUsername").val(),
+          loginPassword : $("#loginPassword").val(),
+          requesturi : this.requestUri
+        }),
+        timeout : (this.ajaxTimeout),
+        success : jQuery.proxy(this.loginSuccess, this),
+        error : jQuery.proxy(this.loginError, this)
+      });
+    } else {
+      if(!$("#loginUsername").val()) {
+        errorMsg += this.username_missing + "<br>";
+      }
+      if(!$("#loginPassword").val()) {
+        errorMsg += this.password_missing;
+      }
+      $("#loginInfoText").toggle(true);
+      $("#loginErrorMsg").html(errorMsg);
+    }
   },
 
   loginSuccess : function(result) {
     if (result.statusCode == 200) {
+      $("#loginHelperDiv").toggle(false);
       if(this.requestUri) {
         location.href = this.basePath+this.requestUri;
       } else {
@@ -61,30 +83,40 @@ var Login = Class.$extend({
     } else {
       $("#loginInfoText").toggle(true);
       $("#loginErrorMsg").html(result.answer);
+      $("#loginHelperDiv").toggle(true);
+      $("#loginHelperDiv").html(result.helperDiv);
       this.enableForm();
     }
   },
 
   loginError : function(result, errCode) {
-    //alert("loginError");
-    this.enableForm();
+    if(errCode == "timeout") {
+      this.enableForm();  
+    }
   },
 
   doLogoutRequest : function(event) {
     $.ajax({
-      url : this.basePath + "catroid/login/logoutRequest.json",
-      async : false,
+      type : "POST",
+      url : this.basePath + "api/login/logoutRequest.json",
+
       success : jQuery.proxy(this.logoutSuccess, this),
       error : jQuery.proxy(this.logoutError, this)
     });
   },
 
   logoutSuccess : function(result) {
-    location.reload();
+    if(result.requesturi) {
+      location.reload();
+    } else {
+      location.href = this.basePath+'/catroid/index';
+    }
   },
 
   logoutError : function(result, errCode) {
-    //alert("logoutError");
+    if(errCode == "timeout") {
+      this.enableForm();  
+    }
   },
 
   loginCatchKeypress : function(event) {

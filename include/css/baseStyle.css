@@ -16,11 +16,28 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 body {
+  height: 100%;
   background-color: #ffffff;
   color: #222222;
   font-family: "Trebuchet MS", "Luxi Sans", Verdana, Arial, Helvetica,
     sans-serif;
   font-size: 1.3em;
+}
+
+div.webAjaxLoadingContainer
+{
+  width: 100%;
+  min-height: 200%;
+  height:auto !important; /* moderne Browser */
+  height: 200%; /* IE */
+  text-align: center;
+  vertical-align: middle;
+  background-color: rgba(1,1,1,0.1);
+  color: white;
+  overflow: hidden;
+  position: absolute;
+  top: 0;
+  left: 0; 
 }
 
 /* Main Container; contains everything */
@@ -91,14 +108,35 @@ div.whiteBoxMain {
   padding-bottom: 0.8%;
 }
 
+div.loginHelper {
+  margin-top: 1% ;
+  margin-bottom: 1% ;
+}
+
 select.registration {
   margin: 1.2% 1% 1.2% 0.4%;
   max-width: 60%;
 }
 
+select.languageSwitchSelect {
+  background-color: #d7e0f5;
+  border: solid white 1px;
+  color: #222222;
+  width: 100px;
+}
+
 span.webMainBottomSpacer {
   color: #7777AA;
 }
+
+img.webAjaxLoadingContainer
+{
+/*  position: relative;*/
+  top: 0; bottom: 0;
+  left: 0; right: 0;
+  margin: auto;
+}
+
 
 img.noBorder {
   border: none;

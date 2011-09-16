@@ -71,6 +71,7 @@ var NewestProjects = Class.$extend( {
       stateObject.pageLabels = this.pageLabels;
       stateObject.pageContent = this.pageContent;
       stateObject.newestProjects = true;
+      stateObject.language = $("#switchLanguage").val();
 	      
       history.pushState(stateObject, this.pageLabels['websitetitle'] + " - " + 
           this.pageLabels['title'] + " - " + this.pageNr.current, 
@@ -81,20 +82,31 @@ var NewestProjects = Class.$extend( {
 
   restoreHistoryState : function(state) {
     if(state != null) {
+      var isLanguageChanged = (state.language != $("#switchLanguage").val());
       this.createSkeleton();
       $("#fewerProjects").click($.proxy(this.prevPage, this));
       $("#moreProjects").click($.proxy(this.nextPage, this));
 
       if(state.newestProjects) {
         this.pageNr = state.pageNr;
-        this.pageLabels = state.pageLabels;
-        this.pageContent = state.pageContent;
+        if(isLanguageChanged) {
+          this.setLoadingPage();
+          this.pageLabels = new Array();
+          this.pageContent = { prev : null, current : null, next : null };
+          this.loadAndCachePage();
+        } else {
+          this.pageContent = state.pageContent;
+          this.pageLabels = state.pageLabels;
+        }
       }      
       $("#normalHeaderButtons").toggle(true);
       $("#cancelHeaderButton").toggle(false);
       $("#headerSearchBox").toggle(false);
-      this.setDocumentTitle();
-      this.fillSkeletonWithContent();
+      
+      if(!isLanguageChanged) {
+        this.setDocumentTitle();
+        this.fillSkeletonWithContent();
+      }
       this.initialized = true;
     }
   },
@@ -118,7 +130,6 @@ var NewestProjects = Class.$extend( {
     if(!this.ajaxRequestMutex) {
       this.ajaxRequestMutex = true;
       $("#projectContainer").fadeTo(100, 0.60);
-      $("#ajax-loader").val("on");
       return true;
     }
     return false;
@@ -126,7 +137,6 @@ var NewestProjects = Class.$extend( {
 	  
   unblockAjaxRequest : function() {
     $("#projectContainer").fadeTo(10, 1.0);
-    $("#ajax-loader").val("off");
     this.ajaxRequestMutex = false;
   },
 
@@ -322,8 +332,6 @@ var NewestProjects = Class.$extend( {
       $("#projectContainer").append(containerContent);
       $("#projectContainer").append($("<div />").addClass("projectListSpacer"));
       $("#projectContainer").append($("<div />").addClass("webMainNavigationButtons").append(navigationButtonNext.attr("id", "moreProjects").append($("<span />").addClass("navigationButtons"))));
-      
-      $("#projectContainer").append($("<div />").append($("<input />").attr("type", "hidden").attr("id", "ajax-loader")));
     }
   },
   
@@ -364,9 +372,7 @@ var NewestProjects = Class.$extend( {
           $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='"+this.basePath+"catroid/details/"+content[i]['id']+"'>"+content[i]['title']+"</a></div>");
           $("#projectListTitle"+i).unbind('click');
           $("#projectListTitle"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
-          // + author $("#projectListDescription"+i).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
-          //$("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago");          
-          $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago by "+content[i]['uploaded_by']);
+          $("#projectListDescription"+i).html(content[i]['upload_time']+" "+content[i]['uploaded_by_string']);
         }
       }
       else {

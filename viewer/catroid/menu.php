@@ -21,55 +21,62 @@
       <div class="blueBoxMain">
         <div class="webMainContent">
           <div class="menuListRow">
-            <div class="whiteBoxMain">
+            <div class="whiteBoxMain" id="firstRow">
               <div class="menuListElementRow">
-                <button id="menuProfileButton" type="button" class="menuElementButton button pink medium" title="Profile">
+                <button id="menuProfileButton" type="button" class="menuElementButton button green medium" title="Profile">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br />Profile
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('profile')?> 
                   </span>
                 </button>
               </div>
               <div class="menuListElementRow">
                 <button id="menuForumButton" type="button" class="menuElementButton button blue medium" title="Forum">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_forum.png" alt="Forum" /><br />Forum
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_forum.png" alt="Forum" /><br /><?php echo $this->languageHandler->getString('forum')?> 
                   </span>
                 </button>
               </div>
               <div class="menuListElementRow">
-                <button id="menuWikiButton" type="button" class="menuElementButton button orange medium" title="Wiki">
+                <button id="menuWikiButton" type="button" class="menuElementButton button darkorange medium" title="Wiki">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_wiki.png" alt="Wiki" /><br />Wiki
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_wiki.png" alt="Wiki" /><br /><?php echo $this->languageHandler->getString('wiki')?> 
                   </span>
                 </button>
               </div>              
               <div style="clear:left;"></div>
             </div> <!-- whiteBoxMain close //-->
             <div class="menuListSpacer"></div>
-            <div class="whiteBoxMain">
+            <div class="whiteBoxMain" id="secondRow">
               <div class="menuListElementRow">
-                <button id="menuWallButton" type="button" class="menuElementButton button green medium" title="Wall">
+                <button id="menuLoginButton" type="button" class="menuElementButton button green medium" title="Login">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_wall.png" alt="Wall" /><br />Wall
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Log in now" /><br /><?php echo $this->languageHandler->getString('login')?> 
                   </span>
                 </button>
               </div>
               <div class="menuListElementRow">
-                <button id="menuLoginButton" type="button" class="menuElementButton button red medium" title="Login"  style="display:none">
+                <button id="menuRegistrationButton" type="button" class="menuElementButton button red medium" title="Registration">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_login.png" alt="Login" /><br />Login
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Profile" /><br /><?php echo $this->languageHandler->getString('sign_up')?> 
                   </span>
                 </button>
-                <button id="menuLogoutButton" type="button" class="menuElementButton button red medium" title="Logout" style="display:none">
+              </div>
+                
+              <div style="clear:left;"></div>
+            </div> <!-- whiteBoxMain close //-->
+            <div class="menuListSpacer"></div>
+            <div class="whiteBoxMain" id="thirdRow">
+              <div class="menuListElementRow">
+                <button id="menuWallButton" type="button" class="menuElementButton button green medium" title="Wall">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_logout.png" alt="Logout" /><br />Logout
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_wall.png" alt="Wall" /><br /><?php echo $this->languageHandler->getString('wall')?> 
                   </span>
                 </button>
               </div>
               <div class="menuListElementRow">
                 <button id="menuSettingsButton" type="button" class="menuElementButton button rosy medium" title="Settings">
                   <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_settings.png" alt="Settings" /><br />Settings
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_settings.png" alt="Settings" /><br /><?php echo $this->languageHandler->getString('settings')?> 
                   </span>
                 </button>
               </div>

@@ -18,13 +18,13 @@
 
 package at.tugraz.ist.catroweb.admin;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 import org.postgresql.Driver;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -39,20 +39,18 @@ public class BadWordsFilterTests extends BaseTest {
   public void approveButtonGood() throws Throwable {
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttongood" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      session().click("aAdministrationTools");
-      waitForPageToLoad();
-      session().click("aAdminToolsApproveWords");
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent(unapprovedWord));
-      session().select("id=meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord), "label=good");
-      session().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      session().getConfirmation();
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent("The word was succesfully approved!"));
+      driver().findElement(By.id("aAdministrationTools")).click();
+      driver().findElement(By.id("aAdminToolsApproveWords")).click();
+      assertTrue(isTextPresent(unapprovedWord));
+
+      (new Select(driver().findElement(By.id("meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord))))).selectByVisibleText("good");
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.id("approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord))).click();
+      assertTrue(isTextPresent("The word was succesfully approved!"));
 
       assertProjectPresent(unapprovedWord);
 
@@ -60,7 +58,7 @@ public class BadWordsFilterTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonGood");
       throw e;
-    }catch(Exception e) {
+    } catch(Exception e) {
       captureScreen("BadWordsFilterTests.approveButtonGood");
       throw e;
     }
@@ -70,20 +68,17 @@ public class BadWordsFilterTests extends BaseTest {
   public void approveButtonBad() throws Throwable {
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttonbad" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
-
+      
       openAdminLocation();
-      session().click("aAdministrationTools");
-      waitForPageToLoad();
-      session().click("aAdminToolsApproveWords");
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent(unapprovedWord));
-      session().select("id=meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord), "label=bad");
-      session().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      session().getConfirmation();
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent("The word was succesfully approved!"));
+      driver().findElement(By.id("aAdministrationTools")).click();
+      driver().findElement(By.id("aAdminToolsApproveWords")).click();
+      assertTrue(isTextPresent(unapprovedWord));
+      (new Select(driver().findElement(By.id("meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord))))).selectByVisibleText("bad");
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.id("approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord))).click();
+      assertTrue(isTextPresent("The word was succesfully approved!"));
 
       assertProjectNotPresent(unapprovedWord);
 
@@ -91,7 +86,7 @@ public class BadWordsFilterTests extends BaseTest {
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonBad");
       throw e;
-    }catch(Exception e) {
+    } catch(Exception e) {
       captureScreen("BadWordsFilterTests.approveButtonBad");
       throw e;
     }
@@ -101,27 +96,24 @@ public class BadWordsFilterTests extends BaseTest {
   public void approveButtonNoSelection() throws Throwable {
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttonnoselection" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      session().click("aAdministrationTools");
-      waitForPageToLoad();
-      session().click("aAdminToolsApproveWords");
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent(unapprovedWord));
-      session().click("xpath=//input[@id='approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      session().getConfirmation();
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent("Error: no word meaning selected!"));
-      
+      driver().findElement(By.id("aAdministrationTools")).click();
+      driver().findElement(By.id("aAdminToolsApproveWords")).click();
+      assertTrue(isTextPresent(unapprovedWord));
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.id("approve" + CommonFunctions.getUnapprovedWordId(unapprovedWord))).click();
+      assertTrue(isTextPresent("Error: no word meaning selected!"));
+
       assertProjectPresent(unapprovedWord);
 
       deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonNoSelection");
       throw e;
-    }catch(Exception e) {
+    } catch(Exception e) {
       captureScreen("BadWordsFilterTests.approveButtonNoSelection");
       throw e;
     }
@@ -131,20 +123,17 @@ public class BadWordsFilterTests extends BaseTest {
   public void testDeleteButton() throws Throwable {
     try {
       String unapprovedWord = "badwordsfilterteststestdeletebutton" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       openAdminLocation();
-      session().click("aAdministrationTools");
-      waitForPageToLoad();
-      session().click("aAdminToolsApproveWords");
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent(unapprovedWord));
-      session().click("xpath=//input[@id='delete" + CommonFunctions.getUnapprovedWordId(unapprovedWord) + "']");
-      session().getConfirmation();
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent("The word was succesfully deleted!"));
-      assertFalse(session().isTextPresent(unapprovedWord));
+      driver().findElement(By.id("aAdministrationTools")).click();
+      driver().findElement(By.id("aAdminToolsApproveWords")).click();
+      assertTrue(isTextPresent(unapprovedWord));
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.id("delete" + CommonFunctions.getUnapprovedWordId(unapprovedWord))).click();
+      assertTrue(isTextPresent("The word was succesfully deleted!"));
+      assertFalse(isTextPresent(unapprovedWord));
 
       assertProjectPresent(unapprovedWord);
 

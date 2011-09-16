@@ -24,16 +24,13 @@
     <string name="get_number_of_visible_projects">SELECT count(id) FROM projects WHERE visible=true</string>
     <string name="get_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND projects.visible=true AND cusers.id=projects.user_id LIMIT 1</string>
-    <string name="get_project_by_source">SELECT * FROM projects WHERE source=$1 LIMIT 1</string>
-    <string name="insert_new_project">
-    	INSERT INTO projects (title, description, source, upload_ip, upload_imei, upload_email, upload_language, filesize_bytes, user_id) 
-    	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id
-    </string>
+    <string name="insert_new_project">INSERT INTO projects (title, description, source, upload_ip, upload_email, upload_language, filesize_bytes, user_id) 
+    	VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id</string>
     <string name="increment_download_counter">UPDATE projects SET download_count=download_count+1 WHERE id=$1</string>
     <string name="increment_view_counter">UPDATE projects SET view_count=view_count+1 WHERE id=$1</string>
     <string name="set_project_new_filename">UPDATE projects SET source=$1 WHERE id=$2</string>
     <string name="delete_project_by_id">DELETE FROM projects WHERE id=$1</string>
-    <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, reason, user_ip) VALUES ($1, $2, $3)</string>
+    <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, user_id, reason, user_ip) VALUES ($1, $2, $3, $4)</string>
     <string name="get_flags_for_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND resolved=false</string>
     <string name="hide_project">UPDATE projects SET visible=false WHERE id=$1</string>
     <string name="show_project">UPDATE projects SET visible=true WHERE id=$1</string>
@@ -46,6 +43,14 @@
       GROUP BY projects.id, projects.title, projects.upload_time, projects.upload_ip, projects.visible 
       ORDER BY projects.upload_time DESC
     </string>
+    <string name="get_flagged_projects_reason_and_user">
+      SELECT fp.user_id, fp.reason, u.username, fp.time 
+      FROM flagged_projects fp, cusers u 
+      WHERE fp.user_id = u.id
+      AND fp.project_id = $1
+      ORDER BY fp.time
+    </string>
+    <string name="has_user_flagged_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND user_id=$2 AND resolved=FALSE</string>
     <string name="update_project_filesize">UPDATE projects SET filesize_bytes=$2 WHERE id=$1</string>
 
     <string name="add_word_to_wordlist">INSERT INTO wordlist (word, good_meaning, approved) VALUES ($1, $2, $3)</string>
@@ -60,28 +65,48 @@
 
     <string name="get_user_login">SELECT * FROM cusers WHERE username_clean=$1 AND password=$2 LIMIT 1</string>
     <string name="get_user_device_login">SELECT * FROM cusers WHERE auth_token=$1 LIMIT 1</string>
-    <string name="get_userid_by_username">SELECT id FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_row_by_username">SELECT * FROM cusers WHERE username=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_clean">SELECT * FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
-    <string name="get_user_row_by_email">SELECT * FROM cusers WHERE email=$1 LIMIT 1</string>
-    <string name="get_user_row_by_id">SELECT * FROM cusers WHERE id=$1 LIMIT 1</string>
+
+    <string name="get_user_row_by_email">SELECT u.* FROM cusers u, cusers_additional_email e WHERE u.email=$1 OR e.email=$1</string>
+    <string name="get_user_language">SELECT language FROM cusers WHERE id=$1</string>
+    
+    
+    <string name="add_user_email">INSERT INTO cusers_additional_email (user_id, email) VALUES ($1, $2)</string>
     <string name="get_user_row_by_recovery_hash">SELECT * FROM cusers WHERE recovery_hash=$1 LIMIT 1</string>
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
     <string name="get_user_country_by_username">SELECT country from cusers WHERE username=$1</string>
-    <string name="get_user_country_by_id">SELECT country from cusers WHERE id=$1</string>
-    <string name="get_user_email_by_username">SELECT email from cusers WHERE username=$1</string>
+    <string name="get_user_email_by_email">SELECT email FROM cusers WHERE email=$1</string>
+    <string name="get_user_emails_by_id">SELECT u.email FROM cusers u WHERE u.id=$1 UNION SELECT e.email FROM cusers_additional_email e WHERE e.user_id=$1</string>
     <string name="get_country_from_countries">SELECT name, code FROM countries ORDER BY name ASC</string>
     <string name="get_country_from_countries_by_countrycode">SELECT name, code FROM countries WHERE code=$1 ORDER BY name ASC</string>
-    <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING id</string>
+    <string name="get_user_birth_by_username">SELECT to_char(date_of_birth, 'MM') AS month, to_char(date_of_birth, 'YYYY') AS year FROM cusers WHERE username=$1</string>
+    <string name="get_user_city_by_username">SELECT city FROM cusers WHERE username=$1</string>
+    <string name="get_user_gender_by_username">SELECT gender FROM cusers WHERE username=$1</string>
+    <!-- <string name="get_user_language_by_id">SELECT language FROM cusers WHERE id=$1</string> -->
+
+    <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token, language) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
+    <!-- <string name="delete_user_email_by_email">DELETE email FROM cusers WHERE email=$1</string> -->
+    <string name="delete_user_additional_email_by_email">DELETE FROM cusers_additional_email WHERE email=$1</string>
+    <string name="delete_user_email_from_additional_email_by_user_email">DELETE FROM cusers_additional_email WHERE email=(SELECT email FROM cusers WHERE id=$1)</string>
     <string name="update_recovery_hash_recovery_time_by_id">UPDATE cusers SET recovery_hash=$1, recovery_time=$2 WHERE id=$3</string>
     <string name="update_password_and_hash_by_username">UPDATE cusers SET password=$1, recovery_hash=$2 WHERE username=$3</string>
-    <string name="update_user_email">UPDATE cusers SET email=$1 WHERE username=$2</string>
-    <string name="update_user_country">UPDATE cusers SET country=$1 WHERE username=$2</string>
-    <string name="update_password_by_username">UPDATE cusers SET password=$1 WHERE username=$2</string>
+    <string name="update_user_email_by_user_email">UPDATE cusers SET email=$1 WHERE email=$2</string>
+    <string name="update_user_email_from_additional_email_by_user_email">UPDATE cusers SET email=(SELECT email FROM cusers_additional_email WHERE user_id=$1 LIMIT 1) WHERE id=$1</string> <!-- hkajläsdfalösjkfä -->    
+    <string name="update_user_additional_email_by_user_email">UPDATE cusers_additional_email SET email=$1 WHERE email=$2</string>
     
+    <string name="update_user_country">UPDATE cusers SET country=$1 WHERE username=$2</string>
+    <string name="update_user_city">UPDATE cusers SET city=$1 WHERE username=$2</string>
+    <string name="update_user_birth">UPDATE cusers SET date_of_birth=$1 WHERE username=$2</string>
+    <string name="update_user_gender">UPDATE cusers SET gender=$1 WHERE username=$2</string>
+    <string name="update_user_language_by_id">UPDATE cusers SET language=$1 WHERE id=$2</string>
+    
+    <string name="update_password_by_username">UPDATE cusers SET password=$1 WHERE username=$2</string>
+    <string name="delete_user_birth">UPDATE cusers SET date_of_birth=NULL WHERE username=$1</string>
     <!-- <string name="update_phpbb_user_password_by_username">UPDATE phpbb_users SET user_password=$1 WHERE username=$2</string> -->
+    
     
     <string name="save_catroid_version_info">UPDATE projects SET version_code=$2, version_name=$3 WHERE id=$1</string>
     
@@ -92,9 +117,8 @@
     <string name="admin_unblock_username">DELETE FROM blocked_cusers WHERE user_name=$1</string>
     <string name="admin_unblock_user_id">DELETE FROM blocked_cusers WHERE user_id=$1</string>
     <string name="admin_is_blocked_user">SELECT * FROM blocked_cusers WHERE user_id=$1 AND user_name=$2</string>
-    <string name="admin_remove_all_blocked_users">DELETE FROM blocked_cusers</string>
     <string name="get_all_blocked_users">SELECT * FROM blocked_cusers</string>
-    <string name="get_all_users">SELECT u.*, (select min(b.user_id) from blocked_cusers b where b.user_id = u.id) user_id FROM cusers u ORDER BY id ASC</string>
+    <string name="get_all_users">SELECT u.*, (select min(b.user_id) from blocked_cusers b where b.user_id = u.id) FROM cusers u ORDER BY id ASC</string>
     <string name="get_user_by_id">SELECT * FROM cusers WHERE id=$1</string>
 
     <string name="admin_block_ip">INSERT INTO blocked_ips (ip_address) VALUES ($1)</string>

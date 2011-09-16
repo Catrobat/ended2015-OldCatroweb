@@ -269,6 +269,7 @@ class tools extends CoreAuthenticationAdmin {
     if($projects) {
       for($i=0;$i<count($projects);$i++) {
         $projects[$i]['num_flags'] = $this->countFlags($projects[$i]['id']);
+        $projects[$i]['flag_details'] = $this->getFlaggedReasonAndUser($projects[$i]['id']);
       }
     }
     pg_free_result($result);
@@ -309,6 +310,24 @@ class tools extends CoreAuthenticationAdmin {
     return pg_num_rows($result);
   }
 
+  private function getFlaggedReasonAndUser($projectId) {
+    $fquery = "EXECUTE get_flagged_projects_reason_and_user('$projectId')";
+    $fresult = @pg_query($fquery) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $fprojects =  pg_fetch_all($fresult);
+    $details = "<ul>";
+    if($fprojects) {
+      foreach($fprojects as $fproject) {
+        $details.= "<li>";
+        $details.= $fproject['username'].", ";
+        $details.= $fproject['time']."<br>";
+        $details.= "<i>\"".$fproject['reason']."\"</i>";
+      }
+    }
+    $details.= "</ul>";
+    pg_free_result($fresult);
+    return($details);
+  }
+  
   public function deleteProject($id) {
     $directory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
     $thumbnailDirectory = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;

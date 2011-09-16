@@ -21,7 +21,7 @@
 <project name="selenium-tools" basedir=".">
   <description>Selenium Grid Tools (hub and remote-control)</description>
   <dirname property="selenium-tools.basedir" file="${ant.file.selenium-tools}"/>
-  <property name="selenium-tools.version" value="2.0.0" />
+  <property name="selenium-tools.version" value="2.6.0" />
 
   <!-- *** launch and stop hub ********************************************* -->
   <target name="launch-hub" description="Launch Selenium Grid Hub">
@@ -59,7 +59,8 @@
   <property name="port" value="5555"/>
   <property name="browserName" value="firefox"/>
   <property name="browserVersion" value="3.6"/>
-  <property name="maxInstances" value="3"/>
+  <property name="maxInstances" value="5"/>
+	<property name="platform" value=""/>
   <property name="nodeTimeout" value="30"/>
   <target name="launch-remote-control" description="Launch A Selenium Grid Remote Control">
     <condition property="remote-socket.open">
@@ -70,7 +71,7 @@
   
   <target name="-start-remote-control" unless="remote-socket.open">
     <exec dir="${selenium-tools.basedir}" executable="java" spawn="true">
-      <arg line="-jar selenium-server-standalone-${selenium-tools.version}.jar -role ${role} -hub ${hubURL} -port ${port} -browser browserName=${browserName},version=${browserVersion},maxInstances=${maxInstances} -nodeTimeout ${nodeTimeout}"/>
+      <arg line="-jar selenium-server-standalone-${selenium-tools.version}.jar -role ${role} -hub ${hubURL} -port ${port} -browser &quot;browserName=${browserName},version=${browserVersion},maxInstances=${maxInstances}${platform}&quot; -maxSession ${maxInstances} -nodeTimeout ${nodeTimeout}"/>
     </exec>
 
     <waitfor maxwait="3" maxwaitunit="minute" checkevery="100">

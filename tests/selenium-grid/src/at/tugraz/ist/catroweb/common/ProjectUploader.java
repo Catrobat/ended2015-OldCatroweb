@@ -63,11 +63,11 @@ public class ProjectUploader {
     HttpClient httpclient = new DefaultHttpClient();
     try {
       MultipartEntity reqEntity = new MultipartEntity();
+      
       reqEntity.addPart("projectTitle", new StringBody(verifiedPayload.get("projectTitle"), utf8));
       reqEntity.addPart("projectDescription", new StringBody(verifiedPayload.get("projectDescription"), utf8));
       reqEntity.addPart("upload", new FileBody(new File(verifiedPayload.get("upload"))));
       reqEntity.addPart("fileChecksum", new StringBody(verifiedPayload.get("fileChecksum"), utf8));
-      reqEntity.addPart("deviceIMEI", new StringBody(verifiedPayload.get("deviceIMEI"), utf8));
       reqEntity.addPart("userEmail", new StringBody(verifiedPayload.get("userEmail"), utf8));
       reqEntity.addPart("userLanguage", new StringBody(verifiedPayload.get("userLanguage"), utf8));
       reqEntity.addPart("token", new StringBody(verifiedPayload.get("token"), utf8));
@@ -87,7 +87,7 @@ public class ProjectUploader {
         return answer;
       }
     } catch(Exception e) {
-      System.out.println("Unknown Exception - upload failed!");
+      System.out.println("Unknown Exception - upload failed! " + e.getMessage());
       return "";
     } finally {
       try {
@@ -144,12 +144,6 @@ public class ProjectUploader {
       fileChecksum = payload.get("fileChecksum");
     }
     data.put("fileChecksum", fileChecksum);
-
-    String deviceIMEI = Config.DEFAULT_UPLOAD_IMEI;
-    if(payload.containsKey("deviceIMEI")) {
-      deviceIMEI = payload.get("deviceIMEI");
-    }
-    data.put("deviceIMEI", deviceIMEI);
 
     String userEmail = Config.DEFAULT_UPLOAD_EMAIL;
     if(payload.containsKey("userEmail")) {

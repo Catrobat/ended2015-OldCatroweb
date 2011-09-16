@@ -23,8 +23,6 @@
       <package name="at.tugraz.ist.catroweb.api" />
     </packages>
   </test>
-  
-  
   <test name="AdminTests" >
     <packages>
       <package name="at.tugraz.ist.catroweb.admin" />
@@ -35,7 +33,7 @@
       <class name="at.tugraz.ist.catroweb.catroid.DetailsTests" />
       <class name="at.tugraz.ist.catroweb.catroid.HeaderTests" />
       <class name="at.tugraz.ist.catroweb.catroid.IndexTests" />      
-      <class name="at.tugraz.ist.catroweb.catroid.LicenseTests" />      
+      <class name="at.tugraz.ist.catroweb.catroid.LicenseTests" />
       <class name="at.tugraz.ist.catroweb.catroid.LoginTests" />
       <class name="at.tugraz.ist.catroweb.catroid.MenuTests" />
       <class name="at.tugraz.ist.catroweb.catroid.PasswordRecoveryTests" />
@@ -43,6 +41,12 @@
       <class name="at.tugraz.ist.catroweb.catroid.RegistrationTests" />
       <class name="at.tugraz.ist.catroweb.catroid.ReportAsInappropriateTests" />
       <class name="at.tugraz.ist.catroweb.catroid.SearchTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.WebsiteTitleTests" />
+    </classes>
+  </test>
+  <test name="BlockedIpTests" >
+    <classes>
+      <class name="at.tugraz.ist.catroweb.catroid.BlockedIpTests" />
     </classes>
   </test>
 </suite>

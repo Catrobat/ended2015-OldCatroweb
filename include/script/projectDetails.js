@@ -18,18 +18,30 @@
 
 var ProjectDetails = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function() {
+  __init__ : function(projectId) {
+    this.downloadState = { 'selected': 0, 'catroid': 0, 'app': 1 };
+    this.downloadInfoVisible = false;
+    this.projectId = projectId;
+    
+    $("#downloadAppProjectLink").click($.proxy(this.incrementDownloadCounter, this));
+    $("#downloadCatroidProjectLink").click($.proxy(this.incrementDownloadCounter, this));
+    $("#downloadProjectThumb").click($.proxy(this.incrementDownloadCounter, this));
+    
+    $("#downloadAppSection").toggle(false);
+
     $("#qrcodeInfo").toggle(false);
     $("#hideQrCodeInfoButton").toggle(false);
     $("#showQrCodeInfoButton").click($.proxy(this.showQrCodeInfo, this));
     $("#hideQrCodeInfoButton").click($.proxy(this.hideQrCodeInfo, this));
-
+    
+    $("#downloadCatroidSwitch").bind('click', { type: this.downloadState.catroid }, $.proxy(this.changeDownloadType, this));
+    $("#downloadAppSwitch").bind('click', { type: this.downloadState.app }, $.proxy(this.changeDownloadType, this));
+    $("#downloadInfoButton").click($.proxy(this.toggleDownloadInfo, this));
+      
     $("#reportAsInappropriateDialog").toggle(false);
     $("#reportAsInappropriateAnswer").toggle(false);
-    $("#showFullDescriptionButton").click(
-        $.proxy(this.showFullDescription, this));
-    $("#showShortDescriptionButton").click(
-        $.proxy(this.showShortDescription, this));
+    $("#showFullDescriptionButton").click($.proxy(this.showFullDescription, this));
+    $("#showShortDescriptionButton").click($.proxy(this.showShortDescription, this));
     $("#reportAsInappropriateButton").click(function() {
       $("#reportAsInappropriateAnswer").toggle(false);
       $("#reportAsInappropriateDialog").toggle();
@@ -37,10 +49,8 @@ var ProjectDetails = Class.$extend( {
     $("#reportInappropriateCancelButton").click(function() {
       $("#reportAsInappropriateDialog").toggle(false);
     });
-    $("#reportInappropriateReportButton").click(
-        $.proxy(this.reportInappropriateSubmit, this));
-    $("#reportInappropriateReason").keypress(
-        $.proxy(this.reportInappropriateCatchKeypress, this));
+    $("#reportInappropriateReportButton").click($.proxy(this.reportInappropriateSubmit, this));
+    $("#reportInappropriateReason").keypress($.proxy(this.reportInappropriateCatchKeypress, this));
   },
   
   reportInappropriateCatchKeypress : function(event) {
@@ -96,6 +106,68 @@ var ProjectDetails = Class.$extend( {
 	  $("#qrcodeInfo").toggle(false);
 	  $("#showQrCodeInfoButton").toggle(true);
 	  $("#hideQrCodeInfoButton").toggle(false);
+  },
+  
+  changeDownloadType : function(event) {
+    if(event.data.type != this.downloadState.selected) {
+      this.downloadState.selected = event.data.type;
+      
+      if(this.downloadState.selected == this.downloadState.catroid) {
+        $("#downloadProjectThumb").attr("href", $("#downloadCatroidProjectLink").attr("href"));
+
+        $("#downloadAppSection").toggle(false);
+        $("#downloadCatroidSection").toggle(true);
+        
+        $("#downloadCatroidSwitch").removeClass('blue');
+        $("#downloadCatroidSwitch").addClass('blueSelected');
+        
+        $("#downloadAppSwitch").removeClass('blueSelected');
+        $("#downloadAppSwitch").addClass('blue');
+        
+        if(this.downloadInfoVisible) {
+          $("#downloadCatroidInfo").toggle(true);
+          $("#downloadAppInfo").toggle(false);
+        }
+      }
+
+      if(this.downloadState.selected == this.downloadState.app) {
+        $("#downloadProjectThumb").attr("href", $("#downloadAppProjectLink").attr("href"));
+
+        $("#downloadAppSection").toggle(true);
+        $("#downloadCatroidSection").toggle(false);
+
+        $("#downloadCatroidSwitch").removeClass('blueSelected');
+        $("#downloadCatroidSwitch").addClass('blue');
+        
+        $("#downloadAppSwitch").removeClass('blue');
+        $("#downloadAppSwitch").addClass('blueSelected');
+        
+        if(this.downloadInfoVisible) {
+          $("#downloadCatroidInfo").toggle(false);
+          $("#downloadAppInfo").toggle(true);
+        }
+      }
+    }
+  },
+
+  toggleDownloadInfo : function() {
+    this.downloadInfoVisible = !this.downloadInfoVisible;
+    
+    if(this.downloadState.selected == this.downloadState.catroid) {
+      $("#downloadCatroidInfo").toggle(this.downloadInfoVisible);
+    } else if(this.downloadState.selected == this.downloadState.app){
+      $("#downloadAppInfo").toggle(this.downloadInfoVisible);
+    }
+  },
+  
+  incrementDownloadCounter : function() {
+    var self = this;
+    $.ajax({
+      type: "POST",
+      url: self.basePath+"catroid/download/" + self.projectId,
+      cache: false,
+      data: "incrementID=" + self.projectId,        
+    });
   }
 
 });

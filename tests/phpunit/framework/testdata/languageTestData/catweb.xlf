@@ -1,0 +1,502 @@
+<?xml version='1.0' encoding='utf-8'?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.1" version="1.1">
+  <file original="catweb.po" source-language="en-US" datatype="plaintext" target-language="en_GB">
+    <body>
+      <trans-unit xml:space="preserve" approved="yes" id="Contact">
+        <source>Contact</source>
+        <target>Contact</target>
+        <note from="translator">sgattribut "testModule1$testClass1$title"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="If you have any questions or suggestions, please send an email to {*emailLink*}.">
+        <source>If you have any questions or suggestions, please send an email to {*emailLink*}.</source>
+        <target>If you have any questions or suggestions, please send an email to {*emailLink*}.</target>
+        <note from="translator">sgattribut "testModule1$testClass1$contact_text"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="uploaded">
+        <source>uploaded</source>
+        <target>uploaded</target>
+        <note from="translator">sgattribut "testModule1$testClass2$uploaded"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="by {*nicknameString*}">
+        <source>by {*nicknameString*}</source>
+        <target>by {*nicknameString*}</target>
+        <note from="translator">sgattribut "testModule1$testClass2$uploaded_by"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Download">
+        <source>Download</source>
+        <target>Download</target>
+        <note from="translator">sgattribut "testModule1$testClass2$download"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Report">
+        <source>Report</source>
+        <target>Report</target>
+        <note from="translator">sgattribut "testModule1$testClass2$report"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Cancel">
+        <source>Cancel</source>
+        <target>Cancel</target>
+        <note from="translator">sgattribut "testModule1$testClass2$cancel%testModule2$testClass1$cancel"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="report as inappropriate">
+        <source>report as inappropriate</source>
+        <target>report as inappropriate</target>
+        <note from="translator">sgattribut "testModule1$testClass2$report_as_inappropriate"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Why do you think this project is inappropriate?">
+        <source>Why do you think this project is inappropriate?</source>
+        <target>Why do you think this project is inappropriate?</target>
+        <note from="translator">sgattribut "testModule1$testClass2$report_as_inappropriate_label%testModule1$testClass2$why_you_think_inappropriate"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Please enter a reason.">
+        <source>Please enter a reason.</source>
+        <target>Please enter a reason.</target>
+        <note from="translator">sgattribut "testModule1$testClass2$enter_a_reason"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Some rights reserved">
+        <source>Some rights reserved</source>
+        <target>Some rights reserved</target>
+        <note from="translator">sgattribut "testModule1$testClass2$some_rights_reserved"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="views">
+        <source>views</source>
+        <target>views</target>
+        <note from="translator">sgattribut "testModule1$testClass2$views"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="downloads">
+        <source>downloads</source>
+        <target>downloads</target>
+        <note from="translator">sgattribut "testModule1$testClass2$downloads"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Catroid version:">
+        <source>Catroid version:</source>
+        <target>Catroid version:</target>
+        <note from="translator">sgattribut "testModule1$testClass2$version_info_text"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="more">
+        <source>more</source>
+        <target>more</target>
+        <note from="translator">sgattribut "testModule1$testClass2$text_more"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="less">
+        <source>less</source>
+        <target>less</target>
+        <note from="translator">sgattribut "testModule1$testClass2$text_less"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="You can download this project directly to your mobile phone - when you have a barcode-reader app installed. Just open the app on your mobile phone and point the camera to the above QR-Code and the download will be started immediately.">
+        <source>You can download this project directly to your mobile phone - when you have a barcode-reader app installed. Just open the app on your mobile phone and point the camera to the above QR-Code and the download will be started immediately.</source>
+        <target>You can download this project directly to your mobile phone - when you have a barcode-reader app installed. Just open the app on your mobile phone and point the camera to the above QR-Code and the download will be started immediately.</target>
+        <note from="translator">sgattribut "testModule1$testClass2$qrcode_info"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="QR code - what's this?">
+        <source>QR code - what's this?</source>
+        <target>QR code - what's this?</target>
+        <note from="translator">sgattribut "testModule1$testClass2$show_qr_code_info_button"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="QR code - close info">
+        <source>QR code - close info</source>
+        <target>QR code - close info</target>
+        <note from="translator">sgattribut "testModule1$testClass2$hide_qr_code_info_button"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="enter a reason">
+        <source>enter a reason</source>
+        <target>enter a reason</target>
+        <note from="translator">sgattribut "testModule1$testClass2$flag_reason_placeholder"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Menu">
+        <source>Menu</source>
+        <target>Menu</target>
+        <note from="translator">sgattribut "testModule1$testClass3$title"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Profile">
+        <source>Profile</source>
+        <target>Profile</target>
+        <note from="translator">sgattribut "testModule1$testClass3$profile"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Forum">
+        <source>Forum</source>
+        <target>Forum</target>
+        <note from="translator">sgattribut "testModule1$testClass3$forum"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Help">
+        <source>Help</source>
+        <target>Help</target>
+        <note from="translator">sgattribut "testModule1$testClass3$wiki"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Wall">
+        <source>Wall</source>
+        <target>Wall</target>
+        <note from="translator">sgattribut "testModule1$testClass3$wall"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Login">
+        <source>Login</source>
+        <target>Login</target>
+        <note from="translator">sgattribut "testModule1$testClass3$login%testModule2$testClass3$login"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Logout">
+        <source>Logout</source>
+        <target>Logout</target>
+        <note from="translator">sgattribut "testModule1$testClass3$logout"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Settings">
+        <source>Settings</source>
+        <target>Settings</target>
+        <note from="translator">sgattribut "testModule1$testClass3$settings"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="{*nickname*}'s Profile">
+        <source>{*nickname*}'s Profile</source>
+        <target>{*nickname*}'s Profile</target>
+        <note from="translator">sgattribut "testModule2$testClass1$title"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="change my password">
+        <source>change my password</source>
+        <target>change my password</target>
+        <note from="translator">sgattribut "testModule2$testClass1$password"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="enter your old password">
+        <source>enter your old password</source>
+        <target>enter your old password</target>
+        <note from="translator">sgattribut "testModule2$testClass1$old_password"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="enter your new password">
+        <source>enter your new password</source>
+        <target>enter your new password</target>
+        <note from="translator">sgattribut "testModule2$testClass1$new_password"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="change my e-mail address">
+        <source>change my e-mail address</source>
+        <target>change my e-mail address</target>
+        <note from="translator">sgattribut "testModule2$testClass1$email"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="enter new email address">
+        <source>enter new email address</source>
+        <target>enter new email address</target>
+        <note from="translator">sgattribut "testModule2$testClass1$new_email"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Send my changes">
+        <source>Send my changes</source>
+        <target>Send my changes</target>
+        <note from="translator">sgattribut "testModule2$testClass1$send"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="change my country">
+        <source>change my country</source>
+        <target>change my country</target>
+        <note from="translator">sgattribut "testModule2$testClass1$country"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="You updated your email address successfully.">
+        <source>You updated your email address successfully.</source>
+        <target>You updated your email address successfully.</target>
+        <note from="translator">sgattribut "testModule2$testClass1$email_success"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="You updated your password successfully.">
+        <source>You updated your password successfully.</source>
+        <target>You updated your password successfully.</target>
+        <note from="translator">sgattribut "testModule2$testClass1$password_success"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="You updated your country successfully.">
+        <source>You updated your country successfully.</source>
+        <target>You updated your country successfully.</target>
+        <note from="translator">sgattribut "testModule2$testClass1$country_success"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Terms of use">
+        <source>Terms of use</source>
+        <target>Terms of use</target>
+        <note from="translator">sgattribut "testModule2$testClass2$title"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Attribution - Share Alike">
+        <source>Attribution - Share Alike</source>
+        <target>Attribution - Share Alike</target>
+        <note from="translator">sgattribut "testModule2$testClass2$share_alike_licence_link"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="GNU General Public License">
+        <source>GNU General Public License</source>
+        <target>GNU General Public License</target>
+        <note from="translator">sgattribut "testModule2$testClass2$gnu_licence_link"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="GNU Affero General Public License">
+        <source>GNU Affero General Public License</source>
+        <target>GNU Affero General Public License</target>
+        <note from="translator">sgattribut "testModule2$testClass2$gnu_affero_licence_link"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Google Code">
+        <source>Google Code</source>
+        <target>Google Code</target>
+        <note from="translator">sgattribut "testModule2$testClass2$google_code_link"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Welcome to the Catroid community! As part of the Catroid community, you are sharing projects and ideas with people:">
+        <source>Welcome to the Catroid community! As part of the Catroid community, you are sharing projects and ideas with people:</source>
+        <target>Welcome to the Catroid community! As part of the Catroid community, you are sharing projects and ideas with people:</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_catroid_community_list_head"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="from many different countries and cultures">
+        <source>from many different countries and cultures</source>
+        <target>from many different countries and cultures</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_catroid_community_list_element1"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="of all ages (from young children to teens and grandparents)">
+        <source>of all ages (from young children to teens and grandparents)</source>
+        <target>of all ages (from young children to teens and grandparents)</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_catroid_community_list_element2"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="with all levels of experience">
+        <source>with all levels of experience</source>
+        <target>with all levels of experience</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_catroid_community_list_element3"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="We need your help to make this community a supportive place for every member. Here's how you can help:">
+        <source>We need your help to make this community a supportive place for every member. Here's how you can help:</source>
+        <target>We need your help to make this community a supportive place for every member. Here's how you can help:</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_catroid_help_list_head"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Be respectful. When sharing projects remember that people of many different ages and backgrounds will see your contributions.">
+        <source>Be respectful. When sharing projects remember that people of many different ages and backgrounds will see your contributions.</source>
+        <target>Be respectful. When sharing projects remember that people of many different ages and backgrounds will see your contributions.</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_catroid_help_list_element1"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Give credit. Feel free to make modified versions of other people's projects - just make sure to give them credit. One place to give credit is in your Project description.">
+        <source>Give credit. Feel free to make modified versions of other people's projects - just make sure to give them credit. One place to give credit is in your Project description.</source>
+        <target>Give credit. Feel free to make modified versions of other people's projects - just make sure to give them credit. One place to give credit is in your Project description.</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_catroid_help_list_element2"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Be honest. Don't pretend to be someone other than who you are or try to trick the community.">
+        <source>Be honest. Don't pretend to be someone other than who you are or try to trick the community.</source>
+        <target>Be honest. Don't pretend to be someone other than who you are or try to trick the community.</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_catroid_help_list_element3"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Keep personal information private. Don't share your email address, phone number, or other personal contact information.">
+        <source>Keep personal information private. Don't share your email address, phone number, or other personal contact information.</source>
+        <target>Keep personal information private. Don't share your email address, phone number, or other personal contact information.</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_catroid_help_list_element4"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Help keep the site friendly. If you feel others would find a project or comment mean, insulting, too violent, or otherwise inappropriate, just klick the report as inappropriate button. The Catroid team will review, and may remove any project, comment or post.">
+        <source>Help keep the site friendly. If you feel others would find a project or comment mean, insulting, too violent, or otherwise inappropriate, just klick the report as inappropriate button. The Catroid team will review, and may remove any project, comment or post.</source>
+        <target>Help keep the site friendly. If you feel others would find a project or comment mean, insulting, too violent, or otherwise inappropriate, just klick the report as inappropriate button. The Catroid team will review, and may remove any project, comment or post.</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_catroid_help_list_element5"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="All projects shared on the Catroid website, as well as the Catroid support materials, are shared under the Creative Commons license with the conditions {*shareAlikeLink*}.">
+        <source>All projects shared on the Catroid website, as well as the Catroid support materials, are shared under the Creative Commons license with the conditions {*shareAlikeLink*}.</source>
+        <target>All projects shared on the Catroid website, as well as the Catroid support materials, are shared under the Creative Commons license with the conditions {*shareAlikeLink*}.</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_project_licence"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the {*gnuLink*}, the source code of the website is available under the {*gnuAfferoLink*}.">
+        <source>The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the {*gnuLink*}, the source code of the website is available under the {*gnuAfferoLink*}.</source>
+        <target>The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the {*gnuLink*}, the source code of the website is available under the {*gnuAfferoLink*}.</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_software_licence"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="You can visit the project at {*googleCodeLink*}.">
+        <source>You can visit the project at {*googleCodeLink*}.</source>
+        <target>You can visit the project at {*googleCodeLink*}.</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_google_code"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Check back here from time-to-time, because we are always trying to improve our guidelines. Please mail any suggestions regarding these Terms of Use to {*emailLink*}.">
+        <source>Check back here from time-to-time, because we are always trying to improve our guidelines. Please mail any suggestions regarding these Terms of Use to {*emailLink*}.</source>
+        <target>Check back here from time-to-time, because we are always trying to improve our guidelines. Please mail any suggestions regarding these Terms of Use to {*emailLink*}.</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_check_back"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Thank you for joining and contributing to the Catroid community!">
+        <source>Thank you for joining and contributing to the Catroid community!</source>
+        <target>Thank you for joining and contributing to the Catroid community!</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_thanks"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="The Catroid Team">
+        <source>The Catroid Team</source>
+        <target>The Catroid Team</target>
+        <note from="translator">sgattribut "testModule2$testClass2$terms_of_use_team"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Create a new account">
+        <source>Create a new account</source>
+        <target>Create a new account</target>
+        <note from="translator">sgattribut "testModule2$testClass3$title"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Please enter a nickname, a password, your email address and the country where you live.">
+        <source>Please enter a nickname, a password, your email address and the country where you live.</source>
+        <target>Please enter a nickname, a password, your email address and the country where you live.</target>
+        <note from="translator">sgattribut "testModule2$testClass3$headline"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Nickname">
+        <source>Nickname</source>
+        <target>Nickname</target>
+        <note from="translator">sgattribut "testModule2$testClass3$nickname"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="enter a nickname">
+        <source>enter a nickname</source>
+        <target>enter a nickname</target>
+        <note from="translator">sgattribut "testModule2$testClass3$enter_nickname"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Password">
+        <source>Password</source>
+        <target>Password</target>
+        <note from="translator">sgattribut "testModule2$testClass3$password"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="enter a password">
+        <source>enter a password</source>
+        <target>enter a password</target>
+        <note from="translator">sgattribut "testModule2$testClass3$enter_password"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="E-Mail Address">
+        <source>E-Mail Address</source>
+        <target>E-Mail Address</target>
+        <note from="translator">sgattribut "testModule2$testClass3$email"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="enter your email address">
+        <source>enter your email address</source>
+        <target>enter your email address</target>
+        <note from="translator">sgattribut "testModule2$testClass3$enter_email"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Country">
+        <source>Country</source>
+        <target>Country</target>
+        <note from="translator">sgattribut "testModule2$testClass3$country"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="select your country">
+        <source>select your country</source>
+        <target>select your country</target>
+        <note from="translator">sgattribut "testModule2$testClass3$select_country"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="City">
+        <source>City</source>
+        <target>City</target>
+        <note from="translator">sgattribut "testModule2$testClass3$city"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="enter your city">
+        <source>enter your city</source>
+        <target>enter your city</target>
+        <note from="translator">sgattribut "testModule2$testClass3$enter_city"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Birthday">
+        <source>Birthday</source>
+        <target>Birthday</target>
+        <note from="translator">sgattribut "testModule2$testClass3$birth"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="select your month">
+        <source>select your month</source>
+        <target>select your month</target>
+        <note from="translator">sgattribut "testModule2$testClass3$select_month"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="select your year">
+        <source>select your year</source>
+        <target>select your year</target>
+        <note from="translator">sgattribut "testModule2$testClass3$select_year"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Gender">
+        <source>Gender</source>
+        <target>Gender</target>
+        <note from="translator">sgattribut "testModule2$testClass3$gender"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="select your gender">
+        <source>select your gender</source>
+        <target>select your gender</target>
+        <note from="translator">sgattribut "testModule2$testClass3$select_gender"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="female">
+        <source>female</source>
+        <target>female</target>
+        <note from="translator">sgattribut "testModule2$testClass3$female"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="male">
+        <source>male</source>
+        <target>male</target>
+        <note from="translator">sgattribut "testModule2$testClass3$male"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Create my account">
+        <source>Create my account</source>
+        <target>Create my account</target>
+        <note from="translator">sgattribut "testModule2$testClass3$create"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="click here if you forgot your password?">
+        <source>click here if you forgot your password?</source>
+        <target>click here if you forgot your password?</target>
+        <note from="translator">sgattribut "testModule2$testClass3$password_recover"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Some tempate footer text for first testModel">
+        <source>Some tempate footer text for first testModel</source>
+        <target>Some tempate footer text for first testModel</target>
+        <note from="translator">sgattribut "testModule1$template$template_footer_test"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Some tempate header text for first testModel">
+        <source>Some tempate header text for first testModel</source>
+        <target>Some tempate header text for first testModel</target>
+        <note from="translator">sgattribut "testModule1$template$template_header_test"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Some tempate common functions text for first testModel">
+        <source>Some tempate common functions text for first testModel</source>
+        <target>Some tempate common functions text for first testModel</target>
+        <note from="translator">sgattribut "testModule1$template$template_common_test"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Some tempate footer text for second testModel">
+        <source>Some tempate footer text for second testModel</source>
+        <target>Some tempate footer text for second testModel</target>
+        <note from="translator">sgattribut "testModule2$template$template_footer_test"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Some tempate header text for second testModel">
+        <source>Some tempate header text for second testModel</source>
+        <target>Some tempate header text for second testModel</target>
+        <note from="translator">sgattribut "testModule2$template$template_header_test"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="Some tempate common functions text for second testModel">
+        <source>Some tempate common functions text for second testModel</source>
+        <target>Some tempate common functions text for second testModel</target>
+        <note from="translator">sgattribut "testModule2$template$template_common_test"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just a developer test error! 123">
+        <source>This is just a developer test error! 123</source>
+        <target>This is just a developer test error! 123</target>
+        <note from="translator">sgattribut "errors$errors_dev$testType1$test_error_one"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just a developer test error! abc">
+        <source>This is just a developer test error! abc</source>
+        <target>This is just a developer test error! abc</target>
+        <note from="translator">sgattribut "errors$errors_dev$testType1$test_error_two"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just a developer test error! I II III">
+        <source>This is just a developer test error! I II III</source>
+        <target>This is just a developer test error! I II III</target>
+        <note from="translator">sgattribut "errors$errors_dev$testType1$test_error_three"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just another developer test error! 123">
+        <source>This is just another developer test error! 123</source>
+        <target>This is just another developer test error! 123</target>
+        <note from="translator">sgattribut "errors$errors_dev$testType2$test_error_four"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just another developer test error! abc">
+        <source>This is just another developer test error! abc</source>
+        <target>This is just another developer test error! abc</target>
+        <note from="translator">sgattribut "errors$errors_dev$testType2$test_error_five"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just another developer test error! I II III">
+        <source>This is just another developer test error! I II III</source>
+        <target>This is just another developer test error! I II III</target>
+        <note from="translator">sgattribut "errors$errors_dev$testType2$test_error_six"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just a public test error! 123">
+        <source>This is just a public test error! 123</source>
+        <target>This is just a public test error! 123</target>
+        <note from="translator">sgattribut "errors$errors_pub$testTypePublic1$test_error_one"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just a public test error! abc">
+        <source>This is just a public test error! abc</source>
+        <target>This is just a public test error! abc</target>
+        <note from="translator">sgattribut "errors$errors_pub$testTypePublic1$test_error_two"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just a public test error! I II III">
+        <source>This is just a public test error! I II III</source>
+        <target>This is just a public test error! I II III</target>
+        <note from="translator">sgattribut "errors$errors_pub$testTypePublic1$test_error_three"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just another public test error! 123">
+        <source>This is just another public test error! 123</source>
+        <target>This is just another public test error! 123</target>
+        <note from="translator">sgattribut "errors$errors_pub$testTypePublic2$test_error_four"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just another public test error! abc">
+        <source>This is just another public test error! abc</source>
+        <target>This is just another public test error! abc</target>
+        <note from="translator">sgattribut "errors$errors_pub$testTypePublic2$test_error_five"</note>
+      </trans-unit>
+      <trans-unit xml:space="preserve" approved="yes" id="This is just another public test error! I II III">
+        <source>This is just another public test error! I II III</source>
+        <target>This is just another public test error! I II III</target>
+        <note from="translator">sgattribut "errors$errors_pub$testTypePublic2$test_error_six"</note>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

@@ -1,6 +1,6 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2011 The Catroid Team 
+ *    Copyright (C) 2010-2011 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
@@ -21,16 +21,37 @@ class passwordrecovery extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->setupBoard();
-    $this->addCss('passwordrecovery.css');    
+    $this->addCss('passwordrecovery.css');
     $this->addJs('passwordRecovery.js');
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {
+    $this->action = "default";
+    $this->passedUserName = "aa";
+    
+    $this->clearUserName($_GET['username']);
+    
     if((isset($_GET['c']))) {
-        $this->showHTMLForm($_GET['c']);
+      if($this->showHTMLForm($_GET['c'])) {
+        $this->action = "showPasswordChangeForm";
+      } else {
+        $this->action = "passwordUrlExpired";
+      }
     }
   }
- 
+  
+  public function clearUserName($username) {
+    $username = preg_replace('/\s\s+/', ' ', $username); 
+    $username= preg_replace("/(<\/?)(\w+)([^>]*>)/e","",$username);
+    $username= preg_replace("/document[.].*=/e","",$username);
+    $username= preg_replace("/window[.].*=/e","",$username);
+    $username= preg_replace("/window[.].*=/e","",$username);
+    $username = htmlentities($username);
+    $username = htmlspecialchars($username);
+    $this->passedUserName = $username;
+  }
+
   public function passwordRecoverySendMailRequest() {
     if(($_POST)) {
       if($this->doSendPasswordRecoveryMail($_POST['passwordRecoveryUserdata'])) {
@@ -42,18 +63,22 @@ class passwordrecovery extends CoreAuthenticationNone {
       }
     }
   }
-  
+
   public function passwordRecoveryChangeMyPasswordRequest() {
-      if(isset($_POST['passwordSavePassword']) && ($_POST['c'] != '')) {
-        if(!$this->doPasswordRecovery($_POST)) {
-          $this->statusCode = 500;
-        }
-        else {
-          $this->statusCode = 200;
-        }
-        $this->showHTMLForm($_POST['c']);
+    if(isset($_POST['passwordSavePassword']) && ($_POST['c'] != '')) {
+      if(!$this->doPasswordRecovery($_POST)) {
+        $this->statusCode = 500;
       }
-      return;
+      else {
+        $this->statusCode = 200;
+      }
+      if($this->showHTMLForm($_GET['c'])) {
+        $this->action = "showPasswordSaved";
+      } else {
+        $this->action = "passwordUrlExpired";
+      }
+    }
+    return;
   }
    
   public function doSendPasswordRecoveryMail($userData, $sendPasswordRecoveryEmail = SEND_NOTIFICATION_USER_EMAIL) {
@@ -61,15 +86,15 @@ class passwordrecovery extends CoreAuthenticationNone {
       $this->checkUserData($userData);
       $userHash = $this->createUserHash($userData);
       $this->sendPasswordRecoveryEmail($userHash, $sendPasswordRecoveryEmail);
-      $this->answer_ok .= 'An email was sent to your email address. ';
-      $this->answer_ok .= 'Please check your inbox.';
+      $this->answer_ok .= $this->languageHandler->getString('sent_1');
+      $this->answer_ok .= $this->languageHandler->getString('sent_2');
       return $userHash;
     } catch(Exception $e) {
       $this->answer .= $e->getMessage().'<br>';
       return false;
     }
   }
-  
+
   public function doPasswordRecovery($postData) {
     $username = '';
     $password = '';
@@ -77,14 +102,14 @@ class passwordrecovery extends CoreAuthenticationNone {
     $catroidPasswordRecoverySuccess = false;
     $boardPasswordRecoverySuccess = false;
     $wikiPasswordRecoverySuccess = false;
-    
+
     try {
       $password = $postData['passwordSavePassword'];
       $hashValue = $postData['c'];
       $query = "EXECUTE get_user_row_by_recovery_hash('$hashValue')";
       $result = @pg_query($this->dbConnection, $query);
       if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
       }
       if(pg_num_rows($result) > 0) {
         $user = pg_fetch_assoc($result);
@@ -92,12 +117,12 @@ class passwordrecovery extends CoreAuthenticationNone {
       } else {
         throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'));
       }
-      
+
       $this->checkPassword($username, $password);
       $passwordDataValid = true;
     } catch(Exception $e) {
       $passwordDataValid = false;
-      $this->answer .= $e->getMessage().'<br>';
+      $this->answer .= $e->getMessage();
     }
     if($passwordDataValid) {
       try {
@@ -110,28 +135,31 @@ class passwordrecovery extends CoreAuthenticationNone {
               try {
                 $wikiPasswordRecoverySuccess = $this->doUpdateWikiPassword($username, $password);
                 if(!$wikiPasswordRecoverySuccess) {
-                  $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+                  $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
                   return false;
                 }
               } catch(Exception $e) {
-                $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+                $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
                 return false;
-              }                  
-            }        
+              }
+            }
           } catch(Exception $e) {
-            $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+            $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
             return false;
-          }                  
+          }
         }
       } catch(Exception $e) {
-        $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage()).'<br>';
+        $this->answer .= $this->errorHandler->getError('passwordrecovery', 'catroid_password_recovery_failed', $e->getMessage(), CONTACT_EMAIL).'<br>';
         return false;
       }
-      $this->answer_ok .= 'Your new password is set.<br>';
+      $this->saving_password = $this->languageHandler->getString('saving_password');
+      $this->answer_ok = $this->languageHandler->getString('password_ok'); //.'&requesturi=catroid/profile'
+      $this->username = $username;
+
     }
     return $passwordDataValid;
   }
-  
+
   public function doUpdateCatroidPassword($username, $password) {
     $userid = 0;
     $password = md5($password);
@@ -143,16 +171,16 @@ class passwordrecovery extends CoreAuthenticationNone {
     }
     return true;
   }
-    
+
   public function doUpdateBoardPassword($username, $password) {
     global $db, $phpbb_root_path;
     require_once($phpbb_root_path .'includes/functions.php');
 
-    $username = utf8_clean_string($username); 
+    $username = utf8_clean_string($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $password = phpbb_hash($password);
-    
-  	$sql = 'UPDATE phpbb_users SET user_password = \'' . $password . '\',
+
+    $sql = 'UPDATE phpbb_users SET user_password = \'' . $password . '\',
   		user_pass_convert = 0 WHERE username_clean = \'' . $username . '\'';
 
     if($db->sql_query($sql)) {
@@ -163,7 +191,6 @@ class passwordrecovery extends CoreAuthenticationNone {
   }
 
   public function doUpdateWikiPassword($username, $password) {
-
     $wikiDbConnection = pg_connect("host=".DB_HOST_WIKI." dbname=".DB_NAME_WIKI." user=".DB_USER_WIKI." password=".DB_PASS_WIKI);
     if(!$wikiDbConnection) {
       throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)));
@@ -174,11 +201,11 @@ class passwordrecovery extends CoreAuthenticationNone {
     $username = utf8_clean_string($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
-    $hash = md5($hexSalt.'-'.md5($password));    
+    $hash = md5($hexSalt.'-'.md5($password));
     $password = ":B:$hexSalt:$hash";
 
     $query = "UPDATE mwuser SET user_password = '".$password."' WHERE user_name = '".$username."'";
-    
+
     $result = @pg_query($wikiDbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -187,7 +214,7 @@ class passwordrecovery extends CoreAuthenticationNone {
     pg_close($wikiDbConnection);
     return true;
   }
-  
+
   public function checkUserData($userData) {
     $userData = trim($userData);
     if(empty($userData) && strcmp('0', $userData) != 0) {
@@ -196,8 +223,8 @@ class passwordrecovery extends CoreAuthenticationNone {
 
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-    $userData = utf8_clean_string($userData);  
-    $query = "EXECUTE get_user_row_by_username_clean('".($userData)."')";
+    $userData = utf8_clean_string($userData);
+    $query = "EXECUTE get_user_row_by_username_clean('$userData')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -206,7 +233,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       $this->userData = pg_fetch_assoc($result);
     }
     else {
-      $query = "EXECUTE get_user_row_by_email('".($userData)."')";
+      $query = "EXECUTE get_user_row_by_email('$userData')";
       $result = @pg_query($this->dbConnection, $query);
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -233,51 +260,17 @@ class passwordrecovery extends CoreAuthenticationNone {
     }
     return $hash;
   }
-  
-//  public function checkUsername($username) {
-//    if(empty($username) && strcmp('0', $username) != 0) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
-//    }
-//    //username must not look like an IP-address
-//    $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
-//    $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
-//    $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
-//    $regEx = '/^'.$ip.'$/';
-//    if(preg_match($regEx, $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
-//    }
-//    // # < > [ ] | { }
-//    if(preg_match('/_|^_$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
-//    }
-//    if(preg_match('/#|^#$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'));
-//    }
-//    if(preg_match('/\||^\|$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'));
-//    }
-//    if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'));
-//    }
-//    if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'));
-//    }
-//    if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
-//      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'));
-//    }
-//    return true;
-//  }
-  
+
   public function checkPassword($username, $password) {
     if((empty($password) && strcmp('0', $password) != 0) || $password == '' || mb_strlen($password) < 1) {
       throw new Exception($this->errorHandler->getError('registration', 'password_missing'));
     }
-    
+
     if(strcmp($username, $password) != 0) {
       $text = '.{'.USER_MIN_PASSWORD_LENGTH.','.USER_MAX_PASSWORD_LENGTH.'}';
       $regEx = '/^'.$text.'$/';
       if(!preg_match($regEx, $password)) {
-        throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid'));
+        throw new Exception($this->errorHandler->getError('passwordrecovery', 'password_length_invalid', '', USER_MIN_PASSWORD_LENGTH, USER_MAX_PASSWORD_LENGTH));
       }
     } else {
       throw new Exception($this->errorHandler->getError('registration', 'username_password_equal'));
@@ -289,38 +282,33 @@ class passwordrecovery extends CoreAuthenticationNone {
     if($hashValue) {
       $query = "EXECUTE get_user_password_hash_time('$hashValue')";
       $result = @pg_query($this->dbConnection, $query);
-      
+
       if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
       }
-      
+
       if(pg_num_rows($result) > 0) {
         $this->userData = pg_fetch_assoc($result);
 
-        $hoursDifference = $this->timeDifference();
+        $hoursDifference = $this->getTimeDifference();
         if($hoursDifference < 24*60*60) {
-          $this->showForm = 1;
+          return true;
         }
-        else {
-          $this->showForm = 2;
-        }
-        return true;
-      }
-      else {
-        $this->showForm = 2; 
-
-        return false;
       }
     }
+    return false;
   }
- 
+
   public function sendPasswordRecoveryEmail($userHash, $sendPasswordRecoveryEmail) {
-    $resetPasswordLink = BASE_PATH.'catroid/passwordrecovery?c='.$userHash; //$this->userHash;
+    $catroidPasswordResetUrl = BASE_PATH.'catroid/passwordrecovery?c='.$userHash; //$this->userHash;
+    $catroidProfileUrl = BASE_PATH.'catroid/profile';
+    $catroidLoginUrl = BASE_PATH.'catroid/login';
+
     $userid = $this->userData['id'];
     $recoveryhash = $this->userHash;
     $date = new DateTime();
     $recoverytime = $date->format('U');
-    
+
     $query = "EXECUTE update_recovery_hash_recovery_time_by_id('$recoveryhash', '$recoverytime', '$userid')";
     $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
@@ -328,52 +316,46 @@ class passwordrecovery extends CoreAuthenticationNone {
     }
     if($sendPasswordRecoveryEmail) {
       $userMailAddress = $this->userData['email'];
-      $mailSubject = '[CATROID] Your Catroid.org Password!';
-      $mailText = "Hello ".$this->userData['username']."!\n\n";
-      $mailText .= "Please click on the following link to create your new password:\n";
-      $mailText .= $resetPasswordLink."\n\n";
-      $mailText .= "You can use your nickname and your password at any time to access the catroid community.\n\n";
-      $mailText .= "To do so, just visit the following page: http://www.catroid.org/catroid/login\n\n\n";
-      $mailText .= "Catroid\nwww.catroid.org";
+      $mailSubject = $this->languageHandler->getString('mail_subject');
+      $mailText =    $this->languageHandler->getString('mail_text_row1', $this->userData['username']) . "!\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row2') . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row3') . "\n";
+      $mailText .=   $catroidPasswordResetUrl."\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row5') . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row6') . "\n";
+      $mailText .=   $catroidLoginUrl."\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row7') . "\n";
+      $mailText .=   $catroidProfileUrl."\n\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row8') . "\n";
+      $mailText .=   "www.catroid.org";
       if (DEVELOPMENT_MODE)
-        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
-      
+      $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$catroidPasswordResetUrl.'">'.$catroidPasswordResetUrl.'</a><br>';
+
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
-        throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed'));
+        throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL));
       }
     }
     else {
       if (DEVELOPMENT_MODE)
-        $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$resetPasswordLink.'">'.$resetPasswordLink.'</a><br>';
+      $this->answer_ok .= '<a id="forgotPassword" target="_self" href="'.$catroidPasswordResetUrl.'">'.$catroidPasswordResetUrl.'</a><br>';
     }
     return true;
   }
-  
-  public function timeDifference() {
+
+  public function getTimeDifference() {
     $date = new DateTime();
     $timenow = $date->format('U');
     $hashtime = $this->userData['recovery_time'];
-  
+
     if ($timenow > $hashtime) {
       $difftime = ($timenow - $hashtime);
     }
     else {
       $difftime = ($hashtime - $timenow);
     }
-    
-//    $sec = floor(($difftime) % 60);
-//    $min = floor(($difftime / (60)) % 60);
-//    $std = floor(($difftime / (60*60)));
-//
-//    echo "$hashtime".' $hashtime &nbsp;&nbsp;<br>';
-//    echo "$timenow".' $timenow &nbsp;&nbsp;<br>';
-//    echo "$difftime".' $difftime&nbsp;&nbsp;<br>';
-//    echo $std." Stunden&nbsp;".$min." Minuten ".$sec." Sekunden".'<br>';
-
     return $difftime;
-  }   
+  }
 
- 
   public function __destruct() {
     parent::__destruct();
   }

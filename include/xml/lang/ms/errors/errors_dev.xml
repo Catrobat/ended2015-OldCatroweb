@@ -1,0 +1,133 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<errors>
+  <profile>
+    <string name="email_address_string_changed"/>
+    <string name="password_repeat_missing">Kata laluan berulang hilang.</string>
+    <string name="password_repeat_differs">Kata laluan tidak sama dengan kata laluan berulang.</string>
+    <string name="username_password_equal">Kata laluan mesti berbeza dari nama samaran.</string>
+    <string name="password_old_missing">Kata Laluan lama tidak lengkap.</string>
+    <string name="password_old_wrong">Kata Laluan lama tidak betul.</string>
+    <string name="password_old_invalid">Kata Laluan Lama tidak sah.</string>
+    <string name="password_new_missing">Kata Laluan Baru tidak lengkap.</string>
+    <string name="password_new_invalid">Kata Laluan Baru tidak sah.</string>
+    <string name="password_new_length_invalid">Kata Laluan baru mesti mempunyai sekurang-kurangnya {*minumumPasswordLength*} abjad.</string>
+    <string name="email_address_exists">Alamat Emel sudah wujud.</string>
+    <string name="email_update_failed">Ada masalah ketika membaharui alamat emel.</string>
+    <string name="city_update_failed">Ada masalah ketika membaharui alamat emel.</string>
+    <string name="email_update_of_catroweb_failed"/>
+    <string name="country_update_failed"/>
+    <string name="birth_update_failed"/>
+  </profile>
+  <db>
+    <string name="query_failed">Operasi DB tidak berjaya.</string>
+    <string name="connection_failed">Sambungan DB tidak berjaya.</string>
+    <string name="no_entry_for_id">Tiada entri yang dijumpai untuk ID yang diberikan.</string>
+  </db>
+  <sendmail>
+    <string name="sendmail_failed">Ralat ketika menghantar emel. Mungkin mailserver anda ada masalah?</string>
+  </sendmail>
+  <upload>
+    <string name="missing_post_data">POST-Data tidak betul atau hilang! Tajuk projek dan fail data yang diupload diperlukan. </string>
+    <string name="missing_post_file_checksum">Pelanggan tidak menghantar Checksum fail! Adakah anda mengunakan Catroid versi lama?</string>
+    <string name="copy_failed">Salinan kenyataan gagal!</string>
+    <string name="rename_failed">Penamaan semula kenyataan telah gagal!</string>
+    <string name="sql_insert_failed">Kueri SQL insert_new_project telah gagal!</string>
+    <string name="invalid_file_checksum">Fail checksum yang dimuat naik berbeza dengan checksum yang dijana oleh pelanggan!</string>
+    <string name="project_exceed_filesize_limit">Saiz projek melebihi had maksima saiz fail!</string>
+    <string name="project_title_default">Memuat naik projek dengan nama project asal tidak dibenarkan.</string>
+    <string name="insulting_words_in_project_title">Terdapat perkataan yang menghina tajuk projek!</string>
+    <string name="insulting_words_in_project_description">Terdapat perkataan yang menghina huraian projek!</string>
+    <string name="bad_words_filter_error">Salah satu kueri SQL dalam kelas BadWordsFilter telah gagal! </string>
+    <string name="invalid_project_xml"/>
+  </upload>
+  <download>
+    <string name="file_not_found">Fail yang diminta dari server tidak ditemui</string>
+  </download>
+  <flag>
+    <string name="missing_post_data">POST-Data tidak betul atau hilang! projectId dan flagReason diperlukan. </string>
+    <string name="sql_insert_failed">Kueri SQL insert_new_flagged_project telah gagal!</string>
+  </flag>
+  <viewer>
+    <string name="html_file_not_found">Tidak dapat mencari fail html viewer.</string>
+    <string name="ajax_request_page_not_found">Tidak menjumpai modul yang sesuai untuk permintaan ajax</string>
+    <string name="ip_is_blocked">IP-Address anda telah diblok.</string>
+    <string name="user_is_blocked">Akaun anda telah diblok.</string>
+  </viewer>
+  <auth>
+    <string name="password_or_username_wrong">Kata laluan atau nama pengguna tidak betul.</string>
+    <string name="username_not_found">Nama pengguna tidak dijumpai.</string>
+    <string name="board_authentication_failed">Pengesahan board tidak berjaya.</string>
+    <string name="wiki_authentication_failed">Pengesahan wiki tidak berjaya.</string>
+    <string name="catroid_authentication_failed">Pengesahan catroid tidak berjaya.</string>
+    <string name="wiki_api_response_incorrect">Tindak balas mediawiki API tidak tepat.</string>
+    <string name="device_auth_invalid_token">Pengesahan alat gagal: auth-token tidak sah!</string>
+    <string name="not_a_tugraz_ip"/>
+  </auth>
+  <registration>
+    <string name="board_registration_failed">Pendaftaran board tidak berjaya.</string>
+    <string name="wiki_registration_failed">Pendaftaran wiki tidak berjaya.</string>
+    <string name="catroid_registration_failed">Pendaftaran catroid tidak berjaya.</string>
+    <string name="email_already_exists">Alamat emel ini telah digunakan.</string>
+    <string name="email_invalid">Alamat emel ini tidak sah.</string>
+    <string name="email_missing">Alamat emel hilang.</string>
+    <string name="password_missing">Kata laluan hilang.</string>
+    <string name="password_repeat_missing">Kata laluan berulang hilang.</string>
+    <string name="password_repeat_differs">Kata laluan tidak sama dengan kata laluan berulang.</string>
+    <string name="password_invalid">Kata laluan tidak sah.</string>
+    <string name="password_length_invalid">Kata laluan anda mesti mempunyai sekurang-kurangnya {*minimumPasswordLength*} dan maksimum {*maximumPasswordLength*} aksara.</string>
+    <string name="username_password_equal">Kata laluan mesti berbeza dari nama samaran.</string>
+    <string name="username_missing">Nama samaran tidak dijumpai.</string>
+    <string name="username_invalid">Nama samaran tidak sah.</string>
+    <string name="username_invalid_underscore">Nama samaran tidak sah. Pengunaan garis bawah (_) adalah tidak dibenarkan.</string>
+    <string name="username_invalid_hash">Nama samaran tidak sah. Tanda hash (#) adalah tidak dibenarkan.</string>
+    <string name="username_invalid_verticalbar">Nama samaran tidak sah. Bar menegak (|) tidak dibenarkan.</string>
+    <string name="username_invalid_curlybrace">Nama samaran tidak sah.Pengunaan ({ atau }) tidak dibenarkan.</string>
+    <string name="username_invalid_lessgreater">Nama samaran tidak sah. Tanda kurang daripada atau lebih daripada (&lt; atau &gt;) adalah tidak dibenarkan.</string>
+    <string name="username_invalid_squarebracket">Nama samaran tidak sah. Pengunaan ([ atau]) adalah tidak dibenarkan.</string>
+    <string name="username_already_exists">Nama samaran ini sudah digunakan.</string>
+    <string name="username_blacklisted">Nama samaran ini terdapat dalam senarai hitam dan tidak boleh digunakan.</string>
+    <string name="country_codes_not_available">Negara tidak terjumpa dalam DB</string>
+    <string name="country_missing">Negara tidak lengkap.</string>
+    <string name="birth_missing">Tarikh lahir tidak lengkap.</string>
+    <string name="gender_missing">Jantina tidak lengkap</string>
+    <string name="insulting_words_in_username_field">Terdapat pengunaan perkataan yang menghina pada kotak nama penguna!</string>
+    <string name="insulting_words_in_email_field">Terdapat perkataan yang menghina pada kotak alamat emel!</string>
+    <string name="insulting_words_in_city_field">Terdapat perkataan yang menghina pada kotak bandar!</string>
+    <string name="insulting_words_in_province_field">Terdapat perkataan yang menghina pada kotak wilayah!</string>
+  </registration>
+  <passwordrecovery>
+    <string name="password_missing">Kata laluan hilang.</string>
+    <string name="password_length_invalid">Kata laluan anda mesti mempunyai sekurang-kurangnya {*minimumPasswordLength*} dan maksimum {*maximumPasswordLength*} aksara.</string>
+    <string name="userdata_invalid">Nama samaran atau alamat emel tidak sah.</string>
+    <string name="userdata_missing">Nama samaran atau alamat emel tidak lengkap.</string>
+    <string name="userdata_not_exists">Nama samaran atau alamat emel tidak dijumpai.</string>
+    <string name="create_hash_failed">Sila cuba lagi!</string>
+    <string name="catroid_password_recovery_failed">Sila cuba lagi atau hubungi pihak pentadbir di {*webmasterEmailAddress*}.</string>
+    <string name="passwordhash_invalid">Mohon maaf, URL pemulihan anda sudah tamat tempoh.</string>
+  </passwordrecovery>
+  <admin>
+    <string name="pootle_post_data_missing"/>
+    <string name="pootle_load_xlf_failed"/>
+    <string name="pootle_not_valid_xml"/>
+    <string name="pootle_invalid_stringname_in_xml"/>
+    <string name="pootle_could_not_write_xml_file"/>
+  </admin>
+</errors>

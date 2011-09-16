@@ -21,27 +21,43 @@
   <script type="text/javascript">
   	$(document).ready(function() {
   	  var __hm = new HeaderMenu();
-      __hm.toggleProfileBox();
+      __hm.toggleAllBoxes();
+
+      var languageStringsObject = { 
+          "username_missing" : "<?php echo $this->module->errorHandler->getError('registration', 'username_missing'); ?>",
+          "password_missing" : "<?php echo $this->module->errorHandler->getError('registration', 'password_missing'); ?>"
+          };
+      new Login(languageStringsObject);
   	});
   </script>
 
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle">Login</div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
                 <div class="loginMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="loginText">
             	    <div class="loginFormContainer">
+                  <div class="loginH2"><?php echo $this->languageHandler->getString('please_enter_nick_and_password')?></div>
      	  		   		<?php if($this->module->session->userLogin_userId <= 0) {?>
-							<div class="loginHelper">
-								<a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration">Create a new account now</a>
-								<br>or<br>
-								<a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery">click here if you forgot your password?</a>
-							</div>
-						<?php }?>
-                     </div> <!-- loginFormContainer -->
-					</div> <!-- login Text -->
+                    <?php echo $this->languageHandler->getString('nick')?><br>
+                    <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>"  /><br>
+                    <?php echo $this->languageHandler->getString('password')?><br>
+                    <input id="loginPassword" type="password" class="webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>"  /><br>
+                    <br>
+                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="<?php echo $this->languageHandler->getString('login')?>" /><br>
+                    <br>
+                    <br>
+      							<div class="loginHelper">
+      								<a id="signUp" target="_self" href="<?php echo BASE_PATH?>catroid/registration"><?php echo $this->languageHandler->getString('account_link')?></a>
+      								<br><?php echo $this->languageHandler->getString('or')?><br>
+      								<a id="forgotPassword" target="_self" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_link')?></a>
+      							</div>
+                    <br>
+      						<?php }?>
+                  </div> <!-- loginFormContainer -->
+                </div> <!-- login Text -->
               </div> <!--  White Box -->            	
            </div> <!--  license Main -->  		   		
   		  </div> <!-- mainContent close //-->

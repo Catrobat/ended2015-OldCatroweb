@@ -20,7 +20,9 @@ var PasswordRecovery = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function() {
 
-    var self = this;
+    this.answer = ''; 
+    this.saving_password = '';
+
     $("#passwordRecoveryFormDialog").toggle(true);
     $("#passwordRecoverySaveFormDialog").toggle(true);
     $("#loginOk").toggle(false);
@@ -28,9 +30,9 @@ var PasswordRecovery = Class.$extend( {
     $("#errorMsg").toggle(false);
     $("#okMsg").toggle(false);
     $("#passwordRecoveryFormAnswer").toggle(false);
-
-    $("#passwordRecoverySubmit").click(
-      $.proxy(this.passwordRecoverySubmit, this));
+    
+    $("#passwordRecoverySendLink").click(
+      $.proxy(this.passwordRecoverySendLink, this));
     $("#passwordRecoveryUserdata").keypress(
       $.proxy(this.passwordRecoveryUserdataCatchKeypress, this));
  
@@ -39,89 +41,181 @@ var PasswordRecovery = Class.$extend( {
     $("#passwordSavePassword").keypress(
       $.proxy(this.passwordSavePasswordCatchKeypress, this));
 
-    $("#passwordLoginSubmit").click(
-        $.proxy(this.passwordLoginSubmit, this));  
+    $("#loginOkForwardSubmit").click(
+        $.proxy(this.loginOkSubmit, this));
+    
+    $("#passwordRecoveryLogin").click($.proxy(this.toggleProfileBox, this));
   },
   
-  passwordRecoverySubmit : function() {
-    // disable form fields
-    $("#passwordRecoverySubmit").attr("disabled", "disabled");
-    $("#passwordRecoveryUserdata").attr("disabled", "disabled");
-
-    var url = this.basePath + 'catroid/passwordrecovery/passwordRecoverySendMailRequest.json';
-    $.post(url, {
-      passwordRecoveryUserdata : $("#passwordRecoveryUserdata").val()
-    }, $.proxy(this.passwordRecoverySuccess, this), "json");
-  },
-  
-  passwordRecoverySuccess : function(response) {
-    $("#passwordRecoveryFormAnswer").toggle(true);
-    if(response.answer) {
-      $("#okMsg").toggle(false);
-      $("#errorMsg").toggle(true);
-      $("#errorMsg").html(response.answer);
+  toggleProfileBox : function() {
+    $("#normalHeaderButtons").toggle(false);
+    $("#cancelHeaderButton").toggle(true);
+    $("#headerProfileBox").toggle(true);
+    if($("#headerLoginBox").css("display") == "block") {
+      $("#loginUsername").focus();
     }
-    if(response.answer_ok) {
+    scroll(0,0);
+  },
+  
+  
+  passwordRecoverySendLink : function() {
+    // disable form fields
+    $("#passwordRecoverySendLink").attr("disabled", "disabled");
+    $("#passwordRecoveryUserdata").attr("disabled", "disabled");
+    
+    $.ajax({
+      type: "POST",
+      url: this.basePath + 'catroid/passwordrecovery/passwordRecoverySendMailRequest.json',
+      data : ({
+        passwordRecoveryUserdata : $("#passwordRecoveryUserdata").val()
+      }),
+      timeout : (this.ajaxTimeout),
+      success : jQuery.proxy(this.passwordRecoverySendMailSuccess, this),
+      error : jQuery.proxy(this.passwordRecoverySendMailError, this)
+      
+    });
+  },
+  
+  passwordRecoverySendMailSuccess : function(result) {
+    $("#passwordRecoveryFormAnswer").toggle(true);
+    $("#passwordRecoveryFormDialog").toggle(true);
+    if(result.statusCode == 200) {
       $("#errorMsg").toggle(false);
       $("#okMsg").toggle(true);
-      $("#okMsg").html(response.answer_ok);
+      $("#okMsg").html(result.answer_ok);
+      //$("#passwordRecoveryFormDialog").toggle(false);
     }
-    $("#passwordRecoverySubmit").removeAttr("disabled");
+    else {
+      $("#okMsg").toggle(false);
+      $("#errorMsg").toggle(true);
+      $("#errorMsg").html(result.answer);
+    }
+    // enable form fields
+    $("#passwordRecoverySendLink").removeAttr("disabled");
     $("#passwordRecoveryUserdata").removeAttr("disabled");
   },
- 
+    
+  passwordRecoverySendMailError : function() {
+    if(errCode == "timeout") {
+      window.location.reload(false);   
+    }
+  },
+  
+  
   passwordSaveSubmit : function() {
     // disable form fields
     $("#passwordSaveSubmit").attr("disabled", "disabled");
     $("#passwordSavePassword").attr("disabled", "disabled");
     
-    var self = this;
     $.ajax({
       type: "POST",
       url: this.basePath + 'catroid/passwordrecovery/passwordRecoveryChangeMyPasswordRequest.json',
-      data: "c="+$("#c").val()+"&passwordSavePassword="+$("#passwordSavePassword").val(),
-      timeout: (this.ajaxTimeout),
+      data : ({
+        c : $("#passwordRecoveryHash").val(),
+        passwordSavePassword : $("#passwordSavePassword").val()
+      }),
       
-      success: function(result){
-        if(result['statusCode'] == 200) {
-          $("#passwordRecoveryFormDialog").toggle(false);
-          $("#passwordRecoveryFormAnswer").toggle(true);
-          $("#errorMsg").toggle(false);
-          $("#okMsg").toggle(true);
-          $("#okMsg").html(result.answer_ok);
-          $("#loginOk").toggle(true);
-        }
-        else {
-          $("#passwordRecoveryFormAnswer").toggle(true);
-          $("#passwordRecoveryFormDialog").toggle(true);
-          if(result.answer) {
-            $("#okMsg").toggle(false);
-            $("#errorMsg").toggle(true);
-            $("#errorMsg").html(result.answer);
-          }
-        }
-        // enable form fields
-        $("#passwordSaveSubmit").removeAttr("disabled");
-        $("#passwordSavePassword").removeAttr("disabled");
-      },
-      error : function(result, errCode) {
-        if(errCode == "timeout") {
-          window.location.reload(false);   
-        }
-      }
+      timeout : (this.ajaxTimeout),
+      success : jQuery.proxy(this.passwordSaveSuccess, this),
+      error : jQuery.proxy(this.passwordSaveError, this)
+      
     });
   },
   
-  passwordLoginSubmit : function() {
-    var self = this;
-    location.href = self.basePath+"catroid/login";
+  passwordSaveSuccess : function(result) {
+    if(result.statusCode == 200) {
+      $("#errorMsg").toggle(false);
+      $("#passwordRecoveryFormAnswer").toggle(true);
+      $("#passwordRecoveryFormDialog").toggle(false);
+      //$("#okMsg").toggle(true);
+      this.answer = result.answer_ok;
+      this.saving_password = result.saving_password;
+      $("#okMsg").toggle(true);
+      $("#okMsg").html(this.saving_password);
+      
+      this.passwordRecoveryLoginSubmit(result.username);
+    }
+    else {
+      $("#passwordRecoveryFormAnswer").toggle(true);
+      $("#passwordRecoveryFormDialog").toggle(true);
+      if(result.answer) {
+        $("#okMsg").toggle(false);
+        $("#errorMsg").toggle(true);
+        $("#errorMsg").html(result.answer);
+      }
+      // enable form fields
+      $("#passwordSaveSubmit").removeAttr("disabled");
+      $("#passwordSavePassword").removeAttr("disabled");
+    }
   },
   
+  
+  passwordSaveError : function() {
+    if(errCode == "timeout") {
+      window.location.reload(false);   
+    }
+  },
+  
+  
+  passwordRecoveryLoginSubmit : function(username) {
+    $.ajax({
+      type: "POST",
+      url: this.basePath + 'api/login/loginRequest.json',
+      data : ({
+        loginUsername : username,
+        loginPassword : $("#passwordSavePassword").val()
+      }),
+
+      timeout : (this.ajaxTimeout),
+      success : jQuery.proxy(this.passwordRecoveryLoginSuccess, this),
+      error : jQuery.proxy(this.passwordRecoveryLoginError, this)
+    });
+  },
+
+
+  passwordRecoveryLoginSuccess : function(result) {
+    if(result.statusCode == 200) {
+      $("#okMsg").html('');
+      $("#okMsg").html(this.answer);
+      $("#loginOk").toggle(true);
+      $("#loginOkSubmit").toggle(true);
+      
+      var self = this;
+      setTimeout(
+        function() { self.redirectToUrl(self.basePath+'catroid/profile'); }, 
+        5000
+      );
+    }
+    else if(result.statusCode == 500) {
+      $("#passwordRecoveryFormDialog").toggle(true);
+      if(result.answer) {
+        $("#okMsg").toggle(false);
+        $("#errorMsg").toggle(true);
+        $("#errorMsg").html(result.answer);
+      }
+    }
+  },
+  
+  passwordRecoveryLoginError : function() {
+    if(errCode == "timeout") {
+      window.location.reload(false);   
+    }
+  },
+  
+  
+  redirectToUrl : function(url) {
+    location.href = url;
+  },
+  
+  
+  loginOkSubmit : function() {
+    location.href = this.basePath+"catroid/profile";
+  },
   
   passwordRecoveryUserdataCatchKeypress : function(event) {
     if(event.which == '13') {
       event.preventDefault();
-      this.passwordRecoverySubmit();
+      this.passwordRecoverySendLink();
     }
   },
   

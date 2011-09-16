@@ -38,7 +38,8 @@ div.menuListSingleElementRow {
 }
 
 button.menuElementButton {
-  font-size:2.3em;
+  /*font-size:2.3em;*/
+  font-size:190%;
   width:92%;
   margin:5% 0 5% 0;
 }

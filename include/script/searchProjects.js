@@ -67,6 +67,7 @@ var SearchProjects = Class.$extend( {
     if(this.initialized) {
       $("#projectContainer").children().remove();
       this.initialized = false;
+      this.searchQuery = "";
     }
   },
   
@@ -78,6 +79,7 @@ var SearchProjects = Class.$extend( {
       stateObject.pageLabels = this.pageLabels;
       stateObject.pageContent = this.pageContent;
       stateObject.searchProjects = true;
+      stateObject.language = $("#switchLanguage").val();
 	      
       history.pushState(stateObject, "Page " + this.pageNr.current, this.basePath+"catroid/search/?q=" + escape(this.searchQuery) + "&p=" + this.pageNr.current);      
     }
@@ -85,15 +87,23 @@ var SearchProjects = Class.$extend( {
   },
 
   restoreHistoryState : function(state) {
-    if(state != null) {      
+    if(state != null) {
+      var isLanguageChanged = (state.language != $("#switchLanguage").val());
       this.createSkeleton();
       $("#fewerProjects").click($.proxy(this.prevPage, this));
       $("#moreProjects").click($.proxy(this.nextPage, this));
       if(state.searchProjects) {        
         this.pageNr = state.pageNr;
         this.searchQuery = state.searchQuery;
-        this.pageLabels = state.pageLabels;
-        this.pageContent = state.pageContent;         
+        if(isLanguageChanged) {
+          this.setLoadingPage();
+          this.pageLabels = new Array();
+          this.pageContent = { prev : null, current : null, next : null };
+          this.loadAndCachePage();
+        } else {
+          this.pageContent = state.pageContent;
+          this.pageLabels = state.pageLabels;
+        }
       } 
       $("#searchQuery").val(this.searchQuery);
       $("#normalHeaderButtons").toggle(false);
@@ -101,8 +111,10 @@ var SearchProjects = Class.$extend( {
       $("#headerSearchBox").toggle(true);
       $("#searchQuery").focus();
       
-      this.setDocumentTitle();
-      this.fillSkeletonWithContent();
+      if(!isLanguageChanged) {
+        this.setDocumentTitle();
+        this.fillSkeletonWithContent();
+      }
       this.initialized = true;
     }
   },
@@ -127,7 +139,6 @@ var SearchProjects = Class.$extend( {
     if(!this.ajaxRequestMutex) {
       this.ajaxRequestMutex = true;
       $("#projectContainer").fadeTo(100, 0.60);
-      $("#ajax-loader").val("on");
       return true;
     }
     return false;
@@ -135,7 +146,6 @@ var SearchProjects = Class.$extend( {
 	  
   unblockAjaxRequest : function() {
     $("#projectContainer").fadeTo(10, 1.0);
-    $("#ajax-loader").val("off");
     this.ajaxRequestMutex = false;
   },
 
@@ -182,8 +192,8 @@ var SearchProjects = Class.$extend( {
   },
 
   triggerSearch : function(loadAndCache) {
-    var search = $.trim($("#searchQuery").val());    
-    if(search != "" && this.searchQuery != search) {
+    var search = $.trim($("#searchQuery").val());  
+    if(search != "") {
       if(this.blockAjaxRequest()) {
         this.searchQuery = search;
       
@@ -343,8 +353,6 @@ var SearchProjects = Class.$extend( {
       $("#projectContainer").append(containerContent);
       $("#projectContainer").append($("<div />").addClass("projectListSpacer"));
       $("#projectContainer").append($("<div />").addClass("webMainNavigationButtons").append(navigationButtonNext.attr("id", "moreProjects").append($("<span />").addClass("navigationButtons"))));
-      
-      $("#projectContainer").append($("<div />").append($("<input />").attr("type", "hidden").attr("id", "ajax-loader")));
     }
   },
   
@@ -395,9 +403,8 @@ var SearchProjects = Class.$extend( {
           else {
             $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='#'>"+content[i]['title']+"</a></div>");            
           }
-          // + author $("#projectListDescription"+i).html("by <a class='projectListDetailsLink' href='#'>unknown</a><br />uploaded "+content[i]['upload_time']+" ago");
           if (content[i]['upload_time'] != "") {
-            $("#projectListDescription"+i).html("uploaded "+content[i]['upload_time']+" ago by "+content[i]['uploaded_by']);          
+            $("#projectListDescription"+i).html(content[i]['upload_time']+" "+content[i]['uploaded_by_string']);          
           } 
           else {
             $("#projectListDescription"+i).html("");            

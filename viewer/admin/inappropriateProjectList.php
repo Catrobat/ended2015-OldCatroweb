@@ -47,6 +47,7 @@
           <th>Upload Time</th>
           <th>Upload IP</th>
           <th>Flagged</th>
+          <th>Flagged by and reason</th>
           <th>Visible</th>
           <th>Details</th>
           <th>Resolve</th>
@@ -61,20 +62,21 @@
           <td><?php echo date('Y-m-d H:i:s', strtotime($project['upload_time']))?></td>
           <td><?php echo $project['upload_ip']?></td>
           <td><?php echo $project['num_flags'].'x'?></td>
+          <td><?php echo $project['flag_details']?></td>
           <td><?php echo ($project['visible']=='t' ? 'visible' : '<em>invisible</em>');?></td>
           <td><a id="detailsLink<?php echo $project['id']?>" href="<?php echo BASE_PATH.'catroid/details/'.$project['id']?>" target="_blank">link</a></td>
           <td>
             <form id="resolveForm<?php echo $project['id']?>" class="admin" action="inappropriateProjects" method="POST">
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
               <input type="hidden" name="resolve" value="resolve"/>
-              <input type="button" value="resolve" name="resolveButton" id="resolve<?php echo $project['id']?>" onclick="javascript:submitResolveForm('<?php echo $project['id']?>', '<?php echo $project['title']?>');" />
+              <input type="button" value="resolve" name="resolveButton" id="resolve<?php echo $project['id']?>" onclick="javascript:submitResolveForm('<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" />
             </form>
           </td>
           <td>
             <form id="deleteForm<?php echo $project['id']?>" class="admin" action="inappropriateProjects" method="POST">
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
               <input type="hidden" name="delete" value="delete"/>
-              <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitDeleteForm('<?php echo $project['id']?>', '<?php echo $project['title']?>');" /> <!-- chg -->
+              <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitDeleteForm('<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" /> <!-- chg -->
             </form>
           </td>
         </tr>

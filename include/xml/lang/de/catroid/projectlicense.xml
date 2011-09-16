@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Lizenz zum Spielen - Sag "Danke" und teile deine Projekte</string>
+  <string name="project_licence_title">Lizenz zum Spielen - Sag "Danke" und teile deine Projekte</string>
+  <string name="creative_commons_link">Creative Commons</string>
+  <string name="terms_of_use_link">Nutzungsbedingungen</string>
+  <string name="share_alike_link">Creative Commons Attribution-Share Alike License</string>
+  <string name="project_licence_part1">Stell Dir vor jedes Catroid Projekt ist ein Kuchen. Ein sehr spezieller Kuchen der zusammen mit seinem Rezept (den Programm-Bl&#xF6;cken) angeboten wird. Alle Mitglieder der Catroid Community teilen Ihre Kuchen und die dazugeh&#xF6;renden Rezepte. Das bedeutet, dass Du alle Kuchen genie&#xDF;en kannst und dazu noch das Rezept bekommst um sie selbst zu machen!</string>
+  <string name="project_licence_part2">Es gibt keine geheimen Rezepte: die Anleitung wie Du einen Kuchen selbst machen kannst, ist frei f&#xFC;r alle. Alle d&#xFC;rfen die Rezepte verwenden, &#xE4;ndern und sie als Quelle f&#xFC;r neue Ideen verwenden.</string>
+  <string name="project_licence_part3">Du darfst die Kuchen essen und Du darfst die Rezepte von anderen kopieren um Deinen eigenen Kuchen zu machen - wenn Du m&#xF6;chtest mit anderen Zutaten. Es gibt zwei Dinge die Du beachten sollst:</string>
+  <string name="project_licence_part3_list_element1">teile Deine Kuchen und die Rezepte mit anderen</string>
+  <string name="project_licence_part3_list_element2">bedanke Dich bei denen, deren Rezepte Du verwendet hast und die Dich auf neue Ideen gebracht haben</string>
+  <string name="project_licence_part4">Einige Leute haben diesem Prinzip einen Namen gegeben: sie nennen es {*shareAlikeLink*}. Wir haben dieses Prinzip f&#xFC;r die Catroid Community &#xFC;bernommen, weil wir denken, dass es Dir hilft von anderen zu lernen und Deine Kreativit&#xE4;t f&#xF6;rdert. Indem Du Deine Rezepte und Zutaten (Programm-Bl&#xF6;cke, Objekte, Kost&#xFC;me, Musik, und so weiter) teilst, k&#xF6;nnen andere auf Deiner Arbeit aufbauen und sich neue Dinge ausdenken von denen wiederum alle anderen profitieren.</string>
+  <string name="project_licence_part5">Wir haben verschiedene Funktionen in die Webseite eingebaut, um es Dir so leicht wie m&#xF6;glich zu machen Deine Arbeit zu teilen und anderen daf&#xFC;r zu danken wenn Dir ihre Arbeit geholfen hat. Auf der Details-Seite jedes Projekts kannst Du das Projekt herunterladen. Wenn Du einen "Remix" des Projekts machst (das hei&#xDF;t, wenn Du das Programm oder die Bilder und T&#xF6;ne ver&#xE4;nderst, neue Funktionen einbaust und wieder hochl&#xE4;dtst) bedanke Dich bitte beim Autor des originalen Projekts und allen Personen die Dich inspiriert haben. Am einfachsten ist das, indem Du es in die Projektbeschreibung schreibst.</string>
+  <string name="project_licence_learn_more">Hier kannst Du mehr &#xFC;ber die {*termsOfUseLink*} der Catroid Community und &#xFC;ber die {*creativeCommonsLink*} Initiative lernen.</string>
+  <string name="project_licence_team">Das Catroid Team</string>
+</strings>

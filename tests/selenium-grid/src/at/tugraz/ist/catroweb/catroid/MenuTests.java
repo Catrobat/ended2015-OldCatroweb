@@ -18,13 +18,14 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
+import java.util.HashMap;
 
+import org.openqa.selenium.By;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
-import at.tugraz.ist.catroweb.common.*;
 
 @Test(groups = { "catroid", "MenuTests" })
 public class MenuTests extends BaseTest {
@@ -33,45 +34,24 @@ public class MenuTests extends BaseTest {
   public void buttonVisibility() throws Throwable {
     try {
       openLocation();
-      session().click("headerMenuButton");
-      waitForPageToLoad();
-      assertRegExp(".*/catroid/menu$", session().getLocation());
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
 
-      assertTrue(session().isVisible("menuProfileButton"));
-      assertTrue(session().isVisible("menuForumButton"));
-      assertTrue(session().isVisible("menuWikiButton"));
+      assertTrue(isVisible(By.id("menuLoginButton")));
+      assertTrue(isEditable(By.id("menuLoginButton")));
+      
+      assertTrue(isVisible(By.id("menuRegistrationButton")));
+      assertTrue(isEditable(By.id("menuRegistrationButton")));
+      
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      assertFalse(isEditable(By.id("menuProfileButton")));
+      
+      assertTrue(isVisible(By.id("menuForumButton")));
+      assertTrue(isEditable(By.id("menuForumButton")));
+      
+      assertTrue(isVisible(By.id("menuWikiButton")));
+      assertTrue(isEditable(By.id("menuWikiButton")));
 
-      assertTrue(session().isVisible("menuWallButton"));
-      assertTrue(session().isVisible("menuLoginButton"));
-      assertTrue(session().isVisible("menuSettingsButton"));
-
-      assertFalse(session().isEditable("menuWallButton"));
-      assertFalse(session().isEditable("menuSettingsButton"));
-      // TODO LOGIN BROKEN
-      // session().click("menuLoginButton");
-      // waitForPageToLoad();
-      //
-      // assertRegExp(".*/catroid/login[?]requesturi=catroid/menu",session().getLocation());
-      // session().type("xpath=//input[@name='loginUsername']",
-      // CommonData.getLoginUserDefault());
-      // session().type("xpath=//input[@name='loginPassword']",
-      // CommonData.getLoginPasswordDefault());
-      // session().click("xpath=//input[@name='loginSubmit']");
-      // ajaxWait();
-      //
-      // assertRegExp(".*/catroid/menu$",session().getLocation());
-      // assertTrue(session().isVisible("menuLogoutButton"));
-      // assertFalse(session().isVisible("menuLoginButton"));
-      //
-      // session().click("menuLogoutButton");
-      // waitForPageToLoad();
-      // assertRegExp(".*/catroid/index(/[0-9]+)?",session().getLocation());
-      //
-      // session().click("headerMenuButton");
-      // waitForPageToLoad();
-      //
-      // assertFalse(session().isVisible("menuLogoutButton"));
-      // assertTrue(session().isVisible("menuLoginButton"));
     } catch(AssertionError e) {
       captureScreen("MenuTests.buttonVisibility");
       throw e;
@@ -81,68 +61,153 @@ public class MenuTests extends BaseTest {
     }
   }
 
+
+  @Test(dataProvider = "validLoginData", groups = { "visibility", "popupwindows" }, description = "check profile button + wiki links; logged in/out")
+  public void loginAndProfileLinks(HashMap<String, String> dataset) throws Throwable {
+    try {
+      openLocation();
+      
+      String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
+      
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+
+      driver().findElement(By.id("headerProfileButton"));      
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      assertFalse(isEditable(By.id("menuProfileButton")));
+      
+      // TODO Login Broken
+      driver().findElement(By.id("menuLoginButton")).click();
+      ajaxWait();
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      
+      driver().findElement(By.id("headerCancelButton")).click();
+      assertFalse(isVisible(By.id("loginUsername")));
+      assertFalse(isVisible(By.id("loginPassword")));
+      assertFalse(isVisible(By.id("loginSubmitButton")));
+      
+      driver().findElement(By.id("menuLoginButton")).click();
+      ajaxWait();
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      
+      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
+      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
+
+      driver().findElement(By.id("loginSubmitButton")).click();
+      ajaxWait();
+
+      clickAndWaitForPopUp(By.id("menuForumButton"));
+      assertFalse(isTextPresent("Login"));
+      assertTrue(isTextPresent("Logout"));
+      closePopUp();
+
+      clickAndWaitForPopUp(By.id("menuWikiButton"));
+      assertTrue(isTextPresent(wikiUsername));
+      closePopUp();
+      
+      driver().findElement(By.id("headerProfileButton"));      
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      assertTrue(isEditable(By.id("menuProfileButton")));
+      driver().findElement(By.id("menuProfileButton")).click();
+      ajaxWait();
+      
+      assertTrue(isTextPresent(dataset.get("username")+"\'s Profile"));
+      
+      driver().findElement(By.id("headerMenuButton")).click();
+      ajaxWait();
+      
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      assertTrue(isEditable(By.id("menuProfileButton")));
+      driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
+      
+      assertTrue(isVisible(By.id("logoutSubmitButton")));
+      driver().findElement(By.id("logoutSubmitButton")).click();
+      ajaxWait();
+      
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      assertFalse(isEditable(By.id("menuProfileButton")));
+
+    } catch(AssertionError e) {
+      captureScreen("MenuTests.loginAndProfileLinks." + dataset.get("username"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("MenuTests.loginAndProfileLinks." + dataset.get("username"));
+      throw e;
+    }
+  }
+  
   @Test(groups = { "visibility", "popupwindows" }, description = "check board + wiki links; logged in/out")
   public void boardAndWikiLinks() throws Throwable {
     try {
       openLocation();
-      session().click("headerMenuButton");
-      waitForPageToLoad();
-      assertRegExp(".*/catroid/menu$", session().getLocation());
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
 
-      session().click("menuForumButton");
-      session().waitForPopUp("board", Config.TIMEOUT);
-      session().selectWindow("board");
+      clickAndWaitForPopUp(By.id("menuForumButton"));
+      assertRegExp(".*/addons/board(/)?$", driver().getCurrentUrl());
+      assertTrue(isTextPresent(("Board index")));
+      assertTrue(isTextPresent(("Login")));
+      closePopUp();
 
-      assertRegExp(".*/addons/board(/)?$", session().getLocation());
-      assertTrue(session().isTextPresent(("Board index")));
-      assertTrue(session().isTextPresent(("Login")));
-      session().close();
-      session().selectWindow(null);
+      clickAndWaitForPopUp(By.id("menuWikiButton"));
+      assertRegExp(".*/wiki/Main_Page$", driver().getCurrentUrl());
 
-      session().click("menuWikiButton");
-      session().waitForPopUp("wiki", Config.TIMEOUT);
-      session().selectWindow("wiki");
-      assertRegExp(".*/wiki/Main_Page$", session().getLocation());
+      assertTrue(isTextPresent(("Main Page")));
+      assertFalse(isElementPresent(By.id("pt-userpage")));
+      closePopUp();
 
-      assertTrue(session().isTextPresent(("Main Page")));
-      assertFalse(session().isElementPresent("pt-userpage"));
-      session().close();
-      session().selectWindow(null);
-      // TODO Login Broken
-      // session().click("menuLoginButton");
-      // waitForPageToLoad();
-      // session().type("xpath=//input[@name='loginUsername']",
-      // CommonData.getLoginUserDefault());
-      // session().type("xpath=//input[@name='loginPassword']",
-      // CommonData.getLoginPasswordDefault());
-      // session().click("xpath=//input[@name='loginSubmit']");
-      // ajaxWait();
-      // waitForPageToLoad();
-      //
-      // session().click("menuForumButton");
-      // session().waitForPopUp("board", Config.TIMEOUT);
-      // session().selectWindow("board");
-      // assertRegExp(".*/addons/board(/)?$",session().getLocation());
-      //
-      // assertTrue(session().isTextPresent(("Board index")));
-      // assertTrue(session().isTextPresent(CommonData.getLoginUserDefault()));
-      // session().close();
-      // session().selectWindow(null);
-      //
-      // session().click("menuWikiButton");
-      // session().waitForPopUp("wiki", Config.TIMEOUT);
-      // session().selectWindow("wiki");
-      // assertRegExp(".*/wiki/Main_Page[?]action=purge$",session().getLocation());
-      //
-      // assertTrue(session().isTextPresent(("Main Page")));
-      // assertTrue(session().isElementPresent("pt-userpage"));
-      // session().close();
-      // session().selectWindow(null);
+      driver().findElement(By.id("menuLoginButton")).click();
+      ajaxWait();
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+
     } catch(AssertionError e) {
       captureScreen("MenuTests.boardAndWikiLinks");
       throw e;
     } catch(Exception e) {
       captureScreen("MenuTests.boardAndWikiLinks");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "visibility", "popupwindows" }, description = "check board + wiki links; logged in/out")
+  public void loginSignUpRecoveryLinks() throws Throwable {
+    try {
+      openLocation();
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+
+      // TODO Login Broken
+      driver().findElement(By.id("menuLoginButton")).click();
+      ajaxWait();
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      
+      driver().findElement(By.id("headerCancelButton")).click();
+      assertFalse(isVisible(By.id("loginUsername")));
+      assertFalse(isVisible(By.id("loginPassword")));
+      assertFalse(isVisible(By.id("loginSubmitButton")));
+
+      driver().findElement(By.id("menuRegistrationButton")).click();
+      assertRegExp(".*/catroid/registration$", driver().getCurrentUrl());
+      assertTrue(isTextPresent(("Create a new account")));
+      assertTrue(isVisible(By.id("registrationSubmit")));
+      
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+
+    } catch(AssertionError e) {
+      captureScreen("loginSignUpRecoveryLinks.boardAndWikiLinks");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("loginSignUpRecoveryLinks.boardAndWikiLinks");
       throw e;
     }
   }
@@ -151,15 +216,13 @@ public class MenuTests extends BaseTest {
   public void homeButton() throws Throwable {
     try {
       openLocation();
-      session().click("headerMenuButton");
-      waitForPageToLoad();
-      assertRegExp(".*/catroid/menu$", session().getLocation());
+      driver().findElement(By.id("headerMenuButton")).click();
+      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
 
-      assertTrue(session().isElementPresent("headerHomeButton"));
-      session().click("headerHomeButton");
-      waitForPageToLoad();
-      assertFalse(session().isElementPresent("headerHomeButton"));
-      assertRegExp(".*/catroid/index(/[0-9]+)?", session().getLocation());
+      assertTrue(isElementPresent(By.id("headerHomeButton")));
+      driver().findElement(By.id("headerHomeButton")).click();
+      assertFalse(isElementPresent(By.id("headerHomeButton")));
+      assertRegExp(".*/catroid/index(/[0-9]+)?", driver().getCurrentUrl());
     } catch(AssertionError e) {
       captureScreen("MenuTests.homeButton");
       throw e;
@@ -167,5 +230,29 @@ public class MenuTests extends BaseTest {
       captureScreen("MenuTests.homeButton");
       throw e;
     }
+  }
+  
+  @SuppressWarnings("serial")
+  @DataProvider(name = "validLoginData")
+  public Object[][] validLoginData() {
+    Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
+      {
+        put("username", "catroweb");
+        put("password", "cat.roid.web");
+      }
+    } } };
+    return dataArray;
+  }
+
+  @SuppressWarnings("serial")
+  @DataProvider(name = "invalidLoginData")
+  public Object[][] invalidLoginData() {
+    Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
+      {
+        put("username", "wrongUser");
+        put("password", "wrongPassword");
+      }
+    } } };
+    return dataArray;
   }
 }

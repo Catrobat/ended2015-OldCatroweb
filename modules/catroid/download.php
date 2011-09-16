@@ -30,17 +30,20 @@ class download extends CoreAuthenticationNone {
       return;
     }
 
+    $this->id = $id;
     $this->source_file = $line['source'];
     $this->file_name = str_replace(' ', '_', $line['title']);
-
-    $this->incrementDownloadCounter($line['id']);
+    
+    if(isset($_REQUEST['incrementID'])) {
+      $this->incrementDownloadCounter($_REQUEST['incrementID']);
+    }
 	}
 
 	public function retrieveProjectById($id) {
 	  if(!is_numeric($id) || $id<0)
 	     return -1;
     $query = "EXECUTE get_project_by_id('$id');";
-    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = @pg_query($this->dbConnection,$query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $line = pg_fetch_assoc($result);
 
     pg_free_result($result);
@@ -49,7 +52,7 @@ class download extends CoreAuthenticationNone {
 
   public function incrementDownloadCounter($id) {
     $query = "EXECUTE increment_download_counter('$id');";
-    $result = @pg_query($query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
+    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
   }
 
   public function __destruct() {

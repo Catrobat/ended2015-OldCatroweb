@@ -17,18 +17,19 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-  	<div class="webMainMiddle">
-  		<div class="blueBoxMain">
-  		   	<div class="webMainContent">
-              <div class="webMainContentTitle">Contact us</div>
-                <div class="licenseMain">            	
-            	  <div class ="whiteBoxMain">
-            	    <div class="contactText"><p class="licenseText">
-            	    If you have any questions or suggestions, please send an email to <a class="downloadLink" href="mailto:webmaster@catroid.org">webmaster@catroid.org</a>.
-					</p>            	    
-                   </div> <!-- License Text -->
-                   </div> <!--  White Box -->            	
-            	</div> <!--  license Main -->  		   		
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>
+    <div class="webMainMiddle">
+      <div class="blueBoxMain">
+        <div class="webMainContent">
+          <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
+          <div class="licenseMain">            	
+            <div class ="whiteBoxMain">
+              <div class="contactText">
+                <p class="licenseText">
+                  <?php echo $this->languageHandler->getString('contact_text', '<a class="downloadLink" href="mailto:'.CONTACT_EMAIL.'">'.CONTACT_EMAIL.'</a>')?> 
+                </p>            	    
+              </div> <!-- License Text -->
+            </div> <!--  White Box -->            	
+          </div> <!--  license Main -->  		   		
+        </div> <!-- mainContent close //-->
+      </div> <!-- blueBoxMain close //-->
+    </div>

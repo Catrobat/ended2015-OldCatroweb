@@ -20,7 +20,6 @@
     <script type="text/javascript">
       $(document).ready(function() {        
         new HeaderMenu();
-        new Login();
       });
     </script>
     <div class="webMainTop">
@@ -33,57 +32,23 @@
           </div>
           <div class="webHeadTitle">
             <div class="webHeadTitleName">
-                <a class="noLink" id="aIndexWebLogoMiddle" href="catroid/index">
-                  <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering.png" alt="catroid [beta]" />
-                </a>			      			
+              <a class="noLink" id="aIndexWebLogoMiddle" href="catroid/index">
+                <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering.png" alt="catroid [beta]" />
+              </a>			      			
             </div>
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">
-            <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="Menu" /></button>           
-            <button type="button" class="webHeadButtons button orange medium" id="headerHomeButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/home.png" alt="Home" /></button>
-            <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="Profile" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerHomeButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/home.png" alt="<?php echo $this->languageHandler->getString('template_header_home')?>Home" /></button>
+            <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="<?php echo $this->languageHandler->getString('template_header_menu')?>Menu" /></button>           
+            <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="<?php echo $this->languageHandler->getString('template_header_profile')?>Profile" /></button>
           </div>
           <div id="cancelHeaderButton" class="webHeadButtons">
             <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelButton">
-              <span class="webHeadCancelButtonText">Cancel</span>
+              <span class="webHeadCancelButtonText"><?php echo $this->languageHandler->getString('template_header_cancel')?></span>
             </button>
           </div>
           <div style="clear:both;"></div>
         </div>
-      </div>
-      <div id="headerProfileBox" class="headerProfileBox" style="display:none;">
-        <div class="webHeadBoxSpacer"></div>
-        <div class="blueBoxMain">
-          <div class="webMainHead">
-            <?php if($this->module->session->userLogin_userId <= 0) { ?>
-              <div class="loginInfoText" id="loginInfoText">
-           		<div class="loginErrorMsg" id="loginErrorMsg">
-            	   <!-- errorMsg -->
-              	</div>
-              </div>
-              <form id="loginForm">
-              	<div id="headerProfileBoxLeft" class="headerProfileBoxLeft" >
-              	  <?php if($this->module->clientDetection->isMobile()) {?>
-              		Nick:<br><input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="nickname"  /><br>
-                	Password:<br><input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="password"  /><br>
-                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="Login" />
-              	  <?php } else {?>
-                    Nick: <input id="loginUsername" type="text" class="webHeadLoginBox" placeholder="nickname"  />
-                    Password: <input id="loginPassword" type="text" class="webHeadLoginBox" placeholder="password"  />
-                    <input id="loginSubmitButton" type="button" class="button orange webHeadLoginSubmit" value="Login" />
-              	  <?php }?>
-                </div>         
-              </form>
-            <?php } else { ?>
-			 <div id="headerProfileBoxLeft" class="headerProfileBoxLeft">
-               You are logged in as
-               <a href="<?php echo BASE_PATH; ?>catroid/profile" class="profileText"><?php echo $this->module->session->userLogin_userNickname; ?></a>!<br>
-               <div class="headerProfileBoxSubmitDiv" >
-                <input id="logoutSubmitButton" type="button" class="button orange webHeadLogoutSubmit" value="Logout" />
-               </div>
-             </div>
-            <?php } ?>
-          </div>
-        </div>
-      </div>     
+      </div> <!-- login headerProfileBox starts here! -->
+<?php require_once('loginbox.php'); ?>  
     </div> <!--  WEBMAINTOP -->

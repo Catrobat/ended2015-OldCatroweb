@@ -67,7 +67,7 @@ public class CommonData {
   }
 
   public static HashMap<String, String> getUploadPayload(String projectTitle, String projectDescription, String filename, String fileChecksum,
-      String deviceIMEI, String userEmail, String userLanguage, String token) {
+       String userEmail, String userLanguage, String token) {
     HashMap<String, String> data = new HashMap<String, String>();
     if(!projectTitle.isEmpty()) {
       data.put("projectTitle", projectTitle);
@@ -80,9 +80,6 @@ public class CommonData {
     }
     if(!fileChecksum.isEmpty()) {
       data.put("fileChecksum", fileChecksum);
-    }
-    if(!deviceIMEI.isEmpty()) {
-      data.put("deviceIMEI", deviceIMEI);
     }
     if(!userEmail.isEmpty()) {
       data.put("userEmail", userEmail);

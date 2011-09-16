@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="password_recover">ap&#x103;sa&#x21B;i aici dac&#x103; a&#x21B;i uitat parola</string>
+  <string name="login">Login</string>
+  <string name="title">Crearea unui cont nou</string>
+  <string name="headline">V&#x103; rug&#x103;m s&#x103; introduce&#x21B;i numele, parola, adresa dvs. de email &#x219;i &#x21B;ara &#xEE;n care tr&#x103;i&#x21B;i.</string>
+  <string name="nickname">Numele</string>
+  <string name="enter_nickname">introduce&#x21B;i numele</string>
+  <string name="password">Parola</string>
+  <string name="enter_password">introduce&#x21B;i parola</string>
+  <string name="email">Adresa e-mail</string>
+  <string name="enter_email">introduce&#x21B;i adresa email dvs.</string>
+  <string name="country">&#x21A;ara</string>
+  <string name="select_country">selecta&#x21B;i &#x21B;ara dvs.</string>
+  <string name="city">Ora&#x219;ul</string>
+  <string name="enter_city">introduce&#x21B;i ora&#x219;ul dvs.</string>
+  <string name="birth">Ziua de na&#x219;tere</string>
+  <string name="select_month">selecta&#x21B;i luna dvs.</string>
+  <string name="select_year">selecta&#x21B;i anul dvs.</string>
+  <string name="gender">Sexul</string>
+  <string name="select_gender">selecta&#x21B;i sexul dvs.</string>
+  <string name="female">femenin</string>
+  <string name="male">masculin</string>
+  <string name="create">Crearea contului meu</string>
+</strings>

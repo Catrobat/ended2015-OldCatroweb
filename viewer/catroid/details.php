@@ -17,140 +17,160 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-  <script type="text/javascript">
-  	$(document).ready(function() {
-  		new ProjectDetails();
-  	});
-  </script>
-
-  	<div class="webMainMiddle">
-  		<div class="blueBoxMain">
-  		   	<div class="webMainContent">
-  		   		<div class="webMainContentTitle">
-  		   			<div class="detailsProjectTitle">
-  		   				<?php echo $this->project['title']?>
-  		   			</div>
-  		   		</div>
-            	<div class="detailsDiv">
-        			<div class="whiteBoxMain">
-        				<div class="detailsFlexDiv">
-            				<div class="detailsLeft">
-                				<div class="detailsMainImage">
-                					<a href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id'].PROJECTS_EXTENTION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
-                						<img class="projectDetailsImage" src="<?php echo $this->project['image']?>" alt="project thumbnail">
-                					</a>
-            					<div class="detailsLicenseLink">
-            					  <a class="licenseLink" href="<?php echo BASE_PATH?>catroid/projectlicense">Some rights reserved</a>
-                					</div>
-                				</div>
-                				<?php if(!$this->isMobile) {?>
-                        			<div class="detailsMainStats">
-                        			    <div class="detailsStatistics">
-                    					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view7.png" alt="view count image">                    					
-                    					<!--   <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view8.png" alt="view count image">
-                    					-->
-                        					<b><?php echo $this->project['view_count']?></b> views</p>
-                        					<div style="height:10px;"></div>
-                        					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down1.png" alt="download count image">
-                    					<!-- <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down_2.png" alt="download count image"> -->
-                        					<b><?php echo $this->project['download_count']?></b> downloads</p>
-                    					</div>
-                        			</div>
-                    			<?php }?>
-                			</div>
-                			<div class="detailsRight">
-                				<div class="detailsMainDescription">
-      		   						<div class="detailsPublishTime">
-                    					<div style="float:left;"><img class="projectDetailsTimeSymbol" src="<?php echo BASE_PATH?>images/symbols/clock2.png" alt="publish time image"></div>
-    									<div style="float:left;">
-    									  <p class="detailsTime">
-    									    uploaded<br>
-    									    <b><?php echo $this->project['publish_time_in_words']?></b> ago<br>
-    									    by <b><?php echo $this->project['uploaded_by']?></b><br>
-    										  <span class="versionInfo">Catroid version: <?php echo $this->project['version_code']?> (<?php echo $this->project['version_name']?>)</span>
-    										  </p>
-    									</div>
-    									<div style="clear:both;"></div>
-                    				</div>
-                    				<div class="detailsDownloadButton">
-                            			<a class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id'].PROJECTS_EXTENTION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
-                            				<img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button">
-                            				<span class="detailsDownloadButtonText">
-                            					Download (<?php echo $this->project['fileSize']?> MB)
-                            				</span>
-                            			</a>
-                    				</div>
-                    				<?php if(!$this->isMobile && $this->project['qr_code_image']) {?>
-                            			<div class="detailsQRCode">
-        									<img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_image']?>" alt="qr code image">
-                            			</div>
-                            			<div class="detailsQRCodeText">
-                    							<div id="qrcodeInfo" class="qrcodeInfo">You can download this project directly to your mobile phone - when you have a barcode-reader app installed. Just open the app on your mobile phone and point the camera to the above QR-Code and the download will be started immediately.</div>
-                        					<button type="button" id="showQrCodeInfoButton" class="button white medium"><span class="showQrCodeInfoButton">QR Code - what's this?</span></button>
-                        					<button type="button" id="hideQrCodeInfoButton" class="button white medium"><span class="hideQrCodeInfoButton">QR Code - what's this?</span></button>
-                            			</div>
-                    			    <?php }?>
-                    				<div class="detailsProjectDescription">
-                    					<?php if($this->project['description_short']) {?>
-                    						<p class="detailsDescription" id="detailsDescription">
-                    						    <?php echo $this->project['description_short'];?>
-                    						</p>
-                    						<input type="hidden" id="fullDescriptionText" value="<?php echo htmlspecialchars($this->project['description'])?>">
-                    						<input type="hidden" id="shortDescriptionText" value="<?php echo htmlspecialchars($this->project['description_short'])?>">
-                    						<button type="button" id="showFullDescriptionButton" class="button green compact showFullDescriptionButton">
-                        					  	<span class="detailsMoreButtonText">more</span>
-                        					</button>
-                        					<button type="button" id="showShortDescriptionButton" class="button green compact showShortDescriptionButton">
-                        					  	<span class="detailsLessButtonText">less</span>
-                        					</button>
-                    					<?php } else {?>
-                    						<p class="detailsDescription">
-                    						    <?php echo $this->project['description'];?>
-                    						</p>
-                    					<?php }?>
-                    					<div style="clear:both;"></div>
-                    				</div>
-                    			</div>
-                    			<?php if($this->isMobile) {?>
-                        			<div class="detailsMainStats">
-                        			    <div class="detailsStatistics">
-                        					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view7.png" alt="view count image">
-                    					<!-- <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view8.png" alt="view count image"> -->
-                        					<b><?php echo $this->project['view_count']?></b> views</p>
-                        					<div style="height:10px;"></div>
-                        					<p class="detailsStats"><img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down1.png" alt="download count image">
-                    					<!-- <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down_2.png" alt="download count image"> -->
-                        					<b><?php echo $this->project['download_count']?></b> downloads</p>
-                    					</div>
-                        			</div>
-                    			<?php 
-                    			  }
-                    			  if ($this->project['user_id'] == 0 || $this->project['user_id'] != $this->module->session->userLogin_userId) {
-                    			?>
-                    			
-                        		<div class="detailsMainStats">
-                        			<div class="detailsFlagButton" id="detailsFlagButton">
-                      		   			<button type="button" class="button white medium" id="reportAsInappropriateButton">
-                      		   				<span class="detailsFlagButtonText">report as inappropriate</span>                            			
-                                  </button>
-                            	</div>
-                            	<div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
-                            			<form method="POST" class="reportInappropriateForm">
-                            				<span class="reportInappropriateLabel">Why do you think this project is inappropriate?</span><br>
-                            				<input type="hidden" id="reportInappropriateProjectId" value="<?php echo $this->project['id']?>">
-      															<input type="text" class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="enter a reason" required>
-      															<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateReportButton" value="Report">
-      															<input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateCancelButton" value="Cancel">
-    									    				</form>
-                            	</div>
-                            	<div class="reportAsInappropriateAnswer" id="reportAsInappropriateAnswer"></div>
-                        		</div>
-                    			  <?php } ?>
-                			</div>
-            				<div style="clear:both;"></div>
-        				</div>    	
-        			</div>
-            	</div>
-  		  	</div>
-  		</div>
-  	</div>
+    <script type="text/javascript">
+      $(document).ready(function() {
+        new ProjectDetails(<?php echo $this->project['id']; ?>);
+      });
+    </script>
+    <div class="webMainMiddle">
+      <div class="blueBoxMain">
+        <div class="webMainContent">
+          <div class="webMainContentTitle">
+            <div class="detailsProjectTitle"><?php echo $this->project['title']?></div>
+          </div>
+          <div class="detailsDiv">
+            <div class="whiteBoxMain">
+              <div class="detailsFlexDiv">
+                <div class="detailsLeft">
+                  <div class="detailsMainImage">
+                    <a id="downloadProjectThumb" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.download?fname=<?php echo urlencode($this->project['title'])?>">
+                      <img class="projectDetailsImage" src="<?php echo $this->project['image']?>" alt="project thumbnail">
+                    </a>
+                    <div class="detailsLicenseLink">
+                      <a class="licenseLink" href="<?php echo BASE_PATH?>catroid/projectlicense"><?php echo $this->languageHandler->getString('some_rights_reserved')?></a>
+                    </div>
+                  </div>
+<?php if(!$this->isMobile) {?>
+                  <div class="detailsMainStats">
+                    <div class="detailsStatistics">
+                      <p class="detailsStats">
+                        <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view7.png" alt="view count image">
+                        <strong><?php echo $this->project['view_count']?></strong> <?php echo $this->languageHandler->getString('views'); ?> 
+                      </p>
+                      <div style="height:10px;"></div>
+                      <p class="detailsStats">
+                        <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down1.png" alt="download count image">
+                        <strong><?php echo $this->project['download_count']?></strong> <?php echo $this->languageHandler->getString('downloads')?> 
+                      </p>
+                    </div>
+                  </div>
+<?php }?>
+                </div>
+                <div class="detailsRight">
+                  <div class="detailsMainDescription">
+                    <div class="detailsPublishTime">
+                      <div style="float:left;"><img class="projectDetailsTimeSymbol" src="<?php echo BASE_PATH?>images/symbols/clock2.png" alt="publish time image"></div>
+                      <div style="float:left;">
+                        <p class="detailsTime">
+                          <?php echo $this->languageHandler->getString('uploaded')?><br/>
+                          <strong><?php echo $this->project['publish_time_in_words']?></strong><br/>
+                          <strong><?php echo $this->project['uploaded_by_string']?></strong><br/>
+                          <span class="versionInfo"><?php echo $this->languageHandler->getString('version_info_text').' '; ?> <?php echo $this->project['version_name']?></span>
+                        </p>
+                      </div>
+                      <div style="clear:both;"></div>
+                    </div>
+<?php if($this->project['is_app_present']) {?>
+                    <div class="detailsDownloadButton">
+                      <button type="button" id="downloadCatroidSwitch" class="button noborderradius blue blueSelected"><span class="detailsDownloadTypeSwitchText"><?php echo $this->languageHandler->getString('project'); ?></span></button><button type="button" id="downloadAppSwitch" class="button noborderradius blue"><span class="detailsDownloadTypeSwitchText"><?php echo $this->languageHandler->getString('app'); ?></span></button>
+                      <button type="button" id="downloadInfoButton" class="button noborderradius green" style="width:17%;"><span class="detailsDownloadTypeSwitchText">?</span></button>
+                      <div>
+                        <div id="downloadCatroidInfo" class="detailsDownloadInfoText"><?php echo $this->languageHandler->getString('download_info_catroid'); ?></div>
+                        <div id="downloadAppInfo" class="detailsDownloadInfoText"><?php echo $this->languageHandler->getString('download_info_app'); ?></div>
+                      </div>
+                    </div>
+                    <div id="downloadAppSection">
+                      <div id="downloadAppButton" class="detailsDownloadButton">
+                        <a id="downloadAppProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.apk?fname=<?php echo urlencode($this->project['title'])?>">
+                          <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
+                          <span class="detailsDownloadButtonText"><?php echo $this->languageHandler->getString('download')?></span>
+                        </a>
+                        <div class="detailsFileSize"><?php echo $this->languageHandler->getString('filesize')?>: <?php echo $this->project['appFileSize']?> MB</div>
+                      </div>
+<?php   if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
+                      <div class="detailsQRCode">
+                        <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_app_image']?>" alt="qr code image"/>
+                      </div>
+<?php   }?>
+                    </div>
+<?php }?>
+                    <div id="downloadCatroidSection">
+                      <div class="detailsDownloadButton">
+                        <a id="downloadCatroidProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.download?fname=<?php echo urlencode($this->project['title'])?>">
+                          <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
+                          <span class="detailsDownloadButtonText"><?php echo $this->languageHandler->getString('download')?></span>
+                        </a>
+                        <div class="detailsFileSize"><?php echo $this->languageHandler->getString('filesize')?>: <?php echo $this->project['fileSize']?> MB</div>
+                      </div>
+<?php if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
+                      <div class="detailsQRCode">
+                        <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_catroid_image']?>" alt="qr code image"/>
+                      </div>
+<?php }?>
+                    </div>
+<?php if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
+                    <div class="detailsQRCodeText">
+                      <div id="qrcodeInfo" class="qrcodeInfo"><?php echo $this->languageHandler->getString('qrcode_info')?></div>
+                      <button type="button" id="showQrCodeInfoButton" class="button white medium"><span class="showQrCodeInfoButton"><?php echo $this->languageHandler->getString('show_qr_code_info_button')?></span></button>
+                      <button type="button" id="hideQrCodeInfoButton" class="button white medium"><span class="hideQrCodeInfoButton"><?php echo $this->languageHandler->getString('hide_qr_code_info_button')?></span></button>
+                    </div>
+<?php }?>
+                    <div class="detailsProjectDescription">
+<?php if($this->project['description_short']) {?>
+                      <p class="detailsDescription" id="detailsDescription"><?php echo $this->project['description_short'];?></p>
+                      <input type="hidden" id="fullDescriptionText" value="<?php echo htmlspecialchars($this->project['description'])?>"/>
+                      <input type="hidden" id="shortDescriptionText" value="<?php echo htmlspecialchars($this->project['description_short'])?>"/>
+                      <button type="button" id="showFullDescriptionButton" class="button green compact showFullDescriptionButton">
+                        <span class="detailsMoreButtonText"><?php echo $this->languageHandler->getString('text_more')?></span>
+                      </button>
+                      <button type="button" id="showShortDescriptionButton" class="button green compact showShortDescriptionButton">
+                        <span class="detailsLessButtonText"><?php echo $this->languageHandler->getString('text_less')?></span>
+                      </button>
+<?php } else {?>
+                      <p class="detailsDescription"><?php echo $this->project['description'];?></p>
+<?php }?>
+                      <div style="clear:both;"></div>
+                    </div>
+                  </div>
+<?php if($this->isMobile) {?>
+                  <div class="detailsMainStats">
+                    <div class="detailsStatistics">
+                      <p class="detailsStats">
+                        <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/view7.png" alt="view count image">
+                        <strong><?php echo $this->project['view_count']?></strong> <?php echo $this->languageHandler->getString('views')?> 
+                      </p>
+                      <div style="height:10px;"></div>
+                      <p class="detailsStats">
+                        <img class="projectDetailsViewSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down1.png" alt="download count image">
+                        <strong><?php echo $this->project['download_count']?></strong> <?php echo $this->languageHandler->getString('downloads')?> 
+                      </p>
+                    </div>
+                  </div>
+<?php }?>
+<?php if($this->project['showReportAsInappropriateButton']) { ?>
+                  <div class="detailsMainStats">
+                    <div class="detailsFlagButton" id="detailsFlagButton">
+                      <button type="button" class="button white medium" id="reportAsInappropriateButton">
+                        <span class="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
+                      </button>
+                    </div>
+                    <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
+                      <form method="POST" class="reportInappropriateForm">
+                        <span class="reportInappropriateLabel"><?php echo $this->languageHandler->getString('report_as_inappropriate_label')?></span><br/>
+                        <input type="hidden" id="reportInappropriateProjectId" value="<?php echo $this->project['id']?>"/>
+                        <input type="text" class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="<?php echo $this->languageHandler->getString('flag_reason_placeholder')?>" required="required"/>
+                        <input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateReportButton" value="<?php echo $this->languageHandler->getString('report')?>"/>
+                        <input type="button" class="button white compact reportInappropriateButton" id="reportInappropriateCancelButton" value="<?php echo $this->languageHandler->getString('cancel')?>"/>
+                      </form>
+                    </div>
+                    <div class="reportAsInappropriateAnswer" id="reportAsInappropriateAnswer"></div>
+                  </div>
+<?php }?>
+                </div>
+                <div style="clear:both;"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

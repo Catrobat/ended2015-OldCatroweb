@@ -21,16 +21,19 @@ abstract class CoreAuthenticationUser extends CoreAuthentication {
     function __construct() {
         parent::__construct();
     }
+    
+    abstract public function __authenticationFailed();
 
     function authenticate() {
-      return false;
-      if($this->session->userLogin_userId > 0 && !isBlockedUser($this->session->userLogin_username)) {
+      //return false;
+      if($this->session->userLogin_userId > 0) {
+        //if($this->session->userLogin_userId > 0 && !$this->isBlockedUser($this->session->userLogin_username)) {
         //todo: fix // isBlockedUser($this->session->userLogin_userNickname);
         return true;
       } else {
         $requesturi = $_SERVER['REQUEST_URI'];
         if(strpos("/", $requesturi) == 0)
-         $requesturi = substr($requesturi, 1);
+          $requesturi = substr($requesturi, 1);
          
         header("Location: ".BASE_PATH."catroid/login?requesturi=".$requesturi);
         exit;

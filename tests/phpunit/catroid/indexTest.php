@@ -21,11 +21,16 @@ require_once('testsBootstrap.php');
 
 class indexTest extends PHPUnit_Framework_TestCase
 {
+  protected $dbConnection;
   protected $obj;
 
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/catroid/index.php';
-    $this->obj = new index();    
+    $this->obj = new index();  
+
+    $this->dbConnection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
+    or die('Connection to Database failed: ' . pg_last_error());
+    
   } 
   
 
@@ -34,7 +39,7 @@ class indexTest extends PHPUnit_Framework_TestCase
     $projectscount = $this->obj->getNumberOfVisibleProjects();
     
     $query = 'SELECT * FROM projects WHERE visible=true';
-    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
     $numDbEntries =  pg_num_rows($result);
     
     // test that projects is a valid db serach result   
@@ -45,6 +50,7 @@ class indexTest extends PHPUnit_Framework_TestCase
   }
 
   protected function tearDown() {    
+    pg_close($this->dbConnection);
   }
 }
 ?>

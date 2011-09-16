@@ -64,14 +64,14 @@
 		  <td>
           <input type="hidden" name="wordId" value="<?php echo $word['id']?>" />
           <input type="hidden" name="approve" value="approve"/>
-          <input type="button" value="approve" name="approveButton" id="approve<?php echo $word['id']?>" onclick="javascript:submitApproveForm('<?php echo $word['id']?>', '<?php echo $word['word']?>');" /> <!-- chg -->
+          <input type="button" value="approve" name="approveButton" id="approve<?php echo $word['id']?>" onclick="javascript:submitApproveForm('<?php echo $word['id']?>', '<?php echo addslashes(htmlspecialchars($word['word']))?>');" /> <!-- chg -->
 		    </form>
 		  </td>
 		  <td>
 		    <form id="deleteForm<?php echo $word['id']?>" class="admin" action="approveWords" method="POST">
           <input type="hidden" name="wordId" value="<?php echo $word['id']?>"/>
           <input type="hidden" name="delete" value="delete"/>
-          <input type="button" value="delete" name="deleteButton" id="delete<?php echo $word['id']?>" onclick="javascript:submitDeleteForm('<?php echo $word['id']?>', '<?php echo $word['word']?>');" /> <!-- chg -->
+          <input type="button" value="delete" name="deleteButton" id="delete<?php echo $word['id']?>" onclick="javascript:submitDeleteForm('<?php echo $word['id']?>', '<?php echo addslashes(htmlspecialchars($word['word']))?>');" /> <!-- chg -->
         </form>
       </td>
      </tr>

@@ -86,7 +86,9 @@ div.headerSearchBoxRight {
 
 div.headerProfileBoxLeft {
   width: 95%;
-  padding-top: 0.5%;
+  padding-top: 1.0%;
+  padding-bottom: 1.0%;
+  /*padding-top: 0.5%;*/
   padding-left: 1%;
   padding-right: 1%;
   margin-left: auto;
@@ -118,7 +120,6 @@ button.webHeadButtons {
 }
 
 button.webHeadCancelButton {
-  width: 149px;
   height: 70px;
   margin-top: 8px;
   color: black;
@@ -139,8 +140,10 @@ input.webHeadSearchBox {
 }
 
 input.webHeadLoginSubmit {
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
+/*  margin-top: 0.5%;*/
+/*  margin-bottom: 0.5%;*/
+  margin-top: 1.5%;
+  margin-bottom: 1.0%;
   color: black;
   font-size: 1.0em;
   font-weight: bold;

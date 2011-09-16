@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--  Catroid: An on-device graphical programming language for Android devices
+      Copyright (C) 2010-2011 The Catroid Team
+      (<http://code.google.com/p/catroid/wiki/Credits>)
+ 
+      This program is free software: you can redistribute it and/or modify
+      it under the terms of the GNU Affero General Public License as
+      published by the Free Software Foundation, either version 3 of the
+      License, or (at your option) any later version.
+  
+      This program is distributed in the hope that it will be useful,
+      but WITHOUT ANY WARRANTY; without even the implied warranty of
+      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+      GNU Affero General Public License for more details.
+  
+      You should have received a copy of the GNU Affero General Public License
+      along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<strings>
+  <string name="title">{*nickname*}'s Profile</string>
+  <string name="password">change my password</string>
+  <string name="old_password">my old password</string>
+  <string name="new_password">my new password</string>
+  <string name="email">change this e-mail address</string>
+  <string name="add_email_field_button">add a new e-mail address</string>
+  <string name="cancel_button">Cancel</string>
+  <string name="delete_email">delete my e-mail address</string>
+  <string name="email_delete_success">You deleted your e-mail address successfully.</string>
+  <string name="alertbox_really_want_to_delete_email">Do you really want to delete this e-mail address?</string>
+  <string name="new_email">new e-mail address</string>
+  <string name="save_button">save my changes</string>
+  <string name="add_new_email_button">save my new e-mail address</string>
+  <string name="from">from</string>
+  <string name="add_country">add my country</string>
+  <string name="change_country">change my country</string>
+  <string name="country">select country</string>
+  <string name="select_country">select your country</string>
+  <string name="change_city">change my hometown</string>
+  <string name="add_city">add my hometown</string>
+  <string name="enter_city">my hometown</string>
+  <string name="city">enter hometown</string>
+  <string name="change_birth">change my birthday</string>
+  <string name="select_birth_year_month">select month and year of your birthday</string>
+  <string name="add_your_birth_date">add my birthday</string>
+  <string name="year">select year</string>
+  <string name="month">select month</string>
+  <string name="born_in">Born in</string>
+  <string name="change_gender">change my gender</string>
+  <string name="add_gender">add my gender</string>
+  <string name="gender">select gender</string>
+  <string name="select_gender">select my gender</string>
+  <string name="change_language">change language</string>
+  <string name="select_language">select my language</string>
+  <string name="male">male</string>
+  <string name="female">female</string>
+  <string name="cancel">Cancel</string>
+  <string name="email_update_success">You updated your e-mail address successfully.</string>
+  <string name="password_success">You updated your password successfully.</string>
+  <string name="city_success">You updated your hometown successfully.</string>
+  <string name="country_success">You updated your country successfully.</string>
+  <string name="birth_success">You updated your birthday date successfully.</string>
+  <string name="gender_success">You updated your gender successfully.</string>
+  <string name="add_new_email">enter your new e-mail address</string>
+  <string name="add_new_email_placeholder">alternative e-mail address</string>
+  <string name="email_address_string_changed">Error while deleting this e-mail address. Do you have any unsaved changes?</string>
+  <string name="birthday_is_empty">Please select the month and the year of your birthday or leave fields empty.</string>
+  <string name="country_is_empty">Please select your home country.</string>
+</strings>

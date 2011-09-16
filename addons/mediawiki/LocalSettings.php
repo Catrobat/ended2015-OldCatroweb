@@ -20,6 +20,7 @@ if( defined( 'MW_INSTALL_PATH' ) ) {
 }
 
 $path = array( $IP, "$IP/includes", "$IP/languages" );
+$urlpath = str_replace('//', '/', str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/'));
 set_include_path( implode( PATH_SEPARATOR, $path ) . PATH_SEPARATOR . get_include_path() );
 
 require_once( "$IP/includes/DefaultSettings.php" );
@@ -31,15 +32,16 @@ if ( $wgCommandLineMode ) {
 }
 ## Uncomment this to disable output compression
 # $wgDisableOutputCompression = true;
-require_once(dirname(__FILE__).'/../../passwords.php');
+require_once(dirname(__FILE__).'/../../config.php');
+require_once(CORE_BASE_PATH . 'passwords.php');
 $wgSitename         = "Catroid";
 
 ## The URL base path to the directory containing the wiki;
 ## defaults for all runtime URL paths are based off of this.
 ## For more information on customizing the URLs please see:
 ## http://www.mediawiki.org/wiki/Manual:Short_URL
-$wgScriptPath       = "/addons/mediawiki";
-$wgArticlePath       = "/wiki/$1";
+$wgScriptPath       = $urlpath . "addons/mediawiki";
+$wgArticlePath      = $urlpath . "wiki/$1";
 $wgUsePathInfo = true;
 $wgScriptExtension  = ".php";
 
@@ -113,6 +115,13 @@ $wgSecretKey = "18098c1b5fe73ab94b5852523f7b64cf1c425e395e5920f75128555a474457f7
 ## Default skin: you can change the default skin. Use the internal symbolic
 ## names, ie 'vector', 'monobook':
 $wgDefaultSkin = 'monobook';
+
+require_once(CORE_BASE_PATH . 'classes/CoreClientDetection.php');
+$clientDetection = new CoreClientDetection();
+$mobile_style = $clientDetection->isMobile();
+if($mobile_style) {
+  $wgDefaultSkin = 'wptouch';
+}
 
 ## For attaching licensing metadata to pages, and displaying an
 ## appropriate copyright notice / icon. GNU Free Documentation

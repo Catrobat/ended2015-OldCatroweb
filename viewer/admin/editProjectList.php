@@ -60,7 +60,7 @@
             <?php echo ($project['visible']=='t' ? 'visible' : '<em>invisible</em>');?> 
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
               <input type="hidden" name="toggle" value="<?php echo ($project['visible']=='t' ? 'invisible' : 'visible'); ?>">
-              <input type="button" value="change" name="toggleProject" id="toggle<?php echo $project['id']?>" onclick="javascript:submitToggleForm('toggleform<?php echo $project['id']?>', '<?php echo $project['title']?>', '<?php echo ($project['visible']=='t' ? 'invisible' : 'visible');?>');" /> <!-- chg -->
+              <input type="button" value="change" name="toggleProject" id="toggle<?php echo $project['id']?>" onclick="javascript:submitToggleForm('toggleform<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>', '<?php echo ($project['visible']=='t' ? 'invisible' : 'visible');?>');" /> <!-- chg -->
             </form>
           </td>
                   
@@ -68,7 +68,7 @@
             <form id="deleteform<?php echo $project['id']?>" class="admin" action="editProjects" method="POST">
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
               <input type="hidden" name="delete" value="delete"/>
-              <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitDeleteForm('deleteform<?php echo $project['id']?>', '<?php echo $project['title']?>');" /> <!-- chg -->
+              <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitDeleteForm('deleteform<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" /> <!-- chg -->
             </form>
           </td>
         </tr>

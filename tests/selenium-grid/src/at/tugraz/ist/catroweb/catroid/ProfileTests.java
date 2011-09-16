@@ -18,125 +18,317 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import java.util.HashMap;
 
+import org.openqa.selenium.By;
+import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
+ 
 
 @Test(groups = { "catroid", "ProfileTests" })
 public class ProfileTests extends BaseTest {
 
-  @Test(dataProvider = "loginData", groups = { "functionality", "visibility" }, description = "check profile page")
-  public void profilePage(HashMap<String, String> dataset) throws Throwable {
+  @Test(dataProvider = "loginAndChangeData", groups = { "functionality", "visibility" }, description = "check profile page")
+  public void profilePageChangeUserData(HashMap<String, String> dataset) throws Throwable {
     try {
       openLocation("catroid/registration/");
-
-      session().type("xpath=//input[@name='registrationUsername']", dataset.get("registrationUsername"));
-      session().type("xpath=//input[@name='registrationPassword']", dataset.get("registrationPassword"));
-      session().type("xpath=//input[@name='registrationEmail']", dataset.get("registrationEmail"));
-      session().type("xpath=//select[@name='registrationGender']", dataset.get("registrationGender"));
-      session().type("xpath=//select[@name='registrationMonth']", dataset.get("registrationMonth"));
-      session().type("xpath=//select[@name='registrationYear']", dataset.get("registrationYear"));
-      session().type("xpath=//select[@name='registrationCountry']", dataset.get("registrationCountry"));
-      session().type("xpath=//input[@name='registrationCity']", dataset.get("registrationCity"));
-
-      session().click("xpath=//input[@name='registrationSubmit']");
-      ajaxWait();
-      waitForPageToLoad();
-
-      session().click("headerProfileButton");
-      assertTrue(session().isTextPresent("You are logged in as " + dataset.get("registrationUsername") + "!"));
-      assertTrue(session().isElementPresent("logoutSubmitButton"));
-      session().click("headerCancelButton");
-
-      assertTrue(session().isTextPresent(dataset.get("registrationUsername") + "\'s Profile"));
-      assertTrue(session().isTextPresent("change my password"));
-      assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
-      assertTrue(session().isTextPresent("from "));
-
-      session().click("xpath=//a[@id='profileChangePassword']");
+      
+      driver().findElement(By.name("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.name("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.name("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.name("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.name("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.name("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      driver().findElement(By.name("registrationCity")).sendKeys(dataset.get("registrationCity"));
+      driver().findElement(By.name("registrationSubmit")).click();
       ajaxWait();
 
-      assertTrue(session().isVisible("xpath=//input[@id='profileOldPassword']"));
-      assertTrue(session().isVisible("xpath=//input[@id='profileNewPassword']"));
-      assertTrue(session().isVisible("xpath=//input[@id='profilePasswordSubmit']"));
+      driver().findElement(By.id("headerProfileButton")).click();
+      assertTrue(isElementPresent(By.id("logoutSubmitButton")));
+      driver().findElement(By.id("headerCancelButton")).click();
 
-      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
-      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("changedPassword"));
-      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      driver().findElement(By.id("profileChangeLanguageOpen")).click();
+      (new Select(driver().findElement(By.id("profileSwitchLanguage")))).selectByValue(dataset.get("registrationLanguage"));
+//      Select selectLanguage = new Select(driver().findElement(By.id("profileSwitchLanguage")));
+//      selectLanguage.selectByValue(dataset.get("registrationLanguage"));
+      
+      assertTrue(isTextPresent(dataset.get("registrationUsername") + "\'s Profile"));
+      assertTrue(isTextPresent("change my password"));
+      assertTrue(isTextPresent(dataset.get("registrationEmail")));
+
+      driver().findElement(By.id("profileChangePasswordOpen")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileChangePasswordClose")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileChangePasswordOpen")).click();
       ajaxWait();
 
-      waitForTextPresent("You updated your password successfully.");
+      assertTrue(isVisible(By.id("profileOldPassword")));
+      assertTrue(isVisible(By.id("profileNewPassword")));
+      assertTrue(isVisible(By.id("profilePasswordSubmit")));
 
-      session().click("xpath=//a[@id='profileChangePassword']");
+      driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("changedPassword"));
+      driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
-      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("shortPassword"));
-      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      assertTrue(isTextPresent("You updated your password successfully."));
+
+      driver().findElement(By.id("profileChangePasswordOpen")).click();
       ajaxWait();
 
-      assertTrue(session().isTextPresent("The old password was incorrect."));
-      assertTrue(session().isTextPresent("The new password must have at least 6 characters."));
-
-      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("changedPassword"));
-      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("emptyPassword"));
-      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      driver().findElement(By.id("profileOldPassword")).clear();
+      driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("profileNewPassword")).clear();
+      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("changedPassword"));
+      driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      assertTrue(session().isTextPresent("The new password is missing."));
+      assertTrue(isTextPresent("The old password was incorrect."));
+      //assertTrue(isTextPresent("The new password must have at least 6 characters."));
 
-      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("emptyPassword"));
-      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("shortPassword"));
-      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      driver().findElement(By.id("profileOldPassword")).clear();
+      driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("changedPassword"));
+      driver().findElement(By.id("profileNewPassword")).clear();
+      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("emptyPassword"));
+      driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      assertTrue(session().isTextPresent("The old password is missing."));
-      assertTrue(session().isTextPresent("The new password must have at least 6 characters."));
+      assertTrue(isTextPresent("The new password is missing."));
 
-      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("changedPassword"));
-      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("registrationPassword"));
-      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      driver().findElement(By.id("profileOldPassword")).clear();
+      driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("emptyPassword"));
+      driver().findElement(By.id("profileNewPassword")).clear();
+      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("shortPassword"));
+      driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      assertTrue(session().isTextPresent("You updated your password successfully."));
+      assertTrue(isTextPresent("The old password is missing."));
+      assertTrue(isTextPresent("The new password must have at least 6 characters."));
 
-      session().click("xpath=//a[@id='profileChangePassword']");
+      driver().findElement(By.id("profileOldPassword")).clear();
+      driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("changedPassword"));
+      driver().findElement(By.id("profileNewPassword")).clear();
+      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      session().type("xpath=//input[@id='profileOldPassword']", dataset.get("registrationPassword"));
-      session().type("xpath=//input[@id='profileNewPassword']", dataset.get("registrationPassword"));
-      session().click("xpath=//input[@id='profilePasswordSubmit']");
+      assertTrue(isTextPresent("You updated your password successfully."));
+
+      driver().findElement(By.id("profileChangePasswordOpen")).click();
       ajaxWait();
 
-      assertTrue(session().isTextPresent("You updated your password successfully."));
-
-      session().click("xpath=//a[@id='profileChangeEmail']");
-      session().type("xpath=//input[@id='profileEmail']", dataset.get("changedEmail"));
-      session().click("xpath=//input[@id='profileEmailSubmit']");
-      waitForPageToLoad();
+      driver().findElement(By.id("profileOldPassword")).clear();
+      driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("profileNewPassword")).clear();
+      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      session().getAlert();
-      assertTrue(session().isTextPresent(dataset.get("changedEmail")));
+      assertTrue(isTextPresent("You updated your password successfully."));
 
-      session().click("xpath=//a[@id='profileChangeEmail']");
+      driver().findElement(By.id("email0")).click();
       ajaxWait();
-      Thread.sleep(Config.TIMEOUT_THREAD);
+      driver().findElement(By.id("profileEmail")).clear();
+      driver().findElement(By.id("profileEmail")).sendKeys(dataset.get("changedEmail"));
+      driver().findElement(By.id("buttonProfileChangeEmailSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("changedEmail")));
 
-      session().type("xpath=//input[@id='profileEmail']", dataset.get("registrationEmail"));
-      session().click("xpath=//input[@id='profileEmailSubmit']");
-      waitForPageToLoad();
+      driver().findElement(By.id("email0")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileEmail")).clear();
+      driver().findElement(By.id("profileEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.id("buttonProfileChangeEmailSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("registrationEmail")));
+      
+      driver().findElement(By.id("profileChangeCityOpen")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileCity")).clear();
+      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("changedCity"));
+      driver().findElement(By.id("profileCitySubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("changedCity")));
+      
+      driver().findElement(By.id("profileChangeCityOpen")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileCity")).clear();
+      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("registrationCity"));
+      driver().findElement(By.id("profileCitySubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("registrationCity")));
+    
+    
+
+      driver().findElement(By.id("profileChangeCountryOpen")).click();
+      ajaxWait();
+      Select selectCountry = new Select(driver().findElement(By.id("profileCountry")));
+      selectCountry.selectByValue(dataset.get("changedCountryID"));
+      driver().findElement(By.id("profileCountrySubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("changedCountry")));
+      
+      driver().findElement(By.id("profileChangeCountryOpen")).click();
+      ajaxWait();
+      selectCountry = new Select(driver().findElement(By.id("profileCountry")));
+      selectCountry.selectByValue(dataset.get("registrationCountryID"));
+      driver().findElement(By.id("profileCountrySubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("registrationCountry")));    
+      
+      
+      driver().findElement(By.id("profileChangeBirthOpen")).click();
+      ajaxWait();
+      Select selectMonth = new Select(driver().findElement(By.id("profileMonth")));
+      Select selectYear = new Select(driver().findElement(By.id("profileYear")));
+      selectMonth.selectByValue(dataset.get("changedMonthID"));
+      selectYear.selectByValue(dataset.get("changedYearEmpty"));
+      driver().findElement(By.id("profileBirthSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Please select the month and the year of your birthday"));
+      
+      selectMonth = new Select(driver().findElement(By.id("profileMonth")));
+      selectYear = new Select(driver().findElement(By.id("profileYear")));
+      selectMonth.selectByValue(dataset.get("changedMonthEmpty"));
+      selectYear.selectByValue(dataset.get("changedYear"));
+      driver().findElement(By.id("profileBirthSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Please select the month and the year of your birthday")); 
+      
+      selectMonth = new Select(driver().findElement(By.id("profileMonth")));
+      selectYear = new Select(driver().findElement(By.id("profileYear")));
+      selectMonth.selectByValue(dataset.get("changedMonthID"));
+      selectYear.selectByValue(dataset.get("changedYear"));
+      driver().findElement(By.id("profileBirthSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("changedMonth")));
+      assertTrue(isTextPresent(dataset.get("changedYear")));
+      
+      driver().findElement(By.id("profileChangeBirthOpen")).click();
+      ajaxWait();
+      selectMonth = new Select(driver().findElement(By.id("profileMonth")));
+      selectYear = new Select(driver().findElement(By.id("profileYear"))); 
+      selectMonth.selectByValue(dataset.get("registrationMonthID"));
+      selectYear.selectByValue(dataset.get("registrationYear"));
+      driver().findElement(By.id("profileBirthSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("registrationMonth")));
+      assertTrue(isTextPresent(dataset.get("registrationYear")));
+
+      
+      driver().findElement(By.id("profileChangeGenderOpen")).click();
+      ajaxWait();
+      Select selectGender = new Select(driver().findElement(By.id("profileGender")));
+      selectGender.selectByValue(dataset.get("changedGender"));
+      driver().findElement(By.id("profileGenderSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("changedGender")));
+
+      driver().findElement(By.id("profileChangeGenderOpen")).click();
+      ajaxWait();
+      selectGender = new Select(driver().findElement(By.id("profileGender")));
+      selectGender.selectByValue(dataset.get("registrationGender"));
+      driver().findElement(By.id("profileGenderSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("registrationGender")));
+
+      
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+    } catch(AssertionError e) {
+      captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
+      throw e;
+    }
+  }
+  
+  @Test(dataProvider = "loginAndAddData", groups = { "functionality", "visibility" }, description = "check profile page")
+  public void profilePageAddUserData(HashMap<String, String> dataset) throws Throwable {
+    try {
+      openLocation("catroid/registration/");
+      
+      driver().findElement(By.name("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.name("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.name("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      //((Select) driver().findElement(By.id("registrationCountry"))).selectByValue(dataset.get("registrationCountryID"));
+      driver().findElement(By.name("registrationSubmit")).click();
       ajaxWait();
 
-      assertTrue(session().isTextPresent(dataset.get("registrationEmail")));
+      driver().findElement(By.id("headerProfileButton")).click();
+      //assertTrue(isTextPresent("You are logged in as " + dataset.get("registrationUsername") + "!"));
+      assertTrue(isElementPresent(By.id("logoutSubmitButton")));
+      driver().findElement(By.id("headerCancelButton")).click();
 
+      assertTrue(isTextPresent(dataset.get("registrationUsername") + "\'s Profile"));
+      assertTrue(isTextPresent("change my password"));
+      assertTrue(isTextPresent(dataset.get("registrationEmail")));
+      
+      driver().findElement(By.id("profileChangeCityOpen")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileCity")).clear();
+      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("changedCity"));
+      driver().findElement(By.id("profileCitySubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("changedCity")));
+      
+      driver().findElement(By.id("profileChangeCityOpen")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileCity")).clear();
+      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("registrationCity"));
+      driver().findElement(By.id("profileCitySubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("registrationCity")));
+      
+      
+      driver().findElement(By.id("profileChangeBirthOpen")).click();
+      ajaxWait();
+      Select selectMonth = new Select(driver().findElement(By.id("profileMonth")));
+      Select selectYear = new Select(driver().findElement(By.id("profileYear")));
+      selectMonth.selectByValue(dataset.get("changedMonthID"));
+      selectYear.selectByValue(dataset.get("changedYear"));
+      driver().findElement(By.id("profileBirthSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("changedMonth")));
+      assertTrue(isTextPresent(dataset.get("changedYear")));
+      
+      driver().findElement(By.id("profileChangeBirthOpen")).click();
+      ajaxWait();
+      selectMonth = new Select(driver().findElement(By.id("profileMonth")));
+      selectYear = new Select(driver().findElement(By.id("profileYear"))); 
+      selectMonth.selectByValue(dataset.get("registrationMonthID"));
+      selectYear.selectByValue(dataset.get("registrationYear"));
+      driver().findElement(By.id("profileBirthSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("registrationMonth")));
+      assertTrue(isTextPresent(dataset.get("registrationYear")));
+
+      
+      driver().findElement(By.id("profileChangeGenderOpen")).click();
+      ajaxWait();
+      Select selectGender = new Select(driver().findElement(By.id("profileGender")));
+      selectGender.selectByValue(dataset.get("changedGender"));
+      driver().findElement(By.id("profileGenderSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("changedGender")));
+
+      driver().findElement(By.id("profileChangeGenderOpen")).click();
+      ajaxWait();
+      selectGender = new Select(driver().findElement(By.id("profileGender")));
+      selectGender.selectByValue(dataset.get("registrationGender"));
+      driver().findElement(By.id("profileGenderSubmit")).click();
+      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("registrationGender")));
+      
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
@@ -148,8 +340,36 @@ public class ProfileTests extends BaseTest {
   }
 
   @SuppressWarnings("serial")
-  @DataProvider(name = "loginData")
-  public Object[][] loginData() {
+  @DataProvider(name = "loginAndAddData")
+  public Object[][] loginAndAddData() {
+    final String randomString = CommonData.getRandomShortString(10);
+
+    Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "ProfileTest" + randomString);
+        put("registrationPassword", "myPassword123");
+        put("registrationEmail", "email_" + randomString + "@selenium.at");
+        put("registrationCountry", "AUSTRIA");
+        put("registrationCountryID", "AT");
+        put("changedCity", "München");
+        put("registrationCity", "Graz");
+        put("changedMonthID", "4");
+        put("changedMonth", "April");
+        put("registrationMonthID", "8");
+        put("registrationMonth", "August");
+        put("changedYear", "1978");
+        put("registrationYear", "1999");
+        put("changedGender", "female");
+        put("registrationGender", "male");
+        put("registrationLanguage", "en");
+      }
+    } } };
+    return dataArray;
+  }
+  
+  @SuppressWarnings("serial")
+  @DataProvider(name = "loginAndChangeData")
+  public Object[][] loginAndChangeData() {
     final String randomString = CommonData.getRandomShortString(10);
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
@@ -159,13 +379,25 @@ public class ProfileTests extends BaseTest {
         put("changedPassword", "anotherPassword123");
         put("shortPassword", "short");
         put("emptyPassword", "");
-        put("registrationEmail", "test" + randomString + "@selenium.at");
-        put("changedEmail", "other" + randomString + "@selenium.at");
-        put("registrationGender", "male");
-        put("registrationMonth", "2");
-        put("registrationYear", "1980");
-        put("registrationCountry", "AT");
+        put("registrationEmail", "email" + randomString + "@selenium.at");
+        put("changedEmail", "anotherMail" + randomString + "@selenium.at");
+        put("registrationCountryID", "AT");
+        put("registrationCountry", "AUSTRIA");
+        put("changedCountryID", "DE");
+        put("changedCountry", "GERMANY");
         put("registrationCity", "Graz");
+        put("changedCity", "München");
+        put("registrationMonthID", "8");
+        put("registrationMonth", "August");
+        put("changedMonthEmpty", "");
+        put("changedMonthID", "4");
+        put("changedMonth", "April");
+        put("registrationYear", "1999");
+        put("changedYearEmpty", "");
+        put("changedYear", "1978");
+        put("registrationGender", "male");
+        put("changedGender", "female");
+        put("registrationLanguage", "en");
       }
     } } };
     return dataArray;

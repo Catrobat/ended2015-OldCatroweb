@@ -20,8 +20,6 @@ package at.tugraz.ist.catroweb.api;
 
 import java.util.HashMap;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import static org.testng.AssertJUnit.*;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
@@ -39,7 +37,7 @@ public class UploadTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       openLocation();
       ajaxWait();
-      assertTrue(session().isTextPresent(dataset.get("projectTitle")));
+      assertTrue(isTextPresent(dataset.get("projectTitle")));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
       throw e;
@@ -54,6 +52,9 @@ public class UploadTests extends BaseTest {
     try {
       String response = projectUploader.upload(dataset);
       assertNotSame("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      openLocation();
+      ajaxWait();
+      assertFalse(isTextPresent(dataset.get("projectTitle")));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadInvalidProjects." + dataset.get("projectTitle"));
       throw e;
@@ -66,29 +67,29 @@ public class UploadTests extends BaseTest {
   @DataProvider(name = "validProjectsForUpload")
   public Object[][] validProjectsForUpload() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "",
-            "", "", "0") },
-        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d",
-            "", "", "", "0") },
-        { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test.zip",
-            "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") },
-        { CommonData
-            .getUploadPayload(
-                "my_test_project_with_looong_description",
-                "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ",
-                "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") },
-        { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip",
-            "63f6285f32df9afea00c2ac0befa2947", "", "", "", "0") } };
+        { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
+        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
+        { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
+        { CommonData.getUploadPayload("my_test_project_with_looong_description", "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
+        { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip", "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") },
+        { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention", "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "5451117C121B89EE9BFB41C5381F357A", "", "", "0") },
+        { CommonData.getUploadPayload("project v8 to test the native app builder", "native app building test", "test_version_8_0.5.4a.catroid", "0BE174300CD9EABB8E49481CD7CEA5BA", "", "", "0") },
+        { CommonData.getUploadPayload("new catroid extention", "this project has catroid as extention", "test.catroid", "583783A335BD40D3D0195A13432AFABB", "", "", "0") }
+    };
     return returnArray;
   }
 
   @DataProvider(name = "invalidProjectsForUpload")
   public Object[][] invalidProjectsForUpload() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("insulting word in description", "fuck the project!!!!", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") },
-        { CommonData.getUploadPayload("fucking word in title", "some description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "0") },
-        { CommonData.getUploadPayload("no token given", "some description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", " ") },
-        { CommonData.getUploadPayload("wrong token given", "some description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", "123") } };
+        { CommonData.getUploadPayload("insulting word in description", "fuck the project!!!!", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
+        { CommonData.getUploadPayload("fucking word in title", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
+        { CommonData.getUploadPayload("no token given", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", " ") },
+        { CommonData.getUploadPayload("wrong checksum", "some description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", " ") },
+        { CommonData.getUploadPayload("wrong token given", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "123") },
+        { CommonData.getUploadPayload("invalid xml in project file", "some description", "invalid_xml.zip", "AADC2DEDE19CDB559E362DB2E119F038", "", "", " ") },
+        { CommonData.getUploadPayload("invalid zip file", "some description", "not_a_zip.zip", "D1B761A18F525A2A20CAA2A5DA12BBF1", "", "", " ") } };
     return returnArray;
   }
+  
 }

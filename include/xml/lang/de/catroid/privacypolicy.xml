@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Datenschutzrichtlinien</string>
+  <string name="privacy_policy_contact_link">Kontakt</string>
+  <string name="privacy_policy_using_software_head">Verwendung der Catroid Software</string>
+  <string name="privacy_policy_using_website_head">Verwendung der Catroid Webseite</string>
+  <string name="privacy_policy_contact_head">Kontaktiere uns</string>
+  <string name="privacy_policy_intro">Deine Privatsph&#xE4;re und Deine Sicherheit sind uns sehr wichtig. Um Deine Privatsph&#xE4;re zu sch&#xFC;tzen, versuchen wir die Anzahl der Daten die wir sammeln und auf der Webseite ver&#xF6;ffentlichen gering zu halten.</string>
+  <string name="privacy_policy_using_software">Du musst &#xFC;ber Dich nichts preisgeben um die Catroid Software herunterzuladen. Wenn Du die Catroid Software herunterl&#xE4;dtst oder Dich auf der Catroid Webseite anmeldest, hast Du die M&#xF6;glichkeit uns etwas &#xFC;ber Dich zu mitzuteilen aber Du musst keine dieser Daten angeben wenn Du nicht m&#xF6;chtest.</string>
+  <string name="privacy_policy_using_website">Du kannst die Projekte auf der Catroid Webseite ausprobieren ohne Dich anzumelden oder Informationen &#xFC;ber Dich preiszugeben. Wenn Du die Webseite benutzt, sammeln wir einige Daten, z.B. was Du anklickst oder welche Bereiche der Seite Du besuchst. Diese Daten helfen uns die Webseite zu verbessern. Wir geben diese Daten nicht an andere Personen oder Organisationen weiter.</string>
+  <string name="privacy_policy_contact">Wenn Du Fragen zu diesen Datenschutzrichtlinien hast, kannst Du uns gerne unter {*contactLink*} ein E-Mail schreiben.</string>
+</strings>

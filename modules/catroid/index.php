@@ -66,6 +66,7 @@ class index extends CoreAuthenticationNone {
 
     if(isset($_REQUEST['q'])) {
       $this->session->searchQuery = $_REQUEST['q'];
+      $this->session->task = "searchProjects";
     }
 
     if(!$this->session->task) {
@@ -88,7 +89,7 @@ class index extends CoreAuthenticationNone {
 
   public function getNumberOfVisibleProjects() {
     $query = 'EXECUTE get_number_of_visible_projects;';
-    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $number = pg_fetch_all($result);
     pg_free_result($result);
 

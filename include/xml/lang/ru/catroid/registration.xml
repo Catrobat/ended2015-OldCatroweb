@@ -1,0 +1,43 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2011 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="password_recover">&#x43D;&#x430;&#x436;&#x43C;&#x438;&#x442;&#x435; &#x441;&#x44E;&#x434;&#x430; &#x435;&#x441;&#x43B;&#x438; &#x432;&#x44B; &#x437;&#x430;&#x431;&#x44B;&#x43B;&#x438; &#x441;&#x432;&#x43E;&#x439; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;</string>
+  <string name="login">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
+  <string name="title">&#x421;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &#x43D;&#x43E;&#x432;&#x443;&#x44E; &#x443;&#x447;&#x435;&#x442;&#x43D;&#x443;&#x44E; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x44C;</string>
+  <string name="headline">&#x41F;&#x43E;&#x436;&#x430;&#x43B;&#x443;&#x439;&#x441;&#x442;&#x430;, &#x432;&#x432;&#x435;&#x434;&#x438;&#x442;&#x435; &#x43F;&#x440;&#x43E;&#x437;&#x432;&#x438;&#x449;&#x435;, &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;, &#x432;&#x430;&#x448; &#x430;&#x434;&#x440;&#x435;&#x441; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B; &#x438; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x443; &#x432; &#x43A;&#x43E;&#x442;&#x43E;&#x440;&#x43E;&#x439; &#x432;&#x44B; &#x43F;&#x440;&#x43E;&#x436;&#x438;&#x432;&#x430;&#x435;&#x442;&#x435;.</string>
+  <string name="nickname">&#x41F;&#x440;&#x43E;&#x437;&#x432;&#x438;&#x449;&#x435;</string>
+  <string name="enter_nickname">&#x432;&#x432;&#x435;&#x434;&#x438;&#x442;&#x435; &#x43F;&#x440;&#x43E;&#x437;&#x432;&#x438;&#x449;&#x435;</string>
+  <string name="password">&#x41F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;</string>
+  <string name="enter_password">&#x432;&#x432;&#x435;&#x434;&#x438;&#x442;&#x435; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;</string>
+  <string name="email">&#x410;&#x434;&#x440;&#x435;&#x441; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;</string>
+  <string name="enter_email">&#x432;&#x432;&#x435;&#x434;&#x438;&#x442;&#x435; &#x432;&#x430;&#x448; &#x430;&#x434;&#x440;&#x435;&#x441; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;</string>
+  <string name="country">&#x421;&#x442;&#x440;&#x430;&#x43D;&#x430;</string>
+  <string name="select_country">&#x432;&#x44B;&#x431;&#x435;&#x440;&#x438;&#x442;&#x435; &#x432;&#x430;&#x448;&#x443; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x443;</string>
+  <string name="city">&#x413;&#x43E;&#x440;&#x43E;&#x434;</string>
+  <string name="enter_city">&#x432;&#x432;&#x435;&#x434;&#x438;&#x442;&#x435; &#x432;&#x430;&#x448; &#x433;&#x43E;&#x440;&#x43E;&#x434;</string>
+  <string name="birth">&#x414;&#x435;&#x43D;&#x44C; &#x440;&#x43E;&#x436;&#x434;&#x435;&#x43D;&#x438;&#x44F;</string>
+  <string name="select_month">&#x432;&#x44B;&#x431;&#x435;&#x440;&#x438;&#x442;&#x435; &#x432;&#x430;&#x448; &#x43C;&#x435;&#x441;&#x44F;&#x446;</string>
+  <string name="select_year">&#x432;&#x44B;&#x431;&#x435;&#x440;&#x438;&#x442;&#x435; &#x432;&#x430;&#x448; &#x433;&#x43E;&#x434;</string>
+  <string name="gender">&#x41F;&#x43E;&#x43B;</string>
+  <string name="select_gender">&#x432;&#x44B;&#x431;&#x435;&#x440;&#x438;&#x442;&#x435; &#x432;&#x430;&#x448; &#x43F;&#x43E;&#x43B;</string>
+  <string name="female">&#x436;&#x435;&#x43D;&#x449;&#x438;&#x43D;&#x430;</string>
+  <string name="male">&#x43C;&#x443;&#x436;&#x447;&#x438;&#x43D;&#x430;</string>
+  <string name="create">&#x421;&#x43E;&#x437;&#x434;&#x430;&#x442;&#x44C; &#x43C;&#x43E;&#x44E; &#x443;&#x447;&#x435;&#x442;&#x43D;&#x443;&#x44E; &#x437;&#x430;&#x43F;&#x438;&#x441;&#x44C;</string>
+</strings>

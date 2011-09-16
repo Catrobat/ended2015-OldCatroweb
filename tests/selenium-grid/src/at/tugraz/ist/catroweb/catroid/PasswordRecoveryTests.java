@@ -18,10 +18,9 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import static com.thoughtworks.selenium.grid.tools.ThreadSafeSeleniumSessionStorage.session;
-
 import java.util.HashMap;
 
+import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -35,20 +34,36 @@ public class PasswordRecoveryTests extends BaseTest {
   @Test(groups = { "visibility" }, description = "check password recovery intro")
   public void passwordRecoveryIntro() throws Throwable {
     try {
-      openLocation("catroid/login");
+      openLocation("catroid/menu");
 
       // check password recovery link
-      assertTrue(session().isTextPresent("Login"));
-      assertTrue(session().isTextPresent("click here if you forgot your password?"));
-      session().isElementPresent("xpath=//div[@class='loginMain']");
-      session().isElementPresent("xpath=//div[@class='loginFormContainer']");
-      session().isElementPresent("xpath=//div[@class='loginHelper']");
-      session().isElementPresent("xpath=//a[@id='forgotPassword']");
-      session().click("xpath=//a[@id='forgotPassword']");
+      driver().findElement(By.id("menuLoginButton")).click();
+      ajaxWait();
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      
+      driver().findElement(By.id("headerCancelButton")).click();
+      ajaxWait();
+      assertFalse(isVisible(By.id("loginUsername")));
+      assertFalse(isVisible(By.id("loginPassword")));
+      assertFalse(isVisible(By.id("loginSubmitButton")));
 
-      // check password recovery form
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent("Change your password"));
+      assertTrue(isVisible(By.id("menuPasswordRecoveryButton")));
+      assertTrue(isEditable(By.id("menuPasswordRecoveryButton")));
+      
+      openLocation("catroid/registration");
+
+      assertTrue(isElementPresent(By.name("registrationUsername")));
+      assertTrue(isElementPresent(By.name("registrationPassword")));
+      assertTrue(isElementPresent(By.name("registrationEmail")));
+      assertTrue(isElementPresent(By.name("registrationMonth")));
+      assertTrue(isElementPresent(By.name("registrationYear")));
+      assertTrue(isElementPresent(By.name("registrationGender")));
+      assertTrue(isElementPresent(By.name("registrationCountry")));
+      assertTrue(isElementPresent(By.name("registrationCity")));
+      assertTrue(isElementPresent(By.name("registrationSubmit")));
+
     } catch(AssertionError e) {
       captureScreen("PasswordRecoveryTests.passwordRecoveryIntro");
       throw e;
@@ -64,142 +79,133 @@ public class PasswordRecoveryTests extends BaseTest {
       // do registration process first, to create a new user with known password
       openLocation("catroid/registration");
 
-      assertTrue(session().isElementPresent("xpath=//input[@name='registrationUsername']"));
-      assertTrue(session().isElementPresent("xpath=//input[@name='registrationPassword']"));
-      assertTrue(session().isElementPresent("xpath=//input[@name='registrationEmail']"));
-      assertTrue(session().isElementPresent("xpath=//select[@name='registrationMonth']"));
-      assertTrue(session().isElementPresent("xpath=//select[@name='registrationYear']"));
-      assertTrue(session().isElementPresent("xpath=//select[@name='registrationGender']"));
-      assertTrue(session().isElementPresent("xpath=//select[@name='registrationCountry']"));
-      assertTrue(session().isElementPresent("xpath=//input[@name='registrationCity']"));
-      assertTrue(session().isElementPresent("xpath=//input[@name='registrationSubmit']"));
-
-      session().type("xpath=//input[@name='registrationUsername']", dataset.get("registrationUsername"));
-      session().type("xpath=//input[@name='registrationPassword']", dataset.get("registrationPassword"));
-      session().type("xpath=//input[@name='registrationEmail']", dataset.get("registrationEmail"));
-      session().type("xpath=//select[@name='registrationMonth']", dataset.get("registrationMonth"));
-      session().type("xpath=//select[@name='registrationYear']", dataset.get("registrationYear"));
-      session().type("xpath=//select[@name='registrationGender']", dataset.get("registrationGender"));
-      session().type("xpath=//select[@name='registrationCountry']", dataset.get("registrationCountry"));
-      session().type("xpath=//input[@name='registrationCity']", dataset.get("registrationCity"));
-      session().click("xpath=//input[@name='registrationSubmit']");
+      driver().findElement(By.name("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.name("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.name("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.name("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.name("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.name("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      driver().findElement(By.name("registrationCity")).sendKeys(dataset.get("registrationCity"));
+      driver().findElement(By.name("registrationSubmit")).click();
       ajaxWait();
-      waitForTextPresent(dataset.get("registrationUsername"));
+      assertTrue(isTextPresent(dataset.get("registrationUsername")));
 
       // goto lost password page and test reset by email and nickname, at first
       // use some wrong nickname or email
       openLocation("catroid/passwordrecovery");
-      assertTrue(session().isTextPresent("Enter your nickname or email address:"));
-      assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoveryUserdata']"));
-      assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoverySubmit']"));
-      session().type("xpath=//input[@name='passwordRecoveryUserdata']", dataset.get("registrationUsername") + " to test");
-      session().click("xpath=//input[@name='passwordRecoverySubmit']");
+      assertTrue(isTextPresent("Enter your nickname or email address:"));
+      assertTrue(isElementPresent(By.name("passwordRecoveryUserdata")));
+      assertTrue(isElementPresent(By.name("passwordRecoverySendLink")));
+      
+      driver().findElement(By.name("passwordRecoveryUserdata")).clear();
+      driver().findElement(By.name("passwordRecoveryUserdata")).sendKeys(dataset.get("registrationUsername") + " to test");
+      driver().findElement(By.name("passwordRecoverySendLink")).click();
       ajaxWait();
 
       // check error message
-      assertTrue(session().isTextPresent("Enter your nickname or email address:"));
-      assertTrue(session().isTextPresent("The nickname or email address was not found."));
-      assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoveryUserdata']"));
-      assertTrue(session().isElementPresent("xpath=//input[@name='passwordRecoverySubmit']"));
+      assertTrue(isTextPresent("Enter your nickname or email address:"));
+      assertTrue(isTextPresent("The nickname or email address was not found."));
+      assertTrue(isElementPresent(By.name("passwordRecoveryUserdata")));
+      assertTrue(isElementPresent(By.name("passwordRecoverySendLink")));
 
       // now use real name
-      session().type("xpath=//input[@name='passwordRecoveryUserdata']", dataset.get("registrationUsername"));
-      session().click("xpath=//input[@name='passwordRecoverySubmit']");
+      driver().findElement(By.name("passwordRecoveryUserdata")).clear();
+      driver().findElement(By.name("passwordRecoveryUserdata")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.name("passwordRecoverySendLink")).click();
       ajaxWait();
-      assertTrue(session().isTextPresent(Config.TESTS_BASE_PATH + "catroid/passwordrecovery?c="));
-      assertTrue(session().isTextPresent("An email was sent to your email address. Please check your inbox."));
-      session().click("xpath=//a[@id='forgotPassword']");
+      assertTrue(isTextPresent(Config.TESTS_BASE_PATH + "catroid/passwordrecovery?c="));
+      assertTrue(isTextPresent("An email was sent to your email address. Please check your inbox."));
+      driver().findElement(By.id("forgotPassword")).click();
 
       // enter 2short password
-      waitForPageToLoad();
-      String recoveryUrl = session().getLocation();
-      assertTrue(session().isTextPresent("Please enter your new password:"));
-      session().type("xpath=//input[@name='passwordSavePassword']", "short");
-      session().click("xpath=//input[@name='passwordSaveSubmit']");
+      String recoveryUrl = driver().getCurrentUrl();
+      assertTrue(isTextPresent("Please enter your new password:"));
+      driver().findElement(By.id("passwordSavePassword")).clear();
+      driver().findElement(By.id("passwordSavePassword")).sendKeys("short");
+      driver().findElement(By.name("passwordSaveSubmit")).click();
       ajaxWait();
-      assertTrue(session().isTextPresent("Please enter your new password:"));
-      assertTrue(session().isElementPresent("xpath=//input[@name='passwordSavePassword']"));
-      assertTrue(session().isTextPresent("The password must have at least 6 characters."));
+      assertTrue(isTextPresent("Please enter your new password:"));
+      assertTrue(isElementPresent(By.name("passwordSavePassword")));
+      assertTrue(isTextPresent("password must have at least"));
 
       // enter the new password correctly
-      session().type("xpath=//input[@name='passwordSavePassword']", dataset.get("registrationPassword") + " new");
-      session().click("xpath=//input[@name='passwordSaveSubmit']");
+      driver().findElement(By.id("passwordSavePassword")).clear();
+      driver().findElement(By.id("passwordSavePassword")).sendKeys(dataset.get("registrationPassword") + " new");
+      driver().findElement(By.name("passwordSaveSubmit")).click();
       ajaxWait();
-      assertTrue(session().isTextPresent("Your new password is set."));
-      assertFalse(session().isTextPresent("Please enter your new password:"));
+      assertTrue(isTextPresent("Your new password is set."));
 
       // and try to login with the old credentials to verify password recovery
       // worked
       openLocation();
       ajaxWait();
-      session().click("headerProfileButton");
-      assertTrue(session().isVisible("logoutSubmitButton"));
-      session().click("logoutSubmitButton");
-      waitForPageToLoad();
+      driver().findElement(By.id("headerProfileButton")).click();
+      assertTrue(isVisible(By.id("logoutSubmitButton")));
+      driver().findElement(By.id("logoutSubmitButton")).click();
       ajaxWait();
 
-      session().click("headerProfileButton");
-      Thread.sleep(Config.TIMEOUT_THREAD);
-      waitForElementPresent("xpath=//input[@id='loginSubmitButton']");
-      assertTrue(session().isVisible("loginSubmitButton"));
-      assertTrue(session().isVisible("loginUsername"));
-      assertTrue(session().isVisible("loginPassword"));
+      driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
+      assertTrue(isElementPresent(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
 
-      session().type("loginUsername", dataset.get("registrationUsername"));
-      session().type("loginPassword", dataset.get("registrationPassword"));
-      session().click("loginSubmitButton");
+      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
 
       // check bad login
-      assertTrue(session().isVisible("loginSubmitButton"));
+      assertTrue(isVisible(By.id("loginSubmitButton")));
 
       // and try to login now with the new credentials
-      assertTrue(session().isVisible("loginSubmitButton"));
-      assertTrue(session().isVisible("loginUsername"));
-      assertTrue(session().isVisible("loginPassword"));
-      session().type("loginUsername", dataset.get("registrationUsername"));
-      session().type("loginPassword", dataset.get("registrationPassword") + " new");
-      session().click("loginSubmitButton");
-      waitForPageToLoad();
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
+      driver().findElement(By.id("loginUsername")).clear();
+      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("loginPassword")).clear();
+      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("registrationPassword") + " new");
+      driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
 
       // check login
-      assertTrue(session().isTextPresent("Newest Projects"));
-      assertTrue(session().isElementPresent("xpath=//div[@id='projectContainer']"));
+      assertTrue(isTextPresent("Newest Projects"));
+      assertTrue(isElementPresent(By.id("projectContainer")));
 
-      session().click("headerMenuButton");
-      waitForPageToLoad();
+      driver().findElement(By.id("headerMenuButton")).click();
+      ajaxWait();
 
-      assertTrue(session().isVisible("menuLogoutButton"));
-
-      clickAndWaitForPopUp("menuForumButton", "board");
-      assertFalse(session().isTextPresent("Login"));
-      assertTrue(session().isTextPresent("Logout"));
-      assertTrue(session().isTextPresent(dataset.get("registrationUsername")));
+      clickAndWaitForPopUp(By.id("menuForumButton"));
+      assertFalse(isTextPresent("Login"));
+      assertTrue(isTextPresent("Logout"));
+      assertTrue(isTextPresent(dataset.get("registrationUsername")));
       closePopUp();
 
-      clickAndWaitForPopUp("menuWikiButton", "wiki");
-      session().click("xpath=//li[@id='pt-preferences']/a");
-      waitForPageToLoad();
-      assertEquals("Preferences", session().getText("firstHeading"));
-      assertFalse(session().isTextPresent("Not logged in"));
+      clickAndWaitForPopUp(By.id("menuWikiButton"));
+      driver().findElement(By.id("pt-preferences")).findElement(By.tagName("a")).click();
+      assertEquals("Preferences", driver().findElement(By.id("firstHeading")).getText());
+      assertFalse(isTextPresent("Not logged in"));
       closePopUp();
 
       // logout
-      session().click("headerProfileButton");
-      assertTrue(session().isVisible("logoutSubmitButton"));
-      session().click("logoutSubmitButton");
-      Thread.sleep(Config.TIMEOUT_THREAD);
-      session().click("headerProfileButton");
-      assertTrue(session().isVisible("loginSubmitButton"));
-      assertTrue(session().isVisible("loginUsername"));
-      assertTrue(session().isVisible("loginPassword"));
+      driver().findElement(By.id("headerProfileButton")).click();
+      assertTrue(isVisible(By.id("logoutSubmitButton")));
+      driver().findElement(By.id("logoutSubmitButton")).click();
+      ajaxWait();
+      driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
 
       // Recovery URL should not work again
-      session().open(recoveryUrl);
-      waitForPageToLoad();
-      assertTrue(session().isTextPresent("Sorry! Your recovery url has expired. Please try again."));
-      assertTrue(session().isElementPresent("xpath=//input[@name='passwordNextSubmit']"));
+      driver().get(recoveryUrl);
+      ajaxWait();
+      assertTrue(isTextPresent("Sorry! Your recovery url has expired. Please try again."));
+      assertTrue(isElementPresent(By.name("passwordNextSubmit")));
 
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
@@ -219,7 +225,7 @@ public class PasswordRecoveryTests extends BaseTest {
 
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {
-        put("registrationUsername", "John Test " + randomString1);
+        put("registrationUsername", "JohnTest" + randomString1);
         put("registrationPassword", "just a simple password!");
         put("registrationEmail", "john" + randomString1 + "@catroid.org");
         put("registrationGender", "male");
