@@ -39,8 +39,8 @@
                       <br/><input type="submit" id="loginOkForwardSubmit" name="loginOkForwardSubmit" value="<?php echo $this->languageHandler->getString('login_ok_submit')?>" class="button orange compact passwordRecoverySubmitButton" />
                     </div>
 <?php if($this->action == "default") { ?>
-                    <div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('enter_userdata')?></div>
-                    <input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>"/><br/><br/>
+                    <div class="passwordRecoveryHeadline"><?php echo $this->languageHandler->getString('enter_userdata')?></div>                                        
+                    <input type="text" id="passwordRecoveryUserdata" name="passwordRecoveryUserdata" required="required" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>"/ value="<?php echo $this->passedUserName;?>"><br/><br/>
                     <input type="button" id="passwordRecoverySendLink" name="passwordRecoverySendLink" value="<?php echo $this->languageHandler->getString('send_link')?>" class="button orange compact passwordRecoverySubmitButton"/><br/><br/>
 <?php }
       if($this->action == "showPasswordChangeForm") { ?>
