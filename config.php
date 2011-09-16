@@ -17,7 +17,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('VERSION','0.6.2_I18N');
+define('VERSION','0.6.3');
 define('BASE_PATH','http://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');
 define('XML_PATH','include/xml/');
@@ -42,12 +42,12 @@ define('PROJECT_SHORT_DESCRIPTION_MAX_LENGTH',178);
 define('PROJECT_PAGE_LOAD_MAX_PROJECTS', 5);
 define('PROJECT_PAGE_SHOW_MAX_PAGES', 5);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
-define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
+define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 10);
 define('APP_EXTENTION','.apk');
 define('APP_QR_EXTENTION','_app_qr.png');
-define('DEVELOPMENT_MODE',true);
-define('SEND_NOTIFICATION_EMAIL',false);
-define('SEND_NOTIFICATION_USER_EMAIL',false);
+define('DEVELOPMENT_MODE',false);
+define('SEND_NOTIFICATION_EMAIL',true);
+define('SEND_NOTIFICATION_USER_EMAIL',true);
 define('DEVELOPMENT_STATUS','[beta]');
 define('DEFAULT_HTML_TEMPLATE_NAME', 'htmlTemplate.php');
 define('DEFAULT_HTML_HEADER_TEMPLATE_NAME', 'htmlHeaderTemplate.php');
