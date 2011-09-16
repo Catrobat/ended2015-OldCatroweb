@@ -101,15 +101,13 @@ div.detailsProjectDescription {
 }
 
 div.detailsDownloadInfoTextContainer {
-  margin: 0.5em;
+  margin: 0.8em;
   font-size: 0.85em;
   color: black;
 }
 
 div.detailsDownloadInfoText {
   display: none;
-  margin: 0.5em;
-  padding: 0.8%;
   text-align: justify;
 }
 
