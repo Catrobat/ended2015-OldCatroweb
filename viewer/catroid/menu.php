@@ -61,13 +61,7 @@
                   </span>
                 </button>
               </div>
-              <div class="menuListElementRow">
-                <button id="menuPasswordRecoveryButton" type="button" class="menuElementButton button cyan medium" title="Password Recovery">
-                  <span class="menuElementButtonLabel">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/menu_profile.png" alt="Password Recovery" /><br /><?php echo $this->languageHandler->getString('problem')?> 
-                  </span>
-                </button>
-              </div>  
+                
               <div style="clear:left;"></div>
             </div> <!-- whiteBoxMain close //-->
             <div class="menuListSpacer"></div>

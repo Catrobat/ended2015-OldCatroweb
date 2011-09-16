@@ -87,7 +87,8 @@ public class DetailsTests extends BaseTest {
 
       HashMap<String, String> versionInfo = CommonFunctions.getVersionInfo(id);
       String versionInfoText = driver().findElement(By.xpath("//span[@class='versionInfo']")).getText();
-      assertRegExp("^Catroid version: " + versionInfo.get("version_code") + " [(]" + versionInfo.get("version_name") + "[)]$", versionInfoText);
+      log(versionInfoText);
+      assertRegExp("^Catroid version: " + versionInfo.get("version_name") + "$", versionInfoText);
     } catch(AssertionError e) {
       captureScreen("DetailsTests.detailsPageCounter." + dataset.get("projectTitle"));
       throw e;

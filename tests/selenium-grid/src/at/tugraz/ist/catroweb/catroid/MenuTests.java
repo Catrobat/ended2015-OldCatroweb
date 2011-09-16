@@ -43,9 +43,6 @@ public class MenuTests extends BaseTest {
       assertTrue(isVisible(By.id("menuRegistrationButton")));
       assertTrue(isEditable(By.id("menuRegistrationButton")));
       
-      assertTrue(isVisible(By.id("menuPasswordRecoveryButton")));
-      assertTrue(isEditable(By.id("menuPasswordRecoveryButton")));
-      
       assertTrue(isVisible(By.id("menuProfileButton")));
       assertFalse(isEditable(By.id("menuProfileButton")));
       
@@ -205,12 +202,6 @@ public class MenuTests extends BaseTest {
       
       driver().findElement(By.id("headerMenuButton")).click();
       assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
-      
-      driver().findElement(By.id("menuPasswordRecoveryButton")).click();
-      assertRegExp(".*/catroid/passwordrecovery$", driver().getCurrentUrl());
-      assertTrue(isTextPresent(("Change your password")));
-      assertTrue(isVisible(By.id("passwordRecoverySendLink")));
-      
 
     } catch(AssertionError e) {
       captureScreen("loginSignUpRecoveryLinks.boardAndWikiLinks");
