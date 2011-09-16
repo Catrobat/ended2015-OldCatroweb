@@ -50,6 +50,7 @@
       AND fp.project_id = $1
       ORDER BY fp.time
     </string>
+    <string name="has_user_flagged_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND user_id=$2 AND resolved=FALSE</string>
     <string name="update_project_filesize">UPDATE projects SET filesize_bytes=$2 WHERE id=$1</string>
 
     <string name="add_word_to_wordlist">INSERT INTO wordlist (word, good_meaning, approved) VALUES ($1, $2, $3)</string>

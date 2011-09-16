@@ -83,6 +83,7 @@ class details extends CoreAuthenticationNone {
       $project['appFileSize'] = convertBytesToMegabytes(filesize(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENTION));
     }
     
+    $project['showReportAsInappropriateButton'] = $this->showReportAsInappropriateButton($projectId, $project['user_id']);
     $this->incrementViewCounter($projectId);
     return $project;
   }
@@ -91,6 +92,25 @@ class details extends CoreAuthenticationNone {
     $query = "EXECUTE increment_view_counter('$projectId');";
     $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
     return;
+  }
+  
+  public function showReportAsInappropriateButton($projectId, $userId) {
+    if($this->session->userLogin_userId <= 0) {
+      return false;
+    }
+    if($this->session->userLogin_userId == $userId) {
+      return false;
+    }
+    
+    $query = "EXECUTE has_user_flagged_project('$projectId', '".$this->session->userLogin_userId."');";
+    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
+    $alreadyFlagged = pg_num_rows($result);
+    pg_free_result($result);
+    
+    if($alreadyFlagged > 0) {
+      return false;
+    }
+    return true;
   }
 
   public function __destruct() {

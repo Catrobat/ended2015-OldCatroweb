@@ -76,8 +76,8 @@ public class DetailsTests extends BaseTest {
 
       // check file size
       double filesize = CommonFunctions.getFileSizeRounded(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + id + Config.PROJECTS_EXTENTION);
-      String downloadButtonText = driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText();
-      String displayedfilesize = downloadButtonText.substring(downloadButtonText.indexOf("(") + 1, downloadButtonText.indexOf(" MB)"));
+      String downloadButtonText = driver().findElement(By.xpath("//div[@class='detailsFileSize']")).getText();
+      String displayedfilesize = downloadButtonText.substring(downloadButtonText.indexOf(":") + 2, downloadButtonText.indexOf(" MB"));
       if(displayedfilesize.startsWith("<")) {
         // smaller files are displayed as "< 0.1 MB"
         assertEquals("< " + String.valueOf(filesize), displayedfilesize);
@@ -87,7 +87,6 @@ public class DetailsTests extends BaseTest {
 
       HashMap<String, String> versionInfo = CommonFunctions.getVersionInfo(id);
       String versionInfoText = driver().findElement(By.xpath("//span[@class='versionInfo']")).getText();
-      log(versionInfoText);
       assertRegExp("^Catroid version: " + versionInfo.get("version_name") + "$", versionInfoText);
     } catch(AssertionError e) {
       captureScreen("DetailsTests.detailsPageCounter." + dataset.get("projectTitle"));
@@ -106,6 +105,14 @@ public class DetailsTests extends BaseTest {
       openAdminLocation();
 
       openLocation("catroid/details/" + id);
+      assertFalse(isElementPresent(By.id("reportAsInappropriateButton")));
+      
+      driver().findElement(By.id("headerProfileButton")).click();
+      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
+      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
+      driver().findElement(By.id("loginSubmitButton")).click();
+      ajaxWait();
+
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
       driver().findElement(By.id("reportAsInappropriateButton")).click();
       assertTrue(isVisible(By.id("reportInappropriateReason")));
@@ -132,13 +139,7 @@ public class DetailsTests extends BaseTest {
 
       driver().navigate().refresh();
       ajaxWait();
-      driver().findElement(By.id("reportAsInappropriateButton")).click();
-      driver().findElement(By.id("reportInappropriateReason")).sendKeys("my selenium reason 2");
-      driver().findElement(By.id("reportInappropriateReason")).sendKeys("\n"); // press
-                                                                               // enter
-      ajaxWait();
-      assertFalse(isVisible(By.id("reportInappropriateReason")));
-      assertTrue(isTextPresent("You reported this project as inappropriate!"));
+      assertFalse(isElementPresent(By.id("reportAsInappropriateButton")));
 
       openAdminLocation("/tools/inappropriateProjects");
       clickOkOnNextConfirmationBox();
@@ -324,8 +325,8 @@ public class DetailsTests extends BaseTest {
       assertTrue(isVisible(By.id("downloadAppButton")));
       
       double filesize = CommonFunctions.getFileSizeRounded(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + "2.apk");
-      String downloadButtonText = driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText();
-      String displayedfilesize = downloadButtonText.substring(downloadButtonText.indexOf("(") + 1, downloadButtonText.indexOf(" MB)"));
+      String downloadButtonText = driver().findElement(By.xpath("//div[@class='detailsFileSize']")).getText();
+      String displayedfilesize = downloadButtonText.substring(downloadButtonText.indexOf(":") + 2, downloadButtonText.indexOf(" MB"));
       if(displayedfilesize.startsWith("<")) {
         // smaller files are displayed as "< 0.1 MB"
         assertEquals("< " + String.valueOf(filesize), displayedfilesize);
@@ -350,13 +351,13 @@ public class DetailsTests extends BaseTest {
       ajaxWait();
       
       assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
-      assertRegExp(".*Download.*MB.*", driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText());
+      assertRegExp(".*Download.*", driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText());
       
       openLocation("catroid/details/2");
       driver().findElement(By.id("downloadAppSwitch")).click();
       
       assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
-      assertRegExp(".*Download.*MB.*", driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText());
+      assertRegExp(".*Download.*", driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText());
     } catch(AssertionError e) {
       captureScreen("DetailsTests.ProjectSizeInfo");
       throw e;

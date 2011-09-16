@@ -35,8 +35,6 @@
           "birthdayAddDateLanguageString" : "<?php echo $this->languageHandler->getString('add_your_birth_date'); ?>"
           };
           new Profile(languageStringsObject);
-
-          bindAjaxLoader("<?php echo BASE_PATH?>");  
       });
   </script>
       <div class="webMainMiddle">

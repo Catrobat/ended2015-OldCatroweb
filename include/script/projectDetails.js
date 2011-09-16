@@ -18,9 +18,10 @@
 
 var ProjectDetails = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function() {
+  __init__ : function(projectId) {
     this.downloadState = { 'selected': 0, 'catroid': 0, 'app': 1 };
     this.downloadInfoVisible = false;
+    this.projectId = projectId;
     
     $("#downloadAppProjectLink").click($.proxy(this.incrementDownloadCounter, this));
     $("#downloadCatroidProjectLink").click($.proxy(this.incrementDownloadCounter, this));
@@ -117,11 +118,11 @@ var ProjectDetails = Class.$extend( {
         $("#downloadAppSection").toggle(false);
         $("#downloadCatroidSection").toggle(true);
         
-        $("#downloadCatroidSwitch").removeClass('white');
-        $("#downloadCatroidSwitch").addClass('blue');
+        $("#downloadCatroidSwitch").removeClass('blue');
+        $("#downloadCatroidSwitch").addClass('blueSelected');
         
-        $("#downloadAppSwitch").removeClass('blue');
-        $("#downloadAppSwitch").addClass('white');
+        $("#downloadAppSwitch").removeClass('blueSelected');
+        $("#downloadAppSwitch").addClass('blue');
         
         if(this.downloadInfoVisible) {
           $("#downloadCatroidInfo").toggle(true);
@@ -135,11 +136,11 @@ var ProjectDetails = Class.$extend( {
         $("#downloadAppSection").toggle(true);
         $("#downloadCatroidSection").toggle(false);
 
-        $("#downloadCatroidSwitch").removeClass('blue');
-        $("#downloadCatroidSwitch").addClass('white');
+        $("#downloadCatroidSwitch").removeClass('blueSelected');
+        $("#downloadCatroidSwitch").addClass('blue');
         
-        $("#downloadAppSwitch").removeClass('white');
-        $("#downloadAppSwitch").addClass('blue');
+        $("#downloadAppSwitch").removeClass('blue');
+        $("#downloadAppSwitch").addClass('blueSelected');
         
         if(this.downloadInfoVisible) {
           $("#downloadCatroidInfo").toggle(false);
@@ -160,13 +161,12 @@ var ProjectDetails = Class.$extend( {
   },
   
   incrementDownloadCounter : function() {
-    var id = $("#reportInappropriateProjectId").val();
     var self = this;
     $.ajax({
       type: "POST",
-      url: self.basePath+"catroid/download/" + id,
+      url: self.basePath+"catroid/download/" + self.projectId,
       cache: false,
-      data: "incrementID=" + id,        
+      data: "incrementID=" + self.projectId,        
     });
   }
 

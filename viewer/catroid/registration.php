@@ -20,7 +20,6 @@
     <script type="text/javascript">
       $(document).ready(function() {
         new Registration();
-        bindAjaxLoader("<?php echo BASE_PATH?>");  
       });
     </script>
     <div class="webMainMiddle">

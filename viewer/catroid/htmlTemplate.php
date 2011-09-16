@@ -60,5 +60,10 @@
   
 <?php include($this->footer);?>
   </div>
+  <script type="text/javascript">
+    $(document).ready(function() {
+      bindAjaxLoader("<?php echo BASE_PATH?>");
+    });
+  </script>
 </body>
 </html>

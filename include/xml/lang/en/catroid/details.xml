@@ -20,9 +20,10 @@
 <strings>
 	<string name="uploaded">uploaded</string>
 	<string name="uploaded_by">by {*nicknameString*}</string>
-	<string name="catroid">Catroid</string>
+	<string name="project">Project</string>
 	<string name="app">App</string>
 	<string name="download">Download</string>
+	<string name="filesize">Filesize</string>
 	<string name="report">Report</string>
 	<string name="cancel">Cancel</string>
 	<string name="report_as_inappropriate">report as inappropriate</string>
@@ -35,8 +36,8 @@
 	<string name="version_info_text">Catroid version:</string>
   <string name="text_more">more</string>
   <string name="text_less">less</string>
-  <string name="download_info_catroid">You can open the project with the Catroid Application. TODO</string>
-  <string name="download_info_app">You can download this project as a standalone App. TODO</string>
+  <string name="download_info_catroid">You can open the project with the Catroid Application. You can modify or play with the project.</string>
+  <string name="download_info_app">You can download this project as a standalone App. You start the project without having the Catroid Application installed.</string>
   <string name="qrcode_info">You can download this project directly to your mobile phone - when you have a barcode-reader app installed. Just open the app on your mobile phone and point the camera to the above QR-Code and the download will be started immediately.</string>
   <string name="show_qr_code_info_button">QR code - what's this?</string>
   <string name="hide_qr_code_info_button">QR code - close info</string>
