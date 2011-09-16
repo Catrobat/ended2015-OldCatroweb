@@ -20,11 +20,11 @@
   <script type="text/javascript">
       $(document).ready(function() {
         var languageStringsObject = { 
-            "emailArrayDiv" : "<?php echo $this->emailArrayDiv; ?>",
+          "emailArrayDiv" : "<?php echo $this->emailArrayDiv; ?>",
           "emailCount" : "<?php echo count($this->emailArray); ?>",
           "emailDeleteAlertTitle" : "<?php echo $this->languageHandler->getString('alertbox_really_want_to_delete_email'); ?>",
-            "addNewEmailButtonLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email_button'); ?>",
-            "addNewEmailLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email'); ?>",
+          "addNewEmailButtonLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email_button'); ?>",
+          "addNewEmailLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email'); ?>",
           "addNewEmailPlaceholderLanguageString" : "<?php echo $this->languageHandler->getString('add_new_email_placeholder'); ?>",
           "changeEmailLanguageString" : "<?php echo $this->languageHandler->getString('email'); ?>",
           "changeEmailDeleteButtonLanguageString" : "<?php echo $this->languageHandler->getString('delete_email'); ?>",
@@ -164,22 +164,22 @@ foreach($supportedLanguages as $lang => $details) {
                       <br>
                       </div>
 <?php } else { // start public profile ?>
-                                 <br>
+                      <br>
 <?php echo $this->languageHandler->getString('from'); ?>
                       <div id="profileCityDiv">
 <?php echo $this->userCity; ?>
                       </div> 
                       <div id="profileCountryTextDiv">
 <?php echo $this->countryTextHTML; ?>
-                                 </div>
+                    </div>
 <?php } ?>
                     <br>
                     <br>
                   </div> <!-- profileFormContainer -->
-                                </div> <!-- profile Text -->
+                </div> <!-- profile Text -->
               </div> <!--  White Box -->                
-           </div> <!--  license Main -->                     
-            </div> <!-- mainContent close //-->
-          </div> <!-- blueBoxMain close //-->
+            </div> <!--  license Main -->                     
+          </div> <!-- mainContent close //-->
+        </div> <!-- blueBoxMain close //-->
       </div>
 
