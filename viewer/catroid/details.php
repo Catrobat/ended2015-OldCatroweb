@@ -66,7 +66,7 @@
                           <?php echo $this->languageHandler->getString('uploaded')?><br/>
                           <strong><?php echo $this->project['publish_time_in_words']?></strong><br/>
                           <strong><?php echo $this->project['uploaded_by_string']?></strong><br/>
-                          <span class="versionInfo"><?php echo $this->languageHandler->getString('version_info_text').' '; echo $this->project['version_code']; ?> (<?php echo $this->project['version_name']?>)</span>
+                          <span class="versionInfo"><?php echo $this->languageHandler->getString('version_info_text').' '; ?> <?php echo $this->project['version_name']?></span>
                         </p>
                       </div>
                       <div style="clear:both;"></div>
