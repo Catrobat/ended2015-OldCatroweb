@@ -67,7 +67,7 @@ public class IndexTests extends BaseTest {
       // random string instead of page nr should redirect to first page
       openLocation("catroid/search/?q=test&p=" + CommonData.getRandomShortString(10));
       ajaxWait();
-      assertRegExp(".*/catroid/search/[?]q=test[&]p=.*", driver().getCurrentUrl());
+      assertRegExp(".*/catroid/search/[?]q=test[&]p=1.*", driver().getCurrentUrl());
 
       openLocation("catroid/profile");
       ajaxWait();

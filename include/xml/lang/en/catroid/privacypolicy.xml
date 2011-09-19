@@ -28,7 +28,7 @@
 	</string>
 	<string name="privacy_policy_using_software">
 		You do not have to tell us anything about yourselves to download the Catroid application software. When you download the
-		Catroid software or sign up to the website, we give you the option of telling us some things about yourself, but you do not have to fill in any of this information if you don't want to.
+		Catroid software or sign up to the website, we give you the option of telling us some things about yourself, but you do not have to fill in any of this information if you want to.
 	</string>
 	<string name="privacy_policy_using_website">
 		You can try out projects on the Catroid website without registering or providing any information. As you use the website, we collect some data on where
@@ -36,6 +36,7 @@
 		We do not sell or rent your information to anyone.
 	</string>
 	<string name="privacy_policy_contact">
-		If you have questions about this privacy policy, you can use the {*contactLink*} form.
+	  If you have questions about this privacy policy, please send an email to {*emailLink*}.
 	</string>
+  <string name="privacy_policy_email_subject">Question regarding the privacy policy of Catroid</string>
 </strings>

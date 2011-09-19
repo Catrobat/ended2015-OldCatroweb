@@ -33,8 +33,6 @@
           <span class="webMainBottomSpacer">|</span>
           <a class="license" id="_imprint" href="<?php echo BASE_PATH?>catroid/imprint"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a>
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_contactus" href="<?php echo BASE_PATH?>catroid/contactus"><?php echo $this->languageHandler->getString('template_footer_contact_link')?></a>
-          <span class="webMainBottomSpacer">|</span>
           <select id="switchLanguage" class="languageSwitchSelect">
 <?php 
   $supportedLanguages = getSupportedLanguagesArray($this->languageHandler);
