@@ -80,11 +80,8 @@ public class ReportAsInappropriateTests extends BaseTest {
       ajaxWait();
       assertTrue(isTextPresent(projectTitle));
       assertTrue(isTextPresent(dataset.get("projectDescription")));
-      // report as inappropriate visible again after logout
-      assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
-
-      openLocation("catroid/logout");
-      ajaxWait();
+      // report as inappropriate still not visible after logout
+      assertFalse(isElementPresent(By.id("reportAsInappropriateButton")));
     } catch(AssertionError e) {
       captureScreen("ReportAsInappropriateTests.reportOwnProjectAsInappropriate");
       throw e;
@@ -109,7 +106,12 @@ public class ReportAsInappropriateTests extends BaseTest {
 
       // goto details page
       openLocation("catroid/details/" + projectId);
+      driver().findElement(By.id("headerProfileButton")).click();
+      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
+      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
+      driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
+
       assertTrue(isTextPresent(projectTitle));
       assertTrue(isTextPresent(dataset.get("projectDescription")));
 
@@ -129,9 +131,7 @@ public class ReportAsInappropriateTests extends BaseTest {
       assertTrue(isTextPresent("You reported this project as inappropriate!"));
 
       // project is hidden
-      openLocation();
-      ajaxWait();
-      assertFalse(isTextPresent(projectTitle));
+      assertProjectNotPresent(projectTitle);
     } catch(AssertionError e) {
       captureScreen("ReportAsInappropriateTests.testReportAnonymousProjectAsInappropriate");
       throw e;

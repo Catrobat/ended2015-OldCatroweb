@@ -34,7 +34,8 @@ public class AdminTests extends BaseTest {
       openAdminLocation();
       assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
       assertTrue(isTextPresent("Administration Tools"));
-      driver().findElement(By.xpath("//a[2]")).click();
+      driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
+      ajaxWait();
       assertRegExp(".*Catroid Website.*", driver().getTitle());
       driver().navigate().back();
       if(isTextPresent("Catroid Administration Site") == false) {
@@ -57,7 +58,7 @@ public class AdminTests extends BaseTest {
       assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
       assertTrue(isTextPresent("Catroid Administration Site"));
 
-      driver().findElement(By.xpath("//a[1]")).click();
+      driver().findElement(By.id("aAdministrationTools")).click();
       assertTrue(isTextPresent("Administration Tools"));
       assertTrue(isTextPresent("remove inconsistant project files"));
       assertTrue(isTextPresent("edit projects"));
@@ -70,40 +71,48 @@ public class AdminTests extends BaseTest {
 
       assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
 
-      driver().findElement(By.xpath("//a[1]")).click();
+      driver().findElement(By.id("aAdminToolsRemoveInconsitantProjectFiles")).click();
       assertTrue(isTextPresent("Answer"));
       driver().navigate().back();
+      ajaxWait();
 
-      driver().findElement(By.xpath("//a[2]")).click();
+      driver().findElement(By.id("aAdminToolsEditProjects")).click();
       assertTrue(isTextPresent("Administration Tools - List of available projects"));
       driver().navigate().back();
+      ajaxWait();
 
-      driver().findElement(By.xpath("//a[3]")).click();
+      driver().findElement(By.id("aAdminToolsThumbnailUploader")).click();
       assertTrue(isTextPresent("Administration Tools - Thumbnail Uploader"));
       driver().navigate().back();
+      ajaxWait();
 
-      driver().findElement(By.xpath("//a[4]")).click();
+      driver().findElement(By.id("aAdminToolsInappropriateProjects")).click();
       assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
       driver().navigate().back();
+      ajaxWait();
 
-      driver().findElement(By.xpath("//a[5]")).click();
+      driver().findElement(By.id("aAdminToolsApproveWords")).click();
       assertTrue(isTextPresent("Administration Tools - List of unapproved Words"));
       driver().navigate().back();
+      ajaxWait();
 
-      driver().findElement(By.xpath("//a[6]")).click();
+      driver().findElement(By.id("aAdminToolsLanguageManagement")).click();
       assertTrue(isTextPresent("Administration Tools - Language Management"));
       driver().navigate().back();
+      ajaxWait();
 
-      driver().findElement(By.xpath("//a[7]")).click();
+      driver().findElement(By.id("aAdminToolsBlockIp")).click();
       assertTrue(isTextPresent("Administration Tools - List of blocked IP-Addresses"));
       driver().navigate().back();
+      ajaxWait();
 
-      driver().findElement(By.xpath("//a[8]")).click();
+      driver().findElement(By.id("aAdminToolsBlockUser")).click();
       assertTrue(isTextPresent("Administration Tools - List of blocked users"));
       driver().navigate().back();
+      ajaxWait();
 
       assertTrue(isTextPresent("- back"));
-      driver().findElement(By.xpath("//a[9]")).click();
+      driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
       assertTrue(isTextPresent("Catroid Administration Site"));
     } catch(AssertionError e) {
       captureScreen("AdminTests.clickAllLinks");
@@ -118,11 +127,17 @@ public class AdminTests extends BaseTest {
   public void inappropriateProjects() throws Throwable {
     try {
       String title = "Testproject " + CommonData.getRandomLongString(200);
-      String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "0"));
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       openLocation("catroid/details/" + id);
+      driver().findElement(By.id("headerProfileButton")).click();
+      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
+      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
+      driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
+
+      assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
       driver().findElement(By.id("reportAsInappropriateButton")).click();
       driver().findElement(By.id("reportInappropriateReason")).sendKeys("my selenium reason");
       driver().findElement(By.id("reportInappropriateReportButton")).click();

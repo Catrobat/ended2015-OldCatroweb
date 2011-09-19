@@ -38,6 +38,7 @@ public class UploadTest extends BaseTest {
       // delete project
       openAdminLocation();
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsEditProjects")).click();
       assertTrue(isTextPresent(projectTitle));
       clickOkOnNextConfirmationBox();
@@ -45,9 +46,7 @@ public class UploadTest extends BaseTest {
       assertFalse(isTextPresent(projectTitle));
 
       // verify deletion
-      openLocation();
-      ajaxWait();
-      assertFalse(isTextPresent(projectTitle));
+      assertProjectNotPresent(projectTitle);
     } catch(AssertionError e) {
       captureScreen("UploadTest.uploadTest");
       throw e;

@@ -33,6 +33,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -202,7 +203,11 @@ public class BaseTest {
   }
 
   public void assertRegExp(String pattern, String string) {
-    assertTrue(string.matches(pattern));
+    boolean match = string.matches(pattern); 
+    if(!match) {
+      log("assertRegExp: was [" + string + "] expected [" + pattern + "]");
+    }
+    assertTrue(match);
   }
 
   public boolean isTextPresent(String text) {
@@ -238,9 +243,9 @@ public class BaseTest {
 
   protected void openLocation(String location, Boolean forceDefaultLanguage) {
     if(forceDefaultLanguage == true) {
-      driver().get(this.webSite + Config.TESTS_BASE_PATH + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
     } else {
-      driver().get(this.webSite + Config.TESTS_BASE_PATH + location);
+      driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location);
     }
   }
 
@@ -281,7 +286,18 @@ public class BaseTest {
 
   protected void assertProjectPresent(String project) {
     openLocation();
-    driver().findElement(By.id("headerSearchButton")).click();
+    ajaxWait();
+    try {
+      driver().findElement(By.id("headerSearchButton")).click();
+      ajaxWait();
+    } catch(ElementNotVisibleException ignore) {
+    }
+    assertTrue(isVisible(By.id("searchQuery")));
+    driver().findElement(By.id("searchQuery")).clear();
+    driver().findElement(By.id("searchQuery")).sendKeys("clear-cache");
+    driver().findElement(By.id("webHeadSearchSubmit")).click();
+    ajaxWait();
+    driver().findElement(By.id("searchQuery")).clear();
     driver().findElement(By.id("searchQuery")).sendKeys(project);
     driver().findElement(By.id("webHeadSearchSubmit")).click();
     ajaxWait();
@@ -290,7 +306,18 @@ public class BaseTest {
 
   protected void assertProjectNotPresent(String project) {
     openLocation();
-    driver().findElement(By.id("headerSearchButton")).click();
+    ajaxWait();
+    try {
+      driver().findElement(By.id("headerSearchButton")).click();
+      ajaxWait();
+    } catch(ElementNotVisibleException ignore) {
+    }
+    assertTrue(isVisible(By.id("searchQuery")));
+    driver().findElement(By.id("searchQuery")).clear();
+    driver().findElement(By.id("searchQuery")).sendKeys("clear-cache");
+    driver().findElement(By.id("webHeadSearchSubmit")).click();
+    ajaxWait();
+    driver().findElement(By.id("searchQuery")).clear();
     driver().findElement(By.id("searchQuery")).sendKeys(project);
     driver().findElement(By.id("webHeadSearchSubmit")).click();
     ajaxWait();
@@ -309,7 +336,7 @@ public class BaseTest {
         ajaxWait();
       }
     } catch(NoSuchElementException ignore) {
-    }      
+    }
 
     WebElement lastLink = null;
     List<WebElement> allLinks = driver().findElements(By.tagName("a"));

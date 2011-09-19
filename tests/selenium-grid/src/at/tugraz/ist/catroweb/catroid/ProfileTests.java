@@ -56,8 +56,6 @@ public class ProfileTests extends BaseTest {
 
       driver().findElement(By.id("profileChangeLanguageOpen")).click();
       (new Select(driver().findElement(By.id("profileSwitchLanguage")))).selectByValue(dataset.get("registrationLanguage"));
-//      Select selectLanguage = new Select(driver().findElement(By.id("profileSwitchLanguage")));
-//      selectLanguage.selectByValue(dataset.get("registrationLanguage"));
       
       assertTrue(isTextPresent(dataset.get("registrationUsername") + "\'s Profile"));
       assertTrue(isTextPresent("change my password"));
@@ -92,7 +90,6 @@ public class ProfileTests extends BaseTest {
       ajaxWait();
 
       assertTrue(isTextPresent("The old password was incorrect."));
-      //assertTrue(isTextPresent("The new password must have at least 6 characters."));
 
       driver().findElement(By.id("profileOldPassword")).clear();
       driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("changedPassword"));
@@ -165,8 +162,6 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("profileCitySubmit")).click();
       ajaxWait();
       assertTrue(isTextPresent(dataset.get("registrationCity")));
-    
-    
 
       driver().findElement(By.id("profileChangeCountryOpen")).click();
       ajaxWait();
@@ -260,12 +255,10 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.name("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
       driver().findElement(By.name("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
-      //((Select) driver().findElement(By.id("registrationCountry"))).selectByValue(dataset.get("registrationCountryID"));
       driver().findElement(By.name("registrationSubmit")).click();
       ajaxWait();
 
       driver().findElement(By.id("headerProfileButton")).click();
-      //assertTrue(isTextPresent("You are logged in as " + dataset.get("registrationUsername") + "!"));
       assertTrue(isElementPresent(By.id("logoutSubmitButton")));
       driver().findElement(By.id("headerCancelButton")).click();
 

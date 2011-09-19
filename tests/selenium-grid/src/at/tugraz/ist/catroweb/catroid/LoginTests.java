@@ -54,18 +54,21 @@ public class LoginTests extends BaseTest {
       openLocation();
       assertTrue(isVisible(By.id("headerProfileButton")));
       driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
       assertFalse(isVisible(By.id("headerProfileButton")));
       assertTrue(isVisible(By.id("headerCancelButton")));
       assertTrue(isVisible(By.id("loginSubmitButton")));
       assertTrue(isVisible(By.id("loginUsername")));
       assertTrue(isVisible(By.id("loginPassword")));
       driver().findElement(By.id("headerCancelButton")).click();
+      ajaxWait();
       assertTrue(isVisible(By.id("headerProfileButton")));
       assertFalse(isVisible(By.id("headerCancelButton")));
       assertFalse(isVisible(By.id("loginSubmitButton")));
       assertFalse(isVisible(By.id("loginUsername")));
       assertFalse(isVisible(By.id("loginPassword")));
       driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
       assertFalse(isVisible(By.id("headerProfileButton")));
       assertTrue(isVisible(By.id("headerCancelButton")));
       assertTrue(isVisible(By.id("loginSubmitButton")));
@@ -80,10 +83,13 @@ public class LoginTests extends BaseTest {
 
       assertTrue(isVisible(By.id("headerProfileButton")));
       driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
       assertTrue(isVisible(By.id("logoutSubmitButton")));
       driver().findElement(By.id("headerCancelButton")).click();
+      ajaxWait();
 
       driver().findElement(By.id("headerMenuButton")).click();
+      ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
       assertFalse(isTextPresent("Login"));
@@ -102,14 +108,19 @@ public class LoginTests extends BaseTest {
       openLocation();
       assertTrue(isVisible(By.id("headerProfileButton")));
       driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
       assertTrue(isVisible(By.id("logoutSubmitButton")));
       driver().findElement(By.id("logoutSubmitButton")).click();
+      ajaxWait();
       assertTrue(isVisible(By.id("headerProfileButton")));
       driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
       assertTrue(isVisible(By.id("loginSubmitButton")));
       driver().findElement(By.id("headerCancelButton")).click();
+      ajaxWait();
 
       driver().findElement(By.id("headerMenuButton")).click();
+      ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
       assertTrue(isTextPresent("Login"));
@@ -182,18 +193,21 @@ public class LoginTests extends BaseTest {
 
       assertTrue(isVisible(By.id("headerProfileButton")));
       driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
       assertFalse(isVisible(By.id("headerProfileButton")));
       assertTrue(isVisible(By.id("headerCancelButton")));
       assertTrue(isVisible(By.id("loginSubmitButton")));
       assertTrue(isVisible(By.id("loginUsername")));
       assertTrue(isVisible(By.id("loginPassword")));
       driver().findElement(By.id("headerCancelButton")).click();
+      ajaxWait();
       assertTrue(isVisible(By.id("headerProfileButton")));
       assertFalse(isVisible(By.id("headerCancelButton")));
       assertFalse(isVisible(By.id("loginSubmitButton")));
       assertFalse(isVisible(By.id("loginUsername")));
       assertFalse(isVisible(By.id("loginPassword")));
       driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
       assertFalse(isVisible(By.id("headerProfileButton")));
       assertTrue(isVisible(By.id("headerCancelButton")));
       assertTrue(isVisible(By.id("loginSubmitButton")));
@@ -208,8 +222,10 @@ public class LoginTests extends BaseTest {
 
       assertTrue(isVisible(By.id("loginSubmitButton")));
       driver().findElement(By.id("headerCancelButton")).click();
+      ajaxWait();
 
       driver().findElement(By.id("headerMenuButton")).click();
+      ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
       assertTrue(isTextPresent("Login"));

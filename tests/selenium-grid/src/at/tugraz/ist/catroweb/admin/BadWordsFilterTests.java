@@ -44,7 +44,9 @@ public class BadWordsFilterTests extends BaseTest {
 
       openAdminLocation();
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsApproveWords")).click();
+      ajaxWait();
       assertTrue(isTextPresent(unapprovedWord));
 
       (new Select(driver().findElement(By.id("meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord))))).selectByVisibleText("good");
@@ -73,6 +75,7 @@ public class BadWordsFilterTests extends BaseTest {
       
       openAdminLocation();
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsApproveWords")).click();
       assertTrue(isTextPresent(unapprovedWord));
       (new Select(driver().findElement(By.id("meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord))))).selectByVisibleText("bad");
@@ -101,6 +104,7 @@ public class BadWordsFilterTests extends BaseTest {
 
       openAdminLocation();
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsApproveWords")).click();
       assertTrue(isTextPresent(unapprovedWord));
       clickOkOnNextConfirmationBox();
@@ -128,6 +132,7 @@ public class BadWordsFilterTests extends BaseTest {
 
       openAdminLocation();
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsApproveWords")).click();
       assertTrue(isTextPresent(unapprovedWord));
       clickOkOnNextConfirmationBox();

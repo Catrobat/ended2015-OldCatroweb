@@ -49,9 +49,6 @@ public class PasswordRecoveryTests extends BaseTest {
       assertFalse(isVisible(By.id("loginPassword")));
       assertFalse(isVisible(By.id("loginSubmitButton")));
 
-      assertTrue(isVisible(By.id("menuPasswordRecoveryButton")));
-      assertTrue(isEditable(By.id("menuPasswordRecoveryButton")));
-      
       openLocation("catroid/registration");
 
       assertTrue(isElementPresent(By.name("registrationUsername")));
