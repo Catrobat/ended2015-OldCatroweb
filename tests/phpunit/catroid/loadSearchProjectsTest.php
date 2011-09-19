@@ -93,7 +93,7 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(1, count($projects));
     $this->assertEquals("Your search returned no results",$projects[0]['title']);
     $this->assertEquals("Your search returned no results",$projects[0]['title_short']);
-    $this->assertRegExp("/images\/symbols\/thumbnail_gray\.png/",$projects[0]['thumbnail']);    
+    $this->assertRegExp("/images\/symbols\/thumbnail_gray\.jpg/",$projects[0]['thumbnail']);    
   }
   
   public function testSpecialCharSearch() {        

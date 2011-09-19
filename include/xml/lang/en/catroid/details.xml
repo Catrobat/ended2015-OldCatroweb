@@ -38,7 +38,7 @@
   <string name="text_less">less</string>
   <string name="download_info_catroid">Download and open this project directly in Catroid. You can modify, extend and execute the project or simply just see how this project is build-up.</string>
   <string name="download_info_app">Download and install this project as an App on your device. You only can execute and play this version of the project without having Catroid installed.</string>
-  <string name="qrcode_info">Ir you have a barcode-reader installed, you can scan over this QR-code and download this project directly to your mobile phone. Just start your barcode-reader on your device and point the camera on the QR-Code. The download will be started immediately.</string>
+  <string name="qrcode_info">If you have a barcode-reader installed, you can scan over this QR-code and download this project directly to your mobile phone. Just start your barcode-reader on your device and point the camera on the QR-Code. The download will be started immediately.</string>
   <string name="show_qr_code_info_button">QR code - what's this?</string>
   <string name="hide_qr_code_info_button">QR code - close info</string>
   <string name="flag_reason_placeholder">enter a reason</string>

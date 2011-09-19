@@ -88,7 +88,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
         $projects[0]['title'] = $this->languageHandler->getString("no_results");
         $projects[0]['title_short'] = $this->languageHandler->getString("no_results");
         $projects[0]['upload_time'] =  "";
-        $projects[0]['thumbnail'] = BASE_PATH."images/symbols/thumbnail_gray.png";
+        $projects[0]['thumbnail'] = BASE_PATH."images/symbols/thumbnail_gray.jpg";
       return($projects);
     } else {
       return "NIL";

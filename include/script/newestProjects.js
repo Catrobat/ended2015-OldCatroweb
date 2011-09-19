@@ -346,7 +346,7 @@ var NewestProjects = Class.$extend( {
       $("#projectListSpacer"+i).css("display", "none");
     }
     
-    $("#projectListPreview0").attr("src", this.basePath + "images/symbols/thumbnail_gray.png");
+    $("#projectListPreview0").attr("src", this.basePath + "images/symbols/thumbnail_gray.jpg");
     $("#projectListTitle0").html("<div class='projectDetailLineMaxWidth'><img src='" + this.basePath + "images/symbols/ajax-loader.gif' /> " + this.strings['loading'] + "</div>");
     $("#projectListDescription0").html("");    
   },
