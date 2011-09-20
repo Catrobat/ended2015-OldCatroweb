@@ -39,6 +39,7 @@ import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.android.AndroidDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -209,11 +210,16 @@ public class BaseTest {
     }
     assertTrue(match);
   }
-
+  
   public boolean isTextPresent(String text) {
+    return containsElementText(By.tagName("body"), text);
+  }
+  
+  public boolean containsElementText(By selector, String text) {
     // https://code.google.com/p/selenium/issues/detail?id=1438
+    waitForElementPresent(selector);
     driver().switchTo().defaultContent(); // TODO workaround
-    return (driver().findElement(By.tagName("body"))).getText().contains(text);
+    return (driver().findElement(selector)).getText().contains(text);
   }
 
   public boolean isElementPresent(By selector) {
@@ -269,6 +275,7 @@ public class BaseTest {
     }
 
     driver().switchTo().window(popUpWindow);
+    waitForElementPresent(By.tagName("body"));
   }
 
   protected void closePopUp() {
@@ -325,8 +332,11 @@ public class BaseTest {
   }
 
   public void waitForElementPresent(By selector) {
-    Wait<WebDriver> wait = new WebDriverWait(driver(), Config.TIMEOUT_WAIT);
-    wait.until(elementPresent(selector));
+    try {
+      Wait<WebDriver> wait = new WebDriverWait(driver(), Config.TIMEOUT_WAIT);
+      wait.until(elementPresent(selector));
+    } catch(WebDriverException ignore) {
+    }
   }
 
   public void clickLastVisibleProject() {

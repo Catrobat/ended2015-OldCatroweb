@@ -194,10 +194,12 @@ public class IndexTests extends BaseTest {
       openLocation("catroid/imprint/", false);
       assertTrue(isElementPresent(By.id("switchLanguage")));
       (new Select(driver().findElement(By.id("switchLanguage")))).selectByValue("de");
+      ajaxWait();
       assertTrue(isTextPresent("Technische Universität Graz"));
       assertTrue(isElementPresent(By.id("switchLanguage")));
       assertTrue(isElementPresent(By.xpath("//html[@lang='de']")));
       (new Select(driver().findElement(By.id("switchLanguage")))).selectByValue("en");
+      ajaxWait();
       assertTrue(isTextPresent("Graz University of Technology"));
       assertTrue(isElementPresent(By.xpath("//html[@lang='en']")));
     } catch(AssertionError e) {

@@ -99,8 +99,9 @@ public class LoginTests extends BaseTest {
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
       assertTrue(isTextPresent(wikiUsername));
+      waitForElementPresent(By.id("pt-preferences"));
       driver().findElement(By.id("pt-preferences")).findElement(By.tagName("a")).click();
-      assertEquals("Preferences", driver().findElement(By.id("firstHeading")).getText());
+      assertTrue(containsElementText(By.id("firstHeading"), "Preferences"));
       assertFalse(isTextPresent("Not logged in"));
       closePopUp();
 
