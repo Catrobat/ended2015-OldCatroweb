@@ -20,7 +20,6 @@
  
 <strings>
   <string name="title">Create a new account</string>
-  <string name="headline">Please enter a nickname, a password, your email address and the country where you live. </string>
   <string name="nickname">Nickname</string>
   <string name="enter_nickname">enter a nickname</string>
   <string name="password">Password</string>

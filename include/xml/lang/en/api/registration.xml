@@ -19,7 +19,6 @@
  
  
 <strings>
-  <string name="registration_success">Registration successfull!</string>
   <string name="catroid_success">CATROID registration successfull!</string>
   <string name="board_success">BOARD registration successfull!</string>
   <string name="wiki_success">WIKI registration successfull!</string>
@@ -32,5 +31,4 @@
   <string name="mail_text_row7">To do so, just visit the following page:</string>
   <string name="mail_text_row8">To edit your profile details, go to this page:</string>
   <string name="mail_text_row9">In the event that you forgot your password, you will be able to reset it using the email address or your username associated with your account.</string>
-  <string name="mail_text_row10">Your Catroid Team</string>
 </strings>

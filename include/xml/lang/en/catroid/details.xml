@@ -28,8 +28,6 @@
   <string name="cancel">Cancel</string>
   <string name="report_as_inappropriate">report as inappropriate</string>
   <string name="report_as_inappropriate_label">Why do you think this project is inappropriate?</string>
-  <string name="why_you_think_inappropriate">Why do you think this project is inappropriate?</string>
-  <string name="enter_a_reason">Please enter a reason.</string>
   <string name="some_rights_reserved">Some rights reserved</string>
   <string name="views">views</string>
   <string name="downloads">downloads</string>
