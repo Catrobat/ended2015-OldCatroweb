@@ -49,7 +49,7 @@
 <?php while($js = $this->getJs()) {?>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/<?php echo $js.'?'.VERSION?>"></script>
 <?php }?>
-  <link rel="icon" href="<?php echo BASE_PATH?>images/logo/favicon.png" type="image/png" />
+  <link rel="icon" href="<?php echo BASE_PATH?>images/logo/favicon.png<?php echo '?'.VERSION?>" type="image/png" />
 </head>
 
 <body>
