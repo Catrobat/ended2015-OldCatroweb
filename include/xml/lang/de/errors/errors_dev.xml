@@ -18,20 +18,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
-  <profile>
-    <string name="email_address_string_changed">Fehler beim L&#xF6;schen dieser E-Mail Adresse. Gibt es nicht gespeicherte &#xC4;nderungen?</string>
-    <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
-    <string name="password_old_missing">Bitte gib Dein altes Passwort ein.</string>
-    <string name="password_old_wrong">Das alte Passwort war falsch.</string>
-    <string name="password_new_missing">Bitte gib ein neues Passwort ein.</string>
-    <string name="password_new_length_invalid">Dein neues Passwort muss mindestens {*minimumPasswordLength*} Zeichen lang sein.</string>
-    <string name="email_address_exists">Die E-Mail Adresse existiert bereits.</string>
-    <string name="email_update_failed">Es gab ein Problem w&#xE4;hrend dem Aktualisieren der E-Mail Adresse. Bitte probier es noch einmal.</string>
-    <string name="city_update_failed">Es gab ein Problem w&#xE4;hrend dem Aktualisieren der E-Mail Adresse. Bitte probier es noch einmal.</string>
-    <string name="email_update_of_catroweb_failed">Fehler beim L&#xF6;schen dieser E-Mail Adresse. Catroweb muss mindestens 2 E-Mail Adressen haben.</string>
-    <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deiner Heimatstadt.</string>
-    <string name="birth_update_failed">Es gab ein Problem beim Aktualisieren deines Geburtstags.</string>
-  </profile>
   <db>
     <string name="query_failed">Datenbank Operation fehlgeschlagen.</string>
     <string name="connection_failed">Datenbank Verbindung fehlgeschlagen.</string>
@@ -102,13 +88,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="insulting_words_in_username_field">Der Benutzername enth&#xE4;lt Schimpfw&#xF6;rter!</string>
   </registration>
   <passwordrecovery>
-    <string name="password_missing">Du hast kein Passwort angegeben.</string>
     <string name="password_length_invalid">Dein Passwort muss mindestens {*minimumPasswordLength*} Zeichen und h&#xF6;chstens {*maximumPasswordLength*} Zeichen lang sein.</string>
     <string name="userdata_missing">Der Benutzername oder die E-Mail Adresse fehlt.</string>
     <string name="userdata_not_exists">Der Nickname oder die E-Mail Adresse konnte nicht gefunden werden.</string>
     <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
     <string name="catroid_password_recovery_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal oder kontaktiere uns unter {*webmasterEmailAddress*}.</string>
   </passwordrecovery>
+  <profile>
+    <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
+    <string name="password_old_missing">Bitte gib Dein altes Passwort ein.</string>
+    <string name="password_old_wrong">Das alte Passwort war falsch.</string>
+    <string name="password_new_missing">Bitte gib ein neues Passwort ein.</string>
+    <string name="password_new_length_invalid">Dein neues Passwort muss mindestens {*minimumPasswordLength*} Zeichen lang sein.</string>
+    <string name="email_address_exists">Die E-Mail Adresse existiert bereits.</string>
+    <string name="email_update_failed">Es gab ein Problem w&#xE4;hrend dem Aktualisieren der E-Mail Adresse. Bitte probier es noch einmal.</string>
+    <string name="city_update_failed">Es gab ein Problem w&#xE4;hrend dem Aktualisieren der E-Mail Adresse. Bitte probier es noch einmal.</string>
+    <string name="email_update_of_catroweb_failed">Fehler beim L&#xF6;schen dieser E-Mail Adresse. Catroweb muss mindestens 2 E-Mail Adressen haben.</string>
+    <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deiner Heimatstadt.</string>
+    <string name="birth_update_failed">Es gab ein Problem beim Aktualisieren deines Geburtstags.</string>
+  </profile>
   <admin>
     <string name="pootle_post_data_missing">POST-Daten fehlen: ben&#xF6;tigt: lang.</string>
     <string name="pootle_load_xlf_failed">Konnte die XLF-Datei nicht von {*source*} laden.</string>

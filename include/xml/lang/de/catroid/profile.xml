@@ -50,8 +50,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="gender">Geschlecht ausw&#xE4;hlen</string>
   <string name="select_language">Meine Sprache ausw&#xE4;hlen</string>
   <string name="password_success">Du hast dein Passwort erfolgreich ge&#xE4;ndert.</string>
-  <string name="country_success">Du hast dein Geschlecht erfolgreich ge&#xE4;ndert.</string>
+  <string name="city_success">Du hast deine Heimatstadt erfolgreich ge&#xE4;ndert.</string>
+  <string name="country_success">Du hast dein Land erfolgreich ge&#xE4;ndert.</string>
   <string name="birth_success">Du hast deinen Geburtstag erfolgreich ge&#xE4;ndert.</string>
+  <string name="gender_success">Du hast dein Geschlecht erfolgreich ge&#xE4;ndert.</string>
   <string name="add_new_email">gib deine neue E-Mail Adresse ein</string>
   <string name="add_new_email_placeholder">alternative E-Mail Adresse</string>
   <string name="email_address_string_changed">Fehler beim L&#xF6;schen dieser E-Mail Adresse. Gibt es nicht gespeicherte &#xC4;nderungen?</string>
