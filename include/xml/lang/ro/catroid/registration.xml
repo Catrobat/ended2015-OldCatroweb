@@ -18,10 +18,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="or">sau</string>
   <string name="password_recover">ap&#x103;sa&#x21B;i aici dac&#x103; a&#x21B;i uitat parola</string>
   <string name="login">Login</string>
   <string name="title">Crearea unui cont nou</string>
-  <string name="headline">V&#x103; rug&#x103;m s&#x103; introduce&#x21B;i numele, parola, adresa dvs. de email &#x219;i &#x21B;ara &#xEE;n care tr&#x103;i&#x21B;i.</string>
   <string name="nickname">Numele</string>
   <string name="enter_nickname">introduce&#x21B;i numele</string>
   <string name="password">Parola</string>

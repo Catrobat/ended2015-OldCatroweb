@@ -18,21 +18,16 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="select_country">Pilih negara</string>
+  <string name="cancel">Batal</string>
   <string name="female">perempuan</string>
   <string name="male">lelaki</string>
   <string name="title">Profil {*nickname*}</string>
   <string name="password">Tukar kata laluan</string>
-  <string name="old_password">Sila masukan kata laluan lama anda</string>
-  <string name="new_password">Sila masukan kata laluan baru anda</string>
   <string name="email">Tukar alamat emel</string>
   <string name="new_email">Masukan alamat emel baru</string>
-  <string name="cancel_button">Batal</string>
-  <string name="cancel">Batal</string>
   <string name="email_delete_success">Anda telah berjaya mengemaskini alamat emel anda.</string>
   <string name="send">Hantar perubahan saya</string>
   <string name="change_country">Tukar negara </string>
-  <string name="email_update_success">Anda telah berjaya mengemaskini alamat emel anda.</string>
   <string name="password_success">Anda telah berjaya mengemaskini kata laluan anda.</string>
   <string name="country_success">Anda telah berjaya mengemaskini negara anda.</string>
   <string name="add_new_email">Sila masukan alamat emel anda</string>

@@ -22,7 +22,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="board_login_success">BOARD &#x767B;&#x5165;&#x6210;&#x529F;&#xFF01;</string>
   <string name="wiki_login_success">WIKI &#x767B;&#x5165;&#x6210;&#x529F;&#xFF01;</string>
   <string name="catroid_logout_success">CATROID &#x767B;&#x51FA;&#x6210;&#x529F;&#xFF01;</string>
-  <string name="board_logout_success">BOARD &#x767B;&#x51FA;&#x6210;&#x529F;&#xFF01;</string>
-  <string name="wiki_logout_success">WIKI &#x767B;&#x51FA;&#x6210;&#x529F;&#xFF01;</string>
   <string name="wiki_logout_error">ERROR&#xFF1A;WIKI &#x767B;&#x51FA;&#xFF1A;</string>
 </strings>

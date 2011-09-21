@@ -19,14 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="template_header_or">&#x438;&#x43B;&#x438;</string>
-  <string name="template_header_login">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
-  <string name="template_footer_contact_link">&#x41A;&#x43E;&#x43D;&#x442;&#x430;&#x43A;&#x442;&#x44B;</string>
   <string name="template_header_menu">&#x41C;&#x435;&#x43D;&#x44E;</string>
   <string name="template_header_profile">&#x41F;&#x440;&#x43E;&#x444;&#x438;&#x43B;&#x44C;</string>
-  <string name="template_header_cancel">&#x41E;&#x442;&#x43C;&#x435;&#x43D;&#x438;&#x442;&#x44C;</string>
+  <string name="template_header_login">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
   <string name="template_header_loading">&#x437;&#x430;&#x433;&#x440;&#x443;&#x437;&#x43A;&#x430;...</string>
-  <string name="template_footer_terms_of_use_link">&#x423;&#x441;&#x43B;&#x43E;&#x432;&#x438;&#x44F; &#x438;&#x441;&#x43F;&#x43E;&#x43B;&#x44C;&#x437;&#x43E;&#x432;&#x430;&#x43D;&#x438;&#x44F;</string>
+  <string name="template_header_cancel">&#x41E;&#x442;&#x43C;&#x435;&#x43D;&#x438;&#x442;&#x44C;</string>
   <string name="template_footer_imprint_link">&#x41E;&#x442;&#x43F;&#x435;&#x447;&#x430;&#x442;&#x43E;&#x43A;</string>
+  <string name="template_footer_contact_link">&#x41A;&#x43E;&#x43D;&#x442;&#x430;&#x43A;&#x442;&#x44B;</string>
+  <string name="template_footer_terms_of_use_link">&#x423;&#x441;&#x43B;&#x43E;&#x432;&#x438;&#x44F; &#x438;&#x441;&#x43F;&#x43E;&#x43B;&#x44C;&#x437;&#x43E;&#x432;&#x430;&#x43D;&#x438;&#x44F;</string>
   <string name="template_header_password">&#x41F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;:</string>
   <string name="template_common_one_minute_ago">1 &#x43C;&#x438;&#x43D;&#x443;&#x442;&#x443; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
   <string name="template_common_less_than_a_minute_ago">&#x43C;&#x435;&#x43D;&#x44C;&#x448;&#x435; &#x43E;&#x434;&#x43D;&#x43E;&#x439; &#x43C;&#x438;&#x43D;&#x443;&#x442;&#x44B; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>

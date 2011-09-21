@@ -22,8 +22,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="board_login_success">Logmasuk BOARD berjaya!</string>
   <string name="wiki_login_success">Logmasuk WIKI berjaya!</string>
   <string name="catroid_logout_success">Logkeluar CATROID berjaya!</string>
-  <string name="board_logout_success">Logkeluar BOARD berjaya!</string>
-  <string name="wiki_logout_success">Logkeluar WIKI berjaya!</string>
   <string name="wiki_logout_error">RALAT: Logkeluar WIKI</string>
   <string name="or">atau</string>
 </strings>

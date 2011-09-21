@@ -18,7 +18,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="contact">Kontek</string>
   <string name="title">Cetak</string>
   <string name="institute_for_software_technology">Institute for Software Technology</string>
   <string name="graz_university_of_technology">Graz University of Technology</string>
@@ -26,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="address_street">Inffeldgasse 16B/II</string>
   <string name="address_city">8010 Graz</string>
   <string name="address_country">Austria</string>
+  <string name="contact">Kontek</string>
   <string name="contact_text">Emel: {*email*}</string>
   <string name="development_text">Catroid dicipta di {*Institute*} Graz University of Technology di Austria</string>
 </strings>

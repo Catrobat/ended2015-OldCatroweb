@@ -20,14 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <errors>
   <profile>
     <string name="email_address_string_changed"/>
-    <string name="password_repeat_missing">&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_repeat_differs">&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x3002;</string>
     <string name="username_password_equal">&#x5BC6;&#x78BC;&#x9700;&#x8207;&#x5462;&#x7A31;&#x4E0D;&#x540C;&#x3002;</string>
     <string name="password_old_missing">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="password_old_wrong">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x932F;&#x8AA4;&#x3002;</string>
-    <string name="password_old_invalid">&#x820A;&#x5BC6;&#x78BC;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="password_new_missing">&#x65B0;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_new_invalid">&#x65B0;&#x5BC6;&#x78BC;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="password_new_length_invalid">&#x65B0;&#x5BC6;&#x78BC;&#x9700;&#x64C1;&#x6709;&#x81F3;&#x5C11;{*minimumPasswordLength*} &#x5B57;&#x7B26;&#x3002;</string>
     <string name="email_address_exists">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x5DF2;&#x5B58;&#x5728;&#x3002;</string>
     <string name="email_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
@@ -47,7 +43,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="wiki_authentication_failed">Wiki &#x8A8D;&#x8B49;&#x5931;&#x6557;&#x3002;</string>
     <string name="wiki_api_response_incorrect">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x6709;&#x932F;&#x8AA4;&#x4E86;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
     <string name="password_or_username_wrong">&#x60A8;&#x7684;&#x5BC6;&#x78BC;&#x6216;&#x5462;&#x7A31;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
-    <string name="username_not_found">&#x5462;&#x7A31;&#x7121;&#x6CD5;&#x641C;&#x5C0B;&#x3002;</string>
     <string name="catroid_authentication_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x51FA;&#x73FE;&#x554F;&#x984C;&#xFF1A;&#x8ACB;&#x6AA2;&#x67E5;&#x5462;&#x7A31;&#x6216;&#x5BC6;&#x78BC;&#x3002;</string>
     <string name="device_auth_invalid_token"/>
     <string name="not_a_tugraz_ip"/>
@@ -57,7 +52,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="wiki_registration_failed">Wiki &#x6CE8;&#x518A;&#x5931;&#x6557;&#x3002;</string>
     <string name="catroid_registration_failed">Catroid &#x6CE8;&#x518A;&#x5931;&#x6557;&#x3002;</string>
     <string name="email_already_exists">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x5DF2;&#x5B58;&#x5728;&#x3002;</string>
-    <string name="password_repeat_differs">&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x3002;</string>
     <string name="password_length_invalid">&#x5BC6;&#x78BC;&#x9700;&#x64C1;&#x6709;&#x81F3;&#x5C11;{*minimumPasswordLength*} &#x548C; &#x6700;&#x591A;{*maximumPasswordLength*} &#x5B57;&#x7B26;&#x3002;</string>
     <string name="username_password_equal">&#x5BC6;&#x78BC;&#x9700;&#x8207;&#x5462;&#x7A31;&#x4E0D;&#x540C;&#x3002;</string>
     <string name="username_invalid_underscore">&#x5462;&#x7A31;&#x4E0D;&#x6B63;&#x78BA;&#x3002;&#x4E0B;&#x5212;&#x7EBF; (_) &#x4E0D;&#x88AB;&#x5141;&#x8A31;&#x3002;</string>
@@ -68,13 +62,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="username_invalid_squarebracket">&#x5462;&#x7A31;&#x4E0D;&#x6B63;&#x78BA;&#x3002; &#x65B9;&#x62EC;&#x53F7;([ or ]) &#x4E0D;&#x88AB;&#x5141;&#x8A31;&#x3002;</string>
     <string name="username_already_exists">&#x5462;&#x7A31;&#x5DF2;&#x5B58;&#x5728;&#x3002;</string>
     <string name="username_blacklisted">&#x5462;&#x7A31;&#x5DF2;&#x5217;&#x5165;&#x9ED1;&#x540D;&#x55AE;&#x548C;&#x4E0D;&#x88AB;&#x5141;&#x8A31;&#x3002;</string>
-    <string name="insulting_words_in_email_field">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6B04;&#x4F4D;&#x542B;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
-    <string name="insulting_words_in_city_field">&#x57CE;&#x5E02;&#x6B04;&#x4F4D;&#x542B;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
     <string name="email_invalid">&#x9019;&#x500B;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="email_missing">&#x60A8;&#x7684;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="password_missing">&#x60A8;&#x7684;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_repeat_missing">&#x60A8;&#x7684;&#x91CD;&#x8986;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_invalid">&#x60A8;&#x7684;&#x5BC6;&#x78BC;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="username_missing">&#x60A8;&#x7684;&#x5462;&#x7A31;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="username_invalid">&#x60A8;&#x7684;&#x5462;&#x7A31;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="country_codes_not_available">&#x9078;&#x64C7;&#x570B;&#x5BB6;&#x6642;&#x51FA;&#x73FE;&#x932F;&#x8AA4;&#xFF01;&#x8ACB;&#x91CD;&#x8F09;&#x9801;&#x9762;&#x6216;&#x7A0D;&#x540E;&#x518D;&#x5617;&#x8A66;&#x3002;</string>
@@ -88,8 +78,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="password_length_invalid">&#x5BC6;&#x78BC;&#x9700;&#x64C1;&#x6709;&#x81F3;&#x5C11;{*minimumPasswordLength*} &#x548C; &#x6700;&#x591A;{*maximumPasswordLength*} &#x5B57;&#x7B26;&#x3002;</string>
     <string name="create_hash_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x6709;&#x932F;&#x8AA4;&#x4E86;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
     <string name="catroid_password_recovery_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x6709;&#x932F;&#x8AA4;&#x4E86;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#x6216;&#x806F;&#x7D61;&#x7BA1;&#x7406;&#x54E1;&#xFF1A;{*webmasterEmailAddress*} &#x3002;</string>
-    <string name="passwordhash_invalid">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF01;&#x60A8;&#x7684;&#x5FA9;&#x539F; URL &#x5DF2;&#x7121;&#x6548;&#x3002;</string>
-    <string name="userdata_invalid">&#x60A8;&#x7684;&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="userdata_missing">&#x60A8;&#x7684;&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="userdata_not_exists">&#x60A8;&#x7684;&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x7121;&#x6CD5;&#x641C;&#x7372;&#x3002;</string>
   </passwordrecovery>
@@ -115,7 +103,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="rename_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x4E0A;&#x8F09;&#x51FA;&#x73FE;&#x554F;&#x984C;&#xFF01;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
     <string name="sql_insert_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x4E0A;&#x8F09;&#x51FA;&#x73FE;&#x554F;&#x984C;&#xFF01;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
     <string name="invalid_file_checksum">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x4E0A;&#x8F09;&#x51FA;&#x73FE;&#x554F;&#x984C;&#xFF01;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
-    <string name="bad_words_filter_error">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x4E0A;&#x8F09;&#x51FA;&#x73FE;&#x554F;&#x984C;&#xFF01;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
     <string name="project_exceed_filesize_limit">&#x60A8;&#x7684;&#x5C08;&#x6848;&#x6A94;&#x6848;&#x592A;&#x5927;&#x3002;</string>
     <string name="project_title_default">&#x4E0A;&#x8F09;&#x524D;&#xFF0C;&#x60A8;&#x7684;&#x5C08;&#x6848;&#x5FC5;&#x9808;&#x6539;&#x540D;&#x3002;</string>
     <string name="insulting_words_in_project_title">&#x8ACB;&#x52FF;&#x7528;&#x653B;&#x64CA;&#x6027;&#x8A5E;&#x8A9E;&#x5BEB;&#x5C08;&#x6848;&#x6A19;&#x984C;&#x3002;</string>

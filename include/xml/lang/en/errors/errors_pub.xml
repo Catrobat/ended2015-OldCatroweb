@@ -90,7 +90,6 @@
       <string name="userdata_not_exists">Your nickname or email address was not found.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
       <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at  {*webmasterEmailAddress*}.</string>
-      <string name="password_missing">The password is missing.</string>
       <string name="password_length_invalid">Your password must have at least {*minimumPasswordLength*} and maximal {*maximumPasswordLength*} characters.</string>
     </passwordrecovery>
     <profile>
@@ -102,7 +101,6 @@
       <string name="email_address_exists">The email address already exists.</string>
       <string name="email_update_failed">There was a problem while updating the email address.</string>
       <string name="email_update_of_catroweb_failed">Catroweb must have at least 2 e-mail addresses.</string>
-      <string name="email_address_string_changed">Error while deleting this e-mail address. Do you have any unsaved changes?</string>
       <string name="country_update_failed">There was a problem while updating your home country.</string>
       <string name="city_update_failed">There was a problem while updating the email address.</string>
       <string name="birth_update_failed">There was a problem while updating your birthday data.</string>

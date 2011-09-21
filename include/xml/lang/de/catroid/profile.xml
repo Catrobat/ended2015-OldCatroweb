@@ -18,30 +18,26 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="select_country">w&#xE4;hle dein Land aus</string>
+  <string name="cancel">Abbrechen</string>
   <string name="female">weiblich</string>
   <string name="male">m&#xE4;nnlich</string>
   <string name="title">{*nickname*}'s Profil</string>
   <string name="password">mein Passwort &#xE4;ndern</string>
-  <string name="old_password">gib Dein altes Passwort ein</string>
-  <string name="new_password">gib Dein neues Passwort ein</string>
+  <string name="old_password">mein altes Passwort</string>
+  <string name="new_password">mein neues Passwort</string>
   <string name="email">diese E-Mail Adresse &#xE4;ndern</string>
   <string name="add_email_field_button">gib eine neue E-Mail Adresse ein</string>
-  <string name="cancel_button">Abbrechen</string>
-  <string name="cancel">Abbrechen</string>
   <string name="delete_email">meine E-Mail Adresse l&#xF6;schen</string>
   <string name="email_delete_success">Du hast deine E-Mail Adresse erfolgreich gel&#xF6;scht.</string>
   <string name="alertbox_really_want_to_delete_email">Willst du diese E-Mail Adresse wirklich l&#xF6;schen?</string>
-  <string name="new_email">gib eine neue E-Mail Adresse ein</string>
   <string name="save_button">Meine &#xC4;nderungen speichern</string>
   <string name="add_new_email_button">Meine neue E-Mail Adresse speichern</string>
   <string name="from">von</string>
-  <string name="add_country">Mein Land hinzuf&#xFC;gen</string>
   <string name="change_country">Mein Land &#xE4;ndern</string>
   <string name="country">Land ausw&#xE4;hlen</string>
   <string name="change_city">Meine Heimatstadt &#xE4;ndern</string>
   <string name="add_city">Meine Heimatstadt hinzuf&#xFC;gen</string>
-  <string name="enter_city">gib deine Heimatstadt ein</string>
+  <string name="enter_city">Meine Heimatstadt</string>
   <string name="city">Heimatstadt eingeben</string>
   <string name="change_birth">Meinen Geburtstag &#xE4;ndern</string>
   <string name="select_birth_year_month">w&#xE4;hle das Monat und das Jahr deines Geburtstags aus</string>
@@ -52,13 +48,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="change_gender">Mein Geschlecht &#xE4;ndern</string>
   <string name="add_gender">Mein Geschlecht hinzuf&#xFC;gen</string>
   <string name="gender">Geschlecht ausw&#xE4;hlen</string>
-  <string name="select_gender">Geschlecht ausw&#xE4;hlen</string>
-  <string name="email_update_success">Du hast deine E-Mail Adresse erfolgreich ge&#xE4;ndert.</string>
-  <string name="password_success">Du hast Dein Passwort erfolgreich ge&#xE4;ndert.</string>
-  <string name="country_success">Du hast Dein Land erfolgreich ge&#xE4;ndert.</string>
+  <string name="select_language">Meine Sprache ausw&#xE4;hlen</string>
+  <string name="password_success">Du hast dein Passwort erfolgreich ge&#xE4;ndert.</string>
+  <string name="country_success">Du hast dein Geschlecht erfolgreich ge&#xE4;ndert.</string>
   <string name="birth_success">Du hast deinen Geburtstag erfolgreich ge&#xE4;ndert.</string>
   <string name="add_new_email">gib deine neue E-Mail Adresse ein</string>
   <string name="add_new_email_placeholder">alternative E-Mail Adresse</string>
   <string name="email_address_string_changed">Fehler beim L&#xF6;schen dieser E-Mail Adresse. Gibt es nicht gespeicherte &#xC4;nderungen?</string>
-  <string name="birthday_change_string">Bitte wh&#xE4;hle das Monat und das Jahr deines Geburtstags aus.</string>
+  <string name="birthday_is_empty">Bitte w&#xE4;hle das Monat und das Jahr deines Geburtstags aus oder lass die Felder leer.</string>
+  <string name="country_is_empty">Bitte w&#xE4;hle dein Heimatland aus.</string>
 </strings>

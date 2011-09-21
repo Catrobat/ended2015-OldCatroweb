@@ -18,9 +18,9 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="or">oder</string>
   <string name="login">Einloggen</string>
   <string name="title">Einen neuen Account anlegen</string>
-  <string name="headline">Bitte gib einen Benutzernamen, ein Passwort, Deine E-Mail-Adresse und das Land an in dem Du lebst.</string>
   <string name="nickname">Benutzername</string>
   <string name="enter_nickname">gib einen Benutzernamen ein</string>
   <string name="password">Passwort</string>

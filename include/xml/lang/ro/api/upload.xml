@@ -20,5 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <strings>
   <string name="default_project_name">proiectImplicit</string>
   <string name="upload_successfull">Proiectul a fost inc&#x103;rcat cu succes!</string>
-  <string name="qr_failed">Crearea QR-codului a e&#x219;uat!</string>
 </strings>

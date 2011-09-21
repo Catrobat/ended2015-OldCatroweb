@@ -20,14 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <errors>
   <profile>
     <string name="email_address_string_changed">A avut loc o eroare la &#x219;tergerea adresei de e-mail. Ave&#x21B;i unele modific&#x103;ri nesalvate?</string>
-    <string name="password_repeat_missing">Parola repetat&#x103; lipse&#x219;te.</string>
-    <string name="password_repeat_differs">Parola difer&#x103; de parola repetat&#x103;.</string>
     <string name="username_password_equal">Parola trebuie s&#x103; difere de nume.</string>
     <string name="password_old_missing">Parola veche lipse&#x219;te.</string>
     <string name="password_old_wrong">Parola veche este incorect&#x103;.</string>
-    <string name="password_old_invalid">Parola veche este nevalid&#x103;.</string>
     <string name="password_new_missing">Parola nou&#x103; lispe&#x219;te.</string>
-    <string name="password_new_invalid">Parola nou&#x103; este nevalid&#x103;.</string>
     <string name="password_new_length_invalid">Parola nou&#x103; trebuie s&#x103; aib&#x103; cel pu&#x21B;in {*minimumPasswordLength*} caractere.</string>
     <string name="email_address_exists">Aceast&#x103; adresa de email deja exist&#x103;.</string>
     <string name="email_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
@@ -55,7 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="project_title_default">&#xCE;nc&#x103;rcarea proiectelor numite cu denumirea implicit&#x103; este interzis&#x103;.</string>
     <string name="insulting_words_in_project_title">&#xCE;n titlul proiectului sunt prezente cuvinte insult&#x103;toare!</string>
     <string name="insulting_words_in_project_description">&#xCE;n descrierea proiectului sunt prezente cuvinte insult&#x103;toare!</string>
-    <string name="bad_words_filter_error">Una din interog&#x103;rile SQL &#xEE;n clasa BadWordsFilter a e&#x219;uat!</string>
     <string name="invalid_project_xml"/>
   </upload>
   <download>
@@ -73,7 +68,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </viewer>
   <auth>
     <string name="password_or_username_wrong">Parola sau numele au fos gre&#x219;ite.</string>
-    <string name="username_not_found">Numele nu a fost g&#x103;sit.</string>
     <string name="board_authentication_failed">Autentificarea &#xEE;n board a e&#x219;uat.</string>
     <string name="wiki_authentication_failed">Autentificarea &#xEE;n wiki a e&#x219;uat.</string>
     <string name="catroid_authentication_failed">Autentificarea &#xEE;n catroid a e&#x219;uat.</string>
@@ -89,9 +83,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="email_invalid">Aceast&#x103; adres&#x103; email nu este valid&#x103;.</string>
     <string name="email_missing">Adresa email lipse&#x219;te.</string>
     <string name="password_missing">Parola lispe&#x219;te.</string>
-    <string name="password_repeat_missing">Parola repetat&#x103; lipse&#x219;te.</string>
-    <string name="password_repeat_differs">Parola difer&#x103; de parola repetat&#x103;.</string>
-    <string name="password_invalid">Parola este nevalid&#x103;.</string>
     <string name="password_length_invalid">Parola trebuie sa aib&#x103; nu mai pu&#x21B;in de {*minimumPasswordLength*} &#x219;i nu mai mult de {*maximumPasswordLength*} caractere.</string>
     <string name="username_password_equal">Parola trebuie s&#x103; difere de nume.</string>
     <string name="username_missing">Numele lispe&#x219;te.</string>
@@ -109,19 +100,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="birth_missing">Lipse&#x219;te data de na&#x219;tere.</string>
     <string name="gender_missing">Lipse&#x219;te sexul.</string>
     <string name="insulting_words_in_username_field">&#xCE;n c&#xEE;mpul cu nume sunt cuvinte injurioase.</string>
-    <string name="insulting_words_in_email_field">&#xCE;n c&#xEE;mpul cu adresa email sunt cuvinte injurioase.</string>
-    <string name="insulting_words_in_city_field">&#xCE;n c&#xEE;mpul cu denumirea ora&#x219;ului sunt cuvinte injurioase.</string>
-    <string name="insulting_words_in_province_field">&#xCE;n c&#xEE;mpul cu denumirea provinciei sunt cuvinte injurioase.</string>
   </registration>
   <passwordrecovery>
     <string name="password_missing">Parola lispe&#x219;te.</string>
     <string name="password_length_invalid">Parola trebuie sa aib&#x103; nu mai pu&#x21B;in de {*minimumPasswordLength*} &#x219;i nu mai mult de {*maximumPasswordLength*} caractere.</string>
-    <string name="userdata_invalid">Numele sau adresa email sunt nevalide.</string>
     <string name="userdata_missing">Numelea sau adresa email lipsesc.</string>
     <string name="userdata_not_exists">Numelea sau adresa email nu au fost g&#x103;site.</string>
     <string name="create_hash_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
     <string name="catroid_password_recovery_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou sau s&#x103; contacta&#x21B;i administratorul pe {*webmasterEmailAddress*}.</string>
-    <string name="passwordhash_invalid">Scuza&#x21B;i! URL de recupereare a expirat.</string>
   </passwordrecovery>
   <admin>
     <string name="pootle_post_data_missing">POST-data lipse&#x219;te: trebuie: lang.</string>
