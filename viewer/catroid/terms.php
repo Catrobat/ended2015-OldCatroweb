@@ -36,26 +36,19 @@
                   <li><?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_element2')?></li>
                   <li><?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_element3')?></li>
                   <li><?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_element4')?></li>
-                  <li>
-                    <?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_element5')?> 
-                  </li>
+                  <li><?php echo $this->languageHandler->getString('terms_of_use_catroid_help_list_element5')?></li>
                 </ul>
                 <p class ="licenseText">
                   <?php echo $this->languageHandler->getString('terms_of_use_project_licence',
-                    '<a class = "nolink" href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">'.$this->languageHandler->getString('share_alike_licence_link').'</a>')?> 
-                  <br/><br/>
+                    '<a class = "nolink" href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">'.$this->languageHandler->getString('share_alike_licence_link').'</a>')?><br/><br/>
                   <?php echo $this->languageHandler->getString('terms_of_use_software_licence', 
 					  		    '<a href="http://www.gnu.org/licenses/gpl.html" target="_blank">'.$this->languageHandler->getString('gnu_licence_link').'</a>',
-						        '<a href="http://www.gnu.org/licenses/agpl.html" target="_blank">'.$this->languageHandler->getString('gnu_affero_licence_link').'</a>')?> 
-                  <br/><br/>
+						        '<a href="http://www.gnu.org/licenses/agpl.html" target="_blank">'.$this->languageHandler->getString('gnu_affero_licence_link').'</a>')?><br/><br/>
                   <?php echo $this->languageHandler->getString('terms_of_use_google_code', 
-                    '<a href="http://code.google.com/p/catroid" target="_blank">'.$this->languageHandler->getString('google_code_link').'</a>')?> 
-                  <br/><br/>
+                    '<a href="http://code.google.com/p/catroid" target="_blank">'.$this->languageHandler->getString('google_code_link').'</a>')?><br/><br/>
                   <?php echo $this->languageHandler->getString('terms_of_use_check_back', 
-                    '<a href="mailto:'.CONTACT_EMAIL.'?subject='.rawurlencode($this->languageHandler->getString('title')).'">'.CONTACT_EMAIL.'</a>')?> 
-                  <br/><br/>
-                  <?php echo $this->languageHandler->getString('terms_of_use_thanks')?> 
-                  <br/><br/>
+                    '<a href="mailto:'.CONTACT_EMAIL.'?subject='.rawurlencode($this->languageHandler->getString('title')).'">'.CONTACT_EMAIL.'</a>')?><br/><br/>
+                  <?php echo $this->languageHandler->getString('terms_of_use_thanks')?><br/><br/>
                   <?php echo $this->languageHandler->getString('terms_of_use_team')?> 
                 </p>
               </div> <!-- License Text -->

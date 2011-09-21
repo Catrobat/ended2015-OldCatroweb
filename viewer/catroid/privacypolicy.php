@@ -25,12 +25,12 @@
             <div class ="whiteBoxMain">
               <div class="licenseText">
                 <p class="licenseText">
-                  <?php echo $this->languageHandler->getString('privacy_policy_intro')?> 
-                  <br/><br/><span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_using_software_head')?></span><br/><br/>
-                  <?php echo $this->languageHandler->getString('privacy_policy_using_software')?> 
-                  <br/><br/><span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_using_website_head')?></span><br/><br/>
-                  <?php echo $this->languageHandler->getString('privacy_policy_using_website')?> 
-                  <br/><br/><span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_contact_head')?></span><br/><br/>
+                  <?php echo $this->languageHandler->getString('privacy_policy_intro')?><br/><br/>
+                  <span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_using_software_head')?></span><br/><br/>
+                  <?php echo $this->languageHandler->getString('privacy_policy_using_software')?> <br/><br/>
+                  <span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_using_website_head')?></span><br/><br/>
+                  <?php echo $this->languageHandler->getString('privacy_policy_using_website')?><br/><br/>
+                  <span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_contact_head')?></span><br/><br/>
                   <?php echo $this->languageHandler->getString('privacy_policy_contact', '<a class="downloadLink" href="mailto:'.CONTACT_EMAIL.'?subject='.$this->languageHandler->getString('privacy_policy_email_subject').'">'.CONTACT_EMAIL.'</a>')?> 
                 </p>
               </div> <!-- License Text -->

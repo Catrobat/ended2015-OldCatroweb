@@ -111,16 +111,16 @@ class CoreLanguageHandler {
 
   public function parseString($msg, $args) {
     if(count($args) <= 0) {
-      return $msg;
+      return trim($msg);
     }
     if(!$this->checkParamCount($msg, count($args))) {
-      return $msg;
+      return trim($msg);
     }
     for($i=0; $i<count($args); $i++) {
       $pattern = "/[{][\*][a-zA-Z0-9_]+[\*][}]/";
       $msg = preg_replace($pattern, $args[$i], $msg, 1);
     }
-    return $msg;
+    return trim($msg);
   }
 
   public function getStrings() {

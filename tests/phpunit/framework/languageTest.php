@@ -151,49 +151,52 @@ class languageTest extends PHPUnit_Framework_TestCase {
     
     $foundError = array();
     $xml = simplexml_load_file($errorDevFile);
-    foreach($xml->children() as $error_type) {
-      foreach($error_type as $error) {
+    foreach($xml->children() as $errorType) {
+      $errorTypeName = $errorType->getName();
+      foreach($errorType as $error) {
         $attributes = $error->attributes();
-        array_push($foundError, array($attributes['name'], false));
+        array_push($foundError, array($errorTypeName, $attributes['name'], false));
       }
     }
     
-    foreach($foundError as $key => $pair) {
-      $string = $pair[0];
+    foreach($foundError as $key => $tuple) {
+      $errorType = $tuple[0];
+      $errorName = $tuple[1];
+
       foreach($this->file_listing as $module=>$files) {
         foreach($files as $file) {
           $moduleFile = CORE_BASE_PATH.MODULE_PATH.$module.'/'.$file;
           $viewerFile = CORE_BASE_PATH.VIEWER_PATH.$module.'/'.$file;
 
-          if(preg_match("/'".$string."'/i", $this->getFileContent($moduleFile))) {
-            $foundError[$key][1] = true;
+          if(preg_match("/'".$errorType."', '".$errorName."'/i", $this->getFileContent($moduleFile))) {
+            $foundError[$key][2] = true;
             break;
-          } else if(preg_match("/'".$string."'/i", $this->getFileContent($viewerFile))) {
-            $foundError[$key][1] = true;
+          } else if(preg_match("/'".$errorType."', '".$errorName."'/i", $this->getFileContent($viewerFile))) {
+            $foundError[$key][2] = true;
             break;
           }
         }
-        if($foundError[$key][1]) {
+        if($foundError[$key][2]) {
           break;
         }
       }
       
-      if(!$foundError[$key][1]) {
+      if(!$foundError[$key][2]) {
         foreach($classFileListing as $file) {
           $classFile = CORE_BASE_PATH.CLASS_PATH.$file;
-          if(preg_match("/'".$string."'/i", $this->getFileContent($classFile))) {
-            $foundError[$key][1] = true;
+          if(preg_match("/'".$errorType."', '".$errorName."'/i", $this->getFileContent($classFile))) {
+            $foundError[$key][2] = true;
             break;
           }
         }
       }
     }
     
-    foreach($foundError as $pair) {
-      if(!$pair[1]) {
-        echo "\nThe error msg '".$pair[0]."' was never used from:\n".$errorDevFile."\n";  
+    foreach($foundError as $tuple) {
+      if(!$tuple[2]) {
+        echo "\nThe error type '".$tuple[0]."' message '".$tuple[1]."' was never used from:\n".$errorDevFile."\n";  
       }
-      $this->assertTrue($pair[1]);
+      $this->assertTrue($tuple[2]);
     }
   }
 
@@ -229,7 +232,7 @@ class languageTest extends PHPUnit_Framework_TestCase {
                 $string = $pair[0];
                 if(preg_match("/getString\('".$string."'/i", $this->getFileContent($moduleFile))) {
                   $foundString[$key][1] = true;
-                } else if(preg_match("/getString\('".$string."'/i", $this->getFileContent($viewerFile))) {
+                } elseif(preg_match("/getString\('".$string."'/i", $this->getFileContent($viewerFile))) {
                   $foundString[$key][1] = true;
                 }
               }
@@ -290,9 +293,13 @@ class languageTest extends PHPUnit_Framework_TestCase {
   }
 
   public function getFileContent($filename) {
-    $handle = fopen($filename, "r");
-    $contents = fread($handle, filesize($filename));
-    fclose($handle);
+    $contents = "";
+    
+    if(file_exists($filename)) {
+      $handle = fopen($filename, "r");
+      $contents = fread($handle, filesize($filename));
+      fclose($handle);
+    }
 
     return $contents;
   }
