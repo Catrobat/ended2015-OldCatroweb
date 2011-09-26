@@ -34,7 +34,7 @@
                   <?php echo $this->languageHandler->getString('address_city')?><br/>
                   <?php echo $this->languageHandler->getString('address_country')?><br/><br/>
                   <span class="imprintHeader"><?php echo $this->languageHandler->getString('contact')?></span><br/>
-                  <?php echo $this->languageHandler->getString('contact_text', '<a class="downloadLink" href="mailto:'.CONTACT_EMAIL.'">'.CONTACT_EMAIL.'</a>')?> 
+                  <?php echo $this->languageHandler->getString('contact_text', '<a class="downloadLink" href="'.impedeCrawling("mailto:".CONTACT_EMAIL).'">'.impedeCrawling(CONTACT_EMAIL).'</a>')?> 
                 </p>
               </div> <!-- imprintText -->
             </div> <!--  whiteBoxMain -->            	

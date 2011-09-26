@@ -26,15 +26,39 @@
  * - no interaction with framework (e.g. database, errorHandler, etc.)
  */
 
+function impedeCrawling($text) {
+  list($usec, $sec) = explode(' ', microtime());
+  mt_srand((float) $sec + ((float) $usec * 100000));
+  $encodedString = "";
+  $chars = str_split(trim($text));
+
+  foreach($chars as $char) {
+    switch(mt_rand(0, 2)) {
+      case 0:
+        $encodedString .= "&#X" . dechex(ord($char)) . ";";
+        break;
+      case 1:
+        $encodedString .= "&#" . ord($char) . ";";
+        break;
+      case 2:
+        $encodedString .= $char;
+        break;
+    }
+  }
+  
+  return $encodedString;
+}
+
 function getUsernameBlacklistArray() {
   $usernameBlacklist = array(
-      'admin',
-      'catroid',
-	    'administrator',
-      'catroweb',
-  	  'kittyroid'
-  	);
-  	return $usernameBlacklist;
+    'admin',
+    'catroid',
+    'paintroid',
+    'administrator',
+    'catroweb',
+    'kittyroid'
+  );
+  return $usernameBlacklist;
 }
 
 function getMonthsArray($languageHandler) {

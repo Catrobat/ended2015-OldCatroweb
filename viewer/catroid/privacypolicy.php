@@ -31,7 +31,7 @@
                   <span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_using_website_head')?></span><br/><br/>
                   <?php echo $this->languageHandler->getString('privacy_policy_using_website')?><br/><br/>
                   <span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_contact_head')?></span><br/><br/>
-                  <?php echo $this->languageHandler->getString('privacy_policy_contact', '<a class="downloadLink" href="mailto:'.CONTACT_EMAIL.'?subject='.$this->languageHandler->getString('privacy_policy_email_subject').'">'.CONTACT_EMAIL.'</a>')?> 
+                  <?php echo $this->languageHandler->getString('privacy_policy_contact', '<a class="downloadLink" href="'.impedeCrawling("mailto:".CONTACT_EMAIL).'?subject='.rawurlencode($this->languageHandler->getString('privacy_policy_email_subject')).'">'.impedeCrawling(CONTACT_EMAIL).'</a>')?> 
                 </p>
               </div> <!-- License Text -->
             </div> <!--  White Box -->            	

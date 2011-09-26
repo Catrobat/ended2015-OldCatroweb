@@ -47,7 +47,7 @@
                   <?php echo $this->languageHandler->getString('terms_of_use_google_code', 
                     '<a href="http://code.google.com/p/catroid" target="_blank">'.$this->languageHandler->getString('google_code_link').'</a>')?><br/><br/>
                   <?php echo $this->languageHandler->getString('terms_of_use_check_back', 
-                    '<a href="mailto:'.CONTACT_EMAIL.'?subject='.rawurlencode($this->languageHandler->getString('title')).'">'.CONTACT_EMAIL.'</a>')?><br/><br/>
+                    '<a href="'.impedeCrawling("mailto:".CONTACT_EMAIL).'?subject='.rawurlencode($this->languageHandler->getString('title')).'">'.impedeCrawling(CONTACT_EMAIL).'</a>')?><br/><br/>
                   <?php echo $this->languageHandler->getString('terms_of_use_thanks')?><br/><br/>
                   <?php echo $this->languageHandler->getString('terms_of_use_team')?> 
                 </p>
