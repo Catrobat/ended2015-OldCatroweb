@@ -20,5 +20,4 @@
 <strings>
 	<string name="default_project_name">defaultProject</string>
 	<string name="upload_successfull">Your project was uploaded successfully!</string>
-	<string name="qr_failed">Creating the QR-Code failed!</string>
 </strings>

@@ -21,13 +21,15 @@ require_once('frameworkTestsBootstrap.php');
 
 class languageTest extends PHPUnit_Framework_TestCase {
   protected $file_listing;
-  protected $whitelist;
-  protected $whitelist_folders;
+  protected $modules;
+  protected $blacklist;
+  protected $blacklist_folders;
 
   protected function setUp() {
     $this->file_listing = array();
-    $this->whitelist = array("aliveCheckerDB.php", "aliveCheckerHost.php", "qrCodeGenerator.php");
-    $this->whitelist_folders = array();
+    $this->modules = array("admin", "api", "catroid");
+    $this->blacklist = array("aliveCheckerDB.php", "aliveCheckerHost.php", "qrCodeGenerator.php");
+    $this->blacklist_folders = array();
     $this->walkThroughDirectory(CORE_BASE_PATH.'modules/');
   }
 
@@ -142,6 +144,112 @@ class languageTest extends PHPUnit_Framework_TestCase {
     removeDir($runtimeFolder1);
     removeDir($runtimeFolder2);
   }
+  
+  public function testErrorStringUsage() {
+    $errorDevFile = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/errors/'.DEFAULT_DEV_ERRORS_FILE;
+    $classFileListing = $this->getClassesFileListing();
+    
+    $foundError = array();
+    $xml = simplexml_load_file($errorDevFile);
+    foreach($xml->children() as $errorType) {
+      $errorTypeName = $errorType->getName();
+      foreach($errorType as $error) {
+        $attributes = $error->attributes();
+        array_push($foundError, array($errorTypeName, $attributes['name'], false));
+      }
+    }
+    
+    foreach($foundError as $key => $tuple) {
+      $errorType = $tuple[0];
+      $errorName = $tuple[1];
+
+      foreach($this->file_listing as $module=>$files) {
+        foreach($files as $file) {
+          $moduleFile = CORE_BASE_PATH.MODULE_PATH.$module.'/'.$file;
+          $viewerFile = CORE_BASE_PATH.VIEWER_PATH.$module.'/'.$file;
+
+          if(preg_match("/'".$errorType."', '".$errorName."'/i", $this->getFileContent($moduleFile))) {
+            $foundError[$key][2] = true;
+            break;
+          } else if(preg_match("/'".$errorType."', '".$errorName."'/i", $this->getFileContent($viewerFile))) {
+            $foundError[$key][2] = true;
+            break;
+          }
+        }
+        if($foundError[$key][2]) {
+          break;
+        }
+      }
+      
+      if(!$foundError[$key][2]) {
+        foreach($classFileListing as $file) {
+          $classFile = CORE_BASE_PATH.CLASS_PATH.$file;
+          if(preg_match("/'".$errorType."', '".$errorName."'/i", $this->getFileContent($classFile))) {
+            $foundError[$key][2] = true;
+            break;
+          }
+        }
+      }
+    }
+    
+    foreach($foundError as $tuple) {
+      if(!$tuple[2]) {
+        echo "\nThe error type '".$tuple[0]."' message '".$tuple[1]."' was never used from:\n".$errorDevFile."\n";  
+      }
+      $this->assertTrue($tuple[2]);
+    }
+  }
+
+  public function testLanguageStringUsage() {
+    foreach($this->modules as $module) {
+      $directory = CORE_BASE_PATH.LANGUAGE_PATH.SITE_DEFAULT_LANGUAGE.'/'.$module;
+      if(is_dir($directory)) {
+        if($directory_handler = opendir($directory)) {
+          while(($file = readdir($directory_handler)) !== false) {
+            if($file != "." && $file != ".." && $file != "template.xml") {
+              $info = pathinfo($file);
+              $moduleFile = CORE_BASE_PATH.MODULE_PATH.$module.'/'.$info['filename'].'.php';
+              $viewerFile = CORE_BASE_PATH.VIEWER_PATH.$module.'/'.$info['filename'].'.php';
+              
+              $correspondingFileFound = false;
+              if(file_exists($moduleFile)) {
+                $correspondingFileFound = true;
+              } elseif(file_exists($viewerFile)) {
+                $correspondingFileFound = true;
+              } else {
+                echo "\nCould not find a module and a viewer for: ".$file."\n";
+              }
+              $this->assertTrue($correspondingFileFound);
+              
+              $foundString = array();
+              $xml = simplexml_load_file($directory.'/'.$file);
+              foreach($xml->children() as $query) {
+                $attributes = $query->attributes();
+                array_push($foundString, array($attributes['name'], false));
+              }
+              
+              foreach($foundString as $key => $pair) {
+                $string = $pair[0];
+                if(preg_match("/getString\('".$string."'/i", $this->getFileContent($moduleFile))) {
+                  $foundString[$key][1] = true;
+                } elseif(preg_match("/getString\('".$string."'/i", $this->getFileContent($viewerFile))) {
+                  $foundString[$key][1] = true;
+                }
+              }
+              
+              foreach($foundString as $pair) {
+                if(!$pair[1]) {
+                  echo "\nThe string '".$pair[0]."' was never used from:\n".$directory.'/'.$file."\n";  
+                }
+                $this->assertTrue($pair[1]);
+              }
+            }
+          }
+          closedir($directory_handler);
+        }
+      }
+    }
+  }
 
   public function walkThroughDirectory($directory, $module = null) {
     if(is_dir($directory)) {
@@ -149,7 +257,7 @@ class languageTest extends PHPUnit_Framework_TestCase {
         while(($file = readdir($directory_handler)) !== false) {
           if($file != "." && $file != "..") {
             if(is_dir($directory.$file)) {
-              if(!in_array($file, $this->whitelist_folders)) {
+              if(!in_array($file, $this->blacklist_folders)) {
                 if(!isset($this->file_listing[$file])) {
                   $this->file_listing[$file] = array();
                 }
@@ -157,7 +265,7 @@ class languageTest extends PHPUnit_Framework_TestCase {
               }
             }
 
-            if(!in_array($file, $this->whitelist)) {
+            if(!in_array($file, $this->blacklist)) {
               if($module)
               array_push($this->file_listing[$module], $file);
             }
@@ -167,6 +275,33 @@ class languageTest extends PHPUnit_Framework_TestCase {
       }
     }
   }
+  
+  public function getClassesFileListing() {
+    $directory = CORE_BASE_PATH.CLASS_PATH;
+    $fileListing = array();
+    
+    if(is_dir($directory)) {
+      if($directory_handler = opendir($directory)) {
+        while(($file = readdir($directory_handler)) !== false) {
+          if($file != "." && $file != "..") {
+            array_push($fileListing, $file);
+          }
+        }
+      }
+    }
+    return $fileListing;
+  }
 
+  public function getFileContent($filename) {
+    $contents = "";
+    
+    if(file_exists($filename)) {
+      $handle = fopen($filename, "r");
+      $contents = fread($handle, filesize($filename));
+      fclose($handle);
+    }
+
+    return $contents;
+  }
 }
 ?>

@@ -49,9 +49,6 @@ public class PasswordRecoveryTests extends BaseTest {
       assertFalse(isVisible(By.id("loginPassword")));
       assertFalse(isVisible(By.id("loginSubmitButton")));
 
-      assertTrue(isVisible(By.id("menuPasswordRecoveryButton")));
-      assertTrue(isEditable(By.id("menuPasswordRecoveryButton")));
-      
       openLocation("catroid/registration");
 
       assertTrue(isElementPresent(By.name("registrationUsername")));
@@ -185,8 +182,9 @@ public class PasswordRecoveryTests extends BaseTest {
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
+      waitForElementPresent(By.id("pt-preferences"));
       driver().findElement(By.id("pt-preferences")).findElement(By.tagName("a")).click();
-      assertEquals("Preferences", driver().findElement(By.id("firstHeading")).getText());
+      assertTrue(containsElementText(By.id("firstHeading"), "Preferences"));
       assertFalse(isTextPresent("Not logged in"));
       closePopUp();
 

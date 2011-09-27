@@ -37,13 +37,15 @@ public class EditProjectsTests extends BaseTest {
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       // check that project is shown on index-page
-      openLocation();
-      ajaxWait();
-      assertTrue(isTextPresent(projectTitle));
+      assertProjectPresent(projectTitle);
 
       openAdminLocation();
+      ajaxWait();
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsEditProjects")).click();
+      ajaxWait();
+      
       assertTrue(isTextPresent("Administration Tools - List of available projects"));
       assertTrue(isTextPresent("ID"));
       assertTrue(isTextPresent("Title"));
@@ -62,9 +64,7 @@ public class EditProjectsTests extends BaseTest {
       assertFalse(isTextPresent(projectTitle));
 
       // check that project is not shown on index-page
-      openLocation();
-      assertTrue(isElementPresent(By.xpath("//div[@id='aIndexWebLogoLeft']")));
-      assertFalse(isTextPresent(projectTitle));
+      assertProjectNotPresent(projectTitle);
     } catch(AssertionError e) {
       captureScreen("EditProjectsTests.deleteButton");
       throw e;
@@ -89,39 +89,39 @@ public class EditProjectsTests extends BaseTest {
       driver().findElement(By.id("aAdministrationTools")).click();
       driver().findElement(By.id("aAdminToolsEditProjects")).click();
       assertTrue(isTextPresent("Administration Tools - List of available projects"));
-      assertTrue(isElementPresent(By.xpath("//input[@id='toggle" + projectId + "']")));
+      assertTrue(isElementPresent(By.id("toggle" + projectId)));
       assertTrue(isTextPresent(projectTitle));
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("toggle" + projectId)).click();
       assertTrue(isTextPresent("The project was succesfully set to state invisible"));
 
       // project is NOT shown on index-page
-      openLocation();
-      ajaxWait();
-      assertFalse(isTextPresent(projectTitle));
+      assertProjectNotPresent(projectTitle);
 
       // toggle project visibility to "hidden"
       openAdminLocation();
+      ajaxWait();
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsEditProjects")).click();
+      ajaxWait();
+      
       assertTrue(isTextPresent("Administration Tools - List of available projects"));
-      assertTrue(isElementPresent(By.xpath("//input[@id='toggle" + projectId + "']")));
+      assertTrue(isElementPresent(By.id("toggle" + projectId)));
       assertTrue(isTextPresent(projectTitle));
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("toggle" + projectId)).click();
       assertTrue(isTextPresent("The project was succesfully set to state visible"));
 
       // project is shown again on index-page
-      openLocation();
-      ajaxWait();
-      assertTrue(isTextPresent(projectTitle));
+      assertProjectPresent(projectTitle);
 
       // and delete project
       openAdminLocation();
       driver().findElement(By.id("aAdministrationTools")).click();
       driver().findElement(By.id("aAdminToolsEditProjects")).click();
       assertTrue(isTextPresent("Administration Tools - List of available projects"));
-      assertTrue(isElementPresent(By.xpath("//input[@id='delete" + projectId + "']")));
+      assertTrue(isElementPresent(By.id("delete" + projectId)));
       assertTrue(isTextPresent(projectTitle));
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("delete" + projectId)).click();
@@ -130,9 +130,7 @@ public class EditProjectsTests extends BaseTest {
       assertFalse(isTextPresent(projectTitle));
 
       // and finally project is NOT shown on index-page
-      openLocation();
-      ajaxWait();
-      assertFalse(isTextPresent(projectTitle));
+      assertProjectNotPresent(projectTitle);
     } catch(AssertionError e) {
       captureScreen("EditProjectsTests.invisibleButton");
       throw e;

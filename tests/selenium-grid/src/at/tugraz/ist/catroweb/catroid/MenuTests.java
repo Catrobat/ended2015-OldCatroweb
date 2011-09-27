@@ -76,7 +76,6 @@ public class MenuTests extends BaseTest {
       assertTrue(isVisible(By.id("menuProfileButton")));
       assertFalse(isEditable(By.id("menuProfileButton")));
       
-      // TODO Login Broken
       driver().findElement(By.id("menuLoginButton")).click();
       ajaxWait();
       assertTrue(isVisible(By.id("loginUsername")));
@@ -129,9 +128,7 @@ public class MenuTests extends BaseTest {
       driver().findElement(By.id("logoutSubmitButton")).click();
       ajaxWait();
       
-      assertTrue(isVisible(By.id("menuProfileButton")));
-      assertFalse(isEditable(By.id("menuProfileButton")));
-
+      assertTrue(isVisible(By.id("projectListTitle")));
     } catch(AssertionError e) {
       captureScreen("MenuTests.loginAndProfileLinks." + dataset.get("username"));
       throw e;

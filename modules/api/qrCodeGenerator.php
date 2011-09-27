@@ -34,7 +34,7 @@ class qrCodeGenerator extends CoreAuthenticationTUGraz {
   
   public function generateQrCode($url) {
     if($url) {
-      $this->qr = shell_exec("qrencode \"".$url."\" -s 5 -o -");
+      $this->qr = shell_exec("qrencode \"".$url."\" -s 6 -m 1 -o -");
     } else {
       return false;
     }

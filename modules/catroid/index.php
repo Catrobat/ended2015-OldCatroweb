@@ -79,6 +79,8 @@ class index extends CoreAuthenticationNone {
     if($this->session->searchQuery != "") {
       $this->searchQuery = $this->session->searchQuery;
     }
+
+    //dummy for languageTest: request error ('viewer', 'ajax_request_page_not_found')
     $error = array();
     $error['type'] = 'viewer';
     $error['code'] = 'ajax_request_page_not_found';

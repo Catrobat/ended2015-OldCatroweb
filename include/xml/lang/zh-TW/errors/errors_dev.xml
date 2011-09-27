@@ -20,14 +20,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <errors>
   <profile>
     <string name="email_address_string_changed"/>
-    <string name="password_repeat_missing">&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_repeat_differs">&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x3002;</string>
     <string name="username_password_equal">&#x5BC6;&#x78BC;&#x9700;&#x8207;&#x5462;&#x7A31;&#x4E0D;&#x540C;&#x3002;</string>
     <string name="password_old_missing">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="password_old_wrong">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x932F;&#x8AA4;&#x3002;</string>
-    <string name="password_old_invalid">&#x820A;&#x5BC6;&#x78BC;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="password_new_missing">&#x65B0;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_new_invalid">&#x65B0;&#x5BC6;&#x78BC;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="password_new_length_invalid">&#x65B0;&#x5BC6;&#x78BC;&#x9700;&#x64C1;&#x6709;&#x81F3;&#x5C11;{*minimumPasswordLength*} &#x5B57;&#x7B26;&#x3002;</string>
     <string name="email_address_exists">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x5DF2;&#x5B58;&#x5728;&#x3002;</string>
     <string name="email_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
@@ -55,7 +51,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="project_title_default">&#x4E0D;&#x5141;&#x8A31;&#x4E0A;&#x8F09;&#x548C;&#x300A;&#x9810;&#x8A2D;&#x5C08;&#x6848;&#x300B;&#x540C;&#x540D;&#x7684;&#x5C08;&#x6848;&#x3002;</string>
     <string name="insulting_words_in_project_title">&#x5C08;&#x6848;&#x6A19;&#x984C;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
     <string name="insulting_words_in_project_description">&#x5C08;&#x6848;&#x7C21;&#x4ECB;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
-    <string name="bad_words_filter_error">&#x5728;BadWordsFilter class&#x88E1;&#x5176;&#x4E2D;&#x4E00;&#x500B;SQL &#x67E5;&#x8A62;&#x5931;&#x6557;&#xFF01;</string>
     <string name="invalid_project_xml"/>
   </upload>
   <download>
@@ -73,7 +68,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </viewer>
   <auth>
     <string name="password_or_username_wrong">&#x5BC6;&#x78BC;&#x6216;&#x7528;&#x6236;&#x540D;&#x7A31;&#x932F;&#x8AA4;&#x3002;</string>
-    <string name="username_not_found">&#x7121;&#x6CD5;&#x641C;&#x7372;&#x7528;&#x6236;&#x540D;&#x7A31;&#x3002;</string>
     <string name="board_authentication_failed">Board &#x8A8D;&#x8B49;&#x5931;&#x6557;&#x3002;</string>
     <string name="wiki_authentication_failed">Wiki &#x8A8D;&#x8B49;&#x5931;&#x6557;&#x3002;</string>
     <string name="catroid_authentication_failed">Catroid &#x8A8D;&#x8B49;&#x5931;&#x6557;&#x3002;</string>
@@ -89,9 +83,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="email_invalid">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="email_missing">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="password_missing">&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_repeat_missing">&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_repeat_differs">&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x8207;&#x91CD;&#x8A2D;&#x5BC6;&#x78BC;&#x3002;</string>
-    <string name="password_invalid">&#x5BC6;&#x78BC;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="password_length_invalid">&#x5BC6;&#x78BC;&#x9700;&#x64C1;&#x6709;&#x81F3;&#x5C11;{*minimumPasswordLength*} &#x548C; &#x6700;&#x591A;{*maximumPasswordLength*} &#x5B57;&#x7B26;&#x3002;</string>
     <string name="username_password_equal">&#x5BC6;&#x78BC;&#x9700;&#x8207;&#x5462;&#x7A31;&#x4E0D;&#x540C;&#x3002;</string>
     <string name="username_missing">&#x5462;&#x7A31;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
@@ -109,19 +100,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="birth_missing">&#x751F;&#x65E5;&#x65E5;&#x671F;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="gender_missing">&#x6027;&#x5225;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="insulting_words_in_username_field">&#x7528;&#x6236;&#x540D;&#x7A31;&#x6B04;&#x4F4D;&#x542B;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
-    <string name="insulting_words_in_email_field">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6B04;&#x4F4D;&#x542B;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
-    <string name="insulting_words_in_city_field">&#x57CE;&#x5E02;&#x6B04;&#x4F4D;&#x542B;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
-    <string name="insulting_words_in_province_field">&#x5462;&#x7A31;&#x6B04;&#x4F4D;&#x542B;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
   </registration>
   <passwordrecovery>
     <string name="password_missing">&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="password_length_invalid">&#x5BC6;&#x78BC;&#x9700;&#x64C1;&#x6709;&#x81F3;&#x5C11;{*minimumPasswordLength*} &#x548C; &#x6700;&#x591A;{*maximumPasswordLength*} &#x5B57;&#x7B26;&#x3002;</string>
-    <string name="userdata_invalid">&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x4E0D;&#x6B63;&#x78BA;&#x3002;</string>
     <string name="userdata_missing">&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="userdata_not_exists">&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x7121;&#x6CD5;&#x641C;&#x7372;&#x3002;</string>
     <string name="create_hash_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x6709;&#x932F;&#x8AA4;&#x4E86;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
     <string name="catroid_password_recovery_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x6709;&#x932F;&#x8AA4;&#x4E86;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#x6216;&#x806F;&#x7D61;&#x7BA1;&#x7406;&#x54E1;&#xFF1A;{*webmasterEmailAddress*} &#x3002;</string>
-    <string name="passwordhash_invalid">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF01;&#x60A8;&#x7684;&#x5FA9;&#x539F; URL &#x5DF2;&#x7121;&#x6548;&#x3002;</string>
   </passwordrecovery>
   <admin>
     <string name="pootle_post_data_missing"/>

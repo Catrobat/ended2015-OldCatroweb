@@ -47,7 +47,7 @@ public class DetailsTests extends BaseTest {
       openLocation("catroid/details/" + id);
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
       // project title
-      assertEquals(title, driver().findElement(By.xpath("//div[@class='detailsProjectTitle']")).getText());
+      assertTrue(containsElementText(By.xpath("//div[@class='detailsProjectTitle']"), title));
       // test the view counter
       numOfViews = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats']/strong")).getText());
 
@@ -172,7 +172,7 @@ public class DetailsTests extends BaseTest {
       assertFalse(fullDescriptionFromPage.equals(shortDescriptionFromPage));
       assertTrue(isElementPresent(By.id("showShortDescriptionButton")));
       driver().findElement(By.id("showShortDescriptionButton")).click();
-      assertEquals(shortDescriptionFromPage, driver().findElement(By.id("detailsDescription")).getText());
+      assertTrue(containsElementText(By.id("detailsDescription"), shortDescriptionFromPage));
     } catch(AssertionError e) {
       captureScreen("DetailsTests.moreButton." + dataset.get("projectTitle"));
       throw e;

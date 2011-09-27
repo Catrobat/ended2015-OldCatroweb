@@ -18,21 +18,16 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="select_country">selecta&#x21B;i &#x21B;ara dvs.</string>
+  <string name="cancel">Anulare</string>
   <string name="female">femenin</string>
   <string name="male">masculin</string>
   <string name="title">Profilul {*nickname*}</string>
   <string name="password">scimbarea parolei</string>
-  <string name="old_password">introduce&#x21B;i parola veche</string>
-  <string name="new_password">introduce&#x21B;i parola nou&#x103;</string>
   <string name="email">schimba&#x21B;i aceast&#x103; adres&#x103; e-mail</string>
   <string name="add_email_field_button">Adaugarea unei noi adrese e-mail</string>
-  <string name="cancel_button">Anulare</string>
-  <string name="cancel">Anulare</string>
   <string name="delete_email">&#x219;tergerea adresei e-mail</string>
   <string name="email_delete_success">A&#x21B;i &#x219;ters adresa dvs. de e-mail.</string>
   <string name="alertbox_really_want_to_delete_email">Sunte&#x21B;i siguri c&#x103; dori&#x21B;i s&#x103; &#x219;terge&#x21B;i aceast&#x103; adres&#x103; de e-mail?</string>
-  <string name="new_email">introduce&#x21B;i o adres&#x103; de e-mail nou&#x103;</string>
   <string name="save_button">Salva&#x21B;i schimb&#x103;rile mele</string>
   <string name="add_new_email_button">Salva&#x21B;i adresa mea nou&#x103; de e-mail.</string>
   <string name="change_country">schimbarea &#x21B;&#x103;rii mea</string>
@@ -41,8 +36,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="month">selecta&#x21B;i luna</string>
   <string name="change_gender">schimbarea sexului meu</string>
   <string name="gender">selecta&#x21B;i sexul</string>
-  <string name="new_gender">selecta&#x21B;i sexul</string>
-  <string name="email_update_success">A&#x21B;i actualizat adresa dvs. de e-mail cu succes.</string>
   <string name="password_success">A&#x21B;i actualizat parola dvs. cu succes.</string>
   <string name="country_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
   <string name="add_new_email">introduce&#x21B;i adresa de e-mail nou&#x103;.</string>

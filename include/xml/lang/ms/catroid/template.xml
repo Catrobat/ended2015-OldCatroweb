@@ -19,14 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="template_header_or">atau</string>
-  <string name="template_header_login">Logmasuk</string>
-  <string name="template_footer_contact_link">Kontek</string>
   <string name="template_header_menu">Menu</string>
   <string name="template_header_profile">Profil</string>
-  <string name="template_header_cancel">Batal</string>
+  <string name="template_header_login">Logmasuk</string>
   <string name="template_header_loading">sedang dimuat...</string>
-  <string name="template_footer_terms_of_use_link">Syarat-syarat Pengunaan</string>
+  <string name="template_header_cancel">Batal</string>
   <string name="template_footer_imprint_link">Cetak</string>
+  <string name="template_footer_contact_link">Kontek</string>
+  <string name="template_footer_terms_of_use_link">Syarat-syarat Pengunaan</string>
   <string name="template_header_password">Kata Laluan:</string>
   <string name="template_common_one_minute_ago">satu minit lalu</string>
   <string name="template_common_less_than_a_minute_ago">kurang dari satu minit lalu</string>

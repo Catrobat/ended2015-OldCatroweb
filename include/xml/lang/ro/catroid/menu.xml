@@ -18,12 +18,11 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="login">Login</string>
   <string name="title">Menu</string>
   <string name="profile">Profilul</string>
   <string name="forum">Forum</string>
+  <string name="login">Login</string>
   <string name="sign_up">Registrare</string>
-  <string name="registration">Registrare</string>
   <string name="wiki">Ajutor</string>
   <string name="wall">Peretele</string>
   <string name="settings">Set&#x103;ri</string>

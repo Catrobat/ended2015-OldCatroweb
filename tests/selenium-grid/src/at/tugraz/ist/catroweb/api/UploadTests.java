@@ -21,6 +21,8 @@ package at.tugraz.ist.catroweb.api;
 import java.util.HashMap;
 
 import static org.testng.AssertJUnit.*;
+
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 import org.testng.annotations.DataProvider;
 
@@ -37,6 +39,7 @@ public class UploadTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       openLocation();
       ajaxWait();
+      assertTrue(isElementPresent(By.id("projectListTitle")));
       assertTrue(isTextPresent(dataset.get("projectTitle")));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
@@ -54,6 +57,7 @@ public class UploadTests extends BaseTest {
       assertNotSame("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       openLocation();
       ajaxWait();
+      assertTrue(isElementPresent(By.id("projectListTitle")));
       assertFalse(isTextPresent(dataset.get("projectTitle")));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadInvalidProjects." + dataset.get("projectTitle"));

@@ -98,7 +98,7 @@
   </target>
   
   <target name="-conf-deploy-testlocal-test">
-    <property name="host.ip" value="kittyroidlocal" />
+    <property name="host.ip" value="129.27.202.38" />
     <property name="host.root.dir" value="/var/www" />
     <property name="host.catroid.dir" value="${host.root.dir}/catroid" />
     <property name="host.addons.dir" value="${host.catroid.dir}/addons" />
@@ -669,28 +669,37 @@
     </scp>
   </target>
 
+	<!-- http://localhost/ -->
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
-  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -update-sql-diagram, -update-app-building, -cleanup" />
-  <target name="deploy-alex" depends="-conf, -clean, -create-dirs, -conf-deploy-alex, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -cleanup" />
-  <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -set-catroid-dir-permissions, -undeploy, -deploy, -set-catroid-dir-permissions, -init-remote-database,-update-remote-database, -update-app-building, -cleanup" />
-  <target name="deploy-testlocal-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-testlocal-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
-  <target name="deploy-test-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
-  <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -update-app-building, -cleanup" />
   <target name="run-phpunit-tests" depends="-phpunit-tests" />
   <target name="run-selenium-local-tests" depends="-selenium-grid-tests-catroid-local" />
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
   <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />
-  <target name="run-selenium-remote-tests" depends="deploy-testlocal-with-tests, -selenium-grid-tests-testlocal" />
   <target name="stop-selenium-grid" depends="-selenium-grid-stop"/>
   <target name="start-android-emulator" depends="-selenium-start-android-emulator, -selenium-start-server-android" />
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />
-  <target name="deploy-test-board" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />
-  <target name="deploy-test-wiki" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-wiki, -user-pass-prompt, -undeploy-wiki, -deploy-wiki, -cleanup" />
   <target name="update-db" depends="-update-local-database" />
   <target name="init-db" depends="-init-local-database, -update-local-database" />
   <target name="generate-strings-xml" depends="-generate-strings-xml" />
   <target name="generate-pootle-file" depends="-generate-pootle-file" />
   <target name="generate-language-pack" depends="-generate-language-pack" />
-  
+
+	<!-- http://catroidwebtest.ist.tugraz.at/ -->
+  <target name="deploy-test" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -update-sql-diagram, -update-app-building, -cleanup" />
+  <target name="deploy-test-board" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />
+  <target name="deploy-test-wiki" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-wiki, -user-pass-prompt, -undeploy-wiki, -deploy-wiki, -cleanup" />
+
+	<!-- http://www.guetler.at/ -->
+  <target name="deploy-alex" depends="-conf, -clean, -create-dirs, -conf-deploy-alex, -copy-files, -user-pass-prompt, -undeploy, -deploy, -set-catroid-dir-permissions, -update-remote-database, -cleanup" />
+
+	<!-- http://catroidtest.ist.tugraz.at/ -->
+  <target name="deploy-catroid-test" depends="-conf, -clean, -create-dirs, -conf-deploy-catroid-test, -copy-files, -user-pass-prompt, -set-catroid-dir-permissions, -undeploy, -deploy, -set-catroid-dir-permissions, -init-remote-database,-update-remote-database, -update-app-building, -cleanup" />
+
+	<!-- http://catroidtestserver.ist.tugraz.at/ -->
+  <target name="deploy-testlocal-with-tests" depends="-conf, -clean, -create-dirs, -create-dirs-test, -conf-deploy-testlocal-test, -copy-files, -copy-selenium-tests, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -cleanup" />
+	<target name="run-selenium-remote-tests" depends="deploy-testlocal-with-tests, -selenium-grid-tests-testlocal" />
+
+	<!-- http://catroid.org/ - http://catroidweb.ist.tugraz.at/ -->
+  <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -update-app-building, -cleanup" />
 </project>

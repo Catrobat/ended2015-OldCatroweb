@@ -104,6 +104,7 @@ public class HeaderTests extends BaseTest {
       assertFalse(isElementPresent(By.id("headerHomeButton")));
 
       driver().findElement(By.xpath("//a[@class='license'][4]")).click();
+      ajaxWait();
       assertTrue(isVisible(By.id("headerHomeButton")));
       assertTrue(isVisible(By.id("headerMenuButton")));
       assertTrue(isVisible(By.id("headerProfileButton")));

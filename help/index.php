@@ -18,16 +18,15 @@
  */
 
 require_once('../config.php');
+define('REAL_BASE_PATH',str_replace('help/', '', BASE_PATH));
 ?>
-
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
-                      "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE HTML>
+<html>
 <head>
-<title>Catroid cheat sheet</title>
-<link rel="stylesheet" type="text/css" href="style.css" />
-<meta http-equiv="content-type" content="text/html;charset=utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>Catroid Cheat Sheet</title>
+  <link rel="stylesheet" type="text/css" href="style.css" />
+  <link rel="icon" href="<?php echo REAL_BASE_PATH?>images/logo/favicon.png" type="image/png" />
 </head>
 <body>
 	<div id="all">
@@ -63,10 +62,10 @@ require_once('../config.php');
 
 --- remote tests
 
-    <i>+ Connect remote controls to kittyroid test server</i> 
-    ant selenium-tools.launch-remote-control -DhubURL http://kittyroidlocal:4444/grid/register
+    <i>+ Connect remote controls to kittyroid test server (http://catroidtestserver.ist.tugraz.at)</i>
+    ant selenium-tools.launch-remote-control -DhubURL http://catroidtestserver.ist.tugraz.at:4444/grid/register
 
-    <i>+ Start remote test on kityroid test server</i>
+    <i>+ Start remote test on kityroid test server (http://catroidtestserver.ist.tugraz.at)</i>
     ant run-selenium-remote-tests -Dhost.user=catroid -Dhost.pass=cat.roid.web -Dtest.browserName=firefox
 
 --- database 
@@ -77,22 +76,33 @@ require_once('../config.php');
 		</div>
 		<div id="links">
 			<h1>Localhost</h1>
-			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>:4444/grid/console" target="_blank">Grid	Console</a><br/> 
-			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/tests/selenium-grid/target/reports/" target="_blank">Test	Reports</a><br/> 
-			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/phppgadmin/" target="_blank">phppgadmin</a><br/>
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>:4444/grid/console" target="_blank">Grid	Console</a> - Selenium-Grid Server Status<br/> 
+			<a href="<?php echo REAL_BASE_PATH;?>tests/selenium-grid/target/reports/" target="_blank">Test	Reports</a> - Test results of last testrun<br/> 
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/phppgadmin/" target="_blank">phpPgAdmin</a> -  WebBased SQL administration tool<br/>
 			
 			<h1>kittyroidlocal</h1> 
-			<a href="http://kittyroidlocal:4444/grid/console" target="_blank">Grid Console</a><br/>
-			<a href="http://kittyroidlocal/tests/selenium-grid/target/reports/" target="_blank">Test Reports</a>
-      <h1>Catroidwebtest</h1> 
-      <a href="http://catroidwebtest.ist.tugraz.at/" target="_blank">Catroidwebtest</a><br/>
-      <a href="http://catroidwebtest.ist.tugraz.at:8080" target="_blank">Pootle Server</a><br/>
-      <a href="http://catroidwebtest.ist.tugraz.at/sql-overview/" target="_blank">SQL	Overview</a><br/>
+			<h3>(http://catroidtestserver.ist.tugraz.at)</h3>
+      <a href="http://catroidtestserver.ist.tugraz.at/" target="_blank">Kittyroidlocal</a> - Testserver at the Catroid Room<br/>
+			<a href="http://catroidtestserver.ist.tugraz.at:4444/grid/console" target="_blank">Grid Console</a> - Selenium-Grid Server Status<br/>
+			<a href="http://catroidtestserver.ist.tugraz.at/tests/selenium-grid/target/reports/" target="_blank">Test Reports</a> - Test results of last testrun<br/>
+      <a href="http://catroidtestserver.ist.tugraz.at/phppgadmin/" target="_blank">phpPgAdmin</a>* -  WebBased SQL administration tool<br/>
       
-      <h1>Other</h1> <a href="http://catroid.org" target="_blank">Catroid.org</a><br/>
-			<a href="http://kittyroid.org" target="_blank">Kittyroid.org</a><br/> 
-			<a href="http://catroidtest.ist.tugraz.at/" target="_blank">Catroidtest</a><br/>
-      <a href="https://selenium.googlecode.com/svn/trunk/java/CHANGELOG" target="_blank">Selenium changelog</a><br/>	
+      <h1>Catroidwebtest</h1> 
+      <a href="http://catroidwebtest.ist.tugraz.at/" target="_blank">Catroidwebtest</a> - Testserver for the Catroweb Team<br/>
+      <a href="http://catroidwebtest.ist.tugraz.at:8080" target="_blank">Pootle Server</a> - Translation Server<br/>
+      <a href="http://catroidwebtest.ist.tugraz.at/sql-overview/" target="_blank">SQL	Overview</a> - Grafical Database Overview<br/>
+      <a href="http://catroidwebtest.ist.tugraz.at/phppgadmin/" target="_blank">phpPgAdmin</a>* -  WebBased SQL administration tool<br/>
+      
+      <h1>Public Server</h1> <a href="http://catroid.org" target="_blank">Catroid.org</a> - Public Server<br/>
+			<a href="http://kittyroid.org" target="_blank">Kittyroid.org</a> - Public Server<br/>
+      <a href="http://catroid.org/phppgadmin/" target="_blank">phpPgAdmin</a>* -  WebBased SQL administration tool<br/>
+      
+      <h1>Other</h1> 
+			<a href="http://catroidtest.ist.tugraz.at/" target="_blank">Catroidtest</a> - Testserver for the Catroid Team<br/>
+      <a href="http://catroidtest.ist.tugraz.at/phppgadmin/" target="_blank">phpPgAdmin</a>* -  WebBased SQL administration tool<br/>
+      <a href="https://selenium.googlecode.com/svn/trunk/java/CHANGELOG" target="_blank">Selenium changelog</a> - Most recent changes<br/>
+      
+      <p><strong>* Note:</strong> only accessible with an TUGraz IP address</p>	
 		</div>
 	</div>
 </body>

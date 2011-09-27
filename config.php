@@ -29,7 +29,7 @@ define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
 define('PROJECTS_QR_DIRECTORY','resources/qrcodes/');
 define('PROJECTS_QR_EXTENTION','_qr.png');
-define('PROJECTS_QR_SERVICE_URL','http://catroidwebtest.ist.tugraz.at/api/qrCodeGenerator/generate.png?url=');
+define('PROJECTS_QR_SERVICE_URL','http://catroid.org/api/qrCodeGenerator/generate.png?url=');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
 define('PROJECTS_THUMBNAIL_EXTENTION_ORIG','_original.jpg');

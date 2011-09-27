@@ -20,5 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <strings>
   <string name="default_project_name">ProjekTersedia</string>
   <string name="upload_successfull">Projek telah berjaya berjaya dimuat naik!</string>
-  <string name="qr_failed">Gagal mencipta QR-Code</string>
 </strings>

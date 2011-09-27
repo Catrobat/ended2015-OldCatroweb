@@ -18,7 +18,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="contact">Kontakt</string>
   <string name="title">Impressum</string>
   <string name="institute_for_software_technology">Institut f&#xFC;r Softwaretechnologie</string>
   <string name="graz_university_of_technology">Technische Universit&#xE4;t Graz</string>
@@ -26,6 +25,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="address_street">Inffeldgasse 16B/II</string>
   <string name="address_city">8010 Graz</string>
   <string name="address_country">&#xD6;sterreich</string>
+  <string name="contact">Kontakt</string>
   <string name="contact_text">E-Mail: {*email*}</string>
   <string name="development_text">Catroid wird am {*institute*} an der technischen Universit&#xE4;t Graz in &#xD6;sterreich entwickelt.</string>
 </strings>

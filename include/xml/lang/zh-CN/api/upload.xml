@@ -20,5 +20,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <strings>
   <string name="default_project_name">&#x9ED8;&#x8BA4;&#x9879;&#x76EE;</string>
   <string name="upload_successfull">&#x60A8;&#x7684;&#x9879;&#x76EE;&#x5DF2;&#x6210;&#x529F;&#x4E0A;&#x8F7D;&#xFF01;</string>
-  <string name="qr_failed">&#x521B;&#x5EFA;QR&#x4EE3;&#x7801;&#x5931;&#x8D25;&#xFF01;</string>
 </strings>

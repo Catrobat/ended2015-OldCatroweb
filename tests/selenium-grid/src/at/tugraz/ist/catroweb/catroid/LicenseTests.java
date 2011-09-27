@@ -31,7 +31,12 @@ public class LicenseTests extends BaseTest {
   public void privacyPolicy() throws Throwable {
     try {
       openLocation();
+      assertTrue(isElementPresent(By.xpath("//a[@class='license']")));
       driver().findElement(By.xpath("//a[@class='license']")).click();
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//a[@class='downloadLink']")));
+      assertTrue(driver().findElement(By.xpath("//a[@class='downloadLink']")).getAttribute("href").contains(
+          "mailto:webmaster@catroid.org?subject=Question%20regarding%20the%20privacy%20policy%20of%20Catroid"));
       assertTrue(isTextPresent("Privacy Policy"));
       assertTrue(isElementPresent(By.xpath("//p[@class='licenseText']/a")));
     } catch(AssertionError e) {
@@ -116,6 +121,10 @@ public class LicenseTests extends BaseTest {
       assertTrue(isTextPresent("Inffeldgasse 16B/II"));
       assertTrue(isTextPresent("8010 Graz"));
       assertTrue(isTextPresent("Austria"));
+      
+      assertTrue(isElementPresent(By.xpath("//a[@class='downloadLink']")));
+      assertTrue(driver().findElement(By.xpath("//a[@class='downloadLink']")).
+          getAttribute("href").contains("mailto:webmaster@catroid.org"));
 
       clickAndWaitForPopUp(By.xpath("//p[@class='licenseText']/a"));
       assertRegExp(".*IST web - Index.*", driver().getTitle());

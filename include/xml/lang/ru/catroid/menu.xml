@@ -18,12 +18,11 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="login">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
   <string name="title">&#x41C;&#x435;&#x43D;&#x44E;</string>
   <string name="profile">&#x41F;&#x440;&#x43E;&#x444;&#x438;&#x43B;&#x44C;</string>
   <string name="forum">&#x424;&#x43E;&#x440;&#x443;&#x43C;</string>
+  <string name="login">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
   <string name="sign_up">&#x417;&#x430;&#x440;&#x435;&#x433;&#x435;&#x441;&#x442;&#x440;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C;&#x441;&#x44F;</string>
-  <string name="registration">&#x417;&#x430;&#x440;&#x435;&#x433;&#x435;&#x441;&#x442;&#x440;&#x438;&#x440;&#x43E;&#x432;&#x430;&#x442;&#x44C;&#x441;&#x44F;</string>
   <string name="wiki">&#x41F;&#x43E;&#x43C;&#x43E;&#x449;&#x44C;</string>
   <string name="wall">&#x421;&#x442;&#x435;&#x43D;&#x430;</string>
   <string name="settings">&#x41D;&#x430;&#x441;&#x442;&#x440;&#x43E;&#x439;&#x43A;&#x438;</string>

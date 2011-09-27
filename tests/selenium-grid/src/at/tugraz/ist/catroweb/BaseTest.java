@@ -33,11 +33,13 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebDriverException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.android.AndroidDriver;
 import org.openqa.selenium.firefox.FirefoxProfile;
@@ -202,13 +204,22 @@ public class BaseTest {
   }
 
   public void assertRegExp(String pattern, String string) {
-    assertTrue(string.matches(pattern));
+    boolean match = string.matches(pattern); 
+    if(!match) {
+      log("assertRegExp: was [" + string + "] expected [" + pattern + "]");
+    }
+    assertTrue(match);
   }
-
+  
   public boolean isTextPresent(String text) {
+    return containsElementText(By.tagName("body"), text);
+  }
+  
+  public boolean containsElementText(By selector, String text) {
     // https://code.google.com/p/selenium/issues/detail?id=1438
+    waitForElementPresent(selector);
     driver().switchTo().defaultContent(); // TODO workaround
-    return (driver().findElement(By.tagName("body"))).getText().contains(text);
+    return (driver().findElement(selector)).getText().contains(text);
   }
 
   public boolean isElementPresent(By selector) {
@@ -238,9 +249,9 @@ public class BaseTest {
 
   protected void openLocation(String location, Boolean forceDefaultLanguage) {
     if(forceDefaultLanguage == true) {
-      driver().get(this.webSite + Config.TESTS_BASE_PATH + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
     } else {
-      driver().get(this.webSite + Config.TESTS_BASE_PATH + location);
+      driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location);
     }
   }
 
@@ -264,6 +275,7 @@ public class BaseTest {
     }
 
     driver().switchTo().window(popUpWindow);
+    waitForElementPresent(By.tagName("body"));
   }
 
   protected void closePopUp() {
@@ -281,7 +293,18 @@ public class BaseTest {
 
   protected void assertProjectPresent(String project) {
     openLocation();
-    driver().findElement(By.id("headerSearchButton")).click();
+    ajaxWait();
+    try {
+      driver().findElement(By.id("headerSearchButton")).click();
+      ajaxWait();
+    } catch(ElementNotVisibleException ignore) {
+    }
+    assertTrue(isVisible(By.id("searchQuery")));
+    driver().findElement(By.id("searchQuery")).clear();
+    driver().findElement(By.id("searchQuery")).sendKeys("clear-cache");
+    driver().findElement(By.id("webHeadSearchSubmit")).click();
+    ajaxWait();
+    driver().findElement(By.id("searchQuery")).clear();
     driver().findElement(By.id("searchQuery")).sendKeys(project);
     driver().findElement(By.id("webHeadSearchSubmit")).click();
     ajaxWait();
@@ -290,7 +313,18 @@ public class BaseTest {
 
   protected void assertProjectNotPresent(String project) {
     openLocation();
-    driver().findElement(By.id("headerSearchButton")).click();
+    ajaxWait();
+    try {
+      driver().findElement(By.id("headerSearchButton")).click();
+      ajaxWait();
+    } catch(ElementNotVisibleException ignore) {
+    }
+    assertTrue(isVisible(By.id("searchQuery")));
+    driver().findElement(By.id("searchQuery")).clear();
+    driver().findElement(By.id("searchQuery")).sendKeys("clear-cache");
+    driver().findElement(By.id("webHeadSearchSubmit")).click();
+    ajaxWait();
+    driver().findElement(By.id("searchQuery")).clear();
     driver().findElement(By.id("searchQuery")).sendKeys(project);
     driver().findElement(By.id("webHeadSearchSubmit")).click();
     ajaxWait();
@@ -298,8 +332,11 @@ public class BaseTest {
   }
 
   public void waitForElementPresent(By selector) {
-    Wait<WebDriver> wait = new WebDriverWait(driver(), Config.TIMEOUT_WAIT);
-    wait.until(elementPresent(selector));
+    try {
+      Wait<WebDriver> wait = new WebDriverWait(driver(), Config.TIMEOUT_WAIT);
+      wait.until(elementPresent(selector));
+    } catch(WebDriverException ignore) {
+    }
   }
 
   public void clickLastVisibleProject() {
@@ -309,7 +346,7 @@ public class BaseTest {
         ajaxWait();
       }
     } catch(NoSuchElementException ignore) {
-    }      
+    }
 
     WebElement lastLink = null;
     List<WebElement> allLinks = driver().findElements(By.tagName("a"));

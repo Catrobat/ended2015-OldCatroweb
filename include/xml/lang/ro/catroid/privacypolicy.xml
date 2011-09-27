@@ -19,12 +19,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="title">Politica de confiden&#x21B;ialitate</string>
-  <string name="privacy_policy_contact_link">Contaca&#x21B;i-ne</string>
   <string name="privacy_policy_using_software_head">Folosind software-ul Catroid</string>
   <string name="privacy_policy_using_website_head">Folosind website-ul Catroid</string>
   <string name="privacy_policy_contact_head">Contaca&#x21B;i-ne</string>
   <string name="privacy_policy_intro">Confiden&#x21B;ialitatea &#x219;i securitatea online a dvs. sunt foarte importante pentru noi. Pentru a p&#x103;stra confiden&#x21B;ialitatea dvs. noi limit&#x103;m aceea ce public&#x103;m pe website.</string>
-  <string name="privacy_policy_using_software">Dumneavoastr&#x103; nu trebuie s&#x103; ne spune&#x21B;i nimic despre sine pentru a desc&#x103;rca software-ul Catroid. C&#xEE;nd desc&#x103;rca&#x21B;i software-ul Catroid sau c&#xEE;nd v&#x103; loga&#x21B;i &#xEE;n website, noi v&#x103; d&#x103;m op&#x21B;iunea de a spune c&#xEE;teva lucruri despre Dumneavoastr&#x103;, dar nu sunte&#x21B;i obliga&#x21B;i s&#x103; completa&#x21B;i aceast&#x103; informa&#x21B;ie dac&#x103; nu o dori&#x21B;i.</string>
   <string name="privacy_policy_using_website">Pute&#x21B;i s&#x103; &#xEE;ncerca&#x21B;i proiectele de pe website-ul Catroid f&#x103;r&#x103; registrare sau f&#x103;r&#x103; a da oriceinforma&#x21B;ie. La folosirea website-ului, noi colect&#x103;m unele date despre locurile pe care le ap&#x103;sa&#x21B;i &#x219;i p&#x103;r&#x21B;ile a website-ului pe care le vizita&#x21B;i. Aceste date ne ajut&#x103; s&#x103; afl&#x103;m metodele de a &#xEE;mbun&#x103;t&#x103;&#x21B;i website-ul. Noi nu vindem sau rent&#x103;m informa&#x21B;ia dvs.</string>
-  <string name="privacy_policy_contact">Dac&#x103; ave&#x21B;i &#xEE;ntreb&#x103;ri despre politica de confiden&#x21B;ialitate pute&#x219;i folosi forma {*contactLink*}.</string>
 </strings>

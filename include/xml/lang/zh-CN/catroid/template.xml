@@ -19,14 +19,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="template_header_or">&#x6216;</string>
-  <string name="template_header_login">&#x767B;&#x5F55;</string>
-  <string name="template_footer_contact_link">&#x8054;&#x7EDC;</string>
   <string name="template_header_menu">&#x5355;</string>
   <string name="template_header_profile">&#x4E2A;&#x4EBA;&#x6863;&#x6848;</string>
-  <string name="template_header_cancel">&#x53D6;&#x6D88;</string>
+  <string name="template_header_login">&#x767B;&#x5F55;</string>
   <string name="template_header_loading">&#x52A0;&#x8F7D;&#x4E2D;&#x3002;&#x3002;&#x3002;</string>
-  <string name="template_footer_terms_of_use_link">&#x4F7F;&#x7528;&#x6761;&#x6B3E;</string>
+  <string name="template_header_cancel">&#x53D6;&#x6D88;</string>
   <string name="template_footer_imprint_link">&#x7248;&#x672C;&#x8BF4;&#x660E;</string>
+  <string name="template_footer_contact_link">&#x8054;&#x7EDC;</string>
+  <string name="template_footer_terms_of_use_link">&#x4F7F;&#x7528;&#x6761;&#x6B3E;</string>
   <string name="template_header_password">&#x5BC6;&#x7801;:</string>
   <string name="template_common_one_minute_ago">&#x4E00;&#x5206;&#x949F;&#x524D;</string>
   <string name="template_common_less_than_a_minute_ago">&#x5C11;&#x8FC7;&#x4E00;&#x5206;&#x949F;&#x524D;</string>
