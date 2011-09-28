@@ -211,3 +211,110 @@ a.license:active {
   color: #3333AA;
   text-decoration: underline;
 }
+
+/* catroid form styles */
+*.catroid:focus{
+  outline:none; /* Prevents blue border in Webkit */
+}
+
+form.catroid {
+  width:500px;
+  margin: auto;
+}
+
+input.catroid, select.catroid {
+  background-color:#fff;
+  border:1px solid #ccc;
+  font-size:0.7em;
+  width:500px;
+  min-height:30px;
+  display:block;
+  margin-bottom:16px;
+  margin-top:8px;
+
+  -webkit-border-radius:5px;
+  -moz-border-radius:5px;
+  border-radius:5px;
+}
+
+input.catroidTwoColumn, select.catroidTwoColumn {
+  width:245px;
+  display:inline;
+}
+
+input.catroidLeftColumn, select.catroidLeftColumn {
+  float:left;
+}
+
+input.catroidRightColumn, select.catroidRightColumn {
+  float:right;
+}
+
+input.catroid:focus, select.catroid:focus {
+  -webkit-box-shadow:0 0 25px #ccc;
+  -moz-box-shadow:0 0 25px #ccc;
+  box-shadow:0 0 25px #ccc;
+}
+    
+input.catroid:not(:focus), select.catroid:not(:focus) {
+  opacity:0.5;
+}
+    
+input.catroid:required {
+  background:url("../../images/symbols/form_asterisk_orange.png") no-repeat 480px 7px;            
+}
+
+input.catroid:valid {
+  background:url("../../images/symbols/form_tick.png") no-repeat 480px 7px;     
+}   
+
+input.catroid:focus:invalid {
+  background:url("../../images/symbols/form_cancel.png") no-repeat 480px 7px;           
+}
+
+div.catroidFormInfoBox {
+  font-size:0.6em;
+  color:#8c8c8c;
+  margin-top:-6px;
+  margin-bottom:16px;
+}
+
+input.catroidSubmit {
+  padding:10px;
+  font-size:0.7em;
+  width:500px;
+  min-height:30px;
+  margin-bottom:16px;
+  margin-top:8px;
+}
+
+/* portrait styles here */
+@media only screen and (orientation:portrait) {
+  form.catroid {
+    width:300px;
+  }
+
+  input.catroid, select.catroid {
+    width:300px;
+  }
+
+  select.catroidTwoColumn {
+    width:145px;
+  }
+
+  input.catroidSubmit {
+    width:300px;
+  }
+
+  input.catroid:required {
+    background:url("../../images/symbols/form_asterisk_orange.png") no-repeat 280px 7px;            
+  }
+
+  input.catroid:valid {
+    background:url("../../images/symbols/form_tick.png") no-repeat 280px 7px;     
+  }   
+
+  input.catroid:focus:invalid {
+    background:url("../../images/symbols/form_cancel.png") no-repeat 280px 7px;           
+  }
+}

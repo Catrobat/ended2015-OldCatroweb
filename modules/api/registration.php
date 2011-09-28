@@ -17,6 +17,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 class registration extends CoreAuthenticationNone {
+  protected $registrationErrors;
 
   public function __construct() {
     parent::__construct();
@@ -25,154 +26,77 @@ class registration extends CoreAuthenticationNone {
 
   public function __default() {
   }
-
  
   public function registrationRequest() {
     if($_POST) {
-      if($this->doRegistration($_POST, $_SERVER)) {
-        $this->statusCode = 200;       
-        return true;
-      } else {
-        $this->statusCode = 500;
-        return false;
-      }
+      return $this->doRegistration($_POST, $_SERVER);
     }
+    return false;
   }
 
   public function doRegistration($postData, $serverData) {
     $answer = '';
-    $statusCode = 500;
-    $registrationDataValid = true;
-    $catroidRegistrationSuccess = false;
-    $boardRegistrationSuccess = false;
-    $wikiRegistrationSuccess = false;
-    $sendRegistrationMailSuccess = false;
+    $catroidUserId = 0;
+    $boardUserId = 0;
+    $wikiUserId = 0;
+    $this->registrationErrors = array();
+    $registrationSuccessful = false;
 
-    try {
-      $this->checkUsername($postData['registrationUsername']);
-    } catch(Exception $e) {
-      $registrationDataValid = false;
-      $answer .= $e->getMessage();
-    }
-    try {
-      $this->passOk = $this->checkPassword($postData['registrationUsername'], $postData['registrationPassword']);
-    } catch(Exception $e) {
-      $registrationDataValid = false;
-      $answer .= $e->getMessage();
-    }
-    try {
-      $this->checkEmail($postData['registrationEmail']);
-    } catch(Exception $e) {
-      $registrationDataValid = false;
-      $answer .= $e->getMessage();
-    }
-    try {
-      $this->checkCountry($postData['registrationCountry']);
-    } catch(Exception $e) {
-      $registrationDataValid = false;
-      $answer .= $e->getMessage();
-    }
-     
-    if($registrationDataValid) {
-      try {
-        $catroidUserId = $this->doCatroidRegistration($postData, $serverData);
-        $catroidRegistrationSuccess = true;
-        $answer .= $this->languageHandler->getString('catroid_success');
-      } catch(Exception $e) {
-        $registrationDataValid = false;
-        $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
-      }
-      if($catroidRegistrationSuccess) {
-        try {
-          $boardUserId = $this->doBoardRegistration($postData);
-          $boardRegistrationSuccess = true;
-          $answer .= $this->languageHandler->getString('board_success');
-        } catch(Exception $e) {
-          $registrationDataValid = false;
-          $answer = $this->errorHandler->getError('registration', 'board_registration_failed', $e->getMessage());
-        }
-        if($boardRegistrationSuccess) {
-          try {
-            $wikiUserId = $this->doWikiRegistration($postData);
-            $wikiRegistrationSuccess = true;
-            $answer .= $this->languageHandler->getString('wiki_success');
-          } catch(Exception $e) {
-            $registrationDataValid = false;
-            $answer = $this->errorHandler->getError('registration', 'wiki_registration_failed', $e->getMessage());
-          }
-          if($wikiRegistrationSuccess) {
-            try {
-              $this->sendRegistrationEmail($_POST['registrationPassword'], SEND_NOTIFICATION_USER_EMAIL);
-              $sendRegistrationMailSuccess = true;
-            }
-            catch (Exception $e) {
-              $registrationDataValid = false;
-              $answer = $this->errorHandler->getError('registration', 'send_registration_email_failed', $e->getMessage());
-            }
-            if(!$sendRegistrationMailSuccess) {
-              //undo catroid & board reg
-              try {
-                $this->undoCatroidRegistration($catroidUserId);
-              } catch(Exception $e) {
-                $registrationDataValid = false;
-                $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
-              }
-              try {
-                $this->undoBoardRegistration($boardUserId);
-              } catch(Exception $e) {
-                $registrationDataValid = false;
-                $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
-              }
-              try {
-                $this->undoWikiRegistration($catroidUserId);
-              } catch(Exception $e) {
-                $registrationDataValid = false;
-                $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
-              }
-            }
-          } else {
-            //undo catroid & board reg
-            try {
-              $this->undoCatroidRegistration($catroidUserId);
-            } catch(Exception $e) {
-              $registrationDataValid = false;
-              $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
-            }
-            try {
-              $this->undoBoardRegistration($boardUserId);
-            } catch(Exception $e) {
-              $registrationDataValid = false;
-              $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
-            }
-          }
-        } else {
-          //undo catroid reg
-          try {
-            $this->undoCatroidRegistration($catroidUserId);
-          } catch(Exception $e) {
-            $registrationDataValid = false;
-            $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
-          }
-        }
-      }
-    }
-
-    $this->answer .= $answer;
-    $this->statusCode = $statusCode;
-
-    if($boardRegistrationSuccess && $wikiRegistrationSuccess && $catroidRegistrationSuccess && $sendRegistrationMailSuccess) {
-      require_once 'modules/api/login.php';
-      $login = new login();
-      $login->doLogin(array('loginUsername'=>$postData['registrationUsername'], 'loginPassword'=>$postData['registrationPassword']));
-      $this->statusCode = 200;
-      return array("catroidUserId"=>$catroidUserId, "boardUserId"=>$boardUserId, "wikiUserId"=>$wikiUserId);
-    } else {
-      $this->postData = $postData;
+    if(!$this->isFormDataValid($postData)) {
+      $this->errors = $this->registrationErrors;
+      $this->answer = implode(" ", $this->registrationErrors);
+      $this->statusCode = 500;
       return false;
     }
-    return $registrationDataValid;
-  }
+    
+    try {
+      $catroidUserId = $this->doCatroidRegistration($postData, $serverData);
+      try {
+        $boardUserId = $this->doBoardRegistration($postData);
+        try {
+          $wikiUserId = $this->doWikiRegistration($postData);
+          try {
+            $this->sendRegistrationEmail($_POST['registrationPassword'], SEND_NOTIFICATION_USER_EMAIL);
+            $registrationSuccessful = true;
+          }
+          catch(Exception $e) {
+            array_push($this->registrationErrors, $this->errorHandler->getError('registration', 'send_registration_email_failed', $e->getMessage()));
+          }
+        } catch(Exception $e) {
+          array_push($this->registrationErrors,
+            $this->errorHandler->getError('registration', 'wiki_registration_failed', $e->getMessage()));
+        }
+      } catch(Exception $e) {
+        array_push($this->registrationErrors,
+          $this->errorHandler->getError('registration', 'board_registration_failed', $e->getMessage()));
+      }
+    } catch(Exception $e) {
+      array_push($this->registrationErrors,
+        $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage()));
+    }
 
+    if(!$registrationSuccessful) {
+      try {
+        $this->undoRegistration($catroidUserId, $boardUserId, $wikiUserId);
+      } catch(Exception $e) {
+        array_push($this->registrationErrors, $e->getMessage());
+      }
+      
+      $this->errors = $this->registrationErrors;
+      $this->answer = implode(" ", $this->registrationErrors);
+      $this->statusCode = 500;
+      return false;
+    }
+
+    require_once('modules/api/login.php');
+    $login = new login();
+    $login->doLogin(array('loginUsername'=>$postData['registrationUsername'], 'loginPassword'=>$postData['registrationPassword']));
+
+    $this->answer = $this->languageHandler->getString('registration_success');
+    $this->statusCode = 200;
+    return true;
+  }
+  
   public function doCatroidRegistration($postData, $serverData) {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
@@ -182,7 +106,6 @@ class registration extends CoreAuthenticationNone {
     $usernameClean = utf8_clean_string($username);
     $md5password = md5($postData['registrationPassword']);
     $authToken = md5($md5user.":".$md5password);
-    //$this->password = $authToken;
 
     $email = $postData['registrationEmail'];
     $ip_registered = $serverData['REMOTE_ADDR'];
@@ -207,9 +130,11 @@ class registration extends CoreAuthenticationNone {
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
+
     $row = pg_fetch_assoc($result);
-    $userId = $row['id'];
-    return $userId;
+    pg_free_result($result);
+    
+    return $row['id'];
   }
 
   public function doBoardRegistration($postData) {
@@ -238,12 +163,12 @@ class registration extends CoreAuthenticationNone {
       'user_style' => '1',
       'user_regdate' => time()
     );
+
     if($phpbb_user_id = user_add($user_row)) {
       return $phpbb_user_id;
     } else {
       throw new Exception($this->errorHandler->getError('registration', 'board_registration_failed'));
     }
-    return false;
   }
 
   public function doWikiRegistration($postData) {
@@ -251,15 +176,16 @@ class registration extends CoreAuthenticationNone {
     if(!$wikiDbConnection) {
       throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)));
     }
+
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
+
     $username = $postData['registrationUsername'];
     $username = utf8_clean_string($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $userToken = md5($username);
     $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
     $hash = md5($hexSalt.'-'.md5($postData['registrationPassword']));
-    //$hash = md5($hexSalt.'-'.$this->password);
     $password = ":B:$hexSalt:$hash";
 
     $query = "INSERT INTO mwuser (user_name, user_token, user_password, user_registration) VALUES ('$username', '$userToken', '$password', now()) RETURNING user_id";
@@ -267,49 +193,62 @@ class registration extends CoreAuthenticationNone {
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
+
     $row = pg_fetch_assoc($result);
-    $userId = $row['user_id'];
     pg_free_result($result);
     pg_close($wikiDbConnection);
-    return $userId;
+
+    return $row['user_id'];
   }
 
-  public function undoWikiRegistration($userId) {
-    $wikiDbConnection = pg_connect("host=".DB_HOST_WIKI." dbname=".DB_NAME_WIKI." user=".DB_USER_WIKI." password=".DB_PASS_WIKI);
-    if(!$wikiDbConnection) {
-      throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)));
+  public function isFormDataValid($postData) {
+    $formDataValid = true;
+
+    try {
+      $this->checkUsername($postData['registrationUsername']);
+    } catch(Exception $e) {
+      $formDataValid = false;
+      array_push($this->registrationErrors, $e->getMessage());
     }
-    $query = "DELETE FROM mwuser WHERE user_id='$userId'";
-    $result = @pg_query($wikiDbConnection, $query);
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($wikiDbConnection)));
+    try {
+      $this->checkPassword($postData['registrationUsername'], $postData['registrationPassword']);
+    } catch(Exception $e) {
+      $formDataValid = false;
+      array_push($this->registrationErrors, $e->getMessage());
     }
-    pg_close($wikiDbConnection);
-    return true;
-  }
-
-  public function undoBoardRegistration($userId) {
-    global $user, $auth, $phpbb_root_path;
-    $user->session_begin();
-    $auth->acl($user->data);
-    $user->setup();
-
-    require_once($phpbb_root_path .'includes/functions_user.php');
-    user_delete('remove', $userId);
-    return true;
-  }
-
-  public function undoCatroidRegistration($userId) {
-    $query = "EXECUTE delete_user_by_id ('$userId')";
-    $result = @pg_query($this->dbConnection, $query);
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+    try {
+      $this->checkEmail($postData['registrationEmail']);
+    } catch(Exception $e) {
+      $formDataValid = false;
+      array_push($this->registrationErrors, $e->getMessage());
     }
-    return true;
+    try {
+      $this->checkCountry($postData['registrationCountry']);
+    } catch(Exception $e) {
+      $formDataValid = false;
+      array_push($this->registrationErrors, $e->getMessage());
+    }
+    try {
+      $this->checkBirthday($postData['registrationMonth'], $postData['registrationYear']);
+    } catch(Exception $e) {
+      $formDataValid = false;
+      array_push($this->registrationErrors, $e->getMessage());
+    }
+    try {
+      $this->checkGender($postData['registrationGender']);
+    } catch(Exception $e) {
+      $formDataValid = false;
+      array_push($this->registrationErrors, $e->getMessage());
+    }
+    
+    return $formDataValid;
   }
-
 
   public function checkUsername($username) {
+    if(empty($username) && strcmp('0', $username) != 0) {
+      throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
+    }
+
     // # < > [ ] | { }
     if(preg_match('/_|^_$/', $username)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'));
@@ -333,14 +272,9 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid_spaces'));
     }
     
-    //$username = trim($username);
-    if(empty($username) && strcmp('0', $username) != 0) {
-      throw new Exception($this->errorHandler->getError('registration', 'username_missing'));
-    }
-
     if($this->badWordsFilter->areThereInsultingWords($username)) {
       $statusCode = 506;
-      throw new Exception($this->errorHandler->getError('registration', 'insulting_words_in_username_field'));
+      throw new Exception($this->errorHandler->getError('registration', 'username_invalid_insulting_words'));
     }
 
     //username must not look like an IP-address
@@ -371,7 +305,6 @@ class registration extends CoreAuthenticationNone {
     if(pg_num_rows($result) > 0) {
       throw new Exception($this->errorHandler->getError('registration', 'username_already_exists'));
     }
-    return true;
   }
 
   public function checkPassword($username, $password) {
@@ -386,9 +319,8 @@ class registration extends CoreAuthenticationNone {
         throw new Exception($this->errorHandler->getError('registration', 'password_length_invalid', '', USER_MIN_PASSWORD_LENGTH, USER_MAX_PASSWORD_LENGTH));
       }
     } else {
-      throw new Exception($this->errorHandler->getError('registration', 'username_password_equal'));
+      throw new Exception($this->errorHandler->getError('registration', 'password_username_equal'));
     }
-    return true;
   }
 
   public function checkEmail($email) {
@@ -412,59 +344,73 @@ class registration extends CoreAuthenticationNone {
     if(pg_num_rows($result) > 0) {
       throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
     }
-    return true;
-  }
-
-  public function checkGender($gender) {
-    if(strcmp ( $gender , 'male' ) == 0 || strcmp ( $gender , 'female' ) == 0) {
-      return true;
-    }
-    else {
-      throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
-    }
-  }
-
-  public function checkBirth($month,$year) {
-    $cyear = strftime("%Y");
-    if (($month >= 1 && $month <= 12) && ($year <= $cyear && $year >= $cyear-100)) {
-      return true;
-    } else {
-      throw new Exception($this->errorHandler->getError('registration', 'birth_missing'));
-    }
   }
 
   public function checkCountry($country) {
     $country = strtoupper($country);
-    if($country == "UNDEF") {
-      return true;
-    } elseif (strlen($country) == 2 && preg_replace("/[A-Z]/", "", $country) == "") {
-      return true;
-    } else {
+    if(!preg_match("/^[A-Z][A-Z]$/i", $country)) {
       throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
     }
   }
 
-  public function deleteRegistration($userId, $boardUserId, $wikiUserId) {
-    try {
-      $this->undoWikiRegistration($userId);
-    } catch(Exception $e) {
-      $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
+  public function checkBirthday($month, $year) {
+    $cyear = strftime("%Y");
+    if(!(($month >= 1 && $month <= 12) && ($year <= $cyear && $year >= $cyear-100))) {
+      throw new Exception($this->errorHandler->getError('registration', 'birthday_missing'));
     }
-    try {
-      $this->undoBoardRegistration($boardUserId);
-    } catch(Exception $e) {
-      $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
-    }
-    try {
-      $this->undoWikiRegistration($wikiUserId);
-    } catch(Exception $e) {
-      $answer = $this->errorHandler->getError('registration', 'catroid_registration_failed', $e->getMessage());
-    }
-    return true;
-
   }
-  
 
+  public function checkGender($gender) {
+    if(!preg_match("/^female$/i", $gender) && !preg_match("/^male$/i", $gender)) {
+      throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
+    }
+  }
+
+  public function undoRegistration($userId, $boardUserId, $wikiUserId) {
+    if($userId != 0) {
+      $this->undoCatroidRegistration($userId);
+    }
+    if($boardUserId != 0) {
+      $this->undoBoardRegistration($boardUserId);
+    }
+    if($wikiUserId != 0) {
+      $this->undoWikiRegistration($wikiUserId);
+    }
+  }
+
+  private function undoCatroidRegistration($userId) {
+    $query = "EXECUTE delete_user_by_id ('$userId')";
+    $result = @pg_query($this->dbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+    }
+    pg_free_result($result);
+  }
+
+  private function undoBoardRegistration($userId) {
+    global $user, $auth, $phpbb_root_path;
+    $user->session_begin();
+    $auth->acl($user->data);
+    $user->setup();
+
+    require_once($phpbb_root_path .'includes/functions_user.php');
+    user_delete('remove', $userId);
+  }
+
+  private function undoWikiRegistration($userId) {
+    $wikiDbConnection = pg_connect("host=".DB_HOST_WIKI." dbname=".DB_NAME_WIKI." user=".DB_USER_WIKI." password=".DB_PASS_WIKI);
+    if(!$wikiDbConnection) {
+      throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)));
+    }
+
+    $query = "DELETE FROM mwuser WHERE user_id='$userId'";
+    $result = @pg_query($wikiDbConnection, $query);
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($wikiDbConnection)));
+    }
+    pg_free_result($result);
+    pg_close($wikiDbConnection);
+  }
   
   public function sendRegistrationEmail($password, $sendPasswordRecoveryEmail) {
     $catroidProfileUrl = BASE_PATH.'catroid/profile';
@@ -490,11 +436,6 @@ class registration extends CoreAuthenticationNone {
         throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL));
       }
     }
-    return true;
-  }
-  
-  public function getErrorMessage() {
-    return "hi '".$this->answer."'";
   }
     
   public function __destruct() {

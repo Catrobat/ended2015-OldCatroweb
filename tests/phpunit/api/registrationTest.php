@@ -34,7 +34,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
    */
   public function testCheckUsername($user) {
     try {
-      $this->assertTrue($this->obj->checkUsername($user));
+      $this->obj->checkUsername($user);
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -57,7 +57,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
    */
   public function testCheckEmail($email) {
     try {
-      $this->assertTrue($this->obj->checkEmail($email));
+      $this->obj->checkEmail($email);
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -80,7 +80,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
    */
   public function testCheckPassword($user, $pass) {
     try {
-      $this->assertTrue($this->obj->checkPassword($user, $pass));
+      $this->obj->checkPassword($user, $pass);
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -103,7 +103,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
    */
   public function testCheckGender($gender) {
     try {
-      $this->assertTrue($this->obj->checkGender($gender));
+      $this->obj->checkGender($gender);
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -122,22 +122,22 @@ class registrationTest extends PHPUnit_Framework_TestCase
   }
 
     /**
-   * @dataProvider validBirth
+   * @dataProvider validBirthday
    */
-  public function testCheckBirth($month, $year) {
+  public function testCheckBirthday($month, $year) {
     try {
-      $this->assertTrue($this->obj->checkBirth($month, $year));
+      $this->obj->checkBirthday($month, $year);
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
   }
   
   /**
-   * @dataProvider invalidBirth
+   * @dataProvider invalidBirthday
    */
-  public function testCheckInvalidBirth($month, $year) {
+  public function testCheckInvalidBirthday($month, $year) {
     try {
-      $this->obj->checkBirth($month, $year);
+      $this->obj->checkBirthday($month, $year);
     } catch(Exception $e) {
       return; 
     }
@@ -149,7 +149,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
    */
   public function testCheckCountry($country) {
     try {
-      $this->assertTrue($this->obj->checkCountry($country));
+      $this->obj->checkCountry($country);
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -171,28 +171,25 @@ class registrationTest extends PHPUnit_Framework_TestCase
    * @dataProvider validRegistrationData
    */
   public function testDoRegistration($postData, $serverData) {
+    $catroidUserId = 0;
+    $wikiUserId = 0;
+
     try {
       $catroidUserId = $this->obj->doCatroidRegistration($postData, $serverData);
       $this->assertGreaterThan(0, intval($catroidUserId));
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
-    //undo catroid registration
-    try {
-      $this->assertTrue($this->obj->undoCatroidRegistration($catroidUserId));
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-    }
-    
     try {
       $wikiUserId = $this->obj->doWikiRegistration($postData);
       $this->assertGreaterThan(0, intval($wikiUserId));
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
-    //undo wiki registration
+    
+    //undo registration
     try {
-      $this->assertTrue($this->obj->undoWikiRegistration($wikiUserId));
+      $this->obj->undoRegistration($catroidUserId, 0, $wikiUserId);
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -327,41 +324,41 @@ class registrationTest extends PHPUnit_Framework_TestCase
     return $dataArray;
   }
   
-  public function validBirth() {
+  public function validBirthday() {
     $currentYear = strftime("%Y");
     $dataArray = array(
-    array('1', $currentYear),
-    array('2', '1920'),
-    array('3', '1980'),
-    array('4', '1998'),
-    array('5', '2001'),
-    array('6', '2002'),
-    array('7', '2003'),
-    array('8', '2004'),
-    array('9', '2005'),
-    array('10', '2006'),
-    array('11', '2007'),
-    array('12', '1950'),
+      array('1', $currentYear),
+      array('2', '1920'),
+      array('3', '1980'),
+      array('4', '1998'),
+      array('5', '2001'),
+      array('6', '2002'),
+      array('7', '2003'),
+      array('8', '2004'),
+      array('9', '2005'),
+      array('10', '2006'),
+      array('11', '2007'),
+      array('12', '1950'),
     );
     return $dataArray;
   }
 
-  public function invalidBirth() {
+  public function invalidBirthday() {
     $dataArray = array(
-    array('01', '2020'),
-    array('02', '2920'),
-    array('03', '1900'),
-    array('04', '199'),
-    array('16', '2002'),
-    array('-2', '2003'),
-    array('13', '2004'),
-    array('AA', '2005'),
-    array('00', 'A002'),
-    array('00', '0000'),
-    array(' ', '    '),
-    array('', ',,,,'),
-    array('', ''),
-    array('0', '0'),
+      array('01', '2020'),
+      array('02', '2920'),
+      array('03', '1900'),
+      array('04', '199'),
+      array('16', '2002'),
+      array('-2', '2003'),
+      array('13', '2004'),
+      array('AA', '2005'),
+      array('00', 'A002'),
+      array('00', '0000'),
+      array(' ', '    '),
+      array('', ',,,,'),
+      array('', ''),
+      array('0', '0'),
     );
     return $dataArray;
   }
@@ -372,7 +369,7 @@ class registrationTest extends PHPUnit_Framework_TestCase
       array('DE'),
       array('US'),
       array('GB'),
-      array('undef')
+      array('EM') //stands for empty
     );
     return $dataArray;
   }
@@ -384,13 +381,11 @@ class registrationTest extends PHPUnit_Framework_TestCase
       array('U'),
       array('A0'),
       array('AA '),
-      array('undefined'),
       array('  '),
       array('0A'),
       array(''),
       array('0'),
       array('-'),
-      array('undefined')
     );
     return $dataArray;
   }

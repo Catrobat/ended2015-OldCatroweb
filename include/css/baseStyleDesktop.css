@@ -19,3 +19,39 @@
 body {
 	font-size: 1.0em;
 }
+
+/* catroid form styles */
+form.catroid {
+  width:650px;
+  margin: auto;
+}
+
+input.catroid, select.catroid {
+  font-size:0.95em;
+  width:650px;
+}
+
+input.catroidTwoColumn, select.catroidTwoColumn {
+  width:320px;
+}
+
+input.catroid:required {
+  background:url("../../images/symbols/form_asterisk_orange.png") no-repeat 630px 7px;            
+}
+
+input.catroid:valid {
+  background:url("../../images/symbols/form_tick.png") no-repeat 630px 7px;     
+}   
+
+input.catroid:focus:invalid {
+  background:url("../../images/symbols/form_cancel.png") no-repeat 630px 7px;           
+}
+
+div.catroidFormInfoBox {
+  font-size:0.8em;
+}
+
+input.catroidSubmit {
+  font-size:0.95em;
+  width:650px;
+}

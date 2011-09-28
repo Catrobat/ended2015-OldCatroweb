@@ -20,7 +20,8 @@ class registration extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    if ($this->checkLogin()) {
+
+    if($this->checkLogin()) {
       // if logged in -> redirect to profile page
       header("location: ".BASE_PATH."catroid/profile/");
       ob_end_flush();
@@ -35,83 +36,46 @@ class registration extends CoreAuthenticationNone {
   public function __default() {
   }
 
-  public function checkLogin() {
-    if (($this->session->userLogin_userNickname != "")) {
+  private function checkLogin() {
+    if(($this->session->userLogin_userNickname != "")) {
       return true;
     }
     return false;
   }
 
   public function initRegistration() {
-    $answer = '';
-    try {
-      $this->months = getMonthsArray($this->languageHandler);
-    } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
-    }
-    try {
-      $this->initCountryCodes();
-    } catch(Exception $e) {
-      $answer .= $e->getMessage().'<br>';
-    }
-    $this->answer .= $answer;
-  }
-
-  private function initCountryCodes() {
-    $query = "EXECUTE get_country_from_countries";
-    $result = @pg_query($this->dbConnection, $query);
-
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-    }
-
-    if(pg_num_rows($result) > 0) {
-      $countryCodeList = array();
-      $countryNameList = array();
-
-      $x = 1;
-      while($country = pg_fetch_assoc($result)) {
-        $countryCodeList[$x] = $country['code'];
-        $countryNameList[$x] = $country['name'];
-        $x++;
-      }
-      // if user country is not in list
-      $countryCodeList[$x] = "undef";
-      $countryNameList[$x] = "undefined";
-      pg_free_result($result);
-    } else {
-      throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
-    }
-    $this->countryCodeList = $countryCodeList;
-    $this->countryNameList = $countryNameList;
     $this->countryCodeListHTML = $this->generateCountryCodeList();
     $this->monthListHTML = $this->generateMonthList();
     $this->yearListHTML = $this->generateYearList();
   }
 
   private function generateCountryCodeList() {
-    $whiteSpace="                        ";
+    $countryCodeList = getCountryArray($this->languageHandler);
+    asort($countryCodeList);
+    $whiteSpace="                  ";
     $optionList = $whiteSpace . "<option value=\"\" selected=\"selected\">" . $this->languageHandler->getString('select_country') . "</option>\r\n";
-    $numOfCountries = count($this->countryCodeList)+1;
 
-    for($i=1; $i<$numOfCountries; $i++) {
-      $optionList .= $whiteSpace . "<option value=\"" . $this->countryCodeList[$i] . "\">" . $this->countryNameList[$i] . "</option>\r\n";
+    foreach($countryCodeList as $key => $value) {
+      $optionList .= $whiteSpace . "<option value=\"" . $key . "\">" . $value . "</option>\r\n";
     }
+
+    $optionList .= $whiteSpace . "<option value=\"em\">" . $this->languageHandler->getString('other') . "</option>\r\n";
     return $optionList;
   }
   
   private function generateMonthList() {
-    $whiteSpace="                        ";
+    $months = getMonthsArray($this->languageHandler);
+    $whiteSpace="                    ";
     $optionList = $whiteSpace . "<option value=\"\" selected=\"selected\">" . $this->languageHandler->getString('select_month') . "</option>\r\n";
 
     for($i=1; $i<13; $i++) {
-      $optionList .= $whiteSpace . "<option value=\"" . $i . "\">" . $this->months[$i] . "</option>\r\n";
+      $optionList .= $whiteSpace . "<option value=\"" . $i . "\">" . $months[$i] . "</option>\r\n";
     }
     return $optionList;
   }
 
   private function generateYearList() {
-    $whiteSpace="                        ";
+    $whiteSpace="                    ";
     $optionList = $whiteSpace . "<option value=\"\" selected=\"selected\">" . $this->languageHandler->getString('select_year') . "</option>\r\n";
 
     $year = date('Y') + 1;

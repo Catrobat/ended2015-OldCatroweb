@@ -19,27 +19,19 @@
 var Registration = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function() {
-    $("#registrationFormDialog").toggle(true);
-    $("#registrationFormAnswer").toggle(false);
-    $("#registrationSubmit").click(
-      $.proxy(this.registrationSubmit, this));
-    $("#registrationUsername").keypress(
-      $.proxy(this.registrationCatchKeypress, this));
-    $("#registrationPassword").keypress(
-      $.proxy(this.registrationCatchKeypress, this));
-    $("#registrationEmail").keypress(
-      $.proxy(this.registrationCatchKeypress, this));
-    $("#registrationCountry").keypress(
-      $.proxy(this.registrationCatchKeypress, this));
-    $("#registrationCity").keypress(
-      $.proxy(this.registrationCatchKeypress, this));
-    $("#registrationMonth").keypress(
-      $.proxy(this.registrationCatchKeypress, this));
-    $("#registrationYear").keypress(
-        $.proxy(this.registrationCatchKeypress, this));
-    $("#registrationGender").keypress(
-        $.proxy(this.registrationCatchKeypress, this));   
-    
+	this.scrollMargin = 48;
+	
+	$("#registrationUsername").bind('keydown', { submit: false, prev: null, next: $("#registrationPassword") }, $.proxy(this.keydownHandler, this));
+	$("#registrationPassword").bind('keydown', { submit: false, prev: $("#registrationUsername"), next: $("#registrationEmail") }, $.proxy(this.keydownHandler, this));
+	$("#registrationEmail").bind('keydown', { submit: false, prev: $("#registrationPassword"), next: $("#registrationCountry") }, $.proxy(this.keydownHandler, this));
+	$("#registrationCountry").bind('keydown', { submit: false, prev: $("#registrationEmail"), next: $("#registrationCity") }, $.proxy(this.keydownHandler, this));
+	$("#registrationCity").bind('keydown', { submit: false, prev: $("#registrationCountry"), next: $("#registrationMonth") }, $.proxy(this.keydownHandler, this));
+	$("#registrationMonth").bind('keydown', { submit: false, prev: $("#registrationCity"), next: $("#registrationYear") }, $.proxy(this.keydownHandler, this));
+	$("#registrationYear").bind('keydown', { submit: false, prev: $("#registrationMonth"), next: $("#registrationGender") }, $.proxy(this.keydownHandler, this));
+	$("#registrationGender").bind('keydown', { submit: true, prev: $("#registrationYear"), next: null }, $.proxy(this.keydownHandler, this));
+	$("#registrationSubmit").bind('keydown', { submit: true }, $.proxy(this.keydownHandler, this));
+	$("#registrationSubmit").click($.proxy(this.submitAndScrollUp, this));
+	
     $("#registrationLogin").click($.proxy(this.toggleProfileBox, this));
   },
   
@@ -50,12 +42,11 @@ var Registration = Class.$extend( {
     if($("#headerLoginBox").css("display") == "block") {
       $("#loginUsername").focus();
     }
-    scroll(0,0);
+    $(document).scrollTop(0);
   },
   
   registrationSubmit : function() {
-    $("#registrationInfoText").toggle(false);
-    this.disableForm();
+    $("#registrationErrorMsg").toggle(false);
     var url = this.basePath + 'api/registration/registrationRequest.json';
     $.ajax({
       type : "POST",
@@ -80,45 +71,52 @@ var Registration = Class.$extend( {
     if(response.statusCode == 200) {
       location.href = this.basePath+'catroid/profile';
     } else {
-      $("#registrationInfoText").toggle(true);
-      $("#registrationErrorMsg").html(response.answer);
-      this.enableForm();
+      $("#registrationErrorMsg").empty();
+      for(var key in response.errors) {
+        $("#registrationErrorMsg").append($('<div>').addClass("registrationErrorLine").
+          text(response.errors[key]));
+      }
+      $("#registrationErrorMsg").toggle(true);
     }
   },
   
   registrationError : function(response, errCode) {
-    this.enableForm();
+    //TODO add error handling
   },
-  
-  registrationCatchKeypress : function(event) {
+
+  keydownHandler : function(event) {
+    if(event.which == '9') {
+      if(event.shiftKey && event.data.prev != null) {
+        event.preventDefault();
+        this.focusAndScrollIntoView(event.data.prev);
+      }
+      if(!event.shiftKey && event.data.next != null) {
+        event.preventDefault();
+        this.focusAndScrollIntoView(event.data.next);
+      }
+    }
+    
     if(event.which == '13') {
-      event.preventDefault();
-      this.registrationSubmit();
+      if(!event.data.submit) {
+        if(event.data.next != null) {
+          event.preventDefault();
+          this.focusAndScrollIntoView(event.data.next);
+        }
+      } else {
+        event.preventDefault();
+        this.submitAndScrollUp();
+      }
     }
   },
   
-  disableForm : function() {
-    $("#registrationUsername").attr("disabled", "disabled");
-    $("#registrationPassword").attr("disabled", "disabled");
-    $("#registrationEmail").attr("disabled", "disabled");
-    $("#registrationCountry").attr("disabled", "disabled");
-    $("#registrationCity").attr("disabled", "disabled");
-    $("#registrationMonth").attr("disabled", "disabled");
-    $("#registrationYear").attr("disabled", "disabled");
-    $("#registrationGender").attr("disabled", "disabled");
-    $("#registrationSubmit").attr("disabled", "disabled");
+  focusAndScrollIntoView : function(element) {
+    element.focus();
+    $(document).scrollTop(element.offset().top - this.scrollMargin);
   },
   
-  enableForm : function() {
-    $("#registrationUsername").removeAttr("disabled");
-    $("#registrationPassword").removeAttr("disabled");
-    $("#registrationEmail").removeAttr("disabled");
-    $("#registrationCountry").removeAttr("disabled");
-    $("#registrationCity").removeAttr("disabled");
-    $("#registrationMonth").removeAttr("disabled");
-    $("#registrationYear").removeAttr("disabled");
-    $("#registrationGender").removeAttr("disabled");
-    $("#registrationSubmit").removeAttr("disabled");
+  submitAndScrollUp : function() {
+    this.registrationSubmit();
+    document.activeElement.blur();
+    $(document).scrollTop(0);
   }
-
 });

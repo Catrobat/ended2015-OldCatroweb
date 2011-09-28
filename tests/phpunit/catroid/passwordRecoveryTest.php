@@ -22,19 +22,10 @@ require_once('testsBootstrap.php');
 class passwordRecoveryTest extends PHPUnit_Framework_TestCase
 {
   protected $passwordrecoveryObj;
-  protected $registrationObj;
-  protected $random;
-  protected $userHash;
-  protected $catroidUserId;
-  protected $wikiUserId;
-  protected $backupGlobals = FALSE;
 
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/catroid/passwordrecovery.php';
-    require_once CORE_BASE_PATH.'modules/api/registration.php';
     $this->passwordrecoveryObj = new passwordrecovery();
-    $this->registrationObj = new registration();
-    $this->userHash;
   }
   
   /**
@@ -42,26 +33,16 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
    */
   public function testDoRegistration($postData, $serverData) {
     try {
-      $this->catroidUserId = $this->registrationObj->doCatroidRegistration($postData, $serverData);
-      $this->assertGreaterThan(0, intval($this->catroidUserId));
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-    }
-    try {
-      $this->wikiUserId = $this->registrationObj->doWikiRegistration($postData);
-      $this->assertGreaterThan(0, intval($this->wikiUserId));
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-    }
-    
-    try {
-      $this->assertTrue($this->registrationObj->undoCatroidRegistration($this->catroidUserId));
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-    }
-    //undo wiki registration
-    try {
-      $this->assertTrue($this->registrationObj->undoWikiRegistration($this->wikiUserId));
+      require_once CORE_BASE_PATH.'modules/api/registration.php';      
+      $registrationObj = new registration();
+      
+      $catroidUserId = $registrationObj->doCatroidRegistration($postData, $serverData);
+      $this->assertGreaterThan(0, intval($catroidUserId));
+
+      $wikiUserId = $registrationObj->doWikiRegistration($postData);
+      $this->assertGreaterThan(0, intval($wikiUserId));
+
+      $registrationObj->undoRegistration($catroidUserId, 0, $wikiUserId);
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -118,8 +99,8 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
    */
   public function testDoSendPasswordRecoveryMail($userData) {
     try {
-      $this->userHash = $this->passwordrecoveryObj->doSendPasswordRecoveryMail($userData, false); // false to disable sending mail, if mailserver is not available
-      $this->assertNotNull($this->userHash);
+      $userHash = $this->passwordrecoveryObj->doSendPasswordRecoveryMail($userData, false); // false to disable sending mail, if mailserver is not available
+      $this->assertNotNull($userHash);
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED: '.$e->getMessage());
     }
@@ -192,7 +173,6 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
   }
   
   public function validRegistrationData() {
-    $random = $this->random;
     $dataArray = array(
     array(
     array('registrationUsername'=>'myUnitTestUsername', 'registrationPassword'=>'myPassword123',
@@ -204,6 +184,5 @@ class passwordRecoveryTest extends PHPUnit_Framework_TestCase
     );
     return $dataArray;
   }
- 
 }
 ?>

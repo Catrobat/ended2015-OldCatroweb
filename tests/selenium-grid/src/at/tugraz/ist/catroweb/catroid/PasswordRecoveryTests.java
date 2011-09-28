@@ -48,19 +48,6 @@ public class PasswordRecoveryTests extends BaseTest {
       assertFalse(isVisible(By.id("loginUsername")));
       assertFalse(isVisible(By.id("loginPassword")));
       assertFalse(isVisible(By.id("loginSubmitButton")));
-
-      openLocation("catroid/registration");
-
-      assertTrue(isElementPresent(By.name("registrationUsername")));
-      assertTrue(isElementPresent(By.name("registrationPassword")));
-      assertTrue(isElementPresent(By.name("registrationEmail")));
-      assertTrue(isElementPresent(By.name("registrationMonth")));
-      assertTrue(isElementPresent(By.name("registrationYear")));
-      assertTrue(isElementPresent(By.name("registrationGender")));
-      assertTrue(isElementPresent(By.name("registrationCountry")));
-      assertTrue(isElementPresent(By.name("registrationCity")));
-      assertTrue(isElementPresent(By.name("registrationSubmit")));
-
     } catch(AssertionError e) {
       captureScreen("PasswordRecoveryTests.passwordRecoveryIntro");
       throw e;
@@ -76,15 +63,15 @@ public class PasswordRecoveryTests extends BaseTest {
       // do registration process first, to create a new user with known password
       openLocation("catroid/registration");
 
-      driver().findElement(By.name("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
-      driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
-      driver().findElement(By.name("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
-      driver().findElement(By.name("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
-      driver().findElement(By.name("registrationYear")).sendKeys(dataset.get("registrationYear"));
-      driver().findElement(By.name("registrationGender")).sendKeys(dataset.get("registrationGender"));
-      driver().findElement(By.name("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
-      driver().findElement(By.name("registrationCity")).sendKeys(dataset.get("registrationCity"));
-      driver().findElement(By.name("registrationSubmit")).click();
+      driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      driver().findElement(By.id("registrationCity")).sendKeys(dataset.get("registrationCity"));
+      driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
       assertTrue(isTextPresent(dataset.get("registrationUsername")));
 
@@ -112,7 +99,8 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.name("passwordRecoverySendLink")).click();
       ajaxWait();
       assertTrue(isTextPresent(Config.TESTS_BASE_PATH + "catroid/passwordrecovery?c="));
-      assertTrue(isTextPresent("An email was sent to your email address. Please check your inbox."));
+      assertTrue(isTextPresent("An email was sent to your email address."));
+      assertTrue(isTextPresent("Please check your inbox."));
       driver().findElement(By.id("forgotPassword")).click();
 
       // enter 2short password
@@ -227,9 +215,9 @@ public class PasswordRecoveryTests extends BaseTest {
         put("registrationPassword", "just a simple password!");
         put("registrationEmail", "john" + randomString1 + "@catroid.org");
         put("registrationGender", "male");
-        put("registrationMonth", "2");
+        put("registrationMonth", "Ferbruary");
         put("registrationYear", "1980");
-        put("registrationCountry", "IT");
+        put("registrationCountry", "Italy");
         put("registrationCity", "Padua");
       }
     } } };
