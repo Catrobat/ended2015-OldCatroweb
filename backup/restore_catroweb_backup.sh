@@ -3,6 +3,9 @@
 server=unpriv@catroidweb.ist.tugraz.at
 resource_location="/var/www/catroid/resources"
 
+keychain $HOME/.ssh/id_rsa_catroid
+source $HOME/.keychain/$HOSTNAME-sh 
+
 if [ $# -gt 0 ]; then
   backup_file=$1
 
