@@ -228,18 +228,6 @@ class registration extends CoreAuthenticationNone {
       $formDataValid = false;
       array_push($this->registrationErrors, $e->getMessage());
     }
-    try {
-      $this->checkBirthday($postData['registrationMonth'], $postData['registrationYear']);
-    } catch(Exception $e) {
-      $formDataValid = false;
-      array_push($this->registrationErrors, $e->getMessage());
-    }
-    try {
-      $this->checkGender($postData['registrationGender']);
-    } catch(Exception $e) {
-      $formDataValid = false;
-      array_push($this->registrationErrors, $e->getMessage());
-    }
     
     return $formDataValid;
   }

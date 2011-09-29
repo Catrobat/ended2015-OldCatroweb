@@ -19,11 +19,13 @@
 
 function bindAjaxLoader(basepath) {
   /*shows the loading div every time we have an Ajax call*/
-  jQuery(document).ajaxStart(function() {
+  $(document).ajaxStart(function() {
     //$("body").append("<div class='webAjaxLoadingContainer' id='webAjaxLoadingContainer'><img class='webAjaxLoadingContainer' src='"+basepath+"images/symbols/ajax_loader_big.gif' /></div>");
-    $("body").append("<div class='webAjaxLoadingContainer' id='webAjaxLoadingContainer'></div>");
-  })
-  jQuery(document).ajaxStop(function() {
+    $("body").append($('<div>').attr('id', 'webAjaxLoadingContainer').
+        addClass('webAjaxLoadingContainer').height($(document).height()));
+  });
+  
+  $(document).ajaxStop(function() {
     $("#webAjaxLoadingContainer").remove();
   });
 }
