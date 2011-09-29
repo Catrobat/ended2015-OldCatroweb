@@ -353,19 +353,6 @@ class registration extends CoreAuthenticationNone {
     }
   }
 
-  public function checkBirthday($month, $year) {
-    $cyear = strftime("%Y");
-    if(!(($month >= 1 && $month <= 12) && ($year <= $cyear && $year >= $cyear-100))) {
-      throw new Exception($this->errorHandler->getError('registration', 'birthday_missing'));
-    }
-  }
-
-  public function checkGender($gender) {
-    if(!preg_match("/^female$/i", $gender) && !preg_match("/^male$/i", $gender)) {
-      throw new Exception($this->errorHandler->getError('registration', 'gender_missing'));
-    }
-  }
-
   public function undoRegistration($userId, $boardUserId, $wikiUserId) {
     if($userId != 0) {
       $this->undoCatroidRegistration($userId);

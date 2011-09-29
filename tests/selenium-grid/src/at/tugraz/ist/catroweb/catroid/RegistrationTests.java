@@ -93,7 +93,6 @@ public class RegistrationTests extends BaseTest {
       assertTrue(isVisible(By.id("registrationErrorMsg")));
       assertTrue(isTextPresent(dataset.get("expectedError1")));
       assertTrue(isTextPresent(dataset.get("expectedError2")));
-      assertTrue(isTextPresent(dataset.get("expectedError3")));
     } catch(AssertionError e) {      
       captureScreen("RegistrationTests.checkElementsVisible." + CommonFunctions.getTimeStamp()); 
       throw e;
@@ -248,137 +247,114 @@ public class RegistrationTests extends BaseTest {
         put("registrationGender", "");
         put("expectedError1", "The nickname is missing.");
         put("expectedError2", "The password is missing.");
-        put("expectedError3", "The email address is missing.");
       }
     } }, { new HashMap<String, String>() {
       {
-        put("registrationUsername", "");
+        put("registrationUsername", "My_Nick");
         put("registrationPassword", "");
         put("registrationEmail", "");
         put("registrationCountry", "");
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError1", "The country is missing.");
-        put("expectedError2", "The birthday is missing.");
-        put("expectedError3", "The gender is missing.");
-      }
-    } }, { new HashMap<String, String>() {
-      {
-        put("registrationUsername", "My_Nick");
-        put("registrationPassword", "12");
-        put("registrationEmail", "invalidMailAddress");
-        put("registrationCountry", "");
-        put("registrationMonth", "");
-        put("registrationYear", "");
-        put("registrationGender", "");
         put("expectedError1", "The nickname is invalid. Underscores (_) are not allowed.");
-        put("expectedError2", "Your password must have at least");
-        put("expectedError3", "The email address is not valid.");
+        put("expectedError2", "The email address is missing.");
       }
     } }, { new HashMap<String, String>() {
       {
         put("registrationUsername", "My#Nick");
-        put("registrationPassword", "My#Nick");
-        put("registrationEmail", "webmaster@catroid.org");
+        put("registrationPassword", "");
+        put("registrationEmail", "");
         put("registrationCountry", "");
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
         put("expectedError1", "The nickname is invalid. Hash signs (#) are not allowed.");
-        put("expectedError2", "The password must differ from the nickname.");
-        put("expectedError3", "This email address already exists.");
+        put("expectedError2", "The country is missing.");
       }
     } }, { new HashMap<String, String>() {
       {
         put("registrationUsername", "My|Nick");
-        put("registrationPassword", "123456789012345678901234567890123");
+        put("registrationPassword", "12");
         put("registrationEmail", "");
         put("registrationCountry", "");
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
         put("expectedError1", "The nickname is invalid. Vertical bars (|) are not allowed.");
-        put("expectedError2", "and maximal");
-        put("expectedError3", "");
+        put("expectedError2", "Your password must have at least");
       }
     } }, { new HashMap<String, String>() {
       {
         put("registrationUsername", "My(Nick}");
-        put("registrationPassword", "validPassword");
+        put("registrationPassword", "");
+        put("registrationEmail", "invalidMailAddress");
+        put("registrationCountry", "");
+        put("registrationMonth", "");
+        put("registrationYear", "");
+        put("registrationGender", "");
+        put("expectedError1", "The nickname is invalid. Curly braces ({ or }) are not allowed.");
+        put("expectedError2", "The email address is not valid.");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "My<Nick>");
+        put("registrationPassword", "My<Nick>");
         put("registrationEmail", "testuser-selenium.com");
         put("registrationCountry", "Austria");
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError1", "The nickname is invalid. Curly braces ({ or }) are not allowed.");
-        put("expectedError2", "The email address is not valid.");
-        put("expectedError3", "");
-      }
-    } }, { new HashMap<String, String>() {
-      {
-        put("registrationUsername", "My<Nick>");
-        put("registrationPassword", "validPassword");
-        put("registrationEmail", "testuser@selenium");
-        put("registrationCountry", "Austria");
-        put("registrationMonth", "February");
-        put("registrationYear", "2008");
-        put("registrationGender", "female");
         put("expectedError1", "The nickname is invalid. Less than or greater than signs (< or >) are not allowed.");
-        put("expectedError2", "The email address is not valid.");
-        put("expectedError3", "");
+        put("expectedError2", "The password must differ from the nickname.");
       }
     } }, { new HashMap<String, String>() {
       {
         put("registrationUsername", "My[Nick]");
         put("registrationPassword", "validPassword");
-        put("registrationEmail", "testuser@selenium.com");
+        put("registrationEmail", "webmaster@catroid.org");
         put("registrationCountry", "Austria");
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
         put("expectedError1", "The nickname is invalid. Square brackets ([ or ]) are not allowed.");
-        put("expectedError2", "");
-        put("expectedError3", "");
+        put("expectedError2", "This email address already exists.");
       }
     } }, { new HashMap<String, String>() {
       {
         put("registrationUsername", "My Nick");
-        put("registrationPassword", "validPassword");
+        put("registrationPassword", "123456789012345678901234567890123");
         put("registrationEmail", "testuser@selenium.com");
         put("registrationCountry", "Austria");
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
         put("expectedError1", "The nickname is invalid. Spaces (\" \") are not allowed.");
-        put("expectedError2", "");
-        put("expectedError3", "");
+        put("expectedError2", "and maximal");
       }
     } }, { new HashMap<String, String>() {
       {
         put("registrationUsername", "Fuck");
         put("registrationPassword", "validPassword");
-        put("registrationEmail", "testuser@selenium.com");
+        put("registrationEmail", "testuser-selenium.com");
         put("registrationCountry", "Austria");
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
         put("expectedError1", "There are insulting words in the username field!");
-        put("expectedError2", "");
-        put("expectedError3", "");
+        put("expectedError2", "The email address is not valid.");
       }
     } }, { new HashMap<String, String>() {
       {
         put("registrationUsername", "127.0.0.1");
         put("registrationPassword", "validPassword");
-        put("registrationEmail", "testuser@selenium.com");
+        put("registrationEmail", "testuser@selenium");
         put("registrationCountry", "Austria");
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
         put("expectedError1", "The nickname is invalid.");
-        put("expectedError2", "");
-        put("expectedError3", "");
+        put("expectedError2", "The email address is not valid.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -391,7 +367,6 @@ public class RegistrationTests extends BaseTest {
         put("registrationGender", "female");
         put("expectedError1", "This nickname is on the blacklist and not allowed.");
         put("expectedError2", "");
-        put("expectedError3", "");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -404,7 +379,6 @@ public class RegistrationTests extends BaseTest {
         put("registrationGender", "female");
         put("expectedError1", "This nickname already exists.");
         put("expectedError2", "");
-        put("expectedError3", "");
       }
     } } };
     return dataArray;

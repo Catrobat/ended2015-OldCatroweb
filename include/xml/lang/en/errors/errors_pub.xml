@@ -83,8 +83,6 @@
       <string name="email_invalid">This email address is not valid.</string>
       <string name="email_already_exists">The email address you have entered already exists.</string>
       <string name="country_missing">You haven't entered a country, please add one.</string>
-      <string name="birthday_missing">You haven't entered your birthday, please add it.</string>
-      <string name="gender_missing">You haven't entered your gender, please add it.</string>
     </registration>
     <passwordrecovery>
       <string name="userdata_missing">Your nickname or email address is missing.</string>

@@ -83,8 +83,6 @@
     	<string name="email_invalid">The email address is not valid.</string>
     	<string name="email_already_exists">This email address already exists.</string>
     	<string name="country_missing">The country is missing.</string>
-    	<string name="birthday_missing">The birthday is missing.</string>
-    	<string name="gender_missing">The gender is missing.</string>
     </registration>
     <passwordrecovery>
       <string name="userdata_missing">The nickname or email address is missing.</string>
