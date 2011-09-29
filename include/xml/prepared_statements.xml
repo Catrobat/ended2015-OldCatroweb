@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <!--  Catroid: An on-device graphical programming language for Android devices
       Copyright (C) 2010-2011 The Catroid Team
       (<http://code.google.com/p/catroid/wiki/Credits>)
@@ -118,7 +118,7 @@
     <string name="admin_unblock_user_id">DELETE FROM blocked_cusers WHERE user_id=$1</string>
     <string name="admin_is_blocked_user">SELECT * FROM blocked_cusers WHERE user_id=$1 AND user_name=$2</string>
     <string name="get_all_blocked_users">SELECT * FROM blocked_cusers</string>
-    <string name="get_all_users">SELECT u.*, (select min(b.user_id) from blocked_cusers b where b.user_id = u.id) FROM cusers u ORDER BY id ASC</string>
+    <string name="get_all_users">SELECT u.*, (select min(b.user_id) from blocked_cusers b where b.user_id = u.id) user_id FROM cusers u ORDER BY id ASC</string>
     <string name="get_user_by_id">SELECT * FROM cusers WHERE id=$1</string>
 
     <string name="admin_block_ip">INSERT INTO blocked_ips (ip_address) VALUES ($1)</string>
