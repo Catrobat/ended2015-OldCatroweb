@@ -23,7 +23,6 @@ div.registrationMain {
 
 form.registrationForm {
   padding: 3%;
-  font-size: 1.3em;
 }
 
 div.registrationErrorMsg {
@@ -32,7 +31,7 @@ div.registrationErrorMsg {
   background: #fff;
   text-align: center;
   padding: .2em;
-  margin-bottom: 16px;
+  margin-bottom: .9em;
 
   -webkit-border-radius: .5em;
   -moz-border-radius: .5em;
