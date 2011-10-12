@@ -237,117 +237,9 @@ class uploadTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * @dataProvider correctPostDataThumbailInRootFolderJPG
-   */
-  public function testDoUploadWithThumbnailInRootFolderJPG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
-    $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
-    $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
-    $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
-    $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
-
-    $this->assertEquals(200, $this->upload->statusCode);
-    $this->assertNotEquals(0, $insertId);
-    $this->assertTrue(is_file($filePath));
-    $this->assertTrue($this->upload->projectId > 0);
-    $this->assertTrue($this->upload->fileChecksum != null);
-    $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
-
-    // check thumbnails
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-
-    //test deleting from filesystem
-    $this->upload->removeProjectFromFilesystem($filePath, $insertId);
-    $this->assertFalse(is_file($filePath));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-
-    //test deleting from database
-    $this->upload->removeProjectFromDatabase($insertId);
-    $query = "SELECT * FROM projects WHERE id='$insertId'";
-    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $this->assertEquals(0, pg_num_rows($result));
-  }
-
-  /**
-   * @dataProvider correctPostDataThumbailInImagesFolderJPG
-   */
-  public function testDoUploadWithThumbnailInImagesFolderJPG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
-    $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
-    $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
-    $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
-    $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
-
-    $this->assertEquals(200, $this->upload->statusCode);
-    $this->assertNotEquals(0, $insertId);
-    $this->assertTrue(is_file($filePath));
-    $this->assertTrue($this->upload->projectId > 0);
-    $this->assertTrue($this->upload->fileChecksum != null);
-    $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
-
-    // check thumbnails
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-
-    //test deleting from filesystem
-    $this->upload->removeProjectFromFilesystem($filePath, $insertId);
-    $this->assertFalse(is_file($filePath));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-
-    //test deleting from database
-    $this->upload->removeProjectFromDatabase($insertId);
-    $query = "SELECT * FROM projects WHERE id='$insertId'";
-    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $this->assertEquals(0, pg_num_rows($result));
-  }
-
-  /**
    * @dataProvider correctPostDataThumbailInRootFolderPNG
    */
   public function testDoUploadWithThumbnailInRootFolderPNG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
-    $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
-    $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
-    $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
-    $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
-    $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
-
-    $this->assertEquals(200, $this->upload->statusCode);
-    $this->assertNotEquals(0, $insertId);
-    $this->assertTrue(is_file($filePath));
-    $this->assertTrue($this->upload->projectId > 0);
-    $this->assertTrue($this->upload->fileChecksum != null);
-    $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
-
-    // check thumbnails
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
-    $this->assertTrue(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-
-    //test deleting from filesystem
-    $this->upload->removeProjectFromFilesystem($filePath, $insertId);
-    $this->assertFalse(is_file($filePath));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_SMALL));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_LARGE));
-    $this->assertFalse(is_file(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$insertId.PROJECTS_THUMBNAIL_EXTENTION_ORIG));
-
-    //test deleting from database
-    $this->upload->removeProjectFromDatabase($insertId);
-    $query = "SELECT * FROM projects WHERE id='$insertId'";
-    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $this->assertEquals(0, pg_num_rows($result));
-  }
-
-  /**
-   * @dataProvider correctPostDataThumbailInImagesFolderPNG
-   */
-  public function testDoUploadWithThumbnailInImagesFolderPNG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
     $formData = array('projectTitle'=>$projectTitle, 'projectDescription'=>$projectDescription, 'fileChecksum'=>$fileChecksum, 'userEmail'=>$uploadEmail, 'userLanguage'=>$uploadLanguage);
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
@@ -485,8 +377,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
     return $dataArray;
   }
 
-  public function correctPostDataThumbailInRootFolderJPG() {
-    $fileName = 'test_thumbnail_jpg.zip';
+  public function correctPostDataThumbailInRootFolderPNG() {
+    $fileName = 'test_thumbnail.zip';
     $testFile = dirname(__FILE__).'/testdata/'.$fileName;
     $testFileDir = dirname(__FILE__).'/testdata/';
     $fileChecksum = md5_file($testFile);
@@ -504,53 +396,16 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $testFile9 = 'test_thumbnail_800x480.zip'; $testFileDir9 = $testFileDir.'test_thumbnail_800x480.zip';
 
     $dataArray = array(
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder and default thumbnail.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 240x400.', $testFileDir1, $testFile1, md5_file($testFileDir1), filesize($testFileDir1), $fileType),
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 480x800.', $testFileDir2, $testFile2, md5_file($testFileDir2), filesize($testFileDir2), $fileType),
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 240x240.', $testFileDir3, $testFile3, md5_file($testFileDir3), filesize($testFileDir3), $fileType),
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 480x480.', $testFileDir4, $testFile4, md5_file($testFileDir4), filesize($testFileDir4), $fileType),
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 400x400.', $testFileDir5, $testFile5, md5_file($testFileDir5), filesize($testFileDir5), $fileType),
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 800x800.', $testFileDir6, $testFile6, md5_file($testFileDir6), filesize($testFileDir6), $fileType),
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 960x1600.', $testFileDir7, $testFile7, md5_file($testFileDir7), filesize($testFileDir7), $fileType),
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 400x240.', $testFileDir8, $testFile8, md5_file($testFileDir8), filesize($testFileDir8), $fileType),
-    array('unitTest', 'my project description with thumbnail of type JPG in root folder and thumbnail 800x480.', $testFileDir9, $testFile9, md5_file($testFileDir9), filesize($testFileDir9), $fileType)
-    );
-    return $dataArray;
-  }
-
-  public function correctPostDataThumbailInImagesFolderJPG() {
-    $fileName = 'test_thumbnail_jpg_in_images.zip';
-    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
-    $fileChecksum = md5_file($testFile);
-    $fileSize = filesize($testFile);
-    $fileType = 'application/x-zip-compressed';
-    $dataArray = array(
-    array('unitTest', 'my project description with thumbnail of type JPG in images folder.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
-    );
-    return $dataArray;
-  }
-
-  public function correctPostDataThumbailInRootFolderPNG() {
-    $fileName = 'test_thumbnail_png.zip';
-    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
-    $fileChecksum = md5_file($testFile);
-    $fileSize = filesize($testFile);
-    $fileType = 'application/x-zip-compressed';
-    $dataArray = array(
-    array('unitTest', 'my project description with thumbnail of type PNG in root folder.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
-    // array('unitTest', 'my project description with thumbnail in images folder.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-    );
-    return $dataArray;
-  }
-
-  public function correctPostDataThumbailInImagesFolderPNG() {
-    $fileName = 'test_thumbnail_png_in_images.zip';
-    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
-    $fileChecksum = md5_file($testFile);
-    $fileSize = filesize($testFile);
-    $fileType = 'application/x-zip-compressed';
-    $dataArray = array(
-    array('unitTest', 'my project description with thumbnail of type PNG in images folder.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
+    array('unitTest', 'my project description with thumbnail in root folder and default thumbnail.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+    array('unitTest', 'my project description with thumbnail in root folder and thumbnail 240x400.', $testFileDir1, $testFile1, md5_file($testFileDir1), filesize($testFileDir1), $fileType),
+    array('unitTest', 'my project description with thumbnail in root folder and thumbnail 480x800.', $testFileDir2, $testFile2, md5_file($testFileDir2), filesize($testFileDir2), $fileType),
+    array('unitTest', 'my project description with thumbnail in root folder and thumbnail 240x240.', $testFileDir3, $testFile3, md5_file($testFileDir3), filesize($testFileDir3), $fileType),
+    array('unitTest', 'my project description with thumbnail in root folder and thumbnail 480x480.', $testFileDir4, $testFile4, md5_file($testFileDir4), filesize($testFileDir4), $fileType),
+    array('unitTest', 'my project description with thumbnail in root folder and thumbnail 400x400.', $testFileDir5, $testFile5, md5_file($testFileDir5), filesize($testFileDir5), $fileType),
+    array('unitTest', 'my project description with thumbnail in root folder and thumbnail 800x800.', $testFileDir6, $testFile6, md5_file($testFileDir6), filesize($testFileDir6), $fileType),
+    array('unitTest', 'my project description with thumbnail in root folder and thumbnail 960x1600.', $testFileDir7, $testFile7, md5_file($testFileDir7), filesize($testFileDir7), $fileType),
+    array('unitTest', 'my project description with thumbnail in root folder and thumbnail 400x240.', $testFileDir8, $testFile8, md5_file($testFileDir8), filesize($testFileDir8), $fileType),
+    array('unitTest', 'my project description with thumbnail in root folder and thumbnail 800x480.', $testFileDir9, $testFile9, md5_file($testFileDir9), filesize($testFileDir9), $fileType)
     );
     return $dataArray;
   }
@@ -562,7 +417,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileSize = filesize($testFile);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-    array('unitTest', 'my project description without thumbnail of type JPG.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
+    array('unitTest', 'my project description without screenshot of type PNG.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
     );
     return $dataArray;
   }
