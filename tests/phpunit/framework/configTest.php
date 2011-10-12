@@ -36,9 +36,9 @@ class configTest extends PHPUnit_Framework_TestCase
     //$this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://qrcode.kaywa.com/img.php?s=5&d=');
     $this->assertEquals(PROJECTS_THUMBNAIL_DIRECTORY, 'resources/thumbnails/');
     $this->assertEquals(PROJECTS_THUMBNAIL_DEFAULT, 'thumbnail');
-    $this->assertEquals(PROJECTS_THUMBNAIL_EXTENTION_ORIG, '_original.jpg');
-    $this->assertEquals(PROJECTS_THUMBNAIL_EXTENTION_SMALL, '_small.jpg');
-    $this->assertEquals(PROJECTS_THUMBNAIL_EXTENTION_LARGE, '_large.jpg');
+    $this->assertEquals(PROJECTS_THUMBNAIL_EXTENTION_ORIG, '_original.png');
+    $this->assertEquals(PROJECTS_THUMBNAIL_EXTENTION_SMALL, '_small.png');
+    $this->assertEquals(PROJECTS_THUMBNAIL_EXTENTION_LARGE, '_large.png');
     $this->assertEquals(PROJECTS_EXTENTION, '.catroid');
     $this->assertEquals(PROJECTS_MAX_SIZE, 104857600);
     $this->assertEquals(PROJECT_TITLE_MAX_DISPLAY_LENGTH, 20);

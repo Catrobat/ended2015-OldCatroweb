@@ -103,8 +103,8 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testGetProjectThumbnailUrl() {
-    $thumbSourceName = 'test_thumbnail.jpg';
-    $thumbDestName = 'test_small.jpg';
+    $thumbSourceName = 'test_thumbnail.png';
+    $thumbDestName = 'test_small.png';
     @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbDestName);
     $thumb = getProjectThumbnailUrl('test');
     $this->assertFalse(strpos($thumb, $thumbDestName));
@@ -116,8 +116,8 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
   }
 
   public function testGetProjectImageUrl() {
-    $thumbSourceName = 'test_thumbnail.jpg';
-    $thumbDestName = 'test_large.jpg';
+    $thumbSourceName = 'test_thumbnail.png';
+    $thumbDestName = 'test_large.png';
     @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbDestName);
     $thumb = getProjectImageUrl('test');
     $this->assertFalse(strpos($thumb, $thumbDestName));

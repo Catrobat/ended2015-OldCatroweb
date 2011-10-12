@@ -26,7 +26,7 @@ class detailsTest extends PHPUnit_Framework_TestCase
   protected function setUp() {
     require_once CORE_BASE_PATH.'modules/catroid/details.php';
     $this->obj = new details();
-    @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_large.jpg');
+    @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_large.png');
   }
 
   /**
@@ -40,8 +40,8 @@ class detailsTest extends PHPUnit_Framework_TestCase
   
   public function testGetProjectImage()
   {
-    $thumbSourceName = 'test_thumbnail.jpg';
-    $thumbDestName = 'test_large.jpg';
+    $thumbSourceName = 'test_thumbnail.png';
+    $thumbDestName = 'test_large.png';
     $thumb = getProjectImageUrl('test');
     $this->assertFalse(strpos($thumb, $thumbDestName));
     copy(dirname(__FILE__).'/testdata/'.$thumbSourceName, CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbDestName);
@@ -136,7 +136,7 @@ class detailsTest extends PHPUnit_Framework_TestCase
   }
 
   protected function tearDown() {
-    @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_large.jpg');
+    @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_large.png');
   }
 }
 ?>

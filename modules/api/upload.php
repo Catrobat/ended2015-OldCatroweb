@@ -125,7 +125,8 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($this->errorHandler->getError('upload', 'missing_post_file_checksum'));
     }
     $fileChecksum = md5_file($projectFile);
-
+    // echo "*** FileCheckSum: ".$fileChecksum." ***\n";
+    
     try {
       $this->checkFileChecksum($fileChecksum, $formData['fileChecksum']);
     } catch(Exception $e) {
@@ -398,18 +399,9 @@ class upload extends CoreAuthenticationDevice {
   private function extractThumbnail($unzipDir, $projectId) {
     $thumbFile = null;
     $thumbType = null;
-    if(is_file($unzipDir.'thumbnail.png')) {
-      $thumbFile = $unzipDir.'thumbnail.png';
+    if(is_file($unzipDir.'screenshot.png')) {
+      $thumbFile = $unzipDir.'screenshot.png';
       $thumbType = 'PNG';
-    } elseif(is_file($unzipDir.'thumbnail.jpg')) {
-      $thumbFile = $unzipDir.'thumbnail.jpg';
-      $thumbType = 'JPG';
-    } elseif(is_file($unzipDir.'images/thumbnail.png')) {
-      $thumbFile = $unzipDir.'images/thumbnail.png';
-      $thumbType = 'PNG';
-    } elseif(is_file($unzipDir.'images/thumbnail.jpg')) {
-      $thumbFile = $unzipDir.'images/thumbnail.jpg';
-      $thumbType = 'JPG';
     }
     if($thumbFile && $thumbType) {
       $this->saveThumbnail($projectId, $thumbFile, $thumbType);
@@ -420,8 +412,6 @@ class upload extends CoreAuthenticationDevice {
     $thumbnailDir = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;
     if(strcmp($thumbType, 'PNG') == 0) {
       $thumbImage = imagecreatefrompng($thumbnail);
-    } elseif(strcmp($thumbType, 'JPG') == 0) {
-      $thumbImage = imagecreatefromjpeg($thumbnail);
     } else {
       return false;
     }

@@ -29,7 +29,7 @@ class toolsTest extends PHPUnit_Framework_TestCase
     require_once CORE_BASE_PATH.'modules/api/upload.php';
     $this->tools = new tools();
     $this->upload = new upload();
-    @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_thumbnail.jpg');
+    @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_thumbnail.png');
   }
 
   public function testRemoveInconsistantProjectFiles() {
@@ -47,8 +47,8 @@ class toolsTest extends PHPUnit_Framework_TestCase
   }
 
   public function testUploadThumbnail() {
-    $thumbName = 'test_thumbnail.jpg';
-    $fileData = array('upload'=>array('name'=>$thumbName, 'type'=>'image/jpeg',
+    $thumbName = 'test_thumbnail.png';
+    $fileData = array('upload'=>array('name'=>$thumbName, 'type'=>'image/png',
                         'tmp_name'=>dirname(__FILE__).'/testdata/'.$thumbName, 'error'=>0, 'size'=>4482));
     $this->assertTrue($this->tools->uploadThumbnail($fileData));
     $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$thumbName));
