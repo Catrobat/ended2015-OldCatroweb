@@ -24,7 +24,7 @@ class download extends CoreAuthenticationNone {
   }
 
   public function __default() {
-    $id = $_GET['method'];
+    $id = $_REQUEST['method'];
     $line = $this->retrieveProjectById($id);
     if(!$line || $line == -1) {
       return;
