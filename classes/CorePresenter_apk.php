@@ -27,11 +27,11 @@
       public function display()
       {
           $data = $this->module->getData();
-          $file = CORE_BASE_PATH.PROJECTS_DIRECTORY.$data['id'].APP_EXTENTION;
+          $file = CORE_BASE_PATH.PROJECTS_DIRECTORY.$data['id'].APP_EXTENSION;
           $filename = $data['file_name'];
           if(is_file($file)) {
             header("Content-type: application/vnd.android.package-archive");
-            header('Content-Disposition: attachment; filename="'.urlencode(utf8_encode($filename)).APP_EXTENTION.'"');
+            header('Content-Disposition: attachment; filename="'.urlencode(utf8_encode($filename)).APP_EXTENSION.'"');
             readfile($file);
           } else {
             $this->module->errorHandler->showErrorPage('download', 'file_not_found', $file);

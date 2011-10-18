@@ -31,7 +31,7 @@
           $filename = $data['file_name'];
           if(is_file($file)) {
             header("Content-type: application/zip");
-            header('Content-Disposition: attachment; filename="'.urlencode(utf8_encode($filename)).PROJECTS_EXTENTION.'"');
+            header('Content-Disposition: attachment; filename="'.urlencode(utf8_encode($filename)).PROJECTS_EXTENSION.'"');
             readfile($file);
           } else {
             $this->module->errorHandler->showErrorPage('download', 'file_not_found', $file);

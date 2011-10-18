@@ -41,9 +41,9 @@ public class Config {
   public static final String PROJECTS_QR_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "qrcodes" + FILESYSTEM_SEPARATOR;
   public static final String PROJECTS_QR_EXTENTION = "_qr.png";
   public static final String PROJECTS_THUMBNAIL_DIRECTORY = "resources" + FILESYSTEM_SEPARATOR + "thumbnails" + FILESYSTEM_SEPARATOR;
-  public static final String PROJECTS_THUMBNAIL_EXTENTION_ORIG = "_original.jpg";
-  public static final String PROJECTS_THUMBNAIL_EXTENTION_SMALL = "_small.jpg";
-  public static final String PROJECTS_THUMBNAIL_EXTENTION_LARGE = "_large.jpg";
+  public static final String PROJECTS_THUMBNAIL_EXTENTION_ORIG = "_original.png";
+  public static final String PROJECTS_THUMBNAIL_EXTENTION_SMALL = "_small.png";
+  public static final String PROJECTS_THUMBNAIL_EXTENTION_LARGE = "_large.png";
 
   public static final int PROJECT_PAGE_LOAD_MAX_PROJECTS = 5;
   public static final int PROJECT_PAGE_SHOW_MAX_PAGES = 5;

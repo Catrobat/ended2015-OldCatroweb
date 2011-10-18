@@ -135,10 +135,10 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
                           'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
        $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
        $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
-       $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
+       $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENSION;
       
        //test qrcode image generation
-       $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));
+       $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENSION));
        $this->assertNotEquals(0, $insertId);
        $this->assertTrue(is_file($filePath));
        $this->assertEquals(200, $this->upload->statusCode);
@@ -152,12 +152,12 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
   public function deleteUploadedProjects()  {
      foreach ($this->insertIDArray as $insertId)
      {
-       $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
+       $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENSION;
        // test deleting from database
        $this->upload->removeProjectFromFilesystem($filePath, $insertId);    
        $this->assertFalse(is_file($filePath));
-       @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
-       $this->assertFalse(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));
+       @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENSION);
+       $this->assertFalse(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENSION));
        //test deleting from filesystem
        $this->upload->removeProjectFromDatabase($insertId);
        $query = "SELECT * FROM projects WHERE id='$insertId'";
@@ -168,9 +168,9 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
   
   public function specialCharStrings() {
     $returnArray = array(      
-    'ÄÖÜäöüß'.'!"§$%&/()=?`°^²³'.'+*~#_-.:,;<>|µ€@',
-    'ČčŠšžŽÅĆÀóŬĉĄĘęåáéŐőâãÇöΛ'.'ÁáçÉéÍíÑñÓóÚúüªº¡¿'.'ÀàÁáÂâÆæÇçÈèÉéÊêËëÎîÏïÔôŒœÙùÛûŸÿ'.''.'ሀሏจ',           
-    '德国', '德意志联邦共和國.'.'ܢܐܠܝܬܚܝܠܐܪܒܡܢܚܝܠܐܕܐܡܪܝܩܐ,ܘܐܝܬܠܗ'.'মার্কিনযুক্তরাষ্ট্র'.'Гісторыя'.'Соединённые_Штаты_Америки',
+    'Ã„Ã–ÃœÃ¤Ã¶Ã¼ÃŸ'.'!"Â§$%&/()=?`Â°^Â²Â³'.'+*~#_-.:,;<>|Âµâ‚¬@',
+    'ÄŒÄ�Å Å¡Å¾Å½Ã…Ä†Ã€Ã³Å¬Ä‰Ä„Ä˜Ä™Ã¥Ã¡Ã©Å�Å‘Ã¢Ã£Ã‡Ã¶Î›'.'Ã�Ã¡Ã§Ã‰Ã©Ã�Ã­Ã‘Ã±Ã“Ã³ÃšÃºÃ¼ÂªÂºÂ¡Â¿'.'Ã€Ã Ã�Ã¡Ã‚Ã¢Ã†Ã¦Ã‡Ã§ÃˆÃ¨Ã‰Ã©ÃŠÃªÃ‹Ã«ÃŽÃ®Ã�Ã¯Ã”Ã´Å’Å“Ã™Ã¹Ã›Ã»Å¸Ã¿'.''.'áˆ€áˆ�à¸ˆ',           
+    'å¾·å›½', 'å¾·æ„�å¿—è�”é‚¦å…±å’Œåœ‹.'.'Ü¢Ü�Ü Ü�Ü¬ÜšÜ�Ü Ü�ÜªÜ’Ü¡Ü¢ÜšÜ�Ü Ü�Ü•Ü�Ü¡ÜªÜ�Ü©Ü�,Ü˜Ü�Ü�Ü¬Ü Ü—'.'à¦®à¦¾à¦°à§�à¦•à¦¿à¦¨à¦¯à§�à¦•à§�à¦¤à¦°à¦¾à¦·à§�à¦Ÿà§�à¦°'.'Ð“Ñ–Ñ�Ñ‚Ð¾Ñ€Ñ‹Ñ�'.'Ð¡Ð¾ÐµÐ´Ð¸Ð½Ñ‘Ð½Ð½Ñ‹Ðµ_Ð¨Ñ‚Ð°Ñ‚Ñ‹_Ð�Ð¼ÐµÑ€Ð¸ÐºÐ¸',
     );          
     return $returnArray;
   }  

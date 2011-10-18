@@ -336,23 +336,23 @@ class tools extends CoreAuthenticationAdmin {
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $project =  pg_fetch_assoc($result);
     $fileName = $project['source'];
-    $thumbnailSmallName = $project['id'].PROJECTS_THUMBNAIL_EXTENTION_SMALL;
-    $thumbnailLargeName = $project['id'].PROJECTS_THUMBNAIL_EXTENTION_LARGE;
-    $thumbnailLargeName = $project['id'].PROJECTS_THUMBNAIL_EXTENTION_LARGE;
+    $thumbnailSmallName = $project['id'].PROJECTS_THUMBNAIL_EXTENSION_SMALL;
+    $thumbnailLargeName = $project['id'].PROJECTS_THUMBNAIL_EXTENSION_LARGE;
+    $thumbnailLargeName = $project['id'].PROJECTS_THUMBNAIL_EXTENSION_LARGE;
     
     if($id > 0) {
       $projectBaseDir = CORE_BASE_PATH.'/'.PROJECTS_UNZIPPED_DIRECTORY.$id;
       $projectSoundDir = $projectBaseDir.'/sounds';
       $projectImageDir = $projectBaseDir.'/images';
       
-      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_SMALL))
-        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_SMALL);
-      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_LARGE))
-        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_LARGE);
-      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_ORIG))
-        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENTION_ORIG);
-      if(file_exists(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION))
-        @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION);
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_SMALL))
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_SMALL);
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_LARGE))
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_LARGE);
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_ORIG))
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_ORIG);
+      if(file_exists(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENSION))
+        @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENSION);
       
       if(is_dir($projectSoundDir)) $this->removeProjectDir($projectSoundDir);
       if(is_dir($projectImageDir)) $this->removeProjectDir($projectImageDir);
@@ -360,7 +360,7 @@ class tools extends CoreAuthenticationAdmin {
     }
     
     $sourceFile = $directory.$fileName;
-    $qrCodeFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$project['id'].PROJECTS_QR_EXTENTION;
+    $qrCodeFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$project['id'].PROJECTS_QR_EXTENSION;
     if(!$this->deleteFile($sourceFile) || !$this->deleteFile($qrCodeFile)) {
       return false;
     } else {

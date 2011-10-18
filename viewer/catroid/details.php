@@ -81,7 +81,7 @@
                     </div>
                     <div id="downloadAppSection">
                       <div id="downloadAppButton" class="detailsDownloadButton">
-                        <a id="downloadAppProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.apk?fname=<?php echo urlencode($this->project['title'])?>">
+                        <a id="downloadAppProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; echo APP_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                           <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
                           <span class="detailsDownloadButtonText"><?php echo $this->languageHandler->getString('download')?></span>
                         </a>
@@ -96,7 +96,7 @@
 <?php }?>
                     <div id="downloadCatroidSection">
                       <div class="detailsDownloadButton">
-                        <a id="downloadCatroidProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.download?fname=<?php echo urlencode($this->project['title'])?>">
+                        <a id="downloadCatroidProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                           <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
                           <span class="detailsDownloadButtonText"><?php echo $this->languageHandler->getString('download')?></span>
                         </a>

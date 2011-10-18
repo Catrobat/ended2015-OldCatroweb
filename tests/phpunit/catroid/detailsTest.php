@@ -84,7 +84,7 @@ class detailsTest extends PHPUnit_Framework_TestCase
    * @dataProvider randomIds
    */
   public function testGetQRCodeImage($id) {
-    @copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENTION);
+    @copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENSION);
     $this->assertTrue(is_string(getCatroidProjectQRCodeUrl($id, 'test')));
   }
   

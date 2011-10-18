@@ -71,14 +71,14 @@ public class UploadTests extends BaseTest {
   @DataProvider(name = "validProjectsForUpload")
   public Object[][] validProjectsForUpload() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
-        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
-        { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
-        { CommonData.getUploadPayload("my_test_project_with_looong_description", "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
-        { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip", "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") },
-        { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention", "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "5451117C121B89EE9BFB41C5381F357A", "", "", "0") },
-        { CommonData.getUploadPayload("project v8 to test the native app builder", "native app building test", "test_version_8_0.5.4a.catroid", "0BE174300CD9EABB8E49481CD7CEA5BA", "", "", "0") },
-        { CommonData.getUploadPayload("new catroid extention", "this project has catroid as extention", "test.catroid", "583783A335BD40D3D0195A13432AFABB", "", "", "0") }
+        { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0") },
+        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0") },
+        { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0") },
+        { CommonData.getUploadPayload("my_test_project_with_looong_description", "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ", "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0") },
+        { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip", "c40c86d6c4407788fa723e1d9fade10e", "", "", "0") },
+        { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention", "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "eefc4182b2497ac1d0204a1d5ccb320b", "", "", "0") },
+        // { CommonData.getUploadPayload("project v8 to test the native app builder", "native app building test", "test_version_8_0.5.4a.catroid", "6af83ca1f8c2a81fcf77a849ce0ac7cb", "", "", "0") },
+        // { CommonData.getUploadPayload("new catroid extention", "this project has catroid as extention", "test.catroid", "583783a335bd40d3d0195a13432afabb", "", "", "0") }
     };
     return returnArray;
   }

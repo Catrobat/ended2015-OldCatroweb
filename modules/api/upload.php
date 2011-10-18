@@ -84,7 +84,7 @@ class upload extends CoreAuthenticationDevice {
     }
 
     $projectName = md5(uniqid(time()));
-    $uploadFile = $projectName.PROJECTS_EXTENTION;
+    $uploadFile = $projectName.PROJECTS_EXTENSION;
     $uploadDir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$uploadFile;
     $uploadIp = $serverData['REMOTE_ADDR'];
     isset($formData['userEmail']) ? $uploadEmail = $formData['userEmail'] : $uploadEmail = null;
@@ -109,15 +109,15 @@ class upload extends CoreAuthenticationDevice {
       $this->renameProjectFile($uploadDir, $newId);
     } catch(Exception $e) {
       $this->statusCode = 502;
-      $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENTION;
+      $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION;
       $this->removeProjectFromDatabase($newId);
       $this->removeProjectFromFilesystem($uploadDir);
-      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENTION, $newId);
+      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION, $newId);
       throw new Exception($e->getMessage());
     }
 
     $projectDir = CORE_BASE_PATH.PROJECTS_DIRECTORY;
-    $projectFile = $projectDir.$newId.PROJECTS_EXTENTION;
+    $projectFile = $projectDir.$newId.PROJECTS_EXTENSION;
     if(!isset($formData['fileChecksum']) || !$formData['fileChecksum']) {
       $this->statusCode = 510;
       $this->removeProjectFromDatabase($newId);
@@ -125,7 +125,8 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($this->errorHandler->getError('upload', 'missing_post_file_checksum'));
     }
     $fileChecksum = md5_file($projectFile);
-    // echo "*** FileCheckSum: ".$fileChecksum." ***\n";
+    // DEBUG // 
+    // echo "*** FileCheckSum: ".$fileChecksum." (file = ".$projectFile.")***\n";
     
     try {
       $this->checkFileChecksum($fileChecksum, $formData['fileChecksum']);
@@ -189,17 +190,17 @@ class upload extends CoreAuthenticationDevice {
   public function removeProjectFromFilesystem($projectFile, $projectId = -1) {
     @unlink($projectFile);
     if($projectId > 0) {
-      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL);
-      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE);
-      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG);
-      @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION);
+      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENSION_SMALL);
+      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENSION_LARGE);
+      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENSION_ORIG);
+      @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION);
       removeDir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId);
     }
     return true;
   }
 
   public function renameProjectFile($oldName, $projectId) {
-    $newFileName = $projectId.PROJECTS_EXTENTION;
+    $newFileName = $projectId.PROJECTS_EXTENSION;
     $newName = CORE_BASE_PATH.PROJECTS_DIRECTORY.$newFileName;
     if(!@rename($oldName, $newName)) {
       throw new Exception($this->errorHandler->getError('upload', 'rename_failed'));
@@ -328,8 +329,8 @@ class upload extends CoreAuthenticationDevice {
   }
 
   private function getQRCode($projectId, $projectTitle) {
-    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENTION.'?fname='.urlencode($projectTitle));
-    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENTION;
+    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENSION.'?fname='.urlencode($projectTitle));
+    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION;
     if(!generateQRCode($urlToEncode, $destinationPath)) {
       throw new Exception();
     }
@@ -389,7 +390,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   private function unzipUploadedFile($projectId) {
-    $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.PROJECTS_EXTENTION;
+    $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.PROJECTS_EXTENSION;
     $destDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId.'/';
     if(!unzipFile($projectFile, $destDir)) {
       throw new Exception($this->errorHandler->getError('upload', 'invalid_project_zip'));
@@ -420,19 +421,19 @@ class upload extends CoreAuthenticationDevice {
       $h = imagesy($thumbImage);
       $wsmall = 0; $hsmall = 0; $hsmallopt = intval(240*$h/$w);
       $wlarge = 0; $hlarge = 0; $hlargeopt = intval(480*$h/$w);
-      imagejpeg($thumbImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENTION_ORIG, 100);
+      imagejpeg($thumbImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENSION_ORIG, 100);
       $smallImage = imagecreatetruecolor(240, $hsmallopt);
       imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, $hsmallopt, $w, $h);
-      imagejpeg($smallImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENTION_SMALL, 50);
+      imagejpeg($smallImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENSION_SMALL, 50);
       $newImage = imagecreatetruecolor(480, $hlargeopt);
       imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, $hlargeopt, $w, $h);
-      imagejpeg($newImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENTION_LARGE, 50);
+      imagejpeg($newImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENSION_LARGE, 50);
     }
   }
   
   private function buildNativeApp($projectId) {
     $pythonHandler = CORE_BASE_PATH.PROJECTS_APP_BUILDING_SRC."nativeAppBuilding/src/handle_project.py";
-    $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.PROJECTS_EXTENTION;
+    $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.PROJECTS_EXTENSION;
     $catroidSource = CORE_BASE_PATH.PROJECTS_APP_BUILDING_SRC."catroid/";
     $outputFolder = CORE_BASE_PATH.PROJECTS_DIRECTORY;
 
