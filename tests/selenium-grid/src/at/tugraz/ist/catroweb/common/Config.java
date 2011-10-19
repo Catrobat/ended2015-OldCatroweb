@@ -22,8 +22,8 @@ public class Config {
   public static final boolean REPORTER_LOG_TO_STD_OUT = true;
   public static final int TIMEOUT_WAIT = 60;
 
-  public static final String TESTS_BASE_PATH = "/";
-//  public static final String TESTS_BASE_PATH = "/catroweb/";
+//  public static final String TESTS_BASE_PATH = "/";
+  public static final String TESTS_BASE_PATH = "/catroweb/";
 
   public static final String DB_USER = "website";
   public static final String DB_PASS = "cat.roid.web";
