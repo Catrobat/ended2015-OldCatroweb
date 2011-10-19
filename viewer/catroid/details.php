@@ -33,7 +33,7 @@
               <div class="detailsFlexDiv">
                 <div class="detailsLeft">
                   <div class="detailsMainImage">
-                    <a id="downloadProjectThumb" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; ?>.download?fname=<?php echo urlencode($this->project['title'])?>">
+                    <a id="downloadProjectThumb" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                       <img class="projectDetailsImage" src="<?php echo $this->project['image']?>" alt="project thumbnail">
                     </a>
                     <div class="detailsLicenseLink">

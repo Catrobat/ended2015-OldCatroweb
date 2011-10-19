@@ -125,9 +125,6 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($this->errorHandler->getError('upload', 'missing_post_file_checksum'));
     }
     $fileChecksum = md5_file($projectFile);
-    // DEBUG // 
-    // echo "*** FileCheckSum: ".$fileChecksum." (file = ".$projectFile.")***\n";
-    
     try {
       $this->checkFileChecksum($fileChecksum, $formData['fileChecksum']);
     } catch(Exception $e) {
@@ -230,7 +227,7 @@ class upload extends CoreAuthenticationDevice {
     $xmlFile = null;
     while(($file = readdir($dirHandler)) !== false) {
       $details = pathinfo($file);
-      if(isset($details['extension']) && (strcmp($details['extension'], 'spf') == 0 || strcmp($details['extension'], 'xml') == 0)) {
+      if(isset($details['extension']) && (strcmp($details['extension'], 'spf') == 0 || strcmp($details['extension'], 'xml') == 0 || strcmp($details['extension'], 'catroid') == 0)) {
         $xmlFile = $file;
       }
     }
@@ -241,7 +238,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function extractCatroidVersion($xmlFile) {
-    $xml = simplexml_load_file($xmlFile);
+  	$xml = simplexml_load_file($xmlFile);
     if(!$xml) {
       throw new Exception($this->errorHandler->getError('upload', 'invalid_project_xml'));
     }

@@ -77,8 +77,8 @@ public class UploadTests extends BaseTest {
         { CommonData.getUploadPayload("my_test_project_with_looong_description", "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ", "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0") },
         { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip", "c40c86d6c4407788fa723e1d9fade10e", "", "", "0") },
         { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention", "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "eefc4182b2497ac1d0204a1d5ccb320b", "", "", "0") },
-        // { CommonData.getUploadPayload("project v8 to test the native app builder", "native app building test", "test_version_8_0.5.4a.catroid", "6af83ca1f8c2a81fcf77a849ce0ac7cb", "", "", "0") },
-        // { CommonData.getUploadPayload("new catroid extention", "this project has catroid as extention", "test.catroid", "583783a335bd40d3d0195a13432afabb", "", "", "0") }
+        { CommonData.getUploadPayload("project v8 to test the native app builder", "native app building test", "test_version_8_0.5.4a.catroid", "d0b32588e6c23a0e19bb4f66eec85277", "", "", "0") },
+        { CommonData.getUploadPayload("new catroid extention", "this project has catroid as extention", "test.catroid", "583783a335bd40d3d0195a13432afabb", "", "", "0") }
     };
     return returnArray;
   }
@@ -92,7 +92,8 @@ public class UploadTests extends BaseTest {
         { CommonData.getUploadPayload("wrong checksum", "some description", "test.zip", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", " ") },
         { CommonData.getUploadPayload("wrong token given", "some description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "123") },
         { CommonData.getUploadPayload("invalid xml in project file", "some description", "invalid_xml.zip", "AADC2DEDE19CDB559E362DB2E119F038", "", "", " ") },
-        { CommonData.getUploadPayload("invalid zip file", "some description", "not_a_zip.zip", "D1B761A18F525A2A20CAA2A5DA12BBF1", "", "", " ") } };
+        { CommonData.getUploadPayload("invalid zip file", "some description", "not_a_zip.zip", "D1B761A18F525A2A20CAA2A5DA12BBF1", "", "", " ") } 
+        };
     return returnArray;
   }
   
