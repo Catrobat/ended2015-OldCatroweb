@@ -710,4 +710,6 @@
 
 	<!-- http://catroid.org/ - http://catroidweb.ist.tugraz.at/ -->
   <target name="deploy-public" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-files, -user-pass-prompt, -undeploy, -deploy, -update-remote-database, -update-app-building, -cleanup" />
+  <target name="deploy-public-board" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-board, -user-pass-prompt, -undeploy-board, -deploy-board, -cleanup" />
+  <target name="deploy-public-wiki" depends="-conf, -clean, -create-dirs, -conf-deploy-prod, -copy-wiki, -user-pass-prompt, -undeploy-wiki, -deploy-wiki, -cleanup" />
 </project>

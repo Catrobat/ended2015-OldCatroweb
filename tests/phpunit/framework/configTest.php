@@ -24,7 +24,8 @@ class configTest extends PHPUnit_Framework_TestCase
 
   public function testConfig()
   {
-    $this->assertEquals(VERSION, '0.6.2_I18N');
+    // $this->assertEquals(VERSION, '0.6.2_I18N');
+    $this->assertEquals(VERSION, '0.6.3');
     $this->assertEquals(XML_PATH, 'include/xml/');
     $this->assertEquals(CSS_PATH, 'include/css/');
     $this->assertEquals(SCRIPT_PATH, 'include/script/');
@@ -32,9 +33,9 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECTS_UNZIPPED_DIRECTORY, 'resources/catroid/');
     $this->assertEquals(PROJECTS_QR_DIRECTORY, 'resources/qrcodes/');
     $this->assertEquals(PROJECTS_QR_EXTENSION, '_qr.png');
-    $this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://localhost/catroweb/api/qrCodeGenerator/generate.png?url=');
+    // <ag> $this->assertEquals(PROJECTS_QR_SERVICE_URL, BASE_PATH.'api/qrCodeGenerator/generate.png?url=');
     // $this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://catroidwebtest.ist.tugraz.at/api/qrCodeGenerator/generate.png?url=');
-    //$this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://qrcode.kaywa.com/img.php?s=5&d=');
+    // $this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://qrcode.kaywa.com/img.php?s=5&d=');
     $this->assertEquals(PROJECTS_THUMBNAIL_DIRECTORY, 'resources/thumbnails/');
     $this->assertEquals(PROJECTS_THUMBNAIL_DEFAULT, 'thumbnail');
     $this->assertEquals(PROJECTS_THUMBNAIL_EXTENSION_ORIG, '_original.png');
@@ -47,7 +48,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECT_PAGE_LOAD_MAX_PROJECTS, 5);
     $this->assertEquals(PROJECT_PAGE_SHOW_MAX_PAGES, 5);
     $this->assertEquals(PROJECT_ROW_MAX_PROJECTS, 3);
-    $this->assertEquals(PROJECT_FLAG_NOTIFICATION_THRESHOLD, 1);
+    $this->assertEquals(PROJECT_FLAG_NOTIFICATION_THRESHOLD, 10);
     $this->assertEquals(DEVELOPMENT_STATUS, '[beta]');
     $this->assertEquals(DEFAULT_HTML_TEMPLATE_NAME, 'htmlTemplate.php');
     $this->assertEquals(DEFAULT_HTML_HEADER_TEMPLATE_NAME, 'htmlHeaderTemplate.php');
