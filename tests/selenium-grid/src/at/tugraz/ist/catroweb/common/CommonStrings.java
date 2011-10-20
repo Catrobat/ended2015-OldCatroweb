@@ -31,4 +31,18 @@ public class CommonStrings {
   public static final String SEARCH_PROJECTS_PAGE_NEXT_BUTTON = "Next »";
   public static final String SEARCH_PROJECTS_PAGE_LOADING_BUTTON = "loading...";
   public static final String SEARCH_PROJECTS_PAGE_NO_RESULTS = "Your search returned no results";
+  
+  public static final String REGISTRATION_PAGE_TITLE = "Create a new account";
+  public static final String REGISTRATION_NICKNAME = "Nickname";
+  public static final String REGISTRATION_NICKNAME_INFO = "Use an invented nickname such as \"funny dragon\" (why shouldn't I use my real name?).";
+  public static final String REGISTRATION_PASSWORD = "Password";
+  public static final String REGISTRATION_EMAIL = "E-Mail Address";
+  public static final String REGISTRATION_EMAIL_INFO = "We will send your nickname, password, and access data to your email address. We will never share your email address with anyone. See our privacy policy for details.";
+  public static final String REGISTRATION_COUNTRY = "Country";
+  public static final String REGISTRATION_CITY = "City";
+  public static final String REGISTRATION_BIRTHDAY = "Birthday";
+  public static final String REGISTRATION_GENDER = "Gender";
+  public static final String REGISTRATION_SUBMIT = "Create my account";
+  public static final String REGISTRATION_LOGIN = "Login";
+  public static final String REGISTRATION_FORGOT_PWD = "click here if you forgot your password";
 }

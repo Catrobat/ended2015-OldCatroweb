@@ -100,10 +100,10 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
                           'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
        $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
        $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
-       $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
+       $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENSION;
       
        //test qrcode image generation
-       $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));
+       $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENSION));
        $this->assertNotEquals(0, $insertId);
        $this->assertTrue(is_file($filePath));
        $this->assertEquals(200, $this->upload->statusCode);
@@ -119,12 +119,12 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
   {
      foreach ($this->insertIDArray as $insertId)
      {
-       $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENTION;
+       $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENSION;
        // test deleting from database
        $this->upload->removeProjectFromFilesystem($filePath, $insertId);
        $this->assertFalse(is_file($filePath));
-       @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION);
-       $this->assertFalse(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENTION));
+       @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENSION);
+       $this->assertFalse(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENSION));
        //test deleting from filesystem
        $this->upload->removeProjectFromDatabase($insertId);
        $query = "SELECT * FROM projects WHERE id='$insertId'";

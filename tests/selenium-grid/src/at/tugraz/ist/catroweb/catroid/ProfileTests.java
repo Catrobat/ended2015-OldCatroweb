@@ -39,15 +39,15 @@ public class ProfileTests extends BaseTest {
     try {
       openLocation("catroid/registration/");
       
-      driver().findElement(By.name("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
-      driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
-      driver().findElement(By.name("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
-      driver().findElement(By.name("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
-      driver().findElement(By.name("registrationYear")).sendKeys(dataset.get("registrationYear"));
-      driver().findElement(By.name("registrationGender")).sendKeys(dataset.get("registrationGender"));
-      driver().findElement(By.name("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
-      driver().findElement(By.name("registrationCity")).sendKeys(dataset.get("registrationCity"));
-      driver().findElement(By.name("registrationSubmit")).click();
+      driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      driver().findElement(By.id("registrationCity")).sendKeys(dataset.get("registrationCity"));
+      driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
 
       driver().findElement(By.id("headerProfileButton")).click();
@@ -251,11 +251,14 @@ public class ProfileTests extends BaseTest {
     try {
       openLocation("catroid/registration/");
       
-      driver().findElement(By.name("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
-      driver().findElement(By.name("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
-      driver().findElement(By.name("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
-      driver().findElement(By.name("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
-      driver().findElement(By.name("registrationSubmit")).click();
+      driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
 
       driver().findElement(By.id("headerProfileButton")).click();
@@ -342,7 +345,7 @@ public class ProfileTests extends BaseTest {
         put("registrationUsername", "ProfileTest" + randomString);
         put("registrationPassword", "myPassword123");
         put("registrationEmail", "email_" + randomString + "@selenium.at");
-        put("registrationCountry", "AUSTRIA");
+        put("registrationCountry", "Austria");
         put("registrationCountryID", "AT");
         put("changedCity", "München");
         put("registrationCity", "Graz");

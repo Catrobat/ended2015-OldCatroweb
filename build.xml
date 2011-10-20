@@ -45,8 +45,8 @@
   <property name="commonFunctions.file" value="commonFunctions.php" />
   <property name="index.file" value="index.php" />
   <property name="build.file" value="build.xml" />
-  <property name="thumbnail.small.file" value="${thumbnails.dir}/thumbnail_small.jpg" />
-  <property name="thumbnail.large.file" value="${thumbnails.dir}/thumbnail_large.jpg" />
+  <property name="thumbnail.small.file" value="${thumbnails.dir}/thumbnail_small.png" />
+  <property name="thumbnail.large.file" value="${thumbnails.dir}/thumbnail_large.png" />
   <property name="init-app-building.file" value="${app-building.dir}/init_app_builder.sh" />
   <property name="build.sysclasspath" value="last" />
   <property name="file.encoding" value="UTF-8" />
@@ -306,6 +306,10 @@
   </target>
   
   <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api"/>
+  <target name="-phpunit-framework-tests" depends="-unittest-framework"/>
+  <target name="-phpunit-admin-tests" depends="-unittest-admin"/>
+  <target name="-phpunit-catroid-tests" depends="-unittest-catroid"/>
+  <target name="-phpunit-api-tests" depends="-unittest-api"/>
   
   <target name="-unittest-catroid">
     <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
@@ -672,6 +676,10 @@
 	<!-- http://localhost/ -->
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
   <target name="run-phpunit-tests" depends="-phpunit-tests" />
+  <target name="run-phpunit-framework-tests" depends="-phpunit-framework-tests" />
+  <target name="run-phpunit-catroid-tests" depends="-phpunit-catroid-tests" />
+  <target name="run-phpunit-admin-tests" depends="-phpunit-admin-tests" />
+  <target name="run-phpunit-api-tests" depends="-phpunit-api-tests" />
   <target name="run-selenium-local-tests" depends="-selenium-grid-tests-catroid-local" />
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
   <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />

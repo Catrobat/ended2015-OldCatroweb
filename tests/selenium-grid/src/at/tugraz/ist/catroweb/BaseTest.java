@@ -376,6 +376,8 @@ public class BaseTest {
       Reporter.log("<a href=\"" + this.webSite + Config.TESTS_BASE_PATH.substring(1) + imagePath + "\">Screenshot (" + imageName + ")</a>");
     } catch(IOException e) {
       e.printStackTrace();
+    } catch(NullPointerException e) {
+      Reporter.log("captureScreen got NULL pointer");
     }
   }
 

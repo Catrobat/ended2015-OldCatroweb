@@ -19,9 +19,7 @@
  
  
 <strings>
-  <string name="catroid_success">CATROID registration successfull!</string>
-  <string name="board_success">BOARD registration successfull!</string>
-  <string name="wiki_success">WIKI registration successfull!</string>
+  <string name="registration_success">Registration successful!</string>
   <string name="mail_subject">[CATROID] Your Catroid.org Registration!</string>
   <string name="mail_text_row1">Congratulations and welcome to the Catroid.org community!</string>
   <string name="mail_text_row2">Please keep this e-mail for your records. Your account information is as follows:</string>

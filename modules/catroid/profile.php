@@ -599,7 +599,7 @@ class profile extends CoreAuthenticationUser {
     if(pg_num_rows($result) > 0) {
       return true;
     } else {
-      throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
+      throw new Exception($this->errorHandler->getError('profile', 'country_codes_not_available'));
     }
   }
   
@@ -622,7 +622,7 @@ class profile extends CoreAuthenticationUser {
     $this->emailArray = $this->getUserEmailArray($this->session->userLogin_userId);
     $this->emailArrayDiv = $this->generateEmailHTMLDiv($this->emailArray);
     
-    $userCountryCode = $this->getUserCountry($userName); 
+    $userCountryCode = strtoupper($this->getUserCountry($userName)); 
     if($userCountryCode) {   
       $this->userCountryCode = $userCountryCode;
     }
@@ -662,11 +662,11 @@ class profile extends CoreAuthenticationUser {
         $x++;
       }
       // if user country is not in list
-      $countryCodeList[$x] = "undef";
-      $countryNameList[$x] = "undefined";
+      $countryCodeList[$x] = "EM";
+      $countryNameList[$x] = "Other";
       pg_free_result($result);      
     } else {
-      throw new Exception($this->errorHandler->getError('registration', 'country_codes_not_available'));
+      throw new Exception($this->errorHandler->getError('profile', 'country_codes_not_available'));
     }
 
     $this->countryCodeList = $countryCodeList;

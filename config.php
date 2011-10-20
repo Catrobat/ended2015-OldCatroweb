@@ -18,12 +18,15 @@
  */
 
 define('VERSION','0.6.3');
-define('BASE_PATH','http://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
+define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');
 define('XML_PATH','include/xml/');
 define('LANGUAGE_PATH','include/xml/lang/');
 define('CSS_PATH','include/css/');
 define('SCRIPT_PATH','include/script/');
+define('CLASS_PATH','classes/');
+define('MODULE_PATH','modules/');
+define('VIEWER_PATH','viewer/');
 define('PROJECTS_APP_BUILDING_SRC','app-building/catroid-source/');
 define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
@@ -32,10 +35,10 @@ define('PROJECTS_QR_EXTENTION','_qr.png');
 define('PROJECTS_QR_SERVICE_URL','http://catroid.org/api/qrCodeGenerator/generate.png?url=');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
-define('PROJECTS_THUMBNAIL_EXTENTION_ORIG','_original.jpg');
-define('PROJECTS_THUMBNAIL_EXTENTION_SMALL','_small.jpg');
-define('PROJECTS_THUMBNAIL_EXTENTION_LARGE','_large.jpg');
-define('PROJECTS_EXTENTION','.catroid');
+define('PROJECTS_THUMBNAIL_EXTENSION_ORIG','_original.png');
+define('PROJECTS_THUMBNAIL_EXTENSION_SMALL','_small.png');
+define('PROJECTS_THUMBNAIL_EXTENSION_LARGE','_large.png');
+define('PROJECTS_EXTENSION','.catroid');
 define('PROJECTS_MAX_SIZE',104857600);
 define('PROJECT_TITLE_MAX_DISPLAY_LENGTH',20);
 define('PROJECT_SHORT_DESCRIPTION_MAX_LENGTH',178);

@@ -154,9 +154,12 @@ public class SearchTests extends BaseTest {
       openLocation("catroid/search/?q=" + projectTitle + "&p=" + String.valueOf(pageNr));
       ajaxWait();
 
+      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
       assertRegExp(".*p=" + (pageNr) + ".*", driver().getCurrentUrl());
 
+      assertTrue(isElementPresent(By.id("fewerProjects")));
       assertTrue(isVisible(By.id("fewerProjects")));
+      assertTrue(isElementPresent(By.id("moreProjects")));
       assertTrue(isVisible(By.id("moreProjects")));
       // test links to details page
       driver().findElement(By.xpath("//a[@class='projectListDetailsLink'][1]")).click();

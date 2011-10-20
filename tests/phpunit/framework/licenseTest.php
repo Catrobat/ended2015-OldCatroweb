@@ -31,7 +31,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
     $this->file_listing = array();
     $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js", "java");
     $this->blacklist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php", "strings.xml", ".ant-targets-build.xml");
-    $this->blacklist_folders = array("addons", "app-building", "pear", "target", "resources", "pootle", "phpPgAdmin");
+    $this->blacklist_folders = array(".metadata", "addons", "app-building", "pear", "target", "resources", "pootle", "phpPgAdmin");
 
     $this->license = array(
     "Catroid: An on-device graphical programming language for Android devices",
@@ -55,7 +55,8 @@ class licenseTest extends PHPUnit_Framework_TestCase
 
     foreach($this->file_listing as $current_file) {
       $contents = $this->getFileContent($current_file);
-      // to see what files are checked ... // print "processing file: ".$current_file."\n";
+      // to see what files are checked ... 
+      // print "processing file: ".$current_file."\n";
         foreach($this->license as $line) {
           $value = preg_match("/" . $line . "/", $contents);
           if(!$value) {

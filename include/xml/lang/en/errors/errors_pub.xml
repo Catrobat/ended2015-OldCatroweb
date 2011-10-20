@@ -60,30 +60,29 @@
       <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
     </auth>
     <registration>
-    	<string name="board_registration_failed">The board registration failed.</string>
-    	<string name="wiki_registration_failed">The wiki registration failed.</string>
-    	<string name="catroid_registration_failed">The catroid registration failed.</string>
-    	<string name="email_already_exists">This email address already exists.</string>
-    	<string name="email_invalid">This email address is not valid.</string>
-    	<string name="email_missing">Your email address is missing.</string>
-    	<string name="password_missing">Your password is missing.</string>
-    	<string name="password_length_invalid">Your password must have at least {*minimumPasswordLength*} and maximal {*maximumPasswordLength*} characters.</string>
-    	<string name="username_password_equal">The password must differ from the nickname.</string>
-    	<string name="username_missing">Your nickname is missing.</string>
-    	<string name="username_invalid">Your nickname is invalid.</string>
-      <string name="username_invalid_underscore">The nickname is invalid. Underscores (_) are not allowed.</string>
-      <string name="username_invalid_hash">The nickname is invalid. Hash signs (#) are not allowed.</string>
-      <string name="username_invalid_verticalbar">The nickname is invalid. Vertical bars (|) are not allowed.</string>
-      <string name="username_invalid_curlybrace">The nickname is invalid. Curly braces ({ or }) are not allowed.</string>
-      <string name="username_invalid_lessgreater">The nickname is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.</string>
-      <string name="username_invalid_squarebracket">The nickname is invalid. Square brackets ([ or ]) are not allowed.</string>
-    	<string name="username_already_exists">This nickname already exists.</string>
-    	<string name="username_blacklisted">This nickname is on the blacklist and not allowed.</string>
-    	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
-    	<string name="country_missing">Your country is missing.</string>
-      <string name="birth_missing">Your birthday is missing.</string>
-      <string name="gender_missing">Your gender is missing.</string>
-      <string name="insulting_words_in_username_field">There are insulting words in the nickname field!</string>
+      <string name="send_registration_email_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
+      <string name="wiki_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
+      <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
+      <string name="catroid_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
+      <string name="username_missing">You haven't entered a nickname, please add one.</string>
+      <string name="username_invalid_underscore">The nickname you have entered is not allowed. Please do not use underscores (_).</string>
+      <string name="username_invalid_hash">The nickname you have entered is not allowed. Please do not use hash signs (#).</string>
+      <string name="username_invalid_verticalbar">The nickname you have entered is not allowed. Please do not use vertical bars (|).</string>
+      <string name="username_invalid_curlybrace">The nickname you have entered is not allowed. Please do not use curly braces ({ or }).</string>
+      <string name="username_invalid_lessgreater">The nickname you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
+      <string name="username_invalid_squarebracket">The nickname you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
+      <string name="username_invalid_spaces">The nickname you have entered is not allowed. Please do not use spaces (" ").</string>
+      <string name="username_invalid_insulting_words">The nickname you have entered is not allowed. Please do not use insulting words.</string>
+      <string name="username_invalid">The nickname you have entered is not allowed.</string>
+      <string name="username_blacklisted">The nickname you have entered is not allowed.</string>
+      <string name="username_already_exists">The nickname you have entered already exists.</string>
+      <string name="password_missing">You haven't entered a password, please add one.</string>
+      <string name="password_length_invalid">Your password should have at least {*minimumPasswordLength*} characters and maximal {*maximumPasswordLength*} characters.</string>
+      <string name="password_username_equal">The nickname and password must be different.</string>
+      <string name="email_missing">You haven't entered an email address, please add one.</string>
+      <string name="email_invalid">This email address is not valid.</string>
+      <string name="email_already_exists">The email address you have entered already exists.</string>
+      <string name="country_missing">You haven't entered a country, please add one.</string>
     </registration>
     <passwordrecovery>
       <string name="userdata_missing">Your nickname or email address is missing.</string>
@@ -104,6 +103,7 @@
       <string name="country_update_failed">There was a problem while updating your home country.</string>
       <string name="city_update_failed">There was a problem while updating the email address.</string>
       <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
+    	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
     </profile>
     <viewer>
       <string name="ip_is_blocked">Your IP-Address has been blocked.</string>

@@ -405,7 +405,7 @@ public class DetailsTests extends BaseTest {
   public Object[][] detailsProject() {
     Object[][] returnArray = new Object[][] {
         { CommonData.getUploadPayload("details_test1small", "details_test_description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
-        { CommonData.getUploadPayload("details_test2big", "details_test_description", "test2.zip", "38B9AA38175AEDDD1BABABAD63025C72", "", "", "0") }, };
+        { CommonData.getUploadPayload("details_test2big", "details_test_description", "test2.zip", "c40c86d6c4407788fa723e1d9fade10e", "", "", "0") }, };
     return returnArray;
   }
 }

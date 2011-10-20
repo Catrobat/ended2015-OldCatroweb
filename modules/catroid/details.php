@@ -77,10 +77,10 @@ class details extends CoreAuthenticationNone {
     }
     $project['qr_code_catroid_image'] = getCatroidProjectQRCodeUrl($projectId, $project['title']);
 
-    $project['is_app_present'] = file_exists(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENTION);
+    $project['is_app_present'] = file_exists(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENSION);
     if($project['is_app_present']) {
       $project['qr_code_app_image'] = getAppProjectQRCodeUrl($projectId, $project['title']);
-      $project['appFileSize'] = convertBytesToMegabytes(filesize(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENTION));
+      $project['appFileSize'] = convertBytesToMegabytes(filesize(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENSION));
     }
     
     $project['showReportAsInappropriateButton'] = $this->showReportAsInappropriateButton($projectId, $project['user_id']);
