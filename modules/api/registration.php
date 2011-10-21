@@ -390,6 +390,7 @@ class registration extends CoreAuthenticationNone {
   public function sendRegistrationEmail($postData, $sendPasswordRecoveryEmail) {
     $catroidProfileUrl = BASE_PATH.'catroid/profile';
     $catroidLoginUrl = BASE_PATH.'catroid/login';
+    $catroidRecoveryUrl = BASE_PATH.'catroid/passwordrecovery';
     
     if($sendPasswordRecoveryEmail) {
       $username = $postData['registrationUsername'];  
@@ -404,9 +405,11 @@ class registration extends CoreAuthenticationNone {
       $mailText .=   $this->languageHandler->getString('mail_text_row7') . "\n";
       $mailText .=   $catroidLoginUrl."\n\n";
       $mailText .=   $this->languageHandler->getString('mail_text_row8') . "\n";
-      $mailText .=   $catroidProfileUrl."\n\n\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row9') . "\n\n";
+      $mailText .=   $catroidProfileUrl."\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row9') . "\n";
+      $mailText .=   $catroidRecoveryUrl."\n\n";
       $mailText .=   "www.catroid.org";
+      $mailText .=   "\n\n";
 
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
         throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL));
