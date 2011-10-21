@@ -56,7 +56,7 @@ class registration extends CoreAuthenticationNone {
         try {
           $wikiUserId = $this->doWikiRegistration($postData);
           try {
-            $this->sendRegistrationEmail($_POST['registrationPassword'], SEND_NOTIFICATION_USER_EMAIL);
+            $this->sendRegistrationEmail($postData, SEND_NOTIFICATION_USER_EMAIL);
             $registrationSuccessful = true;
           }
           catch(Exception $e) {
@@ -387,24 +387,25 @@ class registration extends CoreAuthenticationNone {
     pg_close($wikiDbConnection);
   }
   
-  public function sendRegistrationEmail($password, $sendPasswordRecoveryEmail) {
+  public function sendRegistrationEmail($postData, $sendPasswordRecoveryEmail) {
     $catroidProfileUrl = BASE_PATH.'catroid/profile';
     $catroidLoginUrl = BASE_PATH.'catroid/login';
     
     if($sendPasswordRecoveryEmail) {
-      $userMailAddress = $this->userData['email'];
+      $username = $postData['registrationUsername'];  
+      $password = $postData['registrationPassword'];
+      $userMailAddress = $postData['registrationEmail'];
       $mailSubject = $this->languageHandler->getString('mail_subject');
       $mailText =    $this->languageHandler->getString('mail_text_row1') . "\n\n";
       $mailText .=   $this->languageHandler->getString('mail_text_row2') . "\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row3', $this->userData['username']) . "\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row4', $password) . "\n\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row5') . "\n\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row6') . "\n";
-      $mailText .=   $catroidLoginUrl."\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row3', $username) . "\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row5', $password) . "\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row6') . "\n\n";
       $mailText .=   $this->languageHandler->getString('mail_text_row7') . "\n";
+      $mailText .=   $catroidLoginUrl."\n\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row8') . "\n";
       $mailText .=   $catroidProfileUrl."\n\n\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row8') . "\n\n";
-      $mailText .=   $this->languageHandler->getString('mail_text_row9') . "\n";
+      $mailText .=   $this->languageHandler->getString('mail_text_row9') . "\n\n";
       $mailText .=   "www.catroid.org";
 
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
