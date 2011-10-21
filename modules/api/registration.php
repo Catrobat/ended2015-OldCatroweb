@@ -61,7 +61,6 @@ class registration extends CoreAuthenticationNone {
           }
           catch(Exception $e) {
             array_push($this->registrationErrors, $this->errorHandler->getError('registration', 'send_registration_email_failed', $e->getMessage()));
-            array_push($this->registrationErrors, $this->errorVars);
           }
         } catch(Exception $e) {
           array_push($this->registrationErrors,
@@ -410,7 +409,6 @@ class registration extends CoreAuthenticationNone {
       $mailText .=   "www.catroid.org";
 
       if(!($this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress))) {
-        $this->errorVars = "<br>" . $mailSubject . $mailText . "  email: " . $userMailAddress . "<br>";
         throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL));
       }
     }
