@@ -18,6 +18,7 @@
  */
 
 class details extends CoreAuthenticationNone {
+  protected $oldVersions;
 
   public function __construct() {
     parent::__construct();
@@ -33,6 +34,7 @@ class details extends CoreAuthenticationNone {
     $this->addJs('projectDetails.js');
 
     $this->isMobile = $this->clientDetection->isMobile();
+    $this->oldVersions = array("", "0.4.3d");
   }
 
   public function __default() {
@@ -81,6 +83,11 @@ class details extends CoreAuthenticationNone {
     if($project['is_app_present']) {
       $project['qr_code_app_image'] = getAppProjectQRCodeUrl($projectId, $project['title']);
       $project['appFileSize'] = convertBytesToMegabytes(filesize(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENSION));
+    }
+    
+    $project['show_warning'] = false;
+    if(in_array($project['version_name'], $this->oldVersions)) {
+      $project['show_warning'] = true;
     }
     
     $project['showReportAsInappropriateButton'] = $this->showReportAsInappropriateButton($projectId, $project['user_id']);

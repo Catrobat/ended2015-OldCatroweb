@@ -242,6 +242,21 @@ public class DetailsTests extends BaseTest {
     }
   }
 
+  @Test(groups = { "visibility" }, description = "check old version warning")
+  public void oldVersionWarning() throws Throwable {
+    try {
+      openLocation("catroid/details/1");
+      ajaxWait();
+      assertTrue(isTextPresent("This project was built with an very early version of Catroid and probaly will not work with the current version."));
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.QRCodeInfo");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("DetailsTests.QRCodeInfo");
+      throw e;
+    }
+  }
+
   @Test(groups = { "visibility" }, description = "test download info")
   public void downloadInfo() throws Throwable {
     try {

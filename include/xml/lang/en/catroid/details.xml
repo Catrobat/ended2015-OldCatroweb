@@ -40,5 +40,5 @@
   <string name="show_qr_code_info_button">QR code - what's this?</string>
   <string name="hide_qr_code_info_button">QR code - close info</string>
   <string name="flag_reason_placeholder">enter a reason</string>
-  
+  <string name="old_version">This project was built with an very early version of Catroid and probaly will not work with the current version.</string>
 </strings>
