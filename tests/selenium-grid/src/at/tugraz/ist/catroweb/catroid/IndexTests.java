@@ -34,14 +34,26 @@ public class IndexTests extends BaseTest {
     openLocation();
     ajaxWait();
 
-    assertTrue(isVisible(By.id("infobox")));
-    assertTrue(isTextPresent("Visual Programming Language");
-    assertTrue(isTextPresent("Catroid is an on-device graphical programming language for Android devices that is inspired by the Scratch programming language for PCs, developed by the Lifelong Kindergarten Group at the MIT Media Lab. It is the aim of the Catroid project to facilitate the learning of programming skills among children and users of all ages.");
-    assertTrue(isElementPresent(By.id("infoboxScreenshot")));
-    driver().findElement(By.id("infoboxLink")).click();
-    driver().findElement(By.id("infoboxClose")).click();
+    assertTrue(isVisible(By.id("catroidDescription")));
+    assertTrue(isTextPresent("Visual Programming Language"));
+    assertTrue(isTextPresent("Catroid is an on-device graphical programming language for Android devices that is inspired by the Scratch programming language for PCs, developed by the Lifelong Kindergarten Group at the MIT Media Lab. It is the aim of the Catroid project to facilitate the learning of programming skills among children and users of all ages."));
+
+    // test catroid download link
+    assertTrue(isElementPresent(By.id("aIndexInfoboxDownloadButton")));
+    clickAndWaitForPopUp(By.id("aIndexInfoboxDownloadButton"));
+    assertTrue(isTextPresent("Catroid_0-4-3d.apk"));
+    assertTrue(isTextPresent("Paintroid_0.6.4b.apk"));
+    closePopUp();
+    
+    // test screenshot link
+    assertTrue(isElementPresent(By.id("aIndexInfoboxScreenshotLink")));
+    clickAndWaitForPopUp(By.id("aIndexInfoboxScreenshotLink"));
+    assertTrue(isTextPresent("Catroid release 4"));
+    closePopUp();
+
+    driver().findElement(By.id("catroidDescriptionCloseButton")).click();
     ajaxWait();
-    assertFalse(isVisible(By.id("infobox")));
+    assertFalse(isVisible(By.id("catroidDescription")));
   }
   
   @Test(groups = { "visibility" }, description = "location tests")
@@ -111,12 +123,7 @@ public class IndexTests extends BaseTest {
       assertTrue(isElementPresent(By.xpath("//div[@class='webHeadLogo']")));
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
-      // test catroid download link
-      assertTrue(isElementPresent(By.id("aIndexWebLogoMiddle")));
-      clickAndWaitForPopUp(By.id("aIndexWebLogoMiddle"));
-      assertTrue(isTextPresent("Catroid_0-4-3d.apk"));
-      assertTrue(isTextPresent("Paintroid_0.6.4b.apk"));
-      closePopUp();
+
 
       clickLastVisibleProject();
       assertRegExp(".*/catroid/details/[0-9]+", driver().getCurrentUrl());

@@ -114,8 +114,8 @@ public class ProjectUploader {
       projectId = key;
     }
 
-    //this.uploadedProjects.remove(getProject(projectId));
-    //deleteProject(projectId);
+    this.uploadedProjects.remove(getProject(projectId));
+    deleteProject(projectId);
   }
 
   private HashMap<String, String> verifyPayload(HashMap<String, String> payload) {
