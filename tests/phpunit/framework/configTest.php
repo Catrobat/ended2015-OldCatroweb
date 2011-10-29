@@ -49,7 +49,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECT_PAGE_LOAD_MAX_PROJECTS, 5);
     $this->assertEquals(PROJECT_PAGE_SHOW_MAX_PAGES, 5);
     $this->assertEquals(PROJECT_ROW_MAX_PROJECTS, 3);
-    $this->assertEquals(PROJECT_FLAG_NOTIFICATION_THRESHOLD, 10);
+    $this->assertEquals(PROJECT_FLAG_NOTIFICATION_THRESHOLD, 1);
     $this->assertEquals(DEVELOPMENT_STATUS, '[beta]');
     $this->assertEquals(DEFAULT_HTML_TEMPLATE_NAME, 'htmlTemplate.php');
     $this->assertEquals(DEFAULT_HTML_HEADER_TEMPLATE_NAME, 'htmlHeaderTemplate.php');
