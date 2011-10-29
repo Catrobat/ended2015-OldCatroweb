@@ -29,6 +29,33 @@ import at.tugraz.ist.catroweb.common.*;
 @Test(groups = { "catroid", "IndexTests" })
 public class IndexTests extends BaseTest {
 
+  @Test(groups = { "visibility" }, description = "information box, description and screenshot")
+  public void infoBox() throws Throwable {
+    openLocation();
+    ajaxWait();
+
+    assertTrue(isVisible(By.id("catroidDescription")));
+    assertTrue(isTextPresent("Visual Programming Language"));
+    assertTrue(isTextPresent("Catroid is an on-device graphical programming language for Android devices that is inspired by the Scratch programming language for PCs, developed by the Lifelong Kindergarten Group at the MIT Media Lab. It is the aim of the Catroid project to facilitate the learning of programming skills among children and users of all ages."));
+
+    // test catroid download link
+    assertTrue(isElementPresent(By.id("aIndexInfoboxDownloadButton")));
+    clickAndWaitForPopUp(By.id("aIndexInfoboxDownloadButton"));
+    assertTrue(isTextPresent("Catroid_0-4-3d.apk"));
+    assertTrue(isTextPresent("Paintroid_0.6.4b.apk"));
+    closePopUp();
+    
+    // test screenshot link
+    assertTrue(isElementPresent(By.id("aIndexInfoboxScreenshotLink")));
+    clickAndWaitForPopUp(By.id("aIndexInfoboxScreenshotLink"));
+    assertTrue(isTextPresent("Catroid release 4"));
+    closePopUp();
+
+    driver().findElement(By.id("catroidDescriptionCloseButton")).click();
+    ajaxWait();
+    assertFalse(isVisible(By.id("catroidDescription")));
+  }
+  
   @Test(groups = { "visibility" }, description = "location tests")
   public void location() throws Throwable {
     String longPageNr = "99999999";
@@ -67,7 +94,6 @@ public class IndexTests extends BaseTest {
       // random string instead of page nr should redirect to first page
       openLocation("catroid/search/?q=test&p=" + CommonData.getRandomShortString(10));
       ajaxWait();
-      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
       assertRegExp(".*/catroid/search/[?]q=test[&]p=1.*", driver().getCurrentUrl());
 
       openLocation("catroid/profile");
@@ -97,12 +123,7 @@ public class IndexTests extends BaseTest {
       assertTrue(isElementPresent(By.xpath("//div[@class='webHeadLogo']")));
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
-      // test catroid download link
-      assertTrue(isElementPresent(By.id("aIndexWebLogoMiddle")));
-      clickAndWaitForPopUp(By.id("aIndexWebLogoMiddle"));
-      assertTrue(isTextPresent("Catroid_0-4-3d.apk"));
-      assertTrue(isTextPresent("Paintroid_0.6.4b.apk"));
-      closePopUp();
+
 
       clickLastVisibleProject();
       assertRegExp(".*/catroid/details/[0-9]+", driver().getCurrentUrl());

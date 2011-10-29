@@ -64,10 +64,6 @@ div.webMainBottom {
   margin-bottom: 0.7%;
 }
 
-div.webMainContent {
-  min-height: 250px;
-}
-
 div.webMainLicense {
   text-align: center;
   font-size: 1em;

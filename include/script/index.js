@@ -45,6 +45,7 @@ var Index = Class.$extend( {
     $("#headerMenuButton").click(function() { self.newestProjects.saveStateToSession(self.newestProjects.pageNr.current); });
     $("#searchForm").submit($.proxy(this.search, this));
     $("#headerCancelSearchButton").click($.proxy(this.cancelSearch, this));
+    $("#catroidDescriptionCloseButton").click($.proxy(this.hideCatroidDescription, this));
   },
   
   initialize : function(object) {    
@@ -93,6 +94,10 @@ var Index = Class.$extend( {
 
   cancelSearch : function() {
     this.switchState("newestProjects");
+  },
+
+  hideCatroidDescription : function() {
+    $("#catroidDescription").hide();
   },
   
   startPage : function() {

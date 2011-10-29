@@ -116,6 +116,12 @@ div.detailsDownloadInfoText {
   text-align: justify;
 }
 
+div.oldVersionWarning {
+  color:#c00;
+  font-weight:bold;
+  text-align:center;
+}
+
 span.detailsDownloadTypeSwitchText {
   font-weight:bold;
   font-size:1.5em;

@@ -34,7 +34,7 @@
             <div class="webHeadTitleName">
               <a class="noLink" id="aIndexWebLogoMiddle" href="catroid/index">
                 <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering.png" alt="catroid [beta]" />
-              </a>			      			
+              </a>
             </div>
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">

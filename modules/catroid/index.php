@@ -29,6 +29,7 @@ class index extends CoreAuthenticationNone {
     } else {
       $this->addCss('projectList_nohtml5.css');
     }
+    $this->addCss('index.css');
     $this->addJs('newestProjects.js');
     $this->addJs('searchProjects.js');
     $this->addJs('index.js');

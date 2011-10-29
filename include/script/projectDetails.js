@@ -168,7 +168,7 @@ var ProjectDetails = Class.$extend( {
     var self = this;
     $.ajax({
       type: "POST",
-      url: self.basePath+"catroid/download/" + self.projectId,
+      url: self.basePath+"catroid/download/" + self.projectId + ".json",
       cache: false,
       data: "incrementID=" + self.projectId,        
     });

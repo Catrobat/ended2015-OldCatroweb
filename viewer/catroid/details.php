@@ -94,6 +94,9 @@
 <?php   }?>
                     </div>
 <?php }?>
+<?php if($this->project['show_warning'] == true) {?>
+                   <div class="oldVersionWarning"><?php echo $this->languageHandler->getString('old_version'); ?></div>
+<?php } ?>
                     <div id="downloadCatroidSection">
                       <div class="detailsDownloadButton">
                         <a id="downloadCatroidProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
