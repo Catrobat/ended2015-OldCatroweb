@@ -60,6 +60,6 @@ img.infoboxCloseButton {
 
 img.infoboxScreenshot {
   border:0;
-  box-shadow:2px 2px 2px #333333;
+  box-shadow: 2px 2px 2px 2px #888;
   margin:0.3em 0 0 1.0em;
 }
