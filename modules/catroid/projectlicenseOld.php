@@ -21,11 +21,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class projectlicense extends CoreAuthenticationNone {
+class projectlicenseOld extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->addCss('license.css');
-    $this->setWebsiteTitle("License to play - Give credit and share");
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {
