@@ -42,7 +42,7 @@ Please mail any suggestions regarding these licenses of uploaded Catroid project
 <br/>
 <br/>
 Dated: 26 October 2011<br/>
-Copyright © 2011 Catroid Team <a href="http://catroid.org">&lt;http://catroid.org&gt;</a><br/>
+Copyright &copy; 2011 Catroid Team <a href="http://catroid.org">&lt;http://catroid.org&gt;</a><br/>
 								</p>
               </div> <!-- License Text -->
             </div> <!--  White Box -->            	
