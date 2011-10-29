@@ -21,12 +21,20 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class CorePresenter {
-  static public function factory($presenter_class, CoreModule $module) {
-    $presenter = new $presenter_class($module);
-    if($presenter instanceof CorePresenterCommon) {
-      return $presenter;
-    }
+class licenseadditionalterm extends CoreAuthenticationNone {
+  public function __construct() {
+    parent::__construct();
+    $this->addCss('license.css');
+    $this->setWebsiteTitle('Additional term exception under section 7 of the GNU Affero General Public License, version 3');
+  }
+
+  public function __default() {
+    
+  }
+
+ 
+  public function __destruct() {
+    parent::__destruct();
   }
 }
 ?>
