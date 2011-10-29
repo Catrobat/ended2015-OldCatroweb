@@ -35,7 +35,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
     $this->file_listing = array();
     $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js", "java");
     $this->blacklist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php", "strings.xml", ".ant-targets-build.xml");
-    $this->blacklist_folders = array(".metadata", "addons", "app-building", "pear", "target", "resources", "pootle", "phpPgAdmin");
+    $this->blacklist_folders = array(".metadata", "addons", "app-building", "pear", "target", "resources", "pootle", "phpPgAdmin", "de", "ms", "ro", "ru", "zh-CN", "zh-TW");
 
     $this->license = array(
     "Catroid: An on-device graphical programming language for Android devices",
@@ -47,7 +47,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
     "License, or \(at your option\) any later version.",
     "An additional term exception under section 7 of the GNU Affero",
     "General Public License, version 3, is available at",
-    "http://www.catroid.org/catroid/licenseadditionalterm",
+    "http:\/\/www.catroid.org\/catroid\/licenseadditionalterm",
     "This program is distributed in the hope that it will be useful,",
     "but WITHOUT ANY WARRANTY; without even the implied warranty of",
     "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the",

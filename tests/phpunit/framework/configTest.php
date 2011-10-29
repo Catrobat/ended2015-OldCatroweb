@@ -8,6 +8,10 @@
  *    published by the Free Software Foundation, either version 3 of the
  *    License, or (at your option) any later version.
  *
+ *    An additional term exception under section 7 of the GNU Affero
+ *    General Public License, version 3, is available at
+ *    http://www.catroid.org/catroid/licenseadditionalterm
+ *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -24,8 +28,7 @@ class configTest extends PHPUnit_Framework_TestCase
 
   public function testConfig()
   {
-    // $this->assertEquals(VERSION, '0.6.2_I18N');
-    $this->assertEquals(VERSION, '0.6.3');
+    $this->assertEquals(VERSION, '0.6.2_I18N');
     $this->assertEquals(XML_PATH, 'include/xml/');
     $this->assertEquals(CSS_PATH, 'include/css/');
     $this->assertEquals(SCRIPT_PATH, 'include/script/');
@@ -33,9 +36,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECTS_UNZIPPED_DIRECTORY, 'resources/catroid/');
     $this->assertEquals(PROJECTS_QR_DIRECTORY, 'resources/qrcodes/');
     $this->assertEquals(PROJECTS_QR_EXTENSION, '_qr.png');
-    // <ag> $this->assertEquals(PROJECTS_QR_SERVICE_URL, BASE_PATH.'api/qrCodeGenerator/generate.png?url=');
-    // $this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://catroidwebtest.ist.tugraz.at/api/qrCodeGenerator/generate.png?url=');
-    // $this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://qrcode.kaywa.com/img.php?s=5&d=');
+    $this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://catroidwebtest.ist.tugraz.at/api/qrCodeGenerator/generate.png?url=');
     $this->assertEquals(PROJECTS_THUMBNAIL_DIRECTORY, 'resources/thumbnails/');
     $this->assertEquals(PROJECTS_THUMBNAIL_DEFAULT, 'thumbnail');
     $this->assertEquals(PROJECTS_THUMBNAIL_EXTENSION_ORIG, '_original.png');

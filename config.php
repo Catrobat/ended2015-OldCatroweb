@@ -8,6 +8,10 @@
  *    published by the Free Software Foundation, either version 3 of the
  *    License, or (at your option) any later version.
  *
+ *    An additional term exception under section 7 of the GNU Affero
+ *    General Public License, version 3, is available at
+ *    http://www.catroid.org/catroid/licenseadditionalterm
+ *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -17,7 +21,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('VERSION','0.6.3');
+define('VERSION','0.6.2_I18N');
 define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');
 define('XML_PATH','include/xml/');
@@ -32,7 +36,7 @@ define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
 define('PROJECTS_QR_DIRECTORY','resources/qrcodes/');
 define('PROJECTS_QR_EXTENSION','_qr.png');
-define('PROJECTS_QR_SERVICE_URL','http://catroid.org/api/qrCodeGenerator/generate.png?url=');
+define('PROJECTS_QR_SERVICE_URL','http://catroidwebtest.ist.tugraz.at/api/qrCodeGenerator/generate.png?url=');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
 define('PROJECTS_THUMBNAIL_EXTENSION_ORIG','_original.png');
