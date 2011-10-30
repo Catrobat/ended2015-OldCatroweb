@@ -24,7 +24,7 @@
   	<div class="webMainMiddle">
   		<div class="blueBoxMain">
   		   	<div class="webMainContent">
-              <div class="webMainContentTitle">License to play - Give credit and share</div>
+              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?> </div>
                 <div class="licenseMain">            	
             	  <div class ="whiteBoxMain">
             	    <div class="licenseText">
