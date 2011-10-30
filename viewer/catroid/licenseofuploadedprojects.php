@@ -24,26 +24,22 @@
     <div class="webMainMiddle">
       <div class="blueBoxMain">
         <div class="webMainContent">
-          <div class="webMainContentTitle">Licenses of uploaded Catroid projects</div>
+          <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
           <div class="licenseMain">            	
             <div class ="whiteBoxMain">
               <div class="licenseText">
-                <p class="licenseText">
-By uploading a project to Catroid's website, you accept and agree to put this work under the following licenses and the Catroid terms of service:
-<ul>
-<li>The uploaded project as a whole is made available under the terms of the GNU Affero General Public License as published by the <a href="http://www.fsf.org/" target="_blank">Free Software Foundation</a>, either <a href="/catroid/agpl3standalone">version 3 of the License</a>, or (at the option of the person accepting the license) any <a href="http://www.gnu.org/licenses/agpl.html" target="_blank">later version when it becomes available</a>.<br/><br/>
-<li>All non-software artifacts of the uploaded project, such as, e.g., text, graphics, photos, sounds, music, videos, audiovisual combinations, interactive features, and other materials are additionally made available under the <a href="/catroid/ccbysa3">Creative Commons Attribution-ShareAlike 3.0 License</a>. See <a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">http://creativecommons.org/licenses/by-sa/3.0/</a> for a human-readable summary of this license.<br/><br/>
-<li>You accept and agree to our <a href="/catroid/termsofservice">http://www.catroid.org/catroid/termsofservice</a>.<br/><br/>
-</ul>
-<br/>
-Check back here from time-to-time, because we are always trying to improve our guidelines. <br/>
-<br/>
-Please mail any suggestions regarding these licenses of uploaded Catroid projects to <a href="mailto:webmaster@catroid.org?subject=Licenses%20of%20uploaded%20Catroid%20projects">webmaster@catroid.org</a>. 
-<br/>
-<br/>
-Dated: 26 October 2011<br/>
-Copyright &copy; 2011 Catroid Team <a href="http://catroid.org">&lt;http://catroid.org&gt;</a><br/>
-								</p>
+                <p class="licenseText"><?php echo $this->languageHandler->getString('license_of_uploaded_projects_accepting')?></p>
+                <ul>
+                  <li><?php echo $this->languageHandler->getString('license_of_uploaded_projects_enumeration_1', '<a href="http://www.fsf.org/" target="_blank">Free Software Foundation</a>', '<a href="'.BASE_PATH.'catroid/agpl3standalone">' . $this->languageHandler->getString('license_of_uploaded_projects_link_title_1') . '</a>', '<a href="http://www.gnu.org/licenses/agpl.html" target="_blank">' . $this->languageHandler->getString('license_of_uploaded_projects_link_title_2') . '</a>')?><br/><br/></li>
+                  <li><?php echo $this->languageHandler->getString('license_of_uploaded_projects_enumeration_2', '<a href="'.BASE_PATH.'catroid/ccbysa3">Creative Commons Attribution-ShareAlike 3.0 License</a>', '<a href="http://creativecommons.org/licenses/by-sa/3.0/" target="_blank">http://creativecommons.org/licenses/by-sa/3.0/</a>')?><br/><br/></li>
+                  <li><?php echo $this->languageHandler->getString('license_of_uploaded_projects_enumeration_3', '<a href="'.BASE_PATH.'catroid/termsofservice">'.BASE_PATH.'catroid/termsofservice</a>')?><br/><br/></li>
+                </ul>
+                <p class="licenseText"><?php echo $this->languageHandler->getString('license_of_uploaded_projects_check_back')?></p>
+                <br />
+                <p class="licenseText"><?php echo $this->languageHandler->getString('license_of_uploaded_projects_mail_us', '<a href="'.impedeCrawling("mailto:".CONTACT_EMAIL).'?subject='.rawurlencode($this->languageHandler->getString('title')).'">'.impedeCrawling(CONTACT_EMAIL).'</a>')?></p>
+                <br />
+                <p class="licenseText"><?php echo $this->languageHandler->getString('license_of_uploaded_projects_dated')?></p>
+                <p class="licenseText"><?php echo $this->languageHandler->getString('license_of_uploaded_projects_copy', '<a href="'.BASE_PATH.'">&lt;'.BASE_PATH.'&gt;</a>')?></p>
               </div> <!-- License Text -->
             </div> <!--  White Box -->            	
           </div> <!--  license Main -->

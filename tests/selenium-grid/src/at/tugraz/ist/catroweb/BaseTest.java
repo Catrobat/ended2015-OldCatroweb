@@ -173,10 +173,14 @@ public class BaseTest {
   protected void closeSession(Method method) {
     String methodName = method.getName();
 
-    getDriverObject(methodName).quit();
-    driverSessions.remove(methodName);
+    try { 
+      getDriverObject(methodName).quit();
+      driverSessions.remove(methodName);
 
-    log("..." + methodName + " done");
+      log("..." + methodName + " done");
+    } catch(NullPointerException e) {
+      Reporter.log("..." + methodName + " closeSession got NULL pointer");
+    }
   }
 
   protected WebDriver driver() {
