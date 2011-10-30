@@ -8,6 +8,10 @@
  *    published by the Free Software Foundation, either version 3 of the
  *    License, or (at your option) any later version.
  *
+ *    An additional term exception under section 7 of the GNU Affero
+ *    General Public License, version 3, is available at
+ *    http://www.catroid.org/catroid/licenseadditionalterm
+ *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -21,7 +25,7 @@ class projectlicense extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->addCss('license.css');
-    $this->setWebsiteTitle($this->languageHandler->getString('title'));
+    $this->setWebsiteTitle("License to play - Give credit and share");
   }
 
   public function __default() {

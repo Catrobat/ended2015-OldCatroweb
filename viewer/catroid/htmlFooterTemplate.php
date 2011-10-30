@@ -8,6 +8,10 @@
  *    published by the Free Software Foundation, either version 3 of the
  *    License, or (at your option) any later version.
  *
+ *    An additional term exception under section 7 of the GNU Affero
+ *    General Public License, version 3, is available at
+ *    http://www.catroid.org/catroid/licenseadditionalterm
+ *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -27,7 +31,7 @@
         <div class="webMainLicense"> 
           <a class="license" id="_privacy" href="<?php echo BASE_PATH?>catroid/privacypolicy"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a>
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_termsofuse" href="<?php echo BASE_PATH?>catroid/terms"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>  	      
+          <a class="license" id="_termsofuse" href="<?php echo BASE_PATH?>catroid/termsofuse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>  	      
           <span class="webMainBottomSpacer">|</span>
           <a class="license" id="_copyright" href="<?php echo BASE_PATH?>catroid/copyrightpolicy"><?php echo $this->languageHandler->getString('template_footer_copyright_policy_link')?></a>
           <span class="webMainBottomSpacer">|</span>

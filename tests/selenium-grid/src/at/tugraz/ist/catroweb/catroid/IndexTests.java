@@ -7,6 +7,10 @@
  *    published by the Free Software Foundation, either version 3 of the
  *    License, or (at your option) any later version.
  *
+ *    An additional term exception under section 7 of the GNU Affero
+ *    General Public License, version 3, is available at
+ *    http://www.catroid.org/catroid/licenseadditionalterm
+ *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -94,6 +98,7 @@ public class IndexTests extends BaseTest {
       // random string instead of page nr should redirect to first page
       openLocation("catroid/search/?q=test&p=" + CommonData.getRandomShortString(10));
       ajaxWait();
+      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
       assertRegExp(".*/catroid/search/[?]q=test[&]p=1.*", driver().getCurrentUrl());
 
       openLocation("catroid/profile");
@@ -123,7 +128,6 @@ public class IndexTests extends BaseTest {
       assertTrue(isElementPresent(By.xpath("//div[@class='webHeadLogo']")));
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
-
 
       clickLastVisibleProject();
       assertRegExp(".*/catroid/details/[0-9]+", driver().getCurrentUrl());

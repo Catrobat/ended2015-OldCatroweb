@@ -7,6 +7,10 @@
  *    published by the Free Software Foundation, either version 3 of the
  *    License, or (at your option) any later version.
  *
+ *    An additional term exception under section 7 of the GNU Affero
+ *    General Public License, version 3, is available at
+ *    http://www.catroid.org/catroid/licenseadditionalterm
+ *
  *    This program is distributed in the hope that it will be useful,
  *    but WITHOUT ANY WARRANTY; without even the implied warranty of
  *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
@@ -50,7 +54,7 @@ public class CommonData {
   
   public static String getRandomChineseString(int strLen) {
 	String str = "";
-	String chars = "诶比西迪伊艾弗吉艾尺艾杰开艾勒艾马艾娜哦屁吉吾艾儿艾丝提伊吾维豆贝尔维艾克斯吾艾贼德";
+	String chars = "è¯¶æ¯”è¥¿è¿ªä¼Šè‰¾å¼—å�‰è‰¾å°ºè‰¾æ�°å¼€è‰¾å‹’è‰¾é©¬è‰¾å¨œå“¦å±�å�‰å�¾è‰¾å„¿è‰¾ä¸�æ��ä¼Šå�¾ç»´è±†è´�å°”ç»´è‰¾å…‹æ–¯å�¾è‰¾è´¼å¾·";
 	for(int i = 0; i < strLen; i++) {
 	  java.util.Random rand = new java.util.Random();
 	  str += chars.charAt(rand.nextInt(chars.length()));

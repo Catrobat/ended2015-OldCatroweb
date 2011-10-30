@@ -47,7 +47,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
     "License, or \(at your option\) any later version.",
     "An additional term exception under section 7 of the GNU Affero",
     "General Public License, version 3, is available at",
-    "http://www.catroid.org/catroid/licenseadditionalterm",
+    "http:\/\/www.catroid.org\/catroid\/licenseadditionalterm",
     "This program is distributed in the hope that it will be useful,",
     "but WITHOUT ANY WARRANTY; without even the implied warranty of",
     "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the",
@@ -63,7 +63,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
     foreach($this->file_listing as $current_file) {
       $contents = $this->getFileContent($current_file);
       // to see what files are checked ... 
-      // print "processing file: ".$current_file."\n";
+        print "processing file: ".$current_file." ... \n";
         foreach($this->license as $line) {
           $value = preg_match("/" . $line . "/", $contents);
           if(!$value) {
