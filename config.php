@@ -21,7 +21,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('VERSION','0.6.2_I18N');
+define('VERSION','0.6.4');
 define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');
 define('XML_PATH','include/xml/');
@@ -36,7 +36,7 @@ define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
 define('PROJECTS_QR_DIRECTORY','resources/qrcodes/');
 define('PROJECTS_QR_EXTENSION','_qr.png');
-define('PROJECTS_QR_SERVICE_URL','http://catroidwebtest.ist.tugraz.at/api/qrCodeGenerator/generate.png?url=');
+define('PROJECTS_QR_SERVICE_URL','http://catroid.org/api/qrCodeGenerator/generate.png?url=');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
 define('PROJECTS_THUMBNAIL_EXTENSION_ORIG','_original.png');
@@ -49,12 +49,12 @@ define('PROJECT_SHORT_DESCRIPTION_MAX_LENGTH',178);
 define('PROJECT_PAGE_LOAD_MAX_PROJECTS', 5);
 define('PROJECT_PAGE_SHOW_MAX_PAGES', 5);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
-define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
+define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 10);
 define('APP_EXTENSION','.apk');
 define('APP_QR_EXTENSION','_app_qr.png');
-define('DEVELOPMENT_MODE',true);
-define('SEND_NOTIFICATION_EMAIL',false);
-define('SEND_NOTIFICATION_USER_EMAIL',false);
+define('DEVELOPMENT_MODE',false);
+define('SEND_NOTIFICATION_EMAIL',true);
+define('SEND_NOTIFICATION_USER_EMAIL',true);
 define('DEVELOPMENT_STATUS','[beta]');
 define('DEFAULT_HTML_TEMPLATE_NAME', 'htmlTemplate.php');
 define('DEFAULT_HTML_HEADER_TEMPLATE_NAME', 'htmlHeaderTemplate.php');

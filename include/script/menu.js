@@ -26,16 +26,12 @@ var Menu = Class.$extend( {
 
     this.userLogin_userId = userLogin_userId;
     
-    $("#menuForumButton").click({url:this.basePath + "addons/board",windowName:"board"}, jQuery.proxy(this.openWindow, this));
+    $("#menuForumButton").click({url:"https://code.google.com/p/catroid/issues/list",windowName:"board"}, jQuery.proxy(this.openWindow, this));
     $("#headerHomeButton").click({url:"catroid/index"}, jQuery.proxy(this.openLocation, this));
     $("#headerBackButton").click(jQuery.proxy(this.goBack, this));
     $("#menuWallButton").click({url:"catroid/wall"}, jQuery.proxy(this.openLocation, this));
     $("#menuSettingsButton").click({url:"catroid/settings"}, jQuery.proxy(this.openLocation, this));
-    if(this.userLogin_userId == 0) {
-      $("#menuWikiButton").click({url:this.basePath + "wiki",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
-    } else {
-      $("#menuWikiButton").click({url:this.basePath + "wiki/Main_Page?action=purge",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
-    }
+    $("#menuWikiButton").click({url:"https://code.google.com/p/catroid/w/list",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
 
     $("#menuLoginButton").click($.proxy(this.toggleProfileBox, this));
     $("#menuRegistrationButton").click({url:"catroid/registration"}, jQuery.proxy(this.openLocation, this));
