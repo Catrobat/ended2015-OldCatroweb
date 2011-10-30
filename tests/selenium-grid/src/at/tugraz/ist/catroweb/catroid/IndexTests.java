@@ -98,6 +98,7 @@ public class IndexTests extends BaseTest {
       // random string instead of page nr should redirect to first page
       openLocation("catroid/search/?q=test&p=" + CommonData.getRandomShortString(10));
       ajaxWait();
+      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
       assertRegExp(".*/catroid/search/[?]q=test[&]p=1.*", driver().getCurrentUrl());
 
       openLocation("catroid/profile");
@@ -127,7 +128,6 @@ public class IndexTests extends BaseTest {
       assertTrue(isElementPresent(By.xpath("//div[@class='webHeadLogo']")));
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
-
 
       clickLastVisibleProject();
       assertRegExp(".*/catroid/details/[0-9]+", driver().getCurrentUrl());

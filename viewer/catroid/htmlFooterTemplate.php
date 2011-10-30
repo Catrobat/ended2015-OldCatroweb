@@ -31,7 +31,7 @@
         <div class="webMainLicense"> 
           <a class="license" id="_privacy" href="<?php echo BASE_PATH?>catroid/privacypolicy"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a>
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_termsofuse" href="<?php echo BASE_PATH?>catroid/terms"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>  	      
+          <a class="license" id="_termsofuse" href="<?php echo BASE_PATH?>catroid/termsofuse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>  	      
           <span class="webMainBottomSpacer">|</span>
           <a class="license" id="_copyright" href="<?php echo BASE_PATH?>catroid/copyrightpolicy"><?php echo $this->languageHandler->getString('template_footer_copyright_policy_link')?></a>
           <span class="webMainBottomSpacer">|</span>

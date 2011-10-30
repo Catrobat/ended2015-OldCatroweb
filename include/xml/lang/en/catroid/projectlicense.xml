@@ -27,6 +27,7 @@
 	<string name="terms_of_use_link">Terms of Use</string>
 	<string name="share_alike_link">Creative Commons Attribution-Share Alike License</string>
 	<string name="project_licence_title">License to play - Give credit and share</string>
+
 	<string name="project_licence_part1">
 		Imagine that each Catroid project is a cake, a very special cake that comes with its recipe (programming blocks).
 		All members of the Catroid community share their cakes along with their recipes. This means that you can enjoy the cakes and learn how to make them yourself!
@@ -40,6 +41,7 @@
 		This freedom comes with two simple requirements:
 	</string>
 	<string name="project_licence_part3_list_element1">share your cakes along with the recipe</string>
+
 	<string name="project_licence_part3_list_element2">give credit to those who inspired you</string>
 	<string name="project_licence_part4">
 		Some people gave a name to this type of sharing: they call it {*shareAlikeLink*}. In setting up the Catroid community,
@@ -54,5 +56,6 @@
 	<string name="project_licence_learn_more">
 		Learn more about the {*termsOfUseLink*} of the Catroid online community and the {*creativeCommonsLink*} initiative.
 	</string>
+
 	<string name="project_licence_team">The Catroid team</string>
 </strings>

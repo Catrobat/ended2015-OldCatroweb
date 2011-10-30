@@ -43,7 +43,7 @@ div.licenseText
   padding: 1.5%; 
   padding-left: 10%;
   padding-right: 10%; 
-  text-align:justify;
+  /* text-align:justify; */
   font-size:1.3em;
 }
 
