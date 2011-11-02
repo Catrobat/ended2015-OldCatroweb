@@ -99,7 +99,7 @@
                   <br />
                   <p class="licenseText"><?php echo $this->languageHandler->getString('ccbysa3_paragraph_42')?></p>
                   <br />
-                  <p class="licenseText"><?php echo $this->languageHandler->getString('ccbysa3_paragraph_43', '<a href="http://creativecommons.org/" target="_blank">http://creativecommons.org/</a>')?></p>
+                  <p class="licenseText"><?php echo $this->languageHandler->getString('ccbysa3_paragraph_43', '<a id="aCclink" href="http://creativecommons.org/" target="_blank">http://creativecommons.org/</a>')?></p>
                 </blockquote>
               </div> <!-- License Text -->
             </div> <!--  White Box -->            	

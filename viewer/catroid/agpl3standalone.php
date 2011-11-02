@@ -218,7 +218,7 @@
                 <br />
                 <p class="licenseText"><?php echo $this->languageHandler->getString('agpl_3_paragraph_75')?></p>
                 <br />
-                <p class="licenseText"><?php echo $this->languageHandler->getString('agpl_3_paragraph_76', '<a href="http://www.gnu.org/licenses/" target="_blank">&lt;http://www.gnu.org/licenses/&gt;</a>')?></p>
+                <p class="licenseText"><?php echo $this->languageHandler->getString('agpl_3_paragraph_76', '<a id="aGNUlink" href="http://www.gnu.org/licenses/" target="_blank">&lt;http://www.gnu.org/licenses/&gt;</a>')?></p>
               </div> <!-- License Text -->
             </div> <!--  White Box -->            	
           </div> <!--  license Main -->
