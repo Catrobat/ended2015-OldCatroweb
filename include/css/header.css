@@ -34,6 +34,11 @@ div.webHeadLogo {
   width: 18%;
 }
 
+div.webHeadLogoXmas {
+  margin-top: -4px;
+  padding-top: 0px;
+}
+
 div.webHeadTitle {
   background-position: right top;
   background-repeat: no-repeat;

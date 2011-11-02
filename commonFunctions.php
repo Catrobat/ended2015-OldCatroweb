@@ -65,6 +65,25 @@ function getUsernameBlacklistArray() {
   return $usernameBlacklist;
 }
 
+function getPublicServerBlacklistArray() {
+  if(DEVELOPMENT_MODE) {
+    return array();
+  }
+
+  $publicServerBlacklist = array(
+    'testuser'
+  );
+  return $publicServerBlacklist;
+}
+
+function isItChristmas() {
+  date_default_timezone_set('UTC');
+  if(date("n") == 12 && date("j") > 17) {
+    return true;
+  }
+  return false;
+}
+
 function getMonthsArray($languageHandler) {
   $months = array(
     1=>$languageHandler->getString('template_common_january'),

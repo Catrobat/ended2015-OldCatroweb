@@ -289,6 +289,12 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_blacklisted'));
     }
 
+    foreach(getPublicServerBlacklistArray() as $value) {
+      if(preg_match("/".$value."/i", $username)) {
+        throw new Exception($this->errorHandler->getError('registration', 'username_blacklisted'));
+      }
+    }
+
     $query = "EXECUTE get_user_row_by_username_or_username_clean('$username', '$usernameClean')";
     $result = pg_query($this->dbConnection, $query);
     if(!$result) {

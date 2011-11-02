@@ -30,8 +30,8 @@
     <div class="webMainTop">
       <div class="blueBoxMain">
         <div class="webMainHead">
-          <div id="aIndexWebLogoLeft" class="webHeadLogo">
-            <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
+          <div id="aIndexWebLogoLeft" class="webHeadLogo<?php if(isItChristmas()) echo " webHeadLogoXmas";?>">
+            <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head<?php if(isItChristmas()) echo "_xmas";?>.png" alt="head logo" />
           </div>
           <div class="webHeadTitle">
             <div class="webHeadTitleName">

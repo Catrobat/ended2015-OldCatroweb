@@ -29,9 +29,9 @@
     <div class="webMainTop">
       <div class="blueBoxMain">
         <div class="webMainHead">
-          <div class="webHeadLogo">
+          <div class="webHeadLogo<?php if(isItChristmas()) echo " webHeadLogoXmas";?>">
             <a id="aIndexWebLogoLeft" href="<?php echo BASE_PATH?>catroid/index/1">
-              <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head.png" alt="head logo" />
+              <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head<?php if(isItChristmas()) echo "_xmas";?>.png" alt="head logo" />
             </a>
           </div>
           <div class="webHeadTitle">
