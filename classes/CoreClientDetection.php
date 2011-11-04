@@ -1018,7 +1018,7 @@
 	     * @return boolean True if the browser is Android otherwise false
 	     */
 	    protected function checkBrowserAndroid() {
-		    if( stripos($this->_agent,'Android') !== false ) {
+		    if( stripos($this->_agent,'Android') !== false || preg_match("/mac(.*)htc/i", $this->_agent) !== false ) {
 			    $aresult = explode(' ',stristr($this->_agent,'Android'));
 			    if( isset($aresult[1]) ) {
 				    $aversion = explode(' ',$aresult[1]);
@@ -1050,10 +1050,10 @@
 		    else if( stripos($this->_agent, 'iPhone') !== false ) {
 			    $this->_platform = self::PLATFORM_IPHONE;
 		    }
-		    elseif( stripos($this->_agent, 'mac') !== false ) {
+		    elseif( stripos($this->_agent, 'mac') !== false && preg_match("/htc/i", $this->_agent) === false ) {
 			    $this->_platform = self::PLATFORM_APPLE;
 		    }
-		    elseif( stripos($this->_agent, 'android') !== false ) {
+		    elseif( stripos($this->_agent, 'android') !== false || preg_match("/mac(.*)htc/i", $this->_agent) !== false) {
 			    $this->_platform = self::PLATFORM_ANDROID;
 		    }
 		    elseif( stripos($this->_agent, 'linux') !== false ) {
