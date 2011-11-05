@@ -25,7 +25,7 @@ class ccbysa3 extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->addCss('license.css');
-    $this->setWebsiteTitle("Creative Commons Attribution-ShareAlike 3.0 License");
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {

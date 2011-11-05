@@ -25,7 +25,7 @@ class termsofservice extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->addCss('license.css');
-    $this->setWebsiteTitle('License of Catroid System');
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {

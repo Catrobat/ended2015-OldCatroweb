@@ -75,7 +75,7 @@ public class LicenseTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[4]/li[3]/a[2]"));
-      assertRegExp(".*catroid - An on-device graphical programming language for Android inspired by Scratch - Google Project Hosting.*", driver().getTitle());
+      assertRegExp(".*catroid - An on-device visual programming language for Android inspired by Scratch - Google Project Hosting.*", driver().getTitle());
       closePopUp();
 
       // click onto termsofservice link
@@ -111,7 +111,7 @@ public class LicenseTests extends BaseTest {
       assertTrue(isTextPresent("Licenses of uploaded Catroid projects"));
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[1]/li[1]/a[1]"));
-      assertRegExp(".*Welcome — Free Software Foundation — working together for free software.*", driver().getTitle());
+      assertRegExp(".*Free Software Foundation — Free Software Foundation — working together for free software.*", driver().getTitle());
       closePopUp();
 
       driver().findElement(By.xpath("//div[@class='licenseText']/ul[1]/li[1]/a[2]")).click();
@@ -163,11 +163,11 @@ public class LicenseTests extends BaseTest {
       assertTrue(isTextPresent("Licenses of the Catroid system"));
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[1]/li[1]/a[1]"));
-      assertRegExp(".*The Free Software Definition - GNU Project - Free Software Foundation.*", driver().getTitle());
+      assertRegExp(".*What is free software\\? - GNU Project - Free Software Foundation \\(FSF\\).*", driver().getTitle());
       closePopUp();
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[1]/li[1]/a[2]"));
-      assertRegExp(".*Welcome — Free Software Foundation — working together for free software.*", driver().getTitle());
+      assertRegExp(".*Free Software Foundation — Free Software Foundation — working together for free software.*", driver().getTitle());
       closePopUp();
 
       driver().findElement(By.xpath("//div[@class='licenseText']/ul[1]/li[1]/a[3]")).click();
@@ -209,7 +209,7 @@ public class LicenseTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[1]/li[3]/a[4]"));
-      assertRegExp(".*Welcome — Free Software Foundation — working together for free software.*", driver().getTitle());
+      assertRegExp(".*Free Software Foundation — Free Software Foundation — working together for free software.*", driver().getTitle());
       closePopUp();
 
       driver().findElement(By.xpath("//div[@class='licenseText']/ul[1]/li[3]/a[5]")).click();
@@ -348,7 +348,7 @@ public class LicenseTests extends BaseTest {
       assertTrue(isTextPresent("Additional term exception"));
 
       clickAndWaitForPopUp(By.xpath("//p[@class='licenseText'][2]/a"));
-      assertRegExp(".*Welcome — Free Software Foundation — working together for free software.*", driver().getTitle());
+      assertRegExp(".*Free Software Foundation — Free Software Foundation — working together for free software.*", driver().getTitle());
       closePopUp();
 
       driver().findElement(By.xpath("//p[@class='licenseText'][3]/a")).click();
@@ -363,7 +363,7 @@ public class LicenseTests extends BaseTest {
       closePopUp();
 
       clickAndWaitForPopUp(By.xpath("//p[@class='licenseText'][17]/a[2]"));
-      assertRegExp(".*Welcome — Free Software Foundation — working together for free software.*", driver().getTitle());
+      assertRegExp(".*Free Software Foundation — Free Software Foundation — working together for free software.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("LicenseTests.licenseAdditionalTerm");
@@ -391,7 +391,7 @@ public class LicenseTests extends BaseTest {
       closePopUp();
 
       clickAndWaitForPopUp(By.xpath("//p[@class='licenseText'][2]/a[1]"));
-      assertRegExp(".*Welcome — Free Software Foundation — working together for free software.*", driver().getTitle());
+      assertRegExp(".*Free Software Foundation — Free Software Foundation — working together for free software.*", driver().getTitle());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("aGNUlink"));

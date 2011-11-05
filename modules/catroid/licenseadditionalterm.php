@@ -25,7 +25,7 @@ class licenseadditionalterm extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->addCss('license.css');
-    $this->setWebsiteTitle('Additional term exception under section 7 of the GNU Affero General Public License, version 3');
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {
