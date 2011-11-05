@@ -45,8 +45,8 @@ public class IndexTests extends BaseTest {
     // test catroid download link
     assertTrue(isElementPresent(By.id("aIndexInfoboxDownloadButton")));
     clickAndWaitForPopUp(By.id("aIndexInfoboxDownloadButton"));
-    assertTrue(isTextPresent("Catroid_0-4-3d.apk"));
-    assertTrue(isTextPresent("Paintroid_0.6.4b.apk"));
+    assertTrue(isTextPresent("catroid-0.5.241-debug.apk"));
+    assertTrue(isTextPresent("paintroid-0.5.26-debug.apk"));
     closePopUp();
     
     // test screenshot link
