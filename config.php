@@ -31,6 +31,7 @@ define('SCRIPT_PATH','include/script/');
 define('CLASS_PATH','classes/');
 define('MODULE_PATH','modules/');
 define('VIEWER_PATH','viewer/');
+define('PROJECTS_FTP_UPLOAD_DIRECTORY','/tmp/');
 define('PROJECTS_APP_BUILDING_SRC','app-building/catroid-source/');
 define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');

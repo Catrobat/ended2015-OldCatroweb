@@ -36,6 +36,24 @@ import at.tugraz.ist.catroweb.common.*;
 @Test(groups = { "api", "UploadTests" })
 public class UploadTests extends BaseTest {
 
+  @Test(dataProvider = "ftpProjectsForUpload", groups = { "upload", "functionality" }, description = "upload projects via ftp")
+  public void uploadFtpProjects(HashMap<String, String> dataset) throws Throwable {
+    try {
+      String response = projectUploader.upload(dataset);
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      openLocation();
+      ajaxWait();
+      assertTrue(isElementPresent(By.id("projectListTitle")));
+      assertTrue(isTextPresent(dataset.get("projectTitle")));
+    } catch(AssertionError e) {
+      captureScreen("UploadTests.uploadFtpProjects." + dataset.get("projectTitle"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("UploadTests.uploadFtpProjects." + dataset.get("projectTitle"));
+      throw e;
+    }
+  }
+  
   @Test(dataProvider = "validProjectsForUpload", groups = { "upload", "functionality" }, description = "upload valid projects")
   public void uploadValidProjects(HashMap<String, String> dataset) throws Throwable {
     try {
@@ -72,6 +90,14 @@ public class UploadTests extends BaseTest {
     }
   }
 
+  @DataProvider(name = "ftpProjectsForUpload")
+  public Object[][] ftpProjectsForUpload() {
+    Object[][] returnArray = new Object[][] {
+        { CommonData.getUploadFtpPayload("testing project upload", "Testing FTP uploads.", "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0") }
+    };
+    return returnArray;
+  }
+  
   @DataProvider(name = "validProjectsForUpload")
   public Object[][] validProjectsForUpload() {
     Object[][] returnArray = new Object[][] {

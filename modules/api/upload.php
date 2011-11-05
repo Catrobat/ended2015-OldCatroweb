@@ -45,10 +45,21 @@ class upload extends CoreAuthenticationDevice {
     } catch(Exception $e) {
       $this->sendUploadFailAdminEmail($_POST, $_FILES, $_SERVER);
       $this->answer = $e->getMessage();
+      $this->postData = $_POST;
     }
   }
 
   public function doUpload($formData, $fileData, $serverData) {
+    if(isset($formData['catroidFileName'])) {
+      $fileData['upload']['tmp_name'] = PROJECTS_FTP_UPLOAD_DIRECTORY . $formData['catroidFileName'];
+
+      if(file_exists($fileData['upload']['tmp_name'])) {
+        $fileData['upload']['error'] = UPLOAD_ERR_OK;
+      } else {
+        $fileData['upload']['error'] = UPLOAD_ERR_NO_FILE;
+      }
+    }
+
     try {
       $this->checkPostData($formData, $fileData);
     } catch(Exception $e) {
@@ -295,7 +306,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   private function checkPostData($formData, $fileData) {
-    if(!isset($formData['projectTitle']) || !$formData['projectTitle'] || !isset($fileData['upload']['tmp_name']) || $fileData['upload']['error'] != 0) {
+    if(!isset($formData['projectTitle']) || !$formData['projectTitle'] || !isset($fileData['upload']['tmp_name']) || $fileData['upload']['error'] !== UPLOAD_ERR_OK) {
       throw new Exception($this->errorHandler->getError('upload', 'missing_post_data'));
     }
     return true;

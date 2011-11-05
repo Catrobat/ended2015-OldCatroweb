@@ -23,6 +23,12 @@
 package at.tugraz.ist.catroweb.common;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -40,6 +46,7 @@ import org.apache.http.entity.mime.content.StringBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.postgresql.Driver;
+import org.testng.Reporter;
 
 public class ProjectUploader {
   protected List<HashMap<String, String>> uploadedProjects;
@@ -67,10 +74,16 @@ public class ProjectUploader {
     HttpClient httpclient = new DefaultHttpClient();
     try {
       MultipartEntity reqEntity = new MultipartEntity();
-      
+
       reqEntity.addPart("projectTitle", new StringBody(verifiedPayload.get("projectTitle"), utf8));
       reqEntity.addPart("projectDescription", new StringBody(verifiedPayload.get("projectDescription"), utf8));
-      reqEntity.addPart("upload", new FileBody(new File(verifiedPayload.get("upload"))));
+      if(verifiedPayload.get("catroidFileName") != null) {
+        String filename = verifiedPayload.get("catroidFileName");
+        copyFile(Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + filename, Config.FILESYSTEM_TEMP_FOLDER + filename);
+        reqEntity.addPart("catroidFileName", new StringBody(filename));
+      } else {
+        reqEntity.addPart("upload", new FileBody(new File(verifiedPayload.get("upload"))));
+      }
       reqEntity.addPart("fileChecksum", new StringBody(verifiedPayload.get("fileChecksum"), utf8));
       reqEntity.addPart("userEmail", new StringBody(verifiedPayload.get("userEmail"), utf8));
       reqEntity.addPart("userLanguage", new StringBody(verifiedPayload.get("userLanguage"), utf8));
@@ -87,6 +100,9 @@ public class ProjectUploader {
           String projectId = CommonFunctions.getValueFromJSONobject(answer, "projectId");
           verifiedPayload.put("projectId", projectId);
           this.uploadedProjects.add(verifiedPayload);
+        }
+        if(answer.equals("")) {
+          System.out.println("Got empty answer from api/upload.php! Maybe there is a syntax error?!");
         }
         return answer;
       }
@@ -137,11 +153,15 @@ public class ProjectUploader {
     }
     data.put("projectDescription", projectDescription);
 
-    String upload = Config.DEFAULT_UPLOAD_FILE;
-    if(payload.containsKey("upload")) {
-      upload = payload.get("upload");
+    if(payload.containsKey("catroidFileName")) {
+      data.put("catroidFileName", payload.get("catroidFileName"));
+    } else {
+      String upload = Config.DEFAULT_UPLOAD_FILE;
+      if(payload.containsKey("upload")) {
+        upload = payload.get("upload");
+      }
+      data.put("upload", upload);
     }
-    data.put("upload", upload);
 
     String fileChecksum = Config.DEFAULT_UPLOAD_CHECKSUM;
     if(payload.containsKey("fileChecksum")) {
@@ -203,5 +223,28 @@ public class ProjectUploader {
         return item;
     }
     return new HashMap<String, String>();
+  }
+
+  private void copyFile(String sourceFile, String destinationFile) {
+    try {
+      InputStream input = new FileInputStream(sourceFile);
+      OutputStream output = new FileOutputStream(destinationFile);
+
+      // Transfer bytes from in to out
+      byte[] buffer = new byte[1024];
+      int length;
+      while((length = input.read(buffer)) > 0) {
+        output.write(buffer, 0, length);
+      }
+
+      input.close();
+      output.close();
+    } catch(FileNotFoundException e) {
+      Reporter.log("copyFile failed: no such file!");
+      e.printStackTrace();
+    } catch(IOException e) {
+      Reporter.log("copyFile failed: io exception");
+      e.printStackTrace();
+    }
   }
 }

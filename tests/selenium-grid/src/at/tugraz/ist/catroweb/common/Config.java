@@ -37,6 +37,7 @@ public class Config {
 
   public static final String FILESYSTEM_SEPARATOR = System.getProperty("file.separator");
   public static String FILESYSTEM_BASE_PATH = System.getProperty("user.dir") + FILESYSTEM_SEPARATOR;
+  public static String FILESYSTEM_TEMP_FOLDER = System.getProperty("java.io.tmpdir") + FILESYSTEM_SEPARATOR;
 
   public static final String SELENIUM_GRID_TESTDATA = "tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "testdata" + FILESYSTEM_SEPARATOR;
   public static final String SELENIUM_GRID_TARGET = "tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "target" + FILESYSTEM_SEPARATOR;
@@ -65,7 +66,7 @@ public class Config {
   public static final String SITE_DEFAULT_LANGUAGE = "en";
 
   public static void setSeleniumGridTestdata(String basedir) {
-    if (FILESYSTEM_BASE_PATH.matches(".*tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "$")) {
+    if(FILESYSTEM_BASE_PATH.matches(".*tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "$")) {
       FILESYSTEM_BASE_PATH = FILESYSTEM_BASE_PATH.substring(0, FILESYSTEM_BASE_PATH.indexOf("tests"+FILESYSTEM_SEPARATOR +  "selenium-grid"));
       DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test.zip";
     }

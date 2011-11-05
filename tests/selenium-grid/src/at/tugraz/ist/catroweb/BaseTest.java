@@ -164,7 +164,7 @@ public class BaseTest {
 
   protected void startAndroidSession(String seleniumHost, int seleniumPort, String browser, String webSite, String method) {
     log("android: running " + method + "...");
-    
+
     WebDriver driver = new AndroidDriver();
     driverSessions.put(method, driver);
   }
@@ -173,7 +173,7 @@ public class BaseTest {
   protected void closeSession(Method method) {
     String methodName = method.getName();
 
-    try { 
+    try {
       getDriverObject(methodName).quit();
       driverSessions.remove(methodName);
 
@@ -212,17 +212,17 @@ public class BaseTest {
   }
 
   public void assertRegExp(String pattern, String string) {
-    boolean match = string.matches(pattern); 
+    boolean match = string.matches(pattern);
     if(!match) {
       log("assertRegExp: was [" + string + "] expected [" + pattern + "]");
     }
     assertTrue(match);
   }
-  
+
   public boolean isTextPresent(String text) {
     return containsElementText(By.tagName("body"), text);
   }
-  
+
   public boolean containsElementText(By selector, String text) {
     // https://code.google.com/p/selenium/issues/detail?id=1438
     waitForElementPresent(selector);

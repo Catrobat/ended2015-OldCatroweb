@@ -69,7 +69,11 @@ public class CommonFunctions {
       System.out.println("********************************************************");
 
       String[] temp = json.split("[{]", 2);
-      json = "{" + temp[1];
+      try {
+        json = "{" + temp[1];
+      } catch (ArrayIndexOutOfBoundsException e) {
+        return "received no json object";
+      }
     }
 
     try {
@@ -83,7 +87,7 @@ public class CommonFunctions {
       System.out.println(json);
       System.out.println("********************************************************");
     }
-    return "";
+    return "received invalid json object";
   }
 
   public static double getFileSizeRounded(String filepath) {

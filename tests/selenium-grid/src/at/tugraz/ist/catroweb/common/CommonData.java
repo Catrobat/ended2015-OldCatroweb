@@ -97,6 +97,33 @@ public class CommonData {
     return data;
   }
 
+  public static HashMap<String, String> getUploadFtpPayload(String projectTitle, String projectDescription, String catroidFileName, String fileChecksum,
+      String userEmail, String userLanguage, String token) {
+   HashMap<String, String> data = new HashMap<String, String>();
+   if(!projectTitle.isEmpty()) {
+     data.put("projectTitle", projectTitle);
+   }
+   if(!projectDescription.isEmpty()) {
+     data.put("projectDescription", projectDescription);
+   }
+   if(!catroidFileName.isEmpty()) {
+     data.put("catroidFileName", catroidFileName);
+   }
+   if(!fileChecksum.isEmpty()) {
+     data.put("fileChecksum", fileChecksum);
+   }
+   if(!userEmail.isEmpty()) {
+     data.put("userEmail", userEmail);
+   }
+   if(!userLanguage.isEmpty()) {
+     data.put("userLanguage", userLanguage);
+   }
+   if(!token.isEmpty()) {
+     data.put("token", token);
+   }
+   return data;
+ }
+
   public static HashMap<String, String> getRandomProject() {
     HashMap<String, String> data = new HashMap<String, String>();
     try {
