@@ -371,7 +371,7 @@ class upload extends CoreAuthenticationDevice {
     for($i = 0; $i < $unapprovedWordCount; $i++) {
       $mailText .= $unapprovedWords[$i].(($unapprovedWordCount-1 == $i) ? "" : ", ");
     }
-    $mailText .= "You should check this! <a href='".BASE_PATH."admin/tools/approveWords'>follow me!</a>";
+    $mailText .= "\n\nYou should check this!\n".BASE_PATH."admin/tools/approveWords";
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
