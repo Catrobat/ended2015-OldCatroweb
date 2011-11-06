@@ -39,20 +39,19 @@ public class IndexTests extends BaseTest {
     ajaxWait();
 
     assertTrue(isVisible(By.id("catroidDescription")));
-    assertTrue(isTextPresent("Visual Programming Language"));
-    assertTrue(isTextPresent("Catroid is an on-device graphical programming language for Android devices that is inspired by the Scratch programming language for PCs, developed by the Lifelong Kindergarten Group at the MIT Media Lab. It is the aim of the Catroid project to facilitate the learning of programming skills among children and users of all ages."));
+    assertTrue(isTextPresent("Catroid is a visual programming language for Android devices that is inspired by the Scratch programming language for PCs, developed by the Lifelong Kindergarten Group at the MIT Media Lab. It is the aim of the Catroid project to facilitate the learning of programming skills among children and users of all ages. No desktop or notebook computer is needed."));
 
     // test catroid download link
     assertTrue(isElementPresent(By.id("aIndexInfoboxDownloadButton")));
     clickAndWaitForPopUp(By.id("aIndexInfoboxDownloadButton"));
     assertTrue(isTextPresent("catroid-0.5.241-debug.apk"));
-    assertTrue(isTextPresent("paintroid-0.5.26-debug.apk"));
+    assertTrue(isTextPresent("paintroid-0.5.76-debug.apk"));
     closePopUp();
     
     // test screenshot link
     assertTrue(isElementPresent(By.id("aIndexInfoboxScreenshotLink")));
     clickAndWaitForPopUp(By.id("aIndexInfoboxScreenshotLink"));
-    assertTrue(isTextPresent("Catroid release 4"));
+    assertTrue(isTextPresent("This project implements Catroid, an on-device visual programming language for Android devices that is inspired by the Scratch programming language developed by the Lifelong Kindergarten Group at the MIT Media Lab."));
     closePopUp();
 
     driver().findElement(By.id("catroidDescriptionCloseButton")).click();
