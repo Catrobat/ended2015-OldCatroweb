@@ -30,8 +30,14 @@ class configTest extends PHPUnit_Framework_TestCase
   {
     $this->assertEquals(VERSION, '0.6.2_I18N');
     $this->assertEquals(XML_PATH, 'include/xml/');
+    $this->assertEquals(LANGUAGE_PATH, 'include/xml/lang/');
     $this->assertEquals(CSS_PATH, 'include/css/');
     $this->assertEquals(SCRIPT_PATH, 'include/script/');
+    $this->assertEquals(CLASS_PATH, 'classes/');
+    $this->assertEquals(MODULE_PATH, 'modules/');
+    $this->assertEquals(VIEWER_PATH, 'viewer/');
+    $this->assertEquals(PROJECTS_FTP_UPLOAD_DIRECTORY, '/tmp/');
+    $this->assertEquals(PROJECTS_APP_BUILDING_SRC, 'app-building/catroid-source/');
     $this->assertEquals(PROJECTS_DIRECTORY, 'resources/projects/');
     $this->assertEquals(PROJECTS_UNZIPPED_DIRECTORY, 'resources/catroid/');
     $this->assertEquals(PROJECTS_QR_DIRECTORY, 'resources/qrcodes/');
@@ -79,6 +85,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(USER_MIN_PASSWORD_LENGTH, 6);
     $this->assertEquals(USER_MAX_PASSWORD_LENGTH, 32);
     $this->assertEquals(DATABASE_CONNECTION_PERSISTENT, true);
+    $this->assertEquals(GA_PIXEL, 'ga.php');
   }
 }
 ?>

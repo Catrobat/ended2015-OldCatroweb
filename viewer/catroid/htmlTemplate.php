@@ -69,5 +69,6 @@
       bindAjaxLoader("<?php echo BASE_PATH?>");
     });
   </script>
+<?php echo '  <img src="' . googleAnalyticsGetImageUrl() . '" />'; ?> 
 </body>
 </html>

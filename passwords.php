@@ -35,4 +35,5 @@ define('DB_HOST_BOARD','127.0.0.1');
 define('DB_NAME_BOARD','catroboard');
 define('ADMIN_AREA_USER','admin');
 define('ADMIN_AREA_PASS','7fdb2542b9d9260a63756eea1d377e6c'); //pw: cat.roid.web
+define('GA_ACCOUNT',''); //google analytics account
 ?>
