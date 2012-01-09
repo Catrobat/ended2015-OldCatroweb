@@ -154,6 +154,7 @@
                     </div>
                   </div>
 <?php }?>
+
 <?php if($this->project['showReportAsInappropriateButton']) { ?>
                   <div class="detailsMainStats">
                     <div class="detailsFlagButton" id="detailsFlagButton">
@@ -171,6 +172,17 @@
                       </form>
                     </div>
                     <div class="reportAsInappropriateAnswer" id="reportAsInappropriateAnswer"></div>
+                  </div>
+<?php } else {?>
+                  <div class="detailsMainStats">
+                    <div class="detailsFlagButton" id="detailsFlagButton">
+                      <button type="button" class="button white medium" id="reportAsInappropriateButton">
+                        <span class="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
+                      </button>
+                    </div>
+                    <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
+                        <br/><?php echo $this->languageHandler->getString('report_as_inappropriate_info')?><br/>
+                    </div>
                   </div>
 <?php }?>
                 </div>

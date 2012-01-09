@@ -30,8 +30,9 @@
   <string name="filesize">Filesize</string>
   <string name="report">Report</string>
   <string name="cancel">Cancel</string>
-  <string name="report_as_inappropriate">report as inappropriate</string>
+  <string name="report_as_inappropriate">Report as inappropriate</string>
   <string name="report_as_inappropriate_label">Why do you think this project is inappropriate?</string>
+  <string name="report_as_inappropriate_info">Please log in to report this project as inappropriate.</string>
   <string name="some_rights_reserved">Some rights reserved</string>
   <string name="views">views</string>
   <string name="downloads">downloads</string>
@@ -43,6 +44,6 @@
   <string name="qrcode_info">If you have a barcode-reader installed, you can scan over this QR-code and download this project directly to your mobile phone. Just start your barcode-reader on your device and point the camera on the QR-Code. The download will be started immediately.</string>
   <string name="show_qr_code_info_button">QR code - what's this?</string>
   <string name="hide_qr_code_info_button">QR code - close info</string>
-  <string name="flag_reason_placeholder">enter a reason</string>
+  <string name="flag_reason_placeholder">Enter a reason</string>
   <string name="old_version">This project was built with an very early version of Catroid and probaly will not work with the current version.</string>
 </strings>
