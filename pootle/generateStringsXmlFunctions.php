@@ -1,6 +1,6 @@
 <?php
 /*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2011 The Catroid Team
+ *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
  *    This program is free software: you can redistribute it and/or modify
@@ -56,7 +56,7 @@ function mergeStringsXmlFiles($file_listing, $coreBasePath) {
 function buildXml($uniqueStrings) {
   $license = "<!--
 Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2011 The Catroid Team
+Copyright (C) 2010-2012 The Catroid Team
 (<http://code.google.com/p/catroid/wiki/Credits>)\n
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
