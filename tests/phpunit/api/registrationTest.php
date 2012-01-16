@@ -155,8 +155,24 @@ class registrationTest extends PHPUnit_Framework_TestCase
 
   /* *** DATA PROVIDERS *** */
   public function validUsernames() {
+  	if (DEVELOPMENT_MODE) {
     $dataArray = array(
-      array('unittest'),
+  		array('unittest'),
+      array('unittes\t'),
+      array('UniTTesT'),
+      array('Unittest'),
+      array('testuser'),
+      array('0123unItEst234'),
+      array('9765786'),
+      array('0123'),
+      array('unit.te..st'),
+      array('中國'),
+      array('1'),
+      array('ÜgümEnimem')
+    );
+  	} else {
+    $dataArray = array(
+  	  array('unittest'),
       array('unittes\t'),
       array('UniTTesT'),
       array('Unittest'),
@@ -167,12 +183,14 @@ class registrationTest extends PHPUnit_Framework_TestCase
       array('中國'),
       array('1'),
       array('ÜgümEnimem')
-    );
+     );
+  	}
     return $dataArray;
   }
 
   public function invalidUsernames() {
-    $dataArray = array(
+	if (DEVELOPMENT_MODE) {  	
+  	$dataArray = array(
       array('catroweb'),  //existing username
       array('Catroweb'),  //all mixed case forms of existing username should also be invalid
       array('cAtRoWeB'),  //all mixed case forms of existing username should also be invalid
@@ -195,6 +213,33 @@ class registrationTest extends PHPUnit_Framework_TestCase
       array('kittyroiD '), // not allowed because nick is in blacklist
       array('129.0.12.123') //IP address style (because of wiki)
     );
+	} else {
+  	$dataArray = array(
+      array('catroweb'),  //existing username
+      array('Catroweb'),  //all mixed case forms of existing username should also be invalid
+      array('cAtRoWeB'),  //all mixed case forms of existing username should also be invalid
+      array('CATROWEB'),  //all mixed case forms of existing username should also be invalid
+      array('catroweB'),  //all mixed case forms of existing username should also be invalid
+      array(''),  //empty username
+      array('0'),  //zero as username is not allowed
+      array('t[ob]i'),  // squared braces not allowed (because of wiki)
+      array('{ubi}'),  // curly braces not allowed (because of wiki)
+      array('h|ol|y'), // vertical bars not allowed (because of wiki)
+      array('#1'), // hash sign not allowed (because of wiki)
+      array('unit_test'), // underscores not allowed (because of wiki)
+      array('unit test'),
+      array(' unittest'),
+      array('unittest '),
+      array('testuser'), // not allowed in PRODUCTION_MODE
+      array('TestUser99'), // not allowed in PRODUCTION_MODE
+      array('<i>'), // <> not allowed (because of wiki)
+      array('shit'), // its a messword
+      array('admin'), // not allowed because nick is in blacklist
+      array('caTRoid'), // not allowed because nick is in blacklist
+      array('kittyroiD '), // not allowed because nick is in blacklist
+      array('129.0.12.123') //IP address style (because of wiki)
+    );
+	}
     return $dataArray;
   }
 

@@ -22,7 +22,8 @@
  */
 
 define('VERSION','0.6.4');
-define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
+// define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
+define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].'/'));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');
 define('XML_PATH','include/xml/');
 define('LANGUAGE_PATH','include/xml/lang/');
@@ -50,12 +51,19 @@ define('PROJECT_SHORT_DESCRIPTION_MAX_LENGTH',178);
 define('PROJECT_PAGE_LOAD_MAX_PROJECTS', 5);
 define('PROJECT_PAGE_SHOW_MAX_PAGES', 5);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
-define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 10);
+define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
 define('APP_EXTENSION','.apk');
 define('APP_QR_EXTENSION','_app_qr.png');
-define('DEVELOPMENT_MODE',false);
-define('SEND_NOTIFICATION_EMAIL',true);
-define('SEND_NOTIFICATION_USER_EMAIL',true);
+
+define('DEVELOPMENT_MODE',true);
+if (DEVELOPMENT_MODE) {
+	define('SEND_NOTIFICATION_EMAIL',false);
+	define('SEND_NOTIFICATION_USER_EMAIL',false);
+} else {
+	define('SEND_NOTIFICATION_EMAIL',true);
+	define('SEND_NOTIFICATION_USER_EMAIL',true);
+}
+	
 define('DEVELOPMENT_STATUS','[beta]');
 define('DEFAULT_HTML_TEMPLATE_NAME', 'htmlTemplate.php');
 define('DEFAULT_HTML_HEADER_TEMPLATE_NAME', 'htmlHeaderTemplate.php');

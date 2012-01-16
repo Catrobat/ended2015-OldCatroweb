@@ -84,6 +84,7 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
 
   public function testGetCatroidProjectQRCodeUrl() {
     @copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'test_qr'.PROJECTS_QR_EXTENSION);
+
     $this->assertTrue(is_string(getCatroidProjectQRCodeUrl('test_qr', 'test')));
     $this->assertTrue(is_string(getCatroidProjectQRCodeUrl('non_existing_id', 'non_existing')));
     @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'test_qr'.PROJECTS_QR_EXTENSION);

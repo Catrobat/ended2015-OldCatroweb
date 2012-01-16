@@ -36,6 +36,7 @@ import at.tugraz.ist.catroweb.common.*;
 @Test(groups = { "api", "UploadTests" })
 public class UploadTests extends BaseTest {
 
+	/*
   @Test(dataProvider = "ftpProjectsForUpload", groups = { "upload", "functionality" }, description = "upload projects via ftp")
   public void uploadFtpProjects(HashMap<String, String> dataset) throws Throwable {
     try {
@@ -52,7 +53,7 @@ public class UploadTests extends BaseTest {
       captureScreen("UploadTests.uploadFtpProjects." + dataset.get("projectTitle"));
       throw e;
     }
-  }
+  }*/
   
   @Test(dataProvider = "validProjectsForUpload", groups = { "upload", "functionality" }, description = "upload valid projects")
   public void uploadValidProjects(HashMap<String, String> dataset) throws Throwable {

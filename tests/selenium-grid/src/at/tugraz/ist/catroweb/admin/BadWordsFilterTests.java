@@ -40,7 +40,9 @@ import at.tugraz.ist.catroweb.common.*;
 public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word as good")
+  
   public void approveButtonGood() throws Throwable {
+    deleteAllUnapprovedWords();
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttongood" + CommonData.getRandomShortString(10);
       String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
@@ -60,7 +62,7 @@ public class BadWordsFilterTests extends BaseTest {
 
       assertProjectPresent(unapprovedWord);
 
-      deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
+      deletePreviouslyUploadedProjectAndUnapprovedWord(unapprovedWord);
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonGood");
       throw e;
@@ -72,6 +74,7 @@ public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word as bad")
   public void approveButtonBad() throws Throwable {
+    deleteAllUnapprovedWords();
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttonbad" + CommonData.getRandomShortString(10);
       String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
@@ -89,7 +92,7 @@ public class BadWordsFilterTests extends BaseTest {
 
       assertProjectNotPresent(unapprovedWord);
 
-      deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
+      deletePreviouslyUploadedProjectAndUnapprovedWord(unapprovedWord);
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonBad");
       throw e;
@@ -101,6 +104,7 @@ public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word with no selection")
   public void approveButtonNoSelection() throws Throwable {
+	deleteAllUnapprovedWords();
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttonnoselection" + CommonData.getRandomShortString(10);
       String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
@@ -117,7 +121,7 @@ public class BadWordsFilterTests extends BaseTest {
 
       assertProjectPresent(unapprovedWord);
 
-      deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
+      deletePreviouslyUploadedProjectAndUnapprovedWord(unapprovedWord);
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.approveButtonNoSelection");
       throw e;
@@ -129,6 +133,7 @@ public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "remove word from database")
   public void testDeleteButton() throws Throwable {
+	deleteAllUnapprovedWords();
     try {
       String unapprovedWord = "badwordsfilterteststestdeletebutton" + CommonData.getRandomShortString(10);
       String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
@@ -146,7 +151,7 @@ public class BadWordsFilterTests extends BaseTest {
 
       assertProjectPresent(unapprovedWord);
 
-      deletePreviouslyUploadedProjectAndUnapporvedWord(unapprovedWord);
+      deletePreviouslyUploadedProjectAndUnapprovedWord(unapprovedWord);
     } catch(AssertionError e) {
       captureScreen("BadWordsFilterTests.testDeleteButton");
       throw e;
@@ -156,7 +161,23 @@ public class BadWordsFilterTests extends BaseTest {
     }
   }
 
-  private void deletePreviouslyUploadedProjectAndUnapporvedWord(String word) {
+  private void deleteAllUnapprovedWords() {
+	    try {
+	      Driver driver = new Driver();
+	      DriverManager.registerDriver(driver);
+	      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+	      Statement statement = connection.createStatement();
+	      statement.executeUpdate("delete from wordlist where approved != true;");
+	      statement.close();
+	      connection.close();
+	      DriverManager.deregisterDriver(driver);
+	    } catch(SQLException e) {
+	      System.out.println("BadWordsFilterTests: deleteAllUnapprovedWords: SQL Exception couldn't execute sql query!");
+	    }
+	  }
+
+  
+  private void deletePreviouslyUploadedProjectAndUnapprovedWord(String word) {
     projectUploader.remove(word);
     try {
       Driver driver = new Driver();

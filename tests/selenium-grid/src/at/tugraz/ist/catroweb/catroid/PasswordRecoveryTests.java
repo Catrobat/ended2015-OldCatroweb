@@ -46,12 +46,15 @@ public class PasswordRecoveryTests extends BaseTest {
       assertTrue(isVisible(By.id("loginUsername")));
       assertTrue(isVisible(By.id("loginPassword")));
       assertTrue(isVisible(By.id("loginSubmitButton")));
-      
+
+      ajaxWait();
       driver().findElement(By.id("headerCancelButton")).click();
       ajaxWait();
+      
       assertFalse(isVisible(By.id("loginUsername")));
       assertFalse(isVisible(By.id("loginPassword")));
       assertFalse(isVisible(By.id("loginSubmitButton")));
+      
     } catch(AssertionError e) {
       captureScreen("PasswordRecoveryTests.passwordRecoveryIntro");
       throw e;
@@ -70,11 +73,11 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      driver().findElement(By.id("registrationCity")).sendKeys(dataset.get("registrationCity"));
       driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
       driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
       driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
-      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
-      driver().findElement(By.id("registrationCity")).sendKeys(dataset.get("registrationCity"));
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
       assertTrue(isTextPresent(dataset.get("registrationUsername")));
@@ -207,7 +210,7 @@ public class PasswordRecoveryTests extends BaseTest {
       throw e;
     }
   }
-
+  
   @SuppressWarnings("serial")
   @DataProvider(name = "passwordRecoveryResetUsernames")
   public Object[][] passwordRecoveryResetUsernames() {
@@ -218,11 +221,11 @@ public class PasswordRecoveryTests extends BaseTest {
         put("registrationUsername", "JohnTest" + randomString1);
         put("registrationPassword", "just a simple password!");
         put("registrationEmail", "john" + randomString1 + "@catroid.org");
-        put("registrationGender", "male");
-        put("registrationMonth", "Ferbruary");
-        put("registrationYear", "1980");
         put("registrationCountry", "Italy");
         put("registrationCity", "Padua");
+        put("registrationMonth", "February");
+        put("registrationYear", "1980");
+        put("registrationGender", "male");
       }
     } } };
     return dataArray;
