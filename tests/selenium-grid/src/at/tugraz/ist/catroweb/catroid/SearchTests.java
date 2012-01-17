@@ -66,6 +66,7 @@ public class SearchTests extends BaseTest {
 
       assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
       assertTrue(isTextPresent(projectTitle));
+      
     } catch(AssertionError e) {
       captureScreen("SearchTests.titleAndDescription." + dataset.get("projectTitle"));
       log(dataset.get("projectTitle"));

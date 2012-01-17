@@ -38,7 +38,7 @@ public class BadWordsFilterTests extends BaseTest {
   @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word as good")
   
   public void approveButtonGood() throws Throwable {
-    deleteAllUnapprovedWords();
+    // deleteAllUnapprovedWords();
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttongood" + CommonData.getRandomShortString(10);
       String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
@@ -70,7 +70,7 @@ public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word as bad")
   public void approveButtonBad() throws Throwable {
-    deleteAllUnapprovedWords();
+    // deleteAllUnapprovedWords();
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttonbad" + CommonData.getRandomShortString(10);
       String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
@@ -100,7 +100,7 @@ public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word with no selection")
   public void approveButtonNoSelection() throws Throwable {
-	deleteAllUnapprovedWords();
+	// deleteAllUnapprovedWords();
     try {
       String unapprovedWord = "badwordsfiltertestsapprovebuttonnoselection" + CommonData.getRandomShortString(10);
       String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
@@ -129,7 +129,7 @@ public class BadWordsFilterTests extends BaseTest {
 
   @Test(groups = { "functionality", "upload" }, description = "remove word from database")
   public void testDeleteButton() throws Throwable {
-	deleteAllUnapprovedWords();
+	// deleteAllUnapprovedWords();
     try {
       String unapprovedWord = "badwordsfilterteststestdeletebutton" + CommonData.getRandomShortString(10);
       String response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord, "", "", "", "", "", ""));
