@@ -411,7 +411,7 @@ public class DetailsTests extends BaseTest {
         { CommonData
             .getUploadPayload(
                 "more button special chars test",
-                "This is a description which has special chars like \", \' or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with \"special chars\" and should have more characters than defined by the threshold in config.php. Thats it!",
+                "This is a description which has special chars like \", & or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with \"special chars\" and should have more characters than defined by the threshold in config.php. Thats it!",
                 "", "", "", "", "0") }, };
     return returnArray;
   }

@@ -106,8 +106,8 @@ class passwordrecovery extends CoreAuthenticationNone {
     try {
       $password = $postData['passwordSavePassword'];
       $hashValue = $postData['c'];
-      $query = "EXECUTE get_user_row_by_recovery_hash('$hashValue')";
-      $result = @pg_query($this->dbConnection, $query);
+      $result = pg_execute($this->dbConnection, "get_user_row_by_recovery_hash", array($hashValue)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
       }
@@ -164,8 +164,8 @@ class passwordrecovery extends CoreAuthenticationNone {
     $userid = 0;
     $password = md5($password);
     $resetRecoveryHash = 0;
-    $query = "EXECUTE update_password_and_hash_by_username('$password', '$resetRecoveryHash','$username')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "update_password_and_hash_by_username", array($password, $resetRecoveryHash, $username)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -203,10 +203,11 @@ class passwordrecovery extends CoreAuthenticationNone {
     $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
     $hash = md5($hexSalt.'-'.md5($password));
     $password = ":B:$hexSalt:$hash";
-
-    $query = "UPDATE mwuser SET user_password = '".$password."' WHERE user_name = '".$username."'";
-
-    $result = @pg_query($wikiDbConnection, $query);
+    
+    pg_prepare($wikiDbConnection, "update_wiki_user_password", "UPDATE mwuser SET user_password=$1 WHERE user_name=$2") or
+               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = pg_execute($wikiDbConnection, "update_wiki_user_password", array($password, $username)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -224,8 +225,8 @@ class passwordrecovery extends CoreAuthenticationNone {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
     $userData = utf8_clean_string($userData);
-    $query = "EXECUTE get_user_row_by_username_clean('$userData')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($userData)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -233,8 +234,8 @@ class passwordrecovery extends CoreAuthenticationNone {
       $this->userData = pg_fetch_assoc($result);
     }
     else {
-      $query = "EXECUTE get_user_row_by_email('$userData')";
-      $result = @pg_query($this->dbConnection, $query);
+      $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($userData)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
       }
@@ -280,8 +281,8 @@ class passwordrecovery extends CoreAuthenticationNone {
 
   public function showHTMLForm($hashValue) {
     if($hashValue) {
-      $query = "EXECUTE get_user_password_hash_time('$hashValue')";
-      $result = @pg_query($this->dbConnection, $query);
+      $result = pg_execute($this->dbConnection, "get_user_password_hash_time", array($hashValue)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
 
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -309,8 +310,8 @@ class passwordrecovery extends CoreAuthenticationNone {
     $date = new DateTime();
     $recoverytime = $date->format('U');
 
-    $query = "EXECUTE update_recovery_hash_recovery_time_by_id('$recoveryhash', '$recoverytime', '$userid')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "update_recovery_hash_recovery_time_by_id", array($recoveryhash, $recoverytime, $userid)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }

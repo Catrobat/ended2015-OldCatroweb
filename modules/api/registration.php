@@ -125,8 +125,8 @@ class registration extends CoreAuthenticationNone {
     $city = $postData['registrationCity'];
     $language = "en";
 
-    $query = "EXECUTE user_registration('$username', '$usernameClean', '$md5password', '$email', '$date_of_birth', '$gender', '$country', '$city', '$ip_registered', '$status', '$authToken', '$language')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "user_registration", array($username, $usernameClean, $md5password, $email, $date_of_birth, $gender, $country, $city, $ip_registered, $status, $authToken, $language)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -188,8 +188,11 @@ class registration extends CoreAuthenticationNone {
     $hash = md5($hexSalt.'-'.md5($postData['registrationPassword']));
     $password = ":B:$hexSalt:$hash";
 
-    $query = "INSERT INTO mwuser (user_name, user_token, user_password, user_registration) VALUES ('$username', '$userToken', '$password', now()) RETURNING user_id";
-    $result = @pg_query($wikiDbConnection, $query);
+    pg_prepare($wikiDbConnection, "add_wiki_user", "INSERT INTO mwuser (user_name, user_token, user_password, user_registration) VALUES (\$1, \$2, \$3, now()) RETURNING user_id") or
+               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = pg_execute($wikiDbConnection, "add_wiki_user", array($username, $userToken, $password)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    pg_query($wikiDbConnection, 'DEALLOCATE add_wiki_user');
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -291,8 +294,8 @@ class registration extends CoreAuthenticationNone {
       }
     }
 
-    $query = "EXECUTE get_user_row_by_username_or_username_clean('$username', '$usernameClean')";
-    $result = pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_row_by_username_or_username_clean", array($username, $usernameClean)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -330,8 +333,8 @@ class registration extends CoreAuthenticationNone {
     if(!preg_match($regEx, $email)) {
       throw new Exception($this->errorHandler->getError('registration', 'email_invalid'));
     }
-    $query = "EXECUTE get_user_row_by_email('$email')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($email)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -360,8 +363,8 @@ class registration extends CoreAuthenticationNone {
   }
 
   private function undoCatroidRegistration($userId) {
-    $query = "EXECUTE delete_user_by_id ('$userId')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "delete_user_by_id", array($userId)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -384,8 +387,10 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)));
     }
 
-    $query = "DELETE FROM mwuser WHERE user_id='$userId'";
-    $result = @pg_query($wikiDbConnection, $query);
+    pg_prepare($wikiDbConnection, "delete_wiki_user", "DELETE FROM mwuser WHERE user_id=$1") or
+               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = pg_execute($wikiDbConnection, "delete_wiki_user", array($userId)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($wikiDbConnection)));
     }

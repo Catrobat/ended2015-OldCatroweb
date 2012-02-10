@@ -78,9 +78,9 @@ class loginOrRegister extends CoreAuthenticationNone {
 
     $username_clean = utf8_clean_string($user);
     $user = trim($user);
-    $query = "EXECUTE get_user_row_by_username_clean('$username_clean')";
 
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($username_clean)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       $this->statusCode = 503; //601
       return false;

@@ -117,6 +117,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="admin_unblock_username">DELETE FROM blocked_cusers WHERE user_name=$1</string>
     <string name="admin_unblock_user_id">DELETE FROM blocked_cusers WHERE user_id=$1</string>
     <string name="admin_is_blocked_user">SELECT * FROM blocked_cusers WHERE user_id=$1 AND user_name=$2</string>
+    <string name="admin_is_blocked_user_by_id">SELECT b.user_id FROM blocked_cusers b WHERE b.user_id=$1</string>
     <string name="get_all_blocked_users">SELECT * FROM blocked_cusers</string>
     <string name="get_all_users">SELECT u.*, (select min(b.user_id) from blocked_cusers b where b.user_id = u.id) user_id FROM cusers u ORDER BY id ASC</string>
     <string name="get_user_by_id">SELECT * FROM cusers WHERE id=$1</string>
@@ -126,7 +127,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="admin_is_blocked_ip">SELECT * FROM blocked_ips WHERE substr($1, 1, length(ip_address)) = ip_address</string>
     <string name="admin_remove_all_blocked_ips">DELETE FROM blocked_ips</string>
     <string name="get_all_blocked_ips">SELECT * FROM blocked_ips</string>
-    
-    
 </statements>
-

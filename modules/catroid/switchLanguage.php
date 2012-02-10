@@ -39,8 +39,8 @@ class switchLanguage extends CoreAuthenticationNone {
   
   private function doSaveLanguageToProfile($language, $id) {
     try {
-      $query = "EXECUTE update_user_language_by_id('$language','$id')";
-      $result = @pg_query($this->dbConnection, $query);
+      $result = pg_execute($this->dbConnection, "update_user_language_by_id", array($language, $id)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       if(!$result) {
         $return_value = false;
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));

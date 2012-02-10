@@ -91,8 +91,8 @@ class index extends CoreAuthenticationNone {
   }
 
   public function getNumberOfVisibleProjects() {
-    $query = 'EXECUTE get_number_of_visible_projects;';
-    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = pg_execute($this->dbConnection, "get_number_of_visible_projects", array()) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $number = pg_fetch_all($result);
     pg_free_result($result);
 

@@ -192,11 +192,11 @@ class profile extends CoreAuthenticationUser {
 
     if($email_valid) {
       try {
-        $query = "EXECUTE update_user_email_by_user_email('$new_email', '$old_email')";
-        $result = @pg_query($this->dbConnection, $query);
+        $result = pg_execute($this->dbConnection, "update_user_email_by_user_email", array($new_email, $old_email)) or
+                  $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
         if(!$result || pg_num_rows($result) <= 0) {
-          $query = "EXECUTE update_user_additional_email_by_user_email('$new_email', '$old_email')";
-          $result = @pg_query($this->dbConnection, $query);
+          $result = pg_execute($this->dbConnection, "update_user_additional_email_by_user_email", array($new_email, $old_email)) or
+                    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
           if(!$result) {
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
           }
@@ -232,8 +232,8 @@ class profile extends CoreAuthenticationUser {
     
     if($email_valid) {
       try {
-        $query = "EXECUTE add_user_email('$user_id', '$email')";
-        $result = @pg_query($this->dbConnection, $query);
+        $result = pg_execute($this->dbConnection, "add_user_email", array($user_id, $email)) or
+                  $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
         if(!$result) {
           throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
         }
@@ -259,30 +259,30 @@ class profile extends CoreAuthenticationUser {
     
     if($delete_email) {
       try {
-        $query = "EXECUTE get_user_email_by_email('$email')";
-        $result = @pg_query($this->dbConnection, $query);
+        $result = pg_execute($this->dbConnection, "get_user_email_by_email", array($email)) or
+                  $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
         if(!$result) { 
           throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
         }
         
         if(pg_num_rows($result) > 0) {
-          $query = "EXECUTE update_user_email_from_additional_email_by_user_email('$user_id')";
-          $result = @pg_query($this->dbConnection, $query);
+          $result = pg_execute($this->dbConnection, "update_user_email_from_additional_email_by_user_email", array($user_id)) or
+                    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
           if(!$result) {
             $delete_email = false;
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
           }
           
-          $query = "EXECUTE delete_user_email_from_additional_email_by_user_email('$user_id')";
-          $result = @pg_query($this->dbConnection, $query);
+          $result = pg_execute($this->dbConnection, "delete_user_email_from_additional_email_by_user_email", array($user_id)) or
+                    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
           if(!$result) {
             $delete_email = false;
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
           }
         }
         else {
-          $query = "EXECUTE delete_user_additional_email_by_email('$email')";
-          $result = @pg_query($this->dbConnection, $query);
+          $result = pg_execute($this->dbConnection, "delete_user_additional_email_by_email", array($email)) or
+                    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
           if(!$result) {
             $delete_email = false;
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -356,8 +356,8 @@ class profile extends CoreAuthenticationUser {
       }
       if($userCountryValid) {
         try {
-          $query = "EXECUTE update_user_country('$countryCode', '$username')";
-          $result = @pg_query($this->dbConnection, $query);
+          $result = pg_execute($this->dbConnection, "update_user_country", array($countryCode, $username)) or
+                    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
           if(!$result) {
             throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
           }
@@ -375,8 +375,8 @@ class profile extends CoreAuthenticationUser {
 
   private function doChangeUserCity($username, $city) {
     try {
-      $query = "EXECUTE update_user_city('$city', '$username')";
-      $result = @pg_query($this->dbConnection, $query);
+      $result = pg_execute($this->dbConnection, "update_user_city", array($city, $username)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       if(!$result) {
         $return_value = false;
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -390,17 +390,19 @@ class profile extends CoreAuthenticationUser {
   }
   
   private function doChangeUserBirth($username, $month, $year) {
+    $result = null;
     if((empty($year) || !$year || $year <= 1) && (empty($month) || !$month || $month <= 1)) {
       $date_of_birth = NULL;
-      $query = "EXECUTE delete_user_birth('$username')";
+      $result = pg_execute($this->dbConnection, "delete_user_birth", array($username)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     }
     else if(($year || $year > 1) && ($month || $month > 1)) {
       $date_of_birth = $year.'-'.sprintf("%02d", $month).'-01 00:00:01';
-      $query = "EXECUTE update_user_birth('$date_of_birth', '$username')";
+      $result = pg_execute($this->dbConnection, "update_user_birth", array($date_of_birth, $username)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     }
     
     try {
-      $result = @pg_query($this->dbConnection, $query);
       if(!$result) {
         $return_value = false;
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -415,8 +417,8 @@ class profile extends CoreAuthenticationUser {
   
   private function doChangeUserGender($username, $gender) {
     try {
-      $query = "EXECUTE update_user_gender('$gender', '$username')";
-      $result = @pg_query($this->dbConnection, $query);
+      $result = pg_execute($this->dbConnection, "update_user_gender", array($gender, $username)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       if(!$result) {
         $return_value = false;
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -431,8 +433,8 @@ class profile extends CoreAuthenticationUser {
   
   private function doUpdateCatroidPassword($username, $password) {
     $password = md5($password);
-    $query = "EXECUTE update_password_by_username('$password', '$username')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "update_password_by_username", array($password, $username)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -472,9 +474,10 @@ class profile extends CoreAuthenticationUser {
     $hash = md5($hexSalt.'-'.md5($password));    
     $password = ":B:$hexSalt:$hash";
 
-    $query = "UPDATE mwuser SET user_password = '".$password."' WHERE user_name = '".$username."'";
-    
-    $result = @pg_query($wikiDbConnection, $query);
+    pg_prepare($wikiDbConnection, "update_wiki_user_password", "UPDATE mwuser SET user_password=$1 WHERE user_name=$2") or
+               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = pg_execute($wikiDbConnection, "update_wiki_user_password", array($password, $username)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -496,9 +499,9 @@ class profile extends CoreAuthenticationUser {
     $user = $username; //$this->session->userLogin_userNickname;
     $user = utf8_clean_string($user);
     $pass = md5($oldPassword);
-    $query = "EXECUTE get_user_login('$user', '$pass')";
 
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_login", array($user, $pass)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -530,17 +533,15 @@ class profile extends CoreAuthenticationUser {
 
   private function checkUserValid($username) {
     $username = trim($username);
-    $valid = false;
-    $query = "EXECUTE get_user_row_by_username('".($username)."')";
-    $result = pg_query($this->dbConnection, $query);
-    if(!$result) {
-      $valid = false;
+    $result = pg_execute($this->dbConnection, "get_user_row_by_username", array($username)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result) {
+      if(pg_num_rows($result) > 0) {
+        $this->answer .= $this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection));
+        return true;
+      }
     }
-    if(pg_num_rows($result) > 0) {
-      $this->answer .= $this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection));
-      $valid = true;
-    }
-    return $valid;
+    return false;
   }
   
   private function checkEmail($new_email, $old_email = 0) {
@@ -558,8 +559,8 @@ class profile extends CoreAuthenticationUser {
       throw new Exception($this->errorHandler->getError('registration', 'email_invalid'));
     }
     
-    $query = "EXECUTE get_user_row_by_email('$new_email');";
-    $result = pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($new_email)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
 
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -570,8 +571,8 @@ class profile extends CoreAuthenticationUser {
     }
 
     if($old_email) {
-      $query = "EXECUTE get_user_row_by_email('$old_email');";
-      $result = pg_query($this->dbConnection, $query);
+      $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($old_email)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
       }
@@ -591,8 +592,8 @@ class profile extends CoreAuthenticationUser {
     if($countryCode == "undef") {
       return true;
   	} 
-    $query = "EXECUTE get_country_from_countries_by_countrycode('".($countryCode)."')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_country_from_countries_by_countrycode", array($countryCode)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
     }
@@ -646,8 +647,8 @@ class profile extends CoreAuthenticationUser {
   }
   
   private function initCountryCodes() {
-    $query = "EXECUTE get_country_from_countries";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_country_from_countries", array()) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
 
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
@@ -686,9 +687,9 @@ class profile extends CoreAuthenticationUser {
   }
 
   private function getUserEmailArray($user_id) {
+    $result = pg_execute($this->dbConnection, "get_user_emails_by_id", array($user_id)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
 
-    $query = "EXECUTE get_user_emails_by_id($user_id)";
-    $result = @pg_query($this->dbConnection, $query);
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -702,8 +703,9 @@ class profile extends CoreAuthenticationUser {
   }
   
   private function getUserCountry($userName) {
-    $query = "EXECUTE get_user_country_by_username('$userName')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_country_by_username", array($userName)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
     }
@@ -715,8 +717,8 @@ class profile extends CoreAuthenticationUser {
   private function getUserCity($userName) {
     $userCity = 0;
     
-    $query = "EXECUTE get_user_city_by_username('$userName')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_city_by_username", array($userName)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
     }
@@ -736,8 +738,8 @@ class profile extends CoreAuthenticationUser {
 
     $months = getMonthsArray($this->languageHandler);
 
-    $query = "EXECUTE get_user_birth_by_username('$userName')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_birth_by_username", array($userName)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
     }
@@ -749,14 +751,13 @@ class profile extends CoreAuthenticationUser {
       $userBirth = array('month_id' => 0, 'month' => 0, 'year' => 0);;
     }
     return $userBirth;
-    //return 0; 
   }
   
   private function getUserGender($userName) {
     $userGender = 0;
     
-    $query = "EXECUTE get_user_gender_by_username('$userName')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_gender_by_username", array($userName)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
     }

@@ -45,8 +45,7 @@ abstract class CoreAuthentication extends CoreModule {
     }
      
     $ip = $_SERVER["REMOTE_ADDR"];
-    $query = "SELECT ip_address FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
-    $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
+    $result = pg_execute($this->dbConnection, "admin_is_blocked_ip", array($ip));
 
     if(pg_num_rows($result)) {
       $badIp = true;
@@ -65,8 +64,7 @@ abstract class CoreAuthentication extends CoreModule {
     }
     
     if ($userId) {
-        $query = "SELECT b.user_id FROM blocked_cusers b WHERE b.user_id = ".$userId;
-        $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
+        $result = pg_execute($this->dbConnection, "admin_is_blocked_user_by_id", array($userId));
         if(pg_num_rows($result))
           $badUser = true;
     }

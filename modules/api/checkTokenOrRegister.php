@@ -54,8 +54,8 @@ class checkTokenOrRegister extends CoreAuthenticationDevice {
   }
   
   public function usernameExists($username) {
-    $query = "EXECUTE get_user_row_by_username('$username')";
-    $result = pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_row_by_username", array($username)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }

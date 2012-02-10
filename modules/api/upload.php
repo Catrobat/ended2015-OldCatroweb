@@ -96,7 +96,7 @@ class upload extends CoreAuthenticationDevice {
 
     $projectName = md5(uniqid(time()));
     $uploadFile = $projectName.PROJECTS_EXTENSION;
-    $uploadDir = CORE_BASE_PATH.'/'.PROJECTS_DIRECTORY.$uploadFile;
+    $uploadDir = CORE_BASE_PATH.PROJECTS_DIRECTORY.$uploadFile;
     $uploadIp = $serverData['REMOTE_ADDR'];
     isset($formData['userEmail']) ? $uploadEmail = $formData['userEmail'] : $uploadEmail = null;
     isset($formData['userLanguage']) ? $uploadLanguage = $formData['userLanguage'] : $uploadLanguage = null;
@@ -150,7 +150,7 @@ class upload extends CoreAuthenticationDevice {
     } catch(Exception $e) {
       $this->sendQRFailNotificationEmail($newId, $projectTitle);
     }
-
+    
     try {
       $this->unzipUploadedFile($newId);
     } catch(Exception $e) {
@@ -188,7 +188,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function copyProjectToDirectory($tmpFile, $uploadDir) {
-    if(@copy($tmpFile, $uploadDir)) {
+    if(copy($tmpFile, $uploadDir)) {
       return filesize($uploadDir);
     } else {
       throw new Exception($this->errorHandler->getError('upload', 'copy_failed'));
@@ -210,19 +210,20 @@ class upload extends CoreAuthenticationDevice {
   public function renameProjectFile($oldName, $projectId) {
     $newFileName = $projectId.PROJECTS_EXTENSION;
     $newName = CORE_BASE_PATH.PROJECTS_DIRECTORY.$newFileName;
-    if(!@rename($oldName, $newName)) {
+    if(!rename($oldName, $newName)) {
       throw new Exception($this->errorHandler->getError('upload', 'rename_failed'));
     }
-    $query = "EXECUTE set_project_new_filename('$newFileName', '$projectId');";
-    if(!@pg_query($this->dbConnection, $query)) {
+    $result = pg_execute($this->dbConnection, "set_project_new_filename", array($newFileName, $projectId)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if(!$result) {
       throw new Exception($this->errorHandler->getError('upload', 'rename_failed', pg_last_error($this->dbConnection)));
     }
     return true;
   }
 
   public function removeProjectFromDatabase($projectId) {
-    $query = "EXECUTE delete_project_by_id('$projectId');";
-    @pg_query($this->dbConnection, $query);
+    pg_execute($this->dbConnection, "delete_project_by_id", array($projectId)) or
+               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     return true;
   }
 
@@ -277,21 +278,19 @@ class upload extends CoreAuthenticationDevice {
   }
 
   public function saveVersionInfo($projectId, $versionCode, $versionName) {
-    $query = "EXECUTE save_catroid_version_info('$projectId', '$versionCode', '$versionName');";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "save_catroid_version_info", array($projectId, $versionCode, $versionName)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if($result) {
       @pg_free_result($result);
       return true;
-    } else {
-      return false;
     }
     return false;
   }
 
   private function insertProjectIntoDatabase($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize) {
     $this->session->userLogin_userId ? $userId=$this->session->userLogin_userId : $userId=0;
-    $query = "EXECUTE insert_new_project('$projectTitle', '$projectDescription', '$uploadFile', '$uploadIp', '$uploadEmail', '$uploadLanguage', '$fileSize', '$userId');";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "insert_new_project", array($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $userId)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('upload', 'sql_insert_failed', pg_last_error($this->dbConnection)));
     }

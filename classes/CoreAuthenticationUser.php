@@ -41,7 +41,7 @@ abstract class CoreAuthenticationUser extends CoreAuthentication {
     }
 
     private function isBlockedUser($user) {
-      return true;
+      return true; //TODO wtf?! please fix this!
       $badUser = false;
       if ($user) {
         $query = "SELECT b.user_id, u.username FROM b.blocked_cusers, u.cusers where u.username like '".$user."'";

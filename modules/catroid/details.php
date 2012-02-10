@@ -49,12 +49,14 @@ class details extends CoreAuthenticationNone {
       $this->errorHandler->showErrorPage('db', 'no_entry_for_id', 'ID: '.$projectId);
       exit();
     }
+    $result = null;
     if($this->session->adminUser) {
-      $query = "EXECUTE get_project_by_id('$projectId');";
+      $result = pg_execute($this->dbConnection, "get_project_by_id", array($projectId)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     } else {
-      $query = "EXECUTE get_visible_project_by_id('$projectId');";
+      $result = pg_execute($this->dbConnection, "get_visible_project_by_id", array($projectId)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     }
-    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $project = pg_fetch_assoc($result);
     pg_free_result($result);
 
@@ -96,8 +98,8 @@ class details extends CoreAuthenticationNone {
   }
 
   public function incrementViewCounter($projectId) {
-    $query = "EXECUTE increment_view_counter('$projectId');";
-    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
+    pg_execute($this->dbConnection, "increment_view_counter", array($projectId)) or
+               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     return;
   }
   
@@ -109,8 +111,8 @@ class details extends CoreAuthenticationNone {
       return false;
     }
     
-    $query = "EXECUTE has_user_flagged_project('$projectId', '".$this->session->userLogin_userId."');";
-    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
+    $result = pg_execute($this->dbConnection, "has_user_flagged_project", array($projectId, $this->session->userLogin_userId)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $alreadyFlagged = pg_num_rows($result);
     pg_free_result($result);
     

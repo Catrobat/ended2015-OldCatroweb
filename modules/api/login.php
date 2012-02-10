@@ -67,8 +67,8 @@ class login extends CoreAuthenticationNone {
   
   private function setUserLanguage($userid) {
     try {
-      $query = "EXECUTE get_user_language('$userid')";
-      $result = @pg_query($this->dbConnection, $query);
+      $result = pg_execute($this->dbConnection, "get_user_language", array($userid)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
       }
@@ -184,8 +184,8 @@ class login extends CoreAuthenticationNone {
     $user = trim($user);
     $md5pass = md5($postData['loginPassword']);
     
-    $query = "EXECUTE get_user_login('$user', '$md5pass')";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_user_login", array($user, $md5pass)) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }

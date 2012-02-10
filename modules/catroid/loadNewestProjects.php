@@ -44,9 +44,11 @@ class loadNewestProjects extends CoreAuthenticationNone {
   	if($pageNr < 0) {
       return "NIL";
   	}
-  	 
-    $query = 'EXECUTE get_visible_projects_ordered_by_uploadtime_limited_and_offset('.PROJECT_PAGE_LOAD_MAX_PROJECTS.', '.(PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr).');';
-    $result = @pg_query($this->dbConnection, $query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+
+  	$result = pg_execute($this->dbConnection, "get_visible_projects_ordered_by_uploadtime_limited_and_offset",
+              array(PROJECT_PAGE_LOAD_MAX_PROJECTS, PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr)) or
+  	                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+
     $projects = pg_fetch_all($result);
     pg_free_result($result);
     if($projects[0]['id']) {

@@ -43,16 +43,14 @@ class CoreBadwordsFilter {
   }
 
   public function addWord($word, $meaning, $approved) {
-    $query = "EXECUTE add_word_to_wordlist('".pg_escape_string($word)."', $meaning, $approved);";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "add_word_to_wordlist", array(pg_escape_string($word), $meaning, $approved));
     if($result) {
       pg_free_result($result);
     }
   }
 
   public function checkWord($word) {
-    $query = "EXECUTE get_word_from_wordlist('".pg_escape_string($word)."');";
-    $result = @pg_query($this->dbConnection, $query);
+    $result = pg_execute($this->dbConnection, "get_word_from_wordlist", array(pg_escape_string($word)));
     if($result) {
       $word_standing = pg_fetch_all($result);
       pg_free_result($result);
@@ -75,9 +73,7 @@ class CoreBadwordsFilter {
   public function mapUnapprovedWordsToProject($project_id) {
     if($this->getUnapprovedWords()) {
       foreach($this->getUnapprovedWords() as $word) {
-        $query = "EXECUTE get_word_from_wordlist('".pg_escape_string($word)."');";
-        $result = @pg_query($this->dbConnection, $query) or
-        $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error($this->dbConnection));
+        $result = pg_execute($this->dbConnection, "get_word_from_wordlist", array(pg_escape_string($word)));
 
         $unapproved_word_id = -1;
         if($result) {
@@ -85,8 +81,7 @@ class CoreBadwordsFilter {
           $unapproved_word_id = $word_id[0]['id'];
           pg_free_result($result);
         }
-        $query = "EXECUTE add_mapping_to_unapproved_words_in_projects('$project_id', '$unapproved_word_id');";
-        $result = @pg_query($this->dbConnection, $query);
+        $result = pg_execute($this->dbConnection, "add_mapping_to_unapproved_words_in_projects", array($project_id, $unapproved_word_id));
         if($result) {
           pg_free_result($result);
         }
