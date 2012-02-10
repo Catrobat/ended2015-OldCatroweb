@@ -105,7 +105,7 @@ public class DetailsTests extends BaseTest {
       openAdminLocation();
 
       openLocation("catroid/details/" + id);
-      assertFalse(isElementPresent(By.id("reportAsInappropriateButton")));
+      assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
       
       driver().findElement(By.id("headerProfileButton")).click();
       driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
@@ -139,7 +139,7 @@ public class DetailsTests extends BaseTest {
 
       driver().navigate().refresh();
       ajaxWait();
-      assertFalse(isElementPresent(By.id("reportAsInappropriateButton")));
+      assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
 
       openAdminLocation("/tools/inappropriateProjects");
       clickOkOnNextConfirmationBox();

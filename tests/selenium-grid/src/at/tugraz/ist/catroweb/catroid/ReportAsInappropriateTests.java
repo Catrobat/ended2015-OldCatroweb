@@ -62,8 +62,8 @@ public class ReportAsInappropriateTests extends BaseTest {
       assertTrue(isTextPresent(projectTitle));
       assertTrue(isTextPresent(dataset.get("projectDescription")));
 
-      // report as inappropriate not visible
-      assertFalse(isElementPresent(By.id("reportAsInappropriateButton")));
+      // report as inappropriate visible
+      assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
 
       // check if reportAsInappropriate button is visible for a foreign project
       openLocation("catroid/details/1");
@@ -80,8 +80,8 @@ public class ReportAsInappropriateTests extends BaseTest {
       ajaxWait();
       assertTrue(isTextPresent(projectTitle));
       assertTrue(isTextPresent(dataset.get("projectDescription")));
-      // report as inappropriate still not visible after logout
-      assertFalse(isElementPresent(By.id("reportAsInappropriateButton")));
+      // report as inappropriate still visible after logout
+      assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
     } catch(AssertionError e) {
       captureScreen("ReportAsInappropriateTests.reportOwnProjectAsInappropriate");
       throw e;
