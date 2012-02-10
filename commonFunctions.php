@@ -341,10 +341,16 @@ function removeDir($dir) {
 }
 
 function unzipFile($zipFile, $destDir) {
-  $zip = new ZipArchive();
-  if($zip->open($zipFile) === TRUE) {
-    if($zip->extractTo($destDir)) {
-      $zip->close();
+  if(class_exists('ZipArchive')) {
+    $zip = new ZipArchive();
+    if($zip->open($zipFile) === TRUE) {
+      if($zip->extractTo($destDir)) {
+        $zip->close();
+        return true;
+      }
+    }
+  } else {
+    if(system("unzip -qq $zipFile -d $destDir 2>&1") == "") {
       return true;
     }
   }

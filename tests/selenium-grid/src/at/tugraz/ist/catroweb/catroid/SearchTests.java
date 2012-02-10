@@ -66,7 +66,6 @@ public class SearchTests extends BaseTest {
 
       assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
       assertTrue(isTextPresent(projectTitle));
-      
     } catch(AssertionError e) {
       captureScreen("SearchTests.titleAndDescription." + dataset.get("projectTitle"));
       log(dataset.get("projectTitle"));
@@ -189,19 +188,14 @@ public class SearchTests extends BaseTest {
   @Test(groups = { "functionality", "upload" }, description = "search project, upload project with identical name, reload")
   public void identicalSearchQuery() throws Throwable {
     try {
-      String projectTitle = "search_identical"; // +
-                                                // CommonData.getRandomShortString(10);
+      String projectTitle = "search_identical"; // + CommonData.getRandomShortString(10);
       String projectTitle1 = projectTitle + "_1";
       String projectTitle2 = projectTitle + "_2";
 
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "", "", "", "", "0"));
-      openLocation();
-      ajaxWait();
-
-      driver().findElement(By.id("headerSearchButton")).click();
-      driver().findElement(By.id("searchQuery")).clear();
-      driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
-      driver().findElement(By.id("webHeadSearchSubmit")).click();
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "", "", "", "", "0"));
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      
+      openLocation("/catroid/search/?q=" + projectTitle + "&p=1", false);
       ajaxWait();
 
       assertTrue(isTextPresent(projectTitle1));

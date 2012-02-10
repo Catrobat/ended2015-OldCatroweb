@@ -33,6 +33,7 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
@@ -47,6 +48,7 @@ import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.Augmenter;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.remote.UnreachableBrowserException;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
@@ -85,19 +87,19 @@ public class BaseTest {
   @Parameters({ "seleniumHost", "seleniumPort", "browser", "webSite" })
   protected void startSession(String seleniumHost, int seleniumPort, String browser, String webSite, Method method) {
     if(browser.matches("^firefox$")) {
-      startFirefoxSession(seleniumHost, seleniumPort, method.getName());
+      startFirefoxSession(seleniumHost, seleniumPort, method.getName(), 0);
     } else if(browser.matches("^chrome$")) {
-      startChromeSession(seleniumHost, seleniumPort, method.getName());
+      startChromeSession(seleniumHost, seleniumPort, method.getName(), 0);
     } else if(browser.matches("^internet explorer$")) {
-      startInternetExplorerSession(seleniumHost, seleniumPort, method.getName());
+      startInternetExplorerSession(seleniumHost, seleniumPort, method.getName(), 0);
     } else if(browser.matches("^opera$")) {
-      startOperaSession(seleniumHost, seleniumPort, method.getName());
+      startOperaSession(seleniumHost, seleniumPort, method.getName(), 0);
     } else if(browser.matches("^android$")) {
       startAndroidSession(seleniumHost, seleniumPort, browser, webSite, method.getName());
     }
   }
 
-  protected void startFirefoxSession(String seleniumHost, int seleniumPort, String method) {
+  protected void startFirefoxSession(String seleniumHost, int seleniumPort, String method, int retry) {
     log("firefox: running " + method + "...");
     FirefoxProfile profile = new FirefoxProfile();
 
@@ -106,6 +108,13 @@ public class BaseTest {
       capabilities.setCapability("firefox_profile", profile);
       WebDriver driver = new RemoteWebDriver(new URL("http://" + seleniumHost + ":" + seleniumPort + "/wd/hub"), capabilities);
       driverSessions.put(method, driver);
+    } catch(UnreachableBrowserException e) {
+      if(retry++ < 5) {
+        startFirefoxSession(seleniumHost, seleniumPort, method, retry);
+      } else {
+        log(e.getMessage());
+        assertTrue(false);
+      }
     } catch(MalformedURLException e) {
       e.printStackTrace();
     } catch(Exception e) {
@@ -113,7 +122,7 @@ public class BaseTest {
     }
   }
 
-  protected void startInternetExplorerSession(String seleniumHost, int seleniumPort, String method) {
+  protected void startInternetExplorerSession(String seleniumHost, int seleniumPort, String method, int retry) {
     log("internet explorer: running " + method + "...");
 
     try {
@@ -121,6 +130,13 @@ public class BaseTest {
       capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
       WebDriver driver = new RemoteWebDriver(new URL("http://" + seleniumHost + ":" + seleniumPort + "/wd/hub"), capabilities);
       driverSessions.put(method, driver);
+    } catch(UnreachableBrowserException e) {
+      if(retry++ < 5) {
+        startInternetExplorerSession(seleniumHost, seleniumPort, method, retry);
+      } else {
+        log(e.getMessage());
+        assertTrue(false);
+      }
     } catch(MalformedURLException e) {
       e.printStackTrace();
     } catch(Exception e) {
@@ -128,7 +144,7 @@ public class BaseTest {
     }
   }
 
-  protected void startChromeSession(String seleniumHost, int seleniumPort, String method) {
+  protected void startChromeSession(String seleniumHost, int seleniumPort, String method, int retry) {
     log("chrome: running " + method + "...");
     // System.setProperty("webdriver.chrome.bin", "/opt/google/chrome/google-chrome");
     // System.setProperty("webdriver.chrome.driver", "/home/chris/.workspace/catroweb/tests/selenium-grid/chromedriver");
@@ -137,6 +153,13 @@ public class BaseTest {
       DesiredCapabilities capabilities = DesiredCapabilities.chrome();
       WebDriver driver = new RemoteWebDriver(new URL("http://" + seleniumHost + ":" + seleniumPort + "/wd/hub"), capabilities);
       driverSessions.put(method, driver);
+    } catch(UnreachableBrowserException e) {
+      if(retry++ < 5) {
+        startChromeSession(seleniumHost, seleniumPort, method, retry);
+      } else {
+        log(e.getMessage());
+        assertTrue(false);
+      }
     } catch(MalformedURLException e) {
       e.printStackTrace();
     } catch(Exception e) {
@@ -144,13 +167,20 @@ public class BaseTest {
     }
   }
 
-  protected void startOperaSession(String seleniumHost, int seleniumPort, String method) {
+  protected void startOperaSession(String seleniumHost, int seleniumPort, String method, int retry) {
     log("opera: running " + method + "...");
 
     try {
       DesiredCapabilities capabilities = DesiredCapabilities.opera();
       WebDriver driver = new RemoteWebDriver(new URL("http://" + seleniumHost + ":" + seleniumPort + "/wd/hub"), capabilities);
       driverSessions.put(method, driver);
+    } catch(UnreachableBrowserException e) {
+      if(retry++ < 5) {
+        startOperaSession(seleniumHost, seleniumPort, method, retry);
+      } else {
+        log(e.getMessage());
+        assertTrue(false);
+      }
     } catch(MalformedURLException e) {
       e.printStackTrace();
     } catch(Exception e) {
@@ -180,7 +210,15 @@ public class BaseTest {
   }
 
   protected WebDriver driver() {
-    return getDriverObject(getCalleeName());
+    WebDriver driver = getDriverObject(getCalleeName());
+    
+    if(driver == null) {
+      for(Map.Entry<String, WebDriver> entry : driverSessions.entrySet()) {
+        log(entry.getKey() + ": callee: " + getCalleeName());
+      }
+    }
+    
+    return driver;
   }
 
   private String getCalleeName() {
@@ -257,6 +295,10 @@ public class BaseTest {
     } else {
       driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location);
     }
+
+    //workaround fo Issue 2714
+    //https://code.google.com/p/selenium/issues/detail?id=2714
+    driver().manage().window().setSize(new Dimension(840,1000));
   }
 
   protected void openAdminLocation() {
