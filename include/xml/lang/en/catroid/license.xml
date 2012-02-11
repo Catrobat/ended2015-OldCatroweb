@@ -23,7 +23,4 @@
   <string name="license_text_part2">The Catroid software and the Catroid website are completely free of charge. The source code of the Catroid software is available under the GNU General Public License {*emailLink1*}, 
                   the source code of the website is available under the GNU Affero General Public License {*emailLink2*}.</string>
   <string name="license_text_part3">You can visit the project at {*emailLink*}.</string>
-
-
-
 </strings>

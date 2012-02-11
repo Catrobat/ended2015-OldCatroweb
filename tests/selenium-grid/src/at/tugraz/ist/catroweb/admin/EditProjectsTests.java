@@ -86,8 +86,11 @@ public class EditProjectsTests extends BaseTest {
 
       // toggle project visibility to "hidden"
       openAdminLocation();
+      ajaxWait();
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsEditProjects")).click();
+      ajaxWait();
       assertTrue(isTextPresent("Administration Tools - List of available projects"));
       assertTrue(isElementPresent(By.id("toggle" + projectId)));
       assertTrue(isTextPresent(projectTitle));

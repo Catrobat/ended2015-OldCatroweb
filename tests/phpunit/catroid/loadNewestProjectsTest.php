@@ -37,7 +37,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
   } 
   
 
-   public function testCheckLabels() {
+  public function testCheckLabels() {
      $this->assertEquals($this->obj->labels['websitetitle'], "Catroid Website");
      $this->assertEquals($this->obj->labels['title'], "Newest Projects");
      $this->assertEquals($this->obj->labels['prevButton'], "&laquo; Newer");
@@ -46,7 +46,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
   }
   
   public function testRetrievePageNrFromDatabase()
-  {  
+  { 
     $this->doUpload();
     
     // retrieve first page from database
@@ -54,7 +54,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
     $i = PROJECT_PAGE_SHOW_MAX_PAGES * PROJECT_PAGE_LOAD_MAX_PROJECTS - 1; 
     foreach($projects as $project) {
       $this->assertEquals('unitTest'.$i--, $project['title']);
-    }        
+    }
     
     $query = 'SELECT * FROM projects WHERE visible=true LIMIT '.(PROJECT_PAGE_LOAD_MAX_PROJECTS).' OFFSET 0';
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
