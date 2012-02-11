@@ -70,8 +70,8 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($e->getMessage());
     }
 
-    $projectTitle = pg_escape_string($formData['projectTitle']);
-    isset($formData['projectDescription']) ? $projectDescription = pg_escape_string($formData['projectDescription']) : $projectDescription = null;
+    $projectTitle = pg_escape_string(checkUserInput($formData['projectTitle']));
+    isset($formData['projectDescription']) ? $projectDescription = pg_escape_string(checkUserInput($formData['projectDescription'])) : $projectDescription = null;
 
     try {
       $this->checkValidProjectTitle($projectTitle);
@@ -98,8 +98,8 @@ class upload extends CoreAuthenticationDevice {
     $uploadFile = $projectName.PROJECTS_EXTENSION;
     $uploadDir = CORE_BASE_PATH.PROJECTS_DIRECTORY.$uploadFile;
     $uploadIp = $serverData['REMOTE_ADDR'];
-    isset($formData['userEmail']) ? $uploadEmail = $formData['userEmail'] : $uploadEmail = null;
-    isset($formData['userLanguage']) ? $uploadLanguage = $formData['userLanguage'] : $uploadLanguage = null;
+    isset($formData['userEmail']) ? $uploadEmail = checkUserInput($formData['userEmail']) : $uploadEmail = null;
+    isset($formData['userLanguage']) ? $uploadLanguage = checkUserInput($formData['userLanguage']) : $uploadLanguage = null;
 
     try {
       $fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $uploadDir);

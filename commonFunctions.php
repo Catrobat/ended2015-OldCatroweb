@@ -68,6 +68,13 @@ function impedeCrawling($text) {
   return $encodedString;
 }
 
+function checkUserInput($text) {
+  $text = html_entity_decode($text);
+  $text = preg_replace("/&#?[a-z0-9]{2,8}/i", "", $text);
+  $text = strip_tags($text);
+  return htmlspecialchars($text);
+}
+
 function getUsernameBlacklistArray() {
   $usernameBlacklist = array(
     'admin',

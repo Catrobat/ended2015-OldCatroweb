@@ -58,7 +58,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
       if ($term != "") {
         $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$".$keywordsCount;
         $searchQuery .= " OR description ILIKE \$".$keywordsCount;
-        $searchTerm = pg_escape_string(preg_replace("/\\\/", "\\\\\\", $term));
+        $searchTerm = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($term)));
         $searchTerm = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $searchTerm);
         array_push($searchRequest, "%".$searchTerm."%");
         $keywordsCount++;

@@ -101,18 +101,18 @@ class registration extends CoreAuthenticationNone {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
 
-    $username = $postData['registrationUsername'];
+    $username = checkUserInput($postData['registrationUsername']);
     $md5user = md5($username);
     $usernameClean = utf8_clean_string($username);
     $md5password = md5($postData['registrationPassword']);
     $authToken = md5($md5user.":".$md5password);
 
-    $email = $postData['registrationEmail'];
+    $email = checkUserInput($postData['registrationEmail']);
     $ip_registered = $serverData['REMOTE_ADDR'];
-    $country = $postData['registrationCountry'];
+    $country = checkUserInput($postData['registrationCountry']);
     $status = USER_STATUS_STRING_ACTIVE;
-    $year = $postData['registrationYear'];
-    $month = $postData['registrationMonth'];
+    $year = checkUserInput($postData['registrationYear']);
+    $month = checkUserInput($postData['registrationMonth']);
     if($year == 0) {
       $year = '1900';
     }
@@ -121,8 +121,8 @@ class registration extends CoreAuthenticationNone {
     }
     $date_of_birth = $year.'-'.sprintf("%02d", $month).'-01 00:00:01';
 
-    $gender = $postData['registrationGender'];
-    $city = $postData['registrationCity'];
+    $gender = checkUserInput($postData['registrationGender']);
+    $city = checkUserInput($postData['registrationCity']);
     $language = "en";
 
     $result = pg_execute($this->dbConnection, "user_registration", array($username, $usernameClean, $md5password, $email, $date_of_birth, $gender, $country, $city, $ip_registered, $status, $authToken, $language)) or
@@ -145,9 +145,9 @@ class registration extends CoreAuthenticationNone {
 
     require_once($phpbb_root_path .'includes/functions_user.php');
 
-    $username = $postData['registrationUsername'];
+    $username = checkUserInput($postData['registrationUsername']);
     $password = md5($postData['registrationPassword']);
-    $email = $postData['registrationEmail'];
+    $email = checkUserInput($postData['registrationEmail']);
 
     $user_row = array(
       'username' => $username,
@@ -180,7 +180,7 @@ class registration extends CoreAuthenticationNone {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
 
-    $username = $postData['registrationUsername'];
+    $username = checkUserInput($postData['registrationUsername']);
     $username = utf8_clean_string($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $userToken = md5($username);

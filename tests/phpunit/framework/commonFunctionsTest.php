@@ -184,6 +184,13 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     $this->assertFalse(is_dir($runtimeFolder.'subfolder2/subfolder1'));
     $this->assertFalse(is_file($runtimeFolder.'subfolder2/subfolder1/test.txt'));     
   }
+  
+  /**
+  * @dataProvider inputTestStrings
+  */
+  public function testCheckUserInput($input, $output) {
+    $this->assertTrue($output == checkUserInput($input));
+  }
 
 
   public function randomLongStrings() {
@@ -200,6 +207,74 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     }
 
     return $returnArray;
+  }
+
+  public function inputTestStrings() {
+    return array(array("<", ""),
+                 array("&lt", ""),
+                 array("&lt;", ""),
+                 array("&LT", ""),
+                 array("&LT;", ";"),
+                 array("&#60", ""),
+                 array("&#060", ""),
+                 array("&#0060", ""),
+                 array("&#00060", ""),
+                 array("&#000060", ""),
+                 array("&#0000060", ""),
+                 array("&#60;", ""),
+                 array("&#060;", ""),
+                 array("&#0060;", ""),
+                 array("&#00060;", ""),
+                 array("&#000060;", ""),
+                 array("&#0000060;", ""),
+                 array("&#x3c", ""),
+                 array("&#x03c", ""),
+                 array("&#x003c", ""),
+                 array("&#x0003c", ""),
+                 array("&#x00003c", ""),
+                 array("&#x000003c", ""),
+                 array("&#x3c;", ""),
+                 array("&#x03c;", ""),
+                 array("&#x003c;", ""),
+                 array("&#x0003c;", ""),
+                 array("&#x00003c;", ""),
+                 array("&#x000003c;", ""),
+                 array("&#X3c", ""),
+                 array("&#X03c", ""),
+                 array("&#X003c", ""),
+                 array("&#X0003c", ""),
+                 array("&#X00003c", ""),
+                 array("&#X000003c", ""),
+                 array("&#X3c;", ""),
+                 array("&#X03c;", ""),
+                 array("&#X003c;", ""),
+                 array("&#X0003c;", ""),
+                 array("&#X00003c;", ""),
+                 array("&#X000003c;", ""),
+                 array("&#x3C", ""),
+                 array("&#x03C", ""),
+                 array("&#x003C", ""),
+                 array("&#x0003C", ""),
+                 array("&#x00003C", ""),
+                 array("&#x000003C", ""),
+                 array("&#x3C;", ""),
+                 array("&#x03C;", ""),
+                 array("&#x003C;", ""),
+                 array("&#x0003C;", ""),
+                 array("&#x00003C;", ""),
+                 array("&#x000003C;", ""),
+                 array("&#X3C", ""),
+                 array("&#X03C", ""),
+                 array("&#X003C", ""),
+                 array("&#X0003C", ""),
+                 array("&#X00003C", ""),
+                 array("&#X000003C", ""),
+                 array("&#X3C;", ""),
+                 array("&#X03C;", ""),
+                 array("&#X003C;", ""),
+                 array("&#X0003C;", ""),
+                 array("&#X00003C;", ""),
+                 array("&#X000003C;", ""));
   }
 }
 ?>
