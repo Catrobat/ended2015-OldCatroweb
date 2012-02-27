@@ -139,6 +139,8 @@ class upload extends CoreAuthenticationDevice {
     try {
       $this->checkFileChecksum($fileChecksum, $formData['fileChecksum']);
     } catch(Exception $e) {
+      //print "!! Error File Checksum: $fileChecksum, ".$formData['fileChecksum']."\n";
+      //print "!! Error File ".$projectFile."\n\n";
       $this->statusCode = 501;
       $this->removeProjectFromDatabase($newId);
       $this->removeProjectFromFilesystem($projectFile, $newId);
@@ -270,8 +272,11 @@ class upload extends CoreAuthenticationDevice {
     }
 
     if(!$versionName || !$versionCode) {
-      $versionCode = 4;
+      $versionCode = 9;
       $versionName = '&lt; 0.5a';
+    } else {
+      if (stristr($versionName, "-"))
+      	$versionName = substr($versionName, 0, strrpos($versionName, "-"));
     }
     return(array("versionName"=>$versionName, "versionCode"=>$versionCode));
   }

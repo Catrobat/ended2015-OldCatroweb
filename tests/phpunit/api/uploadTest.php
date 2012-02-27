@@ -39,6 +39,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType, 'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
     $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
     $fileSize = filesize($testFile);
+    
     $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
     $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENSION;
     $projectPath = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$insertId;
@@ -313,8 +314,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $testFileWithThumbnail = dirname(__FILE__).'/testdata/'.$fileNameWithThumbnail;
     $fileChecksum = md5_file($testFile);
     $fileChecksumWithThumbnail = md5_file($testFileWithThumbnail);
-    //echo "File Checksum $testFile = $fileChecksum\n";
-    //echo "File Checksum2 $testFileWithThumbnail = $fileChecksumWithThumbnail\n";
+    
+    $testFileCatroid = dirname(__FILE__).'/testdata/test.catroid';
+    $fileChecksumCatroid = md5_file($testFileCatroid);
+    $fileSizeCatroid = filesize($testFileCatroid);
     
     $fileSize = filesize($testFile);
     $fileSizeWithThumbnail = filesize($testFileWithThumbnail);
@@ -329,7 +332,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('unitTest with Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, 'catroid_unittest@gmail.com', 'en'),
     array('unitTest', 'my project description with thumbnail in root folder.', $testFile, 'test2.zip', $fileChecksum, $fileSize, $fileType),
     array('unitTest', 'my project description with thumbnail in images folder.', $testFile, 'test3.zip', $fileChecksum, $fileSize, $fileType),
-    array('unitTest', 'project with new extention "catroid".', dirname(__FILE__).'/testdata/test.catroid', 'test.catroid', $fileChecksum, $fileSize, $fileType),
+    array('unitTest', 'project with new extention "catroid".', dirname(__FILE__).'/testdata/test.catroid', 'test.catroid', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
     );
     return $dataArray;
   }
@@ -365,8 +368,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-    array('unitTest for correct version info 4', 'my project description for correct version info.', 'test_version4.zip', $fileType, 4, '0.4.3d'),
-    array('unitTest for correct version info 5', 'my project description for correct version info.', 'test_version5.zip', $fileType, 5, '0.5.1')
+    array('unitTest for correct version info 0.5a-xxx', 'my project description for correct version info.', 'test_version5a.zip', $fileType, 10, '0.5a'),
+    array('unitTest for correct version info 0.6a-xxx', 'my project description for correct version info.', 'test_version6a.zip', $fileType, 11, '0.6a')
     );
     return $dataArray;
   }
@@ -374,8 +377,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function incorrectVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-    array('unitTest for incorrect version info 4', 'my project description for incorrect version info.', 'test.zip', $fileType, 4, '&lt; 0.4.3d'),
-    array('unitTest for incorrect version info 5', 'my project description for incorrect version info.', 'test2.zip', $fileType, 4, '&lt; 0.4.3d')
+    array('unitTest for incorrect version info 0.5a-xxx', 'my project description for incorrect version info.', 'test.zip', $fileType, 9, '&lt; 0.5a'),
+    array('unitTest for incorrect version info 0.5.1', 'my project description for incorrect version info.', 'test2.zip', $fileType, 9, '&lt; 0.5a')
     );
     return $dataArray;
   }
@@ -427,27 +430,19 @@ class uploadTest extends PHPUnit_Framework_TestCase
 
   public function testVersion() {
     $dataArray = array(
-    /*
-    array("<project versionCode=\"4\" versionName=\"0.4.3d\"><stage><brick id=\"13\" type=\"0\"></brick></stage></project>", 4, "0.4.3d"),
-    array("<project><stage><brick id=\"13\" type=\"0\"></brick></stage></project>", 4, "&lt; 0.4.3d"),
-    array("<project><versionName>0.5.1</versionName><versionCode>5</versionCode></project>", 5, "0.5.1"),
-    array("<project><version>0.5.1</version><code>5</code></project>", 4, "&lt; 0.4.3d")
-    */
-    array("test_v4.spf", 4, "0.4.3d"),
-    array("test_no_version.spf", 4, "&lt; 0.5a"),
-    array("test_v5.spf", 5, "0.5.1"),
-    array("test_v5_invalid_tag.spf", 4, "&lt; 0.5a")
+	    array("test_v5a-433.xml", 10, "0.5a"),
+	    array("test_no_version.xml", 9, "&lt; 0.5a"),
+	    array("test_v5a-420.xml", 10, "0.5a"),
+	    array("test_v5a-199_invalid_tag.xml", 9, "&lt; 0.5a")
     );
     return $dataArray;
   }
 
   public function versionInfo() {
     $dataArray = array(
-    array(1, 4, "0.5.1"),
-    array(1, 5, "0.4.3d"),
-    array(1, 6, "1.0"),
+    array(1, 9, "0.5a"),
+    array(1, 10, "0.5a"),
     array(1, 0, ""),
-    array(1, 4, "0.4.3d")
     );
     return $dataArray;
   }
