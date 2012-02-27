@@ -34,9 +34,9 @@ class download extends CoreAuthenticationNone {
     $this->source_file = $line['source'];
     $this->file_name = str_replace(' ', '_', $line['title']);
     
-    if(isset($_REQUEST['incrementID'])) {
+    /*if(isset($_REQUEST['incrementID'])) {
       $this->incrementDownloadCounter($_REQUEST['incrementID']);
-    }
+    }*/
 	}
 
 	public function retrieveProjectById($id) {
@@ -45,8 +45,8 @@ class download extends CoreAuthenticationNone {
     $query = "EXECUTE get_project_by_id('$id');";
     $result = @pg_query($this->dbConnection,$query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $line = pg_fetch_assoc($result);
-
     pg_free_result($result);
+    $this->incrementDownloadCounter($id); // <ag>
     return $line;
   }
 

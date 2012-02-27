@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_header_loading">&#x8F09;&#x5165;&#x4E2D;&#x3002;&#x3002;&#x3002;</string>
   <string name="template_header_cancel">&#x53D6;&#x6D88;</string>
   <string name="template_footer_imprint_link">&#x7248;&#x672C;&#x8AAA;&#x660E;</string>
+  <string name="template_common_country_austria">Austria</string>
   <string name="template_footer_contact_link">&#x8054;&#x7EDC;</string>
   <string name="template_footer_terms_of_use_link">&#x4F7F;&#x7528;&#x689D;&#x4F8B;</string>
   <string name="template_header_password">&#x5BC6;&#x78BC;&#xFF1A;</string>
