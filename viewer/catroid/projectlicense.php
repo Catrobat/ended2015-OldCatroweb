@@ -26,9 +26,9 @@
             	    <div class="licenseText">
             	      <p class="licenseText">
 						<?php echo $this->languageHandler->getString('project_licence_part1')?>
-						<br><br>	
+						<br /><br />	
                         <?php echo $this->languageHandler->getString('project_licence_part2')?>
-                        <br><br>
+                        <br /><br />
                         <?php echo $this->languageHandler->getString('project_licence_part3')?>
                       </p>
                       <ul>
@@ -36,16 +36,18 @@
                         <li><?php echo $this->languageHandler->getString('project_licence_part3_list_element2')?></li>
                       </ul>
                       <p class="licenseText">
-                      	<?php echo $this->languageHandler->getString('project_licence_part4', 
-                      	  '<a class="nolink" href="http://creativecommons.org/licenses/by-sa/2.0/" target="_blank">'.$this->languageHandler->getString('share_alike_link').'</a>')?>
-                        <br><br>
+                      	<?php echo $this->languageHandler->getString('project_licence_part4')?>
+                        <br /><br />
                         <?php echo $this->languageHandler->getString('project_licence_part5')?>
-                        <br><br>
-                        <?php echo $this->languageHandler->getString('project_licence_learn_more', 
-                          '<a class="license" href="'.BASE_PATH.'catroid/terms">'.$this->languageHandler->getString('terms_of_use_link').'</a>',
-                          '<a class="nolink" href="http://creativecommons.org/" target="_blank">'.$this->languageHandler->getString('creative_commons_link').'</a>')?>
-                        <br><br>
+                        <br /><br />
+                        <?php echo $this->languageHandler->getString('project_licence_learn_more_new','<a class="license" href="'.BASE_PATH.'catroid/termsofuse">'.BASE_PATH.'catroid/termsofuse</a>')?>
+                        <br /><br />
                         <?php echo $this->languageHandler->getString('project_licence_team')?>
+                        <br /><br />
+                       </p>
+                       <p class="licenseText">
+                        <?php echo $this->languageHandler->getString('project_licence_dated')?><br />
+                        <?php echo $this->languageHandler->getString('project_licence_copy', '<a href="'.BASE_PATH.'">&lt;'.BASE_PATH.'&gt;</a>')?>
                       </p>
                    </div> <!-- License Text -->
                  </div> <!--  White Box -->            	

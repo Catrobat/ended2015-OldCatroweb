@@ -434,9 +434,9 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array("<project><version>0.5.1</version><code>5</code></project>", 4, "&lt; 0.4.3d")
     */
     array("test_v4.spf", 4, "0.4.3d"),
-    array("test_no_version.spf", 4, "&lt; 0.4.3d"),
+    array("test_no_version.spf", 4, "&lt; 0.5a"),
     array("test_v5.spf", 5, "0.5.1"),
-    array("test_v5_invalid_tag.spf", 4, "&lt; 0.4.3d")
+    array("test_v5_invalid_tag.spf", 4, "&lt; 0.5a")
     );
     return $dataArray;
   }
