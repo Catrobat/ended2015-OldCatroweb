@@ -26,7 +26,7 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
   public $cssFiles;
   public $jsFiles;
   public $websiteTitle;
-
+  
   public function __construct() {
     parent::__construct();
     $this->session = CoreSession::getInstance();

@@ -26,9 +26,13 @@ abstract class CoreAuthentication extends CoreModule {
     parent::__construct();
     isset($_REQUEST["module"]) ? $vmodule = $_REQUEST["module"] : $vmodule = MVC_DEFAULT_MODULE;
     isset($_REQUEST["class"]) ? $vclass = $_REQUEST["class"] : $vclass = MVC_DEFAULT_CLASS;
+    
     if (getenv("REMOTE_ADDR"))  {
       $this->requestFromBlockedIp($vmodule, $vclass);
+      
+      $this->requestFromTemporaryBlockedIp($vmodule, $vclass);
     }
+    
     /*echo("UserID: ".$this->session->userLogin_userId);
     if (isset($this->session->userLogin_userId) && $this->session->userLogin_userId > 0) { // , $vmodule, $vclass)) { //todo: fix - user session is unknown at this time
       // $this->errorHandler->showErrorPage('viewer', 'user_is_blocked', '', 'blocked_user');
@@ -42,25 +46,48 @@ abstract class CoreAuthentication extends CoreModule {
     parent::__destruct();
   }
 
+  
+  
   private function requestFromBlockedIp($vmodule, $vclass) {
+  	$badIp = false;
+  	if(($vmodule != "catroid") || in_array($vclass, getUserBlockClassWhitelistArray())) {
+  		return;
+  	}
+  	 
+  	$ip = $_SERVER["REMOTE_ADDR"];
+  	$query = "SELECT ip_address FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
+  	$result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
+  
+  	if(pg_num_rows($result)) {
+  		$badIp = true;
+  	}
+  
+  	if ($badIp) {
+  		$this->errorHandler->showErrorPage('viewer', 'ip_is_blocked', '');
+  	}
+  }
+  
+  
+  private function requestFromTemporaryBlockedIp($vmodule, $vclass) {
     $badIp = false;
     if(($vmodule != "catroid") || in_array($vclass, getUserBlockClassWhitelistArray())) {
       return;
     }
      
     $ip = $_SERVER["REMOTE_ADDR"];
-    $query = "SELECT ip_address FROM blocked_ips WHERE substr('$ip', 1, length(ip_address)) = ip_address";
+    $query = "EXECUTE is_ip_blocked_temporarily('$ip')";
     $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
-
+    
     if(pg_num_rows($result)) {
       $badIp = true;
     }
 
     if ($badIp) {
-      $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked', '');
+      $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked_temporary', '', 'doAReload');
     }
   }
 
+  
   private function requestFromBlockedUser($userId, $vmodule, $vclass) {
     $badUser = true;
     

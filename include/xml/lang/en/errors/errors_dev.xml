@@ -53,6 +53,7 @@
     <viewer>
     	<string name="html_file_not_found">Could not find html viewer file.</string>
     	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
+		<string name="ip_is_blocked_temporary">Your IP address is blocked for 30 seconds.</string>
     </viewer>
     <auth>
     	<string name="password_or_username_wrong">The password or username was incorrect.</string>
