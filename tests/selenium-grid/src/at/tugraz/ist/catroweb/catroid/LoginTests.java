@@ -140,6 +140,66 @@ public class LoginTests extends BaseTest {
     }
   }
   
+  @Test(dataProvider = "invalidLoginData", groups = { "functionality", "popupwindows" }, description = "check login with invalid data; waitpage after five attempts")
+  public void waitForLogin(HashMap<String, String> dataset) throws Throwable {
+    try {
+      // test login
+      openLocation();
+      assertTrue(isVisible(By.id("headerProfileButton")));
+      driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
+      assertFalse(isVisible(By.id("headerProfileButton")));
+      assertTrue(isVisible(By.id("headerCancelButton")));
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
+      driver().findElement(By.id("headerCancelButton")).click();
+      ajaxWait();
+      assertTrue(isVisible(By.id("headerProfileButton")));
+      assertFalse(isVisible(By.id("headerCancelButton")));
+      assertFalse(isVisible(By.id("loginSubmitButton")));
+      assertFalse(isVisible(By.id("loginUsername")));
+      assertFalse(isVisible(By.id("loginPassword")));
+      driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
+      assertFalse(isVisible(By.id("headerProfileButton")));
+      assertTrue(isVisible(By.id("headerCancelButton")));
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
+
+      for(int iterations=0; iterations<4; iterations++)
+      {
+	      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
+	      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
+	
+	      driver().findElement(By.id("loginSubmitButton")).click();
+	      ajaxWait();
+	      
+	      assertTrue(isVisible(By.id("loginErrorMsg")));
+	      
+	      driver().findElement(By.id("loginUsername")).clear();
+	      driver().findElement(By.id("loginPassword")).clear();	      
+      }
+
+      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
+      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
+
+      driver().findElement(By.id("loginSubmitButton")).click();
+      ajaxWait();
+      
+      assertFalse(isVisible(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.cssSelector(".errorMessage")));
+
+    } catch(AssertionError e) {
+      captureScreen("LoginTests.waitForLogin." + dataset.get("username"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("LoginTests.waitForLogin." + dataset.get("username"));
+      throw e;
+    }
+  }  
+  
   @Test(dataProvider = "validLoginData", groups = { "functionality", "popupwindows" }, description = "if logged in, registration page should redirect to profile page")
   public void redirection(HashMap<String, String> dataset) throws Throwable {
     try {      

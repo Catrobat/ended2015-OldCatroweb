@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="ip_is_blocked">Deine IP-Adresse wurde geblockt. Bitte kontaktiere den Administrator.</string>
     <string name="user_is_blocked">Dein Konto wurde gesperrt. Bitte kontaktiere den Administrator.</string>
     <string name="html_file_not_found">Diese Seite kann nicht angezeigt werden.</string>
+	<string name="ip_is_blocked_temporary">Deine IP-Adresse ist für 30 Sekunden gesperrt.</string>
   </viewer>
   <auth>
     <string name="board_authentication_failed">Anmeldung im Forum fehlgeschlagen!</string>

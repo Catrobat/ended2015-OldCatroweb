@@ -42,7 +42,20 @@ class login extends CoreAuthenticationNone {
         $this->setUserLanguage($this->session->userLogin_userId);     
         return true;
       } else {
-        $this->statusCode = 500;
+      	
+      	$ip = $_SERVER["REMOTE_ADDR"];
+    	$query = "EXECUTE is_ip_blocked_temporarily('$ip')";
+      	$result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
+      	
+      	if(pg_num_rows($result)) {
+      		$this->statusCode = 200;
+      	}
+      	else
+      	{
+      		$this->statusCode = 500;
+      	}
+      	
+        
         if($this->clientDetection->isMobile())
           $this->helperDiv = "<a id='signUp' target='_self' href='". BASE_PATH ."catroid/passwordrecovery'>". $this->languageHandler->getString('click_if_forgot_password') ."</a><br>". $this->languageHandler->getString('or') ."<br><a id='signUp' target='_self' href='". BASE_PATH ."catroid/registration'>". $this->languageHandler->getString('create_new_account') ."</a>";
         else 
@@ -194,7 +207,24 @@ class login extends CoreAuthenticationNone {
       $user = pg_fetch_assoc($result);
       $this->session->userLogin_userId = $user['id'];
       $this->session->userLogin_userNickname = ($user['username']);
+      
+      $ip = $_SERVER["REMOTE_ADDR"];
+      $query = "EXECUTE reset_failed_attempts('$ip')";
+      $result = @pg_query($this->dbConnection, $query);
+
+      if(!$result) {
+      	throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+      }      
     } else {
+    	
+    	$ip = $_SERVER["REMOTE_ADDR"];
+    	$query = "EXECUTE save_failed_attempts('$ip')";
+    	$result = @pg_query($this->dbConnection, $query);
+
+     	if(!$result) {
+     		throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+     	}
+    	
       $this->answer .= "CatroidLogin: ";
       throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'));
     }

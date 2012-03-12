@@ -49,6 +49,7 @@
     <viewer>
     	<string name="html_file_not_found">This page cannot be displayed.</string>
     	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
+		<string name="ip_is_blocked_temporary">Your IP address is blocked for 30 seconds.</string>
     </viewer>
     <auth>
     	<string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
