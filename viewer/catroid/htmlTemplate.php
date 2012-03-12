@@ -23,6 +23,11 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.3, initial-scale=1.0, user-scalable=yes" /> -->
+    
+  <?php if($_SESSION["errorArgs"][0] == "doAReload") { $_SESSION["errorArgs"][0] = null; ?>
+	<meta http-equiv="refresh" content="30;url=<?php echo BASE_PATH?>" />
+  <?php }?>
+    
   <title><?php echo $this->getWebsiteTitle() ?></title>
   <link href="<?php echo BASE_PATH?>include/css/baseStyle.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
   <link href="<?php echo BASE_PATH?>include/css/header.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
