@@ -272,11 +272,11 @@ class upload extends CoreAuthenticationDevice {
     }
 
     if(!$versionName || !$versionCode) {
-      $versionCode = 9;
-      $versionName = '&lt; 0.5a';
+      $versionCode = 499;
+      $versionName = '&lt; 0.6.0beta';
     } else {
       if (stristr($versionName, "-"))
-      	$versionName = substr($versionName, 0, strrpos($versionName, "-"));
+      	$versionName = substr($versionName, 0, strpos($versionName, "-"));
     }
     return(array("versionName"=>$versionName, "versionCode"=>$versionCode));
   }

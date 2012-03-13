@@ -65,14 +65,14 @@ public class DetailsTests extends BaseTest {
       ajaxWait();
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
       numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
-      assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
+      assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
 
       driver().findElement(By.xpath("//div[@class='detailsMainImage']/a[1]")).click();
       driver().navigate().refresh();
       ajaxWait();
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
       numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
-      assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
+      assertEquals(numOfDownloads + 4, numOfDownloadsAfter);
 
       // check file size
       double filesize = CommonFunctions.getFileSizeRounded(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + id + Config.PROJECTS_EXTENTION);
@@ -87,7 +87,8 @@ public class DetailsTests extends BaseTest {
 
       HashMap<String, String> versionInfo = CommonFunctions.getVersionInfo(id);
       String versionInfoText = driver().findElement(By.xpath("//span[@class='versionInfo']")).getText();
-      assertRegExp("^Catroid version: " + versionInfo.get("version_name") + "$", versionInfoText);
+      // assertRegExp("^Catroid version: " + versionInfo.get("version_name") + "$", versionInfoText);
+      assertEquals("Catroid version: " + versionInfo.get("version_name"), versionInfoText);
     } catch(AssertionError e) {
       captureScreen("DetailsTests.detailsPageCounter." + dataset.get("projectTitle"));
       throw e;

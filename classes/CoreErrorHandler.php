@@ -143,8 +143,11 @@ class CoreErrorHandler {
     $mailText .= "User HTTP Referer: <".$http_ref.">\n";
     $mailText .= "--- *** ---\n\n";
     $mailText .= "You should check this!";
-
-    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+	
+    if ($code != "not_a_tugraz_ip")
+    	return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+    else
+    	return null;
   }
 
   public function parseErrorMessage($msg, $args) {

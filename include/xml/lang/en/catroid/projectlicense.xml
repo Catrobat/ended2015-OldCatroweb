@@ -19,9 +19,6 @@
 
 <strings>
 	<string name="title">License to play - Give credit and share</string>
-	<string name="creative_commons_link">Creative Commons</string>
-	<string name="terms_of_use_link">Terms of Use</string>
-	<string name="share_alike_link">Creative Commons Attribution-Share Alike License</string>
 	<string name="project_licence_title">License to play - Give credit and share</string>
 
 	<string name="project_licence_part1">
@@ -47,9 +44,6 @@
 		In designing the Catroid website, we included features to encourage people to share and to give credit to others. On each project page, you 
         can always download the original scripts for the project. If you remix a project (modifying the scripts or artwork, and sharing the result), 
         we encourage you to give credit in the Project Notes, mentioning the people and projects that inspired you.
-	</string>
-	<string name="project_licence_learn_more">
-		Learn more about the {*termsOfUseLink*} of the Catroid online community and the {*creativeCommonsLink*} initiative.
 	</string>
 	<string name="project_licence_learn_more_new">
 		Learn more about the terms of use of the Catroid online community on {*termsOfUseLink*}.
