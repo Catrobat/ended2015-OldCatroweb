@@ -111,8 +111,8 @@
                     	} else {
                     ?>
 						<div class="detailsDownloadButton" style="text-align: left; font-size: 0.7em; font-weight: normal;">
-						We are sorry - but this project was created with an older version of catroid and can not be downloaded any more. Please download <a href="http://code.google.com/p/catroid/downloads/list"> the newest version</a> of catroid (currently 0.6.0beta).
-						<br><br>If you are the author of this project, you can upload it again from within the newer version of catroid.
+						We are sorry - but this project was created with an older version of Catroid and cannot be downloaded any more. Please download <a href="http://code.google.com/p/catroid/downloads/list"> the newest version</a> of Catroid.
+						<br><br>If you are the author of this project, you can upload it again from within the newer version.
 						<br><br>
 					<?php 
                     	}

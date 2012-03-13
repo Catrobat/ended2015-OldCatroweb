@@ -377,8 +377,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function incorrectVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-    array('unitTest for incorrect version info 0.5a-xxx', 'my project description for incorrect version info.', 'test.zip', $fileType, 9, '&lt; 0.5a'),
-    array('unitTest for incorrect version info 0.5.1', 'my project description for incorrect version info.', 'test2.zip', $fileType, 9, '&lt; 0.5a')
+    array('unitTest for incorrect version info 0.5a-xxx', 'my project description for incorrect version info.', 'test.zip', $fileType, 499, '&lt; 0.6.0beta'),
+    array('unitTest for incorrect version info 0.5.1', 'my project description for incorrect version info.', 'test2.zip', $fileType, 499, '&lt; 0.6.0beta')
     );
     return $dataArray;
   }
@@ -431,9 +431,9 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function testVersion() {
     $dataArray = array(
 	    array("test_v5a-433.xml", 10, "0.5a"),
-	    array("test_no_version.xml", 9, "&lt; 0.5a"),
+	    array("test_no_version.xml", 499, "&lt; 0.6.0beta"),
 	    array("test_v5a-420.xml", 10, "0.5a"),
-	    array("test_v5a-199_invalid_tag.xml", 9, "&lt; 0.5a")
+	    array("test_v5a-199_invalid_tag.xml", 499, "&lt; 0.6.0beta")
     );
     return $dataArray;
   }
