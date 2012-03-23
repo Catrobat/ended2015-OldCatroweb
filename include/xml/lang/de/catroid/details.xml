@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="cancel">Abbrechen</string>
   <string name="report_as_inappropriate">Als unpassend melden</string>
   <string name="report_as_inappropriate_label">Warum ist dieses Projekt unpassend?</string>
-  <string name="report_as_inappropriate_info">Du musst angemeldet sein, um dieses Projekt als unpassend zu melden.</string>
   <string name="some_rights_reserved">Einige Rechte vorbehalten</string>
   <string name="views">mal gesehen</string>
   <string name="downloads">mal heruntergeladen</string>

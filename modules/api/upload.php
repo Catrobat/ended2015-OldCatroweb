@@ -139,6 +139,8 @@ class upload extends CoreAuthenticationDevice {
     try {
       $this->checkFileChecksum($fileChecksum, $formData['fileChecksum']);
     } catch(Exception $e) {
+      //print "!! Error File Checksum: $fileChecksum, ".$formData['fileChecksum']."\n";
+      //print "!! Error File ".$projectFile."\n\n";
       $this->statusCode = 501;
       $this->removeProjectFromDatabase($newId);
       $this->removeProjectFromFilesystem($projectFile, $newId);
@@ -255,24 +257,27 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($this->errorHandler->getError('upload', 'invalid_project_xml'));
     }
     $attributes = $xml->attributes();
-    isset($attributes["versionName"]) && $attributes["versionName"] ? $versionName = strval($attributes["versionName"]) : $versionName = null;
-    isset($attributes["versionCode"]) && $attributes["versionCode"] ? $versionCode = strval($attributes["versionCode"]) : $versionCode = null;
+    isset($attributes["catroidVersionName"]) && $attributes["catroidVersionName"] ? $versionName = strval($attributes["catroidVersionName"]) : $versionName = null;
+    isset($attributes["catroidVersionCode"]) && $attributes["catroidVersionCode"] ? $versionCode = strval($attributes["catroidVersionCode"]) : $versionCode = null;
 
     if(!$versionName || !$versionCode) {
       $versionCode = null;
       $versionName = null;
       foreach($xml->children() as $child) {
-        if(strcmp(strval($child->getName()), 'versionName') == 0) {
+        if(strcmp(strval($child->getName()), 'catroidVersionName') == 0) {
           $versionName = strval($child);
-        } elseif(strcmp(strval($child->getName()), 'versionCode') == 0) {
+        } elseif(strcmp(strval($child->getName()), 'catroidVersionCode') == 0) {
           $versionCode = strval($child);
         }
       }
     }
 
     if(!$versionName || !$versionCode) {
-      $versionCode = 4;
-      $versionName = '&lt; 0.4.3d';
+      $versionCode = 499;
+      $versionName = '&lt; 0.6.0beta';
+    } else {
+      if (stristr($versionName, "-"))
+      	$versionName = substr($versionName, 0, strpos($versionName, "-"));
     }
     return(array("versionName"=>$versionName, "versionCode"=>$versionCode));
   }

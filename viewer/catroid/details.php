@@ -80,6 +80,7 @@
                       </div>
                     </div>
                     <div id="downloadAppSection">
+                      <?php getProjectDownloadLink($this->project["id"],2); ?>
                       <div id="downloadAppButton" class="detailsDownloadButton">
                         <a id="downloadAppProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; echo APP_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                           <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
@@ -98,11 +99,24 @@
                    <div class="oldVersionWarning"><?php echo $this->languageHandler->getString('old_version'); ?></div>
 <?php } ?>
                     <div id="downloadCatroidSection">
+                    <?php 
+                    	if (substr($this->project['version_name'], 0, 4) == "0.6.") {
+                    ?>
                       <div class="detailsDownloadButton">
                         <a id="downloadCatroidProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                           <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
                           <span class="detailsDownloadButtonText"><?php echo $this->languageHandler->getString('download')?></span>
                         </a>
+                    <?php 
+                    	} else {
+                    ?>
+						<div class="detailsDownloadButton" style="text-align: left; font-size: 0.7em; font-weight: normal;">
+						We are sorry - but this project was created with an older version of Catroid and cannot be downloaded any more. Please download <a href="http://code.google.com/p/catroid/downloads/list"> the newest version</a> of Catroid.
+						<br><br>If you are the author of this project, you can upload it again from within the newer version.
+						<br><br>
+					<?php 
+                    	}
+                    ?>
                         <div class="detailsFileSize"><?php echo $this->languageHandler->getString('filesize')?>: <?php echo $this->project['fileSize']?> MB</div>
                       </div>
 <?php if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>

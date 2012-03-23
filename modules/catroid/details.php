@@ -121,7 +121,7 @@ class details extends CoreAuthenticationNone {
     }
     return true;
   }
-
+  
   public function __destruct() {
     parent::__destruct();
   }

@@ -114,7 +114,7 @@ class detailsTest extends PHPUnit_Framework_TestCase
 
   public function projectVersionInfo() {
     $dataArray = array(
-      array(1, 4, "0.4.3d")
+      array(1, 500, "0.6.0beta")
       );
     return $dataArray;
   }
