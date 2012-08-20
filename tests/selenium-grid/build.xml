@@ -29,7 +29,7 @@
   <property name="build.src" location="${selenium-grid.basedir}/src"/>
   <property name="build.output" location="${selenium-grid.basedir}/target/classes"/>
 
-  <property name="webSite" value="http://localhost/"/>
+  <property name="webSite" value="http://catroid.local/"/>
   <property name="seleniumHost" value="localhost"/>
   <property name="seleniumPort" value="4444"/>
   <property name="browser" value="firefox"/>

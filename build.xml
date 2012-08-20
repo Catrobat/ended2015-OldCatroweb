@@ -199,7 +199,7 @@
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message=" http://localhost/tests/selenium-grid/target/reports/catroid"/>
+    <echo message=" http://catroid.local/tests/selenium-grid/target/reports/catroid"/>
     <echo message=""/>
     <echo message=""/>
   	
@@ -218,7 +218,7 @@
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message=" http://localhost/tests/selenium-grid/target/reports"/>
+    <echo message=" http://catroid.local/tests/selenium-grid/target/reports"/>
     <echo message=""/>
     <echo message=""/>
 
@@ -255,7 +255,7 @@
     <echo message="========== HTTP REPORT ========== "/>
     <echo message=""/>
     <echo message="check your test report at:"/>
-    <echo message=" http://localhost/tests/selenium-grid/target/reports"/>
+    <echo message=" http://catroid.local/tests/selenium-grid/target/reports"/>
     <echo message=""/>
     <echo message=""/>
 
@@ -395,6 +395,12 @@
              username="${host.user}"
              password="${host.pass}"
              command="cd ${host.catroid.dir}/${sql.dir}/; php dbinit.php" />  
+  </target>
+  
+  <target name="-update-selenium">
+    <exec dir="." executable="python" failonerror="true" osfamily="Unix">
+      <arg line=" install/update_selenium.py"/>
+    </exec>
   </target>
   
   <target name="-update-local-database">
@@ -686,6 +692,7 @@
   <target name="start-android-emulator" depends="-selenium-start-android-emulator, -selenium-start-server-android" />
   <target name="run-android-tests" depends="-selenium-android-tests" />
   <target name="run-validator-tests" depends="-validator-tests" />
+  <target name="update-selenium" depends="-update-selenium" />
   <target name="update-db" depends="-update-local-database" />
   <target name="init-db" depends="-init-local-database, -update-local-database" />
   <target name="generate-strings-xml" depends="-generate-strings-xml" />
