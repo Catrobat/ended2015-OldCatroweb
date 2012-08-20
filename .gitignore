@@ -1,0 +1,16 @@
+.ant-targets-build.xml
+.buildpath
+.classpath
+.settings/
+.project
+app-building/android-sdk-linux_x86
+app-building/catroid-source
+addons/board/cache/
+group_test_tmp.xml
+resources/projects/
+resources/qrcodes/
+resources/thumbnails/
+resources/catroid/
+single_test_tmp.xml
+tests/selenium-grid/target
+tests/selenium-grid/remote-control/"

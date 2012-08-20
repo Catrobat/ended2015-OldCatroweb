@@ -62,30 +62,28 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="not_a_tugraz_ip">Diese Seite kann nur vom "localhost" oder innerhalb des TU Graz Netzwerks aufgerufen werden.</string>
   </auth>
   <registration>
-    <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
+    <string name="send_registration_email_failed"/>
     <string name="wiki_registration_failed">Registrierung im Wiki fehlgeschlagen!</string>
+    <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
     <string name="catroid_registration_failed">Registrierung fehlgeschlagen!</string>
-    <string name="email_already_exists">Die E-Mail Adresse existiert bereits!</string>
-    <string name="email_invalid">Die Email-Adresse ist ung&#xFC;ltig.</string>
-    <string name="email_missing">Du hast keine E-Mail-Adresse angegeben.</string>
-    <string name="password_missing">Du hast kein Passwort angegeben.</string>
-    <string name="password_length_invalid">Dein Passwort muss mindestens {*minimumPasswordLength*} Zeichen und h&#xF6;chstens {*maximumPasswordLength*} Zeichen lang sein.</string>
-    <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
     <string name="username_missing">Du hast keinen Benutzernamen angegeben.</string>
-    <string name="username_invalid">Der Benutzername ist ung&#xFC;ltig.</string>
     <string name="username_invalid_underscore">Der Benutzername ist ung&#xFC;ltig. Unterstriche (_) sind nicht erlaubt.</string>
     <string name="username_invalid_hash">Der Benutzername ist ung&#xFC;ltig. Rautezeichen (#) sind nicht erlaubt.</string>
     <string name="username_invalid_verticalbar">Der Benutzername ist ung&#xFC;ltig. Vertikale Striche Unterstriche (|) sind nicht erlaubt.</string>
     <string name="username_invalid_curlybrace">Der Benutzername ist ung&#xFC;ltig. Geschweifte Klammern ({ oder }) sind nicht erlaubt.</string>
     <string name="username_invalid_lessgreater">Der Benutzername ist ung&#xFC;ltig. Spitze Klammern (&lt; oder &gt;) sind nicht erlaubt.</string>
     <string name="username_invalid_squarebracket">Der Benutzername ist ung&#xFC;ltig. Eckige Klammern ([ oder ]) sind nicht erlaubt.</string>
-    <string name="username_already_exists">Der Benutzername existiert bereits.</string>
+    <string name="username_invalid_insulting_words"/>
+    <string name="username_invalid">Der Benutzername ist ung&#xFC;ltig.</string>
     <string name="username_blacklisted">Der Benutzername ist reserviert und deswegen nicht erlaubt.</string>
-    <string name="country_codes_not_available">Keine L&#xE4;ndercodes in der Datenbank gefunden.</string>
+    <string name="username_already_exists">Der Benutzername existiert bereits.</string>
+    <string name="password_missing">Du hast kein Passwort angegeben.</string>
+    <string name="password_length_invalid">Dein Passwort muss mindestens {*minimumPasswordLength*} Zeichen und h&#xF6;chstens {*maximumPasswordLength*} Zeichen lang sein.</string>
+    <string name="password_username_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
+    <string name="email_missing">Du hast keine E-Mail-Adresse angegeben.</string>
+    <string name="email_invalid">Die Email-Adresse ist ung&#xFC;ltig.</string>
+    <string name="email_already_exists">Die E-Mail Adresse existiert bereits!</string>
     <string name="country_missing">Du hast kein Land angegeben.</string>
-    <string name="birth_missing">Du hast keinen Geburtstag angegeben.</string>
-    <string name="gender_missing">Du hast kein Geschlecht angegeben.</string>
-    <string name="insulting_words_in_username_field">Der Benutzername enth&#xE4;lt Schimpfw&#xF6;rter!</string>
   </registration>
   <passwordrecovery>
     <string name="password_length_invalid">Dein Passwort muss mindestens {*minimumPasswordLength*} Zeichen und h&#xF6;chstens {*maximumPasswordLength*} Zeichen lang sein.</string>
@@ -106,6 +104,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="email_update_of_catroweb_failed">Fehler beim L&#xF6;schen dieser E-Mail Adresse. Catroweb muss mindestens 2 E-Mail Adressen haben.</string>
     <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deiner Heimatstadt.</string>
     <string name="birth_update_failed">Es gab ein Problem beim Aktualisieren deines Geburtstags.</string>
+    <string name="country_codes_not_available">Keine L&#xE4;ndercodes in der Datenbank gefunden.</string>
   </profile>
   <admin>
     <string name="pootle_post_data_missing">POST-Daten fehlen: ben&#xF6;tigt: lang.</string>

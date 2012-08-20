@@ -18,9 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="catroid_success">CATROID Registrierung erfolgreich!</string>
   <string name="board_success">FORUM Registrierung erfolgreich!</string>
-  <string name="wiki_success">WIKI Registrierung erfolgreich!</string>
   <string name="mail_subject">[CATROID] Deine Catroid.org Registrierung!</string>
   <string name="mail_text_row1">Gratulation und willkommen zu der Catroid.org Gemeinschaft!</string>
   <string name="mail_text_row2">Bitte behalte dieses E-Mail auf. Deine Benutzerkonto-Informationen lauten:</string>

@@ -18,7 +18,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="cancel">Abbrechen</string>
   <string name="female">weiblich</string>
   <string name="male">m&#xE4;nnlich</string>
   <string name="title">{*nickname*}'s Profil</string>
@@ -49,6 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="add_gender">Mein Geschlecht hinzuf&#xFC;gen</string>
   <string name="gender">Geschlecht ausw&#xE4;hlen</string>
   <string name="select_language">Meine Sprache ausw&#xE4;hlen</string>
+  <string name="cancel">Abbrechen</string>
   <string name="password_success">Du hast dein Passwort erfolgreich ge&#xE4;ndert.</string>
   <string name="city_success">Du hast deine Heimatstadt erfolgreich ge&#xE4;ndert.</string>
   <string name="country_success">Du hast dein Land erfolgreich ge&#xE4;ndert.</string>

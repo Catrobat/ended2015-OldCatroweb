@@ -18,6 +18,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="cancel">Abbrechen</string>
   <string name="uploaded_by">von {*nicknameString*}</string>
   <string name="uploaded">hochgeladen</string>
   <string name="project">Projekt</string>
@@ -25,7 +26,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="download">Herunterladen</string>
   <string name="filesize">Dateigr&#xF6;&#xDF;e</string>
   <string name="report">Melden</string>
-  <string name="cancel">Abbrechen</string>
   <string name="report_as_inappropriate">Als unpassend melden</string>
   <string name="report_as_inappropriate_label">Warum ist dieses Projekt unpassend?</string>
   <string name="some_rights_reserved">Einige Rechte vorbehalten</string>
