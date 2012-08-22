@@ -3,6 +3,7 @@
 .classpath
 .settings/
 .project
+*.pyc
 .pydevproject
 
 app-building/android-sdk-linux_x86
