@@ -26,7 +26,7 @@ class Cleaner:
 	def cleanResources(self):
 		for entry in glob.glob(os.path.join(self.resourceDir, 'catroid', '*')):
 			if os.path.isdir(entry):
-				shutil.rmtree(entry)
+				os.system('sudo rm -rf ' + entry)
 
 		for entry in glob.glob(os.path.join(self.resourceDir, 'projects', '*.catroid')):
 			if not '/2.' in entry:

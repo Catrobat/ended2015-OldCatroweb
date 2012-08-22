@@ -24,7 +24,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.3, initial-scale=1.0, user-scalable=yes" /> -->
     
-  <?php if($_SESSION["errorArgs"][0] == "doAReload") { $_SESSION["errorArgs"][0] = null; ?>
+  <?php if(isset($_SESSION["errorArgs"][0]) && $_SESSION["errorArgs"][0] == "doAReload") { $_SESSION["errorArgs"][0] = null; ?>
 	<meta http-equiv="refresh" content="30;url=<?php echo BASE_PATH?>" />
   <?php }?>
     

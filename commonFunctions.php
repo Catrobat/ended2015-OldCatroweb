@@ -31,7 +31,7 @@ function googleAnalyticsGetImageUrl() {
   $url .= GA_PIXEL . "?";
   $url .= "utmac=" . GA_ACCOUNT;
   $url .= "&utmn=" . rand(0, 0x7fffffff);
-  $referer = $_SERVER["HTTP_REFERER"];
+  $referer = (isset($_SERVER["HTTP_REFERER"])?$_SERVER["HTTP_REFERER"]:'');
   $query = $_SERVER["QUERY_STRING"];
   $path = $_SERVER["REQUEST_URI"];
   if(empty($referer)) {

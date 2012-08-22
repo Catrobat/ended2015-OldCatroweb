@@ -332,10 +332,12 @@ public class DetailsTests extends BaseTest {
       assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
       
       driver().findElement(By.id("downloadAppSwitch")).click();
-      assertTrue(isVisible(By.id("downloadAppButton")));
-      assertRegExp(".*apk.*", driver().findElement(By.id("downloadProjectThumb")).getAttribute("href"));
-      driver().findElement(By.id("downloadProjectThumb")).click();
       ajaxWait();
+      assertTrue(isVisible(By.id("downloadAppButton")));
+      
+      String projectThumbnailLink = driver().findElement(By.id("downloadProjectThumb")).getAttribute("href");
+      assertRegExp(".*apk.*", projectThumbnailLink);
+      driver().get(projectThumbnailLink);
 
       driver().navigate().refresh();
       ajaxWait();

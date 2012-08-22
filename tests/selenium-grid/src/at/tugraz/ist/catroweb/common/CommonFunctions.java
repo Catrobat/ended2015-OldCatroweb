@@ -33,6 +33,7 @@ import java.util.HashMap;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.postgresql.Driver;
+import org.testng.Reporter;
 
 public class CommonFunctions {
   public static String getAdminPath(String webSite) {
@@ -59,10 +60,10 @@ public class CommonFunctions {
 
   public static String getValueFromJSONobject(String json, String key) {
     if(json.indexOf("{") != 0) {
-      System.out.println("********************************************************");
-      System.out.println("CommonFunctions: getValueFromJSONobject: Invalid json object!");
-      System.out.println(json);
-      System.out.println("********************************************************");
+      Reporter.log("********************************************************");
+      Reporter.log("CommonFunctions: getValueFromJSONobject: Invalid json object!");
+      Reporter.log(json);
+      Reporter.log("********************************************************");
 
       String[] temp = json.split("[{]", 2);
       try {
@@ -78,10 +79,10 @@ public class CommonFunctions {
     } catch(JSONException e) {
       e.printStackTrace();
     } catch(ArrayIndexOutOfBoundsException e) {
-      System.out.println("********************************************************");
-      System.out.println("CommonFunctions: getValueFromJSONobject: Invalid json object!");
-      System.out.println(json);
-      System.out.println("********************************************************");
+      Reporter.log("********************************************************");
+      Reporter.log("CommonFunctions: getValueFromJSONobject: Invalid json object!");
+      Reporter.log(json);
+      Reporter.log("********************************************************");
     }
     return "received invalid json object";
   }
@@ -96,7 +97,7 @@ public class CommonFunctions {
         filesize = bd.doubleValue();
       }
     } catch(Exception e) {
-      System.out.println("Error: CommonFunctions.getFileSizeRounded(" + filepath + ")" + e.getMessage());
+      Reporter.log("Error: CommonFunctions.getFileSizeRounded(" + filepath + ")" + e.getMessage());
     }
     return filesize;
   }
@@ -119,8 +120,8 @@ public class CommonFunctions {
       connection.close();
       DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
-      System.out.println("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
-      System.out.println(e.getMessage());
+      Reporter.log("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
+      Reporter.log(e.getMessage());
     }
     return data;
   }
@@ -148,8 +149,8 @@ public class CommonFunctions {
       connection.close();
       DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
-      System.out.println("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
-      System.out.println(e.getMessage());
+      Reporter.log("CommonData: getRandomProject: SQL Exception couldn't execute sql query!");
+      Reporter.log(e.getMessage());
     }
     return count;
   }
@@ -166,8 +167,8 @@ public class CommonFunctions {
       connection.close();
       DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
-      System.out.println("CommonFunctions: removeUserFromBD: SQL Exception couldn't execute sql query!");
-      System.out.println(e.getMessage());
+      Reporter.log("CommonFunctions: removeUserFromBD: SQL Exception couldn't execute sql query!");
+      Reporter.log(e.getMessage());
     }
   }
 
@@ -193,8 +194,8 @@ public class CommonFunctions {
       connection.close();
       DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
-      System.out.println("CommonFunctions: getUnapprovedWordId: SQL Exception couldn't execute sql query!");
-      System.out.println(e.getMessage());
+      Reporter.log("CommonFunctions: getUnapprovedWordId: SQL Exception couldn't execute sql query!");
+      Reporter.log(e.getMessage());
     }
     return id;
   }
@@ -215,8 +216,8 @@ public class CommonFunctions {
 
       return md5StringBuilder.toString();
     } catch(NoSuchAlgorithmException e) {
-      System.out.println("CommonFunvtions: md5: coulnd't create md5 hash");
-      System.out.println(e.getMessage());
+      Reporter.log("CommonFunvtions: md5: coulnd't create md5 hash");
+      Reporter.log(e.getMessage());
     }
     return "";
   }
@@ -232,8 +233,8 @@ public class CommonFunctions {
       connection.close();
       DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
-      System.out.println("CommonFunctions: removeAllBlockedIps: SQL Exception couldn't execute sql query!");
-      System.out.println(e.getMessage());
+      Reporter.log("CommonFunctions: removeAllBlockedIps: SQL Exception couldn't execute sql query!");
+      Reporter.log(e.getMessage());
     }
   }
 
@@ -248,8 +249,8 @@ public class CommonFunctions {
       connection.close();
       DriverManager.deregisterDriver(driver);
     } catch(SQLException e) {
-      System.out.println("CommonFunctions: removeAllBlockedUsers: SQL Exception couldn't execute sql query!");
-      System.out.println(e.getMessage());
+      Reporter.log("CommonFunctions: removeAllBlockedUsers: SQL Exception couldn't execute sql query!");
+      Reporter.log(e.getMessage());
     }
   }
 

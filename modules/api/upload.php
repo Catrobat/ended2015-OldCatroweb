@@ -313,7 +313,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   private function checkProjectSize($fileData) {
-    if(intval($fileData['upload']['size']) > PROJECTS_MAX_SIZE) {
+    if(isset($fileData['upload']['size']) && intval($fileData['upload']['size']) > PROJECTS_MAX_SIZE) {
       throw new Exception($this->errorHandler->getError('upload', 'project_exceed_filesize_limit'));
     }
     return true;

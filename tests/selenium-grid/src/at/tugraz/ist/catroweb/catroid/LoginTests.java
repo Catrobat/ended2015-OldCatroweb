@@ -168,29 +168,14 @@ public class LoginTests extends BaseTest {
       assertTrue(isVisible(By.id("loginUsername")));
       assertTrue(isVisible(By.id("loginPassword")));
 
-      for(int iterations=0; iterations<4; iterations++)
-      {
-	      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
-	      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
-	
-	      driver().findElement(By.id("loginSubmitButton")).click();
-	      ajaxWait();
-	      
-	      assertTrue(isVisible(By.id("loginErrorMsg")));
-	      
-	      driver().findElement(By.id("loginUsername")).clear();
-	      driver().findElement(By.id("loginPassword")).clear();	      
-      }
-
       driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
       driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
 
       driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
       
-      assertFalse(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.cssSelector(".errorMessage")));
-
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.id("loginErrorMsg")));
     } catch(AssertionError e) {
       captureScreen("LoginTests.waitForLogin." + dataset.get("username"));
       throw e;

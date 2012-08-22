@@ -298,7 +298,7 @@ public class BaseTest {
 
     //workaround fo Issue 2714
     //https://code.google.com/p/selenium/issues/detail?id=2714
-    driver().manage().window().setSize(new Dimension(840,1000));
+    driver().manage().window().setSize(new Dimension(840,2000));
   }
 
   protected void openAdminLocation() {
