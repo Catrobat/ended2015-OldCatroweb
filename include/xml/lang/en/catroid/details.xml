@@ -41,5 +41,6 @@
   <string name="show_qr_code_info_button">QR code - what's this?</string>
   <string name="hide_qr_code_info_button">QR code - close info</string>
   <string name="flag_reason_placeholder">Enter a reason</string>
-  <string name="old_version">This project was built with an very early version of Catroid and probaly will not work with the current version.</string>
+  <string name="old_version">We are sorry, but this project was created with an older version of Catroid and can not be downloaded any more.</string>
+  <string name="old_version_author">If you are the author of this project and want to update it, you can upload it again from within the current version of Catroid.</string>
 </strings>

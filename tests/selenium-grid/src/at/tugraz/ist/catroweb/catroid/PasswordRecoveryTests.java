@@ -104,10 +104,12 @@ public class PasswordRecoveryTests extends BaseTest {
       assertTrue(isTextPresent(Config.TESTS_BASE_PATH + "catroid/passwordrecovery?c="));
       assertTrue(isTextPresent("An email was sent to your email address."));
       assertTrue(isTextPresent("Please check your inbox."));
+
+      // get recovery url and click it
+      String recoveryUrl = driver().findElement(By.id("forgotPassword")).getText();
       driver().findElement(By.id("forgotPassword")).click();
 
       // enter 2short password
-      String recoveryUrl = driver().getCurrentUrl();
       assertTrue(isTextPresent("Please enter your new password:"));
       driver().findElement(By.id("passwordSavePassword")).clear();
       driver().findElement(By.id("passwordSavePassword")).sendKeys("short");

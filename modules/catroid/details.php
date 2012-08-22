@@ -34,7 +34,7 @@ class details extends CoreAuthenticationNone {
     $this->addJs('projectDetails.js');
 
     $this->isMobile = $this->clientDetection->isMobile();
-    $this->oldVersions = array("", "0.4.3d");
+    $this->oldVersions = array("", "0.4.3d", "0.5.4a", "&lt; 0.6.0beta");
   }
 
   public function __default() {
@@ -49,16 +49,16 @@ class details extends CoreAuthenticationNone {
       $this->errorHandler->showErrorPage('db', 'no_entry_for_id', 'ID: '.$projectId);
       exit();
     }
-    $result = null;
+    $query = null;
     if($this->session->adminUser) {
-      $result = pg_execute($this->dbConnection, "get_project_by_id", array($projectId)) or
+      $query = pg_execute($this->dbConnection, "get_project_by_id", array($projectId)) or
                 $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     } else {
-      $result = pg_execute($this->dbConnection, "get_visible_project_by_id", array($projectId)) or
+      $query = pg_execute($this->dbConnection, "get_visible_project_by_id", array($projectId)) or
                 $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     }
-    $project = pg_fetch_assoc($result);
-    pg_free_result($result);
+    $project = pg_fetch_assoc($query);
+    pg_free_result($query);
 
     if(!$project) {
       $this->errorHandler->showErrorPage('db', 'no_entry_for_id', 'ID: '.$projectId);

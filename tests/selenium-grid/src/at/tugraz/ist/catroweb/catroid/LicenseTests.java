@@ -71,7 +71,7 @@ public class LicenseTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[4]/li[3]/a[2]"));
-      assertRegExp(".*catroid - An on-device visual programming language for Android inspired by Scratch - Google Project Hosting.*", driver().getTitle());
+      assertRegExp(".*catroid - An on-device visual programming system for Android inspired by Scratch - Google Project Hosting*", driver().getTitle());
       closePopUp();
 
       // click onto termsofservice link
@@ -255,15 +255,11 @@ public class LicenseTests extends BaseTest {
       closePopUp();
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[2]/li[2]/a[1]"));
-      assertRegExp(".*libGDX - 2D & 3D game development framework written in Java for Desktop and Android.*", driver().getTitle());
-      closePopUp();
-
-      clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[2]/li[2]/a[2]"));
-      assertRegExp(".*libGDX - 2D & 3D game development framework written in Java for Desktop and Android.*", driver().getTitle());
+      assertRegExp(".*Libgdx - Desktop/Android/HTML5 Game Development.*", driver().getTitle());
       closePopUp();
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[2]/li[2]/a[3]"));
-      assertRegExp(".*People - libgdx - Android/desktop game development framework - Google Project Hosting.*", driver().getTitle());
+      assertRegExp(".*People - libgdx - Android/HTML5/desktop game development framework - Google Project Hosting.*", driver().getTitle());
       closePopUp();
 
       assertTrue(driver().findElement(By.xpath("//p[@class='licenseText'][4]/a")).getAttribute("href")

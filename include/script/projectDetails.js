@@ -23,9 +23,11 @@ var ProjectDetails = Class.$extend( {
     this.downloadInfoVisible = false;
     this.projectId = projectId;
     
+    /*
     $("#downloadAppProjectLink").click($.proxy(this.incrementDownloadCounter, this));
     $("#downloadCatroidProjectLink").click($.proxy(this.incrementDownloadCounter, this));
     $("#downloadProjectThumb").click($.proxy(this.incrementDownloadCounter, this));
+    */
     
     $("#downloadAppSection").toggle(false);
 

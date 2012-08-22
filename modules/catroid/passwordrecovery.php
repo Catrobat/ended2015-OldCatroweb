@@ -65,6 +65,15 @@ class passwordrecovery extends CoreAuthenticationNone {
   }
 
   public function passwordRecoveryChangeMyPasswordRequest() {
+    /*
+    echo "<pre>";
+    print_r($_GET['c']);
+    echo $_GET['c'];
+    print_r($_POST['passwordSavePassword']);
+    echo $_POST['passwordSavePassword'];
+    print_r($_POST['c']);
+    echo $_POST['c'];
+    */
     if(isset($_POST['passwordSavePassword']) && ($_POST['c'] != '')) {
       if(!$this->doPasswordRecovery($_POST)) {
         $this->statusCode = 500;

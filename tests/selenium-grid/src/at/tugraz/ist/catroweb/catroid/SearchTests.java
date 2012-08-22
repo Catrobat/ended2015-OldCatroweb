@@ -163,6 +163,7 @@ public class SearchTests extends BaseTest {
       assertTrue(isVisible(By.id("moreProjects")));
       // test links to details page
       driver().findElement(By.xpath("//a[@class='projectListDetailsLink'][1]")).click();
+      ajaxWait();
       assertRegExp(".*/catroid/details.*", driver().getCurrentUrl());
       driver().navigate().back();
       ajaxWait();
@@ -205,6 +206,7 @@ public class SearchTests extends BaseTest {
       driver().navigate().refresh();
       ajaxWait();
       driver().findElement(By.id("webHeadSearchSubmit")).click();
+      ajaxWait();
 
       assertTrue(isTextPresent(projectTitle1));
       assertTrue(isTextPresent(projectTitle2));

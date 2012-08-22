@@ -70,7 +70,13 @@
                       </div>
                       <div style="clear:both;"></div>
                     </div>
-<?php if($this->project['is_app_present']) {?>
+<?php if($this->project['show_warning'] == true) {?>
+                   <div class="oldVersionWarning">
+                     <?php echo $this->languageHandler->getString('old_version'); ?>
+                     <p><?php echo $this->languageHandler->getString('old_version_author'); ?></p>
+                   </div>
+<?php } else { ?>
+<?php   if($this->project['is_app_present']) {?>
                     <div class="detailsDownloadButton">
                       <button type="button" id="downloadCatroidSwitch" class="button noborderradius blueSelected"><span class="detailsDownloadTypeSwitchText"><?php echo $this->languageHandler->getString('project'); ?></span></button><button type="button" id="downloadAppSwitch" class="button noborderradius blue"><span class="detailsDownloadTypeSwitchText"><?php echo $this->languageHandler->getString('app'); ?></span></button>
                       <button type="button" id="downloadInfoButton" class="button noborderradius green" style="width:17%;"><span class="detailsDownloadTypeSwitchText">?</span></button>
@@ -80,7 +86,6 @@
                       </div>
                     </div>
                     <div id="downloadAppSection">
-                      <?php getProjectDownloadLink($this->project["id"],2); ?>
                       <div id="downloadAppButton" class="detailsDownloadButton">
                         <a id="downloadAppProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; echo APP_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                           <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
@@ -88,52 +93,36 @@
                         </a>
                         <div class="detailsFileSize"><?php echo $this->languageHandler->getString('filesize')?>: <?php echo $this->project['appFileSize']?> MB</div>
                       </div>
-<?php   if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
+<?php     if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
                       <div class="detailsQRCode">
                         <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_app_image']?>" alt="qr code image"/>
                       </div>
-<?php   }?>
+<?php     }?>
                     </div>
-<?php }?>
-<?php if($this->project['show_warning'] == true) {?>
-                   <div class="oldVersionWarning"><?php echo $this->languageHandler->getString('old_version'); ?></div>
-<?php } ?>
+<?php   }?>
                     <div id="downloadCatroidSection">
-                    <?php 
-                    	if (substr($this->project['version_name'], 0, 4) == "0.6.") {
-                    ?>
                       <div class="detailsDownloadButton">
                         <a id="downloadCatroidProjectLink" class="button blue middle" style="white-space:nowrap;" href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
                           <img class="projectDetailsDownloadSymbol" src="<?php echo BASE_PATH?>images/symbols/arrow_down5.png" alt="download project button" />
                           <span class="detailsDownloadButtonText"><?php echo $this->languageHandler->getString('download')?></span>
                         </a>
-                    <?php 
-                    	} else {
-                    ?>
-						<div class="detailsDownloadButton" style="text-align: left; font-size: 0.7em; font-weight: normal;">
-						We are sorry - but this project was created with an older version of Catroid and cannot be downloaded any more. Please download <a href="http://code.google.com/p/catroid/downloads/list"> the newest version</a> of Catroid.
-						<br><br>If you are the author of this project, you can upload it again from within the newer version.
-						<br><br>
-					<?php 
-                    	}
-                    ?>
                         <div class="detailsFileSize"><?php echo $this->languageHandler->getString('filesize')?>: <?php echo $this->project['fileSize']?> MB</div>
                       </div>
-<?php if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
+<?php   if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
                       <div class="detailsQRCode">
                         <img class="projectDetailsQRImage" src="<?php echo $this->project['qr_code_catroid_image']?>" alt="qr code image"/>
                       </div>
-<?php }?>
+<?php   }?>
                     </div>
-<?php if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
+<?php   if(!$this->isMobile && $this->project['qr_code_catroid_image']) {?>
                     <div class="detailsQRCodeText">
                       <div id="qrcodeInfo" class="qrcodeInfo"><?php echo $this->languageHandler->getString('qrcode_info')?></div>
                       <button type="button" id="showQrCodeInfoButton" class="button white medium"><span class="showQrCodeInfoButton"><?php echo $this->languageHandler->getString('show_qr_code_info_button')?></span></button>
                       <button type="button" id="hideQrCodeInfoButton" class="button white medium"><span class="hideQrCodeInfoButton"><?php echo $this->languageHandler->getString('hide_qr_code_info_button')?></span></button>
                     </div>
-<?php }?>
+<?php   }?>
                     <div class="detailsProjectDescription">
-<?php if($this->project['description_short']) {?>
+<?php   if($this->project['description_short']) {?>
                       <p class="detailsDescription" id="detailsDescription"><?php echo $this->project['description_short'];?></p>
                       <input type="hidden" id="fullDescriptionText" value="<?php echo htmlspecialchars($this->project['description'])?>"/>
                       <input type="hidden" id="shortDescriptionText" value="<?php echo htmlspecialchars($this->project['description_short'])?>"/>
@@ -143,11 +132,12 @@
                       <button type="button" id="showShortDescriptionButton" class="button green compact showShortDescriptionButton">
                         <span class="detailsLessButtonText"><?php echo $this->languageHandler->getString('text_less')?></span>
                       </button>
-<?php } else {?>
+<?php   } else {?>
                       <p class="detailsDescription"><?php echo $this->project['description'];?></p>
-<?php }?>
+<?php   }?>
                       <div style="clear:both;"></div>
                     </div>
+<?php }?>
                   </div>
 <?php if($this->isMobile) {?>
                   <div class="detailsMainStats">

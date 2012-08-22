@@ -65,14 +65,14 @@ public class DetailsTests extends BaseTest {
       ajaxWait();
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
       numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
-      assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
+      assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
 
       driver().findElement(By.xpath("//div[@class='detailsMainImage']/a[1]")).click();
       driver().navigate().refresh();
       ajaxWait();
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
       numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
-      assertEquals(numOfDownloads + 4, numOfDownloadsAfter);
+      assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
 
       // check file size
       double filesize = CommonFunctions.getFileSizeRounded(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + id + Config.PROJECTS_EXTENTION);
@@ -243,17 +243,22 @@ public class DetailsTests extends BaseTest {
     }
   }
 
-  @Test(groups = { "visibility" }, description = "check old version warning")
-  public void oldVersionWarning() throws Throwable {
+  @Test(dataProvider = "oldVersion", groups = { "visibility" }, description = "check old version warning")
+  public void oldVersionView(HashMap<String, String> dataset) throws Throwable {
     try {
-      openLocation("catroid/details/1");
+      String response = projectUploader.upload(dataset);
+      String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
+
+      openLocation("catroid/details/" + id);
       ajaxWait();
-      assertTrue(isTextPresent("This project was built with an very early version of Catroid and probaly will not work with the current version."));
+
+      assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and can not be downloaded any more."));
+      assertTrue(isTextPresent("If you are the author of this project and want to update it, you can upload it again from within the current version of Catroid."));
     } catch(AssertionError e) {
-      captureScreen("DetailsTests.QRCodeInfo");
+      captureScreen("DetailsTests.oldVersionView");
       throw e;
     } catch(Exception e) {
-      captureScreen("DetailsTests.QRCodeInfo");
+      captureScreen("DetailsTests.oldVersionView");
       throw e;
     }
   }
@@ -318,6 +323,7 @@ public class DetailsTests extends BaseTest {
       assertRegExp(".*apk.*", driver().findElement(By.id("downloadAppProjectLink")).getAttribute("href"));
       numOfDownloads = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
       driver().findElement(By.id("downloadAppProjectLink")).click();
+      ajaxWait();
 
       driver().navigate().refresh();
       ajaxWait();
@@ -329,6 +335,7 @@ public class DetailsTests extends BaseTest {
       assertTrue(isVisible(By.id("downloadAppButton")));
       assertRegExp(".*apk.*", driver().findElement(By.id("downloadProjectThumb")).getAttribute("href"));
       driver().findElement(By.id("downloadProjectThumb")).click();
+      ajaxWait();
 
       driver().navigate().refresh();
       ajaxWait();
@@ -401,27 +408,38 @@ public class DetailsTests extends BaseTest {
     }
   }
 
+  @DataProvider(name = "oldVersion")
+  public Object[][] oldVersion() {
+    Object[][] returnArray = new Object[][] {
+        { CommonData
+            .getUploadPayload(
+                "This is a very old project.",
+                "The user is not allowed to download this project any more.",
+                "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0") } };
+    return returnArray;
+  }
+  
   @DataProvider(name = "titlesAndDescriptions")
   public Object[][] titlesAndDescriptions() {
     Object[][] returnArray = new Object[][] {
         { CommonData
-            .getUploadPayload(
-                "more button selenium test",
-                "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!",
-                "", "", "", "", "0") },
-        { CommonData
-            .getUploadPayload(
-                "more button special chars test",
-                "This is a description which has special chars like \", & or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with \"special chars\" and should have more characters than defined by the threshold in config.php. Thats it!",
-                "", "", "", "", "0") }, };
+          .getUploadPayload(
+              "more button selenium test",
+              "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!",
+              "", "", "", "", "0") },
+              { CommonData
+                .getUploadPayload(
+                    "more button special chars test",
+                    "This is a description which has special chars like \", & or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with \"special chars\" and should have more characters than defined by the threshold in config.php. Thats it!",
+                    "", "", "", "", "0") }, };
     return returnArray;
   }
 
   @DataProvider(name = "detailsProject")
   public Object[][] detailsProject() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test.zip", "583783A335BD40D3D0195A13432AFABB", "", "", "0") },
-        { CommonData.getUploadPayload("details_test2big", "details_test_description", "test2.zip", "c40c86d6c4407788fa723e1d9fade10e", "", "", "0") }, };
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test-0.6.0beta.catroid", "a8c1f275e4ba5e7e5d6d4f6d434ae546", "", "", "0") },
+        { CommonData.getUploadPayload("details_test2big", "details_test_description", "test-0.6.0beta.catroid", "a8c1f275e4ba5e7e5d6d4f6d434ae546", "", "", "0") }, };
     return returnArray;
   }
 }

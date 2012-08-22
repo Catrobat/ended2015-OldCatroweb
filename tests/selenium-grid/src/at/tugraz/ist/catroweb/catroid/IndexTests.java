@@ -40,14 +40,14 @@ public class IndexTests extends BaseTest {
     // test catroid download link
     assertTrue(isElementPresent(By.id("aIndexInfoboxDownloadButton")));
     clickAndWaitForPopUp(By.id("aIndexInfoboxDownloadButton"));
-    assertTrue(isTextPresent("catroid-0.5.241-debug.apk"));
-    assertTrue(isTextPresent("paintroid-0.5.76-debug.apk"));
+    assertTrue(isTextPresent("catroid-0.6.0beta-975-debug.apk"));
+    assertTrue(isTextPresent("paintroid-0.6.0beta-369-debug.apk"));
     closePopUp();
     
     // test screenshot link
     assertTrue(isElementPresent(By.id("aIndexInfoboxScreenshotLink")));
     clickAndWaitForPopUp(By.id("aIndexInfoboxScreenshotLink"));
-    assertTrue(isTextPresent("This project implements Catroid, an on-device visual programming language for Android devices that is inspired by the Scratch programming language developed by the Lifelong Kindergarten Group at the MIT Media Lab."));
+    assertTrue(isTextPresent("Catroid is an on-device visual programming system for Android devices that is inspired by the"));
     closePopUp();
 
     driver().findElement(By.id("catroidDescriptionCloseButton")).click();
@@ -125,6 +125,7 @@ public class IndexTests extends BaseTest {
       ajaxWait();
 
       clickLastVisibleProject();
+      ajaxWait();
       assertRegExp(".*/catroid/details/[0-9]+", driver().getCurrentUrl());
       driver().navigate().back();
       ajaxWait();
@@ -187,6 +188,7 @@ public class IndexTests extends BaseTest {
 
       // test links to details page
       driver().findElement(By.xpath("//a[@class='projectListDetailsLink']")).click();
+      ajaxWait();
       assertRegExp(".*/catroid/details.*", driver().getCurrentUrl());
       driver().navigate().back();
       ajaxWait();

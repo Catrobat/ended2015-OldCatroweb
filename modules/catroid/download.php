@@ -33,10 +33,6 @@ class download extends CoreAuthenticationNone {
     $this->id = $id;
     $this->source_file = $line['source'];
     $this->file_name = str_replace(' ', '_', $line['title']);
-    
-    /*if(isset($_REQUEST['incrementID'])) {
-      $this->incrementDownloadCounter($_REQUEST['incrementID']);
-    }*/
 	}
 
 	public function retrieveProjectById($id) {
