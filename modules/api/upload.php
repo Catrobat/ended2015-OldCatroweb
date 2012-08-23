@@ -212,6 +212,11 @@ class upload extends CoreAuthenticationDevice {
   public function renameProjectFile($oldName, $projectId) {
     $newFileName = $projectId.PROJECTS_EXTENSION;
     $newName = CORE_BASE_PATH.PROJECTS_DIRECTORY.$newFileName;
+    
+    if(is_dir($newName)) {
+      removeDir($newName);
+    }
+    
     if(!rename($oldName, $newName)) {
       throw new Exception($this->errorHandler->getError('upload', 'rename_failed'));
     }
@@ -257,9 +262,9 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($this->errorHandler->getError('upload', 'invalid_project_xml'));
     }
     $attributes = $xml->attributes();
-    isset($attributes["catroidVersionName"]) && $attributes["catroidVersionName"] ? $versionName = strval($attributes["catroidVersionName"]) : $versionName = null;
-    isset($attributes["catroidVersionCode"]) && $attributes["catroidVersionCode"] ? $versionCode = strval($attributes["catroidVersionCode"]) : $versionCode = null;
-
+    $versionName = (isset($attributes["catroidVersionName"]) && $attributes["catroidVersionName"]) ? strval($attributes["catroidVersionName"]) : null;
+    $versionCode = (isset($attributes["catroidVersionCode"]) && $attributes["catroidVersionCode"]) ? strval($attributes["catroidVersionCode"]) : null;
+    
     if(!$versionName || !$versionCode) {
       $versionCode = null;
       $versionName = null;
@@ -294,15 +299,37 @@ class upload extends CoreAuthenticationDevice {
 
   private function insertProjectIntoDatabase($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize) {
     $this->session->userLogin_userId ? $userId=$this->session->userLogin_userId : $userId=0;
-    $result = pg_execute($this->dbConnection, "insert_new_project", array($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $userId)) or
-              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('upload', 'sql_insert_failed', pg_last_error($this->dbConnection)));
+    
+    $result = pg_execute($this->dbConnection, "does_project_already_exist", array($projectTitle, $userId)) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result && pg_num_rows($result) == 1) {
+      $row = pg_fetch_assoc($result);
+      $updateId = $row['id'];
+      @pg_free_result($result);
+
+      $result = pg_execute($this->dbConnection, "update_project", array($projectDescription, $uploadIp, $fileSize, $updateId)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('upload', 'sql_update_failed', pg_last_error($this->dbConnection)));
+      }
+      return $updateId;
+    } else {
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('upload', 'sql_insert_failed', pg_last_error($this->dbConnection)));
+      }
+      @pg_free_result($result);
+
+      $result = pg_execute($this->dbConnection, "insert_new_project", array($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $userId)) or
+                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('upload', 'sql_insert_failed', pg_last_error($this->dbConnection)));
+      }
+      $row = pg_fetch_assoc($result);
+      $insertId = $row['id'];
+      
+      @pg_free_result($result);
+      return $insertId;
     }
-    $row = pg_fetch_assoc($result);
-    $insertId = $row['id'];
-    @pg_free_result($result);
-    return $insertId;
+    return 0;
   }
 
   private function checkPostData($formData, $fileData) {

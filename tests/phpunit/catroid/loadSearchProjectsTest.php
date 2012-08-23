@@ -99,8 +99,8 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
   public function testSpecialCharSearch() {        
     $specialStrings = $this->specialCharStrings();
     foreach($specialStrings as $specialString) {
-      $this->doUpload($specialString,1);
-      $this->doUpload("",2);
+      $this->doUpload("", 2);
+      $this->doUpload($specialString, 1);
 
       for($i=0; $i<mb_strlen($specialString,'UTF-8'); $i++) {
         $char = mb_substr($specialString, $i, 1,'UTF-8');

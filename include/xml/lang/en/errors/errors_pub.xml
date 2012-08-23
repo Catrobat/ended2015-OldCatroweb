@@ -32,6 +32,7 @@
         <string name="copy_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="rename_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="sql_insert_failed">Sorry, there was an error during the upload. Try again!</string>
+        <string name="sql_update_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="invalid_file_checksum">Sorry, there was an error during the upload. Try again!</string>
         <string name="project_exceed_filesize_limit">Your project file is too large.</string>
         <string name="project_title_default">You have to rename your project, before uploading it.</string>

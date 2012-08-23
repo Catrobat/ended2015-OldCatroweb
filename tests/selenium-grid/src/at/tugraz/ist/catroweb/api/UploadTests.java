@@ -31,7 +31,43 @@ import at.tugraz.ist.catroweb.common.*;
 
 @Test(groups = { "api", "UploadTests" })
 public class UploadTests extends BaseTest {
+  
+  @Test(groups = { "upload", "functionality" }, description = "overwrite already uploaded projects")
+  public void uploadResubmission() throws Throwable {
+    try {
+      String title = "Resubmit this project";
+      String response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0"));
+      String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      
+      openLocation("catroid/details/" + id);
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
+      assertTrue(containsElementText(By.xpath("//div[@class='detailsProjectTitle']"), title));
+      assertTrue(isTextPresent("uploaded"));
+      assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and can not be downloaded any more."));
+      assertFalse(isElementPresent(By.xpath("//div[@class='detailsDownloadButton']")));
+
+      //update the project
+      response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.6.0beta.catroid", "a8c1f275e4ba5e7e5d6d4f6d434ae546", "", "", "0"));
+      id = CommonFunctions.getValueFromJSONobject(response, "projectId");
+
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      
+      openLocation("catroid/details/" + id);
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
+      assertTrue(containsElementText(By.xpath("//div[@class='detailsProjectTitle']"), title));
+      assertTrue(isTextPresent("updated"));
+      assertTrue(isElementPresent(By.xpath("//div[@class='detailsDownloadButton']")));
+    } catch(AssertionError e) {
+      captureScreen("UploadTests.uploadResubmission");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("UploadTests.uploadResubmission");
+      throw e;
+    }
+  }
+  
   @Test(dataProvider = "ftpProjectsForUpload", groups = { "upload", "functionality" }, description = "upload projects via ftp")
   public void uploadFtpProjects(HashMap<String, String> dataset) throws Throwable {
     try {
