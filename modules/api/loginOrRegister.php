@@ -76,8 +76,8 @@ class loginOrRegister extends CoreAuthenticationNone {
     global $phpbb_root_path;
     require_once($phpbb_root_path .'includes/utf/utf_tools.php');
 
-    $username_clean = utf8_clean_string($user);
     $user = trim($user);
+    $username_clean = utf8_clean_string($user);
 
     $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($username_clean)) or
               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());

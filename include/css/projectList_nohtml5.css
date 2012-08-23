@@ -88,6 +88,10 @@ img.projectListPreview {
 	height:auto;		
 }
 
+span.projectListDetailsLinkBold {
+  color:#000000; font-weight: bold;			
+}
+
 a.projectListDetailsLink:link { color:#3333AA; text-decoration:underline; }
 a.projectListDetailsLink:visited { color:#3333AA; text-decoration:underline; }
 a.projectListDetailsLink:hover { color:#0000FF; text-decoration:underline; }

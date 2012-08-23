@@ -91,8 +91,8 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
     // test that projects is$numDbEntries a valid db serach result    
     $this->assertEquals(true, is_array($projects));
     $this->assertEquals(1, count($projects));
-    $this->assertEquals("Your search returned no results",$projects[0]['title']);
-    $this->assertEquals("Your search returned no results",$projects[0]['title_short']);
+    $this->assertEquals("Your search returned no results.",$projects[0]['title']);
+    $this->assertEquals("Your search returned no results.",$projects[0]['title_short']);
     $this->assertRegExp("/images\/symbols\/thumbnail_gray\.jpg/",$projects[0]['thumbnail']);    
   }
   

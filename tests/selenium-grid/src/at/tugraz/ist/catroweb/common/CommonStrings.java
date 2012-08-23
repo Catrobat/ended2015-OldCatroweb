@@ -30,7 +30,7 @@ public class CommonStrings {
   public static final String SEARCH_PROJECTS_PAGE_PREV_BUTTON = "« Previous";
   public static final String SEARCH_PROJECTS_PAGE_NEXT_BUTTON = "Next »";
   public static final String SEARCH_PROJECTS_PAGE_LOADING_BUTTON = "loading...";
-  public static final String SEARCH_PROJECTS_PAGE_NO_RESULTS = "Your search returned no results";
+  public static final String SEARCH_PROJECTS_PAGE_NO_RESULTS = "Your search returned no results.";
   
   public static final String REGISTRATION_PAGE_TITLE = "Create a new account";
   public static final String REGISTRATION_NICKNAME = "Nickname";
