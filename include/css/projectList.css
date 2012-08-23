@@ -139,3 +139,6 @@ button.navigationButtons {
   display:none;
 }
 
+span.projectListDetailsLinkBold {
+  color:#000000; font-weight: bold;			
+}

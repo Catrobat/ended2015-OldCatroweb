@@ -34,6 +34,7 @@ public class LanguageManagementTests extends BaseTest {
     try {
       openAdminLocation("?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsLanguageManagement")).click();
       assertTrue(isTextPresent("Administration Tools - Language Management"));
       assertTrue(isElementPresent(By.xpath("//select[@id='supportedLanguageSelect']")));

@@ -122,6 +122,7 @@ public class EditProjectsTests extends BaseTest {
       // and delete project
       openAdminLocation();
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsEditProjects")).click();
       assertTrue(isTextPresent("Administration Tools - List of available projects"));
       assertTrue(isElementPresent(By.id("delete" + projectId)));

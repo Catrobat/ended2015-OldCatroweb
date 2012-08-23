@@ -389,9 +389,6 @@ var SearchProjects = Class.$extend( {
             $("#projectListDetailsLinkThumb"+i).attr("href", this.basePath+"catroid/details/"+content[i]['id']);  
             $("#projectListDetailsLinkThumb"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
           }
-          else {
-            $("#projectListDetailsLinkThumb"+i).attr("href", "#");
-          }
           $("#projectListPreview"+i).attr("src", content[i]['thumbnail']).attr("alt", content[i]['title']);
           
           $("#projectListTitle"+i).unbind('click');          
@@ -400,7 +397,7 @@ var SearchProjects = Class.$extend( {
             $("#projectListTitle"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
           }
           else {
-            $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='#'>"+content[i]['title']+"</a></div>");            
+            $("#projectListTitle"+i).html("<div class='projectDetailLineMaxWidth'><span class='projectListDetailsLinkBold'>"+content[i]['title']+"</span></div>");            
           }
           if (content[i]['upload_time'] != "") {
             $("#projectListDescription"+i).html(content[i]['upload_time']+" "+content[i]['uploaded_by_string']);          
