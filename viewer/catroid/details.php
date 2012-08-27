@@ -62,7 +62,7 @@
                       <div style="float:left;"><img class="projectDetailsTimeSymbol" src="<?php echo BASE_PATH?>images/symbols/clock2.png" alt="publish time image"></div>
                       <div style="float:left;">
                         <p class="detailsTime">
-                          <?php echo $this->languageHandler->getString('uploaded')?><br/>
+                          <?php echo $this->project['publish_type']; ?><br/>
                           <strong><?php echo $this->project['publish_time_in_words']?></strong><br/>
                           <strong><?php echo $this->project['uploaded_by_string']?></strong><br/>
                           <span class="versionInfo"><?php echo $this->languageHandler->getString('version_info_text').' '; ?> <?php echo $this->project['version_name']?></span>
