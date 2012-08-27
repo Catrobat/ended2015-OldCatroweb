@@ -17,6 +17,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
+<?php if($this->showCatroidDescription): ?>
     <div id="catroidDescription" class="webMainMiddle">
       <div class="blueBoxMain">
         <div>
@@ -43,6 +44,7 @@
         </div>
       </div> <!-- blueBoxMain close //-->
     </div> <!--  WEBMAINMIDDLE -->
+    <?php endif; ?>
     <div class="webMainMiddle">
       <div class="blueBoxMain">
         <div>

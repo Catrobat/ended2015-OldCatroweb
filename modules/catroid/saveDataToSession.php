@@ -52,6 +52,9 @@ class saveDataToSession extends CoreAuthenticationNone {
       case 'errorExtraInfo':
         $this->session->errorExtraInfo = $value;
         break;        
+      case 'showCatroidDescription':
+        $this->session->showCatroidDescription = $value;
+        break;
     }
   }
 }

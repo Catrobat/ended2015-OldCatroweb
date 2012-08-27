@@ -93,7 +93,19 @@ var Index = Class.$extend( {
   },
 
   hideCatroidDescription : function() {
-    $("#catroidDescription").hide();
+    var self = this;
+    $.ajax({
+      type: "POST",
+      url: self.basePath+"catroid/saveDataToSession/save.json",
+      data: {
+          content: {
+            showCatroidDescription: 0,            
+          }
+      },
+      success : function(result) {
+         $("#catroidDescription").hide();
+      }
+    });
   },
   
   startPage : function() {
