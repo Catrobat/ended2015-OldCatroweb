@@ -26,6 +26,8 @@
     }
 
     public function display() {
+      header("Cache-Control: no-cache, must-revalidate");
+      header("Expires: Sun, 4 Apr 2004 04:04:04 GMT");
       header("Content-Type: application/json");
       echo $this->jsonEncodedString;
 

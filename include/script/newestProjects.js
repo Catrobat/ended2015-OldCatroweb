@@ -115,7 +115,6 @@ var NewestProjects = Class.$extend( {
     $.ajax({
       type: "POST",
       url: self.basePath+"catroid/saveDataToSession/save.json",
-      cache: false,      
       data: {
           content: {
             pageNr: pageNumber,
@@ -216,9 +215,7 @@ var NewestProjects = Class.$extend( {
     var self = this;
     $.ajax({
       url: self.basePath+"catroid/loadNewestProjects/"+pageNr+".json",
-      cache: false,
       timeout: (this.ajaxTimeout),
-    
       success: function(result) {
         if(result != "") {
           if(result.error) {

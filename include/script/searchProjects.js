@@ -123,7 +123,6 @@ var SearchProjects = Class.$extend( {
     $.ajax({
       type: "POST",
       url: self.basePath+"catroid/saveDataToSession/save.json",
-      cache: false,      
       data: {
           content: {
             pageNr: pageNumber,
@@ -232,7 +231,6 @@ var SearchProjects = Class.$extend( {
     var self = this;
     $.ajax({
       url: self.basePath+"catroid/loadSearchProjects/result.json",
-      cache: false,
       type : "POST",
       data : {
         query : self.searchQuery,

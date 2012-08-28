@@ -18,6 +18,7 @@
  */
 
 class index extends CoreAuthenticationNone {
+  
   public function __construct() {
     parent::__construct();
     if($this->clientDetection->isBrowser(CoreClientDetection::BROWSER_FIREFOX) ||
@@ -39,10 +40,15 @@ class index extends CoreAuthenticationNone {
   public function __default() {
     $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);
 
+    if($this->session->showCatroidDescription == "") {
+      $this->session->showCatroidDescription = 1;
+    }   
+        
     if(!$this->session->pageNr) {
       $this->session->pageNr = 1;
       $this->session->task = "newestProjects";
     }
+    
     if(isset($_REQUEST['method']) || isset($_REQUEST['p'])) {
       if(isset($_REQUEST['method'])) {
         $this->session->pageNr = intval($_REQUEST['method']);
@@ -74,6 +80,7 @@ class index extends CoreAuthenticationNone {
       $this->session->task = "newestProjects";
     }
 
+    $this->showCatroidDescription = intVal($this->session->showCatroidDescription);
     $this->task = $this->session->task;
     $this->pageNr = $this->session->pageNr;
     $this->searchQuery = "";
