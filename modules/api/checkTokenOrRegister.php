@@ -26,10 +26,10 @@ class checkTokenOrRegister extends CoreAuthenticationDevice {
   }
 
   public function __authenticationFailed() {
-    if($_POST) { //
+    if($_POST) {
       if($this->usernameExists($_POST['registrationUsername'])) {
         $this->statusCode = 601;
-        $this->answer .= $this->errorHandler->getError('auth', 'device_auth_invalid_token');
+        $this->answer .= $this->errorHandler->getError('auth', 'device_auth_username_exists');
       } else {
         require_once 'modules/api/registration.php';
         $registration = new registration();
@@ -59,9 +59,6 @@ class checkTokenOrRegister extends CoreAuthenticationDevice {
     $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($username_clean)) or
     $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-    }
     if(pg_num_rows($result) > 0) {
       return true;
     }

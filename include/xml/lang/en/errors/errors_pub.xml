@@ -58,6 +58,7 @@
     	<string name="catroid_authentication_failed">Sorry, there was a problem: check your nickname and password.</string>
     	<string name="wiki_api_response_incorrect">Ooooops something went wrong. Please try again!</string>
     	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your nickname and password!</string>
+		<string name="device_auth_username_exists">Sorry, your nickname is already in use.</string>
       <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
     </auth>
     <registration>

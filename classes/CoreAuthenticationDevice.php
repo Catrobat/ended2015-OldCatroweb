@@ -28,9 +28,9 @@ abstract class CoreAuthenticationDevice extends CoreAuthentication {
     if(isset($_REQUEST['token']) && strlen($_REQUEST['token']) != 0) {
       $authToken = strtolower($_REQUEST['token']);
       $result = pg_execute($this->dbConnection, "get_user_device_login", array($authToken));
-      if($result && pg_num_rows($result)) {
+      if($result && pg_num_rows($result) > 0) {
         $user = pg_fetch_assoc($result);
-        if(is_numeric($user['id']) && $user['id'] >= 0) {
+        if(is_numeric($user['id']) && $user['id'] > 0) {
           $this->session->userLogin_userId = $user['id'];
           $this->session->userLogin_userNickname = $user['username'];
           return true;

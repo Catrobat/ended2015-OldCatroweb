@@ -98,7 +98,7 @@ class registration extends CoreAuthenticationNone {
   
   public function doCatroidRegistration($postData, $serverData) {
     $username = checkUserInput($postData['registrationUsername']);
-    $md5user = md5($username);
+    $md5user = md5(strtolower($username));
     $usernameClean = getCleanedUsername($username);
     $md5password = md5($postData['registrationPassword']);
     $authToken = md5($md5user.":".$md5password);
