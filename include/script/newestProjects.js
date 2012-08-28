@@ -76,7 +76,6 @@ var NewestProjects = Class.$extend( {
           this.pageLabels['title'] + " - " + this.pageNr.current, 
           this.basePath+"catroid/index/" + this.pageNr.current);
     }
-    this.saveStateToSession(this.pageNr.current);
   },
 
   restoreHistoryState : function(state) {
@@ -242,9 +241,12 @@ var NewestProjects = Class.$extend( {
             }
           
             if(self.pageContent.prev != null && self.pageContent.current != null && self.pageContent.next != null) {
+              if(self.pageNr.current == pageNr) {
+                self.saveStateToSession(self.pageNr.current);
+              }
+
               self.fillSkeletonWithContent();
               self.saveHistoryState();
-              self.saveStateToSession(self.pageNr.current);
               self.setDocumentTitle();
               self.unblockAjaxRequest();            
             }
