@@ -23,7 +23,6 @@ class loginOrRegister extends CoreAuthenticationNone {
   
   public function __construct() {
     parent::__construct();
-    $this->setupBoard();
   }
 
   public function __default() {
@@ -72,12 +71,7 @@ class loginOrRegister extends CoreAuthenticationNone {
   }
   
   private function usernameExists($user) {
-    //get_user_row_by_username_clean
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-
-    $user = trim($user);
-    $username_clean = utf8_clean_string($user);
+    $username_clean = getCleanedUsername($user);
 
     $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($username_clean)) or
               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
@@ -90,11 +84,8 @@ class loginOrRegister extends CoreAuthenticationNone {
     } else {
       return false;
     }
-    
   }
   
-  
-
   public function __destruct() {
     parent::__destruct();
   }

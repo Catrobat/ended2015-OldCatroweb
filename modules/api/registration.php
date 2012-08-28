@@ -21,7 +21,6 @@ class registration extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    $this->setupBoard();
   }
 
   public function __default() {
@@ -98,12 +97,9 @@ class registration extends CoreAuthenticationNone {
   }
   
   public function doCatroidRegistration($postData, $serverData) {
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-
     $username = checkUserInput($postData['registrationUsername']);
     $md5user = md5($username);
-    $usernameClean = utf8_clean_string($username);
+    $usernameClean = getCleanedUsername($username);
     $md5password = md5($postData['registrationPassword']);
     $authToken = md5($md5user.":".$md5password);
 
@@ -177,11 +173,8 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)));
     }
 
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-
     $username = checkUserInput($postData['registrationUsername']);
-    $username = utf8_clean_string($username);
+    $username = getCleanedUsername($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $userToken = md5($username);
     $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
@@ -277,9 +270,7 @@ class registration extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }
 
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-    $usernameClean = utf8_clean_string(($username));
+    $usernameClean = getCleanedUsername($username);
     if(empty($usernameClean)) {
       throw new Exception($this->errorHandler->getError('registration', 'username_invalid'));
     }

@@ -26,6 +26,7 @@ import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
+import at.tugraz.ist.catroweb.common.CommonStrings;
 
 @Test(groups = { "catroid", "LoginTests" })
 public class LoginTests extends BaseTest {
@@ -205,25 +206,26 @@ public class LoginTests extends BaseTest {
       ajaxWait();
 
       assertRegExp(".*/catroid/profile/" + dataset.get("username") + ".*", driver().getCurrentUrl());
-      //assertTrue(isElementPresent(By.xpath("//a[@href='" + this.webSite + "catroid/details/1']")));
       
       driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
       assertTrue(isVisible(By.id("logoutSubmitButton")));
       driver().findElement(By.id("logoutSubmitButton")).click();
+      ajaxWait();
       
-      assertTrue(isTextPresent("from"));
+      waitForElementPresent(By.id("projectListTitle"));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
       
       openLocation("catroid/registration/");
       ajaxWait();
       assertTrue(isTextPresent("Create a new account"));
       assertRegExp(".*/catroid/registration/.*", driver().getCurrentUrl());
       
-      
     } catch(AssertionError e) {
-      captureScreen("LoginTests.validLogin." + dataset.get("username"));
+      captureScreen("LoginTests.redirection." + dataset.get("username"));
       throw e;
     } catch(Exception e) {
-      captureScreen("LoginTests.validLogin." + dataset.get("username"));
+      captureScreen("LoginTests.redirection." + dataset.get("username"));
       throw e;
     }
   }

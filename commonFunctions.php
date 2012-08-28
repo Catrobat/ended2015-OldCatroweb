@@ -87,6 +87,38 @@ function getUsernameBlacklistArray() {
   return $usernameBlacklist;
 }
 
+function initBoardFunctions() {
+  define('IN_PHPBB', true);
+  global $phpbb_root_path, $phpEx, $user, $db, $config, $cache, $template, $auth;
+  $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : CORE_BASE_PATH.'/addons/board/';
+  $phpEx = substr(strrchr(__FILE__, '.'), 1);
+  require_once($phpbb_root_path . 'common.' . $phpEx);
+  require_once($phpbb_root_path .'includes/utf/utf_tools.php');
+}
+
+function boardSqlQuery($query) {
+  global $db;
+  if($db->sql_query($query)) {
+    return true;
+  }
+  return false;
+}
+
+function getCleanedUsername($username) {
+  initBoardFunctions();
+  $username = trim($username);
+  $username_clean = utf8_clean_string($username);
+  
+  return $username_clean;
+}
+
+function getHashedBoardPassword($password) {
+  initBoardFunctions();
+  $hashed_password = phpbb_hash($password);
+  
+  return $hashed_password;
+}
+
 function getPublicServerBlacklistArray() {
   if(DEVELOPMENT_MODE) {
     return array();

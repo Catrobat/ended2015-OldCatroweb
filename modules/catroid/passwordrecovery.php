@@ -20,7 +20,6 @@
 class passwordrecovery extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
-    $this->setupBoard();
     $this->addCss('passwordrecovery.css');
     $this->addJs('passwordRecovery.js');
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
@@ -28,9 +27,11 @@ class passwordrecovery extends CoreAuthenticationNone {
 
   public function __default() {
     $this->action = "default";
-    $this->passedUserName = "aa";
+    $this->passedUserName = "";
     
-    $this->clearUserName($_GET['username']);
+    if(isset($_GET['username'])) {
+      $this->clearUserName($_GET['username']);
+    }
     
     if((isset($_GET['c']))) {
       if($this->showHTMLForm($_GET['c'])) {
@@ -65,23 +66,14 @@ class passwordrecovery extends CoreAuthenticationNone {
   }
 
   public function passwordRecoveryChangeMyPasswordRequest() {
-    /*
-    echo "<pre>";
-    print_r($_GET['c']);
-    echo $_GET['c'];
-    print_r($_POST['passwordSavePassword']);
-    echo $_POST['passwordSavePassword'];
-    print_r($_POST['c']);
-    echo $_POST['c'];
-    */
-    if(isset($_POST['passwordSavePassword']) && ($_POST['c'] != '')) {
+    if(isset($_POST['passwordSavePassword']) && isset($_POST['c'])) {
       if(!$this->doPasswordRecovery($_POST)) {
         $this->statusCode = 500;
       }
       else {
         $this->statusCode = 200;
       }
-      if($this->showHTMLForm($_GET['c'])) {
+      if($this->showHTMLForm($_POST['c'])) {
         $this->action = "showPasswordSaved";
       } else {
         $this->action = "passwordUrlExpired";
@@ -99,7 +91,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       $this->answer_ok .= $this->languageHandler->getString('sent_2');
       return $userHash;
     } catch(Exception $e) {
-      $this->answer .= $e->getMessage().'<br>';
+      $this->answer .= $e->getMessage();
       return false;
     }
   }
@@ -182,17 +174,15 @@ class passwordrecovery extends CoreAuthenticationNone {
   }
 
   public function doUpdateBoardPassword($username, $password) {
-    global $db, $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/functions.php');
 
-    $username = utf8_clean_string($username);
+    $username = getCleanedUsername($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
-    $password = phpbb_hash($password);
+    $password = getHashedBoardPassword($password);
 
     $sql = 'UPDATE phpbb_users SET user_password = \'' . $password . '\',
   		user_pass_convert = 0 WHERE username_clean = \'' . $username . '\'';
 
-    if($db->sql_query($sql)) {
+    if(boardSqlQuery($sql)) {
       return true;
     } else {
       throw new Exception($this->errorHandler->getError('registration', 'board_registration_failed'));
@@ -204,10 +194,8 @@ class passwordrecovery extends CoreAuthenticationNone {
     if(!$wikiDbConnection) {
       throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)));
     }
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
 
-    $username = utf8_clean_string($username);
+    $username = getCleanedUsername($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
     $hash = md5($hexSalt.'-'.md5($password));
@@ -231,10 +219,8 @@ class passwordrecovery extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('passwordrecovery', 'userdata_missing'));
     }
 
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-    $userData = utf8_clean_string($userData);
-    $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($userData)) or
+    $username = getCleanedUsername($userData);
+    $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($username)) or
               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
@@ -297,10 +283,10 @@ class passwordrecovery extends CoreAuthenticationNone {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
       }
 
-      if(pg_num_rows($result) > 0) {
-        $this->userData = pg_fetch_assoc($result);
+      if(pg_num_rows($result) == 1) {
+        $row = pg_fetch_assoc($result);
 
-        $hoursDifference = $this->getTimeDifference();
+        $hoursDifference = $this->getTimeDifference(intVal($row['recovery_time']));
         if($hoursDifference < 24*60*60) {
           return true;
         }
@@ -352,18 +338,8 @@ class passwordrecovery extends CoreAuthenticationNone {
     return true;
   }
 
-  public function getTimeDifference() {
-    $date = new DateTime();
-    $timenow = $date->format('U');
-    $hashtime = $this->userData['recovery_time'];
-
-    if ($timenow > $hashtime) {
-      $difftime = ($timenow - $hashtime);
-    }
-    else {
-      $difftime = ($hashtime - $timenow);
-    }
-    return $difftime;
+  public function getTimeDifference($hashtime) {
+    return abs($hashtime - time());
   }
 
   public function __destruct() {

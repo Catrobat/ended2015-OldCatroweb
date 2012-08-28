@@ -21,7 +21,6 @@ class login extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    $this->setupBoard();
   }
 
   public function __default() {
@@ -34,9 +33,6 @@ class login extends CoreAuthenticationNone {
 
   public function loginRequest() {
     if($_POST) {
-//      if(isset($_POST['requesturi'])) {
-//        $this->setRequestURI($_POST['requesturi']);
-//      }
       if($this->doLogin($_POST)) {
         $this->statusCode = 200;  
         $this->setUserLanguage($this->session->userLogin_userId);     
@@ -189,12 +185,7 @@ class login extends CoreAuthenticationNone {
   }
 
   public function doCatroidLogin($postData) {
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-
-    $user = $postData['loginUsername'];
-    $user = utf8_clean_string($postData['loginUsername']);
-    $user = trim($user);
+    $user = getCleanedUsername($postData['loginUsername']);
     $md5pass = md5($postData['loginPassword']);
     
     $result = pg_execute($this->dbConnection, "get_user_login", array($user, $md5pass)) or
@@ -249,7 +240,9 @@ class login extends CoreAuthenticationNone {
   }
 
   public function doBoardLogout() {
+    initBoardFunctions();
     global $user, $auth;
+
     $user->session_begin();
     $auth->acl($user->data);
     $user->setup();
@@ -258,17 +251,15 @@ class login extends CoreAuthenticationNone {
 
   public function doWikiLogin($postData) {
     require_once("Snoopy.php");
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
     $snoopy = new Snoopy();
     $snoopy->curl_path = false;
     $wikiroot = BASE_PATH.'addons/mediawiki';
     $api_url = $wikiroot . "/api.php";
 
     $login_vars['action'] = "login";
-    //$username = $postData['loginUsername'];
-    $username = utf8_clean_string($postData['loginUsername']);
-    $username = trim($username);
+    $username = getCleanedUsername($postData['loginUsername']);
+    
+    //wiki login needs first letter capitalized 
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $login_vars['lgname'] = $username;
     $login_vars['lgpassword'] = $postData['loginPassword'];

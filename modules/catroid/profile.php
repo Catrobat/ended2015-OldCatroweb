@@ -21,7 +21,6 @@ class profile extends CoreAuthenticationUser {
 
   public function __construct() {
     parent::__construct();
-    $this->setupBoard();
     $this->addCss('profile.css');
     $this->addJs("profile.js");
   }
@@ -299,6 +298,9 @@ class profile extends CoreAuthenticationUser {
   private function doChangePassword($username, $oldPassword, $newPassword) {
     $userPasswordValid = true;
     
+    $answer_ok = "";
+    $answer = "";
+    
     try {
       $this->checkOldPassword($username, $oldPassword);
     } catch(Exception $e) {
@@ -309,6 +311,9 @@ class profile extends CoreAuthenticationUser {
       $this->checkNewPassword($username, $newPassword);
     } catch(Exception $e) {
       $userPasswordValid = false;
+      if($answer != "") {
+        $answer .= "<br />";
+      }
       $answer .= $e->getMessage();
     }
     
@@ -342,7 +347,7 @@ class profile extends CoreAuthenticationUser {
       }
     }
     $this->answer .= $answer;
-    $this->answer_ok .= $answer_ok;
+    $this->answer_ok = $answer_ok;
     return $userPasswordValid;
   }
 
@@ -442,17 +447,14 @@ class profile extends CoreAuthenticationUser {
   }
     
   private function doUpdateBoardPassword($username, $password) {
-    global $db, $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/functions.php');
-
-    $username = utf8_clean_string($username); 
+    $username = getCleanedUsername($username); 
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
-    $password = phpbb_hash($password);
+    $password = getHashedBoardPassword($password);
     
   	$sql = 'UPDATE phpbb_users SET user_password = \'' . $password . '\',
   		user_pass_convert = 0 WHERE username_clean = \'' . $username . '\'';
 
-    if($db->sql_query($sql)) {
+    if(boardSqlQuery($sql)) {
       return true;
     } else {
       throw new Exception($this->errorHandler->getError('registration', 'board_registration_failed'));
@@ -465,10 +467,8 @@ class profile extends CoreAuthenticationUser {
     if(!$wikiDbConnection) {
       throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)));
     }
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
 
-    $username = utf8_clean_string($username);
+    $username = getCleanedUsername($username);
     $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
     $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
     $hash = md5($hexSalt.'-'.md5($password));    
@@ -493,11 +493,7 @@ class profile extends CoreAuthenticationUser {
       throw new Exception($this->errorHandler->getError('profile', 'password_old_missing'));
     }
 
-    global $phpbb_root_path;
-    require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-    
-    $user = $username; //$this->session->userLogin_userNickname;
-    $user = utf8_clean_string($user);
+    $user = getCleanedUsername($username);
     $pass = md5($oldPassword);
 
     $result = pg_execute($this->dbConnection, "get_user_login", array($user, $pass)) or
@@ -605,7 +601,7 @@ class profile extends CoreAuthenticationUser {
   }
   
   private function initDynamicProfileData($requestedUser) {
-    $answer .= '';
+    $answer = '';
     try {
       $this->initCountryCodes();
     } catch(Exception $e) {
@@ -694,10 +690,8 @@ class profile extends CoreAuthenticationUser {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
     $userEmailArray = array();
-    $x=0;
     while($userEmails = pg_fetch_assoc($result)) {
-      $userEmailArray[$x] = $userEmails['email'];
-      $x++;
+      array_push($userEmailArray, $userEmails['email']);
     }
     return $userEmailArray;
   }
@@ -722,7 +716,7 @@ class profile extends CoreAuthenticationUser {
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
     }
-    
+
     if(pg_num_rows($result) > 0) {
       $userCity = pg_fetch_assoc($result);
       pg_free_result($result);      
@@ -745,11 +739,16 @@ class profile extends CoreAuthenticationUser {
     }
     if(pg_num_rows($result) > 0) {
       $userBirth = pg_fetch_array($result);
-      $userBirth = array('month_id' => intval($userBirth['month']), 'month' => $months[intval($userBirth['month'])], 'year' => intval($userBirth['year']));
+      
+      if(intval($userBirth['month']) == 0 || intval($userBirth['year']) == 0) {
+        $userBirth = array('month_id' => 0, 'month' => 0, 'year' => 0);;
+      } else {
+        $userBirth = array('month_id' => intval($userBirth['month']), 'month' => $months[intval($userBirth['month'])], 'year' => intval($userBirth['year']));
+      }
     } else {
-      pg_free_result($result);
       $userBirth = array('month_id' => 0, 'month' => 0, 'year' => 0);;
     }
+    pg_free_result($result);
     return $userBirth;
   }
   
@@ -792,11 +791,11 @@ class profile extends CoreAuthenticationUser {
   }
   
   private function generateCountryTextDiv($ownProfile) {
-    $whiteSpace="                        ";
+    $whiteSpace = "                        ";
     $textDiv = "";
-  	$x = 0;
+  	$x = 1;
   	$sumCount = count($this->countryCodeList);
-  	while($x < $sumCount+1) {
+  	while($x < $sumCount + 1) {
   	  if(strcmp($this->countryCodeList[$x], $this->userCountryCode) == 0) {
   	    if($ownProfile) { 
   	      $textDiv .= $whiteSpace . '<a href="javascript:;" class="profileText" id="profileChangeCountryOpen">'.$this->countryNameList[$x]."</a>\n"; 
