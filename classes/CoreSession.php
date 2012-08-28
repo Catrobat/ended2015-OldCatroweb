@@ -23,7 +23,11 @@ class CoreSession {
 
   private function __construct() {
     if(session_id() == "") {
+      session_name('catroweb');
+      // set cookie params:     ($lifetime, $path, $domain, $secure, $httponly);
+      session_set_cookie_params(SESSION_LIFETIME, '/', substr(BASE_PATH,strpos(BASE_PATH,'://') + 3, -1), false, true);
       session_start();
+      session_regenerate_id();
     }
     self::$sessionID = session_id();
   }

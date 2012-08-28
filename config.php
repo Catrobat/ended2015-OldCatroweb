@@ -91,4 +91,5 @@ define('USER_MIN_PASSWORD_LENGTH',6);
 define('USER_MAX_PASSWORD_LENGTH',32);
 define('DATABASE_CONNECTION_PERSISTENT',true);
 define('GA_PIXEL','ga.php');
+define('SESSION_LIFETIME', 60*60*24*365);
 ?>
