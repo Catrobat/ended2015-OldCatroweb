@@ -235,7 +235,6 @@ class login extends CoreAuthenticationNone {
     $user->setup();
     
     $auth->login(trim($postData['loginUsername']), $postData['loginPassword'], false, 1);
-    //$auth->login(trim($username), $password, false, 1);
     return($user->data['user_id']);
   }
 

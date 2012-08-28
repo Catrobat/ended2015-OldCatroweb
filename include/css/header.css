@@ -30,6 +30,10 @@ div.webHeadLogo {
   width: 18%;
 }
 
+div.pointer {
+  cursor: pointer;
+}
+
 div.webHeadLogoXmas {
   margin-top: -4px;
   padding-top: 0px;
