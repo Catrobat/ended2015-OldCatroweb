@@ -49,7 +49,7 @@ public class UploadTests extends BaseTest {
       assertFalse(isElementPresent(By.xpath("//div[@class='detailsDownloadButton']")));
 
       //update the project
-      response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.6.0beta.catroid", "a8c1f275e4ba5e7e5d6d4f6d434ae546", "", "", "0"));
+      response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.6.0beta.catrobat", "2df998d544a075946d36072fd083ffef", "", "", "0"));
       id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
@@ -64,6 +64,29 @@ public class UploadTests extends BaseTest {
       throw e;
     } catch(Exception e) {
       captureScreen("UploadTests.uploadResubmission");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "upload", "functionality" }, description = "extract project title and description from xml")
+  public void uploadXMLExtraction() throws Throwable {
+    try {
+      String response = projectUploader.upload(CommonData.getUploadPayload("testTitle", "testDescription", "test-0.6.0beta-xml.catrobat", "614e75d38ce8a28ae1add5618e28bf06", "", "", "0"));
+      String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
+      
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      
+      openLocation("catroid/details/" + id);
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
+      assertFalse(isTextPresent("testTitle"));
+      assertFalse(isTextPresent("testDescription"));
+      assertTrue(isTextPresent("XML-ProjectName"));
+      assertTrue(isTextPresent("XML-ProjectDescription"));
+    } catch(AssertionError e) {
+      captureScreen("UploadTests.uploadXMLExtraction");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("UploadTests.uploadXMLExtraction");
       throw e;
     }
   }
@@ -139,8 +162,8 @@ public class UploadTests extends BaseTest {
         { CommonData.getUploadPayload("my_test_project_with_looong_description", "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ", "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0") },
         { CommonData.getUploadPayload("project with thumbnail", "this project has its own thumbnail inside the zip", "test2.zip", "c40c86d6c4407788fa723e1d9fade10e", "", "", "0") },
         { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention", "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "eefc4182b2497ac1d0204a1d5ccb320b", "", "", "0") },
-        { CommonData.getUploadPayload("project v8 to test the native app builder", "native app building test", "test_version_8_0.5.4a.catroid", "d0b32588e6c23a0e19bb4f66eec85277", "", "", "0") },
-        { CommonData.getUploadPayload("new catroid extention", "this project has catroid as extention", "test.catroid", "583783a335bd40d3d0195a13432afabb", "", "", "0") }
+        { CommonData.getUploadPayload("project v8 to test the native app builder", "native app building test", "test_version_8_0.5.4a.catrobat", "d0b32588e6c23a0e19bb4f66eec85277", "", "", "0") },
+        { CommonData.getUploadPayload("new catroid extention", "this project has catroid as extention", "test.catrobat", "583783a335bd40d3d0195a13432afabb", "", "", "0") }
     };
     return returnArray;
   }

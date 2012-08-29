@@ -17,7 +17,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-  class CorePresenter_catroid extends CorePresenterCommon
+  class CorePresenter_catrobat extends CorePresenterCommon
   {
       public function __construct(CoreModule $module)
       {

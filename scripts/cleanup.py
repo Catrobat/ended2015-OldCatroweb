@@ -28,7 +28,7 @@ class Cleaner:
 			if os.path.isdir(entry):
 				os.system('sudo rm -rf ' + entry)
 
-		for entry in glob.glob(os.path.join(self.resourceDir, 'projects', '*.catroid')):
+		for entry in glob.glob(os.path.join(self.resourceDir, 'projects', '*.catrobat')):
 			if not '/2.' in entry:
 				os.remove(entry)
 

@@ -48,13 +48,13 @@ public class Config {
 
   public static final int PROJECT_PAGE_LOAD_MAX_PROJECTS = 5;
   public static final int PROJECT_PAGE_SHOW_MAX_PAGES = 5;
-  public static final String PROJECTS_EXTENTION = ".catroid";
+  public static final String PROJECTS_EXTENTION = ".catrobat";
   public static final int PROJECT_SHORT_DESCRIPTION_MAX_LENGTH = 178;
   
   public static final String DEFAULT_UPLOAD_TITLE = "Testproject";
   public static final String DEFAULT_UPLOAD_DESCRIPTION = "This is my testproject...";
-  public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.6.0beta.catroid";
-  public static final String DEFAULT_UPLOAD_CHECKSUM = "a8c1f275e4ba5e7e5d6d4f6d434ae546";
+  public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.6.0beta.catrobat";
+  public static final String DEFAULT_UPLOAD_CHECKSUM = "2df998d544a075946d36072fd083ffef";
   public static final String DEFAULT_UPLOAD_EMAIL = "webmaster@catroid.org";
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";

@@ -45,7 +45,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECTS_THUMBNAIL_EXTENSION_ORIG, '_original.png');
     $this->assertEquals(PROJECTS_THUMBNAIL_EXTENSION_SMALL, '_small.png');
     $this->assertEquals(PROJECTS_THUMBNAIL_EXTENSION_LARGE, '_large.png');
-    $this->assertEquals(PROJECTS_EXTENSION, '.catroid');
+    $this->assertEquals(PROJECTS_EXTENSION, '.catrobat');
     $this->assertEquals(PROJECTS_MAX_SIZE, 104857600);
     $this->assertEquals(PROJECT_TITLE_MAX_DISPLAY_LENGTH, 20);
     $this->assertEquals(PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, 178);

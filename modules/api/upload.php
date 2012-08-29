@@ -70,13 +70,89 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($e->getMessage());
     }
 
-    $projectTitle = pg_escape_string(checkUserInput($formData['projectTitle']));
-    isset($formData['projectDescription']) ? $projectDescription = pg_escape_string(checkUserInput($formData['projectDescription'])) : $projectDescription = null;
+    //--- move and unzip
+    
+    $projectName = md5(uniqid(time()));
+    $uploadFile = $projectName.PROJECTS_EXTENSION;
+    $uploadDir = CORE_BASE_PATH.PROJECTS_DIRECTORY.$uploadFile;
+    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectName.'/';
+    $uploadIp = $serverData['REMOTE_ADDR'];
+    isset($formData['userEmail']) ? $uploadEmail = checkUserInput($formData['userEmail']) : $uploadEmail = null;
+    isset($formData['userLanguage']) ? $uploadLanguage = checkUserInput($formData['userLanguage']) : $uploadLanguage = null;
+    
+    try {
+      $fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $uploadDir);
+    } catch(Exception $e) {
+      $this->statusCode = 504;
+      throw new Exception($e->getMessage());
+    }
+    
+    if(!isset($formData['fileChecksum']) || !$formData['fileChecksum']) {
+      $this->statusCode = 510;
+      $this->removeProjectFromFilesystem($uploadDir, $projectName);
+      throw new Exception($this->errorHandler->getError('upload', 'missing_post_file_checksum'));
+    }
+    $fileChecksum = md5_file($uploadDir);
+    try {
+      $this->checkFileChecksum($fileChecksum, $formData['fileChecksum']);
+    } catch(Exception $e) {
+      $this->statusCode = 501;
+      $this->removeProjectFromFilesystem($uploadDir, $projectName);
+      throw new Exception($e->getMessage());
+    }
+    
+    
+    try {
+      if(!unzipFile($uploadDir, $unzipDir)) {
+        throw new Exception($this->errorHandler->getError('upload', 'invalid_project_zip'));
+      }
+    } catch(Exception $e) {
+      $this->statusCode = 511;
+      $this->removeProjectFromFilesystem($uploadDir, $projectName);
+      throw new Exception($e->getMessage());
+    }
+    
+    $projectTitle = "";
+    $projectDescription = "";
+    $versionCode = 0;
+    $versionName = "";
+    try {
+      $projectInformation = $this->extractCatroidXML($this->getProjectXmlFile($unzipDir));
+      
+      if($projectInformation['projectTitle'] != "") {
+        $projectTitle = $projectInformation['projectTitle'];
+      } else if(isset($formData['projectTitle'])) {
+        $projectTitle = checkUserInput($formData['projectTitle']);
+      }
+
+      if($projectInformation['projectDescription'] != "") {
+        $projectDescription = $projectInformation['projectDescription'];
+      } else if(isset($formData['projectDescription'])) {
+        $projectDescription = checkUserInput($formData['projectDescription']) ;
+      }
+      
+      if($projectInformation['versionCode'] != null) {
+        $versionCode = $projectInformation['versionCode'];
+      }
+      
+      if($projectInformation['versionName'] != null) {
+        $versionName = $projectInformation['versionName'];
+      }
+    } catch(Exception $e) {
+      $this->statusCode = 512;
+      $this->removeProjectFromFilesystem($uploadDir, $projectName);
+      throw new Exception($e->getMessage());
+    }
+    
+    //---- insert into db
+    $projectTitle = pg_escape_string($projectTitle);
+    $projectDescription = pg_escape_string($projectDescription);
 
     try {
       $this->checkValidProjectTitle($projectTitle);
     } catch(Exception $e) {
       $this->statusCode= 507;
+      $this->removeProjectFromFilesystem($uploadDir, $projectName);
       throw new Exception($e->getMessage());
     }
 
@@ -84,6 +160,7 @@ class upload extends CoreAuthenticationDevice {
       $this->checkTitleForInsultingWords($projectTitle);
     } catch(Exception $e) {
       $this->statusCode = 506;
+      $this->removeProjectFromFilesystem($uploadDir, $projectName);
       throw new Exception($e->getMessage());
     }
 
@@ -91,59 +168,29 @@ class upload extends CoreAuthenticationDevice {
       $this->checkDescriptionForInsultingWords($projectDescription);
     } catch(Exception $e) {
       $this->statusCode = 505;
-      throw new Exception($e->getMessage());
-    }
-
-    $projectName = md5(uniqid(time()));
-    $uploadFile = $projectName.PROJECTS_EXTENSION;
-    $uploadDir = CORE_BASE_PATH.PROJECTS_DIRECTORY.$uploadFile;
-    $uploadIp = $serverData['REMOTE_ADDR'];
-    isset($formData['userEmail']) ? $uploadEmail = checkUserInput($formData['userEmail']) : $uploadEmail = null;
-    isset($formData['userLanguage']) ? $uploadLanguage = checkUserInput($formData['userLanguage']) : $uploadLanguage = null;
-
-    try {
-      $fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $uploadDir);
-    } catch(Exception $e) {
-      $this->statusCode = 504;
+      $this->removeProjectFromFilesystem($uploadDir, $projectName);
       throw new Exception($e->getMessage());
     }
 
     try {
-      $newId = $this->insertProjectIntoDatabase($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize);
+      $newId = $this->insertProjectIntoDatabase($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $versionName, $versionCode);
     } catch(Exception $e) {
       $this->statusCode = 503;
-      $this->removeProjectFromFilesystem($uploadDir);
+      $this->removeProjectFromFilesystem($uploadDir, $projectName);
       throw new Exception($e->getMessage());
     }
 
+    $projectDir = CORE_BASE_PATH.PROJECTS_DIRECTORY;
+    $projectFile = $projectDir.$newId.PROJECTS_EXTENSION;
+    
+    // rename after insertion
     try {
       $this->renameProjectFile($uploadDir, $newId);
     } catch(Exception $e) {
       $this->statusCode = 502;
       $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION;
       $this->removeProjectFromDatabase($newId);
-      $this->removeProjectFromFilesystem($uploadDir);
-      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION, $newId);
-      throw new Exception($e->getMessage());
-    }
-
-    $projectDir = CORE_BASE_PATH.PROJECTS_DIRECTORY;
-    $projectFile = $projectDir.$newId.PROJECTS_EXTENSION;
-    if(!isset($formData['fileChecksum']) || !$formData['fileChecksum']) {
-      $this->statusCode = 510;
-      $this->removeProjectFromDatabase($newId);
-      $this->removeProjectFromFilesystem($projectFile, $newId);
-      throw new Exception($this->errorHandler->getError('upload', 'missing_post_file_checksum'));
-    }
-    $fileChecksum = md5_file($projectFile);
-    try {
-      $this->checkFileChecksum($fileChecksum, $formData['fileChecksum']);
-    } catch(Exception $e) {
-      //print "!! Error File Checksum: $fileChecksum, ".$formData['fileChecksum']."\n";
-      //print "!! Error File ".$projectFile."\n\n";
-      $this->statusCode = 501;
-      $this->removeProjectFromDatabase($newId);
-      $this->removeProjectFromFilesystem($projectFile, $newId);
+      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION, $projectName);
       throw new Exception($e->getMessage());
     }
 
@@ -151,29 +198,19 @@ class upload extends CoreAuthenticationDevice {
       $this->getQRCode($newId, $projectTitle);
     } catch(Exception $e) {
       $this->sendQRFailNotificationEmail($newId, $projectTitle);
-    }
-    
-    try {
-      $this->unzipUploadedFile($newId);
-    } catch(Exception $e) {
-      $this->statusCode = 511;
-      $this->removeProjectFromDatabase($newId);
-      $this->removeProjectFromFilesystem($projectFile, $newId);
-      throw new Exception($e->getMessage());
+      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION, $projectName);
     }
 
-    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$newId.'/';
-    try {
-      $projectVersion = $this->extractCatroidVersion($this->getProjectXmlFile($unzipDir));
-    } catch(Exception $e) {
-      $this->statusCode = 512;
-      $this->removeProjectFromDatabase($newId);
-      $this->removeProjectFromFilesystem($projectFile, $newId);
-      throw new Exception($e->getMessage());
-    }
-
-    $this->saveVersionInfo($newId, $projectVersion['versionCode'], $projectVersion['versionName']);
     $this->extractThumbnail($unzipDir, $newId);
+    $finalUnzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$newId.'/';
+    
+    removeDir($finalUnzipDir);
+    if(!rename($unzipDir, $finalUnzipDir)) {
+      $this->removeProjectFromDatabase($newId);
+      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION, $newId);
+      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION, $projectName);
+      throw new Exception($this->errorHandler->getError('upload', 'rename_failed'));
+    }
 
     $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
     if($unapprovedWords) {
@@ -197,9 +234,9 @@ class upload extends CoreAuthenticationDevice {
     }
   }
 
-  public function removeProjectFromFilesystem($projectFile, $projectId = -1) {
+  public function removeProjectFromFilesystem($projectFile, $projectId = "") {
     @unlink($projectFile);
-    if($projectId > 0) {
+    if($projectId != "") {
       @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENSION_SMALL);
       @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENSION_LARGE);
       @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENSION_ORIG);
@@ -256,7 +293,7 @@ class upload extends CoreAuthenticationDevice {
     return $unzipDir.$xmlFile;
   }
 
-  public function extractCatroidVersion($xmlFile) {
+  public function extractCatroidXML($xmlFile) {
   	$xml = simplexml_load_file($xmlFile);
     if(!$xml) {
       throw new Exception($this->errorHandler->getError('upload', 'invalid_project_xml'));
@@ -264,15 +301,24 @@ class upload extends CoreAuthenticationDevice {
     $attributes = $xml->attributes();
     $versionName = (isset($attributes["catroidVersionName"]) && $attributes["catroidVersionName"]) ? strval($attributes["catroidVersionName"]) : null;
     $versionCode = (isset($attributes["catroidVersionCode"]) && $attributes["catroidVersionCode"]) ? strval($attributes["catroidVersionCode"]) : null;
+    $projectTitle = isset($attributes["projectName"]) && $attributes["projectName"] ? strval($attributes["projectName"]) : null;
+    $projectDescription = isset($attributes["description"]) && $attributes["description"] ? strval($attributes["description"]) : null;
+    
     
     if(!$versionName || !$versionCode) {
       $versionCode = null;
       $versionName = null;
+      $projectTitle = null;
+      $projectDescription = null;
       foreach($xml->children() as $child) {
         if(strcmp(strval($child->getName()), 'catroidVersionName') == 0) {
           $versionName = strval($child);
         } elseif(strcmp(strval($child->getName()), 'catroidVersionCode') == 0) {
           $versionCode = strval($child);
+        } elseif(strcmp(strval($child->getName()), 'projectName') == 0) {
+          $projectTitle = strval($child);
+        } elseif(strcmp(strval($child->getName()), 'description') == 0) {
+          $projectDescription = strval($child);
         }
       }
     }
@@ -284,20 +330,23 @@ class upload extends CoreAuthenticationDevice {
       if (stristr($versionName, "-"))
       	$versionName = substr($versionName, 0, strpos($versionName, "-"));
     }
-    return(array("versionName"=>$versionName, "versionCode"=>$versionCode));
-  }
-
-  public function saveVersionInfo($projectId, $versionCode, $versionName) {
-    $result = pg_execute($this->dbConnection, "save_catroid_version_info", array($projectId, $versionCode, $versionName)) or
-              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    if($result) {
-      @pg_free_result($result);
-      return true;
+    
+    if(!$projectTitle) {
+      $projectTitle = "";
     }
-    return false;
+    
+    if(!$projectDescription) {
+      $projectDescription = "";
+    }
+
+    return(array(
+        "versionName" => $versionName,
+        "versionCode" => $versionCode,
+        "projectTitle" => $projectTitle,
+        "projectDescription" => $projectDescription));
   }
 
-  private function insertProjectIntoDatabase($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize) {
+  private function insertProjectIntoDatabase($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $versionName, $versionCode) {
     $this->session->userLogin_userId ? $userId=$this->session->userLogin_userId : $userId=0;
     
     $result = pg_execute($this->dbConnection, "does_project_already_exist", array($projectTitle, $userId)) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
@@ -306,7 +355,7 @@ class upload extends CoreAuthenticationDevice {
       $updateId = $row['id'];
       @pg_free_result($result);
 
-      $result = pg_execute($this->dbConnection, "update_project", array($projectDescription, $uploadIp, $fileSize, $updateId)) or
+      $result = pg_execute($this->dbConnection, "update_project", array($projectDescription, $uploadIp, $fileSize, $versionName, $versionCode, $updateId)) or
                 $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       if(!$result) {
         throw new Exception($this->errorHandler->getError('upload', 'sql_update_failed', pg_last_error($this->dbConnection)));
@@ -318,7 +367,7 @@ class upload extends CoreAuthenticationDevice {
       }
       @pg_free_result($result);
 
-      $result = pg_execute($this->dbConnection, "insert_new_project", array($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $userId)) or
+      $result = pg_execute($this->dbConnection, "insert_new_project", array($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $versionName, $versionCode, $userId)) or
                 $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       if(!$result) {
         throw new Exception($this->errorHandler->getError('upload', 'sql_insert_failed', pg_last_error($this->dbConnection)));
@@ -333,7 +382,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   private function checkPostData($formData, $fileData) {
-    if(!isset($formData['projectTitle']) || !$formData['projectTitle'] || !isset($fileData['upload']['tmp_name']) || $fileData['upload']['error'] !== UPLOAD_ERR_OK) {
+    if(!isset($fileData['upload']['tmp_name']) || $fileData['upload']['error'] !== UPLOAD_ERR_OK) {
       throw new Exception($this->errorHandler->getError('upload', 'missing_post_data'));
     }
     return true;
@@ -426,14 +475,6 @@ class upload extends CoreAuthenticationDevice {
     $mailText .= "You should check this!";
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
-  }
-
-  private function unzipUploadedFile($projectId) {
-    $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.PROJECTS_EXTENSION;
-    $destDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId.'/';
-    if(!unzipFile($projectFile, $destDir)) {
-      throw new Exception($this->errorHandler->getError('upload', 'invalid_project_zip'));
-    }
   }
 
   private function extractThumbnail($unzipDir, $projectId) {

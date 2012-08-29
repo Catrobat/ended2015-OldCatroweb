@@ -184,19 +184,10 @@ class uploadTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * @dataProvider versionInfo
-   */
-  public function testSaveVersionInfo($projectId, $versionCode, $versionName) {
-    $this->assertTrue($this->upload->saveVersionInfo($projectId, $versionCode, $versionName));
-    $this->assertEquals($this->getVersionInfo($projectId, "versionName"), $versionName);
-    $this->assertEquals($this->getVersionInfo($projectId, "versionCode"), $versionCode);
-  }
-
-  /**
    * @dataProvider testVersion
    */
   public function testExtractVersionInfo($xml, $code, $name) {
-    $catroidVersion = $this->upload->extractCatroidVersion(dirname(__FILE__).'/testdata/'.$xml);
+    $catroidVersion = $this->upload->extractCatroidXML(dirname(__FILE__).'/testdata/'.$xml);
     $this->assertEquals($code, $catroidVersion['versionCode']);
     $this->assertEquals($name, $catroidVersion['versionName']);
   }
@@ -315,7 +306,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileChecksum = md5_file($testFile);
     $fileChecksumWithThumbnail = md5_file($testFileWithThumbnail);
     
-    $testFileCatroid = dirname(__FILE__).'/testdata/test.catroid';
+    $testFileCatroid = dirname(__FILE__).'/testdata/test.catrobat';
     $fileChecksumCatroid = md5_file($testFileCatroid);
     $fileSizeCatroid = filesize($testFileCatroid);
     
@@ -332,7 +323,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     array('unitTest with Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, 'catroid_unittest@gmail.com', 'en'),
     array('unitTest', 'my project description with thumbnail in root folder.', $testFile, 'test2.zip', $fileChecksum, $fileSize, $fileType),
     array('unitTest', 'my project description with thumbnail in images folder.', $testFile, 'test3.zip', $fileChecksum, $fileSize, $fileType),
-    array('unitTest', 'project with new extention "catroid".', dirname(__FILE__).'/testdata/test.catroid', 'test.catroid', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
+    array('unitTest', 'project with new extention "catroid".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
     );
     return $dataArray;
   }
@@ -353,7 +344,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $dataArray = array(
     array('unitTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, $validFileChecksum, 0, $fileType, 504),
     array('unitTestFail9', 'no file checksum is send together with this project', $validTestFile, $validFileName, '', $validFileSize, $fileType, 510),
-    array('', 'this project has an empty projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 509),
     array('defaultProject', 'this project is named defaultProject', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 507),
     array('unitTestFail2', 'this project has an invalid fileChecksum', $validTestFile, $validFileName, $invalidFileChecksum, $validFileSize, $fileType, 501),
     array('unitTestFail3', 'this project has a too large project file', $validTestFile, $validFileName, $validFileChecksum, 200000000, $fileType, 508),
@@ -434,15 +424,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
 	    array("test_no_version.xml", 499, "&lt; 0.6.0beta"),
 	    array("test_v5a-420.xml", 10, "0.5a"),
 	    array("test_v5a-199_invalid_tag.xml", 499, "&lt; 0.6.0beta")
-    );
-    return $dataArray;
-  }
-
-  public function versionInfo() {
-    $dataArray = array(
-    array(1, 9, "0.5a"),
-    array(1, 10, "0.5a"),
-    array(1, 500, "0.6.0beta"),
     );
     return $dataArray;
   }
