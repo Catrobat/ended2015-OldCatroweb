@@ -173,6 +173,9 @@ foreach($supportedLanguages as $lang => $details) {
 <?php echo $this->countryTextHTML; ?>
                     </div>
 <?php } ?>
+
+                    <br>
+                    <a name="profileMyProfileOpen" href="<?php echo BASE_PATH . 'catroid/myprojects' ?>"><?php echo $this->languageHandler->getString('my_projects'); ?> </a>
                     <br>
                     <br>
                   </div> <!-- profileFormContainer -->

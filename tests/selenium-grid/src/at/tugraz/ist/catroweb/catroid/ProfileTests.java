@@ -335,6 +335,39 @@ public class ProfileTests extends BaseTest {
     }
   }
 
+  
+  @Test(groups = { "functionality", "visibility" }, description = "Link to my Projects")
+  public void profilePageLinkToMyProjects() throws Throwable {
+    try {
+      // login
+      openLocation();
+      assertTrue(isVisible(By.id("headerProfileButton")));
+      driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
+      assertTrue(isVisible(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.id("loginUsername")));
+      assertTrue(isVisible(By.id("loginPassword")));
+
+      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
+      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
+
+      driver().findElement(By.id("loginSubmitButton")).click();
+      ajaxWait();      
+      
+      openLocation("catroid/profile/");
+      
+      driver().findElement(By.name("profileMyProfileOpen")).click();
+      assertTrue(isTextPresent(CommonStrings.MYPROJECTS_TITLE));
+      
+    } catch(AssertionError e) {
+      captureScreen("ProfileTests.profilePageLinkToMyProjects.");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("ProfileTests.profilePageLinkToMyProjects.");
+      throw e;
+    }
+  }  
+  
   @SuppressWarnings("serial")
   @DataProvider(name = "loginAndAddData")
   public Object[][] loginAndAddData() {

@@ -260,8 +260,8 @@ function generateQRCode($urlToEncode, $destinationPath) {
   return true;
 }
 
-function getTimeInWords($fromTime, $languageHandler, $toTime = 0) {
-  if($toTime == 0) {
+function getTimeInWords($fromTime, $languageHandler, $toTime = -1) {
+  if($toTime == -1) {
     $toTime = time();
   }
   $seconds = round(abs($toTime - $fromTime));

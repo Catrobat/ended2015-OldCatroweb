@@ -59,4 +59,5 @@
   <string name="email_address_string_changed">Error while deleting this e-mail address. Do you have any unsaved changes?</string>
   <string name="birthday_is_empty">Please select the month and the year of your birthday or leave fields empty.</string>
   <string name="country_is_empty">Please select your home country.</string>
+  <string name="my_projects">My Projects</string>
 </strings>

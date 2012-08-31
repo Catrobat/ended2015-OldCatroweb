@@ -107,8 +107,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     
     <string name="update_password_by_username">UPDATE cusers SET password=$1 WHERE username=$2</string>
     <string name="delete_user_birth">UPDATE cusers SET date_of_birth=NULL WHERE username=$1</string>
-    <!-- <string name="update_phpbb_user_password_by_username">UPDATE phpbb_users SET user_password=$1 WHERE username=$2</string> -->
     
+    <string name="get_my_projects">SELECT *, coalesce(extract(epoch from "timestamp"(update_time)), extract(epoch from "timestamp"(upload_time))) AS last_activity FROM projects WHERE user_id=$1 AND visible=true ORDER BY last_activity DESC</string>
+
     
     <string name="admin_block_user">INSERT INTO blocked_cusers (user_id, user_name) VALUES ($1, $2)</string>
     <string name="admin_block_user_id">INSERT INTO blocked_cusers (user_id) VALUES ($1)</string>

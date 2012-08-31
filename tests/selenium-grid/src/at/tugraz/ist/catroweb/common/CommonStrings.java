@@ -45,4 +45,7 @@ public class CommonStrings {
   public static final String REGISTRATION_SUBMIT = "Create my account";
   public static final String REGISTRATION_LOGIN = "Login";
   public static final String REGISTRATION_FORGOT_PWD = "click here if you forgot your password";
+
+  public static final String MYPROJECT_NO_PROJECTS_FOUND = "No projects found.";
+  public static final String MYPROJECTS_TITLE = "My Projects";
 }
