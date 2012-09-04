@@ -369,13 +369,28 @@ function removeDir($dir) {
     $files = scandir($dir);
     foreach($files as $file) {
       if($file != "." && $file != "..") {
-        removeDir("$dir/$file");
+        removeDir($dir . "/" . $file);
       }
     }
     rmdir($dir);
   }
   else if(file_exists($dir)) {
     unlink($dir);
+  }
+}
+
+function chmodDir($dir, $filemode, $dirmode) {
+  if(is_dir($dir)) {
+    $files = scandir($dir);
+    foreach($files as $file) {
+      if($file != "." && $file != "..") {
+        chmodDir($dir . "/" . $file, $filemode, $dirmode);
+      }
+    }
+    chmod($dir, $dirmode);
+  }
+  else if(file_exists($dir)) {
+    chmod($dir, $filemode);
   }
 }
 

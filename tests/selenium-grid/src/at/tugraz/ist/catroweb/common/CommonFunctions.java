@@ -75,6 +75,18 @@ public class CommonFunctions {
 
     try {
       JSONObject array = new JSONObject(json);
+      
+      try {
+        String status = array.getString("statusCode");
+        if(!status.equals("200")) {
+          Reporter.log("********************************************************");
+          Reporter.log("CommonFunctions: getValueFromJSONobject: Statuscode is not 200");
+          Reporter.log(json);
+          Reporter.log("********************************************************");
+        } 
+      }catch(Exception ignore) {
+      }
+      
       return array.getString(key);
     } catch(JSONException e) {
       e.printStackTrace();

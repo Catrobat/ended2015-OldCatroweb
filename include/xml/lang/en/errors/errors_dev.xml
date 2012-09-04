@@ -27,7 +27,7 @@
       <string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>
     </sendmail>
     <upload>
-        <string name="missing_post_data">POST-Data not correct or missing! Required: projectTitle and file-data upload.</string>
+        <string name="missing_file_data">POST-Data not correct or missing! Required: projectTitle and file-data upload.</string>
         <string name="missing_post_file_checksum">Client did not send fileChecksum! Are you using an outdated Catroid version?</string>
         <string name="copy_failed">Statement copy has failed!</string>
         <string name="rename_failed">Statement rename has failed!</string>
@@ -38,6 +38,8 @@
         <string name="project_title_default">Uploading projects named with the default project name is not allowed.</string>
         <string name="insulting_words_in_project_title">There are insulting words in the project title!</string>
         <string name="insulting_words_in_project_description">There are insulting words in the project description!</string>
+        <string name="qr_code_generation_failed">QR Code generation failed!</string>
+        <string name="save_thumbnail_failed">Save thumbnail failed!</string>
         <string name="invalid_project_xml">The XML of the project is not valid!</string>
     </upload>
     <download>

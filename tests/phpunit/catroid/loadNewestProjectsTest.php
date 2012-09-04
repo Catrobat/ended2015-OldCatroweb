@@ -53,7 +53,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
     $projects = $this->obj->retrievePageNrFromDatabase(0);
     $i = PROJECT_PAGE_SHOW_MAX_PAGES * PROJECT_PAGE_LOAD_MAX_PROJECTS - 1; 
     foreach($projects as $project) {
-      $this->assertEquals('unitTest'.$i--, $project['title']);
+      $this->assertEquals('unitTest' . $i--, $project['title']);
     }
     
     $query = 'SELECT * FROM projects WHERE visible=true LIMIT '.(PROJECT_PAGE_LOAD_MAX_PROJECTS).' OFFSET 0';
@@ -87,8 +87,7 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
   }
 
    public function doUpload() {    
-     for($i=1; $i< PROJECT_PAGE_LOAD_MAX_PROJECTS*PROJECT_PAGE_SHOW_MAX_PAGES; $i++)
-     {
+     for($i=1; $i< PROJECT_PAGE_LOAD_MAX_PROJECTS*PROJECT_PAGE_SHOW_MAX_PAGES; $i++) {
        $fileName = 'test.zip';
        $testFile = dirname(__FILE__).'/testdata/'.$fileName;
        $fileChecksum = md5_file($testFile);
@@ -99,34 +98,28 @@ class loadNewestProjectsTest extends PHPUnit_Framework_TestCase
        $fileData = array('upload'=>array('name'=>$fileName, 'type'=>$fileType,
                           'tmp_name'=>$testFile, 'error'=>0, 'size'=>$fileSize));
        $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
-       $insertId = $this->upload->doUpload($formData, $fileData, $serverData);
+       $this->upload->doUpload($formData, $fileData, $serverData);
+       
+       $insertId = $this->upload->projectId;
+       $this->assertEquals(200, $this->upload->statusCode);
+       $this->assertNotEquals(0, $insertId);
        $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENSION;
+       $this->assertTrue(is_file($filePath));
       
        //test qrcode image generation
        $this->assertTrue(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENSION));
-       $this->assertNotEquals(0, $insertId);
-       $this->assertTrue(is_file($filePath));
-       $this->assertEquals(200, $this->upload->statusCode);
-       $this->assertTrue($this->upload->projectId > 0);
-       $this->assertTrue($this->upload->fileChecksum != null);
-       $this->assertEquals(md5_file($testFile), $this->upload->fileChecksum);
        array_push($this->insertIDArray, $insertId);
     }
-    
   }    
 
-  public function deleteUploadedProjects()
-  {
-     foreach ($this->insertIDArray as $insertId)
-     {
+  public function deleteUploadedProjects() {
+     foreach($this->insertIDArray as $insertId) {
+       $this->upload->cleanup();
        $filePath = CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENSION;
-       // test deleting from database
-       $this->upload->removeProjectFromFilesystem($filePath, $insertId);
-       $this->assertFalse(is_file($filePath));
-       @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENSION);
+
+       $this->assertFalse(is_file(CORE_BASE_PATH.PROJECTS_DIRECTORY.$insertId.PROJECTS_EXTENSION));
        $this->assertFalse(is_file(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$insertId.PROJECTS_QR_EXTENSION));
-       //test deleting from filesystem
-       $this->upload->removeProjectFromDatabase($insertId);
+
        $query = "SELECT * FROM projects WHERE id='$insertId'";
        $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
        $this->assertEquals(0, pg_num_rows($result));

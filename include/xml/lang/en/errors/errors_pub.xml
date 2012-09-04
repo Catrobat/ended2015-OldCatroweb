@@ -27,7 +27,7 @@
       <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
     </sendmail>
     <upload>
-        <string name="missing_post_data">You need to specify a title for your project!</string>
+        <string name="missing_file_data">You need to specify a title for your project!</string>
         <string name="missing_post_file_checksum">Sorry, there was a problem during the upload! Are you using the latest version of Catroid?</string>
         <string name="copy_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="rename_failed">Sorry, there was an error during the upload. Try again!</string>
@@ -38,6 +38,8 @@
         <string name="project_title_default">You have to rename your project, before uploading it.</string>
         <string name="insulting_words_in_project_title">Please don't use offensive language in your project title.</string>
         <string name="insulting_words_in_project_description">Please don't use offensive language in your project description.</string>
+        <string name="qr_code_generation_failed">Sorry, there was an error during the upload. Try again!</string>
+        <string name="save_thumbnail_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="invalid_project_xml">Sorry, your project file is invalid. Try to save it as a new project and upload it again.</string>
     </upload>
     <download>
