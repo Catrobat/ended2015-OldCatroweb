@@ -18,7 +18,7 @@
  */
 
   session_start();
-  $_SERVER['SERVER_NAME'] = '127.0.0.1';
+  $_SERVER['SERVER_NAME'] = 'catroid.local';
   spl_autoload_register('__autoload');
   require_once(dirname(__FILE__).'/../../config.php');
   require_once(dirname(__FILE__).'/../../passwords.php');

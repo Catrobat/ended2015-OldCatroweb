@@ -18,8 +18,8 @@
  */
 
   session_start();
-  $_SERVER['SERVER_NAME'] = '127.0.0.1';
-  $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+  $_SERVER['SERVER_NAME'] = 'catroid.local';
+  $_SERVER['REMOTE_ADDR'] = 'catroid.local';
   $_SERVER['REQUEST_URI'] = 'just/a/test';
   spl_autoload_register('__autoload');
   require_once(dirname(__FILE__).'/../../config.php');

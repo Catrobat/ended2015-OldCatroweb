@@ -27,7 +27,8 @@
       <string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>
     </sendmail>
     <upload>
-        <string name="missing_file_data">POST-Data not correct or missing! Required: projectTitle and file-data upload.</string>
+        <string name="missing_project_title">There was no projectTitle specified. (XML file and POST data, at least one is required.)</string>
+        <string name="missing_file_data">POST-Data not correct or missing!</string>
         <string name="missing_post_file_checksum">Client did not send fileChecksum! Are you using an outdated Catroid version?</string>
         <string name="copy_failed">Statement copy has failed!</string>
         <string name="rename_failed">Statement rename has failed!</string>

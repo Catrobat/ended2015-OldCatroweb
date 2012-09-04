@@ -34,7 +34,7 @@ define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
 define('PROJECTS_QR_DIRECTORY','resources/qrcodes/');
 define('PROJECTS_QR_EXTENSION','_qr.png');
-define('PROJECTS_QR_SERVICE_URL','http://catroid.local/api/qrCodeGenerator/generate.png?url=');
+define('PROJECTS_QR_SERVICE_URL', BASE_PATH . 'api/qrCodeGenerator/generate.png?url=');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
 define('PROJECTS_THUMBNAIL_EXTENSION_ORIG','_original.png');

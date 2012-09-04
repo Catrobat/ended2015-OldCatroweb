@@ -240,7 +240,10 @@ class upload extends CoreAuthenticationDevice {
     }
     
     if(!$projectTitle) {
-      $projectTitle = ((isset($formData['projectTitle'])) ? checkUserInput($formData['projectTitle']) : "default_project_name");
+      $projectTitle = ((isset($formData['projectTitle']) && $formData['projectTitle'] != "") ? checkUserInput($formData['projectTitle']) : "");
+      if($projectTitle == "") {
+        throw new Exception($this->errorHandler->getError('upload', 'missing_project_title'), 516);
+      }
     }
     if(!$projectDescription) {
       $projectDescription = ((isset($formData['projectDescription'])) ? checkUserInput($formData['projectDescription']) : "");
