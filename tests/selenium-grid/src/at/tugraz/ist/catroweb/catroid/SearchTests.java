@@ -283,8 +283,8 @@ public class SearchTests extends BaseTest {
   }
 
   
-  @Test(dataProvider = "searchUser", groups = { "functionality", "upload" }, description = "search for user")
-  public void searchUser(HashMap<String, String> dataset) throws Throwable {
+  @Test(dataProvider = "searchUser", groups = { "functionality", "upload" }, description = "search for user and find projects")
+  public void searchAndFindUser(HashMap<String, String> dataset) throws Throwable {
     try {
       projectUploader.upload(dataset);
 
@@ -310,10 +310,6 @@ public class SearchTests extends BaseTest {
       assertTrue(isTextPresent(projectTitle));
       assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
 
-      //List<WebElement> Projects = driver().findElements(By.cssSelector(".projectListDetailsLinkBold"));
-      //assertTrue(Projects.size() == dataset.size());
-      
-      captureScreen(this.getClass().getName() + ".searchUser." + dataset.get("projectTitle") + "dataset.size():" + dataset.size());
     } catch(AssertionError e) {
       captureScreen("SearchTests.searchUser." + dataset.get("projectTitle"));
       log(dataset.get("projectTitle"));
@@ -350,7 +346,6 @@ public class SearchTests extends BaseTest {
     };
     return returnArray;
   }
-
 
   private String createToken(String username, String password) {
     return CommonFunctions.md5(CommonFunctions.md5(username) + ":" + CommonFunctions.md5(password));
