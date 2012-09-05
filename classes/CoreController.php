@@ -30,21 +30,25 @@ class CoreController {
   public function parseURL($getData) {
     $this->setDefault();
 
-    if(isset($getData['method']) && $getData['method'] != '')
-    $this->method = $getData['method'];
+    if(isset($getData['method']) && $getData['method'] != '') {
+      $this->method = $getData['method'];
+    }
 
-    if(isset($getData['view']) && $getData['view'] != '' && file_exists(CORE_BASE_PATH.'classes/'.'CorePresenter_'.$getData['view'].'.php'))
-    $this->view = $getData['view'];
+    if(isset($getData['view']) && $getData['view'] != '' && file_exists(CORE_BASE_PATH . 'classes/CorePresenter_' . $getData['view'] . '.php')) {
+      $this->view = $getData['view'];
+    }
 
-    if(isset($getData['module']) && $getData['module'] != '' && is_dir(CORE_BASE_PATH.'modules/'.$getData['module']))
-    $this->module = $getData['module'];
+    if(isset($getData['module']) && $getData['module'] != '' && is_dir(CORE_BASE_PATH . 'modules/' . $getData['module'])) {
+      $this->module = $getData['module'];
+    }
 
-    if(isset($getData['class']) && $getData['class'] != '' && file_exists(CORE_BASE_PATH.'modules/'.$this->module.'/'.$getData['class'].'.php'))
-    $this->class = $getData['class'];
+    if(isset($getData['class']) && $getData['class'] != '' && file_exists(CORE_BASE_PATH . 'modules/' . $this->module . '/' . $getData['class'] . '.php')) {
+      $this->class = $getData['class'];
+    }
   }
 
   public function execute() {
-    $classFile = CORE_BASE_PATH.'modules/'.$this->module.'/'.$this->class.'.php';
+    $classFile = CORE_BASE_PATH . 'modules/' . $this->module . '/' . $this->class . '.php';
     if(file_exists($classFile)) {
       require_once($classFile);
       if(class_exists($this->class)) {
@@ -58,13 +62,13 @@ class CoreController {
             if(!$instance->authenticate() && !method_exists($instance, MVC_DEFAULT_AUTH_FAILED_METHOD)) {
               die("Authentication required!");
             }
-            $instance->presenter = 'CorePresenter_'.$this->view;
+            $instance->presenter = 'CorePresenter_' . $this->view;
             $instance->authenticate() ? $method = $this->method : $method = MVC_DEFAULT_AUTH_FAILED_METHOD;
             $result = $instance->$method();
-            if(file_exists(CORE_BASE_PATH.'classes/'.$instance->presenter.'.php')) {
+            if(file_exists(CORE_BASE_PATH . 'classes/' . $instance->presenter . '.php')) {
               $view = CorePresenter::factory($instance->presenter, $instance);
             } else {
-              die("Could not find viewerClass: ".CORE_BASE_PATH.'classes/'.$instance->presenter.'.php!');
+              die("Could not find viewerClass: " . CORE_BASE_PATH . 'classes/' . $instance->presenter . '.php!');
             }
             if(!$view->display()) {
               die('There is no suitable viewer-file for this model!');
@@ -79,7 +83,7 @@ class CoreController {
         die("An valid module for your request was not found!");
       }
     } else {
-      die("Could not find: $classFile!");
+      die("Could not find: " . $classFile . "!");
     }
     return true;
   }

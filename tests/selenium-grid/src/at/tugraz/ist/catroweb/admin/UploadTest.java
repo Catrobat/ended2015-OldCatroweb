@@ -36,7 +36,7 @@ public class UploadTest extends BaseTest {
       driver().findElement(By.id("aProjectUploader")).click();
       assertTrue(isTextPresent("Project Uploader"));
       driver().findElement(By.name("uploadButton")).click();
-      assertTrue(isTextPresent("509"));
+      assertTrue(isTextPresent("501"));
       
       // upload a project
       String projectTitle = "testproject" + CommonData.getRandomLongString(200);

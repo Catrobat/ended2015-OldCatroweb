@@ -44,7 +44,7 @@ class registration extends CoreAuthenticationNone {
     if(!$this->isFormDataValid($postData)) {
       $this->errors = $this->registrationErrors;
       $this->answer = implode(" ", $this->registrationErrors);
-      $this->statusCode = 500;
+      $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
       return false;
     }
     
@@ -83,7 +83,7 @@ class registration extends CoreAuthenticationNone {
       
       $this->errors = $this->registrationErrors;
       $this->answer = implode(" ", $this->registrationErrors);
-      $this->statusCode = 500;
+      $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
       return false;
     }
 
@@ -92,7 +92,7 @@ class registration extends CoreAuthenticationNone {
     $login->doLogin(array('loginUsername'=>$postData['registrationUsername'], 'loginPassword'=>$postData['registrationPassword']));
 
     $this->answer = $this->languageHandler->getString('registration_success');
-    $this->statusCode = 200;
+    $this->statusCode = STATUS_CODE_OK;
     return true;
   }
   

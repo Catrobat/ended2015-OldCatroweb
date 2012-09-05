@@ -28,38 +28,33 @@ class checkTokenOrRegister extends CoreAuthenticationDevice {
   public function __authenticationFailed() {
     if($_POST) {
       if($this->usernameExists($_POST['registrationUsername'])) {
-        $this->statusCode = 601;
-        $this->answer .= $this->errorHandler->getError('auth', 'device_auth_username_exists');
+        $this->statusCode = STATUS_CODE_AUTHENTICATION_REGISTRATION_FAILED;
+        $this->answer = $this->errorHandler->getError('auth', 'device_auth_username_exists');
       } else {
         require_once 'modules/api/registration.php';
         $registration = new registration();
         if($registration->doRegistration($_POST, $_SERVER)) {
-          $this->statusCode = 201;
-          return true;
+          $this->statusCode = STATUS_CODE_REGISTRATION_OK;
         } else {
-          $this->statusCode = 500;
-          $this->answer .= $registration->answer;
-          return false;
+          $this->statusCode = STATUS_CODE_AUTHENTICATION_REGISTRATION_FAILED;
+          $this->answer = $registration->answer;
         }
       }
     } else {
-      $this->statusCode = 601;
-      $this->answer .= $this->errorHandler->getError('auth', 'device_auth_invalid_token');
+      $this->statusCode = STATUS_CODE_AUTHENTICATION_FAILED;
+      $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_token');
     }
   }
 
   public function check() {
-    $this->statusCode = 200;
-    return true;
+    $this->statusCode = STATUS_CODE_OK;
   }
   
   public function usernameExists($username) {
     $username_clean = getCleanedUsername($username);
+    $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($username_clean));
     
-    $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($username_clean)) or
-    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    
-    if(pg_num_rows($result) > 0) {
+    if($result && pg_num_rows($result) > 0) {
       return true;
     }
     return false;

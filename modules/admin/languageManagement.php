@@ -47,10 +47,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   public function generateLanguagePack() {
     try {
       $answer = $this->generateLanguagePackFromXlf($_REQUEST);
-      $this->statusCode = 200;
+      $this->statusCode = STATUS_CODE_OK;
       $this->answer = $answer;
     } catch(Exception $e) {
-      $this->statusCode = 500;
+      $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
       $this->answer = $e->getMessage();
       return false;
     }

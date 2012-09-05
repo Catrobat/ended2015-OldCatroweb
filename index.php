@@ -17,15 +17,18 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
   
-  set_include_path(get_include_path().PATH_SEPARATOR.'./include/lib/'.PATH_SEPARATOR.'./modules/catroid/');
+  set_include_path(get_include_path() . PATH_SEPARATOR . './include/lib/' . PATH_SEPARATOR . './modules/catroid/');
   spl_autoload_register('__autoload');
   require_once('config.php');
+  require_once('statusCodes.php');
   require_once('passwords.php');
   require_once('commonFunctions.php');
+
   function __autoload($class) {
-    $classfile = CORE_BASE_PATH.'classes/'.$class.'.php';
-    if(is_file($classfile))
+    $classfile = CORE_BASE_PATH . 'classes/' . $class . '.php';
+    if(is_file($classfile)) {
   	  include_once $classfile;
+    }
   }
 
   $controller = new CoreController();

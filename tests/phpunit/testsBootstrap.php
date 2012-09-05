@@ -20,15 +20,16 @@
   session_start();
   $_SERVER['SERVER_NAME'] = 'catroid.local';
   spl_autoload_register('__autoload');
-  require_once(dirname(__FILE__).'/../../config.php');
-  require_once(dirname(__FILE__).'/../../passwords.php');
-  require_once(dirname(__FILE__).'/../../commonFunctions.php');
+  require_once(dirname(__FILE__) . '/../../config.php');
+  require_once(dirname(__FILE__) . '/../../statusCodes.php');
+  require_once(dirname(__FILE__) . '/../../passwords.php');
+  require_once(dirname(__FILE__) . '/../../commonFunctions.php');
   set_include_path(get_include_path() . PATH_SEPARATOR . CORE_BASE_PATH.'addons/board/includes/utf/');
   set_include_path(get_include_path() . PATH_SEPARATOR . CORE_BASE_PATH.'classes/');
   function __autoload($class) {
     include_once $class.'.php';
   }
-  $connection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
+  $connection = pg_connect("host=" . DB_HOST . " dbname=" . DB_NAME . " user=" . DB_USER . " password=" . DB_PASS)
     or die('Connection to Database failed: ' . pg_last_error());  
   define('UNITTESTS', true);
 ?>

@@ -56,10 +56,10 @@ class passwordrecovery extends CoreAuthenticationNone {
   public function passwordRecoverySendMailRequest() {
     if(($_POST)) {
       if($this->doSendPasswordRecoveryMail($_POST['passwordRecoveryUserdata'])) {
-        $this->statusCode = 200;
+        $this->statusCode = STATUS_CODE_OK;
         return true;
       } else {
-        $this->statusCode = 500;
+        $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
         return false;
       }
     }
@@ -68,10 +68,10 @@ class passwordrecovery extends CoreAuthenticationNone {
   public function passwordRecoveryChangeMyPasswordRequest() {
     if(isset($_POST['passwordSavePassword']) && isset($_POST['c'])) {
       if(!$this->doPasswordRecovery($_POST)) {
-        $this->statusCode = 500;
+        $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
       }
       else {
-        $this->statusCode = 200;
+        $this->statusCode = STATUS_CODE_OK;
       }
       if($this->showHTMLForm($_POST['c'])) {
         $this->action = "showPasswordSaved";

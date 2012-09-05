@@ -26,14 +26,14 @@ class switchLanguage extends CoreAuthenticationNone {
   }
 
   public function switchIt() {
-    $this->statusCode = 500;
+    $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
     if(isset($_POST['language'])) {
       if($this->session->userLogin_userId > 0) {
         $this->doSaveLanguageToProfile($_POST['language'], $this->session->userLogin_userId);
       }
 
       $this->languageHandler->setLanguageCookie($_POST['language']);
-      $this->statusCode = 200;
+      $this->statusCode = STATUS_CODE_OK;
     }    
   }
   

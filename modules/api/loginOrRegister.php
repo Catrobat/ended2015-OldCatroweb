@@ -39,11 +39,11 @@ class loginOrRegister extends CoreAuthenticationNone {
         $login = new login();
         if($login->doLogin(array('loginUsername'=>$_POST['registrationUsername'], 'loginPassword'=>$_POST['registrationPassword']))) {
           $this->answer .= $login->answer;
-          $this->statusCode = 200;
+          $this->statusCode = STATUS_CODE_OK;
           return true;
         } else {
           $this->answer .= $login->answer;
-          $this->statusCode = 500;
+          $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
           return false;
         }
       }
@@ -59,11 +59,11 @@ class loginOrRegister extends CoreAuthenticationNone {
         																			 'registrationEmail'=>$_POST['registrationEmail'],
                                                'registrationCountry'=>$_POST['registrationCountry']), $_SERVER)) {
           $this->answer .= $registration->answer;
-          $this->statusCode = 200;
+          $this->statusCode = STATUS_CODE_OK;
           return true;
         } else {
           $this->answer .= $registration->answer;
-          $this->statusCode = 500;
+          $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
           return false;
         }
       }

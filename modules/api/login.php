@@ -34,28 +34,27 @@ class login extends CoreAuthenticationNone {
   public function loginRequest() {
     if($_POST) {
       if($this->doLogin($_POST)) {
-        $this->statusCode = 200;  
+        $this->statusCode = STATUS_CODE_OK;  
         $this->setUserLanguage($this->session->userLogin_userId);     
         return true;
       } else {
       	
       	$ip = $_SERVER["REMOTE_ADDR"];
-    	$query = "EXECUTE is_ip_blocked_temporarily('$ip')";
-      	$result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
+      	$result = pg_execute($this->dbConnection, "is_ip_blocked_temporarily", array($ip));
       	
-      	if(pg_num_rows($result)) {
-      		$this->statusCode = 200;
-      	}
-      	else
-      	{
-      		$this->statusCode = 500;
+      	if($result && pg_num_rows($result)) {
+      		$this->statusCode = STATUS_CODE_OK;
+      	} else {
+      		$this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
+      		$this->answer = $this->errorHandler->getError('db', 'query_failed', pg_last_error());
       	}
       	
         
-        if($this->clientDetection->isMobile())
+        if($this->clientDetection->isMobile()) {
           $this->helperDiv = "<a id='signUp' target='_self' href='". BASE_PATH ."catroid/passwordrecovery'>". $this->languageHandler->getString('click_if_forgot_password') ."</a><br>". $this->languageHandler->getString('or') ."<br><a id='signUp' target='_self' href='". BASE_PATH ."catroid/registration'>". $this->languageHandler->getString('create_new_account') ."</a>";
-        else 
+        } else {
           $this->helperDiv = "<a id='signUp' target='_self' href='". BASE_PATH ."catroid/passwordrecovery'>". $this->languageHandler->getString('click_if_forgot_password') ."</a> ". $this->languageHandler->getString('or') ." <a id='signUp' target='_self' href='". BASE_PATH ."catroid/registration'>". $this->languageHandler->getString('create_new_account') ."</a>";
+        } 
         return false;
       }
     }
@@ -68,33 +67,32 @@ class login extends CoreAuthenticationNone {
   private function setRequestURI($uri) {
     if($uri != '') {
       $this->requesturi = $uri;
-    }
-    else {
+    } else {
       $this->requesturi = "catroid/index";
     }
   }
   
   private function setUserLanguage($userid) {
     try {
-      $result = pg_execute($this->dbConnection, "get_user_language", array($userid)) or
-                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+      $result = pg_execute($this->dbConnection, "get_user_language", array($userid));
       if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection))); 
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED); 
       }
+      
       $language = pg_fetch_assoc($result);
       if(strlen($language['language']) > 1) {
         $this->languageHandler->setLanguageCookie($language['language']);
-      }     
+      }
+
       return $language['language'];
     } catch(Exception $e) {
-      $this->answer .= $this->errorHandler->getError('profile', 'language_update_failed', $e->getMessage());
-      return false;
+      $this->statusCode = $e->getCode();
+      $this->answer = $this->errorHandler->getError('profile', 'language_update_failed', $e->getMessage());
     }
   }
 
   public function doLogin($postData) {
     $answer = '';
-    $statusCode = 200;
     $boardLoginSuccess = false;
     $wikiLoginSuccess = false;
     $catroidLoginSuccess = false;
@@ -136,7 +134,6 @@ class login extends CoreAuthenticationNone {
           $this->doWikiLogin($postData);
           $wikiLoginSuccess = true;
           $answer .= $this->languageHandler->getString('wiki_login_success');
-          $statusCode = 200;
         } catch(Exception $e) {
           $answer .= $this->errorHandler->getError('auth', 'wiki_authentication_failed', $e->getMessage());
           //logout catroid & board
@@ -149,7 +146,7 @@ class login extends CoreAuthenticationNone {
       }
     }
 
-    $this->statusCode = $statusCode;
+    $this->statusCode = STATUS_CODE_OK;
     $this->answer .= $answer;
 
     if($boardLoginSuccess && $wikiLoginSuccess && $catroidLoginSuccess) {
@@ -161,7 +158,7 @@ class login extends CoreAuthenticationNone {
 
   public function doLogout() {
     $answer = '';
-    $statusCode = 500;
+    $statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
 
     //catroid logout
     $this->doCatroidLogout();
@@ -175,7 +172,7 @@ class login extends CoreAuthenticationNone {
     try {
       $this->doWikiLogout();
       $answer .= $this->languageHandler->getString('catroid_logout_success').'<br>';
-      $statusCode = 200;
+      $statusCode = STATUS_CODE_OK;
     } catch (Exception $e) {
       $answer .= $this->languageHandler->getString('wiki_logout_error', ' '.$e->getMessage().'!<br>');
     }
@@ -191,33 +188,30 @@ class login extends CoreAuthenticationNone {
     $result = pg_execute($this->dbConnection, "get_user_login", array($user, $md5pass)) or
               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED);
     }
 
+    $ip = $_SERVER["REMOTE_ADDR"];
     if(pg_num_rows($result) > 0) {
       $user = pg_fetch_assoc($result);
       $this->session->userLogin_userId = $user['id'];
       $this->session->userLogin_userNickname = ($user['username']);
       
-      $ip = $_SERVER["REMOTE_ADDR"];
-      $query = "EXECUTE reset_failed_attempts('$ip')";
-      $result = @pg_query($this->dbConnection, $query);
+      $result = pg_execute($this->dbConnection, "reset_failed_attempts", array($ip));
 
       if(!$result) {
-      	throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+      	throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED);
       }      
     } else {
     	
-    	$ip = $_SERVER["REMOTE_ADDR"];
-    	$query = "EXECUTE save_failed_attempts('$ip')";
-    	$result = @pg_query($this->dbConnection, $query);
+    	$result = pg_execute($this->dbConnection, "save_failed_attempts", array($ip));
 
      	if(!$result) {
-     		throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+     		throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED);
      	}
     	
       $this->answer .= "CatroidLogin: ";
-      throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'));
+      throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'), STATUS_CODE_AUTHENTICATION_FAILED);
     }
     return true;
   }

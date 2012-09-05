@@ -169,50 +169,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
   }
 
   /**
-   * @dataProvider testVersion
-   */
-  public function testExtractVersionInfo($xml, $code, $name) {
-    $catroidVersion = $this->upload->getProjectInformation(dirname(__FILE__).'/testdata/'.$xml, array());
-    $this->assertEquals($code, $catroidVersion['versionCode']);
-    $this->assertEquals($name, $catroidVersion['versionName']);
-  }
-
-  public function testCheckFileChecksum() {
-    $checksum = array('fileChecksum' => '5a7e4a5a4da9a5f2e8ba91eb5424ad8d');
-    $uploadedFile = dirname(__FILE__) . '/testdata/test.catrobat';
-    try {
-      $this->assertTrue($this->upload->checkFileChecksum($checksum, $uploadedFile));
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-    }
-    $checksum = array('fileChecksum' => '147e4a5a4da9a5f2e8ba91eb5424ad8d');
-    try {
-      $this->upload->checkFileChecksum($checksum, $uploadedFile);
-    } catch(Exception $e) {
-      return;
-    }
-    $this->fail('EXPECTED EXCEPTION NOT RAISED!');
-  }
-
-  public function testCopyProjectToDirectory() {
-    $dest = CORE_BASE_PATH.PROJECTS_DIRECTORY.'copyTest'.PROJECTS_EXTENSION;
-    $src = dirname(__FILE__).'/testdata/test.zip';
-    @unlink($dest);
-    $this->assertEquals(filesize($src), $this->upload->copyProjectToDirectory($src, $dest));
-    $this->assertTrue(is_file($dest));
-    @unlink($dest);
-  }
-
-  public function testCopyProjectWithThumbnailToDirectory() {
-    $dest = CORE_BASE_PATH.PROJECTS_DIRECTORY.'copyTest'.PROJECTS_EXTENSION;
-    $src = dirname(__FILE__).'/testdata/test2.zip';
-    @unlink($dest);
-    $this->assertEquals(filesize($src), $this->upload->copyProjectToDirectory($src, $dest));
-    $this->assertTrue(is_file($dest));
-    @unlink($dest);
-  }
-
-  /**
    * @dataProvider correctPostDataThumbailInRootFolderPNG
    */
   public function testDoUploadWithThumbnailInRootFolderPNG($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
@@ -322,15 +278,15 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $corruptFileSize = filesize($corruptTestFile);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-      array('unitTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, $validFileChecksum, 0, $fileType, 509),
-      array('unitTestFail9', 'no file checksum is send together with this project', $validTestFile, $validFileName, '', $validFileSize, $fileType, 510),
-      array('defaultProject', 'this project is named defaultProject', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 507),
-      array('unitTestFail2', 'this project has an invalid fileChecksum', $validTestFile, $validFileName, $invalidFileChecksum, $validFileSize, $fileType, 501),
-      array('unitTestFail3', 'this project has a too large project file', $validTestFile, $validFileName, $validFileChecksum, 200000000, $fileType, 508),
-      array('defaultProject', 'this project has the default save file set.', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 507),
-      array('my fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 506),
-      array('insulting description', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, 505),
-      array('invalid project xml', 'this project contains an corrupt spf xml file', $corruptTestFile, $corruptFileName, $corruptFileChecksum, $corruptFileSize, $fileType, 513)
+      array('uploadTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, $validFileChecksum, 0, $fileType, STATUS_CODE_UPLOAD_MISSING_DATA),
+      array('uploadTestFail2', 'this project has a too large project file', $validTestFile, $validFileName, $validFileChecksum, 200000000, $fileType, STATUS_CODE_UPLOAD_EXCEEDING_FILESIZE),
+      array('uploadTestFail3', 'no file checksum is send together with this project', $validTestFile, $validFileName, '', $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_CHECKSUM),
+      array('uploadTestFail4', 'this project has an invalid fileChecksum', $validTestFile, $validFileName, $invalidFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_INVALID_CHECKSUM),
+      array('uploadTestFail5', 'this project contains an corrupt spf xml file', $corruptTestFile, $corruptFileName, $corruptFileChecksum, $corruptFileSize, $fileType, STATUS_CODE_UPLOAD_INVALID_XML),
+      array('', 'this project has no project title', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
+      array('defaultProject', 'this project is named defaultProject', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_DEFAULT_PROJECT_TITLE),
+      array('uploadTestFail8 fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_TITLE),
+      array('uploadTestFail9', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_DESCRIPTION)
     );
     return $dataArray;
   }
@@ -361,27 +317,36 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileSize = filesize($testFile);
     $fileType = 'application/x-zip-compressed';
 
-    $testFile1 = 'test_thumbnail_240x400.zip'; $testFileDir1 = $testFileDir.'test_thumbnail_240x400.zip';
-    $testFile2 = 'test_thumbnail_480x800.zip'; $testFileDir2 = $testFileDir.'test_thumbnail_480x800.zip';
-    $testFile3 = 'test_thumbnail_240x240.zip'; $testFileDir3 = $testFileDir.'test_thumbnail_240x240.zip';
-    $testFile4 = 'test_thumbnail_480x480.zip'; $testFileDir4 = $testFileDir.'test_thumbnail_480x480.zip';
-    $testFile5 = 'test_thumbnail_400x400.zip'; $testFileDir5 = $testFileDir.'test_thumbnail_400x400.zip';
-    $testFile6 = 'test_thumbnail_800x800.zip'; $testFileDir6 = $testFileDir.'test_thumbnail_800x800.zip';
-    $testFile7 = 'test_thumbnail_960x1600.zip'; $testFileDir7 = $testFileDir.'test_thumbnail_960x1600.zip';
-    $testFile8 = 'test_thumbnail_400x240.zip'; $testFileDir8 = $testFileDir.'test_thumbnail_400x240.zip';
-    $testFile9 = 'test_thumbnail_800x480.zip'; $testFileDir9 = $testFileDir.'test_thumbnail_800x480.zip';
+    $testFile1 = 'test_thumbnail_240x400.zip';
+    $testFileDir1 = $testFileDir.'test_thumbnail_240x400.zip';
+    $testFile2 = 'test_thumbnail_480x800.zip';
+    $testFileDir2 = $testFileDir.'test_thumbnail_480x800.zip';
+    $testFile3 = 'test_thumbnail_240x240.zip';
+    $testFileDir3 = $testFileDir.'test_thumbnail_240x240.zip';
+    $testFile4 = 'test_thumbnail_480x480.zip';
+    $testFileDir4 = $testFileDir.'test_thumbnail_480x480.zip';
+    $testFile5 = 'test_thumbnail_400x400.zip';
+    $testFileDir5 = $testFileDir.'test_thumbnail_400x400.zip';
+    $testFile6 = 'test_thumbnail_800x800.zip';
+    $testFileDir6 = $testFileDir.'test_thumbnail_800x800.zip';
+    $testFile7 = 'test_thumbnail_960x1600.zip';
+    $testFileDir7 = $testFileDir.'test_thumbnail_960x1600.zip';
+    $testFile8 = 'test_thumbnail_400x240.zip';
+    $testFileDir8 = $testFileDir.'test_thumbnail_400x240.zip';
+    $testFile9 = 'test_thumbnail_800x480.zip';
+    $testFileDir9 = $testFileDir.'test_thumbnail_800x480.zip';
 
     $dataArray = array(
-      array('unitTest', 'my project description with thumbnail in root folder and default thumbnail.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
-      array('unitTest', 'my project description with thumbnail in root folder and thumbnail 240x400.', $testFileDir1, $testFile1, md5_file($testFileDir1), filesize($testFileDir1), $fileType),
-      array('unitTest', 'my project description with thumbnail in root folder and thumbnail 480x800.', $testFileDir2, $testFile2, md5_file($testFileDir2), filesize($testFileDir2), $fileType),
-      array('unitTest', 'my project description with thumbnail in root folder and thumbnail 240x240.', $testFileDir3, $testFile3, md5_file($testFileDir3), filesize($testFileDir3), $fileType),
-      array('unitTest', 'my project description with thumbnail in root folder and thumbnail 480x480.', $testFileDir4, $testFile4, md5_file($testFileDir4), filesize($testFileDir4), $fileType),
-      array('unitTest', 'my project description with thumbnail in root folder and thumbnail 400x400.', $testFileDir5, $testFile5, md5_file($testFileDir5), filesize($testFileDir5), $fileType),
-      array('unitTest', 'my project description with thumbnail in root folder and thumbnail 800x800.', $testFileDir6, $testFile6, md5_file($testFileDir6), filesize($testFileDir6), $fileType),
-      array('unitTest', 'my project description with thumbnail in root folder and thumbnail 960x1600.', $testFileDir7, $testFile7, md5_file($testFileDir7), filesize($testFileDir7), $fileType),
-      array('unitTest', 'my project description with thumbnail in root folder and thumbnail 400x240.', $testFileDir8, $testFile8, md5_file($testFileDir8), filesize($testFileDir8), $fileType),
-      array('unitTest', 'my project description with thumbnail in root folder and thumbnail 800x480.', $testFileDir9, $testFile9, md5_file($testFileDir9), filesize($testFileDir9), $fileType)
+      array('unitTest', 'default thumbnail', $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
+      array('unitTest', 'thumbnail 240x400.', $testFileDir1, $testFile1, md5_file($testFileDir1), filesize($testFileDir1), $fileType),
+      array('unitTest', 'thumbnail 480x800.', $testFileDir2, $testFile2, md5_file($testFileDir2), filesize($testFileDir2), $fileType),
+      array('unitTest', 'thumbnail 240x240.', $testFileDir3, $testFile3, md5_file($testFileDir3), filesize($testFileDir3), $fileType),
+      array('unitTest', 'thumbnail 480x480.', $testFileDir4, $testFile4, md5_file($testFileDir4), filesize($testFileDir4), $fileType),
+      array('unitTest', 'thumbnail 400x400.', $testFileDir5, $testFile5, md5_file($testFileDir5), filesize($testFileDir5), $fileType),
+      array('unitTest', 'thumbnail 800x800.', $testFileDir6, $testFile6, md5_file($testFileDir6), filesize($testFileDir6), $fileType),
+      array('unitTest', 'thumbnail 960x1600.', $testFileDir7, $testFile7, md5_file($testFileDir7), filesize($testFileDir7), $fileType),
+      array('unitTest', 'thumbnail 400x240.', $testFileDir8, $testFile8, md5_file($testFileDir8), filesize($testFileDir8), $fileType),
+      array('unitTest', 'thumbnail 800x480.', $testFileDir9, $testFile9, md5_file($testFileDir9), filesize($testFileDir9), $fileType)
     );
     return $dataArray;
   }
@@ -394,16 +359,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
       array('unitTest', 'my project description without screenshot of type PNG.', $testFile, $fileName, $fileChecksum, $fileSize, $fileType)
-    );
-    return $dataArray;
-  }
-
-  public function testVersion() {
-    $dataArray = array(
-	    array("test_v5a-433.xml", 10, "0.5a"),
-	    array("test_no_version.xml", 499, "&lt; 0.6.0beta"),
-	    array("test_v5a-420.xml", 10, "0.5a"),
-	    array("test_v5a-199_invalid_tag.xml", 499, "&lt; 0.6.0beta")
     );
     return $dataArray;
   }
