@@ -1,5 +1,6 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -18,46 +19,27 @@
  */
 
 abstract class CoreAuthenticationUser extends CoreAuthentication {
-    function __construct() {
-        parent::__construct();
-    }
-    
-    abstract public function __authenticationFailed();
+  public function __construct() {
+    parent::__construct();
+  }
 
-    function authenticate() {
-      //return false;
-      if($this->session->userLogin_userId > 0) {
-        //if($this->session->userLogin_userId > 0 && !$this->isBlockedUser($this->session->userLogin_username)) {
-        //todo: fix // isBlockedUser($this->session->userLogin_userNickname);
-        return true;
-      } else {
-        $requesturi = $_SERVER['REQUEST_URI'];
-        if(strpos("/", $requesturi) == 0)
-          $requesturi = substr($requesturi, 1);
-         
-        header("Location: ".BASE_PATH."catroid/login?requesturi=".$requesturi);
-        exit;
-      }
-    }
+  abstract public function __authenticationFailed();
 
-    private function isBlockedUser($user) {
-      return true; //TODO wtf?! please fix this!
-      $badUser = false;
-      if ($user) {
-        $query = "SELECT b.user_id, u.username FROM b.blocked_cusers, u.cusers where u.username like '".$user."'";
-        $result = pg_query($this->dbConnection, $query) or die('db query_failed '.pg_last_error());
-        if(pg_num_rows($result))
-        $badUser = true;
+  public function authenticate() {
+    if(intVal($this->session->userLogin_userId) > 0) {
+      if($this->requestFromBlockedIp()) {
+        $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked');
       }
-      if ($badUser) {
-        $this->errorHandler->showErrorPage('viewer', 'user_is_blocked', '', 'blocked_user');
+      if($this->requestFromBlockedUser()) {
+        $this->errorHandler->showErrorPage('viewer', 'user_is_blocked');
       }
-      return !$badUser;
+      return true;
     }
+    return false;
+  }
 
-   function __destruct() {
-        parent::__destruct();
-    }
+  public function __destruct() {
+    parent::__destruct();
+  }
 }
-
 ?>

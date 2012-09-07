@@ -1,5 +1,6 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -26,213 +27,147 @@ class login extends CoreAuthenticationNone {
   public function __default() {
   }
 
-  public function logoutRequest() {
-    $this->logout();
-    $this->requesturi = NULL;
-  }
-
   public function loginRequest() {
-    if($_POST) {
-      if($this->doLogin($_POST)) {
-        $this->statusCode = STATUS_CODE_OK;  
-        $this->setUserLanguage($this->session->userLogin_userId);     
-        return true;
-      } else {
-      	
-      	$ip = $_SERVER["REMOTE_ADDR"];
-      	$result = pg_execute($this->dbConnection, "is_ip_blocked_temporarily", array($ip));
-      	
-      	if($result && pg_num_rows($result)) {
-      		$this->statusCode = STATUS_CODE_OK;
-      	} else {
-      		$this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
-      		$this->answer = $this->errorHandler->getError('db', 'query_failed', pg_last_error());
-      	}
-      	
-        
-        if($this->clientDetection->isMobile()) {
-          $this->helperDiv = "<a id='signUp' target='_self' href='". BASE_PATH ."catroid/passwordrecovery'>". $this->languageHandler->getString('click_if_forgot_password') ."</a><br>". $this->languageHandler->getString('or') ."<br><a id='signUp' target='_self' href='". BASE_PATH ."catroid/registration'>". $this->languageHandler->getString('create_new_account') ."</a>";
-        } else {
-          $this->helperDiv = "<a id='signUp' target='_self' href='". BASE_PATH ."catroid/passwordrecovery'>". $this->languageHandler->getString('click_if_forgot_password') ."</a> ". $this->languageHandler->getString('or') ." <a id='signUp' target='_self' href='". BASE_PATH ."catroid/registration'>". $this->languageHandler->getString('create_new_account') ."</a>";
-        } 
-        return false;
-      }
-    }
-  }
-
-  public function logout() {
-    $this->doLogout();
-  }
-
-  private function setRequestURI($uri) {
-    if($uri != '') {
-      $this->requesturi = $uri;
-    } else {
-      $this->requesturi = "catroid/index";
-    }
-  }
-  
-  private function setUserLanguage($userid) {
     try {
-      $result = pg_execute($this->dbConnection, "get_user_language", array($userid));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED); 
-      }
-      
-      $language = pg_fetch_assoc($result);
-      if(strlen($language['language']) > 1) {
-        $this->languageHandler->setLanguageCookie($language['language']);
+      if(!isset($_POST)) {
+        throw new Exception($this->errorHandler->getError('registration', 'postdata_missing'), STATUS_CODE_LOGIN_MISSING_DATA);
       }
 
-      return $language['language'];
+      $username = (isset($_POST['loginUsername'])) ? checkUserInput(trim($_POST['loginUsername'])) : '';
+      if($username == '') {
+        throw new Exception($this->errorHandler->getError('registration', 'username_missing'), STATUS_CODE_LOGIN_MISSING_USERNAME);
+      }
+
+      if(!isset($_POST['loginPassword']) || $_POST['loginPassword'] == '') {
+        throw new Exception($this->errorHandler->getError('registration', 'password_missing'), STATUS_CODE_LOGIN_MISSING_PASSWORD);
+      }
+
+      $this->doCatroidLogin($username, $_POST['loginPassword']);
+      $this->doBoardLogin($username, $_POST['loginPassword']);
+      $this->doWikiLogin($username, $_POST['loginPassword']);
+
+      if($this->requestFromBlockedIp()) {
+        throw new Exception($this->errorHandler->getError('viewer', 'ip_is_blocked'), STATUS_CODE_AUTHENTICATION_FAILED);
+      }
+      if($this->requestFromBlockedUser()) {
+        throw new Exception($this->errorHandler->getError('viewer', 'user_is_blocked'), STATUS_CODE_AUTHENTICATION_FAILED);
+      }
+
+      $this->setUserLanguage($this->session->userLogin_userId);
+      $this->statusCode = STATUS_CODE_OK;
     } catch(Exception $e) {
+      $this->logoutRequest();
       $this->statusCode = $e->getCode();
-      $this->answer = $this->errorHandler->getError('profile', 'language_update_failed', $e->getMessage());
+      $this->answer = $e->getMessage();
     }
   }
 
-  public function doLogin($postData) {
-    $answer = '';
-    $boardLoginSuccess = false;
-    $wikiLoginSuccess = false;
-    $catroidLoginSuccess = false;
-    $loginDataValid = true;
-    
-    $username = trim($postData['loginUsername']);
-    if(empty($username) && strcmp('', $username) == 0) {
-      $answer .= $this->errorHandler->getError('registration', 'username_missing');
-      $loginDataValid = false;
-    }
-    if(empty($postData['loginPassword']) && strcmp('', $postData['loginPassword']) == 0) {
-      $answer .= $this->errorHandler->getError('registration', 'password_missing');
-      $loginDataValid = false;
-    }
-    if(!$loginDataValid) {
-      $this->answer = $answer;
-      return $loginDataValid;        
-    }
+  private function doCatroidLogin($username, $password) {
+    $user = getCleanedUsername($username);
+    $md5pass = md5($password);
 
-    try {
-      $catroidUserId = $this->doCatroidLogin($postData);
-      $catroidLoginSuccess = true;
-      $answer .= $this->languageHandler->getString('catroid_login_success');
-    } catch(Exception $e) {
-      $answer .= $this->errorHandler->getError('auth', 'catroid_authentication_failed', $e->getMessage());
-    }
-
-    if($catroidLoginSuccess) {
-      $boardUserId = $this->doBoardLogin($postData);
-      if($boardUserId > 1) {
-        $boardLoginSuccess = true;
-        $answer .= $this->languageHandler->getString('board_login_success');
-      } else {
-        $answer .= $this->errorHandler->getError('auth', 'board_authentication_failed');
-      }
-
-      if($boardLoginSuccess) {
-        try {
-          $this->doWikiLogin($postData);
-          $wikiLoginSuccess = true;
-          $answer .= $this->languageHandler->getString('wiki_login_success');
-        } catch(Exception $e) {
-          $answer .= $this->errorHandler->getError('auth', 'wiki_authentication_failed', $e->getMessage());
-          //logout catroid & board
-          $this->doCatroidLogout();
-          $this->doBoardLogout();
-        }
-      } else {
-        //logout catroid
-        $this->doCatroidLogout();
-      }
-    }
-
-    $this->statusCode = STATUS_CODE_OK;
-    $this->answer .= $answer;
-
-    if($boardLoginSuccess && $wikiLoginSuccess && $catroidLoginSuccess) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-
-  public function doLogout() {
-    $answer = '';
-    $statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
-
-    //catroid logout
-    $this->doCatroidLogout();
-    $answer .= $this->languageHandler->getString('catroid_logout_success').'<br>';
-
-    //board logout
-    $this->doBoardLogout();
-    $answer .= $this->languageHandler->getString('catroid_logout_success').'<br>';
-
-    //wiki logout
-    try {
-      $this->doWikiLogout();
-      $answer .= $this->languageHandler->getString('catroid_logout_success').'<br>';
-      $statusCode = STATUS_CODE_OK;
-    } catch (Exception $e) {
-      $answer .= $this->languageHandler->getString('wiki_logout_error', ' '.$e->getMessage().'!<br>');
-    }
-
-    $this->statusCode = $statusCode;
-    $this->answer = $answer;
-  }
-
-  public function doCatroidLogin($postData) {
-    $user = getCleanedUsername($postData['loginUsername']);
-    $md5pass = md5($postData['loginPassword']);
-    
-    $result = pg_execute($this->dbConnection, "get_user_login", array($user, $md5pass)) or
-              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = pg_execute($this->dbConnection, "get_user_login", array($user, $md5pass));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED);
     }
 
-    $ip = $_SERVER["REMOTE_ADDR"];
-    if(pg_num_rows($result) > 0) {
-      $user = pg_fetch_assoc($result);
-      $this->session->userLogin_userId = $user['id'];
-      $this->session->userLogin_userNickname = ($user['username']);
-      
+    $row = pg_fetch_assoc($result);
+    pg_free_result($result);
+
+    $ip = '';
+    if(isset($_SERVER["REMOTE_ADDR"])) {
+      $ip = $_SERVER["REMOTE_ADDR"];
+    }
+
+    if(is_array($row)) {
+      $this->session->userLogin_userId = $row['id'];
+      $this->session->userLogin_userNickname = $row['username'];
+
       $result = pg_execute($this->dbConnection, "reset_failed_attempts", array($ip));
-
       if(!$result) {
-      	throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED);
-      }      
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      pg_free_result($result);
     } else {
-    	
-    	$result = pg_execute($this->dbConnection, "save_failed_attempts", array($ip));
-
-     	if(!$result) {
-     		throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED);
-     	}
-    	
-      $this->answer .= "CatroidLogin: ";
+      $result = pg_execute($this->dbConnection, "save_failed_attempts", array($ip));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      pg_free_result($result);
       throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'), STATUS_CODE_AUTHENTICATION_FAILED);
     }
-    return true;
   }
 
-  public function doCatroidLogout() {
-    $this->session->userLogin_userId = 0;
-    $this->session->userLogin_userNickname = '';
-    return true;
+  public function logoutRequest() {
+    $this->doCatroidLogout();
+    $this->doBoardLogout();
+    $this->doWikiLogout();
+
+    $this->statusCode = STATUS_CODE_OK;
+    $this->answer = $this->languageHandler->getString('catroid_logout_success');
   }
 
-  public function doBoardLogin($postData) {
+  private function doBoardLogin($username, $password) {
     global $user, $auth;
+
     $user->session_begin();
     $auth->acl($user->data);
     $user->setup();
-    
-    $auth->login(trim($postData['loginUsername']), $postData['loginPassword'], false, 1);
-    return($user->data['user_id']);
+
+    $auth->login($username, $password, false, 1);
+    if(intVal($user->data['user_id']) <= 0) {
+      throw new Exception($this->errorHandler->getError('auth', 'board_authentication_failed'), STATUS_CODE_AUTHENTICATION_FAILED);
+    }
   }
 
-  public function doBoardLogout() {
+  private function doWikiLogin($username, $password) {
+    require_once("Snoopy.php");
+    $snoopy = new Snoopy();
+    $snoopy->curl_path = false;
+    $wikiroot = BASE_PATH . 'addons/mediawiki';
+    $apiUrl = $wikiroot . "/api.php";
+
+    $loginVars['action'] = "login";
+    //wiki login needs first letter capitalized
+    $loginVars['lgname'] = mb_convert_case(getCleanedUsername($username), MB_CASE_TITLE, "UTF-8");
+    $loginVars['lgpassword'] = $password;
+    $loginVars['format'] = "php";
+
+    $snoopy->submit($apiUrl, $loginVars);
+    $response = unserialize($snoopy->results);
+    if(!isset($response['login']['result']) || !isset($response['login']['token']) ||
+        !isset($response['login']['cookieprefix']) || !isset($response['login']['sessionid'])) {
+      throw new Exception($this->errorHandler->getError('auth', 'wiki_api_response_incorrect', $snoopy->results), STATUS_CODE_AUTHENTICATION_FAILED);
+    }
+
+    $loginVars['lgtoken'] = $response['login']['token'];
+    $cookiePrefix = $response['login']['cookieprefix'];
+    $snoopy->cookies[$cookiePrefix . "_session"] = $response['login']['sessionid'];
+
+    $snoopy->submit($apiUrl, $loginVars);
+    $response = unserialize($snoopy->results);
+
+    if(!isset($response['login']['result']) || !isset($response['login']['lgtoken']) ||
+        !isset($response['login']['cookieprefix']) || !isset($response['login']['lgusername']) ||
+        !isset($response['login']['lgtoken']) || !isset($response['login']['sessionid'])) {
+      throw new Exception($this->errorHandler->getError('auth', 'wiki_api_response_incorrect', $snoopy->results), STATUS_CODE_AUTHENTICATION_FAILED);
+    }
+
+    $cookieExpire = 0;//time() + (60*60*24*2);
+    $cookieDomain = '';
+
+    setcookie($cookiePrefix . 'UserName', $response['login']['lgusername'], $cookieExpire, "/", $cookieDomain, false, true);
+    setcookie($cookiePrefix . 'UserID', $response['login']['lguserid'], $cookieExpire, "/", $cookieDomain, false, true);
+    setcookie($cookiePrefix . 'Token', $response['login']['lgtoken'], $cookieExpire, "/", $cookieDomain, false, true);
+    setcookie($cookiePrefix . '_session', $response['login']['sessionid'], 0, "/", $cookieDomain, false, true);
+  }
+
+  private function doCatroidLogout() {
+    $this->session->userLogin_userId = 0;
+    $this->session->userLogin_userNickname = '';
+  }
+
+  private function doBoardLogout() {
     initBoardFunctions();
     global $user, $auth;
 
@@ -242,73 +177,42 @@ class login extends CoreAuthenticationNone {
     $user->session_kill();
   }
 
-  public function doWikiLogin($postData) {
-    require_once("Snoopy.php");
-    $snoopy = new Snoopy();
-    $snoopy->curl_path = false;
-    $wikiroot = BASE_PATH.'addons/mediawiki';
-    $api_url = $wikiroot . "/api.php";
-
-    $login_vars['action'] = "login";
-    $username = getCleanedUsername($postData['loginUsername']);
-    
-    //wiki login needs first letter capitalized 
-    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
-    $login_vars['lgname'] = $username;
-    $login_vars['lgpassword'] = $postData['loginPassword'];
-    $login_vars['format'] = "php";
-
-    $snoopy->submit($api_url, $login_vars);
-    $response = unserialize($snoopy->results);
-    if(!isset($response['login']['result']) || !isset($response['login']['token']) ||
-    !isset($response['login']['cookieprefix']) || !isset($response['login']['sessionid'])) {
-      throw new Exception($this->errorHandler->getError('auth', 'wiki_api_response_incorrect', $snoopy->results));
-    }
-    $login_vars['lgtoken'] = $response['login']['token'];
-    $cookieprefix = $response['login']['cookieprefix'];
-    $snoopy->cookies[$cookieprefix."_session"] = $response['login']['sessionid'];
-
-    $snoopy->submit($api_url, $login_vars);
-    $response = unserialize($snoopy->results);
-
-    if(!isset($response['login']['result']) || !isset($response['login']['lgtoken']) ||
-    !isset($response['login']['cookieprefix']) || !isset($response['login']['lgusername']) ||
-    !isset($response['login']['lgtoken']) || !isset($response['login']['sessionid'])) {
-      throw new Exception($this->errorHandler->getError('auth', 'wiki_api_response_incorrect', $snoopy->results));
-    }
-
-    $cookieexpire = 0;//time() + (60*60*24*2);
-    $cookiedomain = '';
-
-    setcookie($cookieprefix.'UserName', $response['login']['lgusername'], $cookieexpire, "/", $cookiedomain, false, true);
-    setcookie($cookieprefix.'UserID', $response['login']['lguserid'], $cookieexpire, "/", $cookiedomain, false, true);
-    setcookie($cookieprefix.'Token', $response['login']['lgtoken'], $cookieexpire, "/", $cookiedomain, false, true);
-    setcookie($cookieprefix.'_session', $response['login']['sessionid'], 0, "/", $cookiedomain, false, true);
-
-    return true;
-  }
-
-  public function doWikiLogout() {
+  private function doWikiLogout() {
     include_once "Snoopy.php";
     $snoopy = new Snoopy();
     $snoopy->curl_path = false;
     $wikiroot = BASE_PATH.'addons/mediawiki';
-    $api_url = $wikiroot . "/api.php?action=logout";
+    $apiUrl = $wikiroot . "/api.php?action=logout";
 
-    $logout_vars['action'] = "logout";
-    $snoopy->submit($api_url, $logout_vars);
+    $logoutVars['action'] = "logout";
+    $snoopy->submit($apiUrl, $logoutVars);
     $response = $snoopy->results;
 
     $now = date('YmdHis', time());
-    $cookieexpire = time() + (60*60*24*2);
-    $cookieexpire_over = time() - (60*60*24*2);
-    $cookiedomain = '';
+    $cookieExpires = time() + (60*60*24*2);
+    $cookieExpired = time() - (60*60*24*2);
+    $cookieDomain = '';
 
-    setcookie('catrowikiLoggedOut', $now, $cookieexpire, "/", $cookiedomain, false, true);
-    setcookie('catrowiki_session', '', $cookieexpire_over, "/", $cookiedomain, false, true);
-    setcookie('catrowikiUserID', '', $cookieexpire_over, "/", $cookiedomain, false, true);
-    setcookie('catrowikiUserName', '', $cookieexpire_over, "/", $cookiedomain, false, true);
-    setcookie('catrowikiToken', '', $cookieexpire_over, "/", $cookiedomain, false, true);
+    setcookie('catrowikiLoggedOut', $now, $cookieExpires, "/", $cookieDomain, false, true);
+    setcookie('catrowiki_session', '', $cookieExpired, "/", $cookieDomain, false, true);
+    setcookie('catrowikiUserID', '', $cookieExpired, "/", $cookieDomain, false, true);
+    setcookie('catrowikiUserName', '', $cookieExpired, "/", $cookieDomain, false, true);
+    setcookie('catrowikiToken', '', $cookieExpired, "/", $cookieDomain, false, true);
+  }
+
+  private function setUserLanguage() {
+    $result = pg_execute($this->dbConnection, "get_user_language", array($this->session->userLogin_userId));
+
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)), STATUS_CODE_SQL_QUERY_FAILED);
+    }
+
+    $row = pg_fetch_assoc($result);
+    pg_free_result($result);
+
+    if(strlen($row['language']) > 1) {
+      $this->languageHandler->setLanguageCookie($row['language']);
+    }
   }
 
   public function __destruct() {

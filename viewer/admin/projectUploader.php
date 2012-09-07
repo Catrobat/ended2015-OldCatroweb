@@ -1,5 +1,6 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team 
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -16,15 +17,6 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
-/*
-HashMap<String, String> postValues = new HashMap<String, String>();
-postValues.put(PROJECT_NAME_TAG, projectName);
-postValues.put(PROJECT_DESCRIPTION_TAG, projectDescription);
-postValues.put(USER_EMAIL, userEmail);
-postValues.put(PROJECT_CHECKSUM_TAG, md5Checksum.toLowerCase());
-postValues.put(Constants.TOKEN, token);
-*/
 ?>
 
 <body>

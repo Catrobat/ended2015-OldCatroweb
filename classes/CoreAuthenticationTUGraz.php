@@ -1,5 +1,6 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -18,24 +19,22 @@
  */
 
 abstract class CoreAuthenticationTUGraz extends CoreAuthentication {
-    function __construct() {
-        parent::__construct();
-    }
+  public function __construct() {
+    parent::__construct();
+  }
 
-    function authenticate() {
-      if(isset($_SERVER["REMOTE_ADDR"])) {
-        $ip = $_SERVER["REMOTE_ADDR"];
-        if(strcmp($ip, '127.0.0.1')==0 || strcmp(substr($ip, 0, 6), '129.27')==0) {
-          return true;
-        }
+  public function authenticate() {
+    if(isset($_SERVER["REMOTE_ADDR"])) {
+      $ip = $_SERVER["REMOTE_ADDR"];
+      if(strcmp($ip, '127.0.0.1') == 0 || strcmp(substr($ip, 0, 6), '129.27') == 0) {
+        return true;
       }
-      $this->errorHandler->showErrorPage('auth', 'not_a_tugraz_ip');
-      return false;
     }
+    $this->errorHandler->showErrorPage('auth', 'not_a_tugraz_ip');
+  }
 
-    function __destruct() {
-        parent::__destruct();
-    }
+  public function __destruct() {
+    parent::__destruct();
+  }
 }
-
 ?>

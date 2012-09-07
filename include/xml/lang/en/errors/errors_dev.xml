@@ -69,6 +69,7 @@
     	<string name="wiki_registration_failed">The wiki registration failed.</string>
     	<string name="board_registration_failed">The board registration failed.</string>
     	<string name="catroid_registration_failed">The catroid registration failed.</string>
+    	<string name="postdata_missing">Nothing was sent.</string>
     	<string name="username_missing">The nickname is missing.</string>
     	<string name="username_invalid_underscore">The nickname is invalid. Underscores (_) are not allowed.</string>
     	<string name="username_invalid_hash">The nickname is invalid. Hash signs (#) are not allowed.</string>

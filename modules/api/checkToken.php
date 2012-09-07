@@ -18,7 +18,6 @@
  */
 
 class checkToken extends CoreAuthenticationDevice {
-
   public function __construct() {
     parent::__construct();
   }

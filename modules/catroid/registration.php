@@ -22,9 +22,7 @@ class registration extends CoreAuthenticationNone {
     parent::__construct();
 
     if($this->checkLogin()) {
-      // if logged in -> redirect to profile page
-      header("location: ".BASE_PATH."catroid/profile/");
-      ob_end_flush();
+      header("location: " . BASE_PATH . "catroid/profile/");
     }
 
     $this->addCss('registration.css');
@@ -52,36 +50,33 @@ class registration extends CoreAuthenticationNone {
   private function generateCountryCodeList() {
     $countryCodeList = getCountryArray($this->languageHandler);
     asort($countryCodeList);
-    $whiteSpace="                  ";
-    $optionList = $whiteSpace . "<option value=\"\" selected=\"selected\">" . $this->languageHandler->getString('select_country') . "</option>\r\n";
+    $optionList = "<option selected='selected'>" . $this->languageHandler->getString('select_country') . "</option>";
 
     foreach($countryCodeList as $key => $value) {
-      $optionList .= $whiteSpace . "<option value=\"" . $key . "\">" . $value . "</option>\r\n";
+      $optionList .= "<option value='" . $key . "'>" . $value . "</option>";
     }
 
-    $optionList .= $whiteSpace . "<option value=\"em\">" . $this->languageHandler->getString('other') . "</option>\r\n";
+    $optionList .= "<option value='em'>" . $this->languageHandler->getString('other') . "</option>";
     return $optionList;
   }
   
   private function generateMonthList() {
     $months = getMonthsArray($this->languageHandler);
-    $whiteSpace="                    ";
-    $optionList = $whiteSpace . "<option value=\"\" selected=\"selected\">" . $this->languageHandler->getString('select_month') . "</option>\r\n";
+    $optionList = "<option selected='selected'>" . $this->languageHandler->getString('select_month') . "</option>";
 
-    for($i=1; $i<13; $i++) {
-      $optionList .= $whiteSpace . "<option value=\"" . $i . "\">" . $months[$i] . "</option>\r\n";
+    for($i = 1; $i < 13; $i++) {
+      $optionList .= "<option value='" . $i . "'>" . $months[$i] . "</option>";
     }
     return $optionList;
   }
 
   private function generateYearList() {
-    $whiteSpace="                    ";
-    $optionList = $whiteSpace . "<option value=\"\" selected=\"selected\">" . $this->languageHandler->getString('select_year') . "</option>\r\n";
+    $optionList = "<option selected='selected'>" . $this->languageHandler->getString('select_year') . "</option>";
 
     $year = date('Y') + 1;
     for($i=1; $i<101; $i++) {
       $year--;
-      $optionList .= $whiteSpace . "<option value=\"" . $year . "\">" . $year . "</option>\r\n";
+      $optionList .= "<option value='" . $year . "'>" . $year . "</option>";
     }
     return $optionList;
   }

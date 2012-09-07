@@ -1,5 +1,6 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -18,31 +19,35 @@
  */
 
 abstract class CoreAuthenticationDevice extends CoreAuthentication {
-  function __construct() {
+  public function __construct() {
     parent::__construct();
   }
-  
+
   abstract public function __authenticationFailed();
 
-  function authenticate() {
+  public function authenticate() {
     if(isset($_REQUEST['token']) && strlen($_REQUEST['token']) != 0) {
       $authToken = strtolower($_REQUEST['token']);
       $result = pg_execute($this->dbConnection, "get_user_device_login", array($authToken));
+
       if($result && pg_num_rows($result) > 0) {
         $user = pg_fetch_assoc($result);
-        if(is_numeric($user['id']) && $user['id'] >= 0) {
+        pg_free_result($result);
+
+        if(intVal($user['id']) >= 0) {
           $this->session->userLogin_userId = $user['id'];
           $this->session->userLogin_userNickname = $user['username'];
-          return true;
+
+          if(!$this->requestFromBlockedIp() && !$this->requestFromBlockedUser()) {
+            return true;
+          }
         }
       }
     }
     return false;
   }
 
-  function __destruct() {
-    $this->session->userLogin_userId = 0;
-    $this->session->userLogin_userNickname = '';
+  public function __destruct() {
     parent::__destruct();
   }
 }

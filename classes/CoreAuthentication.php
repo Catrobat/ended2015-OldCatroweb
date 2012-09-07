@@ -1,5 +1,6 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -18,61 +19,53 @@
  */
 
 abstract class CoreAuthentication extends CoreModule {
-  function __construct() {
+  public function __construct() {
     parent::__construct();
-    isset($_REQUEST["module"]) ? $vmodule = $_REQUEST["module"] : $vmodule = MVC_DEFAULT_MODULE;
-    isset($_REQUEST["class"]) ? $vclass = $_REQUEST["class"] : $vclass = MVC_DEFAULT_CLASS;
-    if (getenv("REMOTE_ADDR"))  {
-      $this->requestFromBlockedIp($vmodule, $vclass);
-    }
-    /*echo("UserID: ".$this->session->userLogin_userId);
-    if (isset($this->session->userLogin_userId) && $this->session->userLogin_userId > 0) { // , $vmodule, $vclass)) { //todo: fix - user session is unknown at this time
-      // $this->errorHandler->showErrorPage('viewer', 'user_is_blocked', '', 'blocked_user');
-      $this->requestFromBlockedUser($this->session->userLogin_userId, $vmodule, $vclass);
-    }*/
   }
 
   abstract function authenticate();
 
-  function __destruct() {
+  public function __destruct() {
     parent::__destruct();
   }
 
-  private function requestFromBlockedIp($vmodule, $vclass) {
-    $badIp = false;
-    if(($vmodule != "catroid") || in_array($vclass, getUserBlockClassWhitelistArray())) {
-      return;
-    }
-     
-    $ip = $_SERVER["REMOTE_ADDR"];
-    $result = pg_execute($this->dbConnection, "admin_is_blocked_ip", array($ip));
+  protected function requestFromBlockedIp() {
+    $vmodule = (isset($_REQUEST["module"]) ? $_REQUEST["module"] : MVC_DEFAULT_MODULE);
+    $vclass = (isset($_REQUEST["class"]) ? $_REQUEST["class"] : MVC_DEFAULT_CLASS);
 
-    if(pg_num_rows($result)) {
-      $badIp = true;
+    if(($vmodule == "admin") || in_array($vclass, getIpBlockClassWhitelistArray())) {
+      return false;
     }
 
-    if ($badIp) {
-      $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked', '');
+    if(isset($_SERVER['REMOTE_ADDR'])) {
+      $ip = $_SERVER['REMOTE_ADDR'];
+       
+      $result = pg_execute($this->dbConnection, "admin_is_blocked_ip", array($ip));
+      if($result && pg_num_rows($result) > 0) {
+        pg_free_result($result);
+        return true;
+      }
     }
+    return false;
   }
 
-  private function requestFromBlockedUser($userId, $vmodule, $vclass) {
-    $badUser = true;
-    
-    if(($vmodule != "catroid") || in_array($vclass, getIpBlockClassWhitelistArray())) {
-      return;
+  protected function requestFromBlockedUser() {
+    $vmodule = (isset($_REQUEST["module"]) ? $_REQUEST["module"] : MVC_DEFAULT_MODULE);
+    $vclass = (isset($_REQUEST["class"]) ? $_REQUEST["class"] : MVC_DEFAULT_CLASS);
+
+    if(($vmodule == "admin") || in_array($vclass, getIpBlockClassWhitelistArray())) {
+      return false;
     }
-    
-    if ($userId) {
-        $result = pg_execute($this->dbConnection, "admin_is_blocked_user_by_id", array($userId));
-        if(pg_num_rows($result))
-          $badUser = true;
+
+    if($this->session->userLogin_userId > 0) {
+      $result = pg_execute($this->dbConnection, "admin_is_blocked_user_by_id", array($this->session->userLogin_userId));
+      if($result && pg_num_rows($result) > 0) {
+        pg_free_result($result);
+        return true;
+      }
     }
-    if ($badUser) {
-      $this->errorHandler->showErrorPage('viewer', 'user_is_blocked', '', 'blocked_user');
-    }
+    return false;
   }
-  
 }
 
 ?>

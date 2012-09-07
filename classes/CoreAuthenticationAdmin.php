@@ -1,5 +1,6 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -18,27 +19,27 @@
  */
 
 abstract class CoreAuthenticationAdmin extends CoreAuthentication {
-    function __construct() {
-      parent::__construct();
-    }
+  public function __construct() {
+    parent::__construct();
+  }
 
-    function authenticate() {
-      if(!isset($_SERVER['PHP_AUTH_USER']) ||
+  public function authenticate() {
+    if(!isset($_SERVER['PHP_AUTH_USER']) ||
         $_SERVER['PHP_AUTH_USER']!=ADMIN_AREA_USER ||
         md5($_SERVER['PHP_AUTH_PW'])!=ADMIN_AREA_PASS) {
-        $this->session->adminUser = false;
-        header('WWW-Authenticate: Basic realm="ADMINISTRATION AREA"');
-        header('HTTP/1.0 401 Unauthorized');
-        echo 'Access to administration area denied! You need username and password!<br/>';
-        exit();
-      } else {
-        $this->session->adminUser = true;
-        return true;
-      }
+      $this->session->adminUser = false;
+      header('WWW-Authenticate: Basic realm="ADMINISTRATION AREA"');
+      header('HTTP/1.0 401 Unauthorized');
+      echo 'Access to administration area denied! You need username and password!<br/>';
+      exit();
+    } else {
+      $this->session->adminUser = true;
+      return true;
     }
+  }
 
-    function __destruct() {
-      parent::__destruct();
-    }
+  public function __destruct() {
+    parent::__destruct();
+  }
 }
 ?>

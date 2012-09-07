@@ -158,12 +158,20 @@ function getMonthsArray($languageHandler) {
 
 function getIpBlockClassWhitelistArray() {
   $whitelistClasses = array(
-    "privacypolicy",
-    "terms",
-    "copyrightpolicy",
-    "licenseadditionalterm",
+    "",
+    "index",
     "imprint",
     "contactus",
+    "loadNewestProjects",
+    "switchLanguage",
+    "copyrightpolicy",
+    "privacypolicy",
+    "licenseadditionalterm",
+    "licenseofuploadedprojects",
+    "licenseofsystem",
+    "terms",
+    "termsofuse",
+    "termsofservice",
     "errorPage"
   );
   return $whitelistClasses;

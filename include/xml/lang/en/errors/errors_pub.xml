@@ -69,6 +69,7 @@
       <string name="wiki_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
       <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
       <string name="catroid_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
+      <string name="postdata_missing">Please enter your login data.</string>
       <string name="username_missing">You haven't entered a nickname, please add one.</string>
       <string name="username_invalid_underscore">The nickname you have entered is not allowed. Please do not use underscores (_).</string>
       <string name="username_invalid_hash">The nickname you have entered is not allowed. Please do not use hash signs (#).</string>

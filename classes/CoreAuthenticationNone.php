@@ -1,5 +1,6 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -18,17 +19,19 @@
  */
 
 abstract class CoreAuthenticationNone extends CoreAuthentication {
-    function __construct() {
-        parent::__construct();
-    }
+  public function __construct() {
+    parent::__construct();
+  }
 
-    function authenticate() {
-        return true;
+  public function authenticate() {
+    if($this->requestFromBlockedIp()) {
+      $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked');
     }
+    return true;
+  }
 
-    function __destruct() {
-        parent::__destruct();
-    }
+  public function __destruct() {
+    parent::__destruct();
+  }
 }
-
 ?>
