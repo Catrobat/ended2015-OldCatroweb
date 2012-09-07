@@ -644,8 +644,7 @@
 			    $this->setVersion($aversion[0]);
 			    $this->setBrowser(self::BROWSER_CHROME);
 			    
-			    if(preg_match("/Mobile/", $this->_agent))
-			    {
+			    if(preg_match("/Mobile/", $this->_agent)) {
 			      $this->setMobile(true);
 			    }
 			    
@@ -841,20 +840,18 @@
 	     * @return boolean True if the browser is Firefox otherwise false
 	     */
 	    
-	    /* bad attitude! :-( */
 	    private function checkBrowserFirefoxMobile() {
-	          if(preg_match("/Fennec/", $this->_agent)) {
-	            $this->setBrowser(self::BROWSER_FIREFOX_MOBILE);
-	            $this->setMobile(true);
-	          } else {
-	            $this->setBrowser(self::BROWSER_FIREFOX);
-	          }
-	          
-	          if(preg_match("/Mobile/", $this->_agent))
-	          {
-	            $this->setMobile(true);
-	          }
-	    }	    
+	      if(preg_match("/Fennec/", $this->_agent)) {
+	        $this->setBrowser(self::BROWSER_FIREFOX_MOBILE);
+	        $this->setMobile(true);
+	      } else {
+	        $this->setBrowser(self::BROWSER_FIREFOX);
+	      }
+
+	      if(preg_match("/Mobile/", $this->_agent)) {
+	        $this->setMobile(true);
+	      }
+	    }
 	    
 	    protected function checkBrowserFirefox() {
 		    if( stripos($this->_agent,'safari') === false ) {

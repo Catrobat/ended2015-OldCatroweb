@@ -19,6 +19,7 @@
 package at.tugraz.ist.catroweb.catroid;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -291,6 +292,11 @@ public class SearchTests extends BaseTest {
       String projectTitle = dataset.get("projectTitle");
       String projectDescription = dataset.get("projectDescription");
       String userToken  = dataset.get("token");
+      
+      WebElement webElementProjectDescription;
+      List<WebElement> webElementProjectDescriptions;
+      Iterator<WebElement> iteratorDescriptions;
+      
 
       openLocation();
       ajaxWait();
@@ -308,6 +314,16 @@ public class SearchTests extends BaseTest {
       assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
       
       assertTrue(isTextPresent(projectTitle));
+      
+      webElementProjectDescriptions = driver().findElements(By.className(".projectDetailLine"));
+      
+      iteratorDescriptions = webElementProjectDescriptions.iterator();
+      while( iteratorDescriptions.hasNext() ) {
+        webElementProjectDescription = iteratorDescriptions.next();
+        assertTrue(webElementProjectDescription.getText().contains(CommonData.getLoginUserDefault()));
+      }
+      
+      
       assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
 
     } catch(AssertionError e) {
