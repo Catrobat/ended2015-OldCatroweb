@@ -32,15 +32,13 @@ class loginTest extends PHPUnit_Framework_TestCase
    * @dataProvider validLogin
    */
   public function testCatroidLogin($postData) {
-    try {
-      $this->assertTrue($this->obj->doCatroidLogin($postData));
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: '.$e->getMessage());
-    }
+    $_POST = $postData;
+    $this->obj->loginRequest();
+
     $this->assertGreaterThan(0, intval($this->obj->session->userLogin_userId));
     $this->assertEquals($postData['loginUsername'], $this->obj->session->userLogin_userNickname);
 
-    $this->assertTrue($this->obj->doCatroidLogout());
+    $this->obj->logoutRequest();
     $this->assertEquals(0, intval($this->obj->session->userLogin_userId));
     $this->assertEquals('', $this->obj->session->userLogin_userNickname);
   }
@@ -49,14 +47,11 @@ class loginTest extends PHPUnit_Framework_TestCase
    * @dataProvider invalidLogin
    */
   public function testInvalidCatroidLogin($postData) {
-    try {
-      $this->obj->doCatroidLogin($postData);
-    } catch(Exception $e) {
-      $this->assertEquals(0, intval($this->obj->session->userLogin_userId));
-      $this->assertEquals('', $this->obj->session->userLogin_userNickname);
-      return;
-    }
-    $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+    $_POST = $postData;
+    $this->obj->loginRequest();
+
+    $this->assertEquals(0, intval($this->obj->session->userLogin_userId));
+    $this->assertEquals('', $this->obj->session->userLogin_userNickname);
   }
   
   /* *** DATA PROVIDERS *** */

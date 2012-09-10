@@ -55,6 +55,8 @@
                       <!-- ok messages here -->
                       </div>
                       </div>
+                      <img src="<?php echo BASE_PATH; ?>images/symbols/avatar_boys.png" />
+                      <img src="<?php echo BASE_PATH; ?>images/symbols/avatar_girls.png" />
                       <br>
 <?php if($this->ownProfile) { ?>
                       <input type="hidden" id="profileUser" name="profileUser" value="<?php echo $this->requestedUser; ?>">

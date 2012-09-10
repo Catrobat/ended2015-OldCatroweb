@@ -26,11 +26,16 @@ class profile extends CoreAuthenticationUser {
   }
 
   public function __authenticationFailed() {
-
+    if(intVal($this->session->userLogin_userId) > 0) {
+      header("Location: " . BASE_PATH . "catroid/profile/" . $this->session->userLogin_userNickname);
+    }
+    else {
+      header("Location: " . BASE_PATH . "catroid/login/?requesturi=catroid/profile/");
+    }
   }
   
   public function __default() {
-    if($_GET['method'] && $this->checkUserValid($_GET['method'])) {
+    if(isset($_GET['method']) && $this->checkUserValid($_GET['method'])) {
       if( strcmp($_GET['method'], $this->session->userLogin_userNickname) == 0 ) {
         $this->ownProfile = true;
         $this->requestedUser = $this->session->userLogin_userNickname;
@@ -39,15 +44,12 @@ class profile extends CoreAuthenticationUser {
         $this->ownProfile = false;
         $this->requestedUser = $_GET['method'];
       }
-    }
-    else {
-      if($this->session->userLogin_userId > 0) {
-        header("Location: ".BASE_PATH."catroid/profile/".$this->session->userLogin_userNickname);
-        exit;
+    } else {
+      if(intVal($this->session->userLogin_userId) > 0) {
+        header("Location: " . BASE_PATH . "catroid/profile/" . $this->session->userLogin_userNickname);
       }
       else {
-        header("Location: ".BASE_PATH."catroid/login/?requesturi=catroid/profile/");
-        exit;
+        header("Location: " . BASE_PATH . "catroid/login/?requesturi=catroid/profile/");
       }
     }
     $this->initDynamicProfileData($this->requestedUser);

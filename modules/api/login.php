@@ -61,6 +61,15 @@ class login extends CoreAuthenticationNone {
       $this->answer = $e->getMessage();
     }
   }
+  
+  public function logoutRequest() {
+    $this->doCatroidLogout();
+    $this->doBoardLogout();
+    $this->doWikiLogout();
+  
+    $this->statusCode = STATUS_CODE_OK;
+    $this->answer = $this->languageHandler->getString('catroid_logout_success');
+  }
 
   private function doCatroidLogin($username, $password) {
     $user = getCleanedUsername($username);
@@ -98,15 +107,6 @@ class login extends CoreAuthenticationNone {
     }
   }
 
-  public function logoutRequest() {
-    $this->doCatroidLogout();
-    $this->doBoardLogout();
-    $this->doWikiLogout();
-
-    $this->statusCode = STATUS_CODE_OK;
-    $this->answer = $this->languageHandler->getString('catroid_logout_success');
-  }
-
   private function doBoardLogin($username, $password) {
     global $user, $auth;
 
@@ -121,7 +121,7 @@ class login extends CoreAuthenticationNone {
   }
 
   private function doWikiLogin($username, $password) {
-    require_once("Snoopy.php");
+    require_once(CORE_BASE_PATH . 'include/lib/Snoopy.php');
     $snoopy = new Snoopy();
     $snoopy->curl_path = false;
     $wikiroot = BASE_PATH . 'addons/mediawiki';
@@ -168,17 +168,18 @@ class login extends CoreAuthenticationNone {
   }
 
   private function doBoardLogout() {
-    initBoardFunctions();
     global $user, $auth;
 
-    $user->session_begin();
-    $auth->acl($user->data);
-    $user->setup();
-    $user->session_kill();
+    if($user != NULL) {
+      $user->session_begin();
+      $auth->acl($user->data);
+      $user->setup();
+      $user->session_kill();
+    }
   }
 
   private function doWikiLogout() {
-    include_once "Snoopy.php";
+    require_once(CORE_BASE_PATH . 'include/lib/Snoopy.php');
     $snoopy = new Snoopy();
     $snoopy->curl_path = false;
     $wikiroot = BASE_PATH.'addons/mediawiki';

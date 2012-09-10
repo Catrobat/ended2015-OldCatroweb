@@ -34,7 +34,7 @@ abstract class CoreAuthenticationDevice extends CoreAuthentication {
         $user = pg_fetch_assoc($result);
         pg_free_result($result);
 
-        if(intVal($user['id']) >= 0) {
+        if(is_numeric($user['id']) && $user['id'] >= 0) {
           $this->session->userLogin_userId = $user['id'];
           $this->session->userLogin_userNickname = $user['username'];
 

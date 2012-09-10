@@ -42,12 +42,13 @@ public class BlockedIpTests extends BaseTest {
       openLocation();
       blockIp(blockedIp);
       openLocation("catroid/details/" + projectId);
+      ajaxWait();
       assertTrue(isElementPresent(By.xpath("//div[@class='errorMessage']")));
       assertTrue(isTextPresent("Your IP-Address has been blocked."));
 
       openLocation();
-      assertTrue(isElementPresent(By.xpath("//div[@class='errorMessage']")));
-      assertTrue(isTextPresent("Your IP-Address has been blocked."));
+      ajaxWait();
+      assertFalse(isTextPresent("Your IP-Address has been blocked."));
       unblockIp(blockedIp);
     } catch(AssertionError e) {
       captureScreen("BlockedIpTests.blockedIps." + blockedIp);

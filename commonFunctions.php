@@ -90,7 +90,7 @@ function getUsernameBlacklistArray() {
 function initBoardFunctions() {
   define('IN_PHPBB', true);
   global $phpbb_root_path, $phpEx, $user, $db, $config, $cache, $template, $auth;
-  $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : CORE_BASE_PATH.'/addons/board/';
+  $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : CORE_BASE_PATH . 'addons/board/';
   $phpEx = substr(strrchr(__FILE__, '.'), 1);
   require_once($phpbb_root_path . 'common.' . $phpEx);
   require_once($phpbb_root_path .'includes/utf/utf_tools.php');
