@@ -23,19 +23,27 @@
     private $xmlString;
     public function __construct(CoreModule $module) {
       parent::__construct($module);
-      @$this->generateXML();
+      $this->generateXML();
     }
 
     private function generateXML() {
-      $xml = new XML_Serializer();
-      $xml->setOption(XML_SERIALIZER_OPTION_CDATA_SECTIONS, true);
-      $xml->setOption(XML_SERIALIZER_OPTION_DEFAULT_TAG, 'xmlElement');
-      $xml->serialize($this->module->getData());
-      $this->xmlString = '<?xml version="1.0" encoding="UTF-8" ?>'."\n".$xml->getSerializedData();
+      $data = $this->module->getData();
+      
+      $options = array('cdata' => true, 'defaultTagName' => 'xmlElement');
+      if(isset($data['xmlSerializerOptions']) && is_array($data['xmlSerializerOptions'])) {
+        $options = $data['xmlSerializerOptions'];
+        unset($data['xmlSerializerOptions']);
+      }
+      
+      $xml = new XML_Serializer($options);
+      @$xml->serialize($data);
+      $this->xmlString = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n" . $xml->getSerializedData();
     }
 
     public function display() {
-      header("Content-Type: text/xml");
+      header("Cache-Control: no-cache, must-revalidate");
+      header("Expires: Sun, 4 Apr 2004 04:04:04 GMT");
+      header("Content-Type: text/xml; charset=utf-8");
       echo $this->xmlString;
       return true;
     }

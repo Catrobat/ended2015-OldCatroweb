@@ -27,6 +27,20 @@ abstract class CoreAuthenticationNone extends CoreAuthentication {
     if($this->requestFromBlockedIp()) {
       $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked');
     }
+    if(isset($_REQUEST['token']) && strlen($_REQUEST['token']) != 0) {
+      $authToken = strtolower($_REQUEST['token']);
+      $result = pg_execute($this->dbConnection, "get_user_device_login", array($authToken));
+    
+      if($result && pg_num_rows($result) > 0) {
+        $user = pg_fetch_assoc($result);
+        pg_free_result($result);
+    
+        if(is_numeric($user['id']) && $user['id'] >= 0) {
+          $this->session->userLogin_userId = $user['id'];
+          $this->session->userLogin_userNickname = $user['username'];
+        }
+      }
+    }
     return true;
   }
 

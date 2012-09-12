@@ -22,13 +22,19 @@
 
     public function __construct(CoreModule $module) {
       parent::__construct($module);
-      $this->jsonEncodedString = json_encode($this->module->getData());
+      
+      $data = $this->module->getData();
+      if(isset($data['xmlSerializerOptions'])) {
+        unset($data['xmlSerializerOptions']);
+      }
+      
+      $this->jsonEncodedString = json_encode($data);
     }
 
     public function display() {
       header("Cache-Control: no-cache, must-revalidate");
       header("Expires: Sun, 4 Apr 2004 04:04:04 GMT");
-      header("Content-Type: application/json");
+      header("Content-Type: application/json; charset=utf-8");
       echo $this->jsonEncodedString;
 
       return true;
