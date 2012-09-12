@@ -116,7 +116,12 @@ class CoreErrorHandler {
     $this->session->errorExtraInfo = $extraInfo;
     $this->session->errorArgs = $args;
     $this->sendNotificationEmail($type, $code, $extraInfo);
+    
     if(!headers_sent()) {
+      if(defined('UNITTESTS') && UNITTESTS) {
+        return false;
+      }
+    
       header("Location: ".BASE_PATH."catroid/errorPage");
       exit();
     } else {

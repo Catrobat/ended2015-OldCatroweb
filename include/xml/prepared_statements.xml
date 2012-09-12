@@ -17,6 +17,7 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+
 <statements>
     <string name="get_projects_ordered_by_uploadtime">SELECT * FROM projects ORDER BY upload_time DESC</string>
     <string name="get_visible_projects_ordered_by_uploadtime">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY upload_time DESC</string>

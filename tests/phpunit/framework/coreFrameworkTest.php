@@ -85,6 +85,7 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
     foreach($xml->children() as $query) {
       $attributes = $query->attributes();
       $stmtName = strval($attributes['name']);
+      $this->assertLessThan(64, strlen($stmtName),'ERROR: prepared statement name \''.$stmtName.'\' is too long! (max length: 63 characters)');
       $result = pg_query_params('SELECT name FROM pg_prepared_statements WHERE name = $1', array($stmtName));
       $this->assertNotEquals(0, pg_num_rows($result));
     }
