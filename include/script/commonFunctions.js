@@ -16,16 +16,30 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function bindAjaxLoader(basepath) {
-  /*shows the loading div every time we have an Ajax call*/
+function bindAjaxLoader() {
+  var timeoutShow;
+  var timeoutAutohide;
+  
   $(document).ajaxStart(function() {
-    //$("body").append("<div class='webAjaxLoadingContainer' id='webAjaxLoadingContainer'><img class='webAjaxLoadingContainer' src='"+basepath+"images/symbols/ajax_loader_big.gif' /></div>");
-    $("body").append($('<div>').attr('id', 'webAjaxLoadingContainer').
-        addClass('webAjaxLoadingContainer').height($(document).height()));
+    clearTimeout(timeoutShow);
+    clearTimeout(timeoutAutohide);
+
+    timeoutShow = setTimeout('showAjaxLoader()', 200);
+    timeoutAutohide = setTimeout('hideAjaxLoader()', 10000);
   });
   
   $(document).ajaxStop(function() {
-    $("#webAjaxLoadingContainer").remove();
+    hideAjaxLoader();
+    clearTimeout(timeoutShow);
+    clearTimeout(timeoutAutohide);
   });
 }
 
+function showAjaxLoader() {
+  var height = Math.max($(document).height(), $(window).height(), document.documentElement.clientHeight);
+  $("body").append($('<div>').attr('id', 'webAjaxLoadingContainer').height(height));
+}
+
+function hideAjaxLoader() {
+  $("#webAjaxLoadingContainer").remove();
+}
