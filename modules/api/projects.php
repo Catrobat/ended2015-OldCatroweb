@@ -116,7 +116,8 @@ class projects extends CoreAuthenticationNone {
           'Version' => $project['version_name'],
           'Views' => $project['view_count'],
           'Downloads' => $project['download_count'],
-          'ProjectUrl' => BASE_PATH . 'catroid/details/' . $project['id']
+          'ProjectUrl' => BASE_PATH . 'catroid/details/' . $project['id'],
+          'DownloadUrl' => BASE_PATH . 'catroid/download/' . $project['id'] . PROJECTS_EXTENSION
       );
       array_push($tempProjectList, $currentProject);
     }

@@ -304,6 +304,23 @@ function getTimeInWords($fromTime, $languageHandler, $toTime = -1) {
   return $languageHandler->getString('template_common_over_years_ago', round(floatval($minutes)/525600));
 }
 
+function getLanguageOptions($languageHandler) {
+  $supportedLanguages = getSupportedLanguagesArray($languageHandler);
+  $optionList = "";
+  $selectedLanguage = "";
+  foreach($supportedLanguages as $lang => $details) {
+    if($details['supported']) {
+      $selected = "";
+      if(strcmp($lang, $languageHandler->getLanguage()) == 0) {
+        $selected = ' selected="selected"';
+        $selectedLanguage = $details['name'];
+      }
+      $optionList .= '<option' . $selected . ' value="' . $lang . '">' . $details['name'] . ' - ' . $details['nameNative'] . '</option>';
+    }
+  }
+  return array('html' => $optionList, 'selected' => $selectedLanguage);
+}
+
 function getSupportedLanguagesArray($languageHandler) {
   $supportedLanguages = array(
     'ar'=>array('name'=>$languageHandler->getString('template_common_arabic'), 'nameNative'=>'‫العربية‬', 'supported'=>false),

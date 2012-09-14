@@ -285,8 +285,7 @@ class registration extends CoreAuthenticationNone {
       }
     }
 
-    $result = pg_execute($this->dbConnection, "get_user_row_by_username_or_username_clean", array($username, $usernameClean)) or
-              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $result = pg_execute($this->dbConnection, "get_user_row_by_username_or_username_clean", array($username, $usernameClean));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
     }
@@ -390,9 +389,9 @@ class registration extends CoreAuthenticationNone {
   }
   
   public function sendRegistrationEmail($postData, $sendPasswordRecoveryEmail) {
-    $catroidProfileUrl = BASE_PATH.'catroid/profile';
-    $catroidLoginUrl = BASE_PATH.'catroid/login';
-    $catroidRecoveryUrl = BASE_PATH.'catroid/passwordrecovery';
+    $catroidProfileUrl = BASE_PATH . 'catroid/profile';
+    $catroidLoginUrl = BASE_PATH . 'catroid/login';
+    $catroidRecoveryUrl = BASE_PATH . 'catroid/passwordrecovery';
     
     if($sendPasswordRecoveryEmail) {
       $username = $postData['registrationUsername'];  

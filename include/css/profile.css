@@ -15,7 +15,6 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
 div.profileMain
 {
   margin-left: 2.5%;
@@ -84,8 +83,7 @@ div.errorMsg {
   background: #fff;
 }
 
-input.profileSubmitButton
-{
+input.profileSubmitButton {
   margin-top: 2.5%;
   margin-bottom: 2.5%;
   color: black;
@@ -93,3 +91,47 @@ input.profileSubmitButton
   font-weight: bold;
 }
 
+
+
+div.profileItem {
+  margin: 25px 0 25px 0;
+  min-height: 40px;
+}
+
+div.profileItem div {
+  float: left;
+}
+
+div.profileItem .label {
+  width: 160px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;  
+}
+
+
+div.menuColumnLabels {
+   float: left;
+   width: 20%;
+   font-weight: bold;
+}
+
+div.menuColumnLabels div {
+  padding:15px 10px 15px 0;
+  min-height:40px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+div.menuColumnContent div {
+  padding:15px 10px 15px 0;
+  min-height:40px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+img.avatar {
+  float: right;
+  border: 2px solid #777;
+  border-radius:5px;
+}

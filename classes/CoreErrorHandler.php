@@ -106,15 +106,9 @@ class CoreErrorHandler {
   }
 
   public function showErrorPage($type, $code, $extraInfo = '') {
-    $numargs = func_num_args();
-    $args = array();
-    if($numargs > 3) {
-      $args = array_slice(func_get_args(), 3);
-    }
     $this->session->errorType = $type;
     $this->session->errorCode = $code;
     $this->session->errorExtraInfo = $extraInfo;
-    $this->session->errorArgs = $args;
     $this->sendNotificationEmail($type, $code, $extraInfo);
     if(!headers_sent()) {
       header("Location: ".BASE_PATH."catroid/errorPage");

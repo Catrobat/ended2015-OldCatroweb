@@ -53,6 +53,9 @@
     <viewer>
     	<string name="html_file_not_found">This page cannot be displayed.</string>
     	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
+    	<string name="ajax_took_too_long">Sorry something went wrong, please try again.</string>
+      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
+      <string name="user_is_blocked">Your Account has been blocked.</string>
     </viewer>
     <auth>
     	<string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
@@ -61,7 +64,7 @@
     	<string name="catroid_authentication_failed">Sorry, there was a problem: check your nickname and password.</string>
     	<string name="wiki_api_response_incorrect">Ooooops something went wrong. Please try again!</string>
     	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your nickname and password!</string>
-		<string name="device_auth_username_exists">Sorry, your nickname is already in use.</string>
+			<string name="device_auth_username_exists">Sorry, your nickname is already in use.</string>
       <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
     </auth>
     <registration>
@@ -101,7 +104,9 @@
       <string name="password_old_missing">The old password is missing.</string>
       <string name="password_old_wrong">The old password was incorrect.</string>
       <string name="password_new_missing">The new password is missing.</string>
-      <string name="password_new_length_invalid">The new password must have at least {*minimumPasswordLength*} characters.</string>
+      <string name="password_new_too_short">The new password must have at least {*minimumPasswordLength*} characters.</string>
+      <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
+			<string name="password_new_board_update_failed">There was a problem while updating the password.</string>
       <string name="username_password_equal">The password must differ from the nickname.</string>
       <string name="email_address_exists">The email address already exists.</string>
       <string name="email_update_failed">There was a problem while updating the email address.</string>
@@ -111,10 +116,6 @@
       <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
     	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
     </profile>
-    <viewer>
-      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
-      <string name="user_is_blocked">Your Account has been blocked.</string>
-    </viewer>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
       <string name="pootle_load_xlf_failed">Could not load XLF-file from {*source*}.</string>

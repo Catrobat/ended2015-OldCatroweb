@@ -1,0 +1,93 @@
+<?php
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
+ *    Copyright (C) 2010-2012 The Catroid Team 
+ *    (<http://code.google.com/p/catroid/wiki/Credits>)
+ *
+ *    This program is free software: you can redistribute it and/or modify
+ *    it under the terms of the GNU Affero General Public License as
+ *    published by the Free Software Foundation, either version 3 of the
+ *    License, or (at your option) any later version.
+ *
+ *    This program is distributed in the hope that it will be useful,
+ *    but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ *    GNU Affero General Public License for more details.
+ *
+ *    You should have received a copy of the GNU Affero General Public License
+ *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ */
+?>
+      <div class="webMainMiddle">
+          <div class="blueBoxMain">
+              <div class="webMainContent">
+                <div class="webMainContentTitle">
+                  <?php echo $this->languageHandler->getString('userTitle'); ?>
+                </div> <!-- webMainContentTitle --> 
+                <div class="profileMain">                
+                  <div class ="whiteBoxMain">
+                    <div class="profileText">
+                    <div class="profileFormContainer">
+                    
+                      <img src="<?php echo BASE_PATH; ?>images/symbols/avatar_boys.png" class="avatar" />
+
+                      <div class="profileItem">
+                        <div class="label"><?php echo $this->languageHandler->getString('name'); ?></div>
+                        <div><?php echo $this->userData['username']; ?></div>
+                      </div>
+
+
+                      <div class="profileItem">
+                        <div class="label"><?php echo $this->languageHandler->getString('location'); ?></div>
+                        <div>
+                          <?php 
+                            if($this->userData['city'] != "" && $this->userData['country'] != "") {
+                              echo $this->languageHandler->getString('from');
+                              echo " ";
+                            }
+                            
+                            echo $this->userData['city'];
+                            if($this->userData['city'] != "" && $this->userData['country'] != "") {
+                              echo ", ";
+                            }
+
+                            $countries = getCountryArray($this->languageHandler);
+                            if($this->userData['country'] != "") {
+                              echo $countries[$this->userData['country']];
+                            }
+                          ?>
+                        </div>
+                      </div>
+
+                      <div class="profileItem">
+                        <div class="label"><?php echo $this->languageHandler->getString('gender'); ?></div>
+                        <div>
+                          <?php
+                            if($this->userData['gender'] != "") {
+                              echo $this->languageHandler->getString($this->userData['gender']);
+                            }
+                          ?>
+                        </div>
+                      </div>
+
+                      <div class="profileItem">
+                        <div class="label"><?php echo $this->languageHandler->getString('birthday'); ?></div>
+                        <div>
+                          <?php
+                             $months = getMonthsArray($this->languageHandler);
+                             if($this->userData['month'] != "") {
+                               echo $months[intVal($this->userData['month'])] . " ";
+                             }
+                             echo $this->userData['year'];
+                          ?>
+                        </div>
+                      </div>
+                      
+                  </div> <!-- profileFormContainer -->
+                </div> <!-- profile Text -->
+              </div> <!--  White Box -->                
+            </div> <!--  license Main -->                     
+          </div> <!-- mainContent close //-->
+        </div> <!-- blueBoxMain close //-->
+      </div>
+

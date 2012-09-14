@@ -56,7 +56,7 @@ class loadNewestProjects extends CoreAuthenticationNone {
       foreach($projects as $project) {
         $projects[$i]['title'] = $projects[$i]['title'];
         $projects[$i]['title_short'] = makeShortString($project['title'], PROJECT_TITLE_MAX_DISPLAY_LENGTH);
-        $projects[$i]['upload_time'] =  $this->languageHandler->getString('uploaded', getTimeInWords(strtotime($project['upload_time']), $this->languageHandler, time()));
+        $projects[$i]['upload_time'] =  $this->languageHandler->getString('uploaded', getTimeInWords($project['last_activity'], $this->languageHandler, time()));
         $projects[$i]['thumbnail'] = getProjectThumbnailUrl($project['id']);
         $projects[$i]['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $projects[$i]['uploaded_by']);
         $i++;

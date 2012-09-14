@@ -18,6 +18,5 @@
 
 var __baseClassVars = {
   basePath : location.protocol + '//' + location.host + '/',
-  corePath : '',
   ajaxTimeout : 30000
 };

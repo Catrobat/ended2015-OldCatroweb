@@ -16,30 +16,75 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function bindAjaxLoader() {
-  var timeoutShow;
-  var timeoutAutohide;
+var Common = Class.$extend( {
+  __include__ : [__baseClassVars],
+  __init__ : function(languageStrings) {
+    this.languageStrings = languageStrings;
+
+    this.timeoutShowAjaxLoader;
+    this.timeoutAutoHideAjaxLoader;
+    this.timeoutAjaxAnswerBoxVisible;
+    
+    $(document).ajaxStart($.proxy(this.enableAjaxLoader, this));
+    $(document).ajaxStop($.proxy(this.disableAjaxLoader, this));
+  },
   
-  $(document).ajaxStart(function() {
-    clearTimeout(timeoutShow);
-    clearTimeout(timeoutAutohide);
-
-    timeoutShow = setTimeout('showAjaxLoader()', 200);
-    timeoutAutohide = setTimeout('hideAjaxLoader()', 10000);
-  });
+  enableAjaxLoader : function() {
+    clearTimeout(this.timeoutShowAjaxLoader);
+    clearTimeout(this.timeoutAutoHideAjaxLoader);
+    this.timeoutShowAjaxLoader = setTimeout($.proxy(function(){ this.showAjaxLoader(); }, this), 200);
+    this.timeoutAutoHideAjaxLoader = setTimeout($.proxy(function(){ this.showAjaxErrorMsg(this.languageStrings.ajax_took_too_long); this.hideAjaxLoader(); }, this), 10000);
+  },
   
-  $(document).ajaxStop(function() {
-    hideAjaxLoader();
-    clearTimeout(timeoutShow);
-    clearTimeout(timeoutAutohide);
-  });
-}
+  disableAjaxLoader : function() {
+    this.hideAjaxLoader();
+    clearTimeout(this.timeoutShowAjaxLoader);
+    clearTimeout(this.timeoutAutoHideAjaxLoader);
+  },
 
-function showAjaxLoader() {
-  var height = Math.max($(document).height(), $(window).height(), document.documentElement.clientHeight);
-  $("body").append($('<div>').attr('id', 'webAjaxLoadingContainer').height(height));
-}
+  showAjaxLoader : function() {
+    var height = Math.max($(document).height(), $(window).height(), document.documentElement.clientHeight);
+    $('body').append($('<div>').attr('id', 'webAjaxLoadingContainer').height(height));
+  },
 
-function hideAjaxLoader() {
-  $("#webAjaxLoadingContainer").remove();
-}
+  hideAjaxLoader : function() {
+    $("#webAjaxLoadingContainer").remove();
+  },
+
+  showAjaxMsg : function(message) {
+    this.displayMessage(message, 'default');
+  },
+
+  showAjaxSuccessMsg : function(message) {
+    this.displayMessage(message, 'success');
+  },
+  
+  showAjaxErrorMsg : function(message) {
+    this.displayMessage(message, 'error');
+  },
+  
+  displayAjaxAnswerBox : function() {
+    $(document).scrollTop($(".webMainTop").height());
+    
+    $("#ajaxAnswerBox").delay(400).slideDown(500);
+    clearTimeout(this.timeoutAjaxAnswerBoxVisible);
+    this.timeoutAjaxAnswerBoxVisible = setTimeout(function(){ $("#ajaxAnswerBox").slideUp(1000); }, 10000);
+  },
+  
+  displayMessage : function(message, type) {
+    this.displayAjaxAnswerBox();
+    var ajaxMessage = $('<div>').text(message);
+    
+    switch(type) {
+      case "success":
+        ajaxMessage.addClass('success');
+        break;
+      case "error":
+        ajaxMessage.addClass('error');
+        break;
+    }
+    
+    setTimeout(function(){ ajaxMessage.remove(); }, 11000);
+    $("#ajaxAnswerBox").children(":first").append(ajaxMessage);
+  }
+});

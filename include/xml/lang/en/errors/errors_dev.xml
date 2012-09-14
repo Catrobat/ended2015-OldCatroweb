@@ -53,6 +53,9 @@
     <viewer>
     	<string name="html_file_not_found">Could not find html viewer file.</string>
     	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
+    	<string name="ajax_took_too_long">AJAX request took too long.</string>
+    	<string name="ip_is_blocked">Your IP-Address has been blocked.</string>
+      <string name="user_is_blocked">Your Account has been blocked.</string>
     </viewer>
     <auth>
     	<string name="password_or_username_wrong">The password or username was incorrect.</string>
@@ -101,7 +104,9 @@
       <string name="password_old_missing">The old password is missing.</string>
       <string name="password_old_wrong">The old password was incorrect.</string>
       <string name="password_new_missing">The new password is missing.</string>
-      <string name="password_new_length_invalid">The new password must have at least {*minimumPasswordLength*} characters.</string>
+      <string name="password_new_too_short">The new password must have at least {*minimumPasswordLength*} characters.</string>
+      <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
+      <string name="password_new_board_update_failed">Failed to update the board password.</string>
       <string name="username_password_equal">The password must differ from the nickname.</string>
       <string name="email_address_exists">The email address already exists.</string>
       <string name="email_update_failed">There was a problem while updating the email address.</string>
@@ -111,10 +116,6 @@
       <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
     	<string name="country_codes_not_available">There are no countries available in DB.</string>
     </profile>
-    <viewer>
-      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
-      <string name="user_is_blocked">Your Account has been blocked.</string>
-    </viewer>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
       <string name="pootle_load_xlf_failed">Could not load XLF-file from {*source*}.</string>
