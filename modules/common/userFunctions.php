@@ -27,6 +27,20 @@ class UserFunctions extends CoreAuthenticationNone {
   public function __default() {
 	}
 
+	public function checkUserValid($username) {
+	  $username = trim($username);
+	  $result = pg_execute($this->dbConnection, "get_user_row_by_username", array($username));
+	  
+	  if(!$result) {
+	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
+	  }
+	  $userValid = (pg_num_rows($result) == 1);
+	  pg_free_result($result);
+	  
+	  return $userValid; 
+	}
+
 	public function checkPassword($username, $password) {
 	  $password = trim(strval($password));
 	  if($password == '') {
@@ -48,6 +62,19 @@ class UserFunctions extends CoreAuthenticationNone {
 	    throw new Exception($this->errorHandler->getError('profile', 'password_new_too_long', '', USER_MAX_PASSWORD_LENGTH),
 	        STATUS_CODE_USER_PASSWORD_TOO_LONG);
 	  }
+	}
+	
+	public function checkLoginData($username, $password) {
+	  $result = pg_execute($this->dbConnection, "get_user_login", array(getCleanedUsername($username), md5($password)));
+	  if(!$result) {
+	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
+	  }
+	  
+	  $loginSuccess = (pg_num_rows($result) == 1);
+	  pg_free_result($result);
+
+	  return $loginSuccess;
 	}
 	
 	public function checkEmail($email) {
@@ -81,16 +108,169 @@ class UserFunctions extends CoreAuthenticationNone {
 	}
 	
 	public function login($username, $password) {
-	  $result = pg_execute($this->dbConnection, "get_user_login", array(getCleanedUsername($username), md5($password)));
+	  $this->loginCatroid($username, $password);
+	  $this->loginBoard($username, $password);
+	  $this->loginWiki($username, $password);
+	  $this->setUserLanguage($this->session->userLogin_userId);
+	}
+	
+	private function loginCatroid($username, $password) {
+	  $user = getCleanedUsername($username);
+	  $md5pass = md5($password);
+	
+	  $result = pg_execute($this->dbConnection, "get_user_login", array($user, $md5pass));
 	  if(!$result) {
 	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
 	        STATUS_CODE_SQL_QUERY_FAILED);
 	  }
-	  
-	  $loginSuccess = (pg_num_rows($result) == 1);
+	
+	  $row = pg_fetch_assoc($result);
 	  pg_free_result($result);
+	
+	  $ip = '';
+	  if(isset($_SERVER["REMOTE_ADDR"])) {
+	    $ip = $_SERVER["REMOTE_ADDR"];
+	  }
+	
+	  if(is_array($row)) {
+	    $this->session->userLogin_userId = $row['id'];
+	    $this->session->userLogin_userNickname = $row['username'];
+	
+	    $result = pg_execute($this->dbConnection, "reset_failed_attempts", array($ip));
+	    if(!$result) {
+	      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	          STATUS_CODE_SQL_QUERY_FAILED);
+	    }
+	    pg_free_result($result);
+	  } else {
+	    $result = pg_execute($this->dbConnection, "save_failed_attempts", array($ip));
+	    if(!$result) {
+	      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	          STATUS_CODE_SQL_QUERY_FAILED);
+	    }
+	    pg_free_result($result);
+	    throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'),
+	        STATUS_CODE_AUTHENTICATION_FAILED);
+	  }
+	}
+	
+	private function loginBoard($username, $password) {
+	  global $user, $auth;
+	
+	  $user->session_begin();
+	  $auth->acl($user->data);
+	  $user->setup();
+	
+	  $auth->login($username, $password, false, 1);
+	  if(intVal($user->data['user_id']) <= 0) {
+	    throw new Exception($this->errorHandler->getError('auth', 'board_authentication_failed'),
+	        STATUS_CODE_AUTHENTICATION_FAILED);
+	  }
+	}
+	
+	private function loginWiki($username, $password) {
+	  require_once(CORE_BASE_PATH . 'include/lib/Snoopy.php');
+	  $snoopy = new Snoopy();
+	  $snoopy->curl_path = false;
+	  $wikiroot = BASE_PATH . 'addons/mediawiki';
+	  $apiUrl = $wikiroot . "/api.php";
+	
+	  $loginVars['action'] = "login";
+	  //wiki login needs first letter capitalized
+	  $loginVars['lgname'] = mb_convert_case(getCleanedUsername($username), MB_CASE_TITLE, "UTF-8");
+	  $loginVars['lgpassword'] = $password;
+	  $loginVars['format'] = "php";
+	
+	  $snoopy->submit($apiUrl, $loginVars);
+	  $response = unserialize($snoopy->results);
+	  if(!isset($response['login']['result']) || !isset($response['login']['token']) ||
+	      !isset($response['login']['cookieprefix']) || !isset($response['login']['sessionid'])) {
+	    throw new Exception($this->errorHandler->getError('auth', 'wiki_api_response_incorrect', $snoopy->results),
+	        STATUS_CODE_AUTHENTICATION_FAILED);
+	  }
+	
+	  $loginVars['lgtoken'] = $response['login']['token'];
+	  $cookiePrefix = $response['login']['cookieprefix'];
+	  $snoopy->cookies[$cookiePrefix . "_session"] = $response['login']['sessionid'];
+	
+	  $snoopy->submit($apiUrl, $loginVars);
+	  $response = unserialize($snoopy->results);
+	
+	  if(!isset($response['login']['result']) || !isset($response['login']['lgtoken']) ||
+	      !isset($response['login']['cookieprefix']) || !isset($response['login']['lgusername']) ||
+	      !isset($response['login']['lgtoken']) || !isset($response['login']['sessionid'])) {
+	    throw new Exception($this->errorHandler->getError('auth', 'wiki_api_response_incorrect', $snoopy->results),
+	        STATUS_CODE_AUTHENTICATION_FAILED);
+	  }
+	
+	  $cookieExpire = 0;//time() + (60*60*24*2);
+	  $cookieDomain = '';
+	
+	  setcookie($cookiePrefix . 'UserName', $response['login']['lgusername'], $cookieExpire, "/", $cookieDomain, false, true);
+	  setcookie($cookiePrefix . 'UserID', $response['login']['lguserid'], $cookieExpire, "/", $cookieDomain, false, true);
+	  setcookie($cookiePrefix . 'Token', $response['login']['lgtoken'], $cookieExpire, "/", $cookieDomain, false, true);
+	  setcookie($cookiePrefix . '_session', $response['login']['sessionid'], 0, "/", $cookieDomain, false, true);
+	}
 
-	  return $loginSuccess;
+	private function setUserLanguage($userId) {
+	  $result = pg_execute($this->dbConnection, "get_user_language", array($userId));
+	
+	  if(!$result) {
+	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
+	  }
+	
+	  $row = pg_fetch_assoc($result);
+	  pg_free_result($result);
+	
+	  if(strlen($row['language']) > 1) {
+	    $this->languageHandler->setLanguageCookie($row['language']);
+	  }
+	}
+
+	public function logout() {
+	  $this->logoutCatroid();
+	  $this->logoutBoard();
+	  $this->logoutWiki();
+	}
+
+	private function logoutCatroid() {
+	  $this->session->userLogin_userId = 0;
+	  $this->session->userLogin_userNickname = '';
+	}
+	
+	private function logoutBoard() {
+	  global $user, $auth;
+	
+	  if($user != NULL) {
+	    $user->session_begin();
+	    $auth->acl($user->data);
+	    $user->setup();
+	    $user->session_kill();
+	  }
+	}
+	
+	private function logoutWiki() {
+	  require_once(CORE_BASE_PATH . 'include/lib/Snoopy.php');
+	  $snoopy = new Snoopy();
+	  $snoopy->curl_path = false;
+	  $wikiroot = BASE_PATH.'addons/mediawiki';
+	  $apiUrl = $wikiroot . "/api.php?action=logout";
+	
+	  $logoutVars['action'] = "logout";
+	  $snoopy->submit($apiUrl, $logoutVars);
+	  $response = $snoopy->results;
+	
+	  $now = date('YmdHis', time());
+	  $cookieExpires = time() + (60*60*24*2);
+	  $cookieExpired = time() - (60*60*24*2);
+	  $cookieDomain = '';
+	
+	  setcookie('catrowikiLoggedOut', $now, $cookieExpires, "/", $cookieDomain, false, true);
+	  setcookie('catrowiki_session', '', $cookieExpired, "/", $cookieDomain, false, true);
+	  setcookie('catrowikiUserID', '', $cookieExpired, "/", $cookieDomain, false, true);
+	  setcookie('catrowikiUserName', '', $cookieExpired, "/", $cookieDomain, false, true);
+	  setcookie('catrowikiToken', '', $cookieExpired, "/", $cookieDomain, false, true);
 	}
 	
 	public function updatePassword($newPassword) {
@@ -202,6 +382,23 @@ class UserFunctions extends CoreAuthenticationNone {
 	  }
 	}
 	
+	public function getUserData($username) {
+	  $username = trim(strval($username));
+	  $result = pg_execute($this->dbConnection, "get_user_row_by_username", array($username));
+	  
+	  if(!$result) {
+      return array();	    
+	  }
+	  
+	  $user = array();
+	  if(pg_num_rows($result) > 0) {
+	    $user = pg_fetch_assoc($result);
+	  }
+	  
+	  pg_free_result($result);
+	  return $user;
+	}
+
 	public function getEmailAddresses($userId) {
 	  $result = pg_execute($this->dbConnection, "get_user_emails_by_id", array(intval($userId)));
 	  if(!$result) {
@@ -238,8 +435,12 @@ class UserFunctions extends CoreAuthenticationNone {
 	
 	public function deleteEmailAddress($email) {
 	  $userId = intval($this->session->userLogin_userId);
+	  $numberOfEmailAddresses = count($this->getEmailAddresses($userId));
 	
-	  if($userId == 1 && count($this->getEmailAddresses($userId)) < 3) {
+	  if($userId == 1 && $numberOfEmailAddresses < 3) {
+	    throw new Exception($this->errorHandler->getError('profile', 'email_update_of_catroweb_failed'),
+	        STATUS_CODE_USER_DELETE_EMAIL_FAILED);
+	  } elseif($numberOfEmailAddresses < 2) {
 	    throw new Exception($this->errorHandler->getError('profile', 'email_update_of_catroweb_failed'),
 	        STATUS_CODE_USER_DELETE_EMAIL_FAILED);
 	  }

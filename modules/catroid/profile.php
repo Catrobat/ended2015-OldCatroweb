@@ -19,57 +19,48 @@
  */
 
 class profile extends CoreAuthenticationUser {
-  protected $user;
 
   public function __construct() {
     parent::__construct();
     $this->addCss('profile.css');
     $this->addJs("profile.js");
     
-    require_once(CORE_BASE_PATH . 'modules/common/userFunctions.php');
-    $this->user = new UserFunctions();
+    $this->loadModule('common/userFunctions');
   }
 
   public function __authenticationFailed() {
-    header("Location: " . BASE_PATH . "catroid/login/?requesturi=catroid/profile/");
+    header("Location: " . BASE_PATH . "catroid/login/?requestUri=catroid/profile/");
+    exit();
   }
   
   public function __default() {
-    $userData = array();
+    $showUser = "";
+    $ownProfile = false;
     
-    if(isset($_GET['method'])) {
+    if(isset($_GET['method']) && trim($_GET['method']) != '') {
       if(strcmp($_GET['method'], $this->session->userLogin_userNickname) == 0) {
-        $this->htmlFile = "myProfile.php";
-        $userData = $this->retrieveProfileData($this->session->userLogin_userNickname);
-        $this->initProfile($userData);
-      } else if ($this->checkUserValid($_GET['method'])) {       
-        $this->htmlFile = "userProfile.php";
-        $userData = $this->retrieveProfileData($_GET['method']);
+        $showUser = $this->session->userLogin_userNickname;
+        $ownProfile = true;
+      } else if($this->userFunctions->checkUserValid($_GET['method'])) {
+        $showUser = checkUserInput($_GET['method']);
+        $ownProfile = false;
       } else {
-        $this->errorHandler->showErrorpage('profile','no such user');
+        $this->errorHandler->showErrorPage('profile','no_such_user');
       }
     } else {
-      $this->htmlFile = "myProfile.php";
-      $userData = $this->retrieveProfileData($this->session->userLogin_userNickname);
-      $this->initProfile($userData);
+      $showUser = $this->session->userLogin_userNickname;
+      $ownProfile = true;
     }
     
-    $this->setWebsiteTitle($this->languageHandler->getString('title', $this->requestedUser));
-    $this->userData = $userData;
-  }
-  
-  private function retrieveProfileData($username) {
-    $username = trim(strval($username));
-    $result = pg_execute($this->dbConnection, "get_user_row_by_username", array($username)) or
-                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    
-    $user = array();
-    if(pg_num_rows($result) > 0) {
-      $user = pg_fetch_assoc($result);  
+    $this->setWebsiteTitle($this->languageHandler->getString('title', $showUser));
+    $this->userData = $this->userFunctions->getUserData($showUser);
+
+    if($ownProfile) {
+      $this->initProfile($this->userData);
+      $this->loadViewer('myProfile');
+    } else {
+      $this->loadViewer('userProfile');
     }
-    
-    pg_free_result($result);
-    return $user;
   }
   
   //--------------------------------------------------------------------------------------------------------------------
@@ -85,7 +76,7 @@ class profile extends CoreAuthenticationUser {
   private function generateUserEmailList() {
     $userEmailList = '';
     
-    foreach($this->user->getEmailAddresses($this->session->userLogin_userId) as $email) {
+    foreach($this->userFunctions->getEmailAddresses($this->session->userLogin_userId) as $email) {
       $userEmailList .= '<div style="width:408px; padding: 10px 0 10px 0;">' . $email . '</div><button name="' . $email . '" style="margin: 5px;" class="button orange compact"><img name="' . $email . '" width="24px" src="' . BASE_PATH . 'images/symbols/trash_recyclebin.png"></button><br />';
     }
     
@@ -162,7 +153,7 @@ class profile extends CoreAuthenticationUser {
     try {
       $this->checkOldPassword($oldPassword);
       $this->checkNewPassword($newPassword);
-      $this->user->updatePassword($newPassword);
+      $this->userFunctions->updatePassword($newPassword);
       
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('password_success');
@@ -178,7 +169,7 @@ class profile extends CoreAuthenticationUser {
           STATUS_CODE_PROFILE_OLD_PASSWORD_MISSING);
     }
   
-    $loginSuccess = $this->user->login($this->session->userLogin_userNickname, $oldPassword);
+    $loginSuccess = $this->userFunctions->checkLoginData($this->session->userLogin_userNickname, $oldPassword);
     if(!$loginSuccess) {
       throw new Exception($this->errorHandler->getError('profile', 'password_old_wrong'),
           STATUS_CODE_PROFILE_OLD_PASSWORD_WRONG);
@@ -190,19 +181,20 @@ class profile extends CoreAuthenticationUser {
       throw new Exception($this->errorHandler->getError('profile', 'password_new_missing'),
           STATUS_CODE_PROFILE_NEW_PASSWORD_MISSING);
     }
-    $this->user->checkPassword($this->session->userLogin_userNickname, $newPassword);
+    $this->userFunctions->checkPassword($this->session->userLogin_userNickname, $newPassword);
   }
 
   //--------------------------------------------------------------------------------------------------------------------
   public function getEmailListRequest() {
     $this->answer = $this->generateUserEmailList();
+    return;
   }
   
   public function addEmailRequest() {
     $addEmail = (isset($_POST['profileEmail']) ? trim(strval($_POST['profileEmail'])) : '');
     
     try {
-      $this->user->addEmailAddress($this->session->userLogin_userId, $addEmail);
+      $this->userFunctions->addEmailAddress($this->session->userLogin_userId, $addEmail);
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('email_add_success');
     } catch(Exception $e) {
@@ -215,7 +207,7 @@ class profile extends CoreAuthenticationUser {
     $deleteEmail = (isset($_POST['profileEmail']) ? trim(strval($_POST['profileEmail'])) : '');
     
     try {
-      $this->user->deleteEmailAddress($deleteEmail);
+      $this->userFunctions->deleteEmailAddress($deleteEmail);
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('email_delete_success');
     } catch(Exception $e) {
@@ -229,7 +221,7 @@ class profile extends CoreAuthenticationUser {
     $city = (isset($_POST['city']) ? trim(strval($_POST['city'])) : '');
   
     try {
-      $this->user->updateCity($city);
+      $this->userFunctions->updateCity($city);
   
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('city_success');
@@ -244,7 +236,7 @@ class profile extends CoreAuthenticationUser {
     $country = (isset($_POST['country']) ? trim(strval($_POST['country'])) : '');
   
     try {
-      $this->user->updateCountry($country);
+      $this->userFunctions->updateCountry($country);
   
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('country_success');
@@ -259,7 +251,7 @@ class profile extends CoreAuthenticationUser {
     $gender = (isset($_POST['gender']) ? trim(strval($_POST['gender'])) : '');
   
     try {
-      $this->user->updateGender($gender);
+      $this->userFunctions->updateGender($gender);
   
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('gender_success');
@@ -273,9 +265,9 @@ class profile extends CoreAuthenticationUser {
   public function updateBirthdayRequest() {
     $birthdayMonth = (isset($_POST['birthdayMonth']) ? intval($_POST['birthdayMonth']) : '');
     $birthdayYear = (isset($_POST['birthdayYear']) ? intval($_POST['birthdayYear']) : '');
-  
+
     try {
-      $this->user->updateBirthday($birthdayMonth, $birthdayYear);
+      $this->userFunctions->updateBirthday($birthdayMonth, $birthdayYear);
   
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('birthday_success');

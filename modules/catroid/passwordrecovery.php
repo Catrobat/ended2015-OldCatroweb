@@ -154,7 +154,7 @@ class passwordrecovery extends CoreAuthenticationNone {
         return false;
       }
       $this->saving_password = $this->languageHandler->getString('saving_password');
-      $this->answer_ok = $this->languageHandler->getString('password_ok'); //.'&requesturi=catroid/profile'
+      $this->answer_ok = $this->languageHandler->getString('password_ok'); //.'&requestUri=catroid/profile'
       $this->username = $username;
 
     }

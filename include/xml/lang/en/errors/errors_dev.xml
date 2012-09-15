@@ -54,6 +54,7 @@
     	<string name="html_file_not_found">Could not find html viewer file.</string>
     	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
     	<string name="ajax_took_too_long">AJAX request took too long.</string>
+    	<string name="ajax_timed_out">AJAX request timed out.</string>
     	<string name="ip_is_blocked">Your IP-Address has been blocked.</string>
       <string name="user_is_blocked">Your Account has been blocked.</string>
     </viewer>

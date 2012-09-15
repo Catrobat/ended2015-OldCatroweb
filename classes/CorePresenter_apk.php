@@ -17,34 +17,28 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-  class CorePresenter_apk extends CorePresenterCommon
-  {
-      public function __construct(CoreModule $module)
-      {
-          parent::__construct($module);
-      }
-
-      public function display()
-      {
-          $data = $this->module->getData();
-          $file = CORE_BASE_PATH.PROJECTS_DIRECTORY.$data['id'].APP_EXTENSION;
-          $filename = $data['file_name'];
-          if(is_file($file)) {
-            header("Content-type: application/vnd.android.package-archive");
-            header('Content-Disposition: attachment; filename="'.urlencode(utf8_encode($filename)).APP_EXTENSION.'"');
-            readfile($file);
-          } else {
-            $this->module->errorHandler->showErrorPage('download', 'file_not_found', $file);
-            exit();
-          }
-
-          return true;
-      }
-
-      public function __destruct()
-      {
-          parent::__destruct();
-      }
+class CorePresenter_apk extends CorePresenterCommon {
+  public function __construct(CoreModule $module) {
+    parent::__construct($module);
   }
 
+  public function display() {
+    $data = $this->module->getData();
+    $file = CORE_BASE_PATH.PROJECTS_DIRECTORY . $data['id'] . APP_EXTENSION;
+    $filename = $data['file_name'];
+    if(is_file($file)) {
+      header("Content-type: application/vnd.android.package-archive");
+      header('Content-Disposition: attachment; filename="' . urlencode(utf8_encode($filename)) . APP_EXTENSION . '"');
+      readfile($file);
+    } else {
+      $this->module->errorHandler->showErrorPage('download', 'file_not_found', $file);
+      exit();
+    }
+    return true;
+  }
+
+  public function __destruct() {
+    parent::__destruct();
+  }
+}
 ?>

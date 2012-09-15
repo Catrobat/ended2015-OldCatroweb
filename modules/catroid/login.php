@@ -23,18 +23,64 @@ class login extends CoreAuthenticationNone {
     parent::__construct();
     $this->htmlHeaderFile = 'htmlLoginHeaderTemplate.php';
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
+    $this->loadModule('common/userFunctions');
   }
 
   public function __default() {
     if($this->session->userLogin_userId > 0) {
-      if(isset($_POST['requesturi'])) {
-        header("Location: ".BASE_PATH.$_POST['requesturi']);
-        exit;
+      if(isset($_REQUEST['requestUri'])) {
+        header('Location: ' . BASE_PATH . $_REQUEST['requestUri']);
+        exit();
       } else {
-        header("Location: ".BASE_PATH."catroid/index");
-        exit;
+        header('Location: ' . BASE_PATH . 'catroid/index');
+        exit();
       }
+    } else {
+      $this->loadViewer('login');
     }
+  }
+
+  public function loginRequest() {
+    try {
+      if(!isset($_POST)) {
+        throw new Exception($this->errorHandler->getError('registration', 'postdata_missing'),
+            STATUS_CODE_LOGIN_MISSING_DATA);
+      }
+  
+      $username = (isset($_POST['loginUsername'])) ? checkUserInput(trim($_POST['loginUsername'])) : '';
+      if($username == '') {
+        throw new Exception($this->errorHandler->getError('registration', 'username_missing'),
+            STATUS_CODE_LOGIN_MISSING_USERNAME);
+      }
+  
+      if(!isset($_POST['loginPassword']) || $_POST['loginPassword'] == '') {
+        throw new Exception($this->errorHandler->getError('registration', 'password_missing'),
+            STATUS_CODE_LOGIN_MISSING_PASSWORD);
+      }
+  
+      $this->userFunctions->login($username, $_POST['loginPassword']);
+  
+      if($this->requestFromBlockedIp()) {
+        throw new Exception($this->errorHandler->getError('viewer', 'ip_is_blocked'),
+            STATUS_CODE_AUTHENTICATION_FAILED);
+      }
+      if($this->requestFromBlockedUser()) {
+        throw new Exception($this->errorHandler->getError('viewer', 'user_is_blocked'),
+            STATUS_CODE_AUTHENTICATION_FAILED);
+      }
+  
+      $this->statusCode = STATUS_CODE_OK;
+    } catch(Exception $e) {
+      $this->logoutRequest();
+      $this->statusCode = $e->getCode();
+      $this->answer = $e->getMessage();
+    }
+  }
+  
+  public function logoutRequest() {
+    $this->userFunctions->logout();
+    $this->statusCode = STATUS_CODE_OK;
+    $this->answer = $this->languageHandler->getString('catroid_logout_success');
   }
 
   public function __destruct() {

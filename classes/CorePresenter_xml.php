@@ -20,23 +20,22 @@
   require_once('XML/Serializer.php');
 
   class CorePresenter_xml extends CorePresenterCommon  {
+    private $xmlOptions;
     private $xmlString;
+    
     public function __construct(CoreModule $module) {
       parent::__construct($module);
-      $this->generateXML();
-    }
-
-    private function generateXML() {
-      $data = $this->module->getData();
       
-      $options = array('cdata' => true, 'defaultTagName' => 'xmlElement');
-      if(isset($data['xmlSerializerOptions']) && is_array($data['xmlSerializerOptions'])) {
-        $options = $data['xmlSerializerOptions'];
-        unset($data['xmlSerializerOptions']);
+      $this->xmlOptions = array('cdata' => true, 'defaultTagName' => 'xmlElement');
+      if(is_array($this->xmlSerializerOptions)) {
+        $this->xmlOptions = $this->xmlSerializerOptions;
       }
-      
-      $xml = new XML_Serializer($options);
-      @$xml->serialize($data);
+
+      $this->module->preHeaderMessages = ob_get_contents();
+      ob_clean();
+
+      $xml = new XML_Serializer($this->xmlOptions);
+      @$xml->serialize($this->module->getData());
       $this->xmlString = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n" . $xml->getSerializedData();
     }
 

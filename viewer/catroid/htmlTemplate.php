@@ -44,7 +44,8 @@
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/commonFunctions.js?<?php echo VERSION; ?>" ></script>
   <script type="text/javascript">
     var languageStringsObject = { 
-      "ajax_took_too_long" : "<?php echo $this->module->errorHandler->getError('viewer', 'ajax_took_too_long'); ?>"
+      "ajax_took_too_long" : "<?php echo $this->module->errorHandler->getError('viewer', 'ajax_took_too_long'); ?>",
+      "ajax_timed_out" : "<?php echo $this->module->errorHandler->getError('viewer', 'ajax_timed_out'); ?>"
     };
     var common = new Common(languageStringsObject);
   </script>
@@ -62,8 +63,10 @@
   <div class="webMainContainer">
 <?php include($this->header);?>
 
-  <div id="ajaxAnswerBox" class="blueBoxMain">
-    <div class="whiteBoxMain"></div>
+  <div id="ajaxAnswerBoxContainer">
+    <div id="ajaxAnswerBox" class="blueBoxMain">
+      <div class="whiteBoxMain"></div>
+    </div>
   </div>
 
 <?php include($this->viewer);?>

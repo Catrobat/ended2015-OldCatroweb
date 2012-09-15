@@ -62,8 +62,8 @@ var Registration = Class.$extend( {
         registrationGender : $("#registrationGender").val()
       }),
       timeout : (this.ajaxTimeout),
-      success : jQuery.proxy(this.registrationSuccess, this),
-      error : jQuery.proxy(this.registrationError, this)
+      success : $.proxy(this.registrationSuccess, this),
+      error : $.proxy(common.ajaxTimedOut, this)
     });
   },
 
@@ -78,10 +78,6 @@ var Registration = Class.$extend( {
       }
       $("#registrationErrorMsg").toggle(true);
     }
-  },
-  
-  registrationError : function(response, errCode) {
-    //TODO add error handling
   },
 
   keydownHandler : function(event) {

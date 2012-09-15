@@ -56,11 +56,12 @@ var Profile = Class.$extend( {
       }),
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.passwordRequestSuccess, this),
-      error : $.proxy(this.profilePasswordRequestSubmitError, this)
+      error : $.proxy(common.ajaxTimedOut, this)
     });
   },
   
   passwordRequestSuccess : function(result) {
+    common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
       $("#profilePasswordInput").toggle(false);
       $("#profileOldPassword").val("");
@@ -71,12 +72,6 @@ var Profile = Class.$extend( {
     }
   },
 
-  profilePasswordRequestSubmitError : function(errCode) {
-    if(errCode == "timeout") {
-      window.location.reload(false);   
-    }
-  },
-
   //-------------------------------------------------------------------------------------------------------------------
   updateEmailListRequest : function() {
     $.ajax({
@@ -84,7 +79,7 @@ var Profile = Class.$extend( {
       url: this.basePath + 'catroid/profile/getEmailListRequest.json',
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.updateEmailList, this),
-      error : $.proxy(this.profilePasswordRequestSubmitError, this)
+      error : $.proxy(common.ajaxTimedOut, this)
     });
   },
   
@@ -118,7 +113,7 @@ var Profile = Class.$extend( {
       }),
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.emailRequestSuccess, this),
-      error : $.proxy(this.profileDeleteEmailRequestSubmitError, this)
+      error : $.proxy(common.ajaxTimedOut, this)
     });
   },
 
@@ -131,11 +126,12 @@ var Profile = Class.$extend( {
       }),
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.emailRequestSuccess, this),
-      error : $.proxy(this.profileDeleteEmailRequestSubmitError, this)
+      error : $.proxy(common.ajaxTimedOut, this)
     });
   },
 
   emailRequestSuccess : function(result) {
+    common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
       $("#addEmailInput").val("");
       this.updateEmailListRequest();
@@ -155,7 +151,7 @@ var Profile = Class.$extend( {
       }),
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(this.profilePasswordRequestSubmitError, this)
+      error : $.proxy(common.ajaxTimedOut, this)
     });
   },  
   
@@ -169,7 +165,7 @@ var Profile = Class.$extend( {
       }),
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(this.profilePasswordRequestSubmitError, this)
+      error : $.proxy(common.ajaxTimedOut, this)
     });
   },  
   
@@ -183,7 +179,7 @@ var Profile = Class.$extend( {
       }),
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(this.profilePasswordRequestSubmitError, this)
+      error : $.proxy(common.ajaxTimedOut, this)
     });
   },  
   
@@ -198,11 +194,12 @@ var Profile = Class.$extend( {
       }),
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(this.profilePasswordRequestSubmitError, this)
+      error : $.proxy(common.ajaxTimedOut, this)
     });
   },  
   
   genericRequestSuccess : function(result) {
+    common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
       common.showAjaxSuccessMsg(result.answer);
     } else {

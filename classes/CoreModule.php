@@ -56,10 +56,16 @@ abstract class CoreModule extends CoreObjectWeb {
     return $this->data;
   }
 
+  public function unsetData($key) {
+    if(isset($this->data[$key])) {
+      unset($this->data[$key]);
+    }
+  }
+
   public static function isValid($module) {
     return (is_object($module) &&
-    $module instanceof CoreModule &&
-    $module instanceof CoreAuthentication);
+      $module instanceof CoreModule &&
+      $module instanceof CoreAuthentication);
   }
 
   public function __set($property, $value) {
@@ -90,13 +96,13 @@ abstract class CoreModule extends CoreObjectWeb {
   
   private function setModuleName() {
     $path = $this->me->getFileName();
-    $path = substr($path, 0, strpos($path, basename($path))-1);
+    $path = substr($path, 0, strpos($path, basename($path)) - 1);
     if(strpos($path, "\\") === false) {
       $needle = '/';
     } else {
       $needle = '\\';
     }
-    $this->moduleName = substr($path, strrpos($path, $needle)+1);
+    $this->moduleName = substr($path, strrpos($path, $needle) + 1);
   }
 
   private function getModuleName() {

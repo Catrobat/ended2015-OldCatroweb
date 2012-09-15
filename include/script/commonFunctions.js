@@ -1,4 +1,5 @@
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -63,8 +64,18 @@ var Common = Class.$extend( {
     this.displayMessage(message, 'error');
   },
   
+  isElementInView: function(element) {
+    var docViewTop = $(window).scrollTop(),
+    docViewBottom = docViewTop + $(window).height(),
+    elemTop = $(element).offset().top,
+    elemBottom = elemTop + $(element).height();
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+  },
+
   displayAjaxAnswerBox : function() {
-    $(document).scrollTop($(".webMainTop").height());
+    if(!this.isElementInView($("#ajaxAnswerBoxContainer"))) {
+      $('html, body').animate({ scrollTop: $(".webMainTop").height() });
+    }
     
     $("#ajaxAnswerBox").delay(400).slideDown(500);
     clearTimeout(this.timeoutAjaxAnswerBoxVisible);
@@ -84,7 +95,18 @@ var Common = Class.$extend( {
         break;
     }
     
-    setTimeout(function(){ ajaxMessage.remove(); }, 11000);
+    setTimeout(function() { ajaxMessage.slideUp(1000, function() { $(this).remove(); }); }, 11000);
+    ajaxMessage.toggle(false).delay(400).slideDown(500);
     $("#ajaxAnswerBox").children(":first").append(ajaxMessage);
+  },
+
+  showPreHeaderMessages : function(result) {
+    if(result.preHeaderMessages) {
+      common.showAjaxMsg(result.preHeaderMessages);
+    }
+  },
+
+  ajaxTimedOut : function(error) {
+    common.showAjaxErrorMsg(common.languageStrings.ajax_timed_out);
   }
 });

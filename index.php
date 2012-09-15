@@ -16,7 +16,8 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-  
+
+  ob_start();
   set_include_path(get_include_path() . PATH_SEPARATOR . './include/lib/' . PATH_SEPARATOR . './modules/catroid/');
   spl_autoload_register('__autoload');
   require_once('config.php');
@@ -34,4 +35,5 @@
   $controller = new CoreController();
   $controller->parseURL($_GET);
   $controller->execute();
+  ob_end_flush();
 ?>
