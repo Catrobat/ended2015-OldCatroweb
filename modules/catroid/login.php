@@ -36,7 +36,7 @@ class login extends CoreAuthenticationNone {
         exit();
       }
     } else {
-      $this->loadViewer('login');
+      $this->loadView('login');
     }
   }
 
@@ -71,7 +71,7 @@ class login extends CoreAuthenticationNone {
   
       $this->statusCode = STATUS_CODE_OK;
     } catch(Exception $e) {
-      $this->logoutRequest();
+      $this->userFunctions->logout();
       $this->statusCode = $e->getCode();
       $this->answer = $e->getMessage();
     }

@@ -83,6 +83,10 @@ var Common = Class.$extend( {
   },
   
   displayMessage : function(message, type) {
+    if(message == null) {
+      message = '';
+    }
+
     this.displayAjaxAnswerBox();
     var ajaxMessage = $('<div>').text(message);
     

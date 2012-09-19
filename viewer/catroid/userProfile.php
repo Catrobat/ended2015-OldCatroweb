@@ -19,72 +19,40 @@
  */
 ?>
       <div class="webMainMiddle">
-          <div class="blueBoxMain">
-              <div class="webMainContent">
-                <div class="webMainContentTitle">
-                  <?php echo $this->languageHandler->getString('userTitle'); ?>
-                </div> <!-- webMainContentTitle --> 
-                <div class="profileMain">                
-                  <div class ="whiteBoxMain">
-                    <div class="profileText">
-                    <div class="profileFormContainer">
+        <div class="blueBoxMain">
+          <div class="webMainContent">
+            <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('userTitle'); ?></div> 
+            <div class="profileMain">                
+              <div class ="whiteBoxMain">
+                <div class="profileFormContainer">
                     
-                      <img src="<?php echo BASE_PATH; ?>images/symbols/avatar_boys.png" class="avatar" />
+                  <div class="avatarContainer">
+                    <img src="<?php echo BASE_PATH; ?>images/symbols/avatar_boys.png" class="avatar" />
+                  </div>
+  
+                  <div class="profileItem">
+                    <div class="label"><?php echo $this->languageHandler->getString('name'); ?></div>
+                    <div><?php echo $this->userData['username']; ?></div>
+                  </div>
+  
+                  <div class="profileItem">
+                    <div class="label"><?php echo $this->languageHandler->getString('location'); ?></div>
+                    <div>
+                      <?php 
+                        if($this->userData['country'] != "") {
+                          echo $this->languageHandler->getString('from');
+                          echo " ";
+                        }
 
-                      <div class="profileItem">
-                        <div class="label"><?php echo $this->languageHandler->getString('name'); ?></div>
-                        <div><?php echo $this->userData['username']; ?></div>
-                      </div>
-
-
-                      <div class="profileItem">
-                        <div class="label"><?php echo $this->languageHandler->getString('location'); ?></div>
-                        <div>
-                          <?php 
-                            if($this->userData['city'] != "" && $this->userData['country'] != "") {
-                              echo $this->languageHandler->getString('from');
-                              echo " ";
-                            }
-                            
-                            echo $this->userData['city'];
-                            if($this->userData['city'] != "" && $this->userData['country'] != "") {
-                              echo ", ";
-                            }
-
-                            $countries = getCountryArray($this->languageHandler);
-                            if($this->userData['country'] != "") {
-                              echo $countries[$this->userData['country']];
-                            }
-                          ?>
-                        </div>
-                      </div>
-
-                      <div class="profileItem">
-                        <div class="label"><?php echo $this->languageHandler->getString('gender'); ?></div>
-                        <div>
-                          <?php
-                            if($this->userData['gender'] != "") {
-                              echo $this->languageHandler->getString($this->userData['gender']);
-                            }
-                          ?>
-                        </div>
-                      </div>
-
-                      <div class="profileItem">
-                        <div class="label"><?php echo $this->languageHandler->getString('birthday'); ?></div>
-                        <div>
-                          <?php
-                             $months = getMonthsArray($this->languageHandler);
-                             if($this->userData['month'] != "") {
-                               echo $months[intVal($this->userData['month'])] . " ";
-                             }
-                             echo $this->userData['year'];
-                          ?>
-                        </div>
-                      </div>
-                      
-                  </div> <!-- profileFormContainer -->
-                </div> <!-- profile Text -->
+                        $countries = getCountryArray($this->languageHandler);
+                        if($this->userData['country'] != "") {
+                          echo $countries[$this->userData['country']];
+                        }
+                      ?>
+                    </div>
+                  </div>
+  
+                </div> <!-- profileFormContainer -->
               </div> <!--  White Box -->                
             </div> <!--  license Main -->                     
           </div> <!-- mainContent close //-->

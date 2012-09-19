@@ -115,6 +115,7 @@
       <string name="country_update_failed">There was a problem while updating your home country.</string>
       <string name="city_update_failed">There was a problem while updating the email address.</string>
       <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
+      <string name="language_update_failed">There was a problem while updating your language.</string>
     	<string name="country_codes_not_available">There are no countries available in DB.</string>
     </profile>
     <admin>

@@ -29,7 +29,6 @@
           <div class="registrationMain">            	
             <div class="whiteBoxMain">
               <form class="registrationForm catroid">
-                <div id="registrationErrorMsg" class="registrationErrorMsg"></div>
                 <label for="registrationUsername"><?php echo $this->languageHandler->getString('nickname')?></label> 
                 <input type="text" id="registrationUsername" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_nickname')?>" class="catroid" />
                 <div class="catroidFormInfoBox"><?php echo $this->languageHandler->getString('nickname_info')?></div>
@@ -40,17 +39,17 @@
                 <div class="catroidFormInfoBox"><?php echo $this->languageHandler->getString('email_info', '<a href="' . BASE_PATH . 'catroid/privacypolicy" target="_blank">' . $this->languageHandler->getString('email_info_link_title') . '</a>')?></div>
                 <div><?php echo $this->languageHandler->getString('country')?></div>
                 <select id="registrationCountry" required="required" class="catroid">
-<?php echo $this->countryCodeListHTML; ?>
+<?php echo $this->module->generateCountryCodeList(); ?>
                 </select>
                 <label for="registrationCity"><?php echo $this->languageHandler->getString('city')?></label> 
                 <input type="text" id="registrationCity" placeholder="<?php echo $this->languageHandler->getString('enter_city')?>" class="catroid" />
                 <div><?php echo $this->languageHandler->getString('birth')?></div>
                 <div>
                   <select id="registrationMonth" class="catroid catroidTwoColumn catroidLeftColumn">
-<?php echo $this->monthListHTML; ?>
+<?php echo $this->module->generateMonthList(); ?>
                   </select>
                   <select id="registrationYear" class="catroid catroidTwoColumn catroidRightColumn">
-<?php echo $this->yearListHTML; ?>
+<?php echo $this->module->generateYearList(); ?>
                   </select>
                 </div>
                 <div><?php echo $this->languageHandler->getString('gender')?></div>
@@ -60,11 +59,13 @@
                   <option value="male"><?php echo $this->languageHandler->getString('male')?></option>
                 </select>
                 <input type="button" id="registrationSubmit" value="<?php echo $this->languageHandler->getString('create')?>" class="catroidSubmit button orange registrationSubmitButton"/>
-                <div class="registrationDoSomethingElse">
-                  <div><a id="registrationLogin" href="javascript:;"><?php echo $this->languageHandler->getString('login')?></a></div>
-                  <div><?php echo $this->languageHandler->getString('or')?></div>
-                  <div><a id="forgotPassword" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></div>
-                </div>
+                <br /> <br /> <br /> <br />
+                
+                <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
+                <ul class="loginOptions">
+                  <li><a id="registrationLogin" href="javascript:;"><?php echo $this->languageHandler->getString('login')?></a></li>
+                  <li><a id="forgotPassword" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></li>
+                </ul>
               </form> <!-- registrationForm -->
             </div> <!-- White Box -->
           </div> <!-- registration Main -->

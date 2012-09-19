@@ -1,5 +1,6 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -27,32 +28,21 @@ class switchLanguage extends CoreAuthenticationNone {
 
   public function switchIt() {
     $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
-    if(isset($_POST['language'])) {
-      if($this->session->userLogin_userId > 0) {
-        $this->doSaveLanguageToProfile($_POST['language'], $this->session->userLogin_userId);
-      }
 
-      $this->languageHandler->setLanguageCookie($_POST['language']);
-      $this->statusCode = STATUS_CODE_OK;
-    }    
-  }
-  
-  private function doSaveLanguageToProfile($language, $id) {
     try {
-      $result = pg_execute($this->dbConnection, "update_user_language_by_id", array($language, $id)) or
-                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-      if(!$result) {
-        $return_value = false;
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
-      }
-      $return_value = true;
-    } catch(Exception $e) {
-      $return_value = false;
-      $this->answer .= $this->errorHandler->getError('profile', 'language_update_failed', $e->getMessage());
-    }
-    return $return_value;
+      if(isset($_POST['language'])) {
+        $this->loadModule('common/userFunctions');
+        $this->userFunctions->updateLanguage($_POST['language']);
+        $this->languageHandler->setLanguageCookie($_POST['language']);
 
-  } 
+        $this->statusCode = STATUS_CODE_OK;
+        $this->answer = $this->languageHandler->getString('language_success');
+      }
+    } catch(Exception $e) {
+      $this->statusCode = $e->getCode();
+      $this->answer = $e->getMessage();
+    }
+  }
 
   public function __destruct() {
     parent::__destruct();

@@ -119,8 +119,10 @@ div.whiteBoxMain {
 }
 
 div.loginHelper {
-  margin-top: 1% ;
-  margin-bottom: 1% ;
+  padding: 1.5%;
+  margin: 2% -1.3% -0.4% -1.3%;
+  text-align: left;
+  display: none;
 }
 
 select.registration {

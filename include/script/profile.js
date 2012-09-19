@@ -36,6 +36,7 @@ var Profile = Class.$extend( {
     $("#genderSelect").change($.proxy(this.updateGenderRequest, this));
     $("#birthdayMonthSelect").change($.proxy(this.updateBirthdayRequest, this));
     $("#birthdayYearSelect").change($.proxy(this.updateBirthdayRequest, this));
+    $("#profileSwitchLanguage").change($.proxy(this.updateLanguageRequest, this));
   },
   
   //-------------------------------------------------------------------------------------------------------------------
@@ -198,6 +199,20 @@ var Profile = Class.$extend( {
     });
   },  
   
+  //-------------------------------------------------------------------------------------------------------------------
+  updateLanguageRequest : function() {
+    $.ajax({
+      type : "POST",
+      url : this.basePath + 'catroid/switchLanguage/switchIt.json',
+      data : ({
+        language : $("#profileSwitchLanguage").val()
+      }),
+      timeout : this.ajaxTimeout,
+      success : $.proxy(this.genericRequestSuccess, this),
+      error : $.proxy(common.ajaxTimedOut, this)
+    });
+  },
+
   genericRequestSuccess : function(result) {
     common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {

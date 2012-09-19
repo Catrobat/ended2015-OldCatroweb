@@ -41,7 +41,7 @@
   <string name="female">female</string>
   <string name="male">male</string>
   <string name="create">Create my account</string>
-  <string name="login">Login</string>
-  <string name="or">or</string>
+  <string name="login">try to login if you have already an account</string>
   <string name="password_recover">click here if you forgot your password</string>
+  <string name="additional_options">Other options to proceed:</string>
 </strings>

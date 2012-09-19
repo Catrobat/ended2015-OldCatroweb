@@ -20,6 +20,7 @@ class checkTokenOrRegister extends CoreAuthenticationDevice {
 
   public function __construct() {
     parent::__construct();
+    $this->loadModule('common/userFunctions');
   }
 
   public function __default() {
@@ -27,17 +28,19 @@ class checkTokenOrRegister extends CoreAuthenticationDevice {
 
   public function __authenticationFailed() {
     if($_POST) {
-      if($this->usernameExists($_POST['registrationUsername'])) {
+      if($this->userFunctions->checkUserExists($_POST['registrationUsername'])) {
         $this->statusCode = STATUS_CODE_AUTHENTICATION_REGISTRATION_FAILED;
         $this->answer = $this->errorHandler->getError('auth', 'device_auth_username_exists');
       } else {
-        require_once 'modules/api/registration.php';
-        $registration = new registration();
-        if($registration->doRegistration($_POST, $_SERVER)) {
-          $this->statusCode = STATUS_CODE_REGISTRATION_OK;
-        } else {
+        try {
+          $this->userFunctions->register($_POST);
+          $this->userFunctions->login($_POST['registrationUsername'], $_POST['registrationPassword']);
+        
+          $this->statusCode = STATUS_CODE_OK;
+          $this->answer = $this->languageHandler->getString('registration_success');
+        } catch(Exception $e) {
           $this->statusCode = STATUS_CODE_AUTHENTICATION_REGISTRATION_FAILED;
-          $this->answer = $registration->answer;
+          $this->answer = $e->getMessage();
         }
       }
     } else {
@@ -48,16 +51,6 @@ class checkTokenOrRegister extends CoreAuthenticationDevice {
 
   public function check() {
     $this->statusCode = STATUS_CODE_OK;
-  }
-  
-  public function usernameExists($username) {
-    $username_clean = getCleanedUsername($username);
-    $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($username_clean));
-    
-    if($result && pg_num_rows($result) > 0) {
-      return true;
-    }
-    return false;
   }
   
   public function __destruct() {

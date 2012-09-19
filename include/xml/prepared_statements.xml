@@ -28,7 +28,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_email, upload_language, filesize_bytes, version_name, version_code, user_id) 
     	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id</string>
     <string name="does_project_already_exist">SELECT projects.* FROM projects WHERE projects.title=$1 AND projects.user_id=$2</string>
-    <string name="update_project">UPDATE projects SET description=$1, upload_ip=$2, filesize_bytes=$3, version_name=$4, version_code=$5, update_time=now() WHERE projects.id=$6</string>
+    <string name="update_project">UPDATE projects SET description=$1, upload_ip=$2, filesize_bytes=$3, version_name=$4, version_code=$5, update_time=now(), visible=true WHERE projects.id=$6</string>
     <string name="increment_download_counter">UPDATE projects SET download_count=download_count+1 WHERE id=$1</string>
     <string name="increment_view_counter">UPDATE projects SET view_count=view_count+1 WHERE id=$1</string>
     <string name="set_project_new_filename">UPDATE projects SET source=$1 WHERE id=$2</string>

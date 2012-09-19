@@ -19,8 +19,7 @@
 var LanguageHandler = Class.$extend({
   __include__ : [__baseClassVars],
   __init__ : function() {
-    $("#profileSwitchLanguage").change(jQuery.proxy(this.switchLanguage, this));
-    $("#switchLanguage").change(jQuery.proxy(this.switchLanguage, this));
+    $("#switchLanguage").change($.proxy(this.switchLanguage, this));
   },
 
   switchLanguage : function(eventObject) {
@@ -34,8 +33,8 @@ var LanguageHandler = Class.$extend({
         language : selectedLanguage
       }),
       timeout : (this.ajaxTimeout),
-      success : jQuery.proxy(this.switchLanguageSuccess, this),
-      error : jQuery.proxy(this.switchLanguageError, this)
+      success : $.proxy(this.switchLanguageSuccess, this),
+      error : $.proxy(this.switchLanguageError, this)
     });
   },
 

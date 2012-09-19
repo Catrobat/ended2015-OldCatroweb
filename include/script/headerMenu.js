@@ -18,19 +18,21 @@
 
 var HeaderMenu = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function() {
+  __init__ : function(userId) {
+    this.userId = userId;
+    
     if($("#normalHeaderButtons").length != 0) {
       $("#normalHeaderButtons").toggle();
     }
-    $("#headerHomeButton").click({url:"catroid/index"}, jQuery.proxy(this.openLocation, this));
-    $("#headerMenuButton").click({url:"catroid/menu"}, jQuery.proxy(this.openLocation, this));
-    $("#headerSearchButton").click(jQuery.proxy(this.toggleSearchBox, this));
-    $("#headerProfileButton").click(jQuery.proxy(this.toggleProfileBox, this));
-    $("#headerCancelButton").click(jQuery.proxy(this.toggleAllBoxes, this));
+    $("#headerHomeButton").click({url:"catroid/index"}, $.proxy(this.openLocation, this));
+    $("#headerMenuButton").click({url:"catroid/menu"}, $.proxy(this.openLocation, this));
+    $("#headerSearchButton").click($.proxy(this.toggleSearchBox, this));
+    $("#headerProfileButton").click($.proxy(this.toggleProfileBox, this));
+    $("#headerCancelButton").click($.proxy(this.toggleAllBoxes, this));
   },
   
   openLocation : function(event) {
-    location.href = this.basePath+event.data.url;
+    location.href = this.basePath + event.data.url;
   },
   
   toggleSearchBox : function() {
@@ -43,11 +45,15 @@ var HeaderMenu = Class.$extend( {
   },
 
   toggleProfileBox : function() {
-    $("#normalHeaderButtons").toggle(false);
-    $("#cancelHeaderButton").toggle(true);
-    $("#headerProfileBox").toggle(true);
-    if($("#headerLoginBox").css("display") == "block") {
-      $("#loginUsername").focus();
+    if(this.userId == 0) {
+      $("#normalHeaderButtons").toggle(false);
+      $("#cancelHeaderButton").toggle(true);
+      $("#headerProfileBox").toggle(true);
+      if($("#headerLoginBox").css("display") == "block") {
+        $("#loginUsername").focus();
+      }
+    } else {
+      location.href = this.basePath + "catroid/profile";
     }
   },
   

@@ -304,21 +304,25 @@ function getTimeInWords($fromTime, $languageHandler, $toTime = -1) {
   return $languageHandler->getString('template_common_over_years_ago', round(floatval($minutes)/525600));
 }
 
-function getLanguageOptions($languageHandler) {
+function getLanguageOptions($languageHandler, $selectedLanguageCode = '') {
+  if($selectedLanguageCode == '') {
+    $selectedLanguageCode = $languageHandler->getLanguage();
+  }
+
   $supportedLanguages = getSupportedLanguagesArray($languageHandler);
-  $optionList = "";
-  $selectedLanguage = "";
+  $optionList = '';
+  $selectedLanguageName = '';
   foreach($supportedLanguages as $lang => $details) {
     if($details['supported']) {
-      $selected = "";
-      if(strcmp($lang, $languageHandler->getLanguage()) == 0) {
+      $selected = '';
+      if(strcmp($lang, $selectedLanguageCode) == 0) {
         $selected = ' selected="selected"';
-        $selectedLanguage = $details['name'];
+        $selectedLanguageName = $details['name'];
       }
       $optionList .= '<option' . $selected . ' value="' . $lang . '">' . $details['name'] . ' - ' . $details['nameNative'] . '</option>';
     }
   }
-  return array('html' => $optionList, 'selected' => $selectedLanguage);
+  return array('html' => $optionList, 'selected' => $selectedLanguageName);
 }
 
 function getSupportedLanguagesArray($languageHandler) {

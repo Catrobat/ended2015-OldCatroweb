@@ -18,7 +18,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-class UserFunctions extends CoreAuthenticationNone {
+class userFunctions extends CoreAuthenticationNone {
 
   public function __construct() {
       parent::__construct();
@@ -26,8 +26,15 @@ class UserFunctions extends CoreAuthenticationNone {
 
   public function __default() {
 	}
+	
+	public function isLoggedIn() {
+	  if($this->session->userLogin_userId == 0 || $this->session->userLogin_userNickname == "") {
+	    return false;
+	  }
+	  return true;
+	}
 
-	public function checkUserValid($username) {
+	public function checkUserExists($username) {
 	  $username = trim($username);
 	  $result = pg_execute($this->dbConnection, "get_user_row_by_username", array($username));
 	  
@@ -39,6 +46,82 @@ class UserFunctions extends CoreAuthenticationNone {
 	  pg_free_result($result);
 	  
 	  return $userValid; 
+	}
+
+	public function checkUsername($username) {
+	  $username = trim(strval($username));
+	  if($username == '') {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_missing'),
+	        STATUS_CODE_USER_USERNAME_MISSING);
+	  }
+	
+	  // # < > [ ] | { }
+	  if(preg_match('/_|^_$/', $username)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'), 
+	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
+	  }
+	  if(preg_match('/#|^#$/', $username)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'), 
+	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
+	  }
+	  if(preg_match('/\||^\|$/', $username)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'),
+	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
+	  }
+	  if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'),
+	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
+	  }
+	  if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'),
+	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
+	  }
+	  if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'),
+	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
+	  }
+	  if(preg_match("/\\s/", $username)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_spaces'),
+	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
+	  }
+	
+	  if($this->badWordsFilter->areThereInsultingWords($username)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_insulting_words'),
+	        STATUS_CODE_INSULTING_WORDS);
+	  }
+	
+	  //username must not look like an IP-address
+	  $oktettA = '([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
+	  $oktettB = '(0)|([1-9][0-9]?)|(1[0-9][0-9])|(2[0-4][0-9])|(25[0-4])';
+	  $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
+	  $regEx = '/^'.$ip.'$/';
+	  if(preg_match($regEx, $username)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid'),
+	        STATUS_CODE_USER_USERNAME_INVALID);
+	  }
+	
+	  $usernameClean = getCleanedUsername($username);
+	  if(empty($usernameClean)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid'),
+	        STATUS_CODE_USER_USERNAME_INVALID);
+	  }
+	
+	  if(in_array($username, getUsernameBlacklistArray()) || in_array($usernameClean, getUsernameBlacklistArray())) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_blacklisted'),
+	        STATUS_CODE_USER_USERNAME_INVALID);
+	  }
+	
+	  foreach(getPublicServerBlacklistArray() as $value) {
+	    if(preg_match("/".$value."/i", $username)) {
+	      throw new Exception($this->errorHandler->getError('registration', 'username_blacklisted'),
+	          STATUS_CODE_USER_USERNAME_INVALID);
+	    }
+	  }
+	  
+	  if($this->checkUserExists($username)) {
+	    throw new Exception($this->errorHandler->getError('registration', 'username_already_exists'), 
+	        STATUS_CODE_USER_USERNAME_INVALID);
+	  }
 	}
 
 	public function checkPassword($username, $password) {
@@ -80,7 +163,8 @@ class UserFunctions extends CoreAuthenticationNone {
 	public function checkEmail($email) {
 	  $email = trim(strval($email));
 	  if($email == '') {
-	    throw new Exception($this->errorHandler->getError('registration', 'email_missing'));
+	    throw new Exception($this->errorHandler->getError('registration', 'email_missing'),
+	        STATUS_CODE_USER_EMAIL_INVALID);
 	  }
 	
 	  $name = '[a-zA-Z0-9]((\.|\-|_)?[a-zA-Z0-9])*';
@@ -88,22 +172,25 @@ class UserFunctions extends CoreAuthenticationNone {
 	  $tld = '[a-zA-Z]{2,8}';
 	  $regEx = '/^('.$name.')@('.$domain.')\.('.$tld.')$/';
 	  if(!preg_match($regEx, $email)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'email_invalid'));
+	    throw new Exception($this->errorHandler->getError('registration', 'email_invalid'),
+	        STATUS_CODE_USER_EMAIL_INVALID);
 	  }
-	  $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($email)) or
-	  $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+	  $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($email));
 	  if(!$result) {
-	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)));
+	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
 	  }
 	  if(pg_num_rows($result) > 0) {
-	    throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'));
+	    throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'),
+	        STATUS_CODE_USER_EMAIL_INVALID);
 	  }
 	}
 	
 	public function checkCountry($country) {
 	  $country = strtoupper($country);
 	  if(!preg_match("/^[A-Z][A-Z]$/i", $country)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'country_missing'));
+	    throw new Exception($this->errorHandler->getError('registration', 'country_missing'), 
+	        STATUS_CODE_USER_COUNTRY_INVALID);
 	  }
 	}
 	
@@ -273,6 +360,170 @@ class UserFunctions extends CoreAuthenticationNone {
 	  setcookie('catrowikiToken', '', $cookieExpired, "/", $cookieDomain, false, true);
 	}
 	
+	public function register($postData) {
+	  $catroidId = 0;
+	  $boardId = 0;
+	  $wikiId = 0;
+	  
+	  try {
+	    $this->checkUsername($postData['registrationUsername']);
+	    $this->checkPassword($postData['registrationUsername'], $postData['registrationPassword']);
+	    $this->checkEmail($postData['registrationEmail']);
+	    $this->checkCountry($postData['registrationCountry']);
+	    
+  	  $catroidId = $this->registerCatroid($postData);
+  	  $boardId = $this->registerBoard($postData);
+  	  $wikiId = $this->registerWiki($postData);
+  	  
+  	  $this->sendRegistrationEmail($postData);
+    } catch(Exception $e) {
+      $this->undoRegisterCatroid($catroidId);
+      $this->undoRegisterBoard($boardId);
+      $this->undoRegisterWiki($wikiId);
+      
+      throw new Exception($e->getMessage(), $e->getCode());
+    }
+	}
+
+	private function registerCatroid($postData) {
+	  $username = checkUserInput($postData['registrationUsername']);
+	  $md5user = md5(strtolower($username));
+	  $usernameClean = getCleanedUsername($username);
+	  $md5password = md5($postData['registrationPassword']);
+	  $authToken = md5($md5user.":".$md5password);
+	
+	  $email = checkUserInput($postData['registrationEmail']);
+	  $ipRegistered = $_SERVER['REMOTE_ADDR'];
+	  $country = checkUserInput($postData['registrationCountry']);
+	  $status = USER_STATUS_STRING_ACTIVE;
+	  
+	  $dateOfBirth = NULL;
+	  $year = checkUserInput($postData['registrationYear']);
+	  $month = checkUserInput($postData['registrationMonth']);
+	  if($month != 0 && $year != 0) {
+	    $year = '1900';
+	    $dateOfBirth = $year . '-' . sprintf("%02d", $month) . '-01 00:00:01';
+	  }
+	
+	  $gender = checkUserInput($postData['registrationGender']);
+	  $city = checkUserInput($postData['registrationCity']);
+	  $language = $this->languageHandler->getLanguage();
+	
+	  $result = pg_execute($this->dbConnection, "user_registration", array($username, $usernameClean, $md5password,
+	      $email, $dateOfBirth, $gender, $country, $city, $ipRegistered, $status, $authToken, $language));
+	  if(!$result) {
+	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
+	  }
+	
+	  $row = pg_fetch_assoc($result);
+	  pg_free_result($result);
+	
+	  return $row['id'];
+	}
+	
+	private function registerBoard($postData) {
+	  global $user, $auth, $phpbb_root_path;
+	  $user->session_begin();
+	  $auth->acl($user->data);
+	  $user->setup();
+	
+	  require_once($phpbb_root_path . 'includes/functions_user.php');
+	
+	  $username = checkUserInput($postData['registrationUsername']);
+	  $password = md5($postData['registrationPassword']);
+	  $email = checkUserInput($postData['registrationEmail']);
+	
+	  $user_row = array(
+	      'username' => $username,
+	      'user_password' => $password,
+	      'user_email' => '', //$email,
+	      'group_id' => '2',
+	      'user_timezone' => '0',
+	      'user_dst' => '0',
+	      'user_lang' => 'en',
+	      'user_type' => '0',
+	      'user_actkey' => '',
+	      'user_dateformat' => 'D M d, Y g:i a',
+	      'user_style' => '1',
+	      'user_regdate' => time()
+	  );
+	
+	  if($phpbb_user_id = user_add($user_row)) {
+	    return $phpbb_user_id;
+	  } else {
+	    throw new Exception($this->errorHandler->getError('registration', 'board_registration_failed'),
+	        STATUS_CODE_USER_REGISTRATION_FAILED);
+	  }
+	}
+	
+	private function registerWiki($postData) {
+	  $wikiDbConnection = pg_connect("host=" . DB_HOST_WIKI . " dbname=" . DB_NAME_WIKI . " user=" . DB_USER_WIKI .
+	      " password=" . DB_PASS_WIKI);
+	  if(!$wikiDbConnection) {
+	    throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
+	  }
+	
+	  $username = checkUserInput($postData['registrationUsername']);
+	  $username = getCleanedUsername($username);
+	  $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
+	  $userToken = md5($username);
+	  $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
+	  $hash = md5($hexSalt . '-' . md5($postData['registrationPassword']));
+	  $password = ":B:$hexSalt:$hash";
+	
+	  pg_prepare($wikiDbConnection, "add_wiki_user", "INSERT INTO mwuser (user_name, user_token, user_password, user_registration) VALUES (\$1, \$2, \$3, now()) RETURNING user_id");
+	  $result = pg_execute($wikiDbConnection, "add_wiki_user", array($username, $userToken, $password));
+	  pg_query($wikiDbConnection, 'DEALLOCATE add_wiki_user');
+	  if(!$result) {
+	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
+	  }
+	
+	  $row = pg_fetch_assoc($result);
+	  pg_free_result($result);
+	  pg_close($wikiDbConnection);
+	
+	  return $row['user_id'];
+	}
+
+	private function undoRegisterCatroid($userId) {
+	  if($userId != 0) {
+  	  $result = pg_execute($this->dbConnection, "delete_user_by_id", array($userId));
+  	  if($result) {
+    	  pg_free_result($result);
+  	  }
+	  }
+	}
+	
+	private function undoRegisterBoard($userId) {
+	  if($userId != 0) {
+  	  global $user, $auth, $phpbb_root_path;
+  	  $user->session_begin();
+  	  $auth->acl($user->data);
+  	  $user->setup();
+  	
+  	  require_once($phpbb_root_path .'includes/functions_user.php');
+  	  user_delete('remove', $userId);
+	  }
+	}
+	
+	private function undoRegisterWiki($userId) {
+	  if($userId != 0) {
+  	  $wikiDbConnection = pg_connect("host=" . DB_HOST_WIKI . " dbname=" . DB_NAME_WIKI . " user=" . DB_USER_WIKI .
+  	      " password=" . DB_PASS_WIKI);
+
+  	
+  	  pg_prepare($wikiDbConnection, "delete_wiki_user", "DELETE FROM mwuser WHERE user_id=$1");
+  	  $result = pg_execute($wikiDbConnection, "delete_wiki_user", array($userId));
+  	  if($result) {
+    	  pg_free_result($result);
+  	  }
+  	  pg_close($wikiDbConnection);
+	  }
+	}
+	
 	public function updatePassword($newPassword) {
 	  $this->updateCatroidPassword($newPassword);
 	  $this->updateBoardPassword($newPassword);
@@ -382,6 +633,24 @@ class UserFunctions extends CoreAuthenticationNone {
 	  }
 	}
 	
+	public function updateLanguage($language) {
+	  if(intval($this->session->userLogin_userId) == 0) {
+	    return;
+	  }
+	  
+	  if($language == '') {
+	    throw new Exception($this->errorHandler->getError('profile', 'language_update_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_USER_UPDATE_LANGUAGE_FAILED);
+	  }
+
+	  $result = pg_execute($this->dbConnection, "update_user_language_by_id", array($language, $this->session->userLogin_userId));
+	  if(!$result) {
+	    throw new Exception($this->errorHandler->getError('profile', 'language_update_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_USER_UPDATE_LANGUAGE_FAILED);
+	  }
+	  pg_free_result($result);
+	}
+	
 	public function getUserData($username) {
 	  $username = trim(strval($username));
 	  $result = pg_execute($this->dbConnection, "get_user_row_by_username", array($username));
@@ -475,6 +744,37 @@ class UserFunctions extends CoreAuthenticationNone {
 	          STATUS_CODE_SQL_QUERY_FAILED);
 	    }
 	    pg_free_result($result);
+	  }
+	}
+
+	private function sendRegistrationEmail($postData) {
+	  $catroidProfileUrl = BASE_PATH . 'catroid/profile';
+	  $catroidLoginUrl = BASE_PATH . 'catroid/login';
+	  $catroidRecoveryUrl = BASE_PATH . 'catroid/passwordrecovery';
+	
+	  if(SEND_NOTIFICATION_USER_EMAIL) {
+	    $username = $postData['registrationUsername'];
+	    $password = $postData['registrationPassword'];
+	    $userMailAddress = $postData['registrationEmail'];
+	    $mailSubject = $this->languageHandler->getString('mail_subject');
+	    $mailText =    $this->languageHandler->getString('mail_text_row1') . "\n\n";
+	    $mailText .=   $this->languageHandler->getString('mail_text_row2') . "\n";
+	    $mailText .=   $this->languageHandler->getString('mail_text_row3', $username) . "\n";
+	    $mailText .=   $this->languageHandler->getString('mail_text_row5', $password) . "\n\n";
+	    $mailText .=   $this->languageHandler->getString('mail_text_row6') . "\n\n";
+	    $mailText .=   $this->languageHandler->getString('mail_text_row7') . "\n";
+	    $mailText .=   $catroidLoginUrl."\n\n";
+	    $mailText .=   $this->languageHandler->getString('mail_text_row8') . "\n";
+	    $mailText .=   $catroidProfileUrl."\n\n";
+	    $mailText .=   $this->languageHandler->getString('mail_text_row9') . "\n";
+	    $mailText .=   $catroidRecoveryUrl."\n\n";
+	    $mailText .=   "www.catroid.org";
+	    $mailText .=   "\n\n";
+	
+	    if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress)) {
+	      throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL),
+	          STATUS_CODE_SEND_MAIL_FAILED);
+	    }
 	  }
 	}
 

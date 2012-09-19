@@ -17,12 +17,9 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 class loginOrRegister extends CoreAuthenticationNone {
-
-  public $login = null;
-  public $registration = null;
-  
   public function __construct() {
     parent::__construct();
+    $this->loadModule('common/userFunctions');
   }
 
   public function __default() {
@@ -30,59 +27,48 @@ class loginOrRegister extends CoreAuthenticationNone {
 
   public function loginOrRegister() {
     if($_POST) {
-      if($this->usernameExists($_POST['registrationUsername'])) {
-        $this->answer .= "username exists: ".$_POST['registrationUsername'];
+      if($this->userFunctions->checkUserExists($_POST['registrationUsername'])) {
+        try {
+          $username = (isset($_POST['registrationUsername'])) ? checkUserInput(trim($_POST['registrationUsername'])) : '';
+          if($username == '') {
+            throw new Exception($this->errorHandler->getError('registration', 'username_missing'),
+                STATUS_CODE_LOGIN_MISSING_USERNAME);
+          }
         
-        $this->statusCodePart = "login";        
+          if(!isset($_POST['registrationPassword']) || $_POST['registrationPassword'] == '') {
+            throw new Exception($this->errorHandler->getError('registration', 'password_missing'),
+                STATUS_CODE_LOGIN_MISSING_PASSWORD);
+          }
         
-        require_once 'modules/api/login.php';
-        $login = new login();
-        if($login->doLogin(array('loginUsername'=>$_POST['registrationUsername'], 'loginPassword'=>$_POST['registrationPassword']))) {
-          $this->answer .= $login->answer;
+          $this->userFunctions->login($username, $_POST['registrationPassword']);
+        
+          if($this->requestFromBlockedIp()) {
+            throw new Exception($this->errorHandler->getError('viewer', 'ip_is_blocked'),
+                STATUS_CODE_AUTHENTICATION_FAILED);
+          }
+          if($this->requestFromBlockedUser()) {
+            throw new Exception($this->errorHandler->getError('viewer', 'user_is_blocked'),
+                STATUS_CODE_AUTHENTICATION_FAILED);
+          }
+        
           $this->statusCode = STATUS_CODE_OK;
-          return true;
-        } else {
-          $this->answer .= $login->answer;
-          $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
-          return false;
+        } catch(Exception $e) {
+          $this->userFunctions->logout();
+          $this->statusCode = $e->getCode();
+          $this->answer = $e->getMessage();
+        }
+      } else {
+        try {
+          $this->userFunctions->register($_POST);
+          $this->userFunctions->login($_POST['registrationUsername'], $_POST['registrationPassword']);
+        
+          $this->statusCode = STATUS_CODE_OK;
+          $this->answer = $this->languageHandler->getString('registration_success');
+        } catch(Exception $e) {
+          $this->statusCode = STATUS_CODE_AUTHENTICATION_REGISTRATION_FAILED;
+          $this->answer = $e->getMessage();
         }
       }
-      else {
-        $this->answer .= "username NOT exists: ".$_POST['registrationUsername'];
-
-        $this->statusCodePart = "registration";
-        
-        require_once 'modules/api/registration.php';
-        $registration = new registration();
-        if($registration->doRegistration(array('registrationUsername'=>$_POST['registrationUsername'], 
-        																			 'registrationPassword'=>$_POST['registrationPassword'],
-        																			 'registrationEmail'=>$_POST['registrationEmail'],
-                                               'registrationCountry'=>$_POST['registrationCountry']), $_SERVER)) {
-          $this->answer .= $registration->answer;
-          $this->statusCode = STATUS_CODE_OK;
-          return true;
-        } else {
-          $this->answer .= $registration->answer;
-          $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
-          return false;
-        }
-      }
-    }
-  }
-  
-  private function usernameExists($user) {
-    $username_clean = getCleanedUsername($user);
-
-    $result = pg_execute($this->dbConnection, "get_user_row_by_username_clean", array($username_clean)) or
-              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    if(!$result) {
-      $this->statusCode = 503; //601
-      return false;
-    }
-    if(pg_num_rows($result) > 0) {
-      return true;
-    } else {
-      return false;
     }
   }
   

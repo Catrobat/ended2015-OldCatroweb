@@ -55,10 +55,11 @@ var Login = Class.$extend({
   },
 
   loginRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
       location.href = this.basePath + 'catroid/login?requestUri=' + this.requestUri;
     } else {
+      $("#loginHelperDiv").toggle(true);
+      common.showPreHeaderMessages(result);
       common.showAjaxErrorMsg(result.answer);
     }
   },

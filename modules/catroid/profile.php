@@ -41,7 +41,7 @@ class profile extends CoreAuthenticationUser {
       if(strcmp($_GET['method'], $this->session->userLogin_userNickname) == 0) {
         $showUser = $this->session->userLogin_userNickname;
         $ownProfile = true;
-      } else if($this->userFunctions->checkUserValid($_GET['method'])) {
+      } else if($this->userFunctions->checkUserExists($_GET['method'])) {
         $showUser = checkUserInput($_GET['method']);
         $ownProfile = false;
       } else {
@@ -52,20 +52,20 @@ class profile extends CoreAuthenticationUser {
       $ownProfile = true;
     }
     
-    $this->setWebsiteTitle($this->languageHandler->getString('title', $showUser));
     $this->userData = $this->userFunctions->getUserData($showUser);
-
     if($ownProfile) {
+      $this->setWebsiteTitle($this->languageHandler->getString('myTitle'));
       $this->initProfile($this->userData);
-      $this->loadViewer('myProfile');
+      $this->loadView('myProfile');
     } else {
-      $this->loadViewer('userProfile');
+      $this->setWebsiteTitle($this->languageHandler->getString('userTitle'));
+      $this->loadView('userProfile');
     }
   }
   
   //--------------------------------------------------------------------------------------------------------------------
   public function initProfile($userData) {
-    $language = getLanguageOptions($this->languageHandler);
+    $language = getLanguageOptions($this->languageHandler, $userData['language']);
     $this->laguageListHTML = $language['html'];
     $this->countryCodeListHTML = $this->generateCountryCodeList($userData);
     $this->monthListHTML = $this->generateMonthList($userData);
@@ -187,7 +187,6 @@ class profile extends CoreAuthenticationUser {
   //--------------------------------------------------------------------------------------------------------------------
   public function getEmailListRequest() {
     $this->answer = $this->generateUserEmailList();
-    return;
   }
   
   public function addEmailRequest() {

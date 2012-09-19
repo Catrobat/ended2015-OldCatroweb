@@ -17,37 +17,25 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 class registration extends CoreAuthenticationNone {
-
   public function __construct() {
     parent::__construct();
+    
+    $this->loadModule('common/userFunctions');
 
-    if($this->checkLogin()) {
+    if($this->userFunctions->isLoggedIn()) {
       header("location: " . BASE_PATH . "catroid/profile/");
+      exit();
     }
-
+    
     $this->addCss('registration.css');
     $this->addJs('registration.js');
-    $this->initRegistration();
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {
   }
 
-  private function checkLogin() {
-    if(($this->session->userLogin_userNickname != "")) {
-      return true;
-    }
-    return false;
-  }
-
-  public function initRegistration() {
-    $this->countryCodeListHTML = $this->generateCountryCodeList();
-    $this->monthListHTML = $this->generateMonthList();
-    $this->yearListHTML = $this->generateYearList();
-  }
-
-  private function generateCountryCodeList() {
+  public function generateCountryCodeList() {
     $countryCodeList = getCountryArray($this->languageHandler);
     asort($countryCodeList);
     $optionList = "<option selected='selected'>" . $this->languageHandler->getString('select_country') . "</option>";
@@ -60,7 +48,7 @@ class registration extends CoreAuthenticationNone {
     return $optionList;
   }
   
-  private function generateMonthList() {
+  public function generateMonthList() {
     $months = getMonthsArray($this->languageHandler);
     $optionList = "<option selected='selected'>" . $this->languageHandler->getString('select_month') . "</option>";
 
@@ -70,7 +58,7 @@ class registration extends CoreAuthenticationNone {
     return $optionList;
   }
 
-  private function generateYearList() {
+  public function generateYearList() {
     $optionList = "<option selected='selected'>" . $this->languageHandler->getString('select_year') . "</option>";
 
     $year = date('Y') + 1;
@@ -81,6 +69,24 @@ class registration extends CoreAuthenticationNone {
     return $optionList;
   }
   
+  public function registrationRequest() {
+    try {
+      if(!isset($_POST)) {
+        throw new Exception($this->errorHandler->getError('registration', 'postdata_missing'),
+            STATUS_CODE_LOGIN_MISSING_DATA);
+      }
+      
+      $this->userFunctions->register($_POST);
+      $this->userFunctions->login($_POST['registrationUsername'], $_POST['registrationPassword']);
+      
+      $this->statusCode = STATUS_CODE_OK;
+      $this->answer = $this->languageHandler->getString('registration_success');
+    } catch(Exception $e) {
+      $this->statusCode = $e->getCode();
+      $this->answer = $e->getMessage();
+    }
+  }
+
   public function __destruct() {
     parent::__destruct();
   }
