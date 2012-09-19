@@ -33,6 +33,30 @@ class userFunctions extends CoreAuthenticationNone {
 	  }
 	  return true;
 	}
+	
+	public function isRecoveryHashValid($hash) {
+	  $hash = trim(strval($hash));
+	  $result = pg_execute($this->dbConnection, "get_user_password_hash_time", array($hash));
+	  
+	  if(!$result) {
+	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
+	  }
+	  
+	  $numRows = pg_num_rows($result);
+	  $row = pg_fetch_assoc($result);
+	  pg_free_result($result);
+	  
+	  if($numRows != 1) {
+	    throw new Exception($this->errorHandler->getError('passwordrecovery', 'hash_not_found', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_USER_RECOVERY_EXPIRED);
+	  }
+	  
+	  if((intVal($row['recovery_time']) + 24*60*60) < time()) {
+	    throw new Exception($this->errorHandler->getError('passwordrecovery', 'expired_url', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_USER_RECOVERY_EXPIRED);
+	  }
+	}
 
 	public function checkUserExists($username) {
 	  $username = trim($username);
@@ -524,15 +548,30 @@ class userFunctions extends CoreAuthenticationNone {
 	  }
 	}
 	
-	public function updatePassword($newPassword) {
-	  $this->updateCatroidPassword($newPassword);
-	  $this->updateBoardPassword($newPassword);
-	  $this->updateWikiPassword($newPassword);
+	public function recover($userData) {
+	  $userData = trim(strval($userData));
+	  
+    if($userData == '') {
+      throw new Exception($this->errorHandler->getError('passwordrecovery', 'userdata_missing'),
+          STATUS_CODE_USER_POST_DATA_MISSING);
+    }
+	  
+	  $data = $this->getUserDataForRecovery($userData);
+	  $hash = $this->createUserHash($data);
+	  $this->sendPasswordRecoveryEmail($hash, $data['id'], $data['username'], $data['email']);
+	}
+	
+	public function updatePassword($username, $newPassword) {
+	  $username = getCleanedUsername($username);
+
+	  $this->updateCatroidPassword($username, $newPassword);
+	  $this->updateBoardPassword($username, $newPassword);
+	  $this->updateWikiPassword($username, $newPassword);
 	}
 
-	private function updateCatroidPassword($password) {
+	private function updateCatroidPassword($username, $password) {
 	  $password = md5($password);
-	  $result = pg_execute($this->dbConnection, "update_password_by_user_id", array($password, $this->session->userLogin_userId));
+	  $result = pg_execute($this->dbConnection, "update_password_by_username", array($password, $username));
 	  if(!$result) {
 	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
 	        STATUS_CODE_SQL_QUERY_FAILED);
@@ -540,8 +579,7 @@ class userFunctions extends CoreAuthenticationNone {
 	  pg_free_result($result);
 	}
 	
-	private function updateBoardPassword($password) {
-	  $username = getCleanedUsername($this->session->userLogin_userNickname);
+	private function updateBoardPassword($username, $password) {
 	  $password = getHashedBoardPassword($password);
 	
 	  $sql = "UPDATE phpbb_users SET user_password='" . $password . "',
@@ -553,7 +591,7 @@ class userFunctions extends CoreAuthenticationNone {
 	  }
 	}
 	
-	private function updateWikiPassword($password) {
+	private function updateWikiPassword($username, $password) {
 	  $wikiDbConnection = pg_connect("host=" . DB_HOST_WIKI . " dbname=" . DB_NAME_WIKI . " user=" . DB_USER_WIKI .
 	      " password=" . DB_PASS_WIKI);
 	  if(!$wikiDbConnection) {
@@ -561,7 +599,6 @@ class userFunctions extends CoreAuthenticationNone {
 	        STATUS_CODE_SQL_CONNECTION_FAILED);
 	  }
 	
-	  $username = getCleanedUsername($this->session->userLogin_userNickname);
 	  $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
 	  $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
 	  $hash = md5($hexSalt.'-'.md5($password));
@@ -667,6 +704,60 @@ class userFunctions extends CoreAuthenticationNone {
 	  pg_free_result($result);
 	  return $user;
 	}
+	
+	public function getUserDataByRecoveryHash($hash) {
+	  $hash = trim(strval($hash));
+	  $result = pg_execute($this->dbConnection, "get_user_row_by_recovery_hash", array($hash));
+	  
+	  if(!$result) {
+	    return array();	    
+	  }
+	  
+	  $user = array();
+	  if(pg_num_rows($result) > 0) {
+	    $user = pg_fetch_assoc($result);
+	  }
+	  
+	  pg_free_result($result);
+	  return $user;
+	}
+
+	public function getUserDataForRecovery($userData) {
+	  $userData = trim(strval($userData));
+	  $result = pg_execute($this->dbConnection, "get_user_row_by_username_or_username_clean", array($userData, getCleanedUsername($userData)));
+	  if(!$result) {
+	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
+	  }
+	
+	  $user = array();
+	  if(pg_num_rows($result) > 0) {
+	    $user = pg_fetch_assoc($result);
+	  }
+	
+	  pg_free_result($result);
+	  if(!empty($user)) {
+	    return $user;
+	  }
+	   
+	  $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($userData));
+	  if(!$result) {
+	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
+	  }
+	   
+	  if(pg_num_rows($result) > 0) {
+	    $user = pg_fetch_assoc($result);
+	  }
+	
+	  pg_free_result($result);
+		if(!empty($user)) {
+	    return $user;
+	  }
+
+	  throw new Exception($this->errorHandler->getError('passwordrecovery', 'userdata_not_exists'),
+	      STATUS_CODE_USER_RECOVERY_NOT_FOUND);
+	}
 
 	public function getEmailAddresses($userId) {
 	  $result = pg_execute($this->dbConnection, "get_user_emails_by_id", array(intval($userId)));
@@ -747,6 +838,17 @@ class userFunctions extends CoreAuthenticationNone {
 	  }
 	}
 
+	public function createUserHash($userData) {
+	  if(is_array($userData)) {
+	    $data = $userData['username'] . ':' . $userData['email'];
+	    $salt = hash("md5", $userData['password'] . rand());
+	    $hash = hash("md5", $data . ':' . $salt);
+	    return $hash;
+	  }
+	  throw new Exception($this->errorHandler->getError('passwordrecovery', 'create_hash_failed'),
+	      STATUS_CODE_USER_RECOVERY_HASH_CREATION_FAILED);
+	}
+
 	private function sendRegistrationEmail($postData) {
 	  $catroidProfileUrl = BASE_PATH . 'catroid/profile';
 	  $catroidLoginUrl = BASE_PATH . 'catroid/login';
@@ -756,22 +858,59 @@ class userFunctions extends CoreAuthenticationNone {
 	    $username = $postData['registrationUsername'];
 	    $password = $postData['registrationPassword'];
 	    $userMailAddress = $postData['registrationEmail'];
-	    $mailSubject = $this->languageHandler->getString('mail_subject');
-	    $mailText =    $this->languageHandler->getString('mail_text_row1') . "\n\n";
-	    $mailText .=   $this->languageHandler->getString('mail_text_row2') . "\n";
-	    $mailText .=   $this->languageHandler->getString('mail_text_row3', $username) . "\n";
-	    $mailText .=   $this->languageHandler->getString('mail_text_row5', $password) . "\n\n";
-	    $mailText .=   $this->languageHandler->getString('mail_text_row6') . "\n\n";
-	    $mailText .=   $this->languageHandler->getString('mail_text_row7') . "\n";
+	    $mailSubject = $this->languageHandler->getString('registration_mail_subject');
+	    $mailText =    $this->languageHandler->getString('registration_mail_text_row1') . "\n\n";
+	    $mailText .=   $this->languageHandler->getString('registration_mail_text_row2') . "\n";
+	    $mailText .=   $this->languageHandler->getString('registration_mail_text_row3', $username) . "\n";
+	    $mailText .=   $this->languageHandler->getString('registration_mail_text_row5', $password) . "\n\n";
+	    $mailText .=   $this->languageHandler->getString('registration_mail_text_row6') . "\n\n";
+	    $mailText .=   $this->languageHandler->getString('registration_mail_text_row7') . "\n";
 	    $mailText .=   $catroidLoginUrl."\n\n";
-	    $mailText .=   $this->languageHandler->getString('mail_text_row8') . "\n";
+	    $mailText .=   $this->languageHandler->getString('registration_mail_text_row8') . "\n";
 	    $mailText .=   $catroidProfileUrl."\n\n";
-	    $mailText .=   $this->languageHandler->getString('mail_text_row9') . "\n";
+	    $mailText .=   $this->languageHandler->getString('registration_mail_text_row9') . "\n";
 	    $mailText .=   $catroidRecoveryUrl."\n\n";
 	    $mailText .=   "www.catroid.org";
 	    $mailText .=   "\n\n";
 	
 	    if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress)) {
+	      throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL),
+	          STATUS_CODE_SEND_MAIL_FAILED);
+	    }
+	  }
+	}
+
+	private function sendPasswordRecoveryEmail($userHash, $userId, $userName, $userEmail) {
+	  $catroidPasswordResetUrl = BASE_PATH . 'catroid/passwordrecovery?c=' . $userHash;
+	  $catroidProfileUrl = BASE_PATH . 'catroid/profile';
+	  $catroidLoginUrl = BASE_PATH . 'catroid/login';
+	
+	  $result = pg_execute($this->dbConnection, "update_recovery_hash_recovery_time_by_id", array($userHash, time(), $userId));
+	  if(!$result) {
+	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+	        STATUS_CODE_SQL_QUERY_FAILED);
+	  }
+	  pg_free_result($result);
+	  
+	  if(DEVELOPMENT_MODE) {
+	    throw new Exception($catroidPasswordResetUrl, STATUS_CODE_OK);
+	  }
+
+	  if(SEND_NOTIFICATION_USER_EMAIL) {
+	    $mailSubject = $this->languageHandler->getString('recovery_mail_subject');
+	    $mailText =    $this->languageHandler->getString('recovery_mail_text_row1', $userName) . "!\n\n";
+	    $mailText .=   $this->languageHandler->getString('recovery_mail_text_row2') . "\n\n";
+	    $mailText .=   $this->languageHandler->getString('recovery_mail_text_row3') . "\n";
+	    $mailText .=   $catroidPasswordResetUrl . "\n\n";
+	    $mailText .=   $this->languageHandler->getString('recovery_mail_text_row5') . "\n\n";
+	    $mailText .=   $this->languageHandler->getString('recovery_mail_text_row6') . "\n";
+	    $mailText .=   $catroidLoginUrl . "\n\n";
+	    $mailText .=   $this->languageHandler->getString('recovery_mail_text_row7') . "\n";
+	    $mailText .=   $catroidProfileUrl . "\n\n\n";
+	    $mailText .=   $this->languageHandler->getString('recovery_mail_text_row8') . "\n";
+	    $mailText .=   "www.catroid.org";
+	
+	    if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
 	      throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL),
 	          STATUS_CODE_SEND_MAIL_FAILED);
 	    }

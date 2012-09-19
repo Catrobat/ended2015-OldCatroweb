@@ -153,7 +153,7 @@ class profile extends CoreAuthenticationUser {
     try {
       $this->checkOldPassword($oldPassword);
       $this->checkNewPassword($newPassword);
-      $this->userFunctions->updatePassword($newPassword);
+      $this->userFunctions->updatePassword($this->session->userLogin_userNickname, $newPassword);
       
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('password_success');
