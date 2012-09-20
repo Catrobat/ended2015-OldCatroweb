@@ -59,6 +59,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 
+import at.tugraz.ist.catroweb.common.CommonData;
 import at.tugraz.ist.catroweb.common.CommonFunctions;
 import at.tugraz.ist.catroweb.common.CommonStrings;
 import at.tugraz.ist.catroweb.common.Config;
@@ -257,14 +258,28 @@ public class BaseTest {
     return containsElementText(By.tagName("body"), text);
   }
   
-  public boolean isAjaxMessagePresent(String text) {
+  public String getAjaxMessage() {
     waitForElementPresent(By.id("ajaxAnswerBoxContainer"));
     ajaxWait();
 
-    String contents = (String)((JavascriptExecutor) driver()).executeScript("return arguments[0].innerHTML",
+    return (String)((JavascriptExecutor) driver()).executeScript("return arguments[0].innerHTML",
         driver().findElement(By.id("ajaxAnswerBoxContainer")));
+  }
 
-    return contents.contains(text);
+  public boolean isAjaxMessagePresent(String text) {
+    return getAjaxMessage().contains(text);
+  }
+
+  public String getRecoveryUrl() {
+    String[] parts = getAjaxMessage().split("<");
+    for(String part : parts) {
+      if(part.contains("passwordrecovery?c=")) {
+        String[] temp = part.split("c=");
+        return "catroid/passwordrecovery?c=" + temp[1];
+      }
+    }
+    
+    return "catroid/passwordrecovery?c=";
   }
 
   public boolean containsElementText(By selector, String text) {
@@ -301,7 +316,11 @@ public class BaseTest {
 
   protected void openLocation(String location, Boolean forceDefaultLanguage) {
     if(forceDefaultLanguage == true) {
-      driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      if(location.contains("?")) {
+        driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "&userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      } else {
+        driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      }
     } else {
       driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location);
     }
@@ -413,6 +432,34 @@ public class BaseTest {
     }
     lastLink.click();
   }
+  
+  public void login() {
+    login(driver().getCurrentUrl());
+  }
+  
+  public void login(String location) {
+    if(!location.contains(this.webSite + Config.TESTS_BASE_PATH)) {
+      location = this.webSite + Config.TESTS_BASE_PATH + location;
+    }
+    
+    driver().get(this.webSite + Config.TESTS_BASE_PATH + "api/checkToken?token=" + Config.DEFAULT_UPLOAD_TOKEN);
+    driver().get(location);
+    ajaxWait();
+  }
+  
+  public void logout() {
+    logout(driver().getCurrentUrl());
+  }
+
+  public void logout(String location) {
+    if(!location.contains(this.webSite + Config.TESTS_BASE_PATH)) {
+      location = this.webSite + Config.TESTS_BASE_PATH + location;
+    }
+    
+    driver().get(this.webSite + Config.TESTS_BASE_PATH + "catroid/login/logoutRequest.json");
+    driver().get(location);
+    ajaxWait();
+  }
 
   protected void log(int message) {
     Reporter.log(String.valueOf(message), Config.REPORTER_LOG_TO_STD_OUT);
@@ -430,6 +477,7 @@ public class BaseTest {
       File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
       FileUtils.copyFile(scrFile, new File(Config.FILESYSTEM_BASE_PATH + imagePath));
       Reporter.log("<a href=\"" + this.webSite + Config.TESTS_BASE_PATH.substring(1) + imagePath + "\">Screenshot (" + imageName + ")</a>");
+      Reporter.log("Ajax message: " + getAjaxMessage());
     } catch(IOException e) {
       e.printStackTrace();
     } catch(NullPointerException e) {

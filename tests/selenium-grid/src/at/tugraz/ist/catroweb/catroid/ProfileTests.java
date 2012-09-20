@@ -261,19 +261,13 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
 
-      driver().findElement(By.id("headerProfileButton")).click();
-      assertTrue(isElementPresent(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("headerCancelButton")).click();
-
-      assertTrue(isTextPresent(dataset.get("registrationUsername") + "\'s Profile"));
+      assertTrue(isTextPresent(dataset.get("registrationUsername")));
       assertTrue(isTextPresent("change my password"));
       assertTrue(isTextPresent(dataset.get("registrationEmail")));
       
-      driver().findElement(By.id("profileChangeCityOpen")).click();
-      ajaxWait();
-      driver().findElement(By.id("profileCity")).clear();
-      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("changedCity"));
-      driver().findElement(By.id("profileCitySubmit")).click();
+      driver().findElement(By.id("cityInput")).clear();
+      driver().findElement(By.id("cityInput")).sendKeys(dataset.get("changedCity"));
+      driver().findElement(By.id("cityInput")).submit();
       ajaxWait();
       assertTrue(isTextPresent(dataset.get("changedCity")));
       

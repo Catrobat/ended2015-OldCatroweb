@@ -28,4 +28,5 @@
   <string name="enter_password">your password</string>
   <string name="login">Login now</string>
   <string name="additional_options">Other options to proceed:</string>
+  <string name="catroid_logout_success">Catroid logout was successful.</string>
 </strings>

@@ -351,6 +351,7 @@ class userFunctions extends CoreAuthenticationNone {
 	}
 	
 	private function logoutBoard() {
+	  initBoardFunctions();
 	  global $user, $auth;
 	
 	  if($user != NULL) {
@@ -731,7 +732,7 @@ class userFunctions extends CoreAuthenticationNone {
 	  }
 	
 	  $user = array();
-	  if(pg_num_rows($result) > 0) {
+	  if(pg_num_rows($result) == 1) {
 	    $user = pg_fetch_assoc($result);
 	  }
 	
@@ -746,7 +747,7 @@ class userFunctions extends CoreAuthenticationNone {
 	        STATUS_CODE_SQL_QUERY_FAILED);
 	  }
 	   
-	  if(pg_num_rows($result) > 0) {
+	  if(pg_num_rows($result) == 1) {
 	    $user = pg_fetch_assoc($result);
 	  }
 	

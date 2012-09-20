@@ -22,6 +22,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.internal.seleniumemulation.IsTextPresent;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -103,7 +104,6 @@ public class DetailsTests extends BaseTest {
     try {
       String response = projectUploader.upload(dataset);
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
-      openAdminLocation();
 
       openLocation("catroid/details/" + id);
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
@@ -140,7 +140,7 @@ public class DetailsTests extends BaseTest {
 
       driver().navigate().refresh();
       ajaxWait();
-      assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
+      assertTrue(isTextPresent("No entry was found for the given ID"));
 
       openAdminLocation("/tools/inappropriateProjects");
       clickOkOnNextConfirmationBox();

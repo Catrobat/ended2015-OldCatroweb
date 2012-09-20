@@ -43,22 +43,8 @@ public class ReportAsInappropriateTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-      // login first
-      openLocation();
-      driver().findElement(By.id("headerProfileButton")).click();
-      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
-      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
-      driver().findElement(By.id("loginSubmitButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      assertTrue(isVisible(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("headerCancelButton")).click();
-      assertProjectPresent(projectTitle);
-
       // goto details page
-      openLocation("catroid/details/" + projectId);
-      ajaxWait();
+      login("catroid/details/" + projectId);
       assertTrue(isTextPresent(projectTitle));
       assertTrue(isTextPresent(dataset.get("projectDescription")));
 
@@ -70,14 +56,7 @@ public class ReportAsInappropriateTests extends BaseTest {
       ajaxWait();
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
 
-      // logout
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      assertTrue(isVisible(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("logoutSubmitButton")).click();
-
-      openLocation("catroid/details/" + projectId);
-      ajaxWait();
+      logout("catroid/details/" + projectId);
       assertTrue(isTextPresent(projectTitle));
       assertTrue(isTextPresent(dataset.get("projectDescription")));
       // report as inappropriate still visible after logout

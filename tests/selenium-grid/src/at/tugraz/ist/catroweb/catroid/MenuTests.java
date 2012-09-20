@@ -114,7 +114,7 @@ public class MenuTests extends BaseTest {
       driver().findElement(By.id("menuProfileButton")).click();
       ajaxWait();
       
-      assertTrue(isTextPresent(dataset.get("username")+"\'s Profile"));
+      assertTrue(isTextPresent(dataset.get("username")));
       
       driver().findElement(By.id("headerMenuButton")).click();
       ajaxWait();
@@ -123,12 +123,6 @@ public class MenuTests extends BaseTest {
       assertTrue(isEditable(By.id("menuProfileButton")));
       driver().findElement(By.id("headerProfileButton")).click();
       ajaxWait();
-      
-      assertTrue(isVisible(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("logoutSubmitButton")).click();
-      ajaxWait();
-      
-      assertTrue(isVisible(By.id("projectListTitle")));
     } catch(AssertionError e) {
       captureScreen("MenuTests.loginAndProfileLinks." + dataset.get("username"));
       throw e;
