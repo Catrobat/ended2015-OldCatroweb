@@ -151,7 +151,7 @@ class userFunctions extends CoreAuthenticationNone {
 	public function checkPassword($username, $password) {
 	  $password = trim(strval($password));
 	  if($password == '') {
-	    throw new Exception($this->errorHandler->getError('profile', 'password_new_missing'),
+	    throw new Exception($this->errorHandler->getError('registration', 'password_missing'),
 	        STATUS_CODE_USER_PASSWORD_MISSING);
 	  }
 	  

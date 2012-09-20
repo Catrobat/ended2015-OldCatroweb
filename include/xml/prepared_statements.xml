@@ -17,11 +17,12 @@ GNU Affero General Public License for more details.
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
+
 <statements>
     <string name="get_projects_ordered_by_uploadtime">SELECT * FROM projects ORDER BY upload_time DESC</string>
     <string name="get_visible_projects_ordered_by_uploadtime">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY upload_time DESC</string>
-    <string name="get_visible_projects_ordered_by_uploadtime_limited_and_offset">SELECT projects.id, projects.title, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY last_activity DESC LIMIT $1 OFFSET $2</string>
-    <string name="get_visible_projects_ordered_by_uploadtime_limited_and_offset_api">SELECT projects.id, projects.title, projects.description, projects.view_count, projects.download_count, projects.version_name, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY last_activity DESC LIMIT $1 OFFSET $2</string>
+    <string name="get_visible_projects_ordered_by_uploadtime_limited_offset">SELECT projects.id, projects.title, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY last_activity DESC LIMIT $1 OFFSET $2</string>
+    <string name="get_visible_projects_ordered_by_uploadtime_limited_offset_api">SELECT projects.id, projects.title, projects.description, projects.view_count, projects.download_count, projects.version_name, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY last_activity DESC LIMIT $1 OFFSET $2</string>
     <string name="get_number_of_visible_projects">SELECT count(id) FROM projects WHERE visible=true</string>
     <string name="get_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND projects.visible=true AND cusers.id=projects.user_id LIMIT 1</string>
@@ -69,7 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="get_user_login">SELECT * FROM cusers WHERE username_clean=$1 AND password=$2 LIMIT 1</string>
     <string name="get_user_device_login">SELECT * FROM cusers WHERE auth_token=$1 LIMIT 1</string>
     <string name="get_user_row_by_username">SELECT id, username, gender, country, city, language, to_char(date_of_birth, 'MM') AS month, to_char(date_of_birth, 'YYYY') AS year FROM cusers WHERE username=$1 LIMIT 1</string>
-    <string name="get_user_row_by_username_clean">SELECT * FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
 
     <string name="get_user_row_by_email">SELECT u.* FROM cusers u, cusers_additional_email e WHERE (u.email=$1 OR e.email=$1) AND u.id=e.user_id</string>
@@ -79,15 +79,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="add_user_email">INSERT INTO cusers_additional_email (user_id, email) VALUES ($1, $2)</string>
     <string name="get_user_row_by_recovery_hash">SELECT * FROM cusers WHERE recovery_hash=$1 LIMIT 1</string>
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
-    <string name="get_user_country_by_username">SELECT country from cusers WHERE username=$1</string>
     <string name="get_user_email_by_email">SELECT email FROM cusers WHERE email=$1</string>
     <string name="get_user_emails_by_id">SELECT u.email FROM cusers u WHERE u.id=$1 UNION SELECT e.email FROM cusers_additional_email e WHERE e.user_id=$1</string>
-    <string name="get_country_from_countries">SELECT name, code FROM countries ORDER BY name ASC</string>
-    <string name="get_country_from_countries_by_countrycode">SELECT name, code FROM countries WHERE code=$1 ORDER BY name ASC</string>
-    <string name="get_user_birth_by_username">SELECT to_char(date_of_birth, 'MM') AS month, to_char(date_of_birth, 'YYYY') AS year FROM cusers WHERE username=$1</string>
-    <string name="get_user_city_by_username">SELECT city FROM cusers WHERE username=$1</string>
-    <string name="get_user_gender_by_username">SELECT gender FROM cusers WHERE username=$1</string>
-    <!-- <string name="get_user_language_by_id">SELECT language FROM cusers WHERE id=$1</string> -->
 
     <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token, language) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
@@ -95,10 +88,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="delete_user_additional_email_by_email">DELETE FROM cusers_additional_email WHERE email=$1</string>
     <string name="delete_user_email_from_additional_email_by_user_email">DELETE FROM cusers_additional_email WHERE email=(SELECT email FROM cusers WHERE id=$1)</string>
     <string name="update_recovery_hash_recovery_time_by_id">UPDATE cusers SET recovery_hash=$1, recovery_time=$2 WHERE id=$3</string>
-    <string name="update_password_and_hash_by_username">UPDATE cusers SET password=$1, recovery_hash=$2 WHERE username=$3</string>
-    <string name="update_user_email_by_user_email">UPDATE cusers SET email=$1 WHERE email=$2</string>
     <string name="update_user_email_from_additional_email_by_user_email">UPDATE cusers SET email=(SELECT email FROM cusers_additional_email WHERE user_id=$1 LIMIT 1) WHERE id=$1</string> <!-- hkajläsdfalösjkfä -->    
-    <string name="update_user_additional_email_by_user_email">UPDATE cusers_additional_email SET email=$1 WHERE email=$2</string>
     
     <string name="update_user_country">UPDATE cusers SET country=$1 WHERE username=$2</string>
     <string name="update_user_city">UPDATE cusers SET city=$1 WHERE username=$2</string>
@@ -132,5 +122,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     
 	<string name="save_failed_attempts">SELECT save_failed_attempt($1)</string>
 	<string name="reset_failed_attempts">DELETE from blocked_ips_temporary where ip_address = substr($1, 1, length(ip_address))</string>
-	<string name="is_ip_blocked_temporarily">SELECT ip_address FROM blocked_ips_temporary WHERE substr($1, 1, length(ip_address)) = ip_address AND blocked_until >= current_timestamp</string>
 </statements>

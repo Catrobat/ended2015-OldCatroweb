@@ -32,8 +32,6 @@
         <string name="missing_post_file_checksum">Sorry, there was a problem during the upload! Are you using the latest version of Catroid?</string>
         <string name="copy_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="rename_failed">Sorry, there was an error during the upload. Try again!</string>
-        <string name="sql_insert_failed">Sorry, there was an error during the upload. Try again!</string>
-        <string name="sql_update_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="invalid_file_checksum">Sorry, there was an error during the upload. Try again!</string>
         <string name="project_exceed_filesize_limit">Your project file is too large.</string>
         <string name="project_title_default">You have to rename your project, before uploading it.</string>
@@ -61,18 +59,13 @@
     <auth>
     	<string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
     	<string name="board_authentication_failed">The board authentication failed.</string>
-    	<string name="wiki_authentication_failed">The wiki authentication failed.</string>
-    	<string name="catroid_authentication_failed">Sorry, there was a problem: check your nickname and password.</string>
     	<string name="wiki_api_response_incorrect">Ooooops something went wrong. Please try again!</string>
     	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your nickname and password!</string>
 			<string name="device_auth_username_exists">Sorry, your nickname is already in use.</string>
       <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
     </auth>
     <registration>
-      <string name="send_registration_email_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
-      <string name="wiki_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
       <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
-      <string name="catroid_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
       <string name="postdata_missing">Please enter your login data.</string>
       <string name="username_missing">You haven't entered a nickname, please add one.</string>
       <string name="username_invalid_underscore">The nickname you have entered is not allowed. Please do not use underscores (_).</string>
@@ -87,8 +80,6 @@
       <string name="username_blacklisted">The nickname you have entered is not allowed.</string>
       <string name="username_already_exists">The nickname you have entered already exists.</string>
       <string name="password_missing">You haven't entered a password, please add one.</string>
-      <string name="password_length_invalid">Your password should have at least {*minimumPasswordLength*} characters and maximal {*maximumPasswordLength*} characters.</string>
-      <string name="password_username_equal">The nickname and password must be different.</string>
       <string name="email_missing">You haven't entered an email address, please add one.</string>
       <string name="email_invalid">This email address is not valid.</string>
       <string name="email_already_exists">The email address you have entered already exists.</string>
@@ -98,8 +89,6 @@
       <string name="userdata_missing">Your nickname or email address is missing.</string>
       <string name="userdata_not_exists">Your nickname or email address was not found.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
-      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at  {*webmasterEmailAddress*}.</string>
-      <string name="password_length_invalid">Your password must have at least {*minimumPasswordLength*} and maximal {*maximumPasswordLength*} characters.</string>
       <string name="hash_not_found">Sorry! Couldn't find something to recover. Please try again.</string>
 			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>
     </passwordrecovery>
@@ -112,12 +101,10 @@
 			<string name="password_new_board_update_failed">There was a problem while updating the password.</string>
       <string name="username_password_equal">The password must differ from the nickname.</string>
       <string name="email_address_exists">The email address already exists.</string>
-      <string name="email_update_failed">There was a problem while updating the email address.</string>
       <string name="email_update_of_catroweb_failed">Catroweb must have at least 2 e-mail addresses.</string>
       <string name="country_update_failed">There was a problem while updating your home country.</string>
       <string name="city_update_failed">There was a problem while updating the email address.</string>
       <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
-    	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
     </profile>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>

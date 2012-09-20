@@ -256,6 +256,16 @@ public class BaseTest {
   public boolean isTextPresent(String text) {
     return containsElementText(By.tagName("body"), text);
   }
+  
+  public boolean isAjaxMessagePresent(String text) {
+    waitForElementPresent(By.id("ajaxAnswerBoxContainer"));
+    ajaxWait();
+
+    String contents = (String)((JavascriptExecutor) driver()).executeScript("return arguments[0].innerHTML",
+        driver().findElement(By.id("ajaxAnswerBoxContainer")));
+
+    return contents.contains(text);
+  }
 
   public boolean containsElementText(By selector, String text) {
     // https://code.google.com/p/selenium/issues/detail?id=1438

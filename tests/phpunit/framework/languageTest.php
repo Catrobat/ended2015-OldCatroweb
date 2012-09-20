@@ -162,6 +162,8 @@ class languageTest extends PHPUnit_Framework_TestCase {
     foreach($foundError as $key => $tuple) {
       $errorType = $tuple[0];
       $errorName = $tuple[1];
+      
+      $this->walkThroughDirectory(CORE_BASE_PATH.'viewer/');
 
       foreach($this->file_listing as $module=>$files) {
         foreach($files as $file) {
@@ -232,8 +234,16 @@ class languageTest extends PHPUnit_Framework_TestCase {
                 $string = $pair[0];
                 if(preg_match("/getString\('".$string."'/i", $this->getFileContent($moduleFile))) {
                   $foundString[$key][1] = true;
-                } elseif(preg_match("/getString\('".$string."'/i", $this->getFileContent($viewerFile))) {
-                  $foundString[$key][1] = true;
+                } else {
+                  $viewerPath = CORE_BASE_PATH . VIEWER_PATH . $module . '/';
+                  if(is_dir($viewerPath) && $viewer_handle = opendir($viewerPath)) {
+                    while(($viewerFile = readdir($viewer_handle)) !== false) {
+                      if(is_file($viewerPath . $viewerFile) && preg_match("/getString\('".$string."'/i", $this->getFileContent($viewerPath . $viewerFile))) {
+                        $foundString[$key][1] = true;
+                        break;
+                      }
+                    }
+                  }
                 }
               }
               

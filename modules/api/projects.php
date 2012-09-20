@@ -44,7 +44,7 @@ class projects extends CoreAuthenticationNone {
       $limit = min(abs(intVal($_REQUEST['limit'])), 100);
     }
     
-    $result = pg_execute($this->dbConnection, 'get_visible_projects_ordered_by_uploadtime_limited_and_offset_api', array($limit, $offset));
+    $result = pg_execute($this->dbConnection, 'get_visible_projects_ordered_by_uploadtime_limited_offset_api', array($limit, $offset));
     if($result) {
       if(pg_num_rows($result) > 0) {
         $projects = pg_fetch_all($result);
