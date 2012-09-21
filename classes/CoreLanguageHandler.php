@@ -104,8 +104,10 @@ class CoreLanguageHandler {
       return $this->parseString($this->strings[$code], $args);
     } else if(isset($this->defaultLanguageStrings[$code])) {
       return $this->parseString($this->defaultLanguageStrings[$code], $args);
+    } else if($code == "") {
+      return '';
     } else {
-      return 'unknown string: "'.$code.'"!';
+      return 'unknown string: "' . $code . '"!';
     }
   }
 

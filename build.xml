@@ -304,11 +304,12 @@
     />
   </target>
   
-  <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api"/>
+  <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api, -unittest-common"/>
   <target name="-phpunit-framework-tests" depends="-unittest-framework"/>
   <target name="-phpunit-admin-tests" depends="-unittest-admin"/>
   <target name="-phpunit-catroid-tests" depends="-unittest-catroid"/>
   <target name="-phpunit-api-tests" depends="-unittest-api"/>
+  <target name="-phpunit-common-tests" depends="-unittest-common"/>
   
   <target name="-unittest-catroid">
     <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
@@ -351,6 +352,17 @@
     </exec>
     <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
       <arg line=" api"/>
+    </exec>
+  </target>
+
+  <target name="-unittest-common">
+    <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" common"/>
+    </exec>
+    <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" common"/>
     </exec>
   </target>
 

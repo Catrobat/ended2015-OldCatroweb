@@ -19,7 +19,7 @@
 
 require_once('testsBootstrap.php');
 
-class myprojectsTest extends PHPUnit_Framework_TestCase
+class myProjectsTest extends PHPUnit_Framework_TestCase
 {
   protected $obj;
 

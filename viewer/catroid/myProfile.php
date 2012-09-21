@@ -40,7 +40,7 @@
                   <div class="profileItem">
                     <div class="label">&nbsp;</div>
                     <div>
-                      <a href="<?php echo BASE_PATH . 'catroid/myprojects' ?>"><?php echo $this->languageHandler->getString('my_projects'); ?></a>
+                      <a id="profileMyProfileLink" href="<?php echo BASE_PATH . 'catroid/myprojects' ?>"><?php echo $this->languageHandler->getString('my_projects'); ?></a>
                     </div>
                   </div>
 

@@ -19,9 +19,15 @@
  */
 
 class userFunctions extends CoreAuthenticationNone {
+  protected $registerCatroidId;
+  protected $registerBoardId;
+  protected $registerWikiId;
 
   public function __construct() {
       parent::__construct();
+      $this->registerCatroidId = 0;
+      $this->registerBoardId = 0;
+      $this->registerWikiId = 0;
   }
 
   public function __default() {
@@ -66,10 +72,10 @@ class userFunctions extends CoreAuthenticationNone {
 	    throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
 	        STATUS_CODE_SQL_QUERY_FAILED);
 	  }
-	  $userValid = (pg_num_rows($result) == 1);
+	  $userExists = (pg_num_rows($result) == 1);
 	  pg_free_result($result);
 	  
-	  return $userValid; 
+	  return $userExists; 
 	}
 
 	public function checkUsername($username) {
@@ -154,7 +160,7 @@ class userFunctions extends CoreAuthenticationNone {
 	    throw new Exception($this->errorHandler->getError('registration', 'password_missing'),
 	        STATUS_CODE_USER_PASSWORD_MISSING);
 	  }
-	  
+
 	  if(strcasecmp($username, $password) == 0) {
 	    throw new Exception($this->errorHandler->getError('profile', 'username_password_equal'),
 	        STATUS_CODE_USER_USERNAME_PASSWORD_EQUAL);
@@ -266,11 +272,12 @@ class userFunctions extends CoreAuthenticationNone {
 	}
 	
 	private function loginBoard($username, $password) {
+	  return;
 	  global $user, $auth;
 	
 	  $user->session_begin();
 	  $auth->acl($user->data);
-	  $user->setup();
+ 	  $user->setup();
 	
 	  $auth->login($username, $password, false, 1);
 	  if(intVal($user->data['user_id']) <= 0) {
@@ -386,26 +393,19 @@ class userFunctions extends CoreAuthenticationNone {
 	}
 	
 	public function register($postData) {
-	  $catroidId = 0;
-	  $boardId = 0;
-	  $wikiId = 0;
-	  
 	  try {
 	    $this->checkUsername($postData['registrationUsername']);
 	    $this->checkPassword($postData['registrationUsername'], $postData['registrationPassword']);
 	    $this->checkEmail($postData['registrationEmail']);
 	    $this->checkCountry($postData['registrationCountry']);
 	    
-  	  $catroidId = $this->registerCatroid($postData);
-  	  $boardId = $this->registerBoard($postData);
-  	  $wikiId = $this->registerWiki($postData);
+  	  $this->registerCatroidId = $this->registerCatroid($postData);
+  	  $this->registerBoardId = $this->registerBoard($postData);
+  	  $this->registerWikiId = $this->registerWiki($postData);
   	  
   	  $this->sendRegistrationEmail($postData);
     } catch(Exception $e) {
-      $this->undoRegisterCatroid($catroidId);
-      $this->undoRegisterBoard($boardId);
-      $this->undoRegisterWiki($wikiId);
-      
+      $this->undoRegister();
       throw new Exception($e->getMessage(), $e->getCode());
     }
 	}
@@ -448,6 +448,7 @@ class userFunctions extends CoreAuthenticationNone {
 	}
 	
 	private function registerBoard($postData) {
+	  return;
 	  global $user, $auth, $phpbb_root_path;
 	  $user->session_begin();
 	  $auth->acl($user->data);
@@ -512,40 +513,49 @@ class userFunctions extends CoreAuthenticationNone {
 	
 	  return $row['user_id'];
 	}
+	
+	public function undoRegister() {
+	  $this->undoRegisterCatroid();
+	  $this->undoRegisterBoard();
+	  $this->undoRegisterWiki();
+	}
 
-	private function undoRegisterCatroid($userId) {
-	  if($userId != 0) {
-  	  $result = pg_execute($this->dbConnection, "delete_user_by_id", array($userId));
+	private function undoRegisterCatroid() {
+	  if($this->registerCatroidId != 0) {
+  	  $result = pg_execute($this->dbConnection, "delete_user_by_id", array($this->registerCatroidId));
   	  if($result) {
     	  pg_free_result($result);
   	  }
+  	  $this->registerCatroidId = 0;
 	  }
 	}
 	
-	private function undoRegisterBoard($userId) {
-	  if($userId != 0) {
+	private function undoRegisterBoard() {
+	  if($this->registerBoardId != 0) {
   	  global $user, $auth, $phpbb_root_path;
   	  $user->session_begin();
   	  $auth->acl($user->data);
   	  $user->setup();
   	
   	  require_once($phpbb_root_path .'includes/functions_user.php');
-  	  user_delete('remove', $userId);
+  	  user_delete('remove', $this->registerBoardId);
+  	  $this->registerBoardId = 0;
 	  }
 	}
 	
-	private function undoRegisterWiki($userId) {
-	  if($userId != 0) {
+	private function undoRegisterWiki() {
+	  if($this->registerWikiId != 0) {
   	  $wikiDbConnection = pg_connect("host=" . DB_HOST_WIKI . " dbname=" . DB_NAME_WIKI . " user=" . DB_USER_WIKI .
   	      " password=" . DB_PASS_WIKI);
 
   	
   	  pg_prepare($wikiDbConnection, "delete_wiki_user", "DELETE FROM mwuser WHERE user_id=$1");
-  	  $result = pg_execute($wikiDbConnection, "delete_wiki_user", array($userId));
+  	  $result = pg_execute($wikiDbConnection, "delete_wiki_user", array($this->registerWikiId));
   	  if($result) {
     	  pg_free_result($result);
   	  }
   	  pg_close($wikiDbConnection);
+  	  $this->registerWikiId = 0;
 	  }
 	}
 	
@@ -616,58 +626,72 @@ class userFunctions extends CoreAuthenticationNone {
 	}
 
 	public function updateCity($city) {
-	  $username = getCleanedUsername($this->session->userLogin_userNickname);
-    $result = pg_execute($this->dbConnection, "update_user_city", array($city, $username));
-   
-	  if(!$result) {
+	  if($this->session->userLogin_userId > 0) {
+      $result = pg_execute($this->dbConnection, "update_user_city", array(checkUserInput($city),
+          $this->session->userLogin_userId));
+     
+  	  if(!$result) {
+        throw new Exception($this->errorHandler->getError('profile', 'city_update_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_USER_UPDATE_CITY_FAILED);
+      }
+      pg_free_result($result);
+	  } else {
       throw new Exception($this->errorHandler->getError('profile', 'city_update_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_USER_UPDATE_CITY_FAILED);
-    }
-    pg_free_result($result);
+	  }
 	}
 
 	public function updateCountry($country) {
-	  $username = getCleanedUsername($this->session->userLogin_userNickname);
-	  
-	  $this->checkCountry($country);
-    $result = pg_execute($this->dbConnection, "update_user_country", array($country, $username));
-
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('profile', 'country_update_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_USER_UPDATE_COUNTRY_FAILED);
-    }
-    pg_free_result($result);
+	  if($this->session->userLogin_userId > 0) {
+  	  $this->checkCountry($country);
+      $result = pg_execute($this->dbConnection, "update_user_country", array($country, $this->session->userLogin_userId));
+  
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('profile', 'country_update_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_USER_UPDATE_COUNTRY_FAILED);
+      }
+      pg_free_result($result);
+	  } else {
+  	  throw new Exception($this->errorHandler->getError('profile', 'country_update_failed', pg_last_error($this->dbConnection)),
+  	      STATUS_CODE_USER_UPDATE_COUNTRY_FAILED);
+	  }
 	}
 
 	public function updateGender($gender) {
-	  $username = getCleanedUsername($this->session->userLogin_userNickname);
-	  
-    $result = pg_execute($this->dbConnection, "update_user_gender", array($gender, $username));
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('profile', 'gender_update_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_USER_UPDATE_GENDER_FAILED);
-    }
-    pg_free_result($result);
+	  if($this->session->userLogin_userId > 0) {
+      $result = pg_execute($this->dbConnection, "update_user_gender", array($gender, $this->session->userLogin_userId));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('profile', 'gender_update_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_USER_UPDATE_GENDER_FAILED);
+      }
+      pg_free_result($result);
+	  } else {
+  	  throw new Exception($this->errorHandler->getError('profile', 'gender_update_failed', pg_last_error($this->dbConnection)),
+  	      STATUS_CODE_USER_UPDATE_GENDER_FAILED);
+	  }
 	}
 
 	public function updateBirthday($birthdayMonth, $birthdayYear) {
-	  $username = getCleanedUsername($this->session->userLogin_userNickname);
-
-	  if($birthdayMonth == 0 && $birthdayYear == 0) {
-	    $result = pg_execute($this->dbConnection, "delete_user_birth", array($username));
-	    if(!$result) {
-	      throw new Exception($this->errorHandler->getError('profile', 'birth_update_failed', pg_last_error($this->dbConnection)),
-	          STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
-	    }
-	    pg_free_result($result);
-	  } else if($birthdayMonth > 1 && $birthdayYear > 1) {
-	    $birthday = sprintf("%04d", $birthdayYear) . '-' . sprintf("%02d", $birthdayMonth) . '-01 00:00:01';
-	    $result = pg_execute($this->dbConnection, "update_user_birth", array($birthday, $username));
-	    if(!$result) {
-	      throw new Exception($this->errorHandler->getError('profile', 'birth_update_failed', pg_last_error($this->dbConnection)),
-	          STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
-	    }
-	    pg_free_result($result);
+	  if($this->session->userLogin_userId > 0) {
+  	  if($birthdayMonth == 0 && $birthdayYear == 0) {
+  	    $result = pg_execute($this->dbConnection, "delete_user_birth", array($this->session->userLogin_userId));
+  	    if(!$result) {
+  	      throw new Exception($this->errorHandler->getError('profile', 'birth_update_failed', pg_last_error($this->dbConnection)),
+  	          STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
+  	    }
+  	    pg_free_result($result);
+  	  } else if($birthdayMonth > 1 && $birthdayYear > 1) {
+  	    $birthday = sprintf("%04d", $birthdayYear) . '-' . sprintf("%02d", $birthdayMonth) . '-01 00:00:01';
+  	    $result = pg_execute($this->dbConnection, "update_user_birth", array($birthday, $this->session->userLogin_userId));
+  	    if(!$result) {
+  	      throw new Exception($this->errorHandler->getError('profile', 'birth_update_failed', pg_last_error($this->dbConnection)),
+  	          STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
+  	    }
+  	    pg_free_result($result);
+  	  }
+	  } else {
+  	  throw new Exception($this->errorHandler->getError('profile', 'birth_update_failed', pg_last_error($this->dbConnection)),
+  	      STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
 	  }
 	}
 	
@@ -850,7 +874,7 @@ class userFunctions extends CoreAuthenticationNone {
 	      STATUS_CODE_USER_RECOVERY_HASH_CREATION_FAILED);
 	}
 
-	private function sendRegistrationEmail($postData) {
+	public function sendRegistrationEmail($postData) {
 	  $catroidProfileUrl = BASE_PATH . 'catroid/profile';
 	  $catroidLoginUrl = BASE_PATH . 'catroid/login';
 	  $catroidRecoveryUrl = BASE_PATH . 'catroid/passwordrecovery';
@@ -881,7 +905,7 @@ class userFunctions extends CoreAuthenticationNone {
 	  }
 	}
 
-	private function sendPasswordRecoveryEmail($userHash, $userId, $userName, $userEmail) {
+	public function sendPasswordRecoveryEmail($userHash, $userId, $userName, $userEmail) {
 	  $catroidPasswordResetUrl = BASE_PATH . 'catroid/passwordrecovery?c=' . $userHash;
 	  $catroidProfileUrl = BASE_PATH . 'catroid/profile';
 	  $catroidLoginUrl = BASE_PATH . 'catroid/login';

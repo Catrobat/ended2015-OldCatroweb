@@ -442,7 +442,7 @@ public class BaseTest {
       location = this.webSite + Config.TESTS_BASE_PATH + location;
     }
     
-    driver().get(this.webSite + Config.TESTS_BASE_PATH + "api/checkToken?token=" + Config.DEFAULT_UPLOAD_TOKEN);
+    driver().get(this.webSite + Config.TESTS_BASE_PATH + "api/checkToken/.json?token=" + Config.DEFAULT_UPLOAD_TOKEN);
     driver().get(location);
     ajaxWait();
   }
@@ -459,6 +459,10 @@ public class BaseTest {
     driver().get(this.webSite + Config.TESTS_BASE_PATH + "catroid/login/logoutRequest.json");
     driver().get(location);
     ajaxWait();
+  }
+  
+  public void blur(By selector) {
+    ((JavascriptExecutor) driver()).executeScript("return arguments[0].blur();", driver().findElement(selector));
   }
 
   protected void log(int message) {
