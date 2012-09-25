@@ -71,7 +71,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $this->obj->isRecoveryHashValid($hash);
       $this->assertTrue(true);
     } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: ' . $e->getMessage());
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
     }
   }
 
@@ -88,7 +88,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $this->obj->checkUsername($data);
       $this->assertTrue(true);
     } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: ' . $e->getMessage());
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
     }
   }
 
@@ -112,7 +112,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $this->obj->checkPassword($data[0], $data[1]);
       $this->assertTrue(true);
     } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: ' . $e->getMessage());
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
     }
   }
 
@@ -141,7 +141,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $this->obj->checkEmail($data);
       $this->assertTrue(true);
     } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: ' . $e->getMessage());
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
     }
   }
 
@@ -165,7 +165,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $this->obj->checkCountry($data);
       $this->assertTrue(true);
     } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: ' . $e->getMessage());
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
     }
   }
 
@@ -184,7 +184,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
   /**
    * @dataProvider validRegistrationData
    */
-  public function testLogin($postData) {
+  public function testLoginLogout($postData) {
     try {
       $this->obj->register($postData);
       $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
@@ -197,7 +197,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $this->assertEquals(0, intval($this->obj->session->userLogin_userId));
       $this->assertEquals('', $this->obj->session->userLogin_userNickname);
     } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: ' . $e->getMessage());
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
     }
   }
 
@@ -210,7 +210,248 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $this->obj->undoRegister();
       $this->assertTrue(true);
     } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED: ' . $e->getMessage());
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
+    }
+  }
+
+  /**
+   * @dataProvider validRegistrationData
+   */
+  public function testUpdatePassword($postData) {
+    $newPassword = "testBlaBlub";
+    try {
+      $this->obj->register($postData);
+      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
+      
+      $this->obj->updatePassword($postData['registrationUsername'], $newPassword);
+      $this->obj->logout();
+      $this->obj->login($postData['registrationUsername'], $newPassword);
+
+      $this->obj->undoRegister();
+      $this->assertTrue(true);
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
+    }
+  }
+
+  /**
+   * @dataProvider validRegistrationData
+   */
+  public function testUpdateCity($postData) {
+    $newCity = "NewCity";
+    try {
+      $this->obj->register($postData);
+      try {
+        $this->obj->updateCity($newCity);
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals($e->getMessage(), "There was a problem while updating your city.");
+      }
+      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
+      
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['city'], $postData['registrationCity']);
+      $this->obj->updateCity($newCity);
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['city'], $newCity);
+      
+      $this->obj->undoRegister();
+      $this->assertTrue(true);
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
+    }
+  }
+
+  /**
+   * @dataProvider validRegistrationData
+   */
+  public function testUpdateCountry($postData) {
+    $newCountry = "XX";
+    try {
+      $this->obj->register($postData);
+      try {
+        $this->obj->updateCountry($newCountry);
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals($e->getMessage(), "There was a problem while updating your home country.");
+      }
+      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
+      
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['country'], $postData['registrationCountry']);
+      $this->obj->updateCountry($newCountry);
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['country'], $newCountry);
+      
+      $this->obj->undoRegister();
+      $this->assertTrue(true);
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
+    }
+  }
+
+  /**
+   * @dataProvider validRegistrationData
+   */
+  public function testUpdateGender($postData) {
+    $newGender = "female";
+    try {
+      $this->obj->register($postData);
+      try {
+        $this->obj->updateGender($newGender);
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals($e->getMessage(), "There was a problem while updating your gender.");
+      }
+      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
+      
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['gender'], $postData['registrationGender']);
+      $this->obj->updateGender($newGender);
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['gender'], $newGender);
+      
+      $this->obj->undoRegister();
+      $this->assertTrue(true);
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
+    }
+  }
+
+  /**
+   * @dataProvider validRegistrationData
+   */
+  public function testUpdateBirthday($postData) {
+    $newMonth = "12";
+    $newYear = "2012";
+    try {
+      $this->obj->register($postData);
+      try {
+        $this->obj->updateBirthday($newMonth, $newYear);
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals($e->getMessage(), "There was a problem while updating your birthday data.");
+      }
+      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
+      
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['month'], $postData['registrationMonth']);
+      $this->assertEquals($data['year'], $postData['registrationYear']);
+
+      $this->obj->updateBirthday($newMonth, $newYear);
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['month'], $newMonth);
+      $this->assertEquals($data['year'], $newYear);
+
+      $this->obj->updateBirthday('', '');
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['month'], null);
+      $this->assertEquals($data['year'], null);
+
+      $this->obj->undoRegister();
+      $this->assertTrue(true);
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
+    }
+  }
+
+  /**
+   * @dataProvider validRegistrationData
+   */
+  public function testUpdateLanguage($postData) {
+    $newLanguage = "de";
+    try {
+      $this->obj->register($postData);
+      try {
+        $this->obj->updateLanguage($newLanguage);
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals($e->getMessage(), "There was a problem while updating your language.");
+      }
+      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
+      
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['language'], $postData['registrationLanguage']);
+      $this->obj->updateLanguage($newLanguage);
+      $data = $this->obj->getUserData($postData['registrationUsername']);
+      $this->assertEquals($data['language'], $newLanguage);
+      
+      $this->obj->undoRegister();
+      $this->assertTrue(true);
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
+    }
+  }
+  
+  /**
+   * @dataProvider validRegistrationData
+   */
+  public function testEmailActions($postData) {
+    $newEmail = "myNewMail@catroid.org";
+    try {
+      $this->obj->register($postData);
+      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
+    
+      $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
+      $this->assertTrue(in_array($postData['registrationEmail'], $data));
+      
+      $this->obj->addEmailAddress($this->obj->session->userLogin_userId, $newEmail);
+      $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
+      $this->assertTrue(in_array($postData['registrationEmail'], $data));
+      $this->assertTrue(in_array($newEmail, $data));
+      
+      $this->obj->deleteEmailAddress($postData['registrationEmail']);
+      $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
+      $this->assertFalse(in_array($postData['registrationEmail'], $data));
+      $this->assertTrue(in_array($newEmail, $data));
+      
+      $this->obj->undoRegister();
+      $this->assertTrue(true);
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
+    }    
+  }
+
+  /**
+   * @dataProvider validRegistrationData
+   */
+  public function testPasswordRecovery($postData) {
+    $newPassword = "myNewPassword123";
+    try {
+      $this->obj->register($postData);
+  
+      $data = $this->obj->getUserDataForRecovery($postData['registrationUsername']);
+      $hash = $this->obj->createUserHash($data);
+      try {
+        $this->obj->isRecoveryHashValid($hash);
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals($e->getMessage(), "Recovery hash was not found.");
+      }
+  
+      try {
+        $this->obj->sendPasswordRecoveryEmail($hash, $data['id'], $data['username'], $data['email']);
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals($e->getMessage(), "http://catroid.local/catroid/passwordrecovery?c=" . $hash);
+      }
+  
+      $this->obj->isRecoveryHashValid($hash);
+      $data = $this->obj->getUserDataByRecoveryHash($hash);
+      $this->assertNotEquals(0, intval($data['recovery_time']));
+      $this->assertEquals($hash, $data['recovery_hash']);
+      
+      $this->obj->updatePassword($postData['registrationUsername'], $newPassword);
+      try {
+        $this->obj->isRecoveryHashValid($hash);
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals($e->getMessage(), "Recovery hash was not found.");
+      }
+      
+      $this->assertTrue(true);
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
     }
   }
 
@@ -223,8 +464,20 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
                 'registrationGender' => 'male',
                 'registrationMonth' => '1',
                 'registrationYear' => '1980',
+                'registrationLanguage' => 'en',
                 'registrationCountry' => 'at',
                 'registrationCity' => 'Graz'
+            )
+        ), array(
+            array('registrationUsername' => '卡爾迈耶',
+                'registrationPassword' => 'мойпароль123',
+                'registrationEmail' => 'unittest@unit.test',
+                'registrationGender' => 'male',
+                'registrationMonth' => '1',
+                'registrationYear' => '1980',
+                'registrationLanguage' => 'en',
+                'registrationCountry' => 'at',
+                'registrationCity' => 'グラーツ'
             )
         )
     );

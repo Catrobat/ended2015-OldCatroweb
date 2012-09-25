@@ -698,6 +698,7 @@
   <target name="run-phpunit-catroid-tests" depends="-phpunit-catroid-tests" />
   <target name="run-phpunit-admin-tests" depends="-phpunit-admin-tests" />
   <target name="run-phpunit-api-tests" depends="-phpunit-api-tests" />
+  <target name="run-phpunit-common-tests" depends="-phpunit-common-tests" />
   <target name="run-selenium-local-tests" depends="-selenium-grid-tests-catroid-local" />
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
   <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />

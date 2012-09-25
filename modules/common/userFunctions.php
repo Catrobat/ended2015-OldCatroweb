@@ -54,12 +54,12 @@ class userFunctions extends CoreAuthenticationNone {
 	  pg_free_result($result);
 	  
 	  if($numRows != 1) {
-	    throw new Exception($this->errorHandler->getError('passwordrecovery', 'hash_not_found', pg_last_error($this->dbConnection)),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'hash_not_found', pg_last_error($this->dbConnection)),
 	        STATUS_CODE_USER_RECOVERY_EXPIRED);
 	  }
 	  
 	  if((intVal($row['recovery_time']) + 24*60*60) < time()) {
-	    throw new Exception($this->errorHandler->getError('passwordrecovery', 'expired_url', pg_last_error($this->dbConnection)),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'expired_url', pg_last_error($this->dbConnection)),
 	        STATUS_CODE_USER_RECOVERY_EXPIRED);
 	  }
 	}
@@ -81,42 +81,42 @@ class userFunctions extends CoreAuthenticationNone {
 	public function checkUsername($username) {
 	  $username = trim(strval($username));
 	  if($username == '') {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_missing'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_missing'),
 	        STATUS_CODE_USER_USERNAME_MISSING);
 	  }
 	
 	  // # < > [ ] | { }
 	  if(preg_match('/_|^_$/', $username)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_underscore'), 
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_underscore'), 
 	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
 	  }
 	  if(preg_match('/#|^#$/', $username)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_hash'), 
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_hash'), 
 	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
 	  }
 	  if(preg_match('/\||^\|$/', $username)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_verticalbar'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_verticalbar'),
 	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
 	  }
 	  if(preg_match('/\{|^\{$/', $username) || preg_match('/\}|^\}$/', $username)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_curlybrace'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_curlybrace'),
 	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
 	  }
 	  if(preg_match('/\<|^\<$/', $username) || preg_match('/\>|^\>$/', $username)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_lessgreater'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_lessgreater'),
 	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
 	  }
 	  if(preg_match('/\[|^\[$/', $username) || preg_match('/\]|^\]$/', $username)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_squarebracket'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_squarebracket'),
 	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
 	  }
 	  if(preg_match("/\\s/", $username)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_spaces'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_spaces'),
 	        STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
 	  }
 	
 	  if($this->badWordsFilter->areThereInsultingWords($username)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid_insulting_words'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_insulting_words'),
 	        STATUS_CODE_INSULTING_WORDS);
 	  }
 	
@@ -126,30 +126,30 @@ class userFunctions extends CoreAuthenticationNone {
 	  $ip = '('.$oktettA.')(\.('.$oktettB.')){2}\.('.$oktettA.')';
 	  $regEx = '/^'.$ip.'$/';
 	  if(preg_match($regEx, $username)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid'),
 	        STATUS_CODE_USER_USERNAME_INVALID);
 	  }
 	
 	  $usernameClean = getCleanedUsername($username);
 	  if(empty($usernameClean)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_invalid'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid'),
 	        STATUS_CODE_USER_USERNAME_INVALID);
 	  }
 	
 	  if(in_array($username, getUsernameBlacklistArray()) || in_array($usernameClean, getUsernameBlacklistArray())) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_blacklisted'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_blacklisted'),
 	        STATUS_CODE_USER_USERNAME_INVALID);
 	  }
 	
 	  foreach(getPublicServerBlacklistArray() as $value) {
 	    if(preg_match("/".$value."/i", $username)) {
-	      throw new Exception($this->errorHandler->getError('registration', 'username_blacklisted'),
+	      throw new Exception($this->errorHandler->getError('userFunctions', 'username_blacklisted'),
 	          STATUS_CODE_USER_USERNAME_INVALID);
 	    }
 	  }
 	  
 	  if($this->checkUserExists($username)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'username_already_exists'), 
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_already_exists'), 
 	        STATUS_CODE_USER_USERNAME_INVALID);
 	  }
 	}
@@ -157,22 +157,22 @@ class userFunctions extends CoreAuthenticationNone {
 	public function checkPassword($username, $password) {
 	  $password = trim(strval($password));
 	  if($password == '') {
-	    throw new Exception($this->errorHandler->getError('registration', 'password_missing'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'password_missing'),
 	        STATUS_CODE_USER_PASSWORD_MISSING);
 	  }
 
 	  if(strcasecmp($username, $password) == 0) {
-	    throw new Exception($this->errorHandler->getError('profile', 'username_password_equal'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'username_password_equal'),
 	        STATUS_CODE_USER_USERNAME_PASSWORD_EQUAL);
 	  }
 	  
 	  if(strlen($password) < USER_MIN_PASSWORD_LENGTH) {
-	    throw new Exception($this->errorHandler->getError('profile', 'password_new_too_short', '', USER_MIN_PASSWORD_LENGTH),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'password_new_too_short', '', USER_MIN_PASSWORD_LENGTH),
 	        STATUS_CODE_USER_PASSWORD_TOO_SHORT);
 	  }
 	  
 	  if(strlen($password) > USER_MAX_PASSWORD_LENGTH) {
-	    throw new Exception($this->errorHandler->getError('profile', 'password_new_too_long', '', USER_MAX_PASSWORD_LENGTH),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'password_new_too_long', '', USER_MAX_PASSWORD_LENGTH),
 	        STATUS_CODE_USER_PASSWORD_TOO_LONG);
 	  }
 	}
@@ -193,7 +193,7 @@ class userFunctions extends CoreAuthenticationNone {
 	public function checkEmail($email) {
 	  $email = trim(strval($email));
 	  if($email == '') {
-	    throw new Exception($this->errorHandler->getError('registration', 'email_missing'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'email_missing'),
 	        STATUS_CODE_USER_EMAIL_INVALID);
 	  }
 	
@@ -202,7 +202,7 @@ class userFunctions extends CoreAuthenticationNone {
 	  $tld = '[a-zA-Z]{2,8}';
 	  $regEx = '/^('.$name.')@('.$domain.')\.('.$tld.')$/';
 	  if(!preg_match($regEx, $email)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'email_invalid'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'email_invalid'),
 	        STATUS_CODE_USER_EMAIL_INVALID);
 	  }
 	  $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($email));
@@ -211,7 +211,7 @@ class userFunctions extends CoreAuthenticationNone {
 	        STATUS_CODE_SQL_QUERY_FAILED);
 	  }
 	  if(pg_num_rows($result) > 0) {
-	    throw new Exception($this->errorHandler->getError('registration', 'email_already_exists'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'email_already_exists'),
 	        STATUS_CODE_USER_EMAIL_INVALID);
 	  }
 	}
@@ -219,12 +219,13 @@ class userFunctions extends CoreAuthenticationNone {
 	public function checkCountry($country) {
 	  $country = strtoupper($country);
 	  if(!preg_match("/^[A-Z][A-Z]$/i", $country)) {
-	    throw new Exception($this->errorHandler->getError('registration', 'country_missing'), 
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'country_missing'), 
 	        STATUS_CODE_USER_COUNTRY_INVALID);
 	  }
 	}
 	
 	public function login($username, $password) {
+	  //TODO check failed logins
 	  $this->loginCatroid($username, $password);
 	  $this->loginBoard($username, $password);
 	  $this->loginWiki($username, $password);
@@ -266,7 +267,7 @@ class userFunctions extends CoreAuthenticationNone {
 	          STATUS_CODE_SQL_QUERY_FAILED);
 	    }
 	    pg_free_result($result);
-	    throw new Exception($this->errorHandler->getError('auth', 'password_or_username_wrong'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'password_or_username_wrong'),
 	        STATUS_CODE_AUTHENTICATION_FAILED);
 	  }
 	}
@@ -281,7 +282,7 @@ class userFunctions extends CoreAuthenticationNone {
 	
 	  $auth->login($username, $password, false, 1);
 	  if(intVal($user->data['user_id']) <= 0) {
-	    throw new Exception($this->errorHandler->getError('auth', 'board_authentication_failed'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'board_authentication_failed'),
 	        STATUS_CODE_AUTHENTICATION_FAILED);
 	  }
 	}
@@ -303,7 +304,7 @@ class userFunctions extends CoreAuthenticationNone {
 	  $response = unserialize($snoopy->results);
 	  if(!isset($response['login']['result']) || !isset($response['login']['token']) ||
 	      !isset($response['login']['cookieprefix']) || !isset($response['login']['sessionid'])) {
-	    throw new Exception($this->errorHandler->getError('auth', 'wiki_api_response_incorrect', $snoopy->results),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'wiki_api_response_incorrect', $snoopy->results),
 	        STATUS_CODE_AUTHENTICATION_FAILED);
 	  }
 	
@@ -317,7 +318,7 @@ class userFunctions extends CoreAuthenticationNone {
 	  if(!isset($response['login']['result']) || !isset($response['login']['lgtoken']) ||
 	      !isset($response['login']['cookieprefix']) || !isset($response['login']['lgusername']) ||
 	      !isset($response['login']['lgtoken']) || !isset($response['login']['sessionid'])) {
-	    throw new Exception($this->errorHandler->getError('auth', 'wiki_api_response_incorrect', $snoopy->results),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'wiki_api_response_incorrect', $snoopy->results),
 	        STATUS_CODE_AUTHENTICATION_FAILED);
 	  }
 	
@@ -394,6 +395,8 @@ class userFunctions extends CoreAuthenticationNone {
 	
 	public function register($postData) {
 	  try {
+	  //TODO check for blocked ip
+	  
 	    $this->checkUsername($postData['registrationUsername']);
 	    $this->checkPassword($postData['registrationUsername'], $postData['registrationPassword']);
 	    $this->checkEmail($postData['registrationEmail']);
@@ -425,8 +428,8 @@ class userFunctions extends CoreAuthenticationNone {
 	  $dateOfBirth = NULL;
 	  $year = checkUserInput($postData['registrationYear']);
 	  $month = checkUserInput($postData['registrationMonth']);
+	  
 	  if($month != 0 && $year != 0) {
-	    $year = '1900';
 	    $dateOfBirth = $year . '-' . sprintf("%02d", $month) . '-01 00:00:01';
 	  }
 	
@@ -478,7 +481,7 @@ class userFunctions extends CoreAuthenticationNone {
 	  if($phpbb_user_id = user_add($user_row)) {
 	    return $phpbb_user_id;
 	  } else {
-	    throw new Exception($this->errorHandler->getError('registration', 'board_registration_failed'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'board_registration_failed'),
 	        STATUS_CODE_USER_REGISTRATION_FAILED);
 	  }
 	}
@@ -547,7 +550,6 @@ class userFunctions extends CoreAuthenticationNone {
 	  if($this->registerWikiId != 0) {
   	  $wikiDbConnection = pg_connect("host=" . DB_HOST_WIKI . " dbname=" . DB_NAME_WIKI . " user=" . DB_USER_WIKI .
   	      " password=" . DB_PASS_WIKI);
-
   	
   	  pg_prepare($wikiDbConnection, "delete_wiki_user", "DELETE FROM mwuser WHERE user_id=$1");
   	  $result = pg_execute($wikiDbConnection, "delete_wiki_user", array($this->registerWikiId));
@@ -563,7 +565,7 @@ class userFunctions extends CoreAuthenticationNone {
 	  $userData = trim(strval($userData));
 	  
     if($userData == '') {
-      throw new Exception($this->errorHandler->getError('passwordrecovery', 'userdata_missing'),
+      throw new Exception($this->errorHandler->getError('userFunctions', 'userdata_missing'),
           STATUS_CODE_USER_POST_DATA_MISSING);
     }
 	  
@@ -591,13 +593,14 @@ class userFunctions extends CoreAuthenticationNone {
 	}
 	
 	private function updateBoardPassword($username, $password) {
+	  return;
 	  $password = getHashedBoardPassword($password);
 	
 	  $sql = "UPDATE phpbb_users SET user_password='" . $password . "',
 	    user_pass_convert = 0 WHERE username_clean='" . $username . "'";
 	
 	  if(!boardSqlQuery($sql)) {
-	    throw new Exception($this->errorHandler->getError('profile', 'password_new_board_update_failed'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'password_new_board_update_failed'),
 	        STATUS_CODE_USER_NEW_PASSWORD_BOARD_UPDATE_FAILED);
 	  }
 	}
@@ -631,12 +634,12 @@ class userFunctions extends CoreAuthenticationNone {
           $this->session->userLogin_userId));
      
   	  if(!$result) {
-        throw new Exception($this->errorHandler->getError('profile', 'city_update_failed', pg_last_error($this->dbConnection)),
+        throw new Exception($this->errorHandler->getError('userFunctions', 'city_update_failed', pg_last_error($this->dbConnection)),
             STATUS_CODE_USER_UPDATE_CITY_FAILED);
       }
       pg_free_result($result);
 	  } else {
-      throw new Exception($this->errorHandler->getError('profile', 'city_update_failed', pg_last_error($this->dbConnection)),
+      throw new Exception($this->errorHandler->getError('userFunctions', 'city_update_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_USER_UPDATE_CITY_FAILED);
 	  }
 	}
@@ -647,12 +650,12 @@ class userFunctions extends CoreAuthenticationNone {
       $result = pg_execute($this->dbConnection, "update_user_country", array($country, $this->session->userLogin_userId));
   
       if(!$result) {
-        throw new Exception($this->errorHandler->getError('profile', 'country_update_failed', pg_last_error($this->dbConnection)),
+        throw new Exception($this->errorHandler->getError('userFunctions', 'country_update_failed', pg_last_error($this->dbConnection)),
             STATUS_CODE_USER_UPDATE_COUNTRY_FAILED);
       }
       pg_free_result($result);
 	  } else {
-  	  throw new Exception($this->errorHandler->getError('profile', 'country_update_failed', pg_last_error($this->dbConnection)),
+  	  throw new Exception($this->errorHandler->getError('userFunctions', 'country_update_failed', pg_last_error($this->dbConnection)),
   	      STATUS_CODE_USER_UPDATE_COUNTRY_FAILED);
 	  }
 	}
@@ -661,12 +664,12 @@ class userFunctions extends CoreAuthenticationNone {
 	  if($this->session->userLogin_userId > 0) {
       $result = pg_execute($this->dbConnection, "update_user_gender", array($gender, $this->session->userLogin_userId));
       if(!$result) {
-        throw new Exception($this->errorHandler->getError('profile', 'gender_update_failed', pg_last_error($this->dbConnection)),
+        throw new Exception($this->errorHandler->getError('userFunctions', 'gender_update_failed', pg_last_error($this->dbConnection)),
             STATUS_CODE_USER_UPDATE_GENDER_FAILED);
       }
       pg_free_result($result);
 	  } else {
-  	  throw new Exception($this->errorHandler->getError('profile', 'gender_update_failed', pg_last_error($this->dbConnection)),
+  	  throw new Exception($this->errorHandler->getError('userFunctions', 'gender_update_failed', pg_last_error($this->dbConnection)),
   	      STATUS_CODE_USER_UPDATE_GENDER_FAILED);
 	  }
 	}
@@ -676,41 +679,42 @@ class userFunctions extends CoreAuthenticationNone {
   	  if($birthdayMonth == 0 && $birthdayYear == 0) {
   	    $result = pg_execute($this->dbConnection, "delete_user_birth", array($this->session->userLogin_userId));
   	    if(!$result) {
-  	      throw new Exception($this->errorHandler->getError('profile', 'birth_update_failed', pg_last_error($this->dbConnection)),
+  	      throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
   	          STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
   	    }
   	    pg_free_result($result);
-  	  } else if($birthdayMonth > 1 && $birthdayYear > 1) {
+  	  } else if($birthdayMonth > 0 && $birthdayYear > 1) {
   	    $birthday = sprintf("%04d", $birthdayYear) . '-' . sprintf("%02d", $birthdayMonth) . '-01 00:00:01';
   	    $result = pg_execute($this->dbConnection, "update_user_birth", array($birthday, $this->session->userLogin_userId));
   	    if(!$result) {
-  	      throw new Exception($this->errorHandler->getError('profile', 'birth_update_failed', pg_last_error($this->dbConnection)),
+  	      throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
   	          STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
   	    }
   	    pg_free_result($result);
   	  }
 	  } else {
-  	  throw new Exception($this->errorHandler->getError('profile', 'birth_update_failed', pg_last_error($this->dbConnection)),
+  	  throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
   	      STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
 	  }
 	}
 	
 	public function updateLanguage($language) {
-	  if(intval($this->session->userLogin_userId) == 0) {
-	    return;
-	  }
-	  
-	  if($language == '') {
-	    throw new Exception($this->errorHandler->getError('profile', 'language_update_failed', pg_last_error($this->dbConnection)),
+	  if(intval($this->session->userLogin_userId) > 0) {
+  	  if($language == '') {
+  	    throw new Exception($this->errorHandler->getError('userFunctions', 'language_update_failed', pg_last_error($this->dbConnection)),
+  	        STATUS_CODE_USER_UPDATE_LANGUAGE_FAILED);
+  	  }
+  
+  	  $result = pg_execute($this->dbConnection, "update_user_language_by_id", array($language, $this->session->userLogin_userId));
+  	  if(!$result) {
+  	    throw new Exception($this->errorHandler->getError('userFunctions', 'language_update_failed', pg_last_error($this->dbConnection)),
+  	        STATUS_CODE_USER_UPDATE_LANGUAGE_FAILED);
+  	  }
+  	  pg_free_result($result);
+	  } else {
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'language_update_failed', pg_last_error($this->dbConnection)),
 	        STATUS_CODE_USER_UPDATE_LANGUAGE_FAILED);
 	  }
-
-	  $result = pg_execute($this->dbConnection, "update_user_language_by_id", array($language, $this->session->userLogin_userId));
-	  if(!$result) {
-	    throw new Exception($this->errorHandler->getError('profile', 'language_update_failed', pg_last_error($this->dbConnection)),
-	        STATUS_CODE_USER_UPDATE_LANGUAGE_FAILED);
-	  }
-	  pg_free_result($result);
 	}
 	
 	public function getUserData($username) {
@@ -780,7 +784,7 @@ class userFunctions extends CoreAuthenticationNone {
 	    return $user;
 	  }
 
-	  throw new Exception($this->errorHandler->getError('passwordrecovery', 'userdata_not_exists'),
+	  throw new Exception($this->errorHandler->getError('userFunctions', 'userdata_not_exists'),
 	      STATUS_CODE_USER_RECOVERY_NOT_FOUND);
 	}
 
@@ -805,7 +809,7 @@ class userFunctions extends CoreAuthenticationNone {
     $userEmails = $this->getEmailAddresses($userId);
     foreach($userEmails as $current) {
       if($current === $email) {
-        throw new Exception($this->errorHandler->getError('profile', 'email_address_exists'),
+        throw new Exception($this->errorHandler->getError('userFunctions', 'email_address_exists'),
             STATUS_CODE_USER_ADD_EMAIL_EXISTS);
       }
     }
@@ -823,10 +827,10 @@ class userFunctions extends CoreAuthenticationNone {
 	  $numberOfEmailAddresses = count($this->getEmailAddresses($userId));
 	
 	  if($userId == 1 && $numberOfEmailAddresses < 3) {
-	    throw new Exception($this->errorHandler->getError('profile', 'email_update_of_catroweb_failed'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'email_update_of_catroweb_failed'),
 	        STATUS_CODE_USER_DELETE_EMAIL_FAILED);
 	  } elseif($numberOfEmailAddresses < 2) {
-	    throw new Exception($this->errorHandler->getError('profile', 'email_update_of_catroweb_failed'),
+	    throw new Exception($this->errorHandler->getError('userFunctions', 'email_delete_failed'),
 	        STATUS_CODE_USER_DELETE_EMAIL_FAILED);
 	  }
 	
@@ -870,7 +874,7 @@ class userFunctions extends CoreAuthenticationNone {
 	    $hash = hash("md5", $data . ':' . $salt);
 	    return $hash;
 	  }
-	  throw new Exception($this->errorHandler->getError('passwordrecovery', 'create_hash_failed'),
+	  throw new Exception($this->errorHandler->getError('userFunctions', 'create_hash_failed'),
 	      STATUS_CODE_USER_RECOVERY_HASH_CREATION_FAILED);
 	}
 
@@ -899,7 +903,7 @@ class userFunctions extends CoreAuthenticationNone {
 	    $mailText .=   "\n\n";
 	
 	    if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress)) {
-	      throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL),
+	      throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
 	          STATUS_CODE_SEND_MAIL_FAILED);
 	    }
 	  }
@@ -936,7 +940,7 @@ class userFunctions extends CoreAuthenticationNone {
 	    $mailText .=   "www.catroid.org";
 	
 	    if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
-	      throw new Exception($this->errorHandler->getError('sendmail', 'sendmail_failed', '', CONTACT_EMAIL),
+	      throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
 	          STATUS_CODE_SEND_MAIL_FAILED);
 	    }
 	  }

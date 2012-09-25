@@ -23,9 +23,47 @@
         <string name="connection_failed">Ooooops something went wrong. Please try again!</string>
         <string name="no_entry_for_id">Ooooops something went wrong. Please try again!</string>
     </db>
-    <sendmail>
+    <userFunctions>
+      <string name="hash_not_found">Sorry! Couldn't find something to recover. Please try again.</string>
+			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>
+      <string name="username_missing">You haven't entered a nickname, please add one.</string>
+      <string name="username_invalid_underscore">The nickname you have entered is not allowed. Please do not use underscores (_).</string>
+      <string name="username_invalid_hash">The nickname you have entered is not allowed. Please do not use hash signs (#).</string>
+      <string name="username_invalid_verticalbar">The nickname you have entered is not allowed. Please do not use vertical bars (|).</string>
+      <string name="username_invalid_curlybrace">The nickname you have entered is not allowed. Please do not use curly braces ({ or }).</string>
+      <string name="username_invalid_lessgreater">The nickname you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
+      <string name="username_invalid_squarebracket">The nickname you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
+      <string name="username_invalid_spaces">The nickname you have entered is not allowed. Please do not use spaces (" ").</string>
+      <string name="username_invalid_insulting_words">The nickname you have entered is not allowed. Please do not use insulting words.</string>
+      <string name="username_invalid">The nickname you have entered is not allowed.</string>
+      <string name="username_blacklisted">The nickname you have entered is not allowed.</string>
+      <string name="username_already_exists">The nickname you have entered already exists.</string>
+      <string name="password_missing">You haven't entered a password, please add one.</string>
+      <string name="username_password_equal">The password must differ from the nickname.</string>
+      <string name="password_new_too_short">The new password must have at least {*minimumPasswordLength*} characters.</string>
+      <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
+      <string name="email_missing">You haven't entered an email address, please add one.</string>
+      <string name="email_invalid">This email address is not valid.</string>
+      <string name="email_already_exists">The email address you have entered already exists.</string>
+      <string name="country_missing">You haven't entered a country, please add one.</string>
+      <string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
+      <string name="board_authentication_failed">The board authentication failed.</string>
+      <string name="wiki_api_response_incorrect">Ooooops something went wrong. Please try again!</string>
+      <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
+      <string name="userdata_missing">Your nickname or email address is missing.</string>
+      <string name="password_new_board_update_failed">There was a problem while updating the password.</string>
+      <string name="city_update_failed">There was a problem while updating your city.</string>
+      <string name="country_update_failed">There was a problem while updating your home country.</string>
+			<string name="gender_update_failed">There was a problem while updating your gender.</string>
+      <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
+      <string name="language_update_failed">There was a problem while updating your language.</string>
+      <string name="userdata_not_exists">Your nickname or email address was not found.</string>
+      <string name="email_address_exists">The email address already exists.</string>
+      <string name="email_delete_failed">Error while deleting this e-mail address. You must have at least 1 e-mail address.</string>
+      <string name="email_update_of_catroweb_failed">Catroweb must have at least 2 e-mail addresses.</string>
+      <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
       <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
-    </sendmail>
+    </userFunctions>
     <upload>
         <string name="missing_project_title">You need to specify a title for your project!</string>
         <string name="missing_file_data">Sorry, there was a problem during the upload!</string>
@@ -57,54 +95,17 @@
       <string name="user_is_blocked">Your Account has been blocked.</string>
     </viewer>
     <auth>
-    	<string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
-    	<string name="board_authentication_failed">The board authentication failed.</string>
-    	<string name="wiki_api_response_incorrect">Ooooops something went wrong. Please try again!</string>
     	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your nickname and password!</string>
 			<string name="device_auth_username_exists">Sorry, your nickname is already in use.</string>
       <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
     </auth>
     <registration>
-      <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
       <string name="postdata_missing">Please enter your login data.</string>
-      <string name="username_missing">You haven't entered a nickname, please add one.</string>
-      <string name="username_invalid_underscore">The nickname you have entered is not allowed. Please do not use underscores (_).</string>
-      <string name="username_invalid_hash">The nickname you have entered is not allowed. Please do not use hash signs (#).</string>
-      <string name="username_invalid_verticalbar">The nickname you have entered is not allowed. Please do not use vertical bars (|).</string>
-      <string name="username_invalid_curlybrace">The nickname you have entered is not allowed. Please do not use curly braces ({ or }).</string>
-      <string name="username_invalid_lessgreater">The nickname you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
-      <string name="username_invalid_squarebracket">The nickname you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
-      <string name="username_invalid_spaces">The nickname you have entered is not allowed. Please do not use spaces (" ").</string>
-      <string name="username_invalid_insulting_words">The nickname you have entered is not allowed. Please do not use insulting words.</string>
-      <string name="username_invalid">The nickname you have entered is not allowed.</string>
-      <string name="username_blacklisted">The nickname you have entered is not allowed.</string>
-      <string name="username_already_exists">The nickname you have entered already exists.</string>
-      <string name="password_missing">You haven't entered a password, please add one.</string>
-      <string name="email_missing">You haven't entered an email address, please add one.</string>
-      <string name="email_invalid">This email address is not valid.</string>
-      <string name="email_already_exists">The email address you have entered already exists.</string>
-      <string name="country_missing">You haven't entered a country, please add one.</string>
     </registration>
-    <passwordrecovery>
-      <string name="userdata_missing">Your nickname or email address is missing.</string>
-      <string name="userdata_not_exists">Your nickname or email address was not found.</string>
-      <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
-      <string name="hash_not_found">Sorry! Couldn't find something to recover. Please try again.</string>
-			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>
-    </passwordrecovery>
     <profile>
       <string name="password_old_missing">The old password is missing.</string>
       <string name="password_old_wrong">The old password was incorrect.</string>
       <string name="password_new_missing">The new password is missing.</string>
-      <string name="password_new_too_short">The new password must have at least {*minimumPasswordLength*} characters.</string>
-      <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
-			<string name="password_new_board_update_failed">There was a problem while updating the password.</string>
-      <string name="username_password_equal">The password must differ from the nickname.</string>
-      <string name="email_address_exists">The email address already exists.</string>
-      <string name="email_update_of_catroweb_failed">Catroweb must have at least 2 e-mail addresses.</string>
-      <string name="country_update_failed">There was a problem while updating your home country.</string>
-      <string name="city_update_failed">There was a problem while updating your hometown.</string>
-      <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
     </profile>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
