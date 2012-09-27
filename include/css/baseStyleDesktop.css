@@ -20,6 +20,11 @@ body {
 	font-size: 1.0em;
 }
 
+/* Main Container; contains everything */
+div.webMainContainer {
+  width: 800px;
+}
+
 /* catroid form styles */
 form.catroid {
   width:31.2em;

@@ -35,7 +35,7 @@ div#webAjaxLoadingContainer {
 
 /* Main Container; contains everything */
 div.webMainContainer {
-  width: 800px;
+  width: 100%;
   margin-right: auto;
   margin-left: auto;
 }

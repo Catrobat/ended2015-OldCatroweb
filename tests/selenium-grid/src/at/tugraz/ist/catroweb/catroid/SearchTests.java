@@ -19,8 +19,11 @@
 package at.tugraz.ist.catroweb.catroid;
 
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -280,6 +283,60 @@ public class SearchTests extends BaseTest {
     }
   }
 
+  
+  @Test(dataProvider = "searchUser", groups = { "functionality", "upload" }, description = "search for user and find projects")
+  public void searchAndFindUser(HashMap<String, String> dataset) throws Throwable {
+    try {
+      projectUploader.upload(dataset);
+
+      String projectTitle = dataset.get("projectTitle");
+      String projectDescription = dataset.get("projectDescription");
+      String userToken  = dataset.get("token");
+      
+      WebElement webElementProjectDescription;
+      List<WebElement> webElementProjectDescriptions;
+      Iterator<WebElement> iteratorDescriptions;
+      
+
+      openLocation();
+      ajaxWait();
+
+      assertFalse(isVisible(By.id("headerSearchBox")));
+      driver().findElement(By.id("headerSearchButton")).click();
+      assertTrue(isVisible(By.id("headerSearchBox")));
+
+      driver().findElement(By.id("searchQuery")).sendKeys(CommonData.getLoginUserDefault());
+      driver().findElement(By.id("webHeadSearchSubmit")).click();
+      ajaxWait();
+
+      assertFalse(isVisible(By.id("fewerProjects")));
+      assertFalse(isVisible(By.id("moreProjects")));
+      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+      
+      assertTrue(isTextPresent(projectTitle));
+      
+      webElementProjectDescriptions = driver().findElements(By.className(".projectDetailLine"));
+      
+      iteratorDescriptions = webElementProjectDescriptions.iterator();
+      while( iteratorDescriptions.hasNext() ) {
+        webElementProjectDescription = iteratorDescriptions.next();
+        assertTrue(webElementProjectDescription.getText().contains(CommonData.getLoginUserDefault()));
+      }
+      
+      
+      assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
+
+    } catch(AssertionError e) {
+      captureScreen("SearchTests.searchUser." + dataset.get("projectTitle"));
+      log(dataset.get("projectTitle"));
+      log(dataset.get("projectDescription"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("SearchTests.searchUser." + dataset.get("projectTitle"));
+      throw e;
+    }
+  }  
+  
   @DataProvider(name = "specialChars")
   public Object[][] specialChars() {
     Object[][] returnArray = new Object[][] { { "_äöü\"$%&/=?`+*~#-.:,;|" }, };
@@ -294,4 +351,20 @@ public class SearchTests extends BaseTest {
         { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "", "", "", "", "0") }, };
     return returnArray;
   }
+  
+  
+  @DataProvider(name = "searchUser")
+  public Object[][] searchUser() {
+    Object[][] returnArray = new Object[][] {
+        { CommonData.getUploadPayload("search_test_long_description_" + CommonData.getRandomShortString(10),
+            "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH), "", "", "", "", createToken(CommonData.getLoginUserDefault(), CommonData.getLoginPasswordDefault())) },
+        { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "", "", "", "", createToken(CommonData.getLoginUserDefault(), CommonData.getLoginPasswordDefault())) }, 
+    };
+    return returnArray;
+  }
+
+  private String createToken(String username, String password) {
+    return CommonFunctions.md5(CommonFunctions.md5(username) + ":" + CommonFunctions.md5(password));
+  }
+  
 }

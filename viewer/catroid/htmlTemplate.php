@@ -32,7 +32,8 @@
 <?php while($css = $this->getCss()) {?>
   <link href="<?php echo BASE_PATH?>include/css/<?php echo $css.'?'.VERSION?>" media="screen" rel="stylesheet" type="text/css" />
 <?php }?>
-<?php if(!$this->isMobile) {?>
+
+<?php if(!$this->isMobile)  {?>
   <link href="<?php echo BASE_PATH?>include/css/baseStyleDesktop.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
 <?php }?>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/baseClassVars.js?<?php echo VERSION; ?>" ></script>

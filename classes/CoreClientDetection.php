@@ -643,6 +643,11 @@
 			    $aversion = explode(' ',$aresult[1]);
 			    $this->setVersion($aversion[0]);
 			    $this->setBrowser(self::BROWSER_CHROME);
+			    
+			    if(preg_match("/Mobile/", $this->_agent)) {
+			      $this->setMobile(true);
+			    }
+			    
 			    return true;
 		    }
 		    return false;
@@ -834,26 +839,34 @@
 	     * Determine if the browser is Firefox or not (last updated 1.7)
 	     * @return boolean True if the browser is Firefox otherwise false
 	     */
+	    
+	    private function checkBrowserFirefoxMobile() {
+	      if(preg_match("/Fennec/", $this->_agent)) {
+	        $this->setBrowser(self::BROWSER_FIREFOX_MOBILE);
+	        $this->setMobile(true);
+	      } else {
+	        $this->setBrowser(self::BROWSER_FIREFOX);
+	      }
+
+	      if(preg_match("/Mobile/", $this->_agent)) {
+	        $this->setMobile(true);
+	      }
+	    }
+	    
 	    protected function checkBrowserFirefox() {
 		    if( stripos($this->_agent,'safari') === false ) {
 				if( preg_match("/Firefox[\/ \(]([^ ;\)]+)/i",$this->_agent,$matches) ) {
 					$this->setVersion($matches[1]);
-					if(preg_match("/Fennec/", $this->_agent)) {
-					  $this->setBrowser(self::BROWSER_FIREFOX_MOBILE);
-					  $this->setMobile(true);
-					} else {
-					  $this->setBrowser(self::BROWSER_FIREFOX);
-					}
+					
+					$this->checkBrowserFirefoxMobile();
+					
 					return true;
 				}
 				else if( preg_match("/Firefox$/i",$this->_agent,$matches) ) {
 					$this->setVersion("");
-				    if(preg_match("/Fennec/", $this->_agent)) {
-					  $this->setBrowser(self::BROWSER_FIREFOX_MOBILE);
-					  $this->setMobile(true);
-					} else {
-					  $this->setBrowser(self::BROWSER_FIREFOX);
-					}
+					
+				  $this->checkBrowserFirefoxMobile();
+				  
 					return true;
 				}
 			}
