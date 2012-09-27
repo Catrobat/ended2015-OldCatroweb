@@ -73,7 +73,7 @@
                   <div class="profileItem">
                     <div class="label labelInput"><?php echo $this->languageHandler->getString('location'); ?></div>
                     <div>
-                      <input id="cityInput" class="catroid profileInput" type="text" value="<?php echo $this->userData['city']; ?>" placeholder="<?php echo $this->languageHandler->getString('enter_city'); ?>" /><br />
+                      <input id="cityInput" class="catroid profileInput" type="text" value="<?php echo $this->userData['city']; ?>" /><br />
                       <select id="countrySelect" class="catroid profileInput">
                         <?php echo $this->countryCodeListHTML; ?>
                       </select>

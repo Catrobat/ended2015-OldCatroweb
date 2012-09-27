@@ -245,7 +245,7 @@ public class ProfileTests extends BaseTest {
       
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("emailDeleteButtons")).findElement(By.tagName("button")).click();
-      assertTrue(isAjaxMessagePresent("Error while deleting this e-mail address. Catroweb must have at least 2 e-mail addresses."));
+      assertTrue(isAjaxMessagePresent("Error while deleting this e-mail address. You must have at least 1 e-mail address."));
       
       openLocation("catroid/profile/");
       
@@ -260,6 +260,7 @@ public class ProfileTests extends BaseTest {
       assertTrue(isAjaxMessagePresent("The new e-mail address was successfully added."));
 
       openLocation("catroid/profile/");
+      ajaxWait();
 
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("emailDeleteButtons")).findElements(By.tagName("button")).get(0).click();

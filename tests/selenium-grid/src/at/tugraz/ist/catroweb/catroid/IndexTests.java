@@ -216,7 +216,7 @@ public class IndexTests extends BaseTest {
       assertTrue(isElementPresent(By.xpath("//html[@lang='" + Config.SITE_DEFAULT_LANGUAGE + "']")));
       openLocation("catroid/imprint/", false);
       assertTrue(isElementPresent(By.id("switchLanguage")));
-      (new Select(driver().findElement(By.id("switchLanguage")))).selectByValue("de");
+      (new Select(driver().findElement(By.id("switchLangusessionage")))).selectByValue("de");
       ajaxWait();
       assertTrue(isTextPresent("Technische Universität Graz"));
       assertTrue(isElementPresent(By.id("switchLanguage")));

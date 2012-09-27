@@ -26,25 +26,20 @@ abstract class CoreAuthenticationDevice extends CoreAuthentication {
   abstract public function __authenticationFailed();
 
   public function authenticate() {
-    if(isset($_REQUEST['token']) && strlen($_REQUEST['token']) != 0) {
-      $authToken = strtolower($_REQUEST['token']);
-      $result = pg_execute($this->dbConnection, "get_user_device_login", array($authToken));
-
-      if($result && pg_num_rows($result) > 0) {
-        $user = pg_fetch_assoc($result);
-        pg_free_result($result);
-
-        if(is_numeric($user['id']) && $user['id'] >= 0) {
-          $this->session->userLogin_userId = $user['id'];
-          $this->session->userLogin_userNickname = $user['username'];
-
-          if(!$this->requestFromBlockedIp() && !$this->requestFromBlockedUser()) {
-            return true;
-          }
-        }
-      }
+    if($this->requestFromBlockedIp() || $this->requestFromTemporarilyBlockedIp()) {
+      return false;
     }
-    return false;
+    
+    $this->loadModule('common/userFunctions');
+    if(!$this->userFunctions->tokenAuthentication()) {
+      return false;
+    }
+    
+    if($this->requestFromBlockedUser()) {
+      return false;
+    }
+    
+    return true;
   }
 
   public function __destruct() {

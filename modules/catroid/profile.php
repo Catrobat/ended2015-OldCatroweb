@@ -169,7 +169,7 @@ class profile extends CoreAuthenticationUser {
           STATUS_CODE_PROFILE_OLD_PASSWORD_MISSING);
     }
   
-    $loginSuccess = $this->userFunctions->checkLoginData($this->session->userLogin_userNickname, $oldPassword);
+    $loginSuccess = $this->userFunctions->checkLoginData($this->session->userLogin_userNickname, md5($oldPassword));
     if(!$loginSuccess) {
       throw new Exception($this->errorHandler->getError('profile', 'password_old_wrong'),
           STATUS_CODE_PROFILE_OLD_PASSWORD_WRONG);

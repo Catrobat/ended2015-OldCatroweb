@@ -28,9 +28,8 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
   
   protected function setUp() {
     require_once CORE_BASE_PATH . 'modules/common/userFunctions.php';
-    
-    $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
     $this->obj = new userFunctions();
+    $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
   } 
   
   public function testIsLoggedIn() {
@@ -130,7 +129,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
 
   public function testCheckLoginData() {
     $this->assertFalse($this->obj->checkLoginData("", ""));
-    $this->assertTrue($this->obj->checkLoginData("catroweb", "cat.roid.web"));
+    $this->assertTrue($this->obj->checkLoginData("catroweb", md5("cat.roid.web")));
   }
 
   /**
@@ -184,6 +183,19 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
   /**
    * @dataProvider validRegistrationData
    */
+  public function testTokenAuthentication($postData) {
+    $this->obj->register($postData);
+    
+    $this->assertFalse($this->obj->isLoggedIn());
+    $_REQUEST['token'] = $this->obj->generateAuthenticationToken($postData['registrationUsername'], $postData['registrationPassword']);
+
+    $this->obj->tokenAuthentication();
+    $this->assertTrue($this->obj->isLoggedIn());
+  }
+
+  /**
+   * @dataProvider validRegistrationData
+   */
   public function testLoginLogout($postData) {
     try {
       $this->obj->register($postData);
@@ -204,6 +216,35 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
   /**
    * @dataProvider validRegistrationData
    */
+  public function testTemporarilyLoginBlock($postData) {
+    try {
+      $this->obj->register($postData);
+      
+      $count = 5;
+      while($count-- > 0) {
+        try {
+          $this->obj->login($postData['registrationUsername'], "wrong password");
+          $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+        } catch(Exception $e) {
+          $this->assertEquals($e->getMessage(), "The password or username was incorrect.");
+        }
+      }
+      
+      try {
+        $this->obj->login($postData['registrationUsername'], "wrong password");
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals($e->getMessage(), "Your IP-Address has been blocked for 30 seconds.");
+        pg_execute($this->obj->dbConnection, "reset_failed_attempts", array($_SERVER["REMOTE_ADDR"]));
+      }
+    } catch(Exception $e) {
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
+    }
+  }
+
+  /**
+   * @dataProvider validRegistrationData
+   */
   public function testRegister($postData) {
     try {
       $this->obj->register($postData);
@@ -212,6 +253,10 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
     }
+  }
+
+  public function testGenerateAuthenticationToken() {
+    $this->assertEquals($this->obj->generateAuthenticationToken('catroweb', 'cat.roid.web'), '31df676f845b4ce9908f7a716a7bfa50');
   }
 
   /**
@@ -362,12 +407,6 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
     $newLanguage = "de";
     try {
       $this->obj->register($postData);
-      try {
-        $this->obj->updateLanguage($newLanguage);
-        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
-      } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "There was a problem while updating your language.");
-      }
       $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
       
       $data = $this->obj->getUserData($postData['registrationUsername']);

@@ -92,6 +92,7 @@
     	<string name="ajax_took_too_long">Sorry something went wrong, please try again.</string>
     	<string name="ajax_timed_out">Sorry something went wrong, please try again.</string>
       <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
+      <string name="ip_is_blocked_temporary">Your IP-Address has been blocked for 30 seconds.</string>
       <string name="user_is_blocked">Your Account has been blocked.</string>
     </viewer>
     <auth>

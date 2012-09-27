@@ -80,7 +80,7 @@ class index extends CoreAuthenticationNone {
       $this->session->task = "newestProjects";
     }
 
-    $this->showCatroidDescription = intVal($this->session->showCatroidDescription);
+    $this->showCatroidDescription = intval($this->session->showCatroidDescription);
     $this->task = $this->session->task;
     $this->pageNr = $this->session->pageNr;
     $this->searchQuery = "";

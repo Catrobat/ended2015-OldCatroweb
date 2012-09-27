@@ -23,6 +23,7 @@ var LanguageHandler = Class.$extend({
   },
 
   switchLanguage : function(eventObject) {
+    console.log($(eventObject.target).val());
     this.disableForm();
     var selectedLanguage = $(eventObject.target).val();
     var url = this.basePath + 'catroid/switchLanguage/switchIt.json';
@@ -39,13 +40,16 @@ var LanguageHandler = Class.$extend({
   },
 
   switchLanguageSuccess : function(result) {
+    console.log('success');
     if(result.statusCode == 200) {
+      console.log('relooooooooad!!!!');
       location.reload();
     }
     this.enableForm();
   },
 
   switchLanguageError : function(result, errCode) {
+    console.log('error ' + errCode);
     this.enableForm();
   },
   

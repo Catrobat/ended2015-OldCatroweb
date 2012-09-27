@@ -29,7 +29,7 @@ class myProjectsTest extends PHPUnit_Framework_TestCase
   } 
 
   public function testGetNumberOfVisibleProjects() {
-    $this->assertGreaterThan(0, intVal($this->obj->retrieveMyProjects(0)));
+    $this->assertGreaterThan(0, intval($this->obj->retrieveMyProjects(0)));
     $this->assertEquals($this->obj->retrieveMyProjects(-1), NULL);
   }
 

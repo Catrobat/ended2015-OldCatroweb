@@ -31,6 +31,7 @@ class switchLanguage extends CoreAuthenticationNone {
 
     try {
       if(isset($_POST['language'])) {
+        echo "jaaaa";
         $this->loadModule('common/userFunctions');
         $this->userFunctions->updateLanguage($_POST['language']);
         $this->languageHandler->setLanguageCookie($_POST['language']);

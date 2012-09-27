@@ -26,25 +26,18 @@ abstract class CoreAuthenticationUser extends CoreAuthentication {
   abstract public function __authenticationFailed();
 
   public function authenticate() {
-    if(isset($_REQUEST['token']) && strlen($_REQUEST['token']) != 0) {
-      $authToken = strtolower($_REQUEST['token']);
-      $result = pg_execute($this->dbConnection, "get_user_device_login", array($authToken));
-    
-      if($result && pg_num_rows($result) > 0) {
-        $user = pg_fetch_assoc($result);
-        pg_free_result($result);
-    
-        if(is_numeric($user['id']) && $user['id'] >= 0) {
-          $this->session->userLogin_userId = $user['id'];
-          $this->session->userLogin_userNickname = $user['username'];
-        }
-      }
+    if($this->requestFromBlockedIp()) {
+      $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked');
     }
 
-    if(intVal($this->session->userLogin_userId) > 0) {
-      if($this->requestFromBlockedIp()) {
-        $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked');
-      }
+    if($this->requestFromTemporarilyBlockedIp()) {
+      $this->errorHandler->showErrorPage('viewer', 'ip_is_blocked_temporary');
+    }
+
+    $this->loadModule('common/userFunctions');
+    $this->userFunctions->tokenAuthentication();
+
+    if(intval($this->session->userLogin_userId) > 0) {
       if($this->requestFromBlockedUser()) {
         $this->errorHandler->showErrorPage('viewer', 'user_is_blocked');
       }

@@ -36,12 +36,12 @@ class projects extends CoreAuthenticationNone {
   public function recent() {
     $offset = 0;
     if(isset($_REQUEST['offset'])) {
-      $offset = max(intVal($_REQUEST['offset']), 0);
+      $offset = max(intval($_REQUEST['offset']), 0);
     }
 
     $limit = 20;
     if(isset($_REQUEST['limit'])) {
-      $limit = min(abs(intVal($_REQUEST['limit'])), 100);
+      $limit = min(abs(intval($_REQUEST['limit'])), 100);
     }
     
     $result = pg_execute($this->dbConnection, 'get_visible_projects_ordered_by_uploadtime_limited_offset_api', array($limit, $offset));
@@ -64,12 +64,12 @@ class projects extends CoreAuthenticationNone {
     
     $offset = 0;
     if(isset($_REQUEST['offset'])) {
-      $offset = max(intVal($_REQUEST['offset']), 0);
+      $offset = max(intval($_REQUEST['offset']), 0);
     }
   
     $limit = 20;
     if(isset($_REQUEST['limit'])) {
-      $limit = min(abs(intVal($_REQUEST['limit'])), 100);
+      $limit = min(abs(intval($_REQUEST['limit'])), 100);
     }
     
     $searchTerms = explode(" ", $_REQUEST['query']);

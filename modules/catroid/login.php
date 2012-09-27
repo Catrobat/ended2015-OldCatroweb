@@ -49,12 +49,12 @@ class login extends CoreAuthenticationNone {
   
       $username = (isset($_POST['loginUsername'])) ? checkUserInput(trim($_POST['loginUsername'])) : '';
       if($username == '') {
-        throw new Exception($this->errorHandler->getError('registration', 'username_missing'),
+        throw new Exception($this->errorHandler->getError('userFunctions', 'username_missing'),
             STATUS_CODE_LOGIN_MISSING_USERNAME);
       }
   
       if(!isset($_POST['loginPassword']) || $_POST['loginPassword'] == '') {
-        throw new Exception($this->errorHandler->getError('registration', 'password_missing'),
+        throw new Exception($this->errorHandler->getError('userFunctions', 'password_missing'),
             STATUS_CODE_LOGIN_MISSING_PASSWORD);
       }
   

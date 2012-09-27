@@ -49,6 +49,22 @@ abstract class CoreAuthentication extends CoreModule {
     return false;
   }
 
+  protected function requestFromTemporarilyBlockedIp() {
+    $vmodule = (isset($_REQUEST["module"]) ? $_REQUEST["module"] : MVC_DEFAULT_MODULE);
+    $vclass = (isset($_REQUEST["class"]) ? $_REQUEST["class"] : MVC_DEFAULT_CLASS);
+
+    if(isset($_SERVER['REMOTE_ADDR'])) {
+      $ip = $_SERVER['REMOTE_ADDR'];
+       
+      $result = pg_execute($this->dbConnection, "is_ip_blocked_temporarily", array($ip));
+      if($result && pg_num_rows($result) > 0) {
+        pg_free_result($result);
+        return true;
+      }
+    }
+    return false;
+  }
+
   protected function requestFromBlockedUser() {
     $vmodule = (isset($_REQUEST["module"]) ? $_REQUEST["module"] : MVC_DEFAULT_MODULE);
     $vclass = (isset($_REQUEST["class"]) ? $_REQUEST["class"] : MVC_DEFAULT_CLASS);

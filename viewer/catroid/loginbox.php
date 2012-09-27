@@ -20,8 +20,8 @@
       <script type="text/javascript">
         $(document).ready(function() {
           var languageStringsObject = { 
-            "username_missing" : "<?php echo $this->module->errorHandler->getError('registration', 'username_missing'); ?>",
-            "password_missing" : "<?php echo $this->module->errorHandler->getError('registration', 'password_missing'); ?>"
+            "username_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'username_missing'); ?>",
+            "password_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'password_missing'); ?>"
           };
           new Login(languageStringsObject);
           new HeaderMenu(<?php echo "'" . $this->module->session->userLogin_userId ."'"; ?>);
