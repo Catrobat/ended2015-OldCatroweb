@@ -23,7 +23,7 @@ global $phpbb_root_path, $phpEx, $user, $db, $config, $cache, $template, $auth;
 $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : CORE_BASE_PATH . 'addons/board/';
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
 require_once($phpbb_root_path . 'common.' . $phpEx);
-require_once($phpbb_root_path . 'includes/functions_user.php');
+require_once($phpbb_root_path . 'includes/functions_user.' . $phpEx);
 
 class userFunctions extends CoreAuthenticationNone {
   protected $registerCatroidId;
@@ -232,7 +232,11 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   public function tokenAuthentication() {
-    if(isset($_REQUEST['token']) && strlen(strval($_REQUEST['token'])) > 0 && intval($this->session->userLogin_userId) == 0) {
+    if(intval($this->session->userLogin_userId) > 0) {
+      return true;
+    }
+    
+    if(isset($_REQUEST['token']) && strlen(strval($_REQUEST['token'])) > 0) {
       $authToken = strtolower(strval($_REQUEST['token']));
       $result = pg_execute($this->dbConnection, "get_user_device_login", array($authToken));
        
@@ -245,7 +249,6 @@ class userFunctions extends CoreAuthenticationNone {
           $this->loginCatroid($data['username'], $data['password']);
           return true;
         } catch(Exception $e) {
-          $e->getMessage();
           return false;
         }
       }

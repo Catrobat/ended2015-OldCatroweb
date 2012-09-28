@@ -26,7 +26,7 @@
               <div class="infoboxRight">
                 <div><img class="infoboxCloseButton" id="catroidDescriptionCloseButton" src="<?php echo BASE_PATH?>images/symbols/close.png" /></div>
                 <div>
-                  <a id="aIndexInfoboxScreenshotLink" href="http://code.google.com/p/catroid/" target="_blank">
+                  <a id="aIndexInfoboxScreenshotLink" href="https://github.com/Catrobat/Catroid/wiki/_pages" target="_blank">
                     <img class="infoboxScreenshot" src="<?php echo BASE_PATH?>images/screenshots/infobox.png" />
                   </a>
                 </div>
@@ -34,7 +34,7 @@
               <div class="infoboxLeft">
                 <div class="infoboxText"><?php echo $this->languageHandler->getString('infobox_text')?></div>
                 <div class="infoboxDownloadBox">
-                  <a class="noLink" id="aIndexInfoboxDownloadButton" href="http://code.google.com/p/catroid/downloads/list" target="_blank">
+                  <a class="noLink" id="aIndexInfoboxDownloadButton" href="https://github.com/Catrobat/Catroid/downloads" target="_blank">
                     <button class="button orange infobox"><?php echo $this->languageHandler->getString('download_catroid')?></button>
                   </a>
                 </div>

@@ -19,6 +19,7 @@
  */
 
 require_once('testsBootstrap.php');
+require_once CORE_BASE_PATH . 'modules/common/userFunctions.php';
 
 class userFunctionsTests extends PHPUnit_Framework_TestCase {
   protected $obj;
@@ -27,7 +28,6 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
   protected $dbConnection;
   
   protected function setUp() {
-    require_once CORE_BASE_PATH . 'modules/common/userFunctions.php';
     $this->obj = new userFunctions();
     $_SERVER['REMOTE_ADDR'] = "127.0.0.1";
   } 

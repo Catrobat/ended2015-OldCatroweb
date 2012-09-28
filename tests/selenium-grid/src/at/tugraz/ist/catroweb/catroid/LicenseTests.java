@@ -71,7 +71,7 @@ public class LicenseTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[4]/li[3]/a[2]"));
-      assertRegExp(".*catroid - An on-device visual programming system for Android inspired by Scratch - Google Project Hosting*", driver().getTitle());
+      assertRegExp(".*Catrobat/Catroid · GitHub.*", driver().getTitle());
       closePopUp();
 
       // click onto termsofservice link

@@ -35,7 +35,7 @@
                   									   '<a href="http://www.gnu.org/licenses/agpl.html" target="_blank" id="gnuagpl">http://www.gnu.org/licenses/agpl.html</a>')
               ?>
               <br> <br>
-              <?php echo $this->languageHandler->getString('license_text_part3', '<a href="http://code.google.com/p/catroid" target="_blank" id="googlecode">Google Code</a>')?>
+              <?php echo $this->languageHandler->getString('license_text_part3', '<a href="https://github.com/Catrobat" target="_blank" id="github">githube</a>')?>
             </p>
           </div>
           <!-- License Text -->

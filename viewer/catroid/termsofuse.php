@@ -52,7 +52,7 @@
                 <ul>
                   <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_13')?></li>
                   <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_14')?></li>
-                  <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_15', '<a href="'.BASE_PATH.'catroid/licenseofsystem">'.BASE_PATH.'catroid/licenseofsystem</a>', '<a href="http://code.google.com/p/catroid" target="_blank">http://code.google.com/p/catroid</a>')?></li>
+                  <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_15', '<a href="'.BASE_PATH.'catroid/licenseofsystem">'.BASE_PATH.'catroid/licenseofsystem</a>', '<a href="https://github.com/Catrobat/Catroid" target="_blank">https://github.com/Catrobat/Catroid</a>')?></li>
                 </ul>
                 <br />
                 <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_our_terms')?></p>
