@@ -843,10 +843,10 @@ class userFunctions extends CoreAuthenticationNone {
      
     $emails = array();
     while($email = pg_fetch_assoc($result)) {
-      array_push($emails, $email['email']);
+      array_push($emails, array('address' => $email['email'], 'valid' => ($email['validated'] == 't') ? true : false));
     }
     pg_free_result($result);
-     
+    
     return $emails;
   }
 
@@ -855,7 +855,7 @@ class userFunctions extends CoreAuthenticationNone {
 
     $userEmails = $this->getEmailAddresses($userId);
     foreach($userEmails as $current) {
-      if($current === $email) {
+      if($current['address'] === $email) {
         throw new Exception($this->errorHandler->getError('userFunctions', 'email_address_exists'),
             STATUS_CODE_USER_ADD_EMAIL_EXISTS);
       }
@@ -867,16 +867,27 @@ class userFunctions extends CoreAuthenticationNone {
           STATUS_CODE_SQL_QUERY_FAILED);
     }
     pg_free_result($result);
+    
+    $this->sendEmailAddressValidatingEmail($userId, $email);
   }
 
   public function deleteEmailAddress($email) {
     $userId = intval($this->session->userLogin_userId);
-    $numberOfEmailAddresses = count($this->getEmailAddresses($userId));
+    
+    $numberOfValidEmailAddresses = 0;
+    foreach($this->getEmailAddresses($userId) as $emails) {
+      if($emails['address'] == $email && !$emails['valid']) {
+        $numberOfValidEmailAddresses++;
+      }
+      if($emails['valid']) {
+        $numberOfValidEmailAddresses++;
+      }
+    }
 
-    if($userId == 1 && $numberOfEmailAddresses < 3) {
+    if($userId == 1 && $numberOfValidEmailAddresses < 3) {
       throw new Exception($this->errorHandler->getError('userFunctions', 'email_update_of_catroweb_failed'),
           STATUS_CODE_USER_DELETE_EMAIL_FAILED);
-    } elseif($numberOfEmailAddresses < 2) {
+    } elseif($numberOfValidEmailAddresses < 2) {
       throw new Exception($this->errorHandler->getError('userFunctions', 'email_delete_failed'),
           STATUS_CODE_USER_DELETE_EMAIL_FAILED);
     }
@@ -990,6 +1001,21 @@ class userFunctions extends CoreAuthenticationNone {
         throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
             STATUS_CODE_SEND_MAIL_FAILED);
       }
+    }
+  }
+
+  public function sendEmailAddressValidatingEmail($userName, $userEmail) {
+    //TODO write nice validation mail
+    return;
+    
+      $mailSubject = "test";
+      $mailText =    "Hello " . $userName . "!\r\n\r\n";
+      $mailText .=   "very very very very very very very very very very very very very very long line\r\n";
+      $mailText .=   "www.catroid.org";
+
+      if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
+        throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
+            STATUS_CODE_SEND_MAIL_FAILED);
     }
   }
   

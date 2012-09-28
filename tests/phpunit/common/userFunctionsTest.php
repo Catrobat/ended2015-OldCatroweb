@@ -432,17 +432,24 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
     
       $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
-      $this->assertTrue(in_array($postData['registrationEmail'], $data));
+      $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
       
       $this->obj->addEmailAddress($this->obj->session->userLogin_userId, $newEmail);
       $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
-      $this->assertTrue(in_array($postData['registrationEmail'], $data));
-      $this->assertTrue(in_array($newEmail, $data));
+      $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
+      $this->assertTrue($this->in_arrayr($newEmail, $data));
       
-      $this->obj->deleteEmailAddress($postData['registrationEmail']);
+      try {
+        $this->obj->deleteEmailAddress($postData['registrationEmail']);
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals($e->getMessage(), "Error while deleting this e-mail address. You must have at least 1 e-mail address.");
+      }
+      
+      $this->obj->deleteEmailAddress($newEmail);
       $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
-      $this->assertFalse(in_array($postData['registrationEmail'], $data));
-      $this->assertTrue(in_array($newEmail, $data));
+      $this->assertFalse($this->in_arrayr($newEmail, $data));
+      $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
       
       $this->obj->undoRegister();
       $this->assertTrue(true);
@@ -648,6 +655,22 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
 
   protected function tearDown() {
     $this->obj->undoRegister();
+  }
+  
+  private function in_arrayr($needle, $haystack) {
+    $found = false;
+    foreach($haystack as $value) {
+      if(is_array($value)) {
+        $found = $this->in_arrayr($needle, $value);
+      } elseif($needle === $value) {
+        $found = true;
+      }
+      
+      if($found) {
+        break;
+      }
+    }
+    return $found;
   }
 }
 ?>

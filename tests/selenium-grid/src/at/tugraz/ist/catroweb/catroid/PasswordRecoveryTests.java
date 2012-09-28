@@ -21,7 +21,6 @@ package at.tugraz.ist.catroweb.catroid;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -93,7 +92,7 @@ public class PasswordRecoveryTests extends BaseTest {
 
       // check error message
       assertTrue(isTextPresent("Enter your nickname or email address:"));
-      assertTrue(isTextPresent("The nickname or email address was not found."));
+      assertTrue(isAjaxMessagePresent("The nickname or email address was not found."));
       assertTrue(isElementPresent(By.id("passwordRecoveryUserdata")));
       assertTrue(isElementPresent(By.id("passwordRecoverySendLink")));
 
@@ -102,7 +101,7 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("passwordRecoveryUserdata")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("passwordRecoverySendLink")).click();
       ajaxWait();
-      assertTrue(isTextPresent(Config.TESTS_BASE_PATH + "catroid/passwordrecovery?c="));
+      assertTrue(isAjaxMessagePresent(Config.TESTS_BASE_PATH + "catroid/passwordrecovery?c="));
 
       // get recovery url and open it
       String recoveryUrl = getRecoveryUrl();
@@ -117,7 +116,7 @@ public class PasswordRecoveryTests extends BaseTest {
       ajaxWait();
       assertTrue(isTextPresent("Please enter your new password:"));
       assertTrue(isElementPresent(By.id("passwordSavePassword")));
-      assertTrue(isTextPresent("password must have at least"));
+      assertTrue(isAjaxMessagePresent("password must have at least"));
 
       // enter the new password correctly
       driver().findElement(By.id("passwordSavePassword")).clear();

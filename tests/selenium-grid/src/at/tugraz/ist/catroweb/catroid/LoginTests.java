@@ -26,7 +26,6 @@ import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
-import at.tugraz.ist.catroweb.common.CommonStrings;
 
 @Test(groups = { "catroid", "LoginTests" })
 public class LoginTests extends BaseTest {

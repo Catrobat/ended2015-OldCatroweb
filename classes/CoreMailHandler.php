@@ -35,7 +35,7 @@ class CoreMailHandler {
       return false;
     }
     $this->_subject = USER_EMAIL_SUBJECT_PREFIX.' - '.$subject;
-    $this->_text = wordwrap($text);
+    $this->_text = $this->chunk_split_unicode($text);
     $this->_return = "-f".USER_EMAIL_NOREPLY;
     $this->_reply = USER_EMAIL_NOREPLY;
 	  $this->_from = USER_EMAIL_NOREPLY;
@@ -52,7 +52,7 @@ class CoreMailHandler {
       return false;
     }
     $this->_subject = ADMIN_EMAIL_SUBJECT_PREFIX.' - '.$subject;
-    $this->_text = wordwrap($text);
+    $this->_text = $this->chunk_split_unicode($text);
     $this->_return = "-f".ADMIN_EMAIL_WEBMASTER;
     $this->_reply = ADMIN_EMAIL_NOREPLY;
 	  $this->_from = ADMIN_EMAIL_NOREPLY;
@@ -60,6 +60,16 @@ class CoreMailHandler {
 	  $this->_bcc = '';
 	
 	  return($this->send());
+  }
+  
+  private function chunk_split_unicode($str, $length = 76, $end = "\r\n") {
+    $tmp = array_chunk(preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY), $length);
+
+    $string = "";
+    foreach ($tmp as $line) {
+      $string .= implode('', $line) . $end;
+    }
+    return $string;
   }
   
   private function send() {

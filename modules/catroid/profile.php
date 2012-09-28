@@ -77,7 +77,7 @@ class profile extends CoreAuthenticationUser {
     $userEmailList = '';
     
     foreach($this->userFunctions->getEmailAddresses($this->session->userLogin_userId) as $email) {
-      $userEmailList .= '<div style="width:408px; padding: 10px 0 10px 0;">' . $email . '</div><button name="' . $email . '" style="margin: 5px;" class="button orange compact"><img name="' . $email . '" width="24px" src="' . BASE_PATH . 'images/symbols/trash_recyclebin.png"></button><br />';
+      $userEmailList .= '<div style="width:408px; padding: 10px 0 10px 0;">' . $email['address'] . '</div><button name="' . $email['address'] . '" style="margin: 5px;" class="button orange compact"><img name="' . $email . '" width="24px" src="' . BASE_PATH . 'images/symbols/trash_recyclebin.png"></button><br />';
     }
     
     return $userEmailList;

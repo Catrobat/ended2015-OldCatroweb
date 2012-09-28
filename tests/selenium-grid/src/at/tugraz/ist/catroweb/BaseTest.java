@@ -59,7 +59,6 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 
-import at.tugraz.ist.catroweb.common.CommonData;
 import at.tugraz.ist.catroweb.common.CommonFunctions;
 import at.tugraz.ist.catroweb.common.CommonStrings;
 import at.tugraz.ist.catroweb.common.Config;

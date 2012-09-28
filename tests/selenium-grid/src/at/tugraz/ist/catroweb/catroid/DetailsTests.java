@@ -22,7 +22,6 @@ import java.io.File;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.internal.seleniumemulation.IsTextPresent;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 

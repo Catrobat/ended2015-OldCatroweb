@@ -103,8 +103,6 @@ public class RegistrationTests extends BaseTest {
   @Test(dataProvider = "validRegistrationData", groups = { "functionality" }, description = "check registration with valid data")
   public void validRegistration(HashMap<String, String> dataset) throws Throwable {
     try {
-      // wiki username creation
-      String wikiUsername = dataset.get("registrationUsername").substring(0, 1).toUpperCase() + dataset.get("registrationUsername").substring(1).toLowerCase();
       openLocation("catroid/registration/");
 
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));

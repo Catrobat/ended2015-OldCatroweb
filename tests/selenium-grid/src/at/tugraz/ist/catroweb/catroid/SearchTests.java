@@ -289,8 +289,6 @@ public class SearchTests extends BaseTest {
       projectUploader.upload(dataset);
 
       String projectTitle = dataset.get("projectTitle");
-      String projectDescription = dataset.get("projectDescription");
-      String userToken  = dataset.get("token");
       
       WebElement webElementProjectDescription;
       List<WebElement> webElementProjectDescriptions;

@@ -18,11 +18,7 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import java.util.HashMap;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.internal.seleniumemulation.IsTextPresent;
-import org.openqa.selenium.internal.seleniumemulation.IsVisible;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 

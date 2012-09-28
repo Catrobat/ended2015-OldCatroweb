@@ -80,7 +80,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="get_user_row_by_recovery_hash">SELECT * FROM cusers WHERE recovery_hash=$1 LIMIT 1</string>
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
     <string name="get_user_email_by_email">SELECT email FROM cusers WHERE email=$1</string>
-    <string name="get_user_emails_by_id">SELECT u.email FROM cusers u WHERE u.id=$1 UNION SELECT e.email FROM cusers_additional_email e WHERE e.user_id=$1</string>
+    <string name="get_user_emails_by_id">SELECT u.email, true as validated FROM cusers u WHERE u.id=$1 UNION SELECT e.email, e.validated FROM cusers_additional_email e WHERE e.user_id=$1</string>
 
     <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token, language) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
