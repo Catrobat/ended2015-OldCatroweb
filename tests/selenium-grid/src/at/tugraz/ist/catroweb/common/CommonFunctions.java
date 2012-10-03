@@ -122,10 +122,10 @@ public class CommonFunctions {
 
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
-      ResultSet result = statement.executeQuery("SELECT version_name, version_code FROM projects WHERE id='" + id + "';");
+      ResultSet result = statement.executeQuery("SELECT version_name, language_code FROM projects WHERE id='" + id + "';");
       if(result.next()) {
         data.put("version_name", result.getString("version_name"));
-        data.put("version_code", result.getString("version_code"));
+        data.put("version_code", result.getString("language_code"));
       }
       result.close();
       statement.close();

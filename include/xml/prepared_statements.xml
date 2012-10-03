@@ -26,10 +26,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="get_number_of_visible_projects">SELECT count(id) FROM projects WHERE visible=true</string>
     <string name="get_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND projects.visible=true AND cusers.id=projects.user_id LIMIT 1</string>
-    <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_email, upload_language, filesize_bytes, version_name, version_code, user_id) 
-    	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id</string>
+    <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_language, filesize_bytes, version_name, language_code, user_id) 
+    	VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id</string>
     <string name="does_project_already_exist">SELECT projects.* FROM projects WHERE projects.title=$1 AND projects.user_id=$2</string>
-    <string name="update_project">UPDATE projects SET description=$1, upload_ip=$2, filesize_bytes=$3, version_name=$4, version_code=$5, update_time=now(), visible=true WHERE projects.id=$6</string>
+    <string name="update_project">UPDATE projects SET description=$1, upload_ip=$2, filesize_bytes=$3, version_name=$4, language_code=$5, update_time=now(), visible=true WHERE projects.id=$6</string>
     <string name="increment_download_counter">UPDATE projects SET download_count=download_count+1 WHERE id=$1</string>
     <string name="increment_view_counter">UPDATE projects SET view_count=view_count+1 WHERE id=$1</string>
     <string name="set_project_new_filename">UPDATE projects SET source=$1 WHERE id=$2</string>
@@ -72,7 +72,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="get_user_row_by_username">SELECT id, username, gender, country, city, language, to_char(date_of_birth, 'MM') AS month, to_char(date_of_birth, 'YYYY') AS year FROM cusers WHERE username=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
 
-    <string name="get_user_row_by_email">SELECT u.* FROM cusers u, cusers_additional_email e WHERE (u.email=$1 OR e.email=$1) AND u.id=e.user_id</string>
+    <string name="get_user_row_by_email">SELECT DISTINCT u.* FROM cusers u, cusers_additional_email e WHERE u.email=$1 OR (e.email=$1 AND e.user_id=u.id)</string>
     <string name="get_user_language">SELECT language FROM cusers WHERE id=$1</string>
     
     

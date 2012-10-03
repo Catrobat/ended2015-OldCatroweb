@@ -63,6 +63,24 @@ class CoreMailHandler {
   }
   
   private function chunk_split_unicode($str, $length = 76, $end = "\r\n") {
+    $chuncks = explode('{unwrap}', $str);
+    
+    /*
+    sdafdsafdsafdsafsa
+    sadfdsfsadfdsafdsaf{/unwrap}safddsafsadf
+    dsfsadfdsafdsaf{/unwrap}safddsaf
+    safdsa{/unwrap}
+    */
+    
+    
+    $result = '';
+    foreach($chuncks as $chunck) {
+      $unwrapParts = explode('{/unwrap}', $chunck);
+      
+    }
+    
+    
+    
     $tmp = array_chunk(preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY), $length);
 
     $string = "";

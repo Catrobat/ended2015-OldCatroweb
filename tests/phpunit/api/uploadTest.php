@@ -39,12 +39,11 @@ class uploadTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider correctPostData
    */
-  public function testDoUpload($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadEmail = '', $uploadLanguage = '') {
+  public function testDoUpload($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadLanguage = '') {
     $formData = array(
         'projectTitle' => $projectTitle,
         'projectDescription' => $projectDescription,
         'fileChecksum' => $fileChecksum,
-        'userEmail' => $uploadEmail,
         'userLanguage'=>$uploadLanguage
     );
     $fileData = array(
@@ -74,13 +73,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
 
     $this->assertTrue($this->upload->projectId > 0);
 
-    if($uploadEmail) {
-      $query = "SELECT upload_email FROM projects WHERE id='$insertId'";
-      $result = pg_query($this->dbConnection, $query);
-      $row = pg_fetch_row($result);
-      $this->assertEquals($uploadEmail, $row[0]);
-      pg_free_result($result);
-    }
     if($uploadLanguage) {
       $query = "SELECT upload_language FROM projects WHERE id='$insertId'";
       $result = pg_query($this->dbConnection, $query);
@@ -343,7 +335,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
         array("unitTest with special chars: ä, ü, ö ' ", "jüßt 4 spècia1 char **test** ' %&()[]{}_|~#", $testFile, $fileName, $fileChecksum, $fileSize, $fileType),
         array('unitTest with included Thumbnail', 'this project contains its thumbnail inside the zip file', $testFileWithThumbnail, $fileNameWithThumbnail, $fileChecksumWithThumbnail, $fileSizeWithThumbnail, $fileType),
         array('unitTest with long description and uppercase fileChecksum', 'this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description. this is a long description.', $testFile, $fileName, strtoupper($fileChecksum), $fileSize, $fileType),
-        array('unitTest with Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, 'catroid_unittest@gmail.com', 'en'),
+        array('unitTest with Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, 'en'),
         array('unitTest', 'my project description with thumbnail in root folder.', $testFile, 'test2.zip', $fileChecksum, $fileSize, $fileType),
         array('unitTest', 'my project description with thumbnail in images folder.', $testFile, 'test3.zip', $fileChecksum, $fileSize, $fileType),
         array('unitTest', 'project with new extention "catroid".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
@@ -381,16 +373,15 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct version info 0.5a-xxx', 'my project description for correct version info.', 'test_version5a.zip', $fileType, 10, '0.5a'),
-        array('unitTest for correct version info 0.6a-xxx', 'my project description for correct version info.', 'test_version6a.zip', $fileType, 11, '0.6a')
+        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test0.3.catrobat', $fileType, 0.3, '0.6.0beta')
     );
     return $dataArray;
   }
-
+  
   public function incorrectVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for incorrect version info 0.5a-xxx', 'my project description for incorrect version info.', 'test.zip', $fileType, 499, '&lt; 0.6.0beta'),
+        array('unitTest for incorrect version info 0.5a-xxx', 'my project description for incorrect version info.', 'test.zip', $fileType, 499, '0.6.0beta'),
         array('unitTest for incorrect version info 0.5.1', 'my project description for incorrect version info.', 'test2.zip', $fileType, 399, '0.5.4beta')
     );
     return $dataArray;
@@ -458,7 +449,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
 
     foreach($projects as $project) {
       if($col == "versionName") return $project['version_name'];
-      if($col == "versionCode") return $project['version_code'];
+      if($col == "versionCode") return floatval($project['language_code']);
     }
     return null;
   }

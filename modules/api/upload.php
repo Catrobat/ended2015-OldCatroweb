@@ -60,8 +60,8 @@ class upload extends CoreAuthenticationDevice {
 
       $projectId = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
-          $projectInformation['uploadEmail'], $projectInformation['uploadLanguage'], $fileSize,
-          $projectInformation['versionName'], $projectInformation['versionCode']);
+          $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
+          $projectInformation['versionCode']);
 
       $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
       $this->renameUnzipDirectory(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique,
@@ -192,32 +192,15 @@ class upload extends CoreAuthenticationDevice {
     if(!$xml) {
       throw new Exception($this->errorHandler->getError('upload', 'invalid_project_xml'), STATUS_CODE_UPLOAD_INVALID_XML);
     }
-    $attributes = $xml->attributes();
-    $versionName = (isset($attributes["catroidVersionName"]) && $attributes["catroidVersionName"]) ? strval($attributes["catroidVersionName"]) : null;
-    $versionCode = (isset($attributes["catroidVersionCode"]) && $attributes["catroidVersionCode"]) ? strval($attributes["catroidVersionCode"]) : null;
-    $projectTitle = (isset($attributes["projectName"]) && $attributes["projectName"]) ? strval($attributes["projectName"]) : null;
-    $projectDescription = (isset($attributes["description"]) && $attributes["description"]) ? strval($attributes["description"]) : null;
 
+    $node = $xml->children();
+    $versionName = current($node[0]->ApplicationVersion);
+    $versionCode = current($node[0]->CatrobatLanguageVersion);
+    $projectTitle = current($node[0]->ProgramName);
+    $projectDescription = current($node[0]->Description);
+    
     if(!$versionName || !$versionCode) {
-      $versionCode = null;
-      $versionName = null;
-      $projectTitle = null;
-      $projectDescription = null;
-      foreach($xml->children() as $child) {
-        if(strcmp(strval($child->getName()), 'catroidVersionName') == 0) {
-          $versionName = strval($child);
-        } elseif(strcmp(strval($child->getName()), 'catroidVersionCode') == 0) {
-          $versionCode = strval($child);
-        } elseif(strcmp(strval($child->getName()), 'projectName') == 0) {
-          $projectTitle = strval($child);
-        } elseif(strcmp(strval($child->getName()), 'description') == 0) {
-          $projectDescription = strval($child);
-        }
-      }
-    }
-
-    if(!$versionName || !$versionCode) {
-      $versionCode = 499;
+      $versionCode = 0.3;
       $versionName = '&lt; 0.6.0beta';
     } else if(stristr($versionName, "-")) {
       $versionName = substr($versionName, 0, strpos($versionName, "-"));
@@ -233,9 +216,8 @@ class upload extends CoreAuthenticationDevice {
       $projectDescription = ((isset($formData['projectDescription'])) ? checkUserInput($formData['projectDescription']) : "");
     }
 
-    $uploadIp = ((isset($_SERVER['REMOTE_ADDR'])) ? $_SERVER['REMOTE_ADDR'] : '');
-    $uploadEmail = ((isset($formData['userEmail'])) ? checkUserInput($formData['userEmail']) : null);
-    $uploadLanguage = ((isset($formData['userLanguage'])) ? checkUserInput($formData['userLanguage']) : null);
+    $uploadIp = (isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'');
+    $uploadLanguage = ((isset($formData['userLanguage'])) ? checkUserInput($formData['userLanguage']) : 'en');
 
     return(array(
         "projectTitle" => pg_escape_string($projectTitle),
@@ -243,7 +225,6 @@ class upload extends CoreAuthenticationDevice {
         "versionName" => $versionName,
         "versionCode" => $versionCode,
         "uploadIp" => $uploadIp,
-        "uploadEmail" => $uploadEmail,
         "uploadLanguage" => $uploadLanguage
     ));
   }
@@ -266,7 +247,7 @@ class upload extends CoreAuthenticationDevice {
     }
   }
 
-  private function updateOrInsertProjectIntoDatabase($projectTitle, $projectDescription, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $versionName, $versionCode) {
+  private function updateOrInsertProjectIntoDatabase($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode) {
     $userId = (($this->session->userLogin_userId )? $this->session->userLogin_userId : 0);
 
     $result = $this->query("does_project_already_exist", array($projectTitle, $userId));
@@ -280,7 +261,7 @@ class upload extends CoreAuthenticationDevice {
     } else {
       pg_free_result($result);
 
-      $result = $this->query("insert_new_project", array($projectTitle, $projectDescription, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $versionName, $versionCode, $userId));
+      $result = $this->query("insert_new_project", array($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode, $userId));
       $row = pg_fetch_assoc($result);
       $insertId = $row['id'];
       pg_free_result($result);

@@ -49,7 +49,7 @@ public class UploadTests extends BaseTest {
       assertFalse(isElementPresent(By.xpath("//div[@class='detailsDownloadButton']")));
 
       //update the project
-      response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.6.0beta.catrobat", "2df998d544a075946d36072fd083ffef", "", "", "0"));
+      response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.6.0beta.catrobat", "e20aa30ccb81d454b0b7715dc093816e", "", "", "0"));
       id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));

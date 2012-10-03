@@ -815,17 +815,17 @@ class userFunctions extends CoreAuthenticationNone {
     if(!empty($userRow)) {
       return $userRow;
     }
-
+    
     $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($userData));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
     }
-
+    
     if(pg_num_rows($result) == 1) {
       $userRow = pg_fetch_assoc($result);
     }
-
+    
     pg_free_result($result);
     if(!empty($userRow)) {
       return $userRow;
@@ -843,7 +843,8 @@ class userFunctions extends CoreAuthenticationNone {
      
     $emails = array();
     while($email = pg_fetch_assoc($result)) {
-      array_push($emails, array('address' => $email['email'], 'valid' => ($email['validated'] == 't') ? true : false));
+      print_r($email);
+      array_push($emails, array('address' => $email['email'], 'valid' => intval($email['validated'] == 't')));
     }
     pg_free_result($result);
     
@@ -868,12 +869,15 @@ class userFunctions extends CoreAuthenticationNone {
     }
     pg_free_result($result);
     
-    $this->sendEmailAddressValidatingEmail($userId, $email);
+    $data = $this->getUserDataForRecovery($email);
+    $hash = $this->createUserHash($data);
+    
+    $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $data['email']);
   }
 
   public function deleteEmailAddress($email) {
     $userId = intval($this->session->userLogin_userId);
-    
+
     $numberOfValidEmailAddresses = 0;
     foreach($this->getEmailAddresses($userId) as $emails) {
       if($emails['address'] == $email && !$emails['valid']) {
@@ -883,7 +887,7 @@ class userFunctions extends CoreAuthenticationNone {
         $numberOfValidEmailAddresses++;
       }
     }
-
+    
     if($userId == 1 && $numberOfValidEmailAddresses < 3) {
       throw new Exception($this->errorHandler->getError('userFunctions', 'email_update_of_catroweb_failed'),
           STATUS_CODE_USER_DELETE_EMAIL_FAILED);
@@ -927,8 +931,8 @@ class userFunctions extends CoreAuthenticationNone {
 
   public function createUserHash($userData) {
     if(is_array($userData)) {
-      $data = $userData['username'] . ':' . $userData['email'];
-      $salt = hash("md5", $userData['password'] . rand());
+      $data = str_shuffle($userData['username'] . ':' . $userData['email']);
+      $salt = hash("md5", str_shuffle($userData['password']) . rand());
       $hash = hash("md5", $data . ':' . $salt);
       return $hash;
     }
@@ -946,19 +950,19 @@ class userFunctions extends CoreAuthenticationNone {
       $password = $postData['registrationPassword'];
       $userMailAddress = $postData['registrationEmail'];
       $mailSubject = $this->languageHandler->getString('registration_mail_subject');
-      $mailText =    $this->languageHandler->getString('registration_mail_text_row1') . "\n\n";
-      $mailText .=   $this->languageHandler->getString('registration_mail_text_row2') . "\n";
-      $mailText .=   $this->languageHandler->getString('registration_mail_text_row3', $username) . "\n";
-      $mailText .=   $this->languageHandler->getString('registration_mail_text_row5', $password) . "\n\n";
-      $mailText .=   $this->languageHandler->getString('registration_mail_text_row6') . "\n\n";
-      $mailText .=   $this->languageHandler->getString('registration_mail_text_row7') . "\n";
+      $mailText =    $this->languageHandler->getString('registration_mail_text_row1') . "\r\n\r\n";
+      $mailText .=   $this->languageHandler->getString('registration_mail_text_row2') . "\r\n";
+      $mailText .=   $this->languageHandler->getString('registration_mail_text_row3', $username) . "\r\n";
+      $mailText .=   $this->languageHandler->getString('registration_mail_text_row5', $password) . "\r\n\r\n";
+      $mailText .=   $this->languageHandler->getString('registration_mail_text_row6') . "\r\n\r\n";
+      $mailText .=   $this->languageHandler->getString('registration_mail_text_row7') . "\r\n";
       $mailText .=   $catroidLoginUrl."\n\n";
-      $mailText .=   $this->languageHandler->getString('registration_mail_text_row8') . "\n";
+      $mailText .=   $this->languageHandler->getString('registration_mail_text_row8') . "\r\n";
       $mailText .=   $catroidProfileUrl."\n\n";
-      $mailText .=   $this->languageHandler->getString('registration_mail_text_row9') . "\n";
+      $mailText .=   $this->languageHandler->getString('registration_mail_text_row9') . "\r\n";
       $mailText .=   $catroidRecoveryUrl."\n\n";
-      $mailText .=   "www.catroid.org";
-      $mailText .=   "\n\n";
+      $mailText .=   $this->languageHandler->getString('registration_mail_text_row10') . "\r\n";
+      $mailText .=   $this->languageHandler->getString('registration_mail_text_row11');
 
       if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userMailAddress)) {
         throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
@@ -985,17 +989,19 @@ class userFunctions extends CoreAuthenticationNone {
 
     if(SEND_NOTIFICATION_USER_EMAIL) {
       $mailSubject = $this->languageHandler->getString('recovery_mail_subject');
-      $mailText =    $this->languageHandler->getString('recovery_mail_text_row1', $userName) . "!\n\n";
-      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row2') . "\n\n";
-      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row3') . "\n";
-      $mailText .=   $catroidPasswordResetUrl . "\n\n";
-      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row5') . "\n\n";
-      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row6') . "\n";
-      $mailText .=   $catroidLoginUrl . "\n\n";
-      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row7') . "\n";
-      $mailText .=   $catroidProfileUrl . "\n\n\n";
-      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row8') . "\n";
-      $mailText .=   "www.catroid.org";
+      $mailText =    $this->languageHandler->getString('recovery_mail_text_row1', $userName) . "\r\n\r\n";
+      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row2') . "\r\n\r\n";
+      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row3') . "\r\n";
+      $mailText .=   $catroidPasswordResetUrl . "\r\n\r\n";
+      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row5') . "\r\n\r\n";
+      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row6') . "\r\n";
+      $mailText .=   $catroidLoginUrl . "\r\n\r\n";
+      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row7') . "\r\n";
+      $mailText .=   $catroidProfileUrl . "\r\n\r\n\r\n";
+      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row8') . "\r\n";
+      $mailText .=   $this->languageHandler->getString('recovery_mail_text_row9') . "\r\n";
+      
+      echo "recipient: " . $userEmail;
 
       if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
         throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
@@ -1004,18 +1010,23 @@ class userFunctions extends CoreAuthenticationNone {
     }
   }
 
-  public function sendEmailAddressValidatingEmail($userName, $userEmail) {
-    //TODO write nice validation mail
-    return;
+  public function sendEmailAddressValidatingEmail($userHash, $userId, $userName, $userEmail) {
+    $catroidValidationUrl = BASE_PATH . 'validation' . $userHash;
     
-      $mailSubject = "test";
-      $mailText =    "Hello " . $userName . "!\r\n\r\n";
-      $mailText .=   "very very very very very very very very very very very very very very long line\r\n";
-      $mailText .=   "www.catroid.org";
+    if(DEVELOPMENT_MODE) {
+      throw new Exception($catroidValidationUrl, STATUS_CODE_OK);
+    }
+    
+    $mailSubject = $this->languageHandler->getString('email_validation_subject');
+    $mailText =    $this->languageHandler->getString('email_validation_text_row1', $userName) . "\r\n\r\n";
+    $mailText .=   "{unwrap}" . $catroidValidationUrl . "{/unwrap}\r\n";
+    $mailText .=   $this->languageHandler->getString('email_validation_text_row2') . "\r\n";
+    $mailText .=   $this->languageHandler->getString('email_validation_text_row3');
+    
 
-      if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
-        throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
-            STATUS_CODE_SEND_MAIL_FAILED);
+    if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
+      throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
+          STATUS_CODE_SEND_MAIL_FAILED);
     }
   }
   
