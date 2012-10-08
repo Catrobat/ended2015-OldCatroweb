@@ -38,8 +38,6 @@ var SearchProjects = Class.$extend( {
       $("#moreProjects").click($.proxy(object.nextPage, object));
       
       $("#searchQuery").val(this.searchQuery);
-      $("#normalHeaderButtons").toggle(false);
-      $("#cancelHeaderButton").toggle(true);
       $("#headerSearchBox").toggle(true);
       $("#searchQuery").focus();
 
@@ -104,8 +102,6 @@ var SearchProjects = Class.$extend( {
         }
       } 
       $("#searchQuery").val(this.searchQuery);
-      $("#normalHeaderButtons").toggle(false);
-      $("#cancelHeaderButton").toggle(true);
       $("#headerSearchBox").toggle(true);
       $("#searchQuery").focus();
       

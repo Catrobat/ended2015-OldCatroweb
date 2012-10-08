@@ -55,7 +55,7 @@ var Menu = Class.$extend( {
     
     $("#forgotPassword").click($.proxy(this.toggleProfileBox, this));
     $("#headerLoginButton").click($.proxy(this.toggleProfileBox, this));
-    $("#headerCancelButton").click($.proxy(this.toggleAllBoxes, this));
+    $("#searchForm").submit($.proxy(this.search, this));
   },
   
   goBack : function(event) {
@@ -71,8 +71,6 @@ var Menu = Class.$extend( {
   },
 
   toggleProfileBox : function() {
-    $("#normalHeaderButtons").toggle(false);
-    $("#cancelHeaderButton").toggle(true);
     $("#headerProfileBox").toggle(true);
     if($("#headerLoginBox").css("display") == "block") {
       $("#loginUsername").focus();
@@ -82,8 +80,12 @@ var Menu = Class.$extend( {
 
   toggleAllBoxes : function() {
     $("#normalHeaderButtons").toggle(true);
-    $("#cancelHeaderButton").toggle(false);
     $("#headerProfileBox").toggle(false);
-  }
+  },
+  
+  search : function() {
+    location.href = "/catroid/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
+    return false;
+  }  
   
 });

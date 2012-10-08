@@ -48,8 +48,6 @@ var PasswordRecovery = Class.$extend( {
   },
   
   toggleProfileBox : function() {
-    $("#normalHeaderButtons").toggle(false);
-    $("#cancelHeaderButton").toggle(true);
     $("#headerProfileBox").toggle(true);
     if($("#headerLoginBox").css("display") == "block") {
       $("#loginUsername").focus();

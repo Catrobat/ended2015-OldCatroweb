@@ -41,7 +41,6 @@ var Index = Class.$extend( {
     $("#aIndexWebLogoMiddle").click($.proxy(this.startPage, this));
     $("#headerMenuButton").click(function() { self.newestProjects.saveStateToSession(self.newestProjects.pageNr.current); });
     $("#searchForm").submit($.proxy(this.search, this));
-    $("#headerCancelSearchButton").click($.proxy(this.cancelSearch, this));
     $("#catroidDescriptionCloseButton").click($.proxy(this.hideCatroidDescription, this));
   },
   
@@ -87,10 +86,6 @@ var Index = Class.$extend( {
       this.switchState("searchProjects");      
     }
     return false;
-  },
-
-  cancelSearch : function() {
-    this.switchState("newestProjects");
   },
 
   hideCatroidDescription : function() {

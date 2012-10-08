@@ -98,8 +98,6 @@ var NewestProjects = Class.$extend( {
         }
       }      
       $("#normalHeaderButtons").toggle(true);
-      $("#cancelHeaderButton").toggle(false);
-      $("#headerSearchBox").toggle(false);
       
       if(!isLanguageChanged) {
         this.setDocumentTitle();
@@ -150,8 +148,6 @@ var NewestProjects = Class.$extend( {
       this.loadAndCachePage();
 	      
       $("#normalHeaderButtons").toggle(true);
-      $("#cancelHeaderButton").toggle(false);
-      $("#headerSearchBox").toggle(false);
       $("#searchQuery").val("");     
     }
   },

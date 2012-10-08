@@ -35,19 +35,13 @@
             </div>
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">
-            <button type="button" class="webHeadButtons button orange medium" id="headerSearchButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/search.png" alt="<?php echo $this->languageHandler->getString('template_header_search')?>" /></button>
             <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="<?php echo $this->languageHandler->getString('template_header_menu')?>" /></button>
             <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="<?php echo $this->languageHandler->getString('template_header_profile')?>" /></button>
-          </div>
-          <div id="cancelHeaderButton" class="webHeadButtons">
-            <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelButton">
-              <span class="webHeadCancelButtonText"><?php echo $this->languageHandler->getString('template_header_cancel')?></span>
-            </button>
           </div>
           <div style="clear:both;"></div>
         </div>
       </div>
-      <div id="headerSearchBox" class="headerSearchBox" style="display:none;">
+      <div id="headerSearchBox" class="headerSearchBox">
         <div class="webHeadBoxSpacer"></div>
         <div class="blueBoxMain">
           <div class="webMainHead">

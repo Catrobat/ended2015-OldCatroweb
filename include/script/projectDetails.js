@@ -53,6 +53,8 @@ var ProjectDetails = Class.$extend( {
     });
     $("#reportInappropriateReportButton").click($.proxy(this.reportInappropriateSubmit, this));
     $("#reportInappropriateReason").keypress($.proxy(this.reportInappropriateCatchKeypress, this));
+    
+    $("#searchForm").submit($.proxy(this.search, this));
   },
   
   reportInappropriateCatchKeypress : function(event) {
@@ -170,6 +172,11 @@ var ProjectDetails = Class.$extend( {
       cache: false,
       data: "incrementID=" + self.projectId,        
     });
-  }
+  },
+  
+  search : function() {
+    location.href = "/catroid/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
+    return false;
+  }  
 
 });

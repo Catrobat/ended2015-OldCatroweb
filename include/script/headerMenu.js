@@ -26,7 +26,6 @@ var HeaderMenu = Class.$extend( {
     $("#headerMenuButton").click({url:"catroid/menu"}, jQuery.proxy(this.openLocation, this));
     $("#headerSearchButton").click(jQuery.proxy(this.toggleSearchBox, this));
     $("#headerProfileButton").click(jQuery.proxy(this.toggleProfileBox, this));
-    $("#headerCancelButton").click(jQuery.proxy(this.toggleAllBoxes, this));
   },
   
   openLocation : function(event) {
@@ -34,8 +33,6 @@ var HeaderMenu = Class.$extend( {
   },
   
   toggleSearchBox : function() {
-    $("#normalHeaderButtons").toggle(false);
-    $("#cancelHeaderButton").toggle(true);
     $("#headerSearchBox").toggle(true);
     if($("#headerSearchBox").css("display") == "block") {
       $("#searchQuery").focus();
@@ -43,8 +40,6 @@ var HeaderMenu = Class.$extend( {
   },
 
   toggleProfileBox : function() {
-    $("#normalHeaderButtons").toggle(false);
-    $("#cancelHeaderButton").toggle(true);
     $("#headerProfileBox").toggle(true);
     if($("#headerLoginBox").css("display") == "block") {
       $("#loginUsername").focus();
@@ -53,8 +48,6 @@ var HeaderMenu = Class.$extend( {
   
   toggleAllBoxes : function() {
     $("#normalHeaderButtons").toggle(true);
-    $("#cancelHeaderButton").toggle(false);
-    $("#headerSearchBox").toggle(false);
     $("#headerProfileBox").toggle(false);
   }
   
