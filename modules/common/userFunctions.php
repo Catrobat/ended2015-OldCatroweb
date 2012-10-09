@@ -71,6 +71,25 @@ class userFunctions extends CoreAuthenticationNone {
     }
   }
 
+  public function isValidationHashValid($hash) {
+    $hash = trim(strval($hash));
+    $result = pg_execute($this->dbConnection, "get_email_hash", array($hash));
+     
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+          STATUS_CODE_SQL_QUERY_FAILED);
+    }
+     
+    $numRows = pg_num_rows($result);
+    $row = pg_fetch_assoc($result);
+    pg_free_result($result);
+     
+    if($numRows != 1) {
+      throw new Exception($this->errorHandler->getError('userFunctions', 'hash_not_found', pg_last_error($this->dbConnection)),
+          STATUS_CODE_USER_RECOVERY_EXPIRED);
+    }
+  }
+
   public function checkUserExists($username) {
     $username = trim($username);
     $result = pg_execute($this->dbConnection, "get_user_row_by_username", array($username));
@@ -212,7 +231,7 @@ class userFunctions extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('userFunctions', 'email_invalid'),
           STATUS_CODE_USER_EMAIL_INVALID);
     }
-    $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($email));
+    $result = pg_execute($this->dbConnection, "get_user_row_by_valid_email", array($email));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
@@ -623,6 +642,18 @@ class userFunctions extends CoreAuthenticationNone {
     $this->sendPasswordRecoveryEmail($hash, $data['id'], $data['username'], $data['email']);
   }
 
+  public function validateEmail($hash) {
+    $hash = trim(strval($hash));
+    
+    $this->isValidationHashValid($hash);
+    $result = pg_execute($this->dbConnection, "validate_email_by_hash", array($hash));
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+          STATUS_CODE_SQL_QUERY_FAILED);
+    }
+    pg_free_result($result);
+  }
+
   public function updatePassword($username, $newPassword) {
     $username = $this->cleanUsername($username);
 
@@ -843,7 +874,6 @@ class userFunctions extends CoreAuthenticationNone {
      
     $emails = array();
     while($email = pg_fetch_assoc($result)) {
-      print_r($email);
       array_push($emails, array('address' => $email['email'], 'valid' => intval($email['validated'] == 't')));
     }
     pg_free_result($result);
@@ -871,8 +901,18 @@ class userFunctions extends CoreAuthenticationNone {
     
     $data = $this->getUserDataForRecovery($email);
     $hash = $this->createUserHash($data);
+    try {
+      while(true) {
+        $this->isValidationHashValid($hash);
+        $hash = $this->createUserHash($data);
+      }
+    } catch(Exception $e) {
+      if($e->getCode() != STATUS_CODE_USER_RECOVERY_EXPIRED) {
+        throw $e;
+      }
+    }
     
-    $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $data['email']);
+    $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
   }
 
   public function deleteEmailAddress($email) {
@@ -1001,8 +1041,6 @@ class userFunctions extends CoreAuthenticationNone {
       $mailText .=   $this->languageHandler->getString('recovery_mail_text_row8') . "\r\n";
       $mailText .=   $this->languageHandler->getString('recovery_mail_text_row9') . "\r\n";
       
-      echo "recipient: " . $userEmail;
-
       if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
         throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
             STATUS_CODE_SEND_MAIL_FAILED);
@@ -1011,8 +1049,15 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   public function sendEmailAddressValidatingEmail($userHash, $userId, $userName, $userEmail) {
-    $catroidValidationUrl = BASE_PATH . 'validation' . $userHash;
+    $catroidValidationUrl = BASE_PATH . 'catroid/emailvalidation?c=' . $userHash;
     
+    $result = pg_execute($this->dbConnection, "update_email_validation_hash_by_email_and_id", array($userHash, $userEmail, $userId));
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+          STATUS_CODE_SQL_QUERY_FAILED);
+    }
+    pg_free_result($result);
+
     if(DEVELOPMENT_MODE) {
       throw new Exception($catroidValidationUrl, STATUS_CODE_OK);
     }

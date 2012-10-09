@@ -251,13 +251,18 @@ public class ProfileTests extends BaseTest {
       
       driver().findElement(By.id("addEmailInput")).sendKeys(dataset.get("registrationEmail"));
       driver().findElement(By.id("addEmailButton")).click();
-      assertTrue(isAjaxMessagePresent("The email address already exists."));
+      assertTrue(isAjaxMessagePresent("This email address already exists."));
       
       openLocation("catroid/profile/");
       
       driver().findElement(By.id("addEmailInput")).sendKeys(dataset.get("secondEmail"));
       driver().findElement(By.id("addEmailButton")).click();
-      assertTrue(isAjaxMessagePresent("The new e-mail address was successfully added."));
+      assertTrue(isAjaxMessagePresent(Config.TESTS_BASE_PATH + "catroid/emailvalidation?c="));
+
+      // get validation url and open it
+      String validationUrl = getValidationUrl();
+      openLocation(validationUrl);
+      assertTrue(isTextPresent("You have successfully validated your email address."));
 
       openLocation("catroid/profile/");
       ajaxWait();

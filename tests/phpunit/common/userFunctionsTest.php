@@ -434,7 +434,12 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
       $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
       
-      $this->obj->addEmailAddress($this->obj->session->userLogin_userId, $newEmail);
+      try {
+        $this->obj->addEmailAddress($this->obj->session->userLogin_userId, $newEmail);
+        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
+      } catch(Exception $e) {
+        $this->assertEquals(200, $e->getCode());
+      }  
       $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
       $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
       $this->assertTrue($this->in_arrayr($newEmail, $data));

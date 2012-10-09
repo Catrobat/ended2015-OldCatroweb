@@ -63,31 +63,26 @@ class CoreMailHandler {
   }
   
   private function chunk_split_unicode($str, $length = 76, $end = "\r\n") {
-    $chuncks = explode('{unwrap}', $str);
-    
-    /*
-    sdafdsafdsafdsafsa
-    sadfdsfsadfdsafdsaf{/unwrap}safddsafsadf
-    dsfsadfdsafdsaf{/unwrap}safddsaf
-    safdsa{/unwrap}
-    */
-    
+    $lastUnwrap = strrpos($str, "{/unwrap}");
+    preg_match_all('|(.*?){unwrap}(.*?){/unwrap}|ism', $str, $parts);
     
     $result = '';
-    foreach($chuncks as $chunck) {
-      $unwrapParts = explode('{/unwrap}', $chunck);
-      
+    if($lastUnwrap !== false) {
+      for($counter = 0, $numberOfUnwraps = count($parts[1]); $counter < $numberOfUnwraps; $counter++) {
+        $tmp = array_chunk(preg_split("//u", $parts[1][$counter], -1, PREG_SPLIT_NO_EMPTY), $length);
+        foreach ($tmp as $line) {
+          $result .= implode('', $line) . $end;
+        }
+        $result .= $parts[2][$counter] . $end;
+      }
+      $str = substr($str, $lastUnwrap + 9);
     }
-    
-    
     
     $tmp = array_chunk(preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY), $length);
-
-    $string = "";
     foreach ($tmp as $line) {
-      $string .= implode('', $line) . $end;
+      $result .= implode('', $line) . $end;
     }
-    return $string;
+    return $result;
   }
   
   private function send() {

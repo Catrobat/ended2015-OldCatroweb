@@ -281,6 +281,18 @@ public class BaseTest {
     return "catroid/passwordrecovery?c=";
   }
 
+  public String getValidationUrl() {
+    String[] parts = getAjaxMessage().split("<");
+    for(String part : parts) {
+      if(part.contains("emailvalidation?c=")) {
+        String[] temp = part.split("c=");
+        return "catroid/emailvalidation?c=" + temp[1];
+      }
+    }
+    
+    return "catroid/emailvalidation?c=";
+  }
+
   public boolean containsElementText(By selector, String text) {
     // https://code.google.com/p/selenium/issues/detail?id=1438
     waitForElementPresent(selector);

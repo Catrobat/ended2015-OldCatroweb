@@ -180,6 +180,7 @@ public class LicenseTests extends BaseTest {
       assertTrue(isTextPresent("Newest Projects"));
       driver().navigate().back();
       driver().navigate().back();
+      ajaxWait();
 
       driver().findElement(By.xpath("//div[@class='licenseText']/ul[1]/li[2]/em[2]/a")).click();
       ajaxWait();

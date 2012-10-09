@@ -18,42 +18,6 @@
  */
 ?>
 
-<?php 
-
-
-
-
-
-
-function chunk_split_unicode($str, $length = 76, $end = "\r\n") {
-  $chuncks = explode('{unwrap}', $str);
-
-
-var_dump($chuncks);
-
-  $result = '';
-  foreach($chuncks as $chunck) {
-    $unwrapParts = explode('{/unwrap}', $chunck);
-    
-    var_dump($unwrapParts);
-
-  }
-
-
-
-  $tmp = array_chunk(preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY), $length);
-
-  $string = "";
-  foreach ($tmp as $line) {
-    $string .= implode('', $line) . $end;
-  }
-  return $string;
-}
-
-$str = "sdafdsafdsafdsafsa{unwrap}sadfdsfsadfdsafdsaf{/unwrap}safddsafsadf{unwrap}dsfsadfdsafdsaf{/unwrap}safddsaf{unwrap}safdsa{/unwrap}";
-chunk_split_unicode($str);
-
-?>
 <?php if($this->showCatroidDescription): ?>
     <div id="catroidDescription" class="webMainMiddle">
       <div class="blueBoxMain">

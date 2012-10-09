@@ -65,7 +65,6 @@ public class MyProjectsTests extends BaseTest {
       ajaxWait();
       
       assertFalse(isTextPresent(title));
-      assertTrue(isTextPresent(CommonStrings.MYPROJECT_NO_PROJECTS_FOUND));
     } catch(AssertionError e) {
       captureScreen("deleteMyProject.deleteMyProject");
       throw e;

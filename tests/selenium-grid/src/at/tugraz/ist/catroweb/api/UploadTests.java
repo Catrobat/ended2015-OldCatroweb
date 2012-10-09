@@ -71,7 +71,7 @@ public class UploadTests extends BaseTest {
   @Test(groups = { "upload", "functionality" }, description = "extract project title and description from xml")
   public void uploadXMLExtraction() throws Throwable {
     try {
-      String response = projectUploader.upload(CommonData.getUploadPayload("testTitle", "testDescription", "test-0.6.0beta-xml.catrobat", "614e75d38ce8a28ae1add5618e28bf06", "", "", "0"));
+      String response = projectUploader.upload(CommonData.getUploadPayload("testTitle", "testDescription", "test-0.6.0beta-xml.catrobat", "4b210715be264ef8f228c20f17fc06a4", "", "", "0"));
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
       
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
