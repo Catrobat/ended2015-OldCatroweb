@@ -71,11 +71,23 @@ div.profileItem .labelInput {
   padding: 13px 0 14px 0;
 }
 
+input.profileInput, input.profileInputSmall {
+  padding-left: 4px;
+}
+
 div.profileItem div .profileInput {
   color: #000;
   opacity: 1.0;
   display:inline-block;
   width: 453px;
+  background: none;
+}
+
+div.profileItem div .profileInputSmall {
+  color: #000;
+  opacity: 1.0;
+  display:inline-block;
+  background: none;
 }
 
 div.profileItem div .profileInputTwo {
@@ -83,6 +95,7 @@ div.profileItem div .profileInputTwo {
   opacity: 1.0;
   display:inline-block;
   width: 223px;
+  background: none;
 }
 
 #addEmailInput {

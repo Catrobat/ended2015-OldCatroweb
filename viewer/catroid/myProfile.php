@@ -63,7 +63,7 @@
                       <span id="emailDeleteButtons"></span><br />
                       <div><strong>Add another email address:</strong></div> <br/>
                       <div>
-                        <input id="addEmailInput" type="text" class="catroid" />
+                        <input id="addEmailInput" type="text" class="catroid profileInputSmall" />
                         <button id="addEmailButton" class="button orange compact"><img width="24px" src="<?php echo BASE_PATH; ?>images/symbols/add.png"></button>
                       </div>                          
                     </div>
@@ -78,6 +78,7 @@
                         <?php echo $this->countryCodeListHTML; ?>
                       </select>
                     </div>
+                    <div style="clear:both"></div>  
                   </div>
 
                   <div class="profileItem">
@@ -87,6 +88,7 @@
                         <?php echo $this->genderListHTML; ?>
                       </select>
                     </div>
+                    <div style="clear:both"></div>  
                   </div>
 
                   <div class="profileItem">
@@ -99,6 +101,7 @@
                         <?php echo $this->yearListHTML; ?>
                       </select>
                     </div>
+                    <div style="clear:both"></div>  
                   </div>
 
                   <div class="profileItem">
@@ -107,8 +110,8 @@
                       <select id="profileSwitchLanguage" class="catroid profileInput">
                         <?php echo $this->laguageListHTML; ?>
                       </select>
-                    
                     </div>
+                    <div style="clear:both"></div>  
                   </div>
 
                   <div style="clear:both;"></div>
