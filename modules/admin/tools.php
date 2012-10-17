@@ -544,6 +544,82 @@ class tools extends CoreAuthenticationAdmin {
     $query = "EXECUTE admin_remove_all_blocked_ips;";
     $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
   }
+
+  //todo: implement
+  public function extractRegex($phpCode) {
+    $newUpdateCodeTmp = preg_split("/if\(/", $phpCode);
+    if (is_array($newUpdateCodeTmp) && sizeof($newUpdateCodeTmp) >= 2) {
+      $newUpdateCodePart = preg_split("/header/", $newUpdateCodeTmp[1]);
+      $newUpdateCode = "if (".$newUpdateCodePart[0];
+
+      $newCode = "";
+      $newCode.= "// <isMobile>\n";
+      $newCode.= $newUpdateCode;
+      $newCode.= "// </isMobile>\n";
+      $newCode.= $partCode[2];
+      
+      return $newCode;
+    } else {
+      return null; // on error, do not change the code
+    } 
+      }
+  
+  public function updateMobileBrowserDetectionCode($currentCode, $updateCode) {
+    $partCode = preg_split("/<[\/]*isMobile>/", $currentCode);
+    $newUpdateCodeTmp = preg_split("/if\(/", $updateCode);
+    if (is_array($newUpdateCodeTmp) && sizeof($newUpdateCodeTmp) >= 2 && sizeof($partCode) >= 2) {
+      $newUpdateCodePart = preg_split("/header/", $newUpdateCodeTmp[1]);
+      $newUpdateCode = "if (".$newUpdateCodePart[0];
+
+      $newCode = $partCode[0];
+      $newCode.= "<isMobile>\n";
+      $newCode.= "\t\t\t\t".$newUpdateCode;
+      $newCode.= "\t\t\t\t// </isMobile>";
+      $newCode.= $partCode[2];
+      
+      return $newCode;
+    } else {
+      return $currentCode; // on error, do not change the code
+    } 
+  }
+  
+  public function updateBrowserDetectionRegexPattern() {
+    $currentData = "";
+    $updateData = "";
+    $clientDetectionClass = CORE_BASE_PATH.'classes/CoreClientDetection.php';
+    $clientDetectionUpdateUrl = MOBILE_BROWSERDETECTION_URL_FOR_UPDATE;
+
+    // load class
+    $fp = fopen($clientDetectionClass, "r");
+    if ($fp) {
+      $currentData = fread($fp, filesize($clientDetectionClass));
+      fclose($fp);
+    } else {
+      return null; // not found - so do not update
+    }
+    
+    // load new regex-pattern from website
+    $fp = fopen($clientDetectionUpdateUrl, "r");
+    if ($fp) {
+        // $updateData = $this->extractRegex(fread($fp, 32000));
+        $updateData = fread($fp, 32000);
+        fclose($fp);
+    } else {
+      return null; // not found - so do not update
+    }
+
+    $newData = $this->updateMobileBrowserDetectionCode($currentData, $updateData);
+
+    $ratio = strlen($newData) / strlen($currentData);
+    if (($currentData != $newData) && (($ratio < 0.95) || ($ratio > 1.05))) {
+    // and save changes back to class
+       $fp = fopen($clientDetectionClass, "w+");
+       if ($fp) {
+         fwrite($fp, $newData);
+         fclose($fp);
+       }
+    }
+  }
   
   public function __destruct() {
     parent::__destruct();
