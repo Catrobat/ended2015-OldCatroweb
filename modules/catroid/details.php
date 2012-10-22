@@ -22,15 +22,7 @@ class details extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    if($this->clientDetection->isBrowser(CoreClientDetection::BROWSER_FIREFOX) ||
-    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_FIREFOX_MOBILE) ||
-    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_SAFARI) ||
-    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_CHROME) ||
-    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_ANDROID)) {
-      $this->addCss('projectDetails.css');
-    } else {
-      $this->addCss('projectDetails_nohtml5.css');
-    }
+    $this->addCss('projectDetails.css');
     $this->addJs('projectDetails.js');
 
     $this->isMobile = $this->clientDetection->isMobile();

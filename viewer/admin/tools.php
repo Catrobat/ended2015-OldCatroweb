@@ -31,6 +31,8 @@
   <a id="aAdminToolsBlockIp" href="<?php echo BASE_PATH;?>admin/tools/editBlockedIps">block IPs</a><br />
   <a id="aAdminToolsBlockUser" href="<?php echo BASE_PATH;?>admin/tools/editBlockedUsers">block Users</a><br />
   <br />
+  <a id="aAdminToolsUpdateBrowserDetection" href="<?php echo BASE_PATH;?>admin/tools/updateBrowserDetection">update browser-detection RegEx-pattern</a><br />
+  <br />
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/index">&lt;- back</a>
   <br /><br />
   <?php if($this->answer) {

@@ -92,4 +92,7 @@ define('USER_MAX_PASSWORD_LENGTH',32);
 define('DATABASE_CONNECTION_PERSISTENT',true);
 define('GA_PIXEL','ga.php');
 define('SESSION_LIFETIME', 60*60*24*365);
+
+define('MOBILE_BROWSERDETECTION_URL_FOR_UPDATE','http://detectmobilebrowsers.com/download/php');
+
 ?>
