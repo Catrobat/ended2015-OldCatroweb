@@ -49,7 +49,7 @@ var Profile = Class.$extend( {
 
     fileInput.change(function() {
       if(this.files[0].size > 5 * 1024 * 1024) {
-        common.showAjaxErrorMsg("file to big");
+        common.showAjaxErrorMsg(self.languageStringsObject.image_too_big);
         return;
       }
       
@@ -83,6 +83,7 @@ var Profile = Class.$extend( {
     
     if(result.statusCode == 200) {
       $('#profileAvatarImage').attr("src", result.avatar);
+      common.showAjaxSuccessMsg(result.answer);
     } else {
       common.showAjaxErrorMsg(result.answer);
     }

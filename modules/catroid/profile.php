@@ -152,7 +152,6 @@ class profile extends CoreAuthenticationUser {
     
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('avatar_success');
-      $this->answer = "hey";
     } catch(Exception $e) {
       $this->statusCode = $e->getCode();
       $this->answer = $e->getMessage();

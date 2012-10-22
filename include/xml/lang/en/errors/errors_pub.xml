@@ -51,6 +51,8 @@
       <string name="wiki_api_response_incorrect">Ooooops something went wrong. Please try again!</string>
       <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
       <string name="userdata_missing">Your nickname or email address is missing.</string>
+      <string name="unsupported_image">This image type is not supported, please try another image.</string>
+      <string name="avatar_creation_failed">Sorry, we encountered an error while processing your registration. Please try again!</string>
       <string name="password_new_board_update_failed">There was a problem while updating the password.</string>
       <string name="city_update_failed">There was a problem while updating your city.</string>
       <string name="country_update_failed">There was a problem while updating your home country.</string>

@@ -51,6 +51,8 @@
       <string name="wiki_api_response_incorrect">The response of the mediawiki API was incorrect.</string>
     	<string name="board_registration_failed">The board registration failed.</string>
     	<string name="userdata_missing">The nickname or email address is missing.</string>
+      <string name="unsupported_image">Invalid image, allowed image types are gif, png or jpeg.</string>
+      <string name="avatar_creation_failed">The creation of the new avatar failed.</string>
     	<string name="password_new_board_update_failed">Failed to update the board password.</string>
       <string name="city_update_failed">There was a problem while updating your city.</string>
       <string name="country_update_failed">There was a problem while updating your home country.</string>

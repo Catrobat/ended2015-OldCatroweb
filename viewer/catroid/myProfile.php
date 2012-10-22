@@ -72,12 +72,19 @@
                   </div>
                   
                   <div class="profileItem">
-                    <div class="label labelInput"><?php echo $this->languageHandler->getString('location'); ?></div>
+                    <div class="label labelInput"><?php echo $this->languageHandler->getString('country'); ?></div>
                     <div>
-                      <input id="cityInput" class="catroid profileInput" type="text" value="<?php echo $this->userData['city']; ?>" /><br />
                       <select id="countrySelect" class="catroid profileInput">
                         <?php echo $this->countryCodeListHTML; ?>
                       </select>
+                    </div>
+                    <div style="clear:both"></div>  
+                  </div>
+                  
+                  <div class="profileItem">
+                    <div class="label labelInput"><?php echo $this->languageHandler->getString('city'); ?></div>
+                    <div>
+                      <input id="cityInput" class="catroid profileInput" type="text" value="<?php echo $this->userData['city']; ?>" /><br />
                     </div>
                     <div style="clear:both"></div>  
                   </div>
@@ -126,7 +133,8 @@
       <script type="text/javascript">
           $(document).ready(function() {
             var languageStringsObject = { 
-              "really_delete" : "<?php echo $this->languageHandler->getString('really_delete'); ?>"
+              "really_delete" : "<?php echo $this->languageHandler->getString('really_delete'); ?>",
+              "image_too_big" : "<?php echo $this->languageHandler->getString('image_too_big'); ?>"
             };
             new Profile(languageStringsObject);
           });
