@@ -27,7 +27,7 @@
                 <div class="profileFormContainer">
                     
                   <div class="avatarContainer">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/avatar_boys.png" class="avatar" />
+                    <img src="<?php echo $this->userData['avatar']; ?>" class="avatar" />
                   </div>
   
                   <div class="profileItem">

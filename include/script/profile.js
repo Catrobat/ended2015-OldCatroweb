@@ -22,6 +22,8 @@ var Profile = Class.$extend( {
     var self = this;
     this.languageStringsObject = languageStringsObject;
     
+
+    this.initAvatarUploader();
     $("#profileChangePassword").click(function() { $("#profilePasswordInput").toggle() });
     $("#profilePasswordSubmit").click($.proxy(this.updatePaswordRequest, this));
     $("#profileOldPassword").keypress($.proxy(this.passwordCatchKeypress, this));
@@ -39,6 +41,53 @@ var Profile = Class.$extend( {
     $("#profileSwitchLanguage").change($.proxy(this.updateLanguageRequest, this));
   },
   
+  //-------------------------------------------------------------------------------------------------------------------
+  initAvatarUploader : function() {
+    var self = this;
+    var wrapper = $('<div/>').css({height:0, width:0, 'overflow':'hidden'});
+    var fileInput = $(':file').wrap(wrapper);
+
+    fileInput.change(function() {
+      if(this.files[0].size > 5 * 1024 * 1024) {
+        common.showAjaxErrorMsg("file to big");
+        return;
+      }
+      
+      var data = new FormData();
+      data.append('file', this.files[0]);
+      
+      $.ajax({
+        type: "POST",
+        url: self.basePath + 'catroid/profile/updateAvatarRequest.json',
+        data: data,
+        processData: false,
+        contentType: false,
+        success : $.proxy(self.avatarRequestSuccess, self),
+        error : $.proxy(common.ajaxTimedOut, self)
+      });
+      
+      common.disableAutoHideAjaxLoader();
+    })
+
+    $('#profileAvatarImage').click(function(){
+      fileInput.click();
+    }).show();
+
+    $('#profileChangeAvatar').click(function(){
+      fileInput.click();
+    }).show();
+  },
+
+  avatarRequestSuccess : function(result) {
+    common.showPreHeaderMessages(result);
+    
+    if(result.statusCode == 200) {
+      $('#profileAvatarImage').attr("src", result.avatar);
+    } else {
+      common.showAjaxErrorMsg(result.answer);
+    }
+  },
+
   //-------------------------------------------------------------------------------------------------------------------
   passwordCatchKeypress : function(event) {
     if(event.which == '13') {

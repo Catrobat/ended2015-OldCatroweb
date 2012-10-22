@@ -21,6 +21,7 @@
   <string name="myTitle">My Profile</string>
   <string name="userTitle">User Profile</string>
 
+  <string name="changePicture">change my picture</string>
   <string name="name">Name</string>
   <string name="password">Password</string>
   <string name="email">Email</string>

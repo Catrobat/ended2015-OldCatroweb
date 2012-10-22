@@ -144,6 +144,20 @@ class profile extends CoreAuthenticationUser {
     }
     return $optionList;
   }
+
+  //--------------------------------------------------------------------------------------------------------------------
+  public function updateAvatarRequest() {
+    try {
+      $this->avatar = $this->userFunctions->updateAvatar();
+    
+      $this->statusCode = STATUS_CODE_OK;
+      $this->answer = $this->languageHandler->getString('avatar_success');
+      $this->answer = "hey";
+    } catch(Exception $e) {
+      $this->statusCode = $e->getCode();
+      $this->answer = $e->getMessage();
+    }
+  }
   
   //--------------------------------------------------------------------------------------------------------------------
   public function updatePasswordRequest() {

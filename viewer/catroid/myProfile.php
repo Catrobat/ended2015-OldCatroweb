@@ -24,10 +24,11 @@
             <div class="profileMain">                
               <div class ="whiteBoxMain">
                 <div class="profileFormContainer">
-                    
+
                   <div class="avatarContainer">
-                    <img src="<?php echo BASE_PATH; ?>images/symbols/avatar_boys.png" class="avatar" /><br />
-                    <a href="lala">change my picture</a>
+                    <img id="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" class="avatar" /><br />
+                    <div id="profileChangeAvatar"><a href="javascript:;"><?php echo $this->languageHandler->getString('changePicture'); ?></a></div>
+                    <input type="file" name="file" style="width:200px;" />
                   </div>
 
                   <div class="profileItem">

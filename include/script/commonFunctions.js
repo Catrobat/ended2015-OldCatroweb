@@ -37,6 +37,10 @@ var Common = Class.$extend( {
     this.timeoutAutoHideAjaxLoader = setTimeout($.proxy(function(){ this.showAjaxErrorMsg(this.languageStrings.ajax_took_too_long); this.hideAjaxLoader(); }, this), 10000);
   },
   
+  disableAutoHideAjaxLoader : function() {
+    clearTimeout(this.timeoutAutoHideAjaxLoader);
+  },
+
   disableAjaxLoader : function() {
     this.hideAjaxLoader();
     clearTimeout(this.timeoutShowAjaxLoader);

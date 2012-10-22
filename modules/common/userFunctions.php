@@ -653,6 +653,93 @@ class userFunctions extends CoreAuthenticationNone {
     }
     pg_free_result($result);
   }
+  
+  public function updateAvatar() {
+    if(intval($this->session->userLogin_userId) > 0 && isset($_FILES['file'])) {
+      $data = "";
+      
+      $avatarSource = 0;
+      switch($_FILES['file']['type']) {
+        case "image/jpeg":
+          $avatarSource = imagecreatefromjpeg($_FILES['file']['tmp_name']);
+          break;
+        case "image/png":
+          $avatarSource = imagecreatefrompng($_FILES['file']['tmp_name']);
+          break;
+        case "image/gif":
+          $avatarSource = imagecreatefromgif($_FILES['file']['tmp_name']);
+          break;
+        default:
+          throw new Exception($this->errorHandler->getError('userFunctions', 'userdata_missing'),
+              STATUS_CODE_UPLOAD_UNSUPPORTED_MIME_TYPE);
+      }
+      
+      if($avatarSource) {
+        $maxSize = 128;
+        $width = imagesx($avatarSource);
+        $height = imagesy($avatarSource);
+        
+        if($width == 0 || $height == 0) {
+          throw new Exception($this->errorHandler->getError('userFunctions', 'userdata_missing'),
+              STATUS_CODE_UPLOAD_UNSUPPORTED_FILE_TYPE);
+        }
+        
+        $desiredWidth = $width;
+        $desiredHeight = $height;
+        $destinationX = 0;
+        $destinationY = 0;
+        
+        if(max($width, $height) > $maxSize) {
+          if($width > $height) {
+            $desiredHeight = round(($maxSize / $width) * $height);
+            $desiredWidth = $maxSize;
+          } else {
+            $desiredWidth = round(($maxSize / $height) * $width);
+            $desiredHeight = $maxSize;
+          }
+        }
+        $destinationX = round(($maxSize - $desiredWidth) / 2);
+        $destinationY = round(($maxSize - $desiredHeight) / 2);
+        
+        $avatar = imagecreatetruecolor($maxSize, $maxSize);
+        if(!$avatar) {
+          throw new Exception($this->errorHandler->getError('userFunctions', 'userdata_missing'),
+              STATUS_CODE_USER_POST_DATA_MISSING);
+        }
+        imagesavealpha($avatar, true);
+        
+        $transparentColor = imagecolorallocatealpha($avatar, 0, 0, 0, 127);
+        imagefill($avatar, 0, 0, $transparentColor);
+        
+        if(!imagecopyresampled($avatar, $avatarSource, $destinationX, $destinationY, 0, 0, $desiredWidth, $desiredHeight, $width, $height)) {
+          throw new Exception($this->errorHandler->getError('userFunctions', 'userdata_missing'),
+              STATUS_CODE_USER_POST_DATA_MISSING);
+        }
+
+        $temp = tempnam("/tmp", "avatar");
+        if(!imagepng($avatar, $temp, 7)) {
+          throw new Exception($this->errorHandler->getError('userFunctions', 'userdata_missing'),
+              STATUS_CODE_USER_POST_DATA_MISSING);
+        }
+        imagedestroy($avatar);
+        
+        $data = file_get_contents($temp);
+      }
+      
+      
+      $outputImage = "data:image/png;base64," . base64_encode($data);
+      $result = pg_execute($this->dbConnection, "update_avatar_by_id", array($outputImage, $this->session->userLogin_userId));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      pg_free_result($result);
+      
+      return $outputImage;
+    }
+    throw new Exception($this->errorHandler->getError('userFunctions', 'userdata_missing'),
+              STATUS_CODE_UPLOAD_MISSING_DATA);
+  } 
 
   public function updatePassword($username, $newPassword) {
     $username = $this->cleanUsername($username);
@@ -806,6 +893,10 @@ class userFunctions extends CoreAuthenticationNone {
     $user = array();
     if(pg_num_rows($result) > 0) {
       $user = pg_fetch_assoc($result);
+    }
+    
+    if($user['avatar'] == NULL) {
+      $user['avatar'] = BASE_PATH . "images/symbols/avatar_boys.png";
     }
      
     pg_free_result($result);
