@@ -30,6 +30,11 @@ class passwordrecovery extends CoreAuthenticationNone {
   }
 
   public function __default() {
+    if($this->session->userLogin_userId > 0) {
+      header('Location: ' . BASE_PATH . 'catroid/profile');
+      exit();
+    }
+
     if(isset($_GET['c'])) {
       try {
         $this->userFunctions->isRecoveryHashValid($_GET['c']);

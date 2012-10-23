@@ -317,6 +317,11 @@ public class BaseTest {
     return (driver().findElement(selector)).isEnabled();
   }
 
+  protected void makeVisible(By selector, String additionalCommands) {
+    ((JavascriptExecutor) driver()).executeScript("arguments[0].style.visibility='visible';" + additionalCommands,
+        driver().findElement(selector));
+  }
+
   protected void openLocation() {
     openLocation("");
   }

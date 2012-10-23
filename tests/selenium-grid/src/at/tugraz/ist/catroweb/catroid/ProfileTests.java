@@ -223,6 +223,49 @@ public class ProfileTests extends BaseTest {
     }
   }
   
+  @Test(dataProvider = "loginAndChangeData", groups = { "functionality", "visibility" }, description = "upadte user avatar")
+  public void profileChangeAvatarTest(HashMap<String, String> dataset) throws Throwable {
+    try {
+      openLocation("catroid/registration/");
+
+      driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.id("registrationSubmit")).click();
+      ajaxWait();
+      
+      assertTrue(driver().findElement(By.id("profileAvatarImage")).getAttribute("src").contains("images/symbols/avatar_boys.png"));
+      makeVisible(By.id("profileAvatarFile"), "arguments[0].style.width='100px';arguments[0].style.height='100px';");
+      driver().findElement(By.id("profileAvatarFile")).sendKeys(Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + "test.zip");
+      driver().findElement(By.id("profileChangePassword")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileChangePassword")).click();
+      
+      assertTrue(driver().findElement(By.id("profileAvatarImage")).getAttribute("src").contains("images/symbols/avatar_boys.png"));
+      assertTrue(isAjaxMessagePresent("Invalid image, allowed image types are gif, png or jpeg."));
+      
+      driver().findElement(By.id("profileAvatarFile")).sendKeys(Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + "catrobat.png");
+      driver().findElement(By.id("profileChangePassword")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileChangePassword")).click();
+      
+      assertFalse(driver().findElement(By.id("profileAvatarImage")).getAttribute("src").contains("images/symbols/avatar_boys.png"));
+      assertTrue(isAjaxMessagePresent("You updated your avatar successfully."));
+      
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+    } catch(AssertionError e) {
+      captureScreen("ProfileTests.profileChangeAvatarTest." + dataset.get("registrationUsername"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("ProfileTests.profileChangeAvatarTest." + dataset.get("registrationUsername"));
+      throw e;
+    }
+  }
+  
   @Test(dataProvider = "emailTest", groups = { "functionality", "visibility" }, description = "check add/delete email")
   public void profilePageEmailTest(HashMap<String, String> dataset) throws Throwable {
     try {
@@ -261,6 +304,8 @@ public class ProfileTests extends BaseTest {
 
       // get validation url and open it
       String validationUrl = getValidationUrl();
+      openLocation(validationUrl + "_invalid");
+      assertTrue(isTextPresent("Recovery hash was not found."));
       openLocation(validationUrl);
       assertTrue(isTextPresent("You have successfully validated your email address."));
 

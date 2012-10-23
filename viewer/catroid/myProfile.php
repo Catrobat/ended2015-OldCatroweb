@@ -28,7 +28,7 @@
                   <div class="avatarContainer">
                     <img id="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" class="avatar" /><br />
                     <div id="profileChangeAvatar"><a href="javascript:;"><?php echo $this->languageHandler->getString('changePicture'); ?></a></div>
-                    <input type="file" name="file" style="width:200px;" />
+                    <input id="profileAvatarFile" type="file" />
                   </div>
 
                   <div class="profileItem">
@@ -55,7 +55,7 @@
                         <input type="button" id="profilePasswordSubmit" value="<?php echo $this->languageHandler->getString('save_button')?>" class="button orange compact profileSubmitButton" />
                       </div>
                     </div>
-                    <div style="clear:both"></div>  
+                    <div style="clear:both;"></div>  
                   </div>
 
                   <div class="profileItem">

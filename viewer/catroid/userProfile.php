@@ -39,11 +39,6 @@
                     <div class="label"><?php echo $this->languageHandler->getString('location'); ?></div>
                     <div>
                       <?php 
-                        if($this->userData['country'] != "") {
-                          echo $this->languageHandler->getString('from');
-                          echo " ";
-                        }
-
                         $countries = getCountryArray($this->languageHandler);
                         if($this->userData['country'] != "") {
                           echo $countries[$this->userData['country']];

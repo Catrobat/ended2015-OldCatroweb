@@ -31,18 +31,42 @@ import at.tugraz.ist.catroweb.common.*;
 @Test(groups = { "catroid", "PasswordRecoveryTests" })
 public class PasswordRecoveryTests extends BaseTest {
 
+  @Test(groups = { "functionality" }, description = "check password recovery redirection if logged in")
+  public void passwordRecoveryRedirectWhenLoggedIn() throws Throwable {
+    try {
+      login("catroid/index");
+      driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
+
+      assertTrue(isTextPresent("My Profile"));
+      assertTrue(isTextPresent("catroweb"));
+      
+      openLocation("catroid/passwordrecovery");
+      
+      assertFalse(isTextPresent("Recover your password"));
+      assertTrue(isTextPresent("My Profile"));
+      assertTrue(isTextPresent("catroweb"));
+    } catch(AssertionError e) {
+      captureScreen("PasswordRecoveryTests.passwordRecoveryRedirectWhenLoggedIn");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("PasswordRecoveryTests.passwordRecoveryRedirectWhenLoggedIn");
+      throw e;
+    }
+  }
+  
   @Test(groups = { "visibility" }, description = "check password recovery intro")
   public void passwordRecoveryIntro() throws Throwable {
     try {
       openLocation("catroid/menu");
-
+      
       // check password recovery link
       driver().findElement(By.id("menuLoginButton")).click();
       ajaxWait();
       assertTrue(isVisible(By.id("loginUsername")));
       assertTrue(isVisible(By.id("loginPassword")));
       assertTrue(isVisible(By.id("loginSubmitButton")));
-
+      
       ajaxWait();
       driver().findElement(By.id("headerCancelButton")).click();
       ajaxWait();
@@ -80,7 +104,7 @@ public class PasswordRecoveryTests extends BaseTest {
 
       // goto lost password page and test reset by email and nickname, at first
       // use some wrong nickname or email
-      openLocation("catroid/passwordrecovery");
+      logout("catroid/passwordrecovery");
       assertTrue(isTextPresent("Enter your nickname or email address:"));
       assertTrue(isElementPresent(By.id("passwordRecoveryUserdata")));
       assertTrue(isElementPresent(By.id("passwordRecoverySendLink")));

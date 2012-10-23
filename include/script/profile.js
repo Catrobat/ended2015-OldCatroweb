@@ -45,7 +45,7 @@ var Profile = Class.$extend( {
   initAvatarUploader : function() {
     var self = this;
     var wrapper = $('<div/>').css({height:0, width:0, 'overflow':'hidden'});
-    var fileInput = $(':file').wrap(wrapper);
+    var fileInput = $('#profileAvatarFile').wrap(wrapper);
 
     fileInput.change(function() {
       if(this.files[0].size > 5 * 1024 * 1024) {
