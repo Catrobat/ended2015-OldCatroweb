@@ -69,7 +69,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
     <string name="get_user_login">SELECT * FROM cusers WHERE username_clean=$1 AND password=$2 LIMIT 1</string>
     <string name="get_user_device_login">SELECT * FROM cusers WHERE auth_token=$1 LIMIT 1</string>
-    <string name="get_user_row_by_username">SELECT id, username, gender, country, city, language, to_char(date_of_birth, 'MM') AS month, to_char(date_of_birth, 'YYYY') AS year, avatar FROM cusers WHERE username=$1 LIMIT 1</string>
+    <string name="get_user_row_by_username">SELECT cusers.id, cusers.username, cusers.gender, cusers.country, cusers.city, cusers.language, to_char(cusers.date_of_birth, 'MM') AS month, to_char(cusers.date_of_birth, 'YYYY') AS year, cusers.avatar, (SELECT count(*) FROM projects WHERE projects.user_id=cusers.id) AS project_count FROM cusers WHERE username=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
 
     <string name="get_user_row_by_email">SELECT DISTINCT u.* FROM cusers u, cusers_additional_email e WHERE u.email=$1 OR (e.email=$1 AND e.user_id=u.id)</string>

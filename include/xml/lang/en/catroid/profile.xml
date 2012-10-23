@@ -26,6 +26,7 @@
   <string name="password">Password</string>
   <string name="email">Email</string>
   <string name="location">Location</string>
+  <string name="projects">Projects</string>
   <string name="country">Country</string>
   <string name="city">City</string>
   <string name="gender">Gender</string>

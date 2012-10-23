@@ -47,6 +47,13 @@
                     </div>
                   </div>
   
+                  <div class="profileItem">
+                    <div class="label"><?php echo $this->languageHandler->getString('projects'); ?></div>
+                    <div>
+                      <div><?php echo $this->userData['project_count']; ?></div>
+                    </div>
+                  </div>
+  
                 </div> <!-- profileFormContainer -->
               </div> <!--  White Box -->                
             </div> <!--  license Main -->                     
