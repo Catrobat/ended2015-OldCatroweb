@@ -61,8 +61,8 @@
       <string name="language_update_failed">There was a problem while updating your language.</string>
     	<string name="userdata_not_exists">The nickname or email address was not found.</string>
     	<string name="email_address_exists">The email address already exists.</string>
-    	<string name="email_delete_failed">Error while deleting this e-mail address. You must have at least 1 e-mail address.</string>
-    	<string name="email_update_of_catroweb_failed">Error while deleting this e-mail address. Catroweb must have at least 2 e-mail addresses.</string>
+    	<string name="email_delete_failed">Error while deleting this e-mail address. You must have at least one e-mail address.</string>
+    	<string name="email_update_of_catroweb_failed">Error while deleting this e-mail address. Catroweb must have at least two e-mail addresses.</string>
     	<string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
     	<string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>
     </userFunctions>

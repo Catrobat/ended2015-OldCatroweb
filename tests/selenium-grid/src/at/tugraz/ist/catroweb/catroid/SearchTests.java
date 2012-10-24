@@ -262,6 +262,7 @@ public class SearchTests extends BaseTest {
 
       openLocation();
       ajaxWait();
+      driver().findElement(By.id("headerSearchButton")).click();
       driver().findElement(By.id("searchQuery")).clear();
       driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
       driver().findElement(By.id("webHeadSearchSubmit")).click();

@@ -900,7 +900,8 @@ class userFunctions extends CoreAuthenticationNone {
     $result = pg_execute($this->dbConnection, "get_user_row_by_recovery_hash", array($hash));
      
     if(!$result) {
-      return array();
+      throw new Exception($this->errorHandler->getError('userFunctions', 'hash_not_found', pg_last_error($this->dbConnection)),
+          STATUS_CODE_USER_RECOVERY_EXPIRED);
     }
      
     $userData = array();
@@ -1079,11 +1080,11 @@ class userFunctions extends CoreAuthenticationNone {
       $mailText .=   $this->languageHandler->getString('registration_mail_text_row5', $password) . "\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('registration_mail_text_row6') . "\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('registration_mail_text_row7') . "\r\n";
-      $mailText .=   $catroidLoginUrl."\n\n";
+      $mailText .=   "{unwrap}" . $catroidLoginUrl . "{/unwrap}\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('registration_mail_text_row8') . "\r\n";
-      $mailText .=   $catroidProfileUrl."\n\n";
+      $mailText .=   "{unwrap}" . $catroidProfileUrl . "{/unwrap}\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('registration_mail_text_row9') . "\r\n";
-      $mailText .=   $catroidRecoveryUrl."\n\n";
+      $mailText .=   "{unwrap}" . $catroidRecoveryUrl . "{/unwrap}\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('registration_mail_text_row10') . "\r\n";
       $mailText .=   $this->languageHandler->getString('registration_mail_text_row11');
 
@@ -1115,12 +1116,12 @@ class userFunctions extends CoreAuthenticationNone {
       $mailText =    $this->languageHandler->getString('recovery_mail_text_row1', $userName) . "\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('recovery_mail_text_row2') . "\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('recovery_mail_text_row3') . "\r\n";
-      $mailText .=   $catroidPasswordResetUrl . "\r\n\r\n";
+      $mailText .=   "{unwrap}" . $catroidPasswordResetUrl . "{/unwrap}\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('recovery_mail_text_row5') . "\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('recovery_mail_text_row6') . "\r\n";
-      $mailText .=   $catroidLoginUrl . "\r\n\r\n";
+      $mailText .=   "{unwrap}" . $catroidLoginUrl . "{/unwrap}\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('recovery_mail_text_row7') . "\r\n";
-      $mailText .=   $catroidProfileUrl . "\r\n\r\n\r\n";
+      $mailText .=   "{unwrap}" . $catroidProfileUrl . "{/unwrap}\r\n\r\n\r\n";
       $mailText .=   $this->languageHandler->getString('recovery_mail_text_row8') . "\r\n";
       $mailText .=   $this->languageHandler->getString('recovery_mail_text_row9') . "\r\n";
       

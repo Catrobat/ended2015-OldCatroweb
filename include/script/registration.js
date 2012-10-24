@@ -78,9 +78,11 @@ var Registration = Class.$extend( {
     if(event.which == '9') {
       if(event.shiftKey && event.data.prev != null) {
         event.preventDefault();
+        this.focusAndScrollIntoView(event.data.prev);
       }
       if(!event.shiftKey && event.data.next != null) {
         event.preventDefault();
+        this.focusAndScrollIntoView(event.data.next);
       }
     }
     
@@ -88,12 +90,18 @@ var Registration = Class.$extend( {
       if(!event.data.submit) {
         if(event.data.next != null) {
           event.preventDefault();
+          this.focusAndScrollIntoView(event.data.next);
         }
       } else {
         this.submit();
         event.preventDefault();
       }
     }
+  },
+
+  focusAndScrollIntoView : function(element) {
+    element.focus();
+    $(document).scrollTop(element.offset().top - this.scrollMargin);
   },
   
   submit : function() {

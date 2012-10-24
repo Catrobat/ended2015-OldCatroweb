@@ -52,8 +52,8 @@ class CoreMailHandler {
       return false;
     }
     $this->_subject = ADMIN_EMAIL_SUBJECT_PREFIX.' - '.$subject;
-    $this->_text = $this->chunk_split_unicode($text);
-    $this->_return = "-f".ADMIN_EMAIL_WEBMASTER;
+    $this->_text = $this->wordwrap($text);
+    $this->_return = "-f" . ADMIN_EMAIL_WEBMASTER;
     $this->_reply = ADMIN_EMAIL_NOREPLY;
 	  $this->_from = ADMIN_EMAIL_NOREPLY;
 	  $this->_to = ADMIN_EMAIL_WEBMASTER;
@@ -61,8 +61,31 @@ class CoreMailHandler {
 	
 	  return($this->send());
   }
+  public function wordwrap($str, $length = 76, $end = "\r\n") {
+    $lastUnwrap = strrpos($str, "{/unwrap}");
+    preg_match_all('|(.*?){unwrap}(.*?){/unwrap}|ism', $str, $parts);
   
-  private function chunk_split_unicode($str, $length = 76, $end = "\r\n") {
+    $result = '';
+    if($lastUnwrap !== false) {
+      for($counter = 0, $numberOfUnwraps = count($parts[1]); $counter < $numberOfUnwraps; $counter++) {
+        $temp = explode($end, $parts[1][$counter]);
+        array_pop($temp);
+        foreach($temp as $piece) {
+          $result .= wordwrap($piece, $length, $end) . $end;
+        }
+        $result .= $parts[2][$counter] . $end;
+      }
+      $str = substr($str, $lastUnwrap + 9);
+    }
+  
+    $temp = explode($end, $str);
+    foreach($temp as $piece) {
+      $result .= wordwrap($piece, $length, $end) . $end;
+    }
+    return $result;
+  }
+    
+  public function chunk_split_unicode1($str, $length = 76, $end = "\r\n") {
     $lastUnwrap = strrpos($str, "{/unwrap}");
     preg_match_all('|(.*?){unwrap}(.*?){/unwrap}|ism', $str, $parts);
     

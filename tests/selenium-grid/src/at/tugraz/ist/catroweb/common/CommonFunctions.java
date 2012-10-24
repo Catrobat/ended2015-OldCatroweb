@@ -20,7 +20,7 @@ package at.tugraz.ist.catroweb.common;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.nio.charset.Charset;
+import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
@@ -214,24 +214,20 @@ public class CommonFunctions {
 
   public static String md5(String text) {
     try {
-      MessageDigest messageDigest;
-      messageDigest = MessageDigest.getInstance("MD5");
-      messageDigest.reset();
-      messageDigest.update(text.getBytes(Charset.forName("UTF8")));
-      byte[] resultByte = messageDigest.digest();
-
-      StringBuilder md5StringBuilder = new StringBuilder(2 * resultByte.length);
-      for(byte b : resultByte) {
-        md5StringBuilder.append("0123456789abcdef".charAt((b & 0xF0) >> 4));
-        md5StringBuilder.append("0123456789abcdef".charAt((b & 0x0F)));
-      }
-
-      return md5StringBuilder.toString();
+      MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+      messageDigest.update(text.getBytes(), 0, text.length());
+      return new BigInteger(1, messageDigest.digest()).toString(16);
     } catch(NoSuchAlgorithmException e) {
-      Reporter.log("CommonFunvtions: md5: coulnd't create md5 hash");
+      Reporter.log("CommonFunctions: md5: coulnd't create md5 hash");
       Reporter.log(e.getMessage());
     }
     return "";
+  }
+
+  public static String generateAuthenticationToken(String username, String password) {
+    String md5user = md5(username.toLowerCase());
+    String md5password = md5(password);
+    return md5(md5user + ':' + md5password);
   }
 
   public static void removeAllBlockedIps() {
@@ -265,5 +261,4 @@ public class CommonFunctions {
       Reporter.log(e.getMessage());
     }
   }
-
 }

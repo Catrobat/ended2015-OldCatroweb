@@ -439,8 +439,8 @@ public class DetailsTests extends BaseTest {
   @DataProvider(name = "detailsProject")
   public Object[][] detailsProject() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test-0.6.0beta.catrobat", "e20aa30ccb81d454b0b7715dc093816e", "", "", "0") },
-        { CommonData.getUploadPayload("details_test2big", "details_test_description", "test-0.6.0beta.catrobat", "e20aa30ccb81d454b0b7715dc093816e", "", "", "0") }, };
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "", "", "", "", "0") },
+        { CommonData.getUploadPayload("details_test2big", "details_test_description", "", "", "", "", "0") }, };
     return returnArray;
   }
 }

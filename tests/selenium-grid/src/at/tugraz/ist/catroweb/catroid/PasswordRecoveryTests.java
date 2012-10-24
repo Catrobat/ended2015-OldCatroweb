@@ -39,13 +39,13 @@ public class PasswordRecoveryTests extends BaseTest {
       ajaxWait();
 
       assertTrue(isTextPresent("My Profile"));
-      assertTrue(isTextPresent("catroweb"));
+      assertTrue(isTextPresent(CommonData.getLoginUserDefault()));
       
       openLocation("catroid/passwordrecovery");
       
       assertFalse(isTextPresent("Recover your password"));
       assertTrue(isTextPresent("My Profile"));
-      assertTrue(isTextPresent("catroweb"));
+      assertTrue(isTextPresent(CommonData.getLoginUserDefault()));
     } catch(AssertionError e) {
       captureScreen("PasswordRecoveryTests.passwordRecoveryRedirectWhenLoggedIn");
       throw e;

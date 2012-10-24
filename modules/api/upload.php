@@ -201,7 +201,7 @@ class upload extends CoreAuthenticationDevice {
     
     if(!$versionName || !$versionCode) {
       $versionCode = 0.3;
-      $versionName = '&lt; 0.6.0beta';
+      $versionName = '&lt; 0.7.0beta';
     } else if(stristr($versionName, "-")) {
       $versionName = substr($versionName, 0, strpos($versionName, "-"));
     }
@@ -248,7 +248,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   private function updateOrInsertProjectIntoDatabase($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode) {
-    $userId = (($this->session->userLogin_userId )? $this->session->userLogin_userId : 0);
+    $userId = (($this->session->userLogin_userId) ? $this->session->userLogin_userId : 0);
 
     $result = $this->query("does_project_already_exist", array($projectTitle, $userId));
     if(pg_num_rows($result) == 1) {

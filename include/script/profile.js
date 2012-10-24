@@ -236,12 +236,19 @@ var Profile = Class.$extend( {
   
   //-------------------------------------------------------------------------------------------------------------------
   updateBirthdayRequest : function() {
+    var month = $("#birthdayMonthSelect").val();
+    var year = $("#birthdayYearSelect").val();
+    
+    if(!((month == 0 && year == 0) || (month > 0 && year > 0))) {
+      return;
+    }
+    
     $.ajax({
       type: "POST",
       url: this.basePath + 'catroid/profile/updateBirthdayRequest.json',
       data : ({
-        birthdayMonth: $("#birthdayMonthSelect").val(),
-        birthdayYear: $("#birthdayYearSelect").val()
+        birthdayMonth: month,
+        birthdayYear: year
       }),
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.genericRequestSuccess, this),

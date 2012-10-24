@@ -45,7 +45,7 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
       driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
       driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
-      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      (new Select(driver().findElement(By.id("registrationCountry")))).selectByValue(dataset.get("registrationCountryID"));
       driver().findElement(By.id("registrationCity")).sendKeys(dataset.get("registrationCity"));
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
@@ -215,9 +215,11 @@ public class ProfileTests extends BaseTest {
 
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
       throw e;
     } catch(Exception e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
       throw e;
     }
@@ -231,7 +233,7 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
-      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      (new Select(driver().findElement(By.id("registrationCountry")))).selectByValue(dataset.get("registrationCountryID"));
       driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
       driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
       driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
@@ -258,9 +260,11 @@ public class ProfileTests extends BaseTest {
       
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
       captureScreen("ProfileTests.profileChangeAvatarTest." + dataset.get("registrationUsername"));
       throw e;
     } catch(Exception e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
       captureScreen("ProfileTests.profileChangeAvatarTest." + dataset.get("registrationUsername"));
       throw e;
     }
@@ -274,7 +278,7 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
-      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      (new Select(driver().findElement(By.id("registrationCountry")))).selectByValue(dataset.get("registrationCountryID"));
       driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
       driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
       driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
@@ -288,7 +292,7 @@ public class ProfileTests extends BaseTest {
       
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("emailDeleteButtons")).findElement(By.tagName("button")).click();
-      assertTrue(isAjaxMessagePresent("Error while deleting this e-mail address. You must have at least 1 e-mail address."));
+      assertTrue(isAjaxMessagePresent("Error while deleting this e-mail address. You must have at least one e-mail address."));
       
       openLocation("catroid/profile/");
       
@@ -318,9 +322,11 @@ public class ProfileTests extends BaseTest {
       
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
       throw e;
     } catch(Exception e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
       throw e;
     }
@@ -338,13 +344,58 @@ public class ProfileTests extends BaseTest {
       assertTrue(isTextPresent(CommonStrings.MYPROJECTS_TITLE));
       
     } catch(AssertionError e) {
-      captureScreen("ProfileTests.profilePageLinkToMyProjects.");
+      captureScreen("ProfileTests.profilePageLinkToMyProjects");
       throw e;
     } catch(Exception e) {
-      captureScreen("ProfileTests.profilePageLinkToMyProjects.");
+      captureScreen("ProfileTests.profilePageLinkToMyProjects");
       throw e;
     }
-  }  
+  }
+
+  @Test(dataProvider = "emailTest", groups = { "functionality", "visibility" }, description = "Tests user profile page")
+  public void profileForeignProfilePage(HashMap<String, String> dataset) throws Throwable {
+    try {
+      openLocation("catroid/registration/");
+      
+      driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      (new Select(driver().findElement(By.id("registrationCountry")))).selectByValue(dataset.get("registrationCountryID"));
+      driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.id("registrationSubmit")).click();
+      ajaxWait();
+      
+      logout("catroid/profile/" + dataset.get("registrationUsername"));
+      assertTrue(isTextPresent("Login"));
+
+      login("catroid/profile/" + dataset.get("registrationUsername"));
+      assertTrue(isTextPresent("User Profile"));
+      assertTrue(isTextPresent(dataset.get("registrationUsername")));
+      assertTrue(isTextPresent(dataset.get("registrationCountry")));
+      assertTrue(isTextPresent("0"));
+      
+      String projectTitle = dataset.get("registrationUsername");
+      String authToken = CommonFunctions.generateAuthenticationToken(
+          dataset.get("registrationUsername"), dataset.get("registrationPassword"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", authToken));
+      assertProjectPresent(projectTitle);
+
+      openLocation("catroid/profile/" + dataset.get("registrationUsername"));
+      assertTrue(isTextPresent("1"));
+
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+    } catch(AssertionError e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+      captureScreen("ProfileTests.profileForeignProfilePage." + dataset.get("registrationUsername"));
+      throw e;
+    } catch(Exception e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+      captureScreen("ProfileTests.profileForeignProfilePage." + dataset.get("registrationUsername"));
+      throw e;
+    }
+  }
   
   @SuppressWarnings("serial")
   @DataProvider(name = "loginAndAddData")

@@ -448,7 +448,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
         $this->obj->deleteEmailAddress($postData['registrationEmail']);
         $this->fail('EXPECTED EXCEPTION NOT RAISED!');
       } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "Error while deleting this e-mail address. You must have at least 1 e-mail address.");
+        $this->assertEquals($e->getMessage(), "Error while deleting this e-mail address. You must have at least one e-mail address.");
       }
       
       $this->obj->deleteEmailAddress($newEmail);
