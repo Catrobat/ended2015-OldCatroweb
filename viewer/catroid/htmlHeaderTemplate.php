@@ -25,22 +25,23 @@
     <div class="webMainTop">
       <div class="blueBoxMain">
         <div class="webMainHead">
-          <div class="webHeadLogo<?php if(isItChristmas()) echo " webHeadLogoXmas";?>">
-            <a id="aIndexWebLogoLeft" href="<?php echo BASE_PATH?>catroid/index/1">
+          <div id="aIndexWebLogoLeft" class="webHeadLogo<?php if(isItChristmas()) echo " webHeadLogoXmas";?>">
               <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head<?php if(isItChristmas()) echo "_xmas";?>.png" alt="head logo" />
-            </a>
           </div>
           <div class="webHeadTitle">
-            <div class="webHeadTitleName">
-              <a class="noLink" id="aIndexWebLogoMiddle" href="<?php echo BASE_PATH?>catroid/index/1">
+            <div id="aIndexWebLogoMiddle" class="webHeadTitleName">
                 <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering.png" alt="catroid [beta]" />
-              </a>			      			
             </div>
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">
             <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="<?php echo $this->languageHandler->getString('template_header_menu')?>Menu" /></button>           
             <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="<?php echo $this->languageHandler->getString('template_header_profile')?>Profile" /></button>
           </div>
+          <div id="cancelHeaderButton" class="webHeadButtons">
+            <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelButton">
+              <span class="webHeadCancelButtonText"><?php echo $this->languageHandler->getString('template_header_cancel')?></span>
+            </button>
+          </div>          
           <div style="clear:both;"></div>
         </div>
       </div> <!-- login headerProfileBox starts here! -->

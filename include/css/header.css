@@ -40,6 +40,7 @@ div.webHeadLogoXmas {
 }
 
 div.webHeadTitle {
+  cursor: pointer;
   background-position: right top;
   background-repeat: no-repeat;
   float: left;

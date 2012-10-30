@@ -210,45 +210,6 @@ public class MenuTests extends BaseTest {
       throw e;
     }
   }
-
-  @Test(groups = { "visibility" }, description = "check menu home button")
-  public void homeButton() throws Throwable {
-    try {
-      openLocation();
-      driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
-
-      assertTrue(isElementPresent(By.id("headerHomeButton")));
-      driver().findElement(By.id("headerHomeButton")).click();
-      assertFalse(isElementPresent(By.id("headerHomeButton")));
-      assertRegExp(".*/catroid/index(/[0-9]+)?", driver().getCurrentUrl());
-      
-    } catch(AssertionError e) {
-      captureScreen("MenuTests.homeButton");
-      throw e;
-    } catch(Exception e) {
-      captureScreen("MenuTests.homeButton");
-      throw e;
-    }
-  }
-  
-  @Test(dataProvider = "searchButtonOnDetail", groups = { "visibility" }, description = "check if search button is on details page")
-  public void searchButtonOnDetail(HashMap<String, String> dataset) throws Throwable {
-    try {
-      String response = projectUploader.upload(dataset);
-      String id = CommonFunctions.getValueFromJSONobject(response, "projectId");      
-      
-      openLocation("catroid/details/" + id);
-      assertTrue(isElementPresent(By.id("headerSearchButton")));
-      
-    } catch(AssertionError e) {
-      captureScreen("MenuTests.homeButton");
-      throw e;
-    } catch(Exception e) {
-      captureScreen("MenuTests.homeButton");
-      throw e;
-    }
-  }
   
   @SuppressWarnings("serial")
   @DataProvider(name = "validLoginData")

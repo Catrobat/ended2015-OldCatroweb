@@ -340,11 +340,11 @@ public class BaseTest {
   protected void assertProjectPresent(String project) {
     openLocation();
     ajaxWait();
-    try {
-      driver().findElement(By.id("headerSearchButton")).click();
-      ajaxWait();
-    } catch(ElementNotVisibleException ignore) {
-    }
+//    try {
+//      driver().findElement(By.id("headerSearchButton")).click();
+//      ajaxWait();
+//    } catch(ElementNotVisibleException ignore) {
+//    }
     assertTrue(isVisible(By.id("searchQuery")));
     driver().findElement(By.id("searchQuery")).clear();
     driver().findElement(By.id("searchQuery")).sendKeys("clear-cache");
@@ -360,11 +360,11 @@ public class BaseTest {
   protected void assertProjectNotPresent(String project) {
     openLocation();
     ajaxWait();
-    try {
-      driver().findElement(By.id("headerSearchButton")).click();
-      ajaxWait();
-    } catch(ElementNotVisibleException ignore) {
-    }
+//    try {
+//      driver().findElement(By.id("headerSearchButton")).click();
+//      ajaxWait();
+//    } catch(ElementNotVisibleException ignore) {
+//    }
     assertTrue(isVisible(By.id("searchQuery")));
     driver().findElement(By.id("searchQuery")).clear();
     driver().findElement(By.id("searchQuery")).sendKeys("clear-cache");

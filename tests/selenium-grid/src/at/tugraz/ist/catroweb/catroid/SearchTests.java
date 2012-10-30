@@ -45,8 +45,6 @@ public class SearchTests extends BaseTest {
       openLocation();
       ajaxWait();
 
-      assertFalse(isVisible(By.id("headerSearchBox")));
-      driver().findElement(By.id("headerSearchButton")).click();
       assertTrue(isVisible(By.id("headerSearchBox")));
 
       driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
@@ -88,7 +86,6 @@ public class SearchTests extends BaseTest {
 
       openLocation();
       ajaxWait();
-      driver().findElement(By.id("headerSearchButton")).click();
       
       for(int i = projectTitle.length() - specialchars.length(); i < projectTitle.length(); i++) {
         driver().findElement(By.id("searchQuery")).clear();
@@ -130,8 +127,6 @@ public class SearchTests extends BaseTest {
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
 
-      driver().findElement(By.id("headerSearchButton")).click();
-      ajaxWait();
       driver().findElement(By.id("searchQuery")).clear();
       driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
       driver().findElement(By.id("webHeadSearchSubmit")).click();
@@ -239,7 +234,7 @@ public class SearchTests extends BaseTest {
 
       openLocation();
       ajaxWait();
-      driver().findElement(By.id("headerSearchButton")).click();
+      
       driver().findElement(By.id("searchQuery")).clear();
       driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
       driver().findElement(By.id("webHeadSearchSubmit")).click();
@@ -250,7 +245,7 @@ public class SearchTests extends BaseTest {
 
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
-      assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+//      assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
 
       // unhide project
@@ -261,7 +256,6 @@ public class SearchTests extends BaseTest {
 
       openLocation();
       ajaxWait();
-      driver().findElement(By.id("headerSearchButton")).click();
       driver().findElement(By.id("searchQuery")).clear();
       driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
       driver().findElement(By.id("webHeadSearchSubmit")).click();
@@ -295,8 +289,6 @@ public class SearchTests extends BaseTest {
       openLocation();
       ajaxWait();
 
-      assertFalse(isVisible(By.id("headerSearchBox")));
-      driver().findElement(By.id("headerSearchButton")).click();
       assertTrue(isVisible(By.id("headerSearchBox")));
 
       driver().findElement(By.id("searchQuery")).sendKeys(CommonData.getLoginUserDefault());

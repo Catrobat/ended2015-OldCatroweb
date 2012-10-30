@@ -36,9 +36,7 @@ var Index = Class.$extend( {
       }        
     }
     setTimeout(function() { self.initialize(self); }, 50);
-    
-    $("#aIndexWebLogoLeft").click($.proxy(this.startPage, this));
-    $("#aIndexWebLogoMiddle").click($.proxy(this.startPage, this));
+
     $("#headerMenuButton").click(function() { self.newestProjects.saveStateToSession(self.newestProjects.pageNr.current); });
     $("#searchForm").submit($.proxy(this.search, this));
     $("#catroidDescriptionCloseButton").click($.proxy(this.hideCatroidDescription, this));

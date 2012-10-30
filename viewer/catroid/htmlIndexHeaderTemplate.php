@@ -30,7 +30,7 @@
             <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head<?php if(isItChristmas()) echo "_xmas";?>.png" alt="head logo" />
           </div>
           <div class="webHeadTitle">
-            <div id="aIndexWebLogoMiddle" class="webHeadTitleName pointer">
+            <div id="aIndexWebLogoMiddle" class="webHeadTitleName">
               <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering.png" alt="catroid [beta]" />
             </div>
           </div>
@@ -38,6 +38,11 @@
             <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="<?php echo $this->languageHandler->getString('template_header_menu')?>" /></button>
             <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="<?php echo $this->languageHandler->getString('template_header_profile')?>" /></button>
           </div>
+          <div id="cancelHeaderButton" class="webHeadButtons">
+            <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelButton">
+              <span class="webHeadCancelButtonText"><?php echo $this->languageHandler->getString('template_header_cancel')?></span>
+            </button>
+          </div>          
           <div style="clear:both;"></div>
         </div>
       </div>
