@@ -304,6 +304,12 @@
     />
   </target>
   
+  <target name="-deadlink-tests">
+    <exec dir="." executable="python" failonerror="true" osfamily="Unix">
+      <arg line=" scripts/deadlink_checker.py"/>
+    </exec>
+  </target>
+  
   <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api, -unittest-common"/>
   <target name="-phpunit-framework-tests" depends="-unittest-framework"/>
   <target name="-phpunit-admin-tests" depends="-unittest-admin"/>
@@ -693,6 +699,7 @@
 
 	<!-- http://localhost/ -->
   <target name="deploy-local" depends="-conf, -clean, -create-dirs, -conf-deploy-test, -copy-files" />
+  <target name="run-deadlink-tests" depends="-deadlink-tests" />
   <target name="run-phpunit-tests" depends="-phpunit-tests" />
   <target name="run-phpunit-framework-tests" depends="-phpunit-framework-tests" />
   <target name="run-phpunit-catroid-tests" depends="-phpunit-catroid-tests" />
