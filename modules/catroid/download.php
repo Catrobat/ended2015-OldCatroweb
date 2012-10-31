@@ -35,7 +35,7 @@ class download extends CoreAuthenticationNone {
     if(!$line || $line == -1) {
       return;
     }
-    
+
     $this->id = $id;
     $this->source_file = $line['source'];
     $this->file_name = str_replace(' ', '_', $line['title']);
@@ -45,11 +45,12 @@ class download extends CoreAuthenticationNone {
 	  if(!is_numeric($id) || intval($id) < 0) {
       return -1;
 	  }
-    $this->incrementDownloadCounter($id);
 	  $result = pg_execute($this->dbConnection, "get_project_by_id", array($id)) or
 	            $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $line = pg_fetch_assoc($result);
     pg_free_result($result);
+
+    $this->incrementDownloadCounter($id);
     return $line;
   }
 
@@ -74,7 +75,7 @@ class download extends CoreAuthenticationNone {
       $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
   
       $currentDownloadState[$projectId] = time();
-      //$this->session->projectsCurrentlyLoading = $currentDownloadState;
+      $this->session->projectsCurrentlyLoading = $currentDownloadState;
     }
   }
 
