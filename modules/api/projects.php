@@ -143,8 +143,5 @@ class projects extends CoreAuthenticationNone {
     }
     return 0;
   }
-
-  public function doUpload($formData, $fileData) {
-  }
 }
 ?>

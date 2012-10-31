@@ -52,11 +52,12 @@ class downloadTest extends PHPUnit_Framework_TestCase
     public function testIncrementDownloadCounter($id) {
       $testProject = $this->download->retrieveProjectById($id);
       $downloadCounterOld = $testProject['download_count'];
-      // das erfolgt automatisch in download->retrieveProjectById()
-      // $this->download->incrementDownloadCounter($id);
+
+      $this->download->session->projectsCurrentlyLoading = array();
       $testProject = $this->download->retrieveProjectById($id);
       $downloadCounterNew = $testProject['download_count'];
-      $this->assertEquals($downloadCounterOld+1, $downloadCounterNew);
+
+      $this->assertEquals($downloadCounterOld + 1, $downloadCounterNew);
     }
 
     /* *** DATA PROVIDERS *** */

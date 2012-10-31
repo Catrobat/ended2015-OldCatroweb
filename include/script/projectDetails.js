@@ -23,12 +23,6 @@ var ProjectDetails = Class.$extend( {
     this.downloadInfoVisible = false;
     this.projectId = projectId;
     
-    /*
-    $("#downloadAppProjectLink").click($.proxy(this.incrementDownloadCounter, this));
-    $("#downloadCatroidProjectLink").click($.proxy(this.incrementDownloadCounter, this));
-    $("#downloadProjectThumb").click($.proxy(this.incrementDownloadCounter, this));
-    */
-    
     $("#downloadAppSection").toggle(false);
 
     $("#qrcodeInfo").toggle(false);
@@ -160,16 +154,5 @@ var ProjectDetails = Class.$extend( {
     } else if(this.downloadState.selected == this.downloadState.app){
       $("#downloadAppInfo").toggle(this.downloadInfoVisible);
     }
-  },
-  
-  incrementDownloadCounter : function() {
-    var self = this;
-    $.ajax({
-      type: "POST",
-      url: self.basePath+"catroid/download/" + self.projectId + ".json",
-      cache: false,
-      data: "incrementID=" + self.projectId,        
-    });
   }
-
 });

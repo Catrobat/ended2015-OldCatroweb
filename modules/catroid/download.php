@@ -18,9 +18,15 @@
  */
 
 class download extends CoreAuthenticationNone {
+  protected $clientDownloadCounterBlacklist;
 
   public function __construct() {
-      parent::__construct();
+    parent::__construct();
+
+    // Blacklisted user agents:
+    //   https://play.google.com/store/apps/details?id=com.google.zxing.client.android (UA: ZXing)
+    
+    $this->clientDownloadCounterBlacklist = array("ZXing");
   }
 
   public function __default() {
@@ -29,26 +35,47 @@ class download extends CoreAuthenticationNone {
     if(!$line || $line == -1) {
       return;
     }
-
+    
     $this->id = $id;
     $this->source_file = $line['source'];
     $this->file_name = str_replace(' ', '_', $line['title']);
 	}
 
 	public function retrieveProjectById($id) {
-	  if(!is_numeric($id) || $id<0)
-	     return -1;
+	  if(!is_numeric($id) || intval($id) < 0) {
+      return -1;
+	  }
+    $this->incrementDownloadCounter($id);
 	  $result = pg_execute($this->dbConnection, "get_project_by_id", array($id)) or
 	            $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $line = pg_fetch_assoc($result);
     pg_free_result($result);
-    $this->incrementDownloadCounter($id); // <ag>
     return $line;
   }
 
-  public function incrementDownloadCounter($id) {
-    $result = pg_execute($this->dbConnection, "increment_download_counter", array($id)) or
-              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+  private function incrementDownloadCounter($projectId) {
+    if(isset($_SERVER['HTTP_USER_AGENT'])) {
+      $userAgent = $_SERVER['HTTP_USER_AGENT'];
+      foreach($this->clientDownloadCounterBlacklist as $client) {
+        if(strpos($userAgent, $client) !== false) {
+          return;
+        }
+      }
+    }
+  
+    $currentDownloadState = array();
+    if(is_array($this->session->projectsCurrentlyLoading)) {
+      $currentDownloadState = $this->session->projectsCurrentlyLoading;
+    }
+  
+    $lastAccess = isset($currentDownloadState[$projectId]) ? intval($currentDownloadState[$projectId]) : 0;
+    if($lastAccess + 20 < time()) {
+      pg_execute($this->dbConnection, "increment_download_counter", array($projectId)) or
+      $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+  
+      $currentDownloadState[$projectId] = time();
+      //$this->session->projectsCurrentlyLoading = $currentDownloadState;
+    }
   }
 
   public function __destruct() {

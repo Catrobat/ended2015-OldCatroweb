@@ -99,7 +99,6 @@ class details extends CoreAuthenticationNone {
   public function incrementViewCounter($projectId) {
     pg_execute($this->dbConnection, "increment_view_counter", array($projectId)) or
                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    return;
   }
   
   public function showReportAsInappropriateButton($projectId, $userId) {

@@ -24,8 +24,7 @@ class configTest extends PHPUnit_Framework_TestCase
 
   public function testConfig()
   {
-    // $this->assertEquals(VERSION, '0.6.2_I18N');
-  	$this->assertEquals(VERSION, '0.6.4');
+  	$this->assertEquals(VERSION, '0.6.5');
     $this->assertEquals(XML_PATH, 'include/xml/');
     $this->assertEquals(LANGUAGE_PATH, 'include/xml/lang/');
     $this->assertEquals(CSS_PATH, 'include/css/');

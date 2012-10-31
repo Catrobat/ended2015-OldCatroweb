@@ -17,7 +17,7 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('VERSION','0.6.4');
+define('VERSION','0.6.5');
 // define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
 define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].'/'));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');

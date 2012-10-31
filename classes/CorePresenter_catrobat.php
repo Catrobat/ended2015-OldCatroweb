@@ -24,11 +24,15 @@ class CorePresenter_catrobat extends CorePresenterCommon {
 
   public function display() {
     $data = $this->module->getData();
-    $file = CORE_BASE_PATH.PROJECTS_DIRECTORY.$data['source_file'];
+    
+    $projectId = $data['id'];
+    $file = CORE_BASE_PATH . PROJECTS_DIRECTORY . $data['source_file'];
     $filename = $data['file_name'];
     if(is_file($file)) {
       header("Content-type: application/zip");
-      header('Content-Disposition: attachment; filename=' . rawurlencode($filename) . PROJECTS_EXTENSION . '; filename*=' . rawurlencode($filename) . PROJECTS_EXTENSION);
+      header('Content-Disposition: inline; filename=' . rawurlencode($filename) . PROJECTS_EXTENSION . '; filename*=' . rawurlencode($filename) . PROJECTS_EXTENSION);
+      header("Cache-Control: public");
+      header("Content-Transfer-Encoding: binary");
       header("Content-Length: " . filesize($file));
       readfile($file);
     } else {
