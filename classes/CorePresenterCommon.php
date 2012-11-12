@@ -47,6 +47,9 @@ abstract class CorePresenterCommon {
     public function getJs() {
       return $this->module->getJs();
     }
+    public function getGlobalJs() {
+      return $this->module->getGlobalJs();
+    }
   
     public function getWebsiteTitle() {
       return $this->module->getWebsiteTitle();

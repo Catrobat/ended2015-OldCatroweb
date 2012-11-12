@@ -100,7 +100,7 @@ var Index = Class.$extend( {
       url: self.basePath+"catroid/saveDataToSession/save.json",
       data: {
           content: {
-            showCatroidDescription: 0,            
+            showCatroidDescription: 0
           }
       },
       success : function(result) {

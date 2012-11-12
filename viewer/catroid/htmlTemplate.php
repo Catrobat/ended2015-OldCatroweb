@@ -16,8 +16,15 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-?>
 
+$this->module->addGlobalJs('baseClassVars.js');
+$this->module->addGlobalJs('classy.js');
+$this->module->addGlobalJs('commonFunctions.js');
+$this->module->addGlobalJs('headerMenu.js');
+$this->module->addGlobalJs('login.js');
+$this->module->addGlobalJs('languageHandler.js');
+
+?>
 <!DOCTYPE HTML>
 <html lang="<?php echo $this->languageHandler->getLanguage()?>">
 <head>
@@ -36,13 +43,11 @@
 <?php if(!$this->isMobile)  {?>
   <link href="<?php echo BASE_PATH?>include/css/baseStyleDesktop.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
 <?php }?>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/baseClassVars.js?<?php echo VERSION; ?>" ></script>
-  <script type="text/javascript">
-    __baseClassVars.basePath = <?php echo "'" . BASE_PATH . "'"; ?>;
-  </script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/jquery.js?<?php echo VERSION; ?>" ></script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js?<?php echo VERSION; ?>" ></script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/commonFunctions.js?<?php echo VERSION; ?>" ></script>
+
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="<?php echo BASE_PATH?>include/script/jquery-1.8.2.min.js"><\/script>')</script>
+  <?php echo $this->getGlobalJs(); ?>
+  <?php echo $this->getJs(); ?>
   <script type="text/javascript">
     var languageStringsObject = { 
       "ajax_took_too_long" : "<?php echo $this->module->errorHandler->getError('viewer', 'ajax_took_too_long'); ?>",
@@ -50,13 +55,8 @@
     };
     var common = new Common(languageStringsObject);
   </script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/headerMenu.js?<?php echo VERSION; ?>" ></script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/login.js?<?php echo VERSION; ?>" ></script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/languageHandler.js?<?php echo VERSION; ?>" ></script>    
   
-<?php while($js = $this->getJs()) {?>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/<?php echo $js.'?'.VERSION?>"></script>
-<?php }?>
+  
   <link rel="icon" href="<?php echo BASE_PATH?>images/logo/favicon.png<?php echo '?'.VERSION?>" type="image/png" />
 </head>
 

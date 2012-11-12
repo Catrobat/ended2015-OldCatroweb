@@ -21,6 +21,7 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
   public $session;
   public $cssFiles;
   public $jsFiles;
+  public $globalJsFiles;
   public $websiteTitle;
 
   public function __construct() {
@@ -28,6 +29,7 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
     $this->session = CoreSession::getInstance();
     $this->cssFiles = array();
     $this->jsFiles = array();
+    $this->globalJsFiles = array();
     $this->websiteTitle = SITE_DEFAULT_TITLE;
   }
 
@@ -36,7 +38,9 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
   }
 
   public function addCss($file) {
-    array_push($this->cssFiles, $file);
+    if(!in_array($file, $this->cssFiles)) {
+      array_push($this->cssFiles, $file);
+    }
   }
 
   public function getCss() {
@@ -44,11 +48,60 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
   }
 
   public function addJs($file) {
-    array_push($this->jsFiles, $file);
+    if(!in_array($file, $this->jsFiles)) {
+      array_push($this->jsFiles, $file);
+    }
   }
 
+  public function addGlobalJs($file) {
+    if(!in_array($file, $this->globalJsFiles)) {
+      array_push($this->globalJsFiles, $file);
+    }
+  }
+  
   public function getJs() {
-    return array_shift($this->jsFiles);
+    return $this->cacheJs($this->jsFiles, $this->me->name);
+  }
+  
+  public function getGlobalJs() {
+    return $this->cacheJs($this->globalJsFiles, 'global');
+  }
+
+  public function cacheJs($jsFiles = array(), $name = '') {
+    $timestamp = 0;
+    
+    foreach($jsFiles as $js) {
+      $file = CORE_BASE_PATH . 'include/script/' . $js;
+      if(file_exists($file)) {
+        $filetime = filemtime($file);
+        if($filetime > $timestamp) {
+          $timestamp = $filetime;
+        }
+      }
+    }
+
+    if($timestamp == 0) {
+      return "";
+    }
+    
+    $filename = 'cache/' . $name . $timestamp . '.js';
+    if(!file_exists(CORE_BASE_PATH . '/' . $filename)) {
+      $handle = fopen(CORE_BASE_PATH . '/' . $filename, "w");
+      
+      foreach($jsFiles as $js) {
+        $file = CORE_BASE_PATH . 'include/script/' . $js;
+        if(file_exists($file)) {
+          $content = file_get_contents($file);
+
+          if($content !== FALSE) {
+            fwrite($handle, $content);
+          } 
+        }
+      }
+
+      fclose($handle);
+    }
+    return '<script src="' . BASE_PATH . $filename . '"></script>';
   }
   
   public function setWebsiteTitle($title) {

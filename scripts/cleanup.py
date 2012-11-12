@@ -62,5 +62,5 @@ if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		if sys.argv[1] == 'website':
 			Cleaner().cleanDatabaseAndResources()
-        else:
-            print "no argument given. did you mean 'website'?"
+	else:
+		print "no argument given. did you mean 'website'?"
