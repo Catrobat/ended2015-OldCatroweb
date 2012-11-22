@@ -23,8 +23,6 @@ var HeaderMenu = Class.$extend( {
       $("#normalHeaderButtons").toggle();
     }
     
-    $("#aIndexWebLogoLeft").click({url:"catroid/index"}, jQuery.proxy(this.openLocation, this));
-    $("#aIndexWebLogoMiddle").click({url:"catroid/index"}, jQuery.proxy(this.openLocation, this));
     $("#headerMenuButton").click({url:"catroid/menu"}, jQuery.proxy(this.openLocation, this));
     $("#headerProfileButton").click(jQuery.proxy(this.toggleProfileBox, this));
     $("#headerCancelButton" ).click(jQuery.proxy(this.toggleAllBoxes, this));

@@ -26,12 +26,16 @@
     <div class="webMainTop">
       <div class="blueBoxMain">
         <div class="webMainHead">
-          <div id="aIndexWebLogoLeft" class="webHeadLogo<?php if(isItChristmas()) echo " webHeadLogoXmas";?>">
+          <div class="webHeadLogo<?php if(isItChristmas()) echo " webHeadLogoXmas";?>">
+            <a id="aIndexWebLogoLeft" href="<?php echo BASE_PATH?>catroid/index/1">
               <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head<?php if(isItChristmas()) echo "_xmas";?>.png" alt="head logo" />
+            </a>
           </div>        
           <div class="webHeadTitle">
-            <div id="aIndexWebLogoMiddle" class="webHeadTitleName">
+            <div class="webHeadTitleName">
+              <a id="aIndexWebLogoMiddle" href="<?php echo BASE_PATH?>catroid/index/1">
                   <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering.png" alt="catroid [beta]" />
+              </a>
             </div>
           </div>
           <div id="normalHeaderButtons" class="webHeadButtons">            

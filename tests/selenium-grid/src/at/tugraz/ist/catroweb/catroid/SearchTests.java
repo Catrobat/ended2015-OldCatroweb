@@ -158,6 +158,7 @@ public class SearchTests extends BaseTest {
       assertTrue(isVisible(By.id("fewerProjects")));
       assertTrue(isElementPresent(By.id("moreProjects")));
       assertTrue(isVisible(By.id("moreProjects")));
+      
       // test links to details page
       driver().findElement(By.xpath("//a[@class='projectListDetailsLink'][1]")).click();
       ajaxWait();
@@ -245,7 +246,9 @@ public class SearchTests extends BaseTest {
 
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
-//      assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+      
+      captureScreen("SearchTests.searchAndHideProject");
+      assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
 
       // unhide project
