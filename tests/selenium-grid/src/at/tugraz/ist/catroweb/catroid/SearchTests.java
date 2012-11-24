@@ -247,7 +247,6 @@ public class SearchTests extends BaseTest {
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
       
-      captureScreen("SearchTests.searchAndHideProject");
       assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
 

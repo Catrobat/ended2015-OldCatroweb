@@ -58,6 +58,8 @@ class index extends CoreAuthenticationNone {
       }
       if($this->session->pageNr < 1) {
         $this->session->pageNr = 1;
+        $this->session->searchQuery = null;
+        $this->session->task = "newestProjects";
       }
       if($this->session->pageNr > $this->numberOfPages) {
         $this->session->pageNr = $this->numberOfPages;
