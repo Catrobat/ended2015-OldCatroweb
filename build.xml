@@ -41,6 +41,7 @@
   <property name="sqlupdate.dir" value="${sql.dir}/catroweb/updates" />
   <property name="htaccess.file" value=".htaccess" />
   <property name="config.file" value="config.php" />
+  <property name="statusCodes.file" value="statusCodes.php" />
   <property name="commonFunctions.file" value="commonFunctions.php" />
   <property name="index.file" value="index.php" />
   <property name="build.file" value="build.xml" />
@@ -303,11 +304,12 @@
     />
   </target>
   
-  <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api"/>
+  <target name="-phpunit-tests" depends="-unittest-framework, -unittest-admin, -unittest-catroid, -unittest-api, -unittest-common"/>
   <target name="-phpunit-framework-tests" depends="-unittest-framework"/>
   <target name="-phpunit-admin-tests" depends="-unittest-admin"/>
   <target name="-phpunit-catroid-tests" depends="-unittest-catroid"/>
   <target name="-phpunit-api-tests" depends="-unittest-api"/>
+  <target name="-phpunit-common-tests" depends="-unittest-common"/>
   
   <target name="-unittest-catroid">
     <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
@@ -350,6 +352,17 @@
     </exec>
     <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
       <arg line=" api"/>
+    </exec>
+  </target>
+
+  <target name="-unittest-common">
+    <exec dir="${tests.dir}" executable="cmd" failonerror="true" osfamily="Windows">
+      <arg value="/c"/>
+      <arg value="phpunit.bat"/>
+      <arg line=" common"/>
+    </exec>
+    <exec dir="${tests.dir}" executable="phpunit" failonerror="true" osfamily="Unix">
+      <arg line=" common"/>
     </exec>
   </target>
 
@@ -511,6 +524,7 @@
   <target name="-copy-rootfiles">
     <copy file="${htaccess.file}" toDir="${catroid.dir}" />
     <copy file="${config.file}" toDir="${catroid.dir}" />
+    <copy file="${statusCodes.file}" toDir="${catroid.dir}" />
     <copy file="${commonFunctions.file}" toDir="${catroid.dir}" />
     <copy file="${index.file}" toDir="${catroid.dir}" />
   </target>
@@ -622,7 +636,7 @@
              trust="true"
              username="${host.user}"
              password="${host.pass}"
-             command="rm -rf ${host.catroid.dir}/${index.file} ${host.catroid.dir}/${config.file} ${host.catroid.dir}/${commonFunctions.file} ${host.catroid.dir}/${htaccess.file}" />
+             command="rm -rf ${host.catroid.dir}/${index.file} ${host.catroid.dir}/${config.file} ${host.catroid.dir}/${statusCodes.file} ${host.catroid.dir}/${commonFunctions.file} ${host.catroid.dir}/${htaccess.file}" />
   </target>
   
   <target name="-undeploy-board">
@@ -684,6 +698,7 @@
   <target name="run-phpunit-catroid-tests" depends="-phpunit-catroid-tests" />
   <target name="run-phpunit-admin-tests" depends="-phpunit-admin-tests" />
   <target name="run-phpunit-api-tests" depends="-phpunit-api-tests" />
+  <target name="run-phpunit-common-tests" depends="-phpunit-common-tests" />
   <target name="run-selenium-local-tests" depends="-selenium-grid-tests-catroid-local" />
   <target name="run-selenium-single-test" depends="-selenium-grid-single-test" />
   <target name="run-selenium-group-test" depends="-selenium-grid-group-test" />

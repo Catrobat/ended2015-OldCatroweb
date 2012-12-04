@@ -103,7 +103,6 @@ public class DetailsTests extends BaseTest {
     try {
       String response = projectUploader.upload(dataset);
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
-      openAdminLocation();
 
       openLocation("catroid/details/" + id);
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
@@ -140,7 +139,7 @@ public class DetailsTests extends BaseTest {
 
       driver().navigate().refresh();
       ajaxWait();
-      assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
+      assertTrue(isTextPresent("No entry was found for the given ID"));
 
       openAdminLocation("/tools/inappropriateProjects");
       clickOkOnNextConfirmationBox();
@@ -440,8 +439,8 @@ public class DetailsTests extends BaseTest {
   @DataProvider(name = "detailsProject")
   public Object[][] detailsProject() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test-0.6.0beta.catrobat", "2df998d544a075946d36072fd083ffef", "", "", "0") },
-        { CommonData.getUploadPayload("details_test2big", "details_test_description", "test-0.6.0beta.catrobat", "2df998d544a075946d36072fd083ffef", "", "", "0") }, };
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "", "", "", "", "0") },
+        { CommonData.getUploadPayload("details_test2big", "details_test_description", "", "", "", "", "0") }, };
     return returnArray;
   }
 }

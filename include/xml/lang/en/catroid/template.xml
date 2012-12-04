@@ -91,9 +91,9 @@
   <string name="template_common_turkish">Turkish</string>
   <string name="template_common_ukrainian">Ukrainian</string>
   <string name="template_common_vietnamese">Vietnamese</string>
-  <string name="template_header_forgot_password">here if you forgot your password?</string>  
-  <string name="template_header_register">Click here to register now</string>
-  <string name="template_header_or">or</string>
+  <string name="template_header_forgot_password">click here if you forgot your password</string>  
+  <string name="template_header_register">click here to create a new account</string>
+  <string name="template_header_additional_options">Other options to proceed:</string>
   <string name="template_header_nick">Nick:</string>
   <string name="template_header_password">Password:</string>
   <string name="template_header_login">Login</string>

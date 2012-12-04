@@ -1,4 +1,5 @@
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -16,16 +17,104 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-function bindAjaxLoader(basepath) {
-  /*shows the loading div every time we have an Ajax call*/
-  $(document).ajaxStart(function() {
-    //$("body").append("<div class='webAjaxLoadingContainer' id='webAjaxLoadingContainer'><img class='webAjaxLoadingContainer' src='"+basepath+"images/symbols/ajax_loader_big.gif' /></div>");
-    $("body").append($('<div>').attr('id', 'webAjaxLoadingContainer').
-        addClass('webAjaxLoadingContainer').height($(document).height()));
-  });
-  
-  $(document).ajaxStop(function() {
-    $("#webAjaxLoadingContainer").remove();
-  });
-}
+var Common = Class.$extend( {
+  __include__ : [__baseClassVars],
+  __init__ : function(languageStrings) {
+    this.languageStrings = languageStrings;
 
+    this.timeoutShowAjaxLoader;
+    this.timeoutAutoHideAjaxLoader;
+    this.timeoutAjaxAnswerBoxVisible;
+    
+    $(document).ajaxStart($.proxy(this.enableAjaxLoader, this));
+    $(document).ajaxStop($.proxy(this.disableAjaxLoader, this));
+  },
+  
+  enableAjaxLoader : function() {
+    clearTimeout(this.timeoutShowAjaxLoader);
+    clearTimeout(this.timeoutAutoHideAjaxLoader);
+    this.timeoutShowAjaxLoader = setTimeout($.proxy(function(){ this.showAjaxLoader(); }, this), 200);
+    this.timeoutAutoHideAjaxLoader = setTimeout($.proxy(function(){ this.showAjaxErrorMsg(this.languageStrings.ajax_took_too_long); this.hideAjaxLoader(); }, this), 10000);
+  },
+  
+  disableAutoHideAjaxLoader : function() {
+    clearTimeout(this.timeoutAutoHideAjaxLoader);
+  },
+
+  disableAjaxLoader : function() {
+    this.hideAjaxLoader();
+    clearTimeout(this.timeoutShowAjaxLoader);
+    clearTimeout(this.timeoutAutoHideAjaxLoader);
+  },
+
+  showAjaxLoader : function() {
+    var height = Math.max($(document).height(), $(window).height(), document.documentElement.clientHeight);
+    $('body').append($('<div>').attr('id', 'webAjaxLoadingContainer').height(height));
+  },
+
+  hideAjaxLoader : function() {
+    $("#webAjaxLoadingContainer").remove();
+  },
+
+  showAjaxMsg : function(message) {
+    this.displayMessage(message, 'default');
+  },
+
+  showAjaxSuccessMsg : function(message) {
+    this.displayMessage(message, 'success');
+  },
+  
+  showAjaxErrorMsg : function(message) {
+    this.displayMessage(message, 'error');
+  },
+  
+  isElementInView: function(element) {
+    var docViewTop = $(window).scrollTop(),
+    docViewBottom = docViewTop + $(window).height(),
+    elemTop = $(element).offset().top,
+    elemBottom = elemTop + $(element).height();
+    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+  },
+
+  displayAjaxAnswerBox : function() {
+    if(!this.isElementInView($("#ajaxAnswerBoxContainer"))) {
+      $('html, body').animate({ scrollTop: $(".webMainTop").height() });
+    }
+    
+    $("#ajaxAnswerBox").delay(400).slideDown(500);
+    clearTimeout(this.timeoutAjaxAnswerBoxVisible);
+    this.timeoutAjaxAnswerBoxVisible = setTimeout(function(){ $("#ajaxAnswerBox").slideUp(1000); }, 10000);
+  },
+  
+  displayMessage : function(message, type) {
+    if(message == null) {
+      message = '';
+    }
+
+    this.displayAjaxAnswerBox();
+    var ajaxMessage = $('<div>').text(message);
+    
+    switch(type) {
+      case "success":
+        ajaxMessage.addClass('success');
+        break;
+      case "error":
+        ajaxMessage.addClass('error');
+        break;
+    }
+    
+    setTimeout(function() { ajaxMessage.slideUp(1000, function() { $(this).remove(); }); }, 11000);
+    ajaxMessage.toggle(false).delay(400).slideDown(500);
+    $("#ajaxAnswerBox").children(":first").append(ajaxMessage);
+  },
+
+  showPreHeaderMessages : function(result) {
+    if(result.preHeaderMessages) {
+      common.showAjaxMsg(result.preHeaderMessages);
+    }
+  },
+
+  ajaxTimedOut : function(error) {
+    common.showAjaxErrorMsg(common.languageStrings.ajax_timed_out);
+  }
+});

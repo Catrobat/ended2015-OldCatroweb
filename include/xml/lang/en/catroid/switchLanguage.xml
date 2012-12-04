@@ -18,5 +18,5 @@
   -->
 
 <strings>
-
+  <string name="language_success">You updated your language successfully.</string>
 </strings>

@@ -19,6 +19,7 @@
 
 abstract class CoreObjectDatabase extends CoreObject {
   public $dbConnection;
+
   public function __construct() {
     parent::__construct();
     $this->dbConnection = CoreDatabase::singleton()->getConnection();
@@ -27,14 +28,6 @@ abstract class CoreObjectDatabase extends CoreObject {
   public function __destruct() {
     parent::__destruct();
     unset($this->dbConnection);
-    /*
-    if(is_resource($this->dbConnection)) {
-      if(pg_connection_status($this->dbConnection) == PGSQL_CONNECTION_OK) {
-        CorePreparePreparedStatements::getInstance()->unPrepare();
-        pg_close($this->dbConnection);        
-      }
-    }
-    */
   }
 }
 ?>

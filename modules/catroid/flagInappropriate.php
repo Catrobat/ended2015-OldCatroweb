@@ -32,7 +32,7 @@ class flagInappropriate extends CoreAuthenticationNone {
   
   public function flagProject($postData, $serverData, $sendNotificationEmail = true) { 
     $answer = '';
-    $statusCode = 500;
+    $statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
     if(isset($postData['projectId']) && $postData['flagReason'] != '') {
       $userIp = $serverData['REMOTE_ADDR'];
       $userId = 0;
@@ -53,7 +53,7 @@ class flagInappropriate extends CoreAuthenticationNone {
           }
         }
         $answer = $this->languageHandler->getString('msg_flagged_successful');
-        $statusCode = 200;
+        $statusCode = STATUS_CODE_OK;
       } else {
         $answer = $this->errorHandler->getError('flag', 'sql_insert_failed').pg_last_error();
       }

@@ -18,5 +18,5 @@
   -->
   
 <strings>
-
+  <string name="registration_success">Registration successful!</string>
 </strings>

@@ -6,7 +6,6 @@
 
   // Tracker version.
   define("VERSION", "4.4sh");
-
   define("COOKIE_NAME", "__utmmobile");
 
   // The path the cookie will be available to, edit this to use a different
@@ -90,9 +89,11 @@
     $options = array(
       "http" => array(
           "method" => "GET",
-          "user_agent" => $_SERVER["HTTP_USER_AGENT"],
-          "header" => ("Accept-Language: " . $_SERVER["HTTP_ACCEPT_LANGUAGE"]))
+          "user_agent" => getenv("HTTP_USER_AGENT"),
+          "header" => ("Accept-Language: " . getenv("HTTP_ACCEPT_LANGUAGE")))
     );
+    
+      
     if (!empty($_GET["utmdebug"])) {
       $data = file_get_contents(
           $utmUrl, false, stream_context_create($options));
@@ -101,13 +102,13 @@
           $utmUrl, false, stream_context_create($options));
     }
   }
-
-  // Track a page view, updates all the cookies and campaign tracker,
+  
+    // Track a page view, updates all the cookies and campaign tracker,
   // makes a server side request to Google Analytics and writes the transparent
   // gif byte data to the response.
   function trackPageView() {
     $timeStamp = time();
-    $domainName = $_SERVER["SERVER_NAME"];
+    $domainName = getenv("SERVER_NAME");
     if (empty($domainName)) {
       $domainName = "";
     }
@@ -115,37 +116,49 @@
     // Get the referrer from the utmr parameter, this is the referrer to the
     // page that contains the tracking pixel, not the referrer for tracking
     // pixel.
-    $documentReferer = $_GET["utmr"];
+    $documentReferer = null;
+    if (isset($_GET["utmr"])) 
+      $documentReferer = $_GET["utmr"];
+    
+    
     if (empty($documentReferer) && $documentReferer !== "0") {
       $documentReferer = "-";
     } else {
       $documentReferer = urldecode($documentReferer);
     }
-    $documentPath = $_GET["utmp"];
+    
+    if (isSet($_GET["utmp"]))
+      $documentPath = $_GET["utmp"];
+    
     if (empty($documentPath)) {
       $documentPath = "";
     } else {
       $documentPath = urldecode($documentPath);
     }
 
-    $account = $_GET["utmac"];
-    $userAgent = $_SERVER["HTTP_USER_AGENT"];
+    $account = null;
+    if (isSet($_GET["utmac"]))
+      $account = $_GET["utmac"];
+    
+    $userAgent = getenv("HTTP_USER_AGENT");
     if (empty($userAgent)) {
       $userAgent = "";
     }
 
     // Try and get visitor cookie from the request.
-    $cookie = $_COOKIE[COOKIE_NAME];
+    $cookie = null;
+    if (isSet($_COOKIE[COOKIE_NAME]))
+      $cookie = $_COOKIE[COOKIE_NAME];
 
-    $guidHeader = $_SERVER["HTTP_X_DCMGUID"];
+    $guidHeader = getenv("HTTP_X_DCMGUID");
     if (empty($guidHeader)) {
-      $guidHeader = $_SERVER["HTTP_X_UP_SUBNO"];
+      $guidHeader = getenv("HTTP_X_UP_SUBNO");
     }
     if (empty($guidHeader)) {
-      $guidHeader = $_SERVER["HTTP_X_JPHONE_UID"];
+      $guidHeader = getenv("HTTP_X_JPHONE_UID");
     }
     if (empty($guidHeader)) {
-      $guidHeader = $_SERVER["HTTP_X_EM_UID"];
+      $guidHeader = getenv("HTTP_X_EM_UID");
     }
 
     $visitorId = getVisitorId($guidHeader, $account, $userAgent, $cookie);
@@ -169,7 +182,7 @@
         "&utmac=" . $account .
         "&utmcc=__utma%3D999.999.999.999.999.1%3B" .
         "&utmvid=" . $visitorId .
-        "&utmip=" . getIP($_SERVER["REMOTE_ADDR"]);
+        "&utmip=" . getIP(getenv("REMOTE_ADDR"));
 
     sendRequestToGoogleAnalytics($utmUrl);
 

@@ -17,11 +17,6 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 ?>
-    <script type="text/javascript">
-      $(document).ready(function() {        
-        new HeaderMenu();
-      });
-    </script>
     <div class="webMainTop">
       <div class="blueBoxMain">
         <div class="webMainHead">

@@ -20,22 +20,29 @@
   require_once('XML/Serializer.php');
 
   class CorePresenter_xml extends CorePresenterCommon  {
+    private $xmlOptions;
     private $xmlString;
+    
     public function __construct(CoreModule $module) {
       parent::__construct($module);
-      @$this->generateXML();
-    }
+      
+      $this->xmlOptions = array('cdata' => true, 'defaultTagName' => 'xmlElement');
+      if(is_array($this->xmlSerializerOptions)) {
+        $this->xmlOptions = $this->xmlSerializerOptions;
+      }
 
-    private function generateXML() {
-      $xml = new XML_Serializer();
-      $xml->setOption(XML_SERIALIZER_OPTION_CDATA_SECTIONS, true);
-      $xml->setOption(XML_SERIALIZER_OPTION_DEFAULT_TAG, 'xmlElement');
-      $xml->serialize($this->module->getData());
-      $this->xmlString = '<?xml version="1.0" encoding="UTF-8" ?>'."\n".$xml->getSerializedData();
+      $this->module->preHeaderMessages = ob_get_contents();
+      ob_clean();
+
+      $xml = new XML_Serializer($this->xmlOptions);
+      @$xml->serialize($this->module->getData());
+      $this->xmlString = '<?xml version="1.0" encoding="UTF-8" ?>' . "\n" . $xml->getSerializedData();
     }
 
     public function display() {
-      header("Content-Type: text/xml");
+      header("Cache-Control: no-cache, must-revalidate");
+      header("Expires: Sun, 4 Apr 2004 04:04:04 GMT");
+      header("Content-Type: text/xml; charset=utf-8");
       echo $this->xmlString;
       return true;
     }

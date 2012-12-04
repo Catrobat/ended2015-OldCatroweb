@@ -92,6 +92,7 @@ define('REAL_BASE_PATH',str_replace('help/', '', BASE_PATH));
       <a href="http://catroidtestserver.ist.tugraz.at/" target="_blank">Kittyroidlocal</a> - Testserver at the Catroid Room<br/>
 			<a href="http://catroidtestserver.ist.tugraz.at:4444/grid/console" target="_blank">Grid Console</a> - Selenium-Grid Server Status<br/>
 			<a href="http://catroidtestserver.ist.tugraz.at/tests/selenium-grid/target/reports/" target="_blank">Test Reports</a> - Test results of last testrun<br/>
+			<a href="http://catroidtestserver.ist.tugraz.at:8080/" target="_blank">Jenkins</a> - Catroids test suite.<br/>
       <a href="http://catroidtestserver.ist.tugraz.at/phppgadmin/" target="_blank">phpPgAdmin</a>* -  WebBased SQL administration tool<br/>
       
       <h1>Catroidwebtest</h1> 

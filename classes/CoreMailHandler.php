@@ -35,7 +35,7 @@ class CoreMailHandler {
       return false;
     }
     $this->_subject = USER_EMAIL_SUBJECT_PREFIX.' - '.$subject;
-    $this->_text = wordwrap($text);
+    $this->_text = $this->chunk_split_unicode($text);
     $this->_return = "-f".USER_EMAIL_NOREPLY;
     $this->_reply = USER_EMAIL_NOREPLY;
 	  $this->_from = USER_EMAIL_NOREPLY;
@@ -52,14 +52,60 @@ class CoreMailHandler {
       return false;
     }
     $this->_subject = ADMIN_EMAIL_SUBJECT_PREFIX.' - '.$subject;
-    $this->_text = wordwrap($text);
-    $this->_return = "-f".ADMIN_EMAIL_WEBMASTER;
+    $this->_text = $this->wordwrap($text);
+    $this->_return = "-f" . ADMIN_EMAIL_WEBMASTER;
     $this->_reply = ADMIN_EMAIL_NOREPLY;
 	  $this->_from = ADMIN_EMAIL_NOREPLY;
 	  $this->_to = ADMIN_EMAIL_WEBMASTER;
 	  $this->_bcc = '';
 	
 	  return($this->send());
+  }
+  public function wordwrap($str, $length = 76, $end = "\r\n") {
+    $lastUnwrap = strrpos($str, "{/unwrap}");
+    preg_match_all('|(.*?){unwrap}(.*?){/unwrap}|ism', $str, $parts);
+  
+    $result = '';
+    if($lastUnwrap !== false) {
+      for($counter = 0, $numberOfUnwraps = count($parts[1]); $counter < $numberOfUnwraps; $counter++) {
+        $temp = explode($end, $parts[1][$counter]);
+        array_pop($temp);
+        foreach($temp as $piece) {
+          $result .= wordwrap($piece, $length, $end) . $end;
+        }
+        $result .= $parts[2][$counter] . $end;
+      }
+      $str = substr($str, $lastUnwrap + 9);
+    }
+  
+    $temp = explode($end, $str);
+    foreach($temp as $piece) {
+      $result .= wordwrap($piece, $length, $end) . $end;
+    }
+    return $result;
+  }
+    
+  public function chunk_split_unicode1($str, $length = 76, $end = "\r\n") {
+    $lastUnwrap = strrpos($str, "{/unwrap}");
+    preg_match_all('|(.*?){unwrap}(.*?){/unwrap}|ism', $str, $parts);
+    
+    $result = '';
+    if($lastUnwrap !== false) {
+      for($counter = 0, $numberOfUnwraps = count($parts[1]); $counter < $numberOfUnwraps; $counter++) {
+        $tmp = array_chunk(preg_split("//u", $parts[1][$counter], -1, PREG_SPLIT_NO_EMPTY), $length);
+        foreach ($tmp as $line) {
+          $result .= implode('', $line) . $end;
+        }
+        $result .= $parts[2][$counter] . $end;
+      }
+      $str = substr($str, $lastUnwrap + 9);
+    }
+    
+    $tmp = array_chunk(preg_split("//u", $str, -1, PREG_SPLIT_NO_EMPTY), $length);
+    foreach ($tmp as $line) {
+      $result .= implode('', $line) . $end;
+    }
+    return $result;
   }
   
   private function send() {

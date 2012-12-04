@@ -30,7 +30,6 @@
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/baseClassVars.js?<?php echo VERSION; ?>" ></script>
   <script type="text/javascript">
     __baseClassVars.basePath = <?php echo "'".BASE_PATH."'"; ?>;
-    __baseClassVars.corePath = <?php echo "'".CORE_BASE_PATH."'"; ?>;
   </script>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js?<?php echo VERSION; ?>" ></script>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/jquery.js?<?php echo VERSION; ?>" ></script>

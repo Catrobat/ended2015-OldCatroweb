@@ -19,18 +19,16 @@
 var Registration = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function() {
-	this.scrollMargin = 48;
-	
-	$("#registrationUsername").bind('keydown', { submit: false, prev: null, next: $("#registrationPassword") }, $.proxy(this.keydownHandler, this));
-	$("#registrationPassword").bind('keydown', { submit: false, prev: $("#registrationUsername"), next: $("#registrationEmail") }, $.proxy(this.keydownHandler, this));
-	$("#registrationEmail").bind('keydown', { submit: false, prev: $("#registrationPassword"), next: $("#registrationCountry") }, $.proxy(this.keydownHandler, this));
-	$("#registrationCountry").bind('keydown', { submit: false, prev: $("#registrationEmail"), next: $("#registrationCity") }, $.proxy(this.keydownHandler, this));
-	$("#registrationCity").bind('keydown', { submit: false, prev: $("#registrationCountry"), next: $("#registrationMonth") }, $.proxy(this.keydownHandler, this));
-	$("#registrationMonth").bind('keydown', { submit: false, prev: $("#registrationCity"), next: $("#registrationYear") }, $.proxy(this.keydownHandler, this));
-	$("#registrationYear").bind('keydown', { submit: false, prev: $("#registrationMonth"), next: $("#registrationGender") }, $.proxy(this.keydownHandler, this));
-	$("#registrationGender").bind('keydown', { submit: true, prev: $("#registrationYear"), next: null }, $.proxy(this.keydownHandler, this));
-	$("#registrationSubmit").bind('keydown', { submit: true }, $.proxy(this.keydownHandler, this));
-	$("#registrationSubmit").click($.proxy(this.submitAndScrollUp, this));
+  	$("#registrationUsername").bind('keydown', { submit: false, prev: null, next: $("#registrationPassword") }, $.proxy(this.keydownHandler, this));
+  	$("#registrationPassword").bind('keydown', { submit: false, prev: $("#registrationUsername"), next: $("#registrationEmail") }, $.proxy(this.keydownHandler, this));
+  	$("#registrationEmail").bind('keydown', { submit: false, prev: $("#registrationPassword"), next: $("#registrationCountry") }, $.proxy(this.keydownHandler, this));
+  	$("#registrationCountry").bind('keydown', { submit: false, prev: $("#registrationEmail"), next: $("#registrationCity") }, $.proxy(this.keydownHandler, this));
+  	$("#registrationCity").bind('keydown', { submit: false, prev: $("#registrationCountry"), next: $("#registrationMonth") }, $.proxy(this.keydownHandler, this));
+  	$("#registrationMonth").bind('keydown', { submit: false, prev: $("#registrationCity"), next: $("#registrationYear") }, $.proxy(this.keydownHandler, this));
+  	$("#registrationYear").bind('keydown', { submit: false, prev: $("#registrationMonth"), next: $("#registrationGender") }, $.proxy(this.keydownHandler, this));
+  	$("#registrationGender").bind('keydown', { submit: true, prev: $("#registrationYear"), next: null }, $.proxy(this.keydownHandler, this));
+  	$("#registrationSubmit").bind('keydown', { submit: true }, $.proxy(this.keydownHandler, this));
+  	$("#registrationSubmit").click($.proxy(this.submit, this));
 	
     $("#registrationLogin").click($.proxy(this.toggleProfileBox, this));
   },
@@ -45,7 +43,7 @@ var Registration = Class.$extend( {
   
   registrationSubmit : function() {
     $("#registrationErrorMsg").toggle(false);
-    var url = this.basePath + 'api/registration/registrationRequest.json';
+    var url = this.basePath + 'catroid/registration/registrationRequest.json';
     $.ajax({
       type : "POST",
       url : url,
@@ -60,26 +58,18 @@ var Registration = Class.$extend( {
         registrationGender : $("#registrationGender").val()
       }),
       timeout : (this.ajaxTimeout),
-      success : jQuery.proxy(this.registrationSuccess, this),
-      error : jQuery.proxy(this.registrationError, this)
+      success : $.proxy(this.registrationSuccess, this),
+      error : $.proxy(common.ajaxTimedOut, this)
     });
   },
 
   registrationSuccess : function(response) {
     if(response.statusCode == 200) {
-      location.href = this.basePath+'catroid/profile';
+      location.href = this.basePath + 'catroid/profile';
     } else {
-      $("#registrationErrorMsg").empty();
-      for(var key in response.errors) {
-        $("#registrationErrorMsg").append($('<div>').addClass("registrationErrorLine").
-          text(response.errors[key]));
-      }
-      $("#registrationErrorMsg").toggle(true);
+      common.showPreHeaderMessages(response);
+      common.showAjaxErrorMsg(response.answer);
     }
-  },
-  
-  registrationError : function(response, errCode) {
-    //TODO add error handling
   },
 
   keydownHandler : function(event) {
@@ -101,20 +91,19 @@ var Registration = Class.$extend( {
           this.focusAndScrollIntoView(event.data.next);
         }
       } else {
+        this.submit();
         event.preventDefault();
-        this.submitAndScrollUp();
       }
     }
   },
-  
+
   focusAndScrollIntoView : function(element) {
     element.focus();
     $(document).scrollTop(element.offset().top - this.scrollMargin);
   },
   
-  submitAndScrollUp : function() {
-    this.registrationSubmit();
+  submit : function() {
     document.activeElement.blur();
-    $(document).scrollTop(0);
+    this.registrationSubmit();
   }
 });

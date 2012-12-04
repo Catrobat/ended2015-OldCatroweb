@@ -23,49 +23,9 @@
         <string name="connection_failed">Ooooops something went wrong. Please try again!</string>
         <string name="no_entry_for_id">Ooooops something went wrong. Please try again!</string>
     </db>
-    <sendmail>
-      <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
-    </sendmail>
-    <upload>
-        <string name="missing_post_data">You need to specify a title for your project!</string>
-        <string name="missing_post_file_checksum">Sorry, there was a problem during the upload! Are you using the latest version of Catroid?</string>
-        <string name="copy_failed">Sorry, there was an error during the upload. Try again!</string>
-        <string name="rename_failed">Sorry, there was an error during the upload. Try again!</string>
-        <string name="sql_insert_failed">Sorry, there was an error during the upload. Try again!</string>
-        <string name="sql_update_failed">Sorry, there was an error during the upload. Try again!</string>
-        <string name="invalid_file_checksum">Sorry, there was an error during the upload. Try again!</string>
-        <string name="project_exceed_filesize_limit">Your project file is too large.</string>
-        <string name="project_title_default">You have to rename your project, before uploading it.</string>
-        <string name="insulting_words_in_project_title">Please don't use offensive language in your project title.</string>
-        <string name="insulting_words_in_project_description">Please don't use offensive language in your project description.</string>
-        <string name="invalid_project_xml">Sorry, your project file is invalid. Try to save it as a new project and upload it again.</string>
-    </upload>
-    <download>
-    	<string name="file_not_found">The requested project is not available at the time. Try again later!</string>
-    </download>
-    <flag>
-        <string name="missing_post_data">You must enter a reason why you want to report this project as inappropriate!</string>
-        <string name="sql_insert_failed">Sorry, there was an error while reporting the project!</string>
-    </flag>
-    <viewer>
-    	<string name="html_file_not_found">This page cannot be displayed.</string>
-    	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
-    </viewer>
-    <auth>
-    	<string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
-    	<string name="board_authentication_failed">The board authentication failed.</string>
-    	<string name="wiki_authentication_failed">The wiki authentication failed.</string>
-    	<string name="catroid_authentication_failed">Sorry, there was a problem: check your nickname and password.</string>
-    	<string name="wiki_api_response_incorrect">Ooooops something went wrong. Please try again!</string>
-    	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your nickname and password!</string>
-		<string name="device_auth_username_exists">Sorry, your nickname is already in use.</string>
-      <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
-    </auth>
-    <registration>
-      <string name="send_registration_email_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
-      <string name="wiki_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
-      <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
-      <string name="catroid_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
+    <userFunctions>
+      <string name="hash_not_found">Sorry! Couldn't find something to recover. Please try again.</string>
+			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>
       <string name="username_missing">You haven't entered a nickname, please add one.</string>
       <string name="username_invalid_underscore">The nickname you have entered is not allowed. Please do not use underscores (_).</string>
       <string name="username_invalid_hash">The nickname you have entered is not allowed. Please do not use hash signs (#).</string>
@@ -79,38 +39,77 @@
       <string name="username_blacklisted">The nickname you have entered is not allowed.</string>
       <string name="username_already_exists">The nickname you have entered already exists.</string>
       <string name="password_missing">You haven't entered a password, please add one.</string>
-      <string name="password_length_invalid">Your password should have at least {*minimumPasswordLength*} characters and maximal {*maximumPasswordLength*} characters.</string>
-      <string name="password_username_equal">The nickname and password must be different.</string>
+      <string name="username_password_equal">The password must differ from the nickname.</string>
+      <string name="password_new_too_short">The new password must have at least {*minimumPasswordLength*} characters.</string>
+      <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
       <string name="email_missing">You haven't entered an email address, please add one.</string>
       <string name="email_invalid">This email address is not valid.</string>
       <string name="email_already_exists">The email address you have entered already exists.</string>
       <string name="country_missing">You haven't entered a country, please add one.</string>
-    </registration>
-    <passwordrecovery>
+      <string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
+      <string name="board_authentication_failed">The board authentication failed.</string>
+      <string name="wiki_api_response_incorrect">Ooooops something went wrong. Please try again!</string>
+      <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
       <string name="userdata_missing">Your nickname or email address is missing.</string>
+      <string name="unsupported_image">This image type is not supported, please try another image.</string>
+      <string name="avatar_creation_failed">Sorry, we encountered an error while processing your registration. Please try again!</string>
+      <string name="password_new_board_update_failed">There was a problem while updating the password.</string>
+      <string name="city_update_failed">There was a problem while updating your city.</string>
+      <string name="country_update_failed">There was a problem while updating your home country.</string>
+			<string name="gender_update_failed">There was a problem while updating your gender.</string>
+      <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
+      <string name="language_update_failed">There was a problem while updating your language.</string>
       <string name="userdata_not_exists">Your nickname or email address was not found.</string>
+      <string name="email_address_exists">The email address already exists.</string>
+      <string name="email_delete_failed">Error while deleting this e-mail address. You must have at least one e-mail address.</string>
+      <string name="email_update_of_catroweb_failed">Catroweb must have at least two e-mail addresses.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
-      <string name="catroid_password_recovery_failed">Ooooops something went wrong. Please try again or contact the administrator at  {*webmasterEmailAddress*}.</string>
-      <string name="password_length_invalid">Your password must have at least {*minimumPasswordLength*} and maximal {*maximumPasswordLength*} characters.</string>
-    </passwordrecovery>
+      <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
+    </userFunctions>
+    <upload>
+        <string name="missing_project_title">You need to specify a title for your project!</string>
+        <string name="missing_file_data">Sorry, there was a problem during the upload!</string>
+        <string name="missing_post_file_checksum">Sorry, there was a problem during the upload! Are you using the latest version of Catroid?</string>
+        <string name="copy_failed">Sorry, there was an error during the upload. Try again!</string>
+        <string name="rename_failed">Sorry, there was an error during the upload. Try again!</string>
+        <string name="invalid_file_checksum">Sorry, there was an error during the upload. Try again!</string>
+        <string name="project_exceed_filesize_limit">Your project file is too large.</string>
+        <string name="project_title_default">You have to rename your project, before uploading it.</string>
+        <string name="insulting_words_in_project_title">Please don't use offensive language in your project title.</string>
+        <string name="insulting_words_in_project_description">Please don't use offensive language in your project description.</string>
+        <string name="qr_code_generation_failed">Sorry, there was an error during the upload. Try again!</string>
+        <string name="save_thumbnail_failed">Sorry, there was an error during the upload. Try again!</string>
+        <string name="invalid_project_xml">Sorry, your project file is invalid. Try to save it as a new project and upload it again.</string>
+    </upload>
+    <download>
+    	<string name="file_not_found">The requested project is not available at the time. Try again later!</string>
+    </download>
+    <flag>
+        <string name="missing_post_data">You must enter a reason why you want to report this project as inappropriate!</string>
+        <string name="sql_insert_failed">Sorry, there was an error while reporting the project!</string>
+    </flag>
+    <viewer>
+    	<string name="html_file_not_found">This page cannot be displayed.</string>
+    	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
+    	<string name="ajax_took_too_long">Sorry something went wrong, please try again.</string>
+    	<string name="ajax_timed_out">Sorry something went wrong, please try again.</string>
+      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
+      <string name="ip_is_blocked_temporary">Your IP-Address has been blocked for 30 seconds.</string>
+      <string name="user_is_blocked">Your Account has been blocked.</string>
+    </viewer>
+    <auth>
+    	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your nickname and password!</string>
+			<string name="device_auth_username_exists">Sorry, your nickname is already in use.</string>
+      <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
+    </auth>
+    <registration>
+      <string name="postdata_missing">Please enter your login data.</string>
+    </registration>
     <profile>
       <string name="password_old_missing">The old password is missing.</string>
       <string name="password_old_wrong">The old password was incorrect.</string>
       <string name="password_new_missing">The new password is missing.</string>
-      <string name="password_new_length_invalid">The new password must have at least {*minimumPasswordLength*} characters.</string>
-      <string name="username_password_equal">The password must differ from the nickname.</string>
-      <string name="email_address_exists">The email address already exists.</string>
-      <string name="email_update_failed">There was a problem while updating the email address.</string>
-      <string name="email_update_of_catroweb_failed">Catroweb must have at least 2 e-mail addresses.</string>
-      <string name="country_update_failed">There was a problem while updating your home country.</string>
-      <string name="city_update_failed">There was a problem while updating the email address.</string>
-      <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
-    	<string name="country_codes_not_available">An error occured selecting a country! Please try to reload page or try again later.</string>
     </profile>
-    <viewer>
-      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
-      <string name="user_is_blocked">Your Account has been blocked.</string>
-    </viewer>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
       <string name="pootle_load_xlf_failed">Could not load XLF-file from {*source*}.</string>

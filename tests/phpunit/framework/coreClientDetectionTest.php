@@ -29,46 +29,46 @@ class coreClientDetectionTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider userAgents
    */
-  public function testClientDetection($userAgentString, $expectedBrowser, $expectedMinVersion, $shouldBeMobile = false) {
-    $_SERVER['HTTP_USER_AGENT'] = $userAgentString;
-    $obj = new CoreClientDetection();
-    $versionString = $obj->getVersion();
-    $aVersion = explode('.', $versionString);
-    if(count($aVersion) == 1) {
-      $versionNumber = intval($aVersion[0]);
-    } else {
-      $versionNumber = intval($aVersion[0]) + (0.1*intval($aVersion[1]));
+  public function testClientDetection($userAgentString, $shouldBeMobile = false) {
+    // $_SERVER['HTTP_USER_AGENT'] = $userAgentString;
+    $obj = new CoreClientDetection($userAgentString);
+    
+    if (0) {
+      print "\n* UserAgent: ".$obj->getUserAgent();
+  
+      if ($obj->isMobile()) 
+        print " \n* isMobile: TRUE";
+      else 
+        print "\n* isMobile: FALSE";
+      print "\n";
+      exit();
     }
-
-    $this->assertEquals($userAgentString, $obj->getUserAgent());
-    $this->assertTrue($obj->isBrowser($expectedBrowser));
-    $this->assertGreaterThanOrEqual($expectedMinVersion, $versionNumber);
     $this->assertEquals($shouldBeMobile, $obj->isMobile());
   }
-
+  
   /* DATA PROVIDERS */
   public function userAgents() {
     /* You can add more userAgentStrings to test from http://www.useragentstring.com/pages/Browserlist/ */
 
     $userAgents = array();
     $userAgentFiles = array(
-    array('fileName'=>'useragentsOperaMobile.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_OPERA_MOBILE, 'expectedMinVersion'=>10.0, 'shouldBeMobile'=>true),
-    array('fileName'=>'useragentsOperaMini.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_OPERA_MINI, 'expectedMinVersion'=>5, 'shouldBeMobile'=>true),
-    array('fileName'=>'useragentsOpera11.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_OPERA, 'expectedMinVersion'=>11, 'shouldBeMobile'=>false),
-    array('fileName'=>'useragentsOpera10.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_OPERA, 'expectedMinVersion'=>10, 'shouldBeMobile'=>false),
-    array('fileName'=>'useragentsFirefoxMin3.6.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_FIREFOX, 'expectedMinVersion'=>3.6, 'shouldBeMobile'=>false),
-    array('fileName'=>'useragentsFirefox4.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_FIREFOX, 'expectedMinVersion'=>4, 'shouldBeMobile'=>false),
-    array('fileName'=>'useragentsFirefoxMobile.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_FIREFOX_MOBILE, 'expectedMinVersion'=>4, 'shouldBeMobile'=>true),
-    array('fileName'=>'useragentsAndroid2.1.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_ANDROID, 'expectedMinVersion'=>2.1, 'shouldBeMobile'=>true),
-    array('fileName'=>'useragentsAndroid2.2.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_ANDROID, 'expectedMinVersion'=>2.2, 'shouldBeMobile'=>true),
-    array('fileName'=>'useragentsInternetExplorer8.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_IE, 'expectedMinVersion'=>8, 'shouldBeMobile'=>false),
-    array('fileName'=>'useragentsInternetExplorer9.txt', 'expectedBrowser'=>CoreClientDetection::BROWSER_IE, 'expectedMinVersion'=>9, 'shouldBeMobile'=>false)
+    array('fileName'=>'useragentsOperaMobile.txt', 'shouldBeMobile'=>true),
+    array('fileName'=>'useragentsOperaMini.txt', 'shouldBeMobile'=>true),
+    array('fileName'=>'useragentsOpera11.txt', 'shouldBeMobile'=>false),
+    array('fileName'=>'useragentsOpera10.txt', 'shouldBeMobile'=>false),
+    array('fileName'=>'useragentsFirefoxMin3.6.txt', 'shouldBeMobile'=>false),
+    array('fileName'=>'useragentsFirefox4.txt', 'shouldBeMobile'=>false),
+    array('fileName'=>'useragentsFirefoxMobile.txt', 'shouldBeMobile'=>true),
+    array('fileName'=>'useragentsAndroid2.1.txt', 'shouldBeMobile'=>true),
+     array('fileName'=>'useragentsAndroid2.2.txt', 'shouldBeMobile'=>true),
+    array('fileName'=>'useragentsInternetExplorer8.txt', 'shouldBeMobile'=>false),
+    array('fileName'=>'useragentsInternetExplorer9.txt', 'shouldBeMobile'=>false)
     );
     $i = 0;
     foreach($userAgentFiles as $params) {
       $file = file(dirname(__FILE__).'/testdata/'.$params['fileName']);
       foreach($file as $row) {
-        $userAgents[$i] = array(trim($row), $params['expectedBrowser'], $params['expectedMinVersion'], $params['shouldBeMobile']);
+        $userAgents[$i] = array(trim($row), $params['shouldBeMobile']);
         $i++;
       }
     }

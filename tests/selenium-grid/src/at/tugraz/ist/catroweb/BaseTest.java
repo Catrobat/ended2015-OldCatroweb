@@ -256,6 +256,42 @@ public class BaseTest {
   public boolean isTextPresent(String text) {
     return containsElementText(By.tagName("body"), text);
   }
+  
+  public String getAjaxMessage() {
+    waitForElementPresent(By.id("ajaxAnswerBoxContainer"));
+    ajaxWait();
+
+    return (String)((JavascriptExecutor) driver()).executeScript("return arguments[0].innerHTML",
+        driver().findElement(By.id("ajaxAnswerBoxContainer")));
+  }
+
+  public boolean isAjaxMessagePresent(String text) {
+    return getAjaxMessage().contains(text);
+  }
+
+  public String getRecoveryUrl() {
+    String[] parts = getAjaxMessage().split("<");
+    for(String part : parts) {
+      if(part.contains("passwordrecovery?c=")) {
+        String[] temp = part.split("c=");
+        return "catroid/passwordrecovery?c=" + temp[1];
+      }
+    }
+    
+    return "catroid/passwordrecovery?c=";
+  }
+
+  public String getValidationUrl() {
+    String[] parts = getAjaxMessage().split("<");
+    for(String part : parts) {
+      if(part.contains("emailvalidation?c=")) {
+        String[] temp = part.split("c=");
+        return "catroid/emailvalidation?c=" + temp[1];
+      }
+    }
+    
+    return "catroid/emailvalidation?c=";
+  }
 
   public boolean containsElementText(By selector, String text) {
     // https://code.google.com/p/selenium/issues/detail?id=1438
@@ -281,6 +317,11 @@ public class BaseTest {
     return (driver().findElement(selector)).isEnabled();
   }
 
+  protected void makeVisible(By selector, String additionalCommands) {
+    ((JavascriptExecutor) driver()).executeScript("arguments[0].style.visibility='visible';" + additionalCommands,
+        driver().findElement(selector));
+  }
+
   protected void openLocation() {
     openLocation("");
   }
@@ -291,7 +332,11 @@ public class BaseTest {
 
   protected void openLocation(String location, Boolean forceDefaultLanguage) {
     if(forceDefaultLanguage == true) {
-      driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      if(location.contains("?")) {
+        driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "&userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      } else {
+        driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      }
     } else {
       driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location);
     }
@@ -403,6 +448,38 @@ public class BaseTest {
     }
     lastLink.click();
   }
+  
+  public void login() {
+    login(driver().getCurrentUrl());
+  }
+  
+  public void login(String location) {
+    if(!location.contains(this.webSite + Config.TESTS_BASE_PATH)) {
+      location = this.webSite + Config.TESTS_BASE_PATH + location;
+    }
+    
+    driver().get(this.webSite + Config.TESTS_BASE_PATH + "api/checkToken/.json?token=" + Config.DEFAULT_UPLOAD_TOKEN);
+    driver().get(location);
+    ajaxWait();
+  }
+  
+  public void logout() {
+    logout(driver().getCurrentUrl());
+  }
+
+  public void logout(String location) {
+    if(!location.contains(this.webSite + Config.TESTS_BASE_PATH)) {
+      location = this.webSite + Config.TESTS_BASE_PATH + location;
+    }
+    
+    driver().get(this.webSite + Config.TESTS_BASE_PATH + "catroid/login/logoutRequest.json");
+    driver().get(location);
+    ajaxWait();
+  }
+  
+  public void blur(By selector) {
+    ((JavascriptExecutor) driver()).executeScript("return arguments[0].blur();", driver().findElement(selector));
+  }
 
   protected void log(int message) {
     Reporter.log(String.valueOf(message), Config.REPORTER_LOG_TO_STD_OUT);
@@ -420,6 +497,7 @@ public class BaseTest {
       File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
       FileUtils.copyFile(scrFile, new File(Config.FILESYSTEM_BASE_PATH + imagePath));
       Reporter.log("<a href=\"" + this.webSite + Config.TESTS_BASE_PATH.substring(1) + imagePath + "\">Screenshot (" + imageName + ")</a>");
+      Reporter.log("Ajax message: " + getAjaxMessage());
     } catch(IOException e) {
       e.printStackTrace();
     } catch(NullPointerException e) {

@@ -34,7 +34,7 @@ define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
 define('PROJECTS_QR_DIRECTORY','resources/qrcodes/');
 define('PROJECTS_QR_EXTENSION','_qr.png');
-define('PROJECTS_QR_SERVICE_URL','http://catroid.local/api/qrCodeGenerator/generate.png?url=');
+define('PROJECTS_QR_SERVICE_URL', BASE_PATH . 'api/qrCodeGenerator/generate.png?url=');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
 define('PROJECTS_THUMBNAIL_EXTENSION_ORIG','_original.png');
@@ -92,4 +92,7 @@ define('USER_MAX_PASSWORD_LENGTH',32);
 define('DATABASE_CONNECTION_PERSISTENT',true);
 define('GA_PIXEL','ga.php');
 define('SESSION_LIFETIME', 60*60*24*365);
+
+define('MOBILE_BROWSERDETECTION_URL_FOR_UPDATE','http://detectmobilebrowsers.com/download/php');
+
 ?>

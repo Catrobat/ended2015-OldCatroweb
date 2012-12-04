@@ -19,8 +19,7 @@
 ?>
     <script type="text/javascript">
       $(document).ready(function() {
-        new HeaderMenu();
-        new Menu(<?php echo "'".$this->module->session->userLogin_userId."'"; ?>);
+        new Menu(<?php echo "'" . $this->module->session->userLogin_userId ." '"; ?>);
       });
     </script>
     <div class="webMainTop">

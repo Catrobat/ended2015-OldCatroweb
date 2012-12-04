@@ -19,11 +19,23 @@
 
 abstract class CorePresenterCommon {
     protected $module;
+    protected $xmlSerializerOptions;
     public $isMobile;
 
     public function __construct(CoreModule $module) {
-        $this->module = $module;
-        $this->isMobile = $this->module->clientDetection->isMobile();
+      $this->module = $module;
+      $this->isMobile = $this->module->clientDetection->isMobile();
+      $this->xmlSerializerOptions = "";
+        
+      foreach($this->module->getData() as $key => $value) {
+        if(gettype($value) == 'object') {
+          $this->module->unsetData($key);
+        }
+        if($key == 'xmlSerializerOptions') {
+          $this->xmlSerializerOptions = $value;
+          $this->module->unsetData($key);
+        }
+      }
     }
 
     abstract public function display();
@@ -41,7 +53,6 @@ abstract class CorePresenterCommon {
     }
     
     public function __destruct() {
-
     }
 }
 

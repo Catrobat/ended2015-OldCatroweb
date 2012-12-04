@@ -15,81 +15,129 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
- 
-div.profileMain
-{
+
+div.profileMain {
   margin-left: 2.5%;
   margin-right: 2.5%;
 }
-p.profileText
-{ 
-  margin:0;
-  padding:0;
-}
-div.profileText
-{
-  padding: 1.5%; 
-  padding-left: 4%;
-  padding-right: 4%;  
-  font-size:1.0em;
-}
 
-a.profileText:link { color:#000000; text-decoration: underline; }
-a.profileText:visited { color:#000000; text-decoration: underline; }
-a.profileText:hover { color:#0000FF; text-decoration: none; }
-a.profileText:active { color:#0000FF; text-decoration: none; }
-
-div.profileFormContainer
-{
+div.profileFormContainer {
   padding: 1.5%; 
   padding-left: 4%;
   padding-right: 4%;  
   font-size:1.3em;
 }
 
-div.profileH2
-{
-  font-size:0.9em;
-  margin-top: 1.5%; 
-  margin-bottom: 1.5%;
+#profilePasswordInput {
+  padding-bottom: 20px;
+  display:none;
 }
 
-div.profileInfoText
-{
-  font-size:0.9em;
-  margin-left: 1.5%;
-  margin-top: 1.5%; 
-  margin-bottom: 1.5%;
+div#profilePasswordInput .profileChangePassword {
+  display: inline-block;
+  margin:20px 0 0 0;
+  width: 300px;
 }
 
-div.okMsg {
-  color: #088A08;
-  text-align: center;
-  padding: .2em;
-  -webkit-border-radius: .5em;
-  -moz-border-radius: .5em;
-  border-radius: .5em;
-  border: solid 1px #b7b7b7;
-  background: #fff;
-}
-
-div.errorMsg {
-  color: #DF0101;
-  text-align: center;
-  padding: .2em;
-  -webkit-border-radius: .5em;
-  -moz-border-radius: .5em;
-  border-radius: .5em;
-  border: solid 1px #b7b7b7;
-  background: #fff;
-}
-
-input.profileSubmitButton
-{
-  margin-top: 2.5%;
-  margin-bottom: 2.5%;
+input.profileSubmitButton {
   color: black;
   font-size:0.8em;
   font-weight: bold;
+  margin: 20px 0 0 0;
+  width: 300px;
 }
 
+div.profileItem {
+  margin: 25px 0 25px 0;
+  min-height: 40px;
+}
+
+div.profileItem div {
+  float: left;
+}
+
+div.profileItem .label {
+  width: 220px;
+  font-weight: bold;
+  white-space: nowrap;
+  overflow: hidden;  
+}
+
+div.profileItem .labelEmail {
+  padding: 10px 0 10px 0;
+}
+
+div.profileItem .labelInput {
+  padding: 10px 0 14px 0;
+}
+
+input.profileInput, input.profileInputSmall {
+  padding-left: 4px;
+}
+
+div.profileItem div .profileInput {
+  color: #000;
+  opacity: 1.0;
+  display:inline-block;
+  width: 453px;
+  background: none;
+}
+
+div.profileItem div .profileInputSmall {
+  color: #000;
+  opacity: 1.0;
+  display:inline-block;
+  background: none;
+}
+
+div.profileItem div .profileInputTwo {
+  color: #000;
+  opacity: 1.0;
+  display:inline-block;
+  width: 223px;
+  background: none;
+}
+
+#addEmailInput {
+  display:inline-block;
+  width:400px;  
+}
+#addEmailButton {
+  margin: 5px;
+}
+
+div.menuColumnLabels {
+   float: left;
+   width: 20%;
+   font-weight: bold;
+}
+
+div.menuColumnLabels div {
+  padding:15px 10px 15px 0;
+  min-height:40px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+div.menuColumnContent div {
+  padding:15px 10px 15px 0;
+  min-height:40px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+div.avatarContainer {
+  float: right;
+  white-space: nowrap;
+  text-align: center;
+}
+
+img.avatar {
+  border: 2px solid #777;
+  border-radius: 5px;
+  margin-top: 20px;
+}
+
+#profileChangeAvatar {
+  display: none;
+}

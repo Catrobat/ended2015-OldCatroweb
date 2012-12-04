@@ -22,15 +22,18 @@
 
     public function __construct(CoreModule $module) {
       parent::__construct($module);
+      
+      $this->module->preHeaderMessages = ob_get_contents();
+
       $this->jsonEncodedString = json_encode($this->module->getData());
     }
 
     public function display() {
       header("Cache-Control: no-cache, must-revalidate");
       header("Expires: Sun, 4 Apr 2004 04:04:04 GMT");
-      header("Content-Type: application/json");
+      header("Content-Type: application/json; charset=utf-8");
+      ob_clean();
       echo $this->jsonEncodedString;
-
       return true;
     }
 

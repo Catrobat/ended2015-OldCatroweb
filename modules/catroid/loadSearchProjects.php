@@ -66,7 +66,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
       }
     }
      
-    pg_prepare($this->dbConnection, "get_search_results", "SELECT projects.id, projects.title, projects.upload_time, cusers.username AS uploaded_by FROM projects, cusers WHERE ($searchQuery) AND visible = 't' AND cusers.id=projects.user_id ORDER BY upload_time DESC  LIMIT \$1 OFFSET \$2") or
+    pg_prepare($this->dbConnection, "get_search_results", "SELECT projects.id, projects.title, coalesce(extract(epoch from \"timestamp\"(projects.update_time)), extract(epoch from \"timestamp\"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE ($searchQuery) AND visible = 't' AND cusers.id=projects.user_id ORDER BY last_activity DESC  LIMIT \$1 OFFSET \$2") or
                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $result = pg_execute($this->dbConnection, "get_search_results", array_merge(array(PROJECT_PAGE_LOAD_MAX_PROJECTS, PROJECT_PAGE_LOAD_MAX_PROJECTS * $pageNr), $searchRequest)) or
                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
@@ -78,7 +78,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
       foreach($projects as $project) {
         $projects[$i]['title'] = $projects[$i]['title'];
         $projects[$i]['title_short'] = makeShortString($project['title'], PROJECT_TITLE_MAX_DISPLAY_LENGTH);
-        $projects[$i]['upload_time'] =  $this->languageHandler->getString('uploaded', getTimeInWords(strtotime($project['upload_time']), $this->languageHandler, time()));
+        $projects[$i]['upload_time'] =  $this->languageHandler->getString('uploaded', getTimeInWords($project['last_activity'], $this->languageHandler, time()));
         $projects[$i]['thumbnail'] = getProjectThumbnailUrl($project['id']);
         $projects[$i]['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $projects[$i]['uploaded_by']);
         $i++;

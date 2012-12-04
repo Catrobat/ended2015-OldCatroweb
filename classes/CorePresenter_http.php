@@ -17,28 +17,32 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-  class CorePresenter_http extends CorePresenterCommon {
-    private $statusCode = 500;
-    public function __construct(CoreModule $module) {
-      parent::__construct($module);
-      $data = $this->module->getData();
-      if(isset($data['statusCode']) && is_int($data['statusCode']))
-        $this->statusCode = $data['statusCode'];
-    }
+class CorePresenter_http extends CorePresenterCommon {
+  private $statusCode;
 
-    public function display() {
-      $statusString = 'HTTP/1.0 '.$this->statusCode;
-      header($statusString, true, $this->statusCode);
+  public function __construct(CoreModule $module) {
+    parent::__construct($module);
+    $data = $this->module->getData();
 
-      return true;
-    }
-
-    public function getStatusCode() {
-      return $this->statusCode;
-    }
-
-    public function __destruct() {
-      parent::__destruct();
+    $this->statusCode = STATUS_CODE_INTERNAL_SERVER_ERROR;
+    if(isset($data['statusCode']) && is_int($data['statusCode'])) {
+      $this->statusCode = $data['statusCode'];
     }
   }
+
+  public function display() {
+    $statusString = 'HTTP/1.0 ' . $this->statusCode;
+    header($statusString, true, $this->statusCode);
+
+    return true;
+  }
+
+  public function getStatusCode() {
+    return $this->statusCode;
+  }
+
+  public function __destruct() {
+    parent::__destruct();
+  }
+}
 ?>

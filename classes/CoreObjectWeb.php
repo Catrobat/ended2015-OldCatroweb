@@ -58,5 +58,46 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
   public function getWebsiteTitle() {
     return $this->websiteTitle;
   }
+  
+  public function loadModule($module) {
+    $modulePath = CORE_BASE_PATH . 'modules/' . $module . '.php';
+    if(file_exists($modulePath)) {
+      $moduleName = basename($modulePath, '.php');
+
+      require_once($modulePath);
+      eval("\$this->" . $moduleName . " = new " . $moduleName . "();");      
+    } else {
+      exit('unknown module: ' . $modulePath);
+    }
+  }
+  
+  public function loadView($viewer) {
+    $exception = new Exception();
+    $traces = $exception->getTrace();
+    
+    $callerFile = "";
+    foreach($traces as $trace) {
+      if($trace['function'] == 'loadView') {
+        $callerFile = $trace['file'];
+        break;
+      }
+    }
+
+    $module = '';
+    $fragments = explode('/', $callerFile);
+    for($i = 0, $length = count($fragments); $i < $length; $i++) {
+      if($fragments[$i] == 'modules' && ($i + 1) < $length) {
+        $module = $fragments[++$i]; 
+        break;
+      }
+    }
+      
+    $viewerPath = CORE_BASE_PATH . 'viewer/' . $module . '/' . $viewer . '.php';
+    if(file_exists($viewerPath)) {
+      $this->htmlFile = $viewer . '.php';
+    } else {
+      exit('unknown viewer: ' . $viewerPath);
+    }
+  }
 }
 ?>

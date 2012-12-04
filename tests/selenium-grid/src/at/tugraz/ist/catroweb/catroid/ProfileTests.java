@@ -45,27 +45,17 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
       driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
       driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
-      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      (new Select(driver().findElement(By.id("registrationCountry")))).selectByValue(dataset.get("registrationCountryID"));
       driver().findElement(By.id("registrationCity")).sendKeys(dataset.get("registrationCity"));
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
 
-      driver().findElement(By.id("headerProfileButton")).click();
-      assertTrue(isElementPresent(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("headerCancelButton")).click();
-
-      driver().findElement(By.id("profileChangeLanguageOpen")).click();
       (new Select(driver().findElement(By.id("profileSwitchLanguage")))).selectByValue(dataset.get("registrationLanguage"));
       
-      assertTrue(isTextPresent(dataset.get("registrationUsername") + "\'s Profile"));
-      assertTrue(isTextPresent("change my password"));
+      assertTrue(isTextPresent(dataset.get("registrationUsername")));
       assertTrue(isTextPresent(dataset.get("registrationEmail")));
 
-      driver().findElement(By.id("profileChangePasswordOpen")).click();
-      ajaxWait();
-      driver().findElement(By.id("profileChangePasswordClose")).click();
-      ajaxWait();
-      driver().findElement(By.id("profileChangePasswordOpen")).click();
+      driver().findElement(By.id("profileChangePassword")).click();
       ajaxWait();
 
       assertTrue(isVisible(By.id("profileOldPassword")));
@@ -77,259 +67,266 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent("You updated your password successfully."));
+      assertTrue(isAjaxMessagePresent("You updated your password successfully."));
 
-      driver().findElement(By.id("profileChangePasswordOpen")).click();
+      openLocation("catroid/profile/");
+      driver().findElement(By.id("profileChangePassword")).click();
       ajaxWait();
 
-      driver().findElement(By.id("profileOldPassword")).clear();
       driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("registrationPassword"));
-      driver().findElement(By.id("profileNewPassword")).clear();
       driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("changedPassword"));
       driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent("The old password was incorrect."));
+      assertTrue(isAjaxMessagePresent("The old password was incorrect."));
+      
+      openLocation("catroid/profile/");
+      driver().findElement(By.id("profileChangePassword")).click();
+      ajaxWait();
 
-      driver().findElement(By.id("profileOldPassword")).clear();
       driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("changedPassword"));
-      driver().findElement(By.id("profileNewPassword")).clear();
       driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("emptyPassword"));
       driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
+      
+      assertTrue(isAjaxMessagePresent("The new password is missing."));
+      
+      openLocation("catroid/profile/");
+      driver().findElement(By.id("profileChangePassword")).click();
+      ajaxWait();
 
-      assertTrue(isTextPresent("The new password is missing."));
-
-      driver().findElement(By.id("profileOldPassword")).clear();
       driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("emptyPassword"));
-      driver().findElement(By.id("profileNewPassword")).clear();
       driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("shortPassword"));
       driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent("The old password is missing."));
-      assertTrue(isTextPresent("The new password must have at least 6 characters."));
-
-      driver().findElement(By.id("profileOldPassword")).clear();
+      assertTrue(isAjaxMessagePresent("The old password is missing."));
+      
+      openLocation("catroid/profile/");
+      driver().findElement(By.id("profileChangePassword")).click();
+      ajaxWait();
+      
       driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("changedPassword"));
-      driver().findElement(By.id("profileNewPassword")).clear();
+      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("shortPassword"));
+      driver().findElement(By.id("profilePasswordSubmit")).click();
+      ajaxWait();
+      
+      assertTrue(isAjaxMessagePresent("Your password must have at least 6 characters."));
+      
+      openLocation("catroid/profile/");
+      driver().findElement(By.id("profileChangePassword")).click();
+      ajaxWait();
+
+      driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("changedPassword"));
       driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent("You updated your password successfully."));
-
-      driver().findElement(By.id("profileChangePasswordOpen")).click();
+      assertTrue(isAjaxMessagePresent("You updated your password successfully."));
+      
+      openLocation("catroid/profile/");
+      driver().findElement(By.id("profileChangePassword")).click();
       ajaxWait();
 
-      driver().findElement(By.id("profileOldPassword")).clear();
       driver().findElement(By.id("profileOldPassword")).sendKeys(dataset.get("registrationPassword"));
-      driver().findElement(By.id("profileNewPassword")).clear();
       driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.id("profilePasswordSubmit")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent("You updated your password successfully."));
+      assertTrue(isAjaxMessagePresent("You updated your password successfully."));
 
-      driver().findElement(By.id("email0")).click();
-      ajaxWait();
-      driver().findElement(By.id("profileEmail")).clear();
-      driver().findElement(By.id("profileEmail")).sendKeys(dataset.get("changedEmail"));
-      driver().findElement(By.id("buttonProfileChangeEmailSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("changedEmail")));
-
-      driver().findElement(By.id("email0")).click();
-      ajaxWait();
-      driver().findElement(By.id("profileEmail")).clear();
-      driver().findElement(By.id("profileEmail")).sendKeys(dataset.get("registrationEmail"));
-      driver().findElement(By.id("buttonProfileChangeEmailSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationEmail")));
+      driver().findElement(By.id("cityInput")).clear();
+      driver().findElement(By.id("cityInput")).sendKeys(dataset.get("changedCity"));
+      blur(By.id("cityInput"));
+      assertTrue(isAjaxMessagePresent("You updated your hometown successfully."));
       
-      driver().findElement(By.id("profileChangeCityOpen")).click();
-      ajaxWait();
-      driver().findElement(By.id("profileCity")).clear();
-      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("changedCity"));
-      driver().findElement(By.id("profileCitySubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("changedCity")));
+      openLocation("catroid/profile/");
+      assertEquals(dataset.get("changedCity"), driver().findElement(By.id("cityInput")).getAttribute("value"));
       
-      driver().findElement(By.id("profileChangeCityOpen")).click();
-      ajaxWait();
-      driver().findElement(By.id("profileCity")).clear();
-      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("registrationCity"));
-      driver().findElement(By.id("profileCitySubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationCity")));
-
-      driver().findElement(By.id("profileChangeCountryOpen")).click();
-      ajaxWait();
-      Select selectCountry = new Select(driver().findElement(By.id("profileCountry")));
+      driver().findElement(By.id("cityInput")).clear();
+      driver().findElement(By.id("cityInput")).sendKeys(dataset.get("registrationCity"));
+      blur(By.id("cityInput"));
+      assertTrue(isAjaxMessagePresent("You updated your hometown successfully."));
+      
+      openLocation("catroid/profile/");
+      assertEquals(dataset.get("registrationCity"), driver().findElement(By.id("cityInput")).getAttribute("value"));
+      
+      Select selectCountry = new Select(driver().findElement(By.id("countrySelect")));
       selectCountry.selectByValue(dataset.get("changedCountryID"));
-      driver().findElement(By.id("profileCountrySubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("changedCountry")));
+      blur(By.id("countrySelect"));
+      assertTrue(isAjaxMessagePresent("You updated your country successfully."));
       
-      driver().findElement(By.id("profileChangeCountryOpen")).click();
-      ajaxWait();
-      selectCountry = new Select(driver().findElement(By.id("profileCountry")));
+      openLocation("catroid/profile/");
+      selectCountry = new Select(driver().findElement(By.id("countrySelect")));
+      assertEquals(dataset.get("changedCountry"), selectCountry.getFirstSelectedOption().getText());
+      
       selectCountry.selectByValue(dataset.get("registrationCountryID"));
-      driver().findElement(By.id("profileCountrySubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationCountry")));    
-      
-      
-      driver().findElement(By.id("profileChangeBirthOpen")).click();
-      ajaxWait();
-      Select selectMonth = new Select(driver().findElement(By.id("profileMonth")));
-      Select selectYear = new Select(driver().findElement(By.id("profileYear")));
-      selectMonth.selectByValue(dataset.get("changedMonthID"));
-      selectYear.selectByValue(dataset.get("changedYearEmpty"));
-      driver().findElement(By.id("profileBirthSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent("Please select the month and the year of your birthday"));
-      
-      selectMonth = new Select(driver().findElement(By.id("profileMonth")));
-      selectYear = new Select(driver().findElement(By.id("profileYear")));
-      selectMonth.selectByValue(dataset.get("changedMonthEmpty"));
-      selectYear.selectByValue(dataset.get("changedYear"));
-      driver().findElement(By.id("profileBirthSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent("Please select the month and the year of your birthday")); 
-      
-      selectMonth = new Select(driver().findElement(By.id("profileMonth")));
-      selectYear = new Select(driver().findElement(By.id("profileYear")));
+      blur(By.id("countrySelect"));
+      assertTrue(isAjaxMessagePresent("You updated your country successfully."));
+
+      openLocation("catroid/profile/");
+      selectCountry = new Select(driver().findElement(By.id("countrySelect")));
+      assertEquals(dataset.get("registrationCountry"), selectCountry.getFirstSelectedOption().getText());
+
+      Select selectMonth = new Select(driver().findElement(By.id("birthdayMonthSelect")));
+      Select selectYear = new Select(driver().findElement(By.id("birthdayYearSelect")));
       selectMonth.selectByValue(dataset.get("changedMonthID"));
       selectYear.selectByValue(dataset.get("changedYear"));
-      driver().findElement(By.id("profileBirthSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("changedMonth")));
-      assertTrue(isTextPresent(dataset.get("changedYear")));
+      blur(By.id("birthdayYearSelect"));
+      assertTrue(isAjaxMessagePresent("You updated your birthday successfully."));
+
+      openLocation("catroid/profile/");
+      selectMonth = new Select(driver().findElement(By.id("birthdayMonthSelect")));
+      selectYear = new Select(driver().findElement(By.id("birthdayYearSelect"))); 
+      assertEquals(dataset.get("changedMonth"), selectMonth.getFirstSelectedOption().getText());
+      assertEquals(dataset.get("changedYear"), selectYear.getFirstSelectedOption().getText());
       
-      driver().findElement(By.id("profileChangeBirthOpen")).click();
-      ajaxWait();
-      selectMonth = new Select(driver().findElement(By.id("profileMonth")));
-      selectYear = new Select(driver().findElement(By.id("profileYear"))); 
+      selectMonth = new Select(driver().findElement(By.id("birthdayMonthSelect")));
+      selectYear = new Select(driver().findElement(By.id("birthdayYearSelect"))); 
       selectMonth.selectByValue(dataset.get("registrationMonthID"));
       selectYear.selectByValue(dataset.get("registrationYear"));
-      driver().findElement(By.id("profileBirthSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationMonth")));
-      assertTrue(isTextPresent(dataset.get("registrationYear")));
+      blur(By.id("birthdayYearSelect"));
+      assertTrue(isAjaxMessagePresent("You updated your birthday successfully."));
+
+      openLocation("catroid/profile/");
+      selectMonth = new Select(driver().findElement(By.id("birthdayMonthSelect")));
+      selectYear = new Select(driver().findElement(By.id("birthdayYearSelect"))); 
+      assertEquals(dataset.get("registrationMonth"), selectMonth.getFirstSelectedOption().getText());
+      assertEquals(dataset.get("registrationYear"), selectYear.getFirstSelectedOption().getText());
 
       
-      driver().findElement(By.id("profileChangeGenderOpen")).click();
-      ajaxWait();
-      Select selectGender = new Select(driver().findElement(By.id("profileGender")));
+      Select selectGender = new Select(driver().findElement(By.id("genderSelect")));
       selectGender.selectByValue(dataset.get("changedGender"));
-      driver().findElement(By.id("profileGenderSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("changedGender")));
+      blur(By.id("genderSelect"));
+      assertTrue(isAjaxMessagePresent("You updated your gender successfully."));
 
-      driver().findElement(By.id("profileChangeGenderOpen")).click();
-      ajaxWait();
-      selectGender = new Select(driver().findElement(By.id("profileGender")));
+      openLocation("catroid/profile/");
+      selectGender = new Select(driver().findElement(By.id("genderSelect")));
+      assertEquals(dataset.get("changedGender"), selectGender.getFirstSelectedOption().getText());
+
+      selectGender = new Select(driver().findElement(By.id("genderSelect")));
       selectGender.selectByValue(dataset.get("registrationGender"));
-      driver().findElement(By.id("profileGenderSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationGender")));
-
+      blur(By.id("genderSelect"));
+      assertTrue(isAjaxMessagePresent("You updated your gender successfully."));
       
+      openLocation("catroid/profile/");
+      selectGender = new Select(driver().findElement(By.id("genderSelect")));
+      assertEquals(dataset.get("registrationGender"), selectGender.getFirstSelectedOption().getText());
+
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
       throw e;
     } catch(Exception e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
       throw e;
     }
   }
   
-  @Test(dataProvider = "loginAndAddData", groups = { "functionality", "visibility" }, description = "check profile page")
-  public void profilePageAddUserData(HashMap<String, String> dataset) throws Throwable {
+  @Test(dataProvider = "loginAndChangeData", groups = { "functionality", "visibility" }, description = "upadte user avatar")
+  public void profileChangeAvatarTest(HashMap<String, String> dataset) throws Throwable {
+    try {
+      openLocation("catroid/registration/");
+
+      driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      (new Select(driver().findElement(By.id("registrationCountry")))).selectByValue(dataset.get("registrationCountryID"));
+      driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.id("registrationSubmit")).click();
+      ajaxWait();
+      
+      assertTrue(driver().findElement(By.id("profileAvatarImage")).getAttribute("src").contains("images/symbols/avatar_boys.png"));
+      makeVisible(By.id("profileAvatarFile"), "arguments[0].style.width='100px';arguments[0].style.height='100px';");
+      driver().findElement(By.id("profileAvatarFile")).sendKeys(Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + "test.zip");
+      driver().findElement(By.id("profileChangePassword")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileChangePassword")).click();
+      
+      assertTrue(driver().findElement(By.id("profileAvatarImage")).getAttribute("src").contains("images/symbols/avatar_boys.png"));
+      assertTrue(isAjaxMessagePresent("Invalid image, allowed image types are gif, png or jpeg."));
+      
+      driver().findElement(By.id("profileAvatarFile")).sendKeys(Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + "catrobat.png");
+      driver().findElement(By.id("profileChangePassword")).click();
+      ajaxWait();
+      driver().findElement(By.id("profileChangePassword")).click();
+      
+      assertFalse(driver().findElement(By.id("profileAvatarImage")).getAttribute("src").contains("images/symbols/avatar_boys.png"));
+      assertTrue(isAjaxMessagePresent("You updated your avatar successfully."));
+      
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+    } catch(AssertionError e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+      captureScreen("ProfileTests.profileChangeAvatarTest." + dataset.get("registrationUsername"));
+      throw e;
+    } catch(Exception e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+      captureScreen("ProfileTests.profileChangeAvatarTest." + dataset.get("registrationUsername"));
+      throw e;
+    }
+  }
+  
+  @Test(dataProvider = "emailTest", groups = { "functionality", "visibility" }, description = "check add/delete email")
+  public void profilePageEmailTest(HashMap<String, String> dataset) throws Throwable {
     try {
       openLocation("catroid/registration/");
       
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
-      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      (new Select(driver().findElement(By.id("registrationCountry")))).selectByValue(dataset.get("registrationCountryID"));
       driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
       driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
       driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
 
-      driver().findElement(By.id("headerProfileButton")).click();
-      assertTrue(isElementPresent(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("headerCancelButton")).click();
-
-      assertTrue(isTextPresent(dataset.get("registrationUsername") + "\'s Profile"));
+      assertTrue(isTextPresent(dataset.get("registrationUsername")));
       assertTrue(isTextPresent("change my password"));
+      assertTrue(isTextPresent("Add another email address:"));
       assertTrue(isTextPresent(dataset.get("registrationEmail")));
       
-      driver().findElement(By.id("profileChangeCityOpen")).click();
-      ajaxWait();
-      driver().findElement(By.id("profileCity")).clear();
-      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("changedCity"));
-      driver().findElement(By.id("profileCitySubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("changedCity")));
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.id("emailDeleteButtons")).findElement(By.tagName("button")).click();
+      assertTrue(isAjaxMessagePresent("Error while deleting this e-mail address. You must have at least one e-mail address."));
       
-      driver().findElement(By.id("profileChangeCityOpen")).click();
-      ajaxWait();
-      driver().findElement(By.id("profileCity")).clear();
-      driver().findElement(By.id("profileCity")).sendKeys(dataset.get("registrationCity"));
-      driver().findElement(By.id("profileCitySubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationCity")));
+      openLocation("catroid/profile/");
       
+      driver().findElement(By.id("addEmailInput")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.id("addEmailButton")).click();
+      assertTrue(isAjaxMessagePresent("This email address already exists."));
       
-      driver().findElement(By.id("profileChangeBirthOpen")).click();
-      ajaxWait();
-      Select selectMonth = new Select(driver().findElement(By.id("profileMonth")));
-      Select selectYear = new Select(driver().findElement(By.id("profileYear")));
-      selectMonth.selectByValue(dataset.get("changedMonthID"));
-      selectYear.selectByValue(dataset.get("changedYear"));
-      driver().findElement(By.id("profileBirthSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("changedMonth")));
-      assertTrue(isTextPresent(dataset.get("changedYear")));
+      openLocation("catroid/profile/");
       
-      driver().findElement(By.id("profileChangeBirthOpen")).click();
-      ajaxWait();
-      selectMonth = new Select(driver().findElement(By.id("profileMonth")));
-      selectYear = new Select(driver().findElement(By.id("profileYear"))); 
-      selectMonth.selectByValue(dataset.get("registrationMonthID"));
-      selectYear.selectByValue(dataset.get("registrationYear"));
-      driver().findElement(By.id("profileBirthSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationMonth")));
-      assertTrue(isTextPresent(dataset.get("registrationYear")));
+      driver().findElement(By.id("addEmailInput")).sendKeys(dataset.get("secondEmail"));
+      driver().findElement(By.id("addEmailButton")).click();
+      assertTrue(isAjaxMessagePresent(Config.TESTS_BASE_PATH + "catroid/emailvalidation?c="));
 
-      
-      driver().findElement(By.id("profileChangeGenderOpen")).click();
-      ajaxWait();
-      Select selectGender = new Select(driver().findElement(By.id("profileGender")));
-      selectGender.selectByValue(dataset.get("changedGender"));
-      driver().findElement(By.id("profileGenderSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("changedGender")));
+      // get validation url and open it
+      String validationUrl = getValidationUrl();
+      openLocation(validationUrl + "_invalid");
+      assertTrue(isTextPresent("Recovery hash was not found."));
+      openLocation(validationUrl);
+      assertTrue(isTextPresent("You have successfully validated your email address."));
 
-      driver().findElement(By.id("profileChangeGenderOpen")).click();
+      openLocation("catroid/profile/");
       ajaxWait();
-      selectGender = new Select(driver().findElement(By.id("profileGender")));
-      selectGender.selectByValue(dataset.get("registrationGender"));
-      driver().findElement(By.id("profileGenderSubmit")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationGender")));
+
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.id("emailDeleteButtons")).findElements(By.tagName("button")).get(0).click();
+      assertTrue(isAjaxMessagePresent("You deleted your e-mail address successfully."));
       
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
       throw e;
     } catch(Exception e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
       captureScreen("ProfileTests.profilePage." + dataset.get("registrationUsername"));
       throw e;
     }
@@ -340,55 +337,81 @@ public class ProfileTests extends BaseTest {
   public void profilePageLinkToMyProjects() throws Throwable {
     try {
       // login
-      openLocation();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.id("loginUsername")));
-      assertTrue(isVisible(By.id("loginPassword")));
-
-      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
-      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
-
-      driver().findElement(By.id("loginSubmitButton")).click();
-      ajaxWait();      
+      login("catroid/profile/");
       
-      openLocation("catroid/profile/");
-      
-      driver().findElement(By.name("profileMyProfileOpen")).click();
+      assertTrue(isTextPresent("My Projects"));
+      driver().findElement(By.id("profileMyProfileLink")).click();
       assertTrue(isTextPresent(CommonStrings.MYPROJECTS_TITLE));
       
     } catch(AssertionError e) {
-      captureScreen("ProfileTests.profilePageLinkToMyProjects.");
+      captureScreen("ProfileTests.profilePageLinkToMyProjects");
       throw e;
     } catch(Exception e) {
-      captureScreen("ProfileTests.profilePageLinkToMyProjects.");
+      captureScreen("ProfileTests.profilePageLinkToMyProjects");
       throw e;
     }
-  }  
+  }
+
+  @Test(dataProvider = "emailTest", groups = { "functionality", "visibility" }, description = "Tests user profile page")
+  public void profileForeignProfilePage(HashMap<String, String> dataset) throws Throwable {
+    try {
+      openLocation("catroid/registration/");
+      
+      driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      (new Select(driver().findElement(By.id("registrationCountry")))).selectByValue(dataset.get("registrationCountryID"));
+      driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.id("registrationSubmit")).click();
+      ajaxWait();
+      
+      logout("catroid/profile/" + dataset.get("registrationUsername"));
+      assertTrue(isTextPresent("Login"));
+
+      login("catroid/profile/" + dataset.get("registrationUsername"));
+      assertTrue(isTextPresent("User Profile"));
+      assertTrue(isTextPresent(dataset.get("registrationUsername")));
+      assertTrue(isTextPresent(dataset.get("registrationCountry")));
+      assertTrue(isTextPresent("0"));
+      
+      String projectTitle = dataset.get("registrationUsername");
+      String authToken = CommonFunctions.generateAuthenticationToken(
+          dataset.get("registrationUsername"), dataset.get("registrationPassword"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", authToken));
+      assertProjectPresent(projectTitle);
+
+      openLocation("catroid/profile/" + dataset.get("registrationUsername"));
+      assertTrue(isTextPresent("1"));
+
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+    } catch(AssertionError e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+      captureScreen("ProfileTests.profileForeignProfilePage." + dataset.get("registrationUsername"));
+      throw e;
+    } catch(Exception e) {
+      CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
+      captureScreen("ProfileTests.profileForeignProfilePage." + dataset.get("registrationUsername"));
+      throw e;
+    }
+  }
   
   @SuppressWarnings("serial")
   @DataProvider(name = "loginAndAddData")
-  public Object[][] loginAndAddData() {
-    final String randomString = CommonData.getRandomShortString(10);
-
+  public Object[][] emailTest() {
     Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
       {
-        put("registrationUsername", "ProfileTest" + randomString);
+        put("registrationUsername", "ProfileTest" + CommonData.getRandomShortString(10));
         put("registrationPassword", "myPassword123");
-        put("registrationEmail", "email_" + randomString + "@selenium.at");
+        put("registrationEmail", "email_" + CommonData.getRandomShortString(10) + "@selenium.at");
+        put("secondEmail", "email_" + CommonData.getRandomShortString(10) + "@selenium.at");
         put("registrationCountry", "Austria");
-        put("registrationCountryID", "AT");
-        put("changedCity", "München");
+        put("registrationCountryID", "at");
         put("registrationCity", "Graz");
-        put("changedMonthID", "4");
-        put("changedMonth", "April");
         put("registrationMonthID", "8");
         put("registrationMonth", "August");
-        put("changedYear", "1978");
         put("registrationYear", "1999");
-        put("changedGender", "female");
         put("registrationGender", "male");
         put("registrationLanguage", "en");
       }
@@ -410,10 +433,10 @@ public class ProfileTests extends BaseTest {
         put("emptyPassword", "");
         put("registrationEmail", "email" + randomString + "@selenium.at");
         put("changedEmail", "anotherMail" + randomString + "@selenium.at");
-        put("registrationCountryID", "AT");
-        put("registrationCountry", "AUSTRIA");
-        put("changedCountryID", "DE");
-        put("changedCountry", "GERMANY");
+        put("registrationCountryID", "at");
+        put("registrationCountry", "Austria");
+        put("changedCountryID", "de");
+        put("changedCountry", "Germany");
         put("registrationCity", "Graz");
         put("changedCity", "München");
         put("registrationMonthID", "8");

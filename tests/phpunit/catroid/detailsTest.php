@@ -55,7 +55,7 @@ class detailsTest extends PHPUnit_Framework_TestCase
   public function testGetProjectInfo($id, $version_code, $version_name) {
     $project = $this->obj->getProjectDetails($id);
     $this->assertEquals($project['version_name'], $version_name);
-    $this->assertEquals($project['version_code'], $version_code);
+    $this->assertEquals($project['language_code'], $version_code);
   }
   
   /**
@@ -114,7 +114,7 @@ class detailsTest extends PHPUnit_Framework_TestCase
 
   public function projectVersionInfo() {
     $dataArray = array(
-      array(1, 500, "0.6.0beta")
+        array(1, 500, "0.7.0beta")
       );
     return $dataArray;
   }

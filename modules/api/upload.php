@@ -1,5 +1,6 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
+/**
+ *    Catroid: An on-device graphical programming language for Android devices
  *    Copyright (C) 2010-2012 The Catroid Team
  *    (<http://code.google.com/p/catroid/wiki/Credits>)
  *
@@ -18,34 +19,96 @@
  */
 
 class upload extends CoreAuthenticationDevice {
+  private $uploadState;
 
   public function __construct() {
     parent::__construct();
-    $thumbnailDir = CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY;
+
+    $this->uploadState = array('remove_files' => array(),
+        'remove_dirs' => array(),
+        'remove_project_from_db' => array());
   }
 
   public function __default() {
-    $this->_upload();
+    $this->doUpload($_POST, $_FILES);
   }
 
   public function __authenticationFailed() {
-    $this->statusCode = 601;
+    $this->statusCode = STATUS_CODE_AUTHENTICATION_FAILED;
     $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_token');
   }
 
-  public function _upload() {
+  public function doUpload($formData, $fileData) {
     try {
-      $newId = $this->doUpload($_POST, $_FILES, $_SERVER);
-      $this->statusCode = 200;
+      $fileData = $this->checkForAndPrepareFTPUpload($formData, $fileData);
+
+      $this->checkFileData($formData, $fileData);
+      $this->checkProjectSize($fileData);
+      $this->checkFileChecksum($formData, $fileData['upload']['tmp_name']);
+
+      $tempFilenameUnique = $this->getUniqueFilename();
+      $fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'],
+          CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique);
+      $this->unzipProjectFiles(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique,
+          CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique);
+
+      $xmlFile = $this->getProjectXmlFile(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique . '/');
+      $projectInformation = $this->getProjectInformation($xmlFile, $formData);
+      $this->checkValidProjectTitle($projectInformation['projectTitle']);
+      $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
+      $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
+
+      $projectId = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
+          $projectInformation['projectDescription'], $projectInformation['uploadIp'],
+          $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
+          $projectInformation['versionCode']);
+
+      $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
+      $this->renameUnzipDirectory(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique,
+          CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $projectId);
+      $this->extractThumbnail(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $projectId . '/', $projectId);
+
+      $this->getQRCode($projectId, $projectInformation['projectTitle']);
+
+      $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
+      if($unapprovedWords) {
+        $this->badWordsFilter->mapUnapprovedWordsToProject($projectId);
+        $this->sendUnapprovedWordlistPerEmail();
+      }
+
+      $this->buildNativeApp($projectId);
+
+      $this->projectId = $projectId;
+      $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('upload_successfull');
     } catch(Exception $e) {
-      $this->sendUploadFailAdminEmail($_POST, $_FILES, $_SERVER);
+      $this->sendUploadFailAdminEmail($_POST, $_FILES);
+      $this->cleanup();
+      $this->statusCode = $e->getCode();
       $this->answer = $e->getMessage();
-      $this->postData = $_POST;
     }
   }
 
-  public function doUpload($formData, $fileData, $serverData) {
+  public function cleanup() {
+    foreach($this->uploadState['remove_files'] as $file) {
+      if(file_exists($file)) {
+        unlink($file);
+      }
+    }
+    foreach($this->uploadState['remove_dirs'] as $dir) {
+      removeDir($dir);
+    }
+
+    foreach($this->uploadState['remove_project_from_db'] as $projectId) {
+      $this->query("delete_project_by_id", array($projectId));
+    }
+  }
+
+  public function __destruct() {
+    parent::__destruct();
+  }
+
+  private function checkForAndPrepareFTPUpload($formData, $fileData) {
     if(isset($formData['catroidFileName'])) {
       $fileData['upload']['tmp_name'] = PROJECTS_FTP_UPLOAD_DIRECTORY . $formData['catroidFileName'];
 
@@ -55,475 +118,334 @@ class upload extends CoreAuthenticationDevice {
         $fileData['upload']['error'] = UPLOAD_ERR_NO_FILE;
       }
     }
-
-    try {
-      $this->checkPostData($formData, $fileData);
-    } catch(Exception $e) {
-      $this->statusCode = 509;
-      throw new Exception($e->getMessage());
-    }
-
-    try {
-      $this->checkProjectSize($fileData);
-    } catch(Exception $e) {
-      $this->statusCode = 508;
-      throw new Exception($e->getMessage());
-    }
-
-    //--- move and unzip
-    
-    $projectName = md5(uniqid(time()));
-    $uploadFile = $projectName.PROJECTS_EXTENSION;
-    $uploadDir = CORE_BASE_PATH.PROJECTS_DIRECTORY.$uploadFile;
-    $unzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectName.'/';
-    $uploadIp = $serverData['REMOTE_ADDR'];
-    isset($formData['userEmail']) ? $uploadEmail = checkUserInput($formData['userEmail']) : $uploadEmail = null;
-    isset($formData['userLanguage']) ? $uploadLanguage = checkUserInput($formData['userLanguage']) : $uploadLanguage = null;
-    
-    try {
-      $fileSize = $this->copyProjectToDirectory($fileData['upload']['tmp_name'], $uploadDir);
-    } catch(Exception $e) {
-      $this->statusCode = 504;
-      throw new Exception($e->getMessage());
-    }
-    
-    if(!isset($formData['fileChecksum']) || !$formData['fileChecksum']) {
-      $this->statusCode = 510;
-      $this->removeProjectFromFilesystem($uploadDir, $projectName);
-      throw new Exception($this->errorHandler->getError('upload', 'missing_post_file_checksum'));
-    }
-    $fileChecksum = md5_file($uploadDir);
-    try {
-      $this->checkFileChecksum($fileChecksum, $formData['fileChecksum']);
-    } catch(Exception $e) {
-      $this->statusCode = 501;
-      $this->removeProjectFromFilesystem($uploadDir, $projectName);
-      throw new Exception($e->getMessage());
-    }
-    
-    
-    try {
-      if(!unzipFile($uploadDir, $unzipDir)) {
-        throw new Exception($this->errorHandler->getError('upload', 'invalid_project_zip'));
-      }
-    } catch(Exception $e) {
-      $this->statusCode = 511;
-      $this->removeProjectFromFilesystem($uploadDir, $projectName);
-      throw new Exception($e->getMessage());
-    }
-    
-    $projectTitle = "";
-    $projectDescription = "";
-    $versionCode = 0;
-    $versionName = "";
-    try {
-      $projectInformation = $this->extractCatroidXML($this->getProjectXmlFile($unzipDir));
-      
-      if($projectInformation['projectTitle'] != "") {
-        $projectTitle = $projectInformation['projectTitle'];
-      } else if(isset($formData['projectTitle'])) {
-        $projectTitle = checkUserInput($formData['projectTitle']);
-      }
-
-      if($projectInformation['projectDescription'] != "") {
-        $projectDescription = $projectInformation['projectDescription'];
-      } else if(isset($formData['projectDescription'])) {
-        $projectDescription = checkUserInput($formData['projectDescription']) ;
-      }
-      
-      if($projectInformation['versionCode'] != null) {
-        $versionCode = $projectInformation['versionCode'];
-      }
-      
-      if($projectInformation['versionName'] != null) {
-        $versionName = $projectInformation['versionName'];
-      }
-    } catch(Exception $e) {
-      $this->statusCode = 512;
-      $this->removeProjectFromFilesystem($uploadDir, $projectName);
-      throw new Exception($e->getMessage());
-    }
-    
-    //---- insert into db
-    $projectTitle = pg_escape_string($projectTitle);
-    $projectDescription = pg_escape_string($projectDescription);
-
-    try {
-      $this->checkValidProjectTitle($projectTitle);
-    } catch(Exception $e) {
-      $this->statusCode= 507;
-      $this->removeProjectFromFilesystem($uploadDir, $projectName);
-      throw new Exception($e->getMessage());
-    }
-
-    try {
-      $this->checkTitleForInsultingWords($projectTitle);
-    } catch(Exception $e) {
-      $this->statusCode = 506;
-      $this->removeProjectFromFilesystem($uploadDir, $projectName);
-      throw new Exception($e->getMessage());
-    }
-
-    try {
-      $this->checkDescriptionForInsultingWords($projectDescription);
-    } catch(Exception $e) {
-      $this->statusCode = 505;
-      $this->removeProjectFromFilesystem($uploadDir, $projectName);
-      throw new Exception($e->getMessage());
-    }
-
-    try {
-      $newId = $this->insertProjectIntoDatabase($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $versionName, $versionCode);
-    } catch(Exception $e) {
-      $this->statusCode = 503;
-      $this->removeProjectFromFilesystem($uploadDir, $projectName);
-      throw new Exception($e->getMessage());
-    }
-
-    $projectDir = CORE_BASE_PATH.PROJECTS_DIRECTORY;
-    $projectFile = $projectDir.$newId.PROJECTS_EXTENSION;
-    
-    // rename after insertion
-    try {
-      $this->renameProjectFile($uploadDir, $newId);
-    } catch(Exception $e) {
-      $this->statusCode = 502;
-      $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION;
-      $this->removeProjectFromDatabase($newId);
-      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION, $projectName);
-      throw new Exception($e->getMessage());
-    }
-
-    try {
-      $this->getQRCode($newId, $projectTitle);
-    } catch(Exception $e) {
-      $this->sendQRFailNotificationEmail($newId, $projectTitle);
-      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION, $projectName);
-    }
-
-    $this->extractThumbnail($unzipDir, $newId);
-    $finalUnzipDir = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$newId.'/';
-    
-    removeDir($finalUnzipDir);
-    if(!rename($unzipDir, $finalUnzipDir)) {
-      $this->removeProjectFromDatabase($newId);
-      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION, $newId);
-      $this->removeProjectFromFilesystem(CORE_BASE_PATH.PROJECTS_DIRECTORY.$newId.PROJECTS_EXTENSION, $projectName);
-      throw new Exception($this->errorHandler->getError('upload', 'rename_failed'));
-    }
-
-    $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
-    if($unapprovedWords) {
-      $this->badWordsFilter->mapUnapprovedWordsToProject($newId);
-      $this->sendUnapprovedWordlistPerEmail();
-    }
-    
-    $this->buildNativeApp($newId);
-
-    $this->statusCode = 200;
-    $this->projectId = $newId;
-    $this->fileChecksum = $fileChecksum;
-    return $newId;
+    return $fileData;
   }
 
-  public function copyProjectToDirectory($tmpFile, $uploadDir) {
-    if(copy($tmpFile, $uploadDir)) {
-      return filesize($uploadDir);
-    } else {
-      throw new Exception($this->errorHandler->getError('upload', 'copy_failed'));
-    }
-  }
-
-  public function removeProjectFromFilesystem($projectFile, $projectId = "") {
-    @unlink($projectFile);
-    if($projectId != "") {
-      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENSION_SMALL);
-      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENSION_LARGE);
-      @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.$projectId.PROJECTS_THUMBNAIL_EXTENSION_ORIG);
-      @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION);
-      removeDir(CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY.$projectId);
-    }
-    return true;
-  }
-
-  public function renameProjectFile($oldName, $projectId) {
-    $newFileName = $projectId.PROJECTS_EXTENSION;
-    $newName = CORE_BASE_PATH.PROJECTS_DIRECTORY.$newFileName;
-    
-    if(is_dir($newName)) {
-      removeDir($newName);
-    }
-    
-    if(!rename($oldName, $newName)) {
-      throw new Exception($this->errorHandler->getError('upload', 'rename_failed'));
-    }
-    $result = pg_execute($this->dbConnection, "set_project_new_filename", array($newFileName, $projectId)) or
-              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('upload', 'rename_failed', pg_last_error($this->dbConnection)));
-    }
-    return true;
-  }
-
-  public function removeProjectFromDatabase($projectId) {
-    pg_execute($this->dbConnection, "delete_project_by_id", array($projectId)) or
-               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    return true;
-  }
-
-  public function checkFileChecksum($uploadChecksum, $clientChecksum) {
-    if(strcmp(strtolower($uploadChecksum), strtolower($clientChecksum)) != 0) {
-      throw new Exception($this->errorHandler->getError('upload', 'invalid_file_checksum'));
-    }
-    return true;
-  }
-
-  private function getProjectXmlFile($unzipDir) {
-    $dirHandler = opendir($unzipDir);
-    $xmlFile = null;
-    while(($file = readdir($dirHandler)) !== false) {
-      $details = pathinfo($file);
-      if(isset($details['extension']) && (strcmp($details['extension'], 'spf') == 0 || strcmp($details['extension'], 'xml') == 0 || strcmp($details['extension'], 'catroid') == 0)) {
-        $xmlFile = $file;
-      }
-    }
-    if(!$xmlFile) {
-      throw new Exception($this->errorHandler->getError('upload', 'project_xml_not_found'));
-    }
-    return $unzipDir.$xmlFile;
-  }
-
-  public function extractCatroidXML($xmlFile) {
-  	$xml = simplexml_load_file($xmlFile);
-    if(!$xml) {
-      throw new Exception($this->errorHandler->getError('upload', 'invalid_project_xml'));
-    }
-    $attributes = $xml->attributes();
-    $versionName = (isset($attributes["catroidVersionName"]) && $attributes["catroidVersionName"]) ? strval($attributes["catroidVersionName"]) : null;
-    $versionCode = (isset($attributes["catroidVersionCode"]) && $attributes["catroidVersionCode"]) ? strval($attributes["catroidVersionCode"]) : null;
-    $projectTitle = isset($attributes["projectName"]) && $attributes["projectName"] ? strval($attributes["projectName"]) : null;
-    $projectDescription = isset($attributes["description"]) && $attributes["description"] ? strval($attributes["description"]) : null;
-    
-    
-    if(!$versionName || !$versionCode) {
-      $versionCode = null;
-      $versionName = null;
-      $projectTitle = null;
-      $projectDescription = null;
-      foreach($xml->children() as $child) {
-        if(strcmp(strval($child->getName()), 'catroidVersionName') == 0) {
-          $versionName = strval($child);
-        } elseif(strcmp(strval($child->getName()), 'catroidVersionCode') == 0) {
-          $versionCode = strval($child);
-        } elseif(strcmp(strval($child->getName()), 'projectName') == 0) {
-          $projectTitle = strval($child);
-        } elseif(strcmp(strval($child->getName()), 'description') == 0) {
-          $projectDescription = strval($child);
-        }
-      }
-    }
-
-    if(!$versionName || !$versionCode) {
-      $versionCode = 499;
-      $versionName = '&lt; 0.6.0beta';
-    } else {
-      if (stristr($versionName, "-"))
-      	$versionName = substr($versionName, 0, strpos($versionName, "-"));
-    }
-    
-    if(!$projectTitle) {
-      $projectTitle = "";
-    }
-    
-    if(!$projectDescription) {
-      $projectDescription = "";
-    }
-
-    return(array(
-        "versionName" => $versionName,
-        "versionCode" => $versionCode,
-        "projectTitle" => $projectTitle,
-        "projectDescription" => $projectDescription));
-  }
-
-  private function insertProjectIntoDatabase($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $versionName, $versionCode) {
-    $this->session->userLogin_userId ? $userId=$this->session->userLogin_userId : $userId=0;
-    
-    $result = pg_execute($this->dbConnection, "does_project_already_exist", array($projectTitle, $userId)) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    if($result && pg_num_rows($result) == 1) {
-      $row = pg_fetch_assoc($result);
-      $updateId = $row['id'];
-      @pg_free_result($result);
-
-      $result = pg_execute($this->dbConnection, "update_project", array($projectDescription, $uploadIp, $fileSize, $versionName, $versionCode, $updateId)) or
-                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('upload', 'sql_update_failed', pg_last_error($this->dbConnection)));
-      }
-      return $updateId;
-    } else {
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('upload', 'sql_insert_failed', pg_last_error($this->dbConnection)));
-      }
-      @pg_free_result($result);
-
-      $result = pg_execute($this->dbConnection, "insert_new_project", array($projectTitle, $projectDescription, $uploadFile, $uploadIp, $uploadEmail, $uploadLanguage, $fileSize, $versionName, $versionCode, $userId)) or
-                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('upload', 'sql_insert_failed', pg_last_error($this->dbConnection)));
-      }
-      $row = pg_fetch_assoc($result);
-      $insertId = $row['id'];
-      
-      @pg_free_result($result);
-      return $insertId;
-    }
-    return 0;
-  }
-
-  private function checkPostData($formData, $fileData) {
-    if(!isset($fileData['upload']['tmp_name']) || $fileData['upload']['error'] !== UPLOAD_ERR_OK) {
-      throw new Exception($this->errorHandler->getError('upload', 'missing_post_data'));
+  private function checkFileData($formData, $fileData) {
+    if(!isset($fileData['upload']['tmp_name']) ||
+        !file_exists($fileData['upload']['tmp_name']) ||
+        ($fileData['upload']['error'] !== UPLOAD_ERR_OK)) {
+      throw new Exception($this->errorHandler->getError('upload', 'missing_file_data'), STATUS_CODE_UPLOAD_MISSING_DATA);
     }
     return true;
   }
 
   private function checkProjectSize($fileData) {
     if(isset($fileData['upload']['size']) && intval($fileData['upload']['size']) > PROJECTS_MAX_SIZE) {
-      throw new Exception($this->errorHandler->getError('upload', 'project_exceed_filesize_limit'));
+      throw new Exception($this->errorHandler->getError('upload', 'project_exceed_filesize_limit'), STATUS_CODE_UPLOAD_EXCEEDING_FILESIZE);
     }
     return true;
+  }
+
+  private function checkFileChecksum($formData, $uploadedFile) {
+    if(!isset($formData['fileChecksum']) || !$formData['fileChecksum']) {
+      throw new Exception($this->errorHandler->getError('upload', 'missing_post_file_checksum'), STATUS_CODE_UPLOAD_MISSING_CHECKSUM);
+    }
+
+    $fileChecksum = md5_file($uploadedFile);
+    if(strcmp(strtolower($formData['fileChecksum']), strtolower($fileChecksum)) != 0) {
+      throw new Exception($this->errorHandler->getError('upload', 'invalid_file_checksum'), STATUS_CODE_UPLOAD_INVALID_CHECKSUM);
+    }
+  }
+
+  private function getUniqueFilename() {
+    $filename = md5(uniqid(time()));
+    while(file_exists(CORE_BASE_PATH . PROJECTS_DIRECTORY . $filename)) {
+      $filename = md5(uniqid(time()));
+    }
+    return $filename;
+  }
+
+  private function copyProjectToDirectory($tmpFile, $uploadDir) {
+    if(copy($tmpFile, $uploadDir)) {
+      chmod($uploadDir, 0666);
+      $this->setState('remove_files', $uploadDir);
+      return filesize($uploadDir);
+    } else {
+      throw new Exception($this->errorHandler->getError('upload', 'copy_failed'), STATUS_CODE_UPLOAD_COPY_FAILED);
+    }
+  }
+
+  private function unzipProjectFiles($zipFile, $destDir) {
+    if(!unzipFile($zipFile, $destDir)) {
+      throw new Exception($this->errorHandler->getError('upload', 'invalid_project_zip'), STATUS_CODE_UPLOAD_UNZIP_FAILED);
+    }
+    chmodDir($destDir, 0666, 0777);
+    $this->setState('remove_dirs', $destDir);
+  }
+
+  private function getProjectXmlFile($unzipDir) {
+    $dirHandler = opendir($unzipDir);
+    while(($file = readdir($dirHandler)) !== false) {
+      $details = pathinfo($file);
+      if(isset($details['extension']) && file_exists($unzipDir . $file) && (strcmp($details['extension'], 'spf') == 0 ||
+          strcmp($details['extension'], 'xml') == 0 || strcmp($details['extension'], 'catroid') == 0)) {
+        return $unzipDir.$file;
+      }
+    }
+    throw new Exception($this->errorHandler->getError('upload', 'project_xml_not_found'), STATUS_CODE_UPLOAD_MISSING_XML);
+  }
+
+  private function getProjectInformation($xmlFile, $formData) {
+    libxml_use_internal_errors(true);
+    $xml = simplexml_load_file($xmlFile);
+    if(!$xml) {
+      throw new Exception($this->errorHandler->getError('upload', 'invalid_project_xml'), STATUS_CODE_UPLOAD_INVALID_XML);
+    }
+
+    $node = $xml->children();
+    $versionName = current($node[0]->ApplicationVersion);
+    $versionCode = current($node[0]->CatrobatLanguageVersion);
+    $projectTitle = current($node[0]->ProgramName);
+    $projectDescription = current($node[0]->Description);
+    
+    if(!$versionName || !$versionCode) {
+      $versionCode = 0.3;
+      $versionName = '&lt; 0.7.0beta';
+    } else if(stristr($versionName, "-")) {
+      $versionName = substr($versionName, 0, strpos($versionName, "-"));
+    }
+
+    if(!$projectTitle) {
+      $projectTitle = ((isset($formData['projectTitle']) && $formData['projectTitle'] != "") ? checkUserInput($formData['projectTitle']) : "");
+      if($projectTitle == "") {
+        throw new Exception($this->errorHandler->getError('upload', 'missing_project_title'), STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE);
+      }
+    }
+    if(!$projectDescription) {
+      $projectDescription = ((isset($formData['projectDescription'])) ? checkUserInput($formData['projectDescription']) : "");
+    }
+
+    $uploadIp = (isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'');
+    $uploadLanguage = ((isset($formData['userLanguage'])) ? checkUserInput($formData['userLanguage']) : 'en');
+
+    return(array(
+        "projectTitle" => pg_escape_string($projectTitle),
+        "projectDescription" => pg_escape_string($projectDescription),
+        "versionName" => $versionName,
+        "versionCode" => $versionCode,
+        "uploadIp" => $uploadIp,
+        "uploadLanguage" => $uploadLanguage
+    ));
   }
 
   private function checkValidProjectTitle($title) {
     if(strcmp($title, $this->languageHandler->getString('default_project_name')) == 0) {
-      throw new Exception($this->errorHandler->getError('upload', 'project_title_default'));
+      throw new Exception($this->errorHandler->getError('upload', 'project_title_default'), STATUS_CODE_UPLOAD_DEFAULT_PROJECT_TITLE);
     }
-    return true;
   }
 
   private function checkTitleForInsultingWords($title) {
     if($this->badWordsFilter->areThereInsultingWords($title)) {
-      throw new Exception($this->errorHandler->getError('upload', 'insulting_words_in_project_title'));
+      throw new Exception($this->errorHandler->getError('upload', 'insulting_words_in_project_title'), STATUS_CODE_UPLOAD_RUDE_PROJECT_TITLE);
     }
-    return true;
   }
 
   private function checkDescriptionForInsultingWords($description) {
     if($description && $this->badWordsFilter->areThereInsultingWords($description)) {
-      throw new Exception($this->errorHandler->getError('upload', 'insulting_words_in_project_description'));
+      throw new Exception($this->errorHandler->getError('upload', 'insulting_words_in_project_description'), STATUS_CODE_UPLOAD_RUDE_PROJECT_DESCRIPTION);
     }
-    return true;
+  }
+
+  private function updateOrInsertProjectIntoDatabase($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode) {
+    $userId = (($this->session->userLogin_userId) ? $this->session->userLogin_userId : 0);
+
+    $result = $this->query("does_project_already_exist", array($projectTitle, $userId));
+    if(pg_num_rows($result) == 1) {
+      $row = pg_fetch_assoc($result);
+      $updateId = $row['id'];
+      pg_free_result($result);
+
+      $this->query("update_project", array($projectDescription, $uploadIp, $fileSize, $versionName, $versionCode, $updateId));
+      return $updateId;
+    } else {
+      pg_free_result($result);
+
+      $result = $this->query("insert_new_project", array($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode, $userId));
+      $row = pg_fetch_assoc($result);
+      $insertId = $row['id'];
+      pg_free_result($result);
+
+      $this->setState('remove_project_from_db', $insertId);
+      return $insertId;
+    }
+  }
+
+  private function renameProjectFile($oldName, $projectId) {
+    $newName = CORE_BASE_PATH.PROJECTS_DIRECTORY . $projectId . PROJECTS_EXTENSION;
+
+    if(file_exists($newName)) {
+      unlink($newName);
+    }
+    if(!rename($oldName, $newName)) {
+      throw new Exception($this->errorHandler->getError('upload', 'rename_failed'), STATUS_CODE_UPLOAD_RENAME_FAILED);
+    }
+    $this->setState('remove_files', $newName, $oldName);
+
+    $this->query("set_project_new_filename", array($projectId.PROJECTS_EXTENSION, $projectId));
+  }
+
+  private function renameUnzipDirectory($oldName, $newName) {
+    removeDir($newName);
+    if(!rename($oldName, $newName)) {
+      throw new Exception($this->errorHandler->getError('upload', 'rename_failed'), STATUS_CODE_UPLOAD_RENAME_FAILED);
+    }
+    $this->setState('remove_dirs', $newName, $oldName);
+  }
+
+  private function extractThumbnail($unzipDir, $projectId) {
+    $thumbnail = $unzipDir . 'screenshot.png';
+
+    if(is_file($thumbnail)) {
+      $thumbImage = imagecreatefrompng($thumbnail);
+      if($thumbImage) {
+        if(!$this->saveThumbnail($thumbImage, $projectId, 0, PROJECTS_THUMBNAIL_EXTENSION_ORIG)) {
+          throw new Exception($this->errorHandler->getError('upload', 'save_thumbnail_failed'), STATUS_CODE_UPLOAD_SAVE_THUMBNAIL_FAILED);
+        }
+        if(!$this->saveThumbnail($thumbImage, $projectId, 240, PROJECTS_THUMBNAIL_EXTENSION_SMALL)) {
+          throw new Exception($this->errorHandler->getError('upload', 'save_thumbnail_failed'), STATUS_CODE_UPLOAD_SAVE_THUMBNAIL_FAILED);
+        }
+        if(!$this->saveThumbnail($thumbImage, $projectId, 480, PROJECTS_THUMBNAIL_EXTENSION_LARGE)) {
+          throw new Exception($this->errorHandler->getError('upload', 'save_thumbnail_failed'), STATUS_CODE_UPLOAD_SAVE_THUMBNAIL_FAILED);
+        }
+      } else {
+        throw new Exception($this->errorHandler->getError('upload', 'save_thumbnail_failed'), STATUS_CODE_UPLOAD_SAVE_THUMBNAIL_FAILED);
+      }
+    }
+  }
+
+  private function saveThumbnail($thumbImage, $projectId, $desiredWidth, $extension) {
+    if($thumbImage) {
+      $width = imagesx($thumbImage);
+      $height = imagesy($thumbImage);
+
+      if($desiredWidth == 0) {
+        $desiredWidth = $width;
+      }
+      $desiredHeight = intval($desiredWidth * $height / $width);
+
+      $thumbnail = imagecreatetruecolor($desiredWidth, $desiredHeight);
+      if(!$thumbnail) {
+        return false;
+      }
+      if(!imagecopyresampled($thumbnail, $thumbImage, 0, 0, 0, 0, $desiredWidth, $desiredHeight, $width, $height)) {
+        return false;
+      }
+      if(!imagepng($thumbnail, CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $projectId . $extension, 7)) {
+        return false;
+      }
+
+      $this->setState('remove_files', CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $projectId . $extension);
+      return true;
+    }
+    return false;
   }
 
   private function getQRCode($projectId, $projectTitle) {
-    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENSION.'?fname='.urlencode($projectTitle));
-    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION;
+    $urlToEncode = urlencode(BASE_PATH . 'catroid/download/' . $projectId . PROJECTS_EXTENSION . '?fname=' . urlencode($projectTitle));
+    $destinationPath = CORE_BASE_PATH . PROJECTS_QR_DIRECTORY . $projectId . PROJECTS_QR_EXTENSION;
     if(!generateQRCode($urlToEncode, $destinationPath)) {
-      throw new Exception();
+      $this->sendQRFailNotificationEmail($projectId, $projectTitle);
+      throw new Exception($this->errorHandler->getError('upload', 'qr_code_generation_failed'), STATUS_CODE_UPLOAD_QRCODE_GENERATION_FAILED);
     }
+    $this->setState('remove_files', $destinationPath);
     return true;
-  }
-
-  private function sendQRFailNotificationEmail($projectId, $projectTitle) {
-    $mailSubject = 'QR-Code generation failed!';
-    $mailText = "Hello catroid.org Administrator!\n\n";
-    $mailText .= "The generation of the QR-Code for the following project failed:\n\n";
-    $mailText .= "---PROJECT DETAILS---\nID: ".$projectId."\nTITLE: ".$projectTitle."\n\n";
-    $mailText .= "You should check this!";
-
-    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
   private function sendUnapprovedWordlistPerEmail() {
     $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
     $mailSubject = '';
     $unapprovedWordCount = count($unapprovedWords);
-    if($unapprovedWordCount > 1) $mailSubject = 'There are '.$unapprovedWordCount.' new unapproved words!';
-    else $mailSubject = 'There is '.$unapprovedWordCount.' new unapproved word!';
+    if($unapprovedWordCount > 1) {
+      $mailSubject = 'There are ' . $unapprovedWordCount . ' new unapproved words!';
+    } else {
+      $mailSubject = 'There is ' . $unapprovedWordCount . ' new unapproved word!';
+    }
 
     $mailText = "Hello catroid.org Administrator!\n\n";
     $mailText .= "New word(s):\n";
     for($i = 0; $i < $unapprovedWordCount; $i++) {
       $mailText .= $unapprovedWords[$i].(($unapprovedWordCount-1 == $i) ? "" : ", ");
     }
-    $mailText .= "\n\nYou should check this!\n".BASE_PATH."admin/tools/approveWords";
+    $mailText .= "\n\nYou should check this!\n" . BASE_PATH . "admin/tools/approveWords";
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
-  private function sendUploadFailAdminEmail($formData, $fileData, $serverData) {
-    $mailSubject = 'Upload of a project failed!';
-    $mailText = "Hello catroid.org Administrator!\n\n";
-    $mailText .= "The Upload of a project failed:\n\n";
-    $mailText .= "---PROJECT DETAILS---\n";
-    $mailText .= "Upload Error Code: ".$this->statusCode."\n";
-    $mailText .= "Upload Error Message: ".$this->answer."\n";
-    if(isset($formData['projectTitle']))
-    $mailText .= "Project Title: ".$formData['projectTitle']."\n";
-    if(isset($formData['projectDescription']))
-    $mailText .= "Project Description: ".$formData['projectDescription']."\n";
-    if(isset($fileData['upload']))
-    $mailText .= "Project Size: ".intval($fileData['upload']['size'])." Byte\n";
-    if(isset($formData['userEmail']))
-    $mailText .= "User Email: ".$formData['userEmail']."\n";
-    if(isset($formData['userLanguage']))
-    $mailText .= "User Language: ".$formData['userLanguage']."\n";
-    if(isset($serverData['REMOTE_ADDR']))
-    $mailText .= "User IP: ".$serverData['REMOTE_ADDR']."\n";
+  private function buildNativeApp($projectId) {
+    $pythonHandler = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC . "nativeAppBuilding/src/handle_project.py";
+    $projectFile = CORE_BASE_PATH . PROJECTS_DIRECTORY . $projectId . PROJECTS_EXTENSION;
+    $catroidSource = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC . "catroid/";
+    $outputFolder = CORE_BASE_PATH . PROJECTS_DIRECTORY;
 
+    if(is_dir(CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC)) {
+      shell_exec("python2.6 $pythonHandler $projectFile $catroidSource $projectId $outputFolder > /dev/null 2>/dev/null &");
+    }
+  }
+
+  private function sendQRFailNotificationEmail($projectId, $projectTitle) {
+    $mailSubject = 'QR-Code generation failed!';
+    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText .= "The generation of the QR-Code for the following project failed:\n\n";
+    $mailText .= "---PROJECT DETAILS---\n";
+    $mailText .= "ID: " . $projectId . "\n";
+    $mailText .= "TITLE: " . $projectTitle . "\n\n";
     $mailText .= "You should check this!";
 
     return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
-  private function extractThumbnail($unzipDir, $projectId) {
-    $thumbFile = null;
-    $thumbType = null;
-    if(is_file($unzipDir.'screenshot.png')) {
-      $thumbFile = $unzipDir.'screenshot.png';
-      $thumbType = 'PNG';
-    }
-    if($thumbFile && $thumbType) {
-      $this->saveThumbnail($projectId, $thumbFile, $thumbType);
-    }
+  private function sendUploadFailAdminEmail($formData, $fileData) {
+    $mailSubject = 'Upload of a project failed!';
+    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText .= "The Upload of a project failed:\n\n";
+    $mailText .= "---PROJECT DETAILS---\n";
+    $mailText .= "Upload Error Code: " . $this->statusCode . "\n";
+    $mailText .= "Upload Error Message: " . $this->answer . "\n";
+    $mailText .= (isset($formData['projectTitle']) ? "Project Title: " . $formData['projectTitle'] . "\n" : "");
+    $mailText .= (isset($formData['projectDescription']) ? "Project Description: " . $formData['projectDescription'] . "\n" : "");
+    $mailText .= (isset($fileData['upload']) ? "Project Size: " . intval($fileData['upload']['size']) . " Byte\n" : "");
+    $mailText .= (isset($formData['userEmail']) ? "User Email: " . $formData['userEmail'] . "\n" : "");
+    $mailText .= (isset($formData['userLanguage']) ? "User Language: " . $formData['userLanguage'] . "\n" : "");
+    $mailText .= (isset($_SERVER['REMOTE_ADDR']) ? "User IP: " . $_SERVER['REMOTE_ADDR'] . "\n" : "");
+    $mailText .= "You should check this!";
+
+    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
-  private function saveThumbnail($projectId, $thumbnail, $thumbType) {
-    $thumbnailDir = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;
-    if(strcmp($thumbType, 'PNG') == 0) {
-      $thumbImage = imagecreatefrompng($thumbnail);
+  private function query($query, $parameter=null) {
+    $result = null;
+    if(is_array($parameter)) {
+      $result = pg_execute($this->dbConnection, $query, $parameter);
     } else {
-      return false;
+      $result = pg_execute($this->dbConnection, $query);
     }
-    if ($thumbImage) {
-      $w = imagesx($thumbImage);
-      $h = imagesy($thumbImage);
-      $wsmall = 0; $hsmall = 0; $hsmallopt = intval(240*$h/$w);
-      $wlarge = 0; $hlarge = 0; $hlargeopt = intval(480*$h/$w);
-      imagejpeg($thumbImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENSION_ORIG, 100);
-      $smallImage = imagecreatetruecolor(240, $hsmallopt);
-      imagecopyresampled($smallImage, $thumbImage, 0, 0, 0, 0, 240, $hsmallopt, $w, $h);
-      imagejpeg($smallImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENSION_SMALL, 50);
-      $newImage = imagecreatetruecolor(480, $hlargeopt);
-      imagecopyresampled($newImage, $thumbImage, 0, 0, 0, 0, 480, $hlargeopt, $w, $h);
-      imagejpeg($newImage, $thumbnailDir.$projectId.PROJECTS_THUMBNAIL_EXTENSION_LARGE, 50);
-    }
-  }
-  
-  private function buildNativeApp($projectId) {
-    $pythonHandler = CORE_BASE_PATH.PROJECTS_APP_BUILDING_SRC."nativeAppBuilding/src/handle_project.py";
-    $projectFile = CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.PROJECTS_EXTENSION;
-    $catroidSource = CORE_BASE_PATH.PROJECTS_APP_BUILDING_SRC."catroid/";
-    $outputFolder = CORE_BASE_PATH.PROJECTS_DIRECTORY;
 
-    if(is_dir(CORE_BASE_PATH.PROJECTS_APP_BUILDING_SRC)) {
-      shell_exec("python2.6 $pythonHandler $projectFile $catroidSource $projectId $outputFolder > /dev/null 2>/dev/null &");
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error()), STATUS_CODE_SQL_QUERY_FAILED);
     }
+    return $result;
   }
 
-  public function __destruct() {
-    parent::__destruct();
+  private function setState($type, $new, $old=0) {
+    switch($type) {
+      case 'remove_files':
+      case 'remove_dirs':
+        if($old === 0) {
+          array_push($this->uploadState[$type], $new);
+        } else {
+          foreach($this->uploadState[$type] as $key => $value) {
+            if($value === $old) {
+              $this->uploadState[$type][$key] = $new;
+              break;
+            }
+          }
+        }
+        break;
+      case 'remove_project_from_db':
+        array_push($this->uploadState[$type], $new);
+        break;
+    }
   }
 }
 ?>

@@ -21,15 +21,7 @@ class index extends CoreAuthenticationNone {
   
   public function __construct() {
     parent::__construct();
-    if($this->clientDetection->isBrowser(CoreClientDetection::BROWSER_FIREFOX) ||
-    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_FIREFOX_MOBILE) ||
-    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_SAFARI) ||
-    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_CHROME) ||
-    $this->clientDetection->isBrowser(CoreClientDetection::BROWSER_ANDROID)) {
-      $this->addCss('projectList.css');
-    } else {
-      $this->addCss('projectList_nohtml5.css');
-    }
+    $this->addCss('projectList.css');
     $this->addCss('index.css');
     $this->addJs('newestProjects.js');
     $this->addJs('searchProjects.js');
@@ -82,7 +74,7 @@ class index extends CoreAuthenticationNone {
       $this->session->task = "newestProjects";
     }
 
-    $this->showCatroidDescription = intVal($this->session->showCatroidDescription);
+    $this->showCatroidDescription = intval($this->session->showCatroidDescription);
     $this->task = $this->session->task;
     $this->pageNr = $this->session->pageNr;
     $this->searchQuery = "";

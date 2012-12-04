@@ -31,6 +31,14 @@ public class UploadTest extends BaseTest {
   @Test(groups = { "upload" }, description = "upload and delete a project")
   public void uploadTest() throws Throwable {
     try {
+      // check for project uploader and send invalid request
+      openAdminLocation();
+      driver().findElement(By.id("aProjectUploader")).click();
+      assertTrue(isTextPresent("Project Uploader"));
+      driver().findElement(By.name("uploadButton")).click();
+      assertTrue(isTextPresent("501"));
+      
+      // upload a project
       String projectTitle = "testproject" + CommonData.getRandomLongString(200);
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", ""));
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");

@@ -18,7 +18,6 @@
  */
 
 class checkToken extends CoreAuthenticationDevice {
-
   public function __construct() {
     parent::__construct();
   }
@@ -27,13 +26,12 @@ class checkToken extends CoreAuthenticationDevice {
   }
 
   public function __authenticationFailed() {
-    $this->statusCode = 601;
+    $this->statusCode = STATUS_CODE_AUTHENTICATION_FAILED;
     $this->answer = $this->errorHandler->getError('auth', 'device_auth_invalid_token');
   }
 
   public function check() {
-    $this->statusCode = 200;
-    return true;
+    $this->statusCode = STATUS_CODE_OK;
   }
   
   public function __destruct() {

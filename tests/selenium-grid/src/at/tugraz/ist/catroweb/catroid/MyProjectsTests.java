@@ -18,18 +18,13 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import java.util.HashMap;
-
 import org.openqa.selenium.By;
-import org.openqa.selenium.internal.seleniumemulation.IsTextPresent;
-import org.openqa.selenium.internal.seleniumemulation.IsVisible;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.CommonData;
 import at.tugraz.ist.catroweb.common.CommonFunctions;
-import at.tugraz.ist.catroweb.common.CommonStrings;
 
 @Test(groups = { "catroid", "MyProjectsTests" })
 public class MyProjectsTests extends BaseTest {
@@ -69,7 +64,6 @@ public class MyProjectsTests extends BaseTest {
       ajaxWait();
       
       assertFalse(isTextPresent(title));
-      assertTrue(isTextPresent(CommonStrings.MYPROJECT_NO_PROJECTS_FOUND));
     } catch(AssertionError e) {
       captureScreen("deleteMyProject.deleteMyProject");
       throw e;

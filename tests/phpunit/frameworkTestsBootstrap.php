@@ -18,15 +18,16 @@
  */
 
   session_start();
-  $_SERVER['SERVER_NAME'] = '127.0.0.1';
-  $_SERVER['REMOTE_ADDR'] = '127.0.0.1';
+  $_SERVER['SERVER_NAME'] = 'catroid.local';
+  $_SERVER['REMOTE_ADDR'] = 'catroid.local';
   $_SERVER['REQUEST_URI'] = 'just/a/test';
   spl_autoload_register('__autoload');
-  require_once(dirname(__FILE__).'/../../config.php');
-  require_once(dirname(__FILE__).'/../../passwords.php');
-  require_once(dirname(__FILE__).'/../../commonFunctions.php');
+  require_once(dirname(__FILE__) . '/../../config.php');
+  require_once(dirname(__FILE__) . '/../../statusCodes.php');
+  require_once(dirname(__FILE__) . '/../../passwords.php');
+  require_once(dirname(__FILE__) . '/../../commonFunctions.php');
   function __autoload($class) {
-    include_once CORE_BASE_PATH.'classes/'.$class.'.php';
+    include_once CORE_BASE_PATH . 'classes/' . $class . '.php';
   }
   define('UNITTESTS', true);
 ?>

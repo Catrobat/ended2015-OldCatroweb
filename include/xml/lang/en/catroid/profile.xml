@@ -18,46 +18,39 @@
   -->
 
 <strings>
-  <string name="title">{*nickname*}'s Profile</string>
-  <string name="password">change my password</string>
+  <string name="myTitle">My Profile</string>
+  <string name="userTitle">User Profile</string>
+
+  <string name="changePicture">change my picture</string>
+  <string name="name">Name</string>
+  <string name="password">Password</string>
+  <string name="email">Email</string>
+  <string name="location">Location</string>
+  <string name="projects">Projects</string>
+  <string name="country">Country</string>
+  <string name="city">City</string>
+  <string name="gender">Gender</string>
+  <string name="birthday">Birthday</string>
+  <string name="language">Language</string>
+
+  <string name="my_projects">My Projects</string>
+  <string name="change_my_password">change my password</string>
   <string name="old_password">my old password</string>
   <string name="new_password">my new password</string>
-  <string name="email">change this e-mail address</string>
-  <string name="add_email_field_button">add a new e-mail address</string>
-  <string name="delete_email">delete my e-mail address</string>
-  <string name="email_delete_success">You deleted your e-mail address successfully.</string>
-  <string name="alertbox_really_want_to_delete_email">Do you really want to delete this e-mail address?</string>
   <string name="save_button">save my changes</string>
-  <string name="add_new_email_button">save my new e-mail address</string>
-  <string name="from">from</string>
-  <string name="change_country">change my country</string>
-  <string name="country">select country</string>
-  <string name="change_city">change my hometown</string>
-  <string name="add_city">add my hometown</string>
   <string name="enter_city">my hometown</string>
-  <string name="city">enter hometown</string>
-  <string name="change_birth">change my birthday</string>
-  <string name="select_birth_year_month">select month and year of your birthday</string>
-  <string name="add_your_birth_date">add my birthday</string>
-  <string name="year">select year</string>
-  <string name="month">select month</string>
-  <string name="born_in">Born in</string>
-  <string name="change_gender">change my gender</string>
-  <string name="add_gender">add my gender</string>
-  <string name="gender">select gender</string>
-  <string name="select_language">select my language</string>
   <string name="male">male</string>
   <string name="female">female</string>
-  <string name="cancel">Cancel</string>
+
+  <string name="really_delete">Do you really want to delete this email address</string>
+  <string name="image_too_big">Your chosen picture is too large, please do not use images larger than 5mb.</string>
+  <string name="other">Other</string>
+  <string name="avatar_success">You updated your avatar successfully.</string>
   <string name="password_success">You updated your password successfully.</string>
+  <string name="email_add_success">The new e-mail address was successfully added. Please check your inbox to verify it.</string>
+  <string name="email_delete_success">You deleted your e-mail address successfully.</string>
   <string name="city_success">You updated your hometown successfully.</string>
   <string name="country_success">You updated your country successfully.</string>
-  <string name="birth_success">You updated your birthday date successfully.</string>
   <string name="gender_success">You updated your gender successfully.</string>
-  <string name="add_new_email">enter your new e-mail address</string>
-  <string name="add_new_email_placeholder">alternative e-mail address</string>
-  <string name="email_address_string_changed">Error while deleting this e-mail address. Do you have any unsaved changes?</string>
-  <string name="birthday_is_empty">Please select the month and the year of your birthday or leave fields empty.</string>
-  <string name="country_is_empty">Please select your home country.</string>
-  <string name="my_projects">My Projects</string>
+  <string name="birthday_success">You updated your birthday successfully.</string>
 </strings>

@@ -37,8 +37,6 @@ public class RegistrationTests extends BaseTest {
       openLocation("catroid/registration/");
       
       assertTrue(isTextPresent(CommonStrings.REGISTRATION_PAGE_TITLE));
-      assertTrue(isElementPresent(By.id("registrationErrorMsg")));
-      assertFalse(isVisible(By.id("registrationErrorMsg")));
       
       assertTrue(isTextPresent(CommonStrings.REGISTRATION_NICKNAME));
       assertTrue(isElementPresent(By.id("registrationUsername")));
@@ -90,9 +88,9 @@ public class RegistrationTests extends BaseTest {
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
 
-      assertTrue(isVisible(By.id("registrationErrorMsg")));
-      assertTrue(isTextPresent(dataset.get("expectedError1")));
-      assertTrue(isTextPresent(dataset.get("expectedError2")));
+      assertTrue(isVisible(By.id("ajaxAnswerBoxContainer")));
+      ajaxWait();
+      assertTrue(isAjaxMessagePresent(dataset.get("expectedError")));
     } catch(AssertionError e) {      
       captureScreen("RegistrationTests.checkElementsVisible." + CommonFunctions.getTimeStamp()); 
       throw e;
@@ -105,8 +103,6 @@ public class RegistrationTests extends BaseTest {
   @Test(dataProvider = "validRegistrationData", groups = { "functionality" }, description = "check registration with valid data")
   public void validRegistration(HashMap<String, String> dataset) throws Throwable {
     try {
-      // wiki username creation
-      String wikiUsername = dataset.get("registrationUsername").substring(0, 1).toUpperCase() + dataset.get("registrationUsername").substring(1).toLowerCase();
       openLocation("catroid/registration/");
 
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
@@ -120,13 +116,10 @@ public class RegistrationTests extends BaseTest {
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent(dataset.get("registrationUsername") + "'s Profile"));
+      assertTrue(isTextPresent(dataset.get("registrationUsername")));
       driver().findElement(By.id("headerProfileButton")).click();
       ajaxWait();
-      assertTrue(isTextPresent("You are logged in as " + dataset.get("registrationUsername") + "!"));
-      assertTrue(isElementPresent(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("headerCancelButton")).click();
-      ajaxWait();
+      assertTrue(isTextPresent(dataset.get("registrationUsername")));
       driver().findElement(By.id("headerMenuButton")).click();
       ajaxWait();
 
@@ -142,34 +135,6 @@ public class RegistrationTests extends BaseTest {
       assertFalse(isTextPresent("Not logged in"));
       closePopUp();
       
-      openLocation();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("logoutSubmitButton")).click();
-      ajaxWait();
-      
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.id("loginUsername")));
-      assertTrue(isVisible(By.id("loginPassword")));
-
-      driver().findElement(By.id("headerCancelButton")).click();
-      ajaxWait();
-      driver().findElement(By.id("headerMenuButton")).click();
-      ajaxWait();
-
-      clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Login"));
-      assertFalse(isTextPresent("Logout"));
-      closePopUp();
-
-      clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertFalse(isTextPresent(wikiUsername));
-      closePopUp();
-
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {      
       captureScreen("RegistrationTests.validRegistration." + CommonFunctions.getTimeStamp()); 
@@ -200,8 +165,8 @@ public class RegistrationTests extends BaseTest {
       driver().findElement(By.id("registrationCity")).sendKeys(dataset.get("registrationCity"));
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
-      
-      assertTrue(isTextPresent(dataset.get("expectedError")));
+
+      assertTrue(isAjaxMessagePresent(dataset.get("expectedError")));
 
       openLocation();
       driver().findElement(By.id("headerProfileButton")).click();
@@ -245,8 +210,18 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError1", "The nickname is missing.");
-        put("expectedError2", "The password is missing.");
+        put("expectedError", "The nickname is missing.");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "username" + CommonData.getRandomShortString(10));
+        put("registrationPassword", "");
+        put("registrationEmail", "");
+        put("registrationCountry", "");
+        put("registrationMonth", "");
+        put("registrationYear", "");
+        put("registrationGender", "");
+        put("expectedError", "The password is missing.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -257,8 +232,18 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError1", "The nickname is invalid. Underscores (_) are not allowed.");
-        put("expectedError2", "The email address is missing.");
+        put("expectedError", "The nickname is invalid. Underscores (_) are not allowed.");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "username" + CommonData.getRandomShortString(10));
+        put("registrationPassword", "password" + CommonData.getRandomShortString(10));
+        put("registrationEmail", "");
+        put("registrationCountry", "");
+        put("registrationMonth", "");
+        put("registrationYear", "");
+        put("registrationGender", "");
+        put("expectedError", "The email address is missing.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -269,8 +254,18 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError1", "The nickname is invalid. Hash signs (#) are not allowed.");
-        put("expectedError2", "The country is missing.");
+        put("expectedError", "The nickname is invalid. Hash signs (#) are not allowed.");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "username" + CommonData.getRandomShortString(10));
+        put("registrationPassword", "password" + CommonData.getRandomShortString(10));
+        put("registrationEmail", "email" + CommonData.getRandomShortString(10) + "@catroid.org");
+        put("registrationCountry", "");
+        put("registrationMonth", "");
+        put("registrationYear", "");
+        put("registrationGender", "");
+        put("expectedError", "The country is missing.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -281,8 +276,29 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError1", "The nickname is invalid. Vertical bars (|) are not allowed.");
-        put("expectedError2", "Your password must have at least");
+        put("expectedError", "The nickname is invalid. Vertical bars (|) are not allowed.");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "username" + CommonData.getRandomShortString(10));
+        put("registrationPassword", "12");
+        put("registrationEmail", "");
+        put("registrationCountry", "");
+        put("registrationMonth", "");
+        put("registrationYear", "");
+        put("registrationGender", "");
+        put("expectedError", "Your password must have at least");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "username" + CommonData.getRandomShortString(10));
+        put("registrationPassword", "password" + CommonData.getRandomShortString(10));
+        put("registrationEmail", "invalidMailAddress");
+        put("registrationCountry", "");
+        put("registrationMonth", "");
+        put("registrationYear", "");
+        put("registrationGender", "");
+        put("expectedError", "The email address is not valid.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -293,8 +309,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError1", "The nickname is invalid. Curly braces ({ or }) are not allowed.");
-        put("expectedError2", "The email address is not valid.");
+        put("expectedError", "The nickname is invalid. Curly braces ({ or }) are not allowed.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -305,8 +320,18 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError1", "The nickname is invalid. Less than or greater than signs (< or >) are not allowed.");
-        put("expectedError2", "The password must differ from the nickname.");
+        put("expectedError", "The nickname is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "usernameIsTheSameAsThePassword");
+        put("registrationPassword", "usernameIsTheSameAsThePassword");
+        put("registrationEmail", "testuser-selenium.com");
+        put("registrationCountry", "Austria");
+        put("registrationMonth", "February");
+        put("registrationYear", "2008");
+        put("registrationGender", "female");
+        put("expectedError", "The password must differ from the nickname.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -317,8 +342,18 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError1", "The nickname is invalid. Square brackets ([ or ]) are not allowed.");
-        put("expectedError2", "This email address already exists.");
+        put("expectedError", "The nickname is invalid. Square brackets ([ or ]) are not allowed.");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "username" + CommonData.getRandomShortString(10));
+        put("registrationPassword", "validPassword");
+        put("registrationEmail", "webmaster@catroid.org");
+        put("registrationCountry", "Austria");
+        put("registrationMonth", "February");
+        put("registrationYear", "2008");
+        put("registrationGender", "female");
+        put("expectedError", "This email address already exists.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -329,8 +364,18 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError1", "The nickname is invalid. Spaces (\" \") are not allowed.");
-        put("expectedError2", "and maximal");
+        put("expectedError", "The nickname is invalid. Spaces (\" \") are not allowed.");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "username" + CommonData.getRandomShortString(10));
+        put("registrationPassword", "123456789012345678901234567890123");
+        put("registrationEmail", "testuser@selenium.com");
+        put("registrationCountry", "Austria");
+        put("registrationMonth", "February");
+        put("registrationYear", "2008");
+        put("registrationGender", "female");
+        put("expectedError", "Your password can have a maximum of");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -341,8 +386,18 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError1", "There are insulting words in the username field!");
-        put("expectedError2", "The email address is not valid.");
+        put("expectedError", "There are insulting words in the username field!");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "username" + CommonData.getRandomShortString(10));
+        put("registrationPassword", "validPassword");
+        put("registrationEmail", "testuser-selenium.com");
+        put("registrationCountry", "Austria");
+        put("registrationMonth", "February");
+        put("registrationYear", "2008");
+        put("registrationGender", "female");
+        put("expectedError", "The email address is not valid.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -353,8 +408,18 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError1", "The nickname is invalid.");
-        put("expectedError2", "The email address is not valid.");
+        put("expectedError", "The nickname is invalid.");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "username" + CommonData.getRandomShortString(10));
+        put("registrationPassword", "validPassword");
+        put("registrationEmail", "testuser@selenium");
+        put("registrationCountry", "Austria");
+        put("registrationMonth", "February");
+        put("registrationYear", "2008");
+        put("registrationGender", "female");
+        put("expectedError", "The email address is not valid.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -365,8 +430,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError1", "This nickname is on the blacklist and not allowed.");
-        put("expectedError2", "");
+        put("expectedError", "This nickname is on the blacklist and not allowed.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -377,8 +441,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError1", "This nickname already exists.");
-        put("expectedError2", "");
+        put("expectedError", "This nickname already exists.");
       }
     } } };
     return dataArray;

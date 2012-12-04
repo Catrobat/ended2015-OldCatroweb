@@ -31,28 +31,35 @@ public class IndexTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "information box, description and screenshot")
   public void infoBox() throws Throwable {
-    openLocation();
-    ajaxWait();
-
-    assertTrue(isVisible(By.id("catroidDescription")));
-    assertTrue(isTextPresent("Catroid is a visual programming language for Android devices that is inspired by the Scratch programming language for PCs, developed by the Lifelong Kindergarten Group at the MIT Media Lab. It is the aim of the Catroid project to facilitate the learning of programming skills among children and users of all ages. No desktop or notebook computer is needed."));
-
-    // test catroid download link
-    assertTrue(isElementPresent(By.id("aIndexInfoboxDownloadButton")));
-    clickAndWaitForPopUp(By.id("aIndexInfoboxDownloadButton"));
-    assertTrue(isTextPresent("catroid-0.6.0beta-975-debug.apk"));
-    assertTrue(isTextPresent("paintroid-0.6.0beta-369-debug.apk"));
-    closePopUp();
-    
-    // test screenshot link
-    assertTrue(isElementPresent(By.id("aIndexInfoboxScreenshotLink")));
-    clickAndWaitForPopUp(By.id("aIndexInfoboxScreenshotLink"));
-    assertTrue(isTextPresent("Catroid is an on-device visual programming system for Android devices that is inspired by the"));
-    closePopUp();
-
-    driver().findElement(By.id("catroidDescriptionCloseButton")).click();
-    ajaxWait();
-    assertFalse(isVisible(By.id("catroidDescription")));
+    try {
+      openLocation();
+      ajaxWait();
+  
+      assertTrue(isVisible(By.id("catroidDescription")));
+      assertTrue(isTextPresent("Catroid is a visual programming language for Android devices that is inspired by the Scratch programming language for PCs, developed by the Lifelong Kindergarten Group at the MIT Media Lab. It is the aim of the Catroid project to facilitate the learning of programming skills among children and users of all ages. No desktop or notebook computer is needed."));
+  
+      // test catroid download link
+      assertTrue(isElementPresent(By.id("aIndexInfoboxDownloadButton")));
+      clickAndWaitForPopUp(By.id("aIndexInfoboxDownloadButton"));
+      assertTrue(isTextPresent("catroid-0.6.0beta-1085-debug.apk"));
+      closePopUp();
+      
+      // test screenshot link
+      assertTrue(isElementPresent(By.id("aIndexInfoboxScreenshotLink")));
+      clickAndWaitForPopUp(By.id("aIndexInfoboxScreenshotLink"));
+      assertTrue(isTextPresent("Catroid on your desktop PC"));
+      closePopUp();
+  
+      driver().findElement(By.id("catroidDescriptionCloseButton")).click();
+      ajaxWait();
+      assertFalse(isVisible(By.id("catroidDescription")));
+    } catch(AssertionError e) {
+      captureScreen("IndexTests.infoBox");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("IndexTests.infoBox");
+      throw e;
+    }
   }
   
   @Test(groups = { "visibility" }, description = "location tests")

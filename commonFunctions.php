@@ -87,38 +87,6 @@ function getUsernameBlacklistArray() {
   return $usernameBlacklist;
 }
 
-function initBoardFunctions() {
-  define('IN_PHPBB', true);
-  global $phpbb_root_path, $phpEx, $user, $db, $config, $cache, $template, $auth;
-  $phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : CORE_BASE_PATH.'/addons/board/';
-  $phpEx = substr(strrchr(__FILE__, '.'), 1);
-  require_once($phpbb_root_path . 'common.' . $phpEx);
-  require_once($phpbb_root_path .'includes/utf/utf_tools.php');
-}
-
-function boardSqlQuery($query) {
-  global $db;
-  if($db->sql_query($query)) {
-    return true;
-  }
-  return false;
-}
-
-function getCleanedUsername($username) {
-  initBoardFunctions();
-  $username = trim($username);
-  $username_clean = utf8_clean_string($username);
-  
-  return $username_clean;
-}
-
-function getHashedBoardPassword($password) {
-  initBoardFunctions();
-  $hashed_password = phpbb_hash($password);
-  
-  return $hashed_password;
-}
-
 function getPublicServerBlacklistArray() {
   if(DEVELOPMENT_MODE) {
     return array();
@@ -158,12 +126,20 @@ function getMonthsArray($languageHandler) {
 
 function getIpBlockClassWhitelistArray() {
   $whitelistClasses = array(
-    "privacypolicy",
-    "terms",
-    "copyrightpolicy",
-    "licenseadditionalterm",
+    "",
+    "index",
     "imprint",
     "contactus",
+    "loadNewestProjects",
+    "switchLanguage",
+    "copyrightpolicy",
+    "privacypolicy",
+    "licenseadditionalterm",
+    "licenseofuploadedprojects",
+    "licenseofsystem",
+    "terms",
+    "termsofuse",
+    "termsofservice",
     "errorPage"
   );
   return $whitelistClasses;
@@ -296,6 +272,27 @@ function getTimeInWords($fromTime, $languageHandler, $toTime = -1) {
   return $languageHandler->getString('template_common_over_years_ago', round(floatval($minutes)/525600));
 }
 
+function getLanguageOptions($languageHandler, $selectedLanguageCode = '') {
+  if($selectedLanguageCode == '') {
+    $selectedLanguageCode = $languageHandler->getLanguage();
+  }
+
+  $supportedLanguages = getSupportedLanguagesArray($languageHandler);
+  $optionList = '';
+  $selectedLanguageName = '';
+  foreach($supportedLanguages as $lang => $details) {
+    if($details['supported']) {
+      $selected = '';
+      if(strcmp($lang, $selectedLanguageCode) == 0) {
+        $selected = ' selected="selected"';
+        $selectedLanguageName = $details['name'];
+      }
+      $optionList .= '<option' . $selected . ' value="' . $lang . '">' . $details['name'] . ' - ' . $details['nameNative'] . '</option>';
+    }
+  }
+  return array('html' => $optionList, 'selected' => $selectedLanguageName);
+}
+
 function getSupportedLanguagesArray($languageHandler) {
   $supportedLanguages = array(
     'ar'=>array('name'=>$languageHandler->getString('template_common_arabic'), 'nameNative'=>'‫العربية‬', 'supported'=>false),
@@ -369,13 +366,28 @@ function removeDir($dir) {
     $files = scandir($dir);
     foreach($files as $file) {
       if($file != "." && $file != "..") {
-        removeDir("$dir/$file");
+        removeDir($dir . "/" . $file);
       }
     }
     rmdir($dir);
   }
   else if(file_exists($dir)) {
     unlink($dir);
+  }
+}
+
+function chmodDir($dir, $filemode, $dirmode) {
+  if(is_dir($dir)) {
+    $files = scandir($dir);
+    foreach($files as $file) {
+      if($file != "." && $file != "..") {
+        chmodDir($dir . "/" . $file, $filemode, $dirmode);
+      }
+    }
+    chmod($dir, $dirmode);
+  }
+  else if(file_exists($dir)) {
+    chmod($dir, $filemode);
   }
 }
 

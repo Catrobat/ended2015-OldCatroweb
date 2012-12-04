@@ -18,7 +18,9 @@
 
 var HeaderMenu = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function() {
+  __init__ : function(userId) {
+    this.userId = userId;
+    
     if($("#normalHeaderButtons").length != 0) {
       $("#normalHeaderButtons").toggle();
     }
@@ -33,6 +35,8 @@ var HeaderMenu = Class.$extend( {
   },
   
   toggleSearchBox : function() {
+    $("#normalHeaderButtons").toggle(false);
+    $("#cancelHeaderButton").toggle(true);
     $("#headerSearchBox").toggle(true);
     if($("#headerSearchBox").css("display") == "block") {
       $("#searchQuery").focus();
@@ -40,12 +44,16 @@ var HeaderMenu = Class.$extend( {
   },
 
   toggleProfileBox : function() {
-    $("#normalHeaderButtons").toggle(false);
-    $("#headerSearchBox").toggle(false);
-    $("#cancelHeaderButton").toggle(true);
-    $("#headerProfileBox").toggle(true);
-    if($("#headerLoginBox").css("display") == "block") {
-      $("#loginUsername").focus();
+    if(this.userId == 0) {
+      $("#normalHeaderButtons").toggle(false);
+      $("#cancelHeaderButton").toggle(true);
+      $("#headerProfileBox").toggle(true);
+      $("#headerSearchBox").toggle(false);
+      if($("#headerLoginBox").css("display") == "block") {
+        $("#loginUsername").focus();
+      }
+    } else {
+      location.href = this.basePath + "catroid/profile";
     }
   },
   

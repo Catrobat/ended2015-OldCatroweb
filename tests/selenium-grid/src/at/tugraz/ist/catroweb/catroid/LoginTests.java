@@ -26,7 +26,6 @@ import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
-import at.tugraz.ist.catroweb.common.CommonStrings;
 
 @Test(groups = { "catroid", "LoginTests" })
 public class LoginTests extends BaseTest {
@@ -85,9 +84,6 @@ public class LoginTests extends BaseTest {
       assertTrue(isVisible(By.id("headerProfileButton")));
       driver().findElement(By.id("headerProfileButton")).click();
       ajaxWait();
-      assertTrue(isVisible(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("headerCancelButton")).click();
-      ajaxWait();
 
       driver().findElement(By.id("headerMenuButton")).click();
       ajaxWait();
@@ -107,13 +103,7 @@ public class LoginTests extends BaseTest {
       closePopUp();
 
       // test logout
-      openLocation();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("logoutSubmitButton")).click();
-      ajaxWait();
+      logout();
       assertTrue(isVisible(By.id("headerProfileButton")));
       driver().findElement(By.id("headerProfileButton")).click();
       ajaxWait();
@@ -176,7 +166,8 @@ public class LoginTests extends BaseTest {
       ajaxWait();
       
       assertTrue(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.id("loginErrorMsg")));
+      waitForElementPresent(By.id("loginHelperDiv"));
+      assertTrue(isAjaxMessagePresent("The password or username was incorrect."));
     } catch(AssertionError e) {
       captureScreen("LoginTests.waitForLogin." + dataset.get("username"));
       throw e;
@@ -201,26 +192,6 @@ public class LoginTests extends BaseTest {
       
       driver().findElement(By.id("headerProfileButton")).click();
       assertTrue(isTextPresent(dataset.get("username")));
-      
-      openLocation("catroid/registration/");
-      ajaxWait();
-
-      assertRegExp(".*/catroid/profile/" + dataset.get("username") + ".*", driver().getCurrentUrl());
-      
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("logoutSubmitButton")));
-      driver().findElement(By.id("logoutSubmitButton")).click();
-      ajaxWait();
-      
-      waitForElementPresent(By.id("projectListTitle"));
-      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
-      
-      openLocation("catroid/registration/");
-      ajaxWait();
-      assertTrue(isTextPresent("Create a new account"));
-      assertRegExp(".*/catroid/registration/.*", driver().getCurrentUrl());
-      
     } catch(AssertionError e) {
       captureScreen("LoginTests.redirection." + dataset.get("username"));
       throw e;
