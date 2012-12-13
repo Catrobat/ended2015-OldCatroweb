@@ -10,6 +10,7 @@ app-building/android-sdk-linux_x86
 app-building/catroid-source
 addons/board/cache/
 build/
+cache/
 group_test_tmp.xml
 resources/projects/
 resources/qrcodes/
@@ -21,5 +22,6 @@ tests/selenium-grid/lib
 tests/selenium-grid/remote-control/"
 tests/selenium-grid/target
 tests/selenium-grid/tools/*.jar
+tools/
 
 

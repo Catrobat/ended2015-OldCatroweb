@@ -502,6 +502,7 @@ public class BaseTest {
       e.printStackTrace();
     } catch(NullPointerException e) {
       Reporter.log("captureScreen got NULL pointer");
+    } catch(NoSuchElementException e) {
     }
   }
 

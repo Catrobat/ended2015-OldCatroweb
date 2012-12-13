@@ -236,7 +236,6 @@ public class SearchTests extends BaseTest {
       openAdminLocation("/tools/editProjects");
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("toggle" + projectID)).click();
-      ajaxWait();
 
       openLocation();
       ajaxWait();
@@ -258,14 +257,8 @@ public class SearchTests extends BaseTest {
       openAdminLocation("/tools/editProjects");
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("toggle" + projectID)).click();
-      ajaxWait();
 
-      openLocation();
-      ajaxWait();
-      driver().findElement(By.id("headerSearchButton")).click();
-      driver().findElement(By.id("searchQuery")).clear();
-      driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
-      driver().findElement(By.id("webHeadSearchSubmit")).click();
+      openLocation("catroid/search/?q=" + projectTitle + "&p=1");
       ajaxWait();
 
       assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));

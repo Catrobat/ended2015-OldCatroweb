@@ -111,6 +111,10 @@ public class AdminTests extends BaseTest {
       driver().navigate().back();
       ajaxWait();
 
+      driver().findElement(By.id("aAdminToolsUpdateBrowserDetection")).click();
+      assertTrue(isTextPresent("Administration Tools - Update browser-detection RegEx-Pattern"));
+      driver().navigate().back();
+
       assertTrue(isTextPresent("- back"));
       driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
       assertTrue(isTextPresent("Catroid Administration Site"));

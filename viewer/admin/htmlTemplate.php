@@ -32,10 +32,9 @@
     __baseClassVars.basePath = <?php echo "'".BASE_PATH."'"; ?>;
   </script>
   <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js?<?php echo VERSION; ?>" ></script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/jquery.js?<?php echo VERSION; ?>" ></script>
-  <?php while($js = $this->getJs()) {?>
-  	<script type="text/javascript" src="<?php echo BASE_PATH.SCRIPT_PATH.$js?>"></script>
-  <?php }?>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERY_VERSION; ?>/jquery.min.js"></script>
+  <script>window.jQuery || document.write('<script src="<?php echo BASE_PATH . CACHE_PATH; ?>jquery<?php echo JQUERY_VERSION; ?>.min.js"><\/script>')</script>
+  <?php echo $this->getJs(); ?>
 </head>
   <?php include($this->header);?>
   <?php include($this->viewer);?>

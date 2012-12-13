@@ -58,8 +58,45 @@ class Selenium:
 		self.cleanUp()
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class JSCompiler:
+	basePath										= os.getcwd()
+	toolsDir										= os.path.join(basePath, 'tools')
+	
+	jscompilerDownloadURL				= 'https://closure-compiler.googlecode.com/files/'
+	jscompilerServerZip					= 'compiler-latest.zip'
+	jscompilerServerJar					= 'compiler.jar'
+
+	#--------------------------------------------------------------------------------------------------------------------	
+	def cleanUp(self):
+		# remove downloaded files
+		if os.path.isfile('COPYING'):
+			os.remove('COPYING')
+		if os.path.isfile('README'):
+			os.remove('README')
+		if os.path.isfile(self.jscompilerServerZip):
+			os.remove(self.jscompilerServerZip)
+
+	#--------------------------------------------------------------------------------------------------------------------	
+	def downloadLibs(self): 
+		# get and move files
+		os.system('wget ' + self.jscompilerDownloadURL + self.jscompilerServerZip)
+		os.system('unzip ' + self.jscompilerServerZip)
+		os.rename(os.path.join(self.basePath, self.jscompilerServerJar), os.path.join(self.toolsDir, self.jscompilerServerJar))
+		print 'Please enter your password, it is necessary to change the owner of ' + self.jscompilerServerJar + ':'
+		os.system('sudo chown www-data:www-data ' + os.path.join(self.toolsDir, self.jscompilerServerJar)) 
+
+	#--------------------------------------------------------------------------------------------------------------------	
+	def update(self):
+		Cleaner().removeJSCompiler()
+		self.cleanUp()
+		self.downloadLibs()
+		self.cleanUp()
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## command handler
 if __name__ == '__main__':
 	if len(sys.argv) > 1:
-		if sys.argv[1] == 'update':
+		if sys.argv[1] == 'selenium':
 			Selenium().update()
+		if sys.argv[1] == 'jscompiler':
+			JSCompiler().update()

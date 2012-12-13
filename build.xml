@@ -417,7 +417,7 @@
   
   <target name="-update-selenium">
     <exec dir="." executable="python" failonerror="true" osfamily="Unix">
-      <arg line=" scripts/selenium.py update"/>
+      <arg line=" scripts/tools.py selenium"/>
     </exec>
   </target>
   

@@ -22,7 +22,7 @@ class languageManagement extends CoreAuthenticationAdmin {
 
   public function __construct() {
     parent::__construct();
-    $this->addJs('adminLanguageManagement.js?'.VERSION);
+    $this->addJs('adminLanguageManagement.js');
     $this->licenseString = "<!--
 Catroid: An on-device graphical programming language for Android devices
 Copyright (C) 2010-2012 The Catroid Team

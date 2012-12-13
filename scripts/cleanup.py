@@ -10,6 +10,8 @@ class Cleaner:
 	seleniumDir				= os.path.join(basePath, 'tests', 'selenium-grid')
 	seleniumLibDir		= os.path.join(seleniumDir, 'lib')
 	seleniumToolsDir	= os.path.join(seleniumDir, 'tools')
+	toolsDir					= os.path.join(basePath, 'tools')
+	cacheDir					= os.path.join(basePath, 'cache')
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def restartApache(self):
@@ -46,7 +48,18 @@ class Cleaner:
 			shutil.rmtree(self.seleniumLibDir)
 		for jar in glob.glob(os.path.join(self.seleniumToolsDir, "*.jar")):
 			os.remove(jar)
-		
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def removeJSCompiler(self):
+		if os.path.isfile(os.path.join(self.toolsDir, 'compiler.jar')):
+			os.remove(os.path.join(self.toolsDir, 'compiler.jar'))
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def clearCache(self):
+		print 'Please enter your password, it is necessary to remove the cache files:'
+		for js in glob.glob(os.path.join(self.cacheDir, "*.js")):
+			os.system('sudo rm ' + js)
+
 	#--------------------------------------------------------------------------------------------------------------------
 	def cleanDatabaseAndResources(self):
 		if os.path.isdir(self.buildDir):
@@ -61,6 +74,11 @@ class Cleaner:
 if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		if sys.argv[1] == 'website':
+			Cleaner().cleanDatabaseAndResources()
+		if sys.argv[1] == 'all':
+			Cleaner().removeSeleniumLibs()
+			Cleaner().removeJSCompiler()
+			Cleaner().clearCache()
 			Cleaner().cleanDatabaseAndResources()
 	else:
 		print "no argument given. did you mean 'website'?"
