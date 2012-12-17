@@ -16,6 +16,12 @@
  *    You should have received a copy of the GNU Affero General Public License
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+$this->module->addGlobalCss('adminLayout.css');
+
+$this->module->addGlobalJs('baseClassVars.js');
+$this->module->addGlobalJs('classy.js');
+
 ?>
 
 <!DOCTYPE HTML>
@@ -23,17 +29,12 @@
 <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <title>Administration - Catroid Website</title>
-  <link href="<?php echo BASE_PATH?>include/css/adminLayout.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
-  <?php while($css = $this->getCss()) {?>
-  	<link href="<?php echo BASE_PATH.CSS_PATH.$css?>" media="screen" rel="stylesheet" type="text/css" />
-  <?php }?>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/baseClassVars.js?<?php echo VERSION; ?>" ></script>
-  <script type="text/javascript">
-    __baseClassVars.basePath = <?php echo "'".BASE_PATH."'"; ?>;
-  </script>
-  <script type="text/javascript" src="<?php echo BASE_PATH?>include/script/classy.js?<?php echo VERSION; ?>" ></script>
+  <?php echo $this->getGlobalCss(true); ?>
+  <?php echo $this->getCss(); ?>
+
   <script src="//ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERY_VERSION; ?>/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="<?php echo BASE_PATH . CACHE_PATH; ?>jquery<?php echo JQUERY_VERSION; ?>.min.js"><\/script>')</script>
+  <?php echo $this->getGlobalJs(true); ?>
   <?php echo $this->getJs(); ?>
 </head>
   <?php include($this->header);?>

@@ -101,35 +101,35 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
   }
 
   public function testCss() {
-    $testCss = 'myTestCss.css';
-    $numCss = 5;
-    $this->assertEquals(null, $this->testModel->getCss());
-    for($i=0;$i<$numCss;$i++) {
-      $this->testModel->addCss($testCss);
-    }
-    $cssCounter = 0;
-    while($css = $this->testModel->getCss()) {
-      $this->assertEquals($testCss, $css);
-      $cssCounter++;
-    }
-    $this->assertEquals($numCss, $cssCounter);
-    $this->assertEquals(null, $this->testModel->getCss());
+    $this->assertEquals("", $this->testModel->getCss());
+    $this->testModel->addCss('notExistingFile.css');
+    $this->assertEquals("", $this->testModel->getCss());
+    $this->testModel->addCss('index.css');
+    $this->assertNotEquals("", $this->testModel->getCss());
+  }
+
+  public function testGlobalCss() {
+    $this->assertEquals("", $this->testModel->getGlobalCss());
+    $this->testModel->addGlobalCss('notExistingFile.css');
+    $this->assertEquals("", $this->testModel->getGlobalCss());
+    $this->testModel->addGlobalCss('index.css');
+    $this->assertNotEquals("", $this->testModel->getGlobalCss());
   }
 
   public function testJs() {
-    $testJs = 'myTestJs.js';
-    $numJs = 5;
-    $this->assertEquals(null, $this->testModel->getJs());
-    for($i=0;$i<$numJs;$i++) {
-      $this->testModel->addJs($testJs);
-    }
-    $jsCounter = 0;
-    while($js = $this->testModel->getJs()) {
-      $this->assertEquals($testJs, $js);
-      $jsCounter++;
-    }
-    $this->assertEquals($numJs, $jsCounter);
-    $this->assertEquals(null, $this->testModel->getJs());
+    $this->assertEquals("", $this->testModel->getJs());
+    $this->testModel->addJs('notExistingFile.js');
+    $this->assertEquals("", $this->testModel->getJs());
+    $this->testModel->addJs('index.js');
+    $this->assertNotEquals("", $this->testModel->getJs());
+  }
+
+  public function testGlobalJs() {
+    $this->assertEquals("", $this->testModel->getGlobalJs());
+    $this->testModel->addGlobalJs('notExistingFile.js');
+    $this->assertEquals("", $this->testModel->getGlobalJs());
+    $this->testModel->addGlobalJs('index.js');
+    $this->assertNotEquals("", $this->testModel->getGlobalJs());
   }
 
   /*

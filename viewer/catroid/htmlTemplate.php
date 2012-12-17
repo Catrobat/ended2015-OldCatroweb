@@ -17,6 +17,11 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+$this->module->addGlobalCss('baseStyle.css');
+$this->module->addGlobalCss('header.css');
+$this->module->addGlobalCss('buttons.css');
+$this->module->addGlobalCss('login.css');
+
 $this->module->addGlobalJs('baseClassVars.js');
 $this->module->addGlobalJs('classy.js');
 $this->module->addGlobalJs('commonFunctions.js');
@@ -32,22 +37,21 @@ $this->module->addGlobalJs('languageHandler.js');
   <!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.3, initial-scale=1.0, user-scalable=yes" /> -->
     
   <title><?php echo $this->getWebsiteTitle() ?></title>
-  <link href="<?php echo BASE_PATH?>include/css/baseStyle.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
-  <link href="<?php echo BASE_PATH?>include/css/header.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
-  <link href="<?php echo BASE_PATH?>include/css/buttons.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
-  <link href="<?php echo BASE_PATH?>include/css/login.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
-<?php while($css = $this->getCss()) {?>
-  <link href="<?php echo BASE_PATH?>include/css/<?php echo $css.'?'.VERSION?>" media="screen" rel="stylesheet" type="text/css" />
-<?php }?>
-
-<?php if(!$this->isMobile)  {?>
-  <link href="<?php echo BASE_PATH?>include/css/baseStyleDesktop.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
-<?php }?>
+  <?php echo $this->getGlobalCss(); ?>
+  <?php echo $this->getCss(); ?>
 
   <script src="//ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERY_VERSION; ?>/jquery.min.js"></script>
   <script>window.jQuery || document.write('<script src="<?php echo BASE_PATH . CACHE_PATH; ?>jquery<?php echo JQUERY_VERSION; ?>.min.js"><\/script>')</script>
   <?php echo $this->getGlobalJs(); ?>
   <?php echo $this->getJs(); ?>
+  <link rel="icon" href="<?php echo BASE_PATH?>images/logo/favicon.png<?php echo '?'.VERSION?>" type="image/png" />
+  
+<?php if(!$this->isMobile)  {?>
+  <link href="<?php echo BASE_PATH . CSS_PATH; ?>baseStyleDesktop.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
+<?php }?>
+</head>
+
+<body>
   <script type="text/javascript">
     var languageStringsObject = { 
       "ajax_took_too_long" : "<?php echo $this->module->errorHandler->getError('viewer', 'ajax_took_too_long'); ?>",
@@ -55,12 +59,6 @@ $this->module->addGlobalJs('languageHandler.js');
     };
     var common = new Common(languageStringsObject);
   </script>
-  
-  
-  <link rel="icon" href="<?php echo BASE_PATH?>images/logo/favicon.png<?php echo '?'.VERSION?>" type="image/png" />
-</head>
-
-<body>
   <div class="webMainContainer">
 <?php include($this->header);?>
 

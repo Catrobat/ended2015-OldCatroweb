@@ -55,10 +55,17 @@ class Cleaner:
 			os.remove(os.path.join(self.toolsDir, 'compiler.jar'))
 
 	#--------------------------------------------------------------------------------------------------------------------
+	def removeCSSCompiler(self):
+		if os.path.isfile(os.path.join(self.toolsDir, 'stylesheets.jar')):
+			os.remove(os.path.join(self.toolsDir, 'stylesheets.jar'))
+
+	#--------------------------------------------------------------------------------------------------------------------
 	def clearCache(self):
 		print 'Please enter your password, it is necessary to remove the cache files:'
 		for js in glob.glob(os.path.join(self.cacheDir, "*.js")):
 			os.system('sudo rm ' + js)
+		for css in glob.glob(os.path.join(self.cacheDir, "*.css")):
+			os.system('sudo rm ' + css)
 
 	#--------------------------------------------------------------------------------------------------------------------
 	def cleanDatabaseAndResources(self):
@@ -74,10 +81,12 @@ class Cleaner:
 if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		if sys.argv[1] == 'website':
+			Cleaner().clearCache()
 			Cleaner().cleanDatabaseAndResources()
 		if sys.argv[1] == 'all':
 			Cleaner().removeSeleniumLibs()
 			Cleaner().removeJSCompiler()
+			Cleaner().removeCSSCompiler()
 			Cleaner().clearCache()
 			Cleaner().cleanDatabaseAndResources()
 	else:

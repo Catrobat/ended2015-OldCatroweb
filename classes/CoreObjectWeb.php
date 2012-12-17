@@ -45,20 +45,28 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
     }
   }
   public function addGlobalCss($file) {
-    if(!in_array($file, $this->globalJsFiles)) {
-      array_push($this->globalJsFiles, $file);
+    if(!in_array($file, $this->globalCssFiles)) {
+      array_push($this->globalCssFiles, $file);
     }
   }
 
   public function getCss() {
-    return array_shift($this->cssFiles);
+    return $this->cacheCss($this->cssFiles, $this->me->name);;
   }
 
-  public function cacheCss($cssFiles = array(), $name = '') {
+  public function getGlobalCss($admin=false) {
+    $scope = 'gcatroid';
+    if($admin) {
+      $scope = 'gadmin';
+    }
+    return $this->cacheCss($this->globalCssFiles, $scope);
+  }
+
+  private function cacheCss($cssFiles = array(), $name = '') {
     $timestamp = 0;
   
     foreach($cssFiles as $css) {
-      $file = CORE_BASE_PATH . 'include/script/' . $css;
+      $file = CORE_BASE_PATH . CSS_PATH . $css;
       if(file_exists($file)) {
         $filetime = filemtime($file);
         if($filetime > $timestamp) {
@@ -71,12 +79,19 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
       return "";
     }
   
-    $filename = 'cache/' . $name . $timestamp . '.js';
-    if(!file_exists(CORE_BASE_PATH . '/' . $filename)) {
-      $handle = fopen(CORE_BASE_PATH . '/' . $filename, "w");
+    $filename = CACHE_PATH . $name . $timestamp . '.css';
+    $filenameMinified = CACHE_PATH . $name . $timestamp . '.min.css';
+    if(!file_exists(CORE_BASE_PATH . $filename)) {
+      $oldFiles = glob(CORE_BASE_PATH . CACHE_PATH . $name . '*.css');
+      if(count($oldFiles) > 0) {
+        array_walk($oldFiles, function ($file) {
+          unlink($file);
+        });
+      }
   
+      $handle = fopen(CORE_BASE_PATH . $filename, "w");
       foreach($cssFiles as $css) {
-        $file = CORE_BASE_PATH . 'include/script/' . $css;
+        $file = CORE_BASE_PATH . CSS_PATH . $css;
         if(file_exists($file)) {
           $content = file_get_contents($file);
   
@@ -87,8 +102,28 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
       }
   
       fclose($handle);
+      $this->compressCss($name . $timestamp);
     }
-    return '<script src="' . BASE_PATH . $filename . '"></script>';
+  
+    if(!DEVELOPMENT_MODE && file_exists(CORE_BASE_PATH . $filenameMinified)) {
+      $filename = $filenameMinified;
+    }
+
+    return '<link rel="stylesheet" href="' . BASE_PATH . $filename . '">';
+  }
+  
+  private function compressCss($filename) {
+    $source = CORE_BASE_PATH . CACHE_PATH . $filename . '.css';
+    $minified = CORE_BASE_PATH . CACHE_PATH . $filename . '.min.css';
+  
+    system("java -jar " . CORE_BASE_PATH . "tools/stylesheets.jar " . $source . " --allow-unrecognized-functions --allow-unrecognized-properties --output-file " . $minified, $returnVal);
+    if($returnVal != 0) {
+      if(DEVELOPMENT_MODE) {
+        echo '<script type="text/javascript">common.showAjaxErrorMsg("Warning couldn\'t minify css code. ' .
+            'Have a look at line ' . (__LINE__ - 3) . ' in file ' . __FILE__ . '");</script>';
+      }
+      @unlink($minified);
+    }
   }
 
   public function addJs($file) {
@@ -107,8 +142,12 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
     return $this->cacheJs($this->jsFiles, $this->me->name);
   }
   
-  public function getGlobalJs() {
-    return $this->cacheJs($this->globalJsFiles, 'global');
+  public function getGlobalJs($admin=false) {
+    $scope = 'gcatroid';
+    if($admin) {
+      $scope = 'gadmin';
+    }
+    return $this->cacheJs($this->globalJsFiles, $scope);
   }
 
   private function cacheJs($jsFiles = array(), $name = '') {
@@ -121,7 +160,7 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
     }
     
     foreach($jsFiles as $js) {
-      $file = CORE_BASE_PATH . 'include/script/' . $js;
+      $file = CORE_BASE_PATH . SCRIPT_PATH . $js;
       if(file_exists($file)) {
         $filetime = filemtime($file);
         if($filetime > $timestamp) {
@@ -146,7 +185,7 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
       
       $handle = fopen(CORE_BASE_PATH . $filename, "w");
       foreach($jsFiles as $js) {
-        $file = CORE_BASE_PATH . 'include/script/' . $js;
+        $file = CORE_BASE_PATH . SCRIPT_PATH . $js;
         if(file_exists($file)) {
           $content = file_get_contents($file);
 
@@ -171,10 +210,12 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
     $source = CORE_BASE_PATH . CACHE_PATH . $filename . '.js';
     $minified = CORE_BASE_PATH . CACHE_PATH . $filename . '.min.js';
     
-    system("java -jar " . CORE_BASE_PATH . "tools/compiler.jar --compilation_level SIMPLE_OPTIMIZATIONS --js " . $source . " --js_output_file " . $minified, $returnVal);
+    system("java -jar " . CORE_BASE_PATH . "tools/compiler.jar --compilation_level SIMPLE_OPTIMIZATIONS --js " . 
+        $source . " --js_output_file " . $minified, $returnVal);
     if($returnVal != 0) {
       if(DEVELOPMENT_MODE) {
-        echo '<script type="text/javascript">common.showAjaxErrorMsg("Warning couldn\'t minify javascript code. Have a look at line ' . (__LINE__ - 3) . ' in file ' . __FILE__ . '");</script>';
+        echo '<script type="text/javascript">common.showAjaxErrorMsg("Warning couldn\'t minify javascript code. ' .
+             'Have a look at line ' . (__LINE__ - 3) . ' in file ' . __FILE__ . '");</script>';
       }
       @unlink($minified);
     }
@@ -189,7 +230,7 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
   }
   
   public function loadModule($module) {
-    $modulePath = CORE_BASE_PATH . 'modules/' . $module . '.php';
+    $modulePath = CORE_BASE_PATH . MODULE_PATH . $module . '.php';
     if(file_exists($modulePath)) {
       $moduleName = basename($modulePath, '.php');
 
@@ -221,7 +262,7 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
       }
     }
       
-    $viewerPath = CORE_BASE_PATH . 'viewer/' . $module . '/' . $viewer . '.php';
+    $viewerPath = CORE_BASE_PATH . VIEWER_PATH . $module . '/' . $viewer . '.php';
     if(file_exists($viewerPath)) {
       $this->htmlFile = $viewer . '.php';
     } else {
