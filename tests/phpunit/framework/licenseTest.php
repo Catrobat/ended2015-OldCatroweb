@@ -29,7 +29,7 @@ class licenseTest extends PHPUnit_Framework_TestCase
 
   protected function setUp() {
     $this->file_listing = array();
-    $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js", "java");
+    $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js", "java", "py");
     $this->blacklist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php", "strings.xml", ".ant-targets-build.xml", "ga.php", "test_no_version.xml", "test_v5a-199_invalid_tag.xml", "test_v5a-420.xml", "test_v5a-433.xml", "test_v5a.xml");
     $this->blacklist_folders = array(".metadata", "addons", "app-building", "pear", "target", "resources", "pootle", "phpPgAdmin", "cache", "de", "ms", "ro", "ru", "zh-CN", "zh-TW");
 
@@ -55,7 +55,6 @@ class licenseTest extends PHPUnit_Framework_TestCase
   }
 
   public function testLicense() {
-
     foreach($this->file_listing as $current_file) {
       $contents = $this->getFileContent($current_file);
         foreach($this->license as $line) {
