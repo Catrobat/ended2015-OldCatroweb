@@ -155,13 +155,13 @@
                   </div>
 <?php }?>
 
-<?php if($this->project['showReportAsInappropriateButton']) { ?>
                   <div class="detailsMainStats">
                     <div class="detailsFlagButton" id="detailsFlagButton">
                       <button type="button" class="button white medium" id="reportAsInappropriateButton">
                         <span class="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
                       </button>
                     </div>
+<?php if($this->project['showReportAsInappropriateButton']['show']) { ?>
                     <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
                       <form method="POST" class="reportInappropriateForm">
                         <span class="reportInappropriateLabel"><?php echo $this->languageHandler->getString('report_as_inappropriate_label')?></span><br/>
@@ -172,19 +172,12 @@
                       </form>
                     </div>
                     <div class="reportAsInappropriateAnswer" id="reportAsInappropriateAnswer"></div>
-                  </div>
 <?php } else {?>
-                  <div class="detailsMainStats">
-                    <div class="detailsFlagButton" id="detailsFlagButton">
-                      <button type="button" class="button white medium" id="reportAsInappropriateButton">
-                        <span class="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
-                      </button>
-                    </div>
                     <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
-                        <br/><?php echo $this->languageHandler->getString('report_as_inappropriate_info')?><br/>
+                        <?php echo $this->project['showReportAsInappropriateButton']['message']; ?>
                     </div>
-                  </div>
 <?php }?>
+                  </div>
                 </div>
                 <div style="clear:both;"></div>
               </div>

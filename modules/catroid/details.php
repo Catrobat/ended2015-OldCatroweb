@@ -92,6 +92,7 @@ class details extends CoreAuthenticationNone {
     }
     
     $project['showReportAsInappropriateButton'] = $this->showReportAsInappropriateButton($projectId, $project['user_id']);
+    $project['showReportAsInappropriateMessage'] = $this->showReportAsInappropriateButton($projectId, $project['user_id']);
     $this->incrementViewCounter($projectId);
     return $project;
   }
@@ -103,10 +104,10 @@ class details extends CoreAuthenticationNone {
   
   public function showReportAsInappropriateButton($projectId, $userId) {
     if($this->session->userLogin_userId <= 0) {
-      return false;
+      return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_please_login', '<a href="' . BASE_PATH . 'catroid/login/?requestUri=catroid/details/' . $projectId . '">' . $this->languageHandler->getString('login') . '</a>'));
     }
     if($this->session->userLogin_userId == $userId) {
-      return false;
+      return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_own_project'));
     }
     
     $result = pg_execute($this->dbConnection, "has_user_flagged_project", array($projectId, $this->session->userLogin_userId)) or
@@ -115,9 +116,9 @@ class details extends CoreAuthenticationNone {
     pg_free_result($result);
     
     if($alreadyFlagged > 0) {
-      return false;
+      return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_already_flagged'));
     }
-    return true;
+    return array('show' => true, 'message' => "");
   }
   
   public function __destruct() {

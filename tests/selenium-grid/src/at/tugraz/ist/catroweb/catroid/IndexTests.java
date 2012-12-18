@@ -127,7 +127,7 @@ public class IndexTests extends BaseTest {
       // test catroid header text
       assertTrue(isElementPresent(By.xpath("//img[@class='catroidLettering']")));
       // test logo link
-      assertTrue(isElementPresent(By.xpath("//div[@class='webHeadLogo']")));
+      assertTrue(isElementPresent(By.id("aIndexWebLogoLeft")));
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
 

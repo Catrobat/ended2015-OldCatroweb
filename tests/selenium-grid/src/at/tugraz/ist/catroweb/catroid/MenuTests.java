@@ -44,7 +44,7 @@ public class MenuTests extends BaseTest {
       assertTrue(isEditable(By.id("menuRegistrationButton")));
       
       assertTrue(isVisible(By.id("menuProfileButton")));
-      assertFalse(isEditable(By.id("menuProfileButton")));
+      assertTrue(isEditable(By.id("menuProfileButton")));
       
       assertTrue(isVisible(By.id("menuForumButton")));
       assertTrue(isEditable(By.id("menuForumButton")));
@@ -74,7 +74,6 @@ public class MenuTests extends BaseTest {
 
       driver().findElement(By.id("headerProfileButton"));      
       assertTrue(isVisible(By.id("menuProfileButton")));
-      assertFalse(isEditable(By.id("menuProfileButton")));
       
       driver().findElement(By.id("menuLoginButton")).click();
       ajaxWait();
@@ -110,7 +109,6 @@ public class MenuTests extends BaseTest {
       
       driver().findElement(By.id("headerProfileButton"));      
       assertTrue(isVisible(By.id("menuProfileButton")));
-      assertTrue(isEditable(By.id("menuProfileButton")));
       driver().findElement(By.id("menuProfileButton")).click();
       ajaxWait();
       
@@ -120,7 +118,6 @@ public class MenuTests extends BaseTest {
       ajaxWait();
       
       assertTrue(isVisible(By.id("menuProfileButton")));
-      assertTrue(isEditable(By.id("menuProfileButton")));
       driver().findElement(By.id("headerProfileButton")).click();
       ajaxWait();
     } catch(AssertionError e) {
