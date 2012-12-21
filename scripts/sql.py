@@ -27,15 +27,31 @@ class Sql:
 	sqlPath						= os.path.join(basePath, 'sql')
 	stateTable				= 'Record_of_my_Database_State'
 	cli								= 'psql -w -A -U ' + dbUser + ' '
+	run								= None
+
+	#--------------------------------------------------------------------------------------------------------------------	
+	def localCommand(command):
+		return commands.getoutput(command)
+
+	#--------------------------------------------------------------------------------------------------------------------	
+	def error(self, command):
+		return 'FATAL ERROR: No database connection.'
 	
 	#--------------------------------------------------------------------------------------------------------------------
-	def __init__(self):
-		if not 'List of databases' in commands.getoutput(self.cli + '-d template1 -c "\l"'):
+	def __init__(self, callback=localCommand):
+		self.run = callback
+		if self.checkConnection():
+			print 'Please enter your password, it is necessary to restart apache:'
+			os.system('sudo service apache2 restart')
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def checkConnection(self):
+		if 'FATAL' in self.run(self.cli + '-d template1 -c "\l"'):
 			print '** ERROR ***********************************************************************'
-			print 'Couldn\'t connect to database!!!'
-			sys.exit(-1)
-		print 'Please enter your password, it is necessary to restart apache:'
-		os.system('sudo service apache2 restart')
+			print 'couldn\'t connect to database!!!'
+			self.run = self.error
+			return False
+		return True
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def initDbs(self):
@@ -51,19 +67,19 @@ class Sql:
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def createDb(self, database):
-		result = commands.getoutput(self.cli + '-d template1 -c "CREATE DATABASE ' + database + ' WITH ENCODING \'UTF8\';"')
+		result = self.run(self.cli + '-d template1 -c "CREATE DATABASE ' + database + ' WITH ENCODING \'UTF8\';"')
 		if 'ERROR' in result:
 			print 'couldn\'t create ' + database
 		else:
 			print 'created ' + database
 			
-		commands.getoutput(self.cli + '-d ' + database + ' -c "CREATE TABLE IF NOT EXISTS ' + self.stateTable + ' (statement character varying(511));"')
-		self.executeFile(database, 'init')
-		self.executeFile(database, 'updates')
+		self.run(self.cli + '-d ' + database + ' -c "CREATE TABLE IF NOT EXISTS ' + self.stateTable + ' (statement character varying(511));"')
+		self.executeFiles(database, 'init')
+		self.executeFiles(database, 'updates')
 		
 	#--------------------------------------------------------------------------------------------------------------------	
 	def dropDb(self, database):
-		result = commands.getoutput(self.cli + '-d template1 -c "DROP DATABASE IF EXISTS ' + database + '"')
+		result = self.run(self.cli + '-d template1 -c "DROP DATABASE IF EXISTS ' + database + '"')
 		if 'ERROR' in result:
 			print 'couldn\'t drop ' + database
 			print result
@@ -71,19 +87,20 @@ class Sql:
 			print 'dropped ' + database
 
 	#--------------------------------------------------------------------------------------------------------------------	
-	def executeFile(self, database, type):
+	def executeFiles(self, database, type):
 		print ' ' + type + ':'
 		for sqlFile in sorted(glob.glob(os.path.join(self.sqlPath, database, type, '*.sql'))):
 			basename = os.path.basename(sqlFile)
-			alreadyExecuted = commands.getoutput(self.cli + '-d ' + database + ' -c "SELECT * FROM ' + self.stateTable + ' WHERE statement=\'' + type + basename + '\';"')
+			sqlFile =  os.path.relpath(sqlFile, self.basePath)
+			alreadyExecuted = self.run(self.cli + '-d ' + database + ' -c "SELECT * FROM ' + self.stateTable + ' WHERE statement=\'' + type + basename + '\';"')
 			
 			if '0 rows' in alreadyExecuted or 'does not exist' in alreadyExecuted:
-				result = commands.getoutput(self.cli + '-d ' + database + ' -f ' + sqlFile)
+				result = self.run(self.cli + '-d ' + database + ' -f ' + sqlFile)
 				if 'ERROR' in result:
 					print ' - error executing ' + basename
 					print result
 				else:
-					commands.getoutput(self.cli + '-d ' + database + ' -c "INSERT INTO ' + self.stateTable + ' VALUES (\'' + type + basename + '\');"')
+					self.run(self.cli + '-d ' + database + ' -c "INSERT INTO ' + self.stateTable + ' VALUES (\'' + type + basename + '\');"')
 					print ' - executed ' + basename
 			else:
 				print ' - skipped ' + basename
@@ -91,7 +108,7 @@ class Sql:
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def dumpDb(self, database):
-		result = commands.getoutput('pg_dump ' + database +  ' -U ' + self.dbUser + ' -c -Ft | gzip -c9 > ' + database + '.tar.gz')
+		result = self.run('pg_dump ' + database +  ' -U ' + self.dbUser + ' -c -Ft | gzip -c9 > ' + database + '.tar.gz')
 		if 'ERROR' in result:
 			print 'error dumping ' + database
 			print result
@@ -102,7 +119,7 @@ class Sql:
 	def restoreDb(self, database):
 		self.dropDb(database)
 
-		result = commands.getoutput('gzip -dc ' + database + '.tar.gz | pg_restore -U ' + self.dbUser + ' -c')
+		result = self.run('gzip -dc ' + database + '.tar.gz | pg_restore -U ' + self.dbUser + ' -c')
 		if 'ERROR' in result:
 			print 'error restoring ' + database
 			print result

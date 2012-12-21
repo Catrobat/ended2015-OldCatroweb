@@ -41,21 +41,20 @@ div.detailsMainImage {
 	border: solid #CCCCCC 2px;
 	background: -webkit-gradient(linear, left top, left bottom, from(#ccc),
 		to(#fff) );
-	background: -moz-linear-gradient(top, #ccc, #fff);
+	/* @alternate */background: -moz-linear-gradient(top, #ccc, #fff);
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
-	-ms-border-radius: 10px;
 	border-radius: 10px;
 	display: -webkit-box;
 	-webkit-box-orient: vertical;
 	-webkit-box-pack: center;
-	display: -moz-box;
+	/* @alternate */display: -moz-box;
 	-moz-box-orient: vertical;
 	-moz-box-pack: center;
-	display: -ms-box;
+	/* @alternate */display: -ms-box;
 	-ms-box-orient: vertical;
 	-ms-box-pack: center;
-	display: box;
+	/* @alternate */display: box;
 	box-orient: vertical;
 	box-pack: center;
 }
@@ -69,13 +68,12 @@ div.detailsMainDescription {
 	border: solid #CCCCCC 2px;
 	background: -webkit-gradient(linear, left top, left bottom, from(#ccc),
 		to(#fff) );
-	background: -moz-linear-gradient(top, #ccc, #fff);
+	/* @alternate */background: -moz-linear-gradient(top, #ccc, #fff);
 	/*font-size: 28px;*/
 	font-size: 1.4em;
 	text-align: left;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
-	-ms-border-radius: 10px;
 	border-radius: 10px;
 }
 
@@ -87,12 +85,11 @@ div.detailsMainStats {
 	border: solid #CCCCCC 2px;
 	background: -webkit-gradient(linear, left top, left bottom, from(#ccc),
 		to(#fff) );
-	background: -moz-linear-gradient(top, #ccc, #fff);
+	/* @alternate */background: -moz-linear-gradient(top, #ccc, #fff);
 	font-size: 1.4em;
 	text-align: left;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
-	-ms-border-radius: 10px;
 	border-radius: 10px;
 }
 

@@ -21,6 +21,7 @@
 import fileinput, glob, os, shutil, sys, paramiko
 from datetime import date, datetime, timedelta
 from release import Release
+from sql import Sql
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Deploy:
@@ -47,8 +48,8 @@ class Deploy:
 		if len(error) > 0:
 			print '** ERROR ***********************************************************************'
 			print error
-			return stdout.readlines() + error
-		return stdout.readlines()
+			return str(stdout.readlines() + error)
+		return str(stdout.readlines())
 
 	#--------------------------------------------------------------------------------------------------------------------
 	def formatSize(self, number):
@@ -75,8 +76,8 @@ class Deploy:
 		os.chdir(os.path.dirname(localPath))
 		for (path, dirs, files) in os.walk(os.path.basename(localPath)):
 			directorySize = self.getSize(path)
-			print self.formatSize(directorySize) + ' - - ' + os.path.join(remotePath, path)
 			totalSize += directorySize
+			print self.formatSize(directorySize) + ' - - ' + os.path.join(remotePath, path)
 
 			try:
 				self.sftp.mkdir(os.path.join(remotePath, path))
@@ -112,12 +113,19 @@ class Deploy:
 			if not os.path.isdir(os.path.join(self.buildDir, self.today)):
 				Release().create()
 		
-		self.upload(os.path.join(self.buildDir, release), self.remoteDir)
-		self.moveFilesIntoPlace(os.path.join(self.buildDir, release), release)
+		sqlShell = Sql(self.remoteCommand)
+		if sqlShell.checkConnection():
+			#self.upload(os.path.join(self.buildDir, release), self.remoteDir)
+			#self.moveFilesIntoPlace(os.path.join(self.buildDir, release), release)
+			sqlShell.purgeDbs()
+			sqlShell.initDbs()
+			sqlShell.dumpDb('catroweb')
+		else:
+			print 'error'
 		print 'hi' + release
 		
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## command handler
 if __name__ == '__main__':
-	Deploy('hostname', 'user', 'pwd').run()
+	Deploy('hostname', 'user', 'pass').run()

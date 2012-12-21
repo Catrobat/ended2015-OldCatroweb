@@ -22,6 +22,7 @@
 
   <description>Selenium Grid Distribution</description>
   <dirname property="selenium-grid.basedir" file="${ant.file.selenium-grid}"/>
+  <echo message="${selenium-grid.basedir}"/>
 
   <property name="name" value="Selenium Grid Catroid Test Suite"/>
   <property name="artifact" value="selenium-grid-catroid-test-suite"/>
