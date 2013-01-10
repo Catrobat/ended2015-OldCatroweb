@@ -23,7 +23,7 @@ from cleanup import Cleaner
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Selenium:
-	currentSeleniumVersion			= '2.25.0'
+	currentSeleniumVersion			= '2.28.0'
 	currentPostgreSQLdriver			= '9.1-902.jdbc4'
 	
 	basePath										= os.getcwd()
