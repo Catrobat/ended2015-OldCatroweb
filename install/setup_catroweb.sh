@@ -64,6 +64,32 @@ echo "create postgres user..."
 sudo -u postgres psql -d template1 -c "CREATE USER website WITH PASSWORD 'cat.roid.web';"
 sudo -u postgres psql -d template1 -c "ALTER USER website CREATEDB;"
 
+sudo -u postgres psql -d template1 -c "CREATE SCHEMA dbo;
+CREATE OR REPLACE FUNCTION dbo.pg_kill_user_process(pid integer)
+RETURNS boolean AS \$body\$
+DECLARE
+    result boolean;
+BEGIN
+    IF EXISTS (SELECT * FROM pg_catalog.pg_stat_activity
+        WHERE usename IN (SELECT usename FROM pg_catalog.pg_stat_activity WHERE procpid = pg_backend_pid()) AND procpid = pid) THEN
+            result := (SELECT pg_catalog.pg_terminate_backend(pid));
+    ELSE
+        result := false;
+    END IF;
+    RETURN result;
+END;
+\$body\$
+    LANGUAGE plpgsql
+    SECURITY DEFINER
+    VOLATILE
+    RETURNS NULL ON NULL INPUT
+    SET search_path = pg_catalog;
+REVOKE EXECUTE ON ALL FUNCTIONS IN SCHEMA dbo FROM PUBLIC;
+GRANT USAGE ON SCHEMA dbo TO website;
+GRANT EXECUTE ON FUNCTION dbo.pg_kill_user_process(pid integer) TO website;"
+
+
+
 cd ${WORKSPACE}${TARGET}
 sudo ln -s ${WORKSPACE}${TARGET} /var/www
 

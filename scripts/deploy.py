@@ -46,10 +46,10 @@ class Deploy:
 		(stdin, stdout, stderr) = self.ssh.exec_command('cd ' + self.remoteDir + '; ' + command)
 		error = stderr.readlines()
 		if len(error) > 0:
-			print '** ERROR ***********************************************************************'
-			print error
-			return str(stdout.readlines() + error)
-		return str(stdout.readlines())
+			print '** Output **********************************************************************'
+			print ''.join(error)
+			return ''.join(stdout.readlines() + error).strip()
+		return ''.join(stdout.readlines()).strip()
 
 	#--------------------------------------------------------------------------------------------------------------------
 	def formatSize(self, number):
@@ -95,7 +95,7 @@ class Deploy:
 		for entry in os.listdir(os.path.basename(localPath)):
 			self.remoteCommand('rm -rf ' + entry)
 
-		self.remoteCommand('mv ' + release + '/* .')
+		self.remoteCommand('mv ' + release + '/* .; mv ' + release + '/.htaccess .')
 		self.remoteCommand('rm -rf ' + release)
 		
 		if 'No such file' in str(self.remoteCommand('ls passwords.php')):
@@ -115,14 +115,16 @@ class Deploy:
 		
 		sqlShell = Sql(self.remoteCommand)
 		if sqlShell.checkConnection():
-			#self.upload(os.path.join(self.buildDir, release), self.remoteDir)
-			#self.moveFilesIntoPlace(os.path.join(self.buildDir, release), release)
-			sqlShell.purgeDbs()
-			sqlShell.initDbs()
-			sqlShell.dumpDb('catroweb')
+			self.upload(os.path.join(self.buildDir, release), self.remoteDir)
+			self.moveFilesIntoPlace(os.path.join(self.buildDir, release), release)
+			#sqlShell.purgeDbs()
+			#sqlShell.initDbs()
+			#sqlShell.dumpDb('catroweb')
+			#sqlShell.restoreDb('catroweb')
+			#sqlShell.backupDbs()
+			sqlShell.restoreDbs('sql-20130115.tar')
 		else:
 			print 'error'
-		print 'hi' + release
 		
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

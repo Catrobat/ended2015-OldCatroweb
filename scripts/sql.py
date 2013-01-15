@@ -18,7 +18,8 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import commands, glob, os, sys
+import commands, glob, os, string, sys
+from datetime import date
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Sql:
@@ -28,6 +29,7 @@ class Sql:
 	stateTable				= 'Record_of_my_Database_State'
 	cli								= 'psql -w -A -U ' + dbUser + ' '
 	run								= None
+	today							= date.today().strftime("%Y%m%d")
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def localCommand(command):
@@ -35,21 +37,28 @@ class Sql:
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def error(self, command):
-		return 'FATAL ERROR: No database connection.'
+		return 'FATAL ERROR: Something is wrong with your database. Try to reinitialize it.'
 	
 	#--------------------------------------------------------------------------------------------------------------------
 	def __init__(self, callback=localCommand):
 		self.run = callback
 		if self.checkConnection():
-			print 'Please enter your password, it is necessary to restart apache:'
-			os.system('sudo service apache2 restart')
+			## CAUTON: pg_stat_activity.procpid may change to pg_stat_activity.pid in postgres 9.2
+			self.run(self.cli + '-d template1 -c "SELECT dbo.pg_kill_user_process(pg_stat_activity.procpid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'catroboard\';"')
+			self.run(self.cli + '-d template1 -c "SELECT dbo.pg_kill_user_process(pg_stat_activity.procpid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'catroweb\';"')
+			self.run(self.cli + '-d template1 -c "SELECT dbo.pg_kill_user_process(pg_stat_activity.procpid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'catrowiki\';"')
+		else:
+			self.run = self.error
 
 	#--------------------------------------------------------------------------------------------------------------------
 	def checkConnection(self):
 		if 'FATAL' in self.run(self.cli + '-d template1 -c "\l"'):
 			print '** ERROR ***********************************************************************'
 			print 'couldn\'t connect to database!!!'
-			self.run = self.error
+			return False
+		if 'dbo' not in self.run(self.cli + '-d template1 -c "SELECT nspname FROM pg_catalog.pg_namespace;"'):
+			print '** ERROR ***********************************************************************'
+			print 'couldn\'t find schema dbo!!!'
 			return False
 		return True
 
@@ -58,6 +67,7 @@ class Sql:
 		for database in os.listdir(self.sqlPath):
 			if os.path.isdir(os.path.join(self.sqlPath, database)):
 				self.createDb(database)
+				self.executeSql(database)
 				
 	#--------------------------------------------------------------------------------------------------------------------	
 	def purgeDbs(self):
@@ -66,13 +76,37 @@ class Sql:
 				self.dropDb(database)
 
 	#--------------------------------------------------------------------------------------------------------------------	
-	def createDb(self, database):
-		result = self.run(self.cli + '-d template1 -c "CREATE DATABASE ' + database + ' WITH ENCODING \'UTF8\';"')
-		if 'ERROR' in result:
-			print 'couldn\'t create ' + database
+	def backupDbs(self):
+		dumps = ''
+		for database in os.listdir(self.sqlPath):
+			if os.path.isdir(os.path.join(self.sqlPath, database)):
+				dumps += database + '-sql.tar.gz '
+				self.dumpDb(database)
+
+		self.run('tar -cjf sql-' + self.today + '.tar ' + dumps)
+		self.run('rm ' + dumps)
+
+	#--------------------------------------------------------------------------------------------------------------------	
+	def restoreDbs(self, backup):
+		if 'No such file' not in self.run('ls ' + backup):
+			self.run('tar -xvf ' + backup)
+			for database in string.split(self.run('ls *-sql.tar.gz'), '\n'):
+				self.restoreDb(database.replace('-sql.tar.gz', ''))
+				self.run('rm ' + database)
 		else:
-			print 'created ' + database
-			
+			print 'FATAL ERROR: Backup not found.'
+		
+	#--------------------------------------------------------------------------------------------------------------------	
+	def createDb(self, database):
+		if database not in self.run(self.cli + ' -d template1 -c "SELECT datname FROM pg_database;"'):
+			result = self.run(self.cli + '-d template1 -c "CREATE DATABASE ' + database + ' WITH ENCODING \'UTF8\';"')
+			if 'ERROR' in result:
+				print 'couldn\'t create ' + database
+			else:
+				print 'created ' + database
+
+	#--------------------------------------------------------------------------------------------------------------------	
+	def executeSql(self, database):
 		self.run(self.cli + '-d ' + database + ' -c "CREATE TABLE IF NOT EXISTS ' + self.stateTable + ' (statement character varying(511));"')
 		self.executeFiles(database, 'init')
 		self.executeFiles(database, 'updates')
@@ -108,7 +142,7 @@ class Sql:
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def dumpDb(self, database):
-		result = self.run('pg_dump ' + database +  ' -U ' + self.dbUser + ' -c -Ft | gzip -c9 > ' + database + '.tar.gz')
+		result = self.run('pg_dump -n public ' + database +  ' -U ' + self.dbUser + ' -c -Ft | gzip -c9 > ' + database + '-sql.tar.gz')
 		if 'ERROR' in result:
 			print 'error dumping ' + database
 			print result
@@ -117,19 +151,27 @@ class Sql:
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def restoreDb(self, database):
-		self.dropDb(database)
+		if 'No such file' not in self.run('ls ' + database + '-sql.tar.gz'):
+			self.dropDb(database)
+			self.createDb(database)
 
-		result = self.run('gzip -dc ' + database + '.tar.gz | pg_restore -U ' + self.dbUser + ' -c')
-		if 'ERROR' in result:
-			print 'error restoring ' + database
-			print result
+			result = self.run('gzip -dc ' + database + '-sql.tar.gz | pg_restore -d ' + database + ' -U ' + self.dbUser)
+			if 'ERROR' in result:
+				print 'error restoring ' + database
+				print result
+			else:
+				print 'restored data of ' + database
+				print ''
 		else:
-			print 'restored ' + database
+			print 'FATAL ERROR: Found no file to restore.'
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## command handler
 if __name__ == '__main__':
-	Sql().purgeDbs()
-	Sql().initDbs()
-	Sql().dumpDb('catroweb')
+	#Sql().purgeDbs()
+	#Sql().initDbs()
+	#Sql().dumpDb('catroweb')
 	#Sql().restoreDb('catroweb')
+
+	#Sql().backupDbs()
+	Sql().restoreDbs('sql-20130115.tar')
