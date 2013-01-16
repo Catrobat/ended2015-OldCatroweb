@@ -18,31 +18,33 @@
  *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import fileinput, glob, os, shutil, sys, paramiko
+import commands, fileinput, glob, os, shutil, sys, paramiko
 from datetime import date, datetime, timedelta
 from release import Release
 from sql import Sql
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class Deploy:
-	basePath					= os.getcwd()
-	today							= date.today().strftime("%Y%m%d")
-	buildDir					= os.path.join(basePath, 'build')
-	
+class RemoteShell:
 	ssh								= None
 	sftp							= None
-	remoteDir					= '/var/www/catroid'
+	remoteDir					= ''
 	
 	#--------------------------------------------------------------------------------------------------------------------
-	def __init__(self, server, user, password, port=22):
-		self.ssh = paramiko.SSHClient()
-		self.ssh.load_system_host_keys()
-		self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-		self.ssh.connect(server, port, user, password)
-		self.sftp = paramiko.SFTPClient.from_transport(self.ssh.get_transport())
+	def __init__(self, server, user, password, port=22, remoteDir='/var/www/catroid'):
+		try:
+			self.remoteDir = remoteDir
+			self.ssh = paramiko.SSHClient()
+			self.ssh.load_system_host_keys()
+			self.ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+			self.ssh.connect(server, port, user, password)
+			self.sftp = paramiko.SFTPClient.from_transport(self.ssh.get_transport())
+		except Exception, e:
+			print "ERROR: Couldn't connect to " + user + "@" + server + " on port " + str(port) + "."
+			print 'Exception: %s' % e
+			sys.exit(-1)
 
 	#--------------------------------------------------------------------------------------------------------------------
-	def remoteCommand(self, command):
+	def run(self, command):
 		(stdin, stdout, stderr) = self.ssh.exec_command('cd ' + self.remoteDir + '; ' + command)
 		error = stderr.readlines()
 		if len(error) > 0:
@@ -50,6 +52,32 @@ class Deploy:
 			print ''.join(error)
 			return ''.join(stdout.readlines() + error).strip()
 		return ''.join(stdout.readlines()).strip()
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Deploy:
+	basePath					= os.getcwd()
+	today							= date.today().strftime("%Y%m%d")
+	buildDir					= os.path.join(basePath, 'build')
+	
+	sftp							= None
+	remoteDir					= ''
+	
+	#--------------------------------------------------------------------------------------------------------------------
+	def __init__(self, remoteShell):
+		try:
+			self.remoteCommand = remoteShell.run
+			self.sftp = remoteShell.sftp
+			self.remoteDir = remoteShell.remoteDir
+		except Exception, e:
+			print 'FATAL ERROR: unrecognized shell, please use a RemoteShell object.'
+			print 'Exception: %s' % e
+			sys.exit(-1)
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def remoteCommand(self, command):
+		print 'FATAL ERROR: shell not set.'
+		sys.exit(-1)
 
 	#--------------------------------------------------------------------------------------------------------------------
 	def formatSize(self, number):
@@ -124,10 +152,85 @@ class Deploy:
 			#sqlShell.backupDbs()
 			sqlShell.restoreDbs('sql-20130115.tar')
 		else:
-			print 'error'
-		
+			print 'ERROR: deployment failed!'
+
+
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Backup:
+	today							= date.today().strftime("%Y%m%d")
+	remoteDir					= ''
+	
+	#--------------------------------------------------------------------------------------------------------------------
+	def __init__(self, remoteShell=None):
+		try:
+			self.run = remoteShell.run
+			self.download = remoteShell.sftp.get
+			self.upload = remoteShell.sftp.put
+			self.remoteDir = remoteShell.remoteDir
+			print 'remote backup:'
+		except:
+			print 'local backup:'
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def run(self, command):
+		return commands.getoutput(command)
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def download(self, remoteFile, localFile):
+		pass
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def upload(self, localFile, remoteFile):
+		pass
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def createBackup(self):
+		sqlShell = Sql(self.run)
+		if sqlShell.checkConnection():
+			sqlShell.backupDbs()
+			self.run('tar -zcf resources.tar.gz resources')
+			self.run('tar -cf catroweb-' + self.today + '.tar sql.tar resources.tar.gz')
+			self.run('rm sql.tar resources.tar.gz')
+			self.download(os.path.join(self.remoteDir, 'catroweb-' + self.today + '.tar'), os.path.join(os.getcwd(), 'catroweb-' + self.today + '.tar'))
+			print 'created backup'
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def restoreBackup(self, backup):
+		tempResources = 'resources-tmp'
+		if 'No such file' not in commands.getoutput('ls ' + os.path.join(os.getcwd(), backup)):
+			sqlShell = Sql(self.run)
+			if sqlShell.checkConnection():
+				self.upload(os.path.join(os.getcwd(), backup), os.path.join(self.remoteDir, 'catroweb-' + self.today + '.tar'))
+
+				result = self.run('tar -xf ' + backup)
+				if 'Error' in result:
+					print result
+					sys.exit(-1)
+					
+				self.run('mkdir -p resources-tmp')
+				result = self.run('tar -xf resources.tar.gz -C resources-tmp')
+				if 'Error' in result:
+					print result
+					sys.exit(-1)
+				
+				sqlShell.restoreDbs('sql.tar')
+				
+				result = self.run('mv resources resources-old; mv resources-tmp/resources resources')
+				result = self.run('rm -rf resources-old resources-tmp resources.tar.gz sql.tar')
+
+				print 'restored backup: ' + backup
+		else:
+			print 'FATAL ERROR: No such file: ' + backup
+			
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ## command handler
 if __name__ == '__main__':
-	Deploy('hostname', 'user', 'pass').run()
+	#shell = RemoteShell('192.168.1.110', 'chris', '')
+	shell = RemoteShell('catroidwebtest.ist.tugraz.at', 'unpriv', '')
+	#shell = RemoteShell('catroidtest.ist.tugraz.at', 'unpriv', '')
+	#shell = RemoteShell('catroidweb.ist.tugraz.at', 'unpriv', '')
+	#Deploy(shell).run()
+
+	#Backup(shell).createBackup()
+	Backup().restoreBackup('catroweb-20130116.tar')

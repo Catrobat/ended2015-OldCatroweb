@@ -19,7 +19,6 @@
 '''
 
 import commands, glob, os, string, sys
-from datetime import date
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Sql:
@@ -29,7 +28,6 @@ class Sql:
 	stateTable				= 'Record_of_my_Database_State'
 	cli								= 'psql -w -A -U ' + dbUser + ' '
 	run								= None
-	today							= date.today().strftime("%Y%m%d")
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def localCommand(command):
@@ -83,7 +81,7 @@ class Sql:
 				dumps += database + '-sql.tar.gz '
 				self.dumpDb(database)
 
-		self.run('tar -cjf sql-' + self.today + '.tar ' + dumps)
+		self.run('tar -cjf sql.tar ' + dumps)
 		self.run('rm ' + dumps)
 
 	#--------------------------------------------------------------------------------------------------------------------	
@@ -94,7 +92,8 @@ class Sql:
 				self.restoreDb(database.replace('-sql.tar.gz', ''))
 				self.run('rm ' + database)
 		else:
-			print 'FATAL ERROR: Backup not found.'
+			print 'FATAL ERROR: Backup not found: ' + backup
+			sys.exit(-1)
 		
 	#--------------------------------------------------------------------------------------------------------------------	
 	def createDb(self, database):
