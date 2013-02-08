@@ -59,7 +59,9 @@ class loadSearchProjects extends CoreAuthenticationNone {
     $searchQuery = "";
     $searchRequest = array();
     $searchTermsReplaced = array();
-
+    $placeholder = array("[]","[/]");
+    $highlight = array("<span class='projectListHighlight'>","</span>");
+    
     foreach($searchTerms as $term) {
       if ($term != "") {
         $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$".$keywordsCount;
@@ -68,7 +70,7 @@ class loadSearchProjects extends CoreAuthenticationNone {
         $searchTerm = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($term)));
         $searchTerm = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $searchTerm);
         array_push($searchRequest, "%".$searchTerm."%");
-        array_push($searchTermsReplaced, "<span class='projectListHighlight'>" . $term . "</span>");
+        array_push($searchTermsReplaced, "[]" . $term . "[/]");
         $keywordsCount++;
       }
     }
@@ -85,11 +87,13 @@ class loadSearchProjects extends CoreAuthenticationNone {
       $i=0;
       foreach($projects as $project) {
         $projects[$i]['thumbnail_title'] = $projects[$i]['title'];
-        $projects[$i]['title'] = str_replace($searchTerms, $searchTermsReplaced, $projects[$i]['title']);
+        $projects[$i]['title'] = str_ireplace($searchTerms, $searchTermsReplaced, $projects[$i]['title']);
+        $projects[$i]['title'] = str_ireplace($placeholder,$highlight, $projects[$i]['title']);
         $projects[$i]['title_short'] = makeShortString($project['title'], PROJECT_TITLE_MAX_DISPLAY_LENGTH);
         $projects[$i]['upload_time'] =  $this->languageHandler->getString('uploaded', getTimeInWords($project['last_activity'], $this->languageHandler, time()));
         $projects[$i]['thumbnail'] = getProjectThumbnailUrl($project['id']);
-        $projects[$i]['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', str_replace($searchTerms, $searchTermsReplaced, $projects[$i]['uploaded_by']));
+        $projects[$i]['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', str_ireplace($searchTerms, $searchTermsReplaced, $projects[$i]['uploaded_by']));
+        $projects[$i]['uploaded_by_string'] = str_ireplace($placeholder,$highlight, $projects[$i]['uploaded_by_string']);
         $i++;
       }    
       
