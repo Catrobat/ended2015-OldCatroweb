@@ -1,21 +1,25 @@
 #!/usr/bin/env python
 '''   
- *    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
 import commands, os, sys
@@ -51,8 +55,6 @@ class CssChecker:
 					print 'checking ' + file
 					if os.system(self.checker + ' --allow-unrecognized-functions --allow-unrecognized-properties ' + os.path.join(path, file) + ' > /dev/null') is not 0:
 						sys.exit(-1)
-		print 'success'
-		print ''
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -71,8 +73,6 @@ class DeadlinkChecker:
 		result = os.system(self.tool + ' --ignore-url=^mailto: --ignore-url=^javascript: ' + self.location)
 		if result is not 0:
 			sys.exit(-1)
-		print 'success'
-		print ''
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -106,8 +106,6 @@ class JsChecker:
 					print 'checking ' + file
 					if os.system(self.checker + ' --compilation_level SIMPLE_OPTIMIZATIONS --js ' + os.path.join(path, file) + ' > /dev/null') is not 0:
 						sys.exit(-1)
-		print 'success'
-		print ''
 
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -127,20 +125,21 @@ class PhpUnit:
 			print 'Testfolder is missing. The PHPunit tests should be located in:'
 			print ' ' + self.testPath
 
+
 	#--------------------------------------------------------------------------------------------------------------------
-	def runAll(self):
-		for suite in os.listdir(self.testPath):
-			if os.path.isdir(os.path.join(self.testPath, suite)):
-				self.run(suite)
-		print 'success'
-		print ''
+	def runTestCase(self, suite):
+		testcase = os.path.join(self.testPath, suite)
+		if os.path.isfile(testcase):
+			result = os.system('cd ' + self.testPath + '; ' + self.tool + ' ' + suite)
+			if result is not 0:
+				sys.exit(-1)
+		else:
+			print 'No such test file: ' + testcase
 
 	#--------------------------------------------------------------------------------------------------------------------
 	def run(self, suite):
 		testsuite = os.path.join(self.testPath, suite)
 		if os.path.isdir(testsuite):
-			print ''
-			print 'Running ' + suite + ' tests:'
 			result = os.system('cd ' + self.testPath + '; ' + self.tool + ' ' + suite)
 			if result is not 0:
 				sys.exit(-1)
@@ -167,15 +166,15 @@ class Selenium:
 			print ' ' + self.testPath
 
 	#--------------------------------------------------------------------------------------------------------------------
-	def run(self, suite):
+	def run(self, suite, args=''):
 		os.system('cd ' + self.testToolsPath + '; ant launch-hub')
 		os.system('cd ' + self.testToolsPath + '; ant launch-remote-control -Drole=webdriver -DhubURL=http://localhost:4444/grid/register -Dport=5556 -DbrowserName=firefox -DbrowserVersion=3.6 -DmaxInstances=3 -Dplatform= -DnodeTimeout=30')
-#		print os.system('cd ' + self.testPath + '; ant run-catroid-tests -Dbrowser=firefox')
-#		print os.system('cd ' + self.testPath + '; ant run-single-test -Dbrowser=firefox -Dsingle-test-class=catroid.LicenseTests -Dsingle-test-method=.*')
-		print os.system('cd ' + self.testPath + '; ant run-group-test -Dbrowser=firefox -Dgroup-test=admin')
-
-		print 'success'
-		print ''
+		if suite == 'catroid':
+			os.system('cd ' + self.testPath + '; ant run-catroid-tests ' + args)
+		if suite == 'single':
+			os.system('cd ' + self.testPath + '; ant run-single-test ' + args)
+		if suite == 'group':
+			os.system('cd ' + self.testPath + '; ant run-group-test ' + args)
 		
 	#--------------------------------------------------------------------------------------------------------------------
 	def stop(self):
@@ -197,10 +196,17 @@ if __name__ == '__main__':
 			if len(sys.argv) > 2:
 				PhpUnit().run(sys.argv[2])
 			else:
-				PhpUnit().runAll()
+				sys.exit(-1)
 		if sys.argv[1] == 'selenium':
-			Selenium().run('catroid')
-			Selenium().stop()
+			if len(sys.argv) > 3:
+				Selenium().run(sys.argv[2], sys.argv[3])
+			elif len(sys.argv) > 2:
+				if sys.argv[2] == 'stop':
+					Selenium().stop()
+				else:
+					Selenium().run(sys.argv[2])
+			else:
+				sys.exit(-1)
 	else:
 		CssChecker().run()
 		JsChecker().run()

@@ -22,7 +22,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 
-<suite name="Catroid Run Group Test" parallel="methods" thread-count="20" verbose="2">
+<suite name="Catroid Run Group Test" parallel="methods" thread-count="20" verbose="1" allow-return-values="true">
   <test name="GroupTest">
     <groups>
       <run>

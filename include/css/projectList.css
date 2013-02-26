@@ -145,5 +145,11 @@ button.navigationButtons {
 }
 
 span.projectListDetailsLinkBold {
-  color:#000000; font-weight: bold;			
+  color:#000000;
+  font-weight: bold;			
+}
+
+span.projectListHighlight {
+  background-color: #ffff33;
+  font-weight: bold;
 }

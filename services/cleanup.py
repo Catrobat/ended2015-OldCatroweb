@@ -23,6 +23,7 @@
 '''
 
 import fileinput, glob, os, shutil, sys
+from sql import Sql
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Cleaner:
@@ -36,15 +37,8 @@ class Cleaner:
 	cacheDir					= os.path.join(basePath, 'cache')
 
 	#--------------------------------------------------------------------------------------------------------------------	
-	def restartApache(self):
-		print 'Please enter your password, it is necessary to restart apache:'
-		os.system('sudo service apache2 restart')
-
-	#--------------------------------------------------------------------------------------------------------------------	
 	def dropDatabases(self):
-		os.system('sudo -u postgres psql -d template1 -c "DROP DATABASE IF EXISTS catroboard"')
-		os.system('sudo -u postgres psql -d template1 -c "DROP DATABASE IF EXISTS catroweb"')
-		os.system('sudo -u postgres psql -d template1 -c "DROP DATABASE IF EXISTS catrowiki"')
+		Sql().purgeDbs()
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def cleanResources(self):
@@ -94,7 +88,6 @@ class Cleaner:
 		if os.path.isdir(self.buildDir):
 			shutil.rmtree(self.buildDir)
 
-		self.restartApache()
 		self.dropDatabases()
 		self.cleanResources()
 

@@ -1,5 +1,5 @@
-<?php
-/*
+#!/usr/bin/env python
+'''   
  * Catroid: An on-device visual programming system for Android devices
  * Copyright (C) 2010-2013 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
@@ -20,17 +20,28 @@
  * 
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
+'''
 
-$_SERVER['SERVER_NAME'] = 'catroid.local';
-require_once '../config.php';
-require_once 'generatePootleFileFunctions.php';
+import fileinput, glob, os, shutil, sys, tools
+from remoteShell import RemoteShell
+from sql import Sql
+from tests import PhpUnit
 
-if(generatePootleFile('')) {
-  print_r("POOTLE file successfully generated.\n");
-} else {
-  print_r("ERROR while generating POOTLE file.\n");
-}
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+class Pootle:
+	basePath					= os.getcwd()
+	pootleScripts			= os.path.join(basePath, 'pootle')
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def generate(self):
+		PhpUnit().runTestCase('framework/languageTest.php')
+		os.system('cd ' + self.pootleScripts + '; php generateStringsXml.php')
+		os.system('cd ' + self.pootleScripts + '; php generatePootleFile.php')
 
 
-?>
+#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## command handler
+if __name__ == '__main__':
+	if len(sys.argv) > 1:
+		if sys.argv[1] == 'generate':
+			Pootle().generate()

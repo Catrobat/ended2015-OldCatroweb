@@ -25,7 +25,7 @@
 <project name="selenium-tools" basedir=".">
   <description>Selenium Grid Tools (hub and remote-control)</description>
   <dirname property="selenium-tools.basedir" file="${ant.file.selenium-tools}"/>
-  <property name="selenium-tools.version" value="2.28.0" />
+  <property name="selenium-tools.version" value="2.30.0" />
 
   <!-- *** launch and stop hub ********************************************* -->
   <target name="launch-hub" description="Launch Selenium Grid Hub">
@@ -49,11 +49,11 @@
   <target name="stop-hub" description="Stop Selenium Grid Hub">
     <exec dir="${selenium-tools.basedir}" executable="bash" osfamily="Unix">
       <arg value="-c"/>
-      <arg value="kill -9 `ps ux | awk '/java -jar selenium-server-standalone-${selenium-tools.version}.jar -role hub/ &amp;&amp; !/awk/ {print $2}'`"/>
+      <arg value="kill -9 `ps ux | awk '/.jar -role hub/ &amp;&amp; !/awk/ {print $2}'`"/>
     </exec>
     <exec dir="${selenium-tools.basedir}" executable="cmd" osfamily="Windows">
       <arg value="/c"/>
-      <arg value="WMIC PROCESS where (Commandline=&quot;java -jar selenium-server-standalone-${selenium-tools.version}.jar -role hub&quot;) call terminate"/>
+      <arg value="WMIC PROCESS where (Commandline=&quot;.jar -role hub&quot;) call terminate"/>
     </exec>
   </target>
  
@@ -86,20 +86,20 @@
   <target name="stop-remote-controls" description="Stop All Selenium Grid Remote Controls">
     <exec dir="${selenium-tools.basedir}" executable="bash" osfamily="Unix">
       <arg value="-c"/>
-      <arg value="kill -9 `ps ux | awk '/java -jar selenium-server-standalone-${selenium-tools.version}.jar -role rc/ &amp;&amp; !/awk/ {print $2}'`"/>
+      <arg value="kill -9 `ps ux | awk '/.jar -role rc/ &amp;&amp; !/awk/ {print $2}'`"/>
     </exec>
     <exec dir="${selenium-tools.basedir}" executable="bash" osfamily="Unix">
       <arg value="-c"/>
-      <arg value="kill -9 `ps ux | awk '/java -jar selenium-server-standalone-${selenium-tools.version}.jar -role webdriver/ &amp;&amp; !/awk/ {print $2}'`"/>
+      <arg value="kill -9 `ps ux | awk '/.jar -role webdriver/ &amp;&amp; !/awk/ {print $2}'`"/>
     </exec>    
 
     <exec dir="${selenium-tools.basedir}" executable="cmd" osfamily="Windows">
       <arg value="/c"/>
-      <arg value="WMIC PROCESS where &quot;Commandline like 'java -jar selenium-server-standalone-${selenium-tools.version}.jar -role rc%'&quot; call terminate"/>
+      <arg value="WMIC PROCESS where &quot;Commandline like '.jar -role rc%'&quot; call terminate"/>
     </exec>
     <exec dir="${selenium-tools.basedir}" executable="cmd" osfamily="Windows">
       <arg value="/c"/>
-      <arg value="WMIC PROCESS where &quot;Commandline like 'java -jar selenium-server-standalone-${selenium-tools.version}.jar -role webdriver%'&quot; call terminate"/>
+      <arg value="WMIC PROCESS where &quot;Commandline like '.jar -role webdriver%'&quot; call terminate"/>
     </exec>
   </target>
 </project>

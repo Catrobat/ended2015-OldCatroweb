@@ -22,6 +22,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+$_SERVER['SERVER_NAME'] = 'catroid.local';
 require_once '../config.php';
 require_once 'generateStringsXmlFunctions.php';
 
