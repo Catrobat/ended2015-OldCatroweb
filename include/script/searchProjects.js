@@ -21,6 +21,67 @@
  *along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+  /*jQuery.fn.highlight = function(pat) {
+    function innerHighlight(node, pat) {
+     var skip = 0;
+     if (node.nodeType == 3) {
+      var pos = node.data.toUpperCase().indexOf(pat);
+      if (pos >= 0) {
+       var spannode = document.createElement('span');
+       spannode.className = 'highlight';
+       var middlebit = node.splitText(pos);
+       var endbit = middlebit.splitText(pat.length);
+       var middleclone = middlebit.cloneNode(true);
+       spannode.appendChild(middleclone);
+       middlebit.parentNode.replaceChild(spannode, middlebit);
+       skip = 1;
+      }
+     }
+     else if (node.nodeType == 1 && node.childNodes && !/(script|style)/i.test(node.tagName)) {
+      for (var i = 0; i < node.childNodes.length; ++i) {
+       i += innerHighlight(node.childNodes[i], pat);
+      }
+     }
+     return skip;
+    }
+    return this.length && pat && pat.length ? this.each(function() {
+     innerHighlight(this, pat.toUpperCase());
+    }) : this;
+   };*/
+
+  jQuery.fn.highlight = function(word) {
+    function innerHighlight(node, word) {
+     var result = 0;
+     
+     if (node.nodeType === 3) {
+       var position = node.data.toUpperCase().indexOf(word);
+       if (position >= 0) {
+
+       var spannode = document.createElement('span');
+       spannode.className = 'highlight';
+       var selection = node.splitText(position);
+       selection.splitText(word.length);
+       var selectionclone = selection.cloneNode(true);
+       spannode.appendChild(selectionclone);
+       
+       selection.parentNode.replaceChild(spannode,selection);
+       result = 1;
+
+      }
+     }
+     else if (node.nodeType == 1 && node.childNodes && !/(script|style)/i.test(node.tagName)) {
+      for (var i = 0; i < node.childNodes.length; ++i) {
+       i += innerHighlight(node.childNodes[i], word);
+      }
+     }
+    return result;
+    }
+    return this.length && word && word.length ? this.each(function() {
+     innerHighlight(this, word.toUpperCase());
+    }) : this;
+   };
+   
+   
 var SearchProjects = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function(maxLoadProjects, maxLoadPages, pageNr, searchQuery, strings) {
@@ -35,7 +96,7 @@ var SearchProjects = Class.$extend( {
     this.pageLabels = new Array();
     this.pageContent = { prev : null, current : null, next : null };
   },
-
+  
   initialize : function(object) {
     if(!object.initialized) { 
       object.createSkeleton();
@@ -275,7 +336,12 @@ var SearchProjects = Class.$extend( {
               self.fillSkeletonWithContent();
               self.saveHistoryState();
               self.setDocumentTitle();
-              self.unblockAjaxRequest();            
+              self.unblockAjaxRequest();
+              
+              var searchWords = self.searchQuery.split(" "); 
+              $.each(searchWords, function(index, value){
+                $("#projectContainer").highlight(value);
+              });
             }
           }
         }
@@ -287,6 +353,8 @@ var SearchProjects = Class.$extend( {
       }
     });
   },
+  
+  
 
   showErrorPage: function(type, code, extra) {
     var self = this;
@@ -388,13 +456,13 @@ var SearchProjects = Class.$extend( {
         if($("#projectListElement"+i).length > 0) {
           $("#whiteBox"+i).css("display", "block");
           $("#projectListSpacer"+i).css("display", "block");
-          $("#projectListThumbnail"+i).attr("title", content[i]['thumbnail_title']);
+          $("#projectListThumbnail"+i).attr("title", content[i]['title']);
           $("#projectListDetailsLinkThumb"+i).unbind('click');
           if (content[i]['id'] != 0) {
             $("#projectListDetailsLinkThumb"+i).attr("href", this.basePath+"catroid/details/"+content[i]['id']);  
             $("#projectListDetailsLinkThumb"+i).bind("click", { pageNr: content[i]['pageNr'] }, function(event) { self.saveStateToSession(event.data.pageNr); });
           }
-          $("#projectListPreview"+i).attr("src", content[i]['thumbnail']).attr("alt", content[i]['thumbnail_title']);
+          $("#projectListPreview"+i).attr("src", content[i]['thumbnail']).attr("alt", content[i]['title']);
           
           $("#projectListTitle"+i).unbind('click');          
           if (content[i]['id'] != 0) {

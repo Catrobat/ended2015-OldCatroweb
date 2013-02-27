@@ -222,11 +222,39 @@ public class SearchTests extends BaseTest {
       captureScreen("SearchTests.identicalSearchQuery");
       throw e;
     } catch(Exception e) {
-      captureScreen("SearchTests.searchAndHideProjectidenticalSearchQuery");
+      captureScreen("SearchTests.identicalSearchQuery");
       throw e;
     }
   }
-
+  
+  @Test(groups = { "functionality" }, description = "search project, highlight search query")
+  public void highlightSearchQuery() throws Throwable {
+    try {
+      
+      String projectTitle = "HighLight_Project" + CommonData.getRandomShortString(10);
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "identical_search_project_2", "", "", "", "", Config.DEFAULT_UPLOAD_TOKEN));
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      
+      openLocation("/catroid/search/?q=" + projectTitle + "&p=1", false);
+      ajaxWait();  
+      assertEquals(projectTitle, driver().findElement(By.className("highlight")).getText());
+      
+      openLocation("/catroid/search/?q=" + projectTitle.toUpperCase() + "&p=1", false);
+      ajaxWait();
+      assertEquals(projectTitle, driver().findElement(By.className("highlight")).getText());
+      
+      openLocation("/catroid/search/?q=" + CommonData.getLoginUserDefault() + "&p=1", false);
+      ajaxWait();
+      assertEquals(CommonData.getLoginUserDefault(), driver().findElement(By.className("highlight")).getText());
+      
+    } catch(AssertionError e) {
+      captureScreen("SearchTests.highlightSearchQuery");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("SearchTests.highlightSearchQuery");
+      throw e;
+    }
+  }
   @Test(groups = { "functionality", "upload" }, description = "search and hide project")
   public void searchAndHideProject() throws Throwable {
     try {
