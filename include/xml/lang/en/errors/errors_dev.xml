@@ -84,6 +84,7 @@
         <string name="qr_code_generation_failed">QR Code generation failed!</string>
         <string name="save_thumbnail_failed">Save thumbnail failed!</string>
         <string name="invalid_project_xml">The XML of the project is not valid!</string>
+        <string name="old_catrobat_language">Project contains old Catrobat language!</string>
     </upload>
     <download>
     	<string name="file_not_found">Could not find requested file on server</string>

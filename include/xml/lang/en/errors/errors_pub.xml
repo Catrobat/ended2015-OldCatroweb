@@ -84,6 +84,7 @@
         <string name="qr_code_generation_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="save_thumbnail_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="invalid_project_xml">Sorry, your project file is invalid. Try to save it as a new project and upload it again.</string>
+        <string name="old_catrobat_language">Sorry, your project contains a old version of the Catrobat language! Are you using the latest version of Catroid?</string>
     </upload>
     <download>
     	<string name="file_not_found">The requested project is not available at the time. Try again later!</string>
