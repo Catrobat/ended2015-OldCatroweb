@@ -200,10 +200,10 @@ class upload extends CoreAuthenticationDevice {
     }
 
     $node = $xml->children();
-    $versionName = current($node[0]->ApplicationVersion);
-    $versionCode = current($node[0]->CatrobatLanguageVersion);
-    $projectTitle = current($node[0]->ProgramName);
-    $projectDescription = current($node[0]->Description);
+    $versionName = current($node[0]->applicationVersion);
+    $versionCode = current($node[0]->catrobatLanguageVersion);
+    $projectTitle = current($node[0]->programName);
+    $projectDescription = current($node[0]->description);
     
     // workaround for temporary xml file
     if(!$versionName) {
