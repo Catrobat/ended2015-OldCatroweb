@@ -149,7 +149,7 @@ span.projectListDetailsLinkBold {
   font-weight: bold;			
 }
 
-span.projectListHighlight {
+.highlight {
   background-color: #ffff33;
   font-weight: bold;
 }

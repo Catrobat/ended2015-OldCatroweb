@@ -58,9 +58,11 @@ class upload extends CoreAuthenticationDevice {
 
       $xmlFile = $this->getProjectXmlFile(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique . '/');
       $projectInformation = $this->getProjectInformation($xmlFile, $formData);
+      $this->checkValidCatrobatVersion($projectInformation['versionCode']);
       $this->checkValidProjectTitle($projectInformation['projectTitle']);
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
+      
 
       $projectId = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
@@ -198,13 +200,27 @@ class upload extends CoreAuthenticationDevice {
     }
 
     $node = $xml->children();
-    $versionName = current($node[0]->ApplicationVersion);
-    $versionCode = current($node[0]->CatrobatLanguageVersion);
-    $projectTitle = current($node[0]->ProgramName);
-    $projectDescription = current($node[0]->Description);
+    $versionName = current($node[0]->applicationVersion);
+    $versionCode = current($node[0]->catrobatLanguageVersion);
+    $projectTitle = current($node[0]->programName);
+    $projectDescription = current($node[0]->description);
+    
+    // workaround for temporary xml file
+    if(!$versionName) {
+      $versionName = current($node->applicationVersion);
+    }
+    if(!$versionCode) {
+      $versionCode = current($node->catrobatLanguageVersion);
+    }
+    if(!$projectTitle) {
+      $projectTitle = current($node->programName);
+    }
+    if(!$projectDescription) {
+      $projectDescription = current($node->description);
+    }
     
     if(!$versionName || !$versionCode) {
-      $versionCode = 0.3;
+      $versionCode = MIN_CATROBAT_LANGUAGE_VERSION;
       $versionName = '&lt; 0.7.0beta';
     } else if(stristr($versionName, "-")) {
       $versionName = substr($versionName, 0, strpos($versionName, "-"));
@@ -231,6 +247,12 @@ class upload extends CoreAuthenticationDevice {
         "uploadIp" => $uploadIp,
         "uploadLanguage" => $uploadLanguage
     ));
+  }
+
+  private function checkValidCatrobatVersion($versionCode) {
+    if(floatval($versionCode) < floatval(MIN_CATROBAT_LANGUAGE_VERSION)) {
+      throw new Exception($this->errorHandler->getError('upload', 'old_catrobat_language'), STATUS_CODE_UPLOAD_OLD_CATROBAT_LANGUAGE);
+    }
   }
 
   private function checkValidProjectTitle($title) {

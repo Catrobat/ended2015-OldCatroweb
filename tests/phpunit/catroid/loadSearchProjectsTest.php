@@ -100,23 +100,7 @@ class loadSearchProjectsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals("Your search returned no results.",$projects[0]['title_short']);
     $this->assertRegExp("/images\/symbols\/thumbnail_gray\.jpg/",$projects[0]['thumbnail']);    
   }
-  
-  public function testSearchStringIsHighlighted() {
-  
-    // retrieve search results from database
-    $projects = $this->obj->retrieveSearchResultsFromDatabase("testproject", 0);
-  
-    // test if search query is highlighted
-    $this->assertEquals(true, is_array($projects));
-    $this->assertRegExp("/<span class='projectListHighlight'>testproject<\/span>/",$projects[0]['title']);
-    
-    //same for case-sensitive search
-    $projects = $this->obj->retrieveSearchResultsFromDatabase("tEstproject", 0);
-    
-    // test if search query is highlighted
-    $this->assertEquals(true, is_array($projects));
-    $this->assertRegExp("/<span class='projectListHighlight'>testproject<\/span>/",$projects[0]['title']);
-  }
+ 
   
   public function testSpecialCharSearch() {        
     $specialStrings = $this->specialCharStrings();

@@ -351,14 +351,18 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $validFileName = 'test.zip';
     $invalidFileName = 'nonExistingFile.zip';
     $corruptFileName = 'test_invalid_projectfile.zip';
+    $oldVersionFileName = 'test0.3.catrobat';
     $validTestFile = dirname(__FILE__) . '/testdata/' . $validFileName;
     $invalidTestFile = dirname(__FILE__) . '/testdata/' . $invalidFileName;
     $corruptTestFile = dirname(__FILE__) . '/testdata/' . $corruptFileName;
+    $oldVersionFile = dirname(__FILE__) . '/testdata/' . $oldVersionFileName;
     $validFileChecksum = md5_file($validTestFile);
     $corruptFileChecksum = md5_file($corruptTestFile);
     $invalidFileChecksum = 'invalidfilechecksum';
+    $oldVersionFileChecksum = md5_file($oldVersionFile);
     $validFileSize = filesize($validTestFile);
     $corruptFileSize = filesize($corruptTestFile);
+    $oldVersionFileSize = filesize($oldVersionFile);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
         array('uploadTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, $validFileChecksum, 0, $fileType, STATUS_CODE_UPLOAD_MISSING_DATA),
@@ -369,7 +373,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
         array('', 'this project has no project title', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
         array('defaultProject', 'this project is named defaultProject', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_DEFAULT_PROJECT_TITLE),
         array('uploadTestFail8 fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_TITLE),
-        array('uploadTestFail9', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_DESCRIPTION)
+        array('uploadTestFail9', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_DESCRIPTION),
+        array('uploadTestFail10', 'this project has an old catrobatLanguageVersion!', $oldVersionFile, $oldVersionFileName, $oldVersionFileChecksum, $oldVersionFileSize, $fileType, STATUS_CODE_UPLOAD_OLD_CATROBAT_LANGUAGE)
     );
     return $dataArray;
   }
@@ -377,7 +382,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test0.3.catrobat', $fileType, 0.3, '0.6.0beta')
+        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test0.5.catrobat', $fileType, 0.5, '0.7.0beta')
     );
     return $dataArray;
   }
