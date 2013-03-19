@@ -264,7 +264,10 @@ public class BaseTest {
   
   public String getAjaxMessage() {
     waitForElementPresent(By.id("ajaxAnswerBoxContainer"));
-    ajaxWait();
+    try {
+      ajaxWait();
+    } catch(Exception ignore) {
+    }
 
     return (String)((JavascriptExecutor) driver()).executeScript("return arguments[0].innerHTML",
         driver().findElement(By.id("ajaxAnswerBoxContainer")));

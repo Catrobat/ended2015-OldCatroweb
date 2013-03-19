@@ -49,7 +49,7 @@ var Profile = Class.$extend( {
   //-------------------------------------------------------------------------------------------------------------------
   initAvatarUploader : function() {
     var self = this;
-    var wrapper = $('<div/>').css({height:0, width:0, 'overflow':'hidden'});
+    var wrapper = $('<div/>', {'id': 'profileAvatarFileWrapper'}).css({height:0, width:0, 'overflow':'hidden'});
     var fileInput = $('#profileAvatarFile').wrap(wrapper);
 
     fileInput.change(function() {

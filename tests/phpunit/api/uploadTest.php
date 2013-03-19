@@ -382,7 +382,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test0.5.catrobat', $fileType, 0.5, '0.7.0beta')
+        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test0.6.catrobat', $fileType, 0.6, '0.7.0beta')
     );
     return $dataArray;
   }

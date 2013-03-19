@@ -27,7 +27,7 @@ from cleanup import Cleaner
 
 #~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 class Selenium:
-	currentSeleniumVersion			= '2.30.0'
+	currentSeleniumVersion			= '2.31.0'
 	currentPostgreSQLdriver			= '9.1-902.jdbc4'
 	
 	basePath										= os.getcwd()
@@ -56,9 +56,9 @@ class Selenium:
 		# get and move files
 		os.system('wget ' + self.seleniumDownloadURL + self.seleniumServerZip)
 		os.system('unzip ' + self.seleniumServerZip)
-		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, 'libs'), self.seleniumLibDir)
-		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, self.seleniumServerJar), os.path.join(self.seleniumLibDir, self.seleniumServerJar))
-		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, self.seleniumServerStandaloneJar), os.path.join(self.seleniumToolsDir, self.seleniumServerStandaloneJar))
+		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, self.seleniumTempFiles, 'libs'), self.seleniumLibDir)
+		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, self.seleniumTempFiles, self.seleniumServerJar), os.path.join(self.seleniumLibDir, self.seleniumServerJar))
+		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, self.seleniumTempFiles, self.seleniumServerStandaloneJar), os.path.join(self.seleniumToolsDir, self.seleniumServerStandaloneJar))
 		
 		os.system('wget ' + self.postgreSQLdriverDownloadURL + self.postgreSQLdriverJar)
 		os.rename(self.postgreSQLdriverJar, os.path.join(self.basePath, self.seleniumLibDir, self.postgreSQLdriverJar))
@@ -104,9 +104,7 @@ class JSCompiler:
 		os.system('wget ' + self.downloadURL + self.serverZip)
 		os.system('unzip ' + self.serverZip)
 		os.rename(os.path.join(self.basePath, self.serverJar), os.path.join(self.toolsDir, self.serverJar))
-		print 'Please enter your password, it is necessary to change the owner of ' + self.serverJar + ':'
-		os.system('sudo chown www-data:www-data ' + os.path.join(self.toolsDir, self.serverJar)) 
-		os.system('sudo chmod 0664 ' + os.path.join(self.toolsDir, self.serverJar)) 
+		os.system('chmod 0444 ' + os.path.join(self.toolsDir, self.serverJar)) 
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def update(self):
@@ -135,9 +133,7 @@ class CSSCompiler:
 		# get and move files
 		os.system('wget ' + self.downloadURL + self.serverJar)
 		os.rename(os.path.join(self.basePath, self.serverJar), os.path.join(self.toolsDir, self.localJar))
-		print 'Please enter your password, it is necessary to change the owner of ' + self.localJar + ':'
-		os.system('sudo chown www-data:www-data ' + os.path.join(self.toolsDir, self.localJar)) 
-		os.system('sudo chmod 0664 ' + os.path.join(self.toolsDir, self.localJar)) 
+		os.system('chmod 0444 ' + os.path.join(self.toolsDir, self.localJar)) 
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def update(self):

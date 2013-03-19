@@ -261,11 +261,11 @@ public class LicenseTests extends BaseTest {
       closePopUp();
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[2]/li[2]/a[1]"));
-      assertRegExp(".*Libgdx - Desktop/Android/HTML5 Game Development.*", driver().getTitle());
+      assertRegExp(".*Libgdx - Desktop/Android/iOS/HTML5 Game Development.*", driver().getTitle());
       closePopUp();
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[2]/li[2]/a[3]"));
-      assertRegExp(".*People - libgdx - Android/HTML5/desktop game development framework - Google Project Hosting.*", driver().getTitle());
+      assertRegExp(".*People - libgdx - Android/iOS/HTML5/desktop game development framework - Google Project Hosting.*", driver().getTitle());
       closePopUp();
 
       assertTrue(driver().findElement(By.xpath("//p[@class='licenseText'][4]/a")).getAttribute("href")

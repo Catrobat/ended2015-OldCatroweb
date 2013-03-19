@@ -126,7 +126,7 @@ public class ReportAsInappropriateTests extends BaseTest {
   }
 
   private String createToken(String username, String password) {
-    return CommonFunctions.md5(CommonFunctions.md5(username) + ":" + CommonFunctions.md5(password));
+    return CommonFunctions.md5(CommonFunctions.md5(username.toLowerCase()) + ":" + CommonFunctions.md5(password.toLowerCase()));
   }
 
   @SuppressWarnings("serial")

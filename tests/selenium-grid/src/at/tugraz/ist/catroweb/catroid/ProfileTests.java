@@ -246,7 +246,7 @@ public class ProfileTests extends BaseTest {
       ajaxWait();
       
       assertTrue(driver().findElement(By.id("profileAvatarImage")).getAttribute("src").contains("images/symbols/avatar_boys.png"));
-      makeVisible(By.id("profileAvatarFile"), "arguments[0].style.width='100px';arguments[0].style.height='100px';");
+      makeVisible(By.id("profileAvatarFileWrapper"), "arguments[0].style.width='100px';arguments[0].style.height='100px';");
       driver().findElement(By.id("profileAvatarFile")).sendKeys(Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + "test.zip");
       driver().findElement(By.id("profileChangePassword")).click();
       ajaxWait();

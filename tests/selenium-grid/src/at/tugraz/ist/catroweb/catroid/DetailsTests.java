@@ -27,6 +27,7 @@ import java.io.File;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
+import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -417,7 +418,7 @@ public class DetailsTests extends BaseTest {
       ajaxWait();
       
       assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
-      assertRegExp(".*Download.*", driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText());
+      assertRegExp(".*Download.*", driver().findElement(By.id("downloadCatroidProjectLink")).getText());
       
       openLocation("catroid/details/2");
       driver().findElement(By.id("downloadAppSwitch")).click();
