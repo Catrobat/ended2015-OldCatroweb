@@ -136,9 +136,6 @@ class Deploy:
 			self.moveFilesIntoPlace(os.path.join(self.buildDir, release), release)
 			sqlShell.purgeDbs()
 			sqlShell.initDbs()
-		
-			if 'No such file' in str(self.remoteCommand('ls passwords.php')):
-				print 'Warning: passwords.php is missing, please add one.'
 		else:
 			print 'ERROR: deployment failed!'
 			

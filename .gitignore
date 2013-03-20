@@ -17,6 +17,7 @@ resources/qrcodes/
 resources/thumbnails/
 resources/catroid/
 single_test_tmp.xml
+sql/overview/
 tests/selenium-grid/bin
 tests/selenium-grid/lib
 tests/selenium-grid/remote-control/"

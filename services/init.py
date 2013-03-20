@@ -82,6 +82,7 @@ if __name__ == '__main__':
 		if sys.argv[1] == 'website':
 			PermissionChecker().run()
 			Sql().initDbs()
+		elif sys.argv[1] == 'tools':
 			tools.Selenium().update()
 			tools.JSCompiler().update()
 			tools.CSSCompiler().update()

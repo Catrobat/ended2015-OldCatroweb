@@ -35,6 +35,7 @@ class Cleaner:
 	seleniumToolsDir	= os.path.join(seleniumDir, 'tools')
 	toolsDir					= os.path.join(basePath, 'tools')
 	cacheDir					= os.path.join(basePath, 'cache')
+	sqlOverviewDir = os.path.join(basePath, 'sql', 'overview')
 
 	#--------------------------------------------------------------------------------------------------------------------	
 	def dropDatabases(self):
@@ -44,10 +45,10 @@ class Cleaner:
 	def cleanResources(self):
 		for entry in glob.glob(os.path.join(self.resourceDir, 'catroid', '*')):
 			if os.path.isdir(entry):
-				os.system('sudo rm -rf ' + entry)
+				os.system('rm -rf ' + entry)
 
-		for entry in glob.glob(os.path.join(self.resourceDir, 'projects', '*.catrobat')):
-			if not '/2.' in entry:
+		for entry in glob.glob(os.path.join(self.resourceDir, 'projects', '*')):
+			if not 'projects' in entry and not '/1.' in entry and not '/2.' in entry:
 				os.remove(entry)
 
 		for entry in glob.glob(os.path.join(self.resourceDir, 'qrcodes', '*.png')):
@@ -57,6 +58,11 @@ class Cleaner:
 		for entry in glob.glob(os.path.join(self.resourceDir, 'thumbnails', '*.png')):
 			if not '/1_' in entry and not '/2_' in entry and not '/thumbnail_' in entry:
 				os.remove(entry)
+
+	#--------------------------------------------------------------------------------------------------------------------
+	def cleanSQLoverview(self):
+		if os.path.isdir(self.sqlOverviewDir):
+			shutil.rmtree(self.sqlOverviewDir)
 
 	#--------------------------------------------------------------------------------------------------------------------
 	def removeSeleniumLibs(self):
@@ -77,11 +83,10 @@ class Cleaner:
 
 	#--------------------------------------------------------------------------------------------------------------------
 	def clearCache(self):
-		print 'Please enter your password, it is necessary to remove the cache files:'
 		for js in glob.glob(os.path.join(self.cacheDir, "*.js")):
-			os.system('sudo rm ' + js)
+			os.system('rm -f ' + js)
 		for css in glob.glob(os.path.join(self.cacheDir, "*.css")):
-			os.system('sudo rm ' + css)
+			os.system('rm -f ' + css)
 
 	#--------------------------------------------------------------------------------------------------------------------
 	def cleanDatabaseAndResources(self):
@@ -96,13 +101,14 @@ class Cleaner:
 if __name__ == '__main__':
 	if len(sys.argv) > 1:
 		if sys.argv[1] == 'website':
-			Cleaner().clearCache()
-			Cleaner().cleanDatabaseAndResources()
-		if sys.argv[1] == 'all':
-			Cleaner().removeSeleniumLibs()
-			Cleaner().removeJSCompiler()
-			Cleaner().removeCSSCompiler()
-			Cleaner().clearCache()
-			Cleaner().cleanDatabaseAndResources()
+			clean = Cleaner()
+			clean.clearCache()
+			clean.cleanDatabaseAndResources()
+			clean.cleanSQLoverview()
+		if sys.argv[1] == 'tools':
+			clean = Cleaner()
+			clean.removeSeleniumLibs()
+			clean.removeJSCompiler()
+			clean.removeCSSCompiler()
 	else:
 		print "no argument given. did you mean 'website'?"

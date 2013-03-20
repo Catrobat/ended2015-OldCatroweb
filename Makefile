@@ -3,14 +3,28 @@ all: info
 SELENIUM_ARGS="-Dbrowser=firefox"
 
 init:
-	@echo "Setup website..."
+	@echo "Setup website resources..."
 	@python services/init.py website
 	@echo ""
 
-clean-all:
-	@echo "Clean development environment..."
-	@python services/cleanup.py all
+init-all: init
+	@echo "Setup development tools..."
+	@python services/init.py tools
 	@echo ""
+
+clean:
+	@echo "Cleanup website resources..."
+	@python services/cleanup.py website
+	@echo ""
+
+clean-all: clean
+	@echo "Cleanup development tools..."
+	@python services/cleanup.py tools
+	@echo ""
+
+refresh: clean init
+
+refresh-all: clean-all init-all
 
 init-backup:
 	@echo "Setup Backup Service..."
@@ -94,18 +108,6 @@ info:
 	@echo "running tests on your work and deploy it the webserver."
 	@echo ""
 	@echo "Options:"
-	@echo "  db_init               Initializes or updates your database from the files"
-	@echo "                        located in the SQL directory."
-	@echo "  db_dump               Creates a dump of your current database and saves it in"
-	@echo "                        the SQL directory. (for more options run the python"
-	@echo "                        script directly: python services/sql.py)"
-	@echo "  db_restore            Restores the database from a previous dump. (for more"
-	@echo "                        options run the python script directly: python"
-	@echo "                        services/sql.py)"
-	@echo "  db_purge              Purges all tables of the database. (for more options run"
-	@echo "                        the python script directly: python services/sql.py)"
-	@echo "  doc                   Generates documentation from source code which is"
-	@echo "                        accessible at docs/html/index.html"
 	@echo "  check_php             Checks PHP files for syntax errors."
 	@echo "  release               Creates a release build for deployment. The result can"
 	@echo "                        be gathered in following location ./releases/[YYYYMMDD]"
