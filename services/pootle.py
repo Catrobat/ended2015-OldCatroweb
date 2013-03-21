@@ -22,26 +22,54 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import fileinput, glob, os, shutil, sys, tools
-from remoteShell import RemoteShell
-from sql import Sql
+
+import os
+import shutil
+import sys
 from tests import PhpUnit
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class Pootle:
-	basePath					= os.getcwd()
-	pootleScripts			= os.path.join(basePath, 'pootle')
+	basePath = os.getcwd()
+	pootleScriptPath = os.path.join(basePath, 'pootle')
+	languageFilePath = os.path.join(pootleScriptPath, 'en')
 
-	#--------------------------------------------------------------------------------------------------------------------
+
+	def __init__(self):
+		if not os.path.isdir(self.pootleScriptPath):
+			print('** ERROR ***********************************************************************')
+			print('Pootle folder is missing. The Pootle scripts should be located in:')
+			print(' %s' % self.pootleScriptPath)
+			sys.exit(-1)
+
+
+	def cleanGeneratedFiles(self):
+		print('removing Pootle language files')
+		if os.path.isdir(self.languageFilePath):
+			shutil.rmtree(self.languageFilePath)
+
+
 	def generate(self):
-		PhpUnit().runTestCase('framework/languageTest.php')
-		os.system('cd ' + self.pootleScripts + '; php generateStringsXml.php')
-		os.system('cd ' + self.pootleScripts + '; php generatePootleFile.php')
+		PhpUnit().run('framework/languageTest.php')
+		os.system('cd %s; php generateStringsXml.php' % self.pootleScriptPath)
+		os.system('cd %s; php generatePootleFile.php' % self.pootleScriptPath)
+		print('generated Pootle language files')
 
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## command handler
+
 if __name__ == '__main__':
-	if len(sys.argv) > 1:
+	parameter = 'empty'
+	try:
 		if sys.argv[1] == 'generate':
 			Pootle().generate()
+		elif sys.argv[1] == 'clean':
+			Pootle().cleanGeneratedFiles()
+		else:
+			parameter = '%s:' % sys.argv[1]
+			raise IndexError()
+	except IndexError:
+		print('%s parameter not supported' % parameter)
+		print('')
+		print('Options:')
+		print('  generate              Generates a Pootle language file.')
+		print('  clean                 Removes generated language files.')

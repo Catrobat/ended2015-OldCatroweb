@@ -22,30 +22,28 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import fileinput, glob, os, shutil, sys
-from sql import Sql
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+import glob
+import os
+import shutil
+import sys
+from pootle import Pootle
+from sql import Sql
+from tools import CSSCompiler, JSCompiler, Selenium
+
+
 class Cleaner:
-	basePath					= os.getcwd()
-	buildDir					= os.path.join(basePath, 'build')
-	resourceDir				= os.path.join(basePath, 'resources')
-	seleniumDir				= os.path.join(basePath, 'tests', 'selenium-grid')
-	seleniumLibDir		= os.path.join(seleniumDir, 'lib')
-	seleniumToolsDir	= os.path.join(seleniumDir, 'tools')
-	toolsDir					= os.path.join(basePath, 'tools')
-	cacheDir					= os.path.join(basePath, 'cache')
+	basePath = os.getcwd()
+	buildDir = os.path.join(basePath, 'build')
+	resourceDir = os.path.join(basePath, 'resources')
+	cacheDir = os.path.join(basePath, 'cache')
 	sqlOverviewDir = os.path.join(basePath, 'sql', 'overview')
 
-	#--------------------------------------------------------------------------------------------------------------------	
-	def dropDatabases(self):
-		Sql().purgeDbs()
 
-	#--------------------------------------------------------------------------------------------------------------------	
 	def cleanResources(self):
 		for entry in glob.glob(os.path.join(self.resourceDir, 'catroid', '*')):
 			if os.path.isdir(entry):
-				os.system('rm -rf ' + entry)
+				shutil.rmtree(entry)
 
 		for entry in glob.glob(os.path.join(self.resourceDir, 'projects', '*')):
 			if not 'projects' in entry and not '/1.' in entry and not '/2.' in entry:
@@ -59,56 +57,46 @@ class Cleaner:
 			if not '/1_' in entry and not '/2_' in entry and not '/thumbnail_' in entry:
 				os.remove(entry)
 
-	#--------------------------------------------------------------------------------------------------------------------
-	def cleanSQLoverview(self):
-		if os.path.isdir(self.sqlOverviewDir):
-			shutil.rmtree(self.sqlOverviewDir)
 
-	#--------------------------------------------------------------------------------------------------------------------
-	def removeSeleniumLibs(self):
-		if os.path.isdir(self.seleniumLibDir):
-			shutil.rmtree(self.seleniumLibDir)
-		for jar in glob.glob(os.path.join(self.seleniumToolsDir, "*.jar")):
-			os.remove(jar)
-
-	#--------------------------------------------------------------------------------------------------------------------
-	def removeJSCompiler(self):
-		if os.path.isfile(os.path.join(self.toolsDir, 'compiler.jar')):
-			os.remove(os.path.join(self.toolsDir, 'compiler.jar'))
-
-	#--------------------------------------------------------------------------------------------------------------------
-	def removeCSSCompiler(self):
-		if os.path.isfile(os.path.join(self.toolsDir, 'stylesheets.jar')):
-			os.remove(os.path.join(self.toolsDir, 'stylesheets.jar'))
-
-	#--------------------------------------------------------------------------------------------------------------------
 	def clearCache(self):
 		for js in glob.glob(os.path.join(self.cacheDir, "*.js")):
-			os.system('rm -f ' + js)
+			os.remove(js)
 		for css in glob.glob(os.path.join(self.cacheDir, "*.css")):
-			os.system('rm -f ' + css)
+			os.remove(css)
 
-	#--------------------------------------------------------------------------------------------------------------------
-	def cleanDatabaseAndResources(self):
+
+	def removeBuildDir(self):
 		if os.path.isdir(self.buildDir):
 			shutil.rmtree(self.buildDir)
 
-		self.dropDatabases()
-		self.cleanResources()
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## command handler
+	def removeSQLoverview(self):
+		if os.path.isdir(self.sqlOverviewDir):
+			shutil.rmtree(self.sqlOverviewDir)
+
+
+
 if __name__ == '__main__':
-	if len(sys.argv) > 1:
+	parameter = 'empty'
+	try:
 		if sys.argv[1] == 'website':
 			clean = Cleaner()
 			clean.clearCache()
-			clean.cleanDatabaseAndResources()
-			clean.cleanSQLoverview()
-		if sys.argv[1] == 'tools':
-			clean = Cleaner()
-			clean.removeSeleniumLibs()
-			clean.removeJSCompiler()
-			clean.removeCSSCompiler()
-	else:
-		print "no argument given. did you mean 'website'?"
+			clean.cleanResources()
+			clean.removeBuildDir()
+			Sql().purgeDbs()
+			clean.removeSQLoverview()
+			Pootle().cleanGeneratedFiles()
+		elif sys.argv[1] == 'tools':
+			Selenium().removeSeleniumLibs()
+			JSCompiler().removeCompiler()
+			CSSCompiler().removeCompiler()
+		else:
+			parameter = '%s:' % sys.argv[1]
+			raise IndexError()
+	except IndexError:
+		print('%s parameter not supported' % parameter)
+		print('')
+		print('Options:')
+		print('  website               Removes website related resources. (cache, database ...)')
+		print('  tools                 Removes the website tools. (Selenium, compilers)')

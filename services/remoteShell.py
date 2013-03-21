@@ -22,15 +22,16 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
+
 import paramiko
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class RemoteShell:
-	ssh								= None
-	sftp							= None
-	remoteDir					= ''
+	ssh = None
+	sftp = None
+	remoteDir = ''
 	
-	#--------------------------------------------------------------------------------------------------------------------
+
 	def __init__(self, server, user, password, port=22, remoteDir='/var/www/catroid'):
 		try:
 			self.remoteDir = remoteDir
@@ -40,17 +41,16 @@ class RemoteShell:
 			self.ssh.connect(server, port, user, password)
 			self.sftp = paramiko.SFTPClient.from_transport(self.ssh.get_transport())
 		except Exception, e:
-			print "ERROR: Couldn't connect to " + user + "@" + server + " on port " + str(port) + "."
-			print 'Exception: %s' % e
+			print("ERROR: Couldn't connect to %s@%s on port %d." % (user, server, port))
+			print('Exception: %s' % e)
 			sys.exit(-1)
 
-	#--------------------------------------------------------------------------------------------------------------------
+
 	def run(self, command):
-		(stdin, stdout, stderr) = self.ssh.exec_command('cd ' + self.remoteDir + '; ' + command)
+		(stdin, stdout, stderr) = self.ssh.exec_command('cd %s; %s' % (self.remoteDir, command))
 		error = stderr.readlines()
 		if len(error) > 0:
-			print '** Output **********************************************************************'
-			print ''.join(error)
+			print('** Output **********************************************************************')
+			print(''.join(error))
 			return ''.join(stdout.readlines() + error).strip()
 		return ''.join(stdout.readlines()).strip()
-

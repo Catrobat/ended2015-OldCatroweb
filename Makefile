@@ -2,6 +2,10 @@ all: info
 
 SELENIUM_ARGS="-Dbrowser=firefox"
 
+refresh: clean init
+
+refresh-all: clean-all init-all
+
 init:
 	@echo "Setup website resources..."
 	@python services/init.py website
@@ -22,9 +26,10 @@ clean-all: clean
 	@python services/cleanup.py tools
 	@echo ""
 
-refresh: clean init
-
-refresh-all: clean-all init-all
+generate-language-pack:
+	@echo "Generate Pootle language pack..."
+	@python services/pootle.py generate
+	@echo ""
 
 init-backup:
 	@echo "Setup Backup Service..."
@@ -108,15 +113,15 @@ info:
 	@echo "running tests on your work and deploy it the webserver."
 	@echo ""
 	@echo "Options:"
-	@echo "  check_php             Checks PHP files for syntax errors."
-	@echo "  release               Creates a release build for deployment. The result can"
-	@echo "                        be gathered in following location ./releases/[YYYYMMDD]"
-	@echo "  deploy                Deploys the latest release and updates the database."
-	@echo "  clean-deploy          Deploys the latest release and reinitializes the"
-	@echo "                        database."
-	@echo "  init                  Sets up the entire developement environment. (no server"
-	@echo "                        configuration is done)"
-	@echo "  clean-all             Cleans up the entire developement environment."
+	@echo "  refresh               Refreshes the website environment."
+	@echo "  refresh-all           Refreshes the website environment and updates the tools."
+	@echo "  init                  Initializes the website environment (database, "
+	@echo "                        folder structure)"
+	@echo "  init-all              Initializes the website environment and the tools."
+	@echo "  clean                 Cleans website related resources."
+	@echo "  clean-all             Cleans website related resources and the tools."
+	@echo "  generate-language-pack"
+	@echo "                        Generates a pootle language pack."
 	@echo "  run-tests             Runs all available tests."
 	@echo "  run-checker-css       Performs some static checks on your CSS, its most basic"
 	@echo "                        function is to ensure that your CSS parses."

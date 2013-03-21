@@ -123,13 +123,19 @@ class Sql:
 
 
 	def createDocs(self):
+		autodoc = 'postgresql_autodoc'
+		if 'not found' in commands.getoutput('%s -h' % autodoc):
+			print('** WARNING *********************************************************************')
+			print('%s is not installed.' % autodoc)
+			return
+		
 		if os.path.isdir(self.overviewPath):
 			shutil.rmtree(self.overviewPath)
 		os.mkdir(self.overviewPath)
 		for database in self.databases:
 			print('creating doc for database %s' % database)
 			
-			self.run('cd %s; postgresql_autodoc -h localhost -p 5432 -d %s -u %s' % (self.overviewPath, database, self.dbUser))
+			self.run('cd %s; %s -h localhost -p 5432 -d %s -u %s' % (self.overviewPath, autodoc, database, self.dbUser))
 			self.run('cd %s; dot -Tpng %s.dot > %s.png' % (self.overviewPath, database, database))
 			
 			for line in fileinput.FileInput(os.path.join(self.overviewPath, database + '.html'), inplace=1):
@@ -227,8 +233,8 @@ if __name__ == '__main__':
 			Sql().createDocs()
 		else:
 			parameter = '%s:' % sys.argv[1]
-			raise Exception()
-	except:
+			raise IndexError()
+	except IndexError:
 		print('%s parameter not supported' % parameter)
 		print('')
 		print('Options:')

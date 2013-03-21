@@ -62,7 +62,7 @@
   <property name="hubURL" value="http://localhost:4444/grid/register"/>
   <property name="port" value="5555"/>
   <property name="browserName" value="firefox"/>
-  <property name="browserVersion" value="3.6"/>
+  <property name="browserVersion" value="14.0.1"/>
   <property name="maxInstances" value="5"/>
 	<property name="platform" value=""/>
   <property name="nodeTimeout" value="30"/>
