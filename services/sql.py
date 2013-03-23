@@ -35,6 +35,7 @@ import sys
 class Sql:
 	basePath = os.getcwd()
 	dbUser = ''
+	dbPass = ''
 	sqlPath = os.path.join(basePath, 'sql')
 	overviewPath = os.path.join(basePath, 'sql', 'overview')
 	databases = ['catroboard', 'catroweb', 'catrowiki']
@@ -55,9 +56,10 @@ class Sql:
 	def __init__(self, callback=localCommand):
 		self.run = callback
 		
-		match = re.match(r".*?\\'DB_USER\\',\\'(?P<dbUser>.+?)\\'", self.run('cat passwords.php').encode('string-escape'))
+		match = re.match(r".*?\\'DB_USER\\',\\'(?P<dbUser>.+?)\\'.*?\\'DB_PASS\\',\\'(?P<dbPass>.+?)\\'", self.run('cat passwords.php').encode('string-escape'))
 		try:
 			self.dbUser = match.groupdict()['dbUser']
+			self.dbPass = match.groupdict()['dbPass']
 			self.cli = 'psql -w -A -U %s ' % self.dbUser
 
 			if self.checkConnection():
@@ -70,6 +72,7 @@ class Sql:
 		except:
 			print('** ERROR ***********************************************************************')
 			print("couldn't extract your database user, is your 'passwords.php' missing?")
+			print("   scp passwords.php user@host:/var/www/catroid")
 			self.run = self.error
 
 
@@ -92,7 +95,6 @@ class Sql:
 				self.executeSql(database)
 			else:
 				print("couldn't init database %s" % database)
-		self.createDocs()
 
 
 	def purgeDbs(self):
@@ -116,7 +118,6 @@ class Sql:
 			for database in string.split(self.run('ls *-sql.tar.gz'), '\n'):
 				self.restoreDb(database.replace('-sql.tar.gz', ''))
 				self.run('rm %s' % database)
-			self.createDocs()
 		else:
 			print('FATAL ERROR: Backup not found: %s' % backup)
 			sys.exit(-1)
@@ -135,7 +136,7 @@ class Sql:
 		for database in self.databases:
 			print('creating doc for database %s' % database)
 			
-			self.run('cd %s; %s -h localhost -p 5432 -d %s -u %s' % (self.overviewPath, autodoc, database, self.dbUser))
+			self.run('cd %s; %s -h localhost -p 5432 -d %s -u %s --password=%s' % (self.overviewPath, autodoc, database, self.dbUser, self.dbPass))
 			self.run('cd %s; dot -Tpng %s.dot > %s.png' % (self.overviewPath, database, database))
 			
 			for line in fileinput.FileInput(os.path.join(self.overviewPath, database + '.html'), inplace=1):
@@ -223,12 +224,14 @@ if __name__ == '__main__':
 	try:
 		if sys.argv[1] == 'init':
 			Sql().initDbs()
+			Sql().createDocs()
 		elif sys.argv[1] == 'purge':
 			Sql().purgeDbs()
 		elif sys.argv[1] == 'backup':
 			Sql().backupDbs()
 		elif sys.argv[1] == 'restore':
 			Sql().restoreDbs(sys.argv[2])
+			Sql().createDocs()
 		elif sys.argv[1] == 'docs':
 			Sql().createDocs()
 		else:

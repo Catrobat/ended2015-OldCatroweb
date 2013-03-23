@@ -28,13 +28,13 @@ import os
 import shutil
 import sys
 from pootle import Pootle
+from release import Release
 from sql import Sql
 from tools import CSSCompiler, JSCompiler, Selenium
 
 
 class Cleaner:
 	basePath = os.getcwd()
-	buildDir = os.path.join(basePath, 'build')
 	resourceDir = os.path.join(basePath, 'resources')
 	cacheDir = os.path.join(basePath, 'cache')
 	sqlOverviewDir = os.path.join(basePath, 'sql', 'overview')
@@ -65,11 +65,6 @@ class Cleaner:
 			os.remove(css)
 
 
-	def removeBuildDir(self):
-		if os.path.isdir(self.buildDir):
-			shutil.rmtree(self.buildDir)
-
-
 	def removeSQLoverview(self):
 		if os.path.isdir(self.sqlOverviewDir):
 			shutil.rmtree(self.sqlOverviewDir)
@@ -83,7 +78,7 @@ if __name__ == '__main__':
 			clean = Cleaner()
 			clean.clearCache()
 			clean.cleanResources()
-			clean.removeBuildDir()
+			Release().removeBuildDir()
 			Sql().purgeDbs()
 			clean.removeSQLoverview()
 			Pootle().cleanGeneratedFiles()

@@ -22,20 +22,26 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import fileinput, glob, os, shutil, sys
+
+import os
+import shutil
+import sys
 from datetime import date
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-class Release:
-	basePath					= os.getcwd()
-	today							= date.today().strftime("%Y%m%d")
-	buildDir					= os.path.join(basePath, 'build')
-	releaseDir				= os.path.join(buildDir, today)
 
-	#--------------------------------------------------------------------------------------------------------------------	
-	def copyFiles(self):
+class Release:
+	basePath = os.getcwd()
+	today = date.today().strftime("%Y%m%d")
+	buildDir = os.path.join(basePath, 'build')
+	releaseDir = os.path.join(buildDir, today)
+
+
+	def removeBuildDir(self):
+		if os.path.isdir(self.buildDir):
+			shutil.rmtree(self.buildDir)
 		
-		## clean build destination if it exists
+
+	def copyFiles(self):
 		if not os.path.isdir(self.buildDir):
 			os.mkdir(self.buildDir)
 		if os.path.isdir(self.releaseDir):
@@ -61,12 +67,7 @@ class Release:
 		shutil.copytree(os.path.join(self.basePath, 'tools'), os.path.join(self.releaseDir, 'tools'))
 		shutil.copytree(os.path.join(self.basePath, 'viewer'), os.path.join(self.releaseDir, 'viewer'))
 
-	#--------------------------------------------------------------------------------------------------------------------	
-	def create(self):
-		self.copyFiles()
-		
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## command handler
-if __name__ == '__main__':
-	Release().create()
+	def create(self):
+		self.removeBuildDir()
+		self.copyFiles()

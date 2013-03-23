@@ -23,7 +23,10 @@
 '''
 
 
-import paramiko
+try:
+	import paramiko
+except:
+	print('Python paramiko is required!!!')
 
 
 class RemoteShell:

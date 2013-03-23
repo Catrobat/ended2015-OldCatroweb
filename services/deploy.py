@@ -22,22 +22,24 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
 '''
 
-import commands, fileinput, glob, os, shutil, sys, paramiko
+
+import os
+import sys
 from datetime import date, datetime, timedelta
 from release import Release
 from remoteShell import RemoteShell
 from sql import Sql
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
 class Deploy:
-	basePath					= os.getcwd()
-	today							= date.today().strftime("%Y%m%d")
-	buildDir					= os.path.join(basePath, 'build')
+	basePath = os.getcwd()
+	today = date.today().strftime("%Y%m%d")
+	buildDir = os.path.join(basePath, 'build')
 	
-	sftp							= None
-	remoteDir					= ''
+	sftp = None
+	remoteDir = ''
 	
-	#--------------------------------------------------------------------------------------------------------------------
+
 	def __init__(self, remoteShell):
 		try:
 			if not isinstance(remoteShell, RemoteShell):
@@ -46,20 +48,20 @@ class Deploy:
 			self.sftp = remoteShell.sftp
 			self.remoteDir = remoteShell.remoteDir
 		except Exception, e:
-			print 'FATAL ERROR: unrecognized shell, please use a RemoteShell object.'
-			print 'Exception: %s' % e
+			print('FATAL ERROR: unrecognized shell, please use a RemoteShell object.')
+			print('Exception: %s' % e)
 			sys.exit(-1)
 			
-		print 'Do you want to continue [y/N]?'
+		print('Do you want to continue [y/N]?')
 		if sys.stdin.readline() != 'y\n':
 			sys.exit(-1)
 
-	#--------------------------------------------------------------------------------------------------------------------
+
 	def remoteCommand(self, command):
-		print 'FATAL ERROR: shell not set.'
+		print('FATAL ERROR: shell not set.')
 		sys.exit(-1)
 
-	#--------------------------------------------------------------------------------------------------------------------
+
 	def formatSize(self, number):
 		for unit in ['B  ', 'KiB', 'MiB', 'GiB']:
 			if number < 1024.0:
@@ -67,7 +69,7 @@ class Deploy:
 			number /= 1024.0
 		return "%6.1f %s" % (number, 'TiB')
 
-	#--------------------------------------------------------------------------------------------------------------------
+
 	def getSize(self, path = '.'):
 		totalSize = 0
 		for file in os.listdir(path):
@@ -76,14 +78,14 @@ class Deploy:
 				totalSize += os.path.getsize(fileIterator)
 		return totalSize
 
-	#--------------------------------------------------------------------------------------------------------------------
+
 	def checkSetup(self):
-		if 'No such file or directory' in self.remoteCommand('ls -al ' + os.path.join(self.remoteDir, '.setup')):
-			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'webserver', 'setup.sh'), 'setup.sh')
-			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'webserver', 'setup-db.sh'), 'setup-db.sh')
-			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'webserver', 'VirtualHost.conf'), 'VirtualHost.conf')
-			print 'This host is not prepared to run catroweb.'
-			print 'To setup please ssh into your server and run: su -c "sh setup.sh" '
+		if 'No such file or directory' in self.remoteCommand('ls -al %s' % os.path.join(self.remoteDir, '.setup')):
+			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'environment', 'webserver.sh'), 'setup.sh')
+			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'environment', 'setup-db.sh'), 'setup-db.sh')
+			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'environment', 'VirtualHost.conf'), 'VirtualHost.conf')
+			print('This host is not prepared to run catroweb.')
+			print('To setup please ssh into your server and run: su -c "sh setup.sh"')
 			sys.exit(-1)
 
 	#--------------------------------------------------------------------------------------------------------------------
@@ -95,7 +97,7 @@ class Deploy:
 		for (path, dirs, files) in os.walk(os.path.basename(localPath)):
 			directorySize = self.getSize(path)
 			totalSize += directorySize
-			print self.formatSize(directorySize) + ' - - ' + os.path.join(remotePath, path)
+			print('%s - - %s' % (self.formatSize(directorySize), os.path.join(remotePath, path)))
 
 			try:
 				self.sftp.mkdir(os.path.join(remotePath, path))
@@ -104,17 +106,17 @@ class Deploy:
 			for file in files:
 				self.sftp.put(os.path.join(path, file), os.path.join(remotePath, path, file))
 		
-		print 'copied ' +  self.formatSize(totalSize) + ' in ' + str((datetime.now() - startTime).seconds) + ' seconds.'
-		print ''
+		print('copied %s in %s seconds.' % (self.formatSize(totalSize), str((datetime.now() - startTime).seconds)))
+		print('')
 
-	#--------------------------------------------------------------------------------------------------------------------
+
 	def moveFilesIntoPlace(self, localPath, release):
 		os.chdir(os.path.dirname(localPath))
 		for entry in os.listdir(os.path.basename(localPath)):
-			self.remoteCommand('rm -rf ' + entry)
+			self.remoteCommand('rm -rf %s' % entry)
 
-		self.remoteCommand('mv ' + release + '/* .; mv ' + release + '/.htaccess .')
-		self.remoteCommand('rm -rf ' + release)
+		self.remoteCommand('mv %s/* .; mv %s/.htaccess .' % (release, release))
+		self.remoteCommand('rm -rf %s' % release)
 
 		self.remoteCommand('mkdir -m 0777 -p cache')
 		self.remoteCommand('mkdir -m 0777 -p resources/catroid')
@@ -122,7 +124,7 @@ class Deploy:
 		self.remoteCommand('mkdir -m 0777 -p resources/qrcodes')
 		self.remoteCommand('mkdir -m 0777 -p resources/thumbnails')
 		
-	#--------------------------------------------------------------------------------------------------------------------
+
 	def run(self, release=today):
 		self.checkSetup()
 		
@@ -137,21 +139,26 @@ class Deploy:
 			sqlShell.purgeDbs()
 			sqlShell.initDbs()
 		else:
-			print 'ERROR: deployment failed!'
-			
+			print('ERROR: deployment failed!')
 
-#~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-## command handler
+
+
 if __name__ == '__main__':
-	if len(sys.argv) > 1:
+	parameter = 'empty'
+	try:
 		if sys.argv[1] == 'webtest':
-			shell = RemoteShell('192.168.1.113', 'chris', '')
-			Deploy(shell).run()
-	#shell = RemoteShell('192.168.1.110', 'chris', '')
-	#shell = RemoteShell('catroidwebtest.ist.tugraz.at', 'unpriv', '')
-	#print shell.run('ls')
-	#shell = RemoteShell('catroidtest.ist.tugraz.at', 'unpriv', '')
-	#shell = RemoteShell('catroidweb.ist.tugraz.at', 'unpriv', '')
-
-	#Backup(shell).createBackup()
-	#Backup().restoreBackup('catroweb-20130116.tar')
+			Deploy(RemoteShell('catroidwebtest.ist.tugraz.at', 'unpriv', '')).run()
+		elif sys.argv[1] == 'catroidtest':
+			Deploy(RemoteShell('catroidtest.ist.tugraz.at', 'unpriv', '')).run()
+		elif sys.argv[1] == 'public':
+			Deploy(RemoteShell('catroidweb.ist.tugraz.at', 'unpriv', '')).run()
+		else:
+			parameter = '%s:' % sys.argv[1]
+			raise IndexError()
+	except IndexError:
+		print('%s parameter not supported' % parameter)
+		print('')
+		print('Options:')
+		print('  webtest               Deploys a new version to catroidwebtest.ist.tugraz.at.')
+		print('  catroidtest           Deploys a new version to catroidtest.ist.tugraz.at.')
+		print('  public                Deploys a new version to catroidweb.ist.tugraz.at.')

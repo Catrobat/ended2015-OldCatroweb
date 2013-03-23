@@ -32,28 +32,35 @@ from sql import Sql
 
 class EnvironmentChecker:
 	basePath = os.getcwd()
-	folders = [os.path.join('addons', 'board', 'cache'),
-			os.path.join('addons', 'board', 'images', 'avatars', 'upload'),
-			'cache', 
-			os.path.join('resources', 'catroid'),
-			os.path.join('resources', 'projects'),
-			os.path.join('resources', 'qrcodes'),
-			os.path.join('resources', 'thumbnails'),
-			os.path.join('include', 'xml', 'lang'),
-			os.path.join('tests', 'phpunit', 'framework', 'testdata')]
+	folders = [[os.path.join('addons', 'board', 'cache'), False],
+			[os.path.join('addons', 'board', 'images', 'avatars', 'upload'), False],
+			['cache', False], 
+			[os.path.join('resources', 'catroid'), False],
+			[os.path.join('resources', 'projects'), False],
+			[os.path.join('resources', 'qrcodes'), False],
+			[os.path.join('resources', 'thumbnails'), False],
+			[os.path.join('include', 'xml', 'lang'), True],
+			[os.path.join('tests', 'phpunit', 'framework', 'testdata'), True]]
 
 
 	def run(self):
 		for folder in self.folders:
-			path = os.path.join(self.basePath, folder)
-			
-			if not os.path.isdir(path):
-				print('creating directory %s' % path)
-				os.makedirs(path)
-			
-			if(os.stat(path).st_mode & 0777) != 0777:
-				print('setting permissions for %s' % path)
-				os.chmod(path, 0777)
+			path = os.path.join(self.basePath, folder[0])
+			self.setPermission(path, folder[1])
+
+
+	def setPermission(self, path, recursive=False):
+		if not os.path.isdir(path):
+			print('creating directory %s' % path)
+			os.makedirs(path)
+
+		if(os.stat(path).st_mode & 0777) != 0777:
+			print('setting permissions for %s' % path)
+			os.chmod(path, 0777)
+				
+		if recursive:
+			for r,d,f in os.walk(path):
+				self.setPermission(os.path.join(path, r))
 
 
 
@@ -95,6 +102,9 @@ if __name__ == '__main__':
 			Selenium().update()
 			JSCompiler().update()
 			CSSCompiler().update()
+		elif sys.argv[1] == 'dev':
+			print('Please enter your password to run this script:')
+			os.system('sudo sh services/init/environment/local.sh' % self.initPath)
 		elif sys.argv[1] == 'backup':
 			SetupBackup().init()
 		else:
@@ -107,4 +117,5 @@ if __name__ == '__main__':
 		print('  website               Initializes or updates the database and checks if the')
 		print('                        required folders exist and have the right permissions.')
 		print('  tools                 Initializes or updates the required tools.')
+		print('  dev                   Initializes developement environment (server, tools).')
 		print('  backup                ......TODO')
