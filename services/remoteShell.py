@@ -27,6 +27,7 @@ try:
 	import paramiko
 except:
 	print('Python paramiko is required!!!')
+import sys
 
 
 class RemoteShell:
