@@ -159,9 +159,10 @@ class Sql:
 
 
 	def executeSql(self, database):
-		self.run('%s -d %s -c "CREATE TABLE IF NOT EXISTS %s (statement character varying(511));"' % (self.cli, database, self.stateTable))
-		self.executeFiles(database, 'init')
-		self.executeFiles(database, 'updates')
+		result = self.run('%s -d %s -c "CREATE TABLE IF NOT EXISTS %s (statement character varying(511));"' % (self.cli, database, self.stateTable))
+		if not 'ERROR' in result:
+			self.executeFiles(database, 'init')
+			self.executeFiles(database, 'updates')
 
 
 	def dropDb(self, database):
