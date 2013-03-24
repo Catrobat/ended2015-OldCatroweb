@@ -23,6 +23,7 @@
 '''
 
 
+import fileinput
 import os
 import sys
 from datetime import date, datetime, timedelta
@@ -84,11 +85,11 @@ class Deploy:
 			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'environment', 'webserver.sh'), 'setup.sh')
 			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'environment', 'setup-db.sh'), 'setup-db.sh')
 			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'environment', 'VirtualHost.conf'), 'VirtualHost.conf')
-			print('This host is not prepared to run catroweb.')
-			print('To setup please ssh into your server and run: su -c "sh setup.sh"')
+			print('This host is not prepared to run Catroweb.')
+			print('To setup please ssh into your server and run: su -c "sh setup.sh unpriv"')
 			sys.exit(-1)
 
-	#--------------------------------------------------------------------------------------------------------------------
+
 	def upload(self, localPath, remotePath):
 		totalSize = 0
 		startTime = datetime.now()
@@ -115,7 +116,7 @@ class Deploy:
 		for entry in os.listdir(os.path.basename(localPath)):
 			self.remoteCommand('rm -rf %s' % entry)
 
-		self.remoteCommand('mv %s/* .; mv %s/.htaccess .' % (release, release))
+		self.remoteCommand('mv %s/* .' % release)
 		self.remoteCommand('rm -rf %s' % release)
 
 		self.remoteCommand('mkdir -m 0777 -p cache')
@@ -125,21 +126,30 @@ class Deploy:
 		self.remoteCommand('mkdir -m 0777 -p resources/thumbnails')
 		
 
-	def run(self, release=today):
+	def run(self, type='development', files='all', release=today):
 		self.checkSetup()
 		
-		if not os.path.isdir(os.path.join(self.buildDir, release)):
-			if not os.path.isdir(os.path.join(self.buildDir, self.today)):
-				Release().create()
+		if not os.path.isdir(os.path.join(self.buildDir, release)) and not os.path.isdir(os.path.join(self.buildDir, self.today)):
+			Release().create(files)
+		else:
+			print('Do you want to update your release build [Y/n]?')
+			if sys.stdin.readline() != 'n\n':
+				Release().create(files)
+		
+		if type == 'public':
+			for line in fileinput.FileInput(os.path.join(self.buildDir, release, 'config.php'), inplace=1):
+				if "define('DEVELOPMENT_MODE" in line:
+					line = "define('DEVELOPMENT_MODE',false);\n" 
+				sys.stdout.write(line)
 		
 		sqlShell = Sql(self.remoteCommand)
 		if sqlShell.checkConnection():
 			self.upload(os.path.join(self.buildDir, release), self.remoteDir)
 			self.moveFilesIntoPlace(os.path.join(self.buildDir, release), release)
-			sqlShell.purgeDbs()
 			sqlShell.initDbs()
 		else:
 			print('ERROR: deployment failed!')
+			self.sftp.put(os.path.join(self.basePath, 'passwords.php'), os.path.join(self.remoteDir, 'passwords.php'))
 
 
 
@@ -147,11 +157,23 @@ if __name__ == '__main__':
 	parameter = 'empty'
 	try:
 		if sys.argv[1] == 'webtest':
-			Deploy(RemoteShell('catroidwebtest.ist.tugraz.at', 'unpriv', '')).run()
+			deploy = Deploy(RemoteShell('catroidwebtest.ist.tugraz.at', 'unpriv', ''))
+			if len(sys.argv) > 2:
+				deploy.run(files=sys.argv[2])
+			else:
+				deploy.run()
 		elif sys.argv[1] == 'catroidtest':
-			Deploy(RemoteShell('catroidtest.ist.tugraz.at', 'unpriv', '')).run()
+			deploy = Deploy(RemoteShell('catroidtest.ist.tugraz.at', 'unpriv', ''))
+			if len(sys.argv) > 2:
+				deploy.run(files=sys.argv[2])
+			else:
+				deploy.run()
 		elif sys.argv[1] == 'public':
-			Deploy(RemoteShell('catroidweb.ist.tugraz.at', 'unpriv', '')).run()
+			deploy = Deploy(RemoteShell('catroidweb.ist.tugraz.at', 'unpriv', ''))
+			if len(sys.argv) > 2:
+				deploy.run(type=sys.argv[1], files=sys.argv[2])
+			else:
+				deploy.run(type=sys.argv[1])
 		else:
 			parameter = '%s:' % sys.argv[1]
 			raise IndexError()
@@ -159,6 +181,9 @@ if __name__ == '__main__':
 		print('%s parameter not supported' % parameter)
 		print('')
 		print('Options:')
-		print('  webtest               Deploys a new version to catroidwebtest.ist.tugraz.at.')
-		print('  catroidtest           Deploys a new version to catroidtest.ist.tugraz.at.')
-		print('  public                Deploys a new version to catroidweb.ist.tugraz.at.')
+		print('  webtest all           Deploys a new version to catroidwebtest.ist.tugraz.at.')
+		print('  webtest website       Deploys a new version to catroidwebtest.ist.tugraz.at.')
+		print('  catroidtest all       Deploys a new version to catroidtest.ist.tugraz.at.')
+		print('  catroidtest website   Deploys a new version to catroidtest.ist.tugraz.at.')
+		print('  public all            Deploys a new version to catroidweb.ist.tugraz.at.')
+		print('  public website        Deploys a new version to catroidweb.ist.tugraz.at.')

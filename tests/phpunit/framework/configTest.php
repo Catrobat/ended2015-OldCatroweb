@@ -87,7 +87,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(USER_MAX_USERNAME_LENGTH, 32);
     $this->assertEquals(USER_MIN_PASSWORD_LENGTH, 6);
     $this->assertEquals(USER_MAX_PASSWORD_LENGTH, 32);
-    $this->assertEquals(DATABASE_CONNECTION_PERSISTENT, true);
+    $this->assertEquals(DATABASE_CONNECTION_PERSISTENT, false);
     $this->assertEquals(GA_PIXEL, 'ga.php');
     $this->assertEquals(SESSION_LIFETIME, 60*60*24*365);
     $this->assertEquals(JQUERY_VERSION, '1.8.2');

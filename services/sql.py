@@ -71,8 +71,8 @@ class Sql:
 				self.run = self.error
 		except:
 			print('** ERROR ***********************************************************************')
-			print("couldn't extract your database user, is your 'passwords.php' missing?")
-			print("   scp passwords.php user@host:/var/www/catroid")
+			print("couldn't extract your database user, have you entered a wrong user or")
+			print("is your 'passwords.php' missing?")
 			self.run = self.error
 
 

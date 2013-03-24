@@ -41,7 +41,7 @@ class Release:
 			shutil.rmtree(self.buildDir)
 		
 
-	def copyFiles(self):
+	def copyWebsiteFiles(self):
 		if not os.path.isdir(self.buildDir):
 			os.mkdir(self.buildDir)
 		if os.path.isdir(self.releaseDir):
@@ -55,10 +55,8 @@ class Release:
 		shutil.copy(os.path.join(self.basePath, 'index.php'), self.releaseDir)
 		shutil.copy(os.path.join(self.basePath, 'robots.txt'), self.releaseDir)
 		shutil.copy(os.path.join(self.basePath, 'statusCodes.php'), self.releaseDir)
-		shutil.copy(os.path.join(self.basePath, '.htaccess'), self.releaseDir)
 
 		## copy dirs
-		shutil.copytree(os.path.join(self.basePath, 'addons'), os.path.join(self.releaseDir, 'addons'))
 		shutil.copytree(os.path.join(self.basePath, 'classes'), os.path.join(self.releaseDir, 'classes'))
 		shutil.copytree(os.path.join(self.basePath, 'images'), os.path.join(self.releaseDir, 'images'))
 		shutil.copytree(os.path.join(self.basePath, 'include'), os.path.join(self.releaseDir, 'include'))
@@ -68,6 +66,13 @@ class Release:
 		shutil.copytree(os.path.join(self.basePath, 'viewer'), os.path.join(self.releaseDir, 'viewer'))
 
 
-	def create(self):
+	def copyAddonFiles(self):
+		shutil.copytree(os.path.join(self.basePath, 'addons'), os.path.join(self.releaseDir, 'addons'))
+
+
+	def create(self, files='all'):
 		self.removeBuildDir()
-		self.copyFiles()
+		self.copyWebsiteFiles()
+		if files == 'all':
+			self.copyAddonFiles()
+

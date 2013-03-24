@@ -31,11 +31,13 @@ ln -sf "${PWD}" /var/www/catroid
 
 echo ""
 echo " # configure apache..."
+echo "127.0.0.1 catroid.local" >> /etc/hosts
 cp services/init/environment/VirtualHost.conf /etc/apache2/sites-available/catroweb
 rm /etc/apache2/sites-enabled/*
 ln -sf /etc/apache2/sites-available/catroweb /etc/apache2/sites-enabled/000-catroweb
 ln -sf /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled	
 service apache2 restart
+
 
 echo ""
 echo " # configure postgresql..."
@@ -43,7 +45,6 @@ sed -i "s/local   all             all                                     peer/l
 service postgresql restart
 su postgres services/init/environment/setup-db.sh
 
-echo "127.0.0.1 catroid.local" >> /etc/hosts
 
 touch /var/www/catroid/.setup
 

@@ -16,6 +16,11 @@ init-all: init
 	@python services/init.py tools
 	@echo ""
 
+init-dev:
+	@echo "Setup development environment..."
+	@python services/init.py dev
+	@echo ""
+
 clean:
 	@echo "Cleanup website resources..."
 	@python services/cleanup.py website
@@ -34,11 +39,6 @@ generate-language-pack:
 init-backup:
 	@echo "Setup Backup Service..."
 	@python services/init.py backup
-	@echo ""
-
-deploy-test:
-	@echo "Deploy website to catroidwebtest..."
-	@python services/deploy.py webtest
 	@echo ""
 
 run-tests: run-checker-css run-checker-js run-checker-deadlinks run-phpunit-tests run-selenium-tests
@@ -105,6 +105,35 @@ stop-selenium:
 	@python services/tests.py selenium stop
 	@echo ""
 
+deploy-webtest:
+	@echo "Deploy website to catroidwebtest..."
+	@python services/deploy.py webtest website
+	@echo ""
+
+deploy-webtest-all:
+	@echo "Deploy website and addons to catroidwebtest..."
+	@python services/deploy.py webtest all
+	@echo ""
+
+deploy-catroidtest:
+	@echo "Deploy website to catroidtest..."
+	@python services/deploy.py catroidtest website
+	@echo ""
+
+deploy-catroidtest-all:
+	@echo "Deploy website and addons to catroidtest..."
+	@python services/deploy.py catroidtest all
+	@echo ""
+
+deploy-public:
+	@echo "Deploy website to catroidweb..."
+	@python services/deploy.py public website
+	@echo ""
+
+deploy-public-all:
+	@echo "Deploy website and addons to catroidweb..."
+	@python services/deploy.py public all
+	@echo ""
 
 info:
 	@echo "Usage: Basic commands to get along with the Catroweb project."
@@ -118,10 +147,12 @@ info:
 	@echo "  init                  Initializes the website environment (database, "
 	@echo "                        folder structure)"
 	@echo "  init-all              Initializes the website environment and the tools."
+	@echo "  init-dev              Initializes the Webserver and database configurations."
 	@echo "  clean                 Cleans website related resources."
 	@echo "  clean-all             Cleans website related resources and the tools."
 	@echo "  generate-language-pack"
 	@echo "                        Generates a pootle language pack."
+	@echo ""
 	@echo "  run-tests             Runs all available tests."
 	@echo "  run-checker-css       Performs some static checks on your CSS, its most basic"
 	@echo "                        function is to ensure that your CSS parses."
@@ -147,6 +178,15 @@ info:
 	@echo "                        Runs a Selenium group test, test group is asked if not"
 	@echo "                        provided."
 	@echo "  stop-selenium         Stops all running selenium tools."
+	@echo ""
+	@echo "  deploy-webtest        Deploys the website to catroidwebtest."
+	@echo "  deploy-webtest-all    Deploys the website and addons to catroidtest."
+	@echo "  deploy-catroidtest    Deploys the website to catroidwebtest."
+	@echo "  deploy-catroidtest-all"
+	@echo "                        Deploys the website and addons to catroidtest."
+	@echo "  deploy-public         Deploys the website to catroidweb."
+	@echo "  deploy-public-all     Deploys the website and addons to catroidweb."
+	@echo ""
 	@echo "  info                  Shows the available options."
 	@echo ""
 

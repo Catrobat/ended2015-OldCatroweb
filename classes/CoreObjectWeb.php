@@ -111,7 +111,11 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
     }
   
     if(!DEVELOPMENT_MODE && file_exists(CORE_BASE_PATH . $filenameMinified)) {
-      $filename = $filenameMinified;
+      if(filesize(CORE_BASE_PATH . $filenameMinified) > 0) {
+        $filename = $filenameMinified;
+      } else {
+        $this->compressCss($name . $timestamp);
+      }
     }
 
     return '<link rel="stylesheet" href="' . BASE_PATH . $filename . '">';
@@ -120,15 +124,7 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
   private function compressCss($filename) {
     $source = CORE_BASE_PATH . CACHE_PATH . $filename . '.css';
     $minified = CORE_BASE_PATH . CACHE_PATH . $filename . '.min.css';
-  
-    system("java -jar " . CORE_BASE_PATH . "tools/stylesheets.jar " . $source . " --allow-unrecognized-functions --allow-unrecognized-properties --output-file " . $minified, $returnVal);
-    if($returnVal != 0) {
-      if(DEVELOPMENT_MODE) {
-        echo '<script type="text/javascript">common.showAjaxErrorMsg("Warning couldn\'t minify css code. ' .
-            'Have a look at line ' . (__LINE__ - 3) . ' in file ' . __FILE__ . '");</script>';
-      }
-      @unlink($minified);
-    }
+    system("java -jar " . CORE_BASE_PATH . "tools/stylesheets.jar " . $source . " --allow-unrecognized-functions --allow-unrecognized-properties --output-file " . $minified . " > /dev/null 2>/dev/null &");
   }
 
   public function addJs($file) {
@@ -205,7 +201,11 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
     }
 
     if(!DEVELOPMENT_MODE && file_exists(CORE_BASE_PATH . $filenameMinified)) {
-      $filename = $filenameMinified;
+      if(filesize(CORE_BASE_PATH . $filenameMinified) > 0) {
+        $filename = $filenameMinified;
+      } else {
+        $this->compressJs($name . $timestamp);
+      }
     }
 
     return '<script src="' . BASE_PATH . $filename . '"></script>';
@@ -214,16 +214,8 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
   private function compressJs($filename) {
     $source = CORE_BASE_PATH . CACHE_PATH . $filename . '.js';
     $minified = CORE_BASE_PATH . CACHE_PATH . $filename . '.min.js';
-    
     system("java -jar " . CORE_BASE_PATH . "tools/compiler.jar --compilation_level SIMPLE_OPTIMIZATIONS --js " . 
-        $source . " --js_output_file " . $minified, $returnVal);
-    if($returnVal != 0) {
-      if(DEVELOPMENT_MODE) {
-        echo '<script type="text/javascript">common.showAjaxErrorMsg("Warning couldn\'t minify javascript code. ' .
-             'Have a look at line ' . (__LINE__ - 3) . ' in file ' . __FILE__ . '");</script>';
-      }
-      @unlink($minified);
-    }
+        $source . " --js_output_file " . $minified . " > /dev/null 2>/dev/null &");
   }
   
   public function setWebsiteTitle($title) {

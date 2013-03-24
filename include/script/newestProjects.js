@@ -221,7 +221,7 @@ var NewestProjects = Class.$extend( {
       url: self.basePath+"catroid/loadNewestProjects/"+pageNr+".json",
       timeout: (this.ajaxTimeout),
       success: function(result) {
-        if(result != "") {
+        if(typeof(result) === 'object') {
           if(result.error) {
             self.showErrorPage(result.error['type'], result.error['code'], result.error['extra']);
           } else {

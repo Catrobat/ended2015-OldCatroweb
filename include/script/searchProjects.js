@@ -276,7 +276,7 @@ var SearchProjects = Class.$extend( {
       timeout: (this.ajaxTimeout),
     
       success: function(result) {
-        if(result != "") {
+        if(typeof(result) === 'object') {
           if(result.error) {
             self.showErrorPage(result.error['type'], result.error['code'], result.error['extra']);
           } else {

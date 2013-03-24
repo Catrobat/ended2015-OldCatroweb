@@ -27,9 +27,11 @@ DROP FUNCTION create_language_plpgsql();"
 
 
 echo ""
-echo -n "Enter websites SQL-password and press [ENTER]: "
+echo -n "Enter your new SQL-user and press [ENTER]: "
+read username
+echo -n "Enter your new SQL-password and press [ENTER]: "
 read password
-psql -d template1 -c "CREATE USER website WITH PASSWORD '${password}' CREATEDB;";
+psql -d template1 -c "CREATE USER ${username} WITH PASSWORD '${password}' CREATEDB;";
 
 
 
@@ -55,5 +57,5 @@ END;
     RETURNS NULL ON NULL INPUT
     SET search_path = pg_catalog;
 REVOKE EXECUTE ON FUNCTION dbo.pg_kill_user_process(pid integer) FROM PUBLIC;
-GRANT USAGE ON SCHEMA dbo TO website;
-GRANT EXECUTE ON FUNCTION dbo.pg_kill_user_process(pid integer) TO website;"
+GRANT USAGE ON SCHEMA dbo TO ${username};
+GRANT EXECUTE ON FUNCTION dbo.pg_kill_user_process(pid integer) TO ${username};"

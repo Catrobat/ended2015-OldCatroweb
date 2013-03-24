@@ -104,7 +104,7 @@ if __name__ == '__main__':
 			CSSCompiler().update()
 		elif sys.argv[1] == 'dev':
 			print('Please enter your password to run this script:')
-			os.system('sudo sh services/init/environment/local.sh' % self.initPath)
+			os.system('sudo sh services/init/environment/local.sh')
 		elif sys.argv[1] == 'backup':
 			SetupBackup().init()
 		else:

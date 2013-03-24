@@ -12,11 +12,11 @@ if [ -f /var/www/catroid/.setup ]; then
   exit 1
 fi
 
+if [ $# -lt 1 ]; then
+  echo "Please specify a user who should be the owner of Catrowebs root directory." 1>&2
+  exit 1
+fi
 
-echo ""
-echo " # create catroweb home..."
-mkdir -p /var/www/catroid
-chown unpriv:unpriv /var/www/catroid
 
 echo ""
 echo " # check and install necessary packages..."
@@ -24,14 +24,22 @@ backport_source="deb http://backports.debian.org/debian-backports squeeze-backpo
 grep -q "${backport_source}" /etc/apt/sources.list || echo "${backport_source}" >> /etc/apt/sources.list
 apt-get update
 
-apt-get --assume-yes install apache2 graphviz imagemagick openjdk-7-jre-headless php5 php5-gd php5-curl qrencode
+apt-get --assume-yes install apache2 graphviz imagemagick openjdk-6-jre-headless php5 php5-gd php5-curl qrencode
 apt-get --assume-yes --target-release squeeze-backports install postgresql-9.1 phppgadmin
+
+
+echo ""
+echo " # create catroweb home..."
+mkdir -p /var/www/catroid
+chown "$1:$1" /var/www/catroid
+
 
 echo ""
 echo " # configure apache..."
 mv VirtualHost.conf /etc/apache2/sites-enabled/000-default
 ln -sf /etc/apache2/mods-available/rewrite.load /etc/apache2/mods-enabled	
 service apache2 restart
+
 
 echo ""
 echo " # configure postgresql..."
