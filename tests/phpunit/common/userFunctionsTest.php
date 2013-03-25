@@ -261,23 +261,33 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
 
   public function testGenerateAuthenticationToken() {
     $this->assertEquals($this->obj->generateAuthenticationToken('catroweb', 'cat.roid.web'), '31df676f845b4ce9908f7a716a7bfa50');
-  }
-
+  } 
+  
   /**
    * @dataProvider validRegistrationData
    */
   public function testUpdatePassword($postData) {
-    $newPassword = "testBlaBlub";
+   $newPassword = "testBlaBlub";
     try {
       $this->obj->register($postData);
       $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
       
       $this->obj->updatePassword($postData['registrationUsername'], $newPassword);
       $this->obj->logout();
-      $this->obj->login($postData['registrationUsername'], $newPassword);
-
+      $this->assertFalse($this->obj->isLoggedIn());
+       
+      try{
+        $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
+      } catch (Exception $e) { 
+        $this->assertFalse($this->obj->isLoggedIn());
+      }
+      
+      $this->obj->login($postData['registrationUsername'], $newPassword);      
+      $this->assertTrue($this->obj->isLoggedIn());
+      $this->obj->logout();
+      $this->assertFalse($this->obj->isLoggedIn());
       $this->obj->undoRegister();
-      $this->assertTrue(true);
+      
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
     }
