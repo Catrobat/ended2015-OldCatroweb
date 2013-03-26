@@ -104,7 +104,7 @@
     <string name="update_user_language_by_id">UPDATE cusers SET language=$1 WHERE id=$2</string>
     <string name="update_avatar_by_id">UPDATE cusers SET avatar=$1 WHERE id=$2</string>
     
-    <string name="update_password_by_username">UPDATE cusers SET password=$1, recovery_hash=NULL, recovery_time=NULL WHERE username_clean=$2</string>
+    <string name="update_password_by_username">UPDATE cusers SET password=$1, auth_token =$3, recovery_hash=NULL, recovery_time=NULL WHERE username_clean=$2</string>
     <string name="delete_user_birth">UPDATE cusers SET date_of_birth=NULL WHERE id=$1</string>
     
     <string name="get_my_projects">SELECT *, coalesce(extract(epoch from "timestamp"(update_time)), extract(epoch from "timestamp"(upload_time))) AS last_activity FROM projects WHERE user_id=$1 AND visible=true ORDER BY last_activity DESC</string>
