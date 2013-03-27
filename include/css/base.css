@@ -1,0 +1,310 @@
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../include/css/Roboto/Roboto-Regular-webfont.eot');
+    src: local('Roboto Regular'), local('Roboto-Regular'),
+         url('../include/css/Roboto/Roboto-Regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../include/css/Roboto/Roboto-Regular-webfont.woff') format('woff'),
+         url('../include/css/Roboto/Roboto-Regular-webfont.ttf') format('truetype'),
+         url('../include/css/Roboto/Roboto-Regular-webfont.svg#RobotoRegular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../include/css/Roboto/Roboto-Italic-webfont.eot');
+    src: local('Roboto Italic'), local('Roboto-Italic'),
+         url('../include/css/Roboto/Roboto-Italic-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../include/css/Roboto/Roboto-Italic-webfont.woff') format('woff'),
+         url('../include/css/Roboto/Roboto-Italic-webfont.ttf') format('truetype'),
+         url('../include/css/Roboto/Roboto-Italic-webfont.svg#RobotoItalic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../include/css/Roboto/Roboto-Bold-webfont.eot');
+    src: local('Roboto Bold'), local('Roboto-Bold'),
+         url('../include/css/Roboto/Roboto-Bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('../include/css/Roboto/Roboto-Bold-webfont.woff') format('woff'),
+         url('../include/css/Roboto/Roboto-Bold-webfont.ttf') format('truetype'),
+         url('../include/css/Roboto/Roboto-Bold-webfont.svg#RobotoBold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+}
+
+html,
+button,
+input,
+select,
+textarea {
+  color: #a8dff4;
+}
+
+html {
+  height: 100%;
+  font-size: 1.0em;
+}
+
+body {
+  background-color: #04222C;
+  font-family: 'Roboto', Arial, sans-serif;
+  height: 100%;
+}
+
+img {
+  page-break-inside: avoid;
+  max-width: 100% !important;
+  vertical-align: middle;
+}
+
+h2,
+h3 {
+  page-break-after: avoid;
+}
+
+::-moz-selection {
+  background: #9933CC;
+  text-shadow: none;
+}
+
+::selection {
+  background: #9933CC;
+  text-shadow: none;
+}
+
+#wrapper {
+  margin-right: auto;
+  margin-left: auto;
+  width: 100%; /* 1024px; */
+  max-width: 1024px;
+  min-height: 100%;
+  min-width: 320px;
+}
+
+#wrapper header nav {
+  display: table;
+  width: 100%;
+  padding-top: 4px;
+}
+
+#wrapper header nav div {
+  display: table-cell;
+  vertical-align: middle;
+  padding: 0.3em;
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 1.7em;
+}
+
+#wrapper header nav div:nth-child(1) {
+  text-transform: uppercase;
+}
+
+#wrapper header nav div:nth-child(2) {
+  text-align: right;
+}
+
+#wrapper header nav div a {
+  margin-left: 0.2em;
+  color: #ffffff;
+  text-decoration: none;
+}
+
+#wrapper header nav div a img {
+  background-color: #74b1c6;
+  width: 1.05em;
+  height: 1.05em;
+  padding: 0.08em;
+  border-radius: 2px;
+  vertical-align: bottom;
+}
+
+
+#wrapper article {
+  overflow: auto;
+  padding-bottom: 3.2em;
+}
+
+#wrapper article header {
+  border-top: 1px solid #477889;
+  background-color: #00475d;
+  color: #a8dff4;
+  font-size: 1.7em;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em;
+  text-shadow: #000000 1px 1px 1px;
+  margin-top: 0.55em;
+}
+
+#wrapper article #programmOfTheWeek header {
+  text-align: center;
+  margin-top: 0;
+}
+
+#wrapper article #programmOfTheWeek div {
+  background-color: #a8e8f1;
+  margin-top: 0.2em;
+  position: relative; 
+  width: 100%;
+  text-align: center;
+}
+
+#wrapper article #programmOfTheWeek div div {
+  background: transparent;
+  text-align: left;
+  color: #04222c;
+  position: absolute; 
+  bottom: 1.0em;
+}
+
+#wrapper article #programmOfTheWeek div div span {
+  margin-left: 4%;
+  font-weight: bold;
+}
+
+#wrapper article #programmOfTheWeek div div span:nth-child(1) {
+  font-size: 1.6em;
+}
+
+#wrapper article div#newestProjects {
+  background-color: #00475d;
+  margin-top: 0.2em;
+  text-align: center;
+  overflow:hidden;
+  height: 33em;
+}
+#wrapper article div#newestProjects ul {
+	float:left;
+	margin:auto;
+	padding:0;
+	list-style:none;
+	position:relative;
+	left:50%;
+}
+#wrapper article div#newestProjects ul li {
+	display:inline-block;
+	position:relative;
+	left:-50%;
+	width: 140px;
+	margin: 0.6em 0.5em 1.6em 0.5em;
+	vertical-align: top;
+}
+#wrapper article div#newestProjects ul li img {
+	border: 2px solid #a8dff4;
+	display: block;
+}
+#wrapper article div#newestProjects ul li div {
+	white-space: nowrap;  
+	overflow: hidden;
+}
+#wrapper article div#newestProjects ul li div.projectTitle {
+	text-align: left;
+	font-size: 1.0em;
+	font-weight: bold;
+	margin-top: 0.5em;
+}
+#wrapper article div#newestProjects ul li div.projectAddition {
+	text-align: left;
+}
+#wrapper article div#newestProjects ul li div.projectLink {
+	background-color: #04222C;
+	margin: 0.8em 0.4em 0.4em 0.4em;
+	border-radius: 3px;
+}
+#wrapper article div#newestProjects ul li div.projectLink a {
+	font-size: 1.4em;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #76b0c6;
+	font-weight: bold;
+}
+
+footer {
+  margin-right: auto;
+  margin-left: auto;
+  max-width: 1024px;
+  min-width: 320px;
+  font-size: 0.8em;
+
+  position: relative;
+  margin-top: -3.2em; /* negative value of footer height */
+  height: 3.2em;
+}
+
+footer div {
+  display: table;
+  width: 100%;
+  background-color: #013042;
+}
+
+footer div a {
+  text-decoration: none;
+  color: #a8dff4;
+}
+
+footer div div {
+  display: table-row;
+}
+
+footer div.footerMenu div {
+  border-top: 1px solid #385f6e;
+}
+
+footer div#footerMoreMenu {
+  display: none;
+}
+
+footer div div div {
+  display: table-cell;
+  vertical-align: middle;
+  width: 33.3%;
+  padding: 0.4em 0.6em 0.4em 0.6em;
+  text-align: center;
+  overflow: hidden;
+}
+
+footer div:nth-child(1) div:nth-child(1) {
+  text-align: left;
+}
+
+footer div:nth-child(1) div:nth-child(3) {
+  text-align: right;
+}
+
+footer select {
+  border: 0;
+  background-color: #04222C;
+  color: #a8dff4;
+  padding: 0.4em 0.6em 0.4em 0.6em;
+  width: 100%;
+}
+
+body img#ga {
+  display: none;
+}

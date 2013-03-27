@@ -31,7 +31,6 @@ class index extends CoreAuthenticationNone {
     $this->addJs('newestProjects.js');
     $this->addJs('searchProjects.js');
     $this->addJs('index.js');
-    $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
   }
 
   public function __default() {

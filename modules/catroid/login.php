@@ -26,7 +26,6 @@ class login extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    $this->htmlHeaderFile = 'htmlLoginHeaderTemplate.php';
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
     $this->loadModule('common/userFunctions');
   }

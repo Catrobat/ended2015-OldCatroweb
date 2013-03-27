@@ -79,7 +79,7 @@ define('DEFAULT_TEMPLATE_LANGUAGE_FILE', 'template.xml');
 define('SITE_DEFAULT_LANGUAGE', 'en');
 define('SITE_DEFAULT_TITLE', 'Catroid Website');
 define('MVC_DEFAULT_MODULE', 'catroid');
-define('MVC_DEFAULT_CLASS', 'index');
+define('MVC_DEFAULT_CLASS', 'example');
 define('MVC_DEFAULT_METHOD', '__default');
 define('MVC_DEFAULT_AUTH_FAILED_METHOD', '__authenticationFailed');
 define('MVC_DEFAULT_VIEW', 'html');

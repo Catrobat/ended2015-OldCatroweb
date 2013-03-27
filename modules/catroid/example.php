@@ -22,12 +22,10 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class menu extends CoreAuthenticationNone {
+class example extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
-    $this->addCss('menu.css');
-    $this->addJs('menu.js');
-    $this->setWebsiteTitle($this->languageHandler->getString('title'));
+    $this->setWebsiteTitle("Design Test");
   }
 
   public function __default() {
