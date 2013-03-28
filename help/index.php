@@ -1,21 +1,26 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/**
+  * Catroid: An on-device visual programming system for Android devices
+  * Copyright (C) 2010-2013 The Catrobat Team
+  * (<http://developer.catrobat.org/credits>)
+  * 
+  * This program is free software: you can redistribute it and/or modify
+  * it under the terms of the GNU Affero General Public License as
+  * published by the Free Software Foundation, either version 3 of the
+  * License, or (at your option) any later version.
+  * 
+  * An additional term exception under section 7 of the GNU Affero
+  * General Public License, version 3, is available at
+  * http://developer.catrobat.org/license_additional_term
+  * 
+  * This program is distributed in the hope that it will be useful,
+  * but WITHOUT ANY WARRANTY; without even the implied warranty of
+  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  * GNU Affero General Public License for more details.
+  * 
+  * You should have received a copy of the GNU Affero General Public License
+  * along with this program. If not, see <http://www.gnu.org/licenses/>.
+  */
 
 require_once('../config.php');
 define('REAL_BASE_PATH',str_replace('help/', '', BASE_PATH));
@@ -31,31 +36,36 @@ define('REAL_BASE_PATH',str_replace('help/', '', BASE_PATH));
 <body>
 	<div id="all">
 		<div id="antcommands">
-			<h1>ant cheatsheet</h1>
+			<h1>Catroweb Cheatsheet</h1>
 			<pre>
---- update selenium libs
+--- refresh development environment
 
-    ant update-selenium
+    make refresh
+
+--- update
+
+    git pull
+    make refresh-all
 
 --- local tests
 
-    ant run-phpunit-tests		 
-    ant run-selenium-local-tests
+    make run-phpunit-tests
+    make run-selenium-tests
     
     <i>+ run specific test</i>
-    ant run-selenium-single-test    
-    ant run-selenium-single-test -Dtest.browserName=firefox -Dtest.class=catroid.LicenseTests -Dtest.method=imprint
+    make run-selenium-single-test    
+    make run-selenium-single-test SELENIUM_ARGS="-Dbrowser=firefox -Dclass=catroid.LicenseTests -Dmethod=imprint"
     
     <i>+ run specific group of tests</i>
-    ant run-selenium-group-test
-    ant run-selenium-group-test -Dtest.browserName=firefox -Dtest.group=admin
-    
-    <i>+ run tests on Internet Explorer</i>
-    add following parameters to any selenium command: -Dtest.browserName "internet explorer" -Dtest.browserVersion=9 -Dtest.plattform ",platform=WINDOWS"
-    e.g.: ant run-selenium-local-tests -Dtest.browserName "internet explorer" -Dtest.browserVersion=9 -Dtest.platform ",platform=WINDOWS"
+    make run-selenium-group-test
+    make run-selenium-group-test SELENIUM_ARGS="-Dbrowser=firefox -Dgroup=api"
     
     <i>+ Shut down local Selenium processes</i> 
-    ant stop-selenium-grid
+    make stop-selenium
+    
+    <strike><i>+ run tests on Internet Explorer</i>
+    add following parameters to any selenium command: -Dtest.browserName "internet explorer" -Dtest.browserVersion=9 -Dtest.plattform ",platform=WINDOWS"
+    e.g.: ant run-selenium-local-tests -Dtest.browserName "internet explorer" -Dtest.browserVersion=9 -Dtest.platform ",platform=WINDOWS"
 
 --- android tests
     --> see WIKI for installation instructions!     
@@ -75,17 +85,21 @@ define('REAL_BASE_PATH',str_replace('help/', '', BASE_PATH));
 --- database 
 
     ant init-db
-    ant update-db
+    ant update-db</strike>
       </pre>
 		</div>
 		<div id="links">
 			<h1>Developement Environment</h1>
-      <a href="http://catroidtestserver.ist.tugraz.at/development/current-webbox.ova" target="_blank">VirutalBox Image</a> - Contains the development environment.<br/>
+      <a href="http://jenkinsmaster/Catroweb.ova" target="_blank">VirutalBox Image</a> - Contains the development environment.<br/>
+      (only works with a plugged in ethernet cable at the project room) <br />
 			
 			<h1>Localhost</h1>
 			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>:4444/grid/console" target="_blank">Grid	Console</a> - Selenium-Grid Server Status<br/> 
 			<a href="<?php echo REAL_BASE_PATH;?>tests/selenium-grid/target/reports/" target="_blank">Test	Reports</a> - Test results of last testrun<br/> 
-			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/phppgadmin/" target="_blank">phpPgAdmin</a> -  WebBased SQL administration tool<br/>
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/phppgadmin/" target="_blank">phpPgAdmin</a> -  WebBased SQL administration tool<br/><br/>
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/sql/overview/catroboard.html" target="_blank">Database Schema</a> -  catroboard<br/>
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/sql/overview/catroweb.html" target="_blank">Database Schema</a> -  catroweb<br/>
+			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/sql/overview/catrowiki.html" target="_blank">Database Schema</a> -  catrowiki<br/>
 			
 			<h1>kittyroidlocal</h1> 
 			<h3>(http://catroidtestserver.ist.tugraz.at)</h3>
@@ -110,7 +124,7 @@ define('REAL_BASE_PATH',str_replace('help/', '', BASE_PATH));
       <a href="http://catroidtest.ist.tugraz.at/phppgadmin/" target="_blank">phpPgAdmin</a>* -  WebBased SQL administration tool<br/>
       <a href="https://selenium.googlecode.com/svn/trunk/java/CHANGELOG" target="_blank">Selenium changelog</a> - Most recent changes<br/>
       
-      <p><strong>* Note:</strong> only accessible with a TUGraz IP address</p>	
+      <p><strong>* Note:</strong> only accessible within the TUGraz network</p>	
 		</div>
 		<div style="clear: both;"></div>
 	</div>

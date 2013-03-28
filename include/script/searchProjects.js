@@ -1,21 +1,59 @@
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
+/*
+ *Catroid: An on-device visual programming system for Android devices
+ *Copyright (C) 2010-2013 The Catrobat Team
+ *(<http://developer.catrobat.org/credits>)
  *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
+ *This program is free software: you can redistribute it and/or modify
+ *it under the terms of the GNU Affero General Public License as
+ *published by the Free Software Foundation, either version 3 of the
+ *License, or (at your option) any later version.
  *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
+ *An additional term exception under section 7 of the GNU Affero
+ *General Public License, version 3, is available at
+ *http://developer.catrobat.org/license_additional_term
  *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *This program is distributed in the hope that it will be useful,
+ *but WITHOUT ANY WARRANTY; without even the implied warranty of
+ *MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ *GNU Affero General Public License for more details.
+ *
+ *You should have received a copy of the GNU Affero General Public License
+ *along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+  jQuery.fn.highlight = function(word) {
+    function innerHighlight(node, word) {
+     var result = 0;
+     
+     if (node.nodeType === 3) {
+       var position = node.data.toUpperCase().indexOf(word);
+       if (position >= 0) {
+
+       var spannode = document.createElement('span');
+       spannode.className = 'highlight';
+       var selection = node.splitText(position);
+       selection.splitText(word.length);
+       var selectionclone = selection.cloneNode(true);
+       spannode.appendChild(selectionclone);
+       
+       selection.parentNode.replaceChild(spannode,selection);
+       result = 1;
+
+      }
+     }
+     else if (node.nodeType == 1 && node.childNodes && !/(script|style)/i.test(node.tagName)) {
+      for (var i = 0; i < node.childNodes.length; ++i) {
+       i += innerHighlight(node.childNodes[i], word);
+      }
+     }
+    return result;
+    }
+    return this.length && word && word.length ? this.each(function() {
+     innerHighlight(this, word.toUpperCase());
+    }) : this;
+   };
+   
+   
 var SearchProjects = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function(maxLoadProjects, maxLoadPages, pageNr, searchQuery, strings) {
@@ -30,7 +68,7 @@ var SearchProjects = Class.$extend( {
     this.pageLabels = new Array();
     this.pageContent = { prev : null, current : null, next : null };
   },
-
+  
   initialize : function(object) {
     if(!object.initialized) { 
       object.createSkeleton();
@@ -234,7 +272,7 @@ var SearchProjects = Class.$extend( {
       timeout: (this.ajaxTimeout),
     
       success: function(result) {
-        if(result != "") {
+        if(typeof(result) === 'object') {
           if(result.error) {
             self.showErrorPage(result.error['type'], result.error['code'], result.error['extra']);
           } else {
@@ -266,7 +304,12 @@ var SearchProjects = Class.$extend( {
               self.fillSkeletonWithContent();
               self.saveHistoryState();
               self.setDocumentTitle();
-              self.unblockAjaxRequest();            
+              self.unblockAjaxRequest();
+              
+              var searchWords = self.searchQuery.split(" "); 
+              $.each(searchWords, function(index, value){
+                $("#projectContainer").highlight(value);
+              });
             }
           }
         }
@@ -278,6 +321,8 @@ var SearchProjects = Class.$extend( {
       }
     });
   },
+  
+  
 
   showErrorPage: function(type, code, extra) {
     var self = this;

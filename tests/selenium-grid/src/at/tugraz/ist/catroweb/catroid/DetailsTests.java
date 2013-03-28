@@ -1,29 +1,33 @@
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/**
+  *Catroid: An on-device visual programming system for Android devices
+  *Copyright (C) 2010-2013 The Catrobat Team
+  *(<http://developer.catrobat.org/credits>)
+  *
+  *This program is free software: you can redistribute it and/or modify
+  *it under the terms of the GNU Affero General Public License as
+  *published by the Free Software Foundation, either version 3 of the
+  *License, or (at your option) any later version.
+  *
+  *An additional term exception under section 7 of the GNU Affero
+  *General Public License, version 3, is available at
+  *http://developer.catrobat.org/license_additional_term
+  *
+  *This program is distributed in the hope that it will be useful,
+  *but WITHOUT ANY WARRANTY; without even the implied warranty of
+  *MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  *GNU Affero General Public License for more details.
+  *
+  *You should have received a copy of the GNU Affero General Public License
+  *along with this program. If not, see <http://www.gnu.org/licenses/>.
+  */
 
 package at.tugraz.ist.catroweb.catroid;
 
 import java.io.File;
 import java.util.HashMap;
-import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.testng.Reporter;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -36,7 +40,7 @@ import at.tugraz.ist.catroweb.common.*;
 public class DetailsTests extends BaseTest {
 
   @Test(dataProvider = "detailsProject", groups = { "functionality", "upload" }, description = "view + download counter test")
-  public void detailsPageCounter(HashMap<String, String> dataset) throws Throwable {
+  public void detailsPageCounterLink(HashMap<String, String> dataset) throws Throwable {
     try {
       String response = projectUploader.upload(dataset);
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
@@ -69,13 +73,6 @@ public class DetailsTests extends BaseTest {
       numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
       assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
 
-      driver().findElement(By.xpath("//div[@class='detailsMainImage']/a[1]")).click();
-      driver().navigate().refresh();
-      ajaxWait();
-      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
-      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
-      assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
-
       // check file size
       double filesize = CommonFunctions.getFileSizeRounded(Config.FILESYSTEM_BASE_PATH + Config.PROJECTS_DIRECTORY + id + Config.PROJECTS_EXTENTION);
       String downloadButtonText = driver().findElement(By.xpath("//div[@class='detailsFileSize']")).getText();
@@ -92,10 +89,37 @@ public class DetailsTests extends BaseTest {
       // assertRegExp("^Catroid version: " + versionInfo.get("version_name") + "$", versionInfoText);
       assertEquals("Catroid version: " + versionInfo.get("version_name"), versionInfoText);
     } catch(AssertionError e) {
-      captureScreen("DetailsTests.detailsPageCounter." + dataset.get("projectTitle"));
+      captureScreen("DetailsTests.detailsPageCounterLink." + dataset.get("projectTitle"));
       throw e;
     } catch(Exception e) {
-      captureScreen("DetailsTests.detailsPageCounter." + dataset.get("projectTitle"));
+      captureScreen("DetailsTests.detailsPageCounterLink." + dataset.get("projectTitle"));
+      throw e;
+    }
+  }
+
+  @Test(dataProvider = "detailsProject", groups = { "functionality", "upload" }, description = "view + download counter test")
+  public void detailsPageCounterThumbnail(HashMap<String, String> dataset) throws Throwable {
+    try {
+      String response = projectUploader.upload(dataset);
+      String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
+      int numOfDownloads = -1;
+      int numOfDownloadsAfter = -1;
+      
+      openLocation("catroid/details/" + id);
+      
+      // test the download counter
+      numOfDownloads = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
+      driver().findElement(By.xpath("//div[@class='detailsMainImage']/a[1]")).click();
+      driver().navigate().refresh();
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
+      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
+      assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.detailsPageCounterThumbnail." + dataset.get("projectTitle"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("DetailsTests.detailsPageCounterThumbnail." + dataset.get("projectTitle"));
       throw e;
     }
   }
@@ -302,8 +326,8 @@ public class DetailsTests extends BaseTest {
     }
   }
 
-  @Test(groups = { "visibility" }, description = "test download info")
-  public void testAppDownload() throws Throwable {
+  @Test(groups = { "visibility" }, description = "test download app link")
+  public void testAppDownloadLink() throws Throwable {
     try {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
@@ -332,20 +356,7 @@ public class DetailsTests extends BaseTest {
       numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
       assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
       
-      driver().findElement(By.id("downloadAppSwitch")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("downloadAppButton")));
-      
-      String projectThumbnailLink = driver().findElement(By.id("downloadProjectThumb")).getAttribute("href");
-      assertRegExp(".*apk.*", projectThumbnailLink);
-      driver().get(projectThumbnailLink);
-
-      driver().navigate().refresh();
-      ajaxWait();
-      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
-      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
-      assertEquals(numOfDownloads + 2, numOfDownloadsAfter);
-      
+     
       // check file size
       driver().findElement(By.id("downloadAppSwitch")).click();
       assertTrue(isVisible(By.id("downloadAppButton")));
@@ -360,10 +371,41 @@ public class DetailsTests extends BaseTest {
         assertEquals(String.valueOf(filesize), displayedfilesize);
       }
     } catch(AssertionError e) {
-      captureScreen("DetailsTests.QRCodeInfo");
+      captureScreen("DetailsTests.testAppDownloadLink");
       throw e;
     } catch(Exception e) {
-      captureScreen("DetailsTests.QRCodeInfo");
+      captureScreen("DetailsTests.testAppDownloadLink");
+      throw e;
+    }
+  }
+
+  @Test(groups = { "visibility" }, description = "test download app thumbnail")
+  public void testAppDownloadThumbnail() throws Throwable {
+    try {
+      int numOfDownloads = -1;
+      int numOfDownloadsAfter = -1;
+      
+      openLocation("catroid/details/2");
+      ajaxWait();
+      
+      driver().findElement(By.id("downloadAppSwitch")).click();
+      assertTrue(isVisible(By.id("downloadAppButton")));
+      
+      String projectThumbnailLink = driver().findElement(By.id("downloadProjectThumb")).getAttribute("href");
+      assertRegExp(".*apk.*", projectThumbnailLink);
+      numOfDownloads = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
+      driver().get(projectThumbnailLink);
+      
+      driver().navigate().refresh();
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats'][2]/strong")));
+      numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
+      assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.testAppDownloadThumbnail");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("DetailsTests.testAppDownloadThumbnail");
       throw e;
     }
   }
@@ -377,7 +419,7 @@ public class DetailsTests extends BaseTest {
       ajaxWait();
       
       assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
-      assertRegExp(".*Download.*", driver().findElement(By.xpath("//span[@class='detailsDownloadButtonText']")).getText());
+      assertRegExp(".*Download.*", driver().findElement(By.id("downloadCatroidProjectLink")).getText());
       
       openLocation("catroid/details/2");
       driver().findElement(By.id("downloadAppSwitch")).click();

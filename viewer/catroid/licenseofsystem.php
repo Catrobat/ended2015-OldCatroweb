@@ -1,21 +1,27 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 ?>
     <div class="webMainMiddle">
       <div class="blueBoxMain">
@@ -34,7 +40,7 @@
                 <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_system_third_party_code')?></p>
                 <ul>
                   <li><?php echo $this->languageHandler->getString('terms_of_system_enumeration_5_part_1', '<a href="http://xstream.codehaus.org/" target="_blank">&lt;http://xstream.codehaus.org&gt;</a>')?><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_5_part_2', '<a href="http://xstream.codehaus.org/license.html" target="_blank">&lt;http://xstream.codehaus.org/license.html&gt;</a>')?><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_5_part_3')?><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_5_part_4')?><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_5_part_5')?><br/><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_5_part_6')?><br/><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_5_part_7')?><br/><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_5_part_8')?><br/><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_5_part_9')?><br/><br/></li>
-                  <li><?php echo $this->languageHandler->getString('terms_of_system_enumeration_6_part_1', '<a href="http://libgdx.badlogicgames.com/" target="_blank">&lt;http://libgdx.badlogicgames.com&gt;</a>')?><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_6_part_2', '<a href="http://libgdx.badlogicgames.com/license.php" target="_blank">&lt;http://libgdx.badlogicgames.com/license.php&gt;</a>')?><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_6_part_3', '<a href="http://code.google.com/p/libgdx/people/list" target="_blank">&lt;http://code.google.com/p/libgdx/people/list&gt;</a>')?><br/><br/></li>
+                  <li><?php echo $this->languageHandler->getString('terms_of_system_enumeration_6_part_1', '<a href="http://libgdx.badlogicgames.com/" target="_blank">&lt;http://libgdx.badlogicgames.com&gt;</a>')?><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_6_part_2', '<a href="http://www.apache.org/licenses/LICENSE-2.0.html" target="_blank">&lt;http://www.apache.org/licenses/LICENSE-2.0.html&gt;</a>')?><br/><?php echo $this->languageHandler->getString('terms_of_system_enumeration_6_part_3', '<a href="http://code.google.com/p/libgdx/people/list" target="_blank">&lt;http://code.google.com/p/libgdx/people/list&gt;</a>')?><br/><br/></li>
                 </ul>
                 <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_system_check_back')?></p>
                 <br />

@@ -1,20 +1,25 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once('frameworkTestsBootstrap.php');
@@ -101,35 +106,35 @@ class coreFrameworkTest extends PHPUnit_Framework_TestCase
   }
 
   public function testCss() {
-    $testCss = 'myTestCss.css';
-    $numCss = 5;
-    $this->assertEquals(null, $this->testModel->getCss());
-    for($i=0;$i<$numCss;$i++) {
-      $this->testModel->addCss($testCss);
-    }
-    $cssCounter = 0;
-    while($css = $this->testModel->getCss()) {
-      $this->assertEquals($testCss, $css);
-      $cssCounter++;
-    }
-    $this->assertEquals($numCss, $cssCounter);
-    $this->assertEquals(null, $this->testModel->getCss());
+    $this->assertEquals("", $this->testModel->getCss());
+    $this->testModel->addCss('notExistingFile.css');
+    $this->assertEquals("", $this->testModel->getCss());
+    $this->testModel->addCss('index.css');
+    $this->assertNotEquals("", $this->testModel->getCss());
+  }
+
+  public function testGlobalCss() {
+    $this->assertEquals("", $this->testModel->getGlobalCss());
+    $this->testModel->addGlobalCss('notExistingFile.css');
+    $this->assertEquals("", $this->testModel->getGlobalCss());
+    $this->testModel->addGlobalCss('index.css');
+    $this->assertNotEquals("", $this->testModel->getGlobalCss());
   }
 
   public function testJs() {
-    $testJs = 'myTestJs.js';
-    $numJs = 5;
-    $this->assertEquals(null, $this->testModel->getJs());
-    for($i=0;$i<$numJs;$i++) {
-      $this->testModel->addJs($testJs);
-    }
-    $jsCounter = 0;
-    while($js = $this->testModel->getJs()) {
-      $this->assertEquals($testJs, $js);
-      $jsCounter++;
-    }
-    $this->assertEquals($numJs, $jsCounter);
-    $this->assertEquals(null, $this->testModel->getJs());
+    $this->assertEquals("", $this->testModel->getJs());
+    $this->testModel->addJs('notExistingFile.js');
+    $this->assertEquals("", $this->testModel->getJs());
+    $this->testModel->addJs('index.js');
+    $this->assertNotEquals("", $this->testModel->getJs());
+  }
+
+  public function testGlobalJs() {
+    $this->assertEquals("", $this->testModel->getGlobalJs());
+    $this->testModel->addGlobalJs('notExistingFile.js');
+    $this->assertEquals("", $this->testModel->getGlobalJs());
+    $this->testModel->addGlobalJs('index.js');
+    $this->assertNotEquals("", $this->testModel->getGlobalJs());
   }
 
   /*

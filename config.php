@@ -1,23 +1,29 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team 
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('VERSION','0.6.4');
+define('VERSION','0.6.5');
+define('MIN_CATROBAT_LANGUAGE_VERSION', '0.6');
 // define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
 define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].'/'));
 define('CORE_BASE_PATH',dirname(__FILE__).'/');
@@ -28,6 +34,7 @@ define('SCRIPT_PATH','include/script/');
 define('CLASS_PATH','classes/');
 define('MODULE_PATH','modules/');
 define('VIEWER_PATH','viewer/');
+define('CACHE_PATH','cache/');
 define('PROJECTS_FTP_UPLOAD_DIRECTORY','/tmp/');
 define('PROJECTS_APP_BUILDING_SRC','app-building/catroid-source/');
 define('PROJECTS_DIRECTORY','resources/projects/');
@@ -55,9 +62,11 @@ define('DEVELOPMENT_MODE',true);
 if (DEVELOPMENT_MODE) {
 	define('SEND_NOTIFICATION_EMAIL',false);
 	define('SEND_NOTIFICATION_USER_EMAIL',false);
+	define('DATABASE_CONNECTION_PERSISTENT',false);
 } else {
 	define('SEND_NOTIFICATION_EMAIL',true);
 	define('SEND_NOTIFICATION_USER_EMAIL',true);
+	define('DATABASE_CONNECTION_PERSISTENT',true);
 }
 	
 define('DEVELOPMENT_STATUS','[beta]');
@@ -89,10 +98,9 @@ define('USER_MIN_USERNAME_LENGTH',4);
 define('USER_MAX_USERNAME_LENGTH',32);
 define('USER_MIN_PASSWORD_LENGTH',6);
 define('USER_MAX_PASSWORD_LENGTH',32);
-define('DATABASE_CONNECTION_PERSISTENT',true);
 define('GA_PIXEL','ga.php');
 define('SESSION_LIFETIME', 60*60*24*365);
-
-define('MOBILE_BROWSERDETECTION_URL_FOR_UPDATE','http://detectmobilebrowsers.com/download/php');
+define('JQUERY_VERSION', '1.8.2');
+define('MOBILE_BROWSERDETECTION_URL_FOR_UPDATE', 'http://detectmobilebrowsers.com/download/php');
 
 ?>

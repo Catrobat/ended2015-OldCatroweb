@@ -1,20 +1,25 @@
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/**
+  *Catroid: An on-device visual programming system for Android devices
+  *Copyright (C) 2010-2013 The Catrobat Team
+  *(<http://developer.catrobat.org/credits>)
+  *
+  *This program is free software: you can redistribute it and/or modify
+  *it under the terms of the GNU Affero General Public License as
+  *published by the Free Software Foundation, either version 3 of the
+  *License, or (at your option) any later version.
+  *
+  *An additional term exception under section 7 of the GNU Affero
+  *General Public License, version 3, is available at
+  *http://developer.catrobat.org/license_additional_term
+  *
+  *This program is distributed in the hope that it will be useful,
+  *but WITHOUT ANY WARRANTY; without even the implied warranty of
+  *MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  *GNU Affero General Public License for more details.
+  *
+  *You should have received a copy of the GNU Affero General Public License
+  *along with this program. If not, see <http://www.gnu.org/licenses/>.
+  */
 
 package at.tugraz.ist.catroweb.catroid;
 
@@ -213,11 +218,39 @@ public class SearchTests extends BaseTest {
       captureScreen("SearchTests.identicalSearchQuery");
       throw e;
     } catch(Exception e) {
-      captureScreen("SearchTests.searchAndHideProjectidenticalSearchQuery");
+      captureScreen("SearchTests.identicalSearchQuery");
       throw e;
     }
   }
-
+  
+  @Test(groups = { "functionality" }, description = "search project, highlight search query")
+  public void highlightSearchQuery() throws Throwable {
+    try {
+      
+      String projectTitle = "HighLight_Project" + CommonData.getRandomShortString(10);
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "identical_search_project_2", "", "", "", "", Config.DEFAULT_UPLOAD_TOKEN));
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      
+      openLocation("/catroid/search/?q=" + projectTitle + "&p=1", false);
+      ajaxWait();  
+      assertEquals(projectTitle, driver().findElement(By.className("highlight")).getText());
+      
+      openLocation("/catroid/search/?q=" + projectTitle.toUpperCase() + "&p=1", false);
+      ajaxWait();
+      assertEquals(projectTitle, driver().findElement(By.className("highlight")).getText());
+      
+      openLocation("/catroid/search/?q=" + CommonData.getLoginUserDefault() + "&p=1", false);
+      ajaxWait();
+      assertEquals(CommonData.getLoginUserDefault(), driver().findElement(By.className("highlight")).getText());
+      
+    } catch(AssertionError e) {
+      captureScreen("SearchTests.highlightSearchQuery");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("SearchTests.highlightSearchQuery");
+      throw e;
+    }
+  }
   @Test(groups = { "functionality", "upload" }, description = "search and hide project")
   public void searchAndHideProject() throws Throwable {
     try {
@@ -232,11 +265,10 @@ public class SearchTests extends BaseTest {
       openAdminLocation("/tools/editProjects");
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("toggle" + projectID)).click();
-      ajaxWait();
 
       openLocation();
       ajaxWait();
-      
+      driver().findElement(By.id("headerSearchButton")).click();
       driver().findElement(By.id("searchQuery")).clear();
       driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
       driver().findElement(By.id("webHeadSearchSubmit")).click();
@@ -247,7 +279,6 @@ public class SearchTests extends BaseTest {
 
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
-      
       assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
 
@@ -255,7 +286,6 @@ public class SearchTests extends BaseTest {
       openAdminLocation("/tools/editProjects");
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("toggle" + projectID)).click();
-      ajaxWait();
 
       openLocation();
       ajaxWait();

@@ -1,20 +1,25 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 class details extends CoreAuthenticationNone {
@@ -68,17 +73,16 @@ class details extends CoreAuthenticationNone {
     $project['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $project['uploaded_by']);
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
     $project['fileSize'] = convertBytesToMegabytes($project['filesize_bytes']);
-    
-    if(!$project['description']) {
+    if($project['description']) {
+      $project['description'] = $project['description'];
+    } else {
       $project['description'] = '';
     }
-    
     if(mb_strlen($project['description'], 'UTF-8') > PROJECT_SHORT_DESCRIPTION_MAX_LENGTH) {
-      $project['description_short'] = makeShortString($project['description'] , PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
+      $project['description_short'] = makeShortString($project['description'], PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
     } else {
       $project['description_short'] = '';
     }
-    
     $project['qr_code_catroid_image'] = getCatroidProjectQRCodeUrl($projectId, $project['title']);
 
     $project['is_app_present'] = file_exists(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENSION);
@@ -100,15 +104,14 @@ class details extends CoreAuthenticationNone {
   public function incrementViewCounter($projectId) {
     pg_execute($this->dbConnection, "increment_view_counter", array($projectId)) or
                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    return;
   }
   
   public function showReportAsInappropriateButton($projectId, $userId) {
     if($this->session->userLogin_userId <= 0) {
-      return false;
+      return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_please_login', '<a href="' . BASE_PATH . 'catroid/login/?requestUri=catroid/details/' . $projectId . '">' . $this->languageHandler->getString('login') . '</a>'));
     }
     if($this->session->userLogin_userId == $userId) {
-      return false;
+      return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_own_project'));
     }
     
     $result = pg_execute($this->dbConnection, "has_user_flagged_project", array($projectId, $this->session->userLogin_userId)) or
@@ -117,9 +120,9 @@ class details extends CoreAuthenticationNone {
     pg_free_result($result);
     
     if($alreadyFlagged > 0) {
-      return false;
+      return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_already_flagged'));
     }
-    return true;
+    return array('show' => true, 'message' => "");
   }
   
   public function __destruct() {

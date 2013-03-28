@@ -1,20 +1,25 @@
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
+/**
+  *Catroid: An on-device visual programming system for Android devices
+  *Copyright (C) 2010-2013 The Catrobat Team
+  *(<http://developer.catrobat.org/credits>)
+  *
+  *This program is free software: you can redistribute it and/or modify
+  *it under the terms of the GNU Affero General Public License as
+  *published by the Free Software Foundation, either version 3 of the
+  *License, or (at your option) any later version.
+  *
+  *An additional term exception under section 7 of the GNU Affero
+  *General Public License, version 3, is available at
+  *http://developer.catrobat.org/license_additional_term
+  *
+  *This program is distributed in the hope that it will be useful,
+  *but WITHOUT ANY WARRANTY; without even the implied warranty of
+  *MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  *GNU Affero General Public License for more details.
+  *
+  *You should have received a copy of the GNU Affero General Public License
+  *along with this program. If not, see <http://www.gnu.org/licenses/>.
+  */
 
 package at.tugraz.ist.catroweb.common;
 
@@ -54,7 +59,7 @@ public class Config {
   public static final String DEFAULT_UPLOAD_TITLE = "Testproject";
   public static final String DEFAULT_UPLOAD_DESCRIPTION = "This is my testproject...";
   public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.0beta.catrobat";
-  public static final String DEFAULT_UPLOAD_CHECKSUM = "693fdc65fb25443f385eb38154130741";
+  public static final String DEFAULT_UPLOAD_CHECKSUM = "e60affe0c115ba4e10474eab3efc47d6";
   public static final String DEFAULT_UPLOAD_EMAIL = "webmaster@catroid.org";
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";
@@ -64,7 +69,7 @@ public class Config {
   public static void setSeleniumGridTestdata(String basedir) {
     if(FILESYSTEM_BASE_PATH.matches(".*tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "$")) {
       FILESYSTEM_BASE_PATH = FILESYSTEM_BASE_PATH.substring(0, FILESYSTEM_BASE_PATH.indexOf("tests"+FILESYSTEM_SEPARATOR +  "selenium-grid"));
-      DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test.zip";
+      DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.0beta.catrobat";
     }
   }
 }

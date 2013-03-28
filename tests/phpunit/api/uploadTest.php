@@ -1,21 +1,25 @@
 <?php
-/**
- *    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once('testsBootstrap.php');
@@ -347,14 +351,18 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $validFileName = 'test.zip';
     $invalidFileName = 'nonExistingFile.zip';
     $corruptFileName = 'test_invalid_projectfile.zip';
+    $oldVersionFileName = 'test0.3.catrobat';
     $validTestFile = dirname(__FILE__) . '/testdata/' . $validFileName;
     $invalidTestFile = dirname(__FILE__) . '/testdata/' . $invalidFileName;
     $corruptTestFile = dirname(__FILE__) . '/testdata/' . $corruptFileName;
+    $oldVersionFile = dirname(__FILE__) . '/testdata/' . $oldVersionFileName;
     $validFileChecksum = md5_file($validTestFile);
     $corruptFileChecksum = md5_file($corruptTestFile);
     $invalidFileChecksum = 'invalidfilechecksum';
+    $oldVersionFileChecksum = md5_file($oldVersionFile);
     $validFileSize = filesize($validTestFile);
     $corruptFileSize = filesize($corruptTestFile);
+    $oldVersionFileSize = filesize($oldVersionFile);
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
         array('uploadTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, $validFileChecksum, 0, $fileType, STATUS_CODE_UPLOAD_MISSING_DATA),
@@ -365,7 +373,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
         array('', 'this project has no project title', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
         array('defaultProject', 'this project is named defaultProject', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_DEFAULT_PROJECT_TITLE),
         array('uploadTestFail8 fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_TITLE),
-        array('uploadTestFail9', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_DESCRIPTION)
+        array('uploadTestFail9', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_DESCRIPTION),
+        array('uploadTestFail10', 'this project has an old catrobatLanguageVersion!', $oldVersionFile, $oldVersionFileName, $oldVersionFileChecksum, $oldVersionFileSize, $fileType, STATUS_CODE_UPLOAD_OLD_CATROBAT_LANGUAGE)
     );
     return $dataArray;
   }
@@ -373,7 +382,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test0.3.catrobat', $fileType, 0.3, '0.6.0beta')
+        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test-0.7.0beta.catrobat', $fileType, 0.6, '0.7.0beta')
     );
     return $dataArray;
   }

@@ -1,20 +1,25 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team 
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once('frameworkTestsBootstrap.php');
@@ -24,8 +29,8 @@ class configTest extends PHPUnit_Framework_TestCase
 
   public function testConfig()
   {
-    // $this->assertEquals(VERSION, '0.6.2_I18N');
-  	$this->assertEquals(VERSION, '0.6.4');
+  	$this->assertEquals(VERSION, '0.6.5');
+  	$this->assertEquals(MIN_CATROBAT_LANGUAGE_VERSION, '0.6');
     $this->assertEquals(XML_PATH, 'include/xml/');
     $this->assertEquals(LANGUAGE_PATH, 'include/xml/lang/');
     $this->assertEquals(CSS_PATH, 'include/css/');
@@ -33,6 +38,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(CLASS_PATH, 'classes/');
     $this->assertEquals(MODULE_PATH, 'modules/');
     $this->assertEquals(VIEWER_PATH, 'viewer/');
+    $this->assertEquals(CACHE_PATH, 'cache/');
     $this->assertEquals(PROJECTS_FTP_UPLOAD_DIRECTORY, '/tmp/');
     $this->assertEquals(PROJECTS_APP_BUILDING_SRC, 'app-building/catroid-source/');
     $this->assertEquals(PROJECTS_DIRECTORY, 'resources/projects/');
@@ -81,8 +87,11 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(USER_MAX_USERNAME_LENGTH, 32);
     $this->assertEquals(USER_MIN_PASSWORD_LENGTH, 6);
     $this->assertEquals(USER_MAX_PASSWORD_LENGTH, 32);
-    $this->assertEquals(DATABASE_CONNECTION_PERSISTENT, true);
+    $this->assertEquals(DATABASE_CONNECTION_PERSISTENT, false);
     $this->assertEquals(GA_PIXEL, 'ga.php');
+    $this->assertEquals(SESSION_LIFETIME, 60*60*24*365);
+    $this->assertEquals(JQUERY_VERSION, '1.8.2');
+    $this->assertEquals(MOBILE_BROWSERDETECTION_URL_FOR_UPDATE, 'http://detectmobilebrowsers.com/download/php');
   }
 }
 ?>

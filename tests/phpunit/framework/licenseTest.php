@@ -1,20 +1,25 @@
 <?php
-/*    Catroid: An on-device graphical programming language for Android devices
- *    Copyright (C) 2010-2012 The Catroid Team
- *    (<http://code.google.com/p/catroid/wiki/Credits>)
- *
- *    This program is free software: you can redistribute it and/or modify
- *    it under the terms of the GNU Affero General Public License as
- *    published by the Free Software Foundation, either version 3 of the
- *    License, or (at your option) any later version.
- *
- *    This program is distributed in the hope that it will be useful,
- *    but WITHOUT ANY WARRANTY; without even the implied warranty of
- *    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *    GNU Affero General Public License for more details.
- *
- *    You should have received a copy of the GNU Affero General Public License
- *    along with this program.  If not, see <http://www.gnu.org/licenses/>.
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
 require_once('frameworkTestsBootstrap.php');
@@ -29,33 +34,32 @@ class licenseTest extends PHPUnit_Framework_TestCase
 
   protected function setUp() {
     $this->file_listing = array();
-    $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js", "java");
-    $this->blacklist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php", "strings.xml", ".ant-targets-build.xml", "ga.php", "test_no_version.xml", "test_v5a-199_invalid_tag.xml", "test_v5a-420.xml", "test_v5a-433.xml", "test_v5a.xml");
-    $this->blacklist_folders = array(".metadata", "addons", "app-building", "pear", "target", "resources", "pootle", "phpPgAdmin", "de", "ms", "ro", "ru", "zh-CN", "zh-TW");
+    $this->allowed_extensions = array("php", "xml", "css", "html", "htm", "js", "java", "py");
+    $this->blacklist = array("CoreClientDetection.php", "classy.js", "jquery.js", "Snoopy.php", "strings.xml", ".ant-targets-build.xml", "ga.php", "test_no_version.xml", "test_v5a-199_invalid_tag.xml", "test_v5a-420.xml", "test_v5a-433.xml", "test_v5a.xml", "catroboard.html", "catroweb.html", "catrowiki.html");
+    $this->blacklist_folders = array(".metadata", "addons", "app-building", "pear", "target", "resources", "pootle", "phpPgAdmin", "cache", "de", "ms", "ro", "ru", "zh-CN", "zh-TW");
 
     $this->license = array(
-    "Catroid: An on-device graphical programming language for Android devices",
-    "Copyright \(C\) 2010-2012 The Catroid Team",
-	  "\(<http:\/\/code.google.com\/p\/catroid\/wiki\/Credits>\)",
+    "Catroid: An on-device visual programming system for Android devices",
+    "Copyright \(C\) 2010-2013 The Catrobat Team",
+	  "\(<http:\/\/developer.catrobat.org\/credits>\)",
 	  "This program is free software: you can redistribute it and\/or modify",
     "it under the terms of the GNU Affero General Public License as",
     "published by the Free Software Foundation, either version 3 of the",
     "License, or \(at your option\) any later version.",
-    //"An additional term exception under section 7 of the GNU Affero",
-    //"General Public License, version 3, is available at",
-    //"http:\/\/www.catroid.org\/catroid\/licenseadditionalterm",
+    "An additional term exception under section 7 of the GNU Affero",
+    "General Public License, version 3, is available at",
+    "http:\/\/developer.catrobat.org\/license_additional_term",
     "This program is distributed in the hope that it will be useful,",
     "but WITHOUT ANY WARRANTY; without even the implied warranty of",
-    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the",
+    "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the",
     "GNU Affero General Public License for more details.",
     "You should have received a copy of the GNU Affero General Public License",
-    "along with this program.  If not, see <http:\/\/www.gnu.org\/licenses\/>."
+    "along with this program. If not, see <http:\/\/www.gnu.org\/licenses\/>."
     );
     $this->walkThroughDirectory(CORE_BASE_PATH);
   }
 
   public function testLicense() {
-
     foreach($this->file_listing as $current_file) {
       $contents = $this->getFileContent($current_file);
         foreach($this->license as $line) {

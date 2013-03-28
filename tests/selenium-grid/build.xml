@@ -1,27 +1,35 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-
-<!--  Catroid: An on-device graphical programming language for Android devices
-      Copyright (C) 2010-2012 The Catroid Team
-      (<http://code.google.com/p/catroid/wiki/Credits>)
- 
-      This program is free software: you can redistribute it and/or modify
-      it under the terms of the GNU Affero General Public License as
-      published by the Free Software Foundation, either version 3 of the
-      License, or License, or (at your option) any later version.
-
-      This program is distributed in the hope that it will be useful,
-      but WITHOUT ANY WARRANTY; without even the implied warranty of
-      MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-      GNU Affero General Public License for more details.
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2013 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
   
-      You should have received a copy of the GNU Affero General Public License
-      along with this program.  If not, see <http://www.gnu.org/licenses/>.
-  -->
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
 
 <project name="selenium-grid" basedir=".">
 
   <description>Selenium Grid Distribution</description>
   <dirname property="selenium-grid.basedir" file="${ant.file.selenium-grid}"/>
+  <echo message="${selenium-grid.basedir}"/>
+
+  <property name="build.sysclasspath" value="last" />
+  <property name="file.encoding" value="UTF-8" />
 
   <property name="name" value="Selenium Grid Catroid Test Suite"/>
   <property name="artifact" value="selenium-grid-catroid-test-suite"/>
@@ -32,7 +40,6 @@
   <property name="webSite" value="http://catroid.local/"/>
   <property name="seleniumHost" value="localhost"/>
   <property name="seleniumPort" value="4444"/>
-  <property name="browser" value="firefox"/>
 
   <path id="compile.classpath">
     <fileset dir="${selenium-grid.basedir}/lib"/>
@@ -54,7 +61,7 @@
     <delete dir="${selenium-grid.basedir}/target/classes" quiet="true"/>
   </target>
 
-  <target name="run-catroid-tests" depends="-delete-java-bin, compile" description="Run Catroid Test Suite">
+  <target name="run-catroid-tests" depends="-get-selenium-grid-test-browser, -delete-java-bin, compile" description="Run Catroid Test Suite">
     <java classpathref="runtime.classpath" classname="org.testng.TestNG" failonerror="true">
       <sysproperty key="java.security.policy" file="${selenium-grid.basedir}/testng.policy"/>
       <sysproperty key="basedir" value="${selenium-grid.basedir}" />
@@ -72,11 +79,11 @@
     </java>
   </target>
 
-  <target name="run-single-test" depends="-delete-java-bin, compile" description="Run a single Test">
+  <target name="run-single-test" depends="-get-selenium-grid-test-browser, -get-selenium-grid-single-test-parameters, -delete-java-bin, compile" description="Run a single Test">
     <copy file="${selenium-grid.basedir}/single_test.xml" tofile="${selenium-grid.basedir}/single_test_tmp.xml" overwrite="true">
       <filterset>
-        <filter token="CLASS" value="at.tugraz.ist.catroweb.${single-test-class}"/>
-        <filter token="METHOD" value="${single-test-method}"/>
+        <filter token="CLASS" value="at.tugraz.ist.catroweb.${class}"/>
+        <filter token="METHOD" value="${method}"/>
       </filterset>
     </copy>
 
@@ -95,10 +102,10 @@
     <delete file="${selenium-grid.basedir}/single_test_tmp.xml"/>
   </target>
 
-  <target name="run-group-test" depends="-delete-java-bin, compile" description="Run a group Tests">
+  <target name="run-group-test" depends="-get-selenium-grid-test-browser, -get-selenium-grid-group-test-parameter, -delete-java-bin, compile" description="Run a group Tests">
     <copy file="${selenium-grid.basedir}/group_test.xml" tofile="${selenium-grid.basedir}/group_test_tmp.xml" overwrite="true">
       <filterset>
-        <filter token="GROUP" value="${group-test}"/>
+        <filter token="GROUP" value="${group}"/>
       </filterset>
     </copy>
 
@@ -115,6 +122,50 @@
     </java>
 
     <delete file="${selenium-grid.basedir}/group_test_tmp.xml"/>
+  </target>
+  
+  <target name="-get-selenium-grid-test-browser">
+    <input
+      message="Please enter an environment to test: "
+      addproperty="browser"
+      defaultvalue="firefox"
+    />
+  </target>
+
+  <target name="-get-selenium-grid-single-test-parameters">
+    <input
+      message="Please enter a class to test (e.g.: catroid.LicenseTests): "
+      addproperty="class"
+    />
+
+    <input
+      message="Please enter a method to test (e.g.: imprint): "
+      addproperty="method"
+      defaultvalue=".*"
+    />
+
+    <echo message=""/>
+    <echo message="========== Notice ========== "/>
+    <echo message=""/>
+    <echo message="you can repeat this test by running:"/>
+    <echo message=' make run-selenium-single-test SELENIUM_ARGS="-Dbrowser=${browser} -Dclass=${class} -Dmethod=${method}"'/>
+    <echo message=""/>
+    <echo message=""/>
+  </target>
+
+  <target name="-get-selenium-grid-group-test-parameter">
+    <input
+      message="Please enter a group to test (e.g.: admin, api, catroid): "
+      addproperty="group"
+    />
+
+    <echo message=""/>
+    <echo message="========== Notice ========== "/>
+    <echo message=""/>
+    <echo message="you can repeat this test by running:"/>
+    <echo message=' make run-selenium-group-test SELENIUM_ARGS="-Dbrowser=${browser} -Dgroup=${group}"'/>
+    <echo message=""/>
+    <echo message=""/>
   </target>
 
   <target name="build" depends="compile"/>
