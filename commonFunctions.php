@@ -653,4 +653,46 @@ function getCountryArray($languageHandler) {
   );
   return $countries;
 }
+
+
+function addhttp($url) {
+  if (!preg_match("~^(?:f|ht)tps?://~i", $url)) {
+    $url = "http://" . $url;
+  }
+  return $url;
+}
+
+function wrapUrlsWithAnchors($description){
+  
+  // http://daringfireball.net/2010/07/improved_regex_for_matching_urls
+  
+  /*
+   (?xi)
+\b
+(                       # Capture 1: entire matched URL
+  (?:
+    https?://               # http or https protocol
+    |                       #   or
+    www\d{0,3}[.]           # "www.", "www1.", "www2." … "www999."
+    |                           #   or
+    [a-z0-9.\-]+[.][a-z]{2,4}/  # looks like domain name followed by a slash
+  )
+  (?:                       # One or more:
+    [^\s()<>]+                  # Run of non-space, non-()<>
+    |                           #   or
+    \(([^\s()<>]+|(\([^\s()<>]+\)))*\)  # balanced parens, up to 2 levels
+  )+
+  (?:                       # End with:
+    \(([^\s()<>]+|(\([^\s()<>]+\)))*\)  # balanced parens, up to 2 levels
+    |                               #   or
+    [^\s`!()\[\]{};:'".,<>?«»“”‘’]        # not a space or one of these punct chars
+  )
+)
+ */
+  $pattern = '#\b((?:https?:\/\/|www\d{0,3}[.]|[a-z0-9.\-]+[.][a-z]{2,4}\/)(?:[^\s()<>]+|\(([^\s()<>]+|(\([^\s()<>]+\)))*\))+(?:\(([^\s()<>]+|(\([^\s()<>]+\)))*\)|[^\s`!()\[\]{};:\'\"\.,<>\?«»“”‘’]))#ie';
+
+  $replacement = "'<a href=\"'.addhttp('\\0').'\" target=\"_blank\">\\0</a>'";
+  
+  return preg_replace($pattern, $replacement, $description);  
+}
 ?>

@@ -89,13 +89,15 @@ var ProjectDetails = Class.$extend( {
   },
   
   showFullDescription : function() {
-    $("#detailsDescription").html($("#fullDescriptionText").attr("value"));
+    $("#detailsDescriptionShort").toggle(false);
+    $("#detailsDescription").toggle(true); //.html($("#fullDescriptionText").attr("value"));
     $("#showFullDescriptionButton").toggle(false);
     $("#showShortDescriptionButton").toggle(true);
   },
   
   showShortDescription : function() {
-    $("#detailsDescription").html($("#shortDescriptionText").attr("value"));
+    $("#detailsDescriptionShort").toggle(true);
+    $("#detailsDescription").toggle(false);
     $("#showFullDescriptionButton").toggle(true);
     $("#showShortDescriptionButton").toggle(false);
   },

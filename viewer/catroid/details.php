@@ -122,19 +122,21 @@
                     </div>
 <?php   }?>
                     <div class="detailsProjectDescription">
+                    
 <?php   if($this->project['description_short']) {?>
-                      <p class="detailsDescription" id="detailsDescription"><?php echo $this->project['description_short'];?></p>
-                      <input type="hidden" id="fullDescriptionText" value="<?php echo htmlspecialchars($this->project['description'])?>"/>
-                      <input type="hidden" id="shortDescriptionText" value="<?php echo htmlspecialchars($this->project['description_short'])?>"/>
+                      <p class="detailsDescription" id="detailsDescriptionShort"><?php echo wrapUrlsWithAnchors($this->project['description_short']);?></p>
+<?php   } ?>
+                      <p class="detailsDescription" id="detailsDescription" <?php   if($this->project['description_short']) {?> style="display: none;"<?php   } ?> ><?php echo wrapUrlsWithAnchors($this->project['description']);?></p>
+                      
+<?php   if($this->project['description_short']) {?>
                       <button type="button" id="showFullDescriptionButton" class="button green compact showFullDescriptionButton">
                         <span class="detailsMoreButtonText"><?php echo $this->languageHandler->getString('text_more')?></span>
                       </button>
                       <button type="button" id="showShortDescriptionButton" class="button green compact showShortDescriptionButton">
                         <span class="detailsLessButtonText"><?php echo $this->languageHandler->getString('text_less')?></span>
                       </button>
-<?php   } else {?>
-                      <p class="detailsDescription"><?php echo $this->project['description'];?></p>
-<?php   }?>
+<?php   } ?>
+                      
                       <div style="clear:both;"></div>
                     </div>
 <?php }?>

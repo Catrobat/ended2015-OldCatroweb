@@ -18,17 +18,16 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="template_header_or">oder</string>
-  <string name="template_header_login">Einloggen</string>
-  <string name="template_footer_privacy_policy_link">Datenschutzrichtlinien</string>
-  <string name="template_header_menu">Men&#xFC;</string>
-  <string name="template_header_profile">Profil</string>
-  <string name="template_header_cancel">Abbrechen</string>
   <string name="template_header_loading">laden...</string>
-  <string name="template_footer_terms_of_use_link">Nutzungsbedingungen</string>
+  <string name="template_header_login">Einloggen</string>
+  <string name="template_header_cancel">Abbrechen</string>
   <string name="template_footer_imprint_link">Impressum</string>
   <string name="template_common_country_austria">&#xD6;sterreich</string>
   <string name="template_footer_contact_link">Kontakt</string>
+  <string name="template_header_menu">Men&#xFC;</string>
+  <string name="template_header_profile">Profil</string>
+  <string name="template_header_forgot_password">klick hier, wenn du dein Passwort vergessen hast</string>
+  <string name="template_footer_terms_of_use_link">Nutzungsbedingungen</string>
   <string name="template_header_password">Passwort:</string>
   <string name="template_header_enter_nick">dein Nickname</string>
   <string name="template_header_enter_password">dein Passwort</string>
@@ -100,9 +99,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_turkish">T&#xFC;rkisch</string>
   <string name="template_common_ukrainian">Ukrainisch</string>
   <string name="template_common_vietnamese">Vietnamesisch</string>
+  <string name="template_footer_privacy_policy_link">Datenschutzrichtlinien</string>
   <string name="template_footer_copyright_policy_link">Copyright Bestimmungen</string>
-  <string name="template_header_forgot_password">hier, falls du dein Passwort vergessen hast?</string>
-  <string name="template_header_register">Klicke hier, um dich zu registrieren</string>
   <string name="template_header_nick">Benutzername:</string>
   <string name="template_header_logout">Ausloggen</string>
   <string name="template_header_logged_in_as">Du bist angemeldet als</string>

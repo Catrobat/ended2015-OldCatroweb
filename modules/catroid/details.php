@@ -68,16 +68,17 @@ class details extends CoreAuthenticationNone {
     $project['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $project['uploaded_by']);
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
     $project['fileSize'] = convertBytesToMegabytes($project['filesize_bytes']);
-    if($project['description']) {
-      $project['description'] = $project['description'];
-    } else {
+    
+    if(!$project['description']) {
       $project['description'] = '';
     }
+    
     if(mb_strlen($project['description'], 'UTF-8') > PROJECT_SHORT_DESCRIPTION_MAX_LENGTH) {
-      $project['description_short'] = makeShortString($project['description'], PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
+      $project['description_short'] = makeShortString($project['description'] , PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
     } else {
       $project['description_short'] = '';
     }
+    
     $project['qr_code_catroid_image'] = getCatroidProjectQRCodeUrl($projectId, $project['title']);
 
     $project['is_app_present'] = file_exists(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENSION);
