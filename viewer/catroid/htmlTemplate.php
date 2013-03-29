@@ -25,6 +25,7 @@
 $this->module->addGlobalCss('normalize.css');
 $this->module->addGlobalCss('base.css');
 $this->module->addGlobalCss('header.css');
+$this->module->addGlobalCss('footer.css');
 /*$this->module->addGlobalCss('baseStyle.css');
 $this->module->addGlobalCss('buttons.css');
 $this->module->addGlobalCss('login.css');

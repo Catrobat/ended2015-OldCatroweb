@@ -25,6 +25,7 @@
 class example extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
+    $this->addCss('example.css');
     $this->setWebsiteTitle("Design Test");
   }
 
