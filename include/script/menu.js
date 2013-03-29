@@ -48,13 +48,13 @@ var Menu = Class.$extend( {
       $("#secondRow").toggle(false);
       $("#thirdRow").toggle(false);
       $("#menuRegistrationButton").toggle(false);
-      $("#menuProfileButton").attr('disabled', false).removeClass('gray').addClass('green');
+      $("#menuProfileButton").removeClass('gray').addClass('green');
     } else {
       $("#firstRow").toggle(true);
       $("#secondRow").toggle(true);
       $("#thirdRow").toggle(false);
       $("#menuRegistrationButton").toggle(true);
-      $("#menuProfileButton").attr('disabled', true).removeClass('green').addClass('gray');
+      $("#menuProfileButton").removeClass('green').addClass('gray');
     }
     
     $("#forgotPassword").click($.proxy(this.toggleProfileBox, this));
