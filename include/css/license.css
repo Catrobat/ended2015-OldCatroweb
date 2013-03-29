@@ -35,6 +35,7 @@ div.webMainContentTitle {
 
 div.licenseMain
 {
+  margin-top: 2.5%;
   margin-left: 2.5%;
   margin-right: 2.5%;
 }
@@ -65,7 +66,7 @@ div.imprintText
   padding: 1.5%; 
   padding-left: 10%;
   padding-right: 10%; 
-  text-align:center;
+  text-align: center;
   font-size:1.5em;
 }
 

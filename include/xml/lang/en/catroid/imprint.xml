@@ -31,5 +31,6 @@
 	<string name="address_country">Austria</string>
 	<string name="contact">Contact</string>
 	<string name="contact_text">E-Mail: {*email*}</string>
-	<string name="development_text">Catroid is developed at the {*institute*} at Graz University of Technology in Austria.</string>
+	<string name="catroid">Catroid</string>
+	<string name="development_text"> is developed at the {*institute*} at Graz University of Technology in Austria.</string>
 </strings>

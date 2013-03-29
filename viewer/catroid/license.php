@@ -23,35 +23,36 @@
  */
 
 ?>
-
-<div class="webMainMiddle">
-  <div class="blueBoxMain">
-    <div class="webMainContent">
-      <div class="webMainContentTitle">
-      <?php echo $this->languageHandler->getString('title')?>
-      </div>
-      <div class="licenseMain">
-        <div class="whiteBoxMain">
-          <div class="licenseText">
-            <p class="licenseText">
-            <?php echo $this->languageHandler->getString('license_text_part1')?>
-              <br> <br>
-              <?php
-              echo $this->languageHandler->getString('license_text_part2', '<a href="http://www.gnu.org/licenses/gpl.html" target="_blank" id="gnugpl">http://www.gnu.org/licenses/gpl.html</a>',
-                  									   '<a href="http://www.gnu.org/licenses/agpl.html" target="_blank" id="gnuagpl">http://www.gnu.org/licenses/agpl.html</a>')
-              ?>
-              <br> <br>
-              <?php echo $this->languageHandler->getString('license_text_part3', '<a href="https://github.com/Catrobat" target="_blank" id="github">githube</a>')?>
-            </p>
-          </div>
-          <!-- License Text -->
+<article>
+  <div class="webMainMiddle">
+    <div class="blueBoxMain">
+      <div class="webMainContent">
+        <div class="webMainContentTitle">
+        <?php echo $this->languageHandler->getString('title')?>
         </div>
-        <!--  White Box -->
+        <div class="licenseMain">
+          <div class="whiteBoxMain">
+            <div class="licenseText">
+              <p class="licenseText">
+              <?php echo $this->languageHandler->getString('license_text_part1')?>
+                <br> <br>
+                <?php
+                echo $this->languageHandler->getString('license_text_part2', '<a href="http://www.gnu.org/licenses/gpl.html" target="_blank" id="gnugpl">http://www.gnu.org/licenses/gpl.html</a>',
+                    									   '<a href="http://www.gnu.org/licenses/agpl.html" target="_blank" id="gnuagpl">http://www.gnu.org/licenses/agpl.html</a>')
+                ?>
+                <br> <br>
+                <?php echo $this->languageHandler->getString('license_text_part3', '<a href="https://github.com/Catrobat" target="_blank" id="github">githube</a>')?>
+              </p>
+            </div>
+            <!-- License Text -->
+          </div>
+          <!--  White Box -->
+        </div>
+        <!--  license Main -->
+  
       </div>
-      <!--  license Main -->
-
+      <!-- mainContent close //-->
     </div>
-    <!-- mainContent close //-->
+    <!-- blueBoxMain close //-->
   </div>
-  <!-- blueBoxMain close //-->
-</div>
+</article>

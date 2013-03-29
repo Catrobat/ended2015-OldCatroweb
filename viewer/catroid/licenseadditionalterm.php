@@ -23,6 +23,7 @@
  */
 
 ?>
+<article>
     <div class="webMainMiddle">
       <div class="blueBoxMain">
         <div class="webMainContent">
@@ -71,3 +72,4 @@
         </div> <!-- mainContent close //-->
       </div> <!-- blueBoxMain close //-->
     </div>
+</article>

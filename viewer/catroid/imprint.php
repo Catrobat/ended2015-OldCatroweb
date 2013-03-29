@@ -23,6 +23,7 @@
  */
 
 ?>
+  <article>
     <div class="webMainMiddle">
       <div class="blueBoxMain">
         <div class="webMainContent">
@@ -31,6 +32,7 @@
             <div class ="whiteBoxMain">
               <div class="imprintText">
                 <p class="licenseText">
+                  <span class="licenseHeader"><?php echo $this->languageHandler->getString('catroid')?></span>   
                   <?php echo $this->languageHandler->getString('development_text', '<br><a href="http://www.ist.tugraz.at" target="_blank">'
                     .$this->languageHandler->getString('institute_for_software_technology').'</a><br>')?><br/><br/>            	                 	     
                   <span class="licenseHeader"><?php echo $this->languageHandler->getString('address')?></span><br/>
@@ -39,12 +41,13 @@
                   <?php echo $this->languageHandler->getString('address_street')?><br/>
                   <?php echo $this->languageHandler->getString('address_city')?><br/>
                   <?php echo $this->languageHandler->getString('address_country')?><br/><br/>
-                  <span class="imprintHeader"><?php echo $this->languageHandler->getString('contact')?></span><br/>
+                  <span class="licenseHeader"><?php echo $this->languageHandler->getString('contact')?></span><br/>
                   <?php echo $this->languageHandler->getString('contact_text', '<a class="downloadLink" href="'.impedeCrawling("mailto:".CONTACT_EMAIL).'">'.impedeCrawling(CONTACT_EMAIL).'</a>')?> 
                 </p>
-              </div> <!-- imprintText -->
+              </div> <!-- imprintText-->
             </div> <!--  whiteBoxMain -->            	
           </div> <!--  licenseMain -->
         </div> <!-- mainContent close //-->
       </div> <!-- blueBoxMain close //-->
     </div>  
+  </article>
