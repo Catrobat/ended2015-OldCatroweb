@@ -22,17 +22,36 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 ?>
+      <header role="banner">
         <nav role="navigation">
-          <div>
-            <a href="<?php echo BASE_PATH; ?>">Catroid</a>
+          <div id="largeMenu">
+            <div class="catroidLink">
+              <a href="<?php echo BASE_PATH; ?>">Catroid</a>
+            </div>
+            
+            <div class="searchBarLeft">
+             <img src="<?php echo BASE_PATH; ?>images/symbols/2-action-search.png" />
+            </div>
+
+            <div class="searchBarMiddle">
+             <input type="search" placeholder="Projekt suchen..." />
+            </div>
+            
+            <div class="searchBarRight">
+             <img src="<?php echo BASE_PATH; ?>images/symbols/6-social-person.png" />
+            </div>
           </div>
-          <div>
-            <a href="#">
-              <img src="<?php echo BASE_PATH; ?>images/symbols/2-action-search.png" />
-            </a>
-            <a href="#">
-              <img src="<?php echo BASE_PATH; ?>images/symbols/6-social-person.png" />
-            </a>
+          <div id="smallMenu">
+            <div class="catroidLink">
+              <a href="<?php echo BASE_PATH; ?>">Catroid</a>
+            </div>
+            
+            <div class="menuBar">
+              <a href="#"><img src="<?php echo BASE_PATH; ?>images/symbols/2-action-search.png" /></a>
+              <a href="#"><img src="<?php echo BASE_PATH; ?>images/symbols/6-social-person.png" /></a>
+            </div>
           </div>
         </nav>
+      </header>

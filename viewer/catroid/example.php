@@ -23,6 +23,7 @@
  */
 
 ?>
+      <article>
         <div id="programmOfTheWeek">
           <header>Programm der Woche</header>
           <div>
@@ -111,3 +112,4 @@
 					</ul>
           <div style="clear:both;"></div>
         </div>
+      </article>

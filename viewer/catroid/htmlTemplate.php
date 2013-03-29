@@ -24,8 +24,8 @@
 
 $this->module->addGlobalCss('normalize.css');
 $this->module->addGlobalCss('base.css');
-/*$this->module->addGlobalCss('baseStyle.css');
 $this->module->addGlobalCss('header.css');
+/*$this->module->addGlobalCss('baseStyle.css');
 $this->module->addGlobalCss('buttons.css');
 $this->module->addGlobalCss('login.css');
 */
@@ -58,27 +58,23 @@ $this->module->addGlobalJs('login.js');
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERY_VERSION; ?>/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?php echo BASE_PATH . CACHE_PATH; ?>jquery<?php echo JQUERY_VERSION; ?>.min.js"><\/script>')</script>
-    <?php echo $this->getGlobalJs(); ?>
-    <?php echo $this->getJs(); ?>
 
     <link rel="icon" href="<?php echo BASE_PATH?>images/logo/favicon.png<?php echo '?'.VERSION?>" type="image/png" />
   </head>
   <body>
 
     <div id="wrapper">
-      <header role="banner">
-        <?php include($this->header);?>
-      </header>
-      
-      <article>
-        <?php include($this->viewer);?>
-      </article>
+      <?php include($this->header);?>
+      <?php include($this->viewer);?>
     </div>
     
     <footer>
       <?php include($this->footer);?>
     </footer>
-    
+
+    <?php echo $this->getGlobalJs(); ?>
+    <?php echo $this->getJs(); ?>
+
     <?php echo '  <img id="ga" src="' . googleAnalyticsGetImageUrl() . '" />'; ?>
   </body>
 </html>

@@ -71,7 +71,7 @@ html {
 }
 
 body {
-  background-color: #04222C;
+  background-color: #05222a;
   font-family: 'Roboto', Arial, sans-serif;
   height: 100%;
 }
@@ -106,43 +106,7 @@ h3 {
   min-width: 320px;
 }
 
-#wrapper header nav {
-  display: table;
-  width: 100%;
-  padding-top: 4px;
-}
 
-#wrapper header nav div {
-  display: table-cell;
-  vertical-align: middle;
-  padding: 0.3em;
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 1.7em;
-}
-
-#wrapper header nav div:nth-child(1) {
-  text-transform: uppercase;
-}
-
-#wrapper header nav div:nth-child(2) {
-  text-align: right;
-}
-
-#wrapper header nav div a {
-  margin-left: 0.2em;
-  color: #ffffff;
-  text-decoration: none;
-}
-
-#wrapper header nav div a img {
-  background-color: #74b1c6;
-  width: 1.05em;
-  height: 1.05em;
-  padding: 0.08em;
-  border-radius: 2px;
-  vertical-align: bottom;
-}
 
 
 #wrapper article {
@@ -178,7 +142,7 @@ h3 {
 #wrapper article #programmOfTheWeek div div {
   background: transparent;
   text-align: left;
-  color: #04222c;
+  color: #05222a;
   position: absolute; 
   bottom: 1.0em;
 }
@@ -233,7 +197,7 @@ h3 {
 	text-align: left;
 }
 #wrapper article div#newestProjects ul li div.projectLink {
-	background-color: #04222C;
+	background-color: #05222a;
 	margin: 0.8em 0.4em 0.4em 0.4em;
 	border-radius: 3px;
 }
@@ -299,7 +263,7 @@ footer div:nth-child(1) div:nth-child(3) {
 
 footer select {
   border: 0;
-  background-color: #04222C;
+  background-color: #05222a;
   color: #a8dff4;
   padding: 0.4em 0.6em 0.4em 0.6em;
   width: 100%;
@@ -308,3 +272,5 @@ footer select {
 body img#ga {
   display: none;
 }
+
+
