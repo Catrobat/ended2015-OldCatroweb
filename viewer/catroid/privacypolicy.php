@@ -23,6 +23,7 @@
  */
 
 ?>
+  <article>
     <div class="webMainMiddle">
       <div class="blueBoxMain">
         <div class="webMainContent">
@@ -37,7 +38,7 @@
                   <span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_using_website_head')?></span><br/><br/>
                   <?php echo $this->languageHandler->getString('privacy_policy_using_website')?><br/><br/>
                   <span class="licenseHeader"><?php echo $this->languageHandler->getString('privacy_policy_contact_head')?></span><br/><br/>
-                  <?php echo $this->languageHandler->getString('privacy_policy_contact', '<a class="downloadLink" href="'.impedeCrawling("mailto:".CONTACT_EMAIL).'?subject='.rawurlencode($this->languageHandler->getString('privacy_policy_email_subject')).'">'.impedeCrawling(CONTACT_EMAIL).'</a>')?> 
+                  <?php echo $this->languageHandler->getString('privacy_policy_contact', '<a class="downloadLink" href="'.impedeCrawling("mailto:".CONTACT_EMAIL).'?subject='.rawurlencode($this->languageHandler->getString('privacy_policy_email_subject')).'">'.impedeCrawling(CONTACT_EMAIL).'</a>')?>
                 </p>
               </div> <!-- License Text -->
             </div> <!--  White Box -->            	
@@ -45,3 +46,4 @@
         </div> <!-- mainContent close //-->
       </div> <!-- blueBoxMain close //-->
     </div>
+  </article>
