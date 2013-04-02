@@ -31,13 +31,13 @@
     <div class="webMainBottom">
       <div class="blueBoxMain">
         <div class="webMainLicense"> 
-          <a class="license" id="_privacy" href="<?php echo BASE_PATH?>catroid/privacypolicy"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a>
+          <a class="license" id="_privacy" href="http://developer.catrobat.org/privacy_policy" target="_blank"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a>
           <span class="webMainBottomSpacer">|</span>
           <a class="license" id="_termsofuse" href="<?php echo BASE_PATH?>catroid/termsofuse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>  	      
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_copyright" href="<?php echo BASE_PATH?>catroid/copyrightpolicy"><?php echo $this->languageHandler->getString('template_footer_copyright_policy_link')?></a>
+          <a class="license" id="_copyright" href="http://developer.catrobat.org/copyright_policy" target="_blank"><?php echo $this->languageHandler->getString('template_footer_copyright_policy_link')?></a>
           <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_imprint" href="<?php echo BASE_PATH?>catroid/imprint"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a>
+          <a class="license" id="_imprint" href="http://developer.catrobat.org/imprint" target="_blank"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a>
           <span class="webMainBottomSpacer">|</span>
           <select id="switchLanguage" class="languageSwitchSelect">
 <?php 

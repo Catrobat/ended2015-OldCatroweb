@@ -42,7 +42,7 @@
                 <input type="password" id="registrationPassword" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" class="catroid" />
                 <label for="registrationEmail"><?php echo $this->languageHandler->getString('email')?></label> 
                 <input type="email" id="registrationEmail" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_email')?>" class="catroid" />
-                <div class="catroidFormInfoBox"><?php echo $this->languageHandler->getString('email_info', '<a href="' . BASE_PATH . 'catroid/privacypolicy" target="_blank">' . $this->languageHandler->getString('email_info_link_title') . '</a>')?></div>
+                <div class="catroidFormInfoBox"><?php echo $this->languageHandler->getString('email_info', '<a href="http://developer.catrobat.org/privacy_policy" target="_blank">' . $this->languageHandler->getString('email_info_link_title') . '</a>')?></div>
                 <div><?php echo $this->languageHandler->getString('country')?></div>
                 <select id="registrationCountry" required="required" class="catroid">
 <?php echo $this->module->generateCountryCodeList(); ?>

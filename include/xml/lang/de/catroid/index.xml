@@ -19,5 +19,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="enable_javascript">Du musst Javascript in deinem Browser aktivieren um die Seite zu sehen.</string>
+  <string name="infobox_text">Catroid ist eine visuelle Programmiersprache f&#xFC;r Android-Ger&#xE4;te, die von der Scratch Programmiersprache f&#xFC;r PCs, entwickelt von der Lifelong Kindergarten Group am MIT Media Lab, inspiriert wurde. Das Ziel des Catroid Projekts ist es das lernen von Programmierkenntnissen bei Kindern und Nutzer aller Altersgruppen zu erleichtern. Es wird dazu kein Desktop-oder Notebook-Computer ben&#xF6;tigt.</string>
   <string name="download_catroid">Catroid herunterladen</string>
 </strings>

@@ -51,21 +51,21 @@
                   <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_9')?></li>
                   <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_10')?></li>
                   <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_11')?></li>
-                  <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_12', '<a href="'.BASE_PATH.'catroid/licenseofuploadedprojects">'.BASE_PATH.'catroid/licenseofuploadedprojects</a>')?></li>
+                  <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_12', '<a href="http://developer.catrobat.org/licenses_of_uploaded_catrobat_programs" target="_blank">developer.catrobat.org/licenses_of_uploaded_catrobat_programs</a>')?></li>
                 </ul>
                 <br />
                 <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_our_gift')?></p>
                 <ul>
                   <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_13')?></li>
                   <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_14')?></li>
-                  <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_15', '<a href="'.BASE_PATH.'catroid/licenseofsystem">'.BASE_PATH.'catroid/licenseofsystem</a>', '<a href="https://github.com/Catrobat/Catroid" target="_blank">https://github.com/Catrobat/Catroid</a>')?></li>
+                  <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_15', '<a href="http://developer.catrobat.org/licenses" target="_blank">developer.catrobat.org/licenses</a>', '<a href="http://developer.catrobat.org" target="_blank">developer.catrobat.org</a>')?></li>
                 </ul>
                 <br />
                 <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_our_terms')?></p>
                 <ul>
                   <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_16')?></li>
                   <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_17')?></li>
-                  <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_18', '<a href="'.BASE_PATH.'catroid/termsofservice">'.BASE_PATH.'catroid/termsofservice</a>')?></li>
+                  <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_18', '<a href="http://developer.catrobat.org/terms_of_service" target="_blank">developer.catrobat.org/terms_of_service</a>')?></li>
                 </ul>
                 <br />
                 <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_check_back')?></p>
@@ -73,7 +73,6 @@
                 <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_mail_us', '<a href="'.impedeCrawling("mailto:".CONTACT_EMAIL).'?subject='.rawurlencode($this->languageHandler->getString('title')).'">'.impedeCrawling(CONTACT_EMAIL).'</a>')?></p>
                 <br />
                 <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_dated')?></p>
-                <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_copy', '<a href="'.BASE_PATH.'">&lt;'.BASE_PATH.'&gt;</a>')?></p>
               </div> <!-- License Text -->
             </div> <!--  White Box -->            	
           </div> <!--  license Main -->

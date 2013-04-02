@@ -43,7 +43,7 @@
                       <img class="projectDetailsImage" src="<?php echo $this->project['image']?>" alt="project thumbnail">
                     </a>
                     <div class="detailsLicenseLink">
-                      <a class="license" href="<?php echo BASE_PATH?>catroid/projectlicense"><?php echo $this->languageHandler->getString('some_rights_reserved')?></a>
+                      <a class="license" href="<?php echo BASE_PATH?>catroid/licensetoplay"><?php echo $this->languageHandler->getString('some_rights_reserved')?></a>
                     </div>
                   </div>
 <?php if(!$this->isMobile) {?>

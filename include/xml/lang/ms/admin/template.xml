@@ -1,25 +1,21 @@
 <?xml version="1.0"?>
 <!--
-  Catroid: An on-device visual programming system for Android devices
-  Copyright (C) 2010-2013 The Catrobat Team
-  (<http://developer.catrobat.org/credits>)
-  
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Affero General Public License as
-  published by the Free Software Foundation, either version 3 of the
-  License, or (at your option) any later version.
-  
-  An additional term exception under section 7 of the GNU Affero
-  General Public License, version 3, is available at
-  http://developer.catrobat.org/license_additional_term
-  
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU Affero General Public License for more details.
-  
-  You should have received a copy of the GNU Affero General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2012 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="template_common_one_minute_ago">satu minit lalu</string>
@@ -46,4 +42,48 @@
   <string name="template_common_october">Oktober</string>
   <string name="template_common_november">November</string>
   <string name="template_common_december">Disember</string>
+  <string name="template_common_arabic">Bahasa Arab</string>
+  <string name="template_common_bulgarian">Bulgaria</string>
+  <string name="template_common_catalan">Bahasa Catalan</string>
+  <string name="template_common_chinese_simplified_han">Bahasa Cina (Ringkas Han)</string>
+  <string name="template_common_chinese_traditional_han">Bahasa Cina (Tradisional Han)</string>
+  <string name="template_common_croatian">Bahasa Croatia</string>
+  <string name="template_common_czech">Bahasa Czech</string>
+  <string name="template_common_danish">Bahasa Denmark</string>
+  <string name="template_common_dutch">Bahasa Belanda</string>
+  <string name="template_common_english_united_kingdom">Bahasa English (United Kingdom)</string>
+  <string name="template_common_english_united_states">Bahasa English (United States)</string>
+  <string name="template_common_estonian">Bahasa Estonia</string>
+  <string name="template_common_filipino">Bahasa Filipina</string>
+  <string name="template_common_finnish">Bahasa Finland</string>
+  <string name="template_common_french">Bahasa Perancis</string>
+  <string name="template_common_german">Bahasa German</string>
+  <string name="template_common_greek">Bahasa Yunani</string>
+  <string name="template_common_hebrew">Bahasa Ibrani</string>
+  <string name="template_common_hindi">Bahasa Hindi</string>
+  <string name="template_common_hungarian">Bahasa Hungary</string>
+  <string name="template_common_indonesian">Bahasa Indonesia</string>
+  <string name="template_common_italian">Bahasa Itali</string>
+  <string name="template_common_japanese">Bahasa Jepun</string>
+  <string name="template_common_korean">Bahasa Korea</string>
+  <string name="template_common_latvian">Bahasa Latvia</string>
+  <string name="template_common_lithuanian">Bahasa Lithuania</string>
+  <string name="template_common_malay">Bahasa Melayu</string>
+  <string name="template_common_norwegian">Bahasa Norway</string>
+  <string name="template_common_persian">Bahasa Parsi</string>
+  <string name="template_common_polish">Bahasa Polish</string>
+  <string name="template_common_portuguese_brazil">Bahasa Portugal (Brazil)</string>
+  <string name="template_common_portuguese_portugal">Bahasa Portugal (Portugal)</string>
+  <string name="template_common_romanian">Bahasa Romanian</string>
+  <string name="template_common_russian">Bahasa Russia</string>
+  <string name="template_common_serbian">Bahasa Serbia</string>
+  <string name="template_common_slovak">Bahasa Slovakia</string>
+  <string name="template_common_slovenian">Bahasa Slovenia</string>
+  <string name="template_common_spanish_latin_america">Bahasa Sepanyol (Latin Amerika)</string>
+  <string name="template_common_spanish_spain">Bahasa Sepanyol (Sepanyol)</string>
+  <string name="template_common_swedish">Bahasa Swedish</string>
+  <string name="template_common_thai">Bahasa Thailand</string>
+  <string name="template_common_turkish">Bahasa Turkish</string>
+  <string name="template_common_ukrainian">Bahasa Ukraine</string>
+  <string name="template_common_vietnamese">Bahasa Vietnam</string>
 </strings>

@@ -133,18 +133,11 @@ function getIpBlockClassWhitelistArray() {
   $whitelistClasses = array(
     "",
     "index",
-    "imprint",
     "contactus",
     "loadNewestProjects",
     "switchLanguage",
-    "copyrightpolicy",
-    "privacypolicy",
-    "licenseadditionalterm",
-    "licenseofuploadedprojects",
-    "licenseofsystem",
     "terms",
     "termsofuse",
-    "termsofservice",
     "errorPage"
   );
   return $whitelistClasses;
@@ -152,10 +145,7 @@ function getIpBlockClassWhitelistArray() {
 
 function getUserBlockClassWhitelistArray() {
   $whitelistClasses = array(
-    "privacypolicy",
     "terms",
-    "copyrightpolicy",
-    "imprint",
     "contactus",
     "errorPage",
     "login",

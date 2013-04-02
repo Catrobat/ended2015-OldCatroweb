@@ -24,7 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="no_entry_for_id">Kein Eintrag f&#xFC;r diese ID gefunden</string>
   </db>
   <userFunctions>
-    <string name="hash_not_found"/>
+    <string name="hash_not_found">Wiederherstellungs Hash wurde nicht gefunden.</string>
     <string name="expired_url">Die G&#xFC;ltigkeit deiner Wiederherstellungs-URL ist abgelaufen.</string>
     <string name="username_missing">Du hast keinen Benutzernamen angegeben.</string>
     <string name="username_invalid_underscore">Der Benutzername ist ung&#xFC;ltig. Unterstriche (_) sind nicht erlaubt.</string>
@@ -33,59 +33,54 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="username_invalid_curlybrace">Der Benutzername ist ung&#xFC;ltig. Geschweifte Klammern ({ oder }) sind nicht erlaubt.</string>
     <string name="username_invalid_lessgreater">Der Benutzername ist ung&#xFC;ltig. Spitze Klammern (&lt; oder &gt;) sind nicht erlaubt.</string>
     <string name="username_invalid_squarebracket">Der Benutzername ist ung&#xFC;ltig. Eckige Klammern ([ oder ]) sind nicht erlaubt.</string>
-    <string name="username_invalid_spaces">Der Benutzername ist ung&#xFC;ltig. Unterstriche (_) sind nicht erlaubt.</string>
-    <string name="username_invalid_insulting_words"/>
+    <string name="username_invalid_spaces">Der Benutzername ist ung&#xFC;ltig. Leerzeichen ( ) sind nicht erlaubt.</string>
+    <string name="username_invalid_insulting_words">Der Benutzername ist ung&#xFC;ltig. Es gibt beleidigende Worte im Benutzernamen Feld!</string>
     <string name="username_invalid">Der Benutzername ist ung&#xFC;ltig.</string>
-    <string name="username_blacklisted">Der Benutzername ist reserviert und deswegen nicht erlaubt.</string>
+    <string name="username_blacklisted">Der Benutzername ist auf der schwarzen Liste und deswegen nicht erlaubt.</string>
     <string name="username_already_exists">Der Benutzername existiert bereits.</string>
     <string name="password_missing">Du hast kein Passwort angegeben.</string>
     <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
-    <string name="password_new_too_short"/>
-    <string name="password_new_too_long"/>
+    <string name="password_new_too_short">Dein Passwort muss mindestens {*minimumPasswordLength*} Zeichen haben.</string>
+    <string name="password_new_too_long">Dein Passwort kann maximal aus {*maximumPasswordLength*} Zeichen bestehen.</string>
     <string name="email_missing">Du hast keine E-Mail-Adresse angegeben.</string>
     <string name="email_invalid">Die Email-Adresse ist ung&#xFC;ltig.</string>
     <string name="email_already_exists">Die E-Mail Adresse existiert bereits!</string>
     <string name="country_missing">Du hast kein Land angegeben.</string>
-    <string name="password_or_username_wrong">Das Passwort oder der Nickname ist falsch.</string>
+    <string name="password_or_username_wrong">Das Passwort oder der Benutzername ist falsch.</string>
     <string name="board_authentication_failed">Anmeldung im Forum fehlgeschlagen!</string>
     <string name="wiki_api_response_incorrect">Bei der Anmeldung ist etwas schiefgelaufen. Bitte noch einmal probieren!</string>
     <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
     <string name="userdata_missing">Der Benutzername oder die E-Mail Adresse fehlt.</string>
-    <string name="unsupported_image"/>
-    <string name="avatar_creation_failed"/>
-    <string name="password_new_board_update_failed"/>
+    <string name="unsupported_image">Unerlaubtes Bild, erlaubte Bildtypen sind gif, png oder jpeg.</string>
+    <string name="avatar_creation_failed">Das Erstellen des neuen Avatars ist fehlgeschlagen.</string>
+    <string name="password_new_board_update_failed">Konnte das Forums Passwort nicht aktualisieren.</string>
+    <string name="city_update_failed">Es gab ein Problem beim Aktualisieren deiner Heimatstadt.</string>
     <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deiner Heimatstadt.</string>
+    <string name="gender_update_failed">Es gab ein Problem beim Aktualisieren deines Geschlechts.</string>
     <string name="birth_update_failed">Es gab ein Problem beim Aktualisieren deines Geburtstags.</string>
-    <string name="userdata_not_exists">Der Nickname oder die E-Mail Adresse konnte nicht gefunden werden.</string>
+    <string name="language_update_failed">Es gab ein Problem beim Aktualisieren deiner Sprache.</string>
+    <string name="userdata_not_exists">Der Benutzername oder die E-Mail Adresse konnte nicht gefunden werden.</string>
     <string name="email_address_exists">Die E-Mail Adresse existiert bereits.</string>
-    <string name="email_delete_failed"/>
-    <string name="email_update_of_catroweb_failed"/>
+    <string name="email_delete_failed">Fehler beim L&#xF6;schen dieser E-Mail-Adresse. Du musst mindestens eine E-Mail-Adresse haben.</string>
+    <string name="email_update_of_catroweb_failed">Fehler beim L&#xF6;schen dieser E-Mail-Adresse. Catroweb muss mindestens zwei E-Mail-Adressen haben.</string>
     <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
     <string name="sendmail_failed">Fehler w&#xE4;hrend dem Senden des Emails. Vielleicht funktioniert dein Mailserver nicht?</string>
   </userFunctions>
-  <profile>
-    <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deiner Heimatstadt.</string>
-    <string name="birth_update_failed">Es gab ein Problem beim Aktualisieren deines Geburtstags.</string>
-    <string name="password_old_missing">Bitte gib Dein altes Passwort ein.</string>
-    <string name="password_old_wrong">Das alte Passwort war falsch.</string>
-    <string name="password_new_missing">Bitte gib ein neues Passwort ein.</string>
-    <string name="email_update_failed">Es gab ein Problem w&#xE4;hrend dem Aktualisieren der E-Mail Adresse. Bitte probier es noch einmal.</string>
-    <string name="city_update_failed">Es gab ein Problem w&#xE4;hrend dem Aktualisieren der E-Mail Adresse. Bitte probier es noch einmal.</string>
-  </profile>
   <upload>
-    <string name="missing_project_title"/>
-    <string name="missing_file_data"/>
-    <string name="missing_post_file_checksum">Client hat Datei-Checksumme nicht gesendet! Verwendest du eine alte Catroid-Version?</string>
+    <string name="missing_project_title">Es wurde kein projectTitle angegeben. (XML-Datei und POST-Daten, zumindest einer ist erforderlich.)</string>
+    <string name="missing_file_data">POST-Daten nicht korrekt oder fehlt!</string>
+    <string name="missing_post_file_checksum">Client hat fileChecksum nicht gesendet! Verwendest du eine alte Catroid-Version?</string>
     <string name="copy_failed">Das Kopieren der Datei hat nicht funktioniert!</string>
     <string name="rename_failed">Das Umbenennen der Datei hat nicht funktioniert!</string>
     <string name="invalid_file_checksum">Die Checksumme der Datei unterscheidet sich von der gesendeten Checksumme!</string>
     <string name="project_exceed_filesize_limit">Die Gr&#xF6;&#xDF;e des Projekts &#xFC;berschreitet die Maximalgr&#xF6;&#xDF;e!</string>
-    <string name="project_title_default">Du kannst keine Projekte hochladen die den Standard Projekt-Namen haben. Bitte benenne Dein Projekt vorher um.</string>
+    <string name="project_title_default">Du kannst keine Projekte hochladen die den Standard Projekt-Namen haben. Bitte benenne dein Projekt vorher um.</string>
     <string name="insulting_words_in_project_title">Der Titel enth&#xE4;lt Schimpfw&#xF6;rter!</string>
     <string name="insulting_words_in_project_description">Die Beschreibung enth&#xE4;lt Schimpfw&#xF6;rter!</string>
-    <string name="qr_code_generation_failed"/>
-    <string name="save_thumbnail_failed"/>
+    <string name="qr_code_generation_failed">QR Code-Generierung fehlgeschlagen!</string>
+    <string name="save_thumbnail_failed">Speichern des Thumbnails fehlgeschlagen!</string>
     <string name="invalid_project_xml">Die XML-Datei deines Projekts enth&#xE4;lt Fehler!</string>
+    <string name="old_catrobat_language">Projekt enth&#xE4;lt eine alte Catrobat Sprache!</string>
   </upload>
   <download>
     <string name="file_not_found">Konnte angeforderte Datei nicht auf dem Server finden.</string>
@@ -96,21 +91,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </flag>
   <viewer>
     <string name="html_file_not_found">Konnte den HTML Viewer nicht finden.</string>
-    <string name="ajax_request_page_not_found">Etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
-    <string name="ajax_took_too_long"/>
-    <string name="ajax_timed_out"/>
-    <string name="ip_is_blocked">Deine IP-Adresse wurde geblockt. Bitte kontaktiere den Administrator.</string>
-    <string name="ip_is_blocked_temporary"/>
-    <string name="user_is_blocked">Dein Konto wurde gesperrt. Bitte kontaktiere den Administrator.</string>
+    <string name="ajax_request_page_not_found">Konnte erforderliches Modul f&#xFC;r den Ajax-Request nicht finden</string>
+    <string name="ajax_took_too_long">AJAX Anfrage dauerte zu lange.</string>
+    <string name="ajax_timed_out">AJAX Zeit&#xFC;berschreitung der Anforderung.</string>
+    <string name="ip_is_blocked">Deine IP-Adresse wurde geblockt.</string>
+    <string name="ip_is_blocked_temporary">Deine IP-Adresse ist f&#xFC;r 30 Sekunden blockiert.</string>
+    <string name="user_is_blocked">Dein Konto wurde gesperrt.</string>
   </viewer>
   <auth>
-    <string name="device_auth_invalid_token">Leider konnten wir dich nicht identifizieren. Sind Dein Benutzername und Dein Passwort korrekt eingetragen?</string>
-    <string name="device_auth_username_exists"/>
+    <string name="device_auth_invalid_token">Authentifizierung des Ger&#xE4;ts fehlgeschlagen: ung&#xFC;ltiger auth-token!</string>
+    <string name="device_auth_username_exists">Anmeldung fehlgeschlagen: Benutzername existiert bereits!</string>
     <string name="not_a_tugraz_ip">Diese Seite kann nur vom "localhost" oder innerhalb des TU Graz Netzwerks aufgerufen werden.</string>
   </auth>
   <registration>
-    <string name="postdata_missing"/>
+    <string name="postdata_missing">Nichts wurde gesendet.</string>
   </registration>
+  <profile>
+    <string name="password_old_missing">Bitte gib dein altes Passwort ein.</string>
+    <string name="password_old_wrong">Das alte Passwort war falsch.</string>
+    <string name="password_new_missing">Bitte gib ein neues Passwort ein.</string>
+  </profile>
   <admin>
     <string name="pootle_post_data_missing">POST-Daten fehlen: ben&#xF6;tigt: lang.</string>
     <string name="pootle_load_xlf_failed">Konnte die XLF-Datei nicht von {*source*} laden.</string>
@@ -118,7 +118,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="pootle_invalid_stringname_in_xml">Ung&#xFC;ltiger Zeichenketten Name in der XLF-Datei: {*stringName*}</string>
     <string name="pootle_could_not_write_xml_file">Konnte die XML-Datei nicht in das Sprach-Verzeichnis schreiben: {*fileName*}</string>
   </admin>
-  <passwordrecovery>
-    <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
-  </passwordrecovery>
 </errors>

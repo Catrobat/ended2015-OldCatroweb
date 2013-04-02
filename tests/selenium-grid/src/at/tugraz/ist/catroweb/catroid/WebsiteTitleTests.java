@@ -50,9 +50,8 @@ public class WebsiteTitleTests extends BaseTest {
 
   @DataProvider(name = "websitePages")
   public Object[][] websitePages() {
-    Object[][] returnArray = new Object[][] { { "copyrightpolicy" }, { "details/1" }, { "errorPage" }, { "imprint" }, { "index" }, { "license" }, { "login" },
-        { "passwordrecovery" }, { "privacypolicy" }, { "projectlicense" }, { "registration" }, { "termsofuse" }, { "licenseofuploadedprojects" },
-        { "licenseofsystem" }, { "termsofservice" }, { "agpl3standalone" }, { "ccbysa3" }, { "licenseadditionalterm" } };
+    Object[][] returnArray = new Object[][] { { "details/1" }, { "errorPage" }, { "index" }, { "login" },
+        { "passwordrecovery" }, { "licensetoplay" }, { "registration" }, { "termsofuse" } };
     return returnArray;
   }
 }
