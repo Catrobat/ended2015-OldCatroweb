@@ -27,8 +27,8 @@ class details extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    $this->addCss('projectDetails.css');
-    $this->addJs('projectDetails.js');
+    $this->addCss('details.css');
+    $this->addJs('details.js');
 
     $this->isMobile = $this->clientDetection->isMobile();
     $this->oldVersions = array("", "0.4.3d", "0.5.4a", "0.6.0beta", "&lt; 0.7.0beta");

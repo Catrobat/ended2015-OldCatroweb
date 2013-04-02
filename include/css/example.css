@@ -21,11 +21,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#wrapper article {
-  overflow: auto;
-  padding-bottom: 3.2em;
-}
-
 #wrapper article header {
   border-top: 1px solid #477889;
   background-color: #00475d;

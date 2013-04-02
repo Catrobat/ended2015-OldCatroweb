@@ -108,6 +108,5 @@
               <div class="projectLink"><a href="<?php echo BASE_PATH?>catroid/details/2">Ansehen</a></div>
 						</li>
 					</ul>
-          <div style="clear:both;"></div>
         </div>
       </article>
