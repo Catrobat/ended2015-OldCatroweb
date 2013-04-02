@@ -41,7 +41,7 @@
               <div class="infoboxLeft">
                 <div class="infoboxText"><?php echo $this->languageHandler->getString('infobox_text')?></div>
                 <div class="infoboxDownloadBox">
-                  <a class="noLink" id="aIndexInfoboxDownloadButton" href="https://github.com/Catrobat/Catroid/downloads" target="_blank">
+                  <a class="noLink" id="aIndexInfoboxDownloadButton" href="http://developer.catrobat.org/" target="_blank">
                     <button class="button orange infobox"><?php echo $this->languageHandler->getString('download_catroid')?></button>
                   </a>
                 </div>

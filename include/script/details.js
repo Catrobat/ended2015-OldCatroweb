@@ -28,6 +28,7 @@ var ProjectDetails = Class.$extend( {
     this.downloadInfoVisible = false;
     this.projectId = projectId;
     
+    
     $("#downloadAppSection").toggle(false);
 
     $("#qrcodeInfo").toggle(false);
@@ -52,6 +53,8 @@ var ProjectDetails = Class.$extend( {
     });
     $("#reportInappropriateReportButton").click($.proxy(this.reportInappropriateSubmit, this));
     $("#reportInappropriateReason").keypress($.proxy(this.reportInappropriateCatchKeypress, this));
+    
+    $("#searchForm").submit($.proxy(this.search, this));
   },
   
   reportInappropriateCatchKeypress : function(event) {
@@ -86,13 +89,15 @@ var ProjectDetails = Class.$extend( {
   },
   
   showFullDescription : function() {
-    $("#detailsDescription").html($("#fullDescriptionText").attr("value"));
+    $("#detailsDescriptionShort").toggle(false);
+    $("#detailsDescription").toggle(true); //.html($("#fullDescriptionText").attr("value"));
     $("#showFullDescriptionButton").toggle(false);
     $("#showShortDescriptionButton").toggle(true);
   },
   
   showShortDescription : function() {
-    $("#detailsDescription").html($("#shortDescriptionText").attr("value"));
+    $("#detailsDescriptionShort").toggle(true);
+    $("#detailsDescription").toggle(false);
     $("#showFullDescriptionButton").toggle(true);
     $("#showShortDescriptionButton").toggle(false);
   },
@@ -159,5 +164,11 @@ var ProjectDetails = Class.$extend( {
     } else if(this.downloadState.selected == this.downloadState.app){
       $("#downloadAppInfo").toggle(this.downloadInfoVisible);
     }
-  }
+  },
+ 
+  search : function() {
+    location.href = "/catroid/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
+    return false;
+  }  
+
 });

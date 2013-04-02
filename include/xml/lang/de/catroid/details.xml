@@ -18,16 +18,21 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="cancel">Abbrechen</string>
   <string name="uploaded_by">von {*nicknameString*}</string>
   <string name="uploaded">hochgeladen</string>
+  <string name="updated">aktualisiert</string>
   <string name="project">Projekt</string>
   <string name="app">App</string>
+  <string name="login">einloggen</string>
   <string name="download">Herunterladen</string>
   <string name="filesize">Dateigr&#xF6;&#xDF;e</string>
   <string name="report">Melden</string>
+  <string name="cancel">Abbrechen</string>
   <string name="report_as_inappropriate">Als unpassend melden</string>
   <string name="report_as_inappropriate_label">Warum ist dieses Projekt unpassend?</string>
+  <string name="report_as_inappropriate_please_login">Bitte {*login_link*} um dieses Projekt als unpassend zu melden.</string>
+  <string name="report_as_inappropriate_own_project">Du kannst dein eigenes Projekt nicht markieren.</string>
+  <string name="report_as_inappropriate_already_flagged">Du hast dieses Projekt bereits als unpassend gemeldet.</string>
   <string name="some_rights_reserved">Einige Rechte vorbehalten</string>
   <string name="views">mal gesehen</string>
   <string name="downloads">mal heruntergeladen</string>
@@ -39,5 +44,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="qrcode_info">Wenn du einen Barcode-Leser installiert hast, kannst du diesen QR-Code scannen, um dieses Projekt direkt auf dein Handy zu laden. &#xD6;ffne einfach deinen Barcode-Leser auf deinem Ger&#xE4;t und halte die Kamera auf den QR-Code. Der Download beginnt dann sofort.</string>
   <string name="show_qr_code_info_button">QR-Code - Was ist das?</string>
   <string name="hide_qr_code_info_button">QR-Code - Info schlie&#xDF;en</string>
-  <string name="flag_reason_placeholder">Bitte eine Begr&#xFC;ndung eingeben.</string>
+  <string name="flag_reason_placeholder">Gib einen Grund an</string>
+  <string name="old_version">Es tut uns Leid, aber dieses Projekt wurde mit einer &#xE4;lteren Version von Catroid erstellt und kann nicht mehr heruntergeladen werden.</string>
+  <string name="old_version_author">Wenn du der Author von diesem Projekt bist und es aktualisieren willst, kannst du es nocheinmal mit der aktuellen Version von Catroid hochladen.</string>
 </strings>

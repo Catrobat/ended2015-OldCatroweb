@@ -1,48 +1,39 @@
 <?xml version="1.0"?>
 <!--
-  Catroid: An on-device visual programming system for Android devices
-  Copyright (C) 2010-2013 The Catrobat Team
-  (<http://developer.catrobat.org/credits>)
-  
-  This program is free software: you can redistribute it and/or modify
-  it under the terms of the GNU Affero General Public License as
-  published by the Free Software Foundation, either version 3 of the
-  License, or (at your option) any later version.
-  
-  An additional term exception under section 7 of the GNU Affero
-  General Public License, version 3, is available at
-  http://developer.catrobat.org/license_additional_term
-  
-  This program is distributed in the hope that it will be useful,
-  but WITHOUT ANY WARRANTY; without even the implied warranty of
-  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-  GNU Affero General Public License for more details.
-  
-  You should have received a copy of the GNU Affero General Public License
-  along with this program. If not, see <http://www.gnu.org/licenses/>.
+Catroid: An on-device graphical programming language for Android devices
+Copyright (C) 2010-2012 The Catroid Team
+(<http://code.google.com/p/catroid/wiki/Credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="cancel">Anulare</string>
+  <string name="password">Parola</string>
+  <string name="country">&#x21A;ara</string>
+  <string name="city">Ora&#x219;ul</string>
+  <string name="birthday">Ziua de na&#x219;tere</string>
+  <string name="gender">Sexul</string>
   <string name="female">femenin</string>
   <string name="male">masculin</string>
-  <string name="title">Profilul {*nickname*}</string>
-  <string name="password">scimbarea parolei</string>
-  <string name="email">schimba&#x21B;i aceast&#x103; adres&#x103; e-mail</string>
-  <string name="add_email_field_button">Adaugarea unei noi adrese e-mail</string>
-  <string name="delete_email">&#x219;tergerea adresei e-mail</string>
-  <string name="email_delete_success">A&#x21B;i &#x219;ters adresa dvs. de e-mail.</string>
-  <string name="alertbox_really_want_to_delete_email">Sunte&#x21B;i siguri c&#x103; dori&#x21B;i s&#x103; &#x219;terge&#x21B;i aceast&#x103; adres&#x103; de e-mail?</string>
+  <string name="email">email</string>
+  <string name="change_my_password">scimbarea parolei</string>
   <string name="save_button">Salva&#x21B;i schimb&#x103;rile mele</string>
-  <string name="add_new_email_button">Salva&#x21B;i adresa mea nou&#x103; de e-mail.</string>
-  <string name="change_country">schimbarea &#x21B;&#x103;rii mea</string>
-  <string name="change_birth">schimbarea zilei mele de na&#x219;tere</string>
-  <string name="year">selecta&#x21B;i anul</string>
-  <string name="month">selecta&#x21B;i luna</string>
-  <string name="change_gender">schimbarea sexului meu</string>
-  <string name="gender">selecta&#x21B;i sexul</string>
+  <string name="really_delete">Sunte&#x21B;i siguri c&#x103; dori&#x21B;i s&#x103; &#x219;terge&#x21B;i aceast&#x103; adres&#x103; de e-mail?</string>
+  <string name="avatar_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
   <string name="password_success">A&#x21B;i actualizat parola dvs. cu succes.</string>
+  <string name="email_delete_success">A&#x21B;i &#x219;ters adresa dvs. de e-mail.</string>
+  <string name="city_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
   <string name="country_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
-  <string name="add_new_email">introduce&#x21B;i adresa de e-mail nou&#x103;.</string>
-  <string name="add_new_email_placeholder">adresa de e-mail alternativ&#x103;</string>
-  <string name="email_address_string_changed">A avut loc o eroare la &#x219;tergerea adresei de e-mail. Ave&#x21B;i unele modific&#x103;ri nesalvate?</string>
+  <string name="gender_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
+  <string name="birthday_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
 </strings>

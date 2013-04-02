@@ -28,7 +28,6 @@ var Menu = Class.$extend( {
     this.userLogin_userId = userLogin_userId;
     
     $("#menuForumButton").click({url:this.basePath + "addons/board",windowName:"board"}, jQuery.proxy(this.openWindow, this));
-    $("#headerHomeButton").click({url:"catroid/index"}, jQuery.proxy(this.openLocation, this));
     $("#headerBackButton").click(jQuery.proxy(this.goBack, this));
     $("#menuWallButton").click({url:"catroid/wall"}, jQuery.proxy(this.openLocation, this));
     $("#menuSettingsButton").click({url:"catroid/settings"}, jQuery.proxy(this.openLocation, this));
@@ -60,7 +59,7 @@ var Menu = Class.$extend( {
     
     $("#forgotPassword").click($.proxy(this.toggleProfileBox, this));
     $("#headerLoginButton").click($.proxy(this.toggleProfileBox, this));
-    $("#headerCancelButton").click($.proxy(this.toggleAllBoxes, this));
+    $("#searchForm").submit($.proxy(this.search, this));
   },
   
   goBack : function(event) {
@@ -77,7 +76,8 @@ var Menu = Class.$extend( {
 
   toggleProfileBox : function() {
     $("#normalHeaderButtons").toggle(false);
-    $("#cancelHeaderButton").toggle(true);
+    $("#headerSearchBox").toggle(false);
+    $("#cancelHeaderButton").toggle(true);    
     $("#headerProfileBox").toggle(true);
     if($("#headerLoginBox").css("display") == "block") {
       $("#loginUsername").focus();
@@ -87,8 +87,14 @@ var Menu = Class.$extend( {
 
   toggleAllBoxes : function() {
     $("#normalHeaderButtons").toggle(true);
+    $("#headerSearchBox").toggle(true);
     $("#cancelHeaderButton").toggle(false);
     $("#headerProfileBox").toggle(false);
-  }
+  },
+  
+  search : function() {
+    location.href = "/catroid/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
+    return false;
+  }  
   
 });

@@ -356,6 +356,7 @@ public class DetailsTests extends BaseTest {
       numOfDownloadsAfter = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
       assertEquals(numOfDownloads + 1, numOfDownloadsAfter);
       
+     
       // check file size
       driver().findElement(By.id("downloadAppSwitch")).click();
       assertTrue(isVisible(By.id("downloadAppButton")));

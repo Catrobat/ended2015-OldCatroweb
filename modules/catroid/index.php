@@ -52,9 +52,13 @@ class index extends CoreAuthenticationNone {
       if(isset($_REQUEST['p'])) {
         $this->session->pageNr = intval($_REQUEST['p']);
       }
+      
       if($this->session->pageNr < 1) {
         $this->session->pageNr = 1;
+        $this->session->searchQuery = null;
+        $this->session->task = "newestProjects";
       }
+      
       if($this->session->pageNr > $this->numberOfPages) {
         $this->session->pageNr = $this->numberOfPages;
       }

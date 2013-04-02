@@ -97,7 +97,9 @@ if __name__ == '__main__':
 	try:
 		if sys.argv[1] == 'website':
 			EnvironmentChecker().run()
-			Sql().initDbs()
+			sql = Sql()
+			sql.initDbs()
+			sql.createDocs()
 		elif sys.argv[1] == 'tools':
 			Selenium().update()
 			JSCompiler().update()
@@ -117,5 +119,5 @@ if __name__ == '__main__':
 		print('  website               Initializes or updates the database and checks if the')
 		print('                        required folders exist and have the right permissions.')
 		print('  tools                 Initializes or updates the required tools.')
-		print('  dev                   Initializes developement environment (server, tools).')
+		print('  dev                   Initializes development environment (server, tools).')
 		print('  backup                ......TODO')

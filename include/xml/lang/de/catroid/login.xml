@@ -18,14 +18,15 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="or">oder</string>
+  <string name="account_link">klick hier um ein neues Benutzerkonto zu erstellen</string>
+  <string name="additional_options">Andere M&#xF6;glichkeiten, um fortzufahren:</string>
   <string name="title">Einloggen</string>
   <string name="password_link">klick hier, wenn du dein Passwort vergessen hast</string>
-  <string name="account_link">Lege jetzt einen neuen Benutzer an</string>
   <string name="please_enter_nick_and_password">Bitte gib deinen Benutzernamen und dein Passwort ein:</string>
-  <string name="nick">Nickname:</string>
+  <string name="nickname">Nickname:</string>
   <string name="password">Passwort:</string>
   <string name="enter_nick">dein Nickname</string>
   <string name="enter_password">dein Passwort</string>
   <string name="login">jetzt anmelden</string>
+  <string name="catroid_logout_success">Catroid Abmeldung war erfolgreich.</string>
 </strings>

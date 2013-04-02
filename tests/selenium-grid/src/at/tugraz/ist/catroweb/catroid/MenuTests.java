@@ -31,6 +31,8 @@ import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
+import at.tugraz.ist.catroweb.common.CommonData;
+import at.tugraz.ist.catroweb.common.CommonFunctions;
 
 @Test(groups = { "catroid", "MenuTests" })
 public class MenuTests extends BaseTest {
@@ -204,26 +206,6 @@ public class MenuTests extends BaseTest {
       throw e;
     }
   }
-
-  @Test(groups = { "visibility" }, description = "check menu home button")
-  public void homeButton() throws Throwable {
-    try {
-      openLocation();
-      driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
-
-      assertTrue(isElementPresent(By.id("headerHomeButton")));
-      driver().findElement(By.id("headerHomeButton")).click();
-      assertFalse(isElementPresent(By.id("headerHomeButton")));
-      assertRegExp(".*/catroid/index(/[0-9]+)?", driver().getCurrentUrl());
-    } catch(AssertionError e) {
-      captureScreen("MenuTests.homeButton");
-      throw e;
-    } catch(Exception e) {
-      captureScreen("MenuTests.homeButton");
-      throw e;
-    }
-  }
   
   @SuppressWarnings("serial")
   @DataProvider(name = "validLoginData")
@@ -248,4 +230,12 @@ public class MenuTests extends BaseTest {
     } } };
     return dataArray;
   }
+  
+  @DataProvider(name = "searchButtonOnDetail")
+  public Object[][] searchButtonOnDetail() {
+    Object[][] returnArray = new Object[][] {
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test-0.6.0beta.catrobat", "2df998d544a075946d36072fd083ffef", "", "", "0") }
+         };
+    return returnArray;
+  }  
 }

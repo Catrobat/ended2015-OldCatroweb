@@ -53,10 +53,10 @@
             <a href="<?php echo BASE_PATH?>catroid/termsofuse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>
           </div>
           <div>
-            <a href="<?php echo BASE_PATH?>catroid/imprint"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a>
+            <a href="http://developer.catrobat.org/imprint" target="_blank"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a>
           </div>
           <div>
-            <a href="<?php echo BASE_PATH?>catroid/privacypolicy"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a>
+            <a href="http://developer.catrobat.org/privacy_policy" target="_blank"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a>
           </div>
         </div>
       </div>

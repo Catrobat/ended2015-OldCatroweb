@@ -197,7 +197,15 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     $this->assertTrue($output == checkUserInput($input));
   }
 
-
+  /**
+   * @dataProvider inputTestUrlStrings
+   */  
+  public function testWrapUrlsWithAnchors($input,$output){
+    $this->assertSame($output,wrapUrlsWithAnchors($input));
+  }
+  
+  
+  
   public function randomLongStrings() {
     $returnArray = array();
     $strLen = 400;
@@ -281,5 +289,34 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
                  array("&#X00003C;", ""),
                  array("&#X000003C;", ""));
   }
+  
+  
+  public function inputTestUrlStrings() {
+    
+    return array(
+           array("keine Url","keine Url")
+         , array("http","http")
+         , array("http://","http://")
+         , array("https://","https://")
+         , array("https://www.fred.at/",'<a href="https://www.fred.at/" target="_blank">https://www.fred.at/</a>')
+         , array("http://www.google.at",'<a href="http://www.google.at" target="_blank">http://www.google.at</a>')
+         , array("(Something like http://foo.com/blah_blah)",'(Something like <a href="http://foo.com/blah_blah" target="_blank">http://foo.com/blah_blah</a>)')
+         , array("http://foo.com/blah_blah_(wikipedia)",'<a href="http://foo.com/blah_blah_(wikipedia)" target="_blank">http://foo.com/blah_blah_(wikipedia)</a>')
+         , array("http://foo.com/more_(than)_one_(parens)",'<a href="http://foo.com/more_(than)_one_(parens)" target="_blank">http://foo.com/more_(than)_one_(parens)</a>')
+         , array("(Something like http://foo.com/blah_blah_(wikipedia))",'(Something like <a href="http://foo.com/blah_blah_(wikipedia)" target="_blank">http://foo.com/blah_blah_(wikipedia)</a>)')
+         , array("http://foo.com/blah_(wikipedia)#cite-1",'<a href="http://foo.com/blah_(wikipedia)#cite-1" target="_blank">http://foo.com/blah_(wikipedia)#cite-1</a>')
+         , array("http://foo.com/unicode_(✪)_in_parens",'<a href="http://foo.com/unicode_(✪)_in_parens" target="_blank">http://foo.com/unicode_(✪)_in_parens</a>')
+         , array("http://www.extinguishedscholar.com/wpglob/?p=364.",'<a href="http://www.extinguishedscholar.com/wpglob/?p=364" target="_blank">http://www.extinguishedscholar.com/wpglob/?p=364</a>.')
+         , array("http://www.extinguishedscholar.com/wpglob/?p=364",'<a href="http://www.extinguishedscholar.com/wpglob/?p=364" target="_blank">http://www.extinguishedscholar.com/wpglob/?p=364</a>')
+         , array("mailto:name@example.com",'mailto:name@example.com')
+         , array("http://www.asianewsphoto.com/(S(neugxif4twuizg551ywh3f55))/Web_ENG/View_DetailPhoto.aspx?PicId=752",'<a href="http://www.asianewsphoto.com/(S(neugxif4twuizg551ywh3f55))/Web_ENG/View_DetailPhoto.aspx?PicId=752" target="_blank">http://www.asianewsphoto.com/(S(neugxif4twuizg551ywh3f55))/Web_ENG/View_DetailPhoto.aspx?PicId=752</a>')
+        
+    );
+    
+    //The Testcases are from here: http://daringfireball.net/misc/2010/07/url-matching-regex-test-data.text
+
+  }
+  
+  
 }
 ?>

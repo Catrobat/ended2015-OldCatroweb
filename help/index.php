@@ -36,7 +36,7 @@ define('REAL_BASE_PATH',str_replace('help/', '', BASE_PATH));
 <body>
 	<div id="all">
 		<div id="antcommands">
-			<h1>ant cheatsheet</h1>
+			<h1>Catroweb Cheatsheet</h1>
 			<pre>
 --- refresh development environment
 
@@ -90,7 +90,8 @@ define('REAL_BASE_PATH',str_replace('help/', '', BASE_PATH));
 		</div>
 		<div id="links">
 			<h1>Developement Environment</h1>
-      <a href="http://catroidtestserver.ist.tugraz.at/development/current-webbox.ova" target="_blank">VirutalBox Image</a> - Contains the development environment.<br/>
+      <a href="http://jenkinsmaster/Catroweb.ova" target="_blank">VirutalBox Image</a> - Contains the development environment.<br/>
+      (only works with a plugged in ethernet cable at the project room) <br />
 			
 			<h1>Localhost</h1>
 			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>:4444/grid/console" target="_blank">Grid	Console</a> - Selenium-Grid Server Status<br/> 
@@ -123,7 +124,7 @@ define('REAL_BASE_PATH',str_replace('help/', '', BASE_PATH));
       <a href="http://catroidtest.ist.tugraz.at/phppgadmin/" target="_blank">phpPgAdmin</a>* -  WebBased SQL administration tool<br/>
       <a href="https://selenium.googlecode.com/svn/trunk/java/CHANGELOG" target="_blank">Selenium changelog</a> - Most recent changes<br/>
       
-      <p><strong>* Note:</strong> only accessible with a TUGraz IP address</p>	
+      <p><strong>* Note:</strong> only accessible within the TUGraz network</p>	
 		</div>
 		<div style="clear: both;"></div>
 	</div>
