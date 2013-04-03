@@ -21,7 +21,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-div.webMainContentTitle {
+#wrapper article div.webMainContentTitle {
   border-top: 1px solid #477889;
   background-color: #00475d;
   font-size: 1.8em;
@@ -32,28 +32,13 @@ div.webMainContentTitle {
   text-align: center;
 }
 
-
-div.licenseMain
-{
+#wrapper article div.licenseMain {
   margin-top: 2.5%;
   margin-left: 2.5%;
   margin-right: 2.5%;
 }
-p.licenseText
-{ 
-  margin:0;
-  padding:0;
-}
-div.contactText
-{
-  padding: 1.5%; 
-  padding-left: 4%;
-  padding-right: 4%;  
-  font-size:1.3em;
-}
 
-div.licenseText
-{
+#wrapper article div.licenseText {
   padding: 1.5%; 
   padding-left: 10%;
   padding-right: 10%;
@@ -61,21 +46,12 @@ div.licenseText
   font-size:1.3em;
 }
 
-div.imprintText
-{
-  padding: 1.5%; 
-  padding-left: 10%;
-  padding-right: 10%; 
-  text-align: center;
-  font-size:1.5em;
+#wrapper article p.licenseText { 
+  margin:0;
+  padding:0;
 }
 
-span.licenseHeader
-{	
-	font-weight:bold;
-	text-transform: uppercase;
-}
-a:link, a:visited { 
+#wrapper article a:link, a:visited { 
   text-decoration: underline; 
   color: #a8dff4; 
   font-weight: bold;
