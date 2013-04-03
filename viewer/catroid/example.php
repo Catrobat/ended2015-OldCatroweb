@@ -109,4 +109,8 @@
 						</li>
 					</ul>
         </div>
+        <div id="showAll">
+          <a><img src="<?php echo BASE_PATH; ?>images/symbols/show_more.png"/><br/>
+          Show more</a>
+        </div>
       </article>

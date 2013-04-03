@@ -99,6 +99,11 @@
 	overflow: hidden;
 }
 
+#wrapper article div#showAll {
+  margin-top: 0.4em;
+  text-align: center;
+}
+
 #wrapper article div#newestProjects ul li div.projectTitle {
 	text-align: left;
 	font-size: 1.0em;
