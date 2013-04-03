@@ -136,7 +136,6 @@ function getIpBlockClassWhitelistArray() {
     "contactus",
     "loadNewestProjects",
     "switchLanguage",
-    "terms",
     "termsofuse",
     "errorPage"
   );

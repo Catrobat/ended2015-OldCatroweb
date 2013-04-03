@@ -37,10 +37,6 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
   public function testGetIpBlockClassWhitelistArray() {
     $wl = getIpBlockClassWhitelistArray();
     $this->assertTrue(is_array($wl));
-    $this->assertTrue(in_array('privacypolicy', $wl));
-    $this->assertTrue(in_array('terms', $wl));
-    $this->assertTrue(in_array('copyrightpolicy', $wl));
-    $this->assertTrue(in_array('imprint', $wl));
     $this->assertTrue(in_array('contactus', $wl));
     $this->assertTrue(in_array('errorPage', $wl));
   }
