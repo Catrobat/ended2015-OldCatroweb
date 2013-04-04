@@ -68,7 +68,7 @@
   margin-top: 0.2em;
   text-align: center;
   overflow:hidden;
-  height: 25em;
+  height: 19em;
 }
 
 #wrapper article div#newestProjects ul {
@@ -84,7 +84,7 @@
 	display:inline-block;
 	position:relative;
 	left:-50%;
-	width: 140px;
+	width: 84px;
 	margin: 0.6em 0.5em 1.6em 0.5em;
 	vertical-align: top;
 }
@@ -99,19 +99,21 @@
 	overflow: hidden;
 }
 
-#wrapper article div#newestProjects ul li div.projectTitle a {
-	text-align: left;
-	font-size: 1.0em;
-	font-weight: bold;
-	margin-top: 0.5em;
-	text-decoration: none; 
-  color: #a8dff4;
+#wrapper article div#showAll {
+  margin-top: 0.4em;
+  text-align: center;
 }
 
-#wrapper article div#newestProjects ul li div.projectAddition a {
+#wrapper article div#newestProjects ul li div.projectTitle {
 	text-align: left;
-	text-decoration: none; 
-  color: #a8dff4;
+	font-size: 0.8em;
+	font-weight: bold;
+	margin-top: 0.5em;
+}
+
+#wrapper article div#newestProjects ul li div.projectAddition {
+	text-align: left;
+	font-size: 0.7em;
 }
 
 #wrapper article div#newestProjects ul li div.projectLink {
@@ -126,16 +128,4 @@
 	text-decoration: none;
 	color: #76b0c6;
 	font-weight: bold;
-}
-
-#wrapper article div#showMore p {
-  text-align: center;
-  margin: 0em;
-}
-
-#wrapper article div#iconShowMore {
-  background-color: #00475d;
-  width: 3.2em;
-  height: 3.2em;
-  margin: 0.5em auto;
 }

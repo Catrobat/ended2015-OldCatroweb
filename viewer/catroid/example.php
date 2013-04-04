@@ -38,68 +38,95 @@
         <div id="newestProjects">
           <ul>
 					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/1">The Happy Hippo</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/1">20 minutes ago</a></div>
-              
+					    <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" /></a>
+					    <div class="projectTitle">The Happy Hippo</div>
+              <div class="projectAddition">20 minutes ago</div>
 						</li>
 					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/2">Der Katzenräuber</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/2">about 2 hours ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" /></a>
+					    <div class="projectTitle">Der Katzenräuber</div>
+              <div class="projectAddition">about 2 hours ago</div>
 						</li>
 					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/2">The Angry Hippo</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/2">about 4 days ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" /></a>
+					    <div class="projectTitle">The Angry Hippo</div>
+              <div class="projectAddition">about 4 days ago</div>
 						</li>
 					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/1">The Happy Hippo</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/1">20 minutes ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" /></a>
+					    <div class="projectTitle">The Happy Hippo</div>
+              <div class="projectAddition">20 minutes ago</div>
 						</li>
 					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/1">Der Katzenräuber</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/1">about 2 hours ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" /></a>
+					    <div class="projectTitle">Der Katzenräuber</div>
+              <div class="projectAddition">about 2 hours ago</div>
 						</li>
 					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/2">The Angry Hippo</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/2">about 4 days ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" /></a>
+					    <div class="projectTitle">The Angry Hippo</div>
+              <div class="projectAddition">about 4 days ago</div>
 						</li>					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/1">The Happy Hippo</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/1">20 minutes ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" /></a>
+					    <div class="projectTitle">The Happy Hippo</div>
+              <div class="projectAddition">20 minutes ago</div>
 						</li>
 					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/2">Der Katzenräuber</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/2">about 2 hours ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" /></a>
+					    <div class="projectTitle">Der Katzenräuber</div>
+              <div class="projectAddition">about 2 hours ago</div>
 						</li>
 					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/2">The Angry Hippo</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/2">about 4 days ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" /></a>
+					    <div class="projectTitle">The Angry Hippo</div>
+              <div class="projectAddition">about 4 days ago</div>
 						</li>					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/1">The Happy Hippo</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/1">20 minutes ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" /></a>
+					    <div class="projectTitle">The Happy Hippo</div>
+              <div class="projectAddition">20 minutes ago</div>
 						</li>
 					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/2">Der Katzenräuber</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/2">about 2 hours ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" /></a>
+					    <div class="projectTitle">Der Katzenräuber</div>
+              <div class="projectAddition">about 2 hours ago</div>
 						</li>
 					  <li>
-					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" /></a>
-					    <div class="projectTitle"><a href="<?php echo BASE_PATH?>catroid/details/2">The Angry Hippo</a></div>
-              <div class="projectAddition"><a href="<?php echo BASE_PATH?>catroid/details/2">about 4 days ago</a></div>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" /></a>
+					    <div class="projectTitle">The Angry Hippo</div>
+              <div class="projectAddition">about 4 days ago</div>
+						</li>					  <li>
+					    <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" /></a>
+					    <div class="projectTitle">The Happy Hippo</div>
+              <div class="projectAddition">20 minutes ago</div>
+						</li>
+					  <li>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" /></a>
+					    <div class="projectTitle">Der Katzenräuber</div>
+              <div class="projectAddition">about 2 hours ago</div>
+						</li>
+					  <li>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" /></a>
+					    <div class="projectTitle">The Angry Hippo</div>
+              <div class="projectAddition">about 4 days ago</div>
+						</li>					  <li>
+					    <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" /></a>
+					    <div class="projectTitle">The Happy Hippo</div>
+              <div class="projectAddition">20 minutes ago</div>
+						</li>
+					  <li>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" /></a>
+					    <div class="projectTitle">Der Katzenräuber</div>
+              <div class="projectAddition">about 2 hours ago</div>
+						</li>
+					  <li>
+					    <a href="<?php echo BASE_PATH?>catroid/details/2"><img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" /></a>
+					    <div class="projectTitle">The Angry Hippo</div>
+              <div class="projectAddition">about 4 days ago</div>
 						</li>
 					</ul>
         </div>
-        <div id="showMore">
-          <div id="iconShowMore"><img src="<?php echo BASE_PATH; ?>images/symbols/show_more.png"/></div>
-          <p>Show more</p>
+        <div id="showAll">
+          <a><img src="<?php echo BASE_PATH; ?>images/symbols/show_more.png"/><br/>
+          Show more</a>
         </div>
       </article>
