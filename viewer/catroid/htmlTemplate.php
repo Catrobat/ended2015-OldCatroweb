@@ -64,7 +64,6 @@ $this->module->addGlobalJs('login.js');
   </head>
   <body>
     <div style="position:absolute; left:0px; top:2px; width:320px; background-color: red; height:20px;color:black;">320dp</div>
-    <div style="position:absolute; left:0px; top:15px; width:360px; background-color: green; height:20px;color:black;">360dp</div>
 
     <div id="wrapper">
       <?php include($this->header);?>
