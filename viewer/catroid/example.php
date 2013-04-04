@@ -166,7 +166,7 @@
 					</ul>
         </div>
         <div id="showMore">
-           <div id="iconShowMore"><img src="<?php echo BASE_PATH; ?>images/symbols/show_more.png"/></div>
+           <div><img src="<?php echo BASE_PATH; ?>images/symbols/show_more.png"/></div>
            <p>Show more</p>
          </div> 
       </article>
