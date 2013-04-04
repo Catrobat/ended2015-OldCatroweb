@@ -24,12 +24,12 @@
 
 <statements>
     <string name="get_projects_ordered_by_uploadtime">SELECT * FROM projects ORDER BY upload_time DESC</string>
-    <string name="get_visible_projects_ordered_by_uploadtime">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY upload_time DESC</string>
-    <string name="get_visible_projects_ordered_by_uploadtime_limited_offset">SELECT projects.id, projects.title, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY last_activity DESC LIMIT $1 OFFSET $2</string>
-    <string name="get_visible_projects_ordered_by_uploadtime_limited_offset_api">SELECT projects.id, projects.title, projects.description, projects.view_count, projects.download_count, projects.version_name, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY last_activity DESC LIMIT $1 OFFSET $2</string>
-    <string name="get_number_of_visible_projects">SELECT count(id) FROM projects WHERE visible=true</string>
+    <string name="get_visible_projects_ordered_by_uploadtime">SELECT p.* FROM visible_projects_with_uploaded_by_v p ORDER BY p.upload_time DESC</string>
+    <string name="get_visible_projects_ordered_by_uploadtime_limited_offset">SELECT projects.id, projects.title, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, projects.uploaded_by FROM visible_projects_with_uploaded_by_v projects ORDER BY last_activity DESC LIMIT $1 OFFSET $2</string>
+    <string name="get_visible_projects_ordered_by_uploadtime_limited_offset_api">SELECT projects.id, projects.title, projects.description, projects.view_count, projects.download_count, projects.version_name, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, projects.uploaded_by FROM visible_projects_with_uploaded_by_v projects ORDER BY last_activity DESC LIMIT $1 OFFSET $2</string>
+    <string name="get_number_of_visible_projects">SELECT count(p.id) FROM visible_projects_v p</string>
     <string name="get_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND cusers.id=projects.user_id LIMIT 1</string>
-    <string name="get_visible_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND projects.visible=true AND cusers.id=projects.user_id LIMIT 1</string>
+    <string name="get_visible_project_by_id">SELECT projects.* FROM visible_projects_with_uploaded_by_v projects WHERE projects.id=$1 LIMIT 1</string>
     <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_language, filesize_bytes, version_name, language_code, user_id) 
     	VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id</string>
     <string name="does_project_already_exist">SELECT projects.* FROM projects WHERE projects.title=$1 AND projects.user_id=$2</string>
