@@ -55,21 +55,20 @@ var Login = Class.$extend({
       }),
       timeout : this.ajaxTimeout,
       success : $.proxy(this.loginRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
+      error : alert('error')
     });
   },
 
   loginRequestSuccess : function(result) {
     if(result.statusCode == 200) {
       if(this.requestUri != '') {
-        location.href = this.basePath + 'catroid/login?requestUri=' + this.requestUri;
+        //location.href = this.basePath + 'catroid/login?requestUri=' + this.requestUri;
+        location.href = this.basePath + 'catroid/profile'
       } else {
         location.reload();
       }
     } else {
-      $("#loginHelperDiv").delay(400).slideDown(500);
-      common.showPreHeaderMessages(result);
-      common.showAjaxErrorMsg(result.answer);
+      alert(result.answer);
     }
   },
 
@@ -78,7 +77,7 @@ var Login = Class.$extend({
       type : "POST",
       url : this.basePath + "catroid/login/logoutRequest.json",
       success : $.proxy(this.logoutRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
+      error : alert('error')
     });
   },
 

@@ -30,7 +30,6 @@
           "password_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'password_missing'); ?>"
           };
       new Login(languageStringsObject);
-      new HeaderMenu(<?php echo "'" . $this->module->session->userLogin_userId ."'"; ?>);
   	});
   </script>
 

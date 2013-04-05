@@ -39,126 +39,126 @@
           <ul>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
 					      <div class="projectTitle">The Happy Hippo</div>
                 <div class="projectAddition">20 minutes ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
 					      <div class="projectTitle">Der Katzenräuber</div>
                 <div class="projectAddition">about 2 hours ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
 					      <div class="projectTitle">The Angry Hippo</div>
                 <div class="projectAddition">about 4 days ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
 					      <div class="projectTitle">The Happy Hippo</div>
                 <div class="projectAddition">20 minutes ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
 					      <div class="projectTitle">Der Katzenräuber</div>
                 <div class="projectAddition">about 2 hours ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
 					      <div class="projectTitle">The Angry Hippo</div>
                 <div class="projectAddition">about 4 days ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
 					      <div class="projectTitle">The Happy Hippo</div>
                 <div class="projectAddition">20 minutes ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
 					      <div class="projectTitle">Der Katzenräuber</div>
                 <div class="projectAddition">about 2 hours ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
 					      <div class="projectTitle">The Angry Hippo</div>
                 <div class="projectAddition">about 4 days ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
 					      <div class="projectTitle">The Happy Hippo</div>
                 <div class="projectAddition">20 minutes ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
 					      <div class="projectTitle">Der Katzenräuber</div>
                 <div class="projectAddition">about 2 hours ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
 					      <div class="projectTitle">The Angry Hippo</div>
                 <div class="projectAddition">about 4 days ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
 					      <div class="projectTitle">The Happy Hippo</div>
                 <div class="projectAddition">20 minutes ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
 					      <div class="projectTitle">Der Katzenräuber</div>
                 <div class="projectAddition">about 2 hours ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
 					      <div class="projectTitle">The Angry Hippo</div>
                 <div class="projectAddition">about 4 days ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
 					      <div class="projectTitle">The Happy Hippo</div>
                 <div class="projectAddition">20 minutes ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
 					      <div class="projectTitle">Der Katzenräuber</div>
                 <div class="projectAddition">about 2 hours ago</div>
               </a>
 						</li>
 					  <li>
 					    <a href="<?php echo BASE_PATH?>catroid/details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" />
+					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
 					      <div class="projectTitle">The Angry Hippo</div>
                 <div class="projectAddition">about 4 days ago</div>
               </a>

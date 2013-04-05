@@ -28,6 +28,7 @@ class login extends CoreAuthenticationNone {
     parent::__construct();
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
     $this->loadModule('common/userFunctions');
+    $this->addJs('login.js');
   }
 
   public function __default() {
