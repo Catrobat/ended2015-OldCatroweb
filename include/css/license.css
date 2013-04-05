@@ -39,9 +39,9 @@
 }
 
 #wrapper article div.licenseText {
-  padding: 1.5%; 
-  padding-left: 10%;
-  padding-right: 10%;
+  padding: 1em; 
+  padding-left: 2em;
+  padding-right: 2em;
   /* text-align:justify; */
   font-size:1.3em;
 }

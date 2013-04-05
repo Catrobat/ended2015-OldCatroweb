@@ -23,20 +23,21 @@
  */
 
 ?>
-      <div class="webMainMiddle">
-        <div class="blueBoxMain">
-          <div class="webMainContent">
-            <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('myTitle'); ?></div> 
-            <div class="profileMain">                
-              <div class ="whiteBoxMain">
-                <div class="profileFormContainer">
+  <article>
+     <header><?php echo $this->languageHandler->getString('myTitle'); ?></header> 
+        <div class="profileItem">
+        <input type="search" placeholder="Passwort ändern" />
+        <img src="<?php echo BASE_PATH; ?>images/symbols/6-social-person.png" />
+         
+        </div>
 
-                  <div class="avatarContainer">
+                  <!-- <div class="avatarContainer">
                     <img id="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" class="avatar" /><br />
                     <div id="profileChangeAvatar"><a href="javascript:;"><?php echo $this->languageHandler->getString('changePicture'); ?></a></div>
                     <input id="profileAvatarFile" type="file" />
                   </div>
 
+                  
                   <div class="profileItem">
                     <div class="label"><?php echo $this->languageHandler->getString('name'); ?></div>
                     <div>
@@ -126,22 +127,18 @@
                       </select>
                     </div>
                     <div style="clear:both"></div>  
-                  </div>
+                  </div>-->
 
-                  <div style="clear:both;"></div>
-                </div> <!-- profileFormContainer -->
-              </div> <!--  White Box -->                
-            </div> <!--  license Main -->                     
-          </div> <!-- mainContent close //-->
-        </div> <!-- blueBoxMain close //-->
       </div>
-
-      <script type="text/javascript">
-          $(document).ready(function() {
-            var languageStringsObject = { 
-              "really_delete" : "<?php echo $this->languageHandler->getString('really_delete'); ?>",
-              "image_too_big" : "<?php echo $this->languageHandler->getString('image_too_big'); ?>"
-            };
-            new Profile(languageStringsObject);
-          });
-      </script>
+  </article>
+  
+  <script type="text/javascript">
+      $(document).ready(function() {
+        var languageStringsObject = { 
+          "really_delete" : "<?php echo $this->languageHandler->getString('really_delete'); ?>",
+          "image_too_big" : "<?php echo $this->languageHandler->getString('image_too_big'); ?>"
+        };
+        new Profile(languageStringsObject);
+      });
+  </script>
+      

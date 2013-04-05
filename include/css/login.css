@@ -21,40 +21,66 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-div.loginMain {
-  margin-left: 2.5%;
-  margin-right: 2.5%;
+#wrapper article div.webMainContentTitle {
+  border-top: 1px solid #477889;
+  background-color: #00475d;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em;
+  text-shadow: #000000 1px 1px 1px;
+  text-align: center;
 }
 
-div.loginText {
-  padding: 3%;
-  padding-left: 8%;
-  padding-right: 8%;
+#wrapper article div.loginMain {
+  background-color: #00475d;
+  margin-top: 0.2em;
+}
+
+#wrapper article div.loginText {
+  padding: 1em;
+  padding-left: 2em;
+  padding-right: 2em;
   font-size: 1.3em;
 }
 
-div.loginHeader {
+#wrapper article div.loginHeader {
   font-weight: bold;
   font-size: 1.2em;
-  margin-top: 1.5%;
-  margin-bottom: 3.5%;
+  margin-bottom: 1em;
 }
 
-ul.loginOptions {
-  margin: 0;
+#wrapper article #loginUsername {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+  color: black;
 }
 
-ul.loginOptions li {
-  padding: 5px;
+#wrapper article #loginPassword {
+  font-size: 1.2em;
+  margin-bottom: 1em;
+  color: black;
 }
 
-input.loginSubmitButton {
+#wrapper article input.loginSubmitButton {
   color: black;
   font-size: 0.8em;
   font-weight: bold;
 }
 
-div.otherOptions {
+#wrapper article div.otherOptions {
   font-size: 1.2em;
-  padding: 1%;
+  margin-top: 0.5em;
 }
+
+#wrapper article a:link, a:visited { 
+  text-decoration: underline; 
+  color: #a8dff4; 
+  font-weight: bold;
+}
+
+
+
+
+
+

@@ -34,9 +34,9 @@ var Profile = Class.$extend( {
     $("#profileOldPassword").keypress($.proxy(this.passwordCatchKeypress, this));
     $("#profileNewPassword").keypress($.proxy(this.passwordCatchKeypress, this));
     
-    this.updateEmailListRequest();
-    $("#addEmailButton").click($.proxy(this.addEmailRequest, this));
-    $("#addEmailInput").keypress($.proxy(this.addEmailCatchKeypress, this));
+    //this.updateEmailListRequest();
+    //$("#addEmailButton").click($.proxy(this.addEmailRequest, this));
+    //$("#addEmailInput").keypress($.proxy(this.addEmailCatchKeypress, this));
     
     $("#cityInput").change($.proxy(this.updateCityRequest, this));
     $("#countrySelect").change($.proxy(this.updateCountryRequest, this));
