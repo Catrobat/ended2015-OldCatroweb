@@ -65,6 +65,11 @@ textarea {
   color: #a8dff4;
 }
 
+input:focus {
+  border: 0;
+  outline: none;
+}
+
 html {
   height: 100%;
   font-size: 1.0em;
