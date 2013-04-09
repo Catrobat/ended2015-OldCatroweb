@@ -46,5 +46,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="hide_qr_code_info_button">QR-Code - Info schlie&#xDF;en</string>
   <string name="flag_reason_placeholder">Gib einen Grund an</string>
   <string name="old_version">Es tut uns Leid, aber dieses Projekt wurde mit einer &#xE4;lteren Version von Catroid erstellt und kann nicht mehr heruntergeladen werden.</string>
-  <string name="old_version_author">Wenn du der Author von diesem Projekt bist und es aktualisieren willst, kannst du es nocheinmal mit der aktuellen Version von Catroid hochladen.</string>
+  <string name="old_version_author">Wenn du der Autor von diesem Projekt bist und es aktualisieren willst, kannst du es nocheinmal mit der aktuellen Version von Catroid hochladen.</string>
 </strings>

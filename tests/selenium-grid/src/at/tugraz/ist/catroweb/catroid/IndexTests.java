@@ -223,19 +223,19 @@ public class IndexTests extends BaseTest {
   @Test(groups = { "functionality", "upload" }, description = "language select tests")
   public void languageSelect() throws Throwable {
     try {
-      openLocation("catroid/imprint/");
-      assertTrue(isTextPresent("Graz University of Technology"));
+      openLocation("catroid/termsofuse");
+      assertFalse(isTextPresent("Terms of Use"));
       assertTrue(isElementPresent(By.xpath("//html[@lang='" + Config.SITE_DEFAULT_LANGUAGE + "']")));
-      openLocation("catroid/imprint/", false);
+      openLocation("catroid/termsofuse", false);
       assertTrue(isElementPresent(By.id("switchLanguage")));
       (new Select(driver().findElement(By.id("switchLanguage")))).selectByValue("de");
       ajaxWait();
-      assertTrue(isTextPresent("Technische Universität Graz"));
+      assertTrue(isTextPresent("Nutzungsbedingungen"));
       assertTrue(isElementPresent(By.id("switchLanguage")));
       assertTrue(isElementPresent(By.xpath("//html[@lang='de']")));
       (new Select(driver().findElement(By.id("switchLanguage")))).selectByValue("en");
       ajaxWait();
-      assertTrue(isTextPresent("Graz University of Technology"));
+      assertTrue(isTextPresent("Terms of Use"));
       assertTrue(isElementPresent(By.xpath("//html[@lang='en']")));
     } catch(AssertionError e) {
       captureScreen("IndexTests.pageNavigation");
