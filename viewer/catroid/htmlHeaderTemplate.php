@@ -27,31 +27,51 @@
       <header role="banner">
         <nav role="navigation">
           <div id="largeMenu">
+            <div class="marginSpacer"></div>
             <div class="catroidLink">
               <a href="<?php echo BASE_PATH; ?>">Catroid</a>
             </div>
             
-            <div class="searchBarLeft">
-             <img src="<?php echo BASE_PATH; ?>images/symbols/2-action-search.png" />
+            <div class="largeSearchBarLeft">
+             <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
             </div>
 
-            <div class="searchBarMiddle">
+            <div class="largeSearchBarMiddle">
              <input type="search" placeholder="Projekt suchen..." />
             </div>
             
-            <div class="searchBarRight">
-             <img src="<?php echo BASE_PATH; ?>images/symbols/6-social-person.png" />
+            <div class="largeSearchBarRight">
+             <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
             </div>
+            <div class="marginSpacer"></div>
           </div>
           <div id="smallMenu">
-            <div class="catroidLink">
+            <div class="marginSpacer"></div>
+            
+            <div id="smallMenuBar" class="catroidLink">
               <a href="<?php echo BASE_PATH; ?>">Catroid</a>
             </div>
-            
-            <div class="menuBar">
-              <a href="#"><img src="<?php echo BASE_PATH; ?>images/symbols/2-action-search.png" /></a>
-              <a href="#"><img src="<?php echo BASE_PATH; ?>images/symbols/6-social-person.png" /></a>
+
+            <div id="smallSearchBar">
+              <input type="search" placeholder="Projekt suchen..." />
             </div>
+
+            <div>
+              <img id="mobileSearchButton" src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+            </div>
+            
+            <div class="marginSpacer"></div>
+
+            <div>
+              <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+            </div>
+            
+            <div class="marginSpacer"></div>
           </div>
         </nav>
       </header>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          new Header();
+        });
+      </script>

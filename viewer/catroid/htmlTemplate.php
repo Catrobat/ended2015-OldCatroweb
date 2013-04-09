@@ -34,6 +34,7 @@ $this->module->addGlobalCss('login.css');
 
 $this->module->addGlobalJs('baseClassVars.js');
 $this->module->addGlobalJs('classy.js');
+$this->module->addGlobalJs('header.js');
 $this->module->addGlobalJs('footer.js');
 $this->module->addGlobalJs('languageHandler.js');
 $this->module->addGlobalJs('commonFunctions.js');
@@ -56,8 +57,6 @@ $this->module->addGlobalJs('login.js');
 
     <?php echo $this->getGlobalCss(); ?>
     <?php echo $this->getCss(); ?>
-    <?php echo $this->getGlobalJs(); ?>
-    <?php echo $this->getJs(); ?>
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERY_VERSION; ?>/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?php echo BASE_PATH . CACHE_PATH; ?>jquery<?php echo JQUERY_VERSION; ?>.min.js"><\/script>')</script>
@@ -76,7 +75,8 @@ $this->module->addGlobalJs('login.js');
       <?php include($this->footer);?>
     </footer>
 
-
+    <?php echo $this->getGlobalJs(); ?>
+    <?php echo $this->getJs(); ?>
 
     <?php echo '  <img id="ga" src="' . googleAnalyticsGetImageUrl() . '" />'; ?>
   </body>
