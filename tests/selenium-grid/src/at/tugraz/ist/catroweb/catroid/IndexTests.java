@@ -224,7 +224,7 @@ public class IndexTests extends BaseTest {
   public void languageSelect() throws Throwable {
     try {
       openLocation("catroid/termsofuse");
-      assertFalse(isTextPresent("Terms of Use"));
+      assertTrue(isTextPresent("Terms of Use"));
       assertTrue(isElementPresent(By.xpath("//html[@lang='" + Config.SITE_DEFAULT_LANGUAGE + "']")));
       openLocation("catroid/termsofuse", false);
       assertTrue(isElementPresent(By.id("switchLanguage")));
