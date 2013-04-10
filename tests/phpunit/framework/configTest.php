@@ -78,7 +78,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(ADMIN_EMAIL_WEBMASTER, 'webmaster@catroid.org');
     $this->assertEquals(ADMIN_EMAIL_NOREPLY, 'noreply@catroid.org');
     $this->assertEquals(ADMIN_EMAIL_SUBJECT_PREFIX, 'CATROID.ORG');
-    $this->assertEquals(ADMIN_POOTLE_ROOT_URL, 'http://catroidwebtest.ist.tugraz.at:8080/');
+    $this->assertEquals(ADMIN_POOTLE_ROOT_URL, 'http://translate.catroid.org/');
     $this->assertEquals(CONTACT_EMAIL, 'webmaster@catrobat.org');
     $this->assertEquals(USER_STATUS_STRING_ACTIVE, 'active');
     $this->assertEquals(USER_STATUS_STRING_INACTIVE, 'inactive');

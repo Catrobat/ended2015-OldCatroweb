@@ -746,8 +746,8 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   private function updateCatroidPassword($username, $password) {
-    $password = md5($password);
     $authToken = $this->generateAuthenticationToken($username, $password);
+    $password = md5($password);
     $result = pg_execute($this->dbConnection, "update_password_by_username", array($password, $username, $authToken));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
