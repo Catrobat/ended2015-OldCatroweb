@@ -60,12 +60,87 @@ var ProjectContentFiller = Class
       createSkeletonHandler : function(layout) {
         switch(layout) {
         case this.params.config.PROJECT_LAYOUT_ROW:
-          this.createSkeletonRow();
-          this.fillSkeleton = this.fillSkeletonRow;
+          this.createSkeletonRowNew();
+          this.fillSkeleton = this.fillSkeletonRowNew;
           this.ready = true;
           break;
         default:
           this.ready = false;
+        }
+      },
+      
+      createSkeletonRowNew : function() {
+        if(!this.initialized) {
+          var contentContainer = $("<ul />");
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+            var project = $("<li />");
+            var projectLink = $("<a />");
+            
+            var projectThumbnail = $("<img />");
+            var projectTitle = $("<div />").addClass("projectTitle");
+            var projectAddition = $("<div />").addClass("projectAddition");
+            
+            projectLink.append(projectThumbnail);
+            projectLink.append(projectTitle);
+            projectLink.append(projectAddition);
+            
+            contentContainer.append(project.append(projectLink));
+          }
+          $(this.params.container).append(contentContainer);
+        }
+      },
+
+      fillSkeletonRowNew : function(projects, buttons, pageLabels) {
+
+        var elements = $('> ul', this.params.container).children();
+        for(var i = 0; i < this.params.page.numProjectsPerPage; i++){
+          if(projects != null && projects[i]) {
+            //alert(projects[i]['title']);
+            
+            $(elements[i]).css("visibility", "visible");
+            $('a', elements[i]).attr('href', this.basePath + "catroid/details/" + projects[i]['id']);
+            $('img', elements[i]).attr('src', projects[i]['thumbnail']).attr('alt', projects[i]['title']);
+            $('div.projectTitle', elements[i]).text(projects[i]['title']);
+            $('div.projectAddition', elements[i]).text(projects[i]['last_activity']);
+            
+            
+            
+            
+            /*
+            if($("#projectListElement" + i).length > 0){
+              $("#whiteBox" + i).css("display", "block");
+              $("#projectListSpacer" + i).css("display", "block");
+              $("#projectListThumbnail" + i).attr("title", projects[i]['title']);
+              $("#projectListDetailsLinkThumb" + i)
+                  .attr("href", this.basePath + "catroid/details/" + projects[i]['id']);
+              $("#projectListDetailsLinkThumb" + i).unbind('click');
+              $("#projectListDetailsLinkThumb" + i).bind("click", {
+                pageNr : projects[i]['pageNr']
+              }, function(event) {
+                // TODO: session handling
+                // self.saveStateToSession(event.data.pageNr);
+              });
+              $("#projectListPreview" + i).attr("src", projects[i]['thumbnail']).attr("alt", projects[i]['title']);
+
+              $("#projectListTitle" + i).html(
+                  "<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='" + this.basePath
+                      + "catroid/details/" + projects[i]['id'] + "'>" + projects[i]['title'] + "</a></div>");
+              $("#projectListTitle" + i).unbind('click');
+              $("#projectListTitle" + i).bind("click", {
+                pageNr : projects[i]['pageNr']
+              }, function(event) {
+                // session handling
+              });
+              $("#projectListDescription" + i).html(
+                  projects[i]['last_activity'] + " " + projects[i]['uploaded_by_string'] + "<br/>" +
+                  "d: " + projects[i]['download_count'] + ", v: " + projects[i]['view_count'] + "<br/>"
+                  );
+            }
+          } else{
+            $("#whiteBox" + i).css("display", "none");
+            $("#projectListSpacer" + i).css("display", "none");
+          }*/
+          }
         }
       },
 
@@ -134,7 +209,6 @@ var ProjectContentFiller = Class
               $("<div />").addClass("webMainNavigationButtons").append(
                   navigationButtonNext.attr("id", "moreProjects").append($("<span />").addClass("navigationButtons"))));
         }
-
       },
 
       fillSkeletonRow : function(projects, buttons, pageLabels) {

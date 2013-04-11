@@ -45,6 +45,8 @@ var SearchBar = Class.$extend( {
     if(event.keyCode == 13) {
       if(this.projects != null) {
         this.ajaxSearch(event.target.value);
+        this.largeSearchBox.blur();
+        this.smallSearchBox.blur();
       } else {
         location.href = this.basePath + 'catroid/search/?search=' + event.target.value;
       }
