@@ -328,7 +328,7 @@ class upload extends CoreAuthenticationDevice {
         if(!$this->saveThumbnail($thumbImage, $projectId, 0, PROJECTS_THUMBNAIL_EXTENSION_ORIG)) {
           throw new Exception($this->errorHandler->getError('upload', 'save_thumbnail_failed'), STATUS_CODE_UPLOAD_SAVE_THUMBNAIL_FAILED);
         }
-        if(!$this->saveThumbnail($thumbImage, $projectId, 240, PROJECTS_THUMBNAIL_EXTENSION_SMALL)) {
+        if(!$this->saveThumbnail($thumbImage, $projectId, 160, PROJECTS_THUMBNAIL_EXTENSION_SMALL)) {
           throw new Exception($this->errorHandler->getError('upload', 'save_thumbnail_failed'), STATUS_CODE_UPLOAD_SAVE_THUMBNAIL_FAILED);
         }
         if(!$this->saveThumbnail($thumbImage, $projectId, 480, PROJECTS_THUMBNAIL_EXTENSION_LARGE)) {

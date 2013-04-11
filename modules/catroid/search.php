@@ -30,7 +30,9 @@ class search extends CoreAuthenticationNone {
     $this->addJs('projectLoader.js');
     $this->addJs('projectContentFiller.js');
     $this->addJs('projectObject.js');
-    $this->addJs('projects.js');
+    $this->addJs('search.js');
+    
+    $this->loadModule('catroid/loadProjects');
   }
 
   public function __default() {
@@ -41,12 +43,14 @@ class search extends CoreAuthenticationNone {
     $params['pageNr'] = 1;
     $params['pageNrMax'] = $this->numberOfPages;
     $params['layout'] = PROJECT_LAYOUT_ROW;
-    $params['container'] = '#projectContainer';
+    $params['container'] = '#searchResultContainer';
     
     $params['sort'] = $this->session->sort;
     $params['filter'] = array('searchQuery' => $_REQUEST['search'],
         'author'        => '');
     
+    $_REQUEST['searchQuery'] = $_REQUEST['search'];
+    $params['firstPage'] = $this->loadProjects->retrieveProjectsAsArray();
     $params['page'] = array('number'             => intVal($this->session->pageNr),
         'numProjectsPerPage' => PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
         'pageNrMax'          => ceil($this->getNumberOfVisibleProjects() / PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE)
@@ -65,7 +69,7 @@ class search extends CoreAuthenticationNone {
     $filter =  pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($_REQUEST['search'])));
     $filter = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $filter);
     
-    $this->jsParams = "'".json_encode($params)."'";
+    $this->jsParams = "'" . json_encode($params) . "'";
   }
   
   public function getNumberOfVisibleProjects() {

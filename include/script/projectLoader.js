@@ -35,8 +35,10 @@ var ProjectLoader = Class.$extend({
   },
   
   initialize : function() {
-    if(!this.initialized){
-      this.loadPage();
+    if(!this.initialized) {
+      if(this.params.firstPage == null) {
+        this.loadPage();
+      }
       this.initialized = true;
     }
   },

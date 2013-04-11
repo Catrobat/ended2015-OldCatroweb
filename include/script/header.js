@@ -39,6 +39,5 @@ var Header = Class.$extend( {
     }
     
     this.isSearchBarToggeled = !this.isSearchBarToggeled;
-    event.preventDefault();
   }
 });

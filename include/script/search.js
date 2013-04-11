@@ -25,16 +25,19 @@ var Search = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function(params) {
     
-    $('#largeSearchForm').keyup(function(e) {
-      if(e.keyCode == 13) {
-        $('#largeSearchForm').submit();
-      }
-    });
-    
-    $('#smallSearchForm').keyup(function(e) {
-      if(e.keyCode == 13) {
-        $('#smallSearchForm').submit();
-      }
-    });
+    this.params = jQuery.parseJSON(params);
+    this.projects = ProjectObject({"layout"    : this.params.layout,
+                               "container" : this.params.container,
+                               "buttons"   : {"prev" : "#fewerProjects", "next" : "#moreProjects"}, 
+                               "filter"    : {"searchQuery" : this.params.filter.searchQuery, "author" : this.params.filter.author},
+                               "firstPage" : this.params.firstPage,
+                               "sort"      : this.params.sort,
+                               "page"      : this.params.page,
+                               "config"    : this.params.config
+                             });
+  },
+  
+  getProjectObject : function() {
+    return this.projects;
   }
 });

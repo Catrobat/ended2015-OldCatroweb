@@ -47,6 +47,10 @@ var ProjectContentFiller = Class
         this.error = {"type" : "", code : 0, extra : ""};
 
         this.createSkeletonHandler(this.params.layout);
+        if(this.params.firstPage != null) {
+          console.log(this.params.firstPage);
+          this.fillSkeleton(this.params.firstPage.content, this.params.firstPage.buttons, this.params.firstPage.pageLabels);
+        }
       },
       
       isReady: function() {

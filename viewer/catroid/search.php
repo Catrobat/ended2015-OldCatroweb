@@ -25,11 +25,12 @@
 ?>
       <article>
         <header><?php echo $this->languageHandler->getString('header'); ?></header>
-        <div id="projectContainer">
+        <div id="searchResultContainer">
         </div>
       </article>
       <script type="text/javascript">
         $(document).ready(function() {
-          new Projects(<?php echo $this->jsParams; ?>);
+          Search = new Search(<?php echo $this->jsParams; ?>);
+          SearchBar.setProjectObject(Search.getProjectObject());
         });
       </script>

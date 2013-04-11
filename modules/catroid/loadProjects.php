@@ -40,7 +40,6 @@ class loadProjects extends CoreAuthenticationNone {
   }
 
   public function __default() {
-
     $this->statusCode = STATUS_CODE_OK;
 
     if(isset($_REQUEST)) {
@@ -78,14 +77,14 @@ class loadProjects extends CoreAuthenticationNone {
       $pageLabels = array();
       $pageLabels['title'] = $this->languageHandler->getString('title');
       
-      $filter = array('searchQuery' => '%', 'author' => '%');
+      $filter = array('searchQuery' => '', 'author' => '');
       if($_REQUEST['searchQuery']) {
-        $filter['searchQuery'] = $this->escapeUserInput($_REQUEST['searchQuery']);
+        $filter['searchQuery'] = $_REQUEST['searchQuery'];
         $pageLabels['title'] = $this->languageHandler->getString('search_title');
       }
       
       if($_REQUEST['author']) {
-        $filter['author'] = $this->escapeUserInput($_REQUEST['author']);
+        $filter['author'] = $_REQUEST['author'];
         $pageLabels['title'] = $this->languageHandler->getString('search_title');
       }        
       
@@ -99,6 +98,12 @@ class loadProjects extends CoreAuthenticationNone {
       $pageLabels['loadingButton'] = $this->languageHandler->getString('loading_button');
       $this->pageLabels = $pageLabels;
     }
+  }
+  
+  
+  public function retrieveProjectsAsArray() {
+    $this->__default();
+    return array('content' => $this->content, 'buttons' => $this->buttons, 'pageLabels' => $this->pageLabels );
   }
 
   public function getProjects($sort, $limit = null, $offset = 0, $filter = "") {
@@ -133,17 +138,22 @@ class loadProjects extends CoreAuthenticationNone {
 
   private function retrieveProjectsFromDatabase($sql, $limit, $offset = 0, $filter = "") {
     if($filter != "") {
+      $searchQuery =  $this->escapeUserInput($filter['searchQuery']); 
+      $author =  $this->escapeUserInput($filter['author']); 
+      
       $result = pg_execute($this->dbConnection, $sql,
-          array($limit, $offset, $filter['searchQuery'], $filter['author'])) 
+          array($limit, $offset, $searchQuery, $author)) 
           or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       $projects = pg_fetch_all($result);
     }
-    else {
+    else { //TODO Query failed: ERROR: bind message supplies 2 parameters, but prepared statement "get_visible_projects_orderby_age_limited_offset" requires 4
       $result = pg_execute($this->dbConnection, $sql, array($limit, $offset)) 
-                  or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+          or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
       $projects = pg_fetch_all($result);
     }
     pg_free_result($result);
+
+    
     if($projects[0]['id']) {
       $i=0;
       foreach($projects as $project) {
