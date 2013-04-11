@@ -22,8 +22,10 @@
  */
 
 #wrapper article header {
+  border: 0;
   border-top: 1px solid #477889;
   background-color: #00475d;
+  background-image: none;
   color: #a8dff4;
   font-size: 1.8em;
   text-transform: uppercase;

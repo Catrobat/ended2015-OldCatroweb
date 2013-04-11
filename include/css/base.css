@@ -116,6 +116,20 @@ h3 {
   padding-bottom: 3.2em;
 }
 
+#wrapper article header {
+  border: 1px solid #8abbcc;
+  font-size: 1.8em;
+  color: #ffffff;
+  text-transform: uppercase;
+  font-weight: bold;
+  background-color: #7db6cb;
+  padding: 0.275em 0 0.3125em 0.375em;
+  text-shadow: #333333 1px 1px 2px;
+  background-image: linear-gradient(top, #93c4d7, #74b0c7);
+  background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
+}
+
 footer {
   margin-right: auto;
   margin-left: auto;
