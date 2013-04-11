@@ -504,7 +504,7 @@ public class BaseTest {
     try {
       File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
       FileUtils.copyFile(scrFile, new File(Config.FILESYSTEM_BASE_PATH + imagePath));
-      Reporter.log("<a href=\"" + this.webSite + Config.TESTS_BASE_PATH.substring(1) + imagePath + "\">Screenshot (" + imageName + ")</a>");
+      Reporter.log("<a href=\"../" + imageName + imageExtension + "\">Screenshot (" + imageName + ")</a>");
       Reporter.log("Ajax message: " + getAjaxMessage());
     } catch(IOException e) {
       e.printStackTrace();

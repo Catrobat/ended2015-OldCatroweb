@@ -57,10 +57,15 @@ class EnvironmentChecker:
 		if(os.stat(path).st_mode & 0777) != 0777:
 			print('setting permissions for %s' % path)
 			os.chmod(path, 0777)
-				
+
 		if recursive:
 			for r,d,f in os.walk(path):
-				self.setPermission(os.path.join(path, r))
+				self.setPermission(r)
+				for file in f:
+					currentFile = os.path.join(r, file)
+					if(os.stat(currentFile).st_mode & 0777) != 0777:
+						print('setting permissions for %s' % currentFile)
+						os.chmod(currentFile, 0777)
 
 
 

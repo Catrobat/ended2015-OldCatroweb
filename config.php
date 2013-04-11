@@ -55,6 +55,16 @@ define('PROJECT_PAGE_LOAD_MAX_PROJECTS', 5);
 define('PROJECT_PAGE_SHOW_MAX_PAGES', 5);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
 define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
+
+define('PROJECT_SORTBY_AGE', 'age');
+define('PROJECT_SORTBY_DOWNLOADS', 'downloads');
+define('PROJECT_SORTBY_VIEWS', 'views');
+define('PROJECT_SORTBY_RANDOM', 'random');
+define('PROJECT_SORTBY_DEFAULT', PROJECT_SORTBY_AGE);
+
+define('PROJECT_LAYOUT_ROW', 1);
+define('PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE', 5);
+
 define('APP_EXTENSION','.apk');
 define('APP_QR_EXTENSION','_app_qr.png');
 
@@ -88,7 +98,7 @@ define('USER_EMAIL_SUBJECT_PREFIX','CATROID.ORG');
 define('ADMIN_EMAIL_WEBMASTER','webmaster@catroid.org');
 define('ADMIN_EMAIL_NOREPLY','noreply@catroid.org');
 define('ADMIN_EMAIL_SUBJECT_PREFIX','CATROID.ORG');
-define('ADMIN_POOTLE_ROOT_URL','http://catroidwebtest.ist.tugraz.at:8080/');
+define('ADMIN_POOTLE_ROOT_URL','http://translate.catroid.org/');
 define('CONTACT_EMAIL','webmaster@catrobat.org');
 define('USER_STATUS_STRING_ACTIVE','active');
 define('USER_STATUS_STRING_INACTIVE','inactive');

@@ -261,21 +261,53 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
 
   public function testGenerateAuthenticationToken() {
     $this->assertEquals($this->obj->generateAuthenticationToken('catroweb', 'cat.roid.web'), '31df676f845b4ce9908f7a716a7bfa50');
-  } 
+  }
+  
+  /**
+   * @dataProvider validRegistrationData
+   */
+  public function testUpdateAuthToken($postData) {
+    $newPassword = "testBlaBlub";
+    $usernameClean = utf8_clean_string(trim($postData['registrationUsername']));
+    try {
+      $this->dbConnection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
+      or die('Connection to Database failed: ' . pg_last_error());
+    
+      $this->obj->register($postData);
+    
+      $this->obj->updatePassword($postData['registrationUsername'], $newPassword);
+    
+      $query = "SELECT auth_token FROM cusers WHERE username_clean='".$usernameClean."' AND password='".md5($newPassword)."' LIMIT 1";
+      $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
+      $pg_auth_token = pg_fetch_result($result,0,0);
+    
+      $this->assertEquals(md5(md5(strtolower($postData['registrationUsername'])).":".md5($newPassword)), $pg_auth_token);
+      
+      $this->obj->undoRegister();
+    
+    } catch(Exception $e) {
+      if($this->dbConnection) {
+        pg_close($this->dbConnection);
+      }
+      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
+    }
+    pg_close($this->dbConnection);
+  }
   
   /**
    * @dataProvider validRegistrationData
    */
   public function testUpdatePassword($postData) {
-   $newPassword = "testBlaBlub";
+    $newPassword = "testBlaBlub";
+    $usernameClean = utf8_clean_string(trim($postData['registrationUsername']));
     try {
       $this->obj->register($postData);
       $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
-      
       $this->obj->updatePassword($postData['registrationUsername'], $newPassword);
       $this->obj->logout();
+      
       $this->assertFalse($this->obj->isLoggedIn());
-       
+      
       try{
         $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
       } catch (Exception $e) { 

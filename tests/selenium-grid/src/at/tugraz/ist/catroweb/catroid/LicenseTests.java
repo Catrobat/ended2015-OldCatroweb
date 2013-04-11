@@ -57,8 +57,8 @@ public class LicenseTests extends BaseTest {
       driver().findElement(By.id("_termsofuse")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent("Welcome to the Catroid community!"));
-      assertTrue(isTextPresent("As part of the Catroid community, you are sharing projects and ideas with people:"));
+      assertTrue(isTextPresent("Welcome to the Catrobat community!"));
+      assertTrue(isTextPresent("As part of the Catrobat community, you are sharing programs and ideas with people:"));
 
       // click onto licenseofuploadedprojects link
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[3]/li[4]/a[1]"));
@@ -71,7 +71,7 @@ public class LicenseTests extends BaseTest {
       closePopUp();
 
       clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[4]/li[3]/a[2]"));
-      assertRegExp(".*Catrobat/Catroid · GitHub.*", driver().getTitle());
+      assertRegExp(".*Catrobat.*", driver().getTitle());
       closePopUp();
 
       // click onto termsofservice link
@@ -80,12 +80,7 @@ public class LicenseTests extends BaseTest {
       closePopUp();
 
       assertTrue(driver().findElement(By.xpath("//p[@class='licenseText'][7]/a")).getAttribute("href")
-          .contains("mailto:webmaster@catroid.org?subject=Terms%20of%20Use"));
-
-      // click onto catroid link
-      driver().findElement(By.xpath("//p[@class='licenseText'][9]/a")).click();
-      ajaxWait();
-      assertTrue(isTextPresent("Newest Projects"));
+          .contains("mailto:webmaster@catrobat.org?subject=Terms%20of%20Use"));
     } catch(AssertionError e) {
       captureScreen("LicenseTests.termsOfUse");
       throw e;
