@@ -38,9 +38,8 @@
   <string name="language">Language</string>
 
   <string name="my_projects">My Projects</string>
-  <string name="change_my_password">change my password</string>
-  <string name="old_password">my old password</string>
-  <string name="new_password">my new password</string>
+  <string name="old_password">Change password</string>
+  <string name="new_password">Repeat password</string>
   <string name="save_button">save my changes</string>
   <string name="enter_city">my hometown</string>
   <string name="male">male</string>

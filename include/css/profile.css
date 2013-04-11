@@ -20,163 +20,84 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-#wrapper article header{
-  border-top: 1px solid #477889;
-  background-color: #00475d;
-  font-size: 1.8em;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em;
-  text-shadow: #000000 1px 1px 1px;
-  text-align: center;
-}
-#wrapper article div.profileItem {
-  /*background-color: #74b1c6;
-  border-top-left-radius: 0.125em;
-  border-bottom-left-radius: 0.125em;
-  padding-left: 0.1875em;
-  background-image: linear-gradient(top, #93c4d7, #74b0c7);
-  background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
-  background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);*/
+
+#wrapper article div.left{
+  float: left;
+  width: 20em;
 }
 
+#wrapper article div.middle{
+  float: left;
+  width: 20em;
+  margin-left: 2em;
+}
+
+#wrapper article div.right{
+  float: left;
+  width: 20em;
+  margin-left: 2em;
+}
+
+#wrapper article div.left img{
+  border: 5px solid #FFFFFF;
+  width: 19em;
+  display: block; 
+  margin-left: auto; 
+  margin-right: auto;
+}
+
+#wrapper article div.profileItem{
+ -mox-box-shadow: inset 2px 2px 5px #05222a;
+ -webkit-box-shadow: inset 2px 5px 5px #05222a;
+ box-shadow: inset 2px 2px 5px #05222a;
+ width: 18em;
+ border: 2px solid #05222a;
+ padding: 0.5em;
+ background-color: #FFFFFF;
+ margin-bottom: 1em;
+}
+
+#wrapper article div.profileItem img{
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #FFFFFF;
+  float: right;
+}
 
 #wrapper article div.profileItem input {
-  border: 0;
-  background-color: #c8e3ee;
+  background-color: #FFFFFF;
   border-radius: 0.125em;
-  padding: 0.5em;
   color: #000000;
-  margin: 0.3125em 0.125em 0.3125em 0.125em;
+  height: 1.5em;
+  width: 15em;
+  border: 0;
+  margin-left: 0.2em;
 }
 
-#wrapper article div {
-  display: table-cell;
-  white-space: nowrap;
-}
-
-/* div.profileMain {
-  margin-left: 2.5%;
-  margin-right: 2.5%;
-}
-
-div.profileFormContainer {
-  padding: 1.5%; 
-  padding-left: 4%;
-  padding-right: 4%;  
-  font-size:1.3em;
-}
-
-#profilePasswordInput {
-  padding-bottom: 20px;
-  display:none;
-}
-
-div#profilePasswordInput .profileChangePassword {
-  display: inline-block;
-  margin:20px 0 0 0;
-  width: 300px;
-}
-
-input.profileSubmitButton {
-  color: black;
-  font-size:0.8em;
-  font-weight: bold;
-  margin: 20px 0 0 0;
-  width: 300px;
-}
-
-div.profileItem {
-  margin: 25px 0 25px 0;
-  min-height: 40px;
-}
-
-div.profileItem div {
-  float: left;
-}
-
-div.profileItem .label {
-  width: 220px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;  
-}
-
-div.profileItem .labelEmail {
-  padding: 10px 0 10px 0;
-}
-
-div.profileItem .labelInput {
-  padding: 10px 0 14px 0;
-}
-
-input.profileInput, input.profileInputSmall {
-  padding-left: 4px;
-}
-
-div.profileItem div .profileInput {
-  color: #000;
-  opacity: 1.0;
-  display:inline-block;
-  width: 453px;
-  background: none;
-}
-
-div.profileItem div .profileInputSmall {
-  color: #000;
-  opacity: 1.0;
-  display:inline-block;
-  background: none;
-}
-
-div.profileItem div .profileInputTwo {
-  color: #000;
-  opacity: 1.0;
-  display:inline-block;
-  width: 223px;
-  background: none;
-}
-
-#addEmailInput {
-  display:inline-block;
-  width:400px;  
-}
-#addEmailButton {
-  margin: 5px;
-}
-
-div.menuColumnLabels {
-   float: left;
-   width: 20%;
-   font-weight: bold;
-}
-
-div.menuColumnLabels div {
-  padding:15px 10px 15px 0;
-  min-height:40px;
-  white-space: nowrap;
+#wrapper article div.profileSelect{
+  -mox-box-shadow: inset 2px 2px 5px #05222a;
+  -webkit-box-shadow: inset 2px 5px 5px #05222a;
+  box-shadow: inset 2px 2px 5px #05222a;
+  width: 18em;
+  border: 2px solid #05222a;
+  padding: 0.5em;
+  background-color: #FFFFFF;
+  margin-bottom: 1em;
   overflow: hidden;
 }
 
-div.menuColumnContent div {
-  padding:15px 10px 15px 0;
-  min-height:40px;
-  white-space: nowrap;
-  overflow: hidden;
+#wrapper article div.profileSelect select {
+  background-color: #FFFFFF;
+  border-radius: 0.125em;
+  color: #000000;
+  height: 1.5em;
+  width: 19.5em;
+  border: 0;
+  margin-left: 0.2em;
+  
 }
 
-div.avatarContainer {
-  float: right;
-  white-space: nowrap;
-  text-align: center;
-}
 
-img.avatar {
-  border: 2px solid #777;
-  border-radius: 5px;
-  margin-top: 20px;
-}
 
-#profileChangeAvatar {
-  display: none;
-} */
+
+
