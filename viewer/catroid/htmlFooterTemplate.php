@@ -64,6 +64,7 @@
         $(document).ready(function() {
           new Footer();
           new LanguageHandler();
+          new Search('lala');
         });
       </script>
       

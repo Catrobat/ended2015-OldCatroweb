@@ -37,7 +37,9 @@
             </div>
 
             <div class="largeSearchBarMiddle">
-             <input type="search" placeholder="Projekt suchen..." />
+              <form id="largeSearchForm" action="<?php echo BASE_PATH; ?>catroid/search">
+                <input name="search" type="search" placeholder="Projekt suchen..." />
+              </form>
             </div>
             
             <div class="largeSearchBarRight">
@@ -53,7 +55,9 @@
             </div>
 
             <div id="smallSearchBar">
-              <input type="search" placeholder="Projekt suchen..." />
+              <form id="smallSearchForm" action="<?php echo BASE_PATH; ?>catroid/search">
+                <input name="search" type="search" placeholder="Projekt suchen..." />
+              </form>
             </div>
 
             <div>

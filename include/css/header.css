@@ -100,7 +100,7 @@
   background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
 }
 
-#wrapper header nav div img {
+#wrapper header nav div#smallMenu img {
   background-color:#74b1c6;
   border-radius: 0.125em;
   cursor: pointer;

@@ -75,6 +75,7 @@ var ProjectLoader = Class.$extend({
       },
       timeout : (this.ajaxTimeout),
       success : function(result) {
+        console.log(result);
         if(result != ""){
           self.cbOnSuccess.call(this, result);
           self.ajaxResult = result;

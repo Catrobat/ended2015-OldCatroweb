@@ -47,14 +47,14 @@ class loadProjects extends CoreAuthenticationNone {
       $this->ajax = true;
 
       if(isset($_REQUEST['method'])) {
-        $this->pageNr = intval($_REQUEST['method']) - 1;
+        $this->pageNr = max(0, intval($_REQUEST['method']) - 1);
       }
 
       $limit = intval((isset($_REQUEST['numProjectsPerPage']))? $_REQUEST['numProjectsPerPage'] : PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE);
       $offset = 0;
 
       if(isset($_REQUEST['page'])) {
-        $this->pageNr = intval($_REQUEST['page']) - 1;
+        $this->pageNr = max(0, intval($_REQUEST['page']) - 1);
         $offset = max(0,($this->pageNr)*$limit);
       }
 
