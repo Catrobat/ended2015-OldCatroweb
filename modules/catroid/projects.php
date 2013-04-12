@@ -28,7 +28,7 @@ class projects extends CoreAuthenticationNone {
     parent::__construct();
     $this->addCss('projectList.css');
     $this->addCss('projects.css');
-    $this->addJs('commonFunctions.js');
+    //$this->addJs('commonFunctions.js'); 
     $this->addJs('projectLoader.js');
     $this->addJs('projectContentFiller.js');
     $this->addJs('projectObject.js');
@@ -57,12 +57,14 @@ class projects extends CoreAuthenticationNone {
         $this->session->pageNr = $this->numberOfPages;
       }
     }
+    
+    //TODO not sure if necessary => no functionality
     if(isset($_SERVER['HTTP_REFERER']) && !$this->session->referer) {
       $this->session->referer = $_SERVER['HTTP_REFERER'];
     }
     if(isset($_SERVER['HTTP_REFERER']) && $this->session->referer != $_SERVER['HTTP_REFERER']) {
       $this->session->referer = $_SERVER['HTTP_REFERER'];
-      $this->session->task = "newestProjects";
+      $this->session->task = "newestProjects"; //TODO unused?
     }
     
     if($_REQUEST['sort']) {
@@ -98,17 +100,17 @@ class projects extends CoreAuthenticationNone {
                            );
     
     $params['config'] = array('PROJECT_LAYOUT_ROW' => PROJECT_LAYOUT_ROW,
-                              'PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE' => PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
-                              'PROJECT_LAYOUT_COLUMN' => 2,
-                              'PROJECT_LAYOUT_COLUMN_PROJECTS_PER_ROW' => 5,
+                              'PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE' => PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,  //TODO unused?
+                              'PROJECT_LAYOUT_COLUMN' => 2,  //TODO unused?
+                              'PROJECT_LAYOUT_COLUMN_PROJECTS_PER_ROW' => 5,  //TODO unused?
                               'sortby' => array('age' => PROJECT_SORTBY_AGE,
                                                 'downloads' => PROJECT_SORTBY_DOWNLOADS,
                                                 'views' => PROJECT_SORTBY_VIEWS,
                                                 'random' => PROJECT_SORTBY_RANDOM)
                              );
-    $params['userNickname'] = $this->session->userLogin_userNickname;
-    $filter =  pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($_REQUEST['search'])));
-    $filter = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $filter);
+    $params['userNickname'] = $this->session->userLogin_userNickname; //TODO unused?
+    $filter =  pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($_REQUEST['search']))); //TODO unused?
+    $filter = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $filter); //TODO unused?
     
     $this->links = array(
         array('title' => 'downloads', 'url' => BASE_PATH.'catroid/projects/?sort=downloads', 'image' => BASE_PATH.'images/symbols/arrow_down1.png', 'style' => ($this->session->sort == PROJECT_SORTBY_DOWNLOADS)? 'sortLinkActive' : ''),

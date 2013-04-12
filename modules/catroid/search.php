@@ -36,20 +36,20 @@ class search extends CoreAuthenticationNone {
   }
 
   public function __default() {
-    $this->setWebsiteTitle("search");
+    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE);
 
     $params = array();
     $params['numProjectsPerPage'] = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-    $params['pageNr'] = 1;
+    $params['pageNr'] = intval($_REQUEST['p']);
     $params['pageNrMax'] = $this->numberOfPages;
     $params['layout'] = PROJECT_LAYOUT_ROW;
     $params['container'] = '#searchResultContainer';
     
     $params['sort'] = $this->session->sort;
-    $params['filter'] = array('searchQuery' => $_REQUEST['method'],
+    $params['filter'] = array('searchQuery' => $_REQUEST['q'],
         'author'        => '');
     
-    $_REQUEST['searchQuery'] = $_REQUEST['method'];
+    $_REQUEST['searchQuery'] = $_REQUEST['q'];
     $params['firstPage'] = $this->loadProjects->retrieveProjectsAsArray();
     $params['page'] = array('number'             => intVal($this->session->pageNr),
         'numProjectsPerPage' => PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
@@ -57,15 +57,11 @@ class search extends CoreAuthenticationNone {
     );
     
     $params['config'] = array('PROJECT_LAYOUT_ROW' => PROJECT_LAYOUT_ROW,
-        'PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE' => PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
-        'PROJECT_LAYOUT_COLUMN' => 2,
-        'PROJECT_LAYOUT_COLUMN_PROJECTS_PER_ROW' => 5,
         'sortby' => array('age' => PROJECT_SORTBY_AGE,
             'downloads' => PROJECT_SORTBY_DOWNLOADS,
             'views' => PROJECT_SORTBY_VIEWS,
             'random' => PROJECT_SORTBY_RANDOM)
     );
-    $params['userNickname'] = $this->session->userLogin_userNickname;
     
     $this->jsParams = "'" . json_encode($params) . "'";
   }

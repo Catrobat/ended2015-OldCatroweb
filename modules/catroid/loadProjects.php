@@ -24,7 +24,7 @@
 
 class loadProjects extends CoreAuthenticationNone {
   protected $pageNr = 0;
-  protected $ajax = false;
+  protected $ajax = false; //TODO unused?
 
   public function __construct() {
     parent::__construct();
@@ -40,7 +40,7 @@ class loadProjects extends CoreAuthenticationNone {
   }
 
   public function __default() {
-    $this->statusCode = STATUS_CODE_OK;
+    $this->statusCode = STATUS_CODE_OK; //TODO status code is always ok?
 
     if(isset($_REQUEST)) {
       $this->ajax = true;
@@ -89,7 +89,8 @@ class loadProjects extends CoreAuthenticationNone {
       }        
       
       $this->content = $this->getProjects($sortby, $limit, $offset, $filter);
-      $this->buttons = array("prevButton" => ($this->pageNr == 0)? false : true, "nextButton" => (count($this->content) == PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE)? true : false);
+      $this->buttons = array("prevButton" => ($this->pageNr == 0)? false : true, 
+          "nextButton" => (count($this->content) == PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE)? true : false);
 
       $pageLabels['websitetitle'] = SITE_DEFAULT_TITLE;
       $pageLabels['pageNr'] = $this->languageHandler->getString('page_number',  intVal($this->session->pageNr + 1 ));
@@ -137,6 +138,8 @@ class loadProjects extends CoreAuthenticationNone {
   }
 
   private function retrieveProjectsFromDatabase($sql, $limit, $offset = 0, $filter = "") {
+    
+    //TODO filter does not support multiple keywords
     if($filter != "") {
       $searchQuery =  $this->escapeUserInput($filter['searchQuery']); 
       $author =  $this->escapeUserInput($filter['author']); 

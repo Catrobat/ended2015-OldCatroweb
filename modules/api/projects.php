@@ -83,8 +83,9 @@ class projects extends CoreAuthenticationNone {
     
     foreach($searchTerms as $term) {
       if ($term != "") {
-        $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$".$keywordsCount;
-        $searchQuery .= " OR description ILIKE \$".$keywordsCount;
+        $searchQuery .= (($searchQuery=="")?"":" OR " )."title ILIKE \$" . $keywordsCount;
+        $searchQuery .= " OR description ILIKE \$" . $keywordsCount;
+        $searchQuery .= " OR username ILIKE \$" . $keywordsCount;
         $searchTerm = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($term)));
         $searchTerm = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $searchTerm);
         array_push($searchRequest, "%".$searchTerm."%");

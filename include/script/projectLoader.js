@@ -66,9 +66,9 @@ var ProjectLoader = Class.$extend({
     var self = this;
     $.ajax({
       url : self.basePath + "catroid/loadProjects/" + pageNr + ".json",
-      type : "POST",
+      type : "POST", //TODO use GET requests to get cachable responses
       data : {
-        task : self.params.task,
+        task : self.params.task, //TODO unsued?
         page : pageNr,
         numProjectsPerPage : self.params.page.numProjectsPerPage,
         searchQuery: self.params.filter.searchQuery,
@@ -77,7 +77,6 @@ var ProjectLoader = Class.$extend({
       },
       timeout : (this.ajaxTimeout),
       success : function(result) {
-        console.log(result);
         if(result != ""){
           self.cbOnSuccess.call(this, result);
           self.ajaxResult = result;
@@ -91,5 +90,5 @@ var ProjectLoader = Class.$extend({
         self.cbOnError.call(this, result, errCode);
       }
     });
-  },
+  }
 });
