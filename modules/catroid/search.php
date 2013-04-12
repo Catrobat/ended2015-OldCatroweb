@@ -46,10 +46,10 @@ class search extends CoreAuthenticationNone {
     $params['container'] = '#searchResultContainer';
     
     $params['sort'] = $this->session->sort;
-    $params['filter'] = array('searchQuery' => $_REQUEST['search'],
+    $params['filter'] = array('searchQuery' => $_REQUEST['method'],
         'author'        => '');
     
-    $_REQUEST['searchQuery'] = $_REQUEST['search'];
+    $_REQUEST['searchQuery'] = $_REQUEST['method'];
     $params['firstPage'] = $this->loadProjects->retrieveProjectsAsArray();
     $params['page'] = array('number'             => intVal($this->session->pageNr),
         'numProjectsPerPage' => PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
@@ -66,8 +66,6 @@ class search extends CoreAuthenticationNone {
             'random' => PROJECT_SORTBY_RANDOM)
     );
     $params['userNickname'] = $this->session->userLogin_userNickname;
-    $filter =  pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($_REQUEST['search'])));
-    $filter = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $filter);
     
     $this->jsParams = "'" . json_encode($params) . "'";
   }

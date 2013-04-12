@@ -48,7 +48,7 @@ var SearchBar = Class.$extend( {
         this.largeSearchBox.blur();
         this.smallSearchBox.blur();
       } else {
-        location.href = this.basePath + 'catroid/search/?search=' + event.target.value;
+        location.href = this.basePath + 'catroid/search/' + event.target.value;
       }
     }
     event.preventDefault();
