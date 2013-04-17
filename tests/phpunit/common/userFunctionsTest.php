@@ -133,7 +133,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
 
   public function testCheckLoginData() {
     $this->assertFalse($this->obj->checkLoginData("", ""));
-    $this->assertTrue($this->obj->checkLoginData("catroweb", md5("cat.roid.web")));
+    $this->assertTrue($this->obj->checkLoginData("catroweb", $this->obj->hashPassword("catroweb", "cat.roid.web")));
   }
 
   /**
@@ -191,8 +191,15 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
     $this->obj->register($postData);
     
     $this->assertFalse($this->obj->isLoggedIn());
-    $_REQUEST['token'] = $this->obj->generateAuthenticationToken($postData['registrationUsername'], $postData['registrationPassword']);
 
+    $usernameClean = utf8_clean_string(trim($postData['registrationUsername']));
+    $result = pg_execute($this->obj->dbConnection, "get_user_token", array($usernameClean));
+    if($result) {
+      $row = pg_fetch_array($result);
+      $_REQUEST['token'] = $row['auth_token'];
+      pg_free_result($result);
+    }
+    
     $this->obj->tokenAuthentication();
     $this->assertTrue($this->obj->isLoggedIn());
   }
@@ -203,7 +210,8 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
   public function testLoginLogout($postData) {
     try {
       $this->obj->register($postData);
-      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
+      $token = $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
+      $this->assertNotEquals('-1', $token);
 
       $this->assertGreaterThan(0, intval($this->obj->session->userLogin_userId));
       $this->assertEquals($postData['registrationUsername'], $this->obj->session->userLogin_userNickname);
@@ -259,10 +267,6 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
     }
   }
 
-  public function testGenerateAuthenticationToken() {
-    $this->assertEquals($this->obj->generateAuthenticationToken('catroweb', 'cat.roid.web'), '31df676f845b4ce9908f7a716a7bfa50');
-  }
-  
   /**
    * @dataProvider validRegistrationData
    */
@@ -270,28 +274,32 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
     $newPassword = "testBlaBlub";
     $usernameClean = utf8_clean_string(trim($postData['registrationUsername']));
     try {
-      $this->dbConnection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)
-      or die('Connection to Database failed: ' . pg_last_error());
-    
       $this->obj->register($postData);
     
+      $pgAuthTokenBefore = '';
+      $result = pg_execute($this->obj->dbConnection, "get_user_token", array($usernameClean));
+      if($result) {
+        $row = pg_fetch_array($result);
+        $pgAuthTokenBefore = $row['auth_token'];
+        pg_free_result($result);
+      }
+
       $this->obj->updatePassword($postData['registrationUsername'], $newPassword);
+
+      $pgAuthTokenAfter = '';
+      $result = pg_execute($this->obj->dbConnection, "get_user_token", array($usernameClean));
+      if($result) {
+        $row = pg_fetch_array($result);
+        $pgAuthTokenAfter = $row['auth_token'];
+        pg_free_result($result);
+      }
     
-      $query = "SELECT auth_token FROM cusers WHERE username_clean='".$usernameClean."' AND password='".md5($newPassword)."' LIMIT 1";
-      $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-      $pg_auth_token = pg_fetch_result($result,0,0);
-    
-      $this->assertEquals(md5(md5(strtolower($postData['registrationUsername'])).":".md5($newPassword)), $pg_auth_token);
+      $this->assertNotEquals($pgAuthTokenBefore, $pgAuthTokenAfter);
       
       $this->obj->undoRegister();
-    
     } catch(Exception $e) {
-      if($this->dbConnection) {
-        pg_close($this->dbConnection);
-      }
       $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
     }
-    pg_close($this->dbConnection);
   }
   
   /**

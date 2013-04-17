@@ -46,7 +46,7 @@ class loginOrRegister extends CoreAuthenticationNone {
                 STATUS_CODE_LOGIN_MISSING_PASSWORD);
           }
         
-          $this->userFunctions->login($username, $_POST['registrationPassword']);
+          $this->token = $this->userFunctions->login($username, $_POST['registrationPassword']);
         
           if($this->requestFromBlockedIp()) {
             throw new Exception($this->errorHandler->getError('viewer', 'ip_is_blocked'),
@@ -66,7 +66,7 @@ class loginOrRegister extends CoreAuthenticationNone {
       } else {
         try {
           $this->userFunctions->register($_POST);
-          $this->userFunctions->login($_POST['registrationUsername'], $_POST['registrationPassword']);
+          $this->token = $this->userFunctions->login($_POST['registrationUsername'], $_POST['registrationPassword']);
         
           $this->statusCode = STATUS_CODE_REGISTRATION_OK;
           $this->answer = $this->languageHandler->getString('registration_success');

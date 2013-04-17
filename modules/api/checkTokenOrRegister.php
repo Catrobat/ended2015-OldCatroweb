@@ -40,7 +40,7 @@ class checkTokenOrRegister extends CoreAuthenticationDevice {
       } else {
         try {
           $this->userFunctions->register($_POST);
-          $this->userFunctions->login($_POST['registrationUsername'], $_POST['registrationPassword']);
+          $this->token = $this->userFunctions->login($_POST['registrationUsername'], $_POST['registrationPassword']);
         
           $this->statusCode = STATUS_CODE_REGISTRATION_OK;
           $this->answer = $this->languageHandler->getString('registration_success');

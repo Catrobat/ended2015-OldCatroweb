@@ -394,10 +394,6 @@ function unzipFile($zipFile, $destDir) {
         return true;
       }
     }
-  } else {
-    if(system("unzip -qq $zipFile -d $destDir 2>&1") == "") {
-      return true;
-    }
   }
   return false;
 }
