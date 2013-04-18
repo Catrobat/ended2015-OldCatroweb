@@ -196,6 +196,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
     $result = pg_execute($this->obj->dbConnection, "get_user_token", array($usernameClean));
     if($result) {
       $row = pg_fetch_array($result);
+      $_REQUEST['username'] = $postData['registrationUsername'];
       $_REQUEST['token'] = $row['auth_token'];
       pg_free_result($result);
     }
@@ -293,7 +294,8 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
         $pgAuthTokenAfter = $row['auth_token'];
         pg_free_result($result);
       }
-    
+
+      $this->assertEquals(32, strlen($pgAuthTokenAfter));
       $this->assertNotEquals($pgAuthTokenBefore, $pgAuthTokenAfter);
       
       $this->obj->undoRegister();

@@ -234,7 +234,7 @@ public class MenuTests extends BaseTest {
   @DataProvider(name = "searchButtonOnDetail")
   public Object[][] searchButtonOnDetail() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test-0.6.0beta.catrobat", "2df998d544a075946d36072fd083ffef", "", "", "0") }
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test-0.6.0beta.catrobat", "2df998d544a075946d36072fd083ffef", "", "", "", "") }
          };
     return returnArray;
   }  

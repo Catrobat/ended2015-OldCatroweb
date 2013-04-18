@@ -259,9 +259,10 @@ class userFunctions extends CoreAuthenticationNone {
       return true;
     }
     
-    if(isset($_REQUEST['token']) && strlen(strval($_REQUEST['token'])) > 0) {
+    if(isset($_REQUEST['token']) && isset($_REQUEST['username']) && strlen(strval($_REQUEST['token'])) > 0 && strlen(strval($_REQUEST['username'])) > 0) {
       $authToken = strval($_REQUEST['token']);
-      $result = pg_execute($this->dbConnection, "get_user_device_login", array($authToken));
+      $cleanUsername = $this->cleanUsername(strval($_REQUEST['username']));
+      $result = pg_execute($this->dbConnection, "get_user_device_login", array($cleanUsername, $authToken));
        
       if($result && pg_num_rows($result) > 0) {
         $data = pg_fetch_assoc($result);
@@ -279,13 +280,14 @@ class userFunctions extends CoreAuthenticationNone {
     return false;
   }
   
-  public function hashPassword($username, $password) {
-    $result = pg_execute($this->dbConnection, "get_user_salt", array($this->cleanUsername($username)));
-    $salt = "";
-    if($result) {
-      $row = pg_fetch_assoc($result);
-      $salt = $row['salt'];
-      pg_free_result($result);
+  public function hashPassword($username, $password, $salt='') {
+    if(strlen($salt) == 0) {
+      $result = pg_execute($this->dbConnection, "get_user_salt", array($this->cleanUsername($username)));
+      if($result) {
+        $row = pg_fetch_assoc($result);
+        $salt = $row['salt'];
+        pg_free_result($result);
+      }
     }
 
     return sha1($salt . $password);
@@ -508,8 +510,8 @@ class userFunctions extends CoreAuthenticationNone {
     $username = checkUserInput($postData['registrationUsername']);
     $usernameClean = $this->cleanUsername($username);
 
-    $salt = substr(base64_encode(mcrypt_create_iv(8, MCRYPT_DEV_URANDOM)), 0, 8);
-    $hashedPassword = sha1($salt . $postData['registrationPassword']);
+    $salt = $this->randomString(8);
+    $hashedPassword = $this->hashPassword($postData['registrationUsername'], $postData['registrationPassword'], $salt);
     $authToken = $this->generateAuthenticationToken();
 
     $email = checkUserInput($postData['registrationEmail']);
@@ -608,16 +610,16 @@ class userFunctions extends CoreAuthenticationNone {
   }
   
   public function generateAuthenticationToken() {
-    $authToken = substr(base64_encode(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM)), 0, 32);
+    $authToken = $this->randomString(32);
 
     $unique = false;
     while(!$unique) {
-      $result = pg_execute($this->dbConnection, "get_user_device_login", array($authToken));
+      $result = pg_execute($this->dbConnection, "get_user_device_login", array('%', $authToken));
       if($result) {
         if(pg_num_rows($result) == 0) {
           $unique = true;
         } else {
-          $authToken = substr(base64_encode(mcrypt_create_iv(32, MCRYPT_DEV_URANDOM)), 0, 32);
+          $authToken = $this->randomString(32);
         }
         pg_free_result($result);
       }
@@ -783,8 +785,8 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   private function updateCatroidPassword($username, $password) {
-    $salt = substr(base64_encode(mcrypt_create_iv(8, MCRYPT_DEV_URANDOM)), 0, 8);
-    $hashedPassword = sha1($salt . $password);
+    $salt = $this->randomString(8);
+    $hashedPassword = $this->hashPassword($username, $password, $salt);
     $authToken = $this->generateAuthenticationToken();
     
     $result = pg_execute($this->dbConnection, "update_password_by_username", array($hashedPassword, $username, $authToken, $salt));
@@ -1206,6 +1208,10 @@ class userFunctions extends CoreAuthenticationNone {
   private function cleanUsername($username) {
     $username_clean = utf8_clean_string(trim($username));
     return $username_clean;
+  }
+  
+  private function randomString($length=8) {
+    return substr(base64_encode(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM)), 0, $length);
   }
   
   public function __destruct() {

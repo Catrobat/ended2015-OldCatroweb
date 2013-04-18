@@ -44,7 +44,7 @@ public class ReportAsInappropriateTests extends BaseTest {
       Random rand = new Random();
       String projectTitle = "Testproject_for_report_as_inappropriate_" + rand.nextInt(9999);
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), "", "", "", "",
-          dataset.get("token")));
+          dataset.get("username"), dataset.get("token")));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
@@ -75,60 +75,6 @@ public class ReportAsInappropriateTests extends BaseTest {
     }
   }
 
-  @Test(dataProvider = "loginDataAndReportOwnProjectAnonymous", groups = { "functionality", "upload" }, description = "report own project as inappropriate anonymously")
-  public void reportAnonymousProjectAsInappropriate(HashMap<String, String> dataset) throws Throwable {
-    try {
-      // upload project
-      Random rand = new Random();
-      String projectTitle = "Testproject_for_report_as_inappropriate_(anonymous user)_" + rand.nextInt(9999);
-      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, dataset.get("projectDescription"), "", "", "", "",
-          dataset.get("token")));
-      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
-      String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
-
-      assertProjectPresent(projectTitle);
-
-      // goto details page
-      openLocation("catroid/details/" + projectId);
-      driver().findElement(By.id("headerProfileButton")).click();
-      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
-      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
-      driver().findElement(By.id("loginSubmitButton")).click();
-      ajaxWait();
-
-      assertTrue(isTextPresent(projectTitle));
-      assertTrue(isTextPresent(dataset.get("projectDescription")));
-
-      // report as inappropriate
-      assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
-      driver().findElement(By.id("reportAsInappropriateButton")).click();
-
-      assertTrue(isVisible(By.id("reportInappropriateReason")));
-      assertTrue(isVisible(By.id("reportInappropriateReportButton")));
-      assertTrue(isVisible(By.id("reportInappropriateCancelButton")));
-
-      driver().findElement(By.id("reportInappropriateReason")).sendKeys("my selenium reason");
-      driver().findElement(By.id("reportInappropriateReportButton")).click();
-      ajaxWait();
-
-      assertFalse(isVisible(By.id("reportInappropriateReason")));
-      assertTrue(isTextPresent("You reported this project as inappropriate!"));
-
-      // project is hidden
-      assertProjectNotPresent(projectTitle);
-    } catch(AssertionError e) {
-      captureScreen("ReportAsInappropriateTests.testReportAnonymousProjectAsInappropriate");
-      throw e;
-    } catch(Exception e) {
-      captureScreen("ReportAsInappropriateTests.testReportAnonymousProjectAsInappropriate");
-      throw e;
-    }
-  }
-
-  private String createToken(String username, String password) {
-    return CommonFunctions.md5(CommonFunctions.md5(username.toLowerCase()) + ":" + CommonFunctions.md5(password.toLowerCase()));
-  }
-
   @SuppressWarnings("serial")
   @DataProvider(name = "loginDataAndReportOwnProject")
   public Object[][] loginDataAndReportOwnProject() {
@@ -137,19 +83,7 @@ public class ReportAsInappropriateTests extends BaseTest {
         put("projectDescription", "some description for my test project connected to my user id after registration and login at catroid.org.");
         put("username", CommonData.getLoginUserDefault());
         put("password", CommonData.getLoginPasswordDefault());
-        put("token", createToken(CommonData.getLoginUserDefault(), CommonData.getLoginPasswordDefault()));
-      }
-    } } };
-    return dataArray;
-  }
-
-  @SuppressWarnings("serial")
-  @DataProvider(name = "loginDataAndReportOwnProjectAnonymous")
-  public Object[][] loginDataAndReportOwnProjectAnonymous() {
-    Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
-      {
-        put("projectDescription", "some description for my test project connected to anonymous user id (0) after registration and login at catroid.org.");
-        put("token", "0");
+        put("token", CommonFunctions.getAuthenticationToken(CommonData.getLoginUserDefault()));
       }
     } } };
     return dataArray;

@@ -460,7 +460,7 @@ public class DetailsTests extends BaseTest {
             .getUploadPayload(
                 "This is a very old project.",
                 "The user is not allowed to download this project any more.",
-                "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0") } };
+                "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "", "") } };
     return returnArray;
   }
   
@@ -471,20 +471,20 @@ public class DetailsTests extends BaseTest {
           .getUploadPayload(
               "more button selenium test",
               "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!",
-              "", "", "", "", "0") },
+              "", "", "", "", "", "") },
               { CommonData
                 .getUploadPayload(
                     "more button special chars test",
                     "This is a description which has special chars like \", & or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with \"special chars\" and should have more characters than defined by the threshold in config.php. Thats it!",
-                    "", "", "", "", "0") }, };
+                    "", "", "", "", "", "") }, };
     return returnArray;
   }
 
   @DataProvider(name = "detailsProject")
   public Object[][] detailsProject() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("details_test1small", "details_test_description", "", "", "", "", "0") },
-        { CommonData.getUploadPayload("details_test2big", "details_test_description", "", "", "", "", "0") }, };
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "", "", "", "", "catroid", "dbfbd45e6a9f05e3250d027448faf78") },
+        { CommonData.getUploadPayload("details_test2big", "details_test_description", "", "", "", "", "catroid", "dbfbd45e6a9f05e3250d027448faf78") }, };
     return returnArray;
   }
 }

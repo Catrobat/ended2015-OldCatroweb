@@ -15,7 +15,7 @@ fi
 
 echo ""
 echo " # check and install necessary packages..."
-apt-get --assume-yes install ant ant-contrib apache2 cloc graphviz imagemagick libjpeg-progs linkchecker openjdk-7-jdk openjdk-7-jre-headless optipng php5 php5-gd php5-curl php-pear postgresql-9.1 postgresql-autodoc phppgadmin python-paramiko qrencode
+apt-get --assume-yes install ant ant-contrib apache2 cloc graphviz imagemagick libjpeg-progs linkchecker openjdk-7-jdk openjdk-7-jre-headless optipng php5 php5-gd php5-curl php5-mcrypt php-pear postgresql-9.1 postgresql-autodoc phppgadmin python-paramiko qrencode
 
 pear channel-discover pear.phpunit.de
 pear channel-discover components.ez.no

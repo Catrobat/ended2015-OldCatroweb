@@ -135,11 +135,7 @@ public class AdminTests extends BaseTest {
   @Test(groups = { "functionality", "upload", "popupwindows" }, description = "check report as inappropriate functionality")
   public void inappropriateProjects() throws Throwable {
     try {
-      String title = "Testproject " + CommonData.getRandomLongString(200);
-      String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "0"));
-      String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
-
-      openLocation("catroid/details/" + id);
+      openLocation("catroid/details/1");
       driver().findElement(By.id("headerProfileButton")).click();
       driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
       driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
@@ -153,16 +149,16 @@ public class AdminTests extends BaseTest {
       ajaxWait();
       assertTrue(isTextPresent("You reported this project as inappropriate!"));
       openAdminLocation("/tools/inappropriateProjects");
-      assertTrue(isTextPresent(id));
+      assertTrue(isTextPresent("1"));
 
-      clickAndWaitForPopUp(By.xpath("//a[@id='detailsLink" + id + "']"));
-      assertTrue(isTextPresent(title));
+      clickAndWaitForPopUp(By.xpath("//a[@id='detailsLink1']"));
+      assertTrue(isTextPresent("testproject"));
       closePopUp();
 
       clickOkOnNextConfirmationBox();
-      driver().findElement(By.id("resolve" + id)).click();
+      driver().findElement(By.id("resolve1")).click();
       assertTrue(isTextPresent("The project was succesfully restored and set to visible!"));
-      assertFalse(isTextPresent(id));
+      assertFalse(isTextPresent("1"));
     } catch(AssertionError e) {
       captureScreen("AdminTests.inappropriateProjects");
       throw e;

@@ -88,6 +88,7 @@ public class ProjectUploader {
       reqEntity.addPart("fileChecksum", new StringBody(verifiedPayload.get("fileChecksum"), utf8));
       reqEntity.addPart("userEmail", new StringBody(verifiedPayload.get("userEmail"), utf8));
       reqEntity.addPart("userLanguage", new StringBody(verifiedPayload.get("userLanguage"), utf8));
+      reqEntity.addPart("username", new StringBody(verifiedPayload.get("username"), utf8));
       reqEntity.addPart("token", new StringBody(verifiedPayload.get("token"), utf8));
 
       HttpPost httppost = new HttpPost(this.webSite + Config.TESTS_BASE_PATH.substring(1) + "api/upload/upload.json");
@@ -182,6 +183,12 @@ public class ProjectUploader {
     }
     data.put("userLanguage", userLanguage);
 
+    String username = CommonData.getLoginUserDefault();
+    if(payload.containsKey("username")) {
+      username = payload.get("username");
+    }
+    data.put("username", username);
+    
     String token = Config.DEFAULT_UPLOAD_TOKEN;
     if(payload.containsKey("token")) {
       token = payload.get("token");

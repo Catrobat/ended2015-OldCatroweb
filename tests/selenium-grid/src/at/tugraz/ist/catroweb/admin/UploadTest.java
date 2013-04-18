@@ -45,7 +45,7 @@ public class UploadTest extends BaseTest {
       
       // upload a project
       String projectTitle = "testproject" + CommonData.getRandomLongString(200);
-      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       // delete project

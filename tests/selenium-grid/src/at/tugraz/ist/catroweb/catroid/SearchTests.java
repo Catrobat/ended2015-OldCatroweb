@@ -88,7 +88,7 @@ public class SearchTests extends BaseTest {
     try {
       String projectPrefix = "searchtest";
       String projectTitle = projectPrefix + specialchars;
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(200), "", "", "", "", "0"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(200), "", "", "", "", "", ""));
 
       openLocation();
       ajaxWait();
@@ -124,7 +124,7 @@ public class SearchTests extends BaseTest {
       int uploadCount = Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1);
       System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
       for(int i = 0; i < uploadCount; i++) {
-        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "", "", "", "", "0"));
+        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "", "", "", "", "", ""));
         if((i%5) == 0) {
           driver().findElement(By.id("aIndexWebLogoLeft")).click();          
         }
@@ -197,7 +197,7 @@ public class SearchTests extends BaseTest {
       String projectTitle1 = projectTitle + "_1";
       String projectTitle2 = projectTitle + "_2";
 
-      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "", "", "", "", "0"));
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
       openLocation("/catroid/search/?q=" + projectTitle + "&p=1", false);
@@ -206,7 +206,7 @@ public class SearchTests extends BaseTest {
       assertTrue(isTextPresent(projectTitle1));
       assertFalse(isTextPresent(projectTitle2));
 
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle2, "identical_search_project_2", "", "", "", "", "0"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle2, "identical_search_project_2", "", "", "", "", "", ""));
       driver().navigate().refresh();
       ajaxWait();
       driver().findElement(By.id("webHeadSearchSubmit")).click();
@@ -228,7 +228,7 @@ public class SearchTests extends BaseTest {
     try {
       
       String projectTitle = "HighLight_Project" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "identical_search_project_2", "", "", "", "", Config.DEFAULT_UPLOAD_TOKEN));
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "identical_search_project_2", "", "", "", "", CommonData.getLoginUserDefault(), Config.DEFAULT_UPLOAD_TOKEN));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
       openLocation("/catroid/search/?q=" + projectTitle + "&p=1", false);
@@ -255,7 +255,7 @@ public class SearchTests extends BaseTest {
   public void searchAndHideProject() throws Throwable {
     try {
       String projectTitle = "search_test_" + CommonData.getRandomShortString(10);
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "", "", "", "", "0"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "some search project", "", "", "", "", "", ""));
       String projectID = projectUploader.getProjectId(projectTitle);
 
       openLocation();
@@ -368,8 +368,8 @@ public class SearchTests extends BaseTest {
   public Object[][] randomProjects() {
     Object[][] returnArray = new Object[][] {
         { CommonData.getUploadPayload("search_test_long_description_" + CommonData.getRandomShortString(10),
-            "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH), "", "", "", "", "0") },
-        { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "", "", "", "", "0") }, };
+            "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH), "", "", "", "", "", "") },
+        { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "", "", "", "", "", "") }, };
     return returnArray;
   }
   
@@ -378,14 +378,10 @@ public class SearchTests extends BaseTest {
   public Object[][] searchUser() {
     Object[][] returnArray = new Object[][] {
         { CommonData.getUploadPayload("search_test_long_description_" + CommonData.getRandomShortString(10),
-            "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH), "", "", "", "", createToken(CommonData.getLoginUserDefault(), CommonData.getLoginPasswordDefault())) },
-        { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "", "", "", "", createToken(CommonData.getLoginUserDefault(), CommonData.getLoginPasswordDefault())) }, 
+            "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH), "", "", "", "", CommonData.getLoginUserDefault(), CommonFunctions.getAuthenticationToken(CommonData.getLoginUserDefault())) },
+        { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "", "", "", "", CommonData.getLoginUserDefault(), CommonFunctions.getAuthenticationToken(CommonData.getLoginUserDefault())) }, 
     };
     return returnArray;
   }
 
-  private String createToken(String username, String password) {
-    return CommonFunctions.md5(CommonFunctions.md5(username) + ":" + CommonFunctions.md5(password));
-  }
-  
 }
