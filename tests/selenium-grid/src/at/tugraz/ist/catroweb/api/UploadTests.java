@@ -122,7 +122,7 @@ public class UploadTests extends BaseTest {
       openLocation();
       ajaxWait();
       assertTrue(isElementPresent(By.id("projectListTitle")));
-      assertTrue(isTextPresent(dataset.get("projectTitle").replace("'", "''")));
+      assertTrue(isTextPresent(dataset.get("projectTitle")));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
       throw e;

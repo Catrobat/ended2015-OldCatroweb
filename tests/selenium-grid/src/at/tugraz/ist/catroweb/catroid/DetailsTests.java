@@ -483,8 +483,8 @@ public class DetailsTests extends BaseTest {
   @DataProvider(name = "detailsProject")
   public Object[][] detailsProject() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("details_test1small", "details_test_description", "", "", "", "", "catroid", "dbfbd45e6a9f05e3250d027448faf78") },
-        { CommonData.getUploadPayload("details_test2big", "details_test_description", "", "", "", "", "catroid", "dbfbd45e6a9f05e3250d027448faf78") }, };
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "", "", "", "", "catroid", CommonFunctions.getAuthenticationToken("catroid")) },
+        { CommonData.getUploadPayload("details_test2big", "details_test_description", "", "", "", "", "catroid", CommonFunctions.getAuthenticationToken("catroid")) }, };
     return returnArray;
   }
 }

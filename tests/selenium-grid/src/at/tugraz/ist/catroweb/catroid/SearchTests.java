@@ -326,7 +326,7 @@ public class SearchTests extends BaseTest {
 
       assertTrue(isVisible(By.id("headerSearchBox")));
 
-      driver().findElement(By.id("searchQuery")).sendKeys(CommonData.getLoginUserDefault());
+      driver().findElement(By.id("searchQuery")).sendKeys(dataset.get("username"));
       driver().findElement(By.id("webHeadSearchSubmit")).click();
       ajaxWait();
 
@@ -378,8 +378,8 @@ public class SearchTests extends BaseTest {
   public Object[][] searchUser() {
     Object[][] returnArray = new Object[][] {
         { CommonData.getUploadPayload("search_test_long_description_" + CommonData.getRandomShortString(10),
-            "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH), "", "", "", "", CommonData.getLoginUserDefault(), CommonFunctions.getAuthenticationToken(CommonData.getLoginUserDefault())) },
-        { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "", "", "", "", CommonData.getLoginUserDefault(), CommonFunctions.getAuthenticationToken(CommonData.getLoginUserDefault())) }, 
+            "long_description_" + CommonData.getRandomLongString(Config.PROJECT_SHORT_DESCRIPTION_MAX_LENGTH), "", "", "", "", "catroid", CommonFunctions.getAuthenticationToken("catroid")) },
+        { CommonData.getUploadPayload("search_test_" + CommonData.getRandomShortString(10), CommonData.getRandomShortString(10), "", "", "", "", "catroid", CommonFunctions.getAuthenticationToken("catroid")) }, 
     };
     return returnArray;
   }

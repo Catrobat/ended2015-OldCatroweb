@@ -392,9 +392,10 @@ function unzipFile($zipFile, $destDir) {
     $zip = new ZipArchive();
     $res = $zip->open($zipFile);
     if($res === TRUE) {
-      for($i = 0; $i < $zip->numFiles; $i++) {
+      for($i = 0, $amount = $zip->numFiles; $i < $amount; $i++) {
         $stats = $zip->statIndex($i);
         if(intval($stats['size']) > $maxFileSize) {
+          $zip->close();
           return false;
         }
       }
@@ -404,6 +405,7 @@ function unzipFile($zipFile, $destDir) {
       }
     }
   }
+  $zip->close();
   return false;
 }
 
