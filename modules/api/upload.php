@@ -227,12 +227,14 @@ class upload extends CoreAuthenticationDevice {
     }
 
     if(!$projectTitle) {
-      $projectTitle = ((isset($formData['projectTitle']) && $formData['projectTitle'] != "") ? checkUserInput($formData['projectTitle']) : "");
+      $projectTitle = pg_escape_string($projectTitle); 
+      $projectTitle = ((isset($formData['projectTitle']) && $formData['projectTitle'] != "") ? checkUserInput($formData['projectTitle']) : "");      
       if($projectTitle == "") {
         throw new Exception($this->errorHandler->getError('upload', 'missing_project_title'), STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE);
       }
     }
     if(!$projectDescription) {
+      $projectDescription = pg_escape_string($projectDescription); 
       $projectDescription = ((isset($formData['projectDescription'])) ? checkUserInput($formData['projectDescription']) : "");
     }
 
@@ -240,8 +242,8 @@ class upload extends CoreAuthenticationDevice {
     $uploadLanguage = ((isset($formData['userLanguage'])) ? checkUserInput($formData['userLanguage']) : 'en');
 
     return(array(
-        "projectTitle" => pg_escape_string($projectTitle),
-        "projectDescription" => pg_escape_string($projectDescription),
+        "projectTitle" => $projectTitle,
+        "projectDescription" => $projectDescription,
         "versionName" => $versionName,
         "versionCode" => $versionCode,
         "uploadIp" => $uploadIp,
@@ -328,7 +330,7 @@ class upload extends CoreAuthenticationDevice {
         if(!$this->saveThumbnail($thumbImage, $projectId, 0, PROJECTS_THUMBNAIL_EXTENSION_ORIG)) {
           throw new Exception($this->errorHandler->getError('upload', 'save_thumbnail_failed'), STATUS_CODE_UPLOAD_SAVE_THUMBNAIL_FAILED);
         }
-        if(!$this->saveThumbnail($thumbImage, $projectId, 240, PROJECTS_THUMBNAIL_EXTENSION_SMALL)) {
+        if(!$this->saveThumbnail($thumbImage, $projectId, 160, PROJECTS_THUMBNAIL_EXTENSION_SMALL)) {
           throw new Exception($this->errorHandler->getError('upload', 'save_thumbnail_failed'), STATUS_CODE_UPLOAD_SAVE_THUMBNAIL_FAILED);
         }
         if(!$this->saveThumbnail($thumbImage, $projectId, 480, PROJECTS_THUMBNAIL_EXTENSION_LARGE)) {
