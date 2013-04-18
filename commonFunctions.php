@@ -387,9 +387,17 @@ function chmodDir($dir, $filemode, $dirmode) {
 }
 
 function unzipFile($zipFile, $destDir) {
+  $maxFileSize = intval(PROJECTS_MAX_SIZE / 3);
   if(class_exists('ZipArchive')) {
     $zip = new ZipArchive();
-    if($zip->open($zipFile) === TRUE) {
+    $res = $zip->open($zipFile);
+    if($res === TRUE) {
+      for($i = 0; $i < $zip->numFiles; $i++) {
+        $stats = $zip->statIndex($i);
+        if(intval($stats['size']) > $maxFileSize) {
+          return false;
+        }
+      }
       if($zip->extractTo($destDir)) {
         $zip->close();
         return true;
