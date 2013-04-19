@@ -55,14 +55,14 @@ var SearchBar = Class.$extend( {
   },
   
   ajaxSearch : function(query) {
-    this.projects.setFilter({'author' : '', 'searchQuery' : query});
+    this.projects.setFilter({'author' : '', 'query' : query});
     this.updateSearchBoxQuery();
   },
   
   updateSearchBoxQuery : function() {
     if(this.projects != null) {
-      this.largeSearchBox.val(this.projects.params.filter.searchQuery);
-      this.smallSearchBox.val(this.projects.params.filter.searchQuery);
+      this.largeSearchBox.val(this.projects.params.filter.query);
+      this.smallSearchBox.val(this.projects.params.filter.query);
     }
   }
 });

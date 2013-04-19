@@ -26,87 +26,70 @@ class index extends CoreAuthenticationNone {
   
   public function __construct() {
     parent::__construct();
-    $this->addCss('projectList.css');
     $this->addCss('index.css');
-    $this->addJs('newestProjects.js');
-    $this->addJs('searchProjects.js');
-    $this->addJs('index.js');
+    $this->addJs('projectLoader.js');
+    $this->addJs('projectContentFiller.js');
+    $this->addJs('projectObject.js');
+    
+    $this->loadModule('api/projects');
   }
 
   public function __default() {
-    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);
+    $pageNr = 1;
 
-    if($this->session->showCatroidDescription == "") {
-      $this->session->showCatroidDescription = 1;
-    }   
-        
-    if(!$this->session->pageNr) {
-      $this->session->pageNr = 1;
-      $this->session->task = "newestProjects";
-    }
+    $requestedPage = $this->projects->get(($pageNr - 1) * PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
+        PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE, PROJECT_MASK_LIST_AGE, PROJECT_SORTBY_AGE);
+    $this->numberOfPages = max(1, intval(ceil(max(0, intval($requestedPage['CatrobatInformation']['TotalProjects'])) /
+        PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE) - 1));
+
+    $params = array();
+    $params['layout'] = PROJECT_LAYOUT_ROW;
+    $params['container'] = '#newestProjects';
+    $params['buttons'] = array('prev' => null,
+        'next' => '#newestShowMore'
+    );
+    $params['firstPage'] = $requestedPage;
     
-    if(isset($_REQUEST['method']) || isset($_REQUEST['p'])) {
-      if(isset($_REQUEST['method'])) {
-        $this->session->pageNr = intval($_REQUEST['method']);
-      }
-      if(isset($_REQUEST['p'])) {
-        $this->session->pageNr = intval($_REQUEST['p']);
-      }
-      
-      if($this->session->pageNr < 1) {
-        $this->session->pageNr = 1;
-        $this->session->searchQuery = null;
-        $this->session->task = "newestProjects";
-      }
-      
-      if($this->session->pageNr > $this->numberOfPages) {
-        $this->session->pageNr = $this->numberOfPages;
-      }
-    }
-    if(isset($_SERVER['HTTP_REFERER']) && !$this->session->referer) {
-      $this->session->referer = $_SERVER['HTTP_REFERER'];
-    }
-    if(isset($_SERVER['HTTP_REFERER']) && $this->session->referer != $_SERVER['HTTP_REFERER']) {
-      $this->session->referer = $_SERVER['HTTP_REFERER'];
-      $this->session->task = "newestProjects";
-    }
+    $params['page'] = array('number' => $pageNr,
+        'numProjectsPerPage' => PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
+        'pageNrMax' => $this->numberOfPages
+    );
+    
+    $params['mask'] = PROJECT_MASK_LIST_AGE;
+    $params['sort'] = PROJECT_SORTBY_AGE;
+    $params['filter'] = array('query' => '',
+        'author' => ''
+    );
+    
+    $params['config'] = array('PROJECT_LAYOUT_ROW' => PROJECT_LAYOUT_ROW,
+        'sortby' => array('age' => PROJECT_SORTBY_AGE,
+            'downloads' => PROJECT_SORTBY_DOWNLOADS,
+            'views' => PROJECT_SORTBY_VIEWS,
+            'random' => PROJECT_SORTBY_RANDOM
+        )
+    );
+    
+    $this->newestProjectsParams = "'" . json_encode($params) . "'";
 
-    if(isset($_REQUEST['q'])) {
-      $this->session->searchQuery = $_REQUEST['q'];
-      $this->session->task = "searchProjects";
-    }
+    $params['firstPage'] = $this->projects->get(($pageNr - 1) * PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
+        PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE, PROJECT_MASK_LIST_AGE, PROJECT_SORTBY_DOWNLOADS);
+    $params['container'] = '#mostDownloadedProjects';
+    $params['buttons'] = array('prev' => null,
+        'next' => '#mostDownloadedShowMore'
+    );
+    $params['mask'] = PROJECT_MASK_LIST_AGE;
+    $params['sort'] = PROJECT_SORTBY_DOWNLOADS;
+    $this->mostDownloadedProjectsParams = "'" . json_encode($params) . "'";
 
-    if(!$this->session->task) {
-      $this->session->task = "newestProjects";
-    }
-
-    $this->showCatroidDescription = intval($this->session->showCatroidDescription);
-    $this->task = $this->session->task;
-    $this->pageNr = $this->session->pageNr;
-    $this->searchQuery = "";
-    if($this->session->searchQuery != "") {
-      $this->searchQuery = $this->session->searchQuery;
-    }
-
-    //dummy for languageTest: request error ('viewer', 'ajax_request_page_not_found')
-    $error = array();
-    $error['type'] = 'viewer';
-    $error['code'] = 'ajax_request_page_not_found';
-    $error['extra'] = '';
-
-    $this->error = $error;
-  }
-
-  public function getNumberOfVisibleProjects() {
-    $result = pg_execute($this->dbConnection, "get_number_of_visible_projects", array()) or
-              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    $number = pg_fetch_all($result);
-    pg_free_result($result);
-
-    if($number[0]['count']) {
-      return $number[0]['count'];
-    }
-    return 0;
+    $params['firstPage'] = $this->projects->get(($pageNr - 1) * PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
+        PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE, PROJECT_MASK_LIST_AGE, PROJECT_SORTBY_VIEWS);
+    $params['container'] = '#mostViewedProjects';
+    $params['buttons'] = array('prev' => null,
+        'next' => '#mostViewedShowMore'
+    );
+    $params['mask'] = PROJECT_MASK_LIST_AGE;
+    $params['sort'] = PROJECT_SORTBY_VIEWS;
+    $this->mostViewedProjectsParams = "'" . json_encode($params) . "'";
   }
 
   public function __destruct() {

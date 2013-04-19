@@ -30,54 +30,54 @@ class search extends CoreAuthenticationNone {
     $this->addJs('projectLoader.js');
     $this->addJs('projectContentFiller.js');
     $this->addJs('projectObject.js');
-    $this->addJs('search.js');
     
-    $this->loadModule('catroid/loadProjects');
+    $this->loadModule('api/projects');
   }
 
   public function __default() {
-    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE);
+    $this->session->searchPageNr = max(1, intval($_REQUEST['p']));
+
+    $requestedPage = $this->projects->get(($this->session->searchPageNr - 1) * PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
+        PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE, PROJECT_MASK_LIST_AGE, PROJECT_SORTBY_AGE, $_REQUEST['q']);
+    $this->numberOfPages = max(1, intval(ceil(max(0, intval($requestedPage['CatrobatInformation']['TotalProjects'])) /
+        PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE) - 1));
+
+    if($this->session->searchPageNr > $this->numberOfPages) {
+      $this->session->searchPageNr = $this->numberOfPages;
+      $requestedPage = $this->projects->get(($this->session->searchPageNr - 1) * PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
+          PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE, PROJECT_MASK_LIST_AGE, PROJECT_SORTBY_AGE, $_REQUEST['q']);
+    }
 
     $params = array();
-    $params['numProjectsPerPage'] = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-    $params['pageNr'] = intval($_REQUEST['p']);
-    $params['pageNrMax'] = $this->numberOfPages;
     $params['layout'] = PROJECT_LAYOUT_ROW;
     $params['container'] = '#searchResultContainer';
+    $params['buttons'] = array('prev' => '#fewerResults',
+        'next' => '#moreResults'
+    );
+    $params['firstPage'] = $requestedPage;
     
-    $params['sort'] = $this->session->sort;
-    $params['filter'] = array('searchQuery' => $_REQUEST['q'],
-        'author'        => '');
-    
-    $_REQUEST['searchQuery'] = $_REQUEST['q'];
-    $params['firstPage'] = $this->loadProjects->retrieveProjectsAsArray();
-    $params['page'] = array('number'             => intVal($this->session->pageNr),
+    $params['page'] = array('number' => intVal($this->session->searchPageNr),
         'numProjectsPerPage' => PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
-        'pageNrMax'          => ceil($this->getNumberOfVisibleProjects() / PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE)
+        'pageNrMax' => $this->numberOfPages
+    );
+    
+    $params['mask'] = PROJECT_MASK_LIST_AGE;
+    $params['sort'] = PROJECT_SORTBY_AGE;
+    $params['filter'] = array('query' => strval($_REQUEST['q']),
+        'author' => ''
     );
     
     $params['config'] = array('PROJECT_LAYOUT_ROW' => PROJECT_LAYOUT_ROW,
         'sortby' => array('age' => PROJECT_SORTBY_AGE,
             'downloads' => PROJECT_SORTBY_DOWNLOADS,
             'views' => PROJECT_SORTBY_VIEWS,
-            'random' => PROJECT_SORTBY_RANDOM)
+            'random' => PROJECT_SORTBY_RANDOM
+        )
     );
     
     $this->jsParams = "'" . json_encode($params) . "'";
   }
   
-  public function getNumberOfVisibleProjects() {
-    $result = pg_execute($this->dbConnection, "get_number_of_visible_projects", array()) or
-    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    $number = pg_fetch_all($result);
-    pg_free_result($result);
-  
-    if($number[0]['count']) {
-      return $number[0]['count'];
-    }
-    return 0;
-  }
-
   public function __destruct() {
     parent::__destruct();
   }

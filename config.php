@@ -56,6 +56,12 @@ define('PROJECT_PAGE_SHOW_MAX_PAGES', 5);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
 define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
 
+define('PROJECT_MASK_DEFAULT', 'list');
+define('PROJECT_MASK_LIST_AGE', 'listAge');
+define('PROJECT_MASK_LIST_DOWNLOADS', 'listDownloads');
+define('PROJECT_MASK_LIST_VIEWS', 'listViews');
+define('PROJECT_MASK_ALL', 'all');
+
 define('PROJECT_SORTBY_AGE', 'age');
 define('PROJECT_SORTBY_DOWNLOADS', 'downloads');
 define('PROJECT_SORTBY_VIEWS', 'views');
@@ -89,7 +95,7 @@ define('DEFAULT_TEMPLATE_LANGUAGE_FILE', 'template.xml');
 define('SITE_DEFAULT_LANGUAGE', 'en');
 define('SITE_DEFAULT_TITLE', 'Catroid Website');
 define('MVC_DEFAULT_MODULE', 'catroid');
-define('MVC_DEFAULT_CLASS', 'example');
+define('MVC_DEFAULT_CLASS', 'index');
 define('MVC_DEFAULT_METHOD', '__default');
 define('MVC_DEFAULT_AUTH_FAILED_METHOD', '__authenticationFailed');
 define('MVC_DEFAULT_VIEW', 'html');

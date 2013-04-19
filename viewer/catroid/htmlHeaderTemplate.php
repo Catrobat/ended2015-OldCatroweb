@@ -29,7 +29,7 @@
           <div id="largeMenu">
             <div class="marginSpacer"></div>
             <div class="catroidLink">
-              <a href="<?php echo BASE_PATH; ?>">Catroid</a>
+              <a href="<?php echo BASE_PATH; ?>">Pocket Code</a>
             </div>
             
             <div class="largeSearchBarLeft">
@@ -37,7 +37,7 @@
             </div>
 
             <div class="largeSearchBarMiddle">
-              <input type="search" placeholder="Projekt suchen..." />
+              <input type="search" placeholder="<?php echo $this->languageHandler->getString('template_header_search_placeholder'); ?>" />
             </div>
             
             <div class="largeSearchBarRight">
@@ -49,11 +49,11 @@
             <div class="marginSpacer"></div>
             
             <div id="smallMenuBar" class="catroidLink">
-              <a href="<?php echo BASE_PATH; ?>">Catroid</a>
+              <a href="<?php echo BASE_PATH; ?>">Pocket Code</a>
             </div>
 
             <div id="smallSearchBar">
-              <input type="search" placeholder="Projekt suchen..." />
+              <input type="search" placeholder="<?php echo $this->languageHandler->getString('template_header_search_placeholder'); ?>" />
             </div>
 
             <div>
@@ -74,6 +74,5 @@
         $(document).ready(function() {
           Header = new Header();
           SearchBar = new SearchBar(Header);
-          
         });
       </script>

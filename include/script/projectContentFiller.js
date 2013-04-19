@@ -21,6 +21,36 @@
  *along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+$.fn.highlight = function(word) {
+  function innerHighlight(node, word) {
+    var result = 0;
+   
+    if(node.nodeType === 3) {
+      var position = node.data.toUpperCase().indexOf(word);
+      if(position >= 0) {
+        var spannode = document.createElement('span');
+        spannode.className = 'highlight';
+        var selection = node.splitText(position);
+        selection.splitText(word.length);
+        var selectionclone = selection.cloneNode(true);
+        spannode.appendChild(selectionclone);
+
+        selection.parentNode.replaceChild(spannode, selection);
+        result = 1;
+      }
+    } else if(node.nodeType == 1 && node.childNodes && !/(script|style)/i.test(node.tagName)) {
+      for(var i = 0; i < node.childNodes.length; ++i) {
+        i += innerHighlight(node.childNodes[i], word);
+      }
+    }
+    return result;
+  }
+  return this.length && word && word.length ? this.each(function() {
+    innerHighlight(this, word.toUpperCase());
+  }) : this;
+};
+
+
 var ProjectContentFiller = Class
     .$extend({
       __include__ : [__baseClassVars],
@@ -28,28 +58,11 @@ var ProjectContentFiller = Class
         this.cbParams = cbParams;
         this.ready = false;
         this.params = this.cbParams.call(this);
-        this.layout = this.params.layout;
-        
-        this.hasPrevButton = false;
-        this.hasNextButton = false;
-        
-        if(this.params.buttons != null) {
-          if((this.params.buttons.prev != null) && (this.params.buttons.prev != "")) {
-            this.hasPrevButton = true;
-          }
-          
-          if((this.params.buttons.next != null) && (this.params.buttons.next != "")) {
-            this.hasNextButton = true;
-          }
-        }
         
         this.fillSkeleton = null;
         this.error = {"type" : "", code : 0, extra : ""};
 
         this.createSkeletonHandler(this.params.layout);
-        if(this.params.firstPage != null) {
-          this.fillSkeleton(this.params.firstPage.content, this.params.firstPage.buttons, this.params.firstPage.pageLabels);
-        }
       },
       
       isReady: function() {
@@ -58,13 +71,16 @@ var ProjectContentFiller = Class
       
       createSkeletonHandler : function(layout) {
         switch(layout) {
-        case this.params.config.PROJECT_LAYOUT_ROW:
-          this.createSkeletonRowNew();
-          this.fillSkeleton = this.fillSkeletonRowNew;
-          this.ready = true;
-          break;
-        default:
-          this.ready = false;
+          case this.params.config.PROJECT_LAYOUT_ROW:
+            this.createSkeletonRowNew();
+            this.fillSkeleton = this.fillSkeletonRowListAge;
+            this.ready = true;
+            break;
+          default:
+            this.ready = false;
+        }
+        if(typeof this.params.firstPage !== 'undefined' && this.params.firstPage != null) {
+          this.fill(this.params.firstPage);
         }
       },
       
@@ -88,18 +104,22 @@ var ProjectContentFiller = Class
         }
       },
 
-      fillSkeletonRowNew : function(projects, buttons, pageLabels) {
-
-        var elements = $('> ul', this.params.container).children();
-        for(var i = 0; i < this.params.page.numProjectsPerPage; i++){
-          if(projects != null && projects[i]) {
-            $(elements[i]).css("visibility", "visible");
-            $('a', elements[i]).attr('href', this.basePath + "catroid/details/" + projects[i]['id']);
-            $('img', elements[i]).attr('src', projects[i]['thumbnail']).attr('alt', projects[i]['title']);
-            $('div.projectTitle', elements[i]).text(projects[i]['title']);
-            $('div.projectAddition', elements[i]).text(projects[i]['last_activity']);
-          } else {
-            $(elements[i]).css("visibility", "hidden");
+      fillSkeletonRowListAge : function(results) {
+        if(results.CatrobatInformation != null && results.CatrobatProjects != null) {
+          var info = results.CatrobatInformation;
+          var projects = results.CatrobatProjects;
+          
+          var elements = $('> ul', this.params.container).children();
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++){
+            if(projects != null && projects[i]) {
+              $(elements[i]).css("visibility", "visible");
+              $('a', elements[i]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
+              $('img', elements[i]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
+              $('div.projectTitle', elements[i]).text(projects[i]['ProjectName']);
+              $('div.projectAddition', elements[i]).text(projects[i]['UploadedString']);
+            } else {
+              $(elements[i]).css("visibility", "hidden");
+            }
           }
         }
       },
@@ -249,16 +269,17 @@ var ProjectContentFiller = Class
       },
       
       fill : function(result) {
-        if(!this.params.container || this.params.container === 'undefined'){          
-          this.setErrorByString("ERROR: no container", "501", "extra");
-          return false;          
-        }        
-        else if(result.error){
-          this.setError(result.error);
+        if(result.error) {
+          alert(result.error);
           return false;
-        } else{        
-          this.params.pageLabels = result.pageLabels;
-          this.fillSkeleton.call(this, result.content, result.buttons, result.pageLabels);
+        } else {        
+          this.fillSkeleton.call(this, result);
+          
+          var searchWords = this.params.filter.query.split(" ");
+          $.each(searchWords, $.proxy(function(index, value) { 
+            $(this.params.container).highlight(value);
+          }, this));
+
           return true;
         }
       }

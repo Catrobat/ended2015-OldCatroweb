@@ -25,12 +25,12 @@
 ?>
       <article>
         <header><?php echo $this->languageHandler->getString('header'); ?></header>
-        <div id="searchResultContainer">
-        </div>
+        <div id="fewerResults"><?php echo $this->languageHandler->getString('prev_button', '&laquo;'); ?></div>
+        <div id="searchResultContainer"></div>
+        <div id="moreResults"><?php echo $this->languageHandler->getString('next_button', '&raquo;'); ?></div>
       </article>
       <script type="text/javascript">
         $(document).ready(function() {
-          Search = new Search(<?php echo $this->jsParams; ?>);
-          SearchBar.setProjectObject(Search.getProjectObject());
+          SearchBar.setProjectObject(ProjectObject(<?php echo $this->jsParams; ?>));
         });
       </script>

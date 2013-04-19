@@ -92,6 +92,11 @@ h3 {
   page-break-after: avoid;
 }
 
+.highlight {
+  color: #ffffff;
+  background-color: #9933CC;
+}
+
 ::-moz-selection {
   background: #9933CC;
   text-shadow: none;
