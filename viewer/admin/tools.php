@@ -39,6 +39,8 @@
   <br />
   <a id="aAdminToolsUpdateBrowserDetection" href="<?php echo BASE_PATH;?>admin/tools/updateBrowserDetection">update browser-detection RegEx-pattern</a><br />
   <br />
+  <a id="aAdminToolsSendEmailNotification" href="<?php echo BASE_PATH;?>admin/tools/sendEmailNotification">Send e-mail notification</a><br />
+  <br />
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/index">&lt;- back</a>
   <br /><br />
   <?php if($this->answer) {

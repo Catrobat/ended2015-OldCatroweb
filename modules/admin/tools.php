@@ -22,6 +22,8 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+require_once CORE_BASE_PATH . 'modules/common/userFunctions.php';
+
 class tools extends CoreAuthenticationAdmin {
   public function __construct() {
     parent::__construct();
@@ -52,6 +54,77 @@ class tools extends CoreAuthenticationAdmin {
       }
     }
     $this->answer = $answer;
+  }
+  
+  private function sendEmailNotificationToUser($userHash, $userId, $userName, $userEmail) {
+    $catroidPasswordResetUrl = BASE_PATH . 'catroid/passwordrecovery?c=' . $userHash;
+    
+    $result = pg_execute($this->dbConnection, "update_recovery_hash_recovery_time_by_id", array($userHash, time(), $userId));
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+          STATUS_CODE_SQL_QUERY_FAILED);
+    }
+    pg_free_result($result);
+     
+    if(DEVELOPMENT_MODE) {
+      throw new Exception($catroidPasswordResetUrl, STATUS_CODE_OK);
+    }
+    
+    if(SEND_NOTIFICATION_USER_EMAIL) {
+      $mailSubject = "Catroid.org - Password reset required";
+      $mailText  = 'Dear '.$userName.'.'. "\r\n\r\n";
+      $mailText .= 'TODO: text';
+      $mailText .= 'Best regards,'. "\r\n";
+      $mailText .= 'Your Catroid Team'. "\r\n";
+    
+      if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
+        throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
+            STATUS_CODE_SEND_MAIL_FAILED);
+      }
+    }
+  }
+  
+  public function sendEmailNotification() {
+    if(isset($_REQUEST['sendEmailNotification'])) {
+      $usernames = array();
+      $common = new userFunctions();
+      $successCount = 0;
+      
+      if(!isset($_REQUEST['username'])) {
+        $answer = "ERROR: No e-mails selected.";
+      }
+      else {
+        $usernames = $_REQUEST['username'];
+        $answer = "Number of emails selected: ".count($usernames)."\n<br/>";
+      }
+      
+      if(is_array($usernames)) {
+        foreach($usernames as $username){
+          try {
+            $data = $common->getUserDataForRecovery($username);
+            $hash = $common->createUserHash($data);
+            try {
+              $this->sendEmailNotificationToUser($hash, $data['id'], $data['username'], $data['email']);
+              $answer .= 'Sending message to user "'.$username.'" (id= '.$data['id'].', '.$data['email'].'): OK.'.'<br/>';
+              $successCount++;
+            }
+            catch(Exception $e) {
+              $answer .= 'Sending message to user "'.$username.'" (id= '.$data['id'].', '.$data['email'].'): FAILED.'.'<br/>';
+              $answer .= 'Error: '.$e->getMessage()."<br/><br/>";
+            }
+          }
+          catch(Exception $e) {
+            $answer .= $e->getMessage()."<br/>";
+          }          
+        }
+      }
+      $answer .= "<br/>Status: ".$successCount.' of '.count($usernames).' e-mails sent. ('.(count($usernames) - $successCount).' failed.)';
+      $this->answer = $answer;
+    }
+    
+    $this->htmlFile = "sendEmailNotification.php";
+    $this->blockedusers = $this->getListOfBlockedUsersFromDatabase();
+    $this->allusers = $this->getListOfUsersFromDatabase();
   }
 
   public function editProjects() {
