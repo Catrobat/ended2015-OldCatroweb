@@ -25,9 +25,6 @@ package at.tugraz.ist.catroweb.common;
 
 import java.io.File;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -217,22 +214,27 @@ public class CommonFunctions {
     return id;
   }
 
-  public static String md5(String text) {
+  public static String getAuthenticationToken(String username) {
+    String token = "";
+
     try {
-      MessageDigest messageDigest = MessageDigest.getInstance("MD5");
-      messageDigest.update(text.getBytes(), 0, text.length());
-      return new BigInteger(1, messageDigest.digest()).toString(16);
-    } catch(NoSuchAlgorithmException e) {
-      Reporter.log("CommonFunctions: md5: coulnd't create md5 hash");
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      ResultSet result = statement.executeQuery("SELECT auth_token FROM cusers WHERE username='" + username + "' LIMIT 1");
+      if(result.next()) {
+        token = result.getString(1);
+      }
+      result.close();
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
+    } catch(SQLException e) {
+      Reporter.log("CommonFunctions: generateAuthenticationToken: SQL Exception couldn't execute sql query!");
       Reporter.log(e.getMessage());
     }
-    return "";
-  }
-
-  public static String generateAuthenticationToken(String username, String password) {
-    String md5user = md5(username.toLowerCase());
-    String md5password = md5(password);
-    return md5(md5user + ':' + md5password);
+    return token;
   }
 
   public static void removeAllBlockedIps() {

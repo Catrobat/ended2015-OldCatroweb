@@ -54,7 +54,7 @@ public class MyProjectsTests extends BaseTest {
       
       // upload a project
       String title = "Delete this project";
-      String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "", ""));
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));

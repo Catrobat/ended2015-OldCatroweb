@@ -382,9 +382,8 @@ public class ProfileTests extends BaseTest {
       assertTrue(isTextPresent("0"));
       
       String projectTitle = dataset.get("registrationUsername");
-      String authToken = CommonFunctions.generateAuthenticationToken(
-          dataset.get("registrationUsername"), dataset.get("registrationPassword"));
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", authToken));
+      String authToken = CommonFunctions.getAuthenticationToken(dataset.get("registrationUsername"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", dataset.get("registrationUsername"), authToken));
       assertProjectPresent(projectTitle);
 
       openLocation("catroid/profile/" + dataset.get("registrationUsername"));

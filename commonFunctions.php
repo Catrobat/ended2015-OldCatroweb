@@ -77,7 +77,8 @@ function checkUserInput($text) {
   $text = html_entity_decode($text);
   $text = preg_replace("/&#?[a-z0-9]{2,8}/i", "", $text);
   $text = strip_tags($text);
-  return htmlspecialchars($text);
+  $text = htmlspecialchars($text);
+  return trim($text);
 }
 
 function getUsernameBlacklistArray() {
@@ -386,17 +387,23 @@ function chmodDir($dir, $filemode, $dirmode) {
 }
 
 function unzipFile($zipFile, $destDir) {
+  $maxFileSize = intval(PROJECTS_MAX_SIZE / 3);
   if(class_exists('ZipArchive')) {
     $zip = new ZipArchive();
-    if($zip->open($zipFile) === TRUE) {
+    $res = $zip->open($zipFile);
+    if($res === TRUE) {
+      for($i = 0, $amount = $zip->numFiles; $i < $amount; $i++) {
+        $stats = $zip->statIndex($i);
+        if(intval($stats['size']) > $maxFileSize) {
+          $zip->close();
+          return false;
+        }
+      }
       if($zip->extractTo($destDir)) {
         $zip->close();
         return true;
       }
-    }
-  } else {
-    if(system("unzip -qq $zipFile -d $destDir 2>&1") == "") {
-      return true;
+      $zip->close();
     }
   }
   return false;

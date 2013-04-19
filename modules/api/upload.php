@@ -227,12 +227,14 @@ class upload extends CoreAuthenticationDevice {
     }
 
     if(!$projectTitle) {
-      $projectTitle = ((isset($formData['projectTitle']) && $formData['projectTitle'] != "") ? checkUserInput($formData['projectTitle']) : "");
+      $projectTitle = pg_escape_string($projectTitle); 
+      $projectTitle = ((isset($formData['projectTitle']) && $formData['projectTitle'] != "") ? checkUserInput($formData['projectTitle']) : "");      
       if($projectTitle == "") {
         throw new Exception($this->errorHandler->getError('upload', 'missing_project_title'), STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE);
       }
     }
     if(!$projectDescription) {
+      $projectDescription = pg_escape_string($projectDescription); 
       $projectDescription = ((isset($formData['projectDescription'])) ? checkUserInput($formData['projectDescription']) : "");
     }
 
@@ -240,8 +242,8 @@ class upload extends CoreAuthenticationDevice {
     $uploadLanguage = ((isset($formData['userLanguage'])) ? checkUserInput($formData['userLanguage']) : 'en');
 
     return(array(
-        "projectTitle" => pg_escape_string($projectTitle),
-        "projectDescription" => pg_escape_string($projectDescription),
+        "projectTitle" => $projectTitle,
+        "projectDescription" => $projectDescription,
         "versionName" => $versionName,
         "versionCode" => $versionCode,
         "uploadIp" => $uploadIp,

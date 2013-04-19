@@ -72,7 +72,7 @@ public class CommonData {
   }
 
   public static HashMap<String, String> getUploadPayload(String projectTitle, String projectDescription, String filename, String fileChecksum,
-       String userEmail, String userLanguage, String token) {
+       String userEmail, String userLanguage, String username, String token) {
     HashMap<String, String> data = new HashMap<String, String>();
     if(!projectTitle.isEmpty()) {
       data.put("projectTitle", projectTitle);
@@ -92,6 +92,9 @@ public class CommonData {
     if(!userLanguage.isEmpty()) {
       data.put("userLanguage", userLanguage);
     }
+    if(!username.isEmpty()) {
+      data.put("username", username);
+    }
     if(!token.isEmpty()) {
       data.put("token", token);
     }
@@ -99,7 +102,7 @@ public class CommonData {
   }
 
   public static HashMap<String, String> getUploadFtpPayload(String projectTitle, String projectDescription, String catroidFileName, String fileChecksum,
-      String userEmail, String userLanguage, String token) {
+      String userEmail, String userLanguage, String username, String token) {
    HashMap<String, String> data = new HashMap<String, String>();
    if(!projectTitle.isEmpty()) {
      data.put("projectTitle", projectTitle);
@@ -118,6 +121,9 @@ public class CommonData {
    }
    if(!userLanguage.isEmpty()) {
      data.put("userLanguage", userLanguage);
+   }
+   if(!username.isEmpty()) {
+     data.put("username", username);
    }
    if(!token.isEmpty()) {
      data.put("token", token);

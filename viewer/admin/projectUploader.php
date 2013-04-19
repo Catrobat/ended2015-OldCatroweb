@@ -37,6 +37,9 @@
     <p>User eMail:<br />
       <input name="userEmail" type="text" value="webmaster@catroid.org" />
     </p>
+    <p>Username:<br />
+      <input name="username" type="text" value="catroweb" />
+    </p>
     <p>Token:<br />
       <input name="token" type="text" value="31df676f845b4ce9908f7a716a7bfa50" />
     </p>

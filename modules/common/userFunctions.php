@@ -207,8 +207,8 @@ class userFunctions extends CoreAuthenticationNone {
     }
   }
 
-  public function checkLoginData($username, $md5Password) {
-    $result = pg_execute($this->dbConnection, "get_user_login", array($this->cleanUsername($username), $md5Password));
+  public function checkLoginData($username, $hashedPassword) {
+    $result = pg_execute($this->dbConnection, "get_user_login", array($this->cleanUsername($username), $hashedPassword));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
@@ -259,9 +259,10 @@ class userFunctions extends CoreAuthenticationNone {
       return true;
     }
     
-    if(isset($_REQUEST['token']) && strlen(strval($_REQUEST['token'])) > 0) {
-      $authToken = strtolower(strval($_REQUEST['token']));
-      $result = pg_execute($this->dbConnection, "get_user_device_login", array($authToken));
+    if(isset($_REQUEST['token']) && isset($_REQUEST['username']) && strlen(strval($_REQUEST['token'])) > 0 && strlen(strval($_REQUEST['username'])) > 0) {
+      $authToken = strval($_REQUEST['token']);
+      $cleanUsername = $this->cleanUsername(strval($_REQUEST['username']));
+      $result = pg_execute($this->dbConnection, "get_user_device_login", array($cleanUsername, $authToken));
        
       if($result && pg_num_rows($result) > 0) {
         $data = pg_fetch_assoc($result);
@@ -278,6 +279,19 @@ class userFunctions extends CoreAuthenticationNone {
     }
     return false;
   }
+  
+  public function hashPassword($username, $password, $salt='') {
+    if(strlen($salt) == 0) {
+      $result = pg_execute($this->dbConnection, "get_user_salt", array($this->cleanUsername($username)));
+      if($result) {
+        $row = pg_fetch_assoc($result);
+        $salt = $row['salt'];
+        pg_free_result($result);
+      }
+    }
+
+    return sha1($salt . $password);
+  }
 
   public function login($username, $password) {
     if($this->requestFromBlockedIp()) {
@@ -293,15 +307,25 @@ class userFunctions extends CoreAuthenticationNone {
           STATUS_CODE_AUTHENTICATION_FAILED);
     }
 
-    $this->loginCatroid($username, md5($password));
+    $this->loginCatroid($username, $this->hashPassword($username, $password));
     $this->loginBoard($username, $password);
     $this->loginWiki($username, $password);
     $this->setUserLanguage($this->session->userLogin_userId);
+
+    $token = '-1';
+    $result = pg_execute($this->dbConnection, "get_user_token", array($this->cleanUsername($username)));
+    if($result) {
+      $row = pg_fetch_array($result);
+      $token = $row['auth_token'];
+      pg_free_result($result);
+    }
+    return $token; 
   }
 
-  private function loginCatroid($username, $md5Password) {
+  private function loginCatroid($username, $hashedPassword) {
     $user = $this->cleanUsername($username);
-    $result = pg_execute($this->dbConnection, "get_user_login", array($user, $md5Password));
+
+    $result = pg_execute($this->dbConnection, "get_user_login", array($user, $hashedPassword));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
@@ -338,7 +362,7 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   private function loginBoard($username, $password) {
-    if(!$this->checkLoginData($username, md5($password))) {
+    if(!$this->checkLoginData($username, $this->hashPassword($username, $password))) {
       throw new Exception($this->errorHandler->getError('userFunctions', 'password_or_username_wrong'),
           STATUS_CODE_AUTHENTICATION_FAILED);
     }
@@ -357,7 +381,7 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   private function loginWiki($username, $password) {
-    if(!$this->checkLoginData($username, md5($password))) {
+    if(!$this->checkLoginData($username, $this->hashPassword($username, $password))) {
       throw new Exception($this->errorHandler->getError('userFunctions', 'password_or_username_wrong'),
           STATUS_CODE_AUTHENTICATION_FAILED);
     }
@@ -485,8 +509,10 @@ class userFunctions extends CoreAuthenticationNone {
   private function registerCatroid($postData) {
     $username = checkUserInput($postData['registrationUsername']);
     $usernameClean = $this->cleanUsername($username);
-    $md5password = md5($postData['registrationPassword']);
-    $authToken = $this->generateAuthenticationToken($username, $postData['registrationPassword']);
+
+    $salt = $this->randomString(8);
+    $hashedPassword = $this->hashPassword($postData['registrationUsername'], $postData['registrationPassword'], $salt);
+    $authToken = $this->generateAuthenticationToken();
 
     $email = checkUserInput($postData['registrationEmail']);
     $ipRegistered = $_SERVER['REMOTE_ADDR'];
@@ -505,8 +531,8 @@ class userFunctions extends CoreAuthenticationNone {
     $city = checkUserInput($postData['registrationCity']);
     $language = $this->languageHandler->getLanguage();
 
-    $result = pg_execute($this->dbConnection, "user_registration", array($username, $usernameClean, $md5password,
-        $email, $dateOfBirth, $gender, $country, $city, $ipRegistered, $status, $authToken, $language));
+    $result = pg_execute($this->dbConnection, "user_registration", array($username, $usernameClean, $hashedPassword,
+        $email, $dateOfBirth, $gender, $country, $city, $ipRegistered, $status, $authToken, $language, $salt));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
@@ -583,10 +609,23 @@ class userFunctions extends CoreAuthenticationNone {
     return $row['user_id'];
   }
   
-  public function generateAuthenticationToken($username, $password) {
-    $md5user = md5(strtolower($username));
-    $md5password = md5($password);
-    return md5($md5user . ':' . $md5password);
+  public function generateAuthenticationToken() {
+    $authToken = $this->randomString(32);
+
+    $unique = false;
+    while(!$unique) {
+      $result = pg_execute($this->dbConnection, "get_user_device_login", array('%', $authToken));
+      if($result) {
+        if(pg_num_rows($result) == 0) {
+          $unique = true;
+        } else {
+          $authToken = $this->randomString(32);
+        }
+        pg_free_result($result);
+      }
+    }
+        
+    return $authToken;
   }
 
   public function undoRegister() {
@@ -746,9 +785,11 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   private function updateCatroidPassword($username, $password) {
-    $authToken = $this->generateAuthenticationToken($username, $password);
-    $password = md5($password);
-    $result = pg_execute($this->dbConnection, "update_password_by_username", array($password, $username, $authToken));
+    $salt = $this->randomString(8);
+    $hashedPassword = $this->hashPassword($username, $password, $salt);
+    $authToken = $this->generateAuthenticationToken();
+    
+    $result = pg_execute($this->dbConnection, "update_password_by_username", array($hashedPassword, $username, $authToken, $salt));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
@@ -1168,7 +1209,11 @@ class userFunctions extends CoreAuthenticationNone {
     $username_clean = utf8_clean_string(trim($username));
     return $username_clean;
   }
-
+  
+  private function randomString($length=8) {
+    return substr(base64_encode(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM)), 0, $length);
+  }
+  
   public function __destruct() {
     parent::__destruct();
   }
