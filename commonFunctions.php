@@ -403,9 +403,9 @@ function unzipFile($zipFile, $destDir) {
         $zip->close();
         return true;
       }
+      $zip->close();
     }
   }
-  $zip->close();
   return false;
 }
 

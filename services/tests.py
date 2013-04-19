@@ -124,10 +124,14 @@ class JsChecker:
 class PhpUnit:
 	basePath = os.getcwd()
 	testPath = os.path.join(basePath, 'tests', 'phpunit')
+	reportsPath = os.path.join(testPath, 'reports')
 	tool = 'phpunit'
 	
 
 	def __init__(self):
+		if not os.path.isdir(self.reportsPath):
+			os.mkdir(self.reportsPath)
+
 		if 'not found' in commands.getoutput('%s -h' % self.tool):
 			print('** ERROR ***********************************************************************')
 			print('Please install PHPunit.')
@@ -142,12 +146,15 @@ class PhpUnit:
 
 	def run(self, suite):
 		testsuite = os.path.join(self.testPath, suite)
+			
 		if os.path.isdir(testsuite):
-			result = os.system('cd %s; %s %s' % (self.testPath, self.tool, suite))
+			result = os.system('cd %s; %s --coverage-html %s %s' % (self.testPath, self.tool, 
+																os.path.join(self.reportsPath, suite), suite))
 			if result is not 0:
 				sys.exit(-1)
 		elif os.path.isfile(testsuite):
-			result = os.system('cd %s; %s %s' % (self.testPath, self.tool, suite))
+			result = os.system('cd %s; %s --coverage-html %s %s' % (self.testPath, self.tool, 
+																os.path.join(self.reportsPath, suite), suite))
 			if result is not 0:
 				sys.exit(-1)
 		else:
