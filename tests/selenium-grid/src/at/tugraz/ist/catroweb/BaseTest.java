@@ -390,6 +390,10 @@ public class BaseTest {
   protected void clickOkOnNextConfirmationBox() {
     ((JavascriptExecutor) driver()).executeScript("window.confirm = function(msg){return true;};");
   }
+  
+  protected void clickCancelOnNextConfirmationBox() {
+    ((JavascriptExecutor) driver()).executeScript("window.confirm = function(msg){return false;};");
+  }
 
   protected void assertProjectPresent(String project) {
     openLocation();

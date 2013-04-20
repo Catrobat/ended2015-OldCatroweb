@@ -95,7 +95,7 @@ class tools extends CoreAuthenticationAdmin {
       }
       else {
         $usernames = $_REQUEST['username'];
-        $answer = "Number of emails selected: ".count($usernames)."\n<br/>";
+        $answer = "Number of emails selected: ".count($usernames)."<br/>";
       }
       
       if(is_array($usernames)) {
@@ -109,8 +109,14 @@ class tools extends CoreAuthenticationAdmin {
               $successCount++;
             }
             catch(Exception $e) {
-              $answer .= 'Sending message to user "'.$username.'" (id= '.$data['id'].', '.$data['email'].'): FAILED.'.'<br/>';
-              $answer .= 'Error: '.$e->getMessage()."<br/><br/>";
+              if(($e->getCode() == 200) && (DEVELOPMENT_MODE)) {
+                $answer .= 'Sending message to user "'.$username.'" (id= '.$data['id'].', '.$data['email'].'): OK.'.'<br/>';
+                $successCount++;
+              }
+              else {
+                $answer .= 'Sending message to user "'.$username.'" (id= '.$data['id'].', '.$data['email'].'): FAILED.'.'<br/>';
+                $answer .= 'Error: '.$e->getMessage()."<br/><br/>";
+              }
             }
           }
           catch(Exception $e) {
@@ -118,12 +124,14 @@ class tools extends CoreAuthenticationAdmin {
           }          
         }
       }
-      $answer .= "<br/>Status: ".$successCount.' of '.count($usernames).' e-mails sent. ('.(count($usernames) - $successCount).' failed.)';
+      $answer .= "<br/>Status: ".$successCount.' of '.count($usernames).' e-mails sent. ('.(count($usernames) - $successCount).' failed)';
+      if(DEVELOPMENT_MODE) {
+        $answer .= "<br/><b>DEVELOPMENT_MODE is ON! No e-mails sent!<b/><br/>";
+      }
       $this->answer = $answer;
     }
     
     $this->htmlFile = "sendEmailNotification.php";
-    $this->blockedusers = $this->getListOfBlockedUsersFromDatabase();
     $this->allusers = $this->getListOfUsersFromDatabase();
   }
 

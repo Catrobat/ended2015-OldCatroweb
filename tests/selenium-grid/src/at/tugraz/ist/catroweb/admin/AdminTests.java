@@ -73,7 +73,8 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("manage Languages"));
       assertTrue(isTextPresent("block IPs"));
       assertTrue(isTextPresent("block Users"));
-
+      assertTrue(isTextPresent("send e-mail notification"));
+      
       assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
 
       driver().findElement(By.id("aAdminToolsRemoveInconsitantProjectFiles")).click();
@@ -118,6 +119,10 @@ public class AdminTests extends BaseTest {
 
       driver().findElement(By.id("aAdminToolsUpdateBrowserDetection")).click();
       assertTrue(isTextPresent("Administration Tools - Update browser-detection RegEx-Pattern"));
+      driver().navigate().back();
+      
+      driver().findElement(By.id("aAdminToolsSendEmailNotification")).click();
+      assertTrue(isTextPresent("Administration Tools - Send e-mail notification"));
       driver().navigate().back();
 
       assertTrue(isTextPresent("- back"));
