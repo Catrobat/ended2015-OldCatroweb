@@ -83,11 +83,11 @@ class details extends CoreAuthenticationNone {
     } else {
       $project['description_short'] = '';
     }
-    $project['qr_code_catroid_image'] = getCatroidProjectQRCodeUrl($projectId, $project['title']);
+    $project['qr_code_catroid_image'] = "no_qr_code";
 
     $project['is_app_present'] = file_exists(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENSION);
     if($project['is_app_present']) {
-      $project['qr_code_app_image'] = getAppProjectQRCodeUrl($projectId, $project['title']);
+      $project['qr_code_app_image'] = "no_qr_code";
       $project['appFileSize'] = convertBytesToMegabytes(filesize(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENSION));
     }
     

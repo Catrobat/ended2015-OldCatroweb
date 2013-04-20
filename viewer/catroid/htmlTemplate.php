@@ -48,8 +48,7 @@ $this->module->addGlobalJs('searchBar.js');
 <!DOCTYPE html>
 <html lang="<?php echo $this->languageHandler->getLanguage()?>">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta charset="utf-8" />
     <title><?php echo $this->getWebsiteTitle() ?></title>
     <meta name="description" content="Catroid is a visual programming language for Android devices that is inspired by the Scratch programming language for PCs, developed by the Lifelong Kindergarten Group at the MIT Media Lab. It is the aim of the Catroid project to facilitate the learning of programming skills among children and users of all ages. No desktop or notebook computer is needed.">
     <meta name="viewport" content="width=device-width">

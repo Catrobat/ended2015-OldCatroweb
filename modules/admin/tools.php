@@ -356,8 +356,6 @@ class tools extends CoreAuthenticationAdmin {
         @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_LARGE);
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_ORIG))
         @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_ORIG);
-      if(file_exists(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENSION))
-        @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENSION);
       
       if(is_dir($projectSoundDir)) $this->removeProjectDir($projectSoundDir);
       if(is_dir($projectImageDir)) $this->removeProjectDir($projectImageDir);
@@ -365,8 +363,7 @@ class tools extends CoreAuthenticationAdmin {
     }
     
     $sourceFile = $directory.$fileName;
-    $qrCodeFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$project['id'].PROJECTS_QR_EXTENSION;
-    if(!$this->deleteFile($sourceFile) || !$this->deleteFile($qrCodeFile)) {
+    if(!$this->deleteFile($sourceFile)) {
       return false;
     } else {
       $query = "EXECUTE delete_project_by_id('$id');";

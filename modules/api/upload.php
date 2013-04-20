@@ -74,8 +74,6 @@ class upload extends CoreAuthenticationDevice {
           CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $projectId);
       $this->extractThumbnail(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $projectId . '/', $projectId);
 
-      $this->getQRCode($projectId, $projectInformation['projectTitle']);
-
       $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
       if($unapprovedWords) {
         $this->badWordsFilter->mapUnapprovedWordsToProject($projectId);
@@ -369,17 +367,6 @@ class upload extends CoreAuthenticationDevice {
     return false;
   }
 
-  private function getQRCode($projectId, $projectTitle) {
-    $urlToEncode = urlencode(BASE_PATH . 'catroid/download/' . $projectId . PROJECTS_EXTENSION . '?fname=' . urlencode($projectTitle));
-    $destinationPath = CORE_BASE_PATH . PROJECTS_QR_DIRECTORY . $projectId . PROJECTS_QR_EXTENSION;
-    if(!generateQRCode($urlToEncode, $destinationPath)) {
-      $this->sendQRFailNotificationEmail($projectId, $projectTitle);
-      throw new Exception($this->errorHandler->getError('upload', 'qr_code_generation_failed'), STATUS_CODE_UPLOAD_QRCODE_GENERATION_FAILED);
-    }
-    $this->setState('remove_files', $destinationPath);
-    return true;
-  }
-
   private function sendUnapprovedWordlistPerEmail() {
     $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
     $mailSubject = '';
@@ -409,18 +396,6 @@ class upload extends CoreAuthenticationDevice {
     if(is_dir(CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC)) {
       shell_exec("python2.6 $pythonHandler $projectFile $catroidSource $projectId $outputFolder > /dev/null 2>/dev/null &");
     }
-  }
-
-  private function sendQRFailNotificationEmail($projectId, $projectTitle) {
-    $mailSubject = 'QR-Code generation failed!';
-    $mailText = "Hello catroid.org Administrator!\n\n";
-    $mailText .= "The generation of the QR-Code for the following project failed:\n\n";
-    $mailText .= "---PROJECT DETAILS---\n";
-    $mailText .= "ID: " . $projectId . "\n";
-    $mailText .= "TITLE: " . $projectTitle . "\n\n";
-    $mailText .= "You should check this!";
-
-    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
   }
 
   private function sendUploadFailAdminEmail($formData, $fileData) {

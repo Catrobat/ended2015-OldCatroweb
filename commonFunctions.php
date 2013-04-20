@@ -187,50 +187,6 @@ function getProjectImageUrl($projectId) {
   return $img;
 }
 
-function getCatroidProjectQRCodeUrl($projectId, $projectTitle) {
-  $qr = BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION;
-  $qrFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION;
-  
-  if (stristr($qrFile, "\\")) 
-  	$qrFile = preg_replace("/\//", "\\", $qrFile);
-  
-  if(!is_file($qrFile)) {
-    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENSION.'?fname='.urlencode($projectTitle));
-    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION;
-    if(!generateQRCode($urlToEncode, $destinationPath)) {
-      return false;
-    }
-  }
-  return $qr;
-}
-
-function getAppProjectQRCodeUrl($projectId, $projectTitle) {
-  $qr = BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.APP_QR_EXTENSION;
-  $qrFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.APP_QR_EXTENSION;
-  if(!is_file($qrFile)) {
-    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.APP_EXTENSION.'?fname='.urlencode($projectTitle));
-    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.APP_QR_EXTENSION;
-    if(!generateQRCode($urlToEncode, $destinationPath)) {
-      return false;
-    }
-  }
-  return $qr;
-}
-
-function generateQRCode($urlToEncode, $destinationPath) {
-  $serviceUrl = PROJECTS_QR_SERVICE_URL.$urlToEncode;
-  $qrImageHandle = @imagecreatefrompng($serviceUrl);
-  if(!$qrImageHandle) {
-    return false;
-  }
-  if(!@imagepng($qrImageHandle, $destinationPath, 9)) {
-    return false;
-  }
-  @imagedestroy($qrImageHandle);
-  chmod($destinationPath, 0666);
-  return true;
-}
-
 function getTimeInWords($fromTime, $languageHandler, $toTime = -1) {
   if($toTime == -1) {
     $toTime = time();

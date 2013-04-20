@@ -122,7 +122,6 @@ class Deploy:
 		self.remoteCommand('mkdir -m 0777 -p cache')
 		self.remoteCommand('mkdir -m 0777 -p resources/catroid')
 		self.remoteCommand('mkdir -m 0777 -p resources/projects')
-		self.remoteCommand('mkdir -m 0777 -p resources/qrcodes')
 		self.remoteCommand('mkdir -m 0777 -p resources/thumbnails')
 		
 

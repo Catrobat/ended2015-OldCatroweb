@@ -37,7 +37,6 @@ class EnvironmentChecker:
 			['cache', False], 
 			[os.path.join('resources', 'catroid'), False],
 			[os.path.join('resources', 'projects'), False],
-			[os.path.join('resources', 'qrcodes'), False],
 			[os.path.join('resources', 'thumbnails'), False],
 			[os.path.join('include', 'xml', 'lang'), True],
 			[os.path.join('tests', 'phpunit', 'framework', 'testdata'), True]]
