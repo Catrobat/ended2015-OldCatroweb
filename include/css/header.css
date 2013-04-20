@@ -129,6 +129,10 @@
   display: none;
 }
 
+
+
+
+
 @media screen and (max-width: 720px) {
   #wrapper header nav div#smallMenu {
     display: table-row;
@@ -138,5 +142,17 @@
   }
   #wrapper header nav div div.marginSpacer {
     padding: 0 0.3125em 0 0.3125em;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #wrapper header nav div div.catroidLink {
+    font-size: 2.0em;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #wrapper header nav div div.catroidLink {
+    font-size: 1.6em;
   }
 }

@@ -73,11 +73,7 @@ class details extends CoreAuthenticationNone {
     $project['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $project['uploaded_by']);
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
     $project['fileSize'] = convertBytesToMegabytes($project['filesize_bytes']);
-    if($project['description']) {
-      $project['description'] = $project['description'];
-    } else {
-      $project['description'] = '';
-    }
+    $project['description'] = wrapUrlsWithAnchors($project['description']);
     if(mb_strlen($project['description'], 'UTF-8') > PROJECT_SHORT_DESCRIPTION_MAX_LENGTH) {
       $project['description_short'] = makeShortString($project['description'], PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
     } else {

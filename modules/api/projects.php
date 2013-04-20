@@ -260,10 +260,10 @@ class projects extends CoreAuthenticationNone {
         $currentProject['ProjectName'] = $project['title'];
       }
       if(in_array('ScreenshotBig', $selectedFields)) {
-        $currentProject['ScreenshotBig'] = PROJECTS_THUMBNAIL_DIRECTORY . $project['id'] . PROJECTS_THUMBNAIL_EXTENSION_LARGE;
+        $currentProject['ScreenshotBig'] = str_replace(BASE_PATH, "", getProjectImageUrl($project['id']));
       }
       if(in_array('ScreenshotSmall', $selectedFields)) {
-        $currentProject['ScreenshotSmall'] = PROJECTS_THUMBNAIL_DIRECTORY . $project['id'] . PROJECTS_THUMBNAIL_EXTENSION_SMALL;
+        $currentProject['ScreenshotSmall'] = str_replace(BASE_PATH, "", getProjectThumbnailUrl($project['id']));
       }
       if(in_array('Author', $selectedFields)) {
         $currentProject['Author'] = $project['uploaded_by'];

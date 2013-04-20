@@ -98,11 +98,13 @@ h3 {
 }
 
 ::-moz-selection {
+  color: #ffffff;
   background: #9933CC;
   text-shadow: none;
 }
 
 ::selection {
+  color: #ffffff;
   background: #9933CC;
   text-shadow: none;
 }
@@ -151,5 +153,3 @@ footer {
 body img#ga {
   display: none;
 }
-
-
