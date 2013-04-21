@@ -69,7 +69,7 @@ class index extends CoreAuthenticationNone {
         )
     );
     
-    $this->newestProjectsParams = "'" . json_encode($params) . "'";
+    $this->newestProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
     $params['firstPage'] = $this->projects->get(($pageNr - 1) * PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
         PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE, PROJECT_MASK_LIST_AGE, PROJECT_SORTBY_DOWNLOADS);
@@ -79,7 +79,7 @@ class index extends CoreAuthenticationNone {
     );
     $params['mask'] = PROJECT_MASK_LIST_AGE;
     $params['sort'] = PROJECT_SORTBY_DOWNLOADS;
-    $this->mostDownloadedProjectsParams = "'" . json_encode($params) . "'";
+    $this->mostDownloadedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
     $params['firstPage'] = $this->projects->get(($pageNr - 1) * PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
         PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE, PROJECT_MASK_LIST_AGE, PROJECT_SORTBY_VIEWS);
@@ -89,7 +89,7 @@ class index extends CoreAuthenticationNone {
     );
     $params['mask'] = PROJECT_MASK_LIST_AGE;
     $params['sort'] = PROJECT_SORTBY_VIEWS;
-    $this->mostViewedProjectsParams = "'" . json_encode($params) . "'";
+    $this->mostViewedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
   }
 
   public function __destruct() {

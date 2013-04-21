@@ -23,7 +23,9 @@
 '''
 
 
+import commands
 import os
+import re
 import sys
 from tools import CSSCompiler, JSCompiler, Selenium
 from remoteShell import RemoteShell
@@ -40,12 +42,14 @@ class EnvironmentChecker:
 			[os.path.join('resources', 'thumbnails'), False],
 			[os.path.join('include', 'xml', 'lang'), True],
 			[os.path.join('tests', 'phpunit', 'framework', 'testdata'), True]]
+	thumbnailPath = os.path.join(basePath, 'resources', 'thumbnails')
 
 
 	def run(self):
 		for folder in self.folders:
 			path = os.path.join(self.basePath, folder[0])
 			self.setPermission(path, folder[1])
+		self.adaptThumbnails()
 
 
 	def setPermission(self, path, recursive=False):
@@ -65,6 +69,38 @@ class EnvironmentChecker:
 					if(os.stat(currentFile).st_mode & 0777) != 0777:
 						print('setting permissions for %s' % currentFile)
 						os.chmod(currentFile, 0777)
+
+
+	def adaptThumbnails(self):
+		print('adapting thumbnails:')
+		for r,d,f in os.walk(self.thumbnailPath):
+			for file in f:
+				imagex = 0
+				imagey = 0
+				
+				filePath = os.path.join(r, file)
+				match = re.match(r".*?(?P<imagex>[0-9]+)x(?P<imagey>[0-9]+) ", commands.getoutput('identify %s' % filePath))
+				try:
+					imagex = int(match.groupdict()['imagex'])
+					imagey = int(match.groupdict()['imagey'])
+				except:
+					pass
+
+				if 'small' in file:
+					if imagex != imagey:
+						print('cropping %s' % file)
+						os.system('convert %s -crop %dx%d+0+%d %s' % (filePath, imagex, imagex, ((imagey - imagex) / 2), filePath))
+					if imagex != 160:
+						print('resizing %s' % file)
+						os.system('convert %s -resize 160x %s' % (filePath, filePath))
+
+				if 'large' in file:
+					if imagex != imagey:
+						print('cropping %s' % file)
+						os.system('convert %s -crop %dx%d+0+%d %s' % (filePath, imagex, imagex, ((imagey - imagex) / 2), filePath))
+					if imagex != 480:
+						print('resizing %s' % file)
+						os.system('convert %s -resize 480x %s' % (filePath, filePath))
 
 
 

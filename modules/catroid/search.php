@@ -75,7 +75,7 @@ class search extends CoreAuthenticationNone {
         )
     );
     
-    $this->jsParams = "'" . json_encode($params) . "'";
+    $this->jsParams = "'" . addslashes(json_encode($params)) . "'";
   }
   
   public function __destruct() {

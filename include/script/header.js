@@ -36,6 +36,7 @@ var Header = Class.$extend( {
     } else {
       $("#smallMenuBar").hide();
       $("#smallSearchBar").css("display", "table-cell");
+      $("#smallSearchBar input").focus();
     }
     
     this.isSearchBarToggeled = !this.isSearchBarToggeled;
