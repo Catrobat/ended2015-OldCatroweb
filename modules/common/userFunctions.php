@@ -95,14 +95,15 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   public function checkUserExists($username) {
-    $username = trim($username);
-    $result = pg_execute($this->dbConnection, "get_user_row_by_username", array($username));
-     
+    $username = checkUserInput($username);
+    $usernameClean = $this->cleanUsername($username);
+    $result = pg_execute($this->dbConnection, "get_user_row_by_username_or_username_clean", array($username, $usernameClean));
+    
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
     }
-    $userExists = (pg_num_rows($result) == 1);
+    $userExists = (pg_num_rows($result) > 0);
     pg_free_result($result);
      
     return $userExists;
@@ -308,8 +309,8 @@ class userFunctions extends CoreAuthenticationNone {
     }
 
     $this->loginCatroid($username, $this->hashPassword($username, $password));
-    $this->loginBoard($username, $password);
-    $this->loginWiki($username, $password);
+    //$this->loginBoard($username, $password);
+    //$this->loginWiki($username, $password);
     $this->setUserLanguage($this->session->userLogin_userId);
 
     $token = '-1';
@@ -447,8 +448,8 @@ class userFunctions extends CoreAuthenticationNone {
 
   public function logout() {
     $this->logoutCatroid();
-    $this->logoutBoard();
-    $this->logoutWiki();
+    //$this->logoutBoard();
+    //$this->logoutWiki();
   }
 
   private function logoutCatroid() {
@@ -496,8 +497,8 @@ class userFunctions extends CoreAuthenticationNone {
       $this->checkCountry($postData['registrationCountry']);
        
       $this->registerCatroidId = $this->registerCatroid($postData);
-      $this->registerBoardId = $this->registerBoard($postData);
-      $this->registerWikiId = $this->registerWiki($postData);
+      //$this->registerBoardId = $this->registerBoard($postData);
+      //$this->registerWikiId = $this->registerWiki($postData);
       	
       $this->sendRegistrationEmail($postData);
     } catch(Exception $e) {
@@ -630,8 +631,8 @@ class userFunctions extends CoreAuthenticationNone {
 
   public function undoRegister() {
     $this->undoRegisterCatroid();
-    $this->undoRegisterBoard();
-    $this->undoRegisterWiki();
+    //$this->undoRegisterBoard();
+    //$this->undoRegisterWiki();
   }
 
   private function undoRegisterCatroid() {
@@ -780,8 +781,8 @@ class userFunctions extends CoreAuthenticationNone {
     $username = $this->cleanUsername($username);
 
     $this->updateCatroidPassword($username, $newPassword);
-    $this->updateBoardPassword($username, $newPassword);
-    $this->updateWikiPassword($username, $newPassword);
+    //$this->updateBoardPassword($username, $newPassword);
+    //$this->updateWikiPassword($username, $newPassword);
   }
 
   private function updateCatroidPassword($username, $password) {

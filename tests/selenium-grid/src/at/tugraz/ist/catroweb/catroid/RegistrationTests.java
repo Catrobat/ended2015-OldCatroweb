@@ -129,15 +129,11 @@ public class RegistrationTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertFalse(isTextPresent("Login"));
-      assertTrue(isTextPresent("Logout"));
+      assertTrue(isTextPresent("Pocket Code Forum"));
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      waitForElementPresent(By.id("pt-preferences"));
-      driver().findElement(By.id("pt-preferences")).findElement(By.tagName("a")).click();
-      assertTrue(containsElementText(By.id("firstHeading"), "Preferences"));
-      assertFalse(isTextPresent("Not logged in"));
+      assertTrue(isTextPresent("Catroid without Android device"));
       closePopUp();
       
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
@@ -186,12 +182,11 @@ public class RegistrationTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Login"));
-      assertFalse(isTextPresent("Logout"));
+      assertTrue(isTextPresent("Pocket Code Forum"));
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertFalse(isTextPresent(wikiUsername));
+      assertTrue(isTextPresent("Catroid without Android device"));
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("RegistrationTests.invalidRegistration." + dataset.get("registrationUsername"));
