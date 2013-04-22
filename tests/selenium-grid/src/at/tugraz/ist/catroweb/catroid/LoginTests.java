@@ -31,6 +31,7 @@ import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
+import at.tugraz.ist.catroweb.common.CommonFunctions;
 
 @Test(groups = { "catroid", "LoginTests" })
 public class LoginTests extends BaseTest {
@@ -47,12 +48,11 @@ public class LoginTests extends BaseTest {
       driver().findElement(By.id("headerMenuButton")).click();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Login"));
-      assertFalse(isTextPresent("Logout"));
+      assertTrue(isTextPresent("Pocket Code Forum"));
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertFalse(isTextPresent(wikiUsername));
+      assertTrue(isTextPresent("Catroid without Android device"));
       closePopUp();
 
       // test login
@@ -94,17 +94,11 @@ public class LoginTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertFalse(isTextPresent("Login"));
-      assertTrue(isTextPresent("Logout"));
-      assertTrue(isTextPresent(dataset.get("username")));
+      assertTrue(isTextPresent("Pocket Code Forum"));
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertTrue(isTextPresent(wikiUsername));
-      waitForElementPresent(By.id("pt-preferences"));
-      driver().findElement(By.id("pt-preferences")).findElement(By.tagName("a")).click();
-      assertTrue(containsElementText(By.id("firstHeading"), "Preferences"));
-      assertFalse(isTextPresent("Not logged in"));
+      assertTrue(isTextPresent("Catroid without Android device"));
       closePopUp();
 
       // test logout
@@ -120,12 +114,11 @@ public class LoginTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Login"));
-      assertFalse(isTextPresent("Logout"));
+      assertTrue(isTextPresent("Pocket Code Forum"));
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertFalse(isTextPresent(wikiUsername));
+      assertTrue(isTextPresent("Catroid without Android device"));
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("LoginTests.validLogin." + dataset.get("username"));
@@ -180,7 +173,7 @@ public class LoginTests extends BaseTest {
       captureScreen("LoginTests.waitForLogin." + dataset.get("username"));
       throw e;
     }
-  }  
+  }
   
   @Test(dataProvider = "validLoginData", groups = { "functionality", "popupwindows" }, description = "if logged in, registration page should redirect to profile page")
   public void redirection(HashMap<String, String> dataset) throws Throwable {
@@ -252,18 +245,58 @@ public class LoginTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Login"));
-      assertFalse(isTextPresent("Logout"));
+      assertTrue(isTextPresent("Pocket Code Forum"));
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertFalse(isTextPresent(wikiUsername));
+      assertTrue(isTextPresent("Catroid without Android device"));
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
       throw e;
     } catch(Exception e) {
       captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
+      throw e;
+    }
+  }
+
+  @Test(groups = { "functionality" }, description = "try login with different lower upper case in username")
+  public void differentCaseInUsernameLogin() throws Throwable {
+    String username = "maxmustermann";
+    String password = "password";
+    String email = "max" + System.currentTimeMillis() + "@gmail.com";
+    String country = "Switzerland";
+
+    try {
+      openLocation("catroid/registration/");
+      
+      driver().findElement(By.id("registrationUsername")).sendKeys(username);
+      driver().findElement(By.id("registrationPassword")).sendKeys(password);
+      driver().findElement(By.id("registrationEmail")).sendKeys(email);
+      driver().findElement(By.id("registrationCountry")).sendKeys(country);
+      driver().findElement(By.id("registrationSubmit")).click();
+      ajaxWait();
+
+      assertTrue(isTextPresent(username));
+      logout("catroid/index");
+
+      openLocation("catroid/login");
+      driver().findElement(By.id("loginUsername")).sendKeys("MAXmUstermann");
+      driver().findElement(By.id("loginPassword")).sendKeys("password");
+
+      driver().findElement(By.id("loginSubmitButton")).click();
+      ajaxWait();
+
+      driver().findElement(By.id("headerProfileButton")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("My Profile"));
+      
+      CommonFunctions.deleteUserFromDatabase(username);
+    } catch(AssertionError e) {
+      captureScreen("LoginTests.differentCaseInUsernameLogin." + username);
+      throw e;
+    } catch(Exception e) {
+      captureScreen("LoginTests.differentCaseInUsernameLogin." + username);
       throw e;
     }
   }

@@ -81,10 +81,13 @@ class upload extends CoreAuthenticationDevice {
       }
 
       $this->buildNativeApp($projectId);
-
+      
       $this->projectId = $projectId;
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('upload_successfull');
+
+      $this->loadModule('common/userFunctions');
+      $this->token = $this->userFunctions->updateAuthenticationToken();
     } catch(Exception $e) {
       $this->sendUploadFailAdminEmail($_POST, $_FILES);
       $this->cleanup();

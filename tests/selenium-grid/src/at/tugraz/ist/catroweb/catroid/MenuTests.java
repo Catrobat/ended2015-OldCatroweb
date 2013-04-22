@@ -26,6 +26,7 @@ package at.tugraz.ist.catroweb.catroid;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.internal.seleniumemulation.IsTextPresent;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -106,12 +107,11 @@ public class MenuTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertFalse(isTextPresent("Login"));
-      assertTrue(isTextPresent("Logout"));
+      assertTrue(isTextPresent("Pocket Code Forum"));
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertTrue(isTextPresent(wikiUsername));
+      assertTrue(isTextPresent("Catroid without Android device"));
       closePopUp();
       
       driver().findElement(By.id("headerProfileButton"));      
@@ -144,16 +144,11 @@ public class MenuTests extends BaseTest {
       assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertRegExp(".*/addons/board(/)?$", driver().getCurrentUrl());
-      assertTrue(isTextPresent(("Board index")));
-      assertTrue(isTextPresent(("Login")));
+      assertTrue(isTextPresent("Pocket Code Forum"));
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertRegExp(".*/wiki/Main_Page$", driver().getCurrentUrl());
-
-      assertTrue(isTextPresent(("Main Page")));
-      assertFalse(isElementPresent(By.id("pt-userpage")));
+      assertTrue(isTextPresent("Catroid without Android device"));
       closePopUp();
 
       driver().findElement(By.id("menuLoginButton")).click();
