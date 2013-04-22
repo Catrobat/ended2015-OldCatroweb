@@ -124,21 +124,21 @@ if __name__ == '__main__':
 			if sys.argv[2] == 'backup':
 				Backup(shell).createBackup()
 			elif sys.argv[2] == 'restore':
-				Backup().restoreBackup(sys.argv[3])
+				Backup(shell).restoreBackup(sys.argv[3])
 
 		elif sys.argv[1] == 'catroidtest':
 			shell = RemoteShell('catroidtest.ist.tugraz.at', 'unpriv', '')
 			if sys.argv[2] == 'backup':
 				Backup(shell).createBackup()
 			elif sys.argv[2] == 'restore':
-				Backup().restoreBackup(sys.argv[3])
+				Backup(shell).restoreBackup(sys.argv[3])
 
 		elif sys.argv[1] == 'public':
 			shell = RemoteShell('catroidweb.ist.tugraz.at', 'unpriv', '')
 			if sys.argv[2] == 'backup':
 				Backup(shell).createBackup()
 			elif sys.argv[2] == 'restore':
-				Backup().restoreBackup(sys.argv[3])
+				Backup(shell).restoreBackup(sys.argv[3])
 
 		else:
 			parameter = '%s:' % sys.argv[1]
@@ -150,24 +150,12 @@ if __name__ == '__main__':
 		print('  local backup          Creates a backup of the local website.')
 		print('  local restore <BACKUP>')
 		print('                        Restores the backup to the local website.')
-		print('  local backup          Creates a backup of the local website.')
-		print('  local restore <BACKUP>')
-		print('                        Restores the backup to the local website.')
-		print('  local backup          Creates a backup of the local website.')
-		print('  local restore <BACKUP>')
-		print('                        Restores the backup to the local website.')
-		print('  local backup          Creates a backup of the local website.')
-		print('  local restore <BACKUP>')
-		print('                        Restores the backup to the local website.')
-		print('  catroidtest all       Deploys a new version to catroidtest.ist.tugraz.at.')
-		print('  catroidtest website   Deploys a new version to catroidtest.ist.tugraz.at.')
-		print('  public all            Deploys a new version to catroidweb.ist.tugraz.at.')
-		print('  public website        Deploys a new version to catroidweb.ist.tugraz.at.')
-
-	#shell = RemoteShell('192.168.1.110', 'chris', '')
-	#shell = RemoteShell('catroidwebtest.ist.tugraz.at', 'unpriv', '')
-	#shell = RemoteShell('catroidtest.ist.tugraz.at', 'unpriv', '')
-	#shell = RemoteShell('catroidweb.ist.tugraz.at', 'unpriv', '')
-	#Deploy(shell).run()
-
-	#Backup().restoreBackup('catroweb-20130116.tar')
+		print('  webtest backup        Creates a backup of the catroidwebtest website.')
+		print('  webtest restore <BACKUP>')
+		print('                        Restores the backup to the catroidwebtest website.')
+		print('  catroidtest backup    Creates a backup of the catroidtest website.')
+		print('  catroidtest restore <BACKUP>')
+		print('                        Restores the backup to the catroidtest website.')
+		print('  public backup         Creates a backup of the public website.')
+		print('  public restore <BACKUP>')
+		print('                        Restores the backup to the public website.')

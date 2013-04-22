@@ -232,7 +232,6 @@ class projects extends CoreAuthenticationNone {
   private function getNumberOfVisibleProjects($statementName, $queryParameter) {
     $queryParameter[0] = $this->maxId;
     $queryParameter[1] = 0;
-    $this->prepareStatement($statementName, $sqlQuery);
     $result = pg_execute($this->dbConnection, $statementName, $queryParameter);
     
     $numberOfRows = -1;

@@ -81,7 +81,6 @@
         <string name="project_title_default">You have to rename your project, before uploading it.</string>
         <string name="insulting_words_in_project_title">Please don't use offensive language in your project title.</string>
         <string name="insulting_words_in_project_description">Please don't use offensive language in your project description.</string>
-        <string name="qr_code_generation_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="save_thumbnail_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="invalid_project_xml">Sorry, your project file is invalid. Try to save it as a new project and upload it again.</string>
         <string name="old_catrobat_language">Sorry, your project contains an old version of the Catrobat language! Are you using the latest version of Catroid?</string>
@@ -96,8 +95,6 @@
     <viewer>
     	<string name="html_file_not_found">This page cannot be displayed.</string>
     	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
-    	<string name="ajax_took_too_long">Sorry something went wrong, please try again.</string>
-    	<string name="ajax_timed_out">Sorry something went wrong, please try again.</string>
       <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
       <string name="ip_is_blocked_temporary">Your IP-Address has been blocked for 30 seconds.</string>
       <string name="user_is_blocked">Your Account has been blocked.</string>
