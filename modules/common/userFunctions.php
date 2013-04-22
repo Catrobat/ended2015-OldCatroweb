@@ -314,7 +314,7 @@ class userFunctions extends CoreAuthenticationNone {
     $this->setUserLanguage($this->session->userLogin_userId);
 
     $token = '-1';
-    $result = pg_execute($this->dbConnection, "get_user_token", array($this->session->userLogin_userId));
+    $result = pg_execute($this->dbConnection, "get_user_token", array($this->cleanUsername($username))); 
     if($result) {
       $row = pg_fetch_array($result);
       $token = $row['auth_token'];
@@ -838,7 +838,7 @@ class userFunctions extends CoreAuthenticationNone {
   public function updateAuthenticationToken() {
     //TODO remove this part when app is ready
     $authToken = '-1';
-    $result = pg_execute($this->dbConnection, "get_user_token", array($this->session->userLogin_userId));
+    $result = pg_execute($this->dbConnection, "get_user_token", array($this->cleanUsername($this->session->userLogin_userNickname)));
     if($result) {
       $row = pg_fetch_array($result);
       $authToken = $row['auth_token'];
@@ -849,7 +849,7 @@ class userFunctions extends CoreAuthenticationNone {
     //************
 
     $authToken = $this->generateAuthenticationToken();
-    $result = pg_execute($this->dbConnection, "update_auth_token", array($authToken, $this->session->userLogin_userId));
+    $result = pg_execute($this->dbConnection, "update_auth_token", array($authToken, intval($this->session->userLogin_userId)));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);

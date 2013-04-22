@@ -125,7 +125,7 @@ class Sql:
 
 	def createDocs(self):
 		autodoc = 'postgresql_autodoc'
-		if 'not found' in commands.getoutput('%s -h' % autodoc):
+		if 'not found' in commands.getoutput('cd /tmp; %s -h' % autodoc):
 			print('** WARNING *********************************************************************')
 			print('%s is not installed.' % autodoc)
 			return
@@ -136,7 +136,7 @@ class Sql:
 		for database in self.databases:
 			print('creating doc for database %s' % database)
 			
-			self.run('cd %s; %s -h localhost -p 5432 -d %s -u %s --password=%s' % (self.overviewPath, autodoc, database, self.dbUser, self.dbPass))
+			self.run('cd %s; ls -al; %s -h localhost -p 5432 -d %s -u %s --password=%s' % (self.overviewPath, autodoc, database, self.dbUser, self.dbPass))
 			self.run('cd %s; dot -Tpng %s.dot > %s.png' % (self.overviewPath, database, database))
 			
 			for line in fileinput.FileInput(os.path.join(self.overviewPath, database + '.html'), inplace=1):
