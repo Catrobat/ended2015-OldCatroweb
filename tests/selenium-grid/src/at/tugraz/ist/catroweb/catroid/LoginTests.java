@@ -48,11 +48,11 @@ public class LoginTests extends BaseTest {
       driver().findElement(By.id("headerMenuButton")).click();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Pocket Code Forum"));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertTrue(isTextPresent("Catroid without Android device"));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
 
       // test login
@@ -94,11 +94,11 @@ public class LoginTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Pocket Code Forum"));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertTrue(isTextPresent("Catroid without Android device"));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
 
       // test logout
@@ -114,11 +114,11 @@ public class LoginTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Pocket Code Forum"));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertTrue(isTextPresent("Catroid without Android device"));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("LoginTests.validLogin." + dataset.get("username"));
@@ -245,11 +245,11 @@ public class LoginTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Pocket Code Forum"));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertTrue(isTextPresent("Catroid without Android device"));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
@@ -268,6 +268,7 @@ public class LoginTests extends BaseTest {
     String country = "Switzerland";
 
     try {
+      CommonFunctions.deleteUserFromDatabase(username);
       openLocation("catroid/registration/");
       
       driver().findElement(By.id("registrationUsername")).sendKeys(username);

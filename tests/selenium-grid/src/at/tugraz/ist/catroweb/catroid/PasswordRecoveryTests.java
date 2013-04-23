@@ -191,11 +191,11 @@ public class PasswordRecoveryTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Pocket Code Forum"));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertTrue(isTextPresent("Catroid without Android device"));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
 
       // logout
