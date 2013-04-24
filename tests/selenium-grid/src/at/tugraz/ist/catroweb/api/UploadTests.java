@@ -50,7 +50,7 @@ public class UploadTests extends BaseTest {
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
       assertTrue(containsElementText(By.xpath("//div[@class='detailsProjectTitle']"), title));
       assertTrue(isTextPresent("uploaded"));
-      assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and can not be downloaded any more."));
+      assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and cannot be downloaded any more."));
       assertFalse(isElementPresent(By.xpath("//div[@class='detailsDownloadButton']")));
 
       //update the project

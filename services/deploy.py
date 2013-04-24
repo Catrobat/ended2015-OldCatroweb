@@ -174,6 +174,12 @@ if __name__ == '__main__':
 				deploy.run(type=sys.argv[1], files=sys.argv[2])
 			else:
 				deploy.run(type=sys.argv[1])
+		elif sys.argv[1] == 'public-tmp':
+			deploy = Deploy(RemoteShell('catroidpublic.ist.tugraz.at', 'unpriv', ''))
+			if len(sys.argv) > 2:
+				deploy.run(type=sys.argv[1], files=sys.argv[2])
+			else:
+				deploy.run(type=sys.argv[1])
 		else:
 			parameter = '%s:' % sys.argv[1]
 			raise IndexError()
