@@ -22,6 +22,10 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
+		<server>
+				<string name="missing_mcrypt">Please tell the administrator to install mcrypt. Thanks.</string>
+				<string name="missing_blowfish">Please tell the administrator to install CRYPT_BLOWFISH. Thanks.</string>
+		</server>
     <db>
         <string name="query_failed">Ooooops something went wrong. Please try again!</string>
         <string name="connection_failed">Ooooops something went wrong. Please try again!</string>

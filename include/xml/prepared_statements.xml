@@ -75,8 +75,7 @@
     <string name="get_project_list_containing_insulting_words">SELECT * FROM unapproved_words_in_projects WHERE word_id=$1</string>
     <string name="delete_word_from_list">DELETE FROM unapproved_words_in_projects WHERE word_id=$1</string>
 
-    <string name="get_user_login">SELECT id, username FROM cusers WHERE username_clean=$1 AND password=$2 LIMIT 1</string>
-    <string name="get_user_salt">SELECT salt FROM cusers WHERE username_clean=$1 LIMIT 1</string>
+    <string name="get_user_password_hash">SELECT id, username, password FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_token">SELECT auth_token FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_device_login">SELECT * FROM cusers WHERE username_clean=$1 AND auth_token=$2 LIMIT 1</string>
     <string name="get_user_row_by_username">SELECT cusers.id, cusers.username, cusers.gender, cusers.country, cusers.city, cusers.language, to_char(cusers.date_of_birth, 'MM') AS month, to_char(cusers.date_of_birth, 'YYYY') AS year, cusers.avatar, (SELECT count(*) FROM projects WHERE projects.user_id=cusers.id) AS project_count FROM cusers WHERE username=$1 LIMIT 1</string>
@@ -94,7 +93,7 @@
     <string name="get_user_email_by_email">SELECT email FROM cusers WHERE email=$1</string>
     <string name="get_user_emails_by_id">SELECT u.email, true as validated FROM cusers u WHERE u.id=$1 UNION SELECT e.email, e.validated FROM cusers_additional_email e WHERE e.user_id=$1</string>
 
-    <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token, language, salt) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id</string>
+    <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token, language) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
     <string name="delete_user_additional_email_by_email">DELETE FROM cusers_additional_email WHERE email=$1</string>
     <string name="delete_user_email_from_additional_email_by_user_email">DELETE FROM cusers_additional_email WHERE email=(SELECT email FROM cusers WHERE id=$1)</string>
@@ -110,7 +109,7 @@
     <string name="update_user_language_by_id">UPDATE cusers SET language=$1 WHERE id=$2</string>
     <string name="update_avatar_by_id">UPDATE cusers SET avatar=$1 WHERE id=$2</string>
     
-    <string name="update_password_by_username">UPDATE cusers SET password=$1, auth_token=$3, salt=$4, recovery_hash=NULL, recovery_time=NULL WHERE username_clean=$2</string>
+    <string name="update_password_by_username">UPDATE cusers SET password=$1, auth_token=$3, recovery_hash=NULL, recovery_time=NULL WHERE username_clean=$2</string>
     <string name="update_auth_token">UPDATE cusers SET auth_token=$1 WHERE id=$2</string>
     <string name="delete_user_birth">UPDATE cusers SET date_of_birth=NULL WHERE id=$1</string>
     

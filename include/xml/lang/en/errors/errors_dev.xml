@@ -22,6 +22,10 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
+		<server>
+				<string name="missing_mcrypt">Mcrypt is missing on your system.</string>
+				<string name="missing_blowfish">CRYPT_BLOWFISH is missing on your system.</string>
+		</server>
     <db>
         <string name="query_failed">DB operation failed.</string>
         <string name="connection_failed">DB connection failed.</string>
