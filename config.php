@@ -76,10 +76,12 @@ if (DEVELOPMENT_MODE) {
 	define('SEND_NOTIFICATION_EMAIL',false);
 	define('SEND_NOTIFICATION_USER_EMAIL',false);
 	define('DATABASE_CONNECTION_PERSISTENT',false);
+  define('UPDATE_AUTH_TOKEN',false);
 } else {
 	define('SEND_NOTIFICATION_EMAIL',true);
 	define('SEND_NOTIFICATION_USER_EMAIL',true);
 	define('DATABASE_CONNECTION_PERSISTENT',true);
+  define('UPDATE_AUTH_TOKEN',true);
 }
 	
 define('DEVELOPMENT_STATUS','[beta]');
@@ -111,6 +113,7 @@ define('USER_MIN_USERNAME_LENGTH',4);
 define('USER_MAX_USERNAME_LENGTH',32);
 define('USER_MIN_PASSWORD_LENGTH',6);
 define('USER_MAX_PASSWORD_LENGTH',32);
+define('USER_HASH_ITERATIONS',11);
 define('GA_PIXEL','ga.php');
 define('SESSION_LIFETIME', 60*60*24*365);
 define('JQUERY_VERSION', '2.0.0');

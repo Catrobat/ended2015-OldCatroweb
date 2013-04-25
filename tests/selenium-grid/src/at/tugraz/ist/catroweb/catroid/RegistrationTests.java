@@ -129,11 +129,11 @@ public class RegistrationTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Pocket Code Forum"));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertTrue(isTextPresent("Catroid without Android device"));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
       
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
@@ -182,11 +182,11 @@ public class RegistrationTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Pocket Code Forum"));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertTrue(isTextPresent("Catroid without Android device"));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("RegistrationTests.invalidRegistration." + dataset.get("registrationUsername"));

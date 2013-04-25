@@ -44,6 +44,8 @@ var Profile = Class.$extend( {
     $("#birthdayMonthSelect").change($.proxy(this.updateBirthdayRequest, this));
     $("#birthdayYearSelect").change($.proxy(this.updateBirthdayRequest, this));
     $("#profileSwitchLanguage").change($.proxy(this.updateLanguageRequest, this));
+
+    $("#searchForm").submit($.proxy(this.search, this));
   },
   
   //-------------------------------------------------------------------------------------------------------------------
@@ -282,5 +284,10 @@ var Profile = Class.$extend( {
     } else {
       common.showAjaxErrorMsg(result.answer);
     }
+  },
+
+  search : function() {
+    location.href = "/catroid/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
+    return false;
   }
 });

@@ -209,13 +209,14 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   public function checkLoginData($username, $hashedPassword) {
-    $result = pg_execute($this->dbConnection, "get_user_login", array($this->cleanUsername($username), $hashedPassword));
+    $result = pg_execute($this->dbConnection, "get_user_password_hash", array($this->cleanUsername($username)));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
     }
-     
-    $loginSuccess = (pg_num_rows($result) == 1);
+    
+    $row = pg_fetch_assoc($result);
+    $loginSuccess = ($this->slowEquals($row['password'], $hashedPassword)) && (strlen($hashedPassword) > 0);
     pg_free_result($result);
 
     return $loginSuccess;
@@ -282,16 +283,21 @@ class userFunctions extends CoreAuthenticationNone {
   }
   
   public function hashPassword($username, $password, $salt='') {
+    if(!defined("CRYPT_BLOWFISH") || !CRYPT_BLOWFISH) {
+      throw new Exception($this->errorHandler->getError('server', 'missing_blowfish'),
+          STATUS_CODE_SERVER_CONFIGURATION_CORRUPT);
+    }
+
     if(strlen($salt) == 0) {
-      $result = pg_execute($this->dbConnection, "get_user_salt", array($this->cleanUsername($username)));
+      $result = pg_execute($this->dbConnection, "get_user_password_hash", array($this->cleanUsername($username)));
       if($result) {
         $row = pg_fetch_assoc($result);
-        $salt = $row['salt'];
+        $salt = $row['password'];
         pg_free_result($result);
       }
     }
 
-    return sha1($salt . $password);
+    return crypt($password, $salt);
   }
 
   public function login($username, $password) {
@@ -326,7 +332,7 @@ class userFunctions extends CoreAuthenticationNone {
   private function loginCatroid($username, $hashedPassword) {
     $user = $this->cleanUsername($username);
 
-    $result = pg_execute($this->dbConnection, "get_user_login", array($user, $hashedPassword));
+    $result = pg_execute($this->dbConnection, "get_user_password_hash", array($user));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
@@ -341,25 +347,28 @@ class userFunctions extends CoreAuthenticationNone {
     }
 
     if(is_array($row)) {
-      $this->session->userLogin_userId = $row['id'];
-      $this->session->userLogin_userNickname = $row['username'];
-
-      $result = pg_execute($this->dbConnection, "reset_failed_attempts", array($ip));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_SQL_QUERY_FAILED);
+      $passwordHash = $row['password'];
+      if($this->slowEquals($passwordHash, $hashedPassword)) {
+        $this->session->userLogin_userId = $row['id'];
+        $this->session->userLogin_userNickname = $row['username'];
+  
+        $result = pg_execute($this->dbConnection, "reset_failed_attempts", array($ip));
+        if(!$result) {
+          throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+              STATUS_CODE_SQL_QUERY_FAILED);
+        }
+        pg_free_result($result);
+        return;
       }
-      pg_free_result($result);
-    } else {
-      $result = pg_execute($this->dbConnection, "save_failed_attempts", array($ip));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_SQL_QUERY_FAILED);
-      }
-      pg_free_result($result);
-      throw new Exception($this->errorHandler->getError('userFunctions', 'password_or_username_wrong'),
-          STATUS_CODE_AUTHENTICATION_FAILED);
     }
+    $result = pg_execute($this->dbConnection, "save_failed_attempts", array($ip));
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+          STATUS_CODE_SQL_QUERY_FAILED);
+    }
+    pg_free_result($result);
+    throw new Exception($this->errorHandler->getError('userFunctions', 'password_or_username_wrong'),
+        STATUS_CODE_AUTHENTICATION_FAILED);
   }
 
   private function loginBoard($username, $password) {
@@ -511,7 +520,8 @@ class userFunctions extends CoreAuthenticationNone {
     $username = checkUserInput($postData['registrationUsername']);
     $usernameClean = $this->cleanUsername($username);
 
-    $salt = $this->randomString(8);
+    $random = $this->randomBytes();
+    $salt = $this->getBlowfishSalt($random);
     $hashedPassword = $this->hashPassword($postData['registrationUsername'], $postData['registrationPassword'], $salt);
     $authToken = $this->generateAuthenticationToken();
 
@@ -533,7 +543,7 @@ class userFunctions extends CoreAuthenticationNone {
     $language = $this->languageHandler->getLanguage();
 
     $result = pg_execute($this->dbConnection, "user_registration", array($username, $usernameClean, $hashedPassword,
-        $email, $dateOfBirth, $gender, $country, $city, $ipRegistered, $status, $authToken, $language, $salt));
+        $email, $dateOfBirth, $gender, $country, $city, $ipRegistered, $status, $authToken, $language));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
@@ -786,11 +796,12 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   private function updateCatroidPassword($username, $password) {
-    $salt = $this->randomString(8);
+    $random = $this->randomBytes();
+    $salt = $this->getBlowfishSalt($random);
     $hashedPassword = $this->hashPassword($username, $password, $salt);
     $authToken = $this->generateAuthenticationToken();
     
-    $result = pg_execute($this->dbConnection, "update_password_by_username", array($hashedPassword, $username, $authToken, $salt));
+    $result = pg_execute($this->dbConnection, "update_password_by_username", array($hashedPassword, $username, $authToken));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
@@ -836,26 +847,26 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   public function updateAuthenticationToken() {
-    //TODO remove this part when app is ready
     $authToken = '-1';
-    $result = pg_execute($this->dbConnection, "get_user_token", array($this->cleanUsername($this->session->userLogin_userNickname)));
-    if($result) {
+    
+    if(UPDATE_AUTH_TOKEN) {
+      $authToken = $this->generateAuthenticationToken();
+      $result = pg_execute($this->dbConnection, "update_auth_token", array($authToken, intval($this->session->userLogin_userId)));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      pg_free_result($result);
+    } else {
+      $result = pg_execute($this->dbConnection, "get_user_token", array($this->session->userLogin_userId));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
       $row = pg_fetch_array($result);
       $authToken = $row['auth_token'];
       pg_free_result($result);
     }
-    return $authToken;
-    //end of todo
-    //************
-
-    $authToken = $this->generateAuthenticationToken();
-    $result = pg_execute($this->dbConnection, "update_auth_token", array($authToken, intval($this->session->userLogin_userId)));
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_SQL_QUERY_FAILED);
-    }
-    pg_free_result($result);
-  
     return $authToken;
   }
 
@@ -1126,10 +1137,8 @@ class userFunctions extends CoreAuthenticationNone {
 
   public function createUserHash($userData) {
     if(is_array($userData)) {
-      $data = str_shuffle($userData['username'] . ':' . $userData['email']);
-      $salt = hash("md5", str_shuffle($userData['password']) . rand());
-      $hash = hash("md5", $data . ':' . $salt);
-      return $hash;
+      $data = str_shuffle($userData['username'] . $userData['email'] . $this->randomString(22));
+      return hash("sha1", $data);
     }
     throw new Exception($this->errorHandler->getError('userFunctions', 'create_hash_failed'),
         STATUS_CODE_USER_RECOVERY_HASH_CREATION_FAILED);
@@ -1236,9 +1245,58 @@ class userFunctions extends CoreAuthenticationNone {
   }
   
   private function randomString($length=8) {
-    return substr(base64_encode(mcrypt_create_iv($length, MCRYPT_DEV_URANDOM)), 0, $length);
+    return substr(base64_encode(mcrypt_create_iv(ceil($length * 0.75), MCRYPT_DEV_URANDOM)), 0, $length);
   }
   
+  private function randomBytes($length=16) {
+    if(!function_exists("mcrypt_create_iv")) {
+      throw new Exception($this->errorHandler->getError('server', 'missing_mcrypt', ''),
+          STATUS_CODE_SERVER_CONFIGURATION_CORRUPT);
+    }
+    
+    return mcrypt_create_iv($length, MCRYPT_DEV_URANDOM);
+  }
+
+  private function getBlowfishSalt($input, $iterations=USER_HASH_ITERATIONS) {
+    $itoa64 = './ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  
+    $output = '$2a$';
+    $output .= chr(ord('0') + $iterations / 10);
+    $output .= chr(ord('0') + $iterations % 10);
+    $output .= '$';
+  
+    $i = 0;
+    do {
+      $c1 = ord($input[$i++]);
+      $output .= $itoa64[$c1 >> 2];
+      $c1 = ($c1 & 0x03) << 4;
+      if($i >= 16) {
+        $output .= $itoa64[$c1];
+      break;
+    }
+  
+    $c2 = ord($input[$i++]);
+    $c1 |= $c2 >> 4;
+    $output .= $itoa64[$c1];
+    $c1 = ($c2 & 0x0f) << 2;
+  
+    $c2 = ord($input[$i++]);
+    $c1 |= $c2 >> 6;
+      $output .= $itoa64[$c1];
+      $output .= $itoa64[$c2 & 0x3f];
+    } while (1);
+  
+    return $output;
+  }
+  
+  private function slowEquals($a, $b) {
+    $diff = strlen($a) ^ strlen($b);
+    for($i = 0; $i < strlen($a) && $i < strlen($b); $i++) {
+      $diff |= ord($a[$i]) ^ ord($b[$i]);
+    }
+    return $diff === 0;
+  }
+
   public function __destruct() {
     parent::__destruct();
   }
