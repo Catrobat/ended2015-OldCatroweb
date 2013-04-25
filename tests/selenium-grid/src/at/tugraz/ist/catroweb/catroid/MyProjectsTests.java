@@ -60,7 +60,7 @@ public class MyProjectsTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       // delete uploaded project
-      openLocation("catroid/myprojects");
+      openLocation("myprojects");
       assertTrue(isTextPresent(title));
       assertTrue(isVisible(By.id(id)));
       

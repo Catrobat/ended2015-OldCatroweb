@@ -216,7 +216,7 @@ var ProjectContentFiller = Class
               $("#projectListSpacer" + i).css("display", "block");
               $("#projectListThumbnail" + i).attr("title", projects[i]['title']);
               $("#projectListDetailsLinkThumb" + i)
-                  .attr("href", this.basePath + "catroid/details/" + projects[i]['id']);
+                  .attr("href", this.basePath + "details/" + projects[i]['id']);
               $("#projectListDetailsLinkThumb" + i).unbind('click');
               $("#projectListDetailsLinkThumb" + i).bind("click", {
                 pageNr : projects[i]['pageNr']
@@ -228,7 +228,7 @@ var ProjectContentFiller = Class
 
               $("#projectListTitle" + i).html(
                   "<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='" + this.basePath
-                      + "catroid/details/" + projects[i]['id'] + "'>" + projects[i]['title'] + "</a></div>");
+                      + "details/" + projects[i]['id'] + "'>" + projects[i]['title'] + "</a></div>");
               $("#projectListTitle" + i).unbind('click');
               $("#projectListTitle" + i).bind("click", {
                 pageNr : projects[i]['pageNr']

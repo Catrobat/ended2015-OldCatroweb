@@ -113,10 +113,10 @@ class projects extends CoreAuthenticationNone {
     $filter = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $filter); //TODO unused?
     
     $this->links = array(
-        array('title' => 'downloads', 'url' => BASE_PATH.'catroid/projects/?sort=downloads', 'image' => BASE_PATH.'images/symbols/arrow_down1.png', 'style' => ($this->session->sort == PROJECT_SORTBY_DOWNLOADS)? 'sortLinkActive' : ''),
-        array('title' => 'newest', 'url' => BASE_PATH.'catroid/projects/?sort=newest', 'image' => BASE_PATH.'images/symbols/clock2.png', 'style' => ($params['sort'] == PROJECT_SORTBY_AGE)? 'sortLinkActive' : ''),
-        array('title' => 'views', 'url' => BASE_PATH.'catroid/projects/?sort=views', 'image' => BASE_PATH.'images/symbols/view7.png', 'style' => ($params['sort'] == PROJECT_SORTBY_VIEWS)? 'sortLinkActive' : ''),
-        array('title' => 'random', 'url' => BASE_PATH.'catroid/projects/?sort=random', 'image' => BASE_PATH.'', 'style' => ($params['sort'] == PROJECTS_SORT_RANDOM)? 'sortLinkActive' : ''),
+        array('title' => 'downloads', 'url' => BASE_PATH.'projects/?sort=downloads', 'image' => BASE_PATH.'images/symbols/arrow_down1.png', 'style' => ($this->session->sort == PROJECT_SORTBY_DOWNLOADS)? 'sortLinkActive' : ''),
+        array('title' => 'newest', 'url' => BASE_PATH.'projects/?sort=newest', 'image' => BASE_PATH.'images/symbols/clock2.png', 'style' => ($params['sort'] == PROJECT_SORTBY_AGE)? 'sortLinkActive' : ''),
+        array('title' => 'views', 'url' => BASE_PATH.'projects/?sort=views', 'image' => BASE_PATH.'images/symbols/view7.png', 'style' => ($params['sort'] == PROJECT_SORTBY_VIEWS)? 'sortLinkActive' : ''),
+        array('title' => 'random', 'url' => BASE_PATH.'projects/?sort=random', 'image' => BASE_PATH.'', 'style' => ($params['sort'] == PROJECTS_SORT_RANDOM)? 'sortLinkActive' : ''),
     );
     $this->jsParams = "'".json_encode($params)."'";
 

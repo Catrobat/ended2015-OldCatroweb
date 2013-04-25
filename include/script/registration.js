@@ -48,7 +48,7 @@ var Registration = Class.$extend( {
   
   registrationSubmit : function() {
     $("#registrationErrorMsg").toggle(false);
-    var url = this.basePath + 'catroid/registration/registrationRequest.json';
+    var url = this.basePath + 'registration/registrationRequest.json';
     $.ajax({
       type : "POST",
       url : url,
@@ -70,7 +70,7 @@ var Registration = Class.$extend( {
 
   registrationSuccess : function(response) {
     if(response.statusCode == 200) {
-      location.href = this.basePath + 'catroid/profile';
+      location.href = this.basePath + 'profile';
     } else {
       common.showPreHeaderMessages(response);
       common.showAjaxErrorMsg(response.answer);

@@ -142,7 +142,7 @@ public class AdminTests extends BaseTest {
   @Test(groups = { "functionality", "upload", "popupwindows" }, description = "check report as inappropriate functionality")
   public void inappropriateProjects() throws Throwable {
     try {
-      openLocation("catroid/details/1");
+      openLocation("details/1");
       driver().findElement(By.id("headerProfileButton")).click();
       driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
       driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());

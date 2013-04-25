@@ -29,7 +29,7 @@ class downloadTest extends PHPUnit_Framework_TestCase
     protected $download;
 
     protected function setUp() {
-      require_once CORE_BASE_PATH.'modules/catroid/download.php';
+      require_once CORE_BASE_PATH.'modules/download.php';
       $this->download = new download();
     }
 

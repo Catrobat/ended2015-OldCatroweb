@@ -29,7 +29,7 @@ class internationalizationTest extends PHPUnit_Framework_TestCase
   protected $obj;
 
   protected function setUp() {
-    require_once CORE_BASE_PATH.'modules/catroid/index.php';
+    require_once CORE_BASE_PATH.'modules/index.php';
     $this->obj = new index();
   }
 

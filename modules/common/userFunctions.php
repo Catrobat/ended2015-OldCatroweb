@@ -1145,9 +1145,9 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   public function sendRegistrationEmail($postData) {
-    $catroidProfileUrl = BASE_PATH . 'catroid/profile';
-    $catroidLoginUrl = BASE_PATH . 'catroid/login';
-    $catroidRecoveryUrl = BASE_PATH . 'catroid/passwordrecovery';
+    $catroidProfileUrl = BASE_PATH . 'profile';
+    $catroidLoginUrl = BASE_PATH . 'login';
+    $catroidRecoveryUrl = BASE_PATH . 'passwordrecovery';
 
     if(SEND_NOTIFICATION_USER_EMAIL) {
       $username = $postData['registrationUsername'];
@@ -1176,9 +1176,9 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   public function sendPasswordRecoveryEmail($userHash, $userId, $userName, $userEmail) {
-    $catroidPasswordResetUrl = BASE_PATH . 'catroid/passwordrecovery?c=' . $userHash;
-    $catroidProfileUrl = BASE_PATH . 'catroid/profile';
-    $catroidLoginUrl = BASE_PATH . 'catroid/login';
+    $catroidPasswordResetUrl = BASE_PATH . 'passwordrecovery?c=' . $userHash;
+    $catroidProfileUrl = BASE_PATH . 'profile';
+    $catroidLoginUrl = BASE_PATH . 'login';
 
     $result = pg_execute($this->dbConnection, "update_recovery_hash_recovery_time_by_id", array($userHash, time(), $userId));
     if(!$result) {
@@ -1213,7 +1213,7 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   public function sendEmailAddressValidatingEmail($userHash, $userId, $userName, $userEmail) {
-    $catroidValidationUrl = BASE_PATH . 'catroid/emailvalidation?c=' . $userHash;
+    $catroidValidationUrl = BASE_PATH . 'emailvalidation?c=' . $userHash;
     
     $result = pg_execute($this->dbConnection, "update_email_validation_hash_by_email_and_id", array($userHash, $userEmail, $userId));
     if(!$result) {

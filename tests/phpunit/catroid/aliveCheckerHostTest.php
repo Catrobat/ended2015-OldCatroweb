@@ -29,7 +29,7 @@ class aliveCheckerHostTest extends PHPUnit_Framework_TestCase
     protected $obj;
 
     protected function setUp() {
-      require_once CORE_BASE_PATH.'modules/catroid/aliveCheckerHost.php';
+      require_once CORE_BASE_PATH.'modules/aliveCheckerHost.php';
       $this->obj = new aliveCheckerHost();
     }
 

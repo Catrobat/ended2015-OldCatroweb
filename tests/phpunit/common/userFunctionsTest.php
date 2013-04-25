@@ -68,7 +68,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
         $this->obj->sendPasswordRecoveryEmail($hash, $data['id'], $data['username'], $data['email']);
         $this->fail('EXPECTED EXCEPTION NOT RAISED!');
       } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "http://catroid.local/catroid/passwordrecovery?c=" . $hash);
+        $this->assertEquals($e->getMessage(), "http://catroid.local/passwordrecovery?c=" . $hash);
       }
 
       $this->obj->isRecoveryHashValid($hash);
@@ -540,7 +540,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
         $this->obj->sendPasswordRecoveryEmail($hash, $data['id'], $data['username'], $data['email']);
         $this->fail('EXPECTED EXCEPTION NOT RAISED!');
       } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "http://catroid.local/catroid/passwordrecovery?c=" . $hash);
+        $this->assertEquals($e->getMessage(), "http://catroid.local/passwordrecovery?c=" . $hash);
       }
   
       $this->obj->isRecoveryHashValid($hash);

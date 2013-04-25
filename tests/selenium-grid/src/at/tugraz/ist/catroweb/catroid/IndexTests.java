@@ -71,7 +71,7 @@ public class IndexTests extends BaseTest {
   public void location() throws Throwable {
     String longPageNr = "99999999";
     try {
-      openLocation("catroid/index/" + longPageNr);
+      openLocation("index/" + longPageNr);
       ajaxWait();
 
       assertTrue(isElementPresent(By.id("projectListTitle")));
@@ -86,7 +86,7 @@ public class IndexTests extends BaseTest {
 
       // random string instead of page nr should redirect to first page
       String location = CommonData.getRandomLongString(20);
-      openLocation("catroid/index/" + location);
+      openLocation("index/" + location);
       ajaxWait();
 
       assertTrue(isElementPresent(By.id("projectListTitle")));
@@ -96,21 +96,21 @@ public class IndexTests extends BaseTest {
       assertTrue(driver().getTitle().matches("^Catroid Website -.*"));
 
       location = CommonData.getRandomLongString(200);
-      openLocation("catroid/details/" + location);
+      openLocation("details/" + location);
       ajaxWait();
       // test page title and header title
-      assertRegExp(".*/catroid/errorPage", driver().getCurrentUrl());
+      assertRegExp(".*/errorPage", driver().getCurrentUrl());
       assertTrue(isTextPresent(location));
 
       // random string instead of page nr should redirect to first page
-      openLocation("catroid/search/?q=test&p=" + CommonData.getRandomShortString(10));
+      openLocation("search/?q=test&p=" + CommonData.getRandomShortString(10));
       ajaxWait();
       assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-      assertRegExp(".*/catroid/search/[?]q=test[&]p=1.*", driver().getCurrentUrl());
+      assertRegExp(".*/search/[?]q=test[&]p=1.*", driver().getCurrentUrl());
 
-      openLocation("catroid/profile");
+      openLocation("profile");
       ajaxWait();
-      assertRegExp(".*/catroid/login.*", driver().getCurrentUrl());
+      assertRegExp(".*/login.*", driver().getCurrentUrl());
     } catch(AssertionError e) {
       captureScreen("IndexTests.location");
       throw e;
@@ -138,7 +138,7 @@ public class IndexTests extends BaseTest {
 
       clickLastVisibleProject();
       ajaxWait();
-      assertRegExp(".*/catroid/details/[0-9]+", driver().getCurrentUrl());
+      assertRegExp(".*/details/[0-9]+", driver().getCurrentUrl());
       driver().navigate().back();
       ajaxWait();
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
@@ -201,7 +201,7 @@ public class IndexTests extends BaseTest {
       // test links to details page
       driver().findElement(By.xpath("//a[@class='projectListDetailsLink']")).click();
       ajaxWait();
-      assertRegExp(".*/catroid/details.*", driver().getCurrentUrl());
+      assertRegExp(".*/details.*", driver().getCurrentUrl());
       driver().navigate().back();
       ajaxWait();
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
@@ -223,10 +223,10 @@ public class IndexTests extends BaseTest {
   @Test(groups = { "functionality", "upload" }, description = "language select tests")
   public void languageSelect() throws Throwable {
     try {
-      openLocation("catroid/termsofuse");
+      openLocation("termsofuse");
       assertTrue(isTextPresent("Terms of Use"));
       assertTrue(isElementPresent(By.xpath("//html[@lang='" + Config.SITE_DEFAULT_LANGUAGE + "']")));
-      openLocation("catroid/termsofuse", false);
+      openLocation("termsofuse", false);
       assertTrue(isElementPresent(By.id("switchLanguage")));
       (new Select(driver().findElement(By.id("switchLanguage")))).selectByValue("de");
       ajaxWait();

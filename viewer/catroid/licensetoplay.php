@@ -47,7 +47,7 @@
         <br /> <br />
         <?php echo $this->languageHandler->getString('project_licence_part5')?>
         <br /> <br />
-        <?php echo $this->languageHandler->getString('project_licence_learn_more_new','<a class="license" href="'.BASE_PATH.'catroid/termsofuse">'.BASE_PATH.'catroid/termsofuse</a>')?>
+        <?php echo $this->languageHandler->getString('project_licence_learn_more_new','<a class="license" href="'.BASE_PATH.'termsofuse">'.BASE_PATH.'catroid/termsofuse</a>')?>
         <br /> <br />
       </p>
       <p class="licenseText">

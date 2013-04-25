@@ -45,8 +45,8 @@
           
           <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
           <ul class="loginOptions">
-            <li><a id="forgotPassword" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_link')?></a></li>
-            <li><a id="signUp" href="<?php echo BASE_PATH?>catroid/registration"><?php echo $this->languageHandler->getString('account_link')?></a></li>
+            <li><a id="forgotPassword" href="<?php echo BASE_PATH?>passwordrecovery"><?php echo $this->languageHandler->getString('password_link')?></a></li>
+            <li><a id="signUp" href="<?php echo BASE_PATH?>registration"><?php echo $this->languageHandler->getString('account_link')?></a></li>
           </ul>
       </div> <!-- login Text -->         	
  </div> <!--  login Main -->  		   		

@@ -28,7 +28,7 @@
         <div id="programmOfTheWeek">
           <header><?php echo $this->languageHandler->getString('recommended_by_us'); ?></header>
           <div>
-            <a href="<?php echo BASE_PATH?>catroid/details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/hippo.png" /></a>
+            <a href="<?php echo BASE_PATH?>details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/hippo.png" /></a>
             <div>
               <span>The Lila Hippo</span><br/>
               <span>von User123</span>

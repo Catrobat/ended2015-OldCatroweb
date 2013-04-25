@@ -68,7 +68,7 @@ var ProjectDetails = Class.$extend( {
     $("#reportInappropriateReportButton").attr('disabled', true);
     $("#reportInappropriateReason").attr('disabled', true);
     
-    var url = this.basePath + 'catroid/flagInappropriate/flag.json';
+    var url = this.basePath + 'flagInappropriate/flag.json';
     $.post(url, {
       projectId : $("#reportInappropriateProjectId").val(),
       flagReason : $("#reportInappropriateReason").val()
@@ -167,7 +167,7 @@ var ProjectDetails = Class.$extend( {
   },
  
   search : function() {
-    location.href = "/catroid/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
+    location.href = "/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
     return false;
   }  
 

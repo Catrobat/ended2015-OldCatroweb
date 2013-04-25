@@ -33,7 +33,7 @@ class profile extends CoreAuthenticationUser {
   }
 
   public function __authenticationFailed() {
-    header("Location: " . BASE_PATH . "catroid/login/?requestUri=catroid/profile/");
+    header("Location: " . BASE_PATH . "login/?requestUri=profile/");
     exit();
   }
   

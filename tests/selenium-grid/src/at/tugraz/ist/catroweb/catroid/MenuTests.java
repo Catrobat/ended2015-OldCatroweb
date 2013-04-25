@@ -43,7 +43,7 @@ public class MenuTests extends BaseTest {
     try {
       openLocation();
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
 
       assertTrue(isVisible(By.id("menuLoginButton")));
       assertTrue(isEditable(By.id("menuLoginButton")));
@@ -78,7 +78,7 @@ public class MenuTests extends BaseTest {
       String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
       
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
 
       driver().findElement(By.id("headerProfileButton"));      
       assertTrue(isVisible(By.id("menuProfileButton")));
@@ -141,7 +141,7 @@ public class MenuTests extends BaseTest {
     try {
       openLocation();
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
       assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
@@ -171,7 +171,7 @@ public class MenuTests extends BaseTest {
     try {
       openLocation();
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
 
       // TODO Login Broken
       driver().findElement(By.id("menuLoginButton")).click();
@@ -186,12 +186,12 @@ public class MenuTests extends BaseTest {
       assertFalse(isVisible(By.id("loginSubmitButton")));
 
       driver().findElement(By.id("menuRegistrationButton")).click();
-      assertRegExp(".*/catroid/registration$", driver().getCurrentUrl());
+      assertRegExp(".*/registration$", driver().getCurrentUrl());
       assertTrue(isTextPresent(("Create a new account")));
       assertTrue(isVisible(By.id("registrationSubmit")));
       
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
 
     } catch(AssertionError e) {
       captureScreen("loginSignUpRecoveryLinks.boardAndWikiLinks");

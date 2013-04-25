@@ -154,7 +154,7 @@ public class SearchTests extends BaseTest {
       assertTrue(isVisible(By.id("moreProjects")));
 
       // test session
-      openLocation("catroid/search/?q=" + projectTitle + "&p=" + String.valueOf(pageNr));
+      openLocation("search/?q=" + projectTitle + "&p=" + String.valueOf(pageNr));
       ajaxWait();
 
       assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
@@ -168,7 +168,7 @@ public class SearchTests extends BaseTest {
       // test links to details page
       driver().findElement(By.xpath("//a[@class='projectListDetailsLink'][1]")).click();
       ajaxWait();
-      assertRegExp(".*/catroid/details.*", driver().getCurrentUrl());
+      assertRegExp(".*/details.*", driver().getCurrentUrl());
       driver().navigate().back();
       ajaxWait();
       assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
@@ -200,7 +200,7 @@ public class SearchTests extends BaseTest {
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
-      openLocation("/catroid/search/?q=" + projectTitle + "&p=1", false);
+      openLocation("/search/?q=" + projectTitle + "&p=1", false);
       ajaxWait();
 
       assertTrue(isTextPresent(projectTitle1));
@@ -231,15 +231,15 @@ public class SearchTests extends BaseTest {
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "identical_search_project_2", "", "", "", "", CommonData.getLoginUserDefault(), Config.DEFAULT_UPLOAD_TOKEN));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
-      openLocation("/catroid/search/?q=" + projectTitle + "&p=1", false);
+      openLocation("/search/?q=" + projectTitle + "&p=1", false);
       ajaxWait();  
       assertEquals(projectTitle, driver().findElement(By.className("highlight")).getText());
       
-      openLocation("/catroid/search/?q=" + projectTitle.toUpperCase() + "&p=1", false);
+      openLocation("/search/?q=" + projectTitle.toUpperCase() + "&p=1", false);
       ajaxWait();
       assertEquals(projectTitle, driver().findElement(By.className("highlight")).getText());
       
-      openLocation("/catroid/search/?q=" + CommonData.getLoginUserDefault() + "&p=1", false);
+      openLocation("/search/?q=" + CommonData.getLoginUserDefault() + "&p=1", false);
       ajaxWait();
       assertEquals(CommonData.getLoginUserDefault(), driver().findElement(By.className("highlight")).getText());
       

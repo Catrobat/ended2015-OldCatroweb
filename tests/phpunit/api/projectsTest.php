@@ -200,7 +200,7 @@ class projectsTest extends PHPUnit_Framework_TestCase
     foreach ($projects['CatrobatProjects'] as $project) {
       $this->assertEquals($project['ProjectName'], $pg_projects[$i]['title']);
       $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($project['ProjectUrl'],  'catroid/details/' . $pg_projects[$i]['id']);
+      $this->assertEquals($project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
       $this->assertEquals($project['UploadedString'], getTimeInWords($pg_projects[$i]['last_activity'], $testModel->languageHandler, time()));
       $this->assertFalse(isset($project['ProjectId']));
       $this->assertFalse(isset($project['ScreenshotBig']));
@@ -228,7 +228,7 @@ class projectsTest extends PHPUnit_Framework_TestCase
     foreach ($projects_all_info['CatrobatProjects'] as $project) {
       $this->assertEquals($project['ProjectName'], $pg_projects[$i]['title']);
       $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($project['ProjectUrl'],  'catroid/details/' . $pg_projects[$i]['id']);
+      $this->assertEquals($project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
       $this->assertEquals($project['UploadedString'], getTimeInWords($pg_projects[$i]['last_activity'], $testModel->languageHandler, time()));
       $this->assertEquals(current($id_sorted), intval($project['ProjectId']));
       $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotBig'], getProjectImageUrl($pg_projects[$i]['id']));
@@ -236,7 +236,7 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertEquals($project['Description'], $pg_projects[$i]['description']);
       $this->assertEquals($project['Downloads'], $pg_projects[$i]['download_count']);
       $this->assertEquals($project['Views'], $pg_projects[$i]['view_count']);
-      $this->assertEquals($project['DownloadUrl'], 'catroid/download/' . $pg_projects[$i]['id'].PROJECTS_EXTENSION);      
+      $this->assertEquals($project['DownloadUrl'], 'download/' . $pg_projects[$i]['id'].PROJECTS_EXTENSION);      
       $this->assertEquals($project['Version'], $pg_projects[$i]['version_name']);      
       $this->assertEquals($project['Uploaded'], $pg_projects[$i]['last_activity']);      
       $i++;
@@ -257,7 +257,7 @@ class projectsTest extends PHPUnit_Framework_TestCase
       
       $this->assertEquals($search_projects['CatrobatProjects'][0]['ProjectName'], $pg_projects[0]['title']);
       $this->assertEquals($search_projects['CatrobatInformation']['BaseUrl'].$search_projects['CatrobatProjects'][0]['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[0]['id']));
-      $this->assertEquals($search_projects['CatrobatProjects'][0]['ProjectUrl'],  'catroid/details/' . $pg_projects[0]['id']);
+      $this->assertEquals($search_projects['CatrobatProjects'][0]['ProjectUrl'],  'details/' . $pg_projects[0]['id']);
       $this->assertEquals($search_projects['CatrobatProjects'][0]['UploadedString'], getTimeInWords($pg_projects[0]['last_activity'], $testModel->languageHandler, time()));
       $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['ProjectId']));
       $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['ScreenshotBig']));
@@ -287,7 +287,7 @@ class projectsTest extends PHPUnit_Framework_TestCase
     foreach($search_projects['CatrobatProjects'] as $search_project) {
       $this->assertEquals($search_project['ProjectName'], $pg_projects[$i]['title']);
       $this->assertEquals($search_projects['CatrobatInformation']['BaseUrl'].$search_project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($search_project['ProjectUrl'],  'catroid/details/' . $pg_projects[$i]['id']);
+      $this->assertEquals($search_project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
       $this->assertEquals($search_project['UploadedString'], getTimeInWords($pg_projects[$i]['last_activity'], $testModel->languageHandler, time()));
       $this->assertFalse(isset($search_project['ProjectId']));
       $this->assertFalse(isset($search_project['ScreenshotBig']));
@@ -320,7 +320,7 @@ class projectsTest extends PHPUnit_Framework_TestCase
     foreach($search_projects['CatrobatProjects'] as $search_project) {
       $this->assertEquals($search_project['ProjectName'], $pg_projects[$i]['title']);
       $this->assertEquals($search_projects['CatrobatInformation']['BaseUrl'].$search_project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($search_project['ProjectUrl'],  'catroid/details/' . $pg_projects[$i]['id']);
+      $this->assertEquals($search_project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
       $this->assertEquals($search_project['UploadedString'], getTimeInWords($pg_projects[$i]['last_activity'], $testModel->languageHandler, time()));
       $this->assertFalse(isset($search_project['ProjectId']));
       $this->assertFalse(isset($search_project['ScreenshotBig']));
@@ -476,9 +476,9 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertEquals($project['Author'], $pg_projects[$i]['uploaded_by']);
       $this->assertEquals($project['Description'], $pg_projects[$i]['description']);
       $this->assertEquals($project['Downloads'], $pg_projects[$i]['download_count']);
-      $this->assertEquals($project['DownloadUrl'], 'catroid/download/' . $pg_projects[$i]['id'].PROJECTS_EXTENSION);
+      $this->assertEquals($project['DownloadUrl'], 'download/' . $pg_projects[$i]['id'].PROJECTS_EXTENSION);
       $this->assertEquals($project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($project['ProjectUrl'],  'catroid/details/' . $pg_projects[$i]['id']);
+      $this->assertEquals($project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
       $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotBig'], getProjectImageUrl($pg_projects[$i]['id']));
       $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
       $this->assertEquals($project['Uploaded'], $pg_projects[$i]['last_activity']);
@@ -741,9 +741,9 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertEquals($project['Author'], $pg_projects[$i]['uploaded_by']);
       $this->assertEquals($project['Description'], $pg_projects[$i]['description']);
       $this->assertEquals($project['Downloads'], $pg_projects[$i]['download_count']);
-      $this->assertEquals($project['DownloadUrl'], 'catroid/download/' . $pg_projects[$i]['id'].PROJECTS_EXTENSION);
+      $this->assertEquals($project['DownloadUrl'], 'download/' . $pg_projects[$i]['id'].PROJECTS_EXTENSION);
       $this->assertEquals($project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($project['ProjectUrl'],  'catroid/details/' . $pg_projects[$i]['id']);
+      $this->assertEquals($project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
       $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotBig'], getProjectImageUrl($pg_projects[$i]['id']));
       $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
       $this->assertEquals($project['Uploaded'], $pg_projects[$i]['last_activity']);

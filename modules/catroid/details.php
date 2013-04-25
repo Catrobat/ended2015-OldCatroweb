@@ -104,7 +104,7 @@ class details extends CoreAuthenticationNone {
   
   public function showReportAsInappropriateButton($projectId, $userId) {
     if($this->session->userLogin_userId <= 0) {
-      return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_please_login', '<a href="' . BASE_PATH . 'catroid/login/?requestUri=catroid/details/' . $projectId . '">' . $this->languageHandler->getString('login') . '</a>'));
+      return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_please_login', '<a href="' . BASE_PATH . 'login/?requestUri=details/' . $projectId . '">' . $this->languageHandler->getString('login') . '</a>'));
     }
     if($this->session->userLogin_userId == $userId) {
       return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_own_project'));

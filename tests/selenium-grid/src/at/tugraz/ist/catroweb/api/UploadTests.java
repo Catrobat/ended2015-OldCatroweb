@@ -46,7 +46,7 @@ public class UploadTests extends BaseTest {
 
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
       assertTrue(containsElementText(By.xpath("//div[@class='detailsProjectTitle']"), title));
       assertTrue(isTextPresent("uploaded"));
@@ -59,7 +59,7 @@ public class UploadTests extends BaseTest {
       
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
       assertTrue(containsElementText(By.xpath("//div[@class='detailsProjectTitle']"), title));
       assertTrue(isTextPresent("updated"));
@@ -81,7 +81,7 @@ public class UploadTests extends BaseTest {
       
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
       assertFalse(isTextPresent("testTitle"));
       assertFalse(isTextPresent("testDescription"));

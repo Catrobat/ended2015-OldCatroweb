@@ -50,7 +50,7 @@ public class DetailsTests extends BaseTest {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
 
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
       // project title
       assertTrue(containsElementText(By.xpath("//div[@class='detailsProjectTitle']"), title));
@@ -105,7 +105,7 @@ public class DetailsTests extends BaseTest {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
       
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       
       // test the download counter
       numOfDownloads = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
@@ -130,7 +130,7 @@ public class DetailsTests extends BaseTest {
       String response = projectUploader.upload(dataset);
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
       
       driver().findElement(By.id("headerProfileButton")).click();
@@ -186,7 +186,7 @@ public class DetailsTests extends BaseTest {
     try {
       String response = projectUploader.upload(dataset);
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
-      openLocation("catroid/details/" + projectId);
+      openLocation("details/" + projectId);
 
       assertTrue(isElementPresent(By.id("showFullDescriptionButton")));
       String shortDescriptionFromPage = driver().findElement(By.id("detailsDescription")).getText();
@@ -274,7 +274,7 @@ public class DetailsTests extends BaseTest {
       String response = projectUploader.upload(dataset);
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       ajaxWait();
 
       assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and cannot be downloaded any more."));
@@ -291,7 +291,7 @@ public class DetailsTests extends BaseTest {
   @Test(groups = { "visibility" }, description = "test download info")
   public void downloadInfo() throws Throwable {
     try {
-      openLocation("catroid/details/2");
+      openLocation("details/2");
       ajaxWait();
 
       assertTrue(isElementPresent(By.id("downloadCatroidSwitch")));
@@ -332,7 +332,7 @@ public class DetailsTests extends BaseTest {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
       
-      openLocation("catroid/details/2");
+      openLocation("details/2");
       ajaxWait();
 
       assertTrue(isElementPresent(By.id("downloadCatroidSwitch")));
@@ -385,7 +385,7 @@ public class DetailsTests extends BaseTest {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
       
-      openLocation("catroid/details/2");
+      openLocation("details/2");
       ajaxWait();
       
       driver().findElement(By.id("downloadAppSwitch")).click();
@@ -421,7 +421,7 @@ public class DetailsTests extends BaseTest {
       assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
       assertRegExp(".*Download.*", driver().findElement(By.id("downloadCatroidProjectLink")).getText());
       
-      openLocation("catroid/details/2");
+      openLocation("details/2");
       driver().findElement(By.id("downloadAppSwitch")).click();
       
       assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
@@ -439,8 +439,8 @@ public class DetailsTests extends BaseTest {
   public void invalidProjectID() throws Throwable {
     try {
       String invalidProject = CommonData.getRandomShortString(10);
-      openLocation("catroid/details/" + invalidProject);
-      assertRegExp(".*/catroid/errorPage", driver().getCurrentUrl());
+      openLocation("details/" + invalidProject);
+      assertRegExp(".*/errorPage", driver().getCurrentUrl());
       assertTrue(isTextPresent("No entry was found for the given ID:"));
       assertTrue(isTextPresent("ID: " + invalidProject));
       assertFalse(isElementPresent(By.xpath("//div[@class='detailsFlexDiv']")));

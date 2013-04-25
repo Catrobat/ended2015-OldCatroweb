@@ -393,7 +393,7 @@ class upload extends CoreAuthenticationDevice {
   private function buildNativeApp($projectId) {
     $pythonHandler = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC . "nativeAppBuilding/src/handle_project.py";
     $projectFile = CORE_BASE_PATH . PROJECTS_DIRECTORY . $projectId . PROJECTS_EXTENSION;
-    $catroidSource = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC . "catroid/";
+    $catroidSource = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC;
     $outputFolder = CORE_BASE_PATH . PROJECTS_DIRECTORY;
 
     if(is_dir(CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC)) {

@@ -46,7 +46,7 @@ public class HeaderTests extends BaseTest {
 
       driver().findElement(By.id("aIndexWebLogoLeft")).click();
       ajaxWait();
-      assertRegExp(".*/catroid/index(/[0-9]+)?", driver().getCurrentUrl());
+      assertRegExp(".*/index(/[0-9]+)?", driver().getCurrentUrl());
       assertTrue(isVisible(By.id("headerMenuButton")));
       assertTrue(isVisible(By.id("headerProfileButton")));
       
@@ -70,7 +70,7 @@ public class HeaderTests extends BaseTest {
       assertTrue(isVisible(By.id("headerProfileButton")));
 
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerButtonsIndex");
       throw e;

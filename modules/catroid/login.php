@@ -38,7 +38,7 @@ class login extends CoreAuthenticationNone {
         header('Location: ' . BASE_PATH . $_REQUEST['requestUri']);
         exit();
       } else {
-        header('Location: ' . BASE_PATH . 'catroid/index');
+        header('Location: ' . BASE_PATH . 'index');
         exit();
       }
     } else {

@@ -286,10 +286,10 @@ class projects extends CoreAuthenticationNone {
         $currentProject['Downloads'] = $project['download_count'];
       }
       if(in_array('ProjectUrl', $selectedFields)) {
-        $currentProject['ProjectUrl'] = 'catroid/details/' . $project['id'];
+        $currentProject['ProjectUrl'] = 'details/' . $project['id'];
       }
       if(in_array('DownloadUrl', $selectedFields)) {
-        $currentProject['DownloadUrl'] = 'catroid/download/' . $project['id'] . PROJECTS_EXTENSION;
+        $currentProject['DownloadUrl'] = 'download/' . $project['id'] . PROJECTS_EXTENSION;
       }
       array_push($tempProjectList, $currentProject);
     }

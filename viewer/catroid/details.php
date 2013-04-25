@@ -27,7 +27,7 @@
         <header><?php echo $this->project['title']?></header>
         <div>
           <div style="float:left; margin: 0 20px 20px 20px;">
-            <a href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
+            <a href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
               <img src="<?php echo $this->project['image']?>" alt="project thumbnail" style="width: 260px; height: 260px; border: 10px solid #ffffff;" />
             </a>
           </div>
@@ -45,9 +45,9 @@
   background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);">
               <a style=" color:#ffffff; text-decoration: none; text-shadow: #333333 1px 1px 1px;"
-               href="<?php echo BASE_PATH?>catroid/download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">Download</a><br />
+               href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">Download</a><br />
             </div>
-            <a href="<?php echo BASE_PATH?>catroid/licensetoplay"><?php echo $this->languageHandler->getString('some_rights_reserved')?></a><br />
+            <a href="<?php echo BASE_PATH?>licensetoplay"><?php echo $this->languageHandler->getString('some_rights_reserved')?></a><br />
           </div>
           <div style="clear:both;margin-left:20px;">
             <div style="text-transform: uppercase; font-size:1.4em; font-weight:bold; ">Beschreibung</div>

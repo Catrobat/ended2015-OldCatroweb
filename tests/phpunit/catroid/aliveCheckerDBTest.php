@@ -29,7 +29,7 @@ class aliveCheckerDBTest extends PHPUnit_Framework_TestCase
     protected $obj;
 
     protected function setUp() {
-      require_once CORE_BASE_PATH.'modules/catroid/aliveCheckerDB.php';
+      require_once CORE_BASE_PATH.'modules/aliveCheckerDB.php';
       $this->obj = new aliveCheckerDB();
     }
 

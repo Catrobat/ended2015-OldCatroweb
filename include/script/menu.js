@@ -30,8 +30,8 @@ var Menu = Class.$extend( {
     //$("#menuForumButton").click({url:this.basePath + "addons/board",windowName:"board"}, jQuery.proxy(this.openWindow, this));
     $("#menuForumButton").click({url:"http://catrob.at/PocketCodeUserForum",windowName:"board"}, jQuery.proxy(this.openWindow, this));
     $("#headerBackButton").click(jQuery.proxy(this.goBack, this));
-    $("#menuWallButton").click({url:"catroid/wall"}, jQuery.proxy(this.openLocation, this));
-    $("#menuSettingsButton").click({url:"catroid/settings"}, jQuery.proxy(this.openLocation, this));
+    $("#menuWallButton").click({url:"wall"}, jQuery.proxy(this.openLocation, this));
+    $("#menuSettingsButton").click({url:"settings"}, jQuery.proxy(this.openLocation, this));
     /*
     if(this.userLogin_userId == 0) {
       $("#menuWikiButton").click({url:this.basePath + "wiki",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
@@ -42,9 +42,9 @@ var Menu = Class.$extend( {
     $("#menuWikiButton").click({url:"https://github.com/Catrobat/Catroid/wiki/_pages",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
 
     $("#menuLoginButton").click($.proxy(this.toggleProfileBox, this));
-    $("#menuRegistrationButton").click({url:"catroid/registration"}, jQuery.proxy(this.openLocation, this));
-    $("#menuPasswordRecoveryButton").click({url:"catroid/passwordrecovery"}, jQuery.proxy(this.openLocation, this));
-    $("#menuProfileButton").click({url:"catroid/profile"}, jQuery.proxy(this.openLocation, this));
+    $("#menuRegistrationButton").click({url:"registration"}, jQuery.proxy(this.openLocation, this));
+    $("#menuPasswordRecoveryButton").click({url:"passwordrecovery"}, jQuery.proxy(this.openLocation, this));
+    $("#menuProfileButton").click({url:"profile"}, jQuery.proxy(this.openLocation, this));
     $("#menuWallButton").attr('disabled', true).removeClass('green').addClass('gray');
     $("#menuSettingsButton").attr('disabled', true).removeClass('rosy').addClass('gray');
     if(this.userLogin_userId > 0) {
@@ -97,7 +97,7 @@ var Menu = Class.$extend( {
   },
   
   search : function() {
-    location.href = "/catroid/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
+    location.href = "/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
     return false;
   }  
   

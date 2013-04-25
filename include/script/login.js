@@ -48,7 +48,7 @@ var Login = Class.$extend({
   loginRequest : function() {
     $.ajax({
       type : "POST",
-      url : this.basePath + 'catroid/login/loginRequest.json',
+      url : this.basePath + 'login/loginRequest.json',
       data : ({
         loginUsername : $("#loginUsername").val(),
         loginPassword : $("#loginPassword").val()
@@ -62,8 +62,8 @@ var Login = Class.$extend({
   loginRequestSuccess : function(result) {
     if(result.statusCode == 200) {
       if(this.requestUri != '') {
-        //location.href = this.basePath + 'catroid/login?requestUri=' + this.requestUri;
-        location.href = this.basePath + 'catroid/profile'
+        //location.href = this.basePath + 'login?requestUri=' + this.requestUri;
+        location.href = this.basePath + 'profile'
       } else {
         location.reload();
       }
@@ -75,7 +75,7 @@ var Login = Class.$extend({
   logoutRequest : function() {
     $.ajax({
       type : "POST",
-      url : this.basePath + "catroid/login/logoutRequest.json",
+      url : this.basePath + "login/logoutRequest.json",
       success : $.proxy(this.logoutRequestSuccess, this),
       error : alert('error')
     });
@@ -85,7 +85,7 @@ var Login = Class.$extend({
     common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
       if(this.requestUri != '') {
-        location.href = this.basePath + 'catroid/login?requestUri=' + this.requestUri;
+        location.href = this.basePath + 'login?requestUri=' + this.requestUri;
       } else {
         location.reload();
       }

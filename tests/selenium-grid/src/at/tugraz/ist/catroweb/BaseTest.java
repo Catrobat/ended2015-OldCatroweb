@@ -283,11 +283,11 @@ public class BaseTest {
     for(String part : parts) {
       if(part.contains("passwordrecovery?c=")) {
         String[] temp = part.split("c=");
-        return "catroid/passwordrecovery?c=" + temp[1];
+        return "passwordrecovery?c=" + temp[1];
       }
     }
     
-    return "catroid/passwordrecovery?c=";
+    return "passwordrecovery?c=";
   }
 
   public String getValidationUrl() {
@@ -295,11 +295,11 @@ public class BaseTest {
     for(String part : parts) {
       if(part.contains("emailvalidation?c=")) {
         String[] temp = part.split("c=");
-        return "catroid/emailvalidation?c=" + temp[1];
+        return "emailvalidation?c=" + temp[1];
       }
     }
     
-    return "catroid/emailvalidation?c=";
+    return "emailvalidation?c=";
   }
 
   public boolean containsElementText(By selector, String text) {
@@ -486,7 +486,7 @@ public class BaseTest {
       location = this.webSite + Config.TESTS_BASE_PATH + location;
     }
     
-    driver().get(this.webSite + Config.TESTS_BASE_PATH + "catroid/login/logoutRequest.json");
+    driver().get(this.webSite + Config.TESTS_BASE_PATH + "login/logoutRequest.json");
     driver().get(location);
     ajaxWait();
   }

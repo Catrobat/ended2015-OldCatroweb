@@ -269,7 +269,7 @@ public class LoginTests extends BaseTest {
 
     try {
       CommonFunctions.deleteUserFromDatabase(username);
-      openLocation("catroid/registration/");
+      openLocation("registration/");
       
       driver().findElement(By.id("registrationUsername")).sendKeys(username);
       driver().findElement(By.id("registrationPassword")).sendKeys(password);
@@ -279,9 +279,9 @@ public class LoginTests extends BaseTest {
       ajaxWait();
 
       assertTrue(isTextPresent(username));
-      logout("catroid/index");
+      logout("index");
 
-      openLocation("catroid/login");
+      openLocation("login");
       driver().findElement(By.id("loginUsername")).sendKeys("MAXmUstermann");
       driver().findElement(By.id("loginPassword")).sendKeys("password");
 

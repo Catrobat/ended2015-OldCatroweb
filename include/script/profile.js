@@ -65,7 +65,7 @@ var Profile = Class.$extend( {
       
       $.ajax({
         type: "POST",
-        url: self.basePath + 'catroid/profile/updateAvatarRequest.json',
+        url: self.basePath + 'profile/updateAvatarRequest.json',
         data: data,
         processData: false,
         contentType: false,
@@ -107,7 +107,7 @@ var Profile = Class.$extend( {
   updatePaswordRequest : function() {
     $.ajax({
       type: "POST",
-      url: this.basePath + 'catroid/profile/updatePasswordRequest.json',
+      url: this.basePath + 'profile/updatePasswordRequest.json',
       data : ({
         profileOldPassword : $("#profileOldPassword").val(),
         profileNewPassword : $("#profileNewPassword").val()
@@ -134,7 +134,7 @@ var Profile = Class.$extend( {
   updateEmailListRequest : function() {
     $.ajax({
       type: "GET",
-      url: this.basePath + 'catroid/profile/getEmailListRequest.json',
+      url: this.basePath + 'profile/getEmailListRequest.json',
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.updateEmailList, this),
       error : $.proxy(common.ajaxTimedOut, this)
@@ -165,7 +165,7 @@ var Profile = Class.$extend( {
   addEmailRequest : function() {
     $.ajax({
       type: "POST",
-      url: this.basePath + 'catroid/profile/addEmailRequest.json',
+      url: this.basePath + 'profile/addEmailRequest.json',
       data : ({
         profileEmail : $("#addEmailInput").val()
       }),
@@ -178,7 +178,7 @@ var Profile = Class.$extend( {
   deleteEmailRequest : function(email) {
     $.ajax({
       type: "POST",
-      url: this.basePath + 'catroid/profile/deleteEmailRequest.json',
+      url: this.basePath + 'profile/deleteEmailRequest.json',
       data : ({
         profileEmail : email
       }),
@@ -203,7 +203,7 @@ var Profile = Class.$extend( {
   updateCityRequest : function() {
     $.ajax({
       type: "POST",
-      url: this.basePath + 'catroid/profile/updateCityRequest.json',
+      url: this.basePath + 'profile/updateCityRequest.json',
       data : ({
         city: $("#cityInput").val()
       }),
@@ -217,7 +217,7 @@ var Profile = Class.$extend( {
   updateCountryRequest : function() {
     $.ajax({
       type: "POST",
-      url: this.basePath + 'catroid/profile/updateCountryRequest.json',
+      url: this.basePath + 'profile/updateCountryRequest.json',
       data : ({
         country: $("#countrySelect").val()
       }),
@@ -231,7 +231,7 @@ var Profile = Class.$extend( {
   updateGenderRequest : function() {
     $.ajax({
       type: "POST",
-      url: this.basePath + 'catroid/profile/updateGenderRequest.json',
+      url: this.basePath + 'profile/updateGenderRequest.json',
       data : ({
         gender: $("#genderSelect").val()
       }),
@@ -252,7 +252,7 @@ var Profile = Class.$extend( {
     
     $.ajax({
       type: "POST",
-      url: this.basePath + 'catroid/profile/updateBirthdayRequest.json',
+      url: this.basePath + 'profile/updateBirthdayRequest.json',
       data : ({
         birthdayMonth: month,
         birthdayYear: year
@@ -267,7 +267,7 @@ var Profile = Class.$extend( {
   updateLanguageRequest : function() {
     $.ajax({
       type : "POST",
-      url : this.basePath + 'catroid/switchLanguage/switchIt.json',
+      url : this.basePath + 'switchLanguage/switchIt.json',
       data : ({
         language : $("#profileSwitchLanguage").val()
       }),
@@ -287,7 +287,7 @@ var Profile = Class.$extend( {
   },
 
   search : function() {
-    location.href = "/catroid/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
+    location.href = "/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
     return false;
   }
 });

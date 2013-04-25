@@ -50,7 +50,7 @@
         </div>
         <div id="footerMoreMenu">
           <div>
-            <a href="<?php echo BASE_PATH?>catroid/termsofuse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>
+            <a href="<?php echo BASE_PATH?>termsofuse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>
           </div>
           <div>
             <a href="http://developer.catrobat.org/imprint" target="_blank"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a>

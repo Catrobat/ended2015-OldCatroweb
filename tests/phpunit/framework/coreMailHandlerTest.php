@@ -38,11 +38,11 @@ class coreMailHandlerTest extends PHPUnit_Framework_TestCase {
     $mailText .= "Password: password\r\n\r\n";
     $mailText .= "You can use your nickname and your password at any time to access the catroid community.\r\n\r\n";
     $mailText .= "To do so, just visit the following page:\r\n";
-    $mailText .= "http://catroid.org/catroid/login\r\n\r\n";
+    $mailText .= "https://pocketcode.org/login\r\n\r\n";
     $mailText .= "To edit your profile details, go to this page:\r\n";
-    $mailText .= "http://catroid.org/catroid/profile\r\n\r\n";
+    $mailText .= "https://pocketcode.org/profile\r\n\r\n";
     $mailText .= "In the event that you forgot your password, you will be able to reset it using the email address or your username associated with your account.\r\n";
-    $mailText .= "{unwrap}http://catroid.org/catroid/passwordrecovery{/unwrap}\r\n\r\n";
+    $mailText .= "{unwrap}https://pocketcode.org/passwordrecovery{/unwrap}\r\n\r\n";
     $mailText .= "Best regards,\r\n";
     $mailText .= "Your Catroid Team\r\n";
     $mailText .= "{unwrap}.......................................................................................{/unwrap}";
