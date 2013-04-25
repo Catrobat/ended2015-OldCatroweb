@@ -29,7 +29,7 @@ class detailsTest extends PHPUnit_Framework_TestCase
   protected $obj;
 
   protected function setUp() {
-    require_once CORE_BASE_PATH.'modules/details.php';
+    require_once CORE_BASE_PATH.'modules/catroid/details.php';
     $this->obj = new details();
     @unlink(CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY.'test_large.png');
   }

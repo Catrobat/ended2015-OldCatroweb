@@ -124,32 +124,33 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $sortby = PROJECT_SORTBY_AGE;
     $insertIds = array();
     $date_sorted = array();
-    $id_sorted = array();
-    $unique_title = array();
-    $unique_description = "";
-    $newest_project = null;
+    $idSorted = array();
+    $uniqueTitle = array();
+    $uniqueDescription = "";
+    $newestProject = null;
+    $numUploadProjects = 5;
     
     $query = 'SELECT projects.id FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id AND cusers.username ILIKE \'anonymous\'';
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $num_projects_before = pg_num_rows($result);
+    $numProjectsBefore = pg_num_rows($result);
     
     mt_srand ((double) microtime() * 1000000);
-    $unique_description = $projectDescription.'_'.mt_rand();
+    $uniqueDescription = $projectDescription.'_'.mt_rand();
     
     $query = 'SELECT projects.id, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id  ORDER BY last_activity DESC, projects.id DESC LIMIT 1';
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $newest_project = pg_fetch_assoc($result);
+    $newestProject = pg_fetch_assoc($result);
     pg_free_result($result);
     
-    for($i = 0; $i < PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE; $i++) {
+    for($i = 0; $i < $numUploadProjects; $i++) {
       $testFile =  $fileName;
       $fileChecksum = md5_file($testFile);
       $fileSize = filesize($testFile);
       
-      $unique_title[$i] = $projectTitle.'_'.mt_rand();
+      $uniqueTitle[$i] = $projectTitle.'_'.mt_rand();
       $formData = array(
-          'projectTitle' => $unique_title[$i],
-          'projectDescription' => $unique_description,
+          'projectTitle' => $uniqueTitle[$i],
+          'projectDescription' => $uniqueDescription,
           'fileChecksum' => $fileChecksum,
           'userLanguage'=>$uploadLanguage
       );
@@ -170,38 +171,38 @@ class projectsTest extends PHPUnit_Framework_TestCase
     }
   
     foreach ($insertIds as $id) {
-      $time= mt_rand($newest_project['last_activity'] + 1,time());
+      $time= mt_rand($newestProject['last_activity'] + 1, time());
       $date_string = date("Y-m-d H:i:s.u",$time);
       array_push($date_sorted, $date_string);
-      array_push($id_sorted, $id);
-      $upload_time = "TIMESTAMP WITH TIME ZONE '".date($date_string)."'";
-      $update_query = 'UPDATE projects SET upload_time='.$upload_time.', update_time=NULL WHERE projects.id='.$id;
-      $result = pg_query($this->dbConnection, $update_query) or die('DB operation failed: ' . pg_last_error());
+      array_push($idSorted, $id);
+      $uploadTime = "TIMESTAMP WITH TIME ZONE '".date($date_string)."'";
+      $updateQuery = 'UPDATE projects SET upload_time='.$uploadTime.', update_time=NULL WHERE projects.id='.$id;
+      $result = pg_query($this->dbConnection, $updateQuery) or die('DB operation failed: ' . pg_last_error());
       $this->assertEquals(pg_affected_rows($result), 1);
       pg_free_result($result);
     }
     
-    array_multisort($date_sorted, SORT_DESC, SORT_STRING, $id_sorted, SORT_DESC, SORT_NUMERIC);
+    array_multisort($date_sorted, SORT_DESC, SORT_STRING, $idSorted, SORT_DESC, SORT_NUMERIC);
     
     $sort = $sortby;
-    $limit = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
+    $limit = $numUploadProjects;
     $offset = 0;
   
-    $pg_projects = $this->getResults($sortby, $limit, $offset, "", "");  
+    $pgProjects = $this->getResults($sortby, $limit, $offset, "", "");  
     
-    $projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_AGE, $sortby);
+    $projects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_AGE, $sortby);
     $this->assertEquals(3, count($projects['CatrobatInformation']));
     $this->assertNotEquals(-1, $projects['CatrobatInformation']['TotalProjects']);
     $this->assertEquals(BASE_PATH, $projects['CatrobatInformation']['BaseUrl']);
     $this->assertEquals(PROJECTS_EXTENSION, $projects['CatrobatInformation']['ProjectsExtension']);
     $this->assertEquals('', $this->obj->Error);
-    $this->assertEquals(count($projects['CatrobatProjects']), count($pg_projects));
+    $this->assertEquals(count($projects['CatrobatProjects']), count($pgProjects));
     $i = 0;
     foreach ($projects['CatrobatProjects'] as $project) {
-      $this->assertEquals($project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
-      $this->assertEquals($project['UploadedString'], getTimeInWords($pg_projects[$i]['last_activity'], $testModel->languageHandler, time()));
+      $this->assertEquals($project['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
+      $this->assertEquals($project['ProjectUrl'],  'details/' . $pgProjects[$i]['id']);
+      $this->assertEquals($project['UploadedString'], getTimeInWords($pgProjects[$i]['last_activity'], $testModel->languageHandler, time()));
       $this->assertFalse(isset($project['ProjectId']));
       $this->assertFalse(isset($project['ScreenshotBig']));
       $this->assertFalse(isset($project['Author']));
@@ -215,122 +216,122 @@ class projectsTest extends PHPUnit_Framework_TestCase
     }
     
     // test all mask
-    $projects_all_info = $this->obj->get($offset, $limit, PROJECT_MASK_ALL, $sortby);
+    $projectsAllInfo = $this->obj->get($offset, $limit, PROJECT_MASK_ALL, $sortby);
     
-    $this->assertEquals(3, count($projects_all_info['CatrobatInformation']));
-    $this->assertNotEquals(-1, $projects_all_info['CatrobatInformation']['TotalProjects']);
-    $this->assertEquals(BASE_PATH, $projects_all_info['CatrobatInformation']['BaseUrl']);
-    $this->assertEquals(PROJECTS_EXTENSION, $projects_all_info['CatrobatInformation']['ProjectsExtension']);
+    $this->assertEquals(3, count($projectsAllInfo['CatrobatInformation']));
+    $this->assertNotEquals(-1, $projectsAllInfo['CatrobatInformation']['TotalProjects']);
+    $this->assertEquals(BASE_PATH, $projectsAllInfo['CatrobatInformation']['BaseUrl']);
+    $this->assertEquals(PROJECTS_EXTENSION, $projectsAllInfo['CatrobatInformation']['ProjectsExtension']);
     $this->assertEquals('', $this->obj->Error);
-    $this->assertEquals(count($projects_all_info['CatrobatProjects']), count($pg_projects));
+    $this->assertEquals(count($projectsAllInfo['CatrobatProjects']), count($pgProjects));
     
     $i = 0;
-    foreach ($projects_all_info['CatrobatProjects'] as $project) {
-      $this->assertEquals($project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
-      $this->assertEquals($project['UploadedString'], getTimeInWords($pg_projects[$i]['last_activity'], $testModel->languageHandler, time()));
-      $this->assertEquals(current($id_sorted), intval($project['ProjectId']));
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotBig'], getProjectImageUrl($pg_projects[$i]['id']));
-      $this->assertEquals($project['Author'], $pg_projects[$i]['uploaded_by']);
-      $this->assertEquals($project['Description'], $pg_projects[$i]['description']);
-      $this->assertEquals($project['Downloads'], $pg_projects[$i]['download_count']);
-      $this->assertEquals($project['Views'], $pg_projects[$i]['view_count']);
-      $this->assertEquals($project['DownloadUrl'], 'download/' . $pg_projects[$i]['id'].PROJECTS_EXTENSION);      
-      $this->assertEquals($project['Version'], $pg_projects[$i]['version_name']);      
-      $this->assertEquals($project['Uploaded'], $pg_projects[$i]['last_activity']);      
+    foreach ($projectsAllInfo['CatrobatProjects'] as $project) {
+      $this->assertEquals($project['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
+      $this->assertEquals($project['ProjectUrl'],  'details/' . $pgProjects[$i]['id']);
+      $this->assertEquals($project['UploadedString'], getTimeInWords($pgProjects[$i]['last_activity'], $testModel->languageHandler, time()));
+      $this->assertEquals(current($idSorted), intval($project['ProjectId']));
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotBig'], getProjectImageUrl($pgProjects[$i]['id']));
+      $this->assertEquals($project['Author'], $pgProjects[$i]['uploaded_by']);
+      $this->assertEquals($project['Description'], $pgProjects[$i]['description']);
+      $this->assertEquals($project['Downloads'], $pgProjects[$i]['download_count']);
+      $this->assertEquals($project['Views'], $pgProjects[$i]['view_count']);
+      $this->assertEquals($project['DownloadUrl'], 'download/' . $pgProjects[$i]['id'].PROJECTS_EXTENSION);      
+      $this->assertEquals($project['Version'], $pgProjects[$i]['version_name']);      
+      $this->assertEquals($project['Uploaded'], $pgProjects[$i]['last_activity']);      
       $i++;
-      next($id_sorted);
+      next($idSorted);
     }
     
     // search for unique project 
-    for($i = 0; $i < count($unique_title); $i++) {
+    for($i = 0; $i < count($uniqueTitle); $i++) {
       $offset = 0;
-      $limit = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-      $search_term = $unique_title[$i];
-      $search_projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_AGE, $sortby, $search_term);
-      $pg_projects = $this->getResults($sortby, $limit, $offset, $search_term, "");
+      $limit = $numUploadProjects;
+      $searchTerm = $uniqueTitle[$i];
+      $searchProjects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_AGE, $sortby, $searchTerm);
+      $pgProjects = $this->getResults($sortby, $limit, $offset, $searchTerm, "");
   
-      $this->assertEquals(1, count($search_projects['CatrobatProjects']));
-      $this->assertEquals(1, count($pg_projects));
-      $this->assertEquals(1, intval($search_projects['CatrobatInformation']['TotalProjects']));
+      $this->assertEquals(1, count($searchProjects['CatrobatProjects']));
+      $this->assertEquals(1, count($pgProjects));
+      $this->assertEquals(1, intval($searchProjects['CatrobatInformation']['TotalProjects']));
       
-      $this->assertEquals($search_projects['CatrobatProjects'][0]['ProjectName'], $pg_projects[0]['title']);
-      $this->assertEquals($search_projects['CatrobatInformation']['BaseUrl'].$search_projects['CatrobatProjects'][0]['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[0]['id']));
-      $this->assertEquals($search_projects['CatrobatProjects'][0]['ProjectUrl'],  'details/' . $pg_projects[0]['id']);
-      $this->assertEquals($search_projects['CatrobatProjects'][0]['UploadedString'], getTimeInWords($pg_projects[0]['last_activity'], $testModel->languageHandler, time()));
-      $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['ProjectId']));
-      $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['ScreenshotBig']));
-      $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['Author']));
-      $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['Description']));
-      $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['Uploaded']));
-      $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['Version']));
-      $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['Views']));
-      $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['Downloads']));
-      $this->assertFalse(isset($search_projects['CatrobatProjects'][0]['DownloadUrl']));
+      $this->assertEquals($searchProjects['CatrobatProjects'][0]['ProjectName'], $pgProjects[0]['title']);
+      $this->assertEquals($searchProjects['CatrobatInformation']['BaseUrl'].$searchProjects['CatrobatProjects'][0]['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[0]['id']));
+      $this->assertEquals($searchProjects['CatrobatProjects'][0]['ProjectUrl'],  'details/' . $pgProjects[0]['id']);
+      $this->assertEquals($searchProjects['CatrobatProjects'][0]['UploadedString'], getTimeInWords($pgProjects[0]['last_activity'], $testModel->languageHandler, time()));
+      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['ProjectId']));
+      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['ScreenshotBig']));
+      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['Author']));
+      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['Description']));
+      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['Uploaded']));
+      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['Version']));
+      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['Views']));
+      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['Downloads']));
+      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['DownloadUrl']));
     }
 
     // search for description
     $i = 0;
     $offset = 0;
-    $limit = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-    $search_term = $unique_description;
-    $search_projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_AGE, $sortby, $search_term);
-    $pg_projects = $this->getResults($sortby, $limit, $offset, $search_term, "");
+    $limit = $numUploadProjects;
+    $searchTerm = $uniqueDescription;
+    $searchProjects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_AGE, $sortby, $searchTerm);
+    $pgProjects = $this->getResults($sortby, $limit, $offset, $searchTerm, "");
     
-    $this->assertEquals(count($insertIds), count($search_projects['CatrobatProjects']));
-    $this->assertEquals(count($insertIds), intval($search_projects['CatrobatInformation']['TotalProjects']));
-    $this->assertEquals(count($insertIds), count($pg_projects));
+    $this->assertEquals(count($insertIds), count($searchProjects['CatrobatProjects']));
+    $this->assertEquals(count($insertIds), intval($searchProjects['CatrobatInformation']['TotalProjects']));
+    $this->assertEquals(count($insertIds), count($pgProjects));
     
     $i = 0;
-    reset($id_sorted);
-    foreach($search_projects['CatrobatProjects'] as $search_project) {
-      $this->assertEquals($search_project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($search_projects['CatrobatInformation']['BaseUrl'].$search_project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($search_project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
-      $this->assertEquals($search_project['UploadedString'], getTimeInWords($pg_projects[$i]['last_activity'], $testModel->languageHandler, time()));
-      $this->assertFalse(isset($search_project['ProjectId']));
-      $this->assertFalse(isset($search_project['ScreenshotBig']));
-      $this->assertFalse(isset($search_project['Author']));
-      $this->assertFalse(isset($search_project['Description']));
-      $this->assertFalse(isset($search_project['Uploaded']));
-      $this->assertFalse(isset($search_project['Version']));
-      $this->assertFalse(isset($search_project['Views']));
-      $this->assertFalse(isset($search_project['Downloads']));
-      $this->assertFalse(isset($search_project['DownloadUrl']));
+    reset($idSorted);
+    foreach($searchProjects['CatrobatProjects'] as $searchProject) {
+      $this->assertEquals($searchProject['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($searchProjects['CatrobatInformation']['BaseUrl'].$searchProject['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
+      $this->assertEquals($searchProject['ProjectUrl'],  'details/' . $pgProjects[$i]['id']);
+      $this->assertEquals($searchProject['UploadedString'], getTimeInWords($pgProjects[$i]['last_activity'], $testModel->languageHandler, time()));
+      $this->assertFalse(isset($searchProject['ProjectId']));
+      $this->assertFalse(isset($searchProject['ScreenshotBig']));
+      $this->assertFalse(isset($searchProject['Author']));
+      $this->assertFalse(isset($searchProject['Description']));
+      $this->assertFalse(isset($searchProject['Uploaded']));
+      $this->assertFalse(isset($searchProject['Version']));
+      $this->assertFalse(isset($searchProject['Views']));
+      $this->assertFalse(isset($searchProject['Downloads']));
+      $this->assertFalse(isset($searchProject['DownloadUrl']));
       $i++;
     }
     
     // search for author
     $i = 0;
     $offset = 0;
-    $limit = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-    $search_term = $unique_description;
-    $search_user = "anonymous";
-    $search_projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_AGE, $sortby, $search_term, $search_user);
+    $limit = $numUploadProjects;
+    $searchTerm = $uniqueDescription;
+    $searchUser = "anonymous";
+    $searchProjects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_AGE, $sortby, $searchTerm, $searchUser);
     
-    $pg_projects = $this->getResults($sortby, $limit, $offset, $search_term, $search_user);
+    $pgProjects = $this->getResults($sortby, $limit, $offset, $searchTerm, $searchUser);
     
-    $this->assertEquals(count($insertIds), count($search_projects['CatrobatProjects']));
-    $this->assertEquals(count($insertIds), intval($search_projects['CatrobatInformation']['TotalProjects']));
-    $this->assertEquals(count($insertIds), count($pg_projects));
+    $this->assertEquals(count($insertIds), count($searchProjects['CatrobatProjects']));
+    $this->assertEquals(count($insertIds), intval($searchProjects['CatrobatInformation']['TotalProjects']));
+    $this->assertEquals(count($insertIds), count($pgProjects));
     
     $i = 0;
-    reset($id_sorted);
-    foreach($search_projects['CatrobatProjects'] as $search_project) {
-      $this->assertEquals($search_project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($search_projects['CatrobatInformation']['BaseUrl'].$search_project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($search_project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
-      $this->assertEquals($search_project['UploadedString'], getTimeInWords($pg_projects[$i]['last_activity'], $testModel->languageHandler, time()));
-      $this->assertFalse(isset($search_project['ProjectId']));
-      $this->assertFalse(isset($search_project['ScreenshotBig']));
-      $this->assertFalse(isset($search_project['Author']));
-      $this->assertFalse(isset($search_project['Description']));
-      $this->assertFalse(isset($search_project['Uploaded']));
-      $this->assertFalse(isset($search_project['Version']));
-      $this->assertFalse(isset($search_project['Views']));
-      $this->assertFalse(isset($search_project['Downloads']));
-      $this->assertFalse(isset($search_project['DownloadUrl']));
+    reset($idSorted);
+    foreach($searchProjects['CatrobatProjects'] as $searchProject) {
+      $this->assertEquals($searchProject['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($searchProjects['CatrobatInformation']['BaseUrl'].$searchProject['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
+      $this->assertEquals($searchProject['ProjectUrl'],  'details/' . $pgProjects[$i]['id']);
+      $this->assertEquals($searchProject['UploadedString'], getTimeInWords($pgProjects[$i]['last_activity'], $testModel->languageHandler, time()));
+      $this->assertFalse(isset($searchProject['ProjectId']));
+      $this->assertFalse(isset($searchProject['ScreenshotBig']));
+      $this->assertFalse(isset($searchProject['Author']));
+      $this->assertFalse(isset($searchProject['Description']));
+      $this->assertFalse(isset($searchProject['Uploaded']));
+      $this->assertFalse(isset($searchProject['Version']));
+      $this->assertFalse(isset($searchProject['Views']));
+      $this->assertFalse(isset($searchProject['Downloads']));
+      $this->assertFalse(isset($searchProject['DownloadUrl']));
       $i++;
     }
     
@@ -345,33 +346,34 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $testModel = new apiTestModel();
     $sortby = PROJECT_SORTBY_DOWNLOADS;
     $insertIds = array();
-    $dl_sorted = array();
-    $id_sorted = array();
-    $unique_title = array();
-    $unique_description = "";
+    $dlSorted = array();
+    $idSorted = array();
+    $uniqueTitle = array();
+    $uniqueDescription = "";
     $most_dl_project = null;
+    $numUploadProjects = 5;
   
     $query = 'SELECT projects.id FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id AND cusers.username ILIKE \'anonymous\'';
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $num_projects_before = pg_num_rows($result);
+    $numProjectsBefore = pg_num_rows($result);
   
     mt_srand ((double) microtime() * 1000000);
-    $unique_description = $projectDescription.'_'.mt_rand();
+    $uniqueDescription = $projectDescription.'_'.mt_rand();
   
     $query = 'SELECT projects.id, projects.download_count FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id  ORDER BY projects.download_count DESC, projects.id DESC LIMIT 1';
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
     $most_dl_project = pg_fetch_assoc($result);
     pg_free_result($result);
   
-    for($i = 0; $i < PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE; $i++) {
-      $testFile =  $fileName;
+    for($i = 0; $i < $numUploadProjects; $i++) {
+      $testFile = $fileName;
       $fileChecksum = md5_file($testFile);
       $fileSize = filesize($testFile);
   
-      $unique_title[$i] = $projectTitle.'_'.mt_rand();
+      $uniqueTitle[$i] = $projectTitle . '_' . mt_rand();
       $formData = array(
-          'projectTitle' => $unique_title[$i],
-          'projectDescription' => $unique_description,
+          'projectTitle' => $uniqueTitle[$i],
+          'projectDescription' => $uniqueDescription,
           'fileChecksum' => $fileChecksum,
           'userLanguage'=>$uploadLanguage
       );
@@ -391,53 +393,53 @@ class projectsTest extends PHPUnit_Framework_TestCase
       array_push($insertIds, $this->upload->projectId);
     }
   
-    array_push($dl_sorted, $most_dl_project['download_count']);
-    array_push($id_sorted, $most_dl_project['id']);
-    $insert_same_dl_count = false;
+    array_push($dlSorted, $most_dl_project['download_count']);
+    array_push($idSorted, $most_dl_project['id']);
+    $insertSameDlCount = false;
     
     foreach ($insertIds as $id) {
-      if(!$insert_same_dl_count) {
-        $download_count = $most_dl_project['download_count'];
-        $insert_same_dl_count = true;
+      if(!$insertSameDlCount) {
+        $downloadCount = $most_dl_project['download_count'];
+        $insertSameDlCount = true;
       }
       else {
-        $download_count = mt_rand($most_dl_project['download_count'] + 1, mt_getrandmax() - 1);
+        $downloadCount = mt_rand($most_dl_project['download_count'] + 1, mt_getrandmax() - 1);
       }
-      $view_count = $id;
-      array_push($dl_sorted, $download_count);
-      array_push($id_sorted, $id);
-      $update_query = 'UPDATE projects SET download_count = '.$download_count.', view_count = '.$view_count.' WHERE projects.id = '.$id;
-      $result = pg_query($this->dbConnection, $update_query) or die('DB operation failed: ' . pg_last_error());
+      $viewCount = $id;
+      array_push($dlSorted, $downloadCount);
+      array_push($idSorted, $id);
+      $updateQuery = 'UPDATE projects SET download_count = '.$downloadCount.', view_count = '.$viewCount.' WHERE projects.id = '.$id;
+      $result = pg_query($this->dbConnection, $updateQuery) or die('DB operation failed: ' . pg_last_error());
       $this->assertEquals(pg_affected_rows($result), 1);
       pg_free_result($result);
     }
   
-    array_multisort($dl_sorted, SORT_DESC, SORT_NUMERIC, $id_sorted, SORT_DESC, SORT_NUMERIC);
+    array_multisort($dlSorted, SORT_DESC, SORT_NUMERIC, $idSorted, SORT_DESC, SORT_NUMERIC);
     
-    $limit = count($id_sorted);
+    $limit = count($idSorted);
     $offset = 0;
   
-    $pg_projects = $this->getResults($sortby, $limit, $offset, "", "");
+    $pgProjects = $this->getResults($sortby, $limit, $offset, "", "");
 
-    $projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_DOWNLOADS, $sortby);
+    $projects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_DOWNLOADS, $sortby);
     $this->assertEquals(3, count($projects['CatrobatInformation']));
     $this->assertNotEquals(-1, $projects['CatrobatInformation']['TotalProjects']);
     $this->assertEquals(BASE_PATH, $projects['CatrobatInformation']['BaseUrl']);
     $this->assertEquals(PROJECTS_EXTENSION, $projects['CatrobatInformation']['ProjectsExtension']);
     $this->assertEquals('', $this->obj->Error);
-    $this->assertEquals(count($projects['CatrobatProjects']), count($pg_projects));
+    $this->assertEquals(count($projects['CatrobatProjects']), count($pgProjects));
     $i = 0;
     
     $last_download_count = mt_getrandmax();
-    $last_id = mt_getrandmax();
+    $lastId = mt_getrandmax();
     foreach ($projects['CatrobatProjects'] as $project) {
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($project['Downloads'], $pg_projects[$i]['download_count']);
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
+      $this->assertEquals($project['Downloads'], $pgProjects[$i]['download_count']);
       $this->assertGreaterThanOrEqual($project['Downloads'], $last_download_count);
-      $this->assertEquals($project['ProjectId'], $pg_projects[$i]['id']);
-      $this->assertEquals($project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals(current($dl_sorted), $project['Downloads']);
-      $this->assertEquals(current($id_sorted), $project['ProjectId']);
+      $this->assertEquals($project['ProjectId'], $pgProjects[$i]['id']);
+      $this->assertEquals($project['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals(current($dlSorted), $project['Downloads']);
+      $this->assertEquals(current($idSorted), $project['ProjectId']);
       
       $this->assertFalse(isset($project['Author']));
       $this->assertFalse(isset($project['Description']));
@@ -449,66 +451,66 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['Version']));
       $this->assertFalse(isset($project['Views']));
       if($last_download_count == $project['Downloads']){
-        $this->assertGreaterThanOrEqual($project['id'], $last_id);
+        $this->assertGreaterThanOrEqual($project['id'], $lastId);
       }
       
       $last_download_count = $project['Downloads'];
-      $last_id =   $project['id'];
-      next($id_sorted);
-      next($dl_sorted);
+      $lastId = $project['id'];
+      next($idSorted);
+      next($dlSorted);
       $i++;
     }
     
     // test all mask
-    $projects_all_info = $this->obj->get($offset, $limit, PROJECT_MASK_ALL, $sortby);
+    $projectsAllInfo = $this->obj->get($offset, $limit, PROJECT_MASK_ALL, $sortby);
   
-    $this->assertEquals(3, count($projects_all_info['CatrobatInformation']));
-    $this->assertNotEquals(-1, $projects_all_info['CatrobatInformation']['TotalProjects']);
-    $this->assertEquals(BASE_PATH, $projects_all_info['CatrobatInformation']['BaseUrl']);
-    $this->assertEquals(PROJECTS_EXTENSION, $projects_all_info['CatrobatInformation']['ProjectsExtension']);
+    $this->assertEquals(3, count($projectsAllInfo['CatrobatInformation']));
+    $this->assertNotEquals(-1, $projectsAllInfo['CatrobatInformation']['TotalProjects']);
+    $this->assertEquals(BASE_PATH, $projectsAllInfo['CatrobatInformation']['BaseUrl']);
+    $this->assertEquals(PROJECTS_EXTENSION, $projectsAllInfo['CatrobatInformation']['ProjectsExtension']);
     $this->assertEquals('', $this->obj->Error);
-    $this->assertEquals(count($projects_all_info['CatrobatProjects']), count($pg_projects));
+    $this->assertEquals(count($projectsAllInfo['CatrobatProjects']), count($pgProjects));
   
-    reset($id_sorted);
-    reset($dl_sorted);
+    reset($idSorted);
+    reset($dlSorted);
     $i = 0;
-    foreach ($projects_all_info['CatrobatProjects'] as $project) {
-      $this->assertEquals($project['Author'], $pg_projects[$i]['uploaded_by']);
-      $this->assertEquals($project['Description'], $pg_projects[$i]['description']);
-      $this->assertEquals($project['Downloads'], $pg_projects[$i]['download_count']);
-      $this->assertEquals($project['DownloadUrl'], 'download/' . $pg_projects[$i]['id'].PROJECTS_EXTENSION);
-      $this->assertEquals($project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotBig'], getProjectImageUrl($pg_projects[$i]['id']));
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($project['Uploaded'], $pg_projects[$i]['last_activity']);
-      $this->assertEquals($project['UploadedString'], getTimeInWords($pg_projects[$i]['last_activity'], $testModel->languageHandler, time()));
-      $this->assertEquals($project['Views'], $pg_projects[$i]['view_count']);
-      $this->assertEquals($project['Version'], $pg_projects[$i]['version_name']);
-      $this->assertEquals(current($dl_sorted), $project['Downloads']);
-      $this->assertEquals(current($id_sorted), intval($project['ProjectId']));
+    foreach ($projectsAllInfo['CatrobatProjects'] as $project) {
+      $this->assertEquals($project['Author'], $pgProjects[$i]['uploaded_by']);
+      $this->assertEquals($project['Description'], $pgProjects[$i]['description']);
+      $this->assertEquals($project['Downloads'], $pgProjects[$i]['download_count']);
+      $this->assertEquals($project['DownloadUrl'], 'download/' . $pgProjects[$i]['id'].PROJECTS_EXTENSION);
+      $this->assertEquals($project['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($project['ProjectUrl'],  'details/' . $pgProjects[$i]['id']);
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotBig'], getProjectImageUrl($pgProjects[$i]['id']));
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
+      $this->assertEquals($project['Uploaded'], $pgProjects[$i]['last_activity']);
+      $this->assertEquals($project['UploadedString'], getTimeInWords($pgProjects[$i]['last_activity'], $testModel->languageHandler, time()));
+      $this->assertEquals($project['Views'], $pgProjects[$i]['view_count']);
+      $this->assertEquals($project['Version'], $pgProjects[$i]['version_name']);
+      $this->assertEquals(current($dlSorted), $project['Downloads']);
+      $this->assertEquals(current($idSorted), intval($project['ProjectId']));
       $i++;
-      next($id_sorted);
-      next($dl_sorted);
+      next($idSorted);
+      next($dlSorted);
     }
 
     // search for unique project
-    for($i = 0; $i < count($unique_title); $i++) {
+    for($i = 0; $i < count($uniqueTitle); $i++) {
       $offset = 0;
-      $limit = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-      $search_term = $unique_title[$i];
-      $search_projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_DOWNLOADS, $sortby, $search_term);
-      $project = $search_projects['CatrobatProjects'][0];
-      $pg_projects = $this->getResults($sortby, $limit, $offset, $search_term, "");
+      $limit = $numUploadProjects;
+      $searchTerm = $uniqueTitle[$i];
+      $searchProjects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_DOWNLOADS, $sortby, $searchTerm);
+      $project = $searchProjects['CatrobatProjects'][0];
+      $pgProjects = $this->getResults($sortby, $limit, $offset, $searchTerm, "");
 
-      $this->assertEquals(1, count($search_projects['CatrobatProjects']));
-      $this->assertEquals(1, intval($search_projects['CatrobatInformation']['TotalProjects']));
-      $this->assertEquals(1, count($pg_projects));
+      $this->assertEquals(1, count($searchProjects['CatrobatProjects']));
+      $this->assertEquals(1, intval($searchProjects['CatrobatInformation']['TotalProjects']));
+      $this->assertEquals(1, count($pgProjects));
 
-      $this->assertEquals($search_projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[0]['id']));
-      $this->assertEquals($project['Downloads'], $pg_projects[0]['download_count']);
-      $this->assertEquals($project['ProjectId'], $pg_projects[0]['id']);
-      $this->assertEquals($project['ProjectName'], $pg_projects[0]['title']);
+      $this->assertEquals($searchProjects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[0]['id']));
+      $this->assertEquals($project['Downloads'], $pgProjects[0]['download_count']);
+      $this->assertEquals($project['ProjectId'], $pgProjects[0]['id']);
+      $this->assertEquals($project['ProjectName'], $pgProjects[0]['title']);
 
       $this->assertFalse(isset($project['Author']));
       $this->assertFalse(isset($project['Description']));
@@ -524,26 +526,26 @@ class projectsTest extends PHPUnit_Framework_TestCase
     // search for description
     $i = 0;
     $offset = 0;
-    $limit = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-    $search_term = $unique_description;
-    $search_projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_DOWNLOADS, $sortby, $unique_description);
-    $pg_projects = $this->getResults($sortby, $limit, $offset, $search_term, "");
+    $limit = $numUploadProjects;
+    $searchTerm = $uniqueDescription;
+    $searchProjects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_DOWNLOADS, $sortby, $uniqueDescription);
+    $pgProjects = $this->getResults($sortby, $limit, $offset, $searchTerm, "");
   
-    $this->assertEquals(count($insertIds), count($search_projects['CatrobatProjects']));
-    $this->assertEquals(count($insertIds), intval($search_projects['CatrobatInformation']['TotalProjects']));
-    $this->assertEquals(count($insertIds), count($pg_projects));
+    $this->assertEquals(count($insertIds), count($searchProjects['CatrobatProjects']));
+    $this->assertEquals(count($insertIds), intval($searchProjects['CatrobatInformation']['TotalProjects']));
+    $this->assertEquals(count($insertIds), count($pgProjects));
   
-    reset($id_sorted);
-    reset($dl_sorted);
+    reset($idSorted);
+    reset($dlSorted);
     $i = 0;
-    foreach($search_projects['CatrobatProjects'] as $search_project) {
-      $this->assertEquals($search_project['ProjectId'], $pg_projects[$i]['id']);
-      $this->assertEquals($search_project['Downloads'], $pg_projects[$i]['download_count']);
-      $this->assertEquals($search_project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$search_project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
+    foreach($searchProjects['CatrobatProjects'] as $searchProject) {
+      $this->assertEquals($searchProject['ProjectId'], $pgProjects[$i]['id']);
+      $this->assertEquals($searchProject['Downloads'], $pgProjects[$i]['download_count']);
+      $this->assertEquals($searchProject['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$searchProject['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
 
-      $this->assertEquals(current($dl_sorted), $search_project['Downloads']);
-      $this->assertEquals(current($id_sorted), intval($search_project['ProjectId']));
+      $this->assertEquals(current($dlSorted), $searchProject['Downloads']);
+      $this->assertEquals(current($idSorted), intval($searchProject['ProjectId']));
 
       $this->assertFalse(isset($project['Author']));
       $this->assertFalse(isset($project['Description']));
@@ -555,34 +557,34 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['Version']));
       $this->assertFalse(isset($project['Views']));
       $i++;
-      next($id_sorted);
-      next($dl_sorted);
+      next($idSorted);
+      next($dlSorted);
     }
     
     // search for author
     $offset = 0;
-    $limit = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-    $search_term = $unique_description;
-    $search_user = "anonymous";
-    $search_projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_DOWNLOADS, $sortby, $search_term, $search_user);
+    $limit = $numUploadProjects;
+    $searchTerm = $uniqueDescription;
+    $searchUser = "anonymous";
+    $searchProjects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_DOWNLOADS, $sortby, $searchTerm, $searchUser);
   
-    $pg_projects = $this->getResults($sortby, $limit, $offset, $search_term, $search_user);
+    $pgProjects = $this->getResults($sortby, $limit, $offset, $searchTerm, $searchUser);
   
-    $this->assertEquals(count($insertIds), count($search_projects['CatrobatProjects']));
-    $this->assertEquals(count($insertIds), intval($search_projects['CatrobatInformation']['TotalProjects']));
-    $this->assertEquals(count($insertIds), count($pg_projects));
+    $this->assertEquals(count($insertIds), count($searchProjects['CatrobatProjects']));
+    $this->assertEquals(count($insertIds), intval($searchProjects['CatrobatInformation']['TotalProjects']));
+    $this->assertEquals(count($insertIds), count($pgProjects));
   
     $i = 0;
-    reset($id_sorted);
-    reset($dl_sorted);
-    foreach($search_projects['CatrobatProjects'] as $search_project) {
-      $this->assertEquals($search_project['ProjectId'], $pg_projects[$i]['id']);
-      $this->assertEquals($search_project['Downloads'], $pg_projects[$i]['download_count']);
-      $this->assertEquals($search_project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$search_project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
+    reset($idSorted);
+    reset($dlSorted);
+    foreach($searchProjects['CatrobatProjects'] as $searchProject) {
+      $this->assertEquals($searchProject['ProjectId'], $pgProjects[$i]['id']);
+      $this->assertEquals($searchProject['Downloads'], $pgProjects[$i]['download_count']);
+      $this->assertEquals($searchProject['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$searchProject['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
 
-      $this->assertEquals(current($dl_sorted), $search_project['Downloads']);
-      $this->assertEquals(current($id_sorted), intval($search_project['ProjectId']));
+      $this->assertEquals(current($dlSorted), $searchProject['Downloads']);
+      $this->assertEquals(current($idSorted), intval($searchProject['ProjectId']));
 
       $this->assertFalse(isset($project['Author']));
       $this->assertFalse(isset($project['Description']));
@@ -594,8 +596,8 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['Version']));
       $this->assertFalse(isset($project['Views']));
       $i++;
-      next($id_sorted);
-      next($dl_sorted);
+      next($idSorted);
+      next($dlSorted);
     }
   
     $this->upload->cleanup();
@@ -609,33 +611,34 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $testModel = new apiTestModel();
     $sortby = PROJECT_SORTBY_VIEWS;
     $insertIds = array();
-    $viewed_sorted = array();
-    $id_sorted = array();
-    $unique_title = array();
-    $unique_description = "";
-    $most_viewed_project = null;
+    $viewedSorted = array();
+    $idSorted = array();
+    $uniqueTitle = array();
+    $uniqueDescription = "";
+    $mostViewedProject = null;
+    $numUploadProjects = 5;
   
     $query = 'SELECT projects.id FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id AND cusers.username ILIKE \'anonymous\'';
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $num_projects_before = pg_num_rows($result);
+    $numProjectsBefore = pg_num_rows($result);
   
     mt_srand ((double) microtime() * 1000000);
-    $unique_description = $projectDescription.'_'.mt_rand();
+    $uniqueDescription = $projectDescription.'_'.mt_rand();
   
     $query = 'SELECT projects.id, projects.view_count FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id  ORDER BY projects.view_count DESC, projects.id DESC LIMIT 1';
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $most_viewed_project = pg_fetch_assoc($result);
+    $mostViewedProject = pg_fetch_assoc($result);
     pg_free_result($result);
   
-    for($i = 0; $i < PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE; $i++) {
+    for($i = 0; $i < $numUploadProjects; $i++) {
       $testFile =  $fileName;
       $fileChecksum = md5_file($testFile);
       $fileSize = filesize($testFile);
   
-      $unique_title[$i] = $projectTitle.'_'.mt_rand();
+      $uniqueTitle[$i] = $projectTitle.'_'.mt_rand();
       $formData = array(
-          'projectTitle' => $unique_title[$i],
-          'projectDescription' => $unique_description,
+          'projectTitle' => $uniqueTitle[$i],
+          'projectDescription' => $uniqueDescription,
           'fileChecksum' => $fileChecksum,
           'userLanguage'=>$uploadLanguage
       );
@@ -655,54 +658,54 @@ class projectsTest extends PHPUnit_Framework_TestCase
       array_push($insertIds, $this->upload->projectId);
     }
   
-    array_push($viewed_sorted, $most_viewed_project['view_count']);
-    array_push($id_sorted, $most_viewed_project['id']);
-    $insert_same_view_count = false;
+    array_push($viewedSorted, $mostViewedProject['view_count']);
+    array_push($idSorted, $mostViewedProject['id']);
+    $insertSameViewCount = false;
   
     foreach ($insertIds as $id) {
-      if(!$insert_same_view_count) {
-        $view_count = $most_viewed_project['view_count'];
-        $insert_same_view_count = true;
+      if(!$insertSameViewCount) {
+        $viewCount = $mostViewedProject['view_count'];
+        $insertSameViewCount = true;
       }
       else {
-        $view_count = mt_rand($most_viewed_project['view_count'] + 1, mt_getrandmax() - 1);
+        $viewCount = mt_rand($mostViewedProject['view_count'] + 1, mt_getrandmax() - 1);
       }
-      $download_count = $id;
-      array_push($viewed_sorted, $view_count);
-      array_push($id_sorted, $id);
-      $update_query = 'UPDATE projects SET download_count = '.$download_count.', view_count = '.$view_count.' WHERE projects.id = '.$id;
-      $result = pg_query($this->dbConnection, $update_query) or die('DB operation failed: ' . pg_last_error());
+      $downloadCount = $id;
+      array_push($viewedSorted, $viewCount);
+      array_push($idSorted, $id);
+      $updateQuery = 'UPDATE projects SET download_count = '.$downloadCount.', view_count = '.$viewCount.' WHERE projects.id = '.$id;
+      $result = pg_query($this->dbConnection, $updateQuery) or die('DB operation failed: ' . pg_last_error());
       $this->assertEquals(pg_affected_rows($result), 1);
       pg_free_result($result);
     }
   
-    array_multisort($viewed_sorted, SORT_DESC, SORT_NUMERIC, $id_sorted, SORT_DESC, SORT_NUMERIC);
+    array_multisort($viewedSorted, SORT_DESC, SORT_NUMERIC, $idSorted, SORT_DESC, SORT_NUMERIC);
   
   
-    $limit = count($id_sorted);
+    $limit = count($idSorted);
     $offset = 0;
   
-    $pg_projects = $this->getResults($sortby, $limit, $offset, "", "");
+    $pgProjects = $this->getResults($sortby, $limit, $offset, "", "");
   
-    $projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_VIEWS, $sortby);
+    $projects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_VIEWS, $sortby);
     $this->assertEquals(3, count($projects['CatrobatInformation']));
     $this->assertNotEquals(-1, $projects['CatrobatInformation']['TotalProjects']);
     $this->assertEquals(BASE_PATH, $projects['CatrobatInformation']['BaseUrl']);
     $this->assertEquals(PROJECTS_EXTENSION, $projects['CatrobatInformation']['ProjectsExtension']);
     $this->assertEquals('', $this->obj->Error);
-    $this->assertEquals(count($projects['CatrobatProjects']), count($pg_projects));
+    $this->assertEquals(count($projects['CatrobatProjects']), count($pgProjects));
     $i = 0;
   
-    $last_view_count = mt_getrandmax();
-    $last_id = mt_getrandmax();
+    $lastViewCount = mt_getrandmax();
+    $lastId = mt_getrandmax();
     foreach ($projects['CatrobatProjects'] as $project) {
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertGreaterThanOrEqual($project['Views'], $last_view_count);
-      $this->assertEquals($project['ProjectId'], $pg_projects[$i]['id']);
-      $this->assertEquals($project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($project['Views'], $pg_projects[$i]['view_count']);
-      $this->assertEquals(current($viewed_sorted), $project['Views']);
-      $this->assertEquals(current($id_sorted), $project['ProjectId']);
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
+      $this->assertGreaterThanOrEqual($project['Views'], $lastViewCount);
+      $this->assertEquals($project['ProjectId'], $pgProjects[$i]['id']);
+      $this->assertEquals($project['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($project['Views'], $pgProjects[$i]['view_count']);
+      $this->assertEquals(current($viewedSorted), $project['Views']);
+      $this->assertEquals(current($idSorted), $project['ProjectId']);
   
       $this->assertFalse(isset($project['Author']));
       $this->assertFalse(isset($project['Description']));
@@ -713,67 +716,67 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['Uploaded']));
       $this->assertFalse(isset($project['UploadedString']));
       $this->assertFalse(isset($project['Version']));
-      if($last_view_count == $project['Views']){
-        $this->assertGreaterThanOrEqual($project['id'], $last_id);
+      if($lastViewCount == $project['Views']){
+        $this->assertGreaterThanOrEqual($project['id'], $lastId);
       }
   
-      $last_view_count = $project['Views'];
-      $last_id =   $project['id'];
-      next($id_sorted);
-      next($viewed_sorted);
+      $lastViewCount = $project['Views'];
+      $lastId = $project['id'];
+      next($idSorted);
+      next($viewedSorted);
       $i++;
     }
   
     // test all mask
-    $projects_all_info = $this->obj->get($offset, $limit, PROJECT_MASK_ALL, $sortby);
+    $projectsAllInfo = $this->obj->get($offset, $limit, PROJECT_MASK_ALL, $sortby);
   
-    $this->assertEquals(3, count($projects_all_info['CatrobatInformation']));
-    $this->assertNotEquals(-1, $projects_all_info['CatrobatInformation']['TotalProjects']);
-    $this->assertEquals(BASE_PATH, $projects_all_info['CatrobatInformation']['BaseUrl']);
-    $this->assertEquals(PROJECTS_EXTENSION, $projects_all_info['CatrobatInformation']['ProjectsExtension']);
+    $this->assertEquals(3, count($projectsAllInfo['CatrobatInformation']));
+    $this->assertNotEquals(-1, $projectsAllInfo['CatrobatInformation']['TotalProjects']);
+    $this->assertEquals(BASE_PATH, $projectsAllInfo['CatrobatInformation']['BaseUrl']);
+    $this->assertEquals(PROJECTS_EXTENSION, $projectsAllInfo['CatrobatInformation']['ProjectsExtension']);
     $this->assertEquals('', $this->obj->Error);
-    $this->assertEquals(count($projects_all_info['CatrobatProjects']), count($pg_projects));
+    $this->assertEquals(count($projectsAllInfo['CatrobatProjects']), count($pgProjects));
   
-    reset($id_sorted);
-    reset($viewed_sorted);
+    reset($idSorted);
+    reset($viewedSorted);
     $i = 0;
-    foreach ($projects_all_info['CatrobatProjects'] as $project) {
-      $this->assertEquals($project['Author'], $pg_projects[$i]['uploaded_by']);
-      $this->assertEquals($project['Description'], $pg_projects[$i]['description']);
-      $this->assertEquals($project['Downloads'], $pg_projects[$i]['download_count']);
-      $this->assertEquals($project['DownloadUrl'], 'download/' . $pg_projects[$i]['id'].PROJECTS_EXTENSION);
-      $this->assertEquals($project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($project['ProjectUrl'],  'details/' . $pg_projects[$i]['id']);
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotBig'], getProjectImageUrl($pg_projects[$i]['id']));
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($project['Uploaded'], $pg_projects[$i]['last_activity']);
-      $this->assertEquals($project['UploadedString'], getTimeInWords($pg_projects[$i]['last_activity'], $testModel->languageHandler, time()));
-      $this->assertEquals($project['Views'], $pg_projects[$i]['view_count']);
-      $this->assertEquals($project['Version'], $pg_projects[$i]['version_name']);
-      $this->assertEquals(current($viewed_sorted), $project['Views']);
-      $this->assertEquals(current($id_sorted), intval($project['ProjectId']));
+    foreach ($projectsAllInfo['CatrobatProjects'] as $project) {
+      $this->assertEquals($project['Author'], $pgProjects[$i]['uploaded_by']);
+      $this->assertEquals($project['Description'], $pgProjects[$i]['description']);
+      $this->assertEquals($project['Downloads'], $pgProjects[$i]['download_count']);
+      $this->assertEquals($project['DownloadUrl'], 'download/' . $pgProjects[$i]['id'].PROJECTS_EXTENSION);
+      $this->assertEquals($project['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($project['ProjectUrl'],  'details/' . $pgProjects[$i]['id']);
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotBig'], getProjectImageUrl($pgProjects[$i]['id']));
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
+      $this->assertEquals($project['Uploaded'], $pgProjects[$i]['last_activity']);
+      $this->assertEquals($project['UploadedString'], getTimeInWords($pgProjects[$i]['last_activity'], $testModel->languageHandler, time()));
+      $this->assertEquals($project['Views'], $pgProjects[$i]['view_count']);
+      $this->assertEquals($project['Version'], $pgProjects[$i]['version_name']);
+      $this->assertEquals(current($viewedSorted), $project['Views']);
+      $this->assertEquals(current($idSorted), intval($project['ProjectId']));
       $i++;
-      next($id_sorted);
-      next($viewed_sorted);
+      next($idSorted);
+      next($viewedSorted);
     }
     
     // search for unique project
-    for($i = 0; $i < count($unique_title); $i++) {
+    for($i = 0; $i < count($uniqueTitle); $i++) {
       $offset = 0;
-      $limit = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-      $search_term = $unique_title[$i];
-      $search_projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_VIEWS, $sortby, $search_term);
-      $project = $search_projects['CatrobatProjects'][0];
-      $pg_projects = $this->getResults($sortby, $limit, $offset, $search_term, "");
+      $limit = $numUploadProjects;
+      $searchTerm = $uniqueTitle[$i];
+      $searchProjects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_VIEWS, $sortby, $searchTerm);
+      $project = $searchProjects['CatrobatProjects'][0];
+      $pgProjects = $this->getResults($sortby, $limit, $offset, $searchTerm, "");
   
-      $this->assertEquals(1, count($search_projects['CatrobatProjects']));
-      $this->assertEquals(1, intval($search_projects['CatrobatInformation']['TotalProjects']));
-      $this->assertEquals(1, count($pg_projects));
+      $this->assertEquals(1, count($searchProjects['CatrobatProjects']));
+      $this->assertEquals(1, intval($searchProjects['CatrobatInformation']['TotalProjects']));
+      $this->assertEquals(1, count($pgProjects));
   
-      $this->assertEquals($search_projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[0]['id']));
-      $this->assertEquals($project['ProjectId'], $pg_projects[0]['id']);
-      $this->assertEquals($project['ProjectName'], $pg_projects[0]['title']);
-      $this->assertEquals($project['Views'], $pg_projects[0]['view_count']);
+      $this->assertEquals($searchProjects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[0]['id']));
+      $this->assertEquals($project['ProjectId'], $pgProjects[0]['id']);
+      $this->assertEquals($project['ProjectName'], $pgProjects[0]['title']);
+      $this->assertEquals($project['Views'], $pgProjects[0]['view_count']);
   
       $this->assertFalse(isset($project['Author']));
       $this->assertFalse(isset($project['Description']));
@@ -789,26 +792,26 @@ class projectsTest extends PHPUnit_Framework_TestCase
     // search for description
     $i = 0;
     $offset = 0;
-    $limit = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-    $search_term = $unique_description;
-    $search_projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_VIEWS, $sortby, $unique_description);
-    $pg_projects = $this->getResults($sortby, $limit, $offset, $search_term, "");
+    $limit = $numUploadProjects;
+    $searchTerm = $uniqueDescription;
+    $searchProjects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_VIEWS, $sortby, $uniqueDescription);
+    $pgProjects = $this->getResults($sortby, $limit, $offset, $searchTerm, "");
   
-    $this->assertEquals(count($insertIds), count($search_projects['CatrobatProjects']));
-    $this->assertEquals(count($insertIds), intval($search_projects['CatrobatInformation']['TotalProjects']));
-    $this->assertEquals(count($insertIds), count($pg_projects));
+    $this->assertEquals(count($insertIds), count($searchProjects['CatrobatProjects']));
+    $this->assertEquals(count($insertIds), intval($searchProjects['CatrobatInformation']['TotalProjects']));
+    $this->assertEquals(count($insertIds), count($pgProjects));
   
-    reset($id_sorted);
-    reset($viewed_sorted);
+    reset($idSorted);
+    reset($viewedSorted);
     $i = 0;
-    foreach($search_projects['CatrobatProjects'] as $search_project) {
-      $this->assertEquals($search_project['ProjectId'], $pg_projects[$i]['id']);
-      $this->assertEquals($search_project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$search_project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($search_project['Views'], $pg_projects[$i]['view_count']);
+    foreach($searchProjects['CatrobatProjects'] as $searchProject) {
+      $this->assertEquals($searchProject['ProjectId'], $pgProjects[$i]['id']);
+      $this->assertEquals($searchProject['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$searchProject['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
+      $this->assertEquals($searchProject['Views'], $pgProjects[$i]['view_count']);
   
-      $this->assertEquals(current($viewed_sorted), $search_project['Views']);
-      $this->assertEquals(current($id_sorted), intval($search_project['ProjectId']));
+      $this->assertEquals(current($viewedSorted), $searchProject['Views']);
+      $this->assertEquals(current($idSorted), intval($searchProject['ProjectId']));
   
       $this->assertFalse(isset($project['Author']));
       $this->assertFalse(isset($project['Description']));
@@ -820,34 +823,34 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['UploadedString']));
       $this->assertFalse(isset($project['Version']));
       $i++;
-      next($id_sorted);
-      next($viewed_sorted);
+      next($idSorted);
+      next($viewedSorted);
     }
   
     // search for author
     $offset = 0;
-    $limit = PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE;
-    $search_term = $unique_description;
-    $search_user = "anonymous";
-    $search_projects = $this->obj->get($offset, $limit, PROJECT_MASK_LIST_VIEWS, $sortby, $search_term, $search_user);
+    $limit = $numUploadProjects;
+    $searchTerm = $uniqueDescription;
+    $searchUser = "anonymous";
+    $searchProjects = $this->obj->get($offset, $limit, PROJECT_MASK_GRID_ROW_VIEWS, $sortby, $searchTerm, $searchUser);
   
-    $pg_projects = $this->getResults($sortby, $limit, $offset, $search_term, $search_user);
+    $pgProjects = $this->getResults($sortby, $limit, $offset, $searchTerm, $searchUser);
   
-    $this->assertEquals(count($insertIds), count($search_projects['CatrobatProjects']));
-    $this->assertEquals(count($insertIds), intval($search_projects['CatrobatInformation']['TotalProjects']));
-    $this->assertEquals(count($insertIds), count($pg_projects));
+    $this->assertEquals(count($insertIds), count($searchProjects['CatrobatProjects']));
+    $this->assertEquals(count($insertIds), intval($searchProjects['CatrobatInformation']['TotalProjects']));
+    $this->assertEquals(count($insertIds), count($pgProjects));
   
     $i = 0;
-    reset($id_sorted);
-    reset($viewed_sorted);
-    foreach($search_projects['CatrobatProjects'] as $search_project) {
-      $this->assertEquals($search_project['ProjectId'], $pg_projects[$i]['id']);
-      $this->assertEquals($search_project['ProjectName'], $pg_projects[$i]['title']);
-      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$search_project['ScreenshotSmall'], getProjectThumbnailUrl($pg_projects[$i]['id']));
-      $this->assertEquals($search_project['Views'], $pg_projects[$i]['view_count']);
+    reset($idSorted);
+    reset($viewedSorted);
+    foreach($searchProjects['CatrobatProjects'] as $searchProject) {
+      $this->assertEquals($searchProject['ProjectId'], $pgProjects[$i]['id']);
+      $this->assertEquals($searchProject['ProjectName'], $pgProjects[$i]['title']);
+      $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$searchProject['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
+      $this->assertEquals($searchProject['Views'], $pgProjects[$i]['view_count']);
   
-      $this->assertEquals(current($viewed_sorted), $search_project['Views']);
-      $this->assertEquals(current($id_sorted), intval($search_project['ProjectId']));
+      $this->assertEquals(current($viewedSorted), $searchProject['Views']);
+      $this->assertEquals(current($idSorted), intval($searchProject['ProjectId']));
   
       $this->assertFalse(isset($project['Author']));
       $this->assertFalse(isset($project['Description']));
@@ -859,8 +862,8 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['UploadedString']));
       $this->assertFalse(isset($project['Version']));
       $i++;
-      next($id_sorted);
-      next($viewed_sorted);
+      next($idSorted);
+      next($viewedSorted);
     }
   
     $this->upload->cleanup();

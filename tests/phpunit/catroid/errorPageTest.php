@@ -29,7 +29,7 @@ class errorPageTest extends PHPUnit_Framework_TestCase
   protected $obj;
 
   protected function setUp() {
-    require_once CORE_BASE_PATH.'modules/errorPage.php';
+    require_once CORE_BASE_PATH.'modules/catroid/errorPage.php';
     $this->obj = new errorPage();
   }
   

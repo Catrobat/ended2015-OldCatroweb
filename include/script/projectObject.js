@@ -94,7 +94,6 @@
       alert('container: element does not exist!');
       return;
     }
-
     
     this.hasPrevButton = false;
     this.hasNextButton = false;
@@ -111,18 +110,47 @@
     this.projectLoader = new ProjectLoader($.proxy(this.getParameters, this), $.proxy(this.loadProjectsRequestSuccess, this), $.proxy(this.loadProjectsRequestError, this));    
     this.projectContentFiller = new ProjectContentFiller($.proxy(this.getParameters, this));
   },
+  
+  setParameter : function(key, value) {
+    if(typeof key === 'string' && typeof value === 'undefined') {
+      this.params[key] = value;
+    }
+    alert("error: i am going home!");
+  },
+
+  getParameter : function(key) {
+    if(this.params[key]) {
+      return this.params[key];
+    }
+    alert("error: i am going home!");
+    return null;
+  },
 
   getParameters : function() {
     return this.params;
   },
   
   loadProjectsRequestSuccess : function(result) {
-    if(this.projectContentFiller.isReady()) {
-      if(!this.projectContentFiller.fill(result)) {
-        var error = this.projectContentFiller.getError();
-        alert(error); 
-      }
+    if(result == null) {
+      alert('loadProjectsRequestSuccess: no result!');
+      return;
     }
+    if(result.error) {
+      alert('loadProjectsRequestSuccess: ' + result.error);
+      return;
+    }
+    if(result.CatrobatInformation == null || result.CatrobatProjects == null) {
+      alert('loadProjectsRequestSuccess: wrong result!');
+      return;
+    }
+    if(!this.projectContentFiller.isReady()) {
+      alert('loadProjectsRequestSuccess: no layout selected!');
+      return;
+    }
+    
+    var info = result.CatrobatInformation;
+    console.log(info);
+    this.projectContentFiller.fill(result);
   },
   
   loadProjectsRequestError : function(error) {
@@ -135,7 +163,7 @@
   },
   
   nextPage : function() {
-    this.params.page.number = Math.min(this.params.page.pageNrMax, this.params.page.number + 1);;
+    this.params.page.number = Math.min(this.params.page.pageNrMax, this.params.page.number + 1);
     this.projectLoader.loadPage();
   }, 
   
@@ -149,6 +177,13 @@
     this.params.filter.author = filter.author;
     this.params.filter.query = filter.query;
     this.params.page.number = 1;
+    
+    $(this.params.container).each(
+        function(element){
+          alert(element);
+        }
+     );
+    
     this.projectLoader.loadPage();
   }
 

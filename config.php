@@ -54,10 +54,12 @@ define('PROJECT_PAGE_SHOW_MAX_PAGES', 5);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
 define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
 
-define('PROJECT_MASK_DEFAULT', 'list');
-define('PROJECT_MASK_LIST_AGE', 'listAge');
-define('PROJECT_MASK_LIST_DOWNLOADS', 'listDownloads');
-define('PROJECT_MASK_LIST_VIEWS', 'listViews');
+define('PROJECT_LAYOUT_GRID_ROW', 1);
+
+define('PROJECT_MASK_DEFAULT', 'min');
+define('PROJECT_MASK_GRID_ROW_AGE', 'listAge');
+define('PROJECT_MASK_GRID_ROW_DOWNLOADS', 'listDownloads');
+define('PROJECT_MASK_GRID_ROW_VIEWS', 'listViews');
 define('PROJECT_MASK_ALL', 'all');
 
 define('PROJECT_SORTBY_AGE', 'age');
@@ -66,8 +68,6 @@ define('PROJECT_SORTBY_VIEWS', 'views');
 define('PROJECT_SORTBY_RANDOM', 'random');
 define('PROJECT_SORTBY_DEFAULT', PROJECT_SORTBY_AGE);
 
-define('PROJECT_LAYOUT_ROW', 1);
-define('PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE', 9);
 
 define('APP_EXTENSION','.apk');
 

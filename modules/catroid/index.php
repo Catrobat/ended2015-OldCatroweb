@@ -36,14 +36,15 @@ class index extends CoreAuthenticationNone {
 
   public function __default() {
     $pageNr = 1;
+    $projectsPerRow = 9;
 
-    $requestedPage = $this->projects->get(($pageNr - 1) * PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
-        PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE, PROJECT_MASK_LIST_AGE, PROJECT_SORTBY_AGE);
+    $requestedPage = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE);
     $this->numberOfPages = max(1, intval(ceil(max(0, intval($requestedPage['CatrobatInformation']['TotalProjects'])) /
-        PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE) - 1));
+        $projectsPerRow) - 1));
 
     $params = array();
-    $params['layout'] = PROJECT_LAYOUT_ROW;
+    $params['layout'] = PROJECT_LAYOUT_GRID_ROW;
     $params['container'] = '#newestProjects';
     $params['buttons'] = array('prev' => null,
         'next' => '#newestShowMore'
@@ -51,17 +52,17 @@ class index extends CoreAuthenticationNone {
     $params['firstPage'] = $requestedPage;
     
     $params['page'] = array('number' => $pageNr,
-        'numProjectsPerPage' => PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
+        'numProjectsPerPage' => $projectsPerRow,
         'pageNrMax' => $this->numberOfPages
     );
     
-    $params['mask'] = PROJECT_MASK_LIST_AGE;
+    $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
     $params['sort'] = PROJECT_SORTBY_AGE;
     $params['filter'] = array('query' => '',
         'author' => ''
     );
     
-    $params['config'] = array('PROJECT_LAYOUT_ROW' => PROJECT_LAYOUT_ROW,
+    $params['config'] = array('PROJECT_LAYOUT_GRID_ROW' => PROJECT_LAYOUT_GRID_ROW,
         'sortby' => array('age' => PROJECT_SORTBY_AGE,
             'downloads' => PROJECT_SORTBY_DOWNLOADS,
             'views' => PROJECT_SORTBY_VIEWS,
@@ -71,23 +72,23 @@ class index extends CoreAuthenticationNone {
     
     $this->newestProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
-    $params['firstPage'] = $this->projects->get(($pageNr - 1) * PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
-        PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE, PROJECT_MASK_LIST_AGE, PROJECT_SORTBY_DOWNLOADS);
+    $params['firstPage'] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_DOWNLOADS);
     $params['container'] = '#mostDownloadedProjects';
     $params['buttons'] = array('prev' => null,
         'next' => '#mostDownloadedShowMore'
     );
-    $params['mask'] = PROJECT_MASK_LIST_AGE;
+    $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
     $params['sort'] = PROJECT_SORTBY_DOWNLOADS;
     $this->mostDownloadedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
-    $params['firstPage'] = $this->projects->get(($pageNr - 1) * PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE,
-        PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE, PROJECT_MASK_LIST_AGE, PROJECT_SORTBY_VIEWS);
+    $params['firstPage'] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_VIEWS);
     $params['container'] = '#mostViewedProjects';
     $params['buttons'] = array('prev' => null,
         'next' => '#mostViewedShowMore'
     );
-    $params['mask'] = PROJECT_MASK_LIST_AGE;
+    $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
     $params['sort'] = PROJECT_SORTBY_VIEWS;
     $this->mostViewedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
   }

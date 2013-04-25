@@ -31,7 +31,7 @@ class flagInappropriateTest extends PHPUnit_Framework_TestCase
   protected $dbConnection;
 
   protected function setUp() {
-    require_once CORE_BASE_PATH.'modules/flagInappropriate.php';
+    require_once CORE_BASE_PATH.'modules/catroid/flagInappropriate.php';
     $this->obj = new flagInappropriate();
     
     $this->dbConnection = pg_connect("host=".DB_HOST." dbname=".DB_NAME." user=".DB_USER." password=".DB_PASS)

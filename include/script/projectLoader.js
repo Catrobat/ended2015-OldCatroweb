@@ -77,9 +77,11 @@ var ProjectLoader = Class.$extend({
       },
       timeout : (this.ajaxTimeout),
       success : function(result) {
-        if(result != "") {
+        if(typeof result === "object") {
           self.cbOnSuccess.call(this, result);
           self.releaseAjaxMutex();        
+        } else {
+          alert("error");
         }
       },
       error : function(result, errCode) {
