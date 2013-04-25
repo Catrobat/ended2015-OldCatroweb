@@ -136,6 +136,12 @@ class Deploy:
 			if sys.stdin.readline() != 'n\n':
 				Release().create(files)
 		
+		if type == 'catroidtest':
+			for line in fileinput.FileInput(os.path.join(self.buildDir, release, 'config.php'), inplace=1):
+				if "define('UPDATE_AUTH_TOKEN" in line:
+					line = "define('UPDATE_AUTH_TOKEN',true);\n" 
+				sys.stdout.write(line)
+		
 		if type == 'public':
 			for line in fileinput.FileInput(os.path.join(self.buildDir, release, 'config.php'), inplace=1):
 				if "define('DEVELOPMENT_MODE" in line:
@@ -165,7 +171,7 @@ if __name__ == '__main__':
 		elif sys.argv[1] == 'catroidtest':
 			deploy = Deploy(RemoteShell('catroidtest.ist.tugraz.at', 'unpriv', ''))
 			if len(sys.argv) > 2:
-				deploy.run(files=sys.argv[2])
+				deploy.run(type=sys.argv[1], files=sys.argv[2])
 			else:
 				deploy.run()
 		elif sys.argv[1] == 'public':

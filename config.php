@@ -73,10 +73,12 @@ if (DEVELOPMENT_MODE) {
 	define('SEND_NOTIFICATION_EMAIL',false);
 	define('SEND_NOTIFICATION_USER_EMAIL',false);
 	define('DATABASE_CONNECTION_PERSISTENT',false);
+  define('UPDATE_AUTH_TOKEN',false);
 } else {
 	define('SEND_NOTIFICATION_EMAIL',true);
 	define('SEND_NOTIFICATION_USER_EMAIL',true);
 	define('DATABASE_CONNECTION_PERSISTENT',true);
+  define('UPDATE_AUTH_TOKEN',true);
 }
 	
 define('DEVELOPMENT_STATUS','[beta]');

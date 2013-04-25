@@ -847,26 +847,26 @@ class userFunctions extends CoreAuthenticationNone {
   }
 
   public function updateAuthenticationToken() {
-    //TODO remove this part when app is ready
     $authToken = '-1';
-    $result = pg_execute($this->dbConnection, "get_user_token", array($this->session->userLogin_userId));
-    if($result) {
+    
+    if(UPDATE_AUTH_TOKEN) {
+      $authToken = $this->generateAuthenticationToken();
+      $result = pg_execute($this->dbConnection, "update_auth_token", array($authToken, intval($this->session->userLogin_userId)));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      pg_free_result($result);
+    } else {
+      $result = pg_execute($this->dbConnection, "get_user_token", array($this->session->userLogin_userId));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
       $row = pg_fetch_array($result);
       $authToken = $row['auth_token'];
       pg_free_result($result);
     }
-    return $authToken;
-    //end of todo
-    //************
-    
-    $authToken = $this->generateAuthenticationToken();
-    $result = pg_execute($this->dbConnection, "update_auth_token", array($authToken, intval($this->session->userLogin_userId)));
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_SQL_QUERY_FAILED);
-    }
-    pg_free_result($result);
-  
     return $authToken;
   }
 

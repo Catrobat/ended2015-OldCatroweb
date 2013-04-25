@@ -277,7 +277,7 @@ public class DetailsTests extends BaseTest {
       openLocation("catroid/details/" + id);
       ajaxWait();
 
-      assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and can not be downloaded any more."));
+      assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and cannot be downloaded any more."));
       assertTrue(isTextPresent("If you are the author of this project and want to update it, you can upload it again from within the current version of Catroid."));
     } catch(AssertionError e) {
       captureScreen("DetailsTests.oldVersionView");
