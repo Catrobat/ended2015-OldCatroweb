@@ -140,6 +140,13 @@ if __name__ == '__main__':
 			elif sys.argv[2] == 'restore':
 				Backup(shell).restoreBackup(sys.argv[3])
 
+		elif sys.argv[1] == 'public-tmp':
+			shell = RemoteShell('catroidpublic.ist.tugraz.at', 'unpriv', '')
+			if sys.argv[2] == 'backup':
+				Backup(shell).createBackup()
+			elif sys.argv[2] == 'restore':
+				Backup(shell).restoreBackup(sys.argv[3])
+
 		else:
 			parameter = '%s:' % sys.argv[1]
 			raise IndexError()
