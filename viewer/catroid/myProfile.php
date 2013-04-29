@@ -27,7 +27,7 @@
      <header><?php echo $this->userData['username'];?></header> 
      <div>
         <div class="left">
-           <div class="profileAvatarImage"><img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" /></div>
+           <div class="profileAvatarImage"><img src="<?php echo $this->userData['avatar']; ?>" /></div>
            <div class="profileChangeAvatar"><button id="profileChangeAvatarButton"><?php echo $this->languageHandler->getString('changeAvatar') ?></button></div>
            <input id="profileAvatarFile" type="file" style="visibility:hidden;"/>
          </div>

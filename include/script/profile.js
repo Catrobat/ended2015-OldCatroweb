@@ -34,7 +34,7 @@ var Profile = Class.$extend( {
 
     $("#profileUpdateSuccess").toggle(false);
     this.initAvatarUploader();
-//    this.setEmailValuesRequest();
+    this.setEmailValuesRequest();
     
 //    $("#profileChangePassword").click(function() { $("#profilePasswordInput").toggle() });
 //    $("#profilePasswordSubmit").click($.proxy(this.updatePaswordRequest, this));
@@ -45,7 +45,6 @@ var Profile = Class.$extend( {
     $("#profileRepeatPassword").keypress($.proxy(this.passwordCatchKeypress, this));
     $("#profileFirstEmail").keypress($.proxy(this.firstMailCatchKeypress, this));
     $("#profileSecondEmail").keypress($.proxy(this.secondMailCatchKeypress, this));
-    //$(".profileCountry").change($.proxy(this.updateCountryRequest,this));
     $(".profileCountry").change($.proxy(this.countryChanged = 1));
     $("#profileSaveChanges").click($.proxy(this.updateChangesRequest, this));
 
@@ -74,7 +73,9 @@ var Profile = Class.$extend( {
     fileInput.change(function() {
       if(this.files[0].size > 5 * 1024 * 1024) {
         //common.showAjaxErrorMsg(self.languageStringsObject.image_too_big);
-        alert("To big");
+        $("#profilePasswordError").text(self.languageStringsObject.image_too_big);
+        $("#profilePasswordError").toggle(true);
+        $(".profileAvatarImage img").css({"border" : "5px solid #880000"})
         return;
       }
       
@@ -250,7 +251,6 @@ var Profile = Class.$extend( {
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.setEmailValues, this),
       //error : $.proxy(common.ajaxTimedOut, this)
-      error : alert("Error set Email Values")
     });
   },
   
@@ -258,7 +258,7 @@ var Profile = Class.$extend( {
     console.log(result);
     $("#profileFirstEmail").attr('placeholder',result.answer[0].address);
     if(result.answer[1] != null)
-      $("#profileFirstEmail").attr('placeholder',result.answer[1].address);
+      $("#profileSecondEmail").attr('placeholder',result.answer[1].address);
   },
   
   
