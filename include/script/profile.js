@@ -70,11 +70,10 @@ var Profile = Class.$extend( {
 
     var self = this;
     var wrapper = $('<div/>', {'id': 'profileAvatarFileWrapper'}).css({height:0, width:0, 'overflow':'hidden'});
-   // var fileInput = $('input[type=file]').wrap(wrapper);
     var fileInput = $('#profileAvatarFile').wrap(wrapper);
     fileInput.change(function() {
       if(this.files[0].size > 5 * 1024 * 1024) {
-        common.showAjaxErrorMsg(self.languageStringsObject.image_too_big);
+        //common.showAjaxErrorMsg(self.languageStringsObject.image_too_big);
         alert("To big");
         return;
       }
@@ -90,30 +89,30 @@ var Profile = Class.$extend( {
         contentType: false,
         success : $.proxy(self.avatarRequestSuccess, self),
         //error : $.proxy(common.ajaxTimedOut, self)
-        error: alert("AjaxTimedOut")
+        //error: alert("AjaxTimedOut")
       });
       
-      common.disableAutoHideAjaxLoader();
+      //common.disableAutoHideAjaxLoader();
     })
 
     $('#profileChangeAvatarButton').click(function(){
-      //fileInput.click();
-      $('input[type=file]').click();
+      fileInput.click();
     }).show();
   },
 
 
   avatarRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
-    
+    //common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
-      $('#profileAvatarImage').attr("src", result.avatar);
-      common.showAjaxSuccessMsg(result.answer);
-      alert("Success");
+      $('.profileAvatarImage img').attr("src", result.avatar);
+      $("#profileUpdateSuccess").toggle(true);
+      $("#profilePasswordError").toggle(false);
+      $(".profileAvatarImage img").css({"border" : "5px solid #FFFFFF"})
       
     } else {
-      common.showAjaxErrorMsg(result.answer);
-      alert("Error");
+      $("#profilePasswordError").text(result.answer);
+      $("#profilePasswordError").toggle(true);
+      $(".profileAvatarImage img").css({"border" : "5px solid #880000"})
     }
   },
 
