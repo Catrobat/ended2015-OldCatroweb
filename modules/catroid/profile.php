@@ -218,17 +218,11 @@ class profile extends CoreAuthenticationUser {
     $this->answer = $this->userFunctions->getEmailAddresses($this->session->userLogin_userId);
   }
   
-  public function updateEmailRequest($value) {
-    if($value == 1)
-    {
-      $email = (isset($_POST['profileFirstEmail']) ? trim(strval($_POST['profileFirstEmail'])) : '');
-    }
-    else
-      {
-        $email = (isset($_POST['profileSecondEmail']) ? trim(strval($_POST['profileSecondEmail'])) : '');
-      }
+  public function updateEmailRequest() {
+    $mail_nr = (isset($_POST['mail_nr']) ? trim(strval($_POST['mail_nr'])) : '');
+    $email = (isset($_POST['email']) ? trim(strval($_POST['email'])) : '');
     try {
-       $this->userFunctions->updateEmailAddress($this->session->userLogin_userId, $mail, $value);
+       $this->userFunctions->updateEmailAddress($this->session->userLogin_userId, $email, $mail_nr);
        $this->statusCode = STATUS_CODE_OK;
        $this->answer = $this->languageHandler->getString('email_add_success');
      } catch(Exception $e) {

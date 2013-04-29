@@ -43,8 +43,8 @@ var Profile = Class.$extend( {
    
     $("#profileNewPassword").keypress($.proxy(this.passwordCatchKeypress, this));
     $("#profileRepeatPassword").keypress($.proxy(this.passwordCatchKeypress, this));
-    $("#profileFirstEmail").keypress($.proxy(this.firstMailCatchKeypress, this));
-    $("#profileSecondEmail").keypress($.proxy(this.secondMailCatchKeypress, this));
+    $("#profileFirstEmail").keypress($.proxy(this.firstEmailCatchKeypress, this));
+    $("#profileSecondEmail").keypress($.proxy(this.secondEmailCatchKeypress, this));
     $(".profileCountry").change($.proxy(this.countryChanged = 1));
     $("#profileSaveChanges").click($.proxy(this.updateChangesRequest, this));
 
@@ -162,12 +162,25 @@ var Profile = Class.$extend( {
         type: "POST",
         url: this.basePath + 'catroid/profile/updateEmailRequest.json',
         data : ({
-          profileFirstEmail : $("#profileFirstEmail").val(),
+          email : $("#profileFirstEmail").val(),
+          mail_nr : 1
         }),
         timeout : (this.ajaxTimeout),
-        success : $.proxy(this.passwordRequestSuccess, this),
+        success : $.proxy(this.firstEmailRequestSuccess, this),
         //error : $.proxy(common.ajaxTimedOut, this)
-        error : alert("first mail changed error")
+      });
+    }
+    if(this.secondEmailChanged == 1) {
+      $.ajax({
+        type: "POST",
+        url: this.basePath + 'catroid/profile/updateEmailRequest.json',
+        data : ({
+          email : $("#profileSecondEmail").val(),
+          mail_nr : 2
+        }),
+        timeout : (this.ajaxTimeout),
+        success : $.proxy(this.firstEmailRequestSuccess, this),
+        //error : $.proxy(common.ajaxTimedOut, this)
       });
     }
     if(this.countryChanged == 1) {
@@ -210,39 +223,47 @@ var Profile = Class.$extend( {
     }
   },
   
+  passwordRequestSuccess : function(result) {
+    //common.showPreHeaderMessages(result);
+    if(result.statusCode == 200) {
+      $("#profileUpdateSuccess").text(result.answer);
+      $("#profileUpdateSuccess").toggle(true);
+    } else {
+      $("#profilePasswordError").text(result.answer);
+    }
+  },
+  
   countryRequestSuccess : function(result) {
-    console.log(result.answer);
-    console.log(result.statusCode);
     if(result.statusCode == 200) {
       $("#profileUpdateSuccess").toggle(true);
     }
   },
 
-  //-------------------------------------------------------------------------------------------------------------------
-  updateEmailListRequest : function() {
-    $.ajax({
-      type: "GET",
-      url: this.basePath + 'profile/getEmailListRequest.json',
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.updateEmailList, this),
-      error: alert("Error update Email List")
-      //error : $.proxy(common.ajaxTimedOut, this)
-    });
-  },
-  
-  updateEmailList : function(result) {
-    $('#emailDeleteButtons').empty();
-    $('#emailDeleteButtons').html(result.answer);
-    
-    var self = this;
-    $('#emailDeleteButtons > button').each(function() {
-      $(this).click(function(e) {
-        if(confirm(self.languageStringsObject.really_delete + " '" + e.target.name + "' ?")) {
-          $.proxy(self.deleteEmailRequest(e.target.name), self);
-        }
-      });
-    });
-  },
+  //needed??-------------------------------------------------------------------------------------------------------------------
+//  updateEmailListRequest : function() {
+//    $.ajax({
+//      type: "GET",
+//      url: this.basePath + 'profile/getEmailListRequest.json',
+//      timeout : (this.ajaxTimeout),
+//      success : $.proxy(this.updateEmailList, this),
+//      error: alert("Error update Email List")
+//      //error : $.proxy(common.ajaxTimedOut, this)
+//    });
+//  },
+//  
+//  updateEmailList : function(result) {
+//    $('#emailDeleteButtons').empty();
+//    $('#emailDeleteButtons').html(result.answer);
+//    
+//    var self = this;
+//    $('#emailDeleteButtons > button').each(function() {
+//      $(this).click(function(e) {
+//        if(confirm(self.languageStringsObject.really_delete + " '" + e.target.name + "' ?")) {
+//          $.proxy(self.deleteEmailRequest(e.target.name), self);
+//        }
+//      });
+//    });
+//  },
   
   setEmailValuesRequest : function() {
     $.ajax({
@@ -259,13 +280,15 @@ var Profile = Class.$extend( {
     $("#profileFirstEmail").attr('placeholder',result.answer[0].address);
     if(result.answer[1] != null)
       $("#profileSecondEmail").attr('placeholder',result.answer[1].address);
+    else
+      $("#profileSecondEmail").attr('placeholder', this.languageStringsObject.second_email);
   },
   
   
   firstEmailCatchKeypress : function(event) {
     this.firstEmailChanged = 1;
     if(event.which == '13') {
-      this.changeEmailRequest(1);
+      this.updateChangesRequest();
       event.preventDefault();
     }
   },
@@ -273,7 +296,7 @@ var Profile = Class.$extend( {
   secondEmailCatchKeypress : function(event) {
     this.secondEmailChanged = 1;
     if(event.which == '13') {
-      this.changeEmailRequest(2);
+      this.updateChangesRequest();
       event.preventDefault();
     }
   },
@@ -302,44 +325,44 @@ var Profile = Class.$extend( {
 //    });
 //  },
 
-  addEmailRequest : function() {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'profile/addEmailRequest.json',
-      data : ({
-        profileEmail : $("#addEmailInput").val()
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.emailRequestSuccess, this),
-      //error : $.proxy(common.ajaxTimedOut, this)
-      error : alert("Error add Email Request")
-    });
-  },
+//  addEmailRequest : function() {
+//    $.ajax({
+//      type: "POST",
+//      url: this.basePath + 'profile/addEmailRequest.json',
+//      data : ({
+//        profileEmail : $("#addEmailInput").val()
+//      }),
+//      timeout : (this.ajaxTimeout),
+//      success : $.proxy(this.emailRequestSuccess, this),
+//      //error : $.proxy(common.ajaxTimedOut, this)
+//      error : alert("Error add Email Request")
+//    });
+//  },
+//
+//  deleteEmailRequest : function(email) {
+//    $.ajax({
+//      type: "POST",
+//      url: this.basePath + 'profile/deleteEmailRequest.json',
+//      data : ({
+//        profileEmail : email
+//      }),
+//      timeout : (this.ajaxTimeout),
+//      success : $.proxy(this.emailRequestSuccess, this),
+//      //error : $.proxy(common.ajaxTimedOut, this)
+//      error : alert("Error delete Email")
+//    });
+//  },
 
-  deleteEmailRequest : function(email) {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'profile/deleteEmailRequest.json',
-      data : ({
-        profileEmail : email
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.emailRequestSuccess, this),
-      //error : $.proxy(common.ajaxTimedOut, this)
-      error : alert("Error delete Email")
-    });
-  },
-
-  emailRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
-    if(result.statusCode == 200) {
-      $("#addEmailInput").val("");
-      this.updateEmailListRequest();
-      common.showAjaxSuccessMsg(result.answer);
-    } else {
-      common.showAjaxErrorMsg(result.answer);
-    }
-  },
+//  emailRequestSuccess : function(result) {
+//    common.showPreHeaderMessages(result);
+//    if(result.statusCode == 200) {
+//      $("#addEmailInput").val("");
+//      this.updateEmailListRequest();
+//      common.showAjaxSuccessMsg(result.answer);
+//    } else {
+//      common.showAjaxErrorMsg(result.answer);
+//    }
+//  },
   
   //-------------------------------------------------------------------------------------------------------------------
   updateCityRequest : function() {

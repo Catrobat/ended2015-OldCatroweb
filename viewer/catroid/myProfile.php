@@ -94,7 +94,8 @@
       $(document).ready(function() {
         var languageStringsObject = { 
           "really_delete" : "<?php echo $this->languageHandler->getString('really_delete'); ?>",
-          "image_too_big" : "<?php echo $this->languageHandler->getString('image_too_big'); ?>"
+          "image_too_big" : "<?php echo $this->languageHandler->getString('image_too_big'); ?>",
+          "second_email" : "<?php echo $this->languageHandler->getString('second_email'); ?>"
         };
         new Profile(languageStringsObject);
       });
