@@ -24,41 +24,53 @@
 
 ?>
   <article>
-  <!-- <header><?php echo $this->languageHandler->getString('myTitle');  $this->userData['username'];?></header> -->
      <header><?php echo $this->userData['username'];?></header> 
      <div>
         <div class="left">
-           <div class="profileImage"><img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
-           <button><?php echo $this->languageHandler->getString('changePicture') ?></button></div>
+           <div class="profileAvatarImage"><img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" /></div>
+           <div class="profileChangeAvatar"><button id="profileChangeAvatarButton"><?php echo $this->languageHandler->getString('changeAvatar') ?></button></div>
+           <input id="profileAvatarFile" type="file" style="visibility:hidden;"/>
          </div>
-         <div class="middle">
-           <div class="profileItem" >
-             <input type="search" placeholder="<?php echo $this->languageHandler->getString('old_password') ?>" />
-             <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
-           </div>
-           <div class="profileItem">
-             <input type="search" placeholder="<?php echo $this->languageHandler->getString('new_password') ?>" />
-             <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
-           </div>
-           <div><?php echo $this->languageHandler->getString('country') ?>:</div>
-           <div class="profileSelect">
-              <select><?php echo $this->countryCodeListHTML;?></select>
-           </div>
-         </div>
-         <div class="right">
-           <div class="profileItem" >
-             <input type="search" placeholder=<?php echo $this->languageHandler->getString('change_my_password') ?> />
-             <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
-           </div>
-           <div class="profileItem">
-             <input type="search" placeholder=<?php echo $this->userData['username']; ?> />
-             <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
-           </div>
-           <div class="saveChanges">
-             <button><?php echo $this->languageHandler->getString('save') ?></button>
+         
+         
+         <div id="profileUpdateError">
+          <div id="profilePasswordError">
            </div>
          </div>
        </div>
+         <div class="middle">
+            
+           <div class="profilePasswordItem" >
+               <input type="password" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password') ?>" />
+               <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
+           </div>
+           <div class="profilePasswordItem">
+             <input type="password" id="profileRepeatPassword" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password') ?>" />
+             <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
+           </div>
+           <div><?php echo $this->languageHandler->getString('country') ?>:</div>
+           <div class="profileCountry">
+              <select><?php echo $this->countryCodeListHTML;?></select>
+           </div>      
+         </div>
+         <div class="right">
+           <div class="profileItem" >
+             <input id="profileFirstEmail" type="email" />
+             <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
+           </div>
+           <div class="profileItem">
+             <input id="profileSecondEmail" type="email"/>
+             <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
+           </div>
+           <div class="saveChanges">
+             <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save') ?></button>
+           </div>
+           <div id="profileUpdateSuccess">
+             <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+             Saved!
+           </div> 
+         </div>
+
        
        <div class="myProjects"><?php echo $this->languageHandler->getString('my_projects')," ", $this->userData['username'];?></div>
         <div id="newestProjects">
@@ -68,126 +80,11 @@
 					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
 					      <div class="projectTitle">The Happy Hippo</div>
                 <div class="projectAddition">20 minutes ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
-					      <div class="projectTitle">Der Katzenräuber</div>
-                <div class="projectAddition">about 2 hours ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
-					      <div class="projectTitle">The Angry Hippo</div>
-                <div class="projectAddition">about 4 days ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
-					      <div class="projectTitle">The Happy Hippo</div>
-                <div class="projectAddition">20 minutes ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
-					      <div class="projectTitle">Der Katzenräuber</div>
-                <div class="projectAddition">about 2 hours ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
-					      <div class="projectTitle">The Angry Hippo</div>
-                <div class="projectAddition">about 4 days ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
-					      <div class="projectTitle">The Happy Hippo</div>
-                <div class="projectAddition">20 minutes ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
-					      <div class="projectTitle">Der Katzenräuber</div>
-                <div class="projectAddition">about 2 hours ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
-					      <div class="projectTitle">The Angry Hippo</div>
-                <div class="projectAddition">about 4 days ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
-					      <div class="projectTitle">The Happy Hippo</div>
-                <div class="projectAddition">20 minutes ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
-					      <div class="projectTitle">Der Katzenräuber</div>
-                <div class="projectAddition">about 2 hours ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
-					      <div class="projectTitle">The Angry Hippo</div>
-                <div class="projectAddition">about 4 days ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
-					      <div class="projectTitle">The Happy Hippo</div>
-                <div class="projectAddition">20 minutes ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
-					      <div class="projectTitle">Der Katzenräuber</div>
-                <div class="projectAddition">about 2 hours ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
-					      <div class="projectTitle">The Angry Hippo</div>
-                <div class="projectAddition">about 4 days ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/1">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
-					      <div class="projectTitle">The Happy Hippo</div>
-                <div class="projectAddition">20 minutes ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb2.png" width="80" height="72" />
-					      <div class="projectTitle">Der Katzenräuber</div>
-                <div class="projectAddition">about 2 hours ago</div>
-              </a>
-						</li>
-					  <li>
-					    <a href="<?php echo BASE_PATH?>details/2">
-					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb3.png" width="80" height="72" />
-					      <div class="projectTitle">The Angry Hippo</div>
-                <div class="projectAddition">about 4 days ago</div>
-              </a>
+                <div class="changeProject">
+                  <button class="change"><img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" /></button>
+                  <button class="change"><img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" /></button>
+                </div>
+              </a>           
 						</li>
 					</ul>
         </div>

@@ -889,6 +889,7 @@ class userFunctions extends CoreAuthenticationNone {
   public function updateCountry($country) {
     if($this->session->userLogin_userId > 0) {
       $this->checkCountry($country);
+      
       $result = pg_execute($this->dbConnection, "update_user_country", array($country, $this->session->userLogin_userId));
 
       if(!$result) {
@@ -1047,6 +1048,37 @@ class userFunctions extends CoreAuthenticationNone {
     return $emails;
   }
 
+  public function updateEmailAddress($userId, $email, $value) {
+    if($value == 1 && $email == '')
+      throw new Exception($this->errorHandler->getError('userFunctions', 'email_address_exists'),
+          STATUS_CODE_USER_ADD_EMAIL_EXISTS);
+    
+    $this->checkEmail($email);
+    
+    //TODO: update!!
+    $result = pg_execute($this->dbConnection, "add_user_email", array($userId, $email));
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+          STATUS_CODE_SQL_QUERY_FAILED);
+    }
+    pg_free_result($result);
+    
+    $data = $this->getUserDataForRecovery($email);
+    $hash = $this->createUserHash($data);
+    try {
+      while(true) {
+        $this->isValidationHashValid($hash);
+        $hash = $this->createUserHash($data);
+      }
+    } catch(Exception $e) {
+      if($e->getCode() != STATUS_CODE_USER_RECOVERY_EXPIRED) {
+        throw $e;
+      }
+    }
+    
+    $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
+  }
+  
   public function addEmailAddress($userId, $email) {
     $this->checkEmail($email);
 

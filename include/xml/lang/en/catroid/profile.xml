@@ -25,7 +25,8 @@
   <string name="myTitle">My Profile</string>
   <string name="userTitle">User Profile</string>
 
-  <string name="changePicture">change picture</string>
+
+  <string name="changeAvatar">Change picture</string>
   <string name="name">Name</string>
   <string name="password">Password</string>
   <string name="email">Email</string>
@@ -36,8 +37,8 @@
   <string name="gender">Gender</string>
 
   <string name="my_projects">Projects of</string>
-  <string name="old_password">Change password</string>
-  <string name="new_password">Repeat password</string>
+  <string name="new_password">New password</string>
+  <string name="repeat_password">Repeat password</string>
   <string name="save">save changes</string>
   <string name="enter_city">my hometown</string>
   <string name="male">male</string>
@@ -54,4 +55,5 @@
   <string name="country_success">You updated your country successfully.</string>
   <string name="gender_success">You updated your gender successfully.</string>
   <string name="birthday_success">You updated your birthday successfully.</string>
+  <string name="password_error">Attention - Passwords are not equal.</string>
 </strings>
