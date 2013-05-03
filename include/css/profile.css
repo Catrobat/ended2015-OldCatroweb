@@ -95,33 +95,66 @@
   margin-left: 0.2em;
 }
 
-#wrapper article div.profileItem{
+#wrapper article div.profileFirstEmailItem{
  -mox-box-shadow: inset 2px 2px 5px #05222a;
  -webkit-box-shadow: inset 2px 2px 5px #05222a;
  box-shadow: inset 2px 2px 5px #05222a;
- width: 18em;
- border: 2px solid #05222a;
- padding: 0.5em;
  background-color: #FFFFFF;
+ border: 2px solid #05222a;
+ width: 18em;
+ padding: 0.5em;
  margin-bottom: 1em;
 }
 
-#wrapper article div.profileItem img{
+#wrapper article div.profileFirstEmailItem img{
   width: 1.5em;
   height: 1.5em;
   background-color: #FFFFFF;
   float: right;
 }
 
-#wrapper article div.profileItem input {
+#wrapper article div.profileFirstEmailItem input {
   background-color: #FFFFFF;
-  border-radius: 0.125em;
   color: #000000;
+  border-radius: 0.125em;
   height: 1.5em;
   width: 15em;
   border: 0;
   margin-left: 0.2em;
 }
+
+#wrapper article div.profileSecondEmailItem{
+ -mox-box-shadow: inset 2px 2px 5px #05222a;
+ -webkit-box-shadow: inset 2px 2px 5px #05222a;
+ box-shadow: inset 2px 2px 5px #05222a;
+ background-color: #FFFFFF;
+ border: 2px solid #05222a;
+ width: 18em;
+ padding: 0.5em;
+ margin-bottom: 1em;
+}
+
+#wrapper article div.profileSecondEmailItem img{
+  width: 1.5em;
+  height: 1.5em;
+  background-color: #FFFFFF;
+  float: right;
+}
+
+#wrapper article div.profileSecondEmailItem input {
+  background-color: #FFFFFF;
+  color: #000000;
+  border-radius: 0.125em;
+  height: 1.5em;
+  width: 15em;
+  border: 0;
+  margin-left: 0.2em;
+}
+
+#wrapper article div.profileItem input.error {
+  border: none;
+}
+
 
 /*might be needed at select for working in chrome: -webkit-appearance: none;*/
 #wrapper article div.profileCountry{
@@ -278,13 +311,15 @@
   display: none;
 }
 
-#wrapper article div div#profileUpdateError{
-  margin-left: 20em;
-}
-
 #wrapper article div div#profilePasswordError{
   display: none;
   color: #F78181;
-  padding-left: 2em;
-  padding-bottom: 0.1em;
+  padding-bottom: 0.5em;
+  height: 1em;
+}
+#wrapper article div div#profileEmailError{
+  height: 1em;
+  display: none;
+  color: #F78181;
+  padding-bottom: 0.5em;
 }

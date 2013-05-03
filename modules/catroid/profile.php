@@ -219,16 +219,16 @@ class profile extends CoreAuthenticationUser {
   }
   
   public function updateEmailRequest() {
-    $mail_nr = (isset($_POST['mail_nr']) ? trim(strval($_POST['mail_nr'])) : '');
+    $additional = (isset($_POST['additional']) ? trim(strval($_POST['additional'])) : '');
     $email = (isset($_POST['email']) ? trim(strval($_POST['email'])) : '');
     try {
-       $this->userFunctions->updateEmailAddress($this->session->userLogin_userId, $email, $mail_nr);
-       $this->statusCode = STATUS_CODE_OK;
-       $this->answer = $this->languageHandler->getString('email_add_success');
-     } catch(Exception $e) {
-       $this->statusCode = $e->getCode();
-       $this->answer = $e->getMessage();
-     }
+      $this->userFunctions->updateEmailAddress($this->session->userLogin_userId, $email, $additional);
+      $this->statusCode = STATUS_CODE_OK;
+      $this->answer = $this->languageHandler->getString('email_add_success');
+    } catch(Exception $e) {
+      $this->statusCode = $e->getCode();
+      $this->answer = $e->getMessage();
+    }
   }
   
   public function addEmailRequest() {

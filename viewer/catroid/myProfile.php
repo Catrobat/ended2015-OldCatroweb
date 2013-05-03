@@ -33,13 +33,10 @@
          </div>
          
          
-         <div id="profileUpdateError">
-          <div id="profilePasswordError">
-           </div>
-         </div>
+         
        </div>
          <div class="middle">
-            
+           <div id="profilePasswordError"></div>
            <div class="profilePasswordItem" >
                <input type="password" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password') ?>" />
                <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
@@ -54,11 +51,12 @@
            </div>      
          </div>
          <div class="right">
-           <div class="profileItem" >
+           <div id="profileEmailError"></div>
+           <div class="profileFirstEmailItem" >
              <input id="profileFirstEmail" type="email" />
              <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
            </div>
-           <div class="profileItem">
+           <div class="profileSecondEmailItem">
              <input id="profileSecondEmail" type="email"/>
              <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
            </div>
