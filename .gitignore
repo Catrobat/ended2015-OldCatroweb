@@ -18,6 +18,7 @@ resources/thumbnails/
 resources/catroid/
 single_test_tmp.xml
 sql/overview/
+tests/phpunit/reports
 tests/selenium-grid/bin
 tests/selenium-grid/lib
 tests/selenium-grid/remote-control/"

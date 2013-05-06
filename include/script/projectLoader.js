@@ -35,8 +35,10 @@ var ProjectLoader = Class.$extend({
   },
   
   initialize : function() {
-    if(!this.initialized){
-      this.loadPage();
+    if(!this.initialized) {
+      if(this.params.firstPage == null) {
+        this.loadPage();
+      }
       this.initialized = true;
     }
   },
@@ -63,30 +65,31 @@ var ProjectLoader = Class.$extend({
   loadPageRequest : function(pageNr) {
     var self = this;
     $.ajax({
-      url : self.basePath + "catroid/loadProjects/" + pageNr + ".json",
-      type : "POST",
+      url : self.basePath + "api/projects/list.json",
+      type : "GET",
       data : {
-        task : self.params.task,
-        page : pageNr,
-        numProjectsPerPage : self.params.page.numProjectsPerPage,
-        searchQuery: self.params.filter.searchQuery,
-        author : self.params.filter.author,
-        sort : self.params.sort
+        offset : self.params.page.numProjectsPerPage * (pageNr - 1),
+        limit : self.params.page.numProjectsPerPage,
+        mask : self.params.mask,
+        order : self.params.sort,
+        query: self.params.filter.query,
+        user : self.params.filter.author
       },
       timeout : (this.ajaxTimeout),
       success : function(result) {
-        if(result != ""){
+        if(typeof result === "object") {
           self.cbOnSuccess.call(this, result);
-          self.ajaxResult = result;
           self.releaseAjaxMutex();        
+        } else {
+          alert("error");
         }
       },
       error : function(result, errCode) {
-        if(errCode == "timeout"){
-          window.location.reload(false);
+        if(errCode == "timeout") {
+          alert('timed out');
         }
         self.cbOnError.call(this, result, errCode);
       }
     });
-  },
+  }
 });

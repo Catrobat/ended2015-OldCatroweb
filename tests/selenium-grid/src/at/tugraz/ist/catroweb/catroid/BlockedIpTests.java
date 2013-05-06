@@ -46,7 +46,7 @@ public class BlockedIpTests extends BaseTest {
     	unblockAllIPs();
       openLocation();
       blockIp(blockedIp);
-      openLocation("catroid/details/" + projectId);
+      openLocation("details/" + projectId);
       ajaxWait();
       assertTrue(isElementPresent(By.xpath("//div[@class='errorMessage']")));
       assertTrue(isTextPresent("Your IP-Address has been blocked."));
@@ -69,7 +69,7 @@ public class BlockedIpTests extends BaseTest {
     try {
     	unblockAllIPs();
       blockIp(unblockedIp);
-      openLocation("catroid/details/" + projectId);
+      openLocation("details/" + projectId);
       assertFalse(isElementPresent(By.xpath("//div[@class='errorMessage']")));
       assertFalse(isTextPresent("Your IP-Address has been blocked."));
 

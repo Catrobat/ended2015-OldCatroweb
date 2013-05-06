@@ -38,7 +38,7 @@ public class EditProjectsTests extends BaseTest {
     try {
       String projectTitle = "Testproject_delete_test_" + CommonData.getRandomLongString(200);
 
-      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       // check that project is shown on index-page
@@ -83,7 +83,7 @@ public class EditProjectsTests extends BaseTest {
   public void invisibleButton() throws Throwable {
     try {
       String projectTitle = "Testproject_invisible_test_" + CommonData.getRandomShortString(10);
-      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", "", ""));
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       // check that project is shown on index-page

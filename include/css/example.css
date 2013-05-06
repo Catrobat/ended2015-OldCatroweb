@@ -1,0 +1,167 @@
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#wrapper article header {
+  border: 0;
+  border-top: 1px solid #477889;
+  background-color: #00475d;
+  background-image: none;
+  color: #a8dff4;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em;
+  text-shadow: #000000 1px 1px 1px;
+  margin-top: 0.55em;
+}
+
+#wrapper article #programmOfTheWeek header {
+  text-align: center;
+  margin-top: 0;
+}
+
+#wrapper article #programmOfTheWeek div {
+  background-color: #a8e8f1;
+  margin-top: 0.2em;
+  position: relative; 
+  width: 100%;
+  text-align: center;
+}
+
+#wrapper article #programmOfTheWeek div div {
+  background: transparent;
+  text-align: left;
+  color: #05222a;
+  position: absolute; 
+  bottom: 1.0em;
+}
+
+#wrapper article #programmOfTheWeek div div span {
+  margin-left: 4%;
+  font-weight: bold;
+}
+
+#wrapper article #programmOfTheWeek div div span:nth-child(1) {
+  font-size: 1.6em;
+}
+
+#wrapper article div#newestProjects {
+  background-color: #00475d;
+  margin-top: 0.2em;
+  text-align: center;
+  overflow:hidden;
+  height: 19em;
+}
+
+#wrapper article div#newestProjects ul {
+	float:left;
+	margin:auto;
+	padding:0;
+	list-style:none;
+	position:relative;
+	left:50%;
+}
+
+#wrapper article div#newestProjects ul li {
+	display:inline-block;
+	position:relative;
+	left:-50%;
+	width: 84px;
+	margin: 0.6em 0.5em 1.6em 0.5em;
+	vertical-align: top;
+}
+
+#wrapper article div#newestProjects ul li img {
+	border: 2px solid #a8dff4;
+	display: block;
+}
+
+#wrapper article div#newestProjects ul li div {
+	white-space: nowrap;  
+	overflow: hidden;
+}
+
+#wrapper article div#newestProjects ul li a {
+  text-decoration: none; 
+  color: #a8dff4; 
+}
+
+#wrapper article div#newestProjects ul li div.projectTitle {
+	text-align: left;
+	font-size: 0.8em;
+	font-weight: bold;
+	margin-top: 0.5em;
+}
+
+#wrapper article div#newestProjects ul li div.projectAddition {
+	text-align: left;
+	font-size: 0.7em;
+}
+
+#wrapper article div#newestProjects ul li div.projectLink {
+	background-color: #05222a;
+	margin: 0.8em 0.4em 0.4em 0.4em;
+	border-radius: 3px;
+}
+
+#wrapper article div#newestProjects ul li div.projectLink a {
+	font-size: 1.4em;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #76b0c6;
+	font-weight: bold;
+}
+
+#wrapper article div#showMore p {
+  text-align: center;
+  margin: 0em;
+}
+
+#wrapper article div#showMore div {
+  background-color: #00475d;
+  width: 3.2em;
+  height: 3.2em;
+  margin: 0.5em auto;
+}
+
+
+
+
+
+@media screen and (min-width: 320px) {
+  #wrapper article div#newestProjects ul li {
+		margin: 0.6em 0.5em 1.6em 0.5em;
+  }
+}
+
+@media screen and (min-width: 360px) {
+  #wrapper article div#newestProjects ul li {
+		margin: 0.6em 0.9em 1.6em 0.9em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  #wrapper article div#newestProjects ul li {
+		margin: 0.6em 0.7em 1.6em 0.7em;
+  }
+}

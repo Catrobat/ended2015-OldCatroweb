@@ -39,14 +39,14 @@ public class PasswordRecoveryTests extends BaseTest {
   @Test(groups = { "functionality" }, description = "check password recovery redirection if logged in")
   public void passwordRecoveryRedirectWhenLoggedIn() throws Throwable {
     try {
-      login("catroid/index");
+      login("index");
       driver().findElement(By.id("headerProfileButton")).click();
       ajaxWait();
 
       assertTrue(isTextPresent("My Profile"));
       assertTrue(isTextPresent(CommonData.getLoginUserDefault()));
       
-      openLocation("catroid/passwordrecovery");
+      openLocation("passwordrecovery");
       
       assertFalse(isTextPresent("Recover your password"));
       assertTrue(isTextPresent("My Profile"));
@@ -63,7 +63,7 @@ public class PasswordRecoveryTests extends BaseTest {
   @Test(groups = { "visibility" }, description = "check password recovery intro")
   public void passwordRecoveryIntro() throws Throwable {
     try {
-      openLocation("catroid/menu");
+      openLocation("menu");
       
       // check password recovery link
       driver().findElement(By.id("menuLoginButton")).click();
@@ -93,7 +93,7 @@ public class PasswordRecoveryTests extends BaseTest {
   public void passwordRecoveryReset(HashMap<String, String> dataset) throws Throwable {
     try {
       // do registration process first, to create a new user with known password
-      openLocation("catroid/registration");
+      openLocation("registration");
 
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -109,7 +109,7 @@ public class PasswordRecoveryTests extends BaseTest {
 
       // goto lost password page and test reset by email and nickname, at first
       // use some wrong nickname or email
-      logout("catroid/passwordrecovery");
+      logout("passwordrecovery");
       assertTrue(isTextPresent("Enter your nickname or email address:"));
       assertTrue(isElementPresent(By.id("passwordRecoveryUserdata")));
       assertTrue(isElementPresent(By.id("passwordRecoverySendLink")));
@@ -130,7 +130,7 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("passwordRecoveryUserdata")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("passwordRecoverySendLink")).click();
       ajaxWait();
-      assertTrue(isAjaxMessagePresent(Config.TESTS_BASE_PATH + "catroid/passwordrecovery?c="));
+      assertTrue(isAjaxMessagePresent(Config.TESTS_BASE_PATH + "passwordrecovery?c="));
 
       // get recovery url and open it
       String recoveryUrl = getRecoveryUrl();
@@ -191,16 +191,11 @@ public class PasswordRecoveryTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertFalse(isTextPresent("Login"));
-      assertTrue(isTextPresent("Logout"));
-      assertTrue(isTextPresent(dataset.get("registrationUsername")));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      waitForElementPresent(By.id("pt-preferences"));
-      driver().findElement(By.id("pt-preferences")).findElement(By.tagName("a")).click();
-      assertTrue(containsElementText(By.id("firstHeading"), "Preferences"));
-      assertFalse(isTextPresent("Not logged in"));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
 
       // logout

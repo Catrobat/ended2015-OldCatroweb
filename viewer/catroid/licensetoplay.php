@@ -23,38 +23,37 @@
  */
 
 ?>
-  	<div class="webMainMiddle">
-  		<div class="blueBoxMain">
-  		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('project_licence_title')?></div>
-                <div class="licenseMain">            	
-            	  <div class ="whiteBoxMain">
-            	    <div class="licenseText">
-            	      <p class="licenseText">
-						<?php echo $this->languageHandler->getString('project_licence_part1')?>
-						<br /><br />	
-                        <?php echo $this->languageHandler->getString('project_licence_part2')?>
-                        <br /><br />
-                        <?php echo $this->languageHandler->getString('project_licence_part3')?>
-                      </p>
-                      <ul>
-                        <li><?php echo $this->languageHandler->getString('project_licence_part3_list_element1')?></li>
-                        <li><?php echo $this->languageHandler->getString('project_licence_part3_list_element2')?></li>
-                      </ul>
-                      <p class="licenseText">
-                      	<?php echo $this->languageHandler->getString('project_licence_part4')?>
-                        <br /><br />
-                        <?php echo $this->languageHandler->getString('project_licence_part5')?>
-                        <br /><br />
-                        <?php echo $this->languageHandler->getString('project_licence_learn_more_new','<a class="license" href="'.BASE_PATH.'catroid/termsofuse">'.BASE_PATH.'catroid/termsofuse</a>')?>
-                        <br /><br />
-                       </p>
-                       <p class="licenseText">
-                        <?php echo $this->languageHandler->getString('project_licence_dated')?><br />
-                      </p>
-                   </div> <!-- License Text -->
-                 </div> <!--  White Box -->            	
-              </div> <!--  license Main -->
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>
+<article>
+  <div class="webMainContentTitle">
+    <?php echo $this->languageHandler->getString('project_licence_title')?>
+  </div>
+  <div class="licenseMain">
+    <div class="licenseText">
+      <p class="licenseText">
+        <?php echo $this->languageHandler->getString('project_licence_part1')?>
+        <br /> <br />
+        <?php echo $this->languageHandler->getString('project_licence_part2')?>
+        <br /> <br />
+        <?php echo $this->languageHandler->getString('project_licence_part3')?>
+      </p>
+      <ul>
+        <li><?php echo $this->languageHandler->getString('project_licence_part3_list_element1')?>
+        </li>
+        <li><?php echo $this->languageHandler->getString('project_licence_part3_list_element2')?>
+        </li>
+      </ul>
+      <p class="licenseText">
+        <?php echo $this->languageHandler->getString('project_licence_part4')?>
+        <br /> <br />
+        <?php echo $this->languageHandler->getString('project_licence_part5')?>
+        <br /> <br />
+        <?php echo $this->languageHandler->getString('project_licence_learn_more_new','<a class="license" href="'.BASE_PATH.'termsofuse">'.BASE_PATH.'catroid/termsofuse</a>')?>
+        <br /> <br />
+      </p>
+      <p class="licenseText">
+        <?php echo $this->languageHandler->getString('project_licence_dated')?>
+        <br />
+      </p>
+    </div>  <!-- License Text -->
+  </div>  <!--  license Main -->
+</article>

@@ -50,7 +50,7 @@ public class DetailsTests extends BaseTest {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
 
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
       // project title
       assertTrue(containsElementText(By.xpath("//div[@class='detailsProjectTitle']"), title));
@@ -105,7 +105,7 @@ public class DetailsTests extends BaseTest {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
       
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       
       // test the download counter
       numOfDownloads = Integer.parseInt(driver().findElement(By.xpath("//p[@class='detailsStats'][2]/strong")).getText());
@@ -130,7 +130,7 @@ public class DetailsTests extends BaseTest {
       String response = projectUploader.upload(dataset);
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
       
       driver().findElement(By.id("headerProfileButton")).click();
@@ -186,7 +186,7 @@ public class DetailsTests extends BaseTest {
     try {
       String response = projectUploader.upload(dataset);
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
-      openLocation("catroid/details/" + projectId);
+      openLocation("details/" + projectId);
 
       assertTrue(isElementPresent(By.id("showFullDescriptionButton")));
       String shortDescriptionFromPage = driver().findElement(By.id("detailsDescription")).getText();
@@ -274,10 +274,10 @@ public class DetailsTests extends BaseTest {
       String response = projectUploader.upload(dataset);
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-      openLocation("catroid/details/" + id);
+      openLocation("details/" + id);
       ajaxWait();
 
-      assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and can not be downloaded any more."));
+      assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and cannot be downloaded any more."));
       assertTrue(isTextPresent("If you are the author of this project and want to update it, you can upload it again from within the current version of Catroid."));
     } catch(AssertionError e) {
       captureScreen("DetailsTests.oldVersionView");
@@ -291,7 +291,7 @@ public class DetailsTests extends BaseTest {
   @Test(groups = { "visibility" }, description = "test download info")
   public void downloadInfo() throws Throwable {
     try {
-      openLocation("catroid/details/2");
+      openLocation("details/2");
       ajaxWait();
 
       assertTrue(isElementPresent(By.id("downloadCatroidSwitch")));
@@ -332,7 +332,7 @@ public class DetailsTests extends BaseTest {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
       
-      openLocation("catroid/details/2");
+      openLocation("details/2");
       ajaxWait();
 
       assertTrue(isElementPresent(By.id("downloadCatroidSwitch")));
@@ -385,7 +385,7 @@ public class DetailsTests extends BaseTest {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
       
-      openLocation("catroid/details/2");
+      openLocation("details/2");
       ajaxWait();
       
       driver().findElement(By.id("downloadAppSwitch")).click();
@@ -421,7 +421,7 @@ public class DetailsTests extends BaseTest {
       assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
       assertRegExp(".*Download.*", driver().findElement(By.id("downloadCatroidProjectLink")).getText());
       
-      openLocation("catroid/details/2");
+      openLocation("details/2");
       driver().findElement(By.id("downloadAppSwitch")).click();
       
       assertTrue(isElementPresent(By.xpath("//span[@class='detailsDownloadButtonText']")));
@@ -439,8 +439,8 @@ public class DetailsTests extends BaseTest {
   public void invalidProjectID() throws Throwable {
     try {
       String invalidProject = CommonData.getRandomShortString(10);
-      openLocation("catroid/details/" + invalidProject);
-      assertRegExp(".*/catroid/errorPage", driver().getCurrentUrl());
+      openLocation("details/" + invalidProject);
+      assertRegExp(".*/errorPage", driver().getCurrentUrl());
       assertTrue(isTextPresent("No entry was found for the given ID:"));
       assertTrue(isTextPresent("ID: " + invalidProject));
       assertFalse(isElementPresent(By.xpath("//div[@class='detailsFlexDiv']")));
@@ -460,7 +460,7 @@ public class DetailsTests extends BaseTest {
             .getUploadPayload(
                 "This is a very old project.",
                 "The user is not allowed to download this project any more.",
-                "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "0") } };
+                "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "", "") } };
     return returnArray;
   }
   
@@ -471,20 +471,20 @@ public class DetailsTests extends BaseTest {
           .getUploadPayload(
               "more button selenium test",
               "This is a description which should have more characters than defined by the threshold in config.php. And once again: This is a description which should have more characters than defined by the threshold in config.php. Thats it!",
-              "", "", "", "", "0") },
+              "", "", "", "", "", "") },
               { CommonData
                 .getUploadPayload(
                     "more button special chars test",
                     "This is a description which has special chars like \", & or < and > in it and it should have more characters than defined by the threshold in config.php. And once again: This is a description with \"special chars\" and should have more characters than defined by the threshold in config.php. Thats it!",
-                    "", "", "", "", "0") }, };
+                    "", "", "", "", "", "") }, };
     return returnArray;
   }
 
   @DataProvider(name = "detailsProject")
   public Object[][] detailsProject() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("details_test1small", "details_test_description", "", "", "", "", "0") },
-        { CommonData.getUploadPayload("details_test2big", "details_test_description", "", "", "", "", "0") }, };
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "", "", "", "", "catroid", CommonFunctions.getAuthenticationToken("catroid")) },
+        { CommonData.getUploadPayload("details_test2big", "details_test_description", "", "", "", "", "catroid", CommonFunctions.getAuthenticationToken("catroid")) }, };
     return returnArray;
   }
 }

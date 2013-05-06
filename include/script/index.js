@@ -99,7 +99,7 @@ var Index = Class.$extend( {
     var self = this;
     $.ajax({
       type: "POST",
-      url: self.basePath+"catroid/saveDataToSession/save.json",
+      url: self.basePath+"saveDataToSession/save.json",
       data: {
           content: {
             showCatroidDescription: 0

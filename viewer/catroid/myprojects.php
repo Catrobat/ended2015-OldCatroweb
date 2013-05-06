@@ -36,7 +36,7 @@
                 <?php
                   if($this->projects != NULL) {
                     foreach($this->projects as $row) {
-                      echo "<div><a class='projectListDetailsLinkBold' href='" . BASE_PATH . "catroid/details/" . $row["id"] . "'>" . $row["title"] . "</a></div>";
+                      echo "<div><a class='projectListDetailsLinkBold' href='" . BASE_PATH . "details/" . $row["id"] . "'>" . $row["title"] . "</a></div>";
                     }
                   } else {
                     echo "<div>" . $this->languageHandler->getString('no_projects') . "</div>";

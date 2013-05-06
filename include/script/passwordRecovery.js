@@ -41,7 +41,7 @@ var PasswordRecovery = Class.$extend( {
   passwordRecoverySendLink : function() {
     $.ajax({
       type: "POST",
-      url: this.basePath + 'catroid/passwordrecovery/sendMailRequest.json',
+      url: this.basePath + 'passwordrecovery/sendMailRequest.json',
       data : ({
         passwordRecoveryUserdata : $("#passwordRecoveryUserdata").val()
       }),
@@ -61,7 +61,7 @@ var PasswordRecovery = Class.$extend( {
   passwordSaveSubmit : function() {
     $.ajax({
       type: "POST",
-      url: this.basePath + 'catroid/passwordrecovery/changeMyPasswordRequest.json',
+      url: this.basePath + 'passwordrecovery/changeMyPasswordRequest.json',
       data : ({
         c : $("#passwordRecoveryHash").val(),
         passwordSavePassword : $("#passwordSavePassword").val()
@@ -75,7 +75,7 @@ var PasswordRecovery = Class.$extend( {
   changeMyPasswordRequestSuccess : function(result) {
     common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
-      location.href = this.basePath + 'catroid/profile';
+      location.href = this.basePath + 'profile';
     } else {
       common.showAjaxErrorMsg(result.answer);
     }

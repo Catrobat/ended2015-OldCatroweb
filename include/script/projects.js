@@ -29,7 +29,7 @@ var Projects = Class.$extend( {
     this.projects = ProjectObject({"layout"    : this.params.layout,
                                "container" : this.params.container,
                                "buttons"   : {"prev" : "#fewerProjects", "next" : "#moreProjects"}, 
-                               "filter"    : {"searchQuery" : this.params.filter.searchQuery, "author" : this.params.filter.author},
+                               "filter"    : {"query" : this.params.filter.query, "author" : this.params.filter.author},
                                "sort"      : this.params.sort,
                                "page"      : this.params.page,
                                "config"    : this.params.config
@@ -48,6 +48,6 @@ var Projects = Class.$extend( {
   },
   
   changeFilter : function(sender, filter) {
-    this.projects.setFilter({'author' : filter.author, 'searchQuery' : filter.searchQuery});
+    this.projects.setFilter({'author' : filter.author, 'query' : filter.query});
   }
 });

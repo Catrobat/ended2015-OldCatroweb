@@ -22,52 +22,57 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+
 ?>
-    <div class="webMainTop">
-      <div class="blueBoxMain">
-        <div class="webMainHead">
-          <div class="webHeadLogo<?php if(isItChristmas()) echo " webHeadLogoXmas";?>">
-            <a id="aIndexWebLogoLeft" href="<?php echo BASE_PATH?>catroid/index/0">
-              <img class="catroidLogo" src="<?php echo BASE_PATH?>images/logo/logo_head<?php if(isItChristmas()) echo "_xmas";?>.png" alt="head logo" />
-            </a>
-          </div>
-          <div class="webHeadTitle">
-            <div class="webHeadTitleName">
-              <a id="aIndexWebLogoMiddle" href="<?php echo BASE_PATH?>catroid/index/0">
-                <img class="catroidLettering" src="<?php echo BASE_PATH?>images/logo/logo_lettering.png" alt="catroid [beta]" />
-              </a>
+      <header role="banner">
+        <nav role="navigation">
+          <div id="largeMenu">
+            <div class="marginSpacer"></div>
+            <div class="catroidLink">
+              <a href="<?php echo BASE_PATH; ?>">Pocket Code</a>
             </div>
+            
+            <div class="largeSearchBarLeft">
+             <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+            </div>
+
+            <div class="largeSearchBarMiddle">
+              <input type="search" placeholder="<?php echo $this->languageHandler->getString('template_header_search_placeholder'); ?>" />
+            </div>
+            
+            <div class="largeSearchBarRight">
+             <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+            </div>
+            <div class="marginSpacer"></div>
           </div>
-          <div id="normalHeaderButtons" class="webHeadButtons">
-            <button type="button" class="webHeadButtons button orange medium" id="headerMenuButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/wall.png" alt="<?php echo $this->languageHandler->getString('template_header_menu')?>Menu" /></button>           
-            <button type="button" class="webHeadButtons button orange medium" id="headerProfileButton"><img class="webHeadSymbolOnButton" src="<?php echo BASE_PATH?>images/symbols/menu_profile.png" alt="<?php echo $this->languageHandler->getString('template_header_profile')?>Profile" /></button>
+          <div id="smallMenu">
+            <div class="marginSpacer"></div>
+            
+            <div id="smallMenuBar" class="catroidLink">
+              <a href="<?php echo BASE_PATH; ?>">Pocket Code</a>
+            </div>
+
+            <div id="smallSearchBar">
+              <input type="search" placeholder="<?php echo $this->languageHandler->getString('template_header_search_placeholder'); ?>" />
+            </div>
+
+            <div>
+              <img id="mobileSearchButton" src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+            </div>
+            
+            <div class="marginSpacer"></div>
+
+            <div>
+              <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+            </div>
+            
+            <div class="marginSpacer"></div>
           </div>
-          <div id="cancelHeaderButton" class="webHeadButtons">
-            <button type="button" class="webHeadCancelButton button orange medium" id="headerCancelButton">
-              <span class="webHeadCancelButtonText"><?php echo $this->languageHandler->getString('template_header_cancel')?></span>
-            </button>
-          </div>          
-          <div style="clear:both;"></div>
-        </div>
-      </div> <!-- login headerProfileBox starts here! -->
-      <div id="headerSearchBox" class="headerSearchBox">
-        <div class="webHeadBoxSpacer"></div>
-        <div class="blueBoxMain">
-          <div class="webMainHead">
-            <form id="searchForm">
-              <div class="headerSearchBoxRight" >
-<?php if($this->module->clientDetection->isMobile()) {?>
-                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="<?php echo $this->languageHandler->getString('template_header_search_for_projects')?>" /><br/>             
-                <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="<?php echo $this->languageHandler->getString('template_header_search')?>" />
-<?php } else {?>
-                <input id="searchQuery" type="text" class="webHeadSearchBox" placeholder="<?php echo $this->languageHandler->getString('template_header_search_for_projects')?>" autofocus="autofocus" />             
-                <input type="submit" class="webHeadSearchSubmit button orange" id="webHeadSearchSubmit" value="<?php echo $this->languageHandler->getString('template_header_search')?>" />
-<?php }?>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>      
-      
-<?php require_once('loginbox.php'); ?>  
-    </div> <!--  WEBMAINTOP -->
+        </nav>
+      </header>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          Header = new Header();
+          SearchBar = new SearchBar(Header);
+        });
+      </script>

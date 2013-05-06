@@ -39,8 +39,6 @@ define('PROJECTS_FTP_UPLOAD_DIRECTORY','/tmp/');
 define('PROJECTS_APP_BUILDING_SRC','app-building/catroid-source/');
 define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
-define('PROJECTS_QR_DIRECTORY','resources/qrcodes/');
-define('PROJECTS_QR_EXTENSION','_qr.png');
 define('PROJECTS_QR_SERVICE_URL', BASE_PATH . 'api/qrCodeGenerator/generate.png?url=');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
@@ -56,27 +54,34 @@ define('PROJECT_PAGE_SHOW_MAX_PAGES', 5);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
 define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
 
+define('PROJECT_LAYOUT_GRID_ROW', 1);
+
+define('PROJECT_MASK_DEFAULT', 'min');
+define('PROJECT_MASK_GRID_ROW_AGE', 'listAge');
+define('PROJECT_MASK_GRID_ROW_DOWNLOADS', 'listDownloads');
+define('PROJECT_MASK_GRID_ROW_VIEWS', 'listViews');
+define('PROJECT_MASK_ALL', 'all');
+
 define('PROJECT_SORTBY_AGE', 'age');
 define('PROJECT_SORTBY_DOWNLOADS', 'downloads');
 define('PROJECT_SORTBY_VIEWS', 'views');
 define('PROJECT_SORTBY_RANDOM', 'random');
 define('PROJECT_SORTBY_DEFAULT', PROJECT_SORTBY_AGE);
 
-define('PROJECT_LAYOUT_ROW', 1);
-define('PROJECT_LAYOUT_ROW_PROJECTS_PER_PAGE', 5);
 
 define('APP_EXTENSION','.apk');
-define('APP_QR_EXTENSION','_app_qr.png');
 
 define('DEVELOPMENT_MODE',true);
 if (DEVELOPMENT_MODE) {
 	define('SEND_NOTIFICATION_EMAIL',false);
 	define('SEND_NOTIFICATION_USER_EMAIL',false);
 	define('DATABASE_CONNECTION_PERSISTENT',false);
+  define('UPDATE_AUTH_TOKEN',false);
 } else {
 	define('SEND_NOTIFICATION_EMAIL',true);
 	define('SEND_NOTIFICATION_USER_EMAIL',true);
 	define('DATABASE_CONNECTION_PERSISTENT',true);
+  define('UPDATE_AUTH_TOKEN',true);
 }
 	
 define('DEVELOPMENT_STATUS','[beta]');
@@ -108,9 +113,10 @@ define('USER_MIN_USERNAME_LENGTH',4);
 define('USER_MAX_USERNAME_LENGTH',32);
 define('USER_MIN_PASSWORD_LENGTH',6);
 define('USER_MAX_PASSWORD_LENGTH',32);
+define('USER_HASH_ITERATIONS',11);
 define('GA_PIXEL','ga.php');
 define('SESSION_LIFETIME', 60*60*24*365);
-define('JQUERY_VERSION', '1.8.2');
+define('JQUERY_VERSION', '2.0.0');
 define('MOBILE_BROWSERDETECTION_URL_FOR_UPDATE', 'http://detectmobilebrowsers.com/download/php');
 
 ?>

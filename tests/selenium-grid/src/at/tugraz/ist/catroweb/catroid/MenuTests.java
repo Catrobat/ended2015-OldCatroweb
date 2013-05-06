@@ -26,6 +26,7 @@ package at.tugraz.ist.catroweb.catroid;
 import java.util.HashMap;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.internal.seleniumemulation.IsTextPresent;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -42,7 +43,7 @@ public class MenuTests extends BaseTest {
     try {
       openLocation();
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
 
       assertTrue(isVisible(By.id("menuLoginButton")));
       assertTrue(isEditable(By.id("menuLoginButton")));
@@ -77,7 +78,7 @@ public class MenuTests extends BaseTest {
       String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
       
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
 
       driver().findElement(By.id("headerProfileButton"));      
       assertTrue(isVisible(By.id("menuProfileButton")));
@@ -106,12 +107,11 @@ public class MenuTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertFalse(isTextPresent("Login"));
-      assertTrue(isTextPresent("Logout"));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertTrue(isTextPresent(wikiUsername));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
       
       driver().findElement(By.id("headerProfileButton"));      
@@ -141,19 +141,14 @@ public class MenuTests extends BaseTest {
     try {
       openLocation();
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertRegExp(".*/addons/board(/)?$", driver().getCurrentUrl());
-      assertTrue(isTextPresent(("Board index")));
-      assertTrue(isTextPresent(("Login")));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertRegExp(".*/wiki/Main_Page$", driver().getCurrentUrl());
-
-      assertTrue(isTextPresent(("Main Page")));
-      assertFalse(isElementPresent(By.id("pt-userpage")));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
 
       driver().findElement(By.id("menuLoginButton")).click();
@@ -176,7 +171,7 @@ public class MenuTests extends BaseTest {
     try {
       openLocation();
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
 
       // TODO Login Broken
       driver().findElement(By.id("menuLoginButton")).click();
@@ -191,12 +186,12 @@ public class MenuTests extends BaseTest {
       assertFalse(isVisible(By.id("loginSubmitButton")));
 
       driver().findElement(By.id("menuRegistrationButton")).click();
-      assertRegExp(".*/catroid/registration$", driver().getCurrentUrl());
+      assertRegExp(".*/registration$", driver().getCurrentUrl());
       assertTrue(isTextPresent(("Create a new account")));
       assertTrue(isVisible(By.id("registrationSubmit")));
       
       driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      assertRegExp(".*/menu$", driver().getCurrentUrl());
 
     } catch(AssertionError e) {
       captureScreen("loginSignUpRecoveryLinks.boardAndWikiLinks");
@@ -234,7 +229,7 @@ public class MenuTests extends BaseTest {
   @DataProvider(name = "searchButtonOnDetail")
   public Object[][] searchButtonOnDetail() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test-0.6.0beta.catrobat", "2df998d544a075946d36072fd083ffef", "", "", "0") }
+        { CommonData.getUploadPayload("details_test1small", "details_test_description", "test-0.6.0beta.catrobat", "2df998d544a075946d36072fd083ffef", "", "", "", "") }
          };
     return returnArray;
   }  

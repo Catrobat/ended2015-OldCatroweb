@@ -39,7 +39,13 @@ class qrCodeGenerator extends CoreAuthenticationTUGraz {
   
   public function generateQrCode($url) {
     if($url) {
-      $this->qr = shell_exec("qrencode \"".$url."\" -s 5 -m 1 -o -");
+      if(strlen($url) > 14) {
+        $image = "/tmp/" . time() . ".png";
+        shell_exec('qrencode -o ' . $image . ' ' . $url . ' -s 5 -l H -m 1');
+        $this->qr = shell_exec('composite -gravity center ' . BASE_PATH . 'images/logo/qr-logo.png ' . $image . ' -');
+      } else {
+        $this->qr = shell_exec("qrencode \"".$url."\" -s 5 -m 1 -o -");
+      }
     } else {
       return false;
     }

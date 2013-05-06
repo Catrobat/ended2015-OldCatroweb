@@ -64,6 +64,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Parameters;
 
+import at.tugraz.ist.catroweb.common.CommonData;
 import at.tugraz.ist.catroweb.common.CommonFunctions;
 import at.tugraz.ist.catroweb.common.CommonStrings;
 import at.tugraz.ist.catroweb.common.Config;
@@ -282,11 +283,11 @@ public class BaseTest {
     for(String part : parts) {
       if(part.contains("passwordrecovery?c=")) {
         String[] temp = part.split("c=");
-        return "catroid/passwordrecovery?c=" + temp[1];
+        return "passwordrecovery?c=" + temp[1];
       }
     }
     
-    return "catroid/passwordrecovery?c=";
+    return "passwordrecovery?c=";
   }
 
   public String getValidationUrl() {
@@ -294,11 +295,11 @@ public class BaseTest {
     for(String part : parts) {
       if(part.contains("emailvalidation?c=")) {
         String[] temp = part.split("c=");
-        return "catroid/emailvalidation?c=" + temp[1];
+        return "emailvalidation?c=" + temp[1];
       }
     }
     
-    return "catroid/emailvalidation?c=";
+    return "emailvalidation?c=";
   }
 
   public boolean containsElementText(By selector, String text) {
@@ -389,6 +390,10 @@ public class BaseTest {
   protected void clickOkOnNextConfirmationBox() {
     ((JavascriptExecutor) driver()).executeScript("window.confirm = function(msg){return true;};");
   }
+  
+  protected void clickCancelOnNextConfirmationBox() {
+    ((JavascriptExecutor) driver()).executeScript("window.confirm = function(msg){return false;};");
+  }
 
   protected void assertProjectPresent(String project) {
     openLocation();
@@ -466,7 +471,8 @@ public class BaseTest {
       location = this.webSite + Config.TESTS_BASE_PATH + location;
     }
     
-    driver().get(this.webSite + Config.TESTS_BASE_PATH + "api/checkToken/.json?token=" + Config.DEFAULT_UPLOAD_TOKEN);
+    driver().get(this.webSite + Config.TESTS_BASE_PATH + "api/checkToken/.json?username=" + 
+        CommonData.getLoginUserDefault() + "&token=" + Config.DEFAULT_UPLOAD_TOKEN);
     driver().get(location);
     ajaxWait();
   }
@@ -480,7 +486,7 @@ public class BaseTest {
       location = this.webSite + Config.TESTS_BASE_PATH + location;
     }
     
-    driver().get(this.webSite + Config.TESTS_BASE_PATH + "catroid/login/logoutRequest.json");
+    driver().get(this.webSite + Config.TESTS_BASE_PATH + "login/logoutRequest.json");
     driver().get(location);
     ajaxWait();
   }

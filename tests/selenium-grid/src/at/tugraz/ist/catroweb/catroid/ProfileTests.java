@@ -42,7 +42,7 @@ public class ProfileTests extends BaseTest {
   @Test(dataProvider = "loginAndChangeData", groups = { "functionality", "visibility" }, description = "check profile page")
   public void profilePageChangeUserData(HashMap<String, String> dataset) throws Throwable {
     try {
-      openLocation("catroid/registration/");
+      openLocation("registration/");
       
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -74,7 +74,7 @@ public class ProfileTests extends BaseTest {
 
       assertTrue(isAjaxMessagePresent("You updated your password successfully."));
 
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       driver().findElement(By.id("profileChangePassword")).click();
       ajaxWait();
 
@@ -85,7 +85,7 @@ public class ProfileTests extends BaseTest {
 
       assertTrue(isAjaxMessagePresent("The old password was incorrect."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       driver().findElement(By.id("profileChangePassword")).click();
       ajaxWait();
 
@@ -96,7 +96,7 @@ public class ProfileTests extends BaseTest {
       
       assertTrue(isAjaxMessagePresent("The new password is missing."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       driver().findElement(By.id("profileChangePassword")).click();
       ajaxWait();
 
@@ -107,7 +107,7 @@ public class ProfileTests extends BaseTest {
 
       assertTrue(isAjaxMessagePresent("The old password is missing."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       driver().findElement(By.id("profileChangePassword")).click();
       ajaxWait();
       
@@ -118,7 +118,7 @@ public class ProfileTests extends BaseTest {
       
       assertTrue(isAjaxMessagePresent("Your password must have at least 6 characters."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       driver().findElement(By.id("profileChangePassword")).click();
       ajaxWait();
 
@@ -129,7 +129,7 @@ public class ProfileTests extends BaseTest {
 
       assertTrue(isAjaxMessagePresent("You updated your password successfully."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       driver().findElement(By.id("profileChangePassword")).click();
       ajaxWait();
 
@@ -145,7 +145,7 @@ public class ProfileTests extends BaseTest {
       blur(By.id("cityInput"));
       assertTrue(isAjaxMessagePresent("You updated your hometown successfully."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       assertEquals(dataset.get("changedCity"), driver().findElement(By.id("cityInput")).getAttribute("value"));
       
       driver().findElement(By.id("cityInput")).clear();
@@ -153,7 +153,7 @@ public class ProfileTests extends BaseTest {
       blur(By.id("cityInput"));
       assertTrue(isAjaxMessagePresent("You updated your hometown successfully."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       assertEquals(dataset.get("registrationCity"), driver().findElement(By.id("cityInput")).getAttribute("value"));
       
       Select selectCountry = new Select(driver().findElement(By.id("countrySelect")));
@@ -161,7 +161,7 @@ public class ProfileTests extends BaseTest {
       blur(By.id("countrySelect"));
       assertTrue(isAjaxMessagePresent("You updated your country successfully."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       selectCountry = new Select(driver().findElement(By.id("countrySelect")));
       assertEquals(dataset.get("changedCountry"), selectCountry.getFirstSelectedOption().getText());
       
@@ -169,7 +169,7 @@ public class ProfileTests extends BaseTest {
       blur(By.id("countrySelect"));
       assertTrue(isAjaxMessagePresent("You updated your country successfully."));
 
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       selectCountry = new Select(driver().findElement(By.id("countrySelect")));
       assertEquals(dataset.get("registrationCountry"), selectCountry.getFirstSelectedOption().getText());
 
@@ -180,7 +180,7 @@ public class ProfileTests extends BaseTest {
       blur(By.id("birthdayYearSelect"));
       assertTrue(isAjaxMessagePresent("You updated your birthday successfully."));
 
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       selectMonth = new Select(driver().findElement(By.id("birthdayMonthSelect")));
       selectYear = new Select(driver().findElement(By.id("birthdayYearSelect"))); 
       assertEquals(dataset.get("changedMonth"), selectMonth.getFirstSelectedOption().getText());
@@ -193,7 +193,7 @@ public class ProfileTests extends BaseTest {
       blur(By.id("birthdayYearSelect"));
       assertTrue(isAjaxMessagePresent("You updated your birthday successfully."));
 
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       selectMonth = new Select(driver().findElement(By.id("birthdayMonthSelect")));
       selectYear = new Select(driver().findElement(By.id("birthdayYearSelect"))); 
       assertEquals(dataset.get("registrationMonth"), selectMonth.getFirstSelectedOption().getText());
@@ -205,7 +205,7 @@ public class ProfileTests extends BaseTest {
       blur(By.id("genderSelect"));
       assertTrue(isAjaxMessagePresent("You updated your gender successfully."));
 
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       selectGender = new Select(driver().findElement(By.id("genderSelect")));
       assertEquals(dataset.get("changedGender"), selectGender.getFirstSelectedOption().getText());
 
@@ -214,7 +214,7 @@ public class ProfileTests extends BaseTest {
       blur(By.id("genderSelect"));
       assertTrue(isAjaxMessagePresent("You updated your gender successfully."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       selectGender = new Select(driver().findElement(By.id("genderSelect")));
       assertEquals(dataset.get("registrationGender"), selectGender.getFirstSelectedOption().getText());
 
@@ -233,7 +233,7 @@ public class ProfileTests extends BaseTest {
   @Test(dataProvider = "loginAndChangeData", groups = { "functionality", "visibility" }, description = "upadte user avatar")
   public void profileChangeAvatarTest(HashMap<String, String> dataset) throws Throwable {
     try {
-      openLocation("catroid/registration/");
+      openLocation("registration/");
 
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -278,7 +278,7 @@ public class ProfileTests extends BaseTest {
   @Test(dataProvider = "emailTest", groups = { "functionality", "visibility" }, description = "check add/delete email")
   public void profilePageEmailTest(HashMap<String, String> dataset) throws Throwable {
     try {
-      openLocation("catroid/registration/");
+      openLocation("registration/");
       
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -299,17 +299,17 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("emailDeleteButtons")).findElement(By.tagName("button")).click();
       assertTrue(isAjaxMessagePresent("Error while deleting this e-mail address. You must have at least one e-mail address."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       
       driver().findElement(By.id("addEmailInput")).sendKeys(dataset.get("registrationEmail"));
       driver().findElement(By.id("addEmailButton")).click();
       assertTrue(isAjaxMessagePresent("This email address already exists."));
       
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       
       driver().findElement(By.id("addEmailInput")).sendKeys(dataset.get("secondEmail"));
       driver().findElement(By.id("addEmailButton")).click();
-      assertTrue(isAjaxMessagePresent(Config.TESTS_BASE_PATH + "catroid/emailvalidation?c="));
+      assertTrue(isAjaxMessagePresent(Config.TESTS_BASE_PATH + "emailvalidation?c="));
 
       // get validation url and open it
       String validationUrl = getValidationUrl();
@@ -318,7 +318,7 @@ public class ProfileTests extends BaseTest {
       openLocation(validationUrl);
       assertTrue(isTextPresent("You have successfully validated your email address."));
 
-      openLocation("catroid/profile/");
+      openLocation("profile/");
       ajaxWait();
 
       clickOkOnNextConfirmationBox();
@@ -342,7 +342,7 @@ public class ProfileTests extends BaseTest {
   public void profilePageLinkToMyProjects() throws Throwable {
     try {
       // login
-      login("catroid/profile/");
+      login("profile/");
       
       assertTrue(isTextPresent("My Projects"));
       driver().findElement(By.id("profileMyProfileLink")).click();
@@ -360,7 +360,7 @@ public class ProfileTests extends BaseTest {
   @Test(dataProvider = "emailTest", groups = { "functionality", "visibility" }, description = "Tests user profile page")
   public void profileForeignProfilePage(HashMap<String, String> dataset) throws Throwable {
     try {
-      openLocation("catroid/registration/");
+      openLocation("registration/");
       
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -372,22 +372,21 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
       
-      logout("catroid/profile/" + dataset.get("registrationUsername"));
+      logout("profile/" + dataset.get("registrationUsername"));
       assertTrue(isTextPresent("Login"));
 
-      login("catroid/profile/" + dataset.get("registrationUsername"));
+      login("profile/" + dataset.get("registrationUsername"));
       assertTrue(isTextPresent("User Profile"));
       assertTrue(isTextPresent(dataset.get("registrationUsername")));
       assertTrue(isTextPresent(dataset.get("registrationCountry")));
       assertTrue(isTextPresent("0"));
       
       String projectTitle = dataset.get("registrationUsername");
-      String authToken = CommonFunctions.generateAuthenticationToken(
-          dataset.get("registrationUsername"), dataset.get("registrationPassword"));
-      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", authToken));
+      String authToken = CommonFunctions.getAuthenticationToken(dataset.get("registrationUsername"));
+      projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", dataset.get("registrationUsername"), authToken));
       assertProjectPresent(projectTitle);
 
-      openLocation("catroid/profile/" + dataset.get("registrationUsername"));
+      openLocation("profile/" + dataset.get("registrationUsername"));
       assertTrue(isTextPresent("1"));
 
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));

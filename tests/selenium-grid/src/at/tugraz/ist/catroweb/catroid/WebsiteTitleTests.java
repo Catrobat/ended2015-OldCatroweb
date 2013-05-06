@@ -36,7 +36,7 @@ public class WebsiteTitleTests extends BaseTest {
   @Test(dataProvider = "websitePages", groups = { "visibility" }, description = "check html website titles/page")
   public void websiteTitle(String actualPage) throws Throwable {
     try {
-      openLocation("catroid/" + actualPage);
+      openLocation(actualPage);
       String websiteTitle = driver().findElement(By.xpath("//div[@class='webMainContentTitle']")).getText();
       assertTrue(driver().getTitle().matches(".*" + websiteTitle + ".*"));
     } catch(AssertionError e) {

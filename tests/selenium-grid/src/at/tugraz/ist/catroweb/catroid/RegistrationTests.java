@@ -39,7 +39,7 @@ public class RegistrationTests extends BaseTest {
   @Test(groups = { "visibility" }, description = "check expected elements are visible and texts are present")
   public void checkElementsVisibleAndTextPresent() throws Throwable {
     try {
-      openLocation("catroid/registration/");
+      openLocation("registration/");
       
       assertTrue(isTextPresent(CommonStrings.REGISTRATION_PAGE_TITLE));
       
@@ -81,7 +81,7 @@ public class RegistrationTests extends BaseTest {
   @Test(dataProvider = "triggerErrorsData", groups = { "functionality" }, description = "trigger all error messages and check whether they present")
   public void checkErrorMessages(HashMap<String, String> dataset) throws Throwable {
     try {
-      openLocation("catroid/registration/");
+      openLocation("registration/");
 
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -108,7 +108,7 @@ public class RegistrationTests extends BaseTest {
   @Test(dataProvider = "validRegistrationData", groups = { "functionality" }, description = "check registration with valid data")
   public void validRegistration(HashMap<String, String> dataset) throws Throwable {
     try {
-      openLocation("catroid/registration/");
+      openLocation("registration/");
 
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -129,15 +129,11 @@ public class RegistrationTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertFalse(isTextPresent("Login"));
-      assertTrue(isTextPresent("Logout"));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      waitForElementPresent(By.id("pt-preferences"));
-      driver().findElement(By.id("pt-preferences")).findElement(By.tagName("a")).click();
-      assertTrue(containsElementText(By.id("firstHeading"), "Preferences"));
-      assertFalse(isTextPresent("Not logged in"));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
       
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
@@ -158,7 +154,7 @@ public class RegistrationTests extends BaseTest {
       // wiki username creation
       String wikiUsername = dataset.get("registrationUsername").substring(0, 1).toUpperCase() + dataset.get("registrationUsername").substring(1).toLowerCase();
 
-      openLocation("catroid/registration/");
+      openLocation("registration/");
 
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -186,12 +182,11 @@ public class RegistrationTests extends BaseTest {
       ajaxWait();
 
       clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertTrue(isTextPresent("Login"));
-      assertFalse(isTextPresent("Logout"));
+      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
       closePopUp();
 
       clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertFalse(isTextPresent(wikiUsername));
+      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("RegistrationTests.invalidRegistration." + dataset.get("registrationUsername"));

@@ -39,6 +39,18 @@ class uploadTest extends PHPUnit_Framework_TestCase
   protected function tearDown() {
     $this->upload->cleanup();
   }
+  
+  protected function cleanUserInput($projectTitle) {
+    $cleanedProjectTitle = $projectTitle;
+    $cleanedProjectTitle = html_entity_decode($cleanedProjectTitle);
+    $cleanedProjectTitle = preg_replace("/&#?[a-z0-9]{2,8}/i", "", $cleanedProjectTitle);
+    $cleanedProjectTitle = strip_tags($cleanedProjectTitle);
+    $cleanedProjectTitle = htmlspecialchars($cleanedProjectTitle);
+    $cleanedProjectTitle = trim($cleanedProjectTitle, " ");
+    
+    return $cleanedProjectTitle;
+  }
+  
 
   /**
    * @dataProvider correctPostData
@@ -91,9 +103,17 @@ class uploadTest extends PHPUnit_Framework_TestCase
       $this->assertEquals($fileSize, $row[0]);
       pg_free_result($result);
     }
-
-    //test qrcode image generation
-    $this->assertTrue(is_file(CORE_BASE_PATH . PROJECTS_QR_DIRECTORY . $insertId . PROJECTS_QR_EXTENSION));
+    
+    $query = "SELECT title, description FROM projects WHERE id='$insertId'";
+    $result = pg_query($this->dbConnection, $query);
+    $pg_result = pg_fetch_assoc($result);
+    
+    $cleanedProjectTitle = $this->cleanUserInput($projectTitle);
+    $cleanedProjectDescription = $this->cleanUserInput($projectDescription);
+    $this->assertEquals($pg_result['title'], $cleanedProjectTitle);
+    $this->assertEquals($pg_result['description'], $cleanedProjectDescription);
+    
+    pg_free_result($result);
 
     //test deleting from filesystem
     $this->upload->cleanup();
@@ -102,6 +122,68 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_LARGE));
     $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_ORIG));
 
+    //test deleting from database
+    $query = "SELECT * FROM projects WHERE id='$insertId'";
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
+    $this->assertEquals(0, pg_num_rows($result));
+  }
+  
+  /**
+   * @dataProvider correctPostDataWithSpecialChars
+   */
+  public function testDoUploadWithSpecialChars($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadLanguage = '') {
+    $formData = array(
+        'projectTitle' => $projectTitle,
+        'projectDescription' => $projectDescription,
+        'fileChecksum' => $fileChecksum,
+        'userLanguage'=>$uploadLanguage
+    );
+    $fileData = array(
+        'upload' => array(
+            'name' => $fileName,
+            'type' => $fileType,
+            'tmp_name' => $testFile,
+            'error' => 0,
+            'size'=>$fileSize
+        )
+    );
+    
+    $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+    $fileSize = filesize($testFile);
+  
+    $this->upload->doUpload($formData, $fileData, $serverData);
+    $insertId = $this->upload->projectId;
+    $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
+    $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
+  
+    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertNotEquals(0, $insertId);
+    $this->assertTrue(is_file($filePath));
+  
+    $this->assertTrue(is_dir($projectPath));
+    $this->assertTrue(is_dir($projectPath . "/images"));
+    $this->assertTrue(is_dir($projectPath . "/sounds"));
+  
+    $this->assertTrue($this->upload->projectId > 0);
+  
+    $query = "SELECT title, description FROM projects WHERE id='$insertId'";
+    $result = pg_query($this->dbConnection, $query);
+    $pg_result = pg_fetch_assoc($result);
+
+    $cleanedProjectTitle = $this->cleanUserInput($projectTitle);
+    $cleanedProjectDescription = $this->cleanUserInput($projectDescription);
+    $this->assertEquals($pg_result['title'], $cleanedProjectTitle);
+    $this->assertEquals($pg_result['description'], $cleanedProjectDescription);
+    
+    pg_free_result($result);
+  
+    //test deleting from filesystem
+    $this->upload->cleanup();
+    $this->assertFalse(is_file($filePath));
+    $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_SMALL));
+    $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_LARGE));
+    $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_ORIG));
+  
     //test deleting from database
     $query = "SELECT * FROM projects WHERE id='$insertId'";
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
@@ -130,7 +212,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
     );
     $serverData = array('REMOTE_ADDR' => '127.0.0.1');
 
-    $this->upload->doUpload($formData, $fileData, $serverData);
+    $insertId = intval($this->upload->doUpload($formData, $fileData, $serverData));
+    
     $this->assertNotEquals(200, $this->upload->statusCode);
     $this->assertEquals($expectedStatusCode, $this->upload->statusCode);
     $this->assertFalse($this->upload->projectId > 0);
@@ -291,6 +374,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
             'size' => $fileSize
         )
     );
+    
     $serverData = array('REMOTE_ADDR' => '127.0.0.1');
     $this->upload->doUpload($formData, $fileData, $serverData);
     $insertId = $this->upload->projectId;
@@ -342,7 +426,36 @@ class uploadTest extends PHPUnit_Framework_TestCase
         array('unitTest with Email and Language', 'description', $testFile, $fileName, $fileChecksum, $fileSize, $fileType, 'en'),
         array('unitTest', 'my project description with thumbnail in root folder.', $testFile, 'test2.zip', $fileChecksum, $fileSize, $fileType),
         array('unitTest', 'my project description with thumbnail in images folder.', $testFile, 'test3.zip', $fileChecksum, $fileSize, $fileType),
-        array('unitTest', 'project with new extention "catroid".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
+        array('unitTest', 'project with new extention "catroid".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),        
+    );
+    return $dataArray;
+  }
+  
+  public function correctPostDataWithSpecialChars() {
+    $fileName = 'test.zip';
+    $fileNameWithThumbnail = 'test2.zip';
+    $testFile = dirname(__FILE__) . '/testdata/' . $fileName;
+    $testFileWithThumbnail = dirname(__FILE__) . '/testdata/' . $fileNameWithThumbnail;
+    $fileChecksum = md5_file($testFile);
+    $fileChecksumWithThumbnail = md5_file($testFileWithThumbnail);
+    
+    $testFileCatroid = dirname(__FILE__) . '/testdata/test.catrobat';
+    $fileChecksumCatroid = md5_file($testFileCatroid);
+    $fileSizeCatroid = filesize($testFileCatroid);
+    
+    $fileSize = filesize($testFile);
+    $fileSizeWithThumbnail = filesize($testFileWithThumbnail);
+    $fileType = 'application/x-zip-compressed';
+    $dataArray = array(
+        array("phpunitTest don't escape", 'uploadTest project with quote (\') in title".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
+        array('phpunitTest <br/>', '<uploadTest>".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
+        array('phpUnitTest <!-- -->', '<uploadTest>".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
+        array('   phpunittestspacesbeforeandafter   ', 'project title should be without leading and trailing spaces".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
+        array('unitTestWithHtmlTag <!-- abc -->', 'html tags should be cleaned".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
+        array('unitTestWithHtmlTag %% abc <html></html>', 'html tags should be cleaned".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
+        array('"user@gmail.com"', 'uploadtest  ".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
+        array("<html><head><title>MyTitle</title></head><body><a href=\"javascript:alert(\'This is a phpunittest!\')\">Clickme</a></body></html>'", 'uploadtest project title should be MyTitle ClickMe".', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
+        array("'''''''''''''", 'phpunittest', dirname(__FILE__).'/testdata/test.catrobat', 'test.catrobat', $fileChecksumCatroid, $fileSizeCatroid, $fileType),
     );
     return $dataArray;
   }
@@ -370,11 +483,15 @@ class uploadTest extends PHPUnit_Framework_TestCase
         array('uploadTestFail3', 'no file checksum is send together with this project', $validTestFile, $validFileName, '', $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_CHECKSUM),
         array('uploadTestFail4', 'this project has an invalid fileChecksum', $validTestFile, $validFileName, $invalidFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_INVALID_CHECKSUM),
         array('uploadTestFail5', 'this project contains an corrupt spf xml file', $corruptTestFile, $corruptFileName, $corruptFileChecksum, $corruptFileSize, $fileType, STATUS_CODE_UPLOAD_INVALID_XML),
-        array('', 'this project has no project title', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
         array('defaultProject', 'this project is named defaultProject', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_DEFAULT_PROJECT_TITLE),
         array('uploadTestFail8 fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_TITLE),
         array('uploadTestFail9', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_DESCRIPTION),
-        array('uploadTestFail10', 'this project has an old catrobatLanguageVersion!', $oldVersionFile, $oldVersionFileName, $oldVersionFileChecksum, $oldVersionFileSize, $fileType, STATUS_CODE_UPLOAD_OLD_CATROBAT_LANGUAGE)
+        array('uploadTestFail10', 'this project has an old catrobatLanguageVersion!', $oldVersionFile, $oldVersionFileName, $oldVersionFileChecksum, $oldVersionFileSize, $fileType, STATUS_CODE_UPLOAD_OLD_CATROBAT_LANGUAGE),
+        array('', 'this project has no project title', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
+        array('<!-- --> <br/>', 'this project should also have an empty project title after being cleaned.', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
+        array('<!-- abc -->', 'this project should also have an empty project title after being cleaned.".', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
+        array('  ', 'phpuploadtest with tab in project title".', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
+        array('    ', 'phpuploadtest with tab, LF, CR, in project title".', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
     );
     return $dataArray;
   }

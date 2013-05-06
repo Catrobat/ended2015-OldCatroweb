@@ -27,7 +27,6 @@ class menu extends CoreAuthenticationNone {
     parent::__construct();
     $this->addCss('menu.css');
     $this->addJs('menu.js');
-    $this->htmlHeaderFile = 'htmlMenuHeaderTemplate.php';
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 

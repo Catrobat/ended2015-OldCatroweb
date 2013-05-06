@@ -70,7 +70,7 @@
                 <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
                 <ul class="loginOptions">
                   <li><a id="registrationLogin" href="javascript:;"><?php echo $this->languageHandler->getString('login')?></a></li>
-                  <li><a id="forgotPassword" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></li>
+                  <li><a id="forgotPassword" href="<?php echo BASE_PATH?>passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></li>
                 </ul>
               </form> <!-- registrationForm -->
             </div> <!-- White Box -->

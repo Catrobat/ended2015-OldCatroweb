@@ -50,8 +50,8 @@
               <div class="whiteBoxMain loginHelper" id="loginHelperDiv">
                 <strong><?php echo $this->languageHandler->getString('template_header_additional_options'); ?></strong>
                 <ul class="loginOptions">
-                  <li><a id="forgotPassword" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('template_header_forgot_password')?></a></li>
-                  <li><a id="signUp" href="<?php echo BASE_PATH?>catroid/registration"><?php echo $this->languageHandler->getString('template_header_register')?></a></li>
+                  <li><a id="forgotPassword" href="<?php echo BASE_PATH?>passwordrecovery"><?php echo $this->languageHandler->getString('template_header_forgot_password')?></a></li>
+                  <li><a id="signUp" href="<?php echo BASE_PATH?>registration"><?php echo $this->languageHandler->getString('template_header_register')?></a></li>
                 </ul>
               </div>
             </div>

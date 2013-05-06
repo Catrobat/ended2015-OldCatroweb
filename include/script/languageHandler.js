@@ -30,7 +30,7 @@ var LanguageHandler = Class.$extend({
   switchLanguage : function(eventObject) {
     this.disableForm();
     var selectedLanguage = $(eventObject.target).val();
-    var url = this.basePath + 'catroid/switchLanguage/switchIt.json';
+    var url = this.basePath + 'switchLanguage/switchIt.json';
     $.ajax({
       type : "POST",
       url : url,

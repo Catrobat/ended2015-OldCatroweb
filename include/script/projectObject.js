@@ -24,60 +24,168 @@
  var ProjectObject = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function(params) {
-    this.params = params;   
-    this.projectLoader = new ProjectLoader($.proxy(this.getParameters, this), $.proxy(this.loadProjectsRequestSuccess, this), $.proxy(this.loadProjectsRequestError, this));    
-    this.projectContentFiller = new ProjectContentFiller($.proxy(this.getParameters, this));
-
-    if(this.params.buttons != null) {
-      if(this.params.buttons.prev != null && this.params.buttons.prev != "") {
-      $(this.params.buttons.prev).click($.proxy(this.prevPage, this));  
+    this.params = $.parseJSON(params);
+    
+    if(typeof this.params.layout === 'undefined') {
+      alert('layout: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.container === 'undefined') {
+      alert('container: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.buttons === 'undefined') {
+      alert('buttons: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.buttons.prev === 'undefined') {
+      alert('buttons.prev: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.buttons.next === 'undefined') {
+      alert('buttons.next: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.page === 'undefined') {
+      alert('page: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.firstPage === 'undefined') {
+      this.params.firstPage = null;
+    }
+    if(typeof this.params.page.number === 'undefined') {
+      alert('page.number: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.page.numProjectsPerPage === 'undefined') {
+      alert('page.numProjectsPerPage: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.page.pageNrMax === 'undefined') {
+      alert('page.pageNrMax: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.mask === 'undefined') {
+      alert('mask: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.sort === 'undefined') {
+      alert('sort: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.filter === 'undefined') {
+      alert('filter: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.filter.query === 'undefined') {
+      alert('filter.query: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.filter.author === 'undefined') {
+      alert('filter.author: obligatory paramater missing!');
+      return;
+    }
+    if(typeof this.params.config === 'undefined') {
+      alert('config: obligatory paramater missing!');
+      return;
     }
     
-    if(this.params.buttons.next != null && this.params.buttons.next != "") {
+    if($(this.params.container).length == 0) {
+      alert('container: element does not exist!');
+      return;
+    }
+    
+    this.hasPrevButton = false;
+    this.hasNextButton = false;
+    
+    if($(this.params.buttons.prev).length != 0) {
+      this.hasPrevButton = true;
+      $(this.params.buttons.prev).click($.proxy(this.prevPage, this));  
+    }
+    if($(this.params.buttons.next).length != 0) {
+      this.hasNextButton = true;
       $(this.params.buttons.next).click($.proxy(this.nextPage, this)); 
     }
-  }
-},
 
-getParameters : function() {
-  return this.params;
-},
-
-loadProjectsRequestSuccess : function(result) {
-  if(this.projectContentFiller.isReady()) {
-    if(!this.projectContentFiller.fill(result)) {
-      var error = this.projectContentFiller.getError();
-      common.showAjaxErrorMsg(error); 
+    this.projectLoader = new ProjectLoader($.proxy(this.getParameters, this), $.proxy(this.loadProjectsRequestSuccess, this), $.proxy(this.loadProjectsRequestError, this));    
+    this.projectContentFiller = new ProjectContentFiller($.proxy(this.getParameters, this));
+  },
+  
+  setParameter : function(key, value) {
+    if(typeof key === 'string' && typeof value === 'undefined') {
+      this.params[key] = value;
     }
+    alert("error: i am going home!");
+  },
+
+  getParameter : function(key) {
+    if(this.params[key]) {
+      return this.params[key];
+    }
+    alert("error: i am going home!");
+    return null;
+  },
+
+  getParameters : function() {
+    return this.params;
+  },
+  
+  loadProjectsRequestSuccess : function(result) {
+    if(result == null) {
+      alert('loadProjectsRequestSuccess: no result!');
+      return;
+    }
+    if(result.error) {
+      alert('loadProjectsRequestSuccess: ' + result.error);
+      return;
+    }
+    if(result.CatrobatInformation == null || result.CatrobatProjects == null) {
+      alert('loadProjectsRequestSuccess: wrong result!');
+      return;
+    }
+    if(!this.projectContentFiller.isReady()) {
+      alert('loadProjectsRequestSuccess: no layout selected!');
+      return;
+    }
+    
+    var info = result.CatrobatInformation;
+    console.log(info);
+    this.projectContentFiller.fill(result);
+  },
+  
+  loadProjectsRequestError : function(error) {
+    alert(error);
+  },
+  
+  prevPage : function() {
+    this.params.page.number = Math.max(1, this.params.page.number - 1);
+    this.projectLoader.loadPage();
+  },
+  
+  nextPage : function() {
+    this.params.page.number = Math.min(this.params.page.pageNrMax, this.params.page.number + 1);
+    this.projectLoader.loadPage();
+  }, 
+  
+  setSort : function(sortby) {
+    this.params.sort = sortby;
+    this.params.page.number = 1;
+    this.projectLoader.loadPage();
+  },
+  
+  setFilter : function(filter) {
+    this.params.filter.author = filter.author;
+    this.params.filter.query = filter.query;
+    this.params.page.number = 1;
+    
+    $(this.params.container).each(
+        function(element){
+          alert(element);
+        }
+     );
+    
+    this.projectLoader.loadPage();
   }
-},
-
-loadProjectsRequestError : function(result) {
-  common.showAjaxErrorMsg(result);
-},
-
-prevPage : function() {
-  this.params.page.number = (this.params.page.number > 1)? this.params.page.number - 1 : 1;
-  this.projectLoader.loadPage();
-},
-
-nextPage : function() {
-  this.params.page.number = (this.params.page.number >= this.params.page.pageNrMax)? this.params.page.pageNrMax : this.params.page.number + 1;
-  this.projectLoader.loadPage();
-}, 
-
-setSort : function(sortby) {
-  this.params.sort = sortby;
-  this.params.page.number = 1;
-  this.projectLoader.loadPage();
-},
-
-setFilter : function(filter) {
-  this.params.filter.author = filter.author;
-  this.params.filter.searchQuery = filter.searchQuery;
-  this.params.page.number = 1;
-  this.projectLoader.loadPage();
-}
 
 });
  

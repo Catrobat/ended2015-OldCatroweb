@@ -125,7 +125,7 @@ class Sql:
 
 	def createDocs(self):
 		autodoc = 'postgresql_autodoc'
-		if 'not found' in commands.getoutput('%s -h' % autodoc):
+		if 'not found' in commands.getoutput('cd /tmp; %s -h' % autodoc):
 			print('** WARNING *********************************************************************')
 			print('%s is not installed.' % autodoc)
 			return
@@ -136,7 +136,7 @@ class Sql:
 		for database in self.databases:
 			print('creating doc for database %s' % database)
 			
-			self.run('cd %s; %s -h localhost -p 5432 -d %s -u %s --password=%s' % (self.overviewPath, autodoc, database, self.dbUser, self.dbPass))
+			self.run('cd %s; ls -al; %s -h localhost -p 5432 -d %s -u %s --password=%s' % (self.overviewPath, autodoc, database, self.dbUser, self.dbPass))
 			self.run('cd %s; dot -Tpng %s.dot > %s.png' % (self.overviewPath, database, database))
 			
 			for line in fileinput.FileInput(os.path.join(self.overviewPath, database + '.html'), inplace=1):
@@ -204,11 +204,11 @@ class Sql:
 
 
 	def restoreDb(self, database):
-		if 'No such file' not in self.run('ls %s -sql.tar.gz' % database):
+		if 'No such file' not in self.run('ls %s-sql.tar.gz' % database):
 			self.dropDb(database)
 			self.createDb(database)
 
-			result = self.run('gzip -dc %s-sql.tar.gz | pg_restore -d %s -U %s' % (database, database, self.dbUser))
+			result = self.run('gzip -dc %s-sql.tar.gz | pg_restore --no-owner -d %s -U %s' % (database, database, self.dbUser))
 			if 'ERROR' in result:
 				print('error restoring %s' % database)
 				print(result)
@@ -217,6 +217,18 @@ class Sql:
 				print('')
 		else:
 			print('FATAL ERROR: Found no file to restore.')
+
+
+	def getProjectList(self):
+		result = self.run('%s -d catroweb -c "SELECT id FROM projects;"' % self.cli)
+		
+		ids = []
+		for line in result.split('\n'):
+			try:
+				ids.append(int(line))
+			except:
+				pass
+		return ids
 
 
 

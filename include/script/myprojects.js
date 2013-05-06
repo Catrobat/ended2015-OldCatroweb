@@ -30,7 +30,7 @@ var MyProjects = Class.$extend( {
       $('#deleteButtons > div > button').each(function() {
         $(this).click(function(e) {
           if(confirm(strings.really_delete + " '" + e.target.name + "' ?")) {
-            document.location = basePath + "catroid/myprojects/delete?id=" + e.target.id;
+            document.location = basePath + "myprojects/delete?id=" + e.target.id;
           }
         });
       });
