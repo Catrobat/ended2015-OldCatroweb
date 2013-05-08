@@ -36,7 +36,7 @@
           $selected = "selected ";
         }
 ?>
-              <option <?php echo $selected?>value="<?php echo $lang?>"><?php echo $details['name'].' - '.$details['nameNative']?></option>
+              <option <?php echo $selected?>value="<?php echo $lang?>"><?php echo $details['nameNative']?></option>
 <?php }
     } ?>
             </select>
