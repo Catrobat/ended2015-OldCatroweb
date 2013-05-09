@@ -273,7 +273,7 @@ class profile extends CoreAuthenticationUser {
   }
   //--------------------------------------------------------------------------------------------------------------------  
   public function updateCountryRequest() {
-    $country = (isset($_POST['profileCountry']) ? trim(strval($_POST['profileCountry'])) : '');
+    $country = (isset($_POST['country']) ? trim(strval($_POST['country'])) : '');
     try {
       $this->userFunctions->updateCountry($country);
   

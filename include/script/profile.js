@@ -75,7 +75,8 @@ var Profile = Class.$extend( {
         //common.showAjaxErrorMsg(self.languageStringsObject.image_too_big);
         $("#profilePasswordError").text(self.languageStringsObject.image_too_big);
         $("#profilePasswordError").toggle(true);
-        $(".profileAvatarImage img").css({"border" : "5px solid #880000"})
+        $("#profileEmailError").toggle(true);
+        $(".profileAvatarImage img").css({"outline" : "0.7em solid #880000"})
         return;
       }
       
@@ -108,12 +109,14 @@ var Profile = Class.$extend( {
       $('.profileAvatarImage img').attr("src", result.avatar);
       $("#profileUpdateSuccess").toggle(true);
       $("#profilePasswordError").toggle(false);
-      $(".profileAvatarImage img").css({"border" : "5px solid #FFFFFF"})
+      $("#profileEmailError").toggle(false);
+      $(".profileAvatarImage img").css({"outline" : "0.7em solid #FFFFFF"})
       
     } else {
-//      $("#profilePasswordError").text(result.answer);
-//      $("#profilePasswordError").toggle(true);
-      $(".profileAvatarImage img").css({"border" : "5px solid #880000"})
+      $("#profilePasswordError").text(this.languageStringsObject.image_too_big);
+      $("#profilePasswordError").toggle(true);
+      $("#profileEmailError").toggle(true);
+      $(".profileAvatarImage img").css({"outline" : "0.7em solid #880000"})
     }
   },
 

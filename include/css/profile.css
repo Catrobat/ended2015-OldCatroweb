@@ -166,7 +166,7 @@
 
 
 /*might be needed at select for working in chrome: -webkit-appearance: none;*/
-#wrapper article div.profileCountry{
+#wrapper article div.profileCountry1{
   -mox-box-shadow: inset 2px 2px 5px #05222a;
   -webkit-box-shadow: inset 2px 2px 5px #05222a;
   box-shadow: inset 2px 2px 5px #05222a;
@@ -183,7 +183,7 @@
   background-position: right;
 }
 
-#wrapper article div.profileCountry select {
+#wrapper article div.profileCountry1 select {
   background-color: transparent;
   border-radius: 0.125em;
   color: #000000;
@@ -194,7 +194,7 @@
   padding-left: 0.2em;
 }
 
-#wrapper article div.profileCountry option {
+#wrapper article div.profileCountry1 option {
   background-color: transparent;
   -mox-box-shadow: inset 6px 0px 5px -5px #05222a;
   -webkit-box-shadow: inset 6px 0px 5px -5px #05222a;
@@ -336,10 +336,10 @@
   display: none;
   color: #F78181;
   padding-bottom: 0.5em;
-  height: 1em;
+  min-height: 1.2em;
 }
 #wrapper article div div#profileEmailError{
-  height: 1em;
+  min-height: 1.2em;
   display: none;
   color: #F78181;
   padding-bottom: 0.5em;
