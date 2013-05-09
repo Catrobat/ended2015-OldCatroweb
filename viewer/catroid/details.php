@@ -23,36 +23,78 @@
  */
 
 ?>
-      <article>
-        <header><?php echo $this->project['title']?></header>
+<article>
+  <header>
+    <div>
+      <span id="projectDetailsProjectTitle"><?php echo $this->project['title']?></span>
+      <div class="projectDetailsAuthorTop">
         <div>
-          <div style="float:left; margin: 0 20px 20px 20px;">
-            <a href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
-              <img src="<?php echo $this->project['image']?>" alt="project thumbnail" style="width: 260px; height: 260px; border: 10px solid #ffffff;" />
-            </a>
-          </div>
-          <div style="float:left;  margin: 0 20px 20px 20px;">
-            <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" style="width: 32px; height: 32px; margin: 10px 10px 10px 0; " /><?php echo $this->project['uploaded_by_string']; ?><br>
-            <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" style="width: 32px; height: 32px; margin: 10px 10px 10px 0; " /><?php echo $this->project['publish_time_in_words']; ?><br>
-            <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" style="width: 32px; height: 32px; margin: 10px 10px 10px 0; " /><?php echo $this->project['download_count'] . " " . $this->languageHandler->getString('downloads'); ?> <br>
-            <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" style="width: 32px; height: 32px; margin: 10px 10px 10px 0; " /><?php echo $this->project['view_count'] . " " . $this->languageHandler->getString('views'); ?><br>
-            <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" style="width: 32px; height: 32px; margin: 10px 10px 10px 0; " /><?php echo $this->project['fileSize'] . " MB " . $this->languageHandler->getString('filesize'); ?><br>
-          </div>
-          <div style="float:left;  margin: 0 20px 20px 20px; text-align: right;">
-            <?php echo $this->languageHandler->getString('version_info_text') . " " . $this->project['version_name'];?> <br />
-            <div style="text-transform: uppercase;font-size: 1.8em; text-decoration: none; text-shadow: #333333 1px 1px 1px; background-color: #7cb5ca; padding: 0.4em 2.13em 0.4em 2.13em; margin: 0.2em 0 0.2em 0; border-radius: 4px;
-              background-image: linear-gradient(top, #93c4d7, #74b0c7);
-  background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
-  background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);">
-              <a style=" color:#ffffff; text-decoration: none; text-shadow: #333333 1px 1px 1px;"
-               href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">Download</a><br />
-            </div>
-            <a href="<?php echo BASE_PATH?>licensetoplay"><?php echo $this->languageHandler->getString('some_rights_reserved')?></a><br />
-          </div>
-          <div style="clear:both;margin-left:20px;">
-            <div style="text-transform: uppercase; font-size:1.4em; font-weight:bold; ">Beschreibung</div>
-            <div style="margin: 10px  0 20px 0;"><?php echo $this->project['description']; ?></div>
-            <div style="text-transform: uppercase; "><a href="#"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></a></div>
-          </div>
+          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
+          <span>
+            <?php echo $this->project['uploaded_by_string']; ?>
+          </span>
         </div>
-      </article>
+      </div>
+    </div>
+  </header>
+  <div id="projectDetailsContainer">
+    <div class="projectDetailsThumbnail">
+      <a href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
+        <img src="<?php echo $this->project['image']?>" alt="<?php $this->project['title']?>" />
+      </a>
+    </div>
+  
+    <div class="projectDetailsDescription">
+      <div>
+        <span class="projectDetailsDescriptionHeading">
+          <?php echo $this->languageHandler->getString('description'); ?>
+        </span>
+      </div>
+      <div class="projectDetailsDescriptionText">
+        <span>
+          <?php echo ($this->project['description'])? $this->project['description'] : $this->languageHandler->getString('no_description_available');?>
+        </span>
+      </div>
+    </div>
+  
+    <div class="projectDetailsDownload">
+      <div class="projectDetailsDownloadButton">
+        <span id="projectDetailsDownloadVersion"><?php echo $this->languageHandler->getString('version_info_text') . " " . $this->project['version_name'];?></span>
+        <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
+          <div class="green">
+            <?php echo $this->languageHandler->getString('download_button');?>
+          </div>
+        </a>
+        <a id="projectDetailsDownloadLicense" href="<?php echo BASE_PATH?>licensetoplay"><?php echo $this->languageHandler->getString('some_rights_reserved');?></a>
+      </div>
+    </div>
+  
+    <div class="projectDetailsInformationSeperator">
+      <hr/>
+    </div>
+    <div class="projectDetailsInformation">
+      <ul>
+        <li>
+          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
+          <span><?php echo $this->project['uploaded_by']; ?></span>
+        </li>
+        <li>
+          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
+          <span><?php echo $this->project['publish_time_in_words']; ?></span>
+        </li>
+        <li>
+          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
+          <span><?php echo $this->project['fileSize'] . " MB " . $this->languageHandler->getString('filesize'); ?></span>
+        </li>
+        <li>
+          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
+          <span><?php echo $this->project['download_count'] . " " . $this->languageHandler->getString('downloads'); ?></span>
+        </li>
+        <li>
+          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
+          <span><?php echo $this->project['view_count'] . " " . $this->languageHandler->getString('views'); ?></span>
+        </li>
+      </ul>
+    </div>
+  </div>
+</article>

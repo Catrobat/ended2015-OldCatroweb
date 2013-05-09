@@ -21,36 +21,45 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#wrapper article div.left{
+#wrapper article div.profileAvatar{
   float: left;
-  width: 20em;
+  width: 19em;
+  margin-left: 0.7em;
 }
 
-#wrapper article div.middle{
+#profileContainer {
+  width: 100%;
+}
+
+#wrapper article div.profileInputs {
+  float:left;
+  margin-left: 0.7em;
+}
+
+#wrapper article div.profileInputsLeft{
   float: left;
-  width: 20em;
+  width: 19em;
   margin-left: 2em;
 }
 
-#wrapper article div.right{
+#wrapper article div.profileInputsRight{
   float: left;
-  width: 20em;
+  width: 19em;
   margin-left: 2em;
 }
 
 #wrapper article div.profileAvatarImage img{
-  border: 5px solid #FFFFFF;
+  outline: 0.7em solid #FFFFFF;
   width: 19em;
   margin: 0 auto;
   z-index: 1;
 }
 
-
 #wrapper article button#profileChangeAvatarButton { 
   position: absolute;
   z-index: 2;
   margin-left: 4.7em;
-  margin-top: -4.5em
+  margin-top: -4.5em;
 }
 
 #wrapper article div.profileChangeAvatar button{ 
@@ -215,14 +224,26 @@
   padding: 0em 0.1em 0em 0.1em;
 }
 
+#profileContainer {
+  width: 98%;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+#myProjectsContainer {
+  clear:both;
+  float:left;
+  margin-top: 2em;
+  width: 100%;
+}
+
 #wrapper article div.myProjects {
+  clear: left;
   color: #a8dff4;
   font-size: 1.8em;
   text-transform: uppercase;
   font-weight: bold;
   padding: 0.07em;
   text-shadow: #000000 1px 1px 1px;
-  margin-top: 13em;
 }
 
 #wrapper article div#newestProjects {
@@ -307,7 +328,7 @@
   background-color: transparent;
 }
 
-#wrapper article div.middle div#profileUpdateSuccess{
+#wrapper article div.profileInputsLeft div#profileUpdateSuccess{
   display: none;
 }
 
@@ -322,4 +343,55 @@
   display: none;
   color: #F78181;
   padding-bottom: 0.5em;
+  padding-left: 2em;
+}
+
+@media screen and (max-width: 1100px) {
+  .profileInputs {
+    padding-left: 5%;
+  }
+  .profileInputsRight {
+    clear:left;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  
+  .profileAvatar {
+    min-width: 100%;
+  }
+  
+  .profileAvatar img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #wrapper article button#profileChangeAvatarButton  {
+    left: 50%;
+    margin-left: -4.3em;
+  }
+  .profileInputs {
+    padding-left: 0%;
+  }
+  #wrapper article div.profileInputsLeft{
+    margin-top: 2em;
+    left: 50%;
+  }
+  
+  #wrapper article div.profileInputsRight{
+    clear: left;
+  }
+  #myProjectsContainer {
+    float:left;
+    clear:both;
+    margin-top: 2em;
+  }
+  
+  #wrapper article div.profileInputs {
+    position:relative;
+    left: 50%;
+    margin-left: -10.8em;
+  }
+  
 }
