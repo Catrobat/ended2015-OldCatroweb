@@ -100,8 +100,14 @@
   color: #000000;
   height: 1.5em;
   width: 15em;
-  border: 0;
+  border: none;
   margin-left: 0.2em;
+  outline: none;
+}
+
+#wrapper article div.profilePasswordItem input:invalid{
+  border: 0;
+  outline: 0;
 }
 
 #wrapper article div.profileFirstEmailItem{
@@ -166,7 +172,7 @@
 
 
 /*might be needed at select for working in chrome: -webkit-appearance: none;*/
-#wrapper article div.profileCountry1{
+#wrapper article div.profileCountry{
   -mox-box-shadow: inset 2px 2px 5px #05222a;
   -webkit-box-shadow: inset 2px 2px 5px #05222a;
   box-shadow: inset 2px 2px 5px #05222a;
@@ -183,7 +189,7 @@
   background-position: right;
 }
 
-#wrapper article div.profileCountry1 select {
+#wrapper article div.profileCountry select {
   background-color: transparent;
   border-radius: 0.125em;
   color: #000000;
@@ -194,7 +200,7 @@
   padding-left: 0.2em;
 }
 
-#wrapper article div.profileCountry1 option {
+#wrapper article div.profileCountry option {
   background-color: transparent;
   -mox-box-shadow: inset 6px 0px 5px -5px #05222a;
   -webkit-box-shadow: inset 6px 0px 5px -5px #05222a;
@@ -335,15 +341,23 @@
 #wrapper article div div#profilePasswordError{
   display: none;
   color: #F78181;
-  padding-bottom: 0.5em;
-  min-height: 1.2em;
+  padding-bottom: 1em;
+  height: 2em;
 }
 #wrapper article div div#profileEmailError{
-  min-height: 1.2em;
+  display: none;
+  height: 2em;
   display: none;
   color: #F78181;
-  padding-bottom: 0.5em;
-  padding-left: 2em;
+  padding-bottom: 1em;
+}
+
+#wrapper article div div#profileAvatarError{
+  display: none;
+  height: 2em;
+  display: none;
+  color: #F78181;
+  padding-bottom: 2em;
 }
 
 @media screen and (max-width: 1100px) {
