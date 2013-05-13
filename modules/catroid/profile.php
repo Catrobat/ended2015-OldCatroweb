@@ -72,21 +72,8 @@ class profile extends CoreAuthenticationUser {
     $language = getLanguageOptions($this->languageHandler, $userData['language']);
     $this->laguageListHTML = $language['html'];
     $this->countryCodeListHTML = $this->generateCountryCodeList($userData);
-    $this->monthListHTML = $this->generateMonthList($userData);
-    $this->yearListHTML = $this->generateYearList($userData);
-    $this->genderListHTML = $this->generateGenderList($userData);
   }
 
-//not needed in new version
-  private function generateUserEmailList() {
-    $userEmailList = '';
-    
-    foreach($this->userFunctions->getEmailAddresses($this->session->userLogin_userId) as $email) {
-      $userEmailList .= '<div style="width:408px; padding: 10px 0 10px 0;">' . $email['address'] . '</div><button name="' . $email['address'] . '" style="margin: 5px;" class="button orange compact"><img name="' . $email['address'] . '" width="24px" src="' . BASE_PATH . 'images/symbols/trash_recyclebin.png"></button><br />';
-    }
-    
-    return $userEmailList;
-  }
 
   private function generateCountryCodeList($userData) {
     $countryCodeList = getCountryArray($this->languageHandler);
@@ -106,53 +93,6 @@ class profile extends CoreAuthenticationUser {
     return $optionList;
   }
   
-//not needed in new version
- private function generateMonthList($userData) {
-    $months = getMonthsArray($this->languageHandler);
-    $optionList = '<option value="0"></option>';
-  
-    for($i = 1; $i < 13; $i++) {
-      $selected = "";
-      if(intval($userData['month']) == $i) {
-        $selected = "selected='selected'";
-      }
-      $optionList .= "<option value='" . $i . "'" . $selected . ">" . $months[$i] . "</option>";
-    }
-    return $optionList;
-  }
-  
-  private function generateYearList($userData) {
-    $optionList = '<option value="0"></option>';
-  
-    $year = date('Y') + 1;
-    for($i=1; $i<101; $i++) {
-      $year--;
-      $selected = "";
-      if(intval($userData['year']) == $year) {
-        $selected = "selected='selected'";
-      }
-      $optionList .= "<option value='" . $year . "'" . $selected . ">" . $year . "</option>";
-    }
-    return $optionList;
-  }
-
-  private function generateGenderList($userData) {
-    $optionList = "";
-    $options = array('', 'female', 'male');
-    
-    foreach($options as $option) {
-      $selected = "";
-      if(strcmp($userData['gender'], $option) == 0) {
-        $selected = " selected='selected'";
-      }
-      
-      $optionList .= "<option value='" . $option . "'" . $selected . ">" . $this->languageHandler->getString($option) . "</option>";
-    }
-    return $optionList;
-  }
-
-//-------------------------------------not needed end
-
   //--------------------------------------------------------------------------------------------------------------------
   public function updateAvatarRequest() {
     try {
@@ -184,19 +124,6 @@ class profile extends CoreAuthenticationUser {
     }
   }
   
-//   private function checkOldPassword($oldPassword) {
-//     if($oldPassword == '') {
-//       throw new Exception($this->errorHandler->getError('profile', 'password_old_missing'),
-//           STATUS_CODE_PROFILE_OLD_PASSWORD_MISSING);
-//     }
-  
-//     $loginSuccess = $this->userFunctions->checkLoginData($this->session->userLogin_userNickname,
-//         $this->userFunctions->hashPassword($this->session->userLogin_userNickname, $oldPassword));
-//     if(!$loginSuccess) {
-//       throw new Exception($this->errorHandler->getError('profile', 'password_old_wrong'),
-//           STATUS_CODE_PROFILE_OLD_PASSWORD_WRONG);
-//     }
-//   }
 
   private function checkNewPassword($newPassword) {
     if($newPassword == '') {
@@ -219,16 +146,16 @@ class profile extends CoreAuthenticationUser {
   }
   
   public function updateEmailRequest() {
-    $mail_nr = (isset($_POST['mail_nr']) ? trim(strval($_POST['mail_nr'])) : '');
+    $additional = (isset($_POST['additional']) ? trim(strval($_POST['additional'])) : '');
     $email = (isset($_POST['email']) ? trim(strval($_POST['email'])) : '');
     try {
-       $this->userFunctions->updateEmailAddress($this->session->userLogin_userId, $email, $mail_nr);
-       $this->statusCode = STATUS_CODE_OK;
-       $this->answer = $this->languageHandler->getString('email_add_success');
-     } catch(Exception $e) {
-       $this->statusCode = $e->getCode();
-       $this->answer = $e->getMessage();
-     }
+      $this->userFunctions->updateEmailAddress($this->session->userLogin_userId, $email, $additional);
+      $this->statusCode = STATUS_CODE_OK;
+      $this->answer = $this->languageHandler->getString('email_add_success');
+    } catch(Exception $e) {
+      $this->statusCode = $e->getCode();
+      $this->answer = $e->getMessage();
+    }
   }
   
   public function addEmailRequest() {
@@ -257,23 +184,9 @@ class profile extends CoreAuthenticationUser {
     }
   }
 
-//--------------------------------------------------------------------------------------------------------------------  
-  public function updateCityRequest() {
-    $city = (isset($_POST['city']) ? trim(strval($_POST['city'])) : '');
-  
-    try {
-      $this->userFunctions->updateCity($city);
-  
-      $this->statusCode = STATUS_CODE_OK;
-      $this->answer = $this->languageHandler->getString('city_success');
-    } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
-    }
-  }
   //--------------------------------------------------------------------------------------------------------------------  
   public function updateCountryRequest() {
-    $country = (isset($_POST['profileCountry']) ? trim(strval($_POST['profileCountry'])) : '');
+    $country = (isset($_POST['country']) ? trim(strval($_POST['country'])) : '');
     try {
       $this->userFunctions->updateCountry($country);
   
@@ -285,38 +198,5 @@ class profile extends CoreAuthenticationUser {
     }
   }
 
-//--------------------------------------------------------------------------------------------------------------------  
-  public function updateGenderRequest() {
-    $gender = (isset($_POST['gender']) ? trim(strval($_POST['gender'])) : '');
-  
-    try {
-      $this->userFunctions->updateGender($gender);
-  
-      $this->statusCode = STATUS_CODE_OK;
-      $this->answer = $this->languageHandler->getString('gender_success');
-    } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
-    }
-  }
-
-   //--------------------------------------------------------------------------------------------------------------------  
-  public function updateBirthdayRequest() {
-    $birthdayMonth = (isset($_POST['birthdayMonth']) ? intval($_POST['birthdayMonth']) : '');
-    $birthdayYear = (isset($_POST['birthdayYear']) ? intval($_POST['birthdayYear']) : '');
-
-    try {
-      $this->userFunctions->updateBirthday($birthdayMonth, $birthdayYear);
-  
-      $this->statusCode = STATUS_CODE_OK;
-      $this->answer = $this->languageHandler->getString('birthday_success');
-    } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
-    }
-  }
-  public function __destruct() {
-    parent::__destruct();
-  }
 }
 ?>
