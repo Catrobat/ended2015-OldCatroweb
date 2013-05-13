@@ -380,7 +380,7 @@ class upload extends CoreAuthenticationDevice {
       $mailSubject = 'There is ' . $unapprovedWordCount . ' new unapproved word!';
     }
 
-    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText = "Hello ".APPLICATION_URL_TEXT." Administrator!\n\n";
     $mailText .= "New word(s):\n";
     for($i = 0; $i < $unapprovedWordCount; $i++) {
       $mailText .= $unapprovedWords[$i].(($unapprovedWordCount-1 == $i) ? "" : ", ");
@@ -403,7 +403,7 @@ class upload extends CoreAuthenticationDevice {
 
   private function sendUploadFailAdminEmail($formData, $fileData) {
     $mailSubject = 'Upload of a project failed!';
-    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText = "Hello ".APPLICATION_URL_TEXT." Administrator!\n\n";
     $mailText .= "The Upload of a project failed:\n\n";
     $mailText .= "---PROJECT DETAILS---\n";
     $mailText .= "Upload Error Code: " . $this->statusCode . "\n";

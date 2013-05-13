@@ -55,5 +55,5 @@
   <string name="country_success">You updated your country successfully.</string>
   <string name="gender_success">You updated your gender successfully.</string>
   <string name="birthday_success">You updated your birthday successfully.</string>
-  <string name="password_error">Attention - Passwords are not equal.</string>
+<!--  <string name="password_error">Attention - Passwords are not equal.</string> -->
 </strings>

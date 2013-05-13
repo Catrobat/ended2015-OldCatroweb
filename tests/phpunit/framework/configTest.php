@@ -31,6 +31,8 @@ class configTest extends PHPUnit_Framework_TestCase
   {
   	$this->assertEquals(VERSION, '0.6.5');
   	$this->assertEquals(MIN_CATROBAT_LANGUAGE_VERSION, '0.6');
+    $this->assertEquals(APPLICATION_NAME, 'Pocket Code');
+    $this->assertEquals(APPLICATION_URL_TEXT, 'PocketCode.org');
     $this->assertEquals(XML_PATH, 'include/xml/');
     $this->assertEquals(LANGUAGE_PATH, 'include/xml/lang/');
     $this->assertEquals(CSS_PATH, 'include/css/');
@@ -65,17 +67,17 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(DEFAULT_PUB_ERRORS_FILE, 'errors_pub.xml');
     $this->assertEquals(DEFAULT_TEMPLATE_LANGUAGE_FILE, 'template.xml');
     $this->assertEquals(SITE_DEFAULT_LANGUAGE, 'en');
-    $this->assertEquals(SITE_DEFAULT_TITLE, 'Catroid Website');
+    $this->assertEquals(SITE_DEFAULT_TITLE, APPLICATION_NAME.' Website');
     $this->assertEquals(MVC_DEFAULT_MODULE, 'catroid');
     $this->assertEquals(MVC_DEFAULT_CLASS, 'index');
     $this->assertEquals(MVC_DEFAULT_METHOD, '__default');
     $this->assertEquals(MVC_DEFAULT_AUTH_FAILED_METHOD, '__authenticationFailed');
     $this->assertEquals(MVC_DEFAULT_VIEW, 'html');
-    $this->assertEquals(USER_EMAIL_NOREPLY, 'noreply@catroid.org');
-    $this->assertEquals(USER_EMAIL_SUBJECT_PREFIX, 'CATROID.ORG');
-    $this->assertEquals(ADMIN_EMAIL_WEBMASTER, 'webmaster@catroid.org');
-    $this->assertEquals(ADMIN_EMAIL_NOREPLY, 'noreply@catroid.org');
-    $this->assertEquals(ADMIN_EMAIL_SUBJECT_PREFIX, 'CATROID.ORG');
+    $this->assertEquals(USER_EMAIL_NOREPLY, 'noreply@pocketcode.org');
+    $this->assertEquals(USER_EMAIL_SUBJECT_PREFIX, 'POCKETCODE.ORG');
+    $this->assertEquals(ADMIN_EMAIL_WEBMASTER, 'webmaster@pocketcode.org');
+    $this->assertEquals(ADMIN_EMAIL_NOREPLY, 'noreply@pocketcode.org');
+    $this->assertEquals(ADMIN_EMAIL_SUBJECT_PREFIX, 'POCKETCODE.ORG');
     $this->assertEquals(ADMIN_POOTLE_ROOT_URL, 'http://translate.catroid.org/');
     $this->assertEquals(CONTACT_EMAIL, 'webmaster@catrobat.org');
     $this->assertEquals(USER_STATUS_STRING_ACTIVE, 'active');
