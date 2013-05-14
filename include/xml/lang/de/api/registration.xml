@@ -18,5 +18,5 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="mail_text_row1">Gratulation und willkommen zu der Catroid.org Gemeinschaft!</string>
+  <string name="mail_text_row1">Gratulation und willkommen zu der {*appplication_url*} Gemeinschaft!</string>
 </strings>

@@ -89,6 +89,13 @@
 	font-weight: bold;
 }
 
+#wrapper article div#searchResultLoader {
+  background-color: #05222a;
+  text-align: center;
+  padding: 0.6em;
+  display: none;
+}
+
 
 
 @media screen and (min-width: 320px) {

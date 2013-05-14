@@ -24,20 +24,27 @@
 var Footer = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function() {
-    this.isMoreToggeled = false;
+    this.isMoreMenuToggeled = false;
     
-    $("#footerMoreButton").click($.proxy(this.toogleMore, this));
+    $("#footerMoreButton").click($.proxy(this.toogleMoreMenu, this));
+    $("#footerLessButton").click($.proxy(this.toogleMoreMenu, this));
   },
   
-  toogleMore : function(event) {
-    if(this.isMoreToggeled) {
+  toogleMoreMenu : function(event) {
+    if(this.isMoreMenuToggeled) {
+      $("#footerLessButton").hide();
+      $("#footerMoreButton").css("display", "table-cell");
+      
       $("#footerMoreMenu").hide();
     } else {
+      $("#footerLessButton").css("display", "table-cell");
+      $("#footerMoreButton").hide();
+      
       $("#footerMoreMenu").css("display", "table-row");
       $(window).scrollTop($(document).height());
     }
     
-    this.isMoreToggeled = !this.isMoreToggeled;
+    this.isMoreMenuToggeled = !this.isMoreMenuToggeled;
     event.preventDefault();
   }
 });

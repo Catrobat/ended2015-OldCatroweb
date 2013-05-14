@@ -44,8 +44,11 @@
           <div>
             &copy; Catroid
           </div>
-          <div>
-            <a id="footerMoreButton" href="#">more</a>
+          <div id="footerMoreButton">
+            <span class="img-more"></span> <?php echo $this->languageHandler->getString('template_footer_more')?>
+          </div>
+          <div id="footerLessButton">
+            <span class="img-less"></span> <?php echo $this->languageHandler->getString('template_footer_less')?>
           </div>
         </div>
         <div id="footerMoreMenu">

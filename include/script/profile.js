@@ -27,7 +27,7 @@ var Profile = Class.$extend( {
   __init__ : function(languageStringsObject) {
     var self = this;
     this.languageStringsObject = languageStringsObject;
-    this.passwordChanged = 0;
+    this.passwordadditionalChanged = 0;
     this.countryChanged = 0;
     this.firstEmailChanged = 0;
     this.secondEmailChanged = 0;
@@ -35,31 +35,13 @@ var Profile = Class.$extend( {
     $("#profileUpdateSuccess").toggle(false);
     this.initAvatarUploader();
     this.setEmailValuesRequest();
-    
-//    $("#profileChangePassword").click(function() { $("#profilePasswordInput").toggle() });
-//    $("#profilePasswordSubmit").click($.proxy(this.updatePaswordRequest, this));
-//    $("#profileOldPassword").keypress($.proxy(this.passwordCatchKeypress, this));
-//    $("#profileNewPassword").keypress($.proxy(this.passwordCatchKeypress, this));
    
     $("#profileNewPassword").keypress($.proxy(this.passwordCatchKeypress, this));
     $("#profileRepeatPassword").keypress($.proxy(this.passwordCatchKeypress, this));
     $("#profileFirstEmail").keypress($.proxy(this.firstEmailCatchKeypress, this));
     $("#profileSecondEmail").keypress($.proxy(this.secondEmailCatchKeypress, this));
-    $(".profileCountry").change($.proxy(this.countryChanged = 1));
+    $(".profileCountry").change($.proxy(this.countryChangedEvent, this));
     $("#profileSaveChanges").click($.proxy(this.updateChangesRequest, this));
-
-
-    
-    //this.updateEmailListRequest();
-    //$("#addEmailButton").click($.proxy(this.addEmailRequest, this));
-    //$("#addEmailInput").keypress($.proxy(this.addEmailCatchKeypress, this));
-    
-//    $("#cityInput").change($.proxy(this.updateCityRequest, this));
-//    $("#countrySelect").change($.proxy(this.updateCountryRequest, this));
-//    $("#genderSelect").change($.proxy(this.updateGenderRequest, this));
-//    $("#birthdayMonthSelect").change($.proxy(this.updateBirthdayRequest, this));
-//    $("#birthdayYearSelect").change($.proxy(this.updateBirthdayRequest, this));
-//    $("#profileSwitchLanguage").change($.proxy(this.updateLanguageRequest, this));
 
     $("#searchForm").submit($.proxy(this.search, this));
   },
@@ -72,10 +54,10 @@ var Profile = Class.$extend( {
     var fileInput = $('#profileAvatarFile').wrap(wrapper);
     fileInput.change(function() {
       if(this.files[0].size > 5 * 1024 * 1024) {
-        //common.showAjaxErrorMsg(self.languageStringsObject.image_too_big);
         $("#profilePasswordError").text(self.languageStringsObject.image_too_big);
         $("#profilePasswordError").toggle(true);
-        $(".profileAvatarImage img").css({"border" : "5px solid #880000"})
+        $("#profileEmailError").toggle(true);
+        $(".profileAvatarImage img").css({"outline" : "0.7em solid #880000"})
         return;
       }
       
@@ -89,11 +71,7 @@ var Profile = Class.$extend( {
         processData: false,
         contentType: false,
         success : $.proxy(self.avatarRequestSuccess, self),
-        //error : $.proxy(common.ajaxTimedOut, self)
-        //error: alert("AjaxTimedOut")
       });
-      
-      //common.disableAutoHideAjaxLoader();
     })
 
     $('#profileChangeAvatarButton').click(function(){
@@ -103,17 +81,20 @@ var Profile = Class.$extend( {
 
 
   avatarRequestSuccess : function(result) {
-    //common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
       $('.profileAvatarImage img').attr("src", result.avatar);
       $("#profileUpdateSuccess").toggle(true);
+      $("#profileAvatarError").toggle(false);
+      $("#profileEmailError").toggle(false);
       $("#profilePasswordError").toggle(false);
-      $(".profileAvatarImage img").css({"border" : "5px solid #FFFFFF"})
+      $(".profileAvatarImage img").css({"outline" : "0.7em solid #FFFFFF"})
       
     } else {
-      $("#profilePasswordError").text(result.answer);
+      $("#profileAvatarError").text(this.languageStringsObject.image_too_big);
+      $("#profileAvatarError").toggle(true);
+      $("#profileEmailError").toggle(true);
       $("#profilePasswordError").toggle(true);
-      $(".profileAvatarImage img").css({"border" : "5px solid #880000"})
+      $(".profileAvatarImage img").css({"outline" : "0.7em solid #880000"})
     }
   },
 
@@ -122,25 +103,13 @@ var Profile = Class.$extend( {
     this.passwordChanged = 1;
     if(event.which == '13') {
       this.updateChangesRequest();
-      //this.updatePaswordRequest();
       event.preventDefault();
     }
   },
-
-//not needed in new version  
-//  updatePaswordRequest : function() {
-//    $.ajax({
-//      type: "POST",
-//      url: this.basePath + 'profile/updatePasswordRequest.json',
-//      data : ({
-//        profileOldPassword : $("#profileOldPassword").val(),
-//        profileNewPassword : $("#profileNewPassword").val()
-//      }),
-//      timeout : (this.ajaxTimeout),
-//      success : $.proxy(this.passwordRequestSuccess, this),
-//      error : $.proxy(common.ajaxTimedOut, this)
-//    });
-//  },
+  
+  countryChangedEvent : function(event) {
+    this.countryChanged = 1;
+  },
   
   updateChangesRequest : function() {
     if(this.passwordChanged == 1) {
@@ -158,42 +127,41 @@ var Profile = Class.$extend( {
       });
     }
     if(this.firstEmailChanged == 1) {
+      this.firstEmailChanged = 0;
       $.ajax({
         type: "POST",
         url: this.basePath + 'catroid/profile/updateEmailRequest.json',
         data : ({
           email : $("#profileFirstEmail").val(),
-          mail_nr : 1
+          additional : 0
         }),
         timeout : (this.ajaxTimeout),
         success : $.proxy(this.firstEmailRequestSuccess, this),
-        //error : $.proxy(common.ajaxTimedOut, this)
       });
     }
     if(this.secondEmailChanged == 1) {
+      this.secondEmailChanged = 0;
       $.ajax({
         type: "POST",
         url: this.basePath + 'catroid/profile/updateEmailRequest.json',
         data : ({
           email : $("#profileSecondEmail").val(),
-          mail_nr : 2
+          additional : 1
         }),
         timeout : (this.ajaxTimeout),
-        success : $.proxy(this.firstEmailRequestSuccess, this),
-        //error : $.proxy(common.ajaxTimedOut, this)
+        success : $.proxy(this.secondEmailRequestSuccess, this),
       });
     }
     if(this.countryChanged == 1) {
+      this.countryChanged = 0;
       $.ajax({
         type: "POST",
         url: this.basePath + 'profile/updateCountryRequest.json',
         data : ({
-          country : $(".profileCountry").val()
+          country : $(".profileCountry select").val()
         }),
         timeout : (this.ajaxTimeout),
-        success : $.proxy(this.countryRequestSuccess, this),
-        //error : $.proxy(common.ajaxTimedOut, this)
-        
+        success : $.proxy(this.countryRequestSuccess, this),       
       });
     }
 
@@ -201,11 +169,11 @@ var Profile = Class.$extend( {
   },
   
   passwordRequestSuccess : function(result) {
-    //common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
-      //$("#profileUpdateSuccess").text(result.answer);
+      $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
       $("#profilePasswordError").toggle(false);
+      $("#profileEmailError").toggle(false);
       $("#profileNewPassword").val("");
       $("#profileRepeatPassword").val("");
       $("#profileNewPassword").css({"background-color" : "#FFFFFF", "color" : "#000000"});
@@ -216,54 +184,59 @@ var Profile = Class.$extend( {
     } else {
       $("#profilePasswordError").text(result.answer);
       $("#profilePasswordError").toggle(true);
-      $(".profilePasswordItem").css({"border" : "0.2em solid #880000 ","background-color" : "#F78181", "-mox-box-shadow:" : "none",
+      $("#profileEmailError").toggle(true);
+      $(".profilePasswordItem").css({"border" : "0.2em solid #880000","background-color" : "#F78181", "-mox-box-shadow:" : "none",
         "-webkit-box-shadow" : "none", "box-shadow" : "none"});
       $("#profileNewPassword").css({"background-color" : "#F78181", "color" : "#880000"});
       $("#profileRepeatPassword").css({"background-color" : "#F78181", "color" : "#880000"});
     }
   },
-  
-  passwordRequestSuccess : function(result) {
-    //common.showPreHeaderMessages(result);
+ 
+  firstEmailRequestSuccess : function(result) {
     if(result.statusCode == 200) {
-      $("#profileUpdateSuccess").text(result.answer);
+      $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
+      $("#profileEmailError").toggle(false);
+      $("#profilePasswordError").toggle(false);
+      $(".profileFirstEmailItem").css({"-mox-box-shadow" : "inset 2px 2px 5px #05222a","-webkit-box-shadow" : "inset 2px 2px 5px #05222a",
+        "box-shadow" : "inset 2px 2px 5px #05222a","background-color" : "#FFFFFF","border" : "2px solid #05222a"});
+      $("#profileFirstEmail").css({"background-color" : "#FFFFFF","color" : "#000000"});
     } else {
-      $("#profilePasswordError").text(result.answer);
+      $("#profileEmailError").text(result.answer);
+      $("#profileEmailError").toggle(true);
+      $("#profilePasswordError").toggle(true);
+      $(".profileFirstEmailItem").css({"border" : "0.2em solid #880000 ","background-color" : "#F78181", "-mox-box-shadow:" : "none",
+        "-webkit-box-shadow" : "none", "box-shadow" : "none"});
+      $("#profileFirstEmail").css({"background-color" : "#F78181", "color" : "#880000"});
+    }
+  },
+  
+  secondEmailRequestSuccess : function(result) {
+    if(result.statusCode == 200) {
+      $("#profileUpdateSuccess").text("success");
+      $("#profileUpdateSuccess").toggle(true);
+      $("#profileEmailError").toggle(false);
+      $("#profilePasswordError").toggle(false);
+      $(".profileSecondEmailItem").css({"-mox-box-shadow" : "inset 2px 2px 5px #05222a","-webkit-box-shadow" : "inset 2px 2px 5px #05222a",
+        "box-shadow" : "inset 2px 2px 5px #05222a","background-color" : "#FFFFFF","border" : "2px solid #05222a"});
+      $("#profileFirstEmail").css({"background-color" : "#FFFFFF","color" : "#000000"});
+    } else {
+      $("#profileEmailError").text(result.answer);
+      $("#profileEmailError").toggle(true);
+      $("#profilePasswordError").toggle(true);
+      $(".profileSecondEmailItem").css({"border" : "0.2em solid #880000 ","background-color" : "#F78181", "-mox-box-shadow:" : "none",
+        "-webkit-box-shadow" : "none", "box-shadow" : "none"});
+      $("#profileSecondEmail").css({"background-color" : "#F78181", "color" : "#880000"});
     }
   },
   
   countryRequestSuccess : function(result) {
     if(result.statusCode == 200) {
+      $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
     }
   },
 
-  //needed??-------------------------------------------------------------------------------------------------------------------
-//  updateEmailListRequest : function() {
-//    $.ajax({
-//      type: "GET",
-//      url: this.basePath + 'profile/getEmailListRequest.json',
-//      timeout : (this.ajaxTimeout),
-//      success : $.proxy(this.updateEmailList, this),
-//      error: alert("Error update Email List")
-//      //error : $.proxy(common.ajaxTimedOut, this)
-//    });
-//  },
-//  
-//  updateEmailList : function(result) {
-//    $('#emailDeleteButtons').empty();
-//    $('#emailDeleteButtons').html(result.answer);
-//    
-//    var self = this;
-//    $('#emailDeleteButtons > button').each(function() {
-//      $(this).click(function(e) {
-//        if(confirm(self.languageStringsObject.really_delete + " '" + e.target.name + "' ?")) {
-//          $.proxy(self.deleteEmailRequest(e.target.name), self);
-//        }
-//      });
-//    });
-//  },
   
   setEmailValuesRequest : function() {
     $.ajax({
@@ -271,12 +244,11 @@ var Profile = Class.$extend( {
       url: this.basePath + 'catroid/profile/getEmailListRequest.json',
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.setEmailValues, this),
-      //error : $.proxy(common.ajaxTimedOut, this)
     });
   },
   
   setEmailValues : function(result) {
-    console.log(result);
+    console.log(result.answer);
     $("#profileFirstEmail").attr('placeholder',result.answer[0].address);
     if(result.answer[1] != null)
       $("#profileSecondEmail").attr('placeholder',result.answer[1].address);
@@ -300,127 +272,6 @@ var Profile = Class.$extend( {
       event.preventDefault();
     }
   },
-
-//not needed in new version
-//  addEmailCatchKeypress : function(event) {
-//    if(event.which == '13') {
-//      this.addEmailRequest();
-//      event.preventDefault();
-//    }
-//  },
-//new version
-//  addEmailRequest : function(value) {
-//    $.ajax({
-//      type: "POST",
-//      url: this.basePath + 'profile/addEmailRequest.json',
-//      data : ({
-        //if(value == 1)
-//          profileEmail : $("#profileFirstEmail").val()
-//        else
-//          profileEmail : $("#profileSecondEmail").val()
-//      }),
-//      timeout : (this.ajaxTimeout),
-//      success : $.proxy(this.emailRequestSuccess, this),
-//      error : $.proxy(common.ajaxTimedOut, this)
-//    });
-//  },
-
-//  addEmailRequest : function() {
-//    $.ajax({
-//      type: "POST",
-//      url: this.basePath + 'profile/addEmailRequest.json',
-//      data : ({
-//        profileEmail : $("#addEmailInput").val()
-//      }),
-//      timeout : (this.ajaxTimeout),
-//      success : $.proxy(this.emailRequestSuccess, this),
-//      //error : $.proxy(common.ajaxTimedOut, this)
-//      error : alert("Error add Email Request")
-//    });
-//  },
-//
-//  deleteEmailRequest : function(email) {
-//    $.ajax({
-//      type: "POST",
-//      url: this.basePath + 'profile/deleteEmailRequest.json',
-//      data : ({
-//        profileEmail : email
-//      }),
-//      timeout : (this.ajaxTimeout),
-//      success : $.proxy(this.emailRequestSuccess, this),
-//      //error : $.proxy(common.ajaxTimedOut, this)
-//      error : alert("Error delete Email")
-//    });
-//  },
-
-//  emailRequestSuccess : function(result) {
-//    common.showPreHeaderMessages(result);
-//    if(result.statusCode == 200) {
-//      $("#addEmailInput").val("");
-//      this.updateEmailListRequest();
-//      common.showAjaxSuccessMsg(result.answer);
-//    } else {
-//      common.showAjaxErrorMsg(result.answer);
-//    }
-//  },
-  
-  //-------------------------------------------------------------------------------------------------------------------
-  updateCityRequest : function() {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'profile/updateCityRequest.json',
-      data : ({
-        city: $("#cityInput").val()
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.genericRequestSuccess, this),
-     //error : $.proxy(common.ajaxTimedOut, this)
-      error : alert("update City error")
-    });
-  },  
-  
-  //-------------------------------------------------------------------------------------------------------------------
-//  updateCountryRequest : function() {
-//    this.countryChanged = 1
-//  },  
-  
-  //-------------------------------------------------------------------------------------------------------------------
-  updateGenderRequest : function() {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'profile/updateGenderRequest.json',
-      data : ({
-        gender: $("#genderSelect").val()
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.genericRequestSuccess, this),
-      //error : $.proxy(common.ajaxTimedOut, this)
-      error : alert("update gender")
-    });
-  },  
-  
-  //-------------------------------------------------------------------------------------------------------------------
-  updateBirthdayRequest : function() {
-    var month = $("#birthdayMonthSelect").val();
-    var year = $("#birthdayYearSelect").val();
-    
-    if(!((month == 0 && year == 0) || (month > 0 && year > 0))) {
-      return;
-    }
-    
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'profile/updateBirthdayRequest.json',
-      data : ({
-        birthdayMonth: month,
-        birthdayYear: year
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.genericRequestSuccess, this),
-      //error : $.proxy(common.ajaxTimedOut, this)
-      error : alert("update birthday")
-    });
-  },  
   
   //-------------------------------------------------------------------------------------------------------------------
   updateLanguageRequest : function() {
@@ -437,14 +288,6 @@ var Profile = Class.$extend( {
     });
   },
 
-  genericRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
-    if(result.statusCode == 200) {
-      common.showAjaxSuccessMsg(result.answer);
-    } else {
-      common.showAjaxErrorMsg(result.answer);
-    }
-  },
 
   search : function() {
     location.href = "/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";

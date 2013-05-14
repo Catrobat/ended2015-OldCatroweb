@@ -47,6 +47,7 @@ class index extends CoreAuthenticationNone {
     $params = array();
     $params['layout'] = PROJECT_LAYOUT_GRID_ROW;
     $params['container'] = '#newestProjects';
+    $params['loader'] = '#newestProjectsLoader';
     $params['buttons'] = array('prev' => null,
         'next' => '#newestShowMore'
     );
@@ -74,6 +75,7 @@ class index extends CoreAuthenticationNone {
     $this->newestProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
     $params['firstPage'] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+
         $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_DOWNLOADS);
     $params['container'] = '#mostDownloadedProjects';
     $params['buttons'] = array('prev' => null,
@@ -88,6 +90,7 @@ class index extends CoreAuthenticationNone {
     $params['container'] = '#mostViewedProjects';
     $params['buttons'] = array('prev' => null,
         'next' => '#mostViewedShowMore'
+
     );
     $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
     $params['sort'] = PROJECT_SORTBY_VIEWS;

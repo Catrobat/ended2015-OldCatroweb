@@ -28,21 +28,18 @@
      <div id="profileContainer">
        <div>
           <div class="profileAvatar">
+          <div id="profileAvatarError"></div>
              <div class="profileAvatarImage"><img src="<?php echo $this->userData['avatar']; ?>" />
                <div class="profileChangeAvatar"><button id="profileChangeAvatarButton"><?php echo $this->languageHandler->getString('changeAvatar') ?></button></div>
              </div>
              <input id="profileAvatarFile" type="file" style="visibility:hidden;"/>
            </div>
-           
-           <div id="profileUpdateError">
-            <div id="profilePasswordError">
-             </div>
-           </div>
+     
          </div>
        
          <div class="profileInputs">
            <div class="profileInputsLeft">
-              
+              <div id="profilePasswordError"></div>
              <div class="profilePasswordItem" >
                  <input type="password" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password') ?>" />
                  <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
@@ -57,11 +54,12 @@
              </div>      
            </div>
            <div class="profileInputsRight">
-             <div class="profileItem" >
+           <div id="profileEmailError"></div>
+             <div class="profileFirstEmailItem" >
                <input id="profileFirstEmail" type="email" />
                <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
              </div>
-             <div class="profileItem">
+             <div class="profileSecondEmailItem">
                <input id="profileSecondEmail" type="email"/>
                <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
              </div>

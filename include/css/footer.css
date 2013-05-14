@@ -36,6 +36,18 @@ footer div div {
   display: table-row;
 }
 
+footer div div#footerMoreButton, div#footerLessButton {
+  cursor: pointer;
+}
+
+footer div div#footerLessButton {
+  display: none;
+}
+
+footer div div span {
+  display: inline-block;
+}
+
 footer div.footerMenu div {
   border-top: 1px solid #385f6e;
 }
@@ -57,7 +69,7 @@ footer div:nth-child(1) div:nth-child(1) {
   text-align: left;
 }
 
-footer div:nth-child(1) div:nth-child(3) {
+footer div:nth-child(1) div:nth-child(3), div:nth-child(4) {
   text-align: right;
 }
 

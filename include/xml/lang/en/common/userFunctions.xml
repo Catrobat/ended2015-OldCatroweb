@@ -22,30 +22,30 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="registration_mail_subject">Your Catroid.org Registration</string>
-  <string name="registration_mail_text_row1">Congratulations and welcome to the Catroid.org community.</string>
+  <string name="registration_mail_subject">Your {*appplication_name*} Registration</string>
+  <string name="registration_mail_text_row1">Congratulations and welcome to the {*appplication_url*} community.</string>
   <string name="registration_mail_text_row2">Please keep this e-mail for your records. Your account information is as follows:</string>
   <string name="registration_mail_text_row3">Username: {*username*}</string>
   <string name="registration_mail_text_row5">Password: {*password*}</string>
-  <string name="registration_mail_text_row6">You can use your nickname and your password at any time to access the catroid community.</string>
+  <string name="registration_mail_text_row6">You can use your nickname and your password at any time to access the {*appplication_name*} community.</string>
   <string name="registration_mail_text_row7">To do so, just visit the following page:</string>
   <string name="registration_mail_text_row8">To edit your profile details, go to this page:</string>
   <string name="registration_mail_text_row9">In the event that you forgot your password, you will be able to reset it using the email address or your username associated with your account.</string>
   <string name="registration_mail_text_row10">Best regards,</string>
-  <string name="registration_mail_text_row11">Your Catroid Team</string>
+  <string name="registration_mail_text_row11">Your {*appplication_name*} Team</string>
 
-  <string name="recovery_mail_subject">Your Catroid.org Password Recovery</string>
+  <string name="recovery_mail_subject">Your {*appplication_name*} Password Recovery</string>
   <string name="recovery_mail_text_row1">Dear {*username*}.</string>
-  <string name="recovery_mail_text_row2">You have requested to reset your password on Catroid.org because you have forgotten your password. If you did not request this, please ignore it. It will expire and become useless in 24 hours time.</string>
+  <string name="recovery_mail_text_row2">You have requested to reset your password on {*appplication_url*} because you have forgotten your password. If you did not request this, please ignore it. It will expire and become useless in 24 hours time.</string>
   <string name="recovery_mail_text_row3">To reset your password and create a new one, please visit the following page:</string>
-  <string name="recovery_mail_text_row5">You can use your nickname and your password at any time to access the catroid community.</string>
+  <string name="recovery_mail_text_row5">You can use your nickname and your password at any time to access the {*appplication_name*} community.</string>
   <string name="recovery_mail_text_row6">To do so, just visit the following page:</string>
   <string name="recovery_mail_text_row7">To edit your profile details, go to this page:</string>
   <string name="recovery_mail_text_row8">Best regards,</string>
-  <string name="recovery_mail_text_row9">Your Catroid Team</string>
+  <string name="recovery_mail_text_row9">Your {*appplication_name*} Team</string>
 
-	<string name="email_validation_subject">Your Catroid.org E-Mail Verification</string>
+	<string name="email_validation_subject">Your {*appplication_name*} E-Mail Verification</string>
   <string name="email_validation_text_row1">Dear {*username*} to continue the process of adding a new e-mail address please click the link below to verify.</string>
   <string name="email_validation_text_row2">Best regards,</string>
-  <string name="email_validation_text_row3">Your Catroid Team</string>
+  <string name="email_validation_text_row3">Your {*appplication_name*} Team</string>
 </strings>

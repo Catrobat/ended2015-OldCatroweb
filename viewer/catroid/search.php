@@ -27,6 +27,7 @@
         <header><?php echo $this->languageHandler->getString('header'); ?></header>
         <div id="fewerResults"><?php echo $this->languageHandler->getString('prev_button', '&laquo;'); ?></div>
         <div id="searchResultContainer"></div>
+        <div id="searchResultLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></div>
         <div id="moreResults"><?php echo $this->languageHandler->getString('next_button', '&raquo;'); ?></div>
       </article>
       <script type="text/javascript">

@@ -71,11 +71,11 @@ class tools extends CoreAuthenticationAdmin {
     }
     
     if(SEND_NOTIFICATION_USER_EMAIL) {
-      $mailSubject = "Catroid.org - Password reset required";
+      $mailSubject = APPLICATION_URL_TEXT." - Password reset required";
       $mailText  = 'Dear '.$userName.'.'. "\r\n\r\n";
       $mailText .= 'TODO: text';
       $mailText .= 'Best regards,'. "\r\n";
-      $mailText .= 'Your Catroid Team'. "\r\n";
+      $mailText .= 'Your '.APPLICATION_NAME.' Team'. "\r\n";
     
       if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
         throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),

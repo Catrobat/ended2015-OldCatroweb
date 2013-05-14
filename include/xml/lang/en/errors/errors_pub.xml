@@ -38,7 +38,7 @@
       <string name="username_invalid_underscore">The nickname you have entered is not allowed. Please do not use underscores (_).</string>
       <string name="username_invalid_hash">The nickname you have entered is not allowed. Please do not use hash signs (#).</string>
       <string name="username_invalid_verticalbar">The nickname you have entered is not allowed. Please do not use vertical bars (|).</string>
-      <string name="username_invalid_curlybrace">The nickname you have entered is not allowed. Please do not use curly braces ({ or }).</string>
+      <string name="username_invaquery_failedlid_curlybrace">The nickname you have entered is not allowed. Please do not use curly braces ({ or }).</string>
       <string name="username_invalid_lessgreater">The nickname you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
       <string name="username_invalid_squarebracket">The nickname you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
       <string name="username_invalid_spaces">The nickname you have entered is not allowed. Please do not use spaces (" ").</string>
@@ -52,7 +52,7 @@
       <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
       <string name="email_missing">You haven't entered an email address, please add one.</string>
       <string name="email_invalid">This email address is not valid.</string>
-      <string name="email_already_exists">The email address you have entered already exists.</string>
+      <string name="last_email">One email address is required.</string>
       <string name="country_missing">You haven't entered a country, please add one.</string>
       <string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
       <string name="board_authentication_failed">The board authentication failed.</string>

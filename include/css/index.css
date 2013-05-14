@@ -134,6 +134,13 @@
 	font-weight: bold;
 }
 
+#wrapper article div.projectLoader {
+  background-color: #00475d;
+  text-align: center;
+  padding: 0.6em;
+  display: none;
+}
+
 #wrapper article div.moreButton {
   margin-bottom: 2.8em;
 }
@@ -145,11 +152,20 @@
 }
 
 #wrapper article div.moreButton div {
-  background-color: #00475d;
   width: 3.2em;
   height: 3.2em;
   margin: 0.5em auto;
+}
+
+#wrapper article div.moreButton div span {
+  display: inline-block;
+  background-color: #00475d;
   cursor: pointer;
+}
+
+#wrapper article div.moreButton div span span {
+  display: block;
+  margin: 0.35em;
 }
 
 
