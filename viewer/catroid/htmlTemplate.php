@@ -40,7 +40,7 @@ $this->module->addGlobalJs('languageHandler.js');
 $this->module->addGlobalJs('commonFunctions.js');
 $this->module->addGlobalJs('login.js');
 $this->module->addGlobalJs('searchBar.js');
-//$this->module->addGlobalJs('headerMenu.js');
+$this->module->addGlobalJs('headerMenu.js');
 
 
 

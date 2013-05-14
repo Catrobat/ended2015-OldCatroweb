@@ -41,7 +41,25 @@
             </div>
             
             <div class="largeSearchBarRight">
-             <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+
+            <?php if ($this->userData['id']) { ?>
+
+              <a id="headerProfileButton" href="#"><img src="<?php echo $this->userData['avatar']; ?>" />
+              <span><?php echo $this->userData['username']; ?></span></a>
+             <div id="profileMenuNavigation"><div id="profileMenuNavigationContent"><ul>
+              <li><a href="#" id="menuProfileButton"><div class="icon">&nbsp;</div>Mein Profil</a></li>
+              <li><a href="#" id="menuProfileChangeButton"><div class="icon">&nbsp;</div>Profil bearbeiten</a></li>
+              <li><a href="#" id="menuLogoutButton"><div class="icon">&nbsp;</div>Ausloggen</a></li>
+             </ul></div></div>              
+
+            <?php } else { ?>
+            
+                        
+             <a id="headerLoginButton" href="#"><img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+             <span>Login</span></a>
+
+            <?php } ?>
+
             </div>
             <div class="marginSpacer"></div>
           </div>
@@ -74,5 +92,6 @@
         $(document).ready(function() {
           Header = new Header();
           SearchBar = new SearchBar(Header);
+          HeaderMenu = new HeaderMenu();
         });
       </script>

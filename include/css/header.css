@@ -98,6 +98,96 @@
   background-image: linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
+  vertical-align: middle;
+}
+
+#wrapper header nav div div.largeSearchBarRight img {
+  float: left;
+  background-color: inherit;
+}
+
+#wrapper header nav div div.largeSearchBarRight span {
+  margin-left: 3.125em;
+  padding: 0.563em;
+  line-height: 2em;
+  display: block;
+  background-color: inherit;
+}
+
+#wrapper header nav div div.largeSearchBarRight a {
+  text-decoration: none;
+}
+
+#wrapper header nav div div.largeSearchBarRight a:visited,
+#wrapper header nav div div.largeSearchBarRight a:active {
+  color: #A8DFF4
+}
+
+#wrapper header nav div div.largeSearchBarRight div#profileMenuNavigation * {
+    /*display: inline;*/
+}
+
+#wrapper header nav div div.largeSearchBarRight div#profileMenuNavigation ul {
+    list-style: none outside none;
+    margin: 0;
+    padding: 0;
+}
+
+#wrapper header nav div div.largeSearchBarRight div#profileMenuNavigation a {
+    display: block;
+    line-height: 2em;
+    padding: 0.5625em;
+}
+
+#wrapper header nav div div.largeSearchBarRight a:active,
+#wrapper header nav div div.largeSearchBarRight a:hover,
+#wrapper header nav div div.largeSearchBarRight a:focus {
+  background-color: #00475D;
+}
+
+#wrapper header nav div div.largeSearchBarRight div#profileMenuNavigation a img {
+  padding: 0 1em 0 0;
+}
+
+#wrapper header nav div div.largeSearchBarRight div#profileMenuNavigation {
+    display: none;
+    background: url("/images/symbols/menu_upper_border.png") no-repeat scroll 164px 0 transparent;
+    position: absolute;
+    z-index: 1000;
+    display: none;
+    position: absolute;
+    z-index: 1000;
+    margin-left: -69px;
+    width: 203px;
+    padding-top: 17px;
+    margin-top: 6px;
+    opacity: 0.9;
+}
+
+#wrapper header nav div div.largeSearchBarRight div#profileMenuNavigation div#profileMenuNavigationContent {
+  display: block;
+  padding-top: 4px;
+  background-color: #74B1C6;
+}
+
+#wrapper header nav div div.largeSearchBarRight div#profileMenuNavigation a div.icon {
+  display: inline-block;
+  background: url('/images/symbols/sprite_icons_web.png');
+  width: 35px;
+  height: 35px;
+  margin-right: 12px;
+}
+
+#wrapper header nav div div.largeSearchBarRight div#profileMenuNavigation a#menuProfileButton div.icon {
+  background-position: 0px -140px;
+}
+
+#wrapper header nav div div.largeSearchBarRight div#profileMenuNavigation a#menuProfileChangeButton div.icon {
+  background-position: 0px -140px;
+}
+
+#wrapper header nav div div.largeSearchBarRight div#profileMenuNavigation a#menuLogoutButton div.icon {
+  background-position: 0px -140px;
 }
 
 #wrapper header nav div#smallMenu img {

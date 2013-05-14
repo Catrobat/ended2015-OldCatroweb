@@ -27,8 +27,10 @@ var Menu = Class.$extend( {
 
     this.userLogin_userId = userLogin_userId;
     
-    //$("#menuForumButton").click({url:this.basePath + "addons/board",windowName:"board"}, jQuery.proxy(this.openWindow, this));
+    //$("#menuLoginButton").click({url:this.basePath + "addons/board",windowName:"board"}, jQuery.proxy(this.openWindow, this));
+    
     $("#menuForumButton").click({url:"http://catrob.at/PocketCodeUserForum",windowName:"board"}, jQuery.proxy(this.openWindow, this));
+    
     $("#headerBackButton").click(jQuery.proxy(this.goBack, this));
     $("#menuWallButton").click({url:"wall"}, jQuery.proxy(this.openLocation, this));
     $("#menuSettingsButton").click({url:"settings"}, jQuery.proxy(this.openLocation, this));
@@ -41,7 +43,9 @@ var Menu = Class.$extend( {
     */
     $("#menuWikiButton").click({url:"https://github.com/Catrobat/Catroid/wiki/_pages",windowName:"wiki"}, jQuery.proxy(this.openWindow, this));
 
-    $("#menuLoginButton").click($.proxy(this.toggleProfileBox, this));
+    //$("#menuLoginButton").click($.proxy(this.toggleProfileBox, this));
+    $("#menuLoginButton").click({url:"login"}, jQuery.proxy(this.openLocation, this));
+    
     $("#menuRegistrationButton").click({url:"registration"}, jQuery.proxy(this.openLocation, this));
     $("#menuPasswordRecoveryButton").click({url:"passwordrecovery"}, jQuery.proxy(this.openLocation, this));
     $("#menuProfileButton").click({url:"profile"}, jQuery.proxy(this.openLocation, this));

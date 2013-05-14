@@ -31,8 +31,12 @@ var HeaderMenu = Class.$extend( {
     }
     
     $("#headerMenuButton").click({url:"menu"}, jQuery.proxy(this.openLocation, this));
-    $("#headerProfileButton").click(jQuery.proxy(this.toggleProfileBox, this));
+    $("#headerLoginButton").click({url:"login"}, jQuery.proxy(this.openLocation, this));
+    $("#headerProfileButton").click(jQuery.proxy(this.toggleProfileMenu, this));
     $("#headerCancelButton" ).click(jQuery.proxy(this.toggleAllBoxes, this));
+    $("#menuProfileButton").click(jQuery.proxy(this.toggleProfileBox, this));
+    $("#menuProfileChangeButton").click(jQuery.proxy(this.toggleProfileBox, this));
+    $("#menuLogoutButton").click(jQuery.proxy(this.logoutRequest, this));
   },
   
   openLocation : function(event) {
@@ -67,6 +71,56 @@ var HeaderMenu = Class.$extend( {
     $("#headerSearchBox").toggle(true);
     $("#cancelHeaderButton").toggle(false);
     $("#headerProfileBox").toggle(false);
+  },
+
+  toggleProfileMenu : function() {
+    $("#profileMenuNavigation").toggle();
+  },
+    
+  openProfileMenu : function() {
+    $("#profileMenuNavigation").css("display", "block");
+  },
+  
+  closeProfileMenu : function() {
+    $("#profileMenuNavigation").css("display", "none");
+  },  
+
+
+  logoutRequest : function() {
+    $.ajax({
+      type : "POST",
+      url : this.basePath + "login/logoutRequest.json",
+      success : $.proxy(this.logoutRequestSuccess, this),
+      error : alert('error')
+    });
+  },
+
+  logoutRequestSuccess : function(result) {
+    common.showPreHeaderMessages(result);
+    if(result.statusCode == 200) {
+      if(this.requestUri != '') {
+        location.href = this.basePath + 'login?requestUri=' + this.requestUri;
+      } else {
+        location.reload();
+      }
+    }
+  },
+    
+  updateMenu : function() {
+/*  if(this.userLogin_userId > 0) {
+      $("#firstRow").toggle(true);
+      $("#secondRow").toggle(false);
+      $("#thirdRow").toggle(false);
+      $("#menuRegistrationButton").toggle(false);
+      $("#menuProfileButton").removeClass('gray').addClass('green');
+    } else {
+      $("#firstRow").toggle(true);
+      $("#secondRow").toggle(true);
+      $("#thirdRow").toggle(false);
+      $("#menuRegistrationButton").toggle(true);
+      $("#menuProfileButton").removeClass('green').addClass('gray');
+    }*/
+    
   }
   
 });
