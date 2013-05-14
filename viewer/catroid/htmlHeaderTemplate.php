@@ -33,7 +33,7 @@
             </div>
             
             <div class="largeSearchBarLeft">
-             <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+              <button class="img-magnifying-glass"></button>
             </div>
 
             <div class="largeSearchBarMiddle">
@@ -41,7 +41,7 @@
             </div>
             
             <div class="largeSearchBarRight">
-             <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+              <button class="img-avatar"></button>
             </div>
             <div class="marginSpacer"></div>
           </div>
@@ -56,14 +56,14 @@
               <input type="search" placeholder="<?php echo $this->languageHandler->getString('template_header_search_placeholder'); ?>" />
             </div>
 
-            <div>
-              <img id="mobileSearchButton" src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+            <div id="mobileSearchButton">
+              <button class="img-magnifying-glass"></button>
             </div>
             
             <div class="marginSpacer"></div>
 
-            <div>
-              <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
+            <div id="mobileMenuButton">
+              <button class="img-avatar"></button>
             </div>
             
             <div class="marginSpacer"></div>

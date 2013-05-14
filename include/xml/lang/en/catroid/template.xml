@@ -40,6 +40,8 @@
   <string name="template_header_search">Search</string>
   <string name="template_header_search_for_projects">Search for projects</string>
   
+  <string name="template_footer_more">more</string>
+  <string name="template_footer_less">less</string>
   <string name="template_footer_privacy_policy_link">Privacy policy</string>
   <string name="template_footer_terms_of_use_link">Terms of Use</string>
   <string name="template_footer_copyright_policy_link">Copyright policy</string>

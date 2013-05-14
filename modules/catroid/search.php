@@ -52,6 +52,7 @@ class search extends CoreAuthenticationNone {
     $params = array();
     $params['layout'] = PROJECT_LAYOUT_GRID_ROW;
     $params['container'] = '#searchResultContainer';
+    $params['loader'] = '#searchResultLoader';
     $params['buttons'] = array('prev' => '#fewerResults',
         'next' => '#moreResults'
     );

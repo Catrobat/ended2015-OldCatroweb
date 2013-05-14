@@ -57,38 +57,39 @@ var ProjectLoader = Class.$extend({
   
   loadPage : function() {
     if(this.tryAcquireAjaxMutex()){
-      this.params = this.cbParams.call(this);
-      this.loadPageRequest(this.params.page.number);
+      this.loadPageRequest();
     }
   },
 
-  loadPageRequest : function(pageNr) {
-    var self = this;
+  loadPageRequest : function() {
+    this.params = this.cbParams.call(this);
+    $(this.params.loader).show();
     $.ajax({
-      url : self.basePath + "api/projects/list.json",
+      url : this.basePath + "api/projects/list.json",
       type : "GET",
+      context: this,
       data : {
-        offset : self.params.page.numProjectsPerPage * (pageNr - 1),
-        limit : self.params.page.numProjectsPerPage,
-        mask : self.params.mask,
-        order : self.params.sort,
-        query: self.params.filter.query,
-        user : self.params.filter.author
+        offset : this.params.page.numProjectsPerPage * (this.params.page.number - 1),
+        limit : this.params.page.numProjectsPerPage,
+        mask : this.params.mask,
+        order : this.params.sort,
+        query: this.params.filter.query,
+        user : this.params.filter.author
       },
-      timeout : (this.ajaxTimeout),
       success : function(result) {
+        $(this.params.loader).hide();
+        this.releaseAjaxMutex();
+
         if(typeof result === "object") {
-          self.cbOnSuccess.call(this, result);
-          self.releaseAjaxMutex();        
+          this.cbOnSuccess.call(this, result);
         } else {
-          alert("error");
+          this.cbOnError.call(this, "Error: unknown response type: " + typeof(error), '');
         }
       },
       error : function(result, errCode) {
-        if(errCode == "timeout") {
-          alert('timed out');
-        }
-        self.cbOnError.call(this, result, errCode);
+        $(this.params.loader).hide();
+        this.releaseAjaxMutex();        
+        this.cbOnError.call(this, result, errCode);
       }
     });
   }

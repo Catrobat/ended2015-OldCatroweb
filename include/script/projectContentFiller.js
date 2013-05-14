@@ -124,16 +124,16 @@ var ProjectContentFiller = Class
           var elements = $('> ul', this.params.container).children();
           
           var elementOffset = (this.visibleRows - 1) * this.params.page.numProjectsPerPage;
-          for(var i = 0; i < this.params.page.numProjectsPerPage; i++){
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+            var index = elementOffset + i;
             if(projects != null && projects[i]) {
-              var index = elementOffset + i;
               $(elements[index]).css("visibility", "visible");
               $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
               $('div.projectAddition', elements[index]).text(projects[i]['UploadedString']);
             } else {
-              $(elements[i]).css("visibility", "hidden");
+              $(elements[index]).css("visibility", "hidden");
             }
           }
         }

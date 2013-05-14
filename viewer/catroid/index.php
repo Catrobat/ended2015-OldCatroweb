@@ -37,20 +37,29 @@
         </div>
         <header><?php echo $this->languageHandler->getString('newest_projects'); ?></header>
         <div id="newestProjects" class="projectContainer"></div>
+        <div id="newestProjectsLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></div>
         <div id="newestShowMore" class="moreButton">
-          <div><img src="<?php echo BASE_PATH; ?>images/symbols/show_more.png"/></div>
+          <div>
+            <span><span class="img-plus"></span></span>
+          </div>
           <p><?php echo $this->languageHandler->getString('show_more'); ?></p>
         </div> 
         <header><?php echo $this->languageHandler->getString('most_downloaded'); ?></header>
         <div id="mostDownloadedProjects" class="projectContainer"></div>
+        <div id="mostDownloadedProjectsLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></div>
         <div id="mostDownloadedShowMore" class="moreButton">
-          <div><img src="<?php echo BASE_PATH; ?>images/symbols/show_more.png"/></div>
+          <div>
+            <span><span class="img-plus"></span></span>
+          </div>
           <p><?php echo $this->languageHandler->getString('show_more'); ?></p>
         </div> 
         <header><?php echo $this->languageHandler->getString('most_viewed'); ?></header>
         <div id="mostViewedProjects" class="projectContainer"></div>
+        <div id="mostViewedProjectsLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></div>
         <div id="mostViewedShowMore" class="moreButton">
-          <div><img src="<?php echo BASE_PATH; ?>images/symbols/show_more.png"/></div>
+          <div>
+            <span><span class="img-plus"></span></span>
+          </div>
           <p><?php echo $this->languageHandler->getString('show_more'); ?></p>
         </div> 
       </article>

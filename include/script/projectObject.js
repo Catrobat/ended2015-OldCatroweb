@@ -34,6 +34,10 @@
       alert('container: obligatory paramater missing!');
       return;
     }
+    if(typeof this.params.loader === 'undefined') {
+      alert('loader: obligatory paramater missing!');
+      return;
+    }
     if(typeof this.params.buttons === 'undefined') {
       alert('buttons: obligatory paramater missing!');
       return;
@@ -110,21 +114,6 @@
     this.projectLoader = new ProjectLoader($.proxy(this.getParameters, this), $.proxy(this.loadProjectsRequestSuccess, this), $.proxy(this.loadProjectsRequestError, this));    
     this.projectContentFiller = new ProjectContentFiller($.proxy(this.getParameters, this));
   },
-  
-  setParameter : function(key, value) {
-    if(typeof key === 'string' && typeof value === 'undefined') {
-      this.params[key] = value;
-    }
-    alert("error: i am going home!");
-  },
-
-  getParameter : function(key) {
-    if(this.params[key]) {
-      return this.params[key];
-    }
-    alert("error: i am going home!");
-    return null;
-  },
 
   getParameters : function() {
     return this.params;
@@ -149,12 +138,12 @@
     }
     
     var info = result.CatrobatInformation;
-    console.log(info);
+    this.params.page.pageNrMax = Math.max(1, Math.ceil(Math.max(0, info['TotalProjects']) / this.params.page.numProjectsPerPage) - 1);
     this.projectContentFiller.fill(result);
   },
   
-  loadProjectsRequestError : function(error) {
-    alert(error);
+  loadProjectsRequestError : function(error, errCode) {
+    alert(error + ' ' + errCode);
   },
   
   prevPage : function() {
