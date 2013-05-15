@@ -35,12 +35,14 @@ class index extends CoreAuthenticationNone {
   }
 
   public function __default() {
-    $pageNr = 1;
+    $pageNr = 2;
     $projectsPerRow = 9;
 
-    $requestedPage = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+    $pageOne = $this->projects->get(($pageNr - 2) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE);
-    $this->numberOfPages = max(1, intval(ceil(max(0, intval($requestedPage['CatrobatInformation']['TotalProjects'])) /
+    $pageTwo = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE);
+    $this->numberOfPages = max(1, intval(ceil(max(0, intval($pageOne['CatrobatInformation']['TotalProjects'])) /
         $projectsPerRow) - 1));
 
     $params = array();
@@ -50,7 +52,8 @@ class index extends CoreAuthenticationNone {
     $params['buttons'] = array('prev' => null,
         'next' => '#newestShowMore'
     );
-    $params['firstPage'] = $requestedPage;
+    $params['preloaded'][0] = $pageOne;
+    $params['preloaded'][1] = $pageTwo;
     
     $params['page'] = array('number' => $pageNr,
         'numProjectsPerPage' => $projectsPerRow,
@@ -73,10 +76,12 @@ class index extends CoreAuthenticationNone {
     
     $this->newestProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
-    $params['firstPage'] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
-
+    $params['preloaded'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_DOWNLOADS);
+    $params['preloaded'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_DOWNLOADS);
     $params['container'] = '#mostDownloadedProjects';
+    $params['loader'] = '#mostDownloadedProjectsLoader';
     $params['buttons'] = array('prev' => null,
         'next' => '#mostDownloadedShowMore'
     );
@@ -84,12 +89,14 @@ class index extends CoreAuthenticationNone {
     $params['sort'] = PROJECT_SORTBY_DOWNLOADS;
     $this->mostDownloadedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
-    $params['firstPage'] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+    $params['preloaded'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_VIEWS);
+    $params['preloaded'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_VIEWS);
     $params['container'] = '#mostViewedProjects';
+    $params['loader'] = '#mostViewedProjectsLoader';
     $params['buttons'] = array('prev' => null,
         'next' => '#mostViewedShowMore'
-
     );
     $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
     $params['sort'] = PROJECT_SORTBY_VIEWS;

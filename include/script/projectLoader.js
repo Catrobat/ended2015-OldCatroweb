@@ -36,7 +36,7 @@ var ProjectLoader = Class.$extend({
   
   initialize : function() {
     if(!this.initialized) {
-      if(this.params.firstPage == null) {
+      if(this.params.preloaded == null) {
         this.loadPage();
       }
       this.initialized = true;
@@ -64,6 +64,7 @@ var ProjectLoader = Class.$extend({
   loadPageRequest : function() {
     this.params = this.cbParams.call(this);
     $(this.params.loader).show();
+
     $.ajax({
       url : this.basePath + "api/projects/list.json",
       type : "GET",

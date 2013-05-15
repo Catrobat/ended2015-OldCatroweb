@@ -54,8 +54,8 @@
       alert('page: obligatory paramater missing!');
       return;
     }
-    if(typeof this.params.firstPage === 'undefined') {
-      this.params.firstPage = null;
+    if(typeof this.params.preloaded === 'undefined') {
+      this.params.preloaded = null;
     }
     if(typeof this.params.page.number === 'undefined') {
       alert('page.number: obligatory paramater missing!');
@@ -99,6 +99,7 @@
       return;
     }
     
+    this.params.reachedLastPage = false;
     this.hasPrevButton = false;
     this.hasNextButton = false;
     
@@ -139,6 +140,7 @@
     
     var info = result.CatrobatInformation;
     this.params.page.pageNrMax = Math.max(1, Math.ceil(Math.max(0, info['TotalProjects']) / this.params.page.numProjectsPerPage) - 1);
+
     this.projectContentFiller.fill(result);
   },
   
@@ -153,12 +155,19 @@
   
   nextPage : function() {
     this.params.page.number = Math.min(this.params.page.pageNrMax, this.params.page.number + 1);
-    this.projectLoader.loadPage();
+    if(!this.params.reachedLastPage) {
+      this.projectLoader.loadPage();
+    } else {
+      this.projectContentFiller.extend();
+    }
   }, 
   
   setSort : function(sortby) {
     this.params.sort = sortby;
     this.params.page.number = 1;
+    this.params.reachedLastPage = false;
+
+    this.projectContentFiller.clear();
     this.projectLoader.loadPage();
   },
   
@@ -166,13 +175,9 @@
     this.params.filter.author = filter.author;
     this.params.filter.query = filter.query;
     this.params.page.number = 1;
+    this.params.reachedLastPage = false;
     
-    $(this.params.container).each(
-        function(element){
-          alert(element);
-        }
-     );
-    
+    this.projectContentFiller.clear();
     this.projectLoader.loadPage();
   }
 

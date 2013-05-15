@@ -39,6 +39,9 @@
   <string name="template_header_profile">Profile</string>
   <string name="template_header_search">Search</string>
   <string name="template_header_search_for_projects">Search for projects</string>
+  <string name="template_header_my_profile">My Profile</string>
+  <string name="template_header_change_profile">Change Profile</string>
+  <string name="template_header_logout">Logout</string>
   
   <string name="template_footer_more">more</string>
   <string name="template_footer_less">less</string>

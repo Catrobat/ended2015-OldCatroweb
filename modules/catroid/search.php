@@ -56,7 +56,7 @@ class search extends CoreAuthenticationNone {
     $params['buttons'] = array('prev' => '#fewerResults',
         'next' => '#moreResults'
     );
-    $params['firstPage'] = $requestedPage;
+    $params['preloaded'][0] = $requestedPage;
     
     $params['page'] = array('number' => intVal($this->session->searchPageNr),
         'numProjectsPerPage' => $projectsPerRow,

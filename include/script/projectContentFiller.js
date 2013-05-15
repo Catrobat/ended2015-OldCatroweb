@@ -59,6 +59,7 @@ var ProjectContentFiller = Class
         this.ready = false;
         this.params = this.cbParams.call(this);
         
+        this.extend = null;
         this.fillLayout = null;
         this.reset = null;
         this.error = {"type" : "", code : 0, extra : ""};
@@ -74,11 +75,19 @@ var ProjectContentFiller = Class
         switch(layout) {
           case this.params.config.PROJECT_LAYOUT_GRID_ROW:
             this.visibleRows = 0;
-            this.rowHeight = 0;
+            this.gridRowHeight = 0;
             this.ready = true;
 
             this.fillLayout = this.fillGridRowAge;
-            this.fill(this.params.firstPage);
+            this.extend = this.extendGridRowContainer;
+            this.clear = this.clearGridRowContainer;
+            
+            this.clear();
+            if(this.params.preloaded != null) {
+              for(var index = 0, amount = this.params.preloaded.length; index < amount; index++) {
+                this.fill(this.params.preloaded[index]);
+              }
+            }
 
             break;
           default:
@@ -105,13 +114,39 @@ var ProjectContentFiller = Class
           
           $(container).append($("<li />").append(project));
           
-          if(this.rowHeight == 0) {
-            this.rowHeight = $(container).height();
+          if(this.gridRowHeight == 0) {
+            this.gridRowHeight = $(container).height();
+          }
+        }
+      },
+      
+      extendGridRowContainer : function() {
+        var container = $("ul", this.params.container);
+        
+        var elements = container.children();
+        for(var index = 0, amount = elements.length; index < amount; index++) {
+          if($(elements[index]).css('visibility') == 'visible') {
+            var position = Math.round($(elements[index]).position().top + this.gridRowHeight);
+            if($.inArray(position, this.gridRowHeights) === -1) {
+              this.gridRowHeights.push(position);
+            }
           }
         }
         
-        this.visibleRows += 1;
-        $(container).height(this.rowHeight * this.visibleRows);
+        if(this.visibleRows < this.gridRowHeights.length) {
+          $(container).height(this.gridRowHeights[this.visibleRows]);
+          this.visibleRows += 1;
+        }
+        if(this.params.reachedLastPage && this.gridRowHeights.length == this.visibleRows) {
+          $(this.params.buttons.next).hide();
+        }
+      },
+      
+      clearGridRowContainer : function() {
+        $(this.params.buttons.next).show();
+        this.gridRowHeights = [];
+        this.visibleRows = 0;
+        $("ul", this.params.container).empty();
       },
       
       fillGridRowAge : function(result) {
@@ -123,7 +158,7 @@ var ProjectContentFiller = Class
           
           var elements = $('> ul', this.params.container).children();
           
-          var elementOffset = (this.visibleRows - 1) * this.params.page.numProjectsPerPage;
+          var elementOffset = this.visibleRows * this.params.page.numProjectsPerPage;
           for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
             var index = elementOffset + i;
             if(projects != null && projects[i]) {
@@ -136,10 +171,15 @@ var ProjectContentFiller = Class
               $(elements[index]).css("visibility", "hidden");
             }
           }
+          this.extendGridRowContainer();
         }
       },
    
       fill : function(result) {
+        if(this.params.page.number >= this.params.page.pageNrMax) {
+          this.params.reachedLastPage = true;
+        }
+        
         this.fillLayout.call(this, result);
         
         var searchWords = this.params.filter.query.split(" ");

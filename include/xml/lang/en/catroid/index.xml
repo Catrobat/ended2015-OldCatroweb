@@ -23,7 +23,7 @@
 -->
 <strings>
     <string name="enable_javascript">Please enable javascript in your browser.</string>
-    <string name="recommended_by_us">Recommended by Us</string>
+    <string name="recommended_by_us">Recommended</string>
     <string name="newest_projects">Newest Projects</string>
     <string name="most_downloaded">Most Downloaded</string>
     <string name="most_viewed">Most Viewed</string>

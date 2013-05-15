@@ -72,9 +72,9 @@
           
           <div id="navigationMenu">
             <ul>
-              <li id="menuProfileButton"><div class="img-avatar">&nbsp;</div><div>Mein Profil</div></li>
-              <li id="menuProfileChangeButton"><div class="img-avatar">&nbsp;</div><div>Profil bearbeiten</div></li>
-              <li id="menuLogoutButton"><div class="img-avatar">&nbsp;</div><div>Ausloggen</div></li>
+              <li id="menuProfileButton"><div class="img-avatar">&nbsp;</div><div><?php echo $this->languageHandler->getString('template_header_my_profile'); ?></div></li>
+              <li id="menuProfileChangeButton"><div class="img-avatar">&nbsp;</div><div><?php echo $this->languageHandler->getString('template_header_change_profile'); ?></div></li>
+              <li id="menuLogoutButton"><div class="img-avatar">&nbsp;</div><div><?php echo $this->languageHandler->getString('template_header_logout'); ?></div></li>
             </ul>
           </div>
         </nav>
