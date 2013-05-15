@@ -134,6 +134,28 @@ h3 {
   background-position: -131px -93px;
 }
 
+.img-password {
+  width: 39px;
+  height: 39px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -74px -117px;
+  border: none;
+}
+
+.img-first-email {
+  width: 39px;
+  height: 39px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -35px -79px;
+}
+
+.img-second-email {
+  width: 39px;
+  height: 39px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -74px 0px;
+}
+
 ::-moz-selection {
   color: #ffffff;
   background: #9933CC;

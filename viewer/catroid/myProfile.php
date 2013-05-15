@@ -42,13 +42,14 @@
               <div id="profilePasswordError"></div>
              <div class="profilePasswordItem" >
                  <input type="password" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password') ?>" />
-                 <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
+                 <img class="img-password" />
+                 
              </div>
              <div class="profilePasswordItem">
                <input type="password" id="profileRepeatPassword" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password') ?>" />
-               <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
+               <img class="img-password" />
              </div>
-             <div><?php echo $this->languageHandler->getString('country') ?>:</div>
+             <?php echo $this->languageHandler->getString('country') ?>:
              <div class="profileCountry">
                 <select><?php echo $this->countryCodeListHTML;?></select>
              </div>      
@@ -57,11 +58,11 @@
            <div id="profileEmailError"></div>
              <div class="profileFirstEmailItem" >
                <input id="profileFirstEmail" type="email" />
-               <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
+               <img class="img-first-email" />
              </div>
              <div class="profileSecondEmailItem">
                <input id="profileSecondEmail" type="email"/>
-               <img src="<?php echo BASE_PATH; ?>images/symbols/add.png" />
+               <img class="img-second-email" />
              </div>
              <div class="saveChanges">
                <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save') ?></button>
