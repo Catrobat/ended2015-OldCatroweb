@@ -64,6 +64,7 @@ var Header = Class.$extend( {
     if(this.isNavigationMenuToggeled) {
       $('#navigationMenu').hide();
     } else {
+      $('#navigationMenu').css({right: $('#wrapper').position().left + 20 });
       $('#navigationMenu').show();
     }
     this.isNavigationMenuToggeled = !this.isNavigationMenuToggeled;

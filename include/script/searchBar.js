@@ -38,7 +38,7 @@ var SearchBar = Class.$extend( {
   setProjectObject : function(object) {
     this.projects = object;
     this.updateSearchBoxQuery();
-    this.header.toogleSearchBar();
+    this.header.toggleSearchBar();
   },
   
   submitSearch : function(event) {

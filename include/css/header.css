@@ -116,8 +116,7 @@
   position: absolute;
   z-index: 1000;
   margin-top: 0.3em;
-  right: 1.2em;
-  opacity: 0.9;
+  opacity: 0.95;
 }
 
 #wrapper header nav div#navigationMenu ul {
