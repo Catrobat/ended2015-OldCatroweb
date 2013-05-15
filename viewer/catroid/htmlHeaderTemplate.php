@@ -40,26 +40,9 @@
               <input type="search" placeholder="<?php echo $this->languageHandler->getString('template_header_search_placeholder'); ?>" />
             </div>
             
-            <div class="largeSearchBarRight">
-
-            <?php if ($this->userData['id']) { ?>
-
-              <a id="headerProfileButton" href="#"><img src="<?php echo $this->userData['avatar']; ?>" />
-              <span><?php echo $this->userData['username']; ?></span></a>
-             <div id="profileMenuNavigation"><div id="profileMenuNavigationContent"><ul>
-              <li><a href="#" id="menuProfileButton"><div class="icon">&nbsp;</div>Mein Profil</a></li>
-              <li><a href="#" id="menuProfileChangeButton"><div class="icon">&nbsp;</div>Profil bearbeiten</a></li>
-              <li><a href="#" id="menuLogoutButton"><div class="icon">&nbsp;</div>Ausloggen</a></li>
-             </ul></div></div>              
-
-            <?php } else { ?>
-            
-                        
-             <a id="headerLoginButton" href="#"><img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
-             <span>Login</span></a>
-
-            <?php } ?>
-
+            <div id="largeMenuButton" class="largeSearchBarRight">
+              <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover;background-position:center;background-image:url(' . $this->module->session->userLogin_userAvatar . ');"' : ''; ?>></button>
+              <?php echo ($this->module->session->userLogin_userNickname) ? '<button>' . $this->module->session->userLogin_userNickname . '</button>' : ''; ?>
             </div>
             <div class="marginSpacer"></div>
           </div>
@@ -81,17 +64,24 @@
             <div class="marginSpacer"></div>
 
             <div id="mobileMenuButton">
-              <button class="img-avatar"></button>
+              <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover; background-position:center; background-repeat: norepeat; background-image:url(' . $this->module->session->userLogin_userAvatar . ');"' : ''; ?>></button>
             </div>
             
             <div class="marginSpacer"></div>
+          </div>
+          
+          <div id="navigationMenu">
+            <ul>
+              <li id="menuProfileButton"><div class="img-avatar">&nbsp;</div><div>Mein Profil</div></li>
+              <li id="menuProfileChangeButton"><div class="img-avatar">&nbsp;</div><div>Profil bearbeiten</div></li>
+              <li id="menuLogoutButton"><div class="img-avatar">&nbsp;</div><div>Ausloggen</div></li>
+            </ul>
           </div>
         </nav>
       </header>
       <script type="text/javascript">
         $(document).ready(function() {
-          Header = new Header();
+          Header = new Header(<?php echo $this->module->session->userLogin_userId; ?>);
           SearchBar = new SearchBar(Header);
-          HeaderMenu = new HeaderMenu();
         });
       </script>

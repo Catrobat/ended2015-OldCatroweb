@@ -23,13 +23,53 @@
 
 var Header = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function() {
+  __init__ : function(userId) {
     this.isSearchBarToggeled = false;
+    this.isNavigationMenuToggeled = false;
     
-    $("#mobileSearchButton").click($.proxy(this.toogleSearchBar, this));
+    this.hideNavigationMenuTimer = null;
+
+    this.userId = 0;
+    if(typeof userId === 'number') {
+      this.userId = userId;
+    }
+
+    $(document).mousedown($.proxy(this.hideNavigationMenu, this));
+
+    $("#mobileSearchButton").click($.proxy(this.toggleSearchBar, this));
+    $("#mobileMenuButton").click($.proxy(this.pressProfileButton, this));
+    $("#largeMenuButton").click($.proxy(this.pressProfileButton, this));
+    $("#menuLogoutButton").click($.proxy(this.logoutRequest, this)); 
+    $("#menuProfileButton").click($.proxy(this.openProfile, this)); 
+    $("#menuProfileChangeButton").click($.proxy(this.openProfile, this)); 
+  },
+
+  pressProfileButton : function(event) {
+    if(this.userId == 0) {
+      location.href = this.basePath + 'login';
+    } else {
+      this.toggleNavigationMenu();
+    }
+    window.clearTimeout(this.hideNavigationMenuTimer);
   },
   
-  toogleSearchBar : function(event) {
+  hideNavigationMenu : function() {
+    this.hideNavigationMenuTimer = window.setTimeout($.proxy(function() {
+      $('#navigationMenu').hide();
+      this.isNavigationMenuToggeled = false;
+    }, this), 100);
+  },
+  
+  toggleNavigationMenu : function() {
+    if(this.isNavigationMenuToggeled) {
+      $('#navigationMenu').hide();
+    } else {
+      $('#navigationMenu').show();
+    }
+    this.isNavigationMenuToggeled = !this.isNavigationMenuToggeled;
+  },
+
+  toggleSearchBar : function(event) {
     if(this.isSearchBarToggeled) {
       $("#smallMenuBar").css("display", "table-cell");
       $("#smallSearchBar").hide();
@@ -40,5 +80,37 @@ var Header = Class.$extend( {
     }
     
     this.isSearchBarToggeled = !this.isSearchBarToggeled;
-  }
+  },
+  
+  openProfile : function() {
+    if(this.userId == 0) {
+      location.href = this.basePath + 'login';
+    } else {
+      location.href = this.basePath + "profile"; 
+    }    
+  },
+
+  logoutRequest : function() {
+     $.ajax({
+       type : "POST",
+       context: this,
+       url : this.basePath + "login/logoutRequest.json",
+       success : $.proxy(this.logoutRequestSuccess, this),
+       error : $.proxy(this.logoutRequestError, this)
+     });
+   },
+
+   logoutRequestSuccess : function(result) {
+     if(result.statusCode == 200) {
+       if(this.requestUri != '') {
+         location.href = this.basePath + 'login?requestUri=' + this.requestUri;
+       } else {
+         location.reload();
+       }
+     }
+   },
+   
+   logoutRequestError : function(error) {
+     alert(error);
+   }
 });

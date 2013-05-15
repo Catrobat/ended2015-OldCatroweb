@@ -32,7 +32,6 @@ class index extends CoreAuthenticationNone {
     $this->addJs('projectObject.js');
     
     $this->loadModule('api/projects');
-    $this->loadModule('common/userFunctions');
   }
 
   public function __default() {
@@ -95,28 +94,6 @@ class index extends CoreAuthenticationNone {
     $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
     $params['sort'] = PROJECT_SORTBY_VIEWS;
     $this->mostViewedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
-    
-    
-    
-    if(isset($_GET['method']) && trim($_GET['method']) != '') {
-      if(strcmp($_GET['method'], $this->session->userLogin_userNickname) == 0) {
-        $showUser = $this->session->userLogin_userNickname;
-        $ownProfile = true;
-      } else if($this->userFunctions->checkUserExists($_GET['method'])) {
-        $showUser = checkUserInput($_GET['method']);
-        $ownProfile = false;
-      } else {
-        $this->errorHandler->showErrorPage('profile','no_such_user');
-      }
-    } else {
-      $showUser = $this->session->userLogin_userNickname;
-      $ownProfile = true;
-    }
-    
-    $this->userData = $this->userFunctions->getUserData($showUser);
-    #$this->user = $this->session->userLogin_userNickname;
-    #$this->userData = $this->getUserData();
-    
   }
 
   public function __destruct() {

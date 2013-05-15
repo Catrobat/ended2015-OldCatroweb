@@ -55,7 +55,7 @@ var Login = Class.$extend({
       }),
       timeout : this.ajaxTimeout,
       success : $.proxy(this.loginRequestSuccess, this),
-      error : alert('error')
+      error : $.proxy(this.loginRequestError, this)
     });
   },
 
@@ -72,23 +72,7 @@ var Login = Class.$extend({
     }
   },
 
-  logoutRequest : function() {
-    $.ajax({
-      type : "POST",
-      url : this.basePath + "login/logoutRequest.json",
-      success : $.proxy(this.logoutRequestSuccess, this),
-      error : alert('error')
-    });
-  },
-
-  logoutRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
-    if(result.statusCode == 200) {
-      if(this.requestUri != '') {
-        location.href = this.basePath + 'login?requestUri=' + this.requestUri;
-      } else {
-        location.reload();
-      }
-    }
+  loginRequestError : function(error) {
+    alert(error);
   }
 });

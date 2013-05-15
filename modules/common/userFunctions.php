@@ -351,7 +351,8 @@ class userFunctions extends CoreAuthenticationNone {
       if($this->slowEquals($passwordHash, $hashedPassword)) {
         $this->session->userLogin_userId = $row['id'];
         $this->session->userLogin_userNickname = $row['username'];
-  
+        $this->session->userLogin_userAvatar = $row['avatar'];
+
         $result = pg_execute($this->dbConnection, "reset_failed_attempts", array($ip));
         if(!$result) {
           throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
@@ -464,6 +465,7 @@ class userFunctions extends CoreAuthenticationNone {
   private function logoutCatroid() {
     $this->session->userLogin_userId = 0;
     $this->session->userLogin_userNickname = '';
+    $this->session->userLogin_userAvatar = '';
   }
 
   private function logoutBoard() {
