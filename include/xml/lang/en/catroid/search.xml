@@ -23,6 +23,6 @@
 -->
 <strings>
   <string name="header">Search Results</string>
-  <string name="prev_button">{*character*} previous</string>
-  <string name="next_button">next {*character*}</string>
+  <string name="results">Your search returned {*amount*} results</string>
+  <string name="show_more">show more</string>
 </strings>

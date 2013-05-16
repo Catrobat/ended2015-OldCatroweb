@@ -23,80 +23,72 @@
  
  var ProjectObject = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function(params) {
+  __init__ : function(params, callbacks) {
     this.params = $.parseJSON(params);
     
+    if(typeof callbacks === 'undefined') {
+      this.params.callbacks = {};
+    } else {
+      this.params.callbacks = callbacks;
+    }
+    
     if(typeof this.params.layout === 'undefined') {
-      alert('layout: obligatory paramater missing!');
-      return;
+      return this.missing('layout');
     }
     if(typeof this.params.container === 'undefined') {
-      alert('container: obligatory paramater missing!');
-      return;
+      return this.missing('container');
     }
     if(typeof this.params.loader === 'undefined') {
-      alert('loader: obligatory paramater missing!');
-      return;
+      return this.missing('loader');
     }
     if(typeof this.params.buttons === 'undefined') {
-      alert('buttons: obligatory paramater missing!');
-      return;
+      return this.missing('buttons');
     }
     if(typeof this.params.buttons.prev === 'undefined') {
-      alert('buttons.prev: obligatory paramater missing!');
-      return;
+      return this.missing('buttons.prev');
     }
     if(typeof this.params.buttons.next === 'undefined') {
-      alert('buttons.next: obligatory paramater missing!');
-      return;
-    }
-    if(typeof this.params.page === 'undefined') {
-      alert('page: obligatory paramater missing!');
-      return;
+      return this.missing('buttons.next');
     }
     if(typeof this.params.preloaded === 'undefined') {
       this.params.preloaded = null;
     }
+    if(typeof this.params.numProjects === 'undefined') {
+      return this.missing('numProjects');
+    }
+    if(typeof this.params.page === 'undefined') {
+      return this.missing('page');
+    }
     if(typeof this.params.page.number === 'undefined') {
-      alert('page.number: obligatory paramater missing!');
-      return;
+      return this.missing('page.number');
     }
     if(typeof this.params.page.numProjectsPerPage === 'undefined') {
-      alert('page.numProjectsPerPage: obligatory paramater missing!');
-      return;
+      return this.missing('page.numProjectsPerPage');
     }
     if(typeof this.params.page.pageNrMax === 'undefined') {
-      alert('page.pageNrMax: obligatory paramater missing!');
-      return;
+      return this.missing('page.pageNrMax');
     }
     if(typeof this.params.mask === 'undefined') {
-      alert('mask: obligatory paramater missing!');
-      return;
+      return this.missing('mask');
     }
     if(typeof this.params.sort === 'undefined') {
-      alert('sort: obligatory paramater missing!');
-      return;
+      return this.missing('sort');
     }
     if(typeof this.params.filter === 'undefined') {
-      alert('filter: obligatory paramater missing!');
-      return;
+      return this.missing('filter');
     }
     if(typeof this.params.filter.query === 'undefined') {
-      alert('filter.query: obligatory paramater missing!');
-      return;
+      return this.missing('filter.query');
     }
     if(typeof this.params.filter.author === 'undefined') {
-      alert('filter.author: obligatory paramater missing!');
-      return;
+      return this.missing('filter.author');
     }
     if(typeof this.params.config === 'undefined') {
-      alert('config: obligatory paramater missing!');
-      return;
+      return this.missing('config');
     }
     
     if($(this.params.container).length == 0) {
-      alert('container: element does not exist!');
-      return;
+      return this.missing('container');
     }
     
     this.params.reachedLastPage = false;
@@ -111,7 +103,15 @@
       this.hasNextButton = true;
       $(this.params.buttons.next).click($.proxy(this.nextPage, this)); 
     }
-
+  },
+  
+  missing : function(object) {
+    alert(object + ': obligatory paramater missing or does not exist!');
+    console.log(object + ': obligatory paramater missing or does not exist!');
+    return false;
+  },
+  
+  init : function() {
     this.projectLoader = new ProjectLoader($.proxy(this.getParameters, this), $.proxy(this.loadProjectsRequestSuccess, this), $.proxy(this.loadProjectsRequestError, this));    
     this.projectContentFiller = new ProjectContentFiller($.proxy(this.getParameters, this));
   },
@@ -139,13 +139,19 @@
     }
     
     var info = result.CatrobatInformation;
-    this.params.page.pageNrMax = Math.max(1, Math.ceil(Math.max(0, info['TotalProjects']) / this.params.page.numProjectsPerPage) - 1);
+    this.params.numProjects = info['TotalProjects'];
+    this.params.page.pageNrMax = Math.max(1, Math.ceil(Math.max(0, this.params.numProjects) / this.params.page.numProjectsPerPage) - 1);
 
     this.projectContentFiller.fill(result);
   },
   
   loadProjectsRequestError : function(error, errCode) {
     alert(error + ' ' + errCode);
+    console.log(error + ' ' + errCode);
+    
+    if(typeof this.params.callbacks['error'] === 'function') {
+      this.params.callbacks['error'].call(this);
+    }
   },
   
   prevPage : function() {
@@ -160,7 +166,11 @@
     } else {
       this.projectContentFiller.extend();
     }
-  }, 
+  },
+  
+  getNumProjects : function() {
+    return this.params.numProjects;
+  },
   
   setSort : function(sortby) {
     this.params.sort = sortby;

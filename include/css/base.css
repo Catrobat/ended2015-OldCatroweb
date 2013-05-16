@@ -176,6 +176,7 @@ h3 {
 }
 
 #wrapper {
+  background-color: #05252e;
   margin-right: auto;
   margin-left: auto;
   width: 100%; /* 1024px; */

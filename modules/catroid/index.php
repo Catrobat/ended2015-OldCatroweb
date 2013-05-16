@@ -54,6 +54,7 @@ class index extends CoreAuthenticationNone {
     );
     $params['preloaded'][0] = $pageOne;
     $params['preloaded'][1] = $pageTwo;
+    $params['numProjects'] = intval($pageOne['CatrobatInformation']['TotalProjects']);
     
     $params['page'] = array('number' => $pageNr,
         'numProjectsPerPage' => $projectsPerRow,

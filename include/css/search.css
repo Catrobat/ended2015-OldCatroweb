@@ -24,22 +24,22 @@
 #wrapper article div#searchResultContainer {
   margin-top: 0.2em;
   text-align: center;
-  overflow:hidden;
+  overflow: hidden;
 }
 
 #wrapper article div#searchResultContainer ul {
-	float:left;
-	margin:auto;
-	padding:0;
-	list-style:none;
-	position:relative;
-	left:50%;
+	float: left;
+	margin: auto;
+	padding: 0;
+	list-style: none;
+	position: relative;
+	left: 50%;
 }
 
 #wrapper article div#searchResultContainer ul li {
-	display:inline-block;
-	position:relative;
-	left:-50%;
+	display: inline-block;
+	position: relative;
+	left: -50%;
 	width: 84px;
 	margin: 0.6em 0.5em 1.6em 0.5em;
 	vertical-align: top;
@@ -90,10 +90,19 @@
 }
 
 #wrapper article div#searchResultLoader {
-  background-color: #05222a;
   text-align: center;
-  padding: 0.6em;
+  padding: 0.78em;
   display: none;
+}
+
+#wrapper article div#moreResults p {
+  text-align: center;
+  margin: 0;
+  cursor: pointer;
+}
+
+#wrapper article div#moreResults div {
+  margin: auto;
 }
 
 

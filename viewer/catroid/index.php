@@ -60,14 +60,14 @@
         <div id="mostViewedShowMore" class="moreButton">
           <div class="img-load-more"></div>
           <p><?php echo $this->languageHandler->getString('show_more'); ?></p>
-        </div> 
+        </div>
         <div class="projectContainerFooter"></div>
 
       </article>
       <script type="text/javascript">
         $(document).ready(function() {
-          ProjectObject(<?php echo $this->newestProjectsParams; ?>);
-          ProjectObject(<?php echo $this->mostDownloadedProjectsParams; ?>);
-          ProjectObject(<?php echo $this->mostViewedProjectsParams; ?>);
+          ProjectObject(<?php echo $this->newestProjectsParams; ?>).init();
+          ProjectObject(<?php echo $this->mostDownloadedProjectsParams; ?>).init();
+          ProjectObject(<?php echo $this->mostViewedProjectsParams; ?>).init();
         });
       </script>

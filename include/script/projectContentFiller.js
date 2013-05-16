@@ -198,7 +198,6 @@ var ProjectContentFiller = Class
           for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
             var index = elementOffset + i;
             if(projects != null && projects[i]) {
-              console.log(projects[i]);
               $(elements[index]).css("visibility", "visible");
               $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
@@ -225,7 +224,6 @@ var ProjectContentFiller = Class
           for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
             var index = elementOffset + i;
             if(projects != null && projects[i]) {
-              console.log(projects[i]);
               $(elements[index]).css("visibility", "visible");
               $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
@@ -250,5 +248,9 @@ var ProjectContentFiller = Class
         $.each(searchWords, $.proxy(function(index, value) { 
           $(this.params.container).highlight(value);
         }, this));
+        
+        if(typeof this.params.callbacks['success'] === 'function') {
+          this.params.callbacks['success'].call(this);
+        }
       }
     });
