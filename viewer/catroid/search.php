@@ -26,11 +26,11 @@
       <article>
         <header><?php echo $this->languageHandler->getString('header'); ?></header>
         <div><?php echo $this->languageHandler->getString('results', '<span id="numberOfSearchResults">0</span>'); ?></div>
-        <div id="searchResultContainer"></div>
-        <div id="searchResultLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></div>
-        <div id="moreResults">
+        <div id="searchResultContainer" class="projectContainer"></div>
+        <div id="searchResultLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></div>
+        <div id="moreResults" class="moreButton">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('show_more'); ?></p>
+          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div>
       </article>
       <script type="text/javascript">

@@ -43,7 +43,7 @@ class index extends CoreAuthenticationNone {
     $pageTwo = $this->projects->get(($pageNr - 1) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE);
     $this->numberOfPages = max(1, intval(ceil(max(0, intval($pageOne['CatrobatInformation']['TotalProjects'])) /
-        $projectsPerRow) - 1));
+        $projectsPerRow)));
 
     $params = array();
     $params['layout'] = PROJECT_LAYOUT_GRID_ROW;

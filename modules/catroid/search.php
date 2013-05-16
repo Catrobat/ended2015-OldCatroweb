@@ -42,7 +42,7 @@ class search extends CoreAuthenticationNone {
     $requestedPage = $this->projects->get(($this->session->searchPageNr - 1) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE, $_REQUEST['q']);
     $this->numberOfPages = max(1, intval(ceil(max(0, intval($requestedPage['CatrobatInformation']['TotalProjects'])) /
-        $projectsPerRow) - 1));
+        $projectsPerRow)));
 
     if($this->session->searchPageNr > $this->numberOfPages) {
       $this->session->searchPageNr = $this->numberOfPages;

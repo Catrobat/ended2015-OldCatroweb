@@ -205,86 +205,15 @@
   margin-left: 1%;
   margin-right: 1%;
 }
-#myProjectsContainer {
-  clear:both;
-  float:left;
-  margin-top: 2em;
-  width: 100%;
-}
 
-#wrapper article div.myProjects {
-  clear: left;
-  color: #a8dff4;
+#wrapper article h3 {
   font-size: 1.8em;
+  color: #a8dff4;
   text-transform: uppercase;
   font-weight: bold;
-  padding: 0.07em;
+  padding: 0.275em 0 0.3125em 0.375em;
   text-shadow: #000000 1px 1px 1px;
-}
-
-#wrapper article div#newestProjects {
-  margin-top: 0.2em;
-  overflow:hidden;
-  height: 19em;
-}
-
-#wrapper article div#newestProjects ul {
-	float:left;
-	margin:auto;
-	padding:0;
-	list-style:none;
-	position:relative;
-	left:50%;
-}
-
-#wrapper article div#newestProjects ul li {
-	display:inline-block;
-	position:relative;
-	left:-50%;
-	width: 84px;
-	margin: 0.6em 1em 1.6em 1em;
-	vertical-align: top;
-}
-
-#wrapper article div#newestProjects ul li img {
-	border: 2px solid #a8dff4;
-	display: block;
-}
-
-#wrapper article div#newestProjects ul li div {
-	white-space: nowrap;  
-	overflow: hidden;
-}
-
-#wrapper article div#newestProjects ul li a {
-  text-decoration: none; 
-  color: #a8dff4; 
-}
-
-#wrapper article div#newestProjects ul li div.projectTitle {
-	text-align: left;
-	font-size: 0.8em;
-	font-weight: bold;
-	margin-top: 0.5em;
-}
-
-#wrapper article div#newestProjects ul li div.projectAddition {
-	text-align: left;
-	font-size: 0.7em;
-}
-
-#wrapper article div#newestProjects ul li div.projectLink {
-	background-color: #05222a;
-	margin: 0.8em 0.4em 0.4em 0.4em;
-	border-radius: 3px;
-}
-
-#wrapper article div#newestProjects ul li div.projectLink a {
-	font-size: 1.4em;
-	text-transform: uppercase;
-	text-decoration: none;
-	color: #76b0c6;
-	font-weight: bold;
+  margin-bottom: 0;
 }
 
 #wrapper article div.changeProject button.change {
@@ -297,7 +226,7 @@
   background-color: transparent;
 }
 
-#wrapper article div.changeProject button.change img{
+#wrapper article div.changeProject button.change img {
   height: 1em;
   width: 1em;
   border: none;
@@ -329,6 +258,7 @@
   color: #F78181;
   padding-bottom: 2em;
 }
+
 
 @media screen and (max-width: 1100px) {
   .profileInputs {
@@ -366,11 +296,6 @@
   #wrapper article div.profileInputsRight{
     clear: left;
   }
-  #myProjectsContainer {
-    float:left;
-    clear:both;
-    margin-top: 2em;
-  }
   
   #wrapper article div.profileInputs {
     position:relative;
@@ -379,4 +304,87 @@
   }
  
   
+#wrapper article div#userProjectContainer {
+  margin-top: 0.2em;
+  text-align: center;
+  overflow: hidden;
+}
+
+#wrapper article div#userProjectContainer ul {
+	float: left;
+	margin: auto;
+	padding: 0;
+	list-style: none;
+	position: relative;
+	left: 50%;
+}
+
+#wrapper article div#userProjectContainer ul li {
+	display: inline-block;
+	position: relative;
+	left: -50%;
+	width: 84px;
+	margin: 0.6em 0.5em 1.6em 0.5em;
+	vertical-align: top;
+	visibility: hidden;
+}
+
+#wrapper article div#userProjectContainer ul li img {
+	border: 2px solid #a8dff4;
+	width: 80px;
+	height: 80px;
+	display: block;
+}
+
+#wrapper article div#userProjectContainer ul li div {
+	white-space: nowrap;  
+	overflow: hidden;
+}
+
+#wrapper article div#userProjectContainer ul li a {
+  text-decoration: none; 
+  color: #a8dff4; 
+}
+
+#wrapper article div#userProjectContainer ul li div.projectTitle {
+	text-align: left;
+	font-size: 0.8em;
+	font-weight: bold;
+	margin-top: 0.5em;
+}
+
+#wrapper article div#userProjectContainer ul li div.projectAddition {
+	text-align: left;
+	font-size: 0.7em;
+}
+
+#wrapper article div#userProjectContainer ul li div.projectLink {
+	background-color: #05222a;
+	margin: 0.8em 0.4em 0.4em 0.4em;
+	border-radius: 3px;
+}
+
+#wrapper article div#userProjectContainer ul li div.projectLink a {
+	font-size: 1.4em;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #76b0c6;
+	font-weight: bold;
+}
+
+#wrapper article div#searchResultLoader {
+  text-align: center;
+  padding: 0.78em;
+  display: none;
+}
+
+#wrapper article div#moreResults p {
+  text-align: center;
+  margin: 0;
+  cursor: pointer;
+}
+
+#wrapper article div#moreResults div {
+  margin: auto;
+}
 }

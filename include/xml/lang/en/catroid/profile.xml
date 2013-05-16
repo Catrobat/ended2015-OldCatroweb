@@ -25,6 +25,8 @@
   <string name="myTitle">My Profile</string>
   <string name="userTitle">User Profile</string>
 
+  <string name="showMore">show more</string>
+
 
   <string name="changeAvatar">Change picture</string>
   <string name="name">Name</string>

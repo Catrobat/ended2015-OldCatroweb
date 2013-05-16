@@ -140,7 +140,7 @@
     
     var info = result.CatrobatInformation;
     this.params.numProjects = info['TotalProjects'];
-    this.params.page.pageNrMax = Math.max(1, Math.ceil(Math.max(0, this.params.numProjects) / this.params.page.numProjectsPerPage) - 1);
+    this.params.page.pageNrMax = Math.max(1, Math.ceil(Math.max(0, this.params.numProjects) / this.params.page.numProjectsPerPage));
 
     this.projectContentFiller.fill(result);
   },

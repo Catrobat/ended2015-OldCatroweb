@@ -74,24 +74,15 @@
            </div>
          </div>
        </div>
-       <div id="myProjectsContainer">
-         <div class="myProjects"><?php echo $this->languageHandler->getString('my_projects')," ", $this->userData['username'];?></div>
-          <div id="newestProjects">
-            <ul>
-  					  <li>
-  					    <a href="<?php echo BASE_PATH?>details/1">
-  					      <img src="<?php echo BASE_PATH; ?>images/symbols/thumb1.png" width="80" height="72" />
-  					      <div class="projectTitle">The Happy Hippo</div>
-                  <div class="projectAddition">20 minutes ago</div>
-                  <div class="changeProject">
-                    <button class="change"><img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" /></button>
-                    <button class="change"><img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" /></button>
-                  </div>
-                </a>           
-  						</li>
-  					</ul>
-          </div>
-        </div>
+
+    <div style="clear: both;"></div>
+    <h3><?php echo $this->languageHandler->getString('my_projects')," ", $this->userData['username']; ?></h3>
+    <div id="userProjectContainer" class="projectContainer"></div>
+    <div id="userProjectLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></div>
+    <div id="moreResults" class="moreButton">
+      <div class="img-load-more"></div>
+      <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+    </div>
   </article>
   
   <script type="text/javascript">
@@ -102,6 +93,7 @@
           "second_email" : "<?php echo $this->languageHandler->getString('second_email'); ?>"
         };
         new Profile(languageStringsObject);
+        ProjectObject(<?php echo $this->jsParams; ?>).init();
       });
   </script>
       

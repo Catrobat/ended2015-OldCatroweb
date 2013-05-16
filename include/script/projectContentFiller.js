@@ -173,7 +173,7 @@ var ProjectContentFiller = Class
             var index = elementOffset + i;
             if(projects != null && projects[i]) {
               $(elements[index]).css("visibility", "visible");
-              $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
               $('div.projectAddition', elements[index]).text(projects[i]['UploadedString']);
@@ -199,7 +199,7 @@ var ProjectContentFiller = Class
             var index = elementOffset + i;
             if(projects != null && projects[i]) {
               $(elements[index]).css("visibility", "visible");
-              $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
               $('div.projectAddition', elements[index]).text(projects[i]['Downloads'] + ' ' + this.params.additionalTextLabel);
@@ -225,7 +225,7 @@ var ProjectContentFiller = Class
             var index = elementOffset + i;
             if(projects != null && projects[i]) {
               $(elements[index]).css("visibility", "visible");
-              $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
               $('div.projectAddition', elements[index]).text(projects[i]['Views'] + ' ' + this.params.additionalTextLabel);
