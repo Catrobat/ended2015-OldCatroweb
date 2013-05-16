@@ -37,12 +37,13 @@
   white-space: nowrap;
 }
 
-#wrapper header button, img, input {
+#wrapper header button, input {
   vertical-align: bottom;
 }
 
 #wrapper header button {
   border: 0;
+  padding: 0 0 0.14em 0;
   background-color: transparent;
   margin: 0.5625em;
   background-repeat: norepeat;

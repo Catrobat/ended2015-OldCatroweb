@@ -57,14 +57,14 @@ var Header = Class.$extend( {
     this.hideNavigationMenuTimer = window.setTimeout($.proxy(function() {
       $('#navigationMenu').hide();
       this.isNavigationMenuToggeled = false;
-    }, this), 100);
+    }, this), 300);
   },
   
   toggleNavigationMenu : function() {
     if(this.isNavigationMenuToggeled) {
       $('#navigationMenu').hide();
     } else {
-      $('#navigationMenu').css({right: $('#wrapper').position().left + 20 });
+      $('#navigationMenu').css({right: $('#wrapper').offset().left + 20 });
       $('#navigationMenu').show();
     }
     this.isNavigationMenuToggeled = !this.isNavigationMenuToggeled;
