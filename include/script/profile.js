@@ -292,5 +292,11 @@ var Profile = Class.$extend( {
   search : function() {
     location.href = "/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
     return false;
+  },
+  
+  deleteProject : function(event) {
+    if(confirm(this.languageStringsObject.really_delete_project + " '" + event.data.name + "' ?")) {
+      document.location = this.basePath + "profile/delete?id=" + event.data.id;
+    }
   }
 });

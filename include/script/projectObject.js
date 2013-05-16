@@ -150,7 +150,7 @@
     console.log(error + ' ' + errCode);
     
     if(typeof this.params.callbacks['error'] === 'function') {
-      this.params.callbacks['error'].call(this);
+      this.params.callbacks['error'].call();
     }
   },
   

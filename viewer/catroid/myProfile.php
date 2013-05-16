@@ -88,12 +88,13 @@
   <script type="text/javascript">
       $(document).ready(function() {
         var languageStringsObject = { 
-          "really_delete" : "<?php echo $this->languageHandler->getString('really_delete'); ?>",
+          "really_delete_email" : "<?php echo $this->languageHandler->getString('really_delete_email'); ?>",
+          "really_delete_project" : "<?php echo $this->languageHandler->getString('really_delete_project'); ?>",
           "image_too_big" : "<?php echo $this->languageHandler->getString('image_too_big'); ?>",
           "second_email" : "<?php echo $this->languageHandler->getString('second_email'); ?>"
         };
-        new Profile(languageStringsObject);
-        ProjectObject(<?php echo $this->jsParams; ?>).init();
+        var profile = Profile(languageStringsObject);
+        ProjectObject(<?php echo $this->jsParams; ?>, {'delete' : $.proxy(profile.deleteProject, profile)}).init();
       });
   </script>
       

@@ -46,7 +46,8 @@
   <string name="male">male</string>
   <string name="female">female</string>
 
-  <string name="really_delete">Do you really want to delete this email address</string>
+  <string name="really_delete_email">Do you really want to delete this email address</string>
+  <string name="really_delete_project">Do you really want to delete your project</string>
   <string name="image_too_big">Your chosen picture is too large, please do not use images larger than 5mb.</string>
   <string name="other">Other</string>
   <string name="avatar_success">You updated your avatar successfully.</string>

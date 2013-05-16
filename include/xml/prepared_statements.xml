@@ -38,6 +38,7 @@
     <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, user_id, reason, user_ip) VALUES ($1, $2, $3, $4)</string>
     <string name="get_flags_for_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND resolved=false</string>
     <string name="hide_project">UPDATE projects SET visible=false WHERE id=$1</string>
+    <string name="hide_user_project">UPDATE projects SET visible=false WHERE id=$1 AND user_id=$2</string>
     <string name="show_project">UPDATE projects SET visible=true WHERE id=$1</string>
     <string name="set_mail_sent_on_inappropriate">UPDATE flagged_projects SET mail_sent=true WHERE project_id=$1</string>
     <string name="set_resolved_on_inappropriate">UPDATE flagged_projects SET resolved=true WHERE project_id=$1</string>

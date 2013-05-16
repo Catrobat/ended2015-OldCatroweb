@@ -45,7 +45,11 @@ class profile extends CoreAuthenticationUser {
     $ownProfile = false;
     
     if(isset($_GET['method']) && trim($_GET['method']) != '') {
-      if(strcmp($_GET['method'], $this->session->userLogin_userNickname) == 0) {
+      if(strcmp($_GET['method'], 'delete' == 0)) {
+        $this->deleteProject();
+        $showUser = $this->session->userLogin_userNickname;
+        $ownProfile = true;
+      } else if(strcmp($_GET['method'], $this->session->userLogin_userNickname) == 0) {
         $showUser = $this->session->userLogin_userNickname;
         $ownProfile = true;
       } else if($this->userFunctions->checkUserExists($_GET['method'])) {
@@ -99,7 +103,7 @@ class profile extends CoreAuthenticationUser {
         'author' => $this->userData['username']
     );
     
-    $params['config'] = array('PROJECT_LAYOUT_GRID_ROW' => PROJECT_LAYOUT_GRID_ROW,
+    $params['config'] = array('LAYOUT_GRID_ROW' => PROJECT_LAYOUT_GRID_ROW,
         'sortby' => array('age' => PROJECT_SORTBY_AGE,
             'downloads' => PROJECT_SORTBY_DOWNLOADS,
             'views' => PROJECT_SORTBY_VIEWS,
@@ -108,6 +112,13 @@ class profile extends CoreAuthenticationUser {
     );
     
     $this->jsParams = "'" . addslashes(json_encode($params)) . "'";
+  }
+
+  private function deleteProject() {
+    if(isset($_REQUEST['id'])) {
+      pg_execute($this->dbConnection, "hide_user_project", array($_REQUEST['id'], $this->session->userLogin_userId)) or
+      $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    }
   }
   
   //--------------------------------------------------------------------------------------------------------------------
