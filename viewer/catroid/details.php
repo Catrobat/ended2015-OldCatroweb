@@ -30,9 +30,9 @@
       <div class="projectDetailsAuthorTop">
         <div>
           <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
-          <span>
+          <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['uploaded_by']; ?>">
             <?php echo $this->project['uploaded_by_string']; ?>
-          </span>
+          </a>
         </div>
       </div>
     </div>
@@ -76,7 +76,7 @@
       <ul>
         <li>
           <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
-          <span><?php echo $this->project['uploaded_by']; ?></span>
+          <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['uploaded_by']; ?>"><?php echo $this->project['uploaded_by_string']; ?></a>
         </li>
         <li>
           <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
