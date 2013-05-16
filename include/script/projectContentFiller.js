@@ -285,7 +285,7 @@ var ProjectContentFiller = Class
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
-              $('div.projectAddition', elements[index]).text('hey' + projects[i]['UploadedString'] + '');
+              $('div.projectAddition', elements[index]).text(projects[i]['UploadedString']);
               $('div.projectDeleteButton', elements[index]).click({id: projects[i]['ProjectId'], name: projects[i]['ProjectName']}, this.params.callbacks['delete']);
             } else {
               $(elements[index]).css("visibility", "hidden");
