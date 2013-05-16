@@ -123,7 +123,7 @@ var Profile = Class.$extend( {
         }),
         timeout : (this.ajaxTimeout),
         success : $.proxy(this.passwordRequestSuccess, this),
-        //error : $.proxy(common.ajaxTimedOut, this)
+        error : $.proxy(alert("ajaxTimedOut"),this)
       });
     }
     if(this.firstEmailChanged == 1) {
@@ -283,7 +283,7 @@ var Profile = Class.$extend( {
       }),
       timeout : this.ajaxTimeout,
       success : $.proxy(this.genericRequestSuccess, this),
-      //error : $.proxy(common.ajaxTimedOut, this)
+      error : $.proxy(alert("ajaxTimedOut"),this)
       error : alert("update language")
     });
   },

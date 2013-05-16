@@ -64,7 +64,7 @@ var Registration = Class.$extend( {
       }),
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.registrationSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
+      error : $.proxy(alert("ajaxTimedOut"),this)
     });
   },
 
@@ -72,8 +72,7 @@ var Registration = Class.$extend( {
     if(response.statusCode == 200) {
       location.href = this.basePath + 'profile';
     } else {
-      common.showPreHeaderMessages(response);
-      common.showAjaxErrorMsg(response.answer);
+      alert(response.answer);
     }
   },
 

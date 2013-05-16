@@ -28,6 +28,7 @@
         new Registration();
       });
     </script>
+    <article>
     <div class="webMainMiddle">
       <div class="blueBoxMain">
         <div class="webMainContent">
@@ -36,7 +37,8 @@
             <div class="whiteBoxMain">
               <form class="registrationForm catroid">
                 <label for="registrationUsername"><?php echo $this->languageHandler->getString('nickname')?></label> 
-                <input type="text" id="registrationUsername" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_nickname')?>" class="catroid" />
+                <input type="text" id="registrationUsername" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_nickname')?>" class="catroid" /><br />
+                
                 <div class="catroidFormInfoBox"><?php echo $this->languageHandler->getString('nickname_info')?></div>
                 <label for="registrationPassword"><?php echo $this->languageHandler->getString('password')?></label> 
                 <input type="password" id="registrationPassword" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" class="catroid" />
@@ -65,7 +67,6 @@
                   <option value="male"><?php echo $this->languageHandler->getString('male')?></option>
                 </select>
                 <input type="button" id="registrationSubmit" value="<?php echo $this->languageHandler->getString('create')?>" class="catroidSubmit button orange registrationSubmitButton"/>
-                <br /> <br /> <br /> <br />
                 
                 <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
                 <ul class="loginOptions">
@@ -78,3 +79,4 @@
         </div> <!-- mainContent close //-->
       </div> <!-- blueBoxMain close //-->
     </div>
+</article>

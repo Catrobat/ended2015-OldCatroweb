@@ -23,6 +23,7 @@
 
 var PasswordRecovery = Class.$extend( {
   __include__ : [__baseClassVars],
+  //todo: get language strings
   __init__ : function() {
     $("#passwordRecoverySendLink").click($.proxy(this.passwordRecoverySendLink, this));
     $("#passwordRecoveryUserdata").keypress($.proxy(this.passwordRecoveryUserdataCatchKeypress, this));
@@ -47,7 +48,7 @@ var PasswordRecovery = Class.$extend( {
       }),
       timeout : this.ajaxTimeout,
       success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
+      error   : this.ajaxTimeout
     });
   },
   
@@ -68,25 +69,25 @@ var PasswordRecovery = Class.$extend( {
       }),
       timeout : this.ajaxTimeout,
       success : $.proxy(this.changeMyPasswordRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
+      // todo: change to language string
+      error : $.proxy(alert("ajaxTimedOut"),this)
     });
   },
 
   changeMyPasswordRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
       location.href = this.basePath + 'profile';
     } else {
-      common.showAjaxErrorMsg(result.answer);
+      alert(result.answer);
     }
   },
 
   genericRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
+
     if(result.statusCode == 200) {
-      common.showAjaxSuccessMsg(result.answer);
+      alert(result.answer);
     } else {
-      common.showAjaxErrorMsg(result.answer);
+      alert(result.answer);
     }
   }
 });

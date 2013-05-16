@@ -28,7 +28,7 @@
         new PasswordRecovery();
         <?php
           if($this->answer != '') {
-            echo 'common.showAjaxErrorMsg("' . $this->answer . '");'; 
+            echo 'alert("' . $this->answer . '");';
           }
         ?>
       });

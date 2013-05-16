@@ -37,7 +37,6 @@ $this->module->addGlobalJs('classy.js');
 $this->module->addGlobalJs('header.js');
 $this->module->addGlobalJs('footer.js');
 $this->module->addGlobalJs('languageHandler.js');
-$this->module->addGlobalJs('commonFunctions.js');
 $this->module->addGlobalJs('login.js');
 $this->module->addGlobalJs('searchBar.js');
 
