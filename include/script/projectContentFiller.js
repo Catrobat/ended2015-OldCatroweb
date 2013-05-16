@@ -64,34 +64,44 @@ var ProjectContentFiller = Class
         this.reset = null;
         this.error = {"type" : "", code : 0, extra : ""};
 
-        this.initializeLayout(this.params.layout);
+        this.initializeLayout(this.params.layout, this.params.sort);
       },
       
       isReady: function() {
         return this.ready;
       },
       
-      initializeLayout : function(layout) {
+      initializeLayout : function(layout, sort) {
+        this.ready = true;
+        
         switch(layout) {
           case this.params.config.PROJECT_LAYOUT_GRID_ROW:
             this.visibleRows = 0;
             this.gridRowHeight = 0;
-            this.ready = true;
 
-            this.fillLayout = this.fillGridRowAge;
+            switch(sort) {
+              case this.params.config.sortby.downloads:
+                this.fillLayout = this.fillGridRowDownloads;
+                break;
+              case this.params.config.sortby.views:
+                this.fillLayout = this.fillGridRowViews;
+                break;
+              default:
+                this.fillLayout = this.fillGridRowAge;
+            }
             this.extend = this.extendGridRowContainer;
             this.clear = this.clearGridRowContainer;
             
             this.clear();
-            if(this.params.preloaded != null) {
-              for(var index = 0, amount = this.params.preloaded.length; index < amount; index++) {
-                this.fill(this.params.preloaded[index]);
-              }
-            }
-
             break;
           default:
             this.ready = false;
+        }
+
+        if(this.ready && this.params.preloaded != null) {
+          for(var index = 0, amount = this.params.preloaded.length; index < amount; index++) {
+            this.fill(this.params.preloaded[index]);
+          }
         }
       },
       
@@ -167,6 +177,60 @@ var ProjectContentFiller = Class
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
               $('div.projectAddition', elements[index]).text(projects[i]['UploadedString']);
+            } else {
+              $(elements[index]).css("visibility", "hidden");
+            }
+          }
+          this.extendGridRowContainer();
+        }
+      },
+      
+      fillGridRowDownloads : function(result) {
+        if(result.CatrobatInformation != null && result.CatrobatProjects != null) {
+          this.addGridRow();
+          
+          var info = result.CatrobatInformation;
+          var projects = result.CatrobatProjects;
+          
+          var elements = $('> ul', this.params.container).children();
+          
+          var elementOffset = this.visibleRows * this.params.page.numProjectsPerPage;
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+            var index = elementOffset + i;
+            if(projects != null && projects[i]) {
+              console.log(projects[i]);
+              $(elements[index]).css("visibility", "visible");
+              $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
+              $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
+              $('div.projectAddition', elements[index]).text(projects[i]['Downloads'] + ' ' + this.params.additionalTextLabel);
+            } else {
+              $(elements[index]).css("visibility", "hidden");
+            }
+          }
+          this.extendGridRowContainer();
+        }
+      },
+      
+      fillGridRowViews : function(result) {
+        if(result.CatrobatInformation != null && result.CatrobatProjects != null) {
+          this.addGridRow();
+          
+          var info = result.CatrobatInformation;
+          var projects = result.CatrobatProjects;
+          
+          var elements = $('> ul', this.params.container).children();
+          
+          var elementOffset = this.visibleRows * this.params.page.numProjectsPerPage;
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+            var index = elementOffset + i;
+            if(projects != null && projects[i]) {
+              console.log(projects[i]);
+              $(elements[index]).css("visibility", "visible");
+              $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
+              $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
+              $('div.projectAddition', elements[index]).text(projects[i]['Views'] + ' ' + this.params.additionalTextLabel);
             } else {
               $(elements[index]).css("visibility", "hidden");
             }

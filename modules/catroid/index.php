@@ -77,29 +77,31 @@ class index extends CoreAuthenticationNone {
     $this->newestProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
     $params['preloaded'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
-        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_DOWNLOADS);
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_DOWNLOADS, PROJECT_SORTBY_DOWNLOADS);
     $params['preloaded'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
-        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_DOWNLOADS);
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_DOWNLOADS, PROJECT_SORTBY_DOWNLOADS);
     $params['container'] = '#mostDownloadedProjects';
     $params['loader'] = '#mostDownloadedProjectsLoader';
     $params['buttons'] = array('prev' => null,
         'next' => '#mostDownloadedShowMore'
     );
-    $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
+    $params['mask'] = PROJECT_MASK_GRID_ROW_DOWNLOADS;
     $params['sort'] = PROJECT_SORTBY_DOWNLOADS;
+    $params['additionalTextLabel'] = $this->languageHandler->getString('downloaded');
     $this->mostDownloadedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
     $params['preloaded'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
-        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_VIEWS);
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_VIEWS, PROJECT_SORTBY_VIEWS);
     $params['preloaded'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
-        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_VIEWS);
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_VIEWS, PROJECT_SORTBY_VIEWS);
     $params['container'] = '#mostViewedProjects';
     $params['loader'] = '#mostViewedProjectsLoader';
     $params['buttons'] = array('prev' => null,
         'next' => '#mostViewedShowMore'
     );
-    $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
+    $params['mask'] = PROJECT_MASK_GRID_ROW_VIEWS;
     $params['sort'] = PROJECT_SORTBY_VIEWS;
+    $params['additionalTextLabel'] = $this->languageHandler->getString('viewed');
     $this->mostViewedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
   }
 

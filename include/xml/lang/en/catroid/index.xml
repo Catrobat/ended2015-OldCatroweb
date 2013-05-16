@@ -26,6 +26,8 @@
     <string name="recommended_by_us">Recommended</string>
     <string name="newest_projects">Newest Projects</string>
     <string name="most_downloaded">Most Downloaded</string>
+    <string name="downloaded">downloads</string>
     <string name="most_viewed">Most Viewed</string>
+    <string name="viewed">views</string>
     <string name="show_more">Show More</string>
 </strings>
