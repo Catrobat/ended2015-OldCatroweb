@@ -45,7 +45,7 @@ class profile extends CoreAuthenticationUser {
     $ownProfile = false;
     
     if(isset($_GET['method']) && trim($_GET['method']) != '') {
-      if(strcmp($_GET['method'], 'delete' == 0)) {
+      if(strcmp($_GET['method'], 'delete') == 0) {
         $this->deleteProject();
         $showUser = $this->session->userLogin_userNickname;
         $ownProfile = true;
