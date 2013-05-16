@@ -973,7 +973,7 @@ class userFunctions extends CoreAuthenticationNone {
     }
     
     if($user['avatar'] == NULL) {
-      $user['avatar'] = BASE_PATH . "images/symbols/avatar_boys.png";
+      $user['avatar'] = BASE_PATH . "images/symbols/avatar_default.png";
     }
      
     pg_free_result($result);

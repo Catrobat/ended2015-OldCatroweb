@@ -26,7 +26,7 @@
 
       <article>
         <div id="programmOfTheWeek">
-          <header><?php echo $this->languageHandler->getString('recommended_by_us'); ?></header>
+          <header><?php echo $this->languageHandler->getString('recommended'); ?></header>
           <div>
             <a href="<?php echo BASE_PATH?>details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/hippo.png" /></a>
             <div>
@@ -36,38 +36,38 @@
           </div>
         </div>
 
-        <header><?php echo $this->languageHandler->getString('newest_projects'); ?></header>
+        <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
         <div id="newestProjects" class="projectContainer"></div>
         <div id="newestProjectsLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></div>
         <div id="newestShowMore" class="moreButton">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('show_more'); ?></p>
+          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div> 
         <div class="projectContainerFooter"></div>
 
-        <header><?php echo $this->languageHandler->getString('most_downloaded'); ?></header>
+        <header><?php echo $this->languageHandler->getString('mostDownloaded'); ?></header>
         <div id="mostDownloadedProjects" class="projectContainer"></div>
         <div id="mostDownloadedProjectsLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></div>
         <div id="mostDownloadedShowMore" class="moreButton">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('show_more'); ?></p>
+          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div>
         <div class="projectContainerFooter"></div>
 
-        <header><?php echo $this->languageHandler->getString('most_viewed'); ?></header>
+        <header><?php echo $this->languageHandler->getString('mostViewed'); ?></header>
         <div id="mostViewedProjects" class="projectContainer"></div>
         <div id="mostViewedProjectsLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></div>
         <div id="mostViewedShowMore" class="moreButton">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('show_more'); ?></p>
-        </div> 
+          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+        </div>
         <div class="projectContainerFooter"></div>
 
       </article>
       <script type="text/javascript">
         $(document).ready(function() {
-          ProjectObject(<?php echo $this->newestProjectsParams; ?>);
-          ProjectObject(<?php echo $this->mostDownloadedProjectsParams; ?>);
-          ProjectObject(<?php echo $this->mostViewedProjectsParams; ?>);
+          ProjectObject(<?php echo $this->newestProjectsParams; ?>).init();
+          ProjectObject(<?php echo $this->mostDownloadedProjectsParams; ?>).init();
+          ProjectObject(<?php echo $this->mostViewedProjectsParams; ?>).init();
         });
       </script>

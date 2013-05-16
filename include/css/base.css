@@ -141,6 +141,13 @@ h3 {
   background-position: -131px -93px;
 }
 
+.img-delete {
+  width: 31px;
+  height: 31px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -131px -186px;
+}
+
 .img-password {
   width: 39px;
   height: 39px;
@@ -176,6 +183,7 @@ h3 {
 }
 
 #wrapper {
+  background-color: #05252e;
   margin-right: auto;
   margin-left: auto;
   width: 100%; /* 1024px; */
@@ -218,4 +226,106 @@ footer {
 
 body img#ga {
   display: none;
+}
+
+
+
+#wrapper article div.projectContainer {
+  margin-top: 0.2em;
+  text-align: center;
+  overflow: hidden;
+}
+
+#wrapper article div.projectContainer ul {
+	float:left;
+	margin:auto;
+	padding:0;
+	list-style:none;
+	position:relative;
+	left:50%;
+}
+
+#wrapper article div.projectContainer ul li {
+	display:inline-block;
+	position:relative;
+	left:-50%;
+	width: 84px;
+	margin: 0.6em 0.5em 1.6em 0.5em;
+	vertical-align: top;
+}
+
+#wrapper article div.projectContainer ul li img {
+	border: 2px solid #a8dff4;
+  width: 80px;
+  height: 80px;
+	display: block;
+}
+
+#wrapper article div.projectContainer ul li div {
+	white-space: nowrap;  
+	overflow: hidden;
+}
+
+#wrapper article div.projectContainer ul li a {
+  text-decoration: none; 
+  color: #a8dff4; 
+}
+
+#wrapper article div.projectContainer ul li div.projectTitle {
+	text-align: left;
+	font-size: 0.8em;
+	font-weight: bold;
+	margin-top: 0.5em;
+}
+
+#wrapper article div.projectContainer ul li div.projectAddition {
+	text-align: left;
+	font-size: 0.7em;
+}
+
+#wrapper article div.projectContainer ul li div.projectLink {
+	margin: 0.8em 0.4em 0.4em 0.4em;
+	border-radius: 3px;
+}
+
+#wrapper article div.projectContainer ul li div.projectLink a {
+	font-size: 1.4em;
+	text-transform: uppercase;
+	text-decoration: none;
+	color: #76b0c6;
+	font-weight: bold;
+}
+
+#wrapper article div.projectLoader {
+  text-align: center;
+  padding: 0.78em;
+  display: none;
+}
+
+#wrapper article div.moreButton p {
+  text-align: center;
+  margin: 0;
+  cursor: pointer;
+}
+
+#wrapper article div.moreButton div {
+  margin: auto;
+}
+
+@media screen and (min-width: 320px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.5em 1.6em 0.5em;
+  }
+}
+
+@media screen and (min-width: 360px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.9em 1.6em 0.9em;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.7em 1.6em 0.7em;
+  }
 }

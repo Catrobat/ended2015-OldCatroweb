@@ -21,19 +21,16 @@
  *along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-var MyProjects = Class.$extend( {
+var Search = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function(strings) {
-    var basePath = this.basePath;
-    
-    $(document).ready(function(e) {
-      $('#deleteButtons > div > button').each(function() {
-        $(this).click(function(e) {
-          if(confirm(strings.really_delete + " '" + e.target.name + "' ?")) {
-            document.location = basePath + "myprojects/delete?id=" + e.target.id;
-          }
-        });
-      });
-    });
+  __init__ : function() {
+  },
+  
+  setProjectObject : function(projectObject) {
+    this.projectObject = projectObject;
+  },
+  
+  updateSearchResults : function() {
+    $('#numberOfSearchResults').text(this.projectObject.getNumProjects());
   }
 });

@@ -25,7 +25,7 @@
 class projects extends CoreAuthenticationNone {
   protected $maxId = 2147483647; // (2^8)^4 / 2 - 1  (4 bytes signed int)
   protected $mask = array(PROJECT_MASK_DEFAULT => array('ProjectId', 'ProjectName'),
-      PROJECT_MASK_GRID_ROW_AGE => array('ProjectName', 'ScreenshotSmall', 'UploadedString', 'ProjectUrl'),
+      PROJECT_MASK_GRID_ROW_AGE => array('ProjectId', 'ProjectName', 'ScreenshotSmall', 'UploadedString'),
       PROJECT_MASK_GRID_ROW_DOWNLOADS => array('ProjectId', 'ProjectName', 'ScreenshotSmall', 'Downloads'),
       PROJECT_MASK_GRID_ROW_VIEWS => array('ProjectId', 'ProjectName', 'ScreenshotSmall', 'Views'),
       PROJECT_MASK_ALL => array('ProjectId', 'ProjectName', 'ScreenshotBig', 'ScreenshotSmall', 'Author', 'Description', 'Uploaded', 

@@ -30,6 +30,7 @@ class search extends CoreAuthenticationNone {
     $this->addJs('projectLoader.js');
     $this->addJs('projectContentFiller.js');
     $this->addJs('projectObject.js');
+    $this->addJs('search.js');
     
     $this->loadModule('api/projects');
   }
@@ -41,7 +42,7 @@ class search extends CoreAuthenticationNone {
     $requestedPage = $this->projects->get(($this->session->searchPageNr - 1) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE, $_REQUEST['q']);
     $this->numberOfPages = max(1, intval(ceil(max(0, intval($requestedPage['CatrobatInformation']['TotalProjects'])) /
-        $projectsPerRow) - 1));
+        $projectsPerRow)));
 
     if($this->session->searchPageNr > $this->numberOfPages) {
       $this->session->searchPageNr = $this->numberOfPages;
@@ -53,10 +54,11 @@ class search extends CoreAuthenticationNone {
     $params['layout'] = PROJECT_LAYOUT_GRID_ROW;
     $params['container'] = '#searchResultContainer';
     $params['loader'] = '#searchResultLoader';
-    $params['buttons'] = array('prev' => '#fewerResults',
+    $params['buttons'] = array('prev' => null,
         'next' => '#moreResults'
     );
     $params['preloaded'][0] = $requestedPage;
+    $params['numProjects'] = intval($requestedPage['CatrobatInformation']['TotalProjects']);
     
     $params['page'] = array('number' => intVal($this->session->searchPageNr),
         'numProjectsPerPage' => $projectsPerRow,
@@ -69,7 +71,7 @@ class search extends CoreAuthenticationNone {
         'author' => ''
     );
     
-    $params['config'] = array('PROJECT_LAYOUT_GRID_ROW' => PROJECT_LAYOUT_GRID_ROW,
+    $params['config'] = array('LAYOUT_GRID_ROW' => PROJECT_LAYOUT_GRID_ROW,
         'sortby' => array('age' => PROJECT_SORTBY_AGE,
             'downloads' => PROJECT_SORTBY_DOWNLOADS,
             'views' => PROJECT_SORTBY_VIEWS,

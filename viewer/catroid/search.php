@@ -25,13 +25,22 @@
 ?>
       <article>
         <header><?php echo $this->languageHandler->getString('header'); ?></header>
-        <div id="fewerResults"><?php echo $this->languageHandler->getString('prev_button', '&laquo;'); ?></div>
-        <div id="searchResultContainer"></div>
-        <div id="searchResultLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></div>
-        <div id="moreResults"><?php echo $this->languageHandler->getString('next_button', '&raquo;'); ?></div>
+        <div><?php echo $this->languageHandler->getString('results', '<span id="numberOfSearchResults">0</span>'); ?></div>
+        <div id="searchResultContainer" class="projectContainer"></div>
+        <div id="searchResultLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></div>
+        <div id="moreResults" class="moreButton">
+          <div class="img-load-more"></div>
+          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+        </div>
       </article>
       <script type="text/javascript">
         $(document).ready(function() {
-          SearchBar.setProjectObject(ProjectObject(<?php echo $this->jsParams; ?>));
+          var search = Search();
+          var projects = ProjectObject(<?php echo $this->jsParams; ?>, { 'success' : $.proxy(search.updateSearchResults, search) });
+
+          search.setProjectObject(projects);
+          SearchBar.setProjectObject(projects);
+          
+          projects.init();
         });
       </script>

@@ -27,6 +27,9 @@ class profile extends CoreAuthenticationUser {
   public function __construct() {
     parent::__construct();
     $this->addCss('profile.css');
+    $this->addJs('projectLoader.js');
+    $this->addJs('projectContentFiller.js');
+    $this->addJs('projectObject.js');
     $this->addJs("profile.js");
     
     $this->loadModule('common/userFunctions');
@@ -42,7 +45,11 @@ class profile extends CoreAuthenticationUser {
     $ownProfile = false;
     
     if(isset($_GET['method']) && trim($_GET['method']) != '') {
-      if(strcmp($_GET['method'], $this->session->userLogin_userNickname) == 0) {
+      if(strcmp($_GET['method'], 'delete') == 0) {
+        $this->deleteProject();
+        $showUser = $this->session->userLogin_userNickname;
+        $ownProfile = true;
+      } else if(strcmp($_GET['method'], $this->session->userLogin_userNickname) == 0) {
         $showUser = $this->session->userLogin_userNickname;
         $ownProfile = true;
       } else if($this->userFunctions->checkUserExists($_GET['method'])) {
@@ -64,6 +71,53 @@ class profile extends CoreAuthenticationUser {
     } else {
       $this->setWebsiteTitle($this->languageHandler->getString('userTitle'));
       $this->loadView('userProfile');
+    }
+
+    $this->loadModule('api/projects');
+    $pageNr = 1;
+    $projectsPerRow = 9;
+    
+    $requestedPage = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE, '', $this->userData['username']);
+    $this->numberOfPages = max(1, intval(ceil(max(0, intval($requestedPage['CatrobatInformation']['TotalProjects'])) /
+        $projectsPerRow)));
+    
+    $params = array();
+    $params['layout'] = PROJECT_LAYOUT_GRID_ROW;
+    $params['container'] = '#userProjectContainer';
+    $params['loader'] = '#userProjectLoader';
+    $params['buttons'] = array('prev' => null,
+        'next' => '#moreResults'
+    );
+    $params['preloaded'][0] = $requestedPage;
+    $params['numProjects'] = intval($requestedPage['CatrobatInformation']['TotalProjects']);
+    
+    $params['page'] = array('number' => $pageNr,
+        'numProjectsPerPage' => $projectsPerRow,
+        'pageNrMax' => $this->numberOfPages
+    );
+    
+    $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
+    $params['sort'] = PROJECT_SORTBY_AGE;
+    $params['filter'] = array('query' => '',
+        'author' => $this->userData['username']
+    );
+    
+    $params['config'] = array('LAYOUT_GRID_ROW' => PROJECT_LAYOUT_GRID_ROW,
+        'sortby' => array('age' => PROJECT_SORTBY_AGE,
+            'downloads' => PROJECT_SORTBY_DOWNLOADS,
+            'views' => PROJECT_SORTBY_VIEWS,
+            'random' => PROJECT_SORTBY_RANDOM
+        )
+    );
+    
+    $this->jsParams = "'" . addslashes(json_encode($params)) . "'";
+  }
+
+  private function deleteProject() {
+    if(isset($_REQUEST['id'])) {
+      pg_execute($this->dbConnection, "hide_user_project", array($_REQUEST['id'], $this->session->userLogin_userId)) or
+      $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     }
   }
   

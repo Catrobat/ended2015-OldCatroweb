@@ -75,7 +75,7 @@ var ProjectContentFiller = Class
         this.ready = true;
         
         switch(layout) {
-          case this.params.config.PROJECT_LAYOUT_GRID_ROW:
+          case this.params.config.LAYOUT_GRID_ROW:
             this.visibleRows = 0;
             this.gridRowHeight = 0;
 
@@ -89,6 +89,11 @@ var ProjectContentFiller = Class
               default:
                 this.fillLayout = this.fillGridRowAge;
             }
+            
+            if(typeof this.params.callbacks['delete'] === 'function') {
+              this.fillLayout = this.fillGridRowEdit;
+            }
+            
             this.extend = this.extendGridRowContainer;
             this.clear = this.clearGridRowContainer;
             
@@ -123,6 +128,32 @@ var ProjectContentFiller = Class
           project.append(projectAddition);
           
           $(container).append($("<li />").append(project));
+          
+          if(this.gridRowHeight == 0) {
+            this.gridRowHeight = $(container).height();
+          }
+        }
+      },
+      
+      addGridRowEdit : function() {
+        if($("ul", this.params.container).length == 0) {
+          $(this.params.container).append($("<ul />"));
+        }
+        
+        var container = $("ul", this.params.container);
+        for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+          var project = $("<a />");
+          
+          var projectThumbnail = $("<img />");
+          var projectTitle = $("<div />").addClass("projectTitle").text("a");
+          var projectAddition = $("<div />").addClass("projectAddition").text("z");
+          var projectActions = $("<div />").addClass("projectDeleteButton img-delete");
+          
+          project.append(projectThumbnail);
+          project.append(projectTitle);
+          project.append(projectAddition);
+          
+          $(container).append($("<li />").append(project).append(projectActions));
           
           if(this.gridRowHeight == 0) {
             this.gridRowHeight = $(container).height();
@@ -173,7 +204,7 @@ var ProjectContentFiller = Class
             var index = elementOffset + i;
             if(projects != null && projects[i]) {
               $(elements[index]).css("visibility", "visible");
-              $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
               $('div.projectAddition', elements[index]).text(projects[i]['UploadedString']);
@@ -198,9 +229,8 @@ var ProjectContentFiller = Class
           for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
             var index = elementOffset + i;
             if(projects != null && projects[i]) {
-              console.log(projects[i]);
               $(elements[index]).css("visibility", "visible");
-              $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
               $('div.projectAddition', elements[index]).text(projects[i]['Downloads'] + ' ' + this.params.additionalTextLabel);
@@ -225,12 +255,38 @@ var ProjectContentFiller = Class
           for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
             var index = elementOffset + i;
             if(projects != null && projects[i]) {
-              console.log(projects[i]);
               $(elements[index]).css("visibility", "visible");
-              $('a', elements[index]).attr('href', info['BaseUrl'] + projects[i]['ProjectUrl']).attr('title', projects[i]['ProjectName']);
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
               $('div.projectAddition', elements[index]).text(projects[i]['Views'] + ' ' + this.params.additionalTextLabel);
+            } else {
+              $(elements[index]).css("visibility", "hidden");
+            }
+          }
+          this.extendGridRowContainer();
+        }
+      },
+      
+      fillGridRowEdit : function(result) {
+        if(result.CatrobatInformation != null && result.CatrobatProjects != null) {
+          this.addGridRowEdit();
+          
+          var info = result.CatrobatInformation;
+          var projects = result.CatrobatProjects;
+          
+          var elements = $('> ul', this.params.container).children();
+          
+          var elementOffset = this.visibleRows * this.params.page.numProjectsPerPage;
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+            var index = elementOffset + i;
+            if(projects != null && projects[i]) {
+              $(elements[index]).css("visibility", "visible");
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
+              $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
+              $('div.projectAddition', elements[index]).text(projects[i]['UploadedString']);
+              $('div.projectDeleteButton', elements[index]).click({id: projects[i]['ProjectId'], name: projects[i]['ProjectName']}, this.params.callbacks['delete']);
             } else {
               $(elements[index]).css("visibility", "hidden");
             }
@@ -250,5 +306,9 @@ var ProjectContentFiller = Class
         $.each(searchWords, $.proxy(function(index, value) { 
           $(this.params.container).highlight(value);
         }, this));
+        
+        if(typeof this.params.callbacks['success'] === 'function') {
+          this.params.callbacks['success'].call();
+        }
       }
     });

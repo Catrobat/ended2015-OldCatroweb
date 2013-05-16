@@ -52,9 +52,14 @@
   margin-top: -0.3em; /* correct margin inherited from header */
 }
 
-.projectDetailsAuthorTop span {
+.projectDetailsAuthorTop a {
   display: table-cell;
   vertical-align: middle;
+  color: #fff;
+}
+
+#wrapper .projectDetailsAuthorTop a:link {
+  text-decoration: none;
 }
 
 .projectDetailsThumbnail {
@@ -169,6 +174,11 @@
 
 .projectDetailsInformation ul li span {
   vertical-align: middle; 
+}
+
+#wrapper .projectDetailsInformation ul li a:link {
+  font-weight: normal;
+  text-decoration: none;
 }
 
 .projectDetailsInformation ul li > img {

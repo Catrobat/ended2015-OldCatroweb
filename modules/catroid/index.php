@@ -43,7 +43,7 @@ class index extends CoreAuthenticationNone {
     $pageTwo = $this->projects->get(($pageNr - 1) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE);
     $this->numberOfPages = max(1, intval(ceil(max(0, intval($pageOne['CatrobatInformation']['TotalProjects'])) /
-        $projectsPerRow) - 1));
+        $projectsPerRow)));
 
     $params = array();
     $params['layout'] = PROJECT_LAYOUT_GRID_ROW;
@@ -54,6 +54,7 @@ class index extends CoreAuthenticationNone {
     );
     $params['preloaded'][0] = $pageOne;
     $params['preloaded'][1] = $pageTwo;
+    $params['numProjects'] = intval($pageOne['CatrobatInformation']['TotalProjects']);
     
     $params['page'] = array('number' => $pageNr,
         'numProjectsPerPage' => $projectsPerRow,
@@ -66,7 +67,7 @@ class index extends CoreAuthenticationNone {
         'author' => ''
     );
     
-    $params['config'] = array('PROJECT_LAYOUT_GRID_ROW' => PROJECT_LAYOUT_GRID_ROW,
+    $params['config'] = array('LAYOUT_GRID_ROW' => PROJECT_LAYOUT_GRID_ROW,
         'sortby' => array('age' => PROJECT_SORTBY_AGE,
             'downloads' => PROJECT_SORTBY_DOWNLOADS,
             'views' => PROJECT_SORTBY_VIEWS,

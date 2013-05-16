@@ -68,91 +68,18 @@
 
 #wrapper article div.projectContainer {
   background-color: #00475d;
-  margin-top: 0.2em;
-  text-align: center;
-  overflow: hidden;
-}
-
-#wrapper article div.projectContainer ul {
-	float:left;
-	margin:auto;
-	padding:0;
-	list-style:none;
-	position:relative;
-	left:50%;
-}
-
-#wrapper article div.projectContainer ul li {
-	display:inline-block;
-	position:relative;
-	left:-50%;
-	width: 84px;
-	margin: 0.6em 0.5em 1.6em 0.5em;
-	vertical-align: top;
-}
-
-#wrapper article div.projectContainer ul li img {
-	border: 2px solid #a8dff4;
-  width: 80px;
-  height: 80px;
-	display: block;
-}
-
-#wrapper article div.projectContainer ul li div {
-	white-space: nowrap;  
-	overflow: hidden;
-}
-
-#wrapper article div.projectContainer ul li a {
-  text-decoration: none; 
-  color: #a8dff4; 
-}
-
-#wrapper article div.projectContainer ul li div.projectTitle {
-	text-align: left;
-	font-size: 0.8em;
-	font-weight: bold;
-	margin-top: 0.5em;
-}
-
-#wrapper article div.projectContainer ul li div.projectAddition {
-	text-align: left;
-	font-size: 0.7em;
 }
 
 #wrapper article div.projectContainer ul li div.projectLink {
 	background-color: #05222a;
-	margin: 0.8em 0.4em 0.4em 0.4em;
-	border-radius: 3px;
-}
-
-#wrapper article div.projectContainer ul li div.projectLink a {
-	font-size: 1.4em;
-	text-transform: uppercase;
-	text-decoration: none;
-	color: #76b0c6;
-	font-weight: bold;
 }
 
 #wrapper article div.projectLoader {
   background-color: #00475d;
-  text-align: center;
-  padding: 0.78em;
-  display: none;
 }
 
 #wrapper article div.moreButton {
   background-color: #00475d;
-}
-
-#wrapper article div.moreButton p {
-  text-align: center;
-  margin: 0;
-  cursor: pointer;
-}
-
-#wrapper article div.moreButton div {
-  margin: auto;
 }
 
 #wrapper article div.projectContainerFooter {
@@ -161,24 +88,3 @@
   margin-bottom: 2.8em;
 }
 
-
-
-
-
-@media screen and (min-width: 320px) {
-  #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.5em 1.6em 0.5em;
-  }
-}
-
-@media screen and (min-width: 360px) {
-  #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.9em 1.6em 0.9em;
-  }
-}
-
-@media screen and (min-width: 800px) {
-  #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.7em 1.6em 0.7em;
-  }
-}
