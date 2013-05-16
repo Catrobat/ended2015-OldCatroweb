@@ -64,6 +64,7 @@ var ProjectLoader = Class.$extend({
   loadPageRequest : function() {
     this.params = this.cbParams.call(this);
     $(this.params.loader).show();
+    $(this.params.buttons.next).hide();
 
     $.ajax({
       url : this.basePath + "api/projects/list.json",
@@ -79,6 +80,7 @@ var ProjectLoader = Class.$extend({
       },
       success : function(result) {
         $(this.params.loader).hide();
+        $(this.params.buttons.next).show();
         this.releaseAjaxMutex();
 
         if(typeof result === "object") {
@@ -89,6 +91,7 @@ var ProjectLoader = Class.$extend({
       },
       error : function(result, errCode) {
         $(this.params.loader).hide();
+        $(this.params.buttons.next).show();
         this.releaseAjaxMutex();        
         this.cbOnError.call(this, result, errCode);
       }
