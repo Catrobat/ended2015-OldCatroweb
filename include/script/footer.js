@@ -33,14 +33,14 @@ var Footer = Class.$extend( {
   toogleMoreMenu : function(event) {
     if(this.isMoreMenuToggeled) {
       $("#footerLessButton").hide();
-      $("#footerMoreButton").css("display", "table-cell");
+      $("#footerMoreButton").show();
       
-      $("#footerMoreMenu").hide();
+      $("#mobileFooterMenu ul").hide();
     } else {
-      $("#footerLessButton").css("display", "table-cell");
+      $("#footerLessButton").show();
       $("#footerMoreButton").hide();
       
-      $("#footerMoreMenu").css("display", "table-row");
+      $("#mobileFooterMenu ul").show();
       $(window).scrollTop($(document).height());
     }
     

@@ -43,6 +43,8 @@
   <string name="template_header_change_profile">Change Profile</string>
   <string name="template_header_logout">Logout</string>
   
+  <string name="template_footer_search_placeholder">search...</string>  
+  <string name="template_footer_search_header">Search</string>  
   <string name="template_footer_more">more</string>
   <string name="template_footer_less">less</string>
   <string name="template_footer_privacy_policy_link">Privacy policy</string>
