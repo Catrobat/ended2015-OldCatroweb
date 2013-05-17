@@ -36,30 +36,39 @@
 .projectDetailsAuthorTop {
   float: right;
   font-size: 0.7em;
-  margin-top: -0.3em; /* correct margin inherited from header */
   padding-right: 1%;
   text-transform: none;
   vertical-align: middle;
 }
 
-.projectDetailsAuthorTop div {
-  display: table;
-  max-height: 1em;
-  height: 1em;
+.projectDetailsAuthorTop ul {
+  float: left;
+  font-size: 1.0em;
+  list-style:none;
+  margin: 2% 0% 2% 0%;
+  padding: 0;
+  width: 100%;
 }
 
-.projectDetailsAuthorTop div img {
-  margin-top: -0.3em; /* correct margin inherited from header */
+.projectDetailsAuthorTop ul li {
+  float: left;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.projectDetailsAuthorTop ul li > div {
+    float: left;
 }
 
 .projectDetailsAuthorTop a {
-  display: table-cell;
+/*   display: table-cell; */
   vertical-align: middle;
   color: #fff;
 }
 
 #wrapper .projectDetailsAuthorTop a:link {
   text-decoration: none;
+  color:#fff;
 }
 
 .projectDetailsThumbnail {
@@ -157,6 +166,11 @@
   width: 100%;
 }
 
+.projectDetailsInformationText {
+  line-height: 35px; 
+  padding-left: 1em;
+}
+
 .projectDetailsInformation ul {
   float: left;
   font-size: 1.0em;
@@ -172,19 +186,13 @@
   width: 25%;
 }
 
-.projectDetailsInformation ul li span {
-  vertical-align: middle; 
+.projectDetailsInformation ul li > div {
+    float: left;
 }
 
 #wrapper .projectDetailsInformation ul li a:link {
   font-weight: normal;
   text-decoration: none;
-}
-
-.projectDetailsInformation ul li > img {
-  height: 2em;
-  margin-right: 3%;
-  width: 2em;
 }
 
 .projectDetailsInformation ul>li:first-of-type {
@@ -238,6 +246,7 @@
   .projectDetailsInformation ul li {
     width: 33%; /* two rows */
   }
+  
   .projectDetailsInformation ul li:nth-child(n+4) {
     margin-top: 2%;
   }
@@ -268,9 +277,16 @@
   .projectDetailsInformationSeperator hr{
     margin-top: 5%;
   }
+  .projectDetailsInformation {
+    padding-left: 5%;
+  }
   
   .projectDetailsInformation ul>li:first-of-type {
     display: inline;
+  }
+  
+  .projectDetailsInformation ul li:nth-child(n+4) {
+    margin-top: 5%;
   }
   
   .projectDetailsInformation ul li {

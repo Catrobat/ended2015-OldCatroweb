@@ -97,6 +97,43 @@ h3 {
   background-color: #9933CC;
 }
 
+.img-age {  
+  display:inline-block;
+  width: 35px;
+  height: 35px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: 0px 0px;
+}
+
+.img-downloads {
+  width: 35px;
+  height: 35px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: 0px -35px;
+}
+
+.img-views {
+  width: 35px;
+  height: 35px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: 0px -70px;
+}
+
+.img-size {
+  width: 35px;
+  height: 35px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: 0px -105px;
+}
+
+.img-author {  
+  display:inline-block;
+  width: 35px;
+  height: 35px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: 0px -140px;
+}
+
 .img-load-more {
   width: 35px;
   height: 35px;

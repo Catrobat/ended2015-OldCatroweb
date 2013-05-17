@@ -28,12 +28,14 @@
     <div>
       <span id="projectDetailsProjectTitle"><?php echo $this->project['title']?></span>
       <div class="projectDetailsAuthorTop">
-        <div>
-          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
-          <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['uploaded_by']; ?>">
-            <?php echo $this->project['uploaded_by_string']; ?>
-          </a>
-        </div>
+        <ul>
+          <li>
+            <div class="img-author"></div>
+            <div style="padding-left: 0.5em;">
+              <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['uploaded_by']; ?>"><?php echo $this->project['uploaded_by']; ?></a>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   </header>
@@ -75,24 +77,35 @@
     <div class="projectDetailsInformation">
       <ul>
         <li>
-          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
-          <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['uploaded_by']; ?>"><?php echo $this->project['uploaded_by_string']; ?></a>
+          <div class="img-author"></div>
+          <div class="projectDetailsInformationText">
+            <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['uploaded_by']; ?>"><?php echo $this->project['uploaded_by_string']; ?></a>
+          </div>
         </li>
         <li>
-          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
-          <span><?php echo $this->project['publish_time_in_words']; ?></span>
+          <div class="img-age"></div>          
+          <div class="projectDetailsInformationText">
+            <?php echo $this->project['publish_time_in_words']; ?>
+          </div>
+        
         </li>
         <li>
-          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
-          <span><?php echo $this->project['fileSize'] . " MB " . $this->languageHandler->getString('filesize'); ?></span>
+          <div class="img-size"></div>
+          <div class="projectDetailsInformationText">
+            <?php echo $this->project['fileSize'] . " MB " . $this->languageHandler->getString('filesize'); ?>
+          </div>
         </li>
         <li>
-          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
-          <span><?php echo $this->project['download_count'] . " " . $this->languageHandler->getString('downloads'); ?></span>
+          <div class="img-downloads"></div>
+          <div class="projectDetailsInformationText">
+            <?php echo $this->project['download_count'] . " " . $this->languageHandler->getString('downloads'); ?>
+          </div>
         </li>
         <li>
-          <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder2.png" />
-          <span><?php echo $this->project['view_count'] . " " . $this->languageHandler->getString('views'); ?></span>
+          <div class="img-views"></div>
+          <div class="projectDetailsInformationText">
+            <?php echo $this->project['view_count'] . " " . $this->languageHandler->getString('views'); ?>
+          </div>
         </li>
       </ul>
     </div>
