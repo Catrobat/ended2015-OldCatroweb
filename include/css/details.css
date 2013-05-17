@@ -246,6 +246,7 @@
   .projectDetailsInformation ul li {
     width: 33%; /* two rows */
   }
+  
   .projectDetailsInformation ul li:nth-child(n+4) {
     margin-top: 2%;
   }
@@ -276,9 +277,16 @@
   .projectDetailsInformationSeperator hr{
     margin-top: 5%;
   }
+  .projectDetailsInformation {
+    padding-left: 5%;
+  }
   
   .projectDetailsInformation ul>li:first-of-type {
     display: inline;
+  }
+  
+  .projectDetailsInformation ul li:nth-child(n+4) {
+    margin-top: 5%;
   }
   
   .projectDetailsInformation ul li {
