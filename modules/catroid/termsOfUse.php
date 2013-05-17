@@ -1,3 +1,4 @@
+<?php
 /*
  * Catroid: An on-device visual programming system for Android devices
  * Copyright (C) 2010-2013 The Catrobat Team
@@ -21,39 +22,20 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#wrapper article div.webMainContentTitle {
-  border-top: 1px solid #477889;
-  background-color: #00475d;
-  font-size: 1.8em;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em;
-  text-shadow: #000000 1px 1px 1px;
-  text-align: center;
-}
+class termsOfUse extends CoreAuthenticationNone {
+  public function __construct() {
+    parent::__construct();
+    $this->addCss('termsOfUse.css');
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
+  }
 
-#wrapper article div.licenseMain {
-  margin-top: 2.5%;
-  margin-left: 2.5%;
-  margin-right: 2.5%;
-}
+  public function __default() {
+    
+  }
 
-#wrapper article div.licenseText {
-  padding: 1em; 
-  padding-left: 2em;
-  padding-right: 2em;
-  /* text-align:justify; */
-  font-size:1.3em;
+ 
+  public function __destruct() {
+    parent::__destruct();
+  }
 }
-
-#wrapper article p.licenseText { 
-  margin:0;
-  padding:0;
-}
-
-#wrapper article a:link, a:visited { 
-  text-decoration: underline; 
-  color: #a8dff4; 
-  font-weight: bold;
-}
-
+?>

@@ -24,7 +24,7 @@
 
 ?>
   <article>
-    <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
+    <div class="header"><?php echo $this->languageHandler->getString('title')?></div>
     <div class="licenseMain">            	
       <div class="licenseText">
         <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_welcome')?></p>

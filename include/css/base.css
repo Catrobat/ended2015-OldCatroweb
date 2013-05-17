@@ -185,6 +185,13 @@ h3 {
   background-position: -131px -93px;
 }
 
+.img-undo-search {
+  width: 31px;
+  height: 31px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -131px -124px;
+}
+
 .img-delete {
   width: 31px;
   height: 31px;

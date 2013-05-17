@@ -80,9 +80,16 @@ var Header = Class.$extend( {
     if(this.isSearchBarToggeled) {
       $("#smallMenuBar").css("display", "table-cell");
       $("#smallSearchBar").hide();
+
+      $("#mobileSearchButton button").addClass('img-magnifying-glass');
+      $("#mobileSearchButton button").removeClass('img-undo-search');
     } else {
       $("#smallMenuBar").hide();
       $("#smallSearchBar").css("display", "table-cell");
+      
+      $("#mobileSearchButton button").removeClass('img-magnifying-glass');
+      $("#mobileSearchButton button").addClass('img-undo-search');
+      
       $("#smallSearchBar input").focus();
     }
     

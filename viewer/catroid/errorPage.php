@@ -23,19 +23,8 @@
  */
 
 ?>
-  	<div class="webMainSpacer"></div>
-
-  	<div class="webMainMiddle">
-  		<div class="blueBoxMain">
-  		   	<div class="webMainContent">
-            	<div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
-            	<div class="errorDiv">
-    		   		<div class="whiteBoxMain">
-      					<div class="errorMessage">
-      					  <?php echo $this->errorMessage;?>
-      					</div>
-      				</div>
-    			</div>
-    		</div>
-  		</div>
-  	</div>
+      <article>
+        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
+          <img src="<?php echo BASE_PATH; ?>/images/symbols/error.png" />
+          <p><?php echo $this->errorMessage;?></p>
+      </article>
