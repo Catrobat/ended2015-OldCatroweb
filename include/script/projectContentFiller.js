@@ -206,7 +206,7 @@ var ProjectContentFiller = Class
               $(elements[index]).css("visibility", "visible");
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
-              $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).text(projects[i]['ProjectNameShort']);
               $('div.projectAddition', elements[index]).text(projects[i]['UploadedString']);
             } else {
               $(elements[index]).css("visibility", "hidden");
@@ -232,7 +232,7 @@ var ProjectContentFiller = Class
               $(elements[index]).css("visibility", "visible");
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
-              $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).text(projects[i]['ProjectNameShort']);
               $('div.projectAddition', elements[index]).text(projects[i]['Downloads'] + ' ' + this.params.additionalTextLabel);
             } else {
               $(elements[index]).css("visibility", "hidden");
@@ -258,7 +258,7 @@ var ProjectContentFiller = Class
               $(elements[index]).css("visibility", "visible");
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
-              $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).text(projects[i]['ProjectNameShort']);
               $('div.projectAddition', elements[index]).text(projects[i]['Views'] + ' ' + this.params.additionalTextLabel);
             } else {
               $(elements[index]).css("visibility", "hidden");
@@ -284,7 +284,7 @@ var ProjectContentFiller = Class
               $(elements[index]).css("visibility", "visible");
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
-              $('div.projectTitle', elements[index]).text(projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).text(projects[i]['ProjectNameShort']);
               $('div.projectAddition', elements[index]).text(projects[i]['UploadedString']);
               $('div.projectDeleteButton', elements[index]).click({id: projects[i]['ProjectId'], name: projects[i]['ProjectName']}, this.params.callbacks['delete']);
             } else {

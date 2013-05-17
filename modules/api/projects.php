@@ -25,11 +25,11 @@
 class projects extends CoreAuthenticationNone {
   protected $maxId = 2147483647; // (2^8)^4 / 2 - 1  (4 bytes signed int)
   protected $mask = array(PROJECT_MASK_DEFAULT => array('ProjectId', 'ProjectName'),
-      PROJECT_MASK_GRID_ROW_AGE => array('ProjectId', 'ProjectName', 'ScreenshotSmall', 'UploadedString'),
-      PROJECT_MASK_GRID_ROW_DOWNLOADS => array('ProjectId', 'ProjectName', 'ScreenshotSmall', 'Downloads'),
-      PROJECT_MASK_GRID_ROW_VIEWS => array('ProjectId', 'ProjectName', 'ScreenshotSmall', 'Views'),
-      PROJECT_MASK_ALL => array('ProjectId', 'ProjectName', 'ScreenshotBig', 'ScreenshotSmall', 'Author', 'Description', 'Uploaded', 
-          'UploadedString', 'Version', 'Views', 'Downloads', 'ProjectUrl', 'DownloadUrl'));
+      PROJECT_MASK_GRID_ROW_AGE => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'UploadedString'),
+      PROJECT_MASK_GRID_ROW_DOWNLOADS => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Downloads'),
+      PROJECT_MASK_GRID_ROW_VIEWS => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Views'),
+      PROJECT_MASK_ALL => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotBig', 'ScreenshotSmall', 'Author',
+          'Description', 'Uploaded', 'UploadedString', 'Version', 'Views', 'Downloads', 'ProjectUrl', 'DownloadUrl'));
 
   public function __construct() {
     parent::__construct();
@@ -257,6 +257,9 @@ class projects extends CoreAuthenticationNone {
       }
       if(in_array('ProjectName', $selectedFields)) {
         $currentProject['ProjectName'] = $project['title'];
+      }
+      if(in_array('ProjectNameShort', $selectedFields)) {
+        $currentProject['ProjectNameShort'] = makeShortString($project['title'], 9, '…');
       }
       if(in_array('ScreenshotBig', $selectedFields)) {
         $currentProject['ScreenshotBig'] = str_replace(BASE_PATH, "", getProjectImageUrl($project['id']));

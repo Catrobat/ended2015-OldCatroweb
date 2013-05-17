@@ -171,6 +171,13 @@ h3 {
   background-position: -131px -31px;
 }
 
+.img-magnifying-glass-blue {
+  width: 31px;
+  height: 31px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -131px -62px;
+}
+
 .img-avatar {
   width: 31px;
   height: 31px;

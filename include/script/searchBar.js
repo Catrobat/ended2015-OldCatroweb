@@ -30,11 +30,14 @@ var SearchBar = Class.$extend( {
     this.searchResultBox = $('#searchResultContainer');
     this.largeSearchBox = $('div.largeSearchBarMiddle input[type="search"]');
     this.smallSearchBox = $('div#smallSearchBar input[type="search"]');
+    this.footerSearchBox = $('div#largeFooterMenu input[type="search"]');
     
-    this.largeSearchBox.keyup($.proxy(this.submitSearch, this));
-    this.smallSearchBox.keyup($.proxy(this.submitSearch, this));
+    this.largeSearchBox.keyup($.proxy(this.submitSearchKey, this));
+    this.smallSearchBox.keyup($.proxy(this.submitSearchKey, this));
+    this.footerSearchBox.keyup($.proxy(this.submitSearchKey, this));
 
-    $("#largeSearchButton").click($.proxy(this.submitSearch, this));
+    $("#largeSearchButton").click({input: this.largeSearchBox}, $.proxy(this.submitSearchClick, this));
+    $("#footerSearchButton").click({input: this.footerSearchBox}, $.proxy(this.submitSearchClick, this));
   },
   
   setProjectObject : function(object) {
@@ -43,17 +46,26 @@ var SearchBar = Class.$extend( {
     this.header.toggleSearchBar();
   },
   
-  submitSearch : function(event) {
-    if(event.keyCode == 13 || event.type == 'click') {
+  submitSearchKey: function(event) {
+    if(event.keyCode == 13) {
       if(this.projects != null) {
         this.ajaxSearch(event.target.value);
         this.largeSearchBox.blur();
         this.smallSearchBox.blur();
+        this.footerSearchBox.blur();
       } else {
         location.href = this.basePath + 'search/?q=' + event.target.value + '&p=1';
       }
     }
     event.preventDefault();
+  },
+  
+  submitSearchClick : function(event) {
+    if(this.projects != null) {
+      this.ajaxSearch(event.data.input.val());
+    } else {
+      location.href = this.basePath + 'search/?q=' + event.data.input.val() + '&p=1';
+    }
   },
   
   ajaxSearch : function(query) {
@@ -65,6 +77,7 @@ var SearchBar = Class.$extend( {
     if(this.projects != null) {
       this.largeSearchBox.val(this.projects.params.filter.query);
       this.smallSearchBox.val(this.projects.params.filter.query);
+      this.footerSearchBox.val(this.projects.params.filter.query);
     }
   }
 });
