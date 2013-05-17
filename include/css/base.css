@@ -298,18 +298,13 @@ body img#ga {
 	font-weight: bold;
 }
 
-#wrapper article div.projectLoader {
+#wrapper article div.projectFooter {
+  padding-top: 0.7em;
+  padding-bottom: 1.3em;
   text-align: center;
-  padding: 1.12em;
-  display: none;
 }
 
-#wrapper article div.moreButton {
-  padding-top: 0.78em;
-}
-
-#wrapper article div.moreButton p {
-  text-align: center;
+#wrapper article div.projectFooter p {
   margin: 0;
   cursor: pointer;
   font-size: 0.7em;
@@ -317,8 +312,17 @@ body img#ga {
   padding-top: 0.39em;
 }
 
-#wrapper article div.moreButton div {
+#wrapper article div.projectFooter img {
+  margin-top: 3px;
+}
+
+#wrapper article div.projectFooter div {
   margin: auto;
+  cursor: pointer;
+}
+
+#wrapper article div.projectSpacer {
+  padding-top: 2em;
 }
 
 @media screen and (min-width: 320px) {
@@ -332,6 +336,11 @@ body img#ga {
   }
 }
 @media screen and (min-width: 400px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.94em 1.6em 0.94em;
+  }
+}
+@media screen and (min-width: 420px) {
   #wrapper article div.projectContainer ul li {
 		margin: 0.6em 0.54em 1.6em 0.54em;
   }

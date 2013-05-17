@@ -45,11 +45,15 @@
     <div style="clear: both;"></div>
     <h3><?php echo $this->languageHandler->getString('my_projects')," ", $this->userData['username']; ?></h3>
     <div id="userProjectContainer" class="projectContainer"></div>
-    <div id="userProjectLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></div>
-    <div id="moreResults" class="moreButton">
+    <div id="userProjectLoader" class="projectFooter">
+      <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
+      <p>&nbsp;</p>
+    </div>
+    <div id="moreResults" class="projectFooter">
       <div class="img-load-more"></div>
       <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
     </div>
+    <div class="projectSpacer"></div>
   </article>
 
   <script type="text/javascript">

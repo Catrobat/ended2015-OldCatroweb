@@ -33,6 +33,8 @@ var SearchBar = Class.$extend( {
     
     this.largeSearchBox.keyup($.proxy(this.submitSearch, this));
     this.smallSearchBox.keyup($.proxy(this.submitSearch, this));
+
+    $("#largeSearchButton").click($.proxy(this.submitSearch, this));
   },
   
   setProjectObject : function(object) {
@@ -42,7 +44,7 @@ var SearchBar = Class.$extend( {
   },
   
   submitSearch : function(event) {
-    if(event.keyCode == 13) {
+    if(event.keyCode == 13 || event.type == 'click') {
       if(this.projects != null) {
         this.ajaxSearch(event.target.value);
         this.largeSearchBox.blur();

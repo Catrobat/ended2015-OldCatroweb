@@ -35,33 +35,43 @@
             </div>
           </div>
         </div>
+        <div class="projectSpacer"></div>
 
         <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
         <div id="newestProjects" class="projectContainer"></div>
-        <div id="newestProjectsLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></div>
-        <div id="newestShowMore" class="moreButton">
+        <div id="newestProjectsLoader" class="projectFooter">
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <p>&nbsp;</p>
+        </div>
+        <div id="newestShowMore" class="projectFooter">
           <div class="img-load-more"></div>
           <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
-        </div> 
-        <div class="projectContainerFooter"></div>
+        </div>
+        <div class="projectSpacer"></div>
 
         <header><?php echo $this->languageHandler->getString('mostDownloaded'); ?></header>
         <div id="mostDownloadedProjects" class="projectContainer"></div>
-        <div id="mostDownloadedProjectsLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></div>
-        <div id="mostDownloadedShowMore" class="moreButton">
+        <div id="mostDownloadedProjectsLoader" class="projectFooter">
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <p>&nbsp;</p>
+        </div>
+        <div id="mostDownloadedShowMore" class="projectFooter">
           <div class="img-load-more"></div>
           <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div>
-        <div class="projectContainerFooter"></div>
+        <div class="projectSpacer"></div>
 
         <header><?php echo $this->languageHandler->getString('mostViewed'); ?></header>
         <div id="mostViewedProjects" class="projectContainer"></div>
-        <div id="mostViewedProjectsLoader" class="projectLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></div>
-        <div id="mostViewedShowMore" class="moreButton">
+        <div id="mostViewedProjectsLoader" class="projectFooter">
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <p>&nbsp;</p>
+        </div>
+        <div id="mostViewedShowMore" class="projectFooter">
           <div class="img-load-more"></div>
           <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div>
-        <div class="projectContainerFooter"></div>
+        <div class="projectSpacer"></div>
 
       </article>
       <script type="text/javascript">

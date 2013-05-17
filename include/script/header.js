@@ -34,7 +34,8 @@ var Header = Class.$extend( {
       this.userId = userId;
     }
 
-    $(document).mousedown($.proxy(this.hideNavigationMenu, this));
+    $(window).resize($.proxy(this.hideNavigationMenu, this));
+    $(window).mousedown($.proxy(this.hideNavigationMenu, this));
 
     $("#mobileSearchButton").click($.proxy(this.toggleSearchBar, this));
     $("#mobileMenuButton").click($.proxy(this.pressProfileButton, this));
@@ -64,7 +65,12 @@ var Header = Class.$extend( {
     if(this.isNavigationMenuToggeled) {
       $('#navigationMenu').hide();
     } else {
-      $('#navigationMenu').css({right: $('#wrapper').offset().left + 20 });
+      var menu = $('#largeMenuButton');
+      if($('#mobileMenuButton').is(':visible')) {
+        menu = $('#mobileMenuButton');
+      }
+      
+      $('#navigationMenu').css({right: $(window).width() - menu.offset().left - menu.outerWidth() + 5 });
       $('#navigationMenu').show();
     }
     this.isNavigationMenuToggeled = !this.isNavigationMenuToggeled;
