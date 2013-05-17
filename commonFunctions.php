@@ -193,8 +193,8 @@ function getTimeInWords($fromTime, $languageHandler, $toTime = -1) {
   }
   $seconds = round(abs($toTime - $fromTime));
   $minutes = round($seconds/60);
-  if($minutes <= 1) {
-    return ($minutes == 0) ? $languageHandler->getString('template_common_less_than_a_minute_ago') : $languageHandler->getString('template_common_one_minute_ago');
+  if($minutes < 1) {
+    return $languageHandler->getString('template_common_less_than_a_minute_ago');
   }
   if($minutes < 45) {
     return $languageHandler->getString('template_common_minutes_ago', $minutes);

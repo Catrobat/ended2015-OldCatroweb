@@ -112,11 +112,11 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     $fromTime = time() - 10;
     $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertTrue(is_string($timeInWords));
-    $this->assertTrue(is_int(strpos($timeInWords, 'less')) && is_int(strpos($timeInWords, 'minute')));
+    $this->assertTrue(is_int(strpos($timeInWords, 'just')) && is_int(strpos($timeInWords, 'now')));
 
     $fromTime = time() - 66;
     $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
-    $this->assertFalse(strpos($timeInWords, 'less'));
+    $this->assertFalse(strpos($timeInWords, 'just'));
     $this->assertTrue(is_int(strpos($timeInWords, 'minute')));
 
     $fromTime = time() - 60*60*24-1;

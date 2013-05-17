@@ -54,7 +54,7 @@
   <string name="template_footer_contact_link">Contact</string>
   
   <string name="template_common_one_minute_ago">1 minute ago</string>
-  <string name="template_common_less_than_a_minute_ago">less than a minute ago</string>
+  <string name="template_common_less_than_a_minute_ago">just now</string>
   <string name="template_common_minutes_ago">{*minuteCount*} minutes ago</string>
   <string name="template_common_one_hour_ago">1 hour ago</string>
   <string name="template_common_hours_ago">{*hourCount*} hours ago</string>
