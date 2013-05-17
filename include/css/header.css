@@ -69,6 +69,7 @@
   background-image: linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
+  vertical-align: middle;
 }
 
 #wrapper header nav div div.largeSearchBarMiddle {
@@ -78,6 +79,7 @@
   background-image: linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
+  vertical-align: middle;
 }
 
 #wrapper header nav div div.largeSearchBarMiddle input {
@@ -96,6 +98,7 @@
   background-image: linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
+  vertical-align: middle;
 }
 
 #wrapper header nav div div.largeSearchBarRight button:nth-child(2) {
