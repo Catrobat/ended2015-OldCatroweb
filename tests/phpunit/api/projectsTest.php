@@ -199,11 +199,11 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(count($projects['CatrobatProjects']), count($pgProjects));
     $i = 0;
     foreach ($projects['CatrobatProjects'] as $project) {
+      $this->assertEquals($project['ProjectId'], $pgProjects[$i]['id']);
       $this->assertEquals($project['ProjectName'], $pgProjects[$i]['title']);
       $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$project['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
-      $this->assertEquals($project['ProjectUrl'],  'details/' . $pgProjects[$i]['id']);
       $this->assertEquals($project['UploadedString'], getTimeInWords($pgProjects[$i]['last_activity'], $testModel->languageHandler, time()));
-      $this->assertFalse(isset($project['ProjectId']));
+      $this->assertFalse(isset($project['ProjectUrl']));
       $this->assertFalse(isset($project['ScreenshotBig']));
       $this->assertFalse(isset($project['Author']));
       $this->assertFalse(isset($project['Description']));
@@ -256,11 +256,11 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertEquals(1, count($pgProjects));
       $this->assertEquals(1, intval($searchProjects['CatrobatInformation']['TotalProjects']));
       
+      $this->assertEquals($searchProjects['CatrobatProjects'][0]['ProjectId'], $pgProjects[0]['id']);
       $this->assertEquals($searchProjects['CatrobatProjects'][0]['ProjectName'], $pgProjects[0]['title']);
       $this->assertEquals($searchProjects['CatrobatInformation']['BaseUrl'].$searchProjects['CatrobatProjects'][0]['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[0]['id']));
-      $this->assertEquals($searchProjects['CatrobatProjects'][0]['ProjectUrl'],  'details/' . $pgProjects[0]['id']);
       $this->assertEquals($searchProjects['CatrobatProjects'][0]['UploadedString'], getTimeInWords($pgProjects[0]['last_activity'], $testModel->languageHandler, time()));
-      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['ProjectId']));
+      $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['ProjectUrl']));
       $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['ScreenshotBig']));
       $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['Author']));
       $this->assertFalse(isset($searchProjects['CatrobatProjects'][0]['Description']));
@@ -286,11 +286,11 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $i = 0;
     reset($idSorted);
     foreach($searchProjects['CatrobatProjects'] as $searchProject) {
+      $this->assertEquals($searchProject['ProjectId'], $pgProjects[$i]['id']);
       $this->assertEquals($searchProject['ProjectName'], $pgProjects[$i]['title']);
       $this->assertEquals($searchProjects['CatrobatInformation']['BaseUrl'].$searchProject['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
-      $this->assertEquals($searchProject['ProjectUrl'],  'details/' . $pgProjects[$i]['id']);
       $this->assertEquals($searchProject['UploadedString'], getTimeInWords($pgProjects[$i]['last_activity'], $testModel->languageHandler, time()));
-      $this->assertFalse(isset($searchProject['ProjectId']));
+      $this->assertFalse(isset($searchProject['ProjectUrl']));
       $this->assertFalse(isset($searchProject['ScreenshotBig']));
       $this->assertFalse(isset($searchProject['Author']));
       $this->assertFalse(isset($searchProject['Description']));
@@ -319,11 +319,11 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $i = 0;
     reset($idSorted);
     foreach($searchProjects['CatrobatProjects'] as $searchProject) {
+      $this->assertEquals($searchProject['ProjectId'], $pgProjects[$i]['id']);
       $this->assertEquals($searchProject['ProjectName'], $pgProjects[$i]['title']);
       $this->assertEquals($searchProjects['CatrobatInformation']['BaseUrl'].$searchProject['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
-      $this->assertEquals($searchProject['ProjectUrl'],  'details/' . $pgProjects[$i]['id']);
       $this->assertEquals($searchProject['UploadedString'], getTimeInWords($pgProjects[$i]['last_activity'], $testModel->languageHandler, time()));
-      $this->assertFalse(isset($searchProject['ProjectId']));
+      $this->assertFalse(isset($searchProject['ProjectUrl']));
       $this->assertFalse(isset($searchProject['ScreenshotBig']));
       $this->assertFalse(isset($searchProject['Author']));
       $this->assertFalse(isset($searchProject['Description']));
