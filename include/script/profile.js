@@ -284,7 +284,6 @@ var Profile = Class.$extend( {
       timeout : this.ajaxTimeout,
       success : $.proxy(this.genericRequestSuccess, this),
       error : $.proxy(alert("ajaxTimedOut"),this)
-      error : alert("update language")
     });
   },
 
@@ -296,7 +295,7 @@ var Profile = Class.$extend( {
   
   deleteProject : function(event) {
     if(confirm(this.languageStringsObject.really_delete_project + " '" + event.data.name + "' ?")) {
-      document.location = this.basePath + "profile/delete?id=" + event.data.id;
+      document.location = this.basePath + "profile/?delete=" + event.data.id;
     }
   }
 });

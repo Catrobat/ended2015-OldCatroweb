@@ -210,6 +210,10 @@
   margin-bottom: 0;
 }
 
+#wrapper article div#userProjectLoader {
+  display: none;
+}
+
 #wrapper article div.projectContainer ul li div.projectDeleteButton {
 	margin: 0.4em auto;
 	cursor: pointer;

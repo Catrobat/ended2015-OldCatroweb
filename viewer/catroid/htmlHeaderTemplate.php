@@ -32,7 +32,7 @@
               <a href="<?php echo BASE_PATH; ?>">Pocket Code</a>
             </div>
             
-            <div class="largeSearchBarLeft">
+            <div id="largeSearchButton" class="largeSearchBarLeft">
               <button class="img-magnifying-glass"></button>
             </div>
 
