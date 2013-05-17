@@ -183,7 +183,6 @@ h3 {
 }
 
 #wrapper {
-  background-color: #05252e;
   margin-right: auto;
   margin-left: auto;
   width: 100%; /* 1024px; */
@@ -204,7 +203,7 @@ h3 {
   text-transform: uppercase;
   font-weight: bold;
   background-color: #7db6cb;
-  padding: 0.275em 0 0.3125em 0.375em;
+  padding: 0.2em 0 0.2em 0.8em;
   text-shadow: #333333 1px 1px 2px;
   background-image: linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
@@ -250,7 +249,7 @@ body img#ga {
 	position:relative;
 	left:-50%;
 	width: 84px;
-	margin: 0.6em 0.5em 1.6em 0.5em;
+	margin: 0.6em 0.54em 1.6em 0.54em;
 	vertical-align: top;
 }
 
@@ -259,6 +258,7 @@ body img#ga {
   width: 80px;
   height: 80px;
 	display: block;
+	margin: auto;
 }
 
 #wrapper article div.projectContainer ul li div {
@@ -281,6 +281,8 @@ body img#ga {
 #wrapper article div.projectContainer ul li div.projectAddition {
 	text-align: left;
 	font-size: 0.7em;
+	font-weight: lighter;
+	line-height: 1.6;
 }
 
 #wrapper article div.projectContainer ul li div.projectLink {
@@ -298,14 +300,21 @@ body img#ga {
 
 #wrapper article div.projectLoader {
   text-align: center;
-  padding: 0.78em;
+  padding: 1.12em;
   display: none;
+}
+
+#wrapper article div.moreButton {
+  padding-top: 0.78em;
 }
 
 #wrapper article div.moreButton p {
   text-align: center;
   margin: 0;
   cursor: pointer;
+  font-size: 0.7em;
+  font-weight: lighter;
+  padding-top: 0.39em;
 }
 
 #wrapper article div.moreButton div {
@@ -314,18 +323,129 @@ body img#ga {
 
 @media screen and (min-width: 320px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.5em 1.6em 0.5em;
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
-
 @media screen and (min-width: 360px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.9em 1.6em 0.9em;
+		margin: 0.6em 0.84em 1.6em 0.84em;
+  }
+}
+@media screen and (min-width: 400px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
 
-@media screen and (min-width: 800px) {
+
+@media screen and (min-width: 414px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.7em 1.6em 0.7em;
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
+@media screen and (min-width: 442px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.64em 1.6em 0.64em;
+  }
+}
+@media screen and (min-width: 470px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.74em 1.6em 0.74em;
+  }
+}
+@media screen and (min-width: 498px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.84em 1.6em 0.84em;
+  }
+}
+
+@media screen and (min-width: 514px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.54em 1.6em 0.54em;
+  }
+}
+@media screen and (min-width: 542px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.64em 1.6em 0.64em;
+  }
+}
+@media screen and (min-width: 570px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.74em 1.6em 0.74em;
+  }
+}
+@media screen and (min-width: 598px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.84em 1.6em 0.84em;
+  }
+}
+
+@media screen and (min-width: 614px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.54em 1.6em 0.54em;
+  }
+}
+@media screen and (min-width: 642px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.64em 1.6em 0.64em;
+  }
+}
+@media screen and (min-width: 670px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.74em 1.6em 0.74em;
+  }
+}
+@media screen and (min-width: 698px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.84em 1.6em 0.84em;
+  }
+}
+
+@media screen and (min-width: 714px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.54em 1.6em 0.54em;
+  }
+}
+@media screen and (min-width: 742px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.64em 1.6em 0.64em;
+  }
+}
+@media screen and (min-width: 798px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.84em 1.6em 0.84em;
+  }
+}
+
+@media screen and (min-width: 814px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.54em 1.6em 0.54em;
+  }
+}
+@media screen and (min-width: 842px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.64em 1.6em 0.64em;
+  }
+}
+@media screen and (min-width: 898px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.84em 1.6em 0.84em;
+  }
+}
+
+@media screen and (min-width: 914px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.54em 1.6em 0.54em;
+  }
+}
+@media screen and (min-width: 942px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.64em 1.6em 0.64em;
+  }
+}
+@media screen and (min-width: 998px) {
+  #wrapper article div.projectContainer ul li {
+		margin: 0.6em 0.84em 1.6em 0.84em;
+  }
+}
+
