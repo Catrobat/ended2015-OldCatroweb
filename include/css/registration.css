@@ -44,13 +44,20 @@
   font-size: 1.3em;
 }
 
-#wrapper article div.loginHeader {
+#wrapper article div.label {
   font-weight: bold;
   font-size: 1.2em;
   margin-bottom: 1em;
 }
 
-#wrapper article #passwordRecoveryUserdata, #wrapper article #passwordSavePassword {
+  #wrapper article #registrationUsername
+, #wrapper article #registrationPassword
+, #wrapper article #registrationEmail
+, #wrapper article #registrationCountry
+, #wrapper article #registrationCity 
+, #wrapper article #registrationMonth 
+, #wrapper article #registrationYear
+, #wrapper article #registrationGender {
   font-size: 1.2em;
   margin-bottom: 1em;
   color: black;
@@ -72,23 +79,3 @@
   color: #a8dff4; 
   font-weight: bold;
 }
-
-/* div.registrationMain { */
-/*   margin-left: 2.5%; */
-/*   margin-right: 2.5%; */
-/* } */
-
-/* form.registrationForm { */
-/*   padding: 3%; */
-/* } */
-
-/* input.registrationSubmitButton { */
-/*   color: black; */
-/*   font-size: 0.8em; */
-/*   font-weight: bold; */
-/* } */
-
-/* div.otherOptions { */
-/*   font-size: 1.2em; */
-/*   padding: 1%; */
-/* } */
