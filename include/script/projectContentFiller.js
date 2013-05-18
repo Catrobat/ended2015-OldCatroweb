@@ -72,7 +72,7 @@ var ProjectContentFiller = Class
       },
       
       initializeLayout : function(layout, sort) {
-        this.ready = true;
+        this.ready = false;
         
         switch(layout) {
           case this.params.config.LAYOUT_GRID_ROW:
@@ -94,10 +94,11 @@ var ProjectContentFiller = Class
               this.fillLayout = this.fillGridRowEdit;
             }
             
-            this.extend = this.extendGridRowContainer;
+            this.extend = this.asyncGrowGridRowContainer;
             this.clear = this.clearGridRowContainer;
             
             this.clear();
+            this.ready = true;
             break;
           default:
             this.ready = false;
@@ -131,6 +132,7 @@ var ProjectContentFiller = Class
           
           if(this.gridRowHeight == 0) {
             this.gridRowHeight = $(container).height();
+            $(container).height(this.gridRowHeight);
           }
         }
       },
@@ -157,35 +159,48 @@ var ProjectContentFiller = Class
           
           if(this.gridRowHeight == 0) {
             this.gridRowHeight = $(container).height();
+            $(container).height(this.gridRowHeight);
           }
         }
+      },
+      
+      asyncGrowGridRowContainer : function() {
+        this.visibleRows += 1;
+        setTimeout($.proxy(this.extendGridRowContainer, this), 100);
       },
       
       extendGridRowContainer : function() {
         var container = $("ul", this.params.container);
         
+        var heights = [];
+        var hidden = [];
         var elements = container.children();
         for(var index = 0, amount = elements.length; index < amount; index++) {
           if($(elements[index]).css('visibility') == 'visible') {
             var position = Math.round($(elements[index]).position().top + this.gridRowHeight);
-            if($.inArray(position, this.gridRowHeights) === -1) {
-              this.gridRowHeights.push(position);
+            if($.inArray(position, heights) === -1) {
+              heights.push(position);
             }
+          } else {
+            hidden.push(index);
           }
         }
         
-        if(this.visibleRows < this.gridRowHeights.length) {
-          $(container).height(this.gridRowHeights[this.visibleRows]);
-          this.visibleRows += 1;
+        var currentPage = Math.max(0, this.visibleRows - 1);
+        if(currentPage < heights.length) {
+          $(container).height(heights[currentPage]);
         }
-        if(this.params.reachedLastPage && this.gridRowHeights.length == this.visibleRows) {
+        if(this.params.reachedLastPage && heights.length == this.visibleRows) {
+          for(var index = 0, amount = hidden.length; index < amount; index++) {
+            $(elements[hidden[index]]).hide();
+          }
           $(this.params.buttons.next).hide();
+          $(container).height('auto');
         }
       },
       
       clearGridRowContainer : function() {
         $(this.params.buttons.next).show();
-        this.gridRowHeights = [];
         this.visibleRows = 0;
         $("ul", this.params.container).empty();
       },
@@ -212,7 +227,7 @@ var ProjectContentFiller = Class
               $(elements[index]).css("visibility", "hidden");
             }
           }
-          this.extendGridRowContainer();
+          this.extend();
         }
       },
       
@@ -238,7 +253,7 @@ var ProjectContentFiller = Class
               $(elements[index]).css("visibility", "hidden");
             }
           }
-          this.extendGridRowContainer();
+          this.extend();
         }
       },
       
@@ -264,7 +279,7 @@ var ProjectContentFiller = Class
               $(elements[index]).css("visibility", "hidden");
             }
           }
-          this.extendGridRowContainer();
+          this.extend();
         }
       },
       
@@ -291,7 +306,7 @@ var ProjectContentFiller = Class
               $(elements[index]).css("visibility", "hidden");
             }
           }
-          this.extendGridRowContainer();
+          this.extend();
         }
       },
    

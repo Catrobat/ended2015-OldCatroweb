@@ -31,7 +31,7 @@ var ProjectLoader = Class.$extend({
     
     this.params = cbParams.call(this);
     this.ajaxRequestMutex = false;
-    setTimeout($.proxy(function() { this.initialize(this); }, this), 50);
+    this.initialize();
   },
   
   initialize : function() {
