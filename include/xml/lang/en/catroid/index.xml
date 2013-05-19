@@ -22,7 +22,6 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-    <string name="enableJavascript">Please enable javascript in your browser.</string>
     <string name="recommended">Recommended</string>
     <string name="newestProjects">Newest Projects</string>
     <string name="mostDownloaded">Most Downloaded</string>

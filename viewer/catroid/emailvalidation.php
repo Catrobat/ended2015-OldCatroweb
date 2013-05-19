@@ -23,17 +23,8 @@
  */
 
 ?>
-    <div class="webMainMiddle">
-      <div class="blueBoxMain">
-  		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title'); ?></div>
-                <div class="loginMain">   	
-            	  <div class ="whiteBoxMain">
-            	    <div class="loginText">
-                    <?php echo $this->answer; ?>
-                </div> <!-- login Text -->
-              </div> <!--  White Box -->            	
-           </div> <!--  license Main -->  		   		
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>
+
+      <article>
+        <header><?php echo $this->languageHandler->getString('title'); ?></header>
+        <p><?php echo $this->answer; ?></p>
+      </article>

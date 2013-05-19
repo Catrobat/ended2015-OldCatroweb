@@ -65,6 +65,11 @@ $this->module->addGlobalJs('searchBar.js');
     <div id="wrapper">
       <?php include($this->header);?>
       <?php include($this->viewer);?>
+      <div id="noscript">
+        <img src="<?php echo BASE_PATH; ?>images/symbols/warning.png" />
+        <p><?php echo $this->languageHandler->getString('template_body_nojs'); ?></p>
+        <script>$('#noscript').hide(); $('#wrapper article').show();</script>
+      </div>
     </div>
     
     <footer>

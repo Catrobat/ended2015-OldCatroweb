@@ -22,17 +22,25 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class menu extends CoreAuthenticationNone {
+class error extends CoreAuthenticationNone {
+
   public function __construct() {
     parent::__construct();
-    $this->addCss('menu.css');
-    $this->addJs('menu.js');
+    $this->addCss('error.css');
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 
   public function __default() {
-    
-  }
+  	$type = $this->session->errorType;
+  	$code = $this->session->errorCode;
+  	$mode = $this->session->errorMode;
+  	$extraInfo = $this->session->errorExtraInfo;
+  	$errorMessage = $this->errorHandler->getError($type, $code);
+  	if($extraInfo && DEVELOPMENT_MODE) {
+      $errorMessage .= ':<br/>'.$extraInfo;
+    }
+    $this->errorMessage = $errorMessage;
+	}
 
   public function __destruct() {
     parent::__destruct();

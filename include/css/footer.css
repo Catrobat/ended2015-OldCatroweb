@@ -159,7 +159,7 @@ footer ul a {
     width: 100%;
   }
   
-  footer div.footerMenu div:nth-child(3), div:nth-child(4) {
+  footer div.footerMenu div:nth-child(3), footer div.footerMenu div:nth-child(4) {
     text-align: right;
     display: table-cell;
   }

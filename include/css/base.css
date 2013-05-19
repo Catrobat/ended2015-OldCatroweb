@@ -244,7 +244,20 @@ h3 {
 
 #wrapper article {
   overflow: auto;
-  padding-bottom: 3.2em;
+  padding-bottom: 3em;
+  display: none;
+}
+
+#wrapper div#noscript {
+  overflow: auto;
+  padding-bottom: 3em;
+  text-align: center;
+}
+
+#wrapper div#noscript p {
+  text-transform: uppercase;
+  font-size: 1.6em;
+  font-weight: bold;
 }
 
 #wrapper article header {
@@ -270,8 +283,8 @@ footer {
   font-size: 0.8em;
 
   position: relative;
-  margin-top: -3.2em; /* negative value of footer height */
-  height: 3.2em;
+  margin-top: -3em; /* negative value of footer height */
+  height: 3em;
 }
 
 body img#ga {
