@@ -36,22 +36,22 @@
           <div class="registrationMain">            	
             <div class="whiteBoxMain">
               <form class="registrationForm catroid">
-                <label for="registrationUsername"><?php echo $this->languageHandler->getString('nickname')?></label> 
+                <div class="label"><?php echo $this->languageHandler->getString('nickname')?></div>
                 <input type="text" id="registrationUsername" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_nickname')?>" class="catroid" /><br />
                 
                 <div class="catroidFormInfoBox"><?php echo $this->languageHandler->getString('nickname_info')?></div>
-                <label for="registrationPassword"><?php echo $this->languageHandler->getString('password')?></label> 
+                <div class="label"><?php echo $this->languageHandler->getString('password')?></div> 
                 <input type="password" id="registrationPassword" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" class="catroid" />
-                <label for="registrationEmail"><?php echo $this->languageHandler->getString('email')?></label> 
+                <div class="label"><?php echo $this->languageHandler->getString('email')?></div> 
                 <input type="email" id="registrationEmail" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_email')?>" class="catroid" />
                 <div class="catroidFormInfoBox"><?php echo $this->languageHandler->getString('email_info', '<a href="http://developer.catrobat.org/privacy_policy" target="_blank">' . $this->languageHandler->getString('email_info_link_title') . '</a>')?></div>
-                <div><?php echo $this->languageHandler->getString('country')?></div>
+                <div class="label"><?php echo $this->languageHandler->getString('country')?></div>
                 <select id="registrationCountry" required="required" class="catroid">
 <?php echo $this->module->generateCountryCodeList(); ?>
                 </select>
-                <label for="registrationCity"><?php echo $this->languageHandler->getString('city')?></label> 
+                <div class="label"><?php echo $this->languageHandler->getString('city')?></div> 
                 <input type="text" id="registrationCity" placeholder="<?php echo $this->languageHandler->getString('enter_city')?>" class="catroid" />
-                <div><?php echo $this->languageHandler->getString('birth')?></div>
+                <div class="label"><?php echo $this->languageHandler->getString('birth')?></div>
                 <div>
                   <select id="registrationMonth" class="catroid catroidTwoColumn catroidLeftColumn">
 <?php echo $this->module->generateMonthList(); ?>
@@ -60,12 +60,12 @@
 <?php echo $this->module->generateYearList(); ?>
                   </select>
                 </div>
-                <div><?php echo $this->languageHandler->getString('gender')?></div>
+                <div class="label"><?php echo $this->languageHandler->getString('gender')?></div>
                 <select id="registrationGender" class="catroid" >
                   <option value="" selected="selected"><?php echo $this->languageHandler->getString('select_gender')?></option>
                   <option value="female"><?php echo $this->languageHandler->getString('female')?></option>
                   <option value="male"><?php echo $this->languageHandler->getString('male')?></option>
-                </select>
+                </select> <br />
                 <input type="button" id="registrationSubmit" value="<?php echo $this->languageHandler->getString('create')?>" class="catroidSubmit button orange registrationSubmitButton"/>
                 
                 <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
