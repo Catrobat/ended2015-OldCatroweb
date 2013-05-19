@@ -52,8 +52,8 @@ class index extends CoreAuthenticationNone {
     $params['buttons'] = array('prev' => null,
         'next' => '#newestShowMore'
     );
-    $params['preloaded'][0] = $pageOne;
-    $params['preloaded'][1] = $pageTwo;
+    $params['content'][0] = $pageOne;
+    $params['content'][1] = $pageTwo;
     $params['numProjects'] = intval($pageOne['CatrobatInformation']['TotalProjects']);
     
     $params['page'] = array('number' => $pageNr,
@@ -77,9 +77,9 @@ class index extends CoreAuthenticationNone {
     
     $this->newestProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
-    $params['preloaded'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
+    $params['content'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_DOWNLOADS, PROJECT_SORTBY_DOWNLOADS);
-    $params['preloaded'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+    $params['content'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_DOWNLOADS, PROJECT_SORTBY_DOWNLOADS);
     $params['container'] = '#mostDownloadedProjects';
     $params['loader'] = '#mostDownloadedProjectsLoader';
@@ -91,9 +91,9 @@ class index extends CoreAuthenticationNone {
     $params['additionalTextLabel'] = $this->languageHandler->getString('downloaded');
     $this->mostDownloadedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
-    $params['preloaded'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
+    $params['content'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_VIEWS, PROJECT_SORTBY_VIEWS);
-    $params['preloaded'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+    $params['content'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_VIEWS, PROJECT_SORTBY_VIEWS);
     $params['container'] = '#mostViewedProjects';
     $params['loader'] = '#mostViewedProjectsLoader';

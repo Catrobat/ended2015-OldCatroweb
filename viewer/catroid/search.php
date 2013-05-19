@@ -40,7 +40,8 @@
       <script type="text/javascript">
         $(document).ready(function() {
           var search = Search();
-          var projects = ProjectObject(<?php echo $this->jsParams; ?>, { 'success' : $.proxy(search.updateSearchResults, search) });
+          var projects = ProjectObject(<?php echo $this->jsParams; ?>, { 'success' : $.proxy(search.updateSearchResults, search),
+            'history' : $.proxy(search.saveHistoryState, search) });
 
           search.setProjectObject(projects);
           SearchBar.setProjectObject(projects);

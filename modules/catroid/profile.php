@@ -88,7 +88,7 @@ class profile extends CoreAuthenticationUser {
     $params['buttons'] = array('prev' => null,
         'next' => '#moreResults'
     );
-    $params['preloaded'][0] = $requestedPage;
+    $params['content'][0] = $requestedPage;
     $params['numProjects'] = intval($requestedPage['CatrobatInformation']['TotalProjects']);
     
     $params['page'] = array('number' => $pageNr,

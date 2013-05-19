@@ -103,49 +103,52 @@ var ProjectContentFiller = Class
           default:
             this.ready = false;
         }
+        this.display();
+      },
 
-        if(this.ready && this.params.preloaded != null) {
-          for(var index = 0, amount = this.params.preloaded.length; index < amount; index++) {
-            this.fill(this.params.preloaded[index]);
+      display : function() {
+        if(this.ready && this.params.content != null) {
+          for(var index = 0, amount = this.params.content.length; index < amount; index++) {
+            this.fill(this.params.content[index]);
           }
         }
       },
-      
+
       addGridRow : function() {
         if($("ul", this.params.container).length == 0) {
           $(this.params.container).append($("<ul />"));
         }
-        
+
         var container = $("ul", this.params.container);
         for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
           var project = $("<a />");
-          
+
           var projectThumbnail = $("<img />");
           var projectTitle = $("<div />").addClass("projectTitle").text("a");
           var projectAddition = $("<div />").addClass("projectAddition").text("z");
-          
+
           project.append(projectThumbnail);
           project.append(projectTitle);
           project.append(projectAddition);
-          
+
           $(container).append($("<li />").append(project));
-          
+
           if(this.gridRowHeight == 0) {
             this.gridRowHeight = $(container).height();
             $(container).height(this.gridRowHeight);
           }
         }
       },
-      
+
       addGridRowEdit : function() {
         if($("ul", this.params.container).length == 0) {
           $(this.params.container).append($("<ul />"));
         }
-        
+
         var container = $("ul", this.params.container);
         for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
           var project = $("<a />");
-          
+
           var projectThumbnail = $("<img />");
           var projectTitle = $("<div />").addClass("projectTitle").text("a");
           var projectAddition = $("<div />").addClass("projectAddition").text("z");
@@ -203,6 +206,7 @@ var ProjectContentFiller = Class
         $(this.params.buttons.next).show();
         this.visibleRows = 0;
         $("ul", this.params.container).empty();
+        $("ul", this.params.container).height('auto');
       },
       
       fillGridRowAge : function(result) {

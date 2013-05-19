@@ -24,13 +24,44 @@
 var Search = Class.$extend( {
   __include__ : [__baseClassVars],
   __init__ : function() {
+    this.projectObject = null;
+    this.params = null;
+    this.history = window.History;
+    this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
   },
   
   setProjectObject : function(projectObject) {
     this.projectObject = projectObject;
+    this.params = projectObject.getParameters();
   },
   
   updateSearchResults : function() {
     $('#numberOfSearchResults').text(this.projectObject.getNumProjects());
+  },
+
+  saveHistoryState : function(action) {
+    if(action == 'init') {
+      var state = this.history.getState();
+      if(typeof state.data.content === 'undefined') {
+        var context  = this.projectObject.getHistoryState();
+        this.history.replaceState({content: context}, "State " + context.page, "?state=" + context.page);
+      } else {
+        this.restoreHistoryState();
+      }
+    }
+
+    if(action == 'push') {
+      var context  = this.projectObject.getHistoryState();
+      this.history.pushState({content: context}, "State " + context.page, "?state=" + context.page);
+    }
+  },
+
+  restoreHistoryState : function() {
+    if(this.projectObject != null) {
+      var state = this.history.getState();
+      if(state.data.content.page != this.params.page.number) {
+        this.projectObject.restoreHistoryState(state.data.content);
+      }
+    }
   }
 });

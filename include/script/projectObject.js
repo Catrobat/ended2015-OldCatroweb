@@ -50,8 +50,8 @@
     if(typeof this.params.buttons.next === 'undefined') {
       return this.missing('buttons.next');
     }
-    if(typeof this.params.preloaded === 'undefined') {
-      this.params.preloaded = null;
+    if(typeof this.params.content === 'undefined') {
+      this.params.content = array();
     }
     if(typeof this.params.numProjects === 'undefined') {
       return this.missing('numProjects');
@@ -103,23 +103,30 @@
       this.hasNextButton = true;
       $(this.params.buttons.next).click($.proxy(this.nextPage, this)); 
     }
+
+    this.projectLoader = null;
+    this.projectContentFiller = null;
   },
-  
+
   missing : function(object) {
     alert(object + ': obligatory paramater missing or does not exist!');
     console.log(object + ': obligatory paramater missing or does not exist!');
     return false;
   },
-  
+
   init : function() {
     this.projectLoader = new ProjectLoader($.proxy(this.getParameters, this), $.proxy(this.loadProjectsRequestSuccess, this), $.proxy(this.loadProjectsRequestError, this));    
     this.projectContentFiller = new ProjectContentFiller($.proxy(this.getParameters, this));
+
+    if(typeof this.params.callbacks['history'] === 'function') {
+      this.params.callbacks['history'].call(this, 'init');
+    }
   },
 
   getParameters : function() {
     return this.params;
   },
-  
+
   loadProjectsRequestSuccess : function(result) {
     if(result == null) {
       alert('loadProjectsRequestSuccess: no result!');
@@ -137,14 +144,19 @@
       alert('loadProjectsRequestSuccess: no layout selected!');
       return;
     }
-    
+
     var info = result.CatrobatInformation;
     this.params.numProjects = info['TotalProjects'];
     this.params.page.pageNrMax = Math.max(1, Math.ceil(Math.max(0, this.params.numProjects) / this.params.page.numProjectsPerPage));
+    this.params.content.push(result);
 
     this.projectContentFiller.fill(result);
+
+    if(typeof this.params.callbacks['history'] === 'function') {
+      this.params.callbacks['history'].call(this, 'push');
+    }
   },
-  
+
   loadProjectsRequestError : function(error, errCode) {
     alert(error + ' ' + errCode);
     console.log(error + ' ' + errCode);
@@ -153,12 +165,12 @@
       this.params.callbacks['error'].call();
     }
   },
-  
+
   prevPage : function() {
     this.params.page.number = Math.max(1, this.params.page.number - 1);
     this.projectLoader.loadPage();
   },
-  
+
   nextPage : function() {
     this.params.page.number = Math.min(this.params.page.pageNrMax, this.params.page.number + 1);
     if(!this.params.reachedLastPage) {
@@ -172,6 +184,19 @@
     return this.params.numProjects;
   },
   
+  getHistoryState : function() {
+    return {content: this.params.content, page: this.params.page.number};
+  },
+  
+  restoreHistoryState : function(state) {
+    if(this.projectContentFiller != null) {
+      this.projectContentFiller.clear();
+      this.params.content = state.content;
+      this.params.page.number = state.page;
+      this.projectContentFiller.display();
+    }
+  },
+
   setSort : function(sortby) {
     this.params.sort = sortby;
     this.params.page.number = 1;

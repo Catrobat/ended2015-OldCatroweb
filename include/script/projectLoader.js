@@ -36,7 +36,7 @@ var ProjectLoader = Class.$extend({
   
   initialize : function() {
     if(!this.initialized) {
-      if(this.params.preloaded == null) {
+      if(this.params.content == null) {
         this.loadPage();
       }
       this.initialized = true;

@@ -26,10 +26,6 @@ $this->module->addGlobalCss('normalize.css');
 $this->module->addGlobalCss('base.css');
 $this->module->addGlobalCss('header.css');
 $this->module->addGlobalCss('footer.css');
-/*$this->module->addGlobalCss('baseStyle.css');
-$this->module->addGlobalCss('buttons.css');
-*/
-$this->module->addGlobalCss('login.css');
 
 
 $this->module->addGlobalJs('baseClassVars.js');
@@ -37,7 +33,6 @@ $this->module->addGlobalJs('classy.js');
 $this->module->addGlobalJs('header.js');
 $this->module->addGlobalJs('footer.js');
 $this->module->addGlobalJs('languageHandler.js');
-$this->module->addGlobalJs('login.js');
 $this->module->addGlobalJs('searchBar.js');
 
 
@@ -58,6 +53,7 @@ $this->module->addGlobalJs('searchBar.js');
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERY_VERSION; ?>/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<?php echo BASE_PATH . CACHE_PATH; ?>jquery<?php echo JQUERY_VERSION; ?>.min.js"><\/script>')</script>
+    <script src="<?php echo BASE_PATH . CACHE_PATH; ?>jquery.history.js"></script>
 
     <link rel="icon" href="<?php echo BASE_PATH?>images/logo/favicon.png<?php echo '?'.VERSION?>" type="image/png" />
   </head>
