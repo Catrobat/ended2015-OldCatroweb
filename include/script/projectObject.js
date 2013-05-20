@@ -177,15 +177,27 @@
       this.projectLoader.loadPage();
     } else {
       this.projectContentFiller.extend();
+      
+      if(typeof this.params.callbacks['history'] === 'function') {
+        this.params.callbacks['history'].call(this, 'push');
+      }
     }
   },
   
-  getNumProjects : function() {
-    return this.params.numProjects;
-  },
-  
   getHistoryState : function() {
-    return {content: this.params.content, page: this.params.page.number};
+    var state = {content: this.params.content, 
+        page: this.params.page.number,
+        pageNrMax: this.params.page.pageNrMax,
+        sort: this.params.sort,
+        author: this.params.filter.author,
+        query: this.params.filter.query,
+        amount: this.params.numProjects,
+        last: this.params.reachedLastPage}
+    
+    if(this.projectContentFiller.getHistoryState != null) {
+      state = this.projectContentFiller.getHistoryState(state);
+    }
+    return state;
   },
   
   restoreHistoryState : function(state) {
@@ -193,13 +205,24 @@
       this.projectContentFiller.clear();
       this.params.content = state.content;
       this.params.page.number = state.page;
+      this.params.page.pageNrMax = state.pageNrMax;
+      this.params.sort = state.sort;
+      this.params.filter.author = state.author;
+      this.params.filter.query = state.query;
+      this.params.numProjects = state.amount;
+      this.params.reachedLastPage = state.last;
       this.projectContentFiller.display();
+      
+      if(this.projectContentFiller.restoreHistoryState != null) {
+        this.projectContentFiller.restoreHistoryState(state);
+      }
     }
   },
 
   setSort : function(sortby) {
     this.params.sort = sortby;
     this.params.page.number = 1;
+    this.params.content = [];
     this.params.reachedLastPage = false;
 
     this.projectContentFiller.clear();
@@ -210,6 +233,7 @@
     this.params.filter.author = filter.author;
     this.params.filter.query = filter.query;
     this.params.page.number = 1;
+    this.params.content = [];
     this.params.reachedLastPage = false;
     
     this.projectContentFiller.clear();

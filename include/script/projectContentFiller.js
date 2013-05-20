@@ -61,7 +61,9 @@ var ProjectContentFiller = Class
         
         this.extend = null;
         this.fillLayout = null;
-        this.reset = null;
+        this.clear = null;
+        this.getHistoryState = null;
+        this.restoreHistoryState = null;
         this.error = {"type" : "", code : 0, extra : ""};
 
         this.initializeLayout(this.params.layout, this.params.sort);
@@ -96,6 +98,8 @@ var ProjectContentFiller = Class
             
             this.extend = this.asyncGrowGridRowContainer;
             this.clear = this.clearGridRowContainer;
+            this.getHistoryState = this.getGridRowHistory;
+            this.restoreHistoryState = this.restoreGridRowHistory;
             
             this.clear();
             this.ready = true;
@@ -110,6 +114,11 @@ var ProjectContentFiller = Class
         if(this.ready && this.params.content != null) {
           for(var index = 0, amount = this.params.content.length; index < amount; index++) {
             this.fill(this.params.content[index]);
+          }
+          
+          if(this.params.numProjects == 0) {
+            this.params.reachedLastPage = true;
+            $(this.params.buttons.next).hide();
           }
         }
       },
@@ -169,7 +178,7 @@ var ProjectContentFiller = Class
       
       asyncGrowGridRowContainer : function() {
         this.visibleRows += 1;
-        setTimeout($.proxy(this.extendGridRowContainer, this), 100);
+        setTimeout($.proxy(this.extendGridRowContainer, this), 20);
       },
       
       extendGridRowContainer : function() {
@@ -205,8 +214,19 @@ var ProjectContentFiller = Class
       clearGridRowContainer : function() {
         $(this.params.buttons.next).show();
         this.visibleRows = 0;
+        this.params.reachedLastPage = false;
         $("ul", this.params.container).empty();
         $("ul", this.params.container).height('auto');
+      },
+      
+      getGridRowHistory : function(state) {
+        state.visibleRows = this.visibleRows;
+        return state;
+      },
+      
+      restoreGridRowHistory : function(state) {
+        this.visibleRows = state.visibleRows;
+        this.extendGridRowContainer();
       },
       
       fillGridRowAge : function(result) {
@@ -317,6 +337,11 @@ var ProjectContentFiller = Class
       fill : function(result) {
         if(this.params.page.number >= this.params.page.pageNrMax) {
           this.params.reachedLastPage = true;
+        }
+        
+        if(this.params.numProjects == 0) {
+          this.params.reachedLastPage = true;
+          $(this.params.buttons.next).hide();
         }
         
         this.fillLayout.call(this, result);

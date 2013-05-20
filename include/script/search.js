@@ -23,7 +23,9 @@
 
 var Search = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function() {
+  __init__ : function(pageLabels, searchBar) {
+    this.pageLabels = pageLabels;
+    this.searchBar = searchBar;
     this.projectObject = null;
     this.params = null;
     this.history = window.History;
@@ -33,34 +35,41 @@ var Search = Class.$extend( {
   setProjectObject : function(projectObject) {
     this.projectObject = projectObject;
     this.params = projectObject.getParameters();
+    this.searchBar.setProjectObject(projectObject);
   },
   
   updateSearchResults : function() {
-    $('#numberOfSearchResults').text(this.projectObject.getNumProjects());
+    $('#numberOfSearchResults').text(this.params.numProjects);
   },
 
   saveHistoryState : function(action) {
+    var context  = this.projectObject.getHistoryState();
+    var title = this.pageLabels['websiteTitle'] + " - " + this.pageLabels['title'] + " - " + 
+          context.query + " - " + context.visibleRows;
+
     if(action == 'init') {
       var state = this.history.getState();
       if(typeof state.data.content === 'undefined') {
-        var context  = this.projectObject.getHistoryState();
-        this.history.replaceState({content: context}, "State " + context.page, "?state=" + context.page);
+        this.history.replaceState({content: context}, title, "?q=" + context.query + "&p=" + context.visibleRows);
       } else {
         this.restoreHistoryState();
       }
     }
 
     if(action == 'push') {
-      var context  = this.projectObject.getHistoryState();
-      this.history.pushState({content: context}, "State " + context.page, "?state=" + context.page);
+      this.history.pushState({content: context}, title, "?q=" + context.query + "&p=" + context.visibleRows);
     }
   },
 
   restoreHistoryState : function() {
     if(this.projectObject != null) {
+      var current = this.projectObject.getHistoryState();
       var state = this.history.getState();
-      if(state.data.content.page != this.params.page.number) {
-        this.projectObject.restoreHistoryState(state.data.content);
+      if(typeof state.data.content === 'object') {
+        if(state.data.content.visibleRows != current.visibleRows || state.data.content.query != current.query) {
+          this.projectObject.restoreHistoryState(state.data.content);
+          this.searchBar.updateSearchBoxQuery();
+        }
       }
     }
   }

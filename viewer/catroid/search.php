@@ -37,15 +37,15 @@
         </div>
         <div class="projectSpacer"></div>
       </article>
+      
       <script type="text/javascript">
         $(document).ready(function() {
-          var search = Search();
+          var pageLabels = { 'websiteTitle' : '<?php echo SITE_DEFAULT_TITLE; ?>', 'title' : '<?php echo $this->languageHandler->getString('header'); ?>'};
+          var search = Search(pageLabels, SearchBar);
           var projects = ProjectObject(<?php echo $this->jsParams; ?>, { 'success' : $.proxy(search.updateSearchResults, search),
             'history' : $.proxy(search.saveHistoryState, search) });
 
           search.setProjectObject(projects);
-          SearchBar.setProjectObject(projects);
-          
           projects.init();
         });
       </script>
