@@ -23,96 +23,72 @@
 
 var Index = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function(maxLoadProjects, maxLoadPages, pageNr, searchQuery, task, strings) {
-    var self = this;
-    this.newestProjects = new NewestProjects(maxLoadProjects, maxLoadPages, pageNr, strings);
-    this.searchProjects = new SearchProjects(maxLoadProjects, maxLoadPages, pageNr, searchQuery, strings);
+  __init__ : function(pageLabels) {
+    this.pageLabels = pageLabels;
+    this.newestProjects = null;
+    this.downloadProjects = null;
+    this.viewProjects = null;
+    this.history = window.History;
+    this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
+  },
+  
+  setProjectObjects : function(newest, downloads, views) {
+    this.newestProjects = newest;
+    this.downloadProjects = downloads;
+    this.viewProjects = views;
+  },
+  
+  saveHistoryState : function(action) {
+    var context = [];
+    context['newest'] = this.newestProjects.getHistoryState();
+    context['downloads'] = this.downloadProjects.getHistoryState();
+    context['views'] = this.viewProjects.getHistoryState();
 
-    this.task = task;
-    this.state = "newestProjects";
-    window.onpopstate = function(event) {      
-      if(event.state && event.state.newestProjects) {        
-        self.newestProjects.restoreHistoryState(event.state);
-        self.state = "newestProjects";
+    if($.isEmptyObject(context['newest']) == false && $.isEmptyObject(context['downloads']) == false && 
+        $.isEmptyObject(context['views']) == false) {
+      if(action == 'init') {
+        var state = this.history.getState();
+        if(typeof state.data.newest === 'undefined' && typeof state.data.downloads === 'undefined' && 
+            typeof state.data.views === 'undefined') {
+          this.history.replaceState({newest: context['newest'], downloads: context['downloads'], views: context['views']}, 
+              this.pageLabels['websiteTitle'], '');
+        } else {
+          this.restoreHistoryState();
+        }
       }
-      if(event.state && event.state.searchProjects) {
-        self.searchProjects.restoreHistoryState(event.state);
-        self.state = "searchProjects";
-      }        
-    }
-    setTimeout(function() { self.initialize(self); }, 50);
-
-    $("#headerMenuButton").click(function() { self.newestProjects.saveStateToSession(self.newestProjects.pageNr.current); });
-    $("#searchForm").submit($.proxy(this.search, this));
-    $("#catroidDescriptionCloseButton").click($.proxy(this.hideCatroidDescription, this));
-  },
-  
-  initialize : function(object) {    
-    if(window.history.state != null && window.history.state.pageContent.current != null) {      
-      // FF 4.0 does not fire onPopState.event, webkit does
-      if(window.history.state.newestProjects) {
-        object.newestProjects.restoreHistoryState(window.history.state);
-        object.state = "newestProjects";
+      
+      if(action == 'push') {
+        this.history.pushState({newest: context['newest'], downloads: context['downloads'], views: context['views']},
+            this.pageLabels['websiteTitle'], '');
       }
-      if(window.history.state.searchProjects) {        
-        object.searchProjects.restoreHistoryState(window.history.state);
-        object.state = "searchProjects";        
-      }      
-      return;
     }
-    if(object.task == "newestProjects") {
-      object.newestProjects.initialize(object.newestProjects);
-    }
-    if(object.task == "searchProjects") {
-      object.searchProjects.initialize(object.searchProjects);
-    }            
-  },
-  
-  switchState : function(state) {
-    if(state == "newestProjects") {
-      this.searchProjects.setInactive();
-      this.newestProjects.setActive();
-      this.state = "newestProjects";
-    }
-    if(state == "searchProjects") {
-      this.newestProjects.setInactive();
-      this.searchProjects.setActive();      
-      this.state = "searchProjects";
-    }
-  },
-  
-  search : function() {     
-    if (this.state == "searchProjects")
-      this.searchProjects.triggerSearch(true);
-    else if($.trim($("#searchQuery").val()) != "") {
-      this.searchProjects.triggerSearch(true);
-      this.switchState("searchProjects");      
-    }
-    return false;
   },
 
-  cancelSearch : function() {
-    this.switchState("newestProjects");
-  },
-
-  hideCatroidDescription : function() {
-    var self = this;
-    $.ajax({
-      type: "POST",
-      url: self.basePath+"saveDataToSession/save.json",
-      data: {
-          content: {
-            showCatroidDescription: 0
-          }
-      },
-      success : function(result) {
-         $("#catroidDescription").hide();
+  restoreHistoryState : function() {
+    var state = this.history.getState();
+    if(this.newestProjects != null) {
+      var current = this.newestProjects.getHistoryState();
+      if(typeof state.data.newest === 'object') {
+        if(state.data.newest.visibleRows != current.visibleRows) {
+          this.newestProjects.restoreHistoryState(state.data.newest);
+        }
       }
-    });
-  },
-  
-  startPage : function() {
-    this.switchState("newestProjects");
-    this.newestProjects.showStartPage();
+    }
+    if(this.downloadProjects != null) {
+      var current = this.downloadProjects.getHistoryState();
+      if(typeof state.data.downloads === 'object') {
+        if(state.data.downloads.visibleRows != current.visibleRows) {
+          this.downloadProjects.restoreHistoryState(state.data.downloads);
+        }
+      }
+    }
+    if(this.viewProjects != null) {
+      var current = this.viewProjects.getHistoryState();
+      if(typeof state.data.views === 'object') {
+        if(state.data.views.visibleRows != current.visibleRows) {
+          this.viewProjects.restoreHistoryState(state.data.views);
+        }
+      }
+    }
   }
 });

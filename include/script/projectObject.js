@@ -185,17 +185,20 @@
   },
   
   getHistoryState : function() {
-    var state = {content: this.params.content, 
-        page: this.params.page.number,
-        pageNrMax: this.params.page.pageNrMax,
-        sort: this.params.sort,
-        author: this.params.filter.author,
-        query: this.params.filter.query,
-        amount: this.params.numProjects,
-        last: this.params.reachedLastPage}
-    
-    if(this.projectContentFiller.getHistoryState != null) {
-      state = this.projectContentFiller.getHistoryState(state);
+    var state = {};
+    if(this.projectContentFiller != null) {
+      state = {content: this.params.content, 
+          page: this.params.page.number,
+          pageNrMax: this.params.page.pageNrMax,
+          sort: this.params.sort,
+          author: this.params.filter.author,
+          query: this.params.filter.query,
+          amount: this.params.numProjects,
+          last: this.params.reachedLastPage}
+      
+      if(this.projectContentFiller.getHistoryState != null) {
+        state = this.projectContentFiller.getHistoryState(state);
+      }
     }
     return state;
   },

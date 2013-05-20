@@ -76,8 +76,16 @@
       </article>
       <script type="text/javascript">
         $(document).ready(function() {
-          ProjectObject(<?php echo $this->newestProjectsParams; ?>).init();
-          ProjectObject(<?php echo $this->mostDownloadedProjectsParams; ?>).init();
-          ProjectObject(<?php echo $this->mostViewedProjectsParams; ?>).init();
+          var pageLabels = { 'websiteTitle' : '<?php echo SITE_DEFAULT_TITLE; ?>'};
+          var index = Index(pageLabels);
+
+          var newest = ProjectObject(<?php echo $this->newestProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
+          var downloads = ProjectObject(<?php echo $this->mostDownloadedProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
+          var views = ProjectObject(<?php echo $this->mostViewedProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
+          index.setProjectObjects(newest, downloads, views);
+
+          newest.init();
+          downloads.init();
+          views.init();
         });
       </script>

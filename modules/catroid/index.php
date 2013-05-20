@@ -30,6 +30,7 @@ class index extends CoreAuthenticationNone {
     $this->addJs('projectLoader.js');
     $this->addJs('projectContentFiller.js');
     $this->addJs('projectObject.js');
+    $this->addJs('index.js');
     
     $this->loadModule('api/projects');
   }
