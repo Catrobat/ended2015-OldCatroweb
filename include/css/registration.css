@@ -59,8 +59,18 @@
 , #wrapper article #registrationYear
 , #wrapper article #registrationGender {
   font-size: 1.2em;
-  margin-bottom: 1em;
   color: black;
+}
+
+ 
+  #wrapper article #registrationPassword
+, #wrapper article #registrationCountry
+, #wrapper article #registrationCity 
+, #wrapper article #registrationMonth 
+, #wrapper article #registrationYear
+, #wrapper article #registrationGender
+, #wrapper article div.catroidFormInfoBox {
+  margin-bottom: 1em;
 }
 
 #wrapper article input.registrationSubmitButton {
