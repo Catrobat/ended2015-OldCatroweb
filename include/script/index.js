@@ -30,6 +30,14 @@ var Index = Class.$extend( {
     this.viewProjects = null;
     this.history = window.History;
     this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
+    
+    $(".catroidLink").click($.proxy(this.clearHistory, this));
+  },
+  
+  clearHistory : function(event) {
+    this.history.replaceState({newest: 0, downloads: 0, views: 0}, this.pageLabels['websiteTitle'], '');
+    location.reload();
+    event.preventDefault();
   },
   
   setProjectObjects : function(newest, downloads, views) {
@@ -66,6 +74,8 @@ var Index = Class.$extend( {
     var state = this.history.getState();
     if(this.newestProjects != null) {
       var current = this.newestProjects.getHistoryState();
+      console.log(state.data.newest);
+      console.log(typeof state.data.newest);
       if(typeof state.data.newest === 'object') {
         if(state.data.newest.visibleRows != current.visibleRows) {
           this.newestProjects.restoreHistoryState(state.data.newest);
