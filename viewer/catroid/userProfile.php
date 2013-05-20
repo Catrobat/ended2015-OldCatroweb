@@ -58,6 +58,10 @@
 
   <script type="text/javascript">
     $(document).ready(function() {
-      ProjectObject(<?php echo $this->jsParams; ?>).init();
+      var profile = Profile({'websiteTitle' : '<?php echo SITE_DEFAULT_TITLE; ?>', 'title' : '<?php echo $this->languageHandler->getString('userTitle'); ?>'});
+      var projects = ProjectObject(<?php echo $this->jsParams; ?>, {'history' : $.proxy(profile.saveHistoryState, profile) });
+
+      profile.setProjectObject(projects);
+      projects.init();
     });
   </script>

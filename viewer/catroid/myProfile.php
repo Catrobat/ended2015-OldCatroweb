@@ -95,10 +95,16 @@
           "really_delete_email" : "<?php echo $this->languageHandler->getString('really_delete_email'); ?>",
           "really_delete_project" : "<?php echo $this->languageHandler->getString('really_delete_project'); ?>",
           "image_too_big" : "<?php echo $this->languageHandler->getString('image_too_big'); ?>",
-          "second_email" : "<?php echo $this->languageHandler->getString('second_email'); ?>"
+          "second_email" : "<?php echo $this->languageHandler->getString('second_email'); ?>",
+          "websiteTitle" : "<?php echo SITE_DEFAULT_TITLE; ?>",
+          "title" : "<?php echo $this->languageHandler->getString('userTitle'); ?>"
         };
         var profile = Profile(languageStringsObject);
-        ProjectObject(<?php echo $this->jsParams; ?>, {'delete' : $.proxy(profile.deleteProject, profile)}).init();
+        var projects = ProjectObject(<?php echo $this->jsParams; ?>, {'delete' : $.proxy(profile.deleteProject, profile), 
+          'history' : $.proxy(profile.saveHistoryState, profile)});
+
+        profile.setProjectObject(projects);
+        projects.init();
       });
   </script>
       

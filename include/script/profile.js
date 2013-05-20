@@ -44,6 +44,10 @@ var Profile = Class.$extend( {
     $("#profileSaveChanges").click($.proxy(this.updateChangesRequest, this));
 
     $("#searchForm").submit($.proxy(this.search, this));
+
+    this.projectObject = null;
+    this.history = window.History;
+    this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
   },
   
   //-------------------------------------------------------------------------------------------------------------------
@@ -296,6 +300,40 @@ var Profile = Class.$extend( {
   deleteProject : function(event) {
     if(confirm(this.languageStringsObject.really_delete_project + " '" + event.data.name + "' ?")) {
       document.location = this.basePath + "profile/?delete=" + event.data.id;
+    }
+  },
+
+  setProjectObject : function(projectObject) {
+    this.projectObject = projectObject;
+  },
+  
+  saveHistoryState : function(action) {
+    var context  = this.projectObject.getHistoryState();
+    var title =this.languageStringsObject['websiteTitle'] + " - " + this.languageStringsObject['title'];
+
+    if(action == 'init') {
+      var state = this.history.getState();
+      if(typeof state.data.content === 'undefined') {
+        this.history.replaceState({content: context}, title, "");
+      } else {
+        this.restoreHistoryState();
+      }
+    }
+
+    if(action == 'push') {
+      this.history.pushState({content: context}, title, "");
+    }
+  },
+
+  restoreHistoryState : function() {
+    if(this.projectObject != null) {
+      var current = this.projectObject.getHistoryState();
+      var state = this.history.getState();
+      if(typeof state.data.content === 'object') {
+        if(state.data.content.visibleRows != current.visibleRows) {
+          this.projectObject.restoreHistoryState(state.data.content);
+        }
+      }
     }
   }
 });

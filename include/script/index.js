@@ -44,14 +44,12 @@ var Index = Class.$extend( {
     context['downloads'] = this.downloadProjects.getHistoryState();
     context['views'] = this.viewProjects.getHistoryState();
 
-    if($.isEmptyObject(context['newest']) == false && $.isEmptyObject(context['downloads']) == false && 
-        $.isEmptyObject(context['views']) == false) {
+    if($.isEmptyObject(context['newest']) == false && $.isEmptyObject(context['downloads']) == false && $.isEmptyObject(context['views']) == false) {
       if(action == 'init') {
         var state = this.history.getState();
-        if(typeof state.data.newest === 'undefined' && typeof state.data.downloads === 'undefined' && 
-            typeof state.data.views === 'undefined') {
+        if(typeof state.data.newest === 'undefined' && typeof state.data.downloads === 'undefined' && typeof state.data.views === 'undefined') {
           this.history.replaceState({newest: context['newest'], downloads: context['downloads'], views: context['views']}, 
-              this.pageLabels['websiteTitle'], '');
+                this.pageLabels['websiteTitle'], '');
         } else {
           this.restoreHistoryState();
         }
@@ -59,7 +57,7 @@ var Index = Class.$extend( {
       
       if(action == 'push') {
         this.history.pushState({newest: context['newest'], downloads: context['downloads'], views: context['views']},
-            this.pageLabels['websiteTitle'], '');
+              this.pageLabels['websiteTitle'], '');
       }
     }
   },
