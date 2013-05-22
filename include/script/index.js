@@ -35,7 +35,7 @@ var Index = Class.$extend( {
   },
   
   clearHistory : function(event) {
-    this.history.replaceState({newest: 0, downloads: 0, views: 0}, this.pageLabels['websiteTitle'], '');
+    this.history.replaceState({}, this.pageLabels['websiteTitle'], '');
     location.reload();
     event.preventDefault();
   },

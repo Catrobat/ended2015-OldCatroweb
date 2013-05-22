@@ -113,7 +113,9 @@ var ProjectContentFiller = Class
       display : function() {
         if(this.ready && this.params.content != null) {
           for(var index = 0, amount = this.params.content.length; index < amount; index++) {
-            this.fill(this.params.content[index]);
+            if(this.params.content[index].CatrobatProjects.length > 0) {
+              this.fill(this.params.content[index]);
+            }
           }
           
           if(this.params.numProjects == 0) {

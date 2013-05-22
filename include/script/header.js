@@ -42,7 +42,6 @@ var Header = Class.$extend( {
     $("#largeMenuButton").click($.proxy(this.pressProfileButton, this));
     $("#menuLogoutButton").click($.proxy(this.logoutRequest, this)); 
     $("#menuProfileButton").click($.proxy(this.openProfile, this)); 
-    $("#menuProfileChangeButton").click($.proxy(this.openProfile, this)); 
   },
 
   pressProfileButton : function(event) {
