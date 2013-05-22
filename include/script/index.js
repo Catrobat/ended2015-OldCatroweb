@@ -74,8 +74,6 @@ var Index = Class.$extend( {
     var state = this.history.getState();
     if(this.newestProjects != null) {
       var current = this.newestProjects.getHistoryState();
-      console.log(state.data.newest);
-      console.log(typeof state.data.newest);
       if(typeof state.data.newest === 'object') {
         if(state.data.newest.visibleRows != current.visibleRows) {
           this.newestProjects.restoreHistoryState(state.data.newest);

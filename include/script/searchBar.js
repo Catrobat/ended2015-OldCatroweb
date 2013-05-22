@@ -35,6 +35,10 @@ var SearchBar = Class.$extend( {
     this.largeSearchBox.keyup($.proxy(this.submitSearchKey, this));
     this.smallSearchBox.keyup($.proxy(this.submitSearchKey, this));
     this.footerSearchBox.keyup($.proxy(this.submitSearchKey, this));
+    
+    this.largeSearchBox.change({input: this.largeSearchBox}, $.proxy(this.submitSearchClick, this));
+    this.smallSearchBox.change({input: this.smallSearchBox}, $.proxy(this.submitSearchClick, this));
+    this.footerSearchBox.change({input: this.footerSearchBox}, $.proxy(this.submitSearchClick, this));
 
     $("#largeSearchButton").click({input: this.largeSearchBox}, $.proxy(this.submitSearchClick, this));
     $("#footerSearchButton").click({input: this.footerSearchBox}, $.proxy(this.submitSearchClick, this));
@@ -48,16 +52,11 @@ var SearchBar = Class.$extend( {
   
   submitSearchKey: function(event) {
     if(event.keyCode == 13) {
-      if(this.projects != null) {
-        this.ajaxSearch(event.target.value);
-        this.largeSearchBox.blur();
-        this.smallSearchBox.blur();
-        this.footerSearchBox.blur();
-      } else {
-        location.href = this.basePath + 'search/?q=' + event.target.value + '&p=1';
-      }
+      this.largeSearchBox.blur();
+      this.smallSearchBox.blur();
+      this.footerSearchBox.blur();
+      event.preventDefault();
     }
-    event.preventDefault();
   },
   
   submitSearchClick : function(event) {

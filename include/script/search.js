@@ -50,14 +50,14 @@ var Search = Class.$extend( {
     if(action == 'init') {
       var state = this.history.getState();
       if(typeof state.data.content === 'undefined') {
-        this.history.replaceState({content: context}, title, "?q=" + context.query + "&p=" + context.visibleRows);
+        this.history.replaceState({content: context}, title, "?q=" + encodeURI(context.query) + "&p=" + context.visibleRows);
       } else {
         this.restoreHistoryState();
       }
     }
 
     if(action == 'push') {
-      this.history.pushState({content: context}, title, "?q=" + context.query + "&p=" + context.visibleRows);
+      this.history.pushState({content: context}, title, "?q=" + encodeURI(context.query) + "&p=" + context.visibleRows);
     }
   },
 

@@ -121,7 +121,7 @@ class CoreErrorHandler {
         return false;
       }
     
-      header("Location: ".BASE_PATH."catroid/error");
+      header("Location: " . BASE_PATH . "error");
       exit();
     } else {
       return false;
