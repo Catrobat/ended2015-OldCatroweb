@@ -38,7 +38,7 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     $wl = getIpBlockClassWhitelistArray();
     $this->assertTrue(is_array($wl));
     $this->assertTrue(in_array('contactus', $wl));
-    $this->assertTrue(in_array('errorPage', $wl));
+    $this->assertTrue(in_array('error', $wl));
   }
 
   public function testConvertBytesToMegabytes() {

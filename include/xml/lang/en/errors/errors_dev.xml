@@ -98,7 +98,6 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">Could not find html viewer file.</string>
-    	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
     	<string name="ip_is_blocked">Your IP-Address has been blocked.</string>
     	<string name="ip_is_blocked_temporary">Your IP-Address has been blocked for 30 seconds.</string>
       <string name="user_is_blocked">Your Account has been blocked.</string>

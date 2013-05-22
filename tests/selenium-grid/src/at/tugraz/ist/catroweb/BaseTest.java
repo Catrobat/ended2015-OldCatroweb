@@ -39,7 +39,6 @@ import static org.testng.AssertJUnit.assertTrue;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -398,41 +397,36 @@ public class BaseTest {
   protected void assertProjectPresent(String project) {
     openLocation();
     ajaxWait();
-//    try {
-//      driver().findElement(By.id("headerSearchButton")).click();
-//      ajaxWait();
-//    } catch(ElementNotVisibleException ignore) {
-//    }
-    assertTrue(isVisible(By.id("searchQuery")));
-    driver().findElement(By.id("searchQuery")).clear();
-    driver().findElement(By.id("searchQuery")).sendKeys("clear-cache");
-    driver().findElement(By.id("webHeadSearchSubmit")).click();
+    By searchBox = By.xpath("//div[@class='largeSearchBarMiddle']/input");
+    assertTrue(isVisible(searchBox));
+    driver().findElement(searchBox).clear();
+    driver().findElement(searchBox).sendKeys("clear-cache");
+    driver().findElement(By.id("largeSearchButton")).click();
     ajaxWait();
-    driver().findElement(By.id("searchQuery")).clear();
-    driver().findElement(By.id("searchQuery")).sendKeys(project);
-    driver().findElement(By.id("webHeadSearchSubmit")).click();
+    driver().findElement(searchBox).clear();
+    driver().findElement(searchBox).sendKeys(project);
+    driver().findElement(By.id("largeSearchButton")).click();
     ajaxWait();
-    assertTrue(isTextPresent(project));
+    int results = Integer.parseInt(driver().findElement(By.id("numberOfSearchResults")).getText());
+    assertTrue(results > 0);
+    assertTrue(isElementPresent(By.xpath("//a[@title='" + project + "']")));
   }
 
   protected void assertProjectNotPresent(String project) {
     openLocation();
     ajaxWait();
-//    try {
-//      driver().findElement(By.id("headerSearchButton")).click();
-//      ajaxWait();
-//    } catch(ElementNotVisibleException ignore) {
-//    }
-    assertTrue(isVisible(By.id("searchQuery")));
-    driver().findElement(By.id("searchQuery")).clear();
-    driver().findElement(By.id("searchQuery")).sendKeys("clear-cache");
-    driver().findElement(By.id("webHeadSearchSubmit")).click();
+    By searchBox = By.xpath("//div[@class='largeSearchBarMiddle']/input");
+    assertTrue(isVisible(searchBox));
+    driver().findElement(searchBox).clear();
+    driver().findElement(searchBox).sendKeys("clear-cache");
+    driver().findElement(By.id("largeSearchButton")).click();
     ajaxWait();
-    driver().findElement(By.id("searchQuery")).clear();
-    driver().findElement(By.id("searchQuery")).sendKeys(project);
-    driver().findElement(By.id("webHeadSearchSubmit")).click();
+    driver().findElement(searchBox).clear();
+    driver().findElement(searchBox).sendKeys(project);
+    driver().findElement(By.id("largeSearchButton")).click();
     ajaxWait();
-    assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
+    int results = Integer.parseInt(driver().findElement(By.id("numberOfSearchResults")).getText());
+    assertTrue(results == 0);
   }
 
   public void waitForElementPresent(By selector) {

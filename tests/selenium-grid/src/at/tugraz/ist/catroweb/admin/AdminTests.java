@@ -41,7 +41,7 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("Administration Tools"));
       driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
       ajaxWait();
-      assertRegExp(".*Catroid Website.*", driver().getTitle());
+      assertRegExp(".*Pocket Code Website.*", driver().getTitle());
       driver().navigate().back();
       if(isTextPresent("Catroid Administration Site") == false) {
         driver().navigate().back();
@@ -143,7 +143,7 @@ public class AdminTests extends BaseTest {
   public void inappropriateProjects() throws Throwable {
     try {
       openLocation("details/1");
-      driver().findElement(By.id("headerProfileButton")).click();
+      driver().findElement(By.id("largeMenuButton")).click();
       driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
       driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
       driver().findElement(By.id("loginSubmitButton")).click();

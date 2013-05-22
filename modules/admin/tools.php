@@ -35,11 +35,11 @@ class tools extends CoreAuthenticationAdmin {
   }
 
   public function removeInconsistantProjectFiles() {
-    $directory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
+    $directory = CORE_BASE_PATH . PROJECTS_DIRECTORY;
     $files = scandir($directory);
     $answer = '';
     foreach($files as $fileName) {
-      if($fileName != '.' && $fileName != '..' && pathinfo($directory.$fileName, PATHINFO_EXTENSION) == 'zip') {
+      if($fileName != '.' && $fileName != '..') {
         $projectId = substr($fileName, 0, strpos($fileName, '.'));
         if(is_numeric($projectId)) {
           if($this->isProjectInDatabase(intval($projectId))) {
@@ -52,6 +52,9 @@ class tools extends CoreAuthenticationAdmin {
           $answer .= $fileName.'<br />';
         }
       }
+    }
+    if(strlen($answer) == 0) {
+      $answer = 'There are no projects.';
     }
     $this->answer = $answer;
   }

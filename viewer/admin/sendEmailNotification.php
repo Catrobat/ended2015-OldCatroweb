@@ -26,9 +26,9 @@
 <body onload="javascript:updateSelectCount()">
   <script type="text/javascript">
     function toggleSelectAll() {
-      var val = (chkboxSelectAll.checked);
+      var val = $("#chkboxSelectAll").prop('checked');
       $('.chkBoxEmail').each(function(i, obj) {
-        $(obj).attr('checked', val);
+        $(obj).prop('checked', val);
       });
       updateSelectCount();
     }
@@ -37,20 +37,21 @@
       var selected = 0;
       var total = 0;
       var text = "";
-      
+
       $('.chkBoxEmail').each(function(i, obj) {
         total += 1;
-        if($(obj).attr('checked')) {
+        
+        if($(obj).prop('checked')) {
           selected += 1;
         }
       });
   
       if((selected == total)) {
-        $("#chkboxSelectAll").attr('checked', true);
+        $("#chkboxSelectAll").prop('checked', true);
         $("#labelSelectAll").text("unselect all");
       }
       else if (selected < total){
-        $("#chkboxSelectAll").attr('checked', false);
+        $("#chkboxSelectAll").prop('checked', false);
         $("#labelSelectAll").text("select all");
       }
   
@@ -61,7 +62,7 @@
     function sendEmail() {
       var count = 0;
       $('.chkBoxEmail').each(function(i, obj) {
-        if ($(obj).attr('checked')) {
+        if ($(obj).prop('checked')) {
           count += 1;
         }
       });
