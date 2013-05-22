@@ -25,9 +25,11 @@ package at.tugraz.ist.catroweb;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -395,38 +397,47 @@ public class BaseTest {
   }
 
   protected void assertProjectPresent(String project) {
-    openLocation();
+    String query = "";
+    try {
+      query = URLEncoder.encode(project, "UTF-8");
+    } catch(UnsupportedEncodingException ignore) {
+      assertTrue(false);
+    }
+    
+    openLocation("search/?q=" + query + "&p=1");
     ajaxWait();
-    By searchBox = By.xpath("//div[@class='largeSearchBarMiddle']/input");
-    assertTrue(isVisible(searchBox));
-    driver().findElement(searchBox).clear();
-    driver().findElement(searchBox).sendKeys("clear-cache");
-    driver().findElement(By.id("largeSearchButton")).click();
-    ajaxWait();
-    driver().findElement(searchBox).clear();
-    driver().findElement(searchBox).sendKeys(project);
-    driver().findElement(By.id("largeSearchButton")).click();
-    ajaxWait();
-    int results = Integer.parseInt(driver().findElement(By.id("numberOfSearchResults")).getText());
-    assertTrue(results > 0);
-    assertTrue(isElementPresent(By.xpath("//a[@title='" + project + "']")));
+
+    try {
+      while(driver().findElement(By.id("moreResults")).isDisplayed()) {
+        driver().findElement(By.id("moreResults")).click();
+        ajaxWait();
+      }
+    } catch(NoSuchElementException ignore) {
+    }
+
+    assertTrue(isElementPresent(By.xpath("//a[@title=\"" + project + "\"]")));
   }
 
   protected void assertProjectNotPresent(String project) {
-    openLocation();
+    String query = "";
+    try {
+      query = URLEncoder.encode(project, "UTF-8");
+    } catch(UnsupportedEncodingException ignore) {
+      assertTrue(false);
+    }
+    
+    openLocation("search/?q=" + query + "&p=1");
     ajaxWait();
-    By searchBox = By.xpath("//div[@class='largeSearchBarMiddle']/input");
-    assertTrue(isVisible(searchBox));
-    driver().findElement(searchBox).clear();
-    driver().findElement(searchBox).sendKeys("clear-cache");
-    driver().findElement(By.id("largeSearchButton")).click();
-    ajaxWait();
-    driver().findElement(searchBox).clear();
-    driver().findElement(searchBox).sendKeys(project);
-    driver().findElement(By.id("largeSearchButton")).click();
-    ajaxWait();
-    int results = Integer.parseInt(driver().findElement(By.id("numberOfSearchResults")).getText());
-    assertTrue(results == 0);
+
+    try {
+      while(driver().findElement(By.id("moreResults")).isDisplayed()) {
+        driver().findElement(By.id("moreResults")).click();
+        ajaxWait();
+      }
+    } catch(NoSuchElementException ignore) {
+    }
+
+    assertTrue(isElementPresent(By.xpath("//a[@title=\"" + project + "\"]")) == false);
   }
 
   public void waitForElementPresent(By selector) {

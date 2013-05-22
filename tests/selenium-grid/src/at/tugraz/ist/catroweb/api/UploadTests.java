@@ -47,8 +47,7 @@ public class UploadTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
       openLocation("details/" + id);
-      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
-      assertTrue(containsElementText(By.xpath("//div[@class='detailsProjectTitle']"), title));
+      assertTrue(containsElementText(By.id("projectDetailsProjectTitle"), title.toUpperCase()));
       assertTrue(isTextPresent("uploaded"));
       assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and cannot be downloaded any more."));
       assertFalse(isElementPresent(By.xpath("//div[@class='detailsDownloadButton']")));
@@ -76,16 +75,17 @@ public class UploadTests extends BaseTest {
   @Test(groups = { "upload", "functionality" }, description = "extract project title and description from xml")
   public void uploadXMLExtraction() throws Throwable {
     try {
-      String response = projectUploader.upload(CommonData.getUploadPayload("testTitle", "testDescription", "test-0.7.0beta-xml.catrobat", "a8fe01af9952cc570ca3efc7e7fd6e27", "", "", "", ""));
+      String projectTitle = "testTitle";
+      String projectDescription = "testDescription";
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, projectDescription, "test-0.7.0beta-xml.catrobat", "a8fe01af9952cc570ca3efc7e7fd6e27", "", "", "", ""));
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
       
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
       openLocation("details/" + id);
-      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
-      assertFalse(isTextPresent("testTitle"));
-      assertFalse(isTextPresent("testDescription"));
-      assertTrue(isTextPresent("XML-ProjectName"));
+      assertFalse(containsElementText(By.id("projectDetailsProjectTitle"), projectTitle.toUpperCase()));
+      assertFalse(isTextPresent(projectDescription));
+      assertTrue(containsElementText(By.id("projectDetailsProjectTitle"), "XML-ProjectName".toUpperCase()));
       assertTrue(isTextPresent("XML-ProjectDescription"));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadXMLExtraction");
@@ -103,8 +103,7 @@ public class UploadTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       openLocation();
       ajaxWait();
-      assertTrue(isElementPresent(By.id("projectListTitle")));
-      assertTrue(isTextPresent(dataset.get("projectTitle")));
+      assertProjectPresent(dataset.get("projectTitle"));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadFtpProjects." + dataset.get("projectTitle"));
       throw e;
@@ -121,8 +120,7 @@ public class UploadTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       openLocation();
       ajaxWait();
-      assertTrue(isElementPresent(By.id("projectListTitle")));
-      assertTrue(isTextPresent(dataset.get("projectTitle")));
+      assertProjectPresent(dataset.get("projectTitle"));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadValidProjects." + dataset.get("projectTitle"));
       throw e;
@@ -139,8 +137,7 @@ public class UploadTests extends BaseTest {
       assertNotSame("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       openLocation();
       ajaxWait();
-      assertTrue(isElementPresent(By.id("projectListTitle")));
-      assertFalse(isTextPresent(dataset.get("projectTitle")));
+      assertProjectNotPresent(dataset.get("projectTitle"));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadInvalidProjects." + dataset.get("projectTitle"));
       throw e;
