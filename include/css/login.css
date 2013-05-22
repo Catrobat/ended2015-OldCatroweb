@@ -62,11 +62,30 @@
   color: black;
 }
 
-#wrapper article input.loginSubmitButton {
-  color: black;
-  font-size: 0.8em;
-  font-weight: bold;
+/* #wrapper article input.loginSubmitButton { */
+/*   color: black; */
+/*   font-size: 0.8em; */
+/*   font-weight: bold; */
+/* } */
+
+.green,.blue {
+  border-radius: 4px;
+  color: #fff;
+/*  font-size: 1.8em;*/
+  padding: 1%;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-shadow: #333333 1px 1px 1px;
+  text-align: center;
 }
+
+.green {
+  background-color: #5EC03F;
+  background-image: linear-gradient(top, #5EC03F, #6F992F);
+  background-image: -moz-linear-gradient(top, #5EC03F, #6F992F);
+  background-image: -webkit-linear-gradient(top, #5EC03F, #6F992F);
+}
+
 
 #wrapper article div.otherOptions {
   font-size: 1.2em;
