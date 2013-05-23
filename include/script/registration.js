@@ -62,9 +62,9 @@ var Registration = Class.$extend( {
         registrationYear : $("#registrationYear").val(),
         registrationGender : $("#registrationGender").val()
       }),
-      timeout : (this.ajaxTimeout),
+      timeout : $.proxy(this.registrationError, this),
       success : $.proxy(this.registrationSuccess, this),
-      error : $.proxy(alert("ajaxTimedOut"),this)
+      error : $.proxy(this.registrationError, this)
     });
   },
 
@@ -74,6 +74,11 @@ var Registration = Class.$extend( {
     } else {
       alert(response.answer);
     }
+  },
+  
+  registrationError : function(response) {
+    console.log(response);
+    alert(response);
   },
 
   keydownHandler : function(event) {
