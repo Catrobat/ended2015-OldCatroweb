@@ -474,17 +474,18 @@ public class BaseTest {
 
   public void clickLastVisibleProject() {
     try {
-      while(driver().findElement(By.id("moreProjects")).isDisplayed()) {
-        driver().findElement(By.id("moreProjects")).click();
+      while(driver().findElement(By.id("newestShowMore")).isDisplayed()) {
+        driver().findElement(By.id("newestShowMore")).click();
         ajaxWait();
       }
     } catch(NoSuchElementException ignore) {
     }
 
+    
     WebElement lastLink = null;
-    List<WebElement> allLinks = driver().findElements(By.tagName("a"));
+    List<WebElement> allLinks = driver().findElement(By.id("newestProjects")).findElements(By.tagName("a"));
     for(WebElement link : allLinks) {
-      if(link.getAttribute("class").equals("projectListDetailsLinkBold") && link.isDisplayed()) {
+      if(link.isDisplayed()) {
         lastLink = link;
       }
     }
