@@ -39,12 +39,10 @@
                     <div class="loginHeader"><?php echo $this->languageHandler->getString('headline'); ?></div>
                     <input type="hidden" id="passwordRecoveryHash" value="<?php echo htmlentities($_GET['c']); ?>" />
                     <input id="passwordSavePassword" type="text" class="catroid webHeadLoginBox" required="required" /><br />
-                    <input id="passwordSaveSubmit" type="button" class="catroidSubmit button orange loginSubmitButton" value="<?php echo $this->languageHandler->getString('change_password'); ?>" /><br />
+                    <input id="passwordSaveSubmit" type="button" class="catroidSubmit button loginSubmitButton" value="<?php echo $this->languageHandler->getString('change_password'); ?>" /><br />
                     
-                    <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
-                    <ul class="loginOptions">
-                      <li><a id="signUp" href="<?php echo BASE_PATH?>registration"><?php echo $this->languageHandler->getString('account_link')?></a></li>
-                    </ul>
+                    
+                      <a id="signUp" href="<?php echo BASE_PATH?>registration"><?php echo $this->languageHandler->getString('account_link')?></a>
                 </div> <!-- login Text -->
               </div> <!--  White Box -->            	
            </div> <!--  license Main -->  		   		

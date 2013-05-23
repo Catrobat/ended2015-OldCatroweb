@@ -43,12 +43,7 @@
             	    <div class="loginText">
                     <div class="loginHeader"><?php echo $this->languageHandler->getString('enter_userdata'); ?></div>
                     <input id="passwordRecoveryUserdata" type="text" class="catroid webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder'); ?>" required="required" /><br />
-                    <input id="passwordRecoverySendLink" type="button" class="catroidSubmit button orange loginSubmitButton" value="<?php echo $this->languageHandler->getString('send_link'); ?>" /><br />
-                    
-                    <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
-                    <ul class="loginOptions">
-                      <li><a id="signUp" href="<?php echo BASE_PATH?>registration"><?php echo $this->languageHandler->getString('account_link')?></a></li>
-                    </ul>
+                    <input id="passwordRecoverySendLink" type="button" class="catroidSubmit button green" value="<?php echo $this->languageHandler->getString('send_link'); ?>" />
                 </div> <!-- login Text -->
               </div> <!--  White Box -->            	
            </div> <!--  license Main -->  		   		

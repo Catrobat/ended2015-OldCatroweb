@@ -41,14 +41,11 @@
           <input id="loginUsername" type="text" class="catroid webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_nick'); ?>" required="required" /><br />
           <?php echo $this->languageHandler->getString('password'); ?><br />
           <input id="loginPassword" type="password" class="catroid webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_password'); ?>" required="required" /><br />
-          <input id="loginSubmitButton" type="button" class="catroidSubmit button orange loginSubmitButton" value="<?php echo $this->languageHandler->getString('login'); ?>" /><br />
+          <input id="loginSubmitButton" type="button" class="green" value="<?php echo $this->languageHandler->getString('login'); ?>" /><br />
           
-          <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
-          <ul class="loginOptions">
-            <li><a id="forgotPassword" href="<?php echo BASE_PATH?>passwordrecovery"><?php echo $this->languageHandler->getString('password_link')?></a></li>
-            <li><a id="signUp" href="<?php echo BASE_PATH?>registration"><?php echo $this->languageHandler->getString('account_link')?></a></li>
-          </ul>
+            <a id="forgotPassword" href="<?php echo BASE_PATH?>passwordrecovery">
+            <?php echo $this->languageHandler->getString('password_link')?>
+            </a>
       </div> <!-- login Text -->         	
- </div> <!--  login Main -->  		   		
-  	</div>
+ </div> <!--  login Main -->
   </article>
