@@ -72,7 +72,7 @@ public class IndexTests extends BaseTest {
       System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
       for(int i = 0; i < uploadCount; i++) {
         projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "", "", "", "", "", ""));
-        if((i%5) == 0) {
+        if((i%Config.PROJECT_PAGE_LOAD_MAX_PROJECTS) == 0) {
           driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();          
         }
       }

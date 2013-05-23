@@ -31,6 +31,7 @@ import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.CommonData;
+import at.tugraz.ist.catroweb.common.CommonStrings;
 
 @Test(groups = { "catroid", "HeaderTests" })
 public class HeaderTests extends BaseTest {
@@ -45,13 +46,13 @@ public class HeaderTests extends BaseTest {
       assertTrue(isVisible(By.id("largeSearchButton")));
       assertTrue(isVisible(By.xpath("//*[@id='largeMenu']/div[4]/input")));
       assertTrue(isVisible(By.id("largeMenuButton")));
-      assertTrue(isTextPresent("NEWEST PROJECTS"));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
 
       driver().findElement(By.id("largeMenuButton")).click();
       
       assertRegExp(".*/login", driver().getCurrentUrl());
       driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();
-      assertTrue(isTextPresent("NEWEST PROJECTS"));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
 
       driver().findElement(By.xpath("//*[@id='largeMenu']/div[4]/input")).sendKeys("test");
       driver().findElement(By.id("largeSearchButton")).click();
@@ -99,13 +100,13 @@ public class HeaderTests extends BaseTest {
       assertFalse(isVisible(By.id("smallSearchBar")));
       assertTrue(isVisible(By.id("mobileSearchButton")));
       assertTrue(isVisible(By.id("mobileMenuButton")));
-      assertTrue(isTextPresent("NEWEST PROJECTS"));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
       
       driver().findElement(By.id("mobileMenuButton")).click();
       
       assertRegExp(".*/login", driver().getCurrentUrl());
       driver().findElement(By.xpath("//*[@id='smallMenuBar']/a")).click();
-      assertTrue(isTextPresent("NEWEST PROJECTS"));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
       
       driver().findElement(By.id("mobileSearchButton")).click();
       assertTrue(isVisible(By.id("smallSearchBar")));
