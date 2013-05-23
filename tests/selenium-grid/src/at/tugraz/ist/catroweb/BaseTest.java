@@ -356,6 +356,30 @@ public class BaseTest {
     driver().manage().window().setSize(new Dimension(840,2000));
   }
 
+  protected void openMobileLocation() {
+    openMobileLocation("");
+  }
+  
+  protected void openMobileLocation(String location) {
+    openMobileLocation(location, true);
+  }
+  
+  protected void openMobileLocation(String location, Boolean forceDefaultLanguage) {
+    if(forceDefaultLanguage == true) {
+      if(location.contains("?")) {
+        driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "&userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      } else {
+        driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      }
+    } else {
+      driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location);
+    }
+    
+    //workaround fo Issue 2714
+    //https://code.google.com/p/selenium/issues/detail?id=2714
+    driver().manage().window().setSize(new Dimension(320,2000));
+  }
+
   protected void openAdminLocation() {
     openAdminLocation("");
   }

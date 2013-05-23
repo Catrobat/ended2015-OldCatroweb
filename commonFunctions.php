@@ -138,7 +138,7 @@ function getIpBlockClassWhitelistArray() {
     "loadNewestProjects",
     "switchLanguage",
     "termsofuse",
-    "errorPage"
+    "error"
   );
   return $whitelistClasses;
 }
@@ -147,7 +147,7 @@ function getUserBlockClassWhitelistArray() {
   $whitelistClasses = array(
     "terms",
     "contactus",
-    "errorPage",
+    "error",
     "login",
     "logout"
   );

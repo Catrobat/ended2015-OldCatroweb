@@ -48,7 +48,7 @@ public class BlockedIpTests extends BaseTest {
       blockIp(blockedIp);
       openLocation("details/" + projectId);
       ajaxWait();
-      assertTrue(isElementPresent(By.xpath("//div[@class='errorMessage']")));
+      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/div"), "Error".toUpperCase()));
       assertTrue(isTextPresent("Your IP-Address has been blocked."));
 
       openLocation();
@@ -70,11 +70,11 @@ public class BlockedIpTests extends BaseTest {
     	unblockAllIPs();
       blockIp(unblockedIp);
       openLocation("details/" + projectId);
-      assertFalse(isElementPresent(By.xpath("//div[@class='errorMessage']")));
+      assertFalse(containsElementText(By.xpath("//*[@id='wrapper']/article/div"), "Error".toUpperCase()));
       assertFalse(isTextPresent("Your IP-Address has been blocked."));
 
       openLocation();
-      assertFalse(isElementPresent(By.xpath("//div[@class='errorMessage']")));
+      assertFalse(containsElementText(By.xpath("//*[@id='wrapper']/article/div"), "Error".toUpperCase()));
       assertFalse(isTextPresent("Your IP-Address has been blocked."));
       unblockIp(unblockedIp);
     } catch(AssertionError e) {

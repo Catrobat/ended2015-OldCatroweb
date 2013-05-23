@@ -67,7 +67,7 @@
             <?php echo $this->languageHandler->getString('download_button');?>
           </div>
         </a>
-        <a id="projectDetailsDownloadLicense" href="<?php echo BASE_PATH?>licensetoplay"><?php echo $this->languageHandler->getString('some_rights_reserved');?></a>
+        <a id="projectDetailsDownloadLicense" href="<?php echo BASE_PATH?>licenseToPlay"><?php echo $this->languageHandler->getString('some_rights_reserved');?></a>
       </div>
     </div>
   
