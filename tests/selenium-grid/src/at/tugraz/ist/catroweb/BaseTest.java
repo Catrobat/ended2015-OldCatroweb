@@ -279,8 +279,8 @@ public class BaseTest {
     return getAjaxMessage().contains(text);
   }
 
-  public String getRecoveryUrl() {
-    String[] parts = getAjaxMessage().split("<");
+  public String getRecoveryUrl(String message) {
+    String[] parts = message.split("<");
     for(String part : parts) {
       if(part.contains("passwordrecovery?c=")) {
         String[] temp = part.split("c=");

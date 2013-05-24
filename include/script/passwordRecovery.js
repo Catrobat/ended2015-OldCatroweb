@@ -46,9 +46,9 @@ var PasswordRecovery = Class.$extend( {
       data : ({
         passwordRecoveryUserdata : $("#passwordRecoveryUserdata").val()
       }),
-      timeout : this.ajaxTimeout,
+      timeout : $.proxy(this.ajaxTimeout, this),
       success : $.proxy(this.genericRequestSuccess, this),
-      error   : this.ajaxTimeout
+      error   : $.proxy(this.genericRequestError, this)
     });
   },
   
@@ -67,10 +67,10 @@ var PasswordRecovery = Class.$extend( {
         c : $("#passwordRecoveryHash").val(),
         passwordSavePassword : $("#passwordSavePassword").val()
       }),
-      timeout : this.ajaxTimeout,
+      timeout : $.proxy(this.ajaxTimeout, this),
       success : $.proxy(this.changeMyPasswordRequestSuccess, this),
       // todo: change to language string
-      error : $.proxy(alert("ajaxTimedOut"),this)
+      error : $.proxy(this.genericRequestError, this)
     });
   },
 
@@ -83,11 +83,20 @@ var PasswordRecovery = Class.$extend( {
   },
 
   genericRequestSuccess : function(result) {
-
     if(result.statusCode == 200) {
       alert(result.answer);
     } else {
       alert(result.answer);
     }
+  },
+
+  ajaxTimeout : function(error) {
+    console.log(error);
+    alert(error);
+  },
+
+  genericRequestError : function(error) {
+    console.log(error);
+    alert(error);
   }
 });

@@ -25,6 +25,7 @@ package at.tugraz.ist.catroweb.catroid;
 
 import java.util.HashMap;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -40,51 +41,22 @@ public class PasswordRecoveryTests extends BaseTest {
   public void passwordRecoveryRedirectWhenLoggedIn() throws Throwable {
     try {
       login("index");
-      driver().findElement(By.id("headerProfileButton")).click();
+      driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
-
-      assertTrue(isTextPresent("My Profile"));
-      assertTrue(isTextPresent(CommonData.getLoginUserDefault()));
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      driver().findElement(By.id("menuProfileButton")).click();
+      ajaxWait();
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), CommonData.getLoginUserDefault()));
       
       openLocation("passwordrecovery");
       
-      assertFalse(isTextPresent("Recover your password"));
-      assertTrue(isTextPresent("My Profile"));
-      assertTrue(isTextPresent(CommonData.getLoginUserDefault()));
+      assertFalse(isTextPresent("Recover your password".toUpperCase()));
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), CommonData.getLoginUserDefault()));
     } catch(AssertionError e) {
       captureScreen("PasswordRecoveryTests.passwordRecoveryRedirectWhenLoggedIn");
       throw e;
     } catch(Exception e) {
       captureScreen("PasswordRecoveryTests.passwordRecoveryRedirectWhenLoggedIn");
-      throw e;
-    }
-  }
-  
-  @Test(groups = { "visibility" }, description = "check password recovery intro")
-  public void passwordRecoveryIntro() throws Throwable {
-    try {
-      openLocation("menu");
-      
-      // check password recovery link
-      driver().findElement(By.id("menuLoginButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("loginUsername")));
-      assertTrue(isVisible(By.id("loginPassword")));
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      
-      ajaxWait();
-      driver().findElement(By.id("headerCancelButton")).click();
-      ajaxWait();
-      
-      assertFalse(isVisible(By.id("loginUsername")));
-      assertFalse(isVisible(By.id("loginPassword")));
-      assertFalse(isVisible(By.id("loginSubmitButton")));
-      
-    } catch(AssertionError e) {
-      captureScreen("PasswordRecoveryTests.passwordRecoveryIntro");
-      throw e;
-    } catch(Exception e) {
-      captureScreen("PasswordRecoveryTests.passwordRecoveryIntro");
       throw e;
     }
   }
@@ -105,7 +77,7 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationUsername")));
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), dataset.get("registrationUsername")));
 
       // goto lost password page and test reset by email and nickname, at first
       // use some wrong nickname or email
@@ -117,11 +89,14 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("passwordRecoveryUserdata")).clear();
       driver().findElement(By.id("passwordRecoveryUserdata")).sendKeys(dataset.get("registrationUsername") + " to test");
       driver().findElement(By.id("passwordRecoverySendLink")).click();
-      ajaxWait();
 
+      Alert alert = driver().switchTo().alert();
+      String message = alert.getText();
+      alert.accept();
+      
       // check error message
       assertTrue(isTextPresent("Enter your nickname or email address:"));
-      assertTrue(isAjaxMessagePresent("The nickname or email address was not found."));
+      assertEquals("The nickname or email address was not found.", message);
       assertTrue(isElementPresent(By.id("passwordRecoveryUserdata")));
       assertTrue(isElementPresent(By.id("passwordRecoverySendLink")));
 
@@ -129,11 +104,15 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("passwordRecoveryUserdata")).clear();
       driver().findElement(By.id("passwordRecoveryUserdata")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("passwordRecoverySendLink")).click();
-      ajaxWait();
-      assertTrue(isAjaxMessagePresent(Config.TESTS_BASE_PATH + "passwordrecovery?c="));
+
+      alert = driver().switchTo().alert();
+      message = alert.getText();
+      alert.accept();
+
+      assertTrue(message.contains(Config.TESTS_BASE_PATH + "passwordrecovery?c="));
 
       // get recovery url and open it
-      String recoveryUrl = getRecoveryUrl();
+      String recoveryUrl = getRecoveryUrl(message);
       openLocation(recoveryUrl);
       ajaxWait();
 
@@ -142,22 +121,26 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("passwordSavePassword")).clear();
       driver().findElement(By.id("passwordSavePassword")).sendKeys("short");
       driver().findElement(By.id("passwordSaveSubmit")).click();
-      ajaxWait();
+      
+      alert = driver().switchTo().alert();
+      message = alert.getText();
+      alert.accept();
+
       assertTrue(isTextPresent("Please enter your new password:"));
       assertTrue(isElementPresent(By.id("passwordSavePassword")));
-      assertTrue(isAjaxMessagePresent("password must have at least"));
+      assertTrue(message.contains("password must have at least"));
 
       // enter the new password correctly
       driver().findElement(By.id("passwordSavePassword")).clear();
       driver().findElement(By.id("passwordSavePassword")).sendKeys(dataset.get("registrationPassword") + " new");
       driver().findElement(By.id("passwordSaveSubmit")).click();
       ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationUsername")));
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), dataset.get("registrationUsername")));
 
       // and try to login with the old credentials to verify password recovery
       // worked
       logout();
-      driver().findElement(By.id("headerProfileButton")).click();
+      driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
       assertTrue(isElementPresent(By.id("loginSubmitButton")));
       assertTrue(isVisible(By.id("loginSubmitButton")));
@@ -167,7 +150,12 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.id("loginSubmitButton")).click();
-      ajaxWait();
+
+      alert = driver().switchTo().alert();
+      message = alert.getText();
+      alert.accept();
+
+      assertEquals(message, "The password or username was incorrect.");
 
       // check bad login
       assertTrue(isVisible(By.id("loginSubmitButton")));
@@ -184,40 +172,38 @@ public class PasswordRecoveryTests extends BaseTest {
       ajaxWait();
 
       // check login
-      assertTrue(isTextPresent("Newest Projects"));
-      assertTrue(isElementPresent(By.id("projectContainer")));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
 
-      driver().findElement(By.id("headerMenuButton")).click();
+      driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
-
-      clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
-      closePopUp();
-
-      clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
-      closePopUp();
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      driver().findElement(By.id("menuProfileButton")).click();
+      ajaxWait();
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), dataset.get("registrationUsername")));
 
       // logout
       logout();
       ajaxWait();
-      driver().findElement(By.id("headerProfileButton")).click();
+      driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
       assertTrue(isVisible(By.id("loginSubmitButton")));
       assertTrue(isVisible(By.id("loginUsername")));
       assertTrue(isVisible(By.id("loginPassword")));
 
       // Recovery URL should not work again
-      openLocation(recoveryUrl);
-      ajaxWait();
-      assertTrue(isAjaxMessagePresent("Recovery hash was not found."));
+      driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + recoveryUrl);
+
+      alert = driver().switchTo().alert();
+      message = alert.getText();
+      alert.accept();
+      
+      assertEquals(message, "Recovery hash was not found.");
 
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
       captureScreen("PasswordRecoveryTests.passwordRecoveryReset." + dataset.get("registrationUsername"));
       throw e;
     } catch(Exception e) {
-      log(dataset.get("registrationUsername"));
       captureScreen("PasswordRecoveryTests.passwordRecoveryReset." + dataset.get("registrationUsername"));
       throw e;
     }

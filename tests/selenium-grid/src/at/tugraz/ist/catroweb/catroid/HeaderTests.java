@@ -65,7 +65,7 @@ public class HeaderTests extends BaseTest {
       driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
       
-      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), CommonData.getLoginUserDefault()));      
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), CommonData.getLoginUserDefault()));
       driver().findElement(By.id("largeMenuButton")).click();
 
       assertTrue(isVisible(By.id("menuProfileButton")));
