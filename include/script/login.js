@@ -64,7 +64,6 @@ var Login = Class.$extend({
   },
 
   loginRequestSuccess : function(result) {
-    $("#loginSubmitButton").show();
     $("#loginLoader").hide();
     if(result.statusCode == 200) {
       if(this.requestUri != '') {
@@ -73,6 +72,7 @@ var Login = Class.$extend({
         location.reload();
       }
     } else {
+      $("#loginSubmitButton").show();
       alert(result.answer);
     }
   },

@@ -48,10 +48,6 @@
   margin-left: 2em;
 }
 
-#wrapper article div.profileAvatarImage {
-  margin: 2em;
-}
-
 #wrapper article div.profileAvatarImage img{
   outline: 0.7em solid #FFFFFF;
   width: 19em;

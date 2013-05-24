@@ -57,12 +57,11 @@ var PasswordRecovery = Class.$extend( {
   },
 
   passwordRecoverySendLinkRequestSuccess : function(result) {
-    $("#passwordRecoverySendLink").show();
     $("#passwordRecoverySendLoader").hide();
-
     if(result.statusCode == 200) {
       alert(result.answer);
     } else {
+      $("#passwordRecoverySendLink").show();
       alert(result.answer);
     }
   },
@@ -102,12 +101,11 @@ var PasswordRecovery = Class.$extend( {
   },
 
   changeMyPasswordRequestSuccess : function(result) {
-    $("#passwordSaveSubmit").show();
     $("#passwordSaveLoader").hide();
-
     if(result.statusCode == 200) {
       location.href = this.basePath + 'profile';
     } else {
+      $("#passwordSaveSubmit").show();
       alert(result.answer);
     }
   },

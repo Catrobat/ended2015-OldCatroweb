@@ -24,12 +24,15 @@
 
 ?>
   <article>
-    <header><?php echo $this->userData['username'];?></header> 
-    <div class="profileAvatarImage">
-      <img src="<?php echo $this->userData['avatar']; ?>" style="float:left;" />
+    <header><?php echo $this->userData['username'];?></header>
+    <div class="profileAvatar">
+      <div class="profileAvatarImage">
+        <img src="<?php echo $this->userData['avatar']; ?>" />
+      </div>
     </div>
 
-    <div class="profileInformations">
+    <div class="profileInputs">
+      <div class="profileInformations">
       <p>
         <strong><?php echo $this->languageHandler->getString('country'); ?>: </strong>
         <?php 
@@ -43,6 +46,7 @@
         <strong><?php echo $this->languageHandler->getString('projects'); ?>: </strong>
         <?php echo $this->userData['project_count']; ?>
       </p>
+      </div>
     </div>
     <div style="clear: both;"></div>
 
