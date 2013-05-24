@@ -34,7 +34,10 @@
             <input type="password" id="loginPassword" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" /><br />
 
             <div class="footer">
-              <button id="loginSubmitButton"><?php echo $this->languageHandler->getString('login')?></button>
+              <nav>
+                <span id="loginLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
+                <button id="loginSubmitButton"><?php echo $this->languageHandler->getString('login')?></button>
+              </nav>
               <div>
                 <a id="forgotPassword" href="<?php echo BASE_PATH?>passwordrecovery"><?php echo $this->languageHandler->getString('password_link')?></a>
               </div>

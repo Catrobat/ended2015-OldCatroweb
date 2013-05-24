@@ -34,10 +34,11 @@
 
 #wrapper article div.form {
   background-color: #00475d;
+  margin-top: 0.2em;
 }
 
 #wrapper article div.form form {
-  margin: 0.2em 2em 0 2em;
+  margin: 0 2em 0 2em;
   font-size: 1.3em;
 }
 

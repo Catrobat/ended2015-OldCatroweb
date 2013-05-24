@@ -29,10 +29,13 @@
           <form>
             <div class="label"><?php echo $this->languageHandler->getString('headline')?></div>
             <input type="hidden" id="passwordRecoveryHash" value="<?php echo htmlentities($_GET['c']); ?>" />
-            <input type="text" id="passwordSavePassword" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>" /><br />
+            <input type="text" id="passwordSavePassword" placeholder="<?php echo $this->languageHandler->getString('change_password')?>" /><br />
 
             <div class="footer">
-              <button id="passwordSaveSubmit"><?php echo $this->languageHandler->getString('send_link')?></button>
+              <nav>
+                <span id="passwordSaveLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
+                <button id="passwordSaveSubmit"><?php echo $this->languageHandler->getString('change_password')?></button>
+              </nav>
             </div>
           </form>
         </div>

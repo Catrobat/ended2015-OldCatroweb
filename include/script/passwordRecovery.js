@@ -23,7 +23,6 @@
 
 var PasswordRecovery = Class.$extend( {
   __include__ : [__baseClassVars],
-  //todo: get language strings
   __init__ : function() {
     $("#passwordRecoverySendLink").click($.proxy(this.passwordRecoverySendLink, this));
     $("#passwordRecoveryUserdata").keypress($.proxy(this.passwordRecoveryUserdataCatchKeypress, this));
@@ -34,33 +33,61 @@ var PasswordRecovery = Class.$extend( {
 
   passwordRecoveryUserdataCatchKeypress : function(event) {
     if(event.which == '13') {
-      this.passwordRecoverySendLink();
+      this.passwordRecoverySendLink(event);
       event.preventDefault();
     }
   },
   
   passwordRecoverySendLink : function(event) {
+    $("#passwordRecoverySendLink").hide();
+    $("#passwordRecoverySendLoader").css('display', 'block');
+    
+    $("#passwordRecoveryUserdata").blur();
+
     $.ajax({
       type: "POST",
       url: this.basePath + 'passwordrecovery/sendMailRequest.json',
       data : ({
         passwordRecoveryUserdata : $("#passwordRecoveryUserdata").val()
       }),
-      timeout : $.proxy(this.ajaxTimeout, this),
-      success : $.proxy(this.genericRequestSuccess, this),
-      error   : $.proxy(this.genericRequestError, this)
+      success : $.proxy(this.passwordRecoverySendLinkRequestSuccess, this),
+      error   : $.proxy(this.passwordRecoverySendLinkRequestError, this)
     });
     event.preventDefault();
+  },
+
+  passwordRecoverySendLinkRequestSuccess : function(result) {
+    $("#passwordRecoverySendLink").show();
+    $("#passwordRecoverySendLoader").hide();
+
+    if(result.statusCode == 200) {
+      alert(result.answer);
+    } else {
+      alert(result.answer);
+    }
+  },
+
+  passwordRecoverySendLinkRequestError : function(error) {
+    $("#passwordRecoverySendLink").show();
+    $("#passwordRecoverySendLoader").hide();
+
+    console.log(error);
+    alert(error);
   },
   
   passwordSavePasswordCatchKeypress : function(event) {
     if(event.which == '13') {
-      this.passwordSaveSubmit();
+      this.passwordSaveSubmit(event);
       event.preventDefault();
     }
   },
 
   passwordSaveSubmit : function(event) {
+    $("#passwordSaveSubmit").hide();
+    $("#passwordSaveLoader").css('display', 'block');
+    
+    $("#passwordSavePassword").blur();
+
     $.ajax({
       type: "POST",
       url: this.basePath + 'passwordrecovery/changeMyPasswordRequest.json',
@@ -68,15 +95,16 @@ var PasswordRecovery = Class.$extend( {
         c : $("#passwordRecoveryHash").val(),
         passwordSavePassword : $("#passwordSavePassword").val()
       }),
-      timeout : $.proxy(this.ajaxTimeout, this),
       success : $.proxy(this.changeMyPasswordRequestSuccess, this),
-      // todo: change to language string
-      error : $.proxy(this.genericRequestError, this)
+      error : $.proxy(this.changeMyPasswordRequestError, this)
     });
     event.preventDefault();
   },
 
   changeMyPasswordRequestSuccess : function(result) {
+    $("#passwordSaveSubmit").show();
+    $("#passwordSaveLoader").hide();
+
     if(result.statusCode == 200) {
       location.href = this.basePath + 'profile';
     } else {
@@ -84,20 +112,10 @@ var PasswordRecovery = Class.$extend( {
     }
   },
 
-  genericRequestSuccess : function(result) {
-    if(result.statusCode == 200) {
-      alert(result.answer);
-    } else {
-      alert(result.answer);
-    }
-  },
+  changeMyPasswordRequestError : function(error) {
+    $("#passwordSaveSubmit").show();
+    $("#passwordSaveLoader").hide();
 
-  ajaxTimeout : function(error) {
-    console.log(error);
-    alert(error);
-  },
-
-  genericRequestError : function(error) {
     console.log(error);
     alert(error);
   }

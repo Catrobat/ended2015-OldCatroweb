@@ -38,12 +38,18 @@ var Login = Class.$extend({
 
   loginCatchKeypress : function(event) {
     if(event.which == '13') {
-      this.loginRequest();
+      this.loginRequest(event);
       event.preventDefault();
     }
   },
 
   loginRequest : function(event) {
+    $("#loginSubmitButton").hide();
+    $("#loginLoader").css('display', 'block');
+
+    $("#loginUsername").blur();
+    $("#loginPassword").blur();
+    
     $.ajax({
       type : "POST",
       url : this.basePath + 'login/loginRequest.json',
@@ -51,7 +57,6 @@ var Login = Class.$extend({
         loginUsername : $("#loginUsername").val(),
         loginPassword : $("#loginPassword").val()
       }),
-      timeout : this.ajaxTimeout,
       success : $.proxy(this.loginRequestSuccess, this),
       error : $.proxy(this.loginRequestError, this)
     });
@@ -59,9 +64,10 @@ var Login = Class.$extend({
   },
 
   loginRequestSuccess : function(result) {
+    $("#loginSubmitButton").show();
+    $("#loginLoader").hide();
     if(result.statusCode == 200) {
       if(this.requestUri != '') {
-        //location.href = this.basePath + 'login?requestUri=' + this.requestUri;
         location.href = this.basePath + 'profile'
       } else {
         location.reload();
@@ -72,6 +78,8 @@ var Login = Class.$extend({
   },
 
   loginRequestError : function(error) {
+    $("#loginSubmitButton").show();
+    $("#loginLoader").hide();
     alert(error);
   }
 });
