@@ -36,10 +36,11 @@
             </div>
           </form>
         </div>
+        <div class="projectSpacer"></div>
       </article>
 
-    <script type="text/javascript">
-      $(document).ready(function() {
-        new PasswordRecovery();
-      });
-    </script>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          new PasswordRecovery();
+        });
+      </script>

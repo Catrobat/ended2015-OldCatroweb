@@ -74,6 +74,7 @@
             </div>
           </form>
         </div>
+        <div class="projectSpacer"></div>
       </article>
 
       <script type="text/javascript">

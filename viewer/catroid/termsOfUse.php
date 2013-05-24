@@ -72,4 +72,5 @@
         <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_dated')?></p>
       </div> <!-- License Text -->    	
     </div> <!--  license Main -->
+    <div class="projectSpacer"></div>
   </article>

@@ -34,8 +34,6 @@ var Login = Class.$extend({
     $("#loginSubmitButton").click($.proxy(this.loginRequest, this));
     $("#loginUsername").keypress($.proxy(this.loginCatchKeypress, this));
     $("#loginPassword").keypress($.proxy(this.loginCatchKeypress, this));
-
-    $("#logoutSubmitButton").click($.proxy(this.logoutRequest, this));
   },
 
   loginCatchKeypress : function(event) {
@@ -45,7 +43,7 @@ var Login = Class.$extend({
     }
   },
 
-  loginRequest : function() {
+  loginRequest : function(event) {
     $.ajax({
       type : "POST",
       url : this.basePath + 'login/loginRequest.json',
@@ -57,6 +55,7 @@ var Login = Class.$extend({
       success : $.proxy(this.loginRequestSuccess, this),
       error : $.proxy(this.loginRequestError, this)
     });
+    event.preventDefault();
   },
 
   loginRequestSuccess : function(result) {

@@ -23,29 +23,33 @@
  */
 
 ?>
-  <script type="text/javascript">
-  	$(document).ready(function() {
-      var languageStringsObject = { 
-          "username_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'username_missing'); ?>",
-          "password_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'password_missing'); ?>"
-          };
-      new Login(languageStringsObject);
-  	});
-  </script>
-  <article>
-    <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title'); ?></div>
-      <div class="loginMain">            	
-  	    <div class="loginText">
-          <div class="loginHeader"><?php echo $this->languageHandler->getString('please_enter_nick_and_password'); ?></div>
-          <?php echo $this->languageHandler->getString('nickname'); ?><br />
-          <input id="loginUsername" type="text" class="catroid webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_nick'); ?>" required="required" /><br />
-          <?php echo $this->languageHandler->getString('password'); ?><br />
-          <input id="loginPassword" type="password" class="catroid webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('enter_password'); ?>" required="required" /><br />
-          <input id="loginSubmitButton" type="button" class="green" value="<?php echo $this->languageHandler->getString('login'); ?>" /><br />
-          
-            <a id="forgotPassword" href="<?php echo BASE_PATH?>passwordrecovery">
-            <?php echo $this->languageHandler->getString('password_link')?>
-            </a>
-      </div> <!-- login Text -->         	
- </div> <!--  login Main -->
-  </article>
+      <article>
+        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
+        <div class="form">
+          <form>
+            <div class="label"><?php echo $this->languageHandler->getString('nickname')?></div>
+            <input type="text" id="loginUsername" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>" /><br />
+
+            <div class="label"><?php echo $this->languageHandler->getString('password')?></div>
+            <input type="password" id="loginPassword" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" /><br />
+
+            <div class="footer">
+              <button id="loginSubmitButton"><?php echo $this->languageHandler->getString('login')?></button>
+              <div>
+                <a id="forgotPassword" href="<?php echo BASE_PATH?>passwordrecovery"><?php echo $this->languageHandler->getString('password_link')?></a>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="projectSpacer"></div>
+      </article>
+
+      <script type="text/javascript">
+      	$(document).ready(function() {
+          var languageStringsObject = { 
+              "username_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'username_missing'); ?>",
+              "password_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'password_missing'); ?>"
+              };
+          new Login(languageStringsObject);
+      	});
+      </script>

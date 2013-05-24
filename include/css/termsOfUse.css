@@ -30,12 +30,11 @@
   padding: 0.07em;
   text-shadow: #000000 1px 1px 1px;
   text-align: center;
-  margin-bottom: 0.2em;
 }
 
 #wrapper article div.licenseMain {
   background-color: #00475d;
-  margin-bottom: 0.8em;
+  margin-top: 0.2em;
 }
 
 #wrapper article div.licenseText {
