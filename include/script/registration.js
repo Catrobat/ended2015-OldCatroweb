@@ -35,7 +35,6 @@ var Registration = Class.$extend( {
   	$("#registrationSubmit").bind('keydown', { submit: true }, $.proxy(this.keydownHandler, this));
   	$("#registrationSubmit").click($.proxy(this.submit, this));
 	
-    $("#registrationLogin").click($.proxy(this.toggleProfileBox, this));
   },
   
   toggleProfileBox : function() {
@@ -111,8 +110,9 @@ var Registration = Class.$extend( {
     $(document).scrollTop(element.offset().top - this.scrollMargin);
   },
   
-  submit : function() {
+  submit : function(event) {
     document.activeElement.blur();
     this.registrationSubmit();
+    event.preventDefault();
   }
 });

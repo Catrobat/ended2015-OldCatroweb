@@ -25,6 +25,6 @@
 ?>
       <article>
         <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
-          <img src="<?php echo BASE_PATH; ?>/images/symbols/error.png" />
-          <p><?php echo $this->errorMessage;?></p>
+        <img src="<?php echo BASE_PATH; ?>images/symbols/error.png" />
+        <p><?php echo $this->errorMessage;?></p>
       </article>

@@ -62,8 +62,7 @@ public class RegistrationTests extends BaseTest {
       assertTrue(isTextPresent(CommonStrings.REGISTRATION_GENDER));
       assertTrue(isElementPresent(By.id("registrationGender")));
       
-      assertTrue((driver().findElement(By.id("registrationSubmit"))).
-          getAttribute("value").contains(CommonStrings.REGISTRATION_SUBMIT));
+      assertTrue((driver().findElement(By.id("registrationSubmit"))).getText().contains(CommonStrings.REGISTRATION_SUBMIT.toUpperCase()));
       assertTrue(isElementPresent(By.id("registrationSubmit")));
       
       assertTrue(isTextPresent(CommonStrings.REGISTRATION_LOGIN));
