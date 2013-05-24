@@ -48,6 +48,18 @@ var Profile = Class.$extend( {
     this.projectObject = null;
     this.history = window.History;
     this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
+    
+    $(window).keydown($.proxy(function(event) {
+      if(event.keyCode == 116 || (event.ctrlKey == true && event.keyCode == 82)) {
+        this.clearHistory(event);
+      }
+    }, this));
+  },
+
+  clearHistory : function(event) {
+    this.history.replaceState({}, this.languageStringsObject['websiteTitle'] + " - " + this.languageStringsObject['title'], '');
+    location.reload();
+    event.preventDefault();
   },
   
   //-------------------------------------------------------------------------------------------------------------------
@@ -309,7 +321,7 @@ var Profile = Class.$extend( {
   
   saveHistoryState : function(action) {
     var context  = this.projectObject.getHistoryState();
-    var title =this.languageStringsObject['websiteTitle'] + " - " + this.languageStringsObject['title'];
+    var title = this.languageStringsObject['websiteTitle'] + " - " + this.languageStringsObject['title'];
 
     if(action == 'init') {
       var state = this.history.getState();

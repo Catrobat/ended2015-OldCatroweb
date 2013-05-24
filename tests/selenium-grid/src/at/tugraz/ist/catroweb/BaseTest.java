@@ -503,7 +503,7 @@ public class BaseTest {
     
     driver().get(this.webSite + Config.TESTS_BASE_PATH + "api/checkToken/.json?username=" + 
         CommonData.getLoginUserDefault() + "&token=" + Config.DEFAULT_UPLOAD_TOKEN);
-    driver().get(location);
+    driver().get(location.replace("//", "/"));
     ajaxWait();
   }
   

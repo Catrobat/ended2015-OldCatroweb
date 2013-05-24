@@ -48,9 +48,7 @@ public class UploadTests extends BaseTest {
       
       openLocation("details/" + id);
       assertTrue(containsElementText(By.id("projectDetailsProjectTitle"), title.toUpperCase()));
-      assertTrue(isTextPresent("uploaded"));
-      assertTrue(isTextPresent("We are sorry, but this project was created with an older version of Catroid and cannot be downloaded any more."));
-      assertFalse(isElementPresent(By.xpath("//div[@class='detailsDownloadButton']")));
+      assertTrue(isTextPresent("version: < 0.7.0beta"));
 
       //update the project
       response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.7.0beta.catrobat", "e60affe0c115ba4e10474eab3efc47d6", "", "", "", ""));
@@ -59,10 +57,8 @@ public class UploadTests extends BaseTest {
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
       openLocation("details/" + id);
-      assertTrue(isElementPresent(By.xpath("//p[@class='detailsStats']/strong")));
-      assertTrue(containsElementText(By.xpath("//div[@class='detailsProjectTitle']"), title));
-      assertTrue(isTextPresent("updated"));
-      assertTrue(isElementPresent(By.xpath("//div[@class='detailsDownloadButton']")));
+      assertTrue(containsElementText(By.id("projectDetailsProjectTitle"), title.toUpperCase()));
+      assertTrue(isTextPresent("version: 0.7.0beta"));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadResubmission");
       throw e;

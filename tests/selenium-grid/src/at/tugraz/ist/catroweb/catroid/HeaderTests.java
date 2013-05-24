@@ -25,7 +25,6 @@ package at.tugraz.ist.catroweb.catroid;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
-import org.testng.Reporter;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 

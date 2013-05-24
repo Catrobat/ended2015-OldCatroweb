@@ -23,8 +23,6 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import org.openqa.selenium.By;
-import org.openqa.selenium.internal.seleniumemulation.IsTextPresent;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;

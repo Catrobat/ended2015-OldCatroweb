@@ -30,6 +30,20 @@ var Search = Class.$extend( {
     this.params = null;
     this.history = window.History;
     this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
+
+    $(window).keydown($.proxy(function(event) {
+      if(event.keyCode == 116 || (event.ctrlKey == true && event.keyCode == 82)) {
+        this.clearHistory(event);
+      }
+    }, this));
+  },
+
+  clearHistory : function(event) {
+    var context  = this.projectObject.getHistoryState();
+    this.history.replaceState({}, this.pageLabels['websiteTitle'] + " - " + this.pageLabels['title'] + " - " + 
+        context.query + " - 1", "?q=" + encodeURI(context.query) + "&p=1");
+    location.reload();
+    event.preventDefault();
   },
   
   setProjectObject : function(projectObject) {

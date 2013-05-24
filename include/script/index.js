@@ -32,6 +32,12 @@ var Index = Class.$extend( {
     this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
     
     $(".catroidLink").click($.proxy(this.clearHistory, this));
+    
+    $(window).keydown($.proxy(function(event) {
+      if(event.keyCode == 116 || (event.ctrlKey == true && event.keyCode == 82)) {
+        this.clearHistory(event);
+      }
+    }, this));
   },
   
   clearHistory : function(event) {
