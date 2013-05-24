@@ -25,24 +25,27 @@
 ?>
   <article>
     <header><?php echo $this->userData['username'];?></header> 
-    <div style="margin:2em;" class="profileAvatarImage"><img src="<?php echo $this->userData['avatar']; ?>" /></div>
-    <div style="margin:2em;">
-      <?php echo $this->languageHandler->getString('location');
-      echo ": ";
-      $countries = getCountryArray($this->languageHandler);
-      if($this->userData['country'] != "") {
-        echo $countries[$this->userData['country']];
-      }
-      ?>
-    </div>
-    <div style="margin:2em; text-align: left;">
-      <?php echo $this->languageHandler->getString('projects');
-      echo ": ";
-      echo $this->userData['project_count'];
-      ?>
+    <div class="profileAvatarImage">
+      <img src="<?php echo $this->userData['avatar']; ?>" style="float:left;" />
     </div>
 
+    <div class="profileInformations">
+      <p>
+        <strong><?php echo $this->languageHandler->getString('country'); ?>: </strong>
+        <?php 
+        if($this->userData['country'] != "") {
+          $countries = getCountryArray($this->languageHandler);
+          echo $countries[$this->userData['country']];
+        }
+        ?>
+      </p>
+      <p>
+        <strong><?php echo $this->languageHandler->getString('projects'); ?>: </strong>
+        <?php echo $this->userData['project_count']; ?>
+      </p>
+    </div>
     <div style="clear: both;"></div>
+
     <h3><?php echo $this->languageHandler->getString('my_projects')," ", $this->userData['username']; ?></h3>
     <div id="userProjectContainer" class="projectContainer"></div>
     <div id="userProjectLoader" class="projectFooter">
