@@ -39,7 +39,7 @@ var PasswordRecovery = Class.$extend( {
     }
   },
   
-  passwordRecoverySendLink : function() {
+  passwordRecoverySendLink : function(event) {
     $.ajax({
       type: "POST",
       url: this.basePath + 'passwordrecovery/sendMailRequest.json',
@@ -50,6 +50,7 @@ var PasswordRecovery = Class.$extend( {
       success : $.proxy(this.genericRequestSuccess, this),
       error   : $.proxy(this.genericRequestError, this)
     });
+    event.preventDefault();
   },
   
   passwordSavePasswordCatchKeypress : function(event) {
@@ -59,7 +60,7 @@ var PasswordRecovery = Class.$extend( {
     }
   },
 
-  passwordSaveSubmit : function() {
+  passwordSaveSubmit : function(event) {
     $.ajax({
       type: "POST",
       url: this.basePath + 'passwordrecovery/changeMyPasswordRequest.json',
@@ -72,6 +73,7 @@ var PasswordRecovery = Class.$extend( {
       // todo: change to language string
       error : $.proxy(this.genericRequestError, this)
     });
+    event.preventDefault();
   },
 
   changeMyPasswordRequestSuccess : function(result) {

@@ -23,30 +23,23 @@
  */
 
 ?>
+      <article>
+        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
+        <div class="form">
+          <form>
+            <div class="label"><?php echo $this->languageHandler->getString('headline')?></div>
+            <input type="hidden" id="passwordRecoveryHash" value="<?php echo htmlentities($_GET['c']); ?>" />
+            <input type="text" id="passwordSavePassword" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>" /><br />
+
+            <div class="footer">
+              <button id="passwordSaveSubmit"><?php echo $this->languageHandler->getString('send_link')?></button>
+            </div>
+          </form>
+        </div>
+      </article>
+
     <script type="text/javascript">
       $(document).ready(function() {
         new PasswordRecovery();
       });
     </script>
-    <article>
-    <div class="webMainMiddle">
-      <div class="blueBoxMain">
-  		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title'); ?></div>
-                <div class="loginMain">            	
-            	  <div class ="whiteBoxMain">
-            	    <div class="loginText">
-                    <div class="loginHeader"><?php echo $this->languageHandler->getString('headline'); ?></div>
-                    <input type="hidden" id="passwordRecoveryHash" value="<?php echo htmlentities($_GET['c']); ?>" />
-                    <input id="passwordSavePassword" type="text" class="catroid webHeadLoginBox" required="required" /><br />
-                    <input id="passwordSaveSubmit" type="button" class="catroidSubmit button loginSubmitButton" value="<?php echo $this->languageHandler->getString('change_password'); ?>" /><br />
-                    
-                    
-                      <a id="signUp" href="<?php echo BASE_PATH?>registration"><?php echo $this->languageHandler->getString('account_link')?></a>
-                </div> <!-- login Text -->
-              </div> <!--  White Box -->            	
-           </div> <!--  license Main -->  		   		
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>
-</article>

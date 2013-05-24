@@ -23,31 +23,27 @@
  */
 
 ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        new PasswordRecovery();
-        <?php
-          if($this->answer != '') {
-            echo 'alert("' . $this->answer . '");';
-          }
-        ?>
-      });
-    </script>
-    <article>
-    <div class="webMainMiddle">
-      <div class="blueBoxMain">
-  		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title'); ?></div>
-                <div class="loginMain">            	
-            	  <div class ="whiteBoxMain">
-            	    <div class="loginText">
-                    <div class="loginHeader"><?php echo $this->languageHandler->getString('enter_userdata'); ?></div>
-                    <input id="passwordRecoveryUserdata" type="text" class="catroid webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder'); ?>" required="required" /><br />
-                    <input id="passwordRecoverySendLink" type="button" class="catroidSubmit button green" value="<?php echo $this->languageHandler->getString('send_link'); ?>" />
-                </div> <!-- login Text -->
-              </div> <!--  White Box -->            	
-           </div> <!--  license Main -->  		   		
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>
-</article>
+      <article>
+        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
+        <div class="form">
+          <form>
+            <div class="label"><?php echo $this->languageHandler->getString('enter_userdata')?></div>
+            <input type="text" id="passwordRecoveryUserdata" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>" /><br />
+
+            <div class="footer">
+              <button id="passwordRecoverySendLink"><?php echo $this->languageHandler->getString('send_link')?></button>
+            </div>
+          </form>
+        </div>
+      </article>
+  
+      <script type="text/javascript">
+        $(document).ready(function() {
+          new PasswordRecovery();
+          <?php
+            if($this->answer != '') {
+              echo 'alert("' . $this->answer . '");';
+            }
+          ?>
+        });
+      </script>
