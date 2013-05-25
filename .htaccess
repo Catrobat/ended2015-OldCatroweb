@@ -17,6 +17,7 @@ RewriteRule ^viewer/ - [L]
 RewriteRule ^resources/ - [L]
 RewriteRule ^services/ - [L]
 RewriteRule ^tests/ - [L]
+RewriteRule ^help/ - [L]
 
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d

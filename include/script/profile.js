@@ -132,7 +132,7 @@ var Profile = Class.$extend( {
       this.passwordChanged = 0;
       $.ajax({
         type: "POST",
-        url: this.basePath + 'catroid/profile/updatePasswordRequest.json',
+        url: this.basePath + 'profile/updatePasswordRequest.json',
         data : ({
           profileNewPassword : $("#profileNewPassword").val(),
           profileRepeatPassword : $("#profileRepeatPassword").val()
@@ -146,7 +146,7 @@ var Profile = Class.$extend( {
       this.firstEmailChanged = 0;
       $.ajax({
         type: "POST",
-        url: this.basePath + 'catroid/profile/updateEmailRequest.json',
+        url: this.basePath + 'profile/updateEmailRequest.json',
         data : ({
           email : $("#profileFirstEmail").val(),
           additional : 0
@@ -159,7 +159,7 @@ var Profile = Class.$extend( {
       this.secondEmailChanged = 0;
       $.ajax({
         type: "POST",
-        url: this.basePath + 'catroid/profile/updateEmailRequest.json',
+        url: this.basePath + 'profile/updateEmailRequest.json',
         data : ({
           email : $("#profileSecondEmail").val(),
           additional : 1
@@ -257,7 +257,7 @@ var Profile = Class.$extend( {
   setEmailValuesRequest : function() {
     $.ajax({
       type: "GET",
-      url: this.basePath + 'catroid/profile/getEmailListRequest.json',
+      url: this.basePath + 'profile/getEmailListRequest.json',
       timeout : (this.ajaxTimeout),
       success : $.proxy(this.setEmailValues, this),
     });

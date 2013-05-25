@@ -1,9 +1,14 @@
 # robots.txt for http://www.catroid.org
 User-agent: *
 Disallow: /addons/mediawiki
+Disallow: /cache
+Disallow: /download
+Disallow: /error 
+Disallow: /resources
+Disallow: /tools
 Disallow: /catroid/cache
 Disallow: /catroid/download
-Disallow: /catroid/errorPage 
+Disallow: /catroid/error 
 Disallow: /catroid/resources
 Disallow: /catroid/tools
 Disallow: /wiki/Special:Search

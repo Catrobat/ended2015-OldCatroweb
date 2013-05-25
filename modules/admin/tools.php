@@ -60,7 +60,7 @@ class tools extends CoreAuthenticationAdmin {
   }
   
   private function sendEmailNotificationToUser($userHash, $userId, $userName, $userEmail) {
-    $catroidPasswordResetUrl = BASE_PATH . 'passwordrecovery?c=' . $userHash;
+    $passwordResetUrl = BASE_PATH . 'passwordrecovery?c=' . $userHash;
     
     $result = pg_execute($this->dbConnection, "update_recovery_hash_recovery_time_by_id", array($userHash, time(), $userId));
     if(!$result) {
@@ -70,7 +70,7 @@ class tools extends CoreAuthenticationAdmin {
     pg_free_result($result);
      
     if(DEVELOPMENT_MODE) {
-      throw new Exception($catroidPasswordResetUrl, STATUS_CODE_OK);
+      throw new Exception($passwordResetUrl, STATUS_CODE_OK);
     }
     
     if(SEND_NOTIFICATION_USER_EMAIL) {
