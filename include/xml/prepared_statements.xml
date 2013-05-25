@@ -24,7 +24,6 @@
 
 <statements>
     <string name="get_projects_ordered_by_uploadtime">SELECT * FROM projects ORDER BY upload_time DESC</string>
-    <string name="get_number_of_visible_projects">SELECT count(id) FROM projects WHERE visible=true</string>
     <string name="get_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND projects.visible=true AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_language, filesize_bytes, version_name, language_code, user_id) 
@@ -109,8 +108,6 @@
     <string name="update_auth_token">UPDATE cusers SET auth_token=$1 WHERE id=$2</string>
     <string name="delete_user_birth">UPDATE cusers SET date_of_birth=NULL WHERE id=$1</string>
     
-    <string name="get_my_projects">SELECT *, coalesce(extract(epoch from "timestamp"(update_time)), extract(epoch from "timestamp"(upload_time))) AS last_activity FROM projects WHERE user_id=$1 AND visible=true ORDER BY last_activity DESC</string>
-
     
     <string name="admin_block_user">INSERT INTO blocked_cusers (user_id, user_name) VALUES ($1, $2)</string>
     <string name="admin_block_user_id">INSERT INTO blocked_cusers (user_id) VALUES ($1)</string>

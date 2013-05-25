@@ -1,13 +1,17 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
+
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
@@ -18,6 +22,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
+  <server>
+    <string name="missing_mcrypt">Mcrypt fehlt auf deinem System.</string>
+    <string name="missing_blowfish">CRYPT_BLOWFISH fehlt auf deinem System.</string>
+  </server>
   <db>
     <string name="query_failed">Datenbank Operation fehlgeschlagen.</string>
     <string name="connection_failed">Datenbank Verbindung fehlgeschlagen.</string>
@@ -69,7 +77,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <upload>
     <string name="missing_project_title">Es wurde kein projectTitle angegeben. (XML-Datei und POST-Daten, zumindest einer ist erforderlich.)</string>
     <string name="missing_file_data">POST-Daten nicht korrekt oder fehlt!</string>
-    <string name="missing_post_file_checksum">Client hat fileChecksum nicht gesendet! Verwendest du eine alte Catroid-Version?</string>
+    <string name="missing_post_file_checksum">Der Client hat die fileChecksum nicht mitgeschickt! Verwendest du eine veraltete Version von Pocket Code?</string>
     <string name="copy_failed">Das Kopieren der Datei hat nicht funktioniert!</string>
     <string name="rename_failed">Das Umbenennen der Datei hat nicht funktioniert!</string>
     <string name="invalid_file_checksum">Die Checksumme der Datei unterscheidet sich von der gesendeten Checksumme!</string>
@@ -77,7 +85,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="project_title_default">Du kannst keine Projekte hochladen die den Standard Projekt-Namen haben. Bitte benenne dein Projekt vorher um.</string>
     <string name="insulting_words_in_project_title">Der Titel enth&#xE4;lt Schimpfw&#xF6;rter!</string>
     <string name="insulting_words_in_project_description">Die Beschreibung enth&#xE4;lt Schimpfw&#xF6;rter!</string>
-    <string name="qr_code_generation_failed">QR Code-Generierung fehlgeschlagen!</string>
     <string name="save_thumbnail_failed">Speichern des Thumbnails fehlgeschlagen!</string>
     <string name="invalid_project_xml">Die XML-Datei deines Projekts enth&#xE4;lt Fehler!</string>
     <string name="old_catrobat_language">Projekt enth&#xE4;lt eine alte Catrobat Sprache!</string>
@@ -91,9 +98,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </flag>
   <viewer>
     <string name="html_file_not_found">Konnte den HTML Viewer nicht finden.</string>
-    <string name="ajax_request_page_not_found">Konnte erforderliches Modul f&#xFC;r den Ajax-Request nicht finden</string>
-    <string name="ajax_took_too_long">AJAX Anfrage dauerte zu lange.</string>
-    <string name="ajax_timed_out">AJAX Zeit&#xFC;berschreitung der Anforderung.</string>
     <string name="ip_is_blocked">Deine IP-Adresse wurde geblockt.</string>
     <string name="ip_is_blocked_temporary">Deine IP-Adresse ist f&#xFC;r 30 Sekunden blockiert.</string>
     <string name="user_is_blocked">Dein Konto wurde gesperrt.</string>
