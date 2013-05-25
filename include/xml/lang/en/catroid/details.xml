@@ -28,11 +28,14 @@
   <string name="login">login</string>
   <string name="download_button">Download</string>
   <string name="filesize">big</string>
- <!-- <string name="report_as_inappropriate">Report project</string>
+  <string name="report_as_inappropriate">Report as inappropriate</string>
+  <string name="report_as_inappropriate_label">Why do you think this project is inappropriate?</string>
   <string name="report_as_inappropriate_please_login">Please {*login_link*} to report this project as inappropriate.</string>
   <string name="report_as_inappropriate_own_project">You cannot flag your own project.</string>
   <string name="report_as_inappropriate_already_flagged">You've already flagged this project as inappropriate.</string>
-  -->
+  <string name="report">Report</string>
+  <string name="cancel">Cancel</string>
+  <string name="flag_reason_placeholder">Enter a reason</string>
   <string name="some_rights_reserved">License to play</string>
   <string name="views">views</string>
   <string name="downloads">downloads</string>
