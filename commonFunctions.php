@@ -268,7 +268,7 @@ function getSupportedLanguagesArray($languageHandler) {
     'hu'=>array('name'=>$languageHandler->getString('template_common_hungarian'), 'nameNative'=>'‪magyar‬', 'supported'=>false),
     'id'=>array('name'=>$languageHandler->getString('template_common_indonesian'), 'nameNative'=>'‪Bahasa Indonesia‬', 'supported'=>false),
     'it'=>array('name'=>$languageHandler->getString('template_common_italian'), 'nameNative'=>'‪italiano‬', 'supported'=>false),
-    'ja'=>array('name'=>$languageHandler->getString('template_common_japanese'), 'nameNative'=>'‪日本語‬', 'supported'=>false),
+    'ja'=>array('name'=>$languageHandler->getString('template_common_japanese'), 'nameNative'=>'‪日本語‬', 'supported'=>true),
     'ko'=>array('name'=>$languageHandler->getString('template_common_korean'), 'nameNative'=>'‪한국어‬', 'supported'=>false),
     'lv'=>array('name'=>$languageHandler->getString('template_common_latvian'), 'nameNative'=>'‪latviešu‬', 'supported'=>false),
     'lt'=>array('name'=>$languageHandler->getString('template_common_lithuanian'), 'nameNative'=>'‪lietuvių‬', 'supported'=>false),
