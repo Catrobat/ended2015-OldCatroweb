@@ -29,7 +29,10 @@ import re
 import sys
 from tools import CSSCompiler, JSCompiler, Selenium
 from remoteShell import RemoteShell
+import shutil
 from sql import Sql
+import tempfile
+import zipfile
 
 
 class EnvironmentChecker:
@@ -43,6 +46,7 @@ class EnvironmentChecker:
 			[os.path.join('include', 'xml', 'lang'), True],
 			[os.path.join('tests', 'phpunit', 'framework', 'testdata'), True]]
 	thumbnailPath = os.path.join(basePath, 'resources', 'thumbnails')
+	projectPath = os.path.join(basePath, 'resources', 'projects')
 
 
 	def run(self):
@@ -103,6 +107,33 @@ class EnvironmentChecker:
 						os.system('convert %s -resize 480x %s' % (filePath, filePath))
 
 
+	def updateProjectXMLs(self):
+		replaceStrings = [['elseBrick', 'ifElseBrick'],
+						['beginBrick', 'ifBeginBrick']]
+
+		for r,d,f in os.walk(self.projectPath):
+			for project in f:
+				file = os.path.join(r, project)
+				tempdir = tempfile.mkdtemp()
+				
+				print(file)
+				try:
+					tempname = os.path.join(tempdir, 'new.zip')
+					with zipfile.ZipFile(file, 'r') as zipRead:
+						with zipfile.ZipFile(tempname, 'w') as zipWrite:
+							for item in zipRead.infolist():
+								data = zipRead.read(item.filename)
+								if '.xml' in item.filename:
+									for task in replaceStrings:
+										if task[0] in data:
+											print('  replace: ' + task[0])
+											data = data.replace(task[0], task[1])
+								zipWrite.writestr(item, data)
+					shutil.move(tempname, file)
+				finally:
+					shutil.rmtree(tempdir)
+				
+
 
 class SetupBackup:
 	basePath = os.getcwd()
@@ -147,6 +178,8 @@ if __name__ == '__main__':
 		elif sys.argv[1] == 'dev':
 			print('Please enter your password to run this script:')
 			os.system('sudo sh services/init/environment/local.sh')
+		elif sys.argv[1] == 'xmlupdate':
+			EnvironmentChecker().updateProjectXMLs()
 		elif sys.argv[1] == 'backup':
 			SetupBackup().init()
 		else:
@@ -160,4 +193,6 @@ if __name__ == '__main__':
 		print('                        required folders exist and have the right permissions.')
 		print('  tools                 Initializes or updates the required tools.')
 		print('  dev                   Initializes development environment (server, tools).')
+		print('  xmlupdate             Updates all project XMLs with the given replacement')
+		print('                        rules in replaceStrings.')
 		print('  backup                ......TODO')
