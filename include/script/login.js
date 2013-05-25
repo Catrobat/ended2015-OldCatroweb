@@ -66,10 +66,10 @@ var Login = Class.$extend({
   loginRequestSuccess : function(result) {
     $("#loginLoader").hide();
     if(result.statusCode == 200) {
-      if(this.requestUri != '') {
-        location.href = this.basePath + 'profile'
+      if(this.requestUri == '') {
+        location.href = this.basePath + 'profile';
       } else {
-        location.reload();
+        location.href = this.basePath + this.requestUri;
       }
     } else {
       $("#loginSubmitButton").show();

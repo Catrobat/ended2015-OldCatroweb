@@ -34,6 +34,13 @@ var Header = Class.$extend( {
       this.userId = userId;
     }
 
+    this.requestUri = '';
+    
+    var fragments = location.search.split("?requestUri=");
+    if(fragments.length > 1) {
+      this.requestUri = fragments[1];
+    }
+
     $(window).resize($.proxy(this.hideNavigationMenu, this));
     $(window).mousedown($.proxy(this.hideNavigationMenu, this));
 

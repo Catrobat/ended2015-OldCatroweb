@@ -36,7 +36,7 @@ class profile extends CoreAuthenticationUser {
   }
 
   public function __authenticationFailed() {
-    header("Location: " . BASE_PATH . "login/?requestUri=profile/");
+    header("Location: " . BASE_PATH . "login/?requestUri=" . ltrim($_SERVER['REQUEST_URI'], '/'));
     exit();
   }
   
