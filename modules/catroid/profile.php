@@ -203,7 +203,7 @@ class profile extends CoreAuthenticationUser {
     $additional = (isset($_POST['additional']) ? trim(strval($_POST['additional'])) : '');
     $email = (isset($_POST['email']) ? trim(strval($_POST['email'])) : '');
     try {
-       $this->userFunctions->updateEmailAddress($this->session->userLogin_userId, $email, $mail_nr);
+       $this->userFunctions->updateEmailAddress($this->session->userLogin_userId, $email, $additional);
        $this->statusCode = STATUS_CODE_OK;
        $this->answer = $this->languageHandler->getString('email_add_success');
      } catch(Exception $e) {
@@ -212,24 +212,26 @@ class profile extends CoreAuthenticationUser {
      }
   }
   
-  public function addEmailRequest() {
-    $addEmail = (isset($_POST['profileEmail']) ? trim(strval($_POST['profileEmail'])) : '');
+//   public function addEmailRequest() {
+//     $addEmail = (isset($_POST['profileEmail']) ? trim(strval($_POST['profileEmail'])) : '');
     
-    try {
-      $this->userFunctions->addEmailAddress($this->session->userLogin_userId, $addEmail);
-      $this->statusCode = STATUS_CODE_OK;
-      $this->answer = $this->languageHandler->getString('email_add_success');
-    } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
-    }
-  }
+//     try {
+//       $this->userFunctions->addEmailAddress($this->session->userLogin_userId, $addEmail);
+//       $this->statusCode = STATUS_CODE_OK;
+//       $this->answer = $this->languageHandler->getString('email_add_success');
+//     } catch(Exception $e) {
+//       $this->statusCode = $e->getCode();
+//       $this->answer = $e->getMessage();
+//     }
+//   }
   
   public function deleteEmailRequest() {
-    $deleteEmail = (isset($_POST['profileEmail']) ? trim(strval($_POST['profileEmail'])) : '');
-    
+    $emailToDelete = (isset($_POST['emailId']) ? trim(strval($_POST['emailId'])) : '');
+    $firstEmail = (isset($_POST['firstEmail']) ? trim(strval($_POST['firstEmail'])) : '');
+    $secondEmail = (isset($_POST['secondEmail']) ? trim(strval($_POST['secondEmail'])) : '');
+    console.log($emailToDelete);
     try {
-      $this->userFunctions->deleteEmailAddress($deleteEmail);
+      //$this->userFunctions->deleteEmailAddress($emailToDelete, $firstEmail, $secondEmail);
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('email_delete_success');
     } catch(Exception $e) {

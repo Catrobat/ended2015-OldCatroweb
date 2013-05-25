@@ -1139,10 +1139,34 @@ class userFunctions extends CoreAuthenticationNone {
     $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
   }
 
-  public function deleteEmailAddress($email) {
+  public function deleteEmailAddress($emailToDelete, $firstEmail, $secondEmail) {
+    console.log($emailToDelete);
     $userId = intval($this->session->userLogin_userId);
+    if($emailToDelete == 1 && $firstEmail != '') {    
+//       $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
+//       if(!$result) {
+//         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+//             STATUS_CODE_SQL_QUERY_FAILED);
+//       }
+//       pg_free_result($result);
+    } else if($emailToDelete == 0 && $secondEmail != '') {
+      $result = pg_execute($this->dbConnection, "update_user_email", array($userId, $secondEmail));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+    } else {
+      throw new Exception($this->errorHandler->getError('userFunctions', 'email_delete_failed'),
+          STATUS_CODE_USER_DELETE_EMAIL_FAILED);
+    }
+    
 
-    $numberOfValidEmailAddresses = 0;
+/*    $numberOfValidEmailAddresses = 0;
     foreach($this->getEmailAddresses($userId) as $emails) {
       if($emails['address'] == $email && !$emails['valid']) {
         $numberOfValidEmailAddresses++;
@@ -1190,7 +1214,7 @@ class userFunctions extends CoreAuthenticationNone {
             STATUS_CODE_SQL_QUERY_FAILED);
       }
       pg_free_result($result);
-    }
+    }*/
   }
 
   public function createUserHash($userData) {

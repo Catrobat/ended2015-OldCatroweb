@@ -207,6 +207,14 @@ h3 {
   border: none;
 }
 
+.img-failedPw {
+  width: 39px;
+  height: 39px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -74px -79px;
+  border: none;
+}
+
 .img-first-email {
   width: 39px;
   height: 39px;
@@ -214,11 +222,32 @@ h3 {
   background-position: -35px -79px;
 }
 
+.img-failed-first-email {
+  width: 39px;
+  height: 39px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -35px -40px;
+}
+
 .img-second-email {
   width: 39px;
   height: 39px;
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -74px 0px;
+}
+
+.img-failed-second-email {
+  width: 39px;
+  height: 39px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -35x -79px;
+}
+
+.img-saved {
+  width: 25px;
+  height: 25px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -75px -195px;
 }
 
 ::-moz-selection {

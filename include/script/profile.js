@@ -36,12 +36,15 @@ var Profile = Class.$extend( {
     this.initAvatarUploader();
     this.setEmailValuesRequest();
    
-    $("#profileNewPassword").keypress($.proxy(this.passwordCatchKeypress, this));
-    $("#profileRepeatPassword").keypress($.proxy(this.passwordCatchKeypress, this));
-    $("#profileFirstEmail").keypress($.proxy(this.firstEmailCatchKeypress, this));
-    $("#profileSecondEmail").keypress($.proxy(this.secondEmailCatchKeypress, this));
+    $(".profilePasswordItem input").keypress($.proxy(this.passwordCatchKeypress, this));
+    $(".profileRepeatPassword input").keypress($.proxy(this.passwordCatchKeypress, this));
+    $(".profileFirstEmailItem input").keypress($.proxy(this.firstEmailCatchKeypress, this));
+    $(".profileSecondEmailItem input").keypress($.proxy(this.secondEmailCatchKeypress, this));
     $(".profileCountry").change($.proxy(this.countryChangedEvent, this));
     $("#profileSaveChanges").click($.proxy(this.updateChangesRequest, this));
+    $(".img-delete").mouseover($(".img-delete").css('cursor', 'pointer'));
+    $(".profileDeleteFirstEmail").click($.proxy(this.deleteEmail,this, 0));
+    $(".profileDeleteSecondEmail").click($.proxy(this.deleteEmail,this, 1));
 
     $("#searchForm").submit($.proxy(this.search, this));
 
@@ -55,6 +58,7 @@ var Profile = Class.$extend( {
       }
     }, this));
   },
+  
 
   clearHistory : function(event) {
     this.history.replaceState({}, this.languageStringsObject['websiteTitle'] + " - " + this.languageStringsObject['title'], '');
@@ -115,6 +119,28 @@ var Profile = Class.$extend( {
   },
 
   //-------------------------------------------------------------------------------------------------------------------
+  
+  deleteEmail : function(id){
+    if(id == 1)
+      emailId = 1;
+    else
+      emailId = 0;
+    
+      $.ajax({
+        type: "POST",
+        url: this.basePath + 'catroid/profile/deleteEmailRequest.json',
+        data : ({
+          emailToDelete  : emailId,
+          firstEmail     : $(".profileFirstEmailItem input").val(), 
+          secondEmail    : $(".profileSecondEmailItem input").val(),
+        }),
+        timeout : (this.ajaxTimeout),
+        success : $.proxy(alert, this),
+        error : $.proxy(this.ajaxTimedOut, this)
+      });
+    
+  },
+  
   passwordCatchKeypress : function(event) {
     this.passwordChanged = 1;
     if(event.which == '13') {
@@ -128,6 +154,18 @@ var Profile = Class.$extend( {
   },
   
   updateChangesRequest : function() {
+    $("#profileEmailError").toggle(false);
+    $("#profilePasswordError").toggle(false);
+    if($("#profileNewPassword").val() == ""){
+      this.passwordChanged = 0;
+    }
+    if($(".profileFirstEmailItem input").val() == ""){
+      this.firstEmailChanged = 0;
+    }
+    if($(".profileSecondEmailItem input").val() == ""){
+      this.secondEmailChanged = 0;
+    }
+    
     if(this.passwordChanged == 1) {
       this.passwordChanged = 0;
       $.ajax({
@@ -139,7 +177,7 @@ var Profile = Class.$extend( {
         }),
         timeout : (this.ajaxTimeout),
         success : $.proxy(this.passwordRequestSuccess, this),
-        error : $.proxy(alert("ajaxTimedOut"),this)
+        error : $.proxy(this.ajaxTimedOut, this)
       });
     }
     if(this.firstEmailChanged == 1) {
@@ -148,11 +186,12 @@ var Profile = Class.$extend( {
         type: "POST",
         url: this.basePath + 'catroid/profile/updateEmailRequest.json',
         data : ({
-          email : $("#profileFirstEmail").val(),
+          email : $(".profileFirstEmailItem input").val(),
           additional : 0
         }),
         timeout : (this.ajaxTimeout),
         success : $.proxy(this.firstEmailRequestSuccess, this),
+        error : $.proxy(this.ajaxTimedOut, this)
       });
     }
     if(this.secondEmailChanged == 1) {
@@ -161,11 +200,12 @@ var Profile = Class.$extend( {
         type: "POST",
         url: this.basePath + 'catroid/profile/updateEmailRequest.json',
         data : ({
-          email : $("#profileSecondEmail").val(),
+          email : $(".profileSecondEmailItem input").val(),
           additional : 1
         }),
         timeout : (this.ajaxTimeout),
         success : $.proxy(this.secondEmailRequestSuccess, this),
+        error : $.proxy(this.ajaxTimedOut, this)
       });
     }
     if(this.countryChanged == 1) {
@@ -177,7 +217,8 @@ var Profile = Class.$extend( {
           country : $(".profileCountry select").val()
         }),
         timeout : (this.ajaxTimeout),
-        success : $.proxy(this.countryRequestSuccess, this),       
+        success : $.proxy(this.countryRequestSuccess, this), 
+        error : $.proxy(this.ajaxTimedOut, this)
       });
     }
 
@@ -185,65 +226,94 @@ var Profile = Class.$extend( {
   },
   
   passwordRequestSuccess : function(result) {
+    this.passwordChanged = 0;
     if(result.statusCode == 200) {
       $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
-      $("#profilePasswordError").toggle(false);
-      $("#profileEmailError").toggle(false);
       $("#profileNewPassword").val("");
       $("#profileRepeatPassword").val("");
-      $("#profileNewPassword").css({"background-color" : "#FFFFFF", "color" : "#000000"});
-      $("#profileRepeatPassword").css({"background-color" : "#FFFFFF", "color" : "#000000"});
-      $(".profilePasswordItem").css({"border" : "0.2em solid #05222a","background-color" : "#FFFFFF", 
-        "-mox-box-shadow:" : "inset 2px 2px 5px #05222a;", "-webkit-box-shadow" : "inset 2px 2px 5px #05222a;", 
-        "box-shadow" : "inset 2px 2px 5px #05222a;"});
+      $(".profileErrorMessage").val("");
+      $(".profilePasswordItem").removeClass("profileInvalid");
+      $(".profilePasswordItem").addClass("profileValid");
+      $(".profilePasswordItem input").removeClass("inputInvalid");
+      $(".profilePasswordItem input").addClass("inputValid");
+      $(".profilePasswordItem img").removeClass("img-failedPw");
+      $(".profilePasswordItem img").addClass("img-password");
+      $(".profileChangesSuccess img").addClass("img-saved");
+      $(".profileChangesSuccess p").val("saved");
     } else {
       $("#profilePasswordError").text(result.answer);
       $("#profilePasswordError").toggle(true);
       $("#profileEmailError").toggle(true);
-      $(".profilePasswordItem").css({"border" : "0.2em solid #880000","background-color" : "#F78181", "-mox-box-shadow:" : "none",
-        "-webkit-box-shadow" : "none", "box-shadow" : "none"});
-      $("#profileNewPassword").css({"background-color" : "#F78181", "color" : "#880000"});
-      $("#profileRepeatPassword").css({"background-color" : "#F78181", "color" : "#880000"});
+      $(".profilePasswordItem").removeClass("profileValid");
+      $(".profilePasswordItem").addClass("profileInvalid");
+      $(".profilePasswordItem input").removeClass("inputValid");
+      $(".profilePasswordItem input").addClass("inputInvalid");
+      $(".profilePasswordItem img").removeClass("img-password");
+      $(".profilePasswordItem img").addClass("img-failedPw");
     }
   },
  
   firstEmailRequestSuccess : function(result) {
+    this.firstEmailChanged = 0;
+    $("#profileEmailError").toggle(false);
+    $("#profilePasswordError").toggle(false);
     if(result.statusCode == 200) {
       $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
-      $("#profileEmailError").toggle(false);
-      $("#profilePasswordError").toggle(false);
-      $(".profileFirstEmailItem").css({"-mox-box-shadow" : "inset 2px 2px 5px #05222a","-webkit-box-shadow" : "inset 2px 2px 5px #05222a",
-        "box-shadow" : "inset 2px 2px 5px #05222a","background-color" : "#FFFFFF","border" : "2px solid #05222a"});
-      $("#profileFirstEmail").css({"background-color" : "#FFFFFF","color" : "#000000"});
+      $(".profileFirstEmailItem").removeClass("profileInvalid");
+      $(".profileFirstEmailItem").addClass("profileValid");
+      $(".profileFirstEmailItem input").removeClass("inputInvalid");
+      $(".profileFirstEmailItem input").addClass("inputValid");
+      $(".profileFirstEmailItem img").removeClass("img-failed-first-email");
+      $(".profileFirstEmailItem img").addClass("img-first-email");
+      $("profileChangesSuccess img").addClass("img-saved");
+      $("profileChangesSuccess p").val("saved");
     } else {
       $("#profileEmailError").text(result.answer);
       $("#profileEmailError").toggle(true);
       $("#profilePasswordError").toggle(true);
-      $(".profileFirstEmailItem").css({"border" : "0.2em solid #880000 ","background-color" : "#F78181", "-mox-box-shadow:" : "none",
-        "-webkit-box-shadow" : "none", "box-shadow" : "none"});
-      $("#profileFirstEmail").css({"background-color" : "#F78181", "color" : "#880000"});
+      $(".profileFirstEmailItem").removeClass("profileValid");
+      $(".profileFirstEmailItem").addClass("profileInvalid");
+      $(".profileFirstEmailItem input").removeClass("inputValid");
+      $(".profileFirstEmailItem input").addClass("inputInvalid");
+      $(".profileFirstEmailItem img").removeClass("img-first-email");
+      $(".profileFirstEmailItem img").addClass("img-failed-first-email");
     }
   },
   
   secondEmailRequestSuccess : function(result) {
+    this.secondEmailChanged = 0;
+    $("#profileEmailError").toggle(false);
+    $("#profilePasswordError").toggle(false);
     if(result.statusCode == 200) {
       $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
       $("#profileEmailError").toggle(false);
       $("#profilePasswordError").toggle(false);
-      $(".profileSecondEmailItem").css({"-mox-box-shadow" : "inset 2px 2px 5px #05222a","-webkit-box-shadow" : "inset 2px 2px 5px #05222a",
-        "box-shadow" : "inset 2px 2px 5px #05222a","background-color" : "#FFFFFF","border" : "2px solid #05222a"});
-      $("#profileFirstEmail").css({"background-color" : "#FFFFFF","color" : "#000000"});
+      $(".profileSecondEmailItem").removeClass("profileInvalid");
+      $(".profileSecondEmailItem").addClass("profileValid");
+      $(".profileSecondEmailItem").removeClass("profileInvalid");
+      $(".profileSecondEmailItem").addClass("profileValid");
+      $(".profileSecondEmailItem img").removeClass("img-failed-second-email");
+      $(".profileSecondEmailItem img").addClass("img-second-email");
+      $(".profileChangesSuccess img").addClass("img-saved");
+      $(".profileChangesSuccess p").val("saved");
     } else {
       $("#profileEmailError").text(result.answer);
       $("#profileEmailError").toggle(true);
       $("#profilePasswordError").toggle(true);
-      $(".profileSecondEmailItem").css({"border" : "0.2em solid #880000 ","background-color" : "#F78181", "-mox-box-shadow:" : "none",
-        "-webkit-box-shadow" : "none", "box-shadow" : "none"});
-      $("#profileSecondEmail").css({"background-color" : "#F78181", "color" : "#880000"});
+      $(".profileSecondEmailItem").removeClass("profileValid");
+      $(".profileSecondEmailItem").addClass("profileInvalid");
+      $(".profileSecondEmailItem input").removeClass("inputValid");
+      $(".profileSecondEmailItem input").addClass("inputInvalid");
+      $(".profileSecondEmailItem img").removeClass("img-second-email");
+      $(".profileSecondEmailItem img").addClass("img-failed-second-email");
     }
+  },
+  
+  ajaxTimedOut : function() {
+    alert("ajaxTimedOut");
   },
   
   countryRequestSuccess : function(result) {
@@ -265,11 +335,11 @@ var Profile = Class.$extend( {
   
   setEmailValues : function(result) {
     console.log(result.answer);
-    $("#profileFirstEmail").attr('placeholder',result.answer[0].address);
+    $(".profileFirstEmailItem input").val(result.answer[0].address);
     if(result.answer[1] != null)
-      $("#profileSecondEmail").attr('placeholder',result.answer[1].address);
+      $(".profileSecondEmailItem input").val(result.answer[1].address);
     else
-      $("#profileSecondEmail").attr('placeholder', this.languageStringsObject.second_email);
+      $(".profileSecondEmailItem input").attr('placeholder', this.languageStringsObject.second_email);
   },
   
   
@@ -299,7 +369,7 @@ var Profile = Class.$extend( {
       }),
       timeout : this.ajaxTimeout,
       success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(alert("ajaxTimedOut"),this)
+      error : $.proxy(this.ajaxTimedOut, this)
     });
   },
 

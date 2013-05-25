@@ -28,7 +28,7 @@
      <div id="profileContainer">
        <div>
           <div class="profileAvatar">
-          <div id="profileAvatarError"></div>
+          <div class="profileErrorMessage" id="profileAvatarError"></div>
              <div class="profileAvatarImage"><img src="<?php echo $this->userData['avatar']; ?>" />
                <div class="profileChangeAvatar"><button id="profileChangeAvatarButton"><?php echo $this->languageHandler->getString('changeAvatar') ?></button></div>
              </div>
@@ -39,14 +39,14 @@
        
          <div class="profileInputs">
            <div class="profileInputsLeft">
-              <div id="profilePasswordError"></div>
-             <div class="profilePasswordItem" >
-                 <input type="password" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password') ?>" />
+              <div class="profileErrorMessage" id="profilePasswordError"></div>
+             <div class="profilePasswordItem profileValid" >
+                 <input type="password" class="inputValid" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password') ?>" />
                  <img class="img-password" />
                  
              </div>
-             <div class="profilePasswordItem">
-               <input type="password" id="profileRepeatPassword" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password') ?>" />
+             <div class="profilePasswordItem profileValid">
+               <input type="password" class="inputValid" id="profileRepeatPassword" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password') ?>" />
                <img class="img-password" />
              </div>
              <?php echo $this->languageHandler->getString('country') ?>:
@@ -55,22 +55,28 @@
              </div>      
            </div>
            <div class="profileInputsRight">
-           <div id="profileEmailError"></div>
-             <div class="profileFirstEmailItem" >
-               <input id="profileFirstEmail" type="email" />
+           <div class="profileErrorMessage" id="profileEmailError"></div>
+             <div class="profileFirstEmailItem profileValid" >
+               <input class="inputValid" type="email" />
                <img class="img-first-email" />
+               
              </div>
-             <div class="profileSecondEmailItem">
-               <input id="profileSecondEmail" type="email"/>
+             <a></a><img class="img-delete profileDeleteFirstEmail profileDeleteEMail"/></a>
+             <div class="profileSecondEmailItem profileValid">
+               <input class="inputValid" type="email"/>
                <img class="img-second-email" />
              </div>
+             <img class="img-delete profileDeleteSecondEmail profileDeleteEMail"/>
+             
+             
              <div class="saveChanges">
+             <div class="profileChangesSuccess">
+                <img class=""/>
+                <p> </p>
+             </div>
                <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save') ?></button>
              </div>
-             <div id="profileUpdateSuccess">
-               <img src="<?php echo BASE_PATH; ?>images/symbols/placeholder.png" />
-               Saved!
-             </div> 
+             
            </div>
          </div>
        </div>

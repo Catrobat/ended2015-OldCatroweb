@@ -24,7 +24,7 @@
 #wrapper article div.profileAvatar{
   float: left;
   width: 19em;
-  margin-left: 0.7em;
+  margin-left: 1.5em;
 }
 
 #profileContainer {
@@ -83,19 +83,29 @@
 }
 
 #wrapper article div.profilePasswordItem{
- -mox-box-shadow: inset 2px 2px 5px #05222a;
- -webkit-box-shadow: inset 2px 2px 5px #05222a;
- box-shadow: inset 2px 2px 5px #05222a;
  width: 18em;
- border: 2px solid #05222a;
  padding: 0.5em;
- background-color: #FFFFFF;
  margin-bottom: 1em;
-
 }
 
-#wrapper article div.profileInputs img{
+#wrapper article div.profileValid{
   background-color: #FFFFFF;
+  border: 0.2em solid #05222a;
+  -mox-box-shadow: inset 2px 2px 5px #05222a;
+  -webkit-box-shadow: inset 2px 2px 5px #05222a;
+  box-shadow: inset 2px 2px 5px #05222a;
+}
+
+#wrapper article div.profileInvalid{
+  border : 0.2em solid #880000;
+  background-color: #F78181;
+  -mox-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+
+#wrapper article div.profileInputs img{
   float: right;
   font-size: 1.4em;
   border: none;
@@ -104,7 +114,7 @@
 #wrapper article input {
   background-color: #FFFFFF;
   border-radius: 0.125em;
-  color: #000000;
+  color: #05222a;
   height: 1.8em;
   width: 10.5em;
   border: none;
@@ -113,38 +123,37 @@
   font-size: 1.4em;
 }
 
-#wrapper article input:invalid{
-  border: none;
-  outline: none;
+#wrapper article div.profileInputsRight input{
+  width: 9em;
 }
 
-#wrapper article input.error {
-  border: none;
-  outline: none;
+#wrapper article input.inputInvalid{
+  background-color: #F78181;
+  color: #880000;
+  border:0;
+  outline:0;
+}
+
+#wrapper article input.inputValid{
+  background-color: transparent;
+  color: #05222a;
 }
 
 #wrapper article div.profileFirstEmailItem{
- -mox-box-shadow: inset 2px 2px 5px #05222a;
- -webkit-box-shadow: inset 2px 2px 5px #05222a;
- box-shadow: inset 2px 2px 5px #05222a;
- background-color: #FFFFFF;
- border: 2px solid #05222a;
- width: 18em;
+ width: 15.7em;
  padding: 0.5em;
  margin-bottom: 1em;
 }
 
 #wrapper article div.profileSecondEmailItem{
- -mox-box-shadow: inset 2px 2px 5px #05222a;
- -webkit-box-shadow: inset 2px 2px 5px #05222a;
- box-shadow: inset 2px 2px 5px #05222a;
- background-color: #FFFFFF;
- border: 2px solid #05222a;
- width: 18em;
+ width: 15.7em;
  padding: 0.5em;
  margin-bottom: 1em;
 }
 
+#wrapper article img.profileDeleteEMail{
+ margin-top: -2.8em;
+}
 
 /*might be needed at select for working in chrome: -webkit-appearance: none;*/
 #wrapper article div.profileCountry{
@@ -168,7 +177,7 @@
 #wrapper article div.profileCountry select {
   background-color: transparent;
   border-radius: 0.125em;
-  color: #000000;
+  color: #05222a;
   height: 1.5em;
   width: 14.2em;
   border: 0;  
@@ -189,7 +198,7 @@
 }
 
 #wrapper article div.saveChanges button {
-  margin-top: 1em;
+  margin-top: 0.3em;
   font-size: 1.4em;
   font-weight: bold;
   background-color: #7db6ff;
@@ -243,30 +252,32 @@
   background-color: transparent;
 }
 
-#wrapper article div.profileInputsLeft div#profileUpdateSuccess{
-  display: none;
+#wrapper article div.profileChangesSuccess{
+  height: 1em;
+  float: left; 
 }
 
-#wrapper article div div#profilePasswordError{
-  display: none;
-  color: #F78181;
-  padding-bottom: 1em;
-  height: 2em;
-}
-#wrapper article div div#profileEmailError{
-  display: none;
-  height: 2em;
-  display: none;
-  color: #F78181;
-  padding-bottom: 1em;
+#wrapper article div.profileChangesSuccess p{
+  float: left;
+  margin-left: 1em;
+  color: #FFFFFF;
+  margin-top: -0.4em;
+  font-weight: bold;
 }
 
-#wrapper article div div#profileAvatarError{
-  display: none;
-  height: 2em;
+#wrapper article div.profileChangesSuccess img{
+  float: left;
+  margin-left: 1em;
+  margin-top: -0.4em;
+}
+
+#wrapper article div.profileErrorMessage{
   display: none;
   color: #F78181;
-  padding-bottom: 2em;
+  padding-bottom: 0.8em;
+  height: 2.8em;
+  font-size: 1.4em;
+  font-weight: bold;
 }
 
 
