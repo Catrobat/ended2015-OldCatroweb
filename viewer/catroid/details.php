@@ -3,21 +3,21 @@
  * Catroid: An on-device visual programming system for Android devices
  * Copyright (C) 2010-2013 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * An additional term exception under section 7 of the GNU Affero
  * General Public License, version 3, is available at
  * http://developer.catrobat.org/license_additional_term
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -42,10 +42,10 @@
   <div id="projectDetailsContainer">
     <div class="projectDetailsThumbnail">
       <a href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
-        <img src="<?php echo $this->project['image']?>" alt="<?php $this->project['title']?>" />
+        <img id="projectDetailsThumbnailImage" src="<?php echo $this->project['image']?>" alt="<?php $this->project['title']?>" />
       </a>
     </div>
-  
+
     <div class="projectDetailsDescription">
       <div>
         <span class="projectDetailsDescriptionHeading">
@@ -58,22 +58,22 @@
         </span>
       </div>
     </div>
-  
+
     <div class="projectDetailsDownload">
       <div class="projectDetailsDownloadButton">
         <span id="projectDetailsDownloadVersion"><?php echo $this->languageHandler->getString('version_info_text') . " " . $this->project['version_name'];?></span>
         <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
           <div class="green">
-            <?php echo $this->languageHandler->getString('download_button');?>
+            <span class="projectDetailsDownloadText shrinkTextToFit"><?php echo $this->languageHandler->getString('download_button');?></span>
           </div>
         </a>
         <a id="projectDetailsDownloadLicense" href="<?php echo BASE_PATH?>licenseToPlay"><?php echo $this->languageHandler->getString('some_rights_reserved');?></a>
       </div>
     </div>
-  
-    <div class="projectDetailsInformationSeperator">
-      <hr/>
+
+    <div class="projectDetailsSeperator">
     </div>
+
     <div class="projectDetailsInformation">
       <ul>
         <li>
@@ -83,11 +83,10 @@
           </div>
         </li>
         <li>
-          <div class="img-age"></div>          
+          <div class="img-age"></div>
           <div class="projectDetailsInformationText">
             <?php echo $this->project['publish_time_in_words']; ?>
           </div>
-        
         </li>
         <li>
           <div class="img-size"></div>
@@ -98,7 +97,7 @@
         <li>
           <div class="img-downloads"></div>
           <div class="projectDetailsInformationText">
-            <?php echo $this->project['download_count'] . " " . $this->languageHandler->getString('downloads'); ?>
+            <span><?php echo $this->project['download_count'] . " " . $this->languageHandler->getString('downloads'); ?></span>
           </div>
         </li>
         <li>
@@ -109,5 +108,41 @@
         </li>
       </ul>
     </div>
+
+    <div class="projectDetailsSeperator">
+    </div>
+
+    <div id="projectDetailsReportContainer">
+      <div id="detailsFlagButton">
+        <button type="button" class="buttonBlue" id="reportAsInappropriateButton">
+          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
+        </button>
+      </div>
+      <?php if($this->project['showReportAsInappropriateButton']['show']) : ?>
+      <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
+        <form method="POST" class="reportInappropriateForm">
+          <p><?php echo $this->languageHandler->getString('report_as_inappropriate_label')?></p>
+          <input type="hidden" id="reportInappropriateProjectId" value="<?php echo $this->project['id']?>"/>
+          <p>
+          <textarea class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="<?php echo $this->languageHandler->getString('flag_reason_placeholder')?>" required="required"></textarea>
+          </p>
+          <p class="reportAsInappropriateDialogButtons">
+            <input type="button" class="buttonGreen buttonSmall" id="reportInappropriateReportButton" value="<?php echo $this->languageHandler->getString('report')?>"/>
+            <input type="button" class="buttonWhite buttonSmall" id="reportInappropriateCancelButton" value="<?php echo $this->languageHandler->getString('cancel')?>"/>
+          </p>
+        </form>
+      </div>
+      <div id="reportAsInappropriateAnswer"></div>
+      <?php else : ?>
+      <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
+        <?php echo $this->project['showReportAsInappropriateButton']['message']; ?>
+      </div>
+    <?php endif; ?>
+    </div>
   </div>
 </article>
+<script type="text/javascript">
+  $(document).ready(function() {
+    Details = new ProjectDetails();
+  });
+</script>
