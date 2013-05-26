@@ -111,8 +111,6 @@
       <string name="postdata_missing">Please enter your login data.</string>
     </registration>
     <profile>
-      <string name="password_old_missing">The old password is missing.</string>
-      <string name="password_old_wrong">The old password was incorrect.</string>
       <string name="password_new_missing">The new password is missing.</string>
       <string name="password_new_equal">You entered two differend passwords.</string>
     </profile>

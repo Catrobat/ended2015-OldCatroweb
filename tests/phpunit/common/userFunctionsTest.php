@@ -338,34 +338,6 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
   /**
    * @dataProvider validRegistrationData
    */
-  public function testUpdateCity($postData) {
-    $newCity = "NewCity";
-    try {
-      $this->obj->register($postData);
-      try {
-        $this->obj->updateCity($newCity);
-        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
-      } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "There was a problem while updating your city.");
-      }
-      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
-      
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['city'], $postData['registrationCity']);
-      $this->obj->updateCity($newCity);
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['city'], $newCity);
-      
-      $this->obj->undoRegister();
-      $this->assertTrue(true);
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
-    }
-  }
-
-  /**
-   * @dataProvider validRegistrationData
-   */
   public function testUpdateCountry($postData) {
     $newCountry = "XX";
     try {
@@ -384,71 +356,6 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $data = $this->obj->getUserData($postData['registrationUsername']);
       $this->assertEquals($data['country'], $newCountry);
       
-      $this->obj->undoRegister();
-      $this->assertTrue(true);
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
-    }
-  }
-
-  /**
-   * @dataProvider validRegistrationData
-   */
-  public function testUpdateGender($postData) {
-    $newGender = "female";
-    try {
-      $this->obj->register($postData);
-      try {
-        $this->obj->updateGender($newGender);
-        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
-      } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "There was a problem while updating your gender.");
-      }
-      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
-      
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['gender'], $postData['registrationGender']);
-      $this->obj->updateGender($newGender);
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['gender'], $newGender);
-      
-      $this->obj->undoRegister();
-      $this->assertTrue(true);
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
-    }
-  }
-
-  /**
-   * @dataProvider validRegistrationData
-   */
-  public function testUpdateBirthday($postData) {
-    $newMonth = "12";
-    $newYear = "2012";
-    try {
-      $this->obj->register($postData);
-      try {
-        $this->obj->updateBirthday($newMonth, $newYear);
-        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
-      } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "There was a problem while updating your birthday data.");
-      }
-      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
-      
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['month'], $postData['registrationMonth']);
-      $this->assertEquals($data['year'], $postData['registrationYear']);
-
-      $this->obj->updateBirthday($newMonth, $newYear);
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['month'], $newMonth);
-      $this->assertEquals($data['year'], $newYear);
-
-      $this->obj->updateBirthday('', '');
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['month'], null);
-      $this->assertEquals($data['year'], null);
-
       $this->obj->undoRegister();
       $this->assertTrue(true);
     } catch(Exception $e) {

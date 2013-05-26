@@ -712,6 +712,7 @@ class userFunctions extends CoreAuthenticationNone {
   
   public function updateAvatar() {
     $maxAvatarSize = 128;
+    
     if(intval($this->session->userLogin_userId) > 0 && isset($_FILES['file'])) {
       $data = "";
       
@@ -872,22 +873,6 @@ class userFunctions extends CoreAuthenticationNone {
     return $authToken;
   }
 
-//   public function updateCity($city) {
-//     if($this->session->userLogin_userId > 0) {
-//       $result = pg_execute($this->dbConnection, "update_user_city", array(checkUserInput($city),
-//           $this->session->userLogin_userId));
-       
-//       if(!$result) {
-//         throw new Exception($this->errorHandler->getError('userFunctions', 'city_update_failed', pg_last_error($this->dbConnection)),
-//             STATUS_CODE_USER_UPDATE_CITY_FAILED);
-//       }
-//       pg_free_result($result);
-//     } else {
-//       throw new Exception($this->errorHandler->getError('userFunctions', 'city_update_failed', pg_last_error($this->dbConnection)),
-//           STATUS_CODE_USER_UPDATE_CITY_FAILED);
-//     }
-//   }
-
   public function updateCountry($country) {
     if($this->session->userLogin_userId > 0) {
       $this->checkCountry($country);
@@ -904,44 +889,6 @@ class userFunctions extends CoreAuthenticationNone {
           STATUS_CODE_USER_UPDATE_COUNTRY_FAILED);
     }
   }
-
-//   public function updateGender($gender) {
-//     if($this->session->userLogin_userId > 0) {
-//       $result = pg_execute($this->dbConnection, "update_user_gender", array($gender, $this->session->userLogin_userId));
-//       if(!$result) {
-//         throw new Exception($this->errorHandler->getError('userFunctions', 'gender_update_failed', pg_last_error($this->dbConnection)),
-//             STATUS_CODE_USER_UPDATE_GENDER_FAILED);
-//       }
-//       pg_free_result($result);
-//     } else {
-//       throw new Exception($this->errorHandler->getError('userFunctions', 'gender_update_failed', pg_last_error($this->dbConnection)),
-//           STATUS_CODE_USER_UPDATE_GENDER_FAILED);
-//     }
-//   }
-
-//   public function updateBirthday($birthdayMonth, $birthdayYear) {
-//     if($this->session->userLogin_userId > 0) {
-//       if($birthdayMonth == 0 && $birthdayYear == 0) {
-//         $result = pg_execute($this->dbConnection, "delete_user_birth", array($this->session->userLogin_userId));
-//         if(!$result) {
-//           throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
-//               STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
-//         }
-//         pg_free_result($result);
-//       } else if($birthdayMonth > 0 && $birthdayYear > 1) {
-//         $birthday = sprintf("%04d", $birthdayYear) . '-' . sprintf("%02d", $birthdayMonth) . '-01 00:00:01';
-//         $result = pg_execute($this->dbConnection, "update_user_birth", array($birthday, $this->session->userLogin_userId));
-//         if(!$result) {
-//           throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
-//               STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
-//         }
-//         pg_free_result($result);
-//       }
-//     } else {
-//       throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
-//           STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
-//     }
-//   }
 
   public function updateLanguage($language) {
     if(intval($this->session->userLogin_userId) > 0) {
@@ -1085,42 +1032,9 @@ class userFunctions extends CoreAuthenticationNone {
      $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
   }
   
-//   public function addEmailAddress($userId, $email) {
-//     $this->checkEmail($email);
-
-//     $userEmails = $this->getEmailAddresses($userId);
-//     foreach($userEmails as $current) {
-//       if($current['address'] === $email) {
-//         throw new Exception($this->errorHandler->getError('userFunctions', 'email_address_exists'),
-//             STATUS_CODE_USER_ADD_EMAIL_EXISTS);
-//       }
-//     }
-
-//     $result = pg_execute($this->dbConnection, "add_user_email", array($userId, $email));
-//     if(!$result) {
-//       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-//           STATUS_CODE_SQL_QUERY_FAILED);
-//     }
-//     pg_free_result($result);
-    
-//     $data = $this->getUserDataForRecovery($email);
-//     $hash = $this->createUserHash($data);
-//     try {
-//       while(true) {
-//         $this->isValidationHashValid($hash);
-//         $hash = $this->createUserHash($data);
-//       }
-//     } catch(Exception $e) {
-//       if($e->getCode() != STATUS_CODE_USER_RECOVERY_EXPIRED) {
-//         throw $e;
-//       }
-//     }
-//     $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
-//   }
 
   public function deleteEmailAddress($additional, $firstEmail, $secondEmail) {
     $userId = intval($this->session->userLogin_userId);
-    //throw new Exception((string)$additional, STATUS_CODE_SQL_QUERY_FAILED);
     if($additional == 1) {   
       $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
       if(!$result) {
