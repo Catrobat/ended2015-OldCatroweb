@@ -79,8 +79,8 @@
     <string name="get_user_row_by_username">SELECT cusers.id, cusers.username, cusers.gender, cusers.country, cusers.city, cusers.language, to_char(cusers.date_of_birth, 'MM') AS month, to_char(cusers.date_of_birth, 'YYYY') AS year, cusers.avatar, (SELECT count(*) FROM projects WHERE projects.user_id=cusers.id) AS project_count FROM cusers WHERE username=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
 
-    <string name="get_user_row_by_email">SELECT DISTINCT u.* FROM cusers u, cusers_additional_email e WHERE u.email=$1 OR (e.email=$1 AND e.user_id=u.id)</string>
-    <string name="get_user_row_by_valid_email">SELECT DISTINCT u.* FROM cusers u, cusers_additional_email e WHERE u.email=$1 OR (e.email=$1 AND e.validated=true AND e.user_id=u.id)</string>
+    <string name="get_user_row_by_email">SELECT u.* FROM cusers u WHERE u.email=$1 OR u.add_email=$1</string>
+    <string name="get_user_row_by_valid_email">SELECT u.* FROM cusers u WHERE u.email=$1 OR (u.add_email=$1 AND add_email_validated=true)</string>
     <string name="get_user_language">SELECT language FROM cusers WHERE id=$1</string>
     
     <string name="add_user_email">INSERT INTO cusers_additional_email (user_id, email) VALUES ($1, $2)</string>
@@ -88,9 +88,9 @@
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
     <string name="get_email_hash">SELECT id from cusers_additional_email WHERE validation_hash=$1</string>
     <string name="get_user_email_by_email">SELECT email FROM cusers WHERE email=$1</string>
-<!--    <string name="get_user_emails_by_id">SELECT u.email, true as validated FROM cusers u WHERE u.id=$1 UNION SELECT e.email, e.validated FROM cusers_additional_email e WHERE e.user_id=$1</string>-->
 		<string name="get_user_emails_by_id">SELECT email, add_email, true as validated FROM cusers WHERE id=$1</string>
-
+		<string name="get_add_email_validation">SELECT add_email_validated FROM cusers WHERE id=$1</string>
+	
     <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token, language) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
 <!--    <string name="delete_user_additional_email">DELETE FROM cusers WHERE email=$1</string>-->

@@ -73,6 +73,7 @@
       <string name="email_update_of_catroweb_failed">Catroweb must have at least two e-mail addresses.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
       <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
+    	<string name="no_valid_email">Error while deleting this e-mail address. You must have at least one valid e-mail address.</string>
     </userFunctions>
     <upload>
         <string name="missing_project_title">You need to specify a title for your project!</string>

@@ -237,7 +237,7 @@ class userFunctions extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('userFunctions', 'email_invalid'),
           STATUS_CODE_USER_EMAIL_INVALID);
     }
-    $result = pg_execute($this->dbConnection, "get_user_row_by_valid_email", array($email));
+    $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($email));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
@@ -1129,6 +1129,12 @@ class userFunctions extends CoreAuthenticationNone {
       }
       pg_free_result($result);
     } else if($additional == 0 && $secondEmail != '') {
+      $result = pg_execute($this->dbConnection, "get_add_email_validation", array($userId));
+      if($result) {
+        throw new Exception($this->errorHandler->getError('userFunctions', 'no_valid_email'),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      
       $result = pg_execute($this->dbConnection, "update_user_email", array($userId, $secondEmail));
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),

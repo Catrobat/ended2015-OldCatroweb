@@ -26,6 +26,7 @@ var Profile = Class.$extend( {
 
   __init__ : function(languageStringsObject) {
     var self = this;
+    $(".profileLoader").hide();
     this.languageStringsObject = languageStringsObject;
     this.passwordadditionalChanged = 0;
     this.countryChanged = 0;
@@ -43,7 +44,6 @@ var Profile = Class.$extend( {
     $(".profileSecondEmailItem input").keypress($.proxy(this.secondEmailCatchKeypress, this));
     $(".profileCountry").change($.proxy(this.countryChangedEvent, this));
     $("#profileSaveChanges").click($.proxy(this.updateChangesRequest, this));
-    $(".img-delete").mouseover($(".img-delete").css('cursor', 'pointer'));
     $(".profileDeleteFirstEmail").click($.proxy(this.deleteEmail,this, 0));
     $(".profileDeleteSecondEmail").click($.proxy(this.deleteEmail,this, 1));
 
@@ -162,11 +162,21 @@ var Profile = Class.$extend( {
       this.secondEmailChanged = 0;
     }
     
+    if((this.passwordChanged == 1 && this.firstEmailChanged == 1) ||
+        (this.passwordChanged == 1 && this.secondEmailChanged == 1) ||
+        (this.firstEmailChanged == 1 && this.secondEmailChanged == 1)) {
+      
+      alert(this.languageStringsObject['edit_one_entry']);
+      this.stop();
+    }
+    
+    $(".profileLoader").css('display', 'block');
     //this.checkInputRequest();
     this.setNewValues();
   },
   
   setNewValues : function() {
+    
     if(this.inputInvalid == 0) {
       if(this.passwordChanged == 1) {
         this.passwordChanged = 0;
@@ -294,6 +304,7 @@ var Profile = Class.$extend( {
   
   passwordRequestSuccess : function(result) {
     this.passwordChanged = 0;
+    $(".profileLoader").hide();
     if(result.statusCode == 200) {
       $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
@@ -307,8 +318,8 @@ var Profile = Class.$extend( {
       $(".profilePasswordItem").addClass("profileValid");
       $(".profilePasswordItem input").removeClass("inputInvalid");
       $(".profilePasswordItem input").addClass("inputValid");
-      $(".profilePasswordItem img").removeClass("img-failedPw");
-      $(".profilePasswordItem img").addClass("img-password");
+      $(".profilePasswordItem div").removeClass("img-failedPw");
+      $(".profilePasswordItem div").addClass("img-password");
     } else {
       this.setPasswordError(result);
     }
@@ -322,16 +333,16 @@ var Profile = Class.$extend( {
     $(".profilePasswordItem").addClass("profileInvalid");
     $(".profilePasswordItem input").removeClass("inputValid");
     $(".profilePasswordItem input").addClass("inputInvalid");
-    $(".profilePasswordItem img").removeClass("img-password");
-    $(".profilePasswordItem img").addClass("img-failedPw");
+    $(".profilePasswordItem div").removeClass("img-password");
+    $(".profilePasswordItem div").addClass("img-failedPw");
   },
  
   firstEmailRequestSuccess : function(result) {
+    $(".profileLoader").hide();
     this.firstEmailChanged = 0;
     $("#profileEmailError").toggle(false);
     $("#profilePasswordError").toggle(false);
     if(result.statusCode == 200) {
-      alert(this.languageStringsObject['email_verification']);
       $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
       $(".profileChangesSuccess").css("visibility","visible");
@@ -339,28 +350,30 @@ var Profile = Class.$extend( {
       $(".profileFirstEmailItem").addClass("profileValid");
       $(".profileFirstEmailItem input").removeClass("inputInvalid");
       $(".profileFirstEmailItem input").addClass("inputValid");
-      $(".profileFirstEmailItem img").removeClass("img-failed-first-email");
-      $(".profileFirstEmailItem img").addClass("img-first-email");
+      $(".profileFirstEmailItem div").removeClass("img-failed-first-email");
+      $(".profileFirstEmailItem div").addClass("img-first-email");
+      alert(this.languageStringsObject['email_verification']);
     } else {
       this.setEmailError(result, ".profileFirstEmailItem", "first" );
     }
   },
   
   secondEmailRequestSuccess : function(result) {
+    $(".profileLoader").hide();
     this.secondEmailChanged = 0;
     $("#profileEmailError").toggle(false);
     $("#profilePasswordError").toggle(false);
     if(result.statusCode == 200) {
-      alert(this.languageStringsObject['email_verification']);
       $(".profileSecondEmailItem").removeClass("profileInvalid");
       $(".profileSecondEmailItem").addClass("profileValid");
       $(".profileSecondEmailItem input").removeClass("inputInvalid");
       $(".profileSecondEmailItem input").addClass("inputValid");
-      $(".profileSecondEmailItem img").removeClass("img-failed-second-email");
-      $(".profileSecondEmailItem img").addClass("img-second-email");
+      $(".profileSecondEmailItem div").removeClass("img-failed-second-email");
+      $(".profileSecondEmailItem div").addClass("img-second-email");
       $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
       $(".profileChangesSuccess").css("visibility","visible");
+      alert(this.languageStringsObject['email_verification']);
     } else {
       this.setEmailError(result, ".profileSecondEmailItem", "second" );
     }
@@ -374,13 +387,16 @@ var Profile = Class.$extend( {
     $(item).addClass("profileInvalid");
     $(item + " input").removeClass("inputValid");
     $(item + " input").addClass("inputInvalid");
-    $(item + " img").removeClass("img-"+ id + "-email");
-    $(item + " img").addClass("img-failed-" + id + "-email");
+    $(item + " div").removeClass("img-"+ id + "-email");
+    $(item + " div").addClass("img-failed-" + id + "-email");
   },
   
   deleteEmailRequestSuccess : function(result) {
-    if(result.statusCode == 200)
+    if(result.statusCode == 200) {
+      $("#profileEmailError").toggle(false);
+      $("#profilePasswordError").toggle(false);
       this.setEmailValuesRequest();
+    }
     else
       {
         $("#profileEmailError").text(result.answer);
@@ -394,6 +410,7 @@ var Profile = Class.$extend( {
   },
   
   countryRequestSuccess : function(result) {
+    $(".profileLoader").hide();
     if(result.statusCode == 200) {
       $(".profileChangesSuccess").css("visibility","visible");
     }
