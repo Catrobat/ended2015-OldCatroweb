@@ -60,6 +60,10 @@ div.projectList {
   background-color:#bbbbbb;
 }
 
+.projectTableFeaturedImage  {
+  width:50%;
+}
+
 form.admin {
   margin:0px;
   padding:0px;

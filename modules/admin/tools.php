@@ -150,6 +150,72 @@ class tools extends CoreAuthenticationAdmin {
     $this->htmlFile = "editProjectList.php";
     $this->projects = $this->retrieveAllProjectsFromDatabase();
   }
+  
+  public function editFeaturedProjects() {
+    if(isset($_POST['delete'])) {
+      if($this->deleteFeaturedProject($_POST['featuredId'])) {
+        $answer = "The featured project was succesfully deleted!";
+      } else {
+        $answer = "Error: could NOT delete the featured project!";
+      }
+      $this->answer = $answer;
+    }
+    $this->htmlFile = "editFeaturedProjects.php";
+    $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
+  }
+  
+  public function toggleFeaturedProjectsVisiblity() {
+    if(isset($_POST['toggle'])) {
+      $id = $_POST['featuredId'];
+      if ($_POST['toggle'] == "visible") {
+        $query = "EXECUTE edit_featured_project_visibility_by_id('$id','t');";
+        $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+        if(pg_affected_rows($result)) {
+          $answer = "The featured project was succesfully set to state visible!";
+        } else {
+          $answer = "Error could NOT change featured project to state visible!";
+        }
+        $this->answer = $answer;
+      }
+      if ($_POST['toggle'] == "invisible") {
+        $query = "EXECUTE edit_featured_project_visibility_by_id('$id','f');";
+        $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+        if(pg_affected_rows($result)) {
+          $answer = "The featured project was succesfully set to state invisible!";
+        } else {
+          $answer = "Error could NOT change featured project to state invisible!";
+        }
+        $this->answer = $answer.$project['id'];
+      }
+    }
+    $this->htmlFile = "editFeaturedProjects.php";
+    $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
+  }
+  
+  public function deleteFeaturedProject($id) {
+    $directory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
+    $imageDirectory = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY;
+  
+    $query = "EXECUTE get_featured_project_by_id('$id');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if(pg_affected_rows($result) != 1) {
+      return false;
+    }
+  
+    $project =  pg_fetch_assoc($result);
+    if($project['id'] > 0) {
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$id.PROJECTS_FEATURED_EXTENSION))
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$id.PROJECTS_FEATURED_EXTENSION);
+    }
+  
+    $query = "EXECUTE delete_featured_project_by_id('$id');";
+    $result = @pg_query($query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
+    if(pg_affected_rows($result)) {
+      return true;
+    }
+     
+    return false;
+  }
 
   public function addBlockedIp() {
     if(isset($_POST['blockip'])) {
@@ -346,6 +412,18 @@ class tools extends CoreAuthenticationAdmin {
     if($projects) {
       for($i=0;$i<count($projects);$i++) {
         $projects[$i]['num_flags'] = $this->countFlags($projects[$i]['id']);
+      }
+    }
+    return($projects);
+  }
+  
+  private function retrieveAllFeaturedProjectsFromDatabase() {
+    $query = 'EXECUTE get_featured_projects_ordered_by_update_time;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $projects =  pg_fetch_all($result);
+    if($projects) {
+      for($i=0;$i<count($projects);$i++) {
+        $projects[$i]['image'] = getFeaturedProjectImageUrl($projects[$i]['project_id']);
       }
     }
     return($projects);
