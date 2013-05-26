@@ -128,9 +128,9 @@ var Profile = Class.$extend( {
         type: "POST",
         url: this.basePath + 'catroid/profile/deleteEmailRequest.json',
         data : ({
-          emailToDelete  : additional,
-          firstEmail     : $(".profileFirstEmailItem input").val(), 
-          secondEmail    : $(".profileSecondEmailItem input").val(),
+          additional  : additional,
+          firstEmail  : $(".profileFirstEmailItem input").val(), 
+          secondEmail : $(".profileSecondEmailItem input").val(),
         }),
         timeout : (this.ajaxTimeout),
         success : $.proxy(this.deleteEmailRequestSuccess, this),

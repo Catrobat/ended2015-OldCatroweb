@@ -1120,28 +1120,30 @@ class userFunctions extends CoreAuthenticationNone {
 
   public function deleteEmailAddress($additional, $firstEmail, $secondEmail) {
     $userId = intval($this->session->userLogin_userId);
-    if($additional == 1) {    
-      $result = pg_execute($this->dbConnection, "update_user_email", array($userId, ''));
+    //throw new Exception((string)$additional, STATUS_CODE_SQL_QUERY_FAILED);
+    if($additional == 1) {   
+      $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
             STATUS_CODE_SQL_QUERY_FAILED);
       }
       pg_free_result($result);
-      } //else if($emailToDelete == "first" && $secondEmail != '') {
-//       $result = pg_execute($this->dbConnection, "update_user_email", array($userId, $secondEmail));
-//       if(!$result) {
-//         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-//             STATUS_CODE_SQL_QUERY_FAILED);
-//       }
-//       $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
-//       if(!$result) {
-//         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-//             STATUS_CODE_SQL_QUERY_FAILED);
-//       }
-//     } else {
-//       throw new Exception($this->errorHandler->getError('userFunctions', 'email_delete_failed'),
-//           STATUS_CODE_USER_DELETE_EMAIL_FAILED);
-//     }
+    } else if($additional == 0 && $secondEmail != '') {
+      $result = pg_execute($this->dbConnection, "update_user_email", array($userId, $secondEmail));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      pg_free_result($result);
+    } else {
+      throw new Exception($this->errorHandler->getError('userFunctions', 'email_delete_failed'),
+          STATUS_CODE_USER_DELETE_EMAIL_FAILED);
+    }
     
 
 /*    $numberOfValidEmailAddresses = 0;
