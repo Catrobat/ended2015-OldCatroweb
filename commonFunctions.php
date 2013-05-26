@@ -187,6 +187,15 @@ function getProjectImageUrl($projectId) {
   return $img;
 }
 
+function getFeaturedProjectImageUrl($projectId) {
+  $img = BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$projectId.".png";
+  $imgFile = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$projectId.".png";
+  if(!is_file($imgFile)) {
+    $img = "";
+  }
+  return $img;
+}
+
 function getTimeInWords($fromTime, $languageHandler, $toTime = -1) {
   if($toTime == -1) {
     $toTime = time();
