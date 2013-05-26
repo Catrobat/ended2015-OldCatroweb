@@ -517,7 +517,7 @@ public class BaseTest {
     }
     
     driver().get(this.webSite + Config.TESTS_BASE_PATH + "login/logoutRequest.json");
-    driver().get(location);
+    driver().get(location.replace("//", "/"));
     ajaxWait();
   }
   

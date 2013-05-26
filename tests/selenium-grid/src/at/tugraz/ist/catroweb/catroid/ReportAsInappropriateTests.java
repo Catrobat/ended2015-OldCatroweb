@@ -50,7 +50,7 @@ public class ReportAsInappropriateTests extends BaseTest {
 
       // goto details page
       login("details/" + projectId);
-      assertTrue(isTextPresent(projectTitle));
+      assertTrue(isTextPresent(projectTitle.toUpperCase()));
       assertTrue(isTextPresent(dataset.get("projectDescription")));
 
       // report as inappropriate visible
@@ -62,7 +62,7 @@ public class ReportAsInappropriateTests extends BaseTest {
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
 
       logout("details/" + projectId);
-      assertTrue(isTextPresent(projectTitle));
+      assertTrue(isTextPresent(projectTitle.toUpperCase()));
       assertTrue(isTextPresent(dataset.get("projectDescription")));
       // report as inappropriate still visible after logout
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));

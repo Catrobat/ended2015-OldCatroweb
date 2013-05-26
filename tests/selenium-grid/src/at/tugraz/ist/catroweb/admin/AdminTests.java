@@ -142,12 +142,7 @@ public class AdminTests extends BaseTest {
   @Test(groups = { "functionality", "upload", "popupwindows" }, description = "check report as inappropriate functionality")
   public void inappropriateProjects() throws Throwable {
     try {
-      openLocation("details/1");
-      driver().findElement(By.id("largeMenuButton")).click();
-      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
-      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
-      driver().findElement(By.id("loginSubmitButton")).click();
-      ajaxWait();
+      login("details/1");
 
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
       driver().findElement(By.id("reportAsInappropriateButton")).click();
@@ -159,7 +154,7 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("1"));
 
       clickAndWaitForPopUp(By.xpath("//a[@id='detailsLink1']"));
-      assertTrue(isTextPresent("testproject"));
+      assertTrue(isTextPresent("testproject".toUpperCase()));
       closePopUp();
 
       clickOkOnNextConfirmationBox();
