@@ -872,21 +872,21 @@ class userFunctions extends CoreAuthenticationNone {
     return $authToken;
   }
 
-  public function updateCity($city) {
-    if($this->session->userLogin_userId > 0) {
-      $result = pg_execute($this->dbConnection, "update_user_city", array(checkUserInput($city),
-          $this->session->userLogin_userId));
+//   public function updateCity($city) {
+//     if($this->session->userLogin_userId > 0) {
+//       $result = pg_execute($this->dbConnection, "update_user_city", array(checkUserInput($city),
+//           $this->session->userLogin_userId));
        
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('userFunctions', 'city_update_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_USER_UPDATE_CITY_FAILED);
-      }
-      pg_free_result($result);
-    } else {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'city_update_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_USER_UPDATE_CITY_FAILED);
-    }
-  }
+//       if(!$result) {
+//         throw new Exception($this->errorHandler->getError('userFunctions', 'city_update_failed', pg_last_error($this->dbConnection)),
+//             STATUS_CODE_USER_UPDATE_CITY_FAILED);
+//       }
+//       pg_free_result($result);
+//     } else {
+//       throw new Exception($this->errorHandler->getError('userFunctions', 'city_update_failed', pg_last_error($this->dbConnection)),
+//           STATUS_CODE_USER_UPDATE_CITY_FAILED);
+//     }
+//   }
 
   public function updateCountry($country) {
     if($this->session->userLogin_userId > 0) {
@@ -905,43 +905,43 @@ class userFunctions extends CoreAuthenticationNone {
     }
   }
 
-  public function updateGender($gender) {
-    if($this->session->userLogin_userId > 0) {
-      $result = pg_execute($this->dbConnection, "update_user_gender", array($gender, $this->session->userLogin_userId));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('userFunctions', 'gender_update_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_USER_UPDATE_GENDER_FAILED);
-      }
-      pg_free_result($result);
-    } else {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'gender_update_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_USER_UPDATE_GENDER_FAILED);
-    }
-  }
+//   public function updateGender($gender) {
+//     if($this->session->userLogin_userId > 0) {
+//       $result = pg_execute($this->dbConnection, "update_user_gender", array($gender, $this->session->userLogin_userId));
+//       if(!$result) {
+//         throw new Exception($this->errorHandler->getError('userFunctions', 'gender_update_failed', pg_last_error($this->dbConnection)),
+//             STATUS_CODE_USER_UPDATE_GENDER_FAILED);
+//       }
+//       pg_free_result($result);
+//     } else {
+//       throw new Exception($this->errorHandler->getError('userFunctions', 'gender_update_failed', pg_last_error($this->dbConnection)),
+//           STATUS_CODE_USER_UPDATE_GENDER_FAILED);
+//     }
+//   }
 
-  public function updateBirthday($birthdayMonth, $birthdayYear) {
-    if($this->session->userLogin_userId > 0) {
-      if($birthdayMonth == 0 && $birthdayYear == 0) {
-        $result = pg_execute($this->dbConnection, "delete_user_birth", array($this->session->userLogin_userId));
-        if(!$result) {
-          throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
-              STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
-        }
-        pg_free_result($result);
-      } else if($birthdayMonth > 0 && $birthdayYear > 1) {
-        $birthday = sprintf("%04d", $birthdayYear) . '-' . sprintf("%02d", $birthdayMonth) . '-01 00:00:01';
-        $result = pg_execute($this->dbConnection, "update_user_birth", array($birthday, $this->session->userLogin_userId));
-        if(!$result) {
-          throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
-              STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
-        }
-        pg_free_result($result);
-      }
-    } else {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
-    }
-  }
+//   public function updateBirthday($birthdayMonth, $birthdayYear) {
+//     if($this->session->userLogin_userId > 0) {
+//       if($birthdayMonth == 0 && $birthdayYear == 0) {
+//         $result = pg_execute($this->dbConnection, "delete_user_birth", array($this->session->userLogin_userId));
+//         if(!$result) {
+//           throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
+//               STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
+//         }
+//         pg_free_result($result);
+//       } else if($birthdayMonth > 0 && $birthdayYear > 1) {
+//         $birthday = sprintf("%04d", $birthdayYear) . '-' . sprintf("%02d", $birthdayMonth) . '-01 00:00:01';
+//         $result = pg_execute($this->dbConnection, "update_user_birth", array($birthday, $this->session->userLogin_userId));
+//         if(!$result) {
+//           throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
+//               STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
+//         }
+//         pg_free_result($result);
+//       }
+//     } else {
+//       throw new Exception($this->errorHandler->getError('userFunctions', 'birth_update_failed', pg_last_error($this->dbConnection)),
+//           STATUS_CODE_USER_UPDATE_BIRTHDAY_FAILED);
+//     }
+//   }
 
   public function updateLanguage($language) {
     if(intval($this->session->userLogin_userId) > 0) {
@@ -1055,30 +1055,10 @@ class userFunctions extends CoreAuthenticationNone {
     $this->checkEmail($email);
     
     if($additional == 0) {
-      if($email == '') {
-        $emails = getEmailAddresses($userId);
-        if($emails[1] == 0) {
-          throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-             STATUS_CODE_PROFILE_DELETE_CATROWEB_EMAIL_FAILED);
-        }
-        else {
-          $result = pg_execute($this->dbConnection, "update_user_email", array($userId, $emails[1]));
-          if(!$result) {
-            throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-                STATUS_CODE_SQL_QUERY_FAILED);
-          }
-          $result =pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
-          if(!$result) {
-            throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-                STATUS_CODE_SQL_QUERY_FAILED);
-          }
-        }
-      } else {
-        $result = pg_execute($this->dbConnection, "update_user_email", array($userId, $email));
-        if(!$result) {
-          throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-              STATUS_CODE_SQL_QUERY_FAILED);
-        }
+      $result = pg_execute($this->dbConnection, "update_user_email", array($userId, $email));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
       }
     } else {
       $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, $email));
@@ -1089,20 +1069,20 @@ class userFunctions extends CoreAuthenticationNone {
     }
     pg_free_result($result);
     
-    $data = $this->getUserDataForRecovery($email);
-    $hash = $this->createUserHash($data);
-    try {
-      while(true) {
-        $this->isValidationHashValid($hash);
-        $hash = $this->createUserHash($data);
-      }
-    } catch(Exception $e) {
-      if($e->getCode() != STATUS_CODE_USER_RECOVERY_EXPIRED) {
-        throw $e;
-      }
-    }
+//     $data = $this->getUserDataForRecovery($email);
+//     $hash = $this->createUserHash($data);
+//     try {
+//       while(true) {
+//         $this->isValidationHashValid($hash);
+//         $hash = $this->createUserHash($data);
+//       }
+//     } catch(Exception $e) {
+//       if($e->getCode() != STATUS_CODE_USER_RECOVERY_EXPIRED) {
+//         throw $e;
+//       }
+//     }
     
-    $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
+//     $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
   }
   
   public function addEmailAddress($userId, $email) {
@@ -1139,10 +1119,33 @@ class userFunctions extends CoreAuthenticationNone {
     $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
   }
 
-  public function deleteEmailAddress($email) {
+  public function deleteEmailAddress($emailToDelete, $firstEmail, $secondEmail) {
     $userId = intval($this->session->userLogin_userId);
+    if($emailToDelete == "second") {    
+      $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      pg_free_result($result);
+     } else if($emailToDelete == "first" && $secondEmail != '') {
+      $result = pg_execute($this->dbConnection, "update_user_email", array($userId, $secondEmail));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+      $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
+      if(!$result) {
+        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+            STATUS_CODE_SQL_QUERY_FAILED);
+      }
+    } else {
+      throw new Exception($this->errorHandler->getError('userFunctions', 'email_delete_failed'),
+          STATUS_CODE_USER_DELETE_EMAIL_FAILED);
+    }
+    
 
-    $numberOfValidEmailAddresses = 0;
+/*    $numberOfValidEmailAddresses = 0;
     foreach($this->getEmailAddresses($userId) as $emails) {
       if($emails['address'] == $email && !$emails['valid']) {
         $numberOfValidEmailAddresses++;
@@ -1190,7 +1193,7 @@ class userFunctions extends CoreAuthenticationNone {
             STATUS_CODE_SQL_QUERY_FAILED);
       }
       pg_free_result($result);
-    }
+    }*/
   }
 
   public function createUserHash($userData) {
