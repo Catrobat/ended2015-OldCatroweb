@@ -226,11 +226,11 @@ class profile extends CoreAuthenticationUser {
 //   }
   
   public function deleteEmailRequest() {
-    $emailToDelete = (isset($_POST['emailId']) ? trim(strval($_POST['emailId'])) : '');
+    $additional = (isset($_POST['additional']) ? trim(strval($_POST['additional'])) : '');
     $firstEmail = (isset($_POST['firstEmail']) ? trim(strval($_POST['firstEmail'])) : '');
     $secondEmail = (isset($_POST['secondEmail']) ? trim(strval($_POST['secondEmail'])) : '');
     try {
-      $this->userFunctions->deleteEmailAddress($emailToDelete, $firstEmail, $secondEmail);
+      $this->userFunctions->deleteEmailAddress($additional, $firstEmail, $secondEmail);
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('email_delete_success');
     } catch(Exception $e) {

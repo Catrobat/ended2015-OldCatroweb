@@ -168,9 +168,6 @@
   background-color: #FFFFFF;
   margin-bottom: 1em;
   overflow: hidden;
-  background-image: url(../images/symbols/sprite_icons_web.png);
-  background-repeat: no-repeat;
-  background-position: -114px 0px;
   font-size: 1.4em;
 }
 
@@ -179,10 +176,17 @@
   border-radius: 0.125em;
   color: #05222a;
   height: 1.5em;
-  width: 14.2em;
+  width: 14.3em;
   border: 0;  
   margin-left: -0.5em;
   padding-left: 0.2em;
+  z-index: 2;
+}
+
+#wrapper article img.profileSelectImage {
+  z-index: 1;
+  margin-top: -0.8em;
+  margin-right: 0.4em;
 }
 
 #wrapper article div.profileCountry option {
@@ -192,7 +196,7 @@
   box-shadow: inset 6px 0px 5px -5px #05222a;
   color: #000000;
   height: 1.5em;
-  width: 17.3em;
+  width: 12.3em;
   padding-left: 1em;
   border: none;
 }

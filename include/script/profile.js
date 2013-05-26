@@ -123,19 +123,14 @@ var Profile = Class.$extend( {
 
   //-------------------------------------------------------------------------------------------------------------------
   
-  deleteEmail : function(id){
-    if(id == 1)
-      emailId = "first";
-    else
-      emailId = "second";
-    
+  deleteEmail : function(additional){ 
       $.ajax({
         type: "POST",
         url: this.basePath + 'catroid/profile/deleteEmailRequest.json',
         data : ({
-          emailToDelete  : emailId,
-          firstEmail     : $(".profileFirstEmailItem input").val(), 
-          secondEmail    : $(".profileSecondEmailItem input").val(),
+          additional  : additional,
+          firstEmail  : $(".profileFirstEmailItem input").val(), 
+          secondEmail : $(".profileSecondEmailItem input").val(),
         }),
         timeout : (this.ajaxTimeout),
         success : $.proxy(this.deleteEmailRequestSuccess, this),
@@ -296,6 +291,8 @@ var Profile = Class.$extend( {
       $(".profileSecondEmailItem").addClass("profileValid");
       $(".profileSecondEmailItem").removeClass("profileInvalid");
       $(".profileSecondEmailItem").addClass("profileValid");
+      $(".profileSecondEmailItem input").removeClass("inputInvalid");
+      $(".profileSecondEmailItem input").addClass("inputValid");
       $(".profileSecondEmailItem img").removeClass("img-failed-second-email");
       $(".profileSecondEmailItem img").addClass("img-second-email");
       $(".profileChangesSuccess").css("visibility","visible");
@@ -320,8 +317,7 @@ var Profile = Class.$extend( {
         $("#profileEmailError").text(result.answer);
         $("#profileEmailError").toggle(true);
         $("#profilePasswordError").toggle(true);
-      }
-    
+      }  
   },
   
   ajaxTimedOut : function() {
