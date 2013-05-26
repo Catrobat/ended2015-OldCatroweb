@@ -236,10 +236,12 @@
   float:left;
   padding-bottom: 1.7em;
   text-align: center;
-  width: 100%;
+  width: 98%;
+  margin-left:1%;
+  margin-right:1%;
 }
 
-.reportAsInappropriateDialog {
+.reportAsInappropriateDialog, #reportAsInappropriateAnswer {
   background-color:#00475d;
   color: #a8dff4;
   font-size: 1.3em;
