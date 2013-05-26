@@ -52,6 +52,7 @@
              <?php echo $this->languageHandler->getString('country') ?>:
              <div class="profileCountry">
                 <select><?php echo $this->countryCodeListHTML;?></select>
+                <img class="img-select profileSelectImage"/>
              </div>      
            </div>
            <div class="profileInputsRight">

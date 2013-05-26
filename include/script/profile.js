@@ -320,8 +320,7 @@ var Profile = Class.$extend( {
         $("#profileEmailError").text(result.answer);
         $("#profileEmailError").toggle(true);
         $("#profilePasswordError").toggle(true);
-      }
-    
+      }  
   },
   
   ajaxTimedOut : function() {

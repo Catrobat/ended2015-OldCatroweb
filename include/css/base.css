@@ -243,6 +243,13 @@ h3 {
   background-position: -35x -79px;
 }
 
+.img-select {
+  width: 19px;
+  height: 19px;
+  background-image: url(../images/symbols/sprite_icons_web.png);
+  background-position: -113px 0px;
+}
+  
 .img-saved {
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -75px -195px;
