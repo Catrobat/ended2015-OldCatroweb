@@ -172,6 +172,7 @@ public class PasswordRecoveryTests extends BaseTest {
       ajaxWait();
 
       // check login
+      driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
 
       driver().findElement(By.id("largeMenuButton")).click();

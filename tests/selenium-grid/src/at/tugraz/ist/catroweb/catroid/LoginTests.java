@@ -92,9 +92,16 @@ public class LoginTests extends BaseTest {
       for(int i = 0; i < 5; i++) {
         driver().findElement(By.id("loginSubmitButton")).click();
         Alert alert = driver().switchTo().alert();
+        alert.accept();
+      }
+      CommonFunctions.removeAllBlockedIps();
+      
+      for(int i = 0; i < 5; i++) {
+        driver().findElement(By.id("loginSubmitButton")).click();
+        Alert alert = driver().switchTo().alert();
         String message = alert.getText();
         alert.accept();
-
+        
         assertEquals(message, "The password or username was incorrect.");
       }
 

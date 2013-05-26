@@ -41,7 +41,7 @@ var Search = Class.$extend( {
   clearHistory : function(event) {
     var context  = this.projectObject.getHistoryState();
     this.history.replaceState({}, this.pageLabels['websiteTitle'] + " - " + this.pageLabels['title'] + " - " + 
-        context.query + " - 1", "?q=" + encodeURI(context.query) + "&p=1");
+        context.query + " - 1", "?q=" + escape(context.query) + "&p=1");
     location.reload();
     event.preventDefault();
   },
@@ -64,14 +64,14 @@ var Search = Class.$extend( {
     if(action == 'init') {
       var state = this.history.getState();
       if(typeof state.data.content === 'undefined') {
-        this.history.replaceState({content: context}, title, "?q=" + encodeURI(context.query) + "&p=" + context.visibleRows);
+        this.history.replaceState({content: context}, title, "?q=" + escape(context.query) + "&p=" + context.visibleRows);
       } else {
         this.restoreHistoryState();
       }
     }
 
     if(action == 'push') {
-      this.history.pushState({content: context}, title, "?q=" + encodeURI(context.query) + "&p=" + context.visibleRows);
+      this.history.pushState({content: context}, title, "?q=" + escape(context.query) + "&p=" + context.visibleRows);
     }
   },
 

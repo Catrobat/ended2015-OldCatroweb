@@ -37,7 +37,7 @@ var Login = Class.$extend({
   },
 
   loginCatchKeypress : function(event) {
-    if(event.which == '13') {
+    if(event.which == '13' &&  $("#loginUsername").val() != "" &&  $("#loginPassword").val() != "") {
       this.loginRequest(event);
       event.preventDefault();
     }

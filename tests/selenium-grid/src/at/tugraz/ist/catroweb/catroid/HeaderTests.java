@@ -78,8 +78,8 @@ public class HeaderTests extends BaseTest {
       driver().findElement(By.id("menuLogoutButton")).click();
 
       driver().findElement(By.id("largeMenuButton")).click();
-      assertFalse(isVisible(By.id("menuProfileButton")));
-      assertFalse(isVisible(By.id("menuLogoutButton")));
+      ajaxWait();
+      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/div[1]"), "Login".toUpperCase()));
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerMenuButtons");
       throw e;
@@ -137,8 +137,8 @@ public class HeaderTests extends BaseTest {
       driver().findElement(By.id("menuLogoutButton")).click();
       
       driver().findElement(By.id("mobileMenuButton")).click();
-      assertFalse(isVisible(By.id("menuProfileButton")));
-      assertFalse(isVisible(By.id("menuLogoutButton")));
+      ajaxWait();
+      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/div[1]"), "Login".toUpperCase()));
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerButtonsMobile");
       throw e;

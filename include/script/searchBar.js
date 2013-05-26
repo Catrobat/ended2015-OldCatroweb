@@ -54,7 +54,7 @@ var SearchBar = Class.$extend( {
         this.smallSearchBox.blur();
         this.footerSearchBox.blur();
       } else {
-        location.href = this.basePath + 'search/?q=' + event.target.value + '&p=1';
+        location.href = this.basePath + 'search/?q=' + escape(event.target.value) + '&p=1';
       }
       event.preventDefault();
     }
@@ -64,7 +64,7 @@ var SearchBar = Class.$extend( {
     if(this.projects != null) {
       this.ajaxSearch(event.data.input.val());
     } else {
-      location.href = this.basePath + 'search/?q=' + event.data.input.val() + '&p=1';
+      location.href = this.basePath + 'search/?q=' + escape(event.data.input.val()) + '&p=1';
     }
   },
   

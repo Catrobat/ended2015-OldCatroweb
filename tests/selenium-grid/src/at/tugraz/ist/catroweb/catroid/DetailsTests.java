@@ -54,6 +54,7 @@ public class DetailsTests extends BaseTest {
       By downloadsButton = By.xpath("//*[@id='projectDetailsContainer']/div[3]/div/a[1]/div/span");
 
       openLocation("details/" + id);
+      ajaxWait();
       // project title
       assertTrue(containsElementText(By.id("projectDetailsProjectTitle"), title.toUpperCase()));
       // test the view counter
