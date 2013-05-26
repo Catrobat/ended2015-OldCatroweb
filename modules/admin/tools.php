@@ -185,7 +185,7 @@ class tools extends CoreAuthenticationAdmin {
         } else {
           $answer = "Error could NOT change featured project to state invisible!";
         }
-        $this->answer = $answer.$project['id'];
+        $this->answer = $answer;
       }
     }
     $this->htmlFile = "editFeaturedProjects.php";
@@ -193,9 +193,6 @@ class tools extends CoreAuthenticationAdmin {
   }
   
   public function deleteFeaturedProject($id) {
-    $directory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
-    $imageDirectory = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY;
-  
     $query = "EXECUTE get_featured_project_by_id('$id');";
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(pg_affected_rows($result) != 1) {
