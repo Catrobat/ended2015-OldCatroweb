@@ -111,9 +111,10 @@ var Profile = Class.$extend( {
       $("#profileEmailError").toggle(false);
       $("#profilePasswordError").toggle(false);
       $(".profileAvatarImage img").css({"outline" : "0.7em solid #FFFFFF"})
+      $(".profileChangesSuccess").css("visibility","visible");
       
     } else {
-      $("#profileAvatarError").text(this.languageStringsObject.image_too_big);
+      $("#profileAvatarError").text(result.answer);
       $("#profileAvatarError").toggle(true);
       $("#profileEmailError").toggle(true);
       $("#profilePasswordError").toggle(true);
