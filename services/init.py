@@ -41,6 +41,7 @@ class EnvironmentChecker:
 			[os.path.join('addons', 'board', 'images', 'avatars', 'upload'), False],
 			['cache', False], 
 			[os.path.join('resources', 'catroid'), False],
+			[os.path.join('resources', 'featured'), False],
 			[os.path.join('resources', 'projects'), False],
 			[os.path.join('resources', 'thumbnails'), False],
 			[os.path.join('include', 'xml', 'lang'), True],

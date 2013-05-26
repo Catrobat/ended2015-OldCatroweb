@@ -166,15 +166,15 @@ class profile extends CoreAuthenticationUser {
     $repeatPassword = (isset($_POST['profileRepeatPassword']) ? trim(strval($_POST['profileRepeatPassword'])) : '');
     
     try {
-      $this->checkNewPassword($newPassword);
-      $this->checkNewPassword($repeatPassword);
-      $this->checkPasswordsEquality($newPassword, $repeatPassword);
-     
-     $this->statusCode = STATUS_CODE_OK;
-     $this->answer = $this->languageHandler->getString('password_success');
+       $this->checkNewPassword($newPassword);
+       $this->checkNewPassword($repeatPassword);
+       $this->checkPasswordsEquality($newPassword, $repeatPassword);
+       $this->userFunctions->updatePassword($this->session->userLogin_userNickname, $newPassword);
+       $this->statusCode = STATUS_CODE_OK;
+       $this->answer = $this->languageHandler->getString('password_success');
      } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
+       $this->statusCode = $e->getCode();
+       $this->answer = $e->getMessage();
     }
   }
   
@@ -210,6 +210,31 @@ class profile extends CoreAuthenticationUser {
        $this->statusCode = $e->getCode();
        $this->answer = $e->getMessage();
      }
+  }
+  
+  public function checkInputRequest() {
+    $data = (isset($_POST['data']) ? trim(strval($_POST['data'])) : '');
+    $data1 = (isset($_POST['data1']) ? trim(strval($_POST['data1'])) : '');
+    $type = (isset($_POST['type']) ? trim(strval($_POST['type'])) : '');
+    
+    if($type == "pw") {
+      try {
+        $this->checkNewPassword($newPassword);
+        $this->checkNewPassword($repeatPassword);
+        $this->checkPasswordsEquality($newPassword, $repeatPassword);
+      } catch(Exception $e) {
+        $this->statusCode = $e->getCode();
+        $this->answer = $e->getMessage();
+      }
+    }
+    elseif($type == "email"){
+      try {
+        $this->userFunctions->checkEmail($data);
+      } catch(Exception $e){
+        $this->statusCode = $e->getCode();
+        $this->answer = $e->getMessage();
+      }
+    }
   }
   
 //   public function addEmailRequest() {

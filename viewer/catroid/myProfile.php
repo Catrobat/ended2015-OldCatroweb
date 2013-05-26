@@ -64,7 +64,7 @@
              </div>
              <a></a><img class="img-delete profileDeleteFirstEmail profileDeleteEMail"/></a>
              <div class="profileSecondEmailItem profileValid">
-               <input class="inputValid" type="email"/>
+               <input class="inputValid" type="email" placeholder="<?php echo $this->languageHandler->getString('second_email') ?>"/>
                <img class="img-second-email" />
              </div>
              <img class="img-delete profileDeleteSecondEmail profileDeleteEMail"/>
@@ -76,8 +76,7 @@
                 <p><?php echo $this->languageHandler->getString('saved') ?></p>
              </div>
                <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save') ?></button>
-             </div>
-             
+             </div>  
            </div>
          </div>
        </div>
@@ -104,7 +103,8 @@
           "image_too_big" : "<?php echo $this->languageHandler->getString('image_too_big'); ?>",
           "second_email" : "<?php echo $this->languageHandler->getString('second_email'); ?>",
           "websiteTitle" : "<?php echo SITE_DEFAULT_TITLE; ?>",
-          "title" : "<?php echo $this->languageHandler->getString('userTitle'); ?>"
+          "title" : "<?php echo $this->languageHandler->getString('userTitle'); ?>",
+          "email_verification" : "<?php echo $this->languageHandler->getString('email_add_success'); ?>"
         };
         var profile = Profile(languageStringsObject);
         var projects = ProjectObject(<?php echo $this->jsParams; ?>, {'delete' : $.proxy(profile.deleteProject, profile), 
