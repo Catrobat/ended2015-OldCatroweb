@@ -255,6 +255,7 @@
 #wrapper article div.profileChangesSuccess{
   height: 1em;
   float: left; 
+  visibility: hidden;
 }
 
 #wrapper article div.profileChangesSuccess p{
@@ -277,7 +278,6 @@
   padding-bottom: 0.8em;
   height: 2.8em;
   font-size: 1.4em;
-  font-weight: bold;
 }
 
 

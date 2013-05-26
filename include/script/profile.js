@@ -67,6 +67,9 @@ var Profile = Class.$extend( {
   },
   
   //-------------------------------------------------------------------------------------------------------------------
+  enableSaveButton : function() {
+    //$("#profileSaveChanges").removeAttr("disabled");
+  },
   initAvatarUploader : function() {
 
     var self = this;
@@ -122,9 +125,9 @@ var Profile = Class.$extend( {
   
   deleteEmail : function(id){
     if(id == 1)
-      emailId = 1;
+      emailId = "first";
     else
-      emailId = 0;
+      emailId = "second";
     
       $.ajax({
         type: "POST",
@@ -135,7 +138,7 @@ var Profile = Class.$extend( {
           secondEmail    : $(".profileSecondEmailItem input").val(),
         }),
         timeout : (this.ajaxTimeout),
-        success : $.proxy(alert, this),
+        success : $.proxy(this.deleteEmailRequestSuccess, this),
         error : $.proxy(this.ajaxTimedOut, this)
       });
     
@@ -143,6 +146,7 @@ var Profile = Class.$extend( {
   
   passwordCatchKeypress : function(event) {
     this.passwordChanged = 1;
+    $(".profileChangesSuccess").css("visibility","hidden");
     if(event.which == '13') {
       this.updateChangesRequest();
       event.preventDefault();
@@ -151,6 +155,7 @@ var Profile = Class.$extend( {
   
   countryChangedEvent : function(event) {
     this.countryChanged = 1;
+    $(".profileChangesSuccess").css("visibility","hidden");
   },
   
   updateChangesRequest : function() {
@@ -239,8 +244,7 @@ var Profile = Class.$extend( {
       $(".profilePasswordItem input").addClass("inputValid");
       $(".profilePasswordItem img").removeClass("img-failedPw");
       $(".profilePasswordItem img").addClass("img-password");
-      $(".profileChangesSuccess img").addClass("img-saved");
-      $(".profileChangesSuccess p").val("saved");
+      $(".profileChangesSuccess").css("visibility","visible");
     } else {
       $("#profilePasswordError").text(result.answer);
       $("#profilePasswordError").toggle(true);
@@ -267,8 +271,7 @@ var Profile = Class.$extend( {
       $(".profileFirstEmailItem input").addClass("inputValid");
       $(".profileFirstEmailItem img").removeClass("img-failed-first-email");
       $(".profileFirstEmailItem img").addClass("img-first-email");
-      $("profileChangesSuccess img").addClass("img-saved");
-      $("profileChangesSuccess p").val("saved");
+      $(".profileChangesSuccess").css("visibility","visible");
     } else {
       $("#profileEmailError").text(result.answer);
       $("#profileEmailError").toggle(true);
@@ -289,16 +292,13 @@ var Profile = Class.$extend( {
     if(result.statusCode == 200) {
       $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
-      $("#profileEmailError").toggle(false);
-      $("#profilePasswordError").toggle(false);
       $(".profileSecondEmailItem").removeClass("profileInvalid");
       $(".profileSecondEmailItem").addClass("profileValid");
       $(".profileSecondEmailItem").removeClass("profileInvalid");
       $(".profileSecondEmailItem").addClass("profileValid");
       $(".profileSecondEmailItem img").removeClass("img-failed-second-email");
       $(".profileSecondEmailItem img").addClass("img-second-email");
-      $(".profileChangesSuccess img").addClass("img-saved");
-      $(".profileChangesSuccess p").val("saved");
+      $(".profileChangesSuccess").css("visibility","visible");
     } else {
       $("#profileEmailError").text(result.answer);
       $("#profileEmailError").toggle(true);
@@ -312,14 +312,25 @@ var Profile = Class.$extend( {
     }
   },
   
+  deleteEmailRequestSuccess : function(result) {
+    if(result.statusCode == 200)
+      this.setEmailValuesRequest();
+    else
+      {
+        $("#profileEmailError").text(result.answer);
+        $("#profileEmailError").toggle(true);
+        $("#profilePasswordError").toggle(true);
+      }
+    
+  },
+  
   ajaxTimedOut : function() {
     alert("ajaxTimedOut");
   },
   
   countryRequestSuccess : function(result) {
     if(result.statusCode == 200) {
-      $("#profileUpdateSuccess").text("success");
-      $("#profileUpdateSuccess").toggle(true);
+      $(".profileChangesSuccess").css("visibility","visible");
     }
   },
 
@@ -345,6 +356,7 @@ var Profile = Class.$extend( {
   
   firstEmailCatchKeypress : function(event) {
     this.firstEmailChanged = 1;
+    $(".profileChangesSuccess").css("visibility","hidden");
     if(event.which == '13') {
       this.updateChangesRequest();
       event.preventDefault();
@@ -353,6 +365,7 @@ var Profile = Class.$extend( {
   
   secondEmailCatchKeypress : function(event) {
     this.secondEmailChanged = 1;
+    $(".profileChangesSuccess").css("visibility","hidden");
     if(event.which == '13') {
       this.updateChangesRequest();
       event.preventDefault();

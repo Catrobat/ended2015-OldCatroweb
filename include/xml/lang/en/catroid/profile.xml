@@ -35,16 +35,13 @@
   <string name="location">Location</string>
   <string name="projects">Projects</string>
   <string name="country">Country</string>
-  <string name="city">City</string>
-  <string name="gender">Gender</string>
+
 
   <string name="my_projects">Projects of</string>
   <string name="new_password">New password</string>
   <string name="repeat_password">Repeat password</string>
   <string name="save">save changes</string>
-  <string name="enter_city">my hometown</string>
-  <string name="male">male</string>
-  <string name="female">female</string>
+  <string name="saved">saved!</string>
 
   <string name="really_delete_email">Do you really want to delete this email address</string>
   <string name="really_delete_project">Do you really want to delete your project</string>

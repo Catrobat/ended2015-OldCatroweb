@@ -244,10 +244,10 @@ h3 {
 }
 
 .img-saved {
-  width: 25px;
-  height: 25px;
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -75px -195px;
+  width: 25px;
+  height: 25px;
 }
 
 ::-moz-selection {

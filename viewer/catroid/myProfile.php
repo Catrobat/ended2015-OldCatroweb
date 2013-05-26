@@ -71,8 +71,8 @@
              
              <div class="saveChanges">
              <div class="profileChangesSuccess">
-                <img class=""/>
-                <p> </p>
+                <img class="img-saved"   />
+                <p><?php echo $this->languageHandler->getString('saved') ?></p>
              </div>
                <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save') ?></button>
              </div>
