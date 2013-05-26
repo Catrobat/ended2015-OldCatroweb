@@ -154,8 +154,7 @@ var Profile = Class.$extend( {
   },
   
   updateChangesRequest : function() {
-    $("#profileEmailError").toggle(false);
-    $("#profilePasswordError").toggle(false);
+    this.checkInputValidation();
     if($("#profileNewPassword").val() == ""){
       this.passwordChanged = 0;
     }
@@ -221,9 +220,11 @@ var Profile = Class.$extend( {
         error : $.proxy(this.ajaxTimedOut, this)
       });
     }
-
-
   },
+  checkInputValidation : function() {
+    $("#profileEmailError").toggle(false);
+    $("#profilePasswordError").toggle(false);
+  };
   
   passwordRequestSuccess : function(result) {
     this.passwordChanged = 0;
@@ -233,12 +234,6 @@ var Profile = Class.$extend( {
       $("#profileNewPassword").val("");
       $("#profileRepeatPassword").val("");
       $(".profileErrorMessage").val("");
-      $(".profilePasswordItem").removeClass("profileInvalid");
-      $(".profilePasswordItem").addClass("profileValid");
-      $(".profilePasswordItem input").removeClass("inputInvalid");
-      $(".profilePasswordItem input").addClass("inputValid");
-      $(".profilePasswordItem img").removeClass("img-failedPw");
-      $(".profilePasswordItem img").addClass("img-password");
       $(".profileChangesSuccess").css("visibility","visible");
     } else {
       $("#profilePasswordError").text(result.answer);
@@ -258,6 +253,7 @@ var Profile = Class.$extend( {
     $("#profileEmailError").toggle(false);
     $("#profilePasswordError").toggle(false);
     if(result.statusCode == 200) {
+      alert(this.languageStringsObject['email_verification']);
       $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
       $(".profileFirstEmailItem").removeClass("profileInvalid");
@@ -285,6 +281,7 @@ var Profile = Class.$extend( {
     $("#profileEmailError").toggle(false);
     $("#profilePasswordError").toggle(false);
     if(result.statusCode == 200) {
+      alert(this.languageStringsObject['email_verification']);
       $("#profileUpdateSuccess").text("success");
       $("#profileUpdateSuccess").toggle(true);
       $(".profileSecondEmailItem").removeClass("profileInvalid");
