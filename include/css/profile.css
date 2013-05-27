@@ -48,8 +48,15 @@
   margin-left: 2em;
 }
 
-#wrapper article div.profileAvatarImage img{
-  outline: 0.7em solid #FFFFFF;
+#wrapper article div img.profileAvatarImage {
+  outline: 0.7em solid #ffffff;
+  width: 19em;
+  margin: 0 auto;
+  z-index: 1;
+}
+
+#wrapper article div img.profileAvatarImageError {
+  outline: 0.7em solid #880000;
   width: 19em;
   margin: 0 auto;
   z-index: 1;
@@ -60,9 +67,6 @@
   z-index: 2;
   margin-left: 4.7em;
   margin-top: -4.5em;
-}
-
-#wrapper article div.profileChangeAvatar button{ 
   font-size: 1em;
   background-color: #05222a;
   text-align:center;
@@ -74,7 +78,11 @@
   height: 2em;
   width: 10em;
   font-weight: bold;
- }
+}
+
+#wrapper article input#profileAvatarFile {
+  visibility: hidden;
+}
 
 #wrapper article div.profileInformations {
   font-size: 1.3em;
@@ -134,11 +142,6 @@
   outline:0;
 }
 
-#wrapper article input.inputValid{
-  background-color: transparent;
-  color: #05222a;
-}
-
 #wrapper article div.profileFirstEmailItem{
  width: 15.7em;
  padding: 0.5em;
@@ -192,23 +195,12 @@
   margin-right: 0.4em;
 }
 
-#wrapper article div.profileCountry option {
-  background-color: transparent;
-  -mox-box-shadow: inset 6px 0px 5px -5px #05222a;
-  -webkit-box-shadow: inset 6px 0px 5px -5px #05222a;
-  box-shadow: inset 6px 0px 5px -5px #05222a;
-  color: #000000;
-  height: 1.5em;
-  width: 12.3em;
-  padding-left: 1em;
-  border: none;
-}
-
 #wrapper article img.profileLoader{
+  display: none;
   margin-right: 6em;
 }
 
-#wrapper article div.saveChanges button {
+#wrapper article button#profileSaveChanges {
   margin-top: 0.3em;
   font-size: 1.4em;
   font-weight: bold;
@@ -245,32 +237,14 @@
 	cursor: pointer;
 }
 
-
-#wrapper article div.changeProject button.change {
-  height: 1.3em;
-  width: 1.3em;
-  border: 1px solid #FFFFFF;
-  -moz-border-radius: 1em;
-  -webkit-border-radius: 1em;
-  border-radius: 1em;
-  background-color: transparent;
-}
-
-#wrapper article div.changeProject button.change img {
-  height: 1em;
-  width: 1em;
-  border: none;
-  background-color: transparent;
-}
-
-#wrapper article div.profileChangesSuccess{
+#wrapper article div#profileChangesSuccess{
   height: 1em;
   float: left; 
   visibility: hidden;
   margin-left: 2em;
 }
 
-#wrapper article div.profileChangesSuccess span{
+#wrapper article div#profileChangesSuccess span{
   float: left;
   margin-left: 1em;
   color: #FFFFFF;
@@ -278,17 +252,30 @@
   font-weight: bold;
 }
 
-#wrapper article div.profileChangesSuccess div{
+#wrapper article div#profileChangesSuccess div{
   float: left;
   margin-left: 0em;
   margin-top: -0.4em;
 }
 
-#wrapper article div.profileErrorMessage{
+#wrapper article div#profileAvatarError{
   display: none;
   color: #F78181;
-  padding-bottom: 0.8em;
-  height: 3.5em;
+  padding-bottom: 1em;
+  font-size: 1.4em;
+}
+
+#wrapper article div#profilePasswordError {
+  display: none;
+  color: #F78181;
+  padding-bottom: 1em;
+  font-size: 1.4em;
+}
+
+#wrapper article div#profileEmailError {
+  display: none;
+  color: #F78181;
+  padding-bottom: 1em;
   font-size: 1.4em;
 }
 

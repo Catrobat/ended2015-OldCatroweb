@@ -546,7 +546,7 @@ class userFunctions extends CoreAuthenticationNone {
     $language = $this->languageHandler->getLanguage();
 
     $result = pg_execute($this->dbConnection, "user_registration", array($username, $usernameClean, $hashedPassword,
-        $email, $dateOfBirth, $gender, $country, $city, $ipRegistered, $status, $authToken, $language));
+        $email, $country, $ipRegistered, $status, $authToken, $language));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
@@ -1019,7 +1019,7 @@ class userFunctions extends CoreAuthenticationNone {
     }
     pg_free_result($result);
     
-    $data = $this->getUserDataForRecovery($userid);
+    $data = $this->getUserDataForRecovery($email);
     $hash = $this->createUserHash($data);
     try {
       while(true) {

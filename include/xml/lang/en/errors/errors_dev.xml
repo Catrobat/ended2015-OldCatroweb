@@ -108,8 +108,8 @@
     	<string name="postdata_missing">Nothing was sent.</string>
     </registration>
     <profile>
-      <string name="password_new_missing">The new password is missing.</string>
-      <string name="password_new_equal">You entered two differend passwords.</string>
+      <string name="password_missing">The password is missing.</string>
+      <string name="password_equal">You entered two differend passwords.</string>
     </profile>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>

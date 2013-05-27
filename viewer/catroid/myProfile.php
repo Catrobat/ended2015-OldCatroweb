@@ -24,65 +24,63 @@
 
 ?>
   <article>
-     <header><?php echo $this->userData['username'];?></header> 
-     <div id="profileContainer">
-       <div>
-          <div class="profileAvatar">
-          <div class="profileErrorMessage" id="profileAvatarError"></div>
-             <div class="profileAvatarImage"><img src="<?php echo $this->userData['avatar']; ?>" />
-               <div class="profileChangeAvatar"><button id="profileChangeAvatarButton"><?php echo $this->languageHandler->getString('changeAvatar') ?></button></div>
-             </div>
-             <input id="profileAvatarFile" type="file" style="visibility:hidden;"/>
-           </div>
-     
-         </div>
+    <header><?php echo $this->userData['username'];?></header> 
+    <div id="profileContainer">
+
+      <div class="profileAvatar">
+        <div id="profileAvatarError"></div>
+        <img class="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
+        <div>
+          <button id="profileChangeAvatarButton"><?php echo $this->languageHandler->getString('changeAvatar'); ?></button>
+        </div>
+        <input id="profileAvatarFile" type="file" />
+      </div>
        
-         <div class="profileInputs">
-           <div class="profileInputsLeft">
-              <div class="profileErrorMessage" id="profilePasswordError"></div>
-             <div class="profilePasswordItem profileValid" >
-                 <input type="password" class="inputValid" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password') ?>" />
-                 <div class="img-password"></div>
-                 
-             </div>
-             <div class="profilePasswordItem profileValid">
-               <input type="password" class="inputValid" id="profileRepeatPassword" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password') ?>" />
-               <div class="img-password"></div>
-             </div>
-             <b><?php echo $this->languageHandler->getString('country') ?>:</b>
-             <div class="profileCountry">
-                <select><?php echo $this->countryCodeListHTML;?></select>
-                <div class="img-select profileSelectImage"></div>
-             </div>      
-           </div>
-           <div class="profileInputsRight">
-           <div class="profileErrorMessage" id="profileEmailError"></div>
-             <div class="profileFirstEmailItem profileValid" >
-               <input class="inputValid"/>
-               <div class="img-first-email"></div>
-               
-             </div>
-             <div class="img-delete profileDeleteFirstEmail profileDeleteEMail"></div>
-             <div class="profileSecondEmailItem profileValid">
-               <input class="inputValid" placeholder="<?php echo $this->languageHandler->getString('second_email') ?>"/>
-               <div class="img-second-email"></div>
-             </div>
-             <div class="img-delete profileDeleteSecondEmail profileDeleteEMail"></div>
-             
-             
-             <div class="saveChanges">
-             <img class="profileLoader" src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
-             <div class="profileChangesSuccess">
-                 
-                <div class="img-saved"></div>
-                <span><?php echo $this->languageHandler->getString('saved') ?></span>
-             </div>
-               <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save') ?></button>
-             </div>  
-             
-           </div>
-         </div>
-       </div>
+      <div class="profileInputs">
+        <div class="profileInputsLeft">
+          <div id="profilePasswordError"></div>
+          <div class="profilePasswordItem profileValid">
+            <input type="password" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password'); ?>" />
+            <div class="img-password"></div>
+          </div>
+
+          <div class="profilePasswordItem profileValid">
+            <input type="password" id="profileRepeatPassword" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password'); ?>" />
+            <div class="img-password"></div>
+          </div>
+
+          <b><?php echo $this->languageHandler->getString('country') ?>:</b>
+          <div class="profileCountry">
+            <select><?php echo $this->countryCodeListHTML;?></select>
+            <div class="img-select profileSelectImage"></div>
+          </div>      
+        </div>
+        
+        <div class="profileInputsRight">
+          <div id="profileEmailError"></div>
+          <div class="profileFirstEmailItem profileValid">
+            <input type="email" placeholder="<?php echo $this->languageHandler->getString('second_email'); ?>" value="<?php echo $this->userData['email']; ?>" />
+            <div class="img-first-email"></div>
+          </div>
+          <div id="profileDeleteFirstEmail" class="img-delete profileDeleteEMail"></div>
+
+          <div class="profileSecondEmailItem profileValid">
+            <input type="email" class="inputValid" placeholder="<?php echo $this->languageHandler->getString('second_email'); ?>" value="<?php echo $this->userData['additional_email']; ?>" />
+            <div class="img-second-email"></div>
+          </div>
+          <div id="profileDeleteSecondEmail" class="img-delete profileDeleteSecondEmail profileDeleteEMail"></div>
+
+          <div>
+            <img class="profileLoader" src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
+            <div id="profileChangesSuccess">
+              <div class="img-saved"></div>
+              <span><?php echo $this->languageHandler->getString('saved') ?></span>
+            </div>
+            <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save') ?></button>
+          </div>  
+        </div>
+      </div>
+    </div>
 
     <div style="clear: both;"></div>
     <h3><?php echo $this->languageHandler->getString('my_projects')," ", $this->userData['username']; ?></h3>

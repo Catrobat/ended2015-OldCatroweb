@@ -181,7 +181,7 @@ class profile extends CoreAuthenticationUser {
 
   private function checkNewPassword($newPassword) {
     if($newPassword == '') {
-      throw new Exception($this->errorHandler->getError('profile', 'password_new_missing'),
+      throw new Exception($this->errorHandler->getError('profile', 'password_missing'),
           STATUS_CODE_PROFILE_NEW_PASSWORD_MISSING);
     }
     $this->userFunctions->checkPassword($this->session->userLogin_userNickname, $newPassword);
@@ -189,7 +189,7 @@ class profile extends CoreAuthenticationUser {
   
   private function checkPasswordsEquality($newPassword, $repeatPassword) {
     if($newPassword != $repeatPassword) {
-      throw new Exception($this->errorHandler->getError('profile', 'password_new_equal'),
+      throw new Exception($this->errorHandler->getError('profile', 'password_equal'),
           STATUS_CODE_PROFILE_NEW_PASSWORD_MISSING);
     }
   }
@@ -213,15 +213,16 @@ class profile extends CoreAuthenticationUser {
   }
   
   public function checkInputRequest() {
-    $data = (isset($_POST['data']) ? trim(strval($_POST['data'])) : '');
-    $data1 = (isset($_POST['data1']) ? trim(strval($_POST['data1'])) : '');
+    $newPwd = (isset($_POST['newPwd']) ? trim(strval($_POST['newPwd'])) : '');
+    $repeatPwd = (isset($_POST['repeatPwd']) ? trim(strval($_POST['repeatPwd'])) : '');
+    $email = (isset($_POST['email']) ? trim(strval($_POST['email'])) : '');
     $type = (isset($_POST['type']) ? trim(strval($_POST['type'])) : '');
     
     if($type == "pw") {
       try {
-        $this->checkNewPassword($newPassword);
-        $this->checkNewPassword($repeatPassword);
-        $this->checkPasswordsEquality($newPassword, $repeatPassword);
+        $this->checkNewPassword($newPwd);
+        $this->checkNewPassword($repeatPwd);
+        $this->checkPasswordsEquality($newPwd, $repeatPwd);
       } catch(Exception $e) {
         $this->statusCode = $e->getCode();
         $this->answer = $e->getMessage();
@@ -229,7 +230,7 @@ class profile extends CoreAuthenticationUser {
     }
     elseif($type == "email"){
       try {
-        $this->userFunctions->checkEmail($data);
+        $this->userFunctions->checkEmail($email);
       } catch(Exception $e){
         $this->statusCode = $e->getCode();
         $this->answer = $e->getMessage();
