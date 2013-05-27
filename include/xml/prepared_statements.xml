@@ -79,7 +79,6 @@
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
 
     <string name="get_user_row_by_email">SELECT u.* FROM cusers u WHERE u.email=$1 OR u.add_email=$1</string>
-    <string name="get_user_row_by_valid_email">SELECT u.* FROM cusers u WHERE u.email=$1 OR (u.add_email=$1 AND add_email_validated=true)</string>
     <string name="get_user_language">SELECT language FROM cusers WHERE id=$1</string>
     
     <string name="add_user_email">INSERT INTO cusers_additional_email (user_id, email) VALUES ($1, $2)</string>
@@ -102,15 +101,11 @@
     <string name="validate_email_by_hash">UPDATE cusers SET add_email_validated='t', add_email_validation_hash='' WHERE add_email_validation_hash=$1</string>
     
     <string name="update_user_country">UPDATE cusers SET country=$1 WHERE id=$2</string>
-    <string name="update_user_city">UPDATE cusers SET city=$1 WHERE id=$2</string>
-    <string name="update_user_birth">UPDATE cusers SET date_of_birth=$1 WHERE id=$2</string>
-    <string name="update_user_gender">UPDATE cusers SET gender=$1 WHERE id=$2</string>
     <string name="update_user_language_by_id">UPDATE cusers SET language=$1 WHERE id=$2</string>
     <string name="update_avatar_by_id">UPDATE cusers SET avatar=$1 WHERE id=$2</string>
     
     <string name="update_password_by_username">UPDATE cusers SET password=$1, auth_token=$3, recovery_hash=NULL, recovery_time=NULL WHERE username_clean=$2</string>
     <string name="update_auth_token">UPDATE cusers SET auth_token=$1 WHERE id=$2</string>
-    <string name="delete_user_birth">UPDATE cusers SET date_of_birth=NULL WHERE id=$1</string>
     
     
     <string name="admin_block_user">INSERT INTO blocked_cusers (user_id, user_name) VALUES ($1, $2)</string>

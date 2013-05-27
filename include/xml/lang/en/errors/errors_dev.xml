@@ -62,17 +62,14 @@
       <string name="unsupported_image">Invalid image, allowed image types are gif, png or jpeg.</string>
       <string name="avatar_creation_failed">The creation of the new avatar failed.</string>
     	<string name="password_new_board_update_failed">Failed to update the board password.</string>
-      <string name="city_update_failed">There was a problem while updating your city.</string>
       <string name="country_update_failed">There was a problem while updating your home country.</string>
-      <string name="gender_update_failed">There was a problem while updating your gender.</string>
-      <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
       <string name="language_update_failed">There was a problem while updating your language.</string>
     	<string name="userdata_not_exists">The nickname or email address was not found.</string>
-    	<string name="email_address_exists">The email address already exists.</string>
     	<string name="email_delete_failed">Error while deleting this e-mail address. You must have at least one e-mail address.</string>
     	<string name="email_update_of_catroweb_failed">Error while deleting this e-mail address. Catroweb must have at least two e-mail addresses.</string>
     	<string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
     	<string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>
+    	<string name="no_valid_email">Error while deleting this e-mail address. You must have at least one valid e-mail address.</string>
     </userFunctions>
     <upload>
         <string name="missing_project_title">There was no projectTitle specified. (XML file and POST data, at least one is required.)</string>

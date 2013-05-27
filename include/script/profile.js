@@ -111,7 +111,7 @@ var Profile = Class.$extend( {
       $(".profileAvatarImage img").css({"outline" : "0.7em solid #FFFFFF"})
       
     } else {
-      $("#profileAvatarError").text(this.languageStringsObject.image_too_big);
+      $("#profileAvatarError").text(result.answer);
       $("#profileAvatarError").toggle(true);
       $("#profileEmailError").toggle(true);
       $("#profilePasswordError").toggle(true);
@@ -124,7 +124,7 @@ var Profile = Class.$extend( {
   deleteEmail : function(additional){ 
       $.ajax({
         type: "POST",
-        url: this.basePath + 'catroid/profile/deleteEmailRequest.json',
+        url: this.basePath + 'profile/deleteEmailRequest.json',
         data : ({
           additional  : additional,
           firstEmail  : $(".profileFirstEmailItem input").val(), 
@@ -167,12 +167,11 @@ var Profile = Class.$extend( {
         (this.firstEmailChanged == 1 && this.secondEmailChanged == 1)) {
       
       alert(this.languageStringsObject['edit_one_entry']);
-      this.stop();
+    } else {
+      $(".profileLoader").css('display', 'block');
+      //this.checkInputRequest();
+      this.setNewValues();
     }
-    
-    $(".profileLoader").css('display', 'block');
-    //this.checkInputRequest();
-    this.setNewValues();
   },
   
   setNewValues : function() {
@@ -182,7 +181,7 @@ var Profile = Class.$extend( {
         this.passwordChanged = 0;
         $.ajax({
           type: "POST",
-          url: this.basePath + 'catroid/profile/updatePasswordRequest.json',
+          url: this.basePath + 'profile/updatePasswordRequest.json',
           data : ({
             profileNewPassword : $("#profileNewPassword").val(),
             profileRepeatPassword : $("#profileRepeatPassword").val()
@@ -196,7 +195,7 @@ var Profile = Class.$extend( {
         this.firstEmailChanged = 0;
         $.ajax({
           type: "POST",
-          url: this.basePath + 'catroid/profile/updateEmailRequest.json',
+          url: this.basePath + 'profile/updateEmailRequest.json',
           data : ({
             email : $(".profileFirstEmailItem input").val(),
             additional : 0
@@ -210,7 +209,7 @@ var Profile = Class.$extend( {
         this.secondEmailChanged = 0;
         $.ajax({
           type: "POST",
-          url: this.basePath + 'catroid/profile/updateEmailRequest.json',
+          url: this.basePath + 'profile/updateEmailRequest.json',
           data : ({
             email : $(".profileSecondEmailItem input").val(),
             additional : 1

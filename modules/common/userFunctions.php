@@ -784,6 +784,8 @@ class userFunctions extends CoreAuthenticationNone {
             STATUS_CODE_SQL_QUERY_FAILED);
       }
       pg_free_result($result);
+      
+      $this->session->userLogin_userAvatar = $outputImage;
       return $outputImage;
     }
     throw new Exception($this->errorHandler->getError('upload', 'missing_file_data'),

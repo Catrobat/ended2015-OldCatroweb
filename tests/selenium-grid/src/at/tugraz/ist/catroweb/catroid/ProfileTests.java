@@ -215,13 +215,13 @@ public class ProfileTests extends BaseTest {
 
       assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/header"), dataset.get("registrationUsername").toUpperCase()));
       
-      driver().findElement(By.xpath("//*[@id='profileContainer']/div[2]/div[2]/img[1]")).click();
+      driver().findElement(By.xpath("//*[@id='profileContainer']/div[2]/div[2]/div[3]")).click();
       ajaxWait();
       assertTrue(isTextPresent("Error while deleting this e-mail address. You must have at least one e-mail address."));
       
       openLocation("profile/");
       
-      driver().findElement(By.xpath("//*[@id='profileContainer']/div[2]/div[2]/div[3]/input")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.xpath("//*[@class='profileSecondEmailItem profileValid']/input")).sendKeys(dataset.get("registrationEmail"));
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
       

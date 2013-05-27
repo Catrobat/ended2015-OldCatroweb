@@ -62,13 +62,9 @@
       <string name="unsupported_image">This image type is not supported, please try another image.</string>
       <string name="avatar_creation_failed">Sorry, we encountered an error while processing your registration. Please try again!</string>
       <string name="password_new_board_update_failed">There was a problem while updating the password.</string>
-      <string name="city_update_failed">There was a problem while updating your city.</string>
       <string name="country_update_failed">There was a problem while updating your home country.</string>
-			<string name="gender_update_failed">There was a problem while updating your gender.</string>
-      <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
       <string name="language_update_failed">There was a problem while updating your language.</string>
       <string name="userdata_not_exists">Your nickname or email address was not found.</string>
-      <string name="email_address_exists">The email address already exists.</string>
       <string name="email_delete_failed">Error while deleting this e-mail address. You must have at least one e-mail address.</string>
       <string name="email_update_of_catroweb_failed">Catroweb must have at least two e-mail addresses.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>

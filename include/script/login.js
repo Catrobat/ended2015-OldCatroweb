@@ -37,29 +37,31 @@ var Login = Class.$extend({
   },
 
   loginCatchKeypress : function(event) {
-    if(event.which == '13' &&  $("#loginUsername").val() != "" &&  $("#loginPassword").val() != "") {
+    if(event.which == '13') {
       this.loginRequest(event);
       event.preventDefault();
     }
   },
 
   loginRequest : function(event) {
-    $("#loginSubmitButton").hide();
-    $("#loginLoader").css('display', 'block');
+    if($("#loginUsername").val() != "" &&  $("#loginPassword").val() != "") {
+      $("#loginSubmitButton").hide();
+      $("#loginLoader").css('display', 'block');
+  
+      $("#loginUsername").blur();
+      $("#loginPassword").blur();
 
-    $("#loginUsername").blur();
-    $("#loginPassword").blur();
-    
-    $.ajax({
-      type : "POST",
-      url : this.basePath + 'login/loginRequest.json',
-      data : ({
-        loginUsername : $("#loginUsername").val(),
-        loginPassword : $("#loginPassword").val()
-      }),
-      success : $.proxy(this.loginRequestSuccess, this),
-      error : $.proxy(this.loginRequestError, this)
-    });
+      $.ajax({
+        type : "POST",
+        url : this.basePath + 'login/loginRequest.json',
+        data : ({
+          loginUsername : $("#loginUsername").val(),
+          loginPassword : $("#loginPassword").val()
+        }),
+        success : $.proxy(this.loginRequestSuccess, this),
+        error : $.proxy(this.loginRequestError, this)
+      });
+    }
     event.preventDefault();
   },
 
