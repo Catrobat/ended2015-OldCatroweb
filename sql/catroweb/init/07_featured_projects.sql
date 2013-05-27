@@ -4,7 +4,7 @@ CREATE TABLE "public"."featured_projects" (
 "project_id" int4 DEFAULT 0,
 "update_time" timestamptz DEFAULT now() NOT NULL,
 "visible" bool DEFAULT true,
-CONSTRAINT "fetured_projects_pkey" PRIMARY KEY ("id"),
+CONSTRAINT "featured_projects_pkey" PRIMARY KEY ("id"),
 CONSTRAINT "projectId" FOREIGN KEY ("project_id") REFERENCES "public"."projects" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 )
 WITH (OIDS=FALSE)
