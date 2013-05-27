@@ -466,6 +466,7 @@ class userFunctions extends CoreAuthenticationNone {
     $this->session->userLogin_userId = 0;
     $this->session->userLogin_userNickname = '';
     $this->session->userLogin_userAvatar = '';
+    $this->session->adminUser = false;
   }
 
   private function logoutBoard() {

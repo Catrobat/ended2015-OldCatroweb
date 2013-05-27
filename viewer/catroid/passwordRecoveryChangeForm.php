@@ -34,7 +34,7 @@
             <div class="footer">
               <nav>
                 <span id="passwordSaveLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
-                <button id="passwordSaveSubmit"><?php echo $this->languageHandler->getString('change_password')?></button>
+                <button id="passwordSaveSubmit"><?php echo $this->languageHandler->getString('change_password_button')?></button>
               </nav>
             </div>
           </form>
