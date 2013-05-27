@@ -63,8 +63,14 @@
           <td><?php echo $project['title']?></td>
           <td><?php echo $project['description']?></td>
           <td><?php echo $project['uploaded_by']?></td>
-          <td width="20%">
+          <td width="20%" style="text-align:right;">
             <img src="<?php echo $project['image']?>" alt="<?php echo $project['image']?>" class="projectTableFeaturedImage"/>
+            <form style="" id="imageform<?php echo $project['id']?>" class="admin" action="updateFeaturedProjectsThumbnail" method="POST" enctype="multipart/form-data">
+              <input type="file" name="file"/>
+              <input type="hidden" name="featuredId" value="<?php echo $project['id']?>"/>
+              <input type="hidden" name="projectId" value="<?php echo $project['project_id']?>"/>
+              <input type="submit" name="submit_upload" id="imagesubmit<?php echo $project['id']?>" value="upload" />
+            </form>
           </td>
           <td><?php echo date('Y-m-d H:i:s', strtotime($project['update_time']))?></td>
           <td><?php echo $project['download_count']?></td>

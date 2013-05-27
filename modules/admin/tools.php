@@ -182,6 +182,49 @@ class tools extends CoreAuthenticationAdmin {
     }
     $this->featuredProjectIds = $featuredProjectIds;
   }
+  public function updateFeaturedProjectsThumbnail() {
+    if($_POST['projectId']) {
+      switch($_FILES['file']['type']) {
+        case "image/jpeg":
+          $imageSource = imagecreatefromjpeg($_FILES['file']['tmp_name']);
+          break;
+        case "image/png":
+          $imageSource = imagecreatefrompng($_FILES['file']['tmp_name']);
+          break;
+        case "image/gif":
+          $imageSource = imagecreatefromgif($_FILES['file']['tmp_name']);
+          break;
+        default:
+          $answer = "ERROR: Image upload failed! (unsupported file type)";
+      }
+      
+      if($imageSource) {
+        $width = imagesx($imageSource);
+        $height = imagesy($imageSource);
+        
+        if($width == 0 || $height == 0) {
+          $answer = "ERROR: Image upload failed! (image size 0?)";
+        }
+        if(($width != 1024) || ($height != 400)) {
+          $answer = "ERROR: Image upload failed! File dimensions mismatch (must be 1024x400px)!";
+        }
+      }
+      
+      if($answer == "") {
+        $path = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.'/'.$_POST['projectId'].PROJECTS_FEATURED_EXTENSION;
+        if(!imagepng($imageSource, $path, 0)) {
+          $answer = "ERROR: Image upload failed! Could not save image!";
+          $answer .= "<br/>path: ".$path."<br/>";
+          imagedestroy($imageSource);
+        }
+        else
+          $answer .= "SUCCESS: Featured image updated!";
+      }
+    }
+    $this-> answer = $answer;
+    $this->htmlFile = "editFeaturedProjects.php";
+    $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
+  }
   
   public function editFeaturedProjects() {
     if(isset($_POST['delete'])) {
