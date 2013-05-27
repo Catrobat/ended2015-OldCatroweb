@@ -237,18 +237,37 @@ class tools extends CoreAuthenticationAdmin {
     }
     $this->htmlFile = "editFeaturedProjects.php";
     $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
+    foreach($this->projects as $fp) {
+      if($fp['image'] == "") {
+        $id = $fp['id'];
+        if($fp['visible'] == "t") {
+          $query = "EXECUTE edit_featured_project_visibility_by_id('$id','f');";
+          $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+          if(pg_affected_rows($result)) {
+            $answer .= "<br/>Hiding featured project # ".$fp['id']."(project_id=".$fp['project_id'].", title=".$fp['title'].") because no image was found!<br/>";
+          }
+        }
+      }
+    }
+    
+    $this->answer = $answer;
   }
   
   public function toggleFeaturedProjectsVisiblity() {
     if(isset($_POST['toggle'])) {
       $id = $_POST['featuredId'];
       if ($_POST['toggle'] == "visible") {
-        $query = "EXECUTE edit_featured_project_visibility_by_id('$id','t');";
-        $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-        if(pg_affected_rows($result)) {
-          $answer = "The featured project was succesfully set to state visible!";
-        } else {
-          $answer = "Error could NOT change featured project to state visible!";
+        if(getFeaturedProjectImageUrl($_POST['projectId']) == "") {
+          $answer = "ERROR: Could NOT change featured project to state visible, because no image was found!";
+        }
+        else {
+          $query = "EXECUTE edit_featured_project_visibility_by_id('$id','t');";
+          $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+          if(pg_affected_rows($result)) {
+            $answer = "The featured project was succesfully set to state visible!";
+          } else {
+            $answer = "ERROR: Could NOT change featured project to state visible!";
+          }
         }
         $this->answer = $answer;
       }
@@ -258,7 +277,7 @@ class tools extends CoreAuthenticationAdmin {
         if(pg_affected_rows($result)) {
           $answer = "The featured project was succesfully set to state invisible!";
         } else {
-          $answer = "Error could NOT change featured project to state invisible!";
+          $answer = "ERROR: Could NOT change featured project to state invisible!";
         }
         $this->answer = $answer;
       }

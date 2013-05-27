@@ -79,6 +79,7 @@
             <form id="toggleform<?php echo $project['id']?>" class="admin" action="toggleFeaturedProjectsVisiblity" method="POST">
             <?php echo ($project['visible']=='t' ? 'visible' : '<em>invisible</em>');?> 
               <input type="hidden" name="featuredId" value="<?php echo $project['id']?>"/>
+              <input type="hidden" name="projectId" value="<?php echo $project['project_id']?>"/>
               <input type="hidden" name="toggle" value="<?php echo ($project['visible']=='t' ? 'invisible' : 'visible'); ?>">
               <input type="button" value="change" name="toggleProject" id="toggle<?php echo $project['id']?>" onclick="javascript:submitToggleForm('toggleform<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>', '<?php echo ($project['visible']=='t' ? 'invisible' : 'visible');?>');" /> <!-- chg -->
             </form>
