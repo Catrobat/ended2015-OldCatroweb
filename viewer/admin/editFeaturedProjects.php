@@ -42,15 +42,15 @@
   <div class="projectList">
       <table class="projectTable">
         <tr>
-          <th>ID</th>
+          <th>Featured ID</th>
           <th>Project ID</th>
           <th>Title</th>
           <th>Description</th>
           <th>User</th>
-          <th>Update time</th>
+          <th>Image</th>
+          <th>Time</th>
           <th>Downloads</th>
           <th>Views</th>
-          <th>Image</th>
           <th>Visible</th>
           <th>Delete</th>
         </tr>
@@ -62,11 +62,13 @@
           <td><?php echo $project['project_id']?></td>
           <td><?php echo $project['title']?></td>
           <td><?php echo $project['description']?></td>
-          <td><?php echo $project['username']?></td>
+          <td><?php echo $project['uploaded_by']?></td>
+          <td width="20%">
+            <img src="<?php echo $project['image']?>" alt="<?php echo $project['image']?>" class="projectTableFeaturedImage"/>
+          </td>
           <td><?php echo date('Y-m-d H:i:s', strtotime($project['update_time']))?></td>
           <td><?php echo $project['download_count']?></td>
           <td><?php echo $project['view_count']?></td>
-          <td width="20%"><img src="<?php echo $project['image']?>" alt="<?php echo $project['image']?>" class="projectTableFeaturedImage"/></td>
           <td>
             <form id="toggleform<?php echo $project['id']?>" class="admin" action="toggleFeaturedProjectsVisiblity" method="POST">
             <?php echo ($project['visible']=='t' ? 'visible' : '<em>invisible</em>');?> 
@@ -86,5 +88,8 @@
         </tr>
       <?php }}?>
       </table>
+      <p>
+        <a id="aAdminToolsAddFeaturedProject" href="<?php echo BASE_PATH;?>admin/tools/addFeaturedProject">add featured projects</a><br />
+      </p>
   </div>
 </body>

@@ -53,6 +53,9 @@ class index extends CoreAuthenticationNone {
     $params['buttons'] = array('prev' => null,
         'next' => '#newestShowMore'
     );
+    $featured = $this->projects->featured(1);
+    $this->featuredProject = "'" . addslashes(json_encode($featured)) . "'";
+    
     $params['content'][0] = $pageOne;
     $params['content'][1] = $pageTwo;
     $params['numProjects'] = intval($pageOne['CatrobatInformation']['TotalProjects']);

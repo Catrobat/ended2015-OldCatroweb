@@ -27,12 +27,7 @@
       <article>
         <div id="programmOfTheWeek">
           <header><?php echo $this->languageHandler->getString('recommended'); ?></header>
-          <div>
-            <a href="<?php echo BASE_PATH?>details/1"><img src="<?php echo BASE_PATH; ?>images/symbols/hippo.png" /></a>
-            <div>
-              <span>The Lila Hippo</span><br/>
-              <span>von User123</span>
-            </div>
+          <div id="featuredProject">
           </div>
         </div>
         <div class="projectSpacer"></div>
@@ -77,7 +72,7 @@
       <script type="text/javascript">
         $(document).ready(function() {
           var pageLabels = { 'websiteTitle' : '<?php echo SITE_DEFAULT_TITLE; ?>'};
-          var index = Index(pageLabels);
+          var index = Index(pageLabels, <?php echo $this->featuredProject; ?>);
 
           var newest = ProjectObject(<?php echo $this->newestProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
           var downloads = ProjectObject(<?php echo $this->mostDownloadedProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });

@@ -151,6 +151,38 @@ class tools extends CoreAuthenticationAdmin {
     $this->projects = $this->retrieveAllProjectsFromDatabase();
   }
   
+  public function addFeaturedProject() {
+    if(isset($_POST['add'])) {
+      $id = $_POST['projectId'];
+      $query = "EXECUTE get_featured_project_by_id('$id');";
+      $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+      if($result && pg_affected_rows($result) == 0) {
+        $query = "EXECUTE insert_new_featured_project('$id', 'f');";
+        $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+        print_r($result);
+        if($result && pg_affected_rows($result) == 1) {
+          $answer = "The featured project was added!";
+        }
+        else {
+          $answer = "The featured project could NOT be added!";
+        }
+      }
+      else {
+        $answer = "This project is already featured!";
+      }
+      $this->answer = $answer;
+    }
+  
+    $this->htmlFile = "addFeaturedProject.php";
+    $this->projects = $this->retrieveAllProjectsFromDatabase();
+    $this->featuredProjects = $this->retrieveAllFeaturedProjectsFromDatabase();
+    $featuredProjectIds = array();
+    foreach($this->featuredProjects as $fp) {
+      array_push($featuredProjectIds, $fp['project_id']);;
+    }
+    $this->featuredProjectIds = $featuredProjectIds;
+  }
+  
   public function editFeaturedProjects() {
     if(isset($_POST['delete'])) {
       if($this->deleteFeaturedProject($_POST['featuredId'])) {
@@ -200,9 +232,9 @@ class tools extends CoreAuthenticationAdmin {
     }
   
     $project =  pg_fetch_assoc($result);
-    if($project['id'] > 0) {
-      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$id.PROJECTS_FEATURED_EXTENSION))
-        @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$id.PROJECTS_FEATURED_EXTENSION);
+    if($project['project_id'] > 0) {
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION))
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION);
     }
   
     $query = "EXECUTE delete_featured_project_by_id('$id');";
@@ -415,9 +447,10 @@ class tools extends CoreAuthenticationAdmin {
   }
   
   private function retrieveAllFeaturedProjectsFromDatabase() {
-    $query = 'EXECUTE get_featured_projects_ordered_by_update_time;';
+    $query = 'EXECUTE get_featured_projects_admin_ordered_by_update_time;';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $projects =  pg_fetch_all($result);
+    pg_free_result($result);
     if($projects) {
       for($i=0;$i<count($projects);$i++) {
         $projects[$i]['image'] = getFeaturedProjectImageUrl($projects[$i]['project_id']);
