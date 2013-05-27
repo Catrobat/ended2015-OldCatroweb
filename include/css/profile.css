@@ -171,6 +171,7 @@
   margin-bottom: 1em;
   overflow: hidden;
   font-size: 1.4em;
+  -webkit-appearance: none;
 }
 
 #wrapper article div.profileCountry select {
@@ -266,9 +267,10 @@
   height: 1em;
   float: left; 
   visibility: hidden;
+  margin-left: 2em;
 }
 
-#wrapper article div.profileChangesSuccess p{
+#wrapper article div.profileChangesSuccess span{
   float: left;
   margin-left: 1em;
   color: #FFFFFF;
@@ -276,9 +278,9 @@
   font-weight: bold;
 }
 
-#wrapper article div.profileChangesSuccess img{
+#wrapper article div.profileChangesSuccess div{
   float: left;
-  margin-left: 1em;
+  margin-left: 0em;
   margin-top: -0.4em;
 }
 
