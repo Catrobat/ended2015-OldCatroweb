@@ -42,41 +42,44 @@
               <div class="profileErrorMessage" id="profilePasswordError"></div>
              <div class="profilePasswordItem profileValid" >
                  <input type="password" class="inputValid" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password') ?>" />
-                 <img class="img-password" />
+                 <div class="img-password"></div>
                  
              </div>
              <div class="profilePasswordItem profileValid">
                <input type="password" class="inputValid" id="profileRepeatPassword" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password') ?>" />
-               <img class="img-password" />
+               <div class="img-password"></div>
              </div>
-             <?php echo $this->languageHandler->getString('country') ?>:
+             <b><?php echo $this->languageHandler->getString('country') ?>:</b>
              <div class="profileCountry">
                 <select><?php echo $this->countryCodeListHTML;?></select>
-                <img class="img-select profileSelectImage"/>
+                <div class="img-select profileSelectImage"></div>
              </div>      
            </div>
            <div class="profileInputsRight">
            <div class="profileErrorMessage" id="profileEmailError"></div>
              <div class="profileFirstEmailItem profileValid" >
-               <input class="inputValid" type="email" />
-               <img class="img-first-email" />
+               <input class="inputValid"/>
+               <div class="img-first-email"></div>
                
              </div>
-             <a></a><img class="img-delete profileDeleteFirstEmail profileDeleteEMail"/></a>
+             <div class="img-delete profileDeleteFirstEmail profileDeleteEMail"></div>
              <div class="profileSecondEmailItem profileValid">
-               <input class="inputValid" type="email" placeholder="<?php echo $this->languageHandler->getString('second_email') ?>"/>
-               <img class="img-second-email" />
+               <input class="inputValid" placeholder="<?php echo $this->languageHandler->getString('second_email') ?>"/>
+               <div class="img-second-email"></div>
              </div>
-             <img class="img-delete profileDeleteSecondEmail profileDeleteEMail"/>
+             <div class="img-delete profileDeleteSecondEmail profileDeleteEMail"></div>
              
              
              <div class="saveChanges">
+             <img class="profileLoader" src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
              <div class="profileChangesSuccess">
-                <img class="img-saved"   />
-                <p><?php echo $this->languageHandler->getString('saved') ?></p>
+                 
+                <div class="img-saved"></div>
+                <span><?php echo $this->languageHandler->getString('saved') ?></span>
              </div>
                <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save') ?></button>
              </div>  
+             
            </div>
          </div>
        </div>
@@ -104,7 +107,8 @@
           "second_email" : "<?php echo $this->languageHandler->getString('second_email'); ?>",
           "websiteTitle" : "<?php echo SITE_DEFAULT_TITLE; ?>",
           "title" : "<?php echo $this->languageHandler->getString('userTitle'); ?>",
-          "email_verification" : "<?php echo $this->languageHandler->getString('email_add_success'); ?>"
+          "email_verification" : "<?php echo $this->languageHandler->getString('email_add_success'); ?>",
+          "edit_one_entry" : "<?php echo $this->languageHandler->getString('edit_one_entry'); ?>"
         };
         var profile = Profile(languageStringsObject);
         var projects = ProjectObject(<?php echo $this->jsParams; ?>, {'delete' : $.proxy(profile.deleteProject, profile), 

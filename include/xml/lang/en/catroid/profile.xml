@@ -49,5 +49,5 @@
   <string name="password_success">You updated your password successfully.</string>
   <string name="email_add_success">The new e-mail address was successfully added. Please check your inbox to verify it.</string>
   <string name="email_delete_success">You deleted your e-mail address successfully.</string>
-  <string name="country_success">You updated your country successfully.</string>
+  <string name="edit_one_entry">You can only update your e-mails and password seperatly.</string>
 </strings>
