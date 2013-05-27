@@ -127,8 +127,8 @@
           <textarea class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="<?php echo $this->languageHandler->getString('flag_reason_placeholder')?>" required="required"></textarea>
           </p>
           <p class="reportAsInappropriateDialogButtons">
-            <input type="button" class="buttonGreen buttonSmall" id="reportInappropriateReportButton" value="<?php echo $this->languageHandler->getString('report')?>"/>
             <input type="button" class="buttonWhite buttonSmall" id="reportInappropriateCancelButton" value="<?php echo $this->languageHandler->getString('cancel')?>"/>
+            <input type="button" class="buttonGreen buttonSmall" id="reportInappropriateReportButton" value="<?php echo $this->languageHandler->getString('report')?>"/>
           </p>
         </form>
       </div>
