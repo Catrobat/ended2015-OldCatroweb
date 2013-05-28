@@ -31,7 +31,7 @@ import sys
 
 
 class Selenium:
-	currentSeleniumVersion = '2.32.0'
+	currentSeleniumVersion = '2.33.0'
 	currentPostgreSQLdriver = '9.1-902.jdbc4'
 	
 	basePath = os.getcwd()
@@ -75,9 +75,9 @@ class Selenium:
 	def downloadLibs(self): 
 		os.system('wget %s%s' % (self.seleniumDownloadURL, self.seleniumServerZip))
 		os.system('unzip %s' % self.seleniumServerZip)
-		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, 'libs'), self.seleniumLibDir)
-		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, self.seleniumServerJar), os.path.join(self.seleniumLibDir, self.seleniumServerJar))
-		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, self.seleniumServerStandaloneJar), os.path.join(self.seleniumToolsDir, self.seleniumServerStandaloneJar))
+		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, self.seleniumTempFiles, self.seleniumTempFiles, 'libs'), self.seleniumLibDir)
+		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, self.seleniumTempFiles, self.seleniumTempFiles, self.seleniumServerJar), os.path.join(self.seleniumLibDir, self.seleniumServerJar))
+		os.rename(os.path.join(self.basePath, self.seleniumTempFiles, self.seleniumTempFiles, self.seleniumTempFiles, self.seleniumServerStandaloneJar), os.path.join(self.seleniumToolsDir, self.seleniumServerStandaloneJar))
 		
 		os.system('wget %s%s' % (self.postgreSQLdriverDownloadURL, self.postgreSQLdriverJar))
 		os.rename(self.postgreSQLdriverJar, os.path.join(self.basePath, self.seleniumLibDir, self.postgreSQLdriverJar))
