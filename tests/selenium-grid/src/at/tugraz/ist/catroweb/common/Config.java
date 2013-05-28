@@ -59,7 +59,7 @@ public class Config {
   public static final String DEFAULT_UPLOAD_TITLE = "Testproject";
   public static final String DEFAULT_UPLOAD_DESCRIPTION = "This is my testproject...";
   public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.0beta.catrobat";
-  public static final String DEFAULT_UPLOAD_CHECKSUM = "30da0835a8f9bfc3d3b5f8dad3fc0cb7";
+  public static final String DEFAULT_UPLOAD_CHECKSUM = "a70a14eaa842464bdae13d0aef55fd10";
   public static final String DEFAULT_UPLOAD_EMAIL = "webmaster@catroid.org";
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";

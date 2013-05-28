@@ -51,14 +51,14 @@ public class UploadTests extends BaseTest {
       assertTrue(isTextPresent("version: < 0.7.0beta"));
 
       //update the project
-      response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.7.0beta.catrobat", "30da0835a8f9bfc3d3b5f8dad3fc0cb7", "", "", "", ""));
+      response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.7.0beta.catrobat", "a70a14eaa842464bdae13d0aef55fd10", "", "", "", ""));
       id = CommonFunctions.getValueFromJSONobject(response, "projectId");
       
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
       openLocation("details/" + id);
       assertTrue(containsElementText(By.id("projectDetailsProjectTitle"), title.toUpperCase()));
-      assertTrue(isTextPresent("version: 0.7.2beta"));
+      assertTrue(isTextPresent("version: 0.7.3beta"));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadResubmission");
       throw e;
@@ -73,7 +73,7 @@ public class UploadTests extends BaseTest {
     try {
       String projectTitle = "testTitle";
       String projectDescription = "testDescription";
-      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, projectDescription, "test-0.7.0beta-xml.catrobat", "fc99b046996a1f0f244928f79ac87754", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, projectDescription, "test-0.7.0beta-xml.catrobat", "a71aa252cdd2fd4846b639bd7dcbd04e", "", "", "", ""));
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
       
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
