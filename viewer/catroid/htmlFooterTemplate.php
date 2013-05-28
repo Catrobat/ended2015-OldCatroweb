@@ -58,7 +58,7 @@
             </select>
           </div>
           <div>
-            &copy; Catroid
+            &copy; Catrobat
           </div>
           <div>
             <span id="footerMoreButton">
