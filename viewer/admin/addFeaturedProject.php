@@ -64,7 +64,7 @@
                   
           <td>
           <?php 
-            if(in_array($project['id'], $this->featuredProjectIds)) {
+            if($this->featuredProjectIds && in_array($project['id'], $this->featuredProjectIds)) {
               ?>
               already featured 
            <?php 
