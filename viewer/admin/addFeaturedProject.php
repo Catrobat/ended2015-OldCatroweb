@@ -34,7 +34,6 @@
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
   <?php if($this->answer) {
     echo 'Answer:<br/>'.$this->answer.'<br /><br/>';
-    print_r($this->answer);
   }?> 
   <div class="projectList">
       <table class="projectTable">
