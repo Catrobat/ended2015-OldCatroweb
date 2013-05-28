@@ -118,13 +118,15 @@ var ProjectContentFiller = Class
             }
           }
           
-          var emptyMessage = $("span", this.params.container);
           if(this.params.numProjects == 0) {
             this.params.reachedLastPage = true;
             $(this.params.buttons.next).hide();
-            emptyMessage.show();
-          } else {
-            emptyMessage.hide();
+            
+            if(typeof this.params.noResults !== 'undefined') {
+              $(this.params.noResults).show();
+            }
+          } else if(typeof this.params.noResults !== 'undefined') {
+            $(this.params.noResults).hide();
           }
         }
       },

@@ -85,6 +85,7 @@ class profile extends CoreAuthenticationUser {
     $params['layout'] = PROJECT_LAYOUT_GRID_ROW;
     $params['container'] = '#userProjectContainer';
     $params['loader'] = '#userProjectLoader';
+    $params['noResults'] = '#profileNoResults';
     $params['buttons'] = array('prev' => null,
         'next' => '#moreResults'
     );
