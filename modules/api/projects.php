@@ -28,6 +28,7 @@ class projects extends CoreAuthenticationNone {
       PROJECT_MASK_GRID_ROW_AGE => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'UploadedString'),
       PROJECT_MASK_GRID_ROW_DOWNLOADS => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Downloads'),
       PROJECT_MASK_GRID_ROW_VIEWS => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Views'),
+      PROJECT_MASK_FEATURED => array('ProjectId', 'ProjectName', 'FeaturedImage', 'Author'),
       PROJECT_MASK_ALL => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotBig', 'ScreenshotSmall', 'Author',
           'Description', 'Uploaded', 'UploadedString', 'Version', 'Views', 'Downloads', 'ProjectUrl', 'DownloadUrl'));
 
@@ -106,6 +107,21 @@ class projects extends CoreAuthenticationNone {
     }
     
     $this->retrieve($offset, $limit, PROJECT_MASK_ALL, PROJECT_SORTBY_AGE, $_REQUEST['query']);
+  }
+  
+  public function featured($limit = 1, $visible = "t") {
+    $projects = array();
+    $result = pg_execute($this->dbConnection, "get_featured_projects_ordered_by_update_time_limited", array($limit, $visible)) or
+    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if(pg_num_rows($result) > 0 ) {
+      $projects = pg_fetch_all($result);
+    }
+    pg_free_result($result);
+    $this->generateOutput($projects, PROJECT_MASK_FEATURED, min($limit, count($projects)));
+    if($this->Error != "") {
+      return $this->Error;
+    }
+    return array('CatrobatInformation' => $this->CatrobatInformation, 'CatrobatProjects' => $this->CatrobatProjects);
   }
   
   public function get($offset=0, $limit=20, $mask=PROJECT_MASK_DEFAULT, $order=PROJECT_SORTBY_AGE, $query='', $user='') {
@@ -266,6 +282,9 @@ class projects extends CoreAuthenticationNone {
       }
       if(in_array('ScreenshotSmall', $selectedFields)) {
         $currentProject['ScreenshotSmall'] = str_replace(BASE_PATH, "", getProjectThumbnailUrl($project['id']));
+      }
+      if(in_array('FeaturedImage', $selectedFields)) {
+        $currentProject['FeaturedImage'] = str_replace(BASE_PATH, "", getFeaturedProjectImageUrl($project['id']));
       }
       if(in_array('Author', $selectedFields)) {
         $currentProject['Author'] = $project['uploaded_by'];

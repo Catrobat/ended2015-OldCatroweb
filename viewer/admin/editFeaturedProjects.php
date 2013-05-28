@@ -42,15 +42,15 @@
   <div class="projectList">
       <table class="projectTable">
         <tr>
-          <th>ID</th>
+          <th>Featured ID</th>
           <th>Project ID</th>
           <th>Title</th>
           <th>Description</th>
           <th>User</th>
-          <th>Update time</th>
+          <th>Image</th>
+          <th>Time</th>
           <th>Downloads</th>
           <th>Views</th>
-          <th>Image</th>
           <th>Visible</th>
           <th>Delete</th>
         </tr>
@@ -62,15 +62,24 @@
           <td><?php echo $project['project_id']?></td>
           <td><?php echo $project['title']?></td>
           <td><?php echo $project['description']?></td>
-          <td><?php echo $project['username']?></td>
+          <td><?php echo $project['uploaded_by']?></td>
+          <td width="20%" style="text-align:right;">
+            <img src="<?php echo $project['image']?>" alt="<?php echo $project['image']?>" class="projectTableFeaturedImage"/>
+            <form style="" id="imageform<?php echo $project['id']?>" class="admin" action="updateFeaturedProjectsThumbnail" method="POST" enctype="multipart/form-data">
+              <input type="file" name="file"/>
+              <input type="hidden" name="featuredId" value="<?php echo $project['id']?>"/>
+              <input type="hidden" name="projectId" value="<?php echo $project['project_id']?>"/>
+              <input type="submit" name="submit_upload" id="imagesubmit<?php echo $project['id']?>" value="upload" />
+            </form>
+          </td>
           <td><?php echo date('Y-m-d H:i:s', strtotime($project['update_time']))?></td>
           <td><?php echo $project['download_count']?></td>
           <td><?php echo $project['view_count']?></td>
-          <td width="20%"><img src="<?php echo $project['image']?>" alt="<?php echo $project['image']?>" class="projectTableFeaturedImage"/></td>
           <td>
             <form id="toggleform<?php echo $project['id']?>" class="admin" action="toggleFeaturedProjectsVisiblity" method="POST">
             <?php echo ($project['visible']=='t' ? 'visible' : '<em>invisible</em>');?> 
               <input type="hidden" name="featuredId" value="<?php echo $project['id']?>"/>
+              <input type="hidden" name="projectId" value="<?php echo $project['project_id']?>"/>
               <input type="hidden" name="toggle" value="<?php echo ($project['visible']=='t' ? 'invisible' : 'visible'); ?>">
               <input type="button" value="change" name="toggleProject" id="toggle<?php echo $project['id']?>" onclick="javascript:submitToggleForm('toggleform<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>', '<?php echo ($project['visible']=='t' ? 'invisible' : 'visible');?>');" /> <!-- chg -->
             </form>
@@ -86,5 +95,8 @@
         </tr>
       <?php }}?>
       </table>
+      <p>
+        <a id="aAdminToolsAddFeaturedProject" href="<?php echo BASE_PATH;?>admin/tools/addFeaturedProject">add featured projects</a><br />
+      </p>
   </div>
 </body>

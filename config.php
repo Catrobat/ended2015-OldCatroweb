@@ -64,6 +64,7 @@ define('PROJECT_MASK_DEFAULT', 'min');
 define('PROJECT_MASK_GRID_ROW_AGE', 'listAge');
 define('PROJECT_MASK_GRID_ROW_DOWNLOADS', 'listDownloads');
 define('PROJECT_MASK_GRID_ROW_VIEWS', 'listViews');
+define('PROJECT_MASK_FEATURED', 'featured');
 define('PROJECT_MASK_ALL', 'all');
 
 define('PROJECT_SORTBY_AGE', 'age');

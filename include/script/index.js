@@ -23,14 +23,16 @@
 
 var Index = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function(pageLabels) {
+  __init__ : function(pageLabels, featured) {
     this.pageLabels = pageLabels;
     this.newestProjects = null;
     this.downloadProjects = null;
     this.viewProjects = null;
     this.history = window.History;
     this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
+    this.featuredProject = $.parseJSON(featured);
     
+    this.displayFeaturedProject();
     $(".catroidLink").click($.proxy(this.clearHistory, this));
     
     $(window).keydown($.proxy(function(event) {
@@ -101,6 +103,25 @@ var Index = Class.$extend( {
           this.viewProjects.restoreHistoryState(state.data.views);
         }
       }
+    }
+  },
+  
+  displayFeaturedProject : function() {
+    var container = $("featuredProject");
+    var projectId = 0;
+    var baseUrl = this.featuredProject['CatrobatInformation'].BaseUrl;
+    if(this.featuredProject['CatrobatInformation'].TotalProjects > 0) {
+      projectId = this.featuredProject['CatrobatProjects'][0].ProjectId;
+    }
+    
+    if(projectId > 0) {
+      $("#programmOfTheWeek").css('display', 'block');
+      $(".projectSpacer:first").css('display', 'block');
+      $("#featuredProject").html('<a href="' + baseUrl + '/details/' + projectId +'"><img src="' + baseUrl + this.featuredProject['CatrobatProjects'][0].FeaturedImage + '" /></a>');
+    }
+    else {
+      $("#programmOfTheWeek").css('display', 'none');
+      $(".projectSpacer:first").css('display', 'none');
     }
   }
 });
