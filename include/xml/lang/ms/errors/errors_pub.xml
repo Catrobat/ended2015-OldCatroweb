@@ -15,7 +15,7 @@ http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -26,13 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="expired_url">Harap Maaf! URL pemulihan anda telah tamat tempoh.Sila cuba lagi.</string>
     <string name="username_password_equal">Kata laluan mesti berbeza dari nama samaran.</string>
     <string name="board_authentication_failed">Pengesahan board tidak berjaya.</string>
-    <string name="city_update_failed">Terdapat masalah semasa mengemas kini negara asal anda.</string>
     <string name="country_update_failed">Terdapat masalah semasa mengemas kini negara asal anda.</string>
-    <string name="gender_update_failed">Terdapat masalah semasa mengemas kini negara asal anda.</string>
-    <string name="birth_update_failed">Terdapat masalah semasa mengemas kini tarikh lahir anda.</string>
     <string name="language_update_failed">Terdapat masalah semasa mengemas kini tarikh lahir anda.</string>
-    <string name="email_address_exists">Alamat emel sudah wujud.</string>
-    <string name="email_delete_failed"/>
+    <string name="email_update_failed"/>
     <string name="wiki_api_response_incorrect">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
     <string name="create_hash_failed">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
     <string name="hash_not_found"/>
@@ -62,9 +58,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="avatar_creation_failed"/>
     <string name="password_new_board_update_failed">Ada masalah/ralat ketika mengemaskini alamat emel.</string>
     <string name="userdata_not_exists">Nama samaran atau alamat emel anda tidak dijumpa. </string>
-    <string name="email_update_of_catroweb_failed">CatoWeb mesti mempunyai sekurang-kurangnya 2 alamat emel.</string>
     <string name="sendmail_failed">Terdapat ralat/masalah semasa menghantar mesej emel.Sila hubungi pentadbir di {* webmasterEmailAddress *}.</string>
   </userFunctions>
+  <profile>
+    <string name="password_missing">Kata laluan hilang.</string>
+    <string name="password_equal"/>
+  </profile>
   <db>
     <string name="query_failed">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
     <string name="connection_failed">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
@@ -76,11 +75,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="user_is_blocked">Akaun anda telah diblok.</string>
     <string name="html_file_not_found">Halaman ini tidak dapat dipaparkan.</string>
   </viewer>
-  <profile>
-    <string name="password_old_missing">Kata Laluan lama tidak lengkap.</string>
-    <string name="password_old_wrong">Katalaluan lama tidak betul.</string>
-    <string name="password_new_missing">Katalaluan Baru tidak lengkap.</string>
-  </profile>
   <admin>
     <string name="pootle_post_data_missing">POST-data yang hilang: diperlukan: lang.</string>
     <string name="pootle_load_xlf_failed">Tidak dapat memuatkan XLF-fail dari {sumber * *}.</string>

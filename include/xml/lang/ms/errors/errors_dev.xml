@@ -15,7 +15,7 @@ http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -62,18 +62,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="unsupported_image"/>
     <string name="avatar_creation_failed"/>
     <string name="password_new_board_update_failed"/>
-    <string name="city_update_failed">Terdapat masalah semasa mengemas kini negara asal anda.</string>
     <string name="country_update_failed">Terdapat masalah semasa mengemas kini negara asal anda.</string>
-    <string name="gender_update_failed">Terdapat masalah semasa mengemas kini negara asal anda.</string>
-    <string name="birth_update_failed">Terdapat masalah semasa mengemas kini tarikh lahir anda.</string>
     <string name="language_update_failed">Terdapat masalah semasa mengemas kini tarikh lahir anda.</string>
     <string name="userdata_not_exists">Nama samaran atau alamat emel tidak dijumpai.</string>
-    <string name="email_address_exists">Alamat emel sudah wujud.</string>
-    <string name="email_delete_failed"/>
-    <string name="email_update_of_catroweb_failed"/>
+    <string name="email_update_failed"/>
     <string name="create_hash_failed">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
     <string name="sendmail_failed">Terdapat ralat/masalah semasa menghantar mesej emel. Mungkin Mailserver anda bermasalah?</string>
   </userFunctions>
+  <profile>
+    <string name="password_missing">Kata laluan hilang.</string>
+    <string name="password_equal"/>
+  </profile>
   <upload>
     <string name="missing_project_title"/>
     <string name="missing_file_data"/>
@@ -110,11 +109,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <registration>
     <string name="postdata_missing"/>
   </registration>
-  <profile>
-    <string name="password_old_missing">Kata Laluan lama tidak lengkap.</string>
-    <string name="password_old_wrong">Katalaluan lama tidak betul.</string>
-    <string name="password_new_missing">Katalaluan Baru tidak lengkap.</string>
-  </profile>
   <admin>
     <string name="pootle_post_data_missing">POST-data yang hilang: diperlukan: lang.</string>
     <string name="pootle_load_xlf_failed">Tidak dapat memuatkan XLF-fail dari {sumber * *}.</string>

@@ -33,7 +33,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_months_ago">vor {*monthCount*} Monaten</string>
   <string name="template_common_one_year_ago">vor 1 Jahr</string>
   <string name="template_common_years_ago">vor {*yearCount*} Jahren</string>
-  <string name="template_common_over_years_ago">vor {*yearCount*} Jahren</string>
+  <string name="template_common_over_years_ago">vor &#xFC;ber {*yearCount*} Jahren</string>
   <string name="template_common_january">Januar</string>
   <string name="template_common_february">Februar</string>
   <string name="template_common_march">M&#xE4;rz</string>

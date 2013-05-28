@@ -15,7 +15,7 @@ http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -26,6 +26,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="uploaded_by">&#x43E;&#x442; {*nicknameString*}</string>
   <string name="login">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
   <string name="download_button">&#x421;&#x43A;&#x430;&#x447;&#x430;&#x442;&#x44C;</string>
+  <string name="report_as_inappropriate">&#x441;&#x43E;&#x43E;&#x431;&#x449;&#x438;&#x442;&#x44C; &#x43E; &#x43D;&#x430;&#x440;&#x443;&#x448;&#x435;&#x43D;&#x438;&#x438;</string>
+  <string name="report_as_inappropriate_label">&#x41F;&#x43E;&#x447;&#x435;&#x43C;&#x443; &#x432;&#x44B; &#x434;&#x443;&#x43C;&#x430;&#x435;&#x442;&#x435; &#x447;&#x442;&#x43E; &#x44D;&#x442;&#x43E;&#x442; &#x43F;&#x440;&#x43E;&#x435;&#x43A;&#x442; &#x44F;&#x432;&#x43B;&#x44F;&#x435;&#x442;&#x441;&#x44F; &#x43D;&#x435;&#x443;&#x43C;&#x435;&#x441;&#x442;&#x43D;&#x44B;&#x43C;?</string>
+  <string name="report">&#x41F;&#x43E;&#x436;&#x430;&#x43B;&#x43E;&#x432;&#x430;&#x442;&#x44C;&#x441;&#x44F;</string>
+  <string name="cancel">&#x41E;&#x442;&#x43C;&#x435;&#x43D;&#x438;&#x442;&#x44C;</string>
+  <string name="flag_reason_placeholder">&#x432;&#x432;&#x435;&#x434;&#x438;&#x442;&#x435; &#x43F;&#x440;&#x438;&#x447;&#x438;&#x43D;&#x443;</string>
   <string name="views">&#x43F;&#x440;&#x43E;&#x441;&#x43C;&#x43E;&#x442;&#x440;&#x43E;&#x432;</string>
   <string name="downloads">&#x441;&#x43A;&#x430;&#x447;&#x438;&#x432;&#x430;&#x43D;&#x438;&#x439;</string>
 </strings>

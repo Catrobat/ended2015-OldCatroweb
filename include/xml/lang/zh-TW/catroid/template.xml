@@ -15,13 +15,14 @@ http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="template_header_cancel">&#x53D6;&#x6D88;</string>
   <string name="template_footer_terms_of_use_link">&#x4F7F;&#x7528;&#x689D;&#x4F8B;</string>
   <string name="template_header_login">&#x767B;&#x5165;</string>
   <string name="template_header_password">&#x5BC6;&#x78BC;&#xFF1A;</string>
@@ -43,7 +44,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_december">&#x5341;&#x4E8C;&#x6708;</string>
   <string name="template_header_nick">&#x5462;&#x7A31;&#xFF1A;</string>
   <string name="template_header_logout">&#x767B;&#x51FA;</string>
-  <string name="template_header_cancel">&#x53D6;&#x6D88;</string>
   <string name="template_header_loading">&#x8F09;&#x5165;&#x4E2D;&#x3002;&#x3002;&#x3002;</string>
   <string name="template_header_logged_in_as">&#x60A8;&#x767B;&#x5165;&#x70BA;</string>
   <string name="template_header_menu">&#x6E05;&#x55AE;</string>

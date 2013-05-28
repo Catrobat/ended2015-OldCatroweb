@@ -15,7 +15,7 @@ http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -26,11 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="expired_url">&#x418;&#x437;&#x432;&#x438;&#x43D;&#x438;&#x442;&#x435;! &#x412;&#x430;&#x448;&#x430; &#x441;&#x441;&#x44B;&#x43B;&#x43A;&#x430; &#x434;&#x43B;&#x44F; &#x432;&#x43E;&#x441;&#x441;&#x442;&#x430;&#x43D;&#x43E;&#x432;&#x43B;&#x435;&#x43D;&#x438;&#x44F; &#x438;&#x441;&#x442;&#x435;&#x43A;&#x43B;&#x430;. &#x41F;&#x43E;&#x436;&#x430;&#x43B;&#x443;&#x439;&#x441;&#x442;&#x430;, &#x43F;&#x43E;&#x43F;&#x440;&#x43E;&#x431;&#x443;&#x439;&#x442;&#x435; &#x435;&#x449;&#x435; &#x440;&#x430;&#x437;.</string>
     <string name="username_password_equal">&#x41F;&#x430;&#x440;&#x43E;&#x43B;&#x44C; &#x434;&#x43E;&#x43B;&#x436;&#x435;&#x43D; &#x43E;&#x442;&#x43B;&#x438;&#x447;&#x430;&#x442;&#x44C;&#x441;&#x44F; &#x43E;&#x442; &#x43F;&#x440;&#x43E;&#x437;&#x432;&#x438;&#x449;&#x430;.</string>
     <string name="board_authentication_failed">&#x410;&#x443;&#x442;&#x435;&#x43D;&#x442;&#x438;&#x444;&#x438;&#x43A;&#x430;&#x446;&#x438;&#x44F; &#x43D;&#x435; &#x443;&#x434;&#x430;&#x43B;&#x430;&#x441;&#x44C;.</string>
-    <string name="city_update_failed">&#x41F;&#x440;&#x43E;&#x438;&#x437;&#x43E;&#x448;&#x43B;&#x430; &#x43E;&#x448;&#x438;&#x431;&#x43A;&#x430; &#x43F;&#x440;&#x438; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x43B;&#x435;&#x43D;&#x438;&#x438; &#x430;&#x434;&#x440;&#x435;&#x441;&#x430; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;.</string>
-    <string name="gender_update_failed">&#x41F;&#x440;&#x43E;&#x438;&#x437;&#x43E;&#x448;&#x43B;&#x430; &#x43E;&#x448;&#x438;&#x431;&#x43A;&#x430; &#x43F;&#x440;&#x438; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x43B;&#x435;&#x43D;&#x438;&#x438; &#x430;&#x434;&#x440;&#x435;&#x441;&#x430; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;.</string>
     <string name="language_update_failed">&#x41F;&#x440;&#x43E;&#x438;&#x437;&#x43E;&#x448;&#x43B;&#x430; &#x43E;&#x448;&#x438;&#x431;&#x43A;&#x430; &#x43F;&#x440;&#x438; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x43B;&#x435;&#x43D;&#x438;&#x438; &#x430;&#x434;&#x440;&#x435;&#x441;&#x430; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;.</string>
-    <string name="email_address_exists">&#x42D;&#x442;&#x43E;&#x442; &#x430;&#x434;&#x440;&#x435;&#x441; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B; &#x443;&#x436;&#x435; &#x441;&#x443;&#x449;&#x435;&#x441;&#x442;&#x432;&#x443;&#x435;&#x442;.</string>
-    <string name="email_delete_failed"/>
+    <string name="email_update_failed"/>
     <string name="wiki_api_response_incorrect">&#x41E;&#x439;, &#x447;&#x442;&#x43E;-&#x442;&#x43E; &#x43F;&#x43E;&#x448;&#x43B;&#x43E; &#x43D;&#x435; &#x442;&#x430;&#x43A;. &#x41F;&#x43E;&#x436;&#x430;&#x43B;&#x443;&#x439;&#x441;&#x442;&#x430;, &#x43F;&#x43E;&#x43F;&#x440;&#x43E;&#x431;&#x443;&#x439;&#x442;&#x435; &#x435;&#x449;&#x435; &#x440;&#x430;&#x437;!</string>
     <string name="create_hash_failed">&#x41E;&#x439;, &#x447;&#x442;&#x43E;-&#x442;&#x43E; &#x43F;&#x43E;&#x448;&#x43B;&#x43E; &#x43D;&#x435; &#x442;&#x430;&#x43A;. &#x41F;&#x43E;&#x436;&#x430;&#x43B;&#x443;&#x439;&#x441;&#x442;&#x430;, &#x43F;&#x43E;&#x43F;&#x440;&#x43E;&#x431;&#x443;&#x439;&#x442;&#x435; &#x435;&#x449;&#x435; &#x440;&#x430;&#x437;!</string>
     <string name="hash_not_found"/>
@@ -60,15 +57,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="avatar_creation_failed"/>
     <string name="password_new_board_update_failed">&#x41F;&#x440;&#x43E;&#x438;&#x437;&#x43E;&#x448;&#x43B;&#x430; &#x43E;&#x448;&#x438;&#x431;&#x43A;&#x430; &#x43F;&#x440;&#x438; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x43B;&#x435;&#x43D;&#x438;&#x438; &#x430;&#x434;&#x440;&#x435;&#x441;&#x430; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;.</string>
     <string name="userdata_not_exists">&#x412;&#x430;&#x448;&#x435; &#x43F;&#x440;&#x43E;&#x437;&#x432;&#x438;&#x449;&#x435; &#x438;&#x43B;&#x438; &#x430;&#x434;&#x440;&#x435;&#x441; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B; &#x43D;&#x435; &#x43D;&#x430;&#x439;&#x434;&#x435;&#x43D;.</string>
-    <string name="email_update_of_catroweb_failed"/>
     <string name="sendmail_failed"/>
   </userFunctions>
   <profile>
+    <string name="password_missing">&#x41E;&#x442;&#x441;&#x443;&#x442;&#x441;&#x442;&#x432;&#x443;&#x435;&#x442; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;.</string>
     <string name="email_update_failed">&#x41F;&#x440;&#x43E;&#x438;&#x437;&#x43E;&#x448;&#x43B;&#x430; &#x43E;&#x448;&#x438;&#x431;&#x43A;&#x430; &#x43F;&#x440;&#x438; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x43B;&#x435;&#x43D;&#x438;&#x438; &#x430;&#x434;&#x440;&#x435;&#x441;&#x430; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;.</string>
     <string name="city_update_failed">&#x41F;&#x440;&#x43E;&#x438;&#x437;&#x43E;&#x448;&#x43B;&#x430; &#x43E;&#x448;&#x438;&#x431;&#x43A;&#x430; &#x43F;&#x440;&#x438; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x43B;&#x435;&#x43D;&#x438;&#x438; &#x430;&#x434;&#x440;&#x435;&#x441;&#x430; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;.</string>
-    <string name="password_old_missing">&#x41E;&#x442;&#x441;&#x443;&#x442;&#x441;&#x442;&#x432;&#x443;&#x435;&#x442; &#x441;&#x442;&#x430;&#x440;&#x44B;&#x439; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;.</string>
-    <string name="password_old_wrong">&#x41D;&#x435; &#x432;&#x435;&#x440;&#x43D;&#x44B;&#x439; &#x441;&#x442;&#x430;&#x440;&#x44B;&#x439; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;.</string>
-    <string name="password_new_missing">&#x41E;&#x442;&#x441;&#x443;&#x442;&#x441;&#x442;&#x432;&#x443;&#x435;&#x442; &#x43D;&#x43E;&#x432;&#x44B;&#x439; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;.</string>
+    <string name="password_equal"/>
   </profile>
   <db>
     <string name="query_failed">&#x41E;&#x439;, &#x447;&#x442;&#x43E;-&#x442;&#x43E; &#x43F;&#x43E;&#x448;&#x43B;&#x43E; &#x43D;&#x435; &#x442;&#x430;&#x43A;. &#x41F;&#x43E;&#x436;&#x430;&#x43B;&#x443;&#x439;&#x441;&#x442;&#x430;, &#x43F;&#x43E;&#x43F;&#x440;&#x43E;&#x431;&#x443;&#x439;&#x442;&#x435; &#x435;&#x449;&#x435; &#x440;&#x430;&#x437;!</string>

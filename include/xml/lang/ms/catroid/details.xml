@@ -15,7 +15,7 @@ http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -26,6 +26,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="uploaded_by">oleh {*nicknameString*}</string>
   <string name="login">Logmasuk</string>
   <string name="download_button">Muat turun</string>
+  <string name="report_as_inappropriate">Lapor sebagai tidak sesuai</string>
+  <string name="report_as_inappropriate_label">Kenapa anda rasa projek ini tidak sesuai?</string>
+  <string name="report">Lapor</string>
+  <string name="cancel">Batal</string>
+  <string name="flag_reason_placeholder">Sila beri alasan</string>
   <string name="views">Lihat</string>
   <string name="downloads">Muat Turun</string>
 </strings>

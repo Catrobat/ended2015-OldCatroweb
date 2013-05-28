@@ -15,28 +15,19 @@ http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="change_my_password">Tukar kata laluan</string>
   <string name="password">Kata Laluan</string>
   <string name="country">Negara</string>
-  <string name="city">Bandar</string>
-  <string name="gender">Jantina</string>
-  <string name="female">perempuan</string>
-  <string name="male">lelaki</string>
   <string name="projects">Projek</string>
   <string name="save_button">Simpan perubahan saya</string>
-  <string name="enter_city">Tempat tinggal saya</string>
   <string name="really_delete_email">Adakah anda benar-benar ingin memadam alamat emel ini?</string>
   <string name="avatar_success">Anda telah berjaya mengemaskini jantina anda.</string>
   <string name="password_success">Anda telah berjaya mengemaskini kata laluan anda.</string>
-  <string name="email_delete_success">Anda telah berjaya memadam alamat emel anda.</string>
-  <string name="city_success">Anda telah berjaya mengemaskini tempat tinggal anda.</string>
-  <string name="country_success">Anda telah berjaya mengemaskini negara anda.</string>
-  <string name="gender_success">Anda telah berjaya mengemaskini jantina anda.</string>
-  <string name="birthday_success">Anda telah berjaya mengemaskini tarikh lahir anda.</string>
 </strings>

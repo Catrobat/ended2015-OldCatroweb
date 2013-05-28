@@ -15,13 +15,14 @@ http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="template_header_cancel">Batal</string>
   <string name="template_footer_terms_of_use_link">Syarat-syarat Pengunaan</string>
   <string name="template_header_login">Logmasuk</string>
   <string name="template_header_password">Kata Laluan:</string>
@@ -90,7 +91,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_header_register">di sini untuk membuat akaun baru.</string>
   <string name="template_header_nick">Nama Samaran:</string>
   <string name="template_header_logout">Logkeluar</string>
-  <string name="template_header_cancel">Batal</string>
   <string name="template_header_loading">sedang dimuat...</string>
   <string name="template_header_logged_in_as">Anda telah logmasuk sebagai</string>
   <string name="template_header_menu">Menu</string>

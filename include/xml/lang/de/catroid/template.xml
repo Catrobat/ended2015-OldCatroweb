@@ -22,6 +22,7 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="template_header_cancel">Abbrechen</string>
   <string name="template_header_additional_options">Andere M&#xF6;glichkeiten, um fortzufahren:</string>
   <string name="template_footer_terms_of_use_link">Nutzungsbedingungen</string>
   <string name="template_header_login">Einloggen</string>
@@ -94,7 +95,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_header_register">klick hier um ein neues Benutzerkonto zu erstellen</string>
   <string name="template_header_nick">Benutzername:</string>
   <string name="template_header_logout">Ausloggen</string>
-  <string name="template_header_cancel">Abbrechen</string>
   <string name="template_header_loading">laden...</string>
   <string name="template_header_logged_in_as">Du bist angemeldet als</string>
   <string name="template_header_menu">Men&#xFC;</string>
@@ -104,6 +104,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_footer_search_header">Suche</string>
   <string name="template_header_search_for_projects">Nach Projekten suchen</string>
   <string name="template_header_change_profile">Profil bearbeiten</string>
+  <string name="template_body_nojs">Bitte aktiviere JavaScript in deinem Browser.</string>
   <string name="template_footer_more">mehr</string>
   <string name="template_footer_less">weniger</string>
   <string name="template_footer_privacy_policy_link">Datenschutzrichtlinien</string>
@@ -116,6 +117,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_days_ago">vor {*dayCount*} Tagen</string>
   <string name="template_common_months_ago">vor {*monthCount*} Monaten</string>
   <string name="template_common_one_year_ago">vor 1 Jahr</string>
+  <string name="template_common_years_ago">vor {*yearCount*} Jahren</string>
   <string name="template_common_over_years_ago">vor {*yearCount*} Jahren</string>
   <string name="template_common_country_andorra">Andorra</string>
   <string name="template_common_country_united_arab_emirates">Vereinigte Arabische Emirate</string>

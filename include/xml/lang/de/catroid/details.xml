@@ -28,6 +28,14 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="login">einloggen</string>
   <string name="download_button">Herunterladen</string>
   <string name="filesize">gro&#xDF;</string>
+  <string name="report_as_inappropriate">Als unpassend melden</string>
+  <string name="report_as_inappropriate_label">Warum ist dieses Projekt unpassend?</string>
+  <string name="report_as_inappropriate_please_login">Bitte {*login_link*} um dieses Projekt als unpassend zu melden.</string>
+  <string name="report_as_inappropriate_own_project">Du kannst dein eigenes Projekt nicht markieren.</string>
+  <string name="report_as_inappropriate_already_flagged">Du hast dieses Projekt bereits als unpassend gemeldet.</string>
+  <string name="report">Melden</string>
+  <string name="cancel">Abbrechen</string>
+  <string name="flag_reason_placeholder">Gib einen Grund an</string>
   <string name="some_rights_reserved">Lizenz zum Spielen</string>
   <string name="views">mal gesehen</string>
   <string name="downloads">mal heruntergeladen</string>

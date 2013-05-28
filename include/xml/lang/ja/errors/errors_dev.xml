@@ -15,7 +15,7 @@ http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -62,18 +62,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="unsupported_image"/>
     <string name="avatar_creation_failed"/>
     <string name="password_new_board_update_failed"/>
-    <string name="city_update_failed"/>
     <string name="country_update_failed"/>
-    <string name="gender_update_failed"/>
-    <string name="birth_update_failed"/>
     <string name="language_update_failed"/>
     <string name="userdata_not_exists"/>
-    <string name="email_address_exists"/>
-    <string name="email_delete_failed"/>
-    <string name="email_update_of_catroweb_failed"/>
+    <string name="email_update_failed"/>
     <string name="create_hash_failed"/>
     <string name="sendmail_failed"/>
   </userFunctions>
+  <profile>
+    <string name="password_missing"/>
+    <string name="password_equal"/>
+  </profile>
   <upload>
     <string name="missing_project_title"/>
     <string name="missing_file_data"/>
@@ -110,11 +109,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <registration>
     <string name="postdata_missing"/>
   </registration>
-  <profile>
-    <string name="password_old_missing"/>
-    <string name="password_old_wrong"/>
-    <string name="password_new_missing"/>
-  </profile>
   <admin>
     <string name="pootle_post_data_missing"/>
     <string name="pootle_load_xlf_failed"/>

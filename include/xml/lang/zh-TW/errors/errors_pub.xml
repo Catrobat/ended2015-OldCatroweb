@@ -15,7 +15,7 @@ http://developer.catrobat.org/license_additional_term
 
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -26,11 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="expired_url">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF01;&#x60A8;&#x7684;&#x5FA9;&#x539F;URL&#x5DF2;&#x5931;&#x6548;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#x3002;</string>
     <string name="username_password_equal">&#x5BC6;&#x78BC;&#x9700;&#x8207;&#x5462;&#x7A31;&#x4E0D;&#x540C;&#x3002;</string>
     <string name="board_authentication_failed">Board &#x8A8D;&#x8B49;&#x5931;&#x6557;&#x3002;</string>
-    <string name="city_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
-    <string name="gender_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
     <string name="language_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
-    <string name="email_address_exists">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x5DF2;&#x5B58;&#x5728;&#x3002;</string>
-    <string name="email_delete_failed"/>
+    <string name="email_update_failed"/>
     <string name="wiki_api_response_incorrect">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x6709;&#x932F;&#x8AA4;&#x4E86;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
     <string name="create_hash_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x6709;&#x932F;&#x8AA4;&#x4E86;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
     <string name="hash_not_found"/>
@@ -60,15 +57,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="avatar_creation_failed"/>
     <string name="password_new_board_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
     <string name="userdata_not_exists">&#x60A8;&#x7684;&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x7121;&#x6CD5;&#x641C;&#x7372;&#x3002;</string>
-    <string name="email_update_of_catroweb_failed"/>
     <string name="sendmail_failed">&#x767C;&#x9001;&#x96FB;&#x90F5;&#x8A0A;&#x606F;&#x6642;&#x6709;&#x932F;&#x8AA4;&#x3002;&#x8ACB;&#x806F;&#x7D61;&#x7BA1;&#x7406;&#x54E1;&#xFF1A;{*webmasterEmailAddress*} &#x3002;</string>
   </userFunctions>
   <profile>
+    <string name="password_missing">&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="email_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
     <string name="city_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
-    <string name="password_old_missing">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_old_wrong">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x932F;&#x8AA4;&#x3002;</string>
-    <string name="password_new_missing">&#x65B0;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
+    <string name="password_equal"/>
   </profile>
   <db>
     <string name="query_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x6709;&#x932F;&#x8AA4;&#x4E86;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
