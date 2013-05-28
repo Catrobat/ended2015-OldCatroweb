@@ -1,26 +1,26 @@
 <?php
 /*
  * Catroid: An on-device visual programming system for Android devices
- * Copyright (C) 2010-2013 The Catrobat Team
- * (<http://developer.catrobat.org/credits>)
- * 
- * This program is free software: you can redistribute it and/or modify
- * it under the terms of the GNU Affero General Public License as
- * published by the Free Software Foundation, either version 3 of the
- * License, or (at your option) any later version.
- * 
- * An additional term exception under section 7 of the GNU Affero
- * General Public License, version 3, is available at
- * http://developer.catrobat.org/license_additional_term
- * 
- * This program is distributed in the hope that it will be useful,
- * but WITHOUT ANY WARRANTY; without even the implied warranty of
- * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- * GNU Affero General Public License for more details.
- * 
- * You should have received a copy of the GNU Affero General Public License
- * along with this program. If not, see <http://www.gnu.org/licenses/>.
- */
+* Copyright (C) 2010-2013 The Catrobat Team
+* (<http://developer.catrobat.org/credits>)
+*
+* This program is free software: you can redistribute it and/or modify
+* it under the terms of the GNU Affero General Public License as
+* published by the Free Software Foundation, either version 3 of the
+* License, or (at your option) any later version.
+*
+* An additional term exception under section 7 of the GNU Affero
+* General Public License, version 3, is available at
+* http://developer.catrobat.org/license_additional_term
+*
+* This program is distributed in the hope that it will be useful,
+* but WITHOUT ANY WARRANTY; without even the implied warranty of
+* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+* GNU Affero General Public License for more details.
+*
+* You should have received a copy of the GNU Affero General Public License
+* along with this program. If not, see <http://www.gnu.org/licenses/>.
+*/
 
 require_once CORE_BASE_PATH . 'modules/common/userFunctions.php';
 
@@ -58,10 +58,10 @@ class tools extends CoreAuthenticationAdmin {
     }
     $this->answer = $answer;
   }
-  
+
   private function sendEmailNotificationToUser($userHash, $userId, $userName, $userEmail) {
     $passwordResetUrl = BASE_PATH . 'passwordrecovery?c=' . $userHash;
-    
+
     $result = pg_execute($this->dbConnection, "update_recovery_hash_recovery_time_by_id", array($userHash, time(), $userId));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
@@ -72,27 +72,27 @@ class tools extends CoreAuthenticationAdmin {
     if(DEVELOPMENT_MODE) {
       throw new Exception($passwordResetUrl, STATUS_CODE_OK);
     }
-    
+
     if(SEND_NOTIFICATION_USER_EMAIL) {
       $mailSubject = APPLICATION_URL_TEXT." - Password reset required";
       $mailText  = 'Dear '.$userName.'.'. "\r\n\r\n";
       $mailText .= 'TODO: text';
       $mailText .= 'Best regards,'. "\r\n";
       $mailText .= 'Your '.APPLICATION_NAME.' Team'. "\r\n";
-    
+
       if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
         throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
             STATUS_CODE_SEND_MAIL_FAILED);
       }
     }
   }
-  
+
   public function sendEmailNotification() {
     if(isset($_REQUEST['sendEmailNotification'])) {
       $usernames = array();
       $common = new userFunctions();
       $successCount = 0;
-      
+
       if(!isset($_REQUEST['username'])) {
         $answer = "ERROR: No e-mails selected.";
       }
@@ -100,7 +100,7 @@ class tools extends CoreAuthenticationAdmin {
         $usernames = $_REQUEST['username'];
         $answer = "Number of emails selected: ".count($usernames)."<br/>";
       }
-      
+
       if(is_array($usernames)) {
         foreach($usernames as $username){
           try {
@@ -124,7 +124,7 @@ class tools extends CoreAuthenticationAdmin {
           }
           catch(Exception $e) {
             $answer .= $e->getMessage()."<br/>";
-          }          
+          }
         }
       }
       $answer .= "<br/>Status: ".$successCount.' of '.count($usernames).' e-mails sent. ('.(count($usernames) - $successCount).' failed)';
@@ -133,7 +133,7 @@ class tools extends CoreAuthenticationAdmin {
       }
       $this->answer = $answer;
     }
-    
+
     $this->htmlFile = "sendEmailNotification.php";
     $this->allusers = $this->getListOfUsersFromDatabase();
   }
@@ -150,7 +150,7 @@ class tools extends CoreAuthenticationAdmin {
     $this->htmlFile = "editProjectList.php";
     $this->projects = $this->retrieveAllProjectsFromDatabase();
   }
-  
+
   public function addFeaturedProject() {
     if(isset($_POST['add'])) {
       $id = $_POST['projectId'];
@@ -172,15 +172,17 @@ class tools extends CoreAuthenticationAdmin {
       }
       $this->answer = $answer;
     }
-  
+
     $this->htmlFile = "addFeaturedProject.php";
     $this->projects = $this->retrieveAllProjectsFromDatabase();
     $this->featuredProjects = $this->retrieveAllFeaturedProjectsFromDatabase();
     $featuredProjectIds = array();
-    foreach($this->featuredProjects as $fp) {
-      array_push($featuredProjectIds, $fp['project_id']);;
+    if($this->featuredProjects) {
+      foreach($this->featuredProjects as $fp) {
+        array_push($featuredProjectIds, $fp['project_id']);;
+      }
+      $this->featuredProjectIds = $featuredProjectIds;
     }
-    $this->featuredProjectIds = $featuredProjectIds;
   }
   public function updateFeaturedProjectsThumbnail() {
     if($_POST['projectId']) {
@@ -197,11 +199,11 @@ class tools extends CoreAuthenticationAdmin {
         default:
           $answer = "ERROR: Image upload failed! (unsupported file type)";
       }
-      
+
       if($imageSource) {
         $width = imagesx($imageSource);
         $height = imagesy($imageSource);
-        
+
         if($width == 0 || $height == 0) {
           $answer = "ERROR: Image upload failed! (image size 0?)";
         }
@@ -209,9 +211,9 @@ class tools extends CoreAuthenticationAdmin {
           $answer = "ERROR: Image upload failed! File dimensions mismatch (must be 1024x400px)!";
         }
       }
-      
+
       if($answer == "") {
-        $path = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.'/'.$_POST['projectId'].PROJECTS_FEATURED_EXTENSION;
+        $path = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId'].PROJECTS_FEATURED_EXTENSION;
         if(!imagepng($imageSource, $path, 0)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path."<br/>";
@@ -225,7 +227,7 @@ class tools extends CoreAuthenticationAdmin {
     $this->htmlFile = "editFeaturedProjects.php";
     $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
   }
-  
+
   public function editFeaturedProjects() {
     if(isset($_POST['delete'])) {
       if($this->deleteFeaturedProject($_POST['featuredId'])) {
@@ -237,22 +239,24 @@ class tools extends CoreAuthenticationAdmin {
     }
     $this->htmlFile = "editFeaturedProjects.php";
     $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
-    foreach($this->projects as $fp) {
-      if($fp['image'] == "") {
-        $id = $fp['id'];
-        if($fp['visible'] == "t") {
-          $query = "EXECUTE edit_featured_project_visibility_by_id('$id','f');";
-          $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-          if(pg_affected_rows($result)) {
-            $answer .= "<br/>Hiding featured project # ".$fp['id']."(project_id=".$fp['project_id'].", title=".$fp['title'].") because no image was found!<br/>";
+    if($this->projects) {
+      foreach($this->projects as $fp) {
+        if($fp['image'] == "") {
+          $id = $fp['id'];
+          if($fp['visible'] == "t") {
+            $query = "EXECUTE edit_featured_project_visibility_by_id('$id','f');";
+            $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+            if(pg_affected_rows($result)) {
+              $answer .= "<br/>Hiding featured project # ".$fp['id']."(project_id=".$fp['project_id'].", title=".$fp['title'].") because no image was found!<br/>";
+            }
           }
         }
       }
     }
-    
+
     $this->answer = $answer;
   }
-  
+
   public function toggleFeaturedProjectsVisiblity() {
     if(isset($_POST['toggle'])) {
       $id = $_POST['featuredId'];
@@ -285,20 +289,20 @@ class tools extends CoreAuthenticationAdmin {
     $this->htmlFile = "editFeaturedProjects.php";
     $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
   }
-  
+
   public function deleteFeaturedProject($id) {
     $query = "EXECUTE get_featured_project_by_id('$id');";
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if(pg_affected_rows($result) != 1) {
       return false;
     }
-  
+
     $project =  pg_fetch_assoc($result);
     if($project['project_id'] > 0) {
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION))
         @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION);
     }
-  
+
     $query = "EXECUTE delete_featured_project_by_id('$id');";
     $result = @pg_query($query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
     if(pg_affected_rows($result)) {
@@ -327,7 +331,7 @@ class tools extends CoreAuthenticationAdmin {
     $this->htmlFile = "editBlockedIps.php";
     $this->blockedips = $this->getListOfBlockedIpsFromDatabase();
   }
-  
+
   public function editBlockedIps() {
     if(isset($_POST['blockip'])) {
       if($this->blockIp($_POST['blockip'])) {
@@ -362,7 +366,7 @@ class tools extends CoreAuthenticationAdmin {
     $this->blockedusers = $this->getListOfBlockedUsersFromDatabase();
     $this->allusers = $this->getListOfUsersFromDatabase();
   }
-  
+
   public function editBlockedUsers() {
     if(isset($_POST['blockuser'])) {
       if($this->blockUser($_POST['blockuser'])) {
@@ -376,8 +380,8 @@ class tools extends CoreAuthenticationAdmin {
     $this->blockedusers = $this->getListOfBlockedUsersFromDatabase();
     $this->allusers = $this->getListOfUsersFromDatabase();
   }
-  
-  
+
+
   public function toggleProjects() {
     if(isset($_POST['toggle'])) {
       if ($_POST['toggle'] == "visible") {
@@ -507,7 +511,7 @@ class tools extends CoreAuthenticationAdmin {
     }
     return($projects);
   }
-  
+
   private function retrieveAllFeaturedProjectsFromDatabase() {
     $query = 'EXECUTE get_featured_projects_admin_ordered_by_update_time;';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
@@ -534,7 +538,7 @@ class tools extends CoreAuthenticationAdmin {
     pg_free_result($result);
     return($projects);
   }
-  
+
   private function getListOfBlockedIpsFromDatabase() {
     $query = 'EXECUTE get_all_blocked_ips;';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
@@ -552,7 +556,7 @@ class tools extends CoreAuthenticationAdmin {
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     return pg_fetch_all($result);
   }
-  
+
   public function resolveInappropriateProject($projectId) {
     $query = "EXECUTE show_project('$projectId')";
     $query2 = "EXECUTE set_resolved_on_inappropriate('$projectId')";
@@ -586,7 +590,7 @@ class tools extends CoreAuthenticationAdmin {
     pg_free_result($fresult);
     return($details);
   }
-  
+
   public function deleteProject($id) {
     $directory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
     $thumbnailDirectory = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;
@@ -598,24 +602,24 @@ class tools extends CoreAuthenticationAdmin {
     $thumbnailSmallName = $project['id'].PROJECTS_THUMBNAIL_EXTENSION_SMALL;
     $thumbnailLargeName = $project['id'].PROJECTS_THUMBNAIL_EXTENSION_LARGE;
     $thumbnailLargeName = $project['id'].PROJECTS_THUMBNAIL_EXTENSION_LARGE;
-    
+
     if($id > 0) {
       $projectBaseDir = CORE_BASE_PATH.'/'.PROJECTS_UNZIPPED_DIRECTORY.$id;
       $projectSoundDir = $projectBaseDir.'/sounds';
       $projectImageDir = $projectBaseDir.'/images';
-      
+
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_SMALL))
         @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_SMALL);
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_LARGE))
         @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_LARGE);
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_ORIG))
         @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_ORIG);
-      
+
       if(is_dir($projectSoundDir)) $this->removeProjectDir($projectSoundDir);
       if(is_dir($projectImageDir)) $this->removeProjectDir($projectImageDir);
       if(is_dir($projectBaseDir)) $this->removeProjectDir($projectBaseDir);
     }
-    
+
     $sourceFile = $directory.$fileName;
     if(!$this->deleteFile($sourceFile)) {
       return false;
@@ -625,16 +629,16 @@ class tools extends CoreAuthenticationAdmin {
       return true;
     }
   }
-  
+
   private function removeProjectDir($dir) {
     $dh = opendir($dir);
     while (($file = readdir($dh)) !== false) {
-       if ($file != "." && $file != "..")
-         @unlink($dir."/".$file);
+      if ($file != "." && $file != "..")
+        @unlink($dir."/".$file);
     }
     closedir($dh);
     rmdir($dir);
-  }  
+  }
 
   public function hideProject($id) {
     $query = "EXECUTE hide_project('$id');";
@@ -667,7 +671,7 @@ class tools extends CoreAuthenticationAdmin {
         }
       }
     }
-    	
+     
     return true;
   }
 
@@ -734,7 +738,7 @@ class tools extends CoreAuthenticationAdmin {
     $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
     return $this->getUsernameById($user_id);
   }
-  
+
   public function unblockUser($user_id, $user_name) {
     if ($user_id === null)
       $query = "EXECUTE admin_unblock_username('$user_name');";
@@ -748,20 +752,20 @@ class tools extends CoreAuthenticationAdmin {
     $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
     return $this->getUsernameById($user_id);
   }
-  
+
   private function getUsernameById($user_id) {
     $query = "EXECUTE get_user_by_id ('$user_id');";
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $users = pg_fetch_all($result);
     if($users) {
-        foreach($users as $user) {
-          $username = $user["username"];
-          return $username;
-        }
+      foreach($users as $user) {
+        $username = $user["username"];
+        return $username;
+      }
     }
-    return "UserID: ".$user_id; 
+    return "UserID: ".$user_id;
   }
-  
+
   public function isBlockedUser($user_id, $user_name) {
     $query = "EXECUTE admin_is_blocked_user('$user_id', '$user_name');";
     $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
@@ -785,7 +789,7 @@ class tools extends CoreAuthenticationAdmin {
       $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
     }
   }
-  
+
   public function isBlockedIp($ip) {
     $query = "EXECUTE admin_is_blocked_ip('$ip%');";
     $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
@@ -795,12 +799,12 @@ class tools extends CoreAuthenticationAdmin {
       return false;
     }
   }
-  
+
   public function removeAllBlockedIps() {
     $query = "EXECUTE admin_remove_all_blocked_ips;";
     $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
   }
-  
+
   public function updateMobileBrowserDetectionCode($currentCode, $updateCode) {
     $partCode = preg_split("/\/\/ <[\/]*isMobile>/", $currentCode);
     $newUpdateCode = $this->extractRegexCode($updateCode, "url");
@@ -831,7 +835,7 @@ class tools extends CoreAuthenticationAdmin {
     }
     return $code;
   }
-  
+
   public function updateBrowserDetectionRegexPattern() {
     $currentData = "";
     $updateData = "";
@@ -844,12 +848,12 @@ class tools extends CoreAuthenticationAdmin {
 
     // and save changes back to class
     if (($mcurrentData != $newData)) {
-       $fp = fopen($clientDetectionClass, "w+");
-       if ($fp) {
-         fwrite($fp, $newData);
-         fclose($fp);
-         return true;
-       }
+      $fp = fopen($clientDetectionClass, "w+");
+      if ($fp) {
+        fwrite($fp, $newData);
+        fclose($fp);
+        return true;
+      }
     }
     return false;
   }
@@ -864,7 +868,7 @@ class tools extends CoreAuthenticationAdmin {
       return null; // not found - so do not update
     }
   }
-  
+
   function loadNewRegexPatternFromUrl($clientDetectionUpdateUrl) {
     $fp = fopen($clientDetectionUpdateUrl, "rb");
     if ($fp) {
@@ -875,17 +879,17 @@ class tools extends CoreAuthenticationAdmin {
       return null; // not found - so do not update
     }
   }
-  
+
   public function updateBrowserDetection() {
     if(isset($_POST['action'])) {
       /*if($this->blockUser($_POST['blockuser'])) {
-        $answer = "The username <b>".$_POST["blockuser"]."</b> was added to blacklist.";
+       $answer = "The username <b>".$_POST["blockuser"]."</b> was added to blacklist.";
       } else {
-        $answer = "Error: could NOT add username <b>".$_POST["blockuser"]."</b> to blacklist!";
+      $answer = "Error: could NOT add username <b>".$_POST["blockuser"]."</b> to blacklist!";
       }
       */
       $info = $this->updateBrowserDetectionRegexPattern();
-      if ($info) 
+      if ($info)
         $answer = "<div style=\"color: green;\">The regex-pattern was updated successfully.</div>";
       else
         $answer = "<div style=\"color: red;\">The regex-pattern could not be updated.<br />Something went wrong!</div>";
@@ -895,7 +899,7 @@ class tools extends CoreAuthenticationAdmin {
     $this->currentRegEx = $this->getCurrentMobileBrowserDetectionRegEx();
     $this->newRegEx = $this->getNewMobileBrowserDetectionRegEx();
   }
-  
+
   public function getCurrentMobileBrowserDetectionRegEx() {
     $clientDetectionClass = CORE_BASE_PATH.'classes/CoreClientDetection.php';
     $code = $this->loadCurrentClientDetectionClass($clientDetectionClass);
@@ -907,8 +911,8 @@ class tools extends CoreAuthenticationAdmin {
     $code = $this->loadNewRegexPatternFromUrl($clientDetectionUpdateUrl);
     return trim($this->extractRegexCode($code, "url"));
   }
-  
-  
+
+
   public function __destruct() {
     parent::__destruct();
   }
