@@ -103,8 +103,13 @@
 .projectDetailsDescriptionText {
   margin: 8%;
   overflow: hidden;
+  text-align: left;
 }
 
+.projectDetailsDescriptionText a{
+  font-weight: bold;
+  color: #fff;
+ }
 .projectDetailsDownload {
   display: table;
   text-decoration: none;
