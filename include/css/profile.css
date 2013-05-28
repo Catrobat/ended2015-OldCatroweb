@@ -92,7 +92,7 @@
   -mox-box-shadow: inset 2px 2px 5px #05222a;
   -webkit-box-shadow: inset 2px 2px 5px #05222a;
   box-shadow: inset 2px 2px 5px #05222a;
- padding: 0.5em;
+ padding: 0.5em 0.5em 0.15em 0.5em;
  margin-bottom: 1.5em;
 }
 
@@ -102,7 +102,7 @@
   -mox-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
- padding: 0.5em;
+ padding: 0.5em 0.5em 0.15em 0.5em;
  margin-bottom: 1.5em;
 }
 
@@ -118,11 +118,21 @@
   border-radius: 0.125em;
   color: #05222a;
   height: 1.8em;
-  width: 9em;
+  width: 8em;
   border: none;
   margin-left: 0.2em;
   outline: none;
   font-size: 1.4em;
+}
+
+#wrapper article div#profileEmail, #wrapper article div#profileSecondEmail  {
+  width: 15em;
+}
+
+#wrapper article div.profileDeleteEMaill  {
+  float: right;
+  margin: 0.9em 0 0.9em 0.2em;
+  cursor: pointer;
 }
 
 #wrapper article input.inputInvalid {
@@ -191,13 +201,23 @@
 }
 
 #wrapper article h3 {
-  font-size: 1.8em;
+  border: 0;
+  border-top: 1px solid #477889;
+  background-color: #00475d;
+  background-image: none;
   color: #a8dff4;
+  font-size: 1.8em;
   text-transform: uppercase;
   font-weight: bold;
-  padding: 0.275em 0 0.3125em 0.375em;
+  padding: 0.07em 0 0.07em 0.375em;
+  text-align: center;
   text-shadow: #000000 1px 1px 1px;
+  margin-top: 1.55em;
   margin-bottom: 0;
+}
+
+#wrapper article div.projectContainer {
+  background-color: #00475d;
 }
 
 #wrapper article div#userProjectLoader {

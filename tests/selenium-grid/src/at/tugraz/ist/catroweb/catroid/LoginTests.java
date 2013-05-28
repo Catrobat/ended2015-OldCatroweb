@@ -76,51 +76,7 @@ public class LoginTests extends BaseTest {
       throw e;
     }
   }
-  
-  @Test(dataProvider = "invalidLoginData", groups = { "functionality", "popupwindows" }, description = "check login with invalid data; waitpage after five attempts")
-  public void invalidLogin(HashMap<String, String> dataset) throws Throwable {
-    try {
-      // test login
-      openLocation();
-      assertTrue(isVisible(By.id("largeMenuButton")));
-      driver().findElement(By.id("largeMenuButton")).click();
-      ajaxWait();
 
-      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
-      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
-
-      for(int i = 0; i < 5; i++) {
-        driver().findElement(By.id("loginSubmitButton")).click();
-        Alert alert = driver().switchTo().alert();
-        alert.accept();
-      }
-      CommonFunctions.removeAllBlockedIps();
-      
-      for(int i = 0; i < 5; i++) {
-        driver().findElement(By.id("loginSubmitButton")).click();
-        Alert alert = driver().switchTo().alert();
-        String message = alert.getText();
-        alert.accept();
-        
-        assertEquals(message, "The password or username was incorrect.");
-      }
-
-      driver().findElement(By.id("loginSubmitButton")).click();
-      Alert alert = driver().switchTo().alert();
-      String message = alert.getText();
-      alert.accept();
-      
-      assertEquals(message, "Your IP-Address has been blocked for 30 seconds.");
-      CommonFunctions.removeAllBlockedIps();
-    } catch(AssertionError e) {
-      captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
-      throw e;
-    } catch(Exception e) {
-      captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
-      throw e;
-    }
-  }
-  
   @Test(dataProvider = "validLoginData", groups = { "functionality", "popupwindows" }, description = "if logged in, registration page should redirect to profile page")
   public void redirection(HashMap<String, String> dataset) throws Throwable {
     try {      
@@ -190,6 +146,50 @@ public class LoginTests extends BaseTest {
       throw e;
     } catch(Exception e) {
       captureScreen("LoginTests.differentCaseInUsernameLogin." + username);
+      throw e;
+    }
+  }
+  
+  @Test(dataProvider = "invalidLoginData", groups = { "functionality", "popupwindows" }, description = "check login with invalid data; waitpage after five attempts")
+  public void invalidLogin(HashMap<String, String> dataset) throws Throwable {
+    try {
+      // test login
+      openLocation();
+      assertTrue(isVisible(By.id("largeMenuButton")));
+      driver().findElement(By.id("largeMenuButton")).click();
+      ajaxWait();
+
+      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
+      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
+
+      for(int i = 0; i < 5; i++) {
+        driver().findElement(By.id("loginSubmitButton")).click();
+        Alert alert = driver().switchTo().alert();
+        alert.accept();
+      }
+      CommonFunctions.removeAllBlockedIps();
+      
+      for(int i = 0; i < 5; i++) {
+        driver().findElement(By.id("loginSubmitButton")).click();
+        Alert alert = driver().switchTo().alert();
+        String message = alert.getText();
+        alert.accept();
+        
+        assertEquals(message, "The password or username was incorrect.");
+      }
+
+      driver().findElement(By.id("loginSubmitButton")).click();
+      Alert alert = driver().switchTo().alert();
+      String message = alert.getText();
+      alert.accept();
+      
+      assertEquals(message, "Your IP-Address has been blocked for 30 seconds.");
+      CommonFunctions.removeAllBlockedIps();
+    } catch(AssertionError e) {
+      captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
       throw e;
     }
   }

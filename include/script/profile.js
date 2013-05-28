@@ -38,6 +38,9 @@ var Profile = Class.$extend( {
     $(".profileCountry").change($.proxy(this.countryChangedEvent, this));
     $("#profileSaveChanges").click($.proxy(this.updateChangesRequest, this));
 
+    $("#profileEmailDelete").click($.proxy(this.deleteFirstEmail, this));
+    $("#profileSecondEmailDelete").click($.proxy(this.deleteSecondEmail, this));
+
     this.projectObject = null;
     this.history = window.History;
     this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
@@ -267,6 +270,26 @@ var Profile = Class.$extend( {
 
     $("#profileNewPassword input").val('');
     $("#profileRepeatPassword input").val('');
+  },
+  
+  deleteFirstEmail : function() {
+    var email = $("#profileEmail input").val();
+    if(email != "") {
+      if(confirm(this.languageStringsObject.really_delete_email + " '" + email + "' ?")) {
+        $("#profileEmail input").val('');
+        this.updateChangesRequest();
+      }
+    }
+  },
+  
+  deleteSecondEmail : function() {
+    var email = $("#profileSecondEmail input").val();
+    if(email != "") {
+      if(confirm(this.languageStringsObject.really_delete_email + " '" + email + "' ?")) {
+        $("#profileSecondEmail input").val('');
+        this.updateChangesRequest();
+      }
+    }
   },
  
   firstEmailRequestSuccess : function(result) {

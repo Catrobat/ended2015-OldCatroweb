@@ -36,7 +36,9 @@
   <string name="country">Country</string>
 
 
-  <string name="my_projects">Projects of</string>
+  <string name="my_projects">My Projects</string>
+  <string name="user_projects">Projects of</string>
+  <string name="no_projects_available">There are currently no projects.</string>
   <string name="new_password">New password</string>
   <string name="repeat_password">Repeat password</string>
   <string name="save">save changes</string>

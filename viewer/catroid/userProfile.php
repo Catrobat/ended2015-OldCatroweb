@@ -48,8 +48,10 @@
     </div>
     <div style="clear: both;"></div>
 
-    <h3><?php echo $this->languageHandler->getString('my_projects')," ", $this->userData['username']; ?></h3>
-    <div id="userProjectContainer" class="projectContainer"></div>
+    <h3><?php echo $this->languageHandler->getString('user_projects')," ", $this->userData['username']; ?></h3>
+    <div id="userProjectContainer" class="projectContainer">
+      <span><?php echo $this->languageHandler->getString('no_projects_available'); ?></span>
+    </div>
     <div id="userProjectLoader" class="projectFooter">
       <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
       <p>&nbsp;</p>

@@ -67,7 +67,6 @@ import org.testng.annotations.Parameters;
 
 import at.tugraz.ist.catroweb.common.CommonData;
 import at.tugraz.ist.catroweb.common.CommonFunctions;
-import at.tugraz.ist.catroweb.common.CommonStrings;
 import at.tugraz.ist.catroweb.common.Config;
 import at.tugraz.ist.catroweb.common.ProjectUploader;
 
@@ -264,21 +263,6 @@ public class BaseTest {
     return containsElementText(By.tagName("body"), text);
   }
   
-  public String getAjaxMessage() {
-    waitForElementPresent(By.id("ajaxAnswerBoxContainer"));
-    try {
-      ajaxWait();
-    } catch(Exception ignore) {
-    }
-
-    return (String)((JavascriptExecutor) driver()).executeScript("return arguments[0].innerHTML",
-        driver().findElement(By.id("ajaxAnswerBoxContainer")));
-  }
-
-  public boolean isAjaxMessagePresent(String text) {
-    return getAjaxMessage().contains(text);
-  }
-
   public String getRecoveryUrl(String message) {
     String[] parts = message.split("<");
     for(String part : parts) {
@@ -541,7 +525,6 @@ public class BaseTest {
       File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
       FileUtils.copyFile(scrFile, new File(Config.FILESYSTEM_BASE_PATH + imagePath));
       Reporter.log("<a href=\"../" + imageName + imageExtension + "\">Screenshot (" + imageName + ")</a>");
-      Reporter.log("Ajax message: " + getAjaxMessage());
     } catch(IOException e) {
       e.printStackTrace();
     } catch(NullPointerException e) {
