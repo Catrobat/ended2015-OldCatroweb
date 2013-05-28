@@ -359,14 +359,14 @@ class upload extends CoreAuthenticationDevice {
   
     foreach($url as $url_value) {
       if($url_value->nodeValue == '') {
-        $url_value->nodeValue = 'http://pocketcode.org/catroid/details/' . $projectId;
+        $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
         foreach($userHandle as $user)
           $user->nodeValue = $this->session->userLogin_userNickname;
       }
       else {
         foreach($remixOf as $remix_value) {
           $remix_value->nodeValue = $url_value->nodeValue;
-          $url_value->nodeValue = 'http://pocketcode.org/catroid/details/' . $projectId;
+          $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
           foreach($userHandle as $user)
             $user->nodeValue = $this->session->userLogin_userNickname;
         }
