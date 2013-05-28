@@ -126,12 +126,12 @@ deploy-catroidtest-all:
 	@echo ""
 
 deploy-public:
-	@echo "Deploy website to catroidweb..."
+	@echo "Deploy website to catroidpublic..."
 	@python services/deploy.py public website
 	@echo ""
 
 deploy-public-all:
-	@echo "Deploy website and addons to catroidweb..."
+	@echo "Deploy website and addons to catroidpublic..."
 	@python services/deploy.py public all
 	@echo ""
 
