@@ -24,32 +24,62 @@
 package at.tugraz.ist.catroweb.catroid;
 
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
+import at.tugraz.ist.catroweb.common.CommonData;
+import at.tugraz.ist.catroweb.common.CommonStrings;
 
 @Test(groups = { "catroid", "HeaderTests" })
 public class HeaderTests extends BaseTest {
 
   @Test(groups = { "visibility" }, description = "check menu home button")
-  public void headerMenuButtons() throws Throwable {
+  public void headerButtons() throws Throwable {
     try {
       openLocation();
-      assertTrue(isVisible(By.id("headerMenuButton")));
-      assertTrue(isVisible(By.id("headerProfileButton")));
+    
+      assertTrue(isVisible(By.id("largeMenu")));
+      assertTrue(isVisible(By.xpath("//*[@id='largeMenu']/div[2]/a")));
+      assertTrue(isVisible(By.id("largeSearchButton")));
+      assertTrue(isVisible(By.xpath("//*[@id='largeMenu']/div[4]/input")));
+      assertTrue(isVisible(By.id("largeMenuButton")));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
 
-      driver().findElement(By.id("headerMenuButton")).click();
-      assertTrue(isVisible(By.id("aIndexWebLogoLeft")));
-      assertFalse(isElementPresent(By.id("headerMenuButton")));
-      assertTrue(isVisible(By.id("headerProfileButton")));
-
-      driver().findElement(By.id("aIndexWebLogoLeft")).click();
-      ajaxWait();
-      assertRegExp(".*/catroid/index(/[0-9]+)?", driver().getCurrentUrl());
-      assertTrue(isVisible(By.id("headerMenuButton")));
-      assertTrue(isVisible(By.id("headerProfileButton")));
+      driver().findElement(By.id("largeMenuButton")).click();
       
+      assertRegExp(".*/login", driver().getCurrentUrl());
+      driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
+
+      driver().findElement(By.xpath("//*[@id='largeMenu']/div[4]/input")).sendKeys("test");
+      driver().findElement(By.id("largeSearchButton")).click();
+      assertRegExp(".*/search/.*", driver().getCurrentUrl());
+
+      driver().findElement(By.id("largeMenuButton")).click();
+
+      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
+      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
+
+      driver().findElement(By.id("loginSubmitButton")).click();
+      ajaxWait();
+      
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), CommonData.getLoginUserDefault()));
+      driver().findElement(By.id("largeMenuButton")).click();
+
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      assertTrue(isVisible(By.id("menuLogoutButton")));
+
+      driver().findElement(By.id("menuProfileButton")).click();
+      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/header"), CommonData.getLoginUserDefault().toUpperCase()));
+
+      driver().findElement(By.id("largeMenuButton")).click();
+      driver().findElement(By.id("menuLogoutButton")).click();
+
+      driver().findElement(By.id("largeMenuButton")).click();
+      ajaxWait();
+      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/div[1]"), "Login".toUpperCase()));
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerMenuButtons");
       throw e;
@@ -59,49 +89,61 @@ public class HeaderTests extends BaseTest {
     }
   }
 
-  @Test(groups = { "visibility" }, description = "check header buttons, search bar visibility, etc.")
-  public void headerButtonsIndex() throws Throwable {
+  @Test(groups = { "visibility" }, description = "check menu home button")
+  public void headerButtonsMobile() throws Throwable {
     try {
-      openLocation();
+      openMobileLocation();
+      
+      assertTrue(isVisible(By.id("smallMenuBar")));
+      assertTrue(isVisible(By.xpath("//*[@id='smallMenuBar']/a")));
+      assertFalse(isVisible(By.id("smallSearchBar")));
+      assertTrue(isVisible(By.id("mobileSearchButton")));
+      assertTrue(isVisible(By.id("mobileMenuButton")));
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
+      
+      driver().findElement(By.id("mobileMenuButton")).click();
+      
+      assertRegExp(".*/login", driver().getCurrentUrl());
+      driver().findElement(By.xpath("//*[@id='smallMenuBar']/a")).click();
+      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
+      
+      driver().findElement(By.id("mobileSearchButton")).click();
+      assertTrue(isVisible(By.id("smallSearchBar")));
+      driver().findElement(By.id("mobileSearchButton")).click();
+      assertFalse(isVisible(By.id("smallSearchBar")));
+      driver().findElement(By.id("mobileSearchButton")).click();
+
+      driver().findElement(By.xpath("//*[@id='smallSearchBar']/input")).sendKeys("test");
+      driver().findElement(By.xpath("//*[@id='smallSearchBar']/input")).sendKeys(Keys.RETURN);
+      assertRegExp(".*/search/.*", driver().getCurrentUrl());
+      
+      driver().findElement(By.id("mobileMenuButton")).click();
+      
+      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
+      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
+      
+      driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
-
-      assertTrue(isVisible(By.id("headerSearchBox")));
-      assertTrue(isVisible(By.id("headerMenuButton")));
-      assertTrue(isVisible(By.id("headerProfileButton")));
-
-      driver().findElement(By.id("headerMenuButton")).click();
-      assertRegExp(".*/catroid/menu$", driver().getCurrentUrl());
+      
+      driver().findElement(By.id("mobileMenuButton")).click();
+      
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      assertTrue(isVisible(By.id("menuLogoutButton")));
+      
+      driver().findElement(By.id("menuProfileButton")).click();
+      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/header"), CommonData.getLoginUserDefault().toUpperCase()));
+      
+      driver().findElement(By.id("mobileMenuButton")).click();
+      driver().findElement(By.id("menuLogoutButton")).click();
+      
+      driver().findElement(By.id("mobileMenuButton")).click();
+      ajaxWait();
+      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/div[1]"), "Login".toUpperCase()));
     } catch(AssertionError e) {
-      captureScreen("HeaderTests.headerButtonsIndex");
+      captureScreen("HeaderTests.headerButtonsMobile");
       throw e;
     } catch(Exception e) {
-      captureScreen("HeaderTests.headerButtonsIndex");
-      throw e;
-    }
-  }
-
-  @Test(groups = { "visibility" }, description = "home button: check button visibility")
-  public void headerHomeButton() throws Throwable {
-    try {
-      openLocation();
-
-      assertTrue(isVisible(By.id("headerMenuButton")));
-
-      driver().findElement(By.xpath("//a[@class='license'][4]")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("headerMenuButton")));
-      assertTrue(isVisible(By.id("headerProfileButton")));
-
-      driver().findElement(By.id("aIndexWebLogoLeft")).click();
-      ajaxWait();
-
-      assertTrue(isVisible(By.id("headerMenuButton")));
-      assertTrue(isVisible(By.id("headerProfileButton")));
-    } catch(AssertionError e) {
-      captureScreen("HeaderTests.headerHomeButton");
-      throw e;
-    } catch(Exception e) {
-      captureScreen("HeaderTests.headerHomeButton");
+      captureScreen("HeaderTests.headerButtonsMobile");
       throw e;
     }
   }

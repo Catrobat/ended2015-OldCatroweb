@@ -49,20 +49,20 @@ public class ReportAsInappropriateTests extends BaseTest {
       String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       // goto details page
-      login("catroid/details/" + projectId);
-      assertTrue(isTextPresent(projectTitle));
+      login("details/" + projectId);
+      assertTrue(isTextPresent(projectTitle.toUpperCase()));
       assertTrue(isTextPresent(dataset.get("projectDescription")));
 
       // report as inappropriate visible
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
 
       // check if reportAsInappropriate button is visible for a foreign project
-      openLocation("catroid/details/1");
+      openLocation("details/1");
       ajaxWait();
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
 
-      logout("catroid/details/" + projectId);
-      assertTrue(isTextPresent(projectTitle));
+      logout("details/" + projectId);
+      assertTrue(isTextPresent(projectTitle.toUpperCase()));
       assertTrue(isTextPresent(dataset.get("projectDescription")));
       // report as inappropriate still visible after logout
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));

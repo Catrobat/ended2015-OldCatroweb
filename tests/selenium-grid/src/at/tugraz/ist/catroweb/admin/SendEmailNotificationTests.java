@@ -61,10 +61,10 @@ public class SendEmailNotificationTests extends BaseTest {
       assertTrue(isElementPresent(By.id("chkboxSelectAll")));
       assertTrue(isElementPresent(By.id("sendEmailSubmit")));
     } catch(AssertionError e) {
-      captureScreen("sendEmailNOtificationTests.sendButton");
+      captureScreen("SendEmailNotificationTests.checkElements");
       throw e;
     } catch(Exception e) {
-      captureScreen("sendEmailNOtificationTests.sendButton");
+      captureScreen("SendEmailNotificationTests.checkElements");
       throw e;
     }
   }
@@ -102,10 +102,10 @@ public class SendEmailNotificationTests extends BaseTest {
       assertTrue(isTextPresent("Sending message to user \"catroweb\""));
       assertTrue(isTextPresent("Status: " + checkboxes.size() + " of " + + checkboxes.size() + " e-mails sent. (0 failed)"));
     } catch(AssertionError e) {
-      captureScreen("sendEmailNotificationTests.sendButton");
+      captureScreen("SendEmailNotificationTests.sendButton");
       throw e;
     } catch(Exception e) {
-      captureScreen("sendEmailNotificationTests.sendButton");
+      captureScreen("SendEmailNotificationTests.sendButton");
       throw e;
     }
   }
@@ -157,10 +157,10 @@ public class SendEmailNotificationTests extends BaseTest {
       assertTrue(isTextPresent(" (" + checked + " user(s) selected)"));
       
     } catch(AssertionError e) {
-      captureScreen("sendEmailNOtificationTests.sendButton");
+      captureScreen("SendEmailNotificationTests.checkCheckboxes");
       throw e;
     } catch(Exception e) {
-      captureScreen("sendEmailNOtificationTests.sendButton");
+      captureScreen("SendEmailNotificationTests.checkCheckboxes");
       throw e;
     }
   }

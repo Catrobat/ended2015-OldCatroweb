@@ -35,11 +35,11 @@ class tools extends CoreAuthenticationAdmin {
   }
 
   public function removeInconsistantProjectFiles() {
-    $directory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
+    $directory = CORE_BASE_PATH . PROJECTS_DIRECTORY;
     $files = scandir($directory);
     $answer = '';
     foreach($files as $fileName) {
-      if($fileName != '.' && $fileName != '..' && pathinfo($directory.$fileName, PATHINFO_EXTENSION) == 'zip') {
+      if($fileName != '.' && $fileName != '..') {
         $projectId = substr($fileName, 0, strpos($fileName, '.'));
         if(is_numeric($projectId)) {
           if($this->isProjectInDatabase(intval($projectId))) {
@@ -53,11 +53,14 @@ class tools extends CoreAuthenticationAdmin {
         }
       }
     }
+    if(strlen($answer) == 0) {
+      $answer = 'There are no projects.';
+    }
     $this->answer = $answer;
   }
   
   private function sendEmailNotificationToUser($userHash, $userId, $userName, $userEmail) {
-    $catroidPasswordResetUrl = BASE_PATH . 'catroid/passwordrecovery?c=' . $userHash;
+    $passwordResetUrl = BASE_PATH . 'passwordrecovery?c=' . $userHash;
     
     $result = pg_execute($this->dbConnection, "update_recovery_hash_recovery_time_by_id", array($userHash, time(), $userId));
     if(!$result) {
@@ -67,15 +70,15 @@ class tools extends CoreAuthenticationAdmin {
     pg_free_result($result);
      
     if(DEVELOPMENT_MODE) {
-      throw new Exception($catroidPasswordResetUrl, STATUS_CODE_OK);
+      throw new Exception($passwordResetUrl, STATUS_CODE_OK);
     }
     
     if(SEND_NOTIFICATION_USER_EMAIL) {
-      $mailSubject = "Catroid.org - Password reset required";
+      $mailSubject = APPLICATION_URL_TEXT." - Password reset required";
       $mailText  = 'Dear '.$userName.'.'. "\r\n\r\n";
       $mailText .= 'TODO: text';
       $mailText .= 'Best regards,'. "\r\n";
-      $mailText .= 'Your Catroid Team'. "\r\n";
+      $mailText .= 'Your '.APPLICATION_NAME.' Team'. "\r\n";
     
       if(!$this->mailHandler->sendUserMail($mailSubject, $mailText, $userEmail)) {
         throw new Exception($this->errorHandler->getError('userFunctions', 'sendmail_failed', '', CONTACT_EMAIL),
@@ -146,6 +149,163 @@ class tools extends CoreAuthenticationAdmin {
     }
     $this->htmlFile = "editProjectList.php";
     $this->projects = $this->retrieveAllProjectsFromDatabase();
+  }
+  
+  public function addFeaturedProject() {
+    if(isset($_POST['add'])) {
+      $id = $_POST['projectId'];
+      $query = "EXECUTE get_featured_project_by_id('$id');";
+      $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+      if($result && pg_affected_rows($result) == 0) {
+        $query = "EXECUTE insert_new_featured_project('$id', 'f');";
+        $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+        print_r($result);
+        if($result && pg_affected_rows($result) == 1) {
+          $answer = "The featured project was added!";
+        }
+        else {
+          $answer = "The featured project could NOT be added!";
+        }
+      }
+      else {
+        $answer = "This project is already featured!";
+      }
+      $this->answer = $answer;
+    }
+  
+    $this->htmlFile = "addFeaturedProject.php";
+    $this->projects = $this->retrieveAllProjectsFromDatabase();
+    $this->featuredProjects = $this->retrieveAllFeaturedProjectsFromDatabase();
+    $featuredProjectIds = array();
+    foreach($this->featuredProjects as $fp) {
+      array_push($featuredProjectIds, $fp['project_id']);;
+    }
+    $this->featuredProjectIds = $featuredProjectIds;
+  }
+  public function updateFeaturedProjectsThumbnail() {
+    if($_POST['projectId']) {
+      switch($_FILES['file']['type']) {
+        case "image/jpeg":
+          $imageSource = imagecreatefromjpeg($_FILES['file']['tmp_name']);
+          break;
+        case "image/png":
+          $imageSource = imagecreatefrompng($_FILES['file']['tmp_name']);
+          break;
+        case "image/gif":
+          $imageSource = imagecreatefromgif($_FILES['file']['tmp_name']);
+          break;
+        default:
+          $answer = "ERROR: Image upload failed! (unsupported file type)";
+      }
+      
+      if($imageSource) {
+        $width = imagesx($imageSource);
+        $height = imagesy($imageSource);
+        
+        if($width == 0 || $height == 0) {
+          $answer = "ERROR: Image upload failed! (image size 0?)";
+        }
+        if(($width != 1024) || ($height != 400)) {
+          $answer = "ERROR: Image upload failed! File dimensions mismatch (must be 1024x400px)!";
+        }
+      }
+      
+      if($answer == "") {
+        $path = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.'/'.$_POST['projectId'].PROJECTS_FEATURED_EXTENSION;
+        if(!imagepng($imageSource, $path, 0)) {
+          $answer = "ERROR: Image upload failed! Could not save image!";
+          $answer .= "<br/>path: ".$path."<br/>";
+          imagedestroy($imageSource);
+        }
+        else
+          $answer .= "SUCCESS: Featured image updated!";
+      }
+    }
+    $this-> answer = $answer;
+    $this->htmlFile = "editFeaturedProjects.php";
+    $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
+  }
+  
+  public function editFeaturedProjects() {
+    if(isset($_POST['delete'])) {
+      if($this->deleteFeaturedProject($_POST['featuredId'])) {
+        $answer = "The featured project was succesfully deleted!";
+      } else {
+        $answer = "Error: could NOT delete the featured project!";
+      }
+      $this->answer = $answer;
+    }
+    $this->htmlFile = "editFeaturedProjects.php";
+    $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
+    foreach($this->projects as $fp) {
+      if($fp['image'] == "") {
+        $id = $fp['id'];
+        if($fp['visible'] == "t") {
+          $query = "EXECUTE edit_featured_project_visibility_by_id('$id','f');";
+          $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+          if(pg_affected_rows($result)) {
+            $answer .= "<br/>Hiding featured project # ".$fp['id']."(project_id=".$fp['project_id'].", title=".$fp['title'].") because no image was found!<br/>";
+          }
+        }
+      }
+    }
+    
+    $this->answer = $answer;
+  }
+  
+  public function toggleFeaturedProjectsVisiblity() {
+    if(isset($_POST['toggle'])) {
+      $id = $_POST['featuredId'];
+      if ($_POST['toggle'] == "visible") {
+        if(getFeaturedProjectImageUrl($_POST['projectId']) == "") {
+          $answer = "ERROR: Could NOT change featured project to state visible, because no image was found!";
+        }
+        else {
+          $query = "EXECUTE edit_featured_project_visibility_by_id('$id','t');";
+          $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+          if(pg_affected_rows($result)) {
+            $answer = "The featured project was succesfully set to state visible!";
+          } else {
+            $answer = "ERROR: Could NOT change featured project to state visible!";
+          }
+        }
+        $this->answer = $answer;
+      }
+      if ($_POST['toggle'] == "invisible") {
+        $query = "EXECUTE edit_featured_project_visibility_by_id('$id','f');";
+        $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+        if(pg_affected_rows($result)) {
+          $answer = "The featured project was succesfully set to state invisible!";
+        } else {
+          $answer = "ERROR: Could NOT change featured project to state invisible!";
+        }
+        $this->answer = $answer;
+      }
+    }
+    $this->htmlFile = "editFeaturedProjects.php";
+    $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
+  }
+  
+  public function deleteFeaturedProject($id) {
+    $query = "EXECUTE get_featured_project_by_id('$id');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if(pg_affected_rows($result) != 1) {
+      return false;
+    }
+  
+    $project =  pg_fetch_assoc($result);
+    if($project['project_id'] > 0) {
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION))
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION);
+    }
+  
+    $query = "EXECUTE delete_featured_project_by_id('$id');";
+    $result = @pg_query($query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
+    if(pg_affected_rows($result)) {
+      return true;
+    }
+     
+    return false;
   }
 
   public function addBlockedIp() {
@@ -347,6 +507,19 @@ class tools extends CoreAuthenticationAdmin {
     }
     return($projects);
   }
+  
+  private function retrieveAllFeaturedProjectsFromDatabase() {
+    $query = 'EXECUTE get_featured_projects_admin_ordered_by_update_time;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $projects =  pg_fetch_all($result);
+    pg_free_result($result);
+    if($projects) {
+      for($i=0;$i<count($projects);$i++) {
+        $projects[$i]['image'] = getFeaturedProjectImageUrl($projects[$i]['project_id']);
+      }
+    }
+    return($projects);
+  }
 
   private function retrieveAllInappropriateProjectsFromDatabase() {
     $query = 'EXECUTE get_flagged_projects_ordered_by_uploadtime;';
@@ -437,8 +610,6 @@ class tools extends CoreAuthenticationAdmin {
         @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_LARGE);
       if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_ORIG))
         @unlink(CORE_BASE_PATH.'/'.PROJECTS_THUMBNAIL_DIRECTORY.'/'.$id.PROJECTS_THUMBNAIL_EXTENSION_ORIG);
-      if(file_exists(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENSION))
-        @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$id.PROJECTS_QR_EXTENSION);
       
       if(is_dir($projectSoundDir)) $this->removeProjectDir($projectSoundDir);
       if(is_dir($projectImageDir)) $this->removeProjectDir($projectImageDir);
@@ -446,8 +617,7 @@ class tools extends CoreAuthenticationAdmin {
     }
     
     $sourceFile = $directory.$fileName;
-    $qrCodeFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$project['id'].PROJECTS_QR_EXTENSION;
-    if(!$this->deleteFile($sourceFile) || !$this->deleteFile($qrCodeFile)) {
+    if(!$this->deleteFile($sourceFile)) {
       return false;
     } else {
       $query = "EXECUTE delete_project_by_id('$id');";

@@ -31,12 +31,14 @@ var ProjectLoader = Class.$extend({
     
     this.params = cbParams.call(this);
     this.ajaxRequestMutex = false;
-    setTimeout($.proxy(function() { this.initialize(this); }, this), 50);
+    this.initialize();
   },
   
   initialize : function() {
-    if(!this.initialized){
-      this.loadPage();
+    if(!this.initialized) {
+      if(this.params.content == null) {
+        this.loadPage();
+      }
       this.initialized = true;
     }
   },
@@ -55,38 +57,44 @@ var ProjectLoader = Class.$extend({
   
   loadPage : function() {
     if(this.tryAcquireAjaxMutex()){
-      this.params = this.cbParams.call(this);
-      this.loadPageRequest(this.params.page.number);
+      this.loadPageRequest();
     }
   },
 
-  loadPageRequest : function(pageNr) {
-    var self = this;
+  loadPageRequest : function() {
+    this.params = this.cbParams.call(this);
+    $(this.params.loader).show();
+    $(this.params.buttons.next).hide();
+
     $.ajax({
-      url : self.basePath + "catroid/loadProjects/" + pageNr + ".json",
-      type : "POST",
+      url : this.basePath + "api/projects/list.json",
+      type : "GET",
+      context: this,
       data : {
-        task : self.params.task,
-        page : pageNr,
-        numProjectsPerPage : self.params.page.numProjectsPerPage,
-        searchQuery: self.params.filter.searchQuery,
-        author : self.params.filter.author,
-        sort : self.params.sort
+        offset : this.params.page.numProjectsPerPage * (this.params.page.number - 1),
+        limit : this.params.page.numProjectsPerPage,
+        mask : this.params.mask,
+        order : this.params.sort,
+        query: this.params.filter.query,
+        user : this.params.filter.author
       },
-      timeout : (this.ajaxTimeout),
       success : function(result) {
-        if(result != ""){
-          self.cbOnSuccess.call(this, result);
-          self.ajaxResult = result;
-          self.releaseAjaxMutex();        
+        $(this.params.loader).hide();
+        $(this.params.buttons.next).show();
+        this.releaseAjaxMutex();
+
+        if(typeof result === "object") {
+          this.cbOnSuccess.call(this, result);
+        } else {
+          this.cbOnError.call(this, "Error: unknown response type: " + typeof(error), '');
         }
       },
       error : function(result, errCode) {
-        if(errCode == "timeout"){
-          window.location.reload(false);
-        }
-        self.cbOnError.call(this, result, errCode);
+        $(this.params.loader).hide();
+        $(this.params.buttons.next).show();
+        this.releaseAjaxMutex();        
+        this.cbOnError.call(this, result, errCode);
       }
     });
-  },
+  }
 });

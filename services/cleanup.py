@@ -49,10 +49,6 @@ class Cleaner:
 			if not 'projects' in entry and not '/1.' in entry and not '/2.' in entry:
 				os.remove(entry)
 
-		for entry in glob.glob(os.path.join(self.resourceDir, 'qrcodes', '*.png')):
-			if not '/1_' in entry and not '/2_' in entry:
-				os.remove(entry)
-
 		for entry in glob.glob(os.path.join(self.resourceDir, 'thumbnails', '*.png')):
 			if not '/1_' in entry and not '/2_' in entry and not '/thumbnail_' in entry:
 				os.remove(entry)

@@ -74,8 +74,6 @@ class upload extends CoreAuthenticationDevice {
           CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $projectId);
       $this->extractThumbnail(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $projectId . '/', $projectId);
 
-      $this->getQRCode($projectId, $projectInformation['projectTitle']);
-
       $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
       if($unapprovedWords) {
         $this->badWordsFilter->mapUnapprovedWordsToProject($projectId);
@@ -372,17 +370,6 @@ class upload extends CoreAuthenticationDevice {
     return false;
   }
 
-  private function getQRCode($projectId, $projectTitle) {
-    $urlToEncode = urlencode(BASE_PATH . 'catroid/download/' . $projectId . PROJECTS_EXTENSION . '?fname=' . urlencode($projectTitle));
-    $destinationPath = CORE_BASE_PATH . PROJECTS_QR_DIRECTORY . $projectId . PROJECTS_QR_EXTENSION;
-    if(!generateQRCode($urlToEncode, $destinationPath)) {
-      $this->sendQRFailNotificationEmail($projectId, $projectTitle);
-      throw new Exception($this->errorHandler->getError('upload', 'qr_code_generation_failed'), STATUS_CODE_UPLOAD_QRCODE_GENERATION_FAILED);
-    }
-    $this->setState('remove_files', $destinationPath);
-    return true;
-  }
-
   private function sendUnapprovedWordlistPerEmail() {
     $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
     $mailSubject = '';
@@ -393,7 +380,7 @@ class upload extends CoreAuthenticationDevice {
       $mailSubject = 'There is ' . $unapprovedWordCount . ' new unapproved word!';
     }
 
-    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText = "Hello ".APPLICATION_URL_TEXT." Administrator!\n\n";
     $mailText .= "New word(s):\n";
     for($i = 0; $i < $unapprovedWordCount; $i++) {
       $mailText .= $unapprovedWords[$i].(($unapprovedWordCount-1 == $i) ? "" : ", ");
@@ -406,7 +393,7 @@ class upload extends CoreAuthenticationDevice {
   private function buildNativeApp($projectId) {
     $pythonHandler = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC . "nativeAppBuilding/src/handle_project.py";
     $projectFile = CORE_BASE_PATH . PROJECTS_DIRECTORY . $projectId . PROJECTS_EXTENSION;
-    $catroidSource = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC . "catroid/";
+    $catroidSource = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC;
     $outputFolder = CORE_BASE_PATH . PROJECTS_DIRECTORY;
 
     if(is_dir(CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC)) {
@@ -414,21 +401,9 @@ class upload extends CoreAuthenticationDevice {
     }
   }
 
-  private function sendQRFailNotificationEmail($projectId, $projectTitle) {
-    $mailSubject = 'QR-Code generation failed!';
-    $mailText = "Hello catroid.org Administrator!\n\n";
-    $mailText .= "The generation of the QR-Code for the following project failed:\n\n";
-    $mailText .= "---PROJECT DETAILS---\n";
-    $mailText .= "ID: " . $projectId . "\n";
-    $mailText .= "TITLE: " . $projectTitle . "\n\n";
-    $mailText .= "You should check this!";
-
-    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
-  }
-
   private function sendUploadFailAdminEmail($formData, $fileData) {
     $mailSubject = 'Upload of a project failed!';
-    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText = "Hello ".APPLICATION_URL_TEXT." Administrator!\n\n";
     $mailText .= "The Upload of a project failed:\n\n";
     $mailText .= "---PROJECT DETAILS---\n";
     $mailText .= "Upload Error Code: " . $this->statusCode . "\n";

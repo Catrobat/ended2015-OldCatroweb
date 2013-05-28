@@ -22,61 +22,59 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-$this->module->addGlobalCss('baseStyle.css');
+$this->module->addGlobalCss('normalize.css');
+$this->module->addGlobalCss('base.css');
 $this->module->addGlobalCss('header.css');
-$this->module->addGlobalCss('buttons.css');
-$this->module->addGlobalCss('login.css');
+$this->module->addGlobalCss('footer.css');
+
 
 $this->module->addGlobalJs('baseClassVars.js');
 $this->module->addGlobalJs('classy.js');
-$this->module->addGlobalJs('commonFunctions.js');
-$this->module->addGlobalJs('headerMenu.js');
-$this->module->addGlobalJs('login.js');
+$this->module->addGlobalJs('header.js');
+$this->module->addGlobalJs('footer.js');
 $this->module->addGlobalJs('languageHandler.js');
+$this->module->addGlobalJs('searchBar.js');
+
+
 
 ?>
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="<?php echo $this->languageHandler->getLanguage()?>">
-<head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-  <!-- <meta name="viewport" content="target-densitydpi=device-dpi, width=device-width, minimum-scale=1.0, maximum-scale=1.3, initial-scale=1.0, user-scalable=yes" /> -->
-    
-  <title><?php echo $this->getWebsiteTitle() ?></title>
-  <?php echo $this->getGlobalCss(); ?>
-  <?php echo $this->getCss(); ?>
+  <head>
+    <meta charset="utf-8" />
+    <title><?php echo $this->getWebsiteTitle() ?></title>
+    <meta name="description" content="Catroid is a visual programming language for Android devices that is inspired by the Scratch programming language for PCs, developed by the Lifelong Kindergarten Group at the MIT Media Lab. It is the aim of the Catroid project to facilitate the learning of programming skills among children and users of all ages. No desktop or notebook computer is needed.">
+    <meta name="viewport" content="width=device-width">
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERY_VERSION; ?>/jquery.min.js"></script>
-  <script>window.jQuery || document.write('<script src="<?php echo BASE_PATH . CACHE_PATH; ?>jquery<?php echo JQUERY_VERSION; ?>.min.js"><\/script>')</script>
-  <?php echo $this->getGlobalJs(); ?>
-  <?php echo $this->getJs(); ?>
-  <link rel="icon" href="<?php echo BASE_PATH?>images/logo/favicon.png<?php echo '?'.VERSION?>" type="image/png" />
-  
-<?php if(!$this->isMobile)  {?>
-  <link href="<?php echo BASE_PATH . CSS_PATH; ?>baseStyleDesktop.css?<?php echo VERSION; ?>" media="screen" rel="stylesheet" type="text/css" />
-<?php }?>
-</head>
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
-<body>
-  <script type="text/javascript">
-    var languageStringsObject = { 
-      "ajax_took_too_long" : "<?php echo $this->module->errorHandler->getError('viewer', 'ajax_took_too_long'); ?>",
-      "ajax_timed_out" : "<?php echo $this->module->errorHandler->getError('viewer', 'ajax_timed_out'); ?>"
-    };
-    var common = new Common(languageStringsObject);
-  </script>
-  <div class="webMainContainer">
-<?php include($this->header);?>
+    <?php echo $this->getGlobalCss(); ?>
+    <?php echo $this->getCss(); ?>
 
-  <div id="ajaxAnswerBoxContainer">
-    <div id="ajaxAnswerBox" class="blueBoxMain">
-      <div class="whiteBoxMain"></div>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/<?php echo JQUERY_VERSION; ?>/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="<?php echo BASE_PATH . CACHE_PATH; ?>jquery<?php echo JQUERY_VERSION; ?>.min.js"><\/script>')</script>
+    <script src="<?php echo BASE_PATH . CACHE_PATH; ?>jquery.history.js"></script>
+
+    <link rel="icon" href="<?php echo BASE_PATH?>images/logo/favicon.png<?php echo '?'.VERSION?>" type="image/png" />
+  </head>
+  <body>
+    <div id="wrapper">
+      <?php include($this->header);?>
+      <?php include($this->viewer);?>
+      <div id="noscript">
+        <script>$('#noscript').hide(); $('#wrapper article').show();</script>
+        <img src="<?php echo BASE_PATH; ?>images/symbols/warning.png" alt="" />
+        <p><?php echo $this->languageHandler->getString('template_body_nojs'); ?></p>
+      </div>
     </div>
-  </div>
+    
+    <footer>
+      <?php include($this->footer);?>
+    </footer>
 
-<?php include($this->viewer);?>
-  
-<?php include($this->footer);?>
-  </div>
-<?php echo '  <img src="' . googleAnalyticsGetImageUrl() . '" />'; ?> 
-</body>
+    <?php echo $this->getGlobalJs(); ?>
+    <?php echo $this->getJs(); ?>
+
+    <?php echo '  <img id="ga" src="' . googleAnalyticsGetImageUrl() . '" />'; ?>
+  </body>
 </html>

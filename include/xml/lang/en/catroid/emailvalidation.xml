@@ -22,6 +22,6 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="title">Validate your email address.</string>
+  <string name="title">Validate your email address</string>
   <string name="success">You have successfully validated your email address.</string>
 </strings>

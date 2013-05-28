@@ -121,7 +121,7 @@ class CoreErrorHandler {
         return false;
       }
     
-      header("Location: ".BASE_PATH."catroid/errorPage");
+      header("Location: " . BASE_PATH . "error");
       exit();
     } else {
       return false;
@@ -132,7 +132,7 @@ class CoreErrorHandler {
     $http_ref = "";
     if (isset($_SERVER["HTTP_REFERER"])) $http_ref = $_SERVER["HTTP_REFERER"];
     $mailSubject = 'An error occurred during processing a page!';
-    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText = "Hello ".APPLICATION_URL_TEXT." Administrator!\n\n";
     $mailText .= "An error message was produced during processing the page\n";
     $mailText .= "http://".$_SERVER['SERVER_NAME'].$_SERVER['REQUEST_URI']."\n\n";
     $mailText .= "--- ERROR DETAILS ---\n";

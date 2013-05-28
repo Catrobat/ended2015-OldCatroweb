@@ -24,47 +24,63 @@
 
 ?>
 
-<?php if($this->showCatroidDescription): ?>
-    <div id="catroidDescription" class="webMainMiddle">
-      <div class="blueBoxMain">
-        <div>
-          <div class="projectListRow">
-            <div class="whiteBoxMain whiteBoxGradient">
-              <div class="infoboxRight">
-                <div><img class="infoboxCloseButton" id="catroidDescriptionCloseButton" src="<?php echo BASE_PATH?>images/symbols/close.png" /></div>
-                <div>
-                  <a id="aIndexInfoboxScreenshotLink" href="https://github.com/Catrobat/Catroid/wiki/_pages" target="_blank">
-                    <img class="infoboxScreenshot" src="<?php echo BASE_PATH?>images/screenshots/infobox.png" />
-                  </a>
-                </div>
-              </div>
-              <div class="infoboxLeft">
-                <div class="infoboxText"><?php echo $this->languageHandler->getString('infobox_text')?></div>
-                <div class="infoboxDownloadBox">
-                  <a class="noLink" id="aIndexInfoboxDownloadButton" href="http://developer.catrobat.org/" target="_blank">
-                    <button class="button orange infobox"><?php echo $this->languageHandler->getString('download_catroid')?></button>
-                  </a>
-                </div>
-              </div>
-            </div>
+      <article>
+        <div id="programmOfTheWeek">
+          <header><?php echo $this->languageHandler->getString('recommended'); ?></header>
+          <div id="featuredProject">
           </div>
         </div>
-      </div> <!-- blueBoxMain close //-->
-    </div> <!--  WEBMAINMIDDLE -->
-    <?php endif; ?>
-    <div class="webMainMiddle">
-      <div class="blueBoxMain">
-        <div>
-          <div id="projectListTitle" class="webMainContentTitle"></div>
-          <div id="projectContainer">
-            <noscript>
-               <div class="projectListRow">
-                 <div class="whiteBoxMain">
-                   <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('enable_javascript')?></div>                   
-                 </div>
-               </div>
-            </noscript>  
-          </div>        
-        </div> <!-- mainContent close //-->
-      </div> <!-- blueBoxMain close //-->
-    </div> <!--  WEBMAINMIDDLE -->
+        <div class="projectSpacer"></div>
+
+        <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
+        <div id="newestProjects" class="projectContainer"></div>
+        <div id="newestProjectsLoader" class="projectFooter">
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <p>&nbsp;</p>
+        </div>
+        <div id="newestShowMore" class="projectFooter">
+          <div class="img-load-more"></div>
+          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+        </div>
+        <div class="projectSpacer"></div>
+
+        <header><?php echo $this->languageHandler->getString('mostDownloaded'); ?></header>
+        <div id="mostDownloadedProjects" class="projectContainer"></div>
+        <div id="mostDownloadedProjectsLoader" class="projectFooter">
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <p>&nbsp;</p>
+        </div>
+        <div id="mostDownloadedShowMore" class="projectFooter">
+          <div class="img-load-more"></div>
+          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+        </div>
+        <div class="projectSpacer"></div>
+
+        <header><?php echo $this->languageHandler->getString('mostViewed'); ?></header>
+        <div id="mostViewedProjects" class="projectContainer"></div>
+        <div id="mostViewedProjectsLoader" class="projectFooter">
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <p>&nbsp;</p>
+        </div>
+        <div id="mostViewedShowMore" class="projectFooter">
+          <div class="img-load-more"></div>
+          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+        </div>
+        <div class="projectSpacer"></div>
+
+      </article>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          var pageLabels = { 'websiteTitle' : '<?php echo SITE_DEFAULT_TITLE; ?>'};
+          var index = Index(pageLabels, <?php echo $this->featuredProject; ?>);
+
+          var newest = ProjectObject(<?php echo $this->newestProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
+          var downloads = ProjectObject(<?php echo $this->mostDownloadedProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
+          var views = ProjectObject(<?php echo $this->mostViewedProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
+          index.setProjectObjects(newest, downloads, views);
+
+          newest.init();
+          downloads.init();
+          views.init();
+        });
+      </script>

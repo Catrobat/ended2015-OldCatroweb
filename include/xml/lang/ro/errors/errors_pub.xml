@@ -1,17 +1,21 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -22,10 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="expired_url">Scuza&#x21B;i! URL de recuperare a expirat. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x21B;i din nou.</string>
     <string name="username_password_equal">Parola trebuie s&#x103; difere de nume.</string>
     <string name="board_authentication_failed">Autentificarea &#xEE;n board a e&#x219;uat.</string>
-    <string name="country_update_failed"/>
-    <string name="birth_update_failed"/>
-    <string name="email_address_exists">Aceast&#x103; adresa de email deja exist&#x103;.</string>
-    <string name="email_delete_failed"/>
+    <string name="language_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
+    <string name="email_update_failed"/>
     <string name="wiki_api_response_incorrect">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
     <string name="create_hash_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
     <string name="hash_not_found"/>
@@ -33,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="username_invalid_underscore"/>
     <string name="username_invalid_hash"/>
     <string name="username_invalid_verticalbar"/>
-    <string name="username_invalid_curlybrace"/>
+    <string name="username_invaquery_failedlid_curlybrace"/>
     <string name="username_invalid_lessgreater"/>
     <string name="username_invalid_squarebracket"/>
     <string name="username_invalid_spaces"/>
@@ -46,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="password_new_too_long"/>
     <string name="email_missing"/>
     <string name="email_invalid">Adresa de email nu este valid&#x103;.</string>
-    <string name="email_already_exists"/>
+    <string name="last_email"/>
     <string name="country_missing"/>
     <string name="password_or_username_wrong">Parola sau numele dumneavoastr&#x103; au fost gre&#x219;ite.</string>
     <string name="board_registration_failed"/>
@@ -55,15 +57,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="avatar_creation_failed"/>
     <string name="password_new_board_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
     <string name="userdata_not_exists">Numele sau adresa email nu a fost g&#x103;sit.</string>
-    <string name="email_update_of_catroweb_failed"/>
     <string name="sendmail_failed"/>
   </userFunctions>
   <profile>
+    <string name="password_missing">Parola lispe&#x219;te.</string>
     <string name="email_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
     <string name="city_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
-    <string name="password_old_missing">Parola veche lipse&#x219;te.</string>
-    <string name="password_old_wrong">Parola veche este incorect&#x103;.</string>
-    <string name="password_new_missing">Parola nou&#x103; lispe&#x219;te.</string>
+    <string name="password_equal"/>
   </profile>
   <db>
     <string name="query_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
@@ -71,13 +71,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="no_entry_for_id">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
   </db>
   <viewer>
-    <string name="ajax_request_page_not_found">Nu a fost g&#x103;sit modulul necesar pentru interogarea ajax.</string>
     <string name="ip_is_blocked">Adresa IP a dumneavoastr&#x103; a fost blocat&#x103;</string>
     <string name="ip_is_blocked_temporary"/>
     <string name="user_is_blocked">Contul dumneavoastr&#x103; a fost blocat.</string>
     <string name="html_file_not_found">Aceast&#x103; pagin&#x103; nu poate fi afi&#x219;at&#x103;.</string>
-    <string name="ajax_took_too_long">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
-    <string name="ajax_timed_out">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
   </viewer>
   <admin>
     <string name="pootle_post_data_missing">POST-data lipse&#x219;te: trebuie: lang.</string>
@@ -86,6 +83,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="pootle_invalid_stringname_in_xml">Nume nevalid &#xEE;n sursa XLF-fi&#x219;ierului: {*stringName*}</string>
     <string name="pootle_could_not_write_xml_file">Nu sa &#xEE;nscris XML-fi&#x219;ierul c&#x103;tre mapa cu limbi: {*fileName*}</string>
   </admin>
+  <server>
+    <string name="missing_mcrypt"/>
+    <string name="missing_blowfish"/>
+  </server>
   <upload>
     <string name="missing_project_title">Trebuie s&#x103; specifica&#x21B;i titlul proiectului dumneavoastr&#x103;.</string>
     <string name="missing_file_data"/>
@@ -93,7 +94,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="copy_failed">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
     <string name="rename_failed">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
     <string name="invalid_file_checksum">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
-    <string name="qr_code_generation_failed">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
     <string name="save_thumbnail_failed">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
     <string name="project_exceed_filesize_limit">Fi&#x219;ierul cu proiectul dumneavoastrp e prea mare.</string>
     <string name="project_title_default">Trebuie s&#x103; redenumi&#x21B;i proiectul &#xEE;nainte de &#xEE;nc&#x103;rcarea lui.</string>

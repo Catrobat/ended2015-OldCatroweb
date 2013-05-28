@@ -85,7 +85,7 @@ class CoreController {
           die($error->getMessage());
         }
       } else {
-        die("An valid module for your request was not found!");
+        die("A valid module for your request was not found!");
       }
     } else {
       die("Could not find: " . $classFile . "!");

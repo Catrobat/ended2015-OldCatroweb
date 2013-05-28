@@ -23,14 +23,12 @@
 -->
 <strings>
   <string name="title">Login</string>
-  <string name="account_link">click here to create a new account</string>
   <string name="password_link">click here if you forgot your password</string>  
-  <string name="please_enter_nick_and_password">Please enter your nickname and your password:</string>  
   <string name="nickname">Nickname:</string>
   <string name="password">Password:</string>
   <string name="enter_nick">your nickname</string>
   <string name="enter_password">your password</string>
   <string name="login">Login now</string>
   <string name="additional_options">Other options to proceed:</string>
-  <string name="catroid_logout_success">Catroid logout was successful.</string>
+  <string name="catroid_logout_success">Logout was successful.</string>
 </strings>

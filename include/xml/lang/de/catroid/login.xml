@@ -1,32 +1,34 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="account_link">klick hier um ein neues Benutzerkonto zu erstellen</string>
   <string name="additional_options">Andere M&#xF6;glichkeiten, um fortzufahren:</string>
-  <string name="title">Einloggen</string>
   <string name="password_link">klick hier, wenn du dein Passwort vergessen hast</string>
-  <string name="please_enter_nick_and_password">Bitte gib deinen Benutzernamen und dein Passwort ein:</string>
+  <string name="title">Einloggen</string>
   <string name="nickname">Nickname:</string>
   <string name="password">Passwort:</string>
   <string name="enter_nick">dein Nickname</string>
   <string name="enter_password">dein Passwort</string>
   <string name="login">jetzt anmelden</string>
-  <string name="catroid_logout_success">Catroid Abmeldung war erfolgreich.</string>
+  <string name="catroid_logout_success">Abmelden war erfolgreich.</string>
 </strings>

@@ -160,6 +160,12 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
           file_get_contents("http://ajax.googleapis.com/ajax/libs/jquery/" . JQUERY_VERSION . "/jquery.min.js"));
     }
     
+    $jqueryHistory = 'jquery.history.js';
+    if(!file_exists(CORE_BASE_PATH . CACHE_PATH . $jqueryHistory)) {
+      file_put_contents(CORE_BASE_PATH . CACHE_PATH . $jqueryHistory,
+          file_get_contents("http://balupton.github.io/history.js/scripts/bundled/html5/" . $jqueryHistory));
+    }
+    
     foreach($jsFiles as $js) {
       $file = CORE_BASE_PATH . SCRIPT_PATH . $js;
       if(file_exists($file)) {

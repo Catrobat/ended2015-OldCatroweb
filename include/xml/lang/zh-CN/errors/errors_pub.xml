@@ -1,17 +1,21 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -22,10 +26,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="expired_url">&#x5BF9;&#x4E0D;&#x8D77;&#xFF01;&#x60A8;&#x6062;&#x590D;&#x7684;&#x7F51;&#x5740;&#x5DF2;&#x8FC7;&#x671F;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#x3002;</string>
     <string name="username_password_equal">&#x5BC6;&#x7801;&#x4E0E;&#x6635;&#x79F0;&#x5FC5;&#x987B;&#x4E0D;&#x540C;&#x3002;</string>
     <string name="board_authentication_failed">&#x7535;&#x8DEF;&#x677F;&#x9A8C;&#x8BC1;&#x5931;&#x8D25;&#x3002;</string>
-    <string name="country_update_failed"/>
-    <string name="birth_update_failed"/>
-    <string name="email_address_exists">&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x5DF2;&#x5B58;&#x5728;&#x3002;</string>
-    <string name="email_delete_failed"/>
+    <string name="language_update_failed">&#x5F53;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65F6;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x3002;</string>
+    <string name="email_update_failed"/>
     <string name="wiki_api_response_incorrect">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
     <string name="create_hash_failed">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
     <string name="hash_not_found"/>
@@ -33,7 +35,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="username_invalid_underscore"/>
     <string name="username_invalid_hash"/>
     <string name="username_invalid_verticalbar"/>
-    <string name="username_invalid_curlybrace"/>
+    <string name="username_invaquery_failedlid_curlybrace"/>
     <string name="username_invalid_lessgreater"/>
     <string name="username_invalid_squarebracket"/>
     <string name="username_invalid_spaces"/>
@@ -46,7 +48,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="password_new_too_long"/>
     <string name="email_missing"/>
     <string name="email_invalid">&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65E0;&#x6548;&#x3002;</string>
-    <string name="email_already_exists"/>
+    <string name="last_email"/>
     <string name="country_missing"/>
     <string name="password_or_username_wrong">&#x60A8;&#x7684;&#x5BC6;&#x7801;&#x6216;&#x6635;&#x79F0;&#x4E0D;&#x6B63;&#x786E;&#x3002;</string>
     <string name="board_registration_failed"/>
@@ -55,15 +57,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="avatar_creation_failed"/>
     <string name="password_new_board_update_failed">&#x5F53;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65F6;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x3002;</string>
     <string name="userdata_not_exists">&#x60A8;&#x7684;&#x6635;&#x79F0;&#x6216;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x672A;&#x627E;&#x5230;&#x3002;</string>
-    <string name="email_update_of_catroweb_failed"/>
     <string name="sendmail_failed"/>
   </userFunctions>
   <profile>
+    <string name="password_missing">&#x5BC6;&#x7801;&#x5931;&#x8E2A;</string>
     <string name="email_update_failed">&#x5F53;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65F6;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x3002;</string>
     <string name="city_update_failed">&#x5F53;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65F6;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x3002;</string>
-    <string name="password_old_missing">&#x4E45;&#x5BC6;&#x7801;&#x5931;&#x8E2A;&#x3002;</string>
-    <string name="password_old_wrong">&#x4E45;&#x5BC6;&#x7801;&#x4E0D;&#x6B63;&#x786E;&#x3002;</string>
-    <string name="password_new_missing">&#x65B0;&#x5BC6;&#x7801;&#x5931;&#x8E2A;&#x3002;</string>
+    <string name="password_equal"/>
   </profile>
   <db>
     <string name="query_failed">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
@@ -71,13 +71,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="no_entry_for_id">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
   </db>
   <viewer>
-    <string name="ajax_request_page_not_found">&#x65E0;&#x6CD5;&#x627E;&#x5230;Ajax&#x6240;&#x8BF7;&#x6C42;&#x6240;&#x9700;&#x7684;&#x7EC4;&#x4EF6;</string>
     <string name="ip_is_blocked">&#x60A8;&#x7684;IP&#x5730;&#x5740;&#x5DF2;&#x88AB;&#x5C01;&#x9501;&#x3002;</string>
     <string name="ip_is_blocked_temporary"/>
     <string name="user_is_blocked">&#x60A8;&#x7684;&#x5E10;&#x6237;&#x5DF2;&#x88AB;&#x5C01;&#x9501;&#x3002;</string>
     <string name="html_file_not_found">&#x8FD9;&#x9875;&#x65E0;&#x6CD5;&#x663E;&#x793A;&#x3002;</string>
-    <string name="ajax_took_too_long">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
-    <string name="ajax_timed_out">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
   </viewer>
   <admin>
     <string name="pootle_post_data_missing"/>
@@ -86,6 +83,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="pootle_invalid_stringname_in_xml"/>
     <string name="pootle_could_not_write_xml_file"/>
   </admin>
+  <server>
+    <string name="missing_mcrypt"/>
+    <string name="missing_blowfish"/>
+  </server>
   <upload>
     <string name="missing_project_title">&#x60A8;&#x5FC5;&#x987B;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x6807;&#x9898;&#x7ED9;&#x60A8;&#x7684;&#x9879;&#x76EE;&#xFF01;</string>
     <string name="missing_file_data"/>
@@ -93,7 +94,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="copy_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
     <string name="rename_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
     <string name="invalid_file_checksum">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
-    <string name="qr_code_generation_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
     <string name="save_thumbnail_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
     <string name="project_exceed_filesize_limit">&#x60A8;&#x7684;&#x9879;&#x76EE;&#x6587;&#x4EF6;&#x592A;&#x5927;&#x4E86;&#x3002;</string>
     <string name="project_title_default">&#x4E0A;&#x8F7D;&#x4E4B;&#x524D;&#x60A8;&#x5FC5;&#x987B;&#x91CD;&#x547D;&#x540D;&#x60A8;&#x7684;&#x9879;&#x76EE;&#x3002;</string>

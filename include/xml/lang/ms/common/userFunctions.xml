@@ -1,17 +1,21 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -22,17 +26,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="registration_mail_text_row2">Sila simpan e-mel ini untuk rekod anda. Informasi akaun anda adalah seperti berikut: </string>
   <string name="registration_mail_text_row3">Nama pengguna</string>
   <string name="registration_mail_text_row5">Kata laluan</string>
-  <string name="registration_mail_text_row6">Anda boleh menggunakan nama pengguna dan kata laluan anda pada bila-bila masa untuk mengakses komuniti catroid.</string>
-  <string name="recovery_mail_text_row5">Anda boleh menggunakan nama pengguna dan kata laluan anda pada bila-bila masa untuk mengakses komuniti catroid.</string>
   <string name="registration_mail_text_row7">Untuk membuat demikian, sila lawati halaman berikut:</string>
   <string name="recovery_mail_text_row6">Untuk membuat demikian, sila lawati halaman berikut:</string>
   <string name="registration_mail_text_row8">Untuk mengedit maklumat profil anda, sila ke halman berikut:</string>
   <string name="recovery_mail_text_row7">Untuk mengedit maklumat profil anda, sila ke halman berikut:</string>
   <string name="registration_mail_text_row9">Sekiranya anda terlupa kata laluan anda, penetapkan semula dapat dilakukan dengan menggunakan alamat e-mel atau nama pengguna yang berkaitan dengan akaun.</string>
-  <string name="registration_mail_text_row11">Kumpulan Catroid anda</string>
-  <string name="recovery_mail_text_row9">Kumpulan Catroid anda</string>
-  <string name="email_validation_text_row3">Kumpulan Catroid anda</string>
   <string name="recovery_mail_text_row1">Hi {*username*}</string>
-  <string name="recovery_mail_text_row2">Anda telah meminta untuk menetapkan semula kata laluan di Catroid.org kerana anda telah terlupa kata laluan anda. Jika anda tidak membuat permintaan ini, sila abaikan. Permintaan ini akan tamat tempoh dan tidak dapat digunakan lagi selepas 24 jam.</string>
   <string name="recovery_mail_text_row3">Untuk menetapkan semula kata laluan anda dan mencipta yang baru, sila layari laman berikut:</string>
 </strings>

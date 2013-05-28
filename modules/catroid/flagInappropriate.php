@@ -98,7 +98,7 @@ class flagInappropriate extends CoreAuthenticationNone {
     pg_free_result($result);
     
     $mailSubject = 'Project reported as inappropriate!';
-    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText = "Hello ".APPLICATION_URL_TEXT." Administrator!\n\n";
     $mailText .= "The following project was reported as inappropriate by ".$this->getProjectFlags($projectId)." user(s):\n\n";
     $mailText .= "---PROJECT DETAILS---\nID: ".$project['id']."\nTITLE: ".$project['title']."\n\n";
     $mailText .= "Reason: ".$flagReason."\n";

@@ -1,44 +1,36 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded_by">oleh {*nicknameString*}</string>
   <string name="uploaded">Telah dimuat naik</string>
-  <string name="project">Projek</string>
-  <string name="app">Aplikasi</string>
+  <string name="uploaded_by">oleh {*nicknameString*}</string>
   <string name="login">Logmasuk</string>
-  <string name="download">Muat turun</string>
-  <string name="filesize">Saiz fail</string>
-  <string name="report">Lapor</string>
-  <string name="cancel">Batal</string>
+  <string name="download_button">Muat turun</string>
   <string name="report_as_inappropriate">Lapor sebagai tidak sesuai</string>
   <string name="report_as_inappropriate_label">Kenapa anda rasa projek ini tidak sesuai?</string>
-  <string name="some_rights_reserved">Beberapa Hak Terpelihara</string>
+  <string name="report">Lapor</string>
+  <string name="cancel">Batal</string>
+  <string name="flag_reason_placeholder">Sila beri alasan</string>
   <string name="views">Lihat</string>
   <string name="downloads">Muat Turun</string>
-  <string name="version_info_text">Versi Catroid:</string>
-  <string name="text_more">lagi</string>
-  <string name="text_less">kurang</string>
-  <string name="download_info_catroid">Muat turun dan buka projek ini di Catroid. Anda boleh mengubah, menambah dan melaksanakan projek atau sekadar melihat bagaimana projek ini dibina.</string>
-  <string name="download_info_app">Muat turun dan pasang projek ini sebagai aplikasi pada alat anda. Anda hanya boleh melaksanakan dan memainkan versi projek ini tanpa Catroid dipasang.</string>
-  <string name="qrcode_info">Jika anda mempunyai pembaca-kod-bar yang dipasang, anda boleh mengimbas alih kod-QR ini dan memuat turun projek ini terus ke telefon bimbit anda. Hanya mulakan pembaca-kod-bar pada alat dah halakan kamera pada kod-QR. Muat turun akan dimulakan serta-merta.</string>
-  <string name="show_qr_code_info_button">Kod QR - Apa ini?</string>
-  <string name="hide_qr_code_info_button">Kod QR - tutup maklumat</string>
-  <string name="flag_reason_placeholder">Sila beri alasan</string>
 </strings>

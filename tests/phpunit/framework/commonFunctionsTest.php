@@ -38,7 +38,7 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     $wl = getIpBlockClassWhitelistArray();
     $this->assertTrue(is_array($wl));
     $this->assertTrue(in_array('contactus', $wl));
-    $this->assertTrue(in_array('errorPage', $wl));
+    $this->assertTrue(in_array('error', $wl));
   }
 
   public function testConvertBytesToMegabytes() {
@@ -79,31 +79,6 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     $this->assertEquals(35, strlen(makeShortString($string, 35, '...mysuffix')));
   }
 
-  public function testGetCatroidProjectQRCodeUrl() {
-    @copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'test_qr'.PROJECTS_QR_EXTENSION);
-
-    $this->assertTrue(is_string(getCatroidProjectQRCodeUrl('test_qr', 'test')));
-    $this->assertTrue(is_string(getCatroidProjectQRCodeUrl('non_existing_id', 'non_existing')));
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'test_qr'.PROJECTS_QR_EXTENSION);
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'non_existing_id'.PROJECTS_QR_EXTENSION);
-  }
-  
-  public function testGetAppProjectQRCodeUrl() {
-    @copy(dirname(__FILE__).'/testdata/test_qr.png', CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'test_qr'.APP_QR_EXTENSION);
-    $this->assertTrue(is_string(getAppProjectQRCodeUrl('test_qr', 'test')));
-    $this->assertTrue(is_string(getAppProjectQRCodeUrl('non_existing_id', 'non_existing')));
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'test_qr'.APP_QR_EXTENSION);
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.'non_existing_id'.APP_QR_EXTENSION);
-  }
-  
-  public function testGenerateQRCode() {
-    $projectId = 'another_non_existing_id';
-    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENSION.'?fname='.urlencode($projectId));
-    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION;
-    $this->assertTrue(generateQRCode($urlToEncode, $destinationPath));
-    @unlink(CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION);
-  }
-
   public function testGetProjectThumbnailUrl() {
     $thumbSourceName = 'test_thumbnail.png';
     $thumbDestName = 'test_small.png';
@@ -137,11 +112,11 @@ class commonFunctionsTest extends PHPUnit_Framework_TestCase {
     $fromTime = time() - 10;
     $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
     $this->assertTrue(is_string($timeInWords));
-    $this->assertTrue(is_int(strpos($timeInWords, 'less')) && is_int(strpos($timeInWords, 'minute')));
+    $this->assertTrue(is_int(strpos($timeInWords, 'just')) && is_int(strpos($timeInWords, 'now')));
 
     $fromTime = time() - 66;
     $timeInWords = getTimeInWords($fromTime, $testModel->languageHandler, time());
-    $this->assertFalse(strpos($timeInWords, 'less'));
+    $this->assertFalse(strpos($timeInWords, 'just'));
     $this->assertTrue(is_int(strpos($timeInWords, 'minute')));
 
     $fromTime = time() - 60*60*24-1;

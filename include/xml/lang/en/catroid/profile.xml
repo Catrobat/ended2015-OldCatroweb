@@ -25,36 +25,31 @@
   <string name="myTitle">My Profile</string>
   <string name="userTitle">User Profile</string>
 
-  <string name="changePicture">change my picture</string>
-  <string name="name">Name</string>
+  <string name="showMore">show more</string>
+
+
+  <string name="changeAvatar">Change picture</string>
   <string name="password">Password</string>
-  <string name="email">Email</string>
-  <string name="location">Location</string>
+  <string name="email">My first email</string>
+  <string name="second_email">My second email</string>
   <string name="projects">Projects</string>
   <string name="country">Country</string>
-  <string name="city">City</string>
-  <string name="gender">Gender</string>
-  <string name="birthday">Birthday</string>
-  <string name="language">Language</string>
+
 
   <string name="my_projects">My Projects</string>
-  <string name="change_my_password">change my password</string>
-  <string name="old_password">my old password</string>
-  <string name="new_password">my new password</string>
-  <string name="save_button">save my changes</string>
-  <string name="enter_city">my hometown</string>
-  <string name="male">male</string>
-  <string name="female">female</string>
+  <string name="user_projects">Projects of</string>
+  <string name="no_projects_available">There are currently no projects.</string>
+  <string name="new_password">New password</string>
+  <string name="repeat_password">Repeat password</string>
+  <string name="save">save changes</string>
+  <string name="saved">saved!</string>
 
-  <string name="really_delete">Do you really want to delete this email address</string>
+  <string name="really_delete_email">Do you really want to delete this email address</string>
+  <string name="really_delete_project">Do you really want to delete your project</string>
   <string name="image_too_big">Your chosen picture is too large, please do not use images larger than 5mb.</string>
   <string name="other">Other</string>
   <string name="avatar_success">You updated your avatar successfully.</string>
   <string name="password_success">You updated your password successfully.</string>
   <string name="email_add_success">The new e-mail address was successfully added. Please check your inbox to verify it.</string>
-  <string name="email_delete_success">You deleted your e-mail address successfully.</string>
-  <string name="city_success">You updated your hometown successfully.</string>
-  <string name="country_success">You updated your country successfully.</string>
-  <string name="gender_success">You updated your gender successfully.</string>
-  <string name="birthday_success">You updated your birthday successfully.</string>
+  <string name="edit_one_entry">You can only update your e-mails and password seperatly.</string>
 </strings>

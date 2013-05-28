@@ -1,47 +1,39 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="template_header_loading">laden...</string>
   <string name="template_header_cancel">Abbrechen</string>
-  <string name="template_header_register">klick hier um ein neues Benutzerkonto zu erstellen</string>
   <string name="template_header_additional_options">Andere M&#xF6;glichkeiten, um fortzufahren:</string>
-  <string name="template_header_menu">Men&#xFC;</string>
-  <string name="template_header_profile">Profil</string>
-  <string name="template_header_login">Einloggen</string>
-  <string name="template_header_forgot_password">klick hier, wenn du dein Passwort vergessen hast</string>
   <string name="template_footer_terms_of_use_link">Nutzungsbedingungen</string>
+  <string name="template_header_login">Einloggen</string>
   <string name="template_header_password">Passwort:</string>
   <string name="template_header_enter_nick">dein Nickname</string>
   <string name="template_header_enter_password">dein Passwort</string>
+  <string name="template_header_my_profile">Mein Profil</string>
   <string name="template_common_one_minute_ago">vor 1 Minute</string>
-  <string name="template_common_less_than_a_minute_ago">vor weniger als 1 Minute</string>
   <string name="template_common_minutes_ago">vor {*minuteCount*} Minuten</string>
-  <string name="template_common_one_hour_ago">vor 1 Stunde</string>
-  <string name="template_common_hours_ago">vor {*hourCount*} Stunden</string>
   <string name="template_common_one_day_ago">vor 1 Tag</string>
-  <string name="template_common_days_ago">vor {*dayCount*} Tagen</string>
   <string name="template_common_one_month_ago">vor 1 Monat</string>
-  <string name="template_common_months_ago">vor {*monthCount*} Monaten</string>
-  <string name="template_common_one_year_ago">vor 1 Jahr</string>
-  <string name="template_common_years_ago">vor {*yearCount*} Jahren</string>
-  <string name="template_common_over_years_ago">vor &#xFC;ber {*yearCount*} Jahren</string>
   <string name="template_common_january">Januar</string>
   <string name="template_common_february">Februar</string>
   <string name="template_common_march">M&#xE4;rz</string>
@@ -98,16 +90,35 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_turkish">T&#xFC;rkisch</string>
   <string name="template_common_ukrainian">Ukrainisch</string>
   <string name="template_common_vietnamese">Vietnamesisch</string>
+  <string name="template_header_search_placeholder">suche...</string>
+  <string name="template_footer_search_placeholder">suche...</string>
+  <string name="template_header_register">klick hier um ein neues Benutzerkonto zu erstellen</string>
+  <string name="template_header_nick">Benutzername:</string>
+  <string name="template_header_logout">Ausloggen</string>
+  <string name="template_header_loading">laden...</string>
+  <string name="template_header_logged_in_as">Du bist angemeldet als</string>
+  <string name="template_header_menu">Men&#xFC;</string>
+  <string name="template_header_home">Start</string>
+  <string name="template_header_profile">Profil</string>
+  <string name="template_header_search">Suche</string>
+  <string name="template_footer_search_header">Suche</string>
+  <string name="template_header_search_for_projects">Nach Projekten suchen</string>
+  <string name="template_header_change_profile">Profil bearbeiten</string>
+  <string name="template_body_nojs">Bitte aktiviere JavaScript in deinem Browser.</string>
+  <string name="template_footer_more">mehr</string>
+  <string name="template_footer_less">weniger</string>
   <string name="template_footer_privacy_policy_link">Datenschutzrichtlinien</string>
   <string name="template_footer_copyright_policy_link">Copyright Bestimmungen</string>
   <string name="template_footer_imprint_link">Impressum</string>
   <string name="template_footer_contact_link">Kontakt</string>
-  <string name="template_header_nick">Benutzername:</string>
-  <string name="template_header_logout">Ausloggen</string>
-  <string name="template_header_logged_in_as">Du bist angemeldet als</string>
-  <string name="template_header_home">Start</string>
-  <string name="template_header_search">Suche</string>
-  <string name="template_header_search_for_projects">Nach Projekten suchen</string>
+  <string name="template_common_less_than_a_minute_ago">soeben</string>
+  <string name="template_common_one_hour_ago">vor 1 Stunde</string>
+  <string name="template_common_hours_ago">vor {*hourCount*} Stunden</string>
+  <string name="template_common_days_ago">vor {*dayCount*} Tagen</string>
+  <string name="template_common_months_ago">vor {*monthCount*} Monaten</string>
+  <string name="template_common_one_year_ago">vor 1 Jahr</string>
+  <string name="template_common_years_ago">vor {*yearCount*} Jahren</string>
+  <string name="template_common_over_years_ago">vor {*yearCount*} Jahren</string>
   <string name="template_common_country_andorra">Andorra</string>
   <string name="template_common_country_united_arab_emirates">Vereinigte Arabische Emirate</string>
   <string name="template_common_country_afghanistan">Afghanistan</string>

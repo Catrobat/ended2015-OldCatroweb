@@ -1,43 +1,33 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="change_my_password">Tukar kata laluan</string>
   <string name="password">Kata Laluan</string>
   <string name="country">Negara</string>
-  <string name="city">Bandar</string>
-  <string name="birthday">Tarikh Lahir</string>
-  <string name="gender">Jantina</string>
-  <string name="female">perempuan</string>
-  <string name="male">lelaki</string>
-  <string name="email">Emel</string>
   <string name="projects">Projek</string>
-  <string name="change_my_password">Tukar kata laluan</string>
-  <string name="old_password">Katalaluan lama saya</string>
-  <string name="new_password">Katalaluan baru saya</string>
   <string name="save_button">Simpan perubahan saya</string>
-  <string name="enter_city">Tempat tinggal saya</string>
-  <string name="really_delete">Adakah anda benar-benar ingin memadam alamat emel ini?</string>
+  <string name="really_delete_email">Adakah anda benar-benar ingin memadam alamat emel ini?</string>
   <string name="avatar_success">Anda telah berjaya mengemaskini jantina anda.</string>
   <string name="password_success">Anda telah berjaya mengemaskini kata laluan anda.</string>
-  <string name="email_delete_success">Anda telah berjaya memadam alamat emel anda.</string>
-  <string name="city_success">Anda telah berjaya mengemaskini tempat tinggal anda.</string>
-  <string name="country_success">Anda telah berjaya mengemaskini negara anda.</string>
-  <string name="gender_success">Anda telah berjaya mengemaskini jantina anda.</string>
-  <string name="birthday_success">Anda telah berjaya mengemaskini tarikh lahir anda.</string>
 </strings>

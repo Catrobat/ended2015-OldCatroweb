@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="project_licence_dated">Version 1.1, 2 April 2013</string>
+  <string name="title">Lizenz zum Spielen - Sag "Danke" und teile deine Projekte</string>
+  <string name="project_licence_part1">Stell dir vor, dass jedes Catrobat Programm ein Kuchen ist, ein ganz besonderer Kuchen, der mit seinem Rezept kommt (Programmierte Bl&#xF6;cke). Alle Mitglieder der Catrobat Gemeinschaft teilen ihre Kuchen mit den dazugeh&#xF6;rigen Rezepten. Dies bedeutet, dass man die Kuchen genie&#xDF;en kann und lernen kann, wie man sie selbst machen!</string>
+  <string name="project_licence_part2">Es gibt keine geheimen Rezepte: die Anleitung wie Du einen Kuchen selbst machen kannst, ist frei f&#xFC;r alle. Alle d&#xFC;rfen die Rezepte verwenden, &#xE4;ndern und sie als Quelle f&#xFC;r neue Ideen verwenden.</string>
+  <string name="project_licence_part3">Du darfst die Kuchen essen und Du darfst die Rezepte von anderen kopieren um Deinen eigenen Kuchen zu machen - wenn Du m&#xF6;chtest mit anderen Zutaten. Es gibt zwei Dinge die Du beachten sollst:</string>
+  <string name="project_licence_part3_list_element1">teile Deine Kuchen und die Rezepte mit anderen</string>
+  <string name="project_licence_part3_list_element2">bedanke Dich bei denen, deren Rezepte Du verwendet hast und die Dich auf neue Ideen gebracht haben</string>
+  <string name="project_licence_part4">Bei dem Aufbau der Catrobat Gemeinschaft, haben wir uns entschlossen, diesen Ansatz zu &#xFC;bernehmen, da wir daran glauben, dass es das Lernen und die Kreativit&#xE4;t in der Gemeinschaft f&#xF6;rdert. Durch den Austausch von Rezepten und Zutaten (Skripte und Bildmaterial), kann man auf die Ideen anderer aufbauen und alle profitieren davon.</string>
+  <string name="project_licence_part5">Bei der Gestaltung der Catrobat Website haben wir Funktionen integriert, die das Teilen und das Weitergeben von Anerkennung anregen soll. Auf jeder Programmseite k&#xF6;nnen immer die Originalskripte zum Programm heruntergeladen werden. Wenn du ein Programm neu mischst (&#xC4;nderung der Skripte oder des Bildmaterials, und das Ergebnis teilst), bitten wir dich in den Programm-Hinweisen, den Menschen und den Programmen, die dich inspiriert haben, Anerkunng zu geben.</string>
+  <string name="project_licence_learn_more_new">Erfahre mehr &#xFC;ber die Bedingungen der Nutzung der Catrobat Online-Gemeinschaft auf {*termsOfUseLink*}.</string>
+</strings>

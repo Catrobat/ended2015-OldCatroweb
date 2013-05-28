@@ -23,7 +23,6 @@
 
 package at.tugraz.ist.catroweb.catroid;
 
-import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
@@ -36,22 +35,23 @@ public class WebsiteTitleTests extends BaseTest {
   @Test(dataProvider = "websitePages", groups = { "visibility" }, description = "check html website titles/page")
   public void websiteTitle(String actualPage) throws Throwable {
     try {
-      openLocation("catroid/" + actualPage);
-      String websiteTitle = driver().findElement(By.xpath("//div[@class='webMainContentTitle']")).getText();
-      assertTrue(driver().getTitle().matches(".*" + websiteTitle + ".*"));
+      openLocation(actualPage);
+      
+      String[] parts = driver().getTitle().split("-");
+      assertTrue(isTextPresent(parts[1].trim().toUpperCase()));
     } catch(AssertionError e) {
-      captureScreen("LicenseTests.privacyPolicy");
+      captureScreen("WebsiteTitleTests.websiteTitle");
       throw e;
     } catch(Exception e) {
-      captureScreen("PasswordRecoveryTests.passwordRecoveryIntro");
+      captureScreen("WebsiteTitleTests.websiteTitle");
       throw e;
     }
   }
 
   @DataProvider(name = "websitePages")
   public Object[][] websitePages() {
-    Object[][] returnArray = new Object[][] { { "details/1" }, { "errorPage" }, { "index" }, { "login" },
-        { "passwordrecovery" }, { "licensetoplay" }, { "registration" }, { "termsofuse" } };
+    Object[][] returnArray = new Object[][] { { "details/1" }, { "error" }, { "login" },
+        { "passwordrecovery" }, { "licenseToPlay" }, { "registration" }, { "termsOfUse" } };
     return returnArray;
   }
 }

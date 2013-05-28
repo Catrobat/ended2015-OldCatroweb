@@ -37,38 +37,26 @@ public class MyProjectsTests extends BaseTest {
   @Test(groups = { "functionality" }, description = "try to delete one of my projects")
   public void deleteMyProject() throws Throwable {
     try {
-      // login
-      openLocation();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.id("loginUsername")));
-      assertTrue(isVisible(By.id("loginPassword")));
-
-      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
-      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
-
-      driver().findElement(By.id("loginSubmitButton")).click();
-      ajaxWait();
-      
       // upload a project
       String title = "Delete this project";
       String response = projectUploader.upload(CommonData.getUploadPayload(title, "", "", "", "", "", "", ""));
-      String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
 
       // delete uploaded project
-      openLocation("catroid/myprojects");
-      assertTrue(isTextPresent(title));
-      assertTrue(isVisible(By.id(id)));
+      login("profile");
+
+      By project = By.xpath("//a[@title=\"" + title + "\"]");
+      By deleteButton = By.xpath("//a[@title=\"" + title + "\"]/../div"); 
+      assertTrue(isElementPresent(project));
+      assertTrue(isElementPresent(deleteButton));
       
       clickOkOnNextConfirmationBox();
-      driver().findElement(By.id(id)).click();
+      driver().findElement(deleteButton).click();
       ajaxWait();
       
-      assertFalse(isTextPresent(title));
+      assertFalse(isElementPresent(project));
+      assertProjectNotPresent(title);
     } catch(AssertionError e) {
       captureScreen("deleteMyProject.deleteMyProject");
       throw e;

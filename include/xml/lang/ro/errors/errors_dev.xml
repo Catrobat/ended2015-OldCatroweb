@@ -1,23 +1,31 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
+  <server>
+    <string name="missing_mcrypt"/>
+    <string name="missing_blowfish"/>
+  </server>
   <db>
     <string name="query_failed">Opera&#x21B;iunea asupra bazei de date a e&#x219;uat.</string>
     <string name="connection_failed">Conexiunea cu baza de date a e&#x219;uat.</string>
@@ -54,21 +62,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="unsupported_image"/>
     <string name="avatar_creation_failed"/>
     <string name="password_new_board_update_failed"/>
-    <string name="country_update_failed"/>
-    <string name="birth_update_failed"/>
+    <string name="language_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
     <string name="userdata_not_exists">Numelea sau adresa email nu au fost g&#x103;site.</string>
-    <string name="email_address_exists">Aceast&#x103; adresa de email deja exist&#x103;.</string>
-    <string name="email_delete_failed"/>
-    <string name="email_update_of_catroweb_failed"/>
+    <string name="email_update_failed"/>
     <string name="create_hash_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
     <string name="sendmail_failed"/>
   </userFunctions>
   <profile>
+    <string name="password_missing">Parola lispe&#x219;te.</string>
     <string name="email_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
     <string name="city_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
-    <string name="password_old_missing">Parola veche lipse&#x219;te.</string>
-    <string name="password_old_wrong">Parola veche este incorect&#x103;.</string>
-    <string name="password_new_missing">Parola nou&#x103; lispe&#x219;te.</string>
+    <string name="password_equal"/>
   </profile>
   <upload>
     <string name="missing_project_title"/>
@@ -81,7 +85,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="project_title_default">&#xCE;nc&#x103;rcarea proiectelor numite cu denumirea implicit&#x103; este interzis&#x103;.</string>
     <string name="insulting_words_in_project_title">&#xCE;n titlul proiectului sunt prezente cuvinte insult&#x103;toare!</string>
     <string name="insulting_words_in_project_description">&#xCE;n descrierea proiectului sunt prezente cuvinte insult&#x103;toare!</string>
-    <string name="qr_code_generation_failed"/>
     <string name="save_thumbnail_failed"/>
     <string name="invalid_project_xml"/>
     <string name="old_catrobat_language"/>
@@ -95,9 +98,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </flag>
   <viewer>
     <string name="html_file_not_found">Fi&#x219;ierul de vizionare a html nu a fost g&#x103;sit.</string>
-    <string name="ajax_request_page_not_found">Nu a fost g&#x103;sit modulul necesar pentru interogarea ajax.</string>
-    <string name="ajax_took_too_long"/>
-    <string name="ajax_timed_out"/>
     <string name="ip_is_blocked">Adresa IP a dumneavoastr&#x103; a fost blocat&#x103;</string>
     <string name="ip_is_blocked_temporary"/>
     <string name="user_is_blocked">Contul dumneavoastr&#x103; a fost blocat.</string>

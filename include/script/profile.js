@@ -23,40 +23,112 @@
 
 var Profile = Class.$extend( {
   __include__ : [__baseClassVars],
+
   __init__ : function(languageStringsObject) {
     var self = this;
     this.languageStringsObject = languageStringsObject;
+    this.state = this.getProfileState();
     
-
     this.initAvatarUploader();
-    $("#profileChangePassword").click(function() { $("#profilePasswordInput").toggle() });
-    $("#profilePasswordSubmit").click($.proxy(this.updatePaswordRequest, this));
-    $("#profileOldPassword").keypress($.proxy(this.passwordCatchKeypress, this));
-    $("#profileNewPassword").keypress($.proxy(this.passwordCatchKeypress, this));
-    
-    this.updateEmailListRequest();
-    $("#addEmailButton").click($.proxy(this.addEmailRequest, this));
-    $("#addEmailInput").keypress($.proxy(this.addEmailCatchKeypress, this));
-    
-    $("#cityInput").change($.proxy(this.updateCityRequest, this));
-    $("#countrySelect").change($.proxy(this.updateCountryRequest, this));
-    $("#genderSelect").change($.proxy(this.updateGenderRequest, this));
-    $("#birthdayMonthSelect").change($.proxy(this.updateBirthdayRequest, this));
-    $("#birthdayYearSelect").change($.proxy(this.updateBirthdayRequest, this));
-    $("#profileSwitchLanguage").change($.proxy(this.updateLanguageRequest, this));
+   
+    $("#profileNewPassword input").keypress($.proxy(this.passwordCatchKeypress, this));
+    $("#profileRepeatPassword input").keypress($.proxy(this.passwordCatchKeypress, this));
+    $("#profileEmail input").keypress($.proxy(this.firstEmailCatchKeypress, this));
+    $("#profileSecondEmail input").keypress($.proxy(this.secondEmailCatchKeypress, this));
+    $(".profileCountry").change($.proxy(this.countryChangedEvent, this));
+    $("#profileSaveChanges").click($.proxy(this.updateChangesRequest, this));
 
-    $("#searchForm").submit($.proxy(this.search, this));
+    $("#profileEmailDelete").click($.proxy(this.deleteFirstEmail, this));
+    $("#profileSecondEmailDelete").click($.proxy(this.deleteSecondEmail, this));
+
+    this.projectObject = null;
+    this.history = window.History;
+    this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
+    
+    $(window).keydown($.proxy(function(event) {
+      if(event.keyCode == 116 || (event.ctrlKey == true && event.keyCode == 82)) {
+        this.clearHistory(event);
+      }
+    }, this));
   },
   
+
+  clearHistory : function(event) {
+    this.history.replaceState({}, this.languageStringsObject['websiteTitle'] + " - " + this.languageStringsObject['title'], '');
+    location.reload();
+    event.preventDefault();
+  },
+  
+  //-------------------------------------------------------------------------------------------------------------------
+
+  getProfileState : function() {
+    state = { 'pwd' : $("#profileNewPassword input").val() + $("#profileRepeatPassword input").val(), 
+        'firstEmail' : $("#profileEmail input").val(), 'secondEmail' : $("#profileSecondEmail input").val(),
+        'country' : $(".profileCountry select").val()  };
+    return state;
+  },
+  
+  modifiedProfileState : function(state) {
+    var state = this.getProfileState();
+    var changed = "";
+    var changes = 0;
+    
+    for(var property in state) {
+      if(state[property] != this.state[property]) {
+        changed = property;
+        changes++;
+      }
+    }
+
+    if(changes > 1) {
+      return "multiple";
+    }
+    return changed;
+  },
+
+  hideErrorMessages : function() {
+    $(".profileLoader").hide();
+    $("#profileChangesSuccess").css("visibility", "hidden");
+
+    $("#profileAvatarError").hide();
+    $(".profileAvatarImageError").addClass("profileAvatarImage");
+    $(".profileAvatarImageError").removeClass("profileAvatarImageError");
+
+    $("#profilePasswordError").hide();
+    $("#profileNewPassword").removeClass("profileInvalid");
+    $("#profileNewPassword").addClass("profileValid");
+    $("#profileNewPassword input").removeClass("inputInvalid");
+    $("#profileNewPassword div").removeClass("img-failedPw");
+    $("#profileNewPassword div").addClass("img-password");
+
+    $("#profileRepeatPassword").removeClass("profileInvalid");
+    $("#profileRepeatPassword").addClass("profileValid");
+    $("#profileRepeatPassword input").removeClass("inputInvalid");
+    $("#profileRepeatPassword div").removeClass("img-failedPw");
+    $("#profileRepeatPassword div").addClass("img-password");
+
+    $("#profileEmailError").hide();
+    $("#profileEmail").removeClass("profileInvalid");
+    $("#profileEmail").addClass("profileValid");
+    $("#profileEmail input").removeClass("inputInvalid");
+    $("#profileEmail div").removeClass("img-failed-first-email");
+    $("#profileEmail div").addClass("img-first-email");
+    
+    $("#profileSecondEmail").removeClass("profileInvalid");
+    $("#profileSecondEmail").addClass("profileValid");
+    $("#profileSecondEmail input").removeClass("inputInvalid");
+    $("#profileSecondEmail div").removeClass("img-failed-second-email");
+    $("#profileSecondEmail div").addClass("img-second-email");
+  },
+
   //-------------------------------------------------------------------------------------------------------------------
   initAvatarUploader : function() {
     var self = this;
     var wrapper = $('<div/>', {'id': 'profileAvatarFileWrapper'}).css({height:0, width:0, 'overflow':'hidden'});
     var fileInput = $('#profileAvatarFile').wrap(wrapper);
-
     fileInput.change(function() {
       if(this.files[0].size > 5 * 1024 * 1024) {
-        common.showAjaxErrorMsg(self.languageStringsObject.image_too_big);
+        this.avatarRequestError(self.languageStringsObject.image_too_big);
         return;
       }
       
@@ -65,229 +137,278 @@ var Profile = Class.$extend( {
       
       $.ajax({
         type: "POST",
-        url: self.basePath + 'catroid/profile/updateAvatarRequest.json',
+        url: self.basePath + 'profile/updateAvatarRequest.json',
         data: data,
         processData: false,
         contentType: false,
         success : $.proxy(self.avatarRequestSuccess, self),
-        error : $.proxy(common.ajaxTimedOut, self)
       });
-      
-      common.disableAutoHideAjaxLoader();
     })
 
-    $('#profileAvatarImage').click(function(){
-      fileInput.click();
-    }).show();
-
-    $('#profileChangeAvatar').click(function(){
+    $('#profileChangeAvatarButton').click(function(){
+      self.hideErrorMessages();
       fileInput.click();
     }).show();
   },
 
+
   avatarRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
-    
     if(result.statusCode == 200) {
-      $('#profileAvatarImage').attr("src", result.avatar);
-      common.showAjaxSuccessMsg(result.answer);
+      $('.profileAvatarImage').attr("src", result.avatar);
+      $('#largeMenuButton button.img-avatar').css("background-image", 'url(' + result.avatar + ')');
+      $('#mobileMenuButton button.img-avatar').css("background-image", 'url(' + result.avatar + ')');
+      $("#profileUpdateSuccess").show();
     } else {
-      common.showAjaxErrorMsg(result.answer);
+      this.avatarRequestError(result.answer);
     }
+  },
+  
+  avatarRequestError : function(message) {
+    $("#profileAvatarError").text(message);
+    $("#profileAvatarError").show();
+    $(".profileAvatarImage").addClass("profileAvatarImageError");
+    $(".profileAvatarImage").removeClass("profileAvatarImage");
   },
 
   //-------------------------------------------------------------------------------------------------------------------
+  
   passwordCatchKeypress : function(event) {
     if(event.which == '13') {
-      this.updatePaswordRequest();
+      this.updateChangesRequest();
       event.preventDefault();
     }
   },
   
-  updatePaswordRequest : function() {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'catroid/profile/updatePasswordRequest.json',
-      data : ({
-        profileOldPassword : $("#profileOldPassword").val(),
-        profileNewPassword : $("#profileNewPassword").val()
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.passwordRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
+  updateChangesRequest : function() {
+    this.hideErrorMessages();
+
+    switch(this.modifiedProfileState()) {
+      case 'multiple':
+        alert(this.languageStringsObject['edit_one_entry']);
+        break;
+      case 'pwd':
+        $(".profileLoader").show();
+        $.ajax({
+          type: "POST",
+          url: this.basePath + 'profile/updatePasswordRequest.json',
+          data : ({
+            profileNewPassword : $("#profileNewPassword input").val(),
+            profileRepeatPassword : $("#profileRepeatPassword input").val()
+          }),
+          success : $.proxy(this.passwordRequestSuccess, this),
+          error : $.proxy(this.passwordRequestError, this)
+        });
+        break;
+      case 'firstEmail':
+        $(".profileLoader").show();
+        $.ajax({
+          type: "POST",
+          url: this.basePath + 'profile/updateEmailRequest.json',
+          data : ({
+            email : $("#profileEmail input").val()
+          }),
+          success : $.proxy(this.firstEmailRequestSuccess, this),
+          error : $.proxy(this.firstEmailRequestError, this)
+        });
+        break;
+      case 'secondEmail':
+        $(".profileLoader").show();
+        $.ajax({
+          type: "POST",
+          url: this.basePath + 'profile/updateAdditionalEmailRequest.json',
+          data : ({
+            email : $("#profileSecondEmail input").val()
+          }),
+          success : $.proxy(this.secondEmailRequestSuccess, this),
+          error : $.proxy(this.secondEmailRequestError, this)
+        });
+        break;
+      case 'country':
+        $(".profileLoader").show();
+        $.ajax({
+          type: "POST",
+          url: this.basePath + 'profile/updateCountryRequest.json',
+          data : ({
+            country : $(".profileCountry select").val()
+          }),
+          success : $.proxy(this.countryRequestSuccess, this), 
+          error : $.proxy(this.ajaxTimedOut, this)
+        });
+        break;
+      default:
+        break;
+    }
   },
   
   passwordRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
     if(result.statusCode == 200) {
-      $("#profilePasswordInput").toggle(false);
-      $("#profileOldPassword").val("");
-      $("#profileNewPassword").val("");
-      common.showAjaxSuccessMsg(result.answer);
+      $(".profileLoader").hide();
+      $("#profileChangesSuccess").css("visibility", "visible");
+      $("#profileNewPassword input").val('');
+      $("#profileRepeatPassword input").val('');
     } else {
-      common.showAjaxErrorMsg(result.answer);
+      this.passwordRequestError(result);
     }
   },
-
-  //-------------------------------------------------------------------------------------------------------------------
-  updateEmailListRequest : function() {
-    $.ajax({
-      type: "GET",
-      url: this.basePath + 'catroid/profile/getEmailListRequest.json',
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.updateEmailList, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
-  },
   
-  updateEmailList : function(result) {
-    $('#emailDeleteButtons').empty();
-    $('#emailDeleteButtons').html(result.answer);
+  passwordRequestError : function(result) {
+    $(".profileLoader").hide();
     
-    var self = this;
-    $('#emailDeleteButtons > button').each(function() {
-      $(this).click(function(e) {
-        if(confirm(self.languageStringsObject.really_delete + " '" + e.target.name + "' ?")) {
-          $.proxy(self.deleteEmailRequest(e.target.name), self);
-        }
-      });
-    });
+    $("#profilePasswordError").text(result.answer);
+    $("#profilePasswordError").show();
+    $("#profileNewPassword").removeClass("profileValid");
+    $("#profileNewPassword").addClass("profileInvalid");
+    $("#profileNewPassword input").addClass("inputInvalid");
+    $("#profileNewPassword div").removeClass("img-password");
+    $("#profileNewPassword div").addClass("img-failedPw");
+
+    $("#profileRepeatPassword").removeClass("profileValid");
+    $("#profileRepeatPassword").addClass("profileInvalid");
+    $("#profileRepeatPassword input").addClass("inputInvalid");
+    $("#profileRepeatPassword div").removeClass("img-password");
+    $("#profileRepeatPassword div").addClass("img-failedPw");
+
+    $("#profileNewPassword input").val('');
+    $("#profileRepeatPassword input").val('');
   },
   
-  addEmailCatchKeypress : function(event) {
+  deleteFirstEmail : function() {
+    var email = $("#profileEmail input").val();
+    if(email != "") {
+      if(confirm(this.languageStringsObject.really_delete_email + " '" + email + "' ?")) {
+        $("#profileEmail input").val('');
+        this.updateChangesRequest();
+      }
+    }
+  },
+  
+  deleteSecondEmail : function() {
+    var email = $("#profileSecondEmail input").val();
+    if(email != "") {
+      if(confirm(this.languageStringsObject.really_delete_email + " '" + email + "' ?")) {
+        $("#profileSecondEmail input").val('');
+        this.updateChangesRequest();
+      }
+    }
+  },
+ 
+  firstEmailRequestSuccess : function(result) {
+    if(result.statusCode == 200) {
+      $(".profileLoader").hide();
+      $("#profileChangesSuccess").css("visibility","visible");
+      
+      $("#profileSecondEmail input").val($("#profileEmail input").val());
+      $("#profileEmail input").val(this.state['secondEmail']);
+
+      this.state = this.getProfileState();
+      if(this.state['secondEmail'] != '') {
+        alert(result.answer);
+      }
+    } else {
+      this.firstEmailRequestError(result);
+    }
+  },
+  
+  firstEmailRequestError : function(result) {
+    $(".profileLoader").hide();
+
+    $("#profileEmailError").text(result.answer);
+    $("#profileEmailError").show();
+
+    $("#profileEmail").removeClass("profileValid");
+    $("#profileEmail").addClass("profileInvalid");
+    $("#profileEmail input").addClass("inputInvalid");
+    $("#profileEmail div").removeClass("img-first-email");
+    $("#profileEmail div").addClass("img-failed-first-email");
+    $("#profileEmail input").val(this.state['firstEmail']);
+  },
+  
+  secondEmailRequestSuccess : function(result) {
+    if(result.statusCode == 200) {
+      $(".profileLoader").hide();
+      $("#profileChangesSuccess").css("visibility","visible");
+      this.state = this.getProfileState();
+      if(this.state['secondEmail'] != '') {
+        alert(result.answer);
+      }
+    } else {
+      this.secondEmailRequestError(result);
+    }
+  },
+  
+  secondEmailRequestError : function(result) {
+    $(".profileLoader").hide();
+
+    $("#profileEmailError").text(result.answer);
+    $("#profileEmailError").show();
+
+    $("#profileSecondEmail").removeClass("profileValid");
+    $("#profileSecondEmail").addClass("profileInvalid");
+    $("#profileSecondEmail input").addClass("inputInvalid");
+    $("#profileSecondEmail div").removeClass("img-second-email");
+    $("#profileSecondEmail div").addClass("img-failed-second-email");
+    $("#profileSecondEmail input").val(this.state['secondEmail']);
+  },
+
+  countryRequestSuccess : function(result) {
+    $(".profileLoader").hide();
+    if(result.statusCode == 200) {
+      $("#profileChangesSuccess").css("visibility", "visible");
+      this.state = this.getProfileState();
+    }
+  },
+  
+  firstEmailCatchKeypress : function(event) {
     if(event.which == '13') {
-      this.addEmailRequest();
+      this.updateChangesRequest();
+      event.preventDefault();
+    }
+  },
+  
+  secondEmailCatchKeypress : function(event) {
+    if(event.which == '13') {
+      this.updateChangesRequest();
       event.preventDefault();
     }
   },
 
-  addEmailRequest : function() {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'catroid/profile/addEmailRequest.json',
-      data : ({
-        profileEmail : $("#addEmailInput").val()
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.emailRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
-  },
-
-  deleteEmailRequest : function(email) {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'catroid/profile/deleteEmailRequest.json',
-      data : ({
-        profileEmail : email
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.emailRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
-  },
-
-  emailRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
-    if(result.statusCode == 200) {
-      $("#addEmailInput").val("");
-      this.updateEmailListRequest();
-      common.showAjaxSuccessMsg(result.answer);
-    } else {
-      common.showAjaxErrorMsg(result.answer);
-    }
-  },
-  
-  //-------------------------------------------------------------------------------------------------------------------
-  updateCityRequest : function() {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'catroid/profile/updateCityRequest.json',
-      data : ({
-        city: $("#cityInput").val()
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
-  },  
-  
-  //-------------------------------------------------------------------------------------------------------------------
-  updateCountryRequest : function() {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'catroid/profile/updateCountryRequest.json',
-      data : ({
-        country: $("#countrySelect").val()
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
-  },  
-  
-  //-------------------------------------------------------------------------------------------------------------------
-  updateGenderRequest : function() {
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'catroid/profile/updateGenderRequest.json',
-      data : ({
-        gender: $("#genderSelect").val()
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
-  },  
-  
-  //-------------------------------------------------------------------------------------------------------------------
-  updateBirthdayRequest : function() {
-    var month = $("#birthdayMonthSelect").val();
-    var year = $("#birthdayYearSelect").val();
-    
-    if(!((month == 0 && year == 0) || (month > 0 && year > 0))) {
-      return;
-    }
-    
-    $.ajax({
-      type: "POST",
-      url: this.basePath + 'catroid/profile/updateBirthdayRequest.json',
-      data : ({
-        birthdayMonth: month,
-        birthdayYear: year
-      }),
-      timeout : (this.ajaxTimeout),
-      success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
-  },  
-  
-  //-------------------------------------------------------------------------------------------------------------------
-  updateLanguageRequest : function() {
-    $.ajax({
-      type : "POST",
-      url : this.basePath + 'catroid/switchLanguage/switchIt.json',
-      data : ({
-        language : $("#profileSwitchLanguage").val()
-      }),
-      timeout : this.ajaxTimeout,
-      success : $.proxy(this.genericRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
-  },
-
-  genericRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
-    if(result.statusCode == 200) {
-      common.showAjaxSuccessMsg(result.answer);
-    } else {
-      common.showAjaxErrorMsg(result.answer);
+  deleteProject : function(event) {
+    if(confirm(this.languageStringsObject.really_delete_project + " '" + event.data.name + "' ?")) {
+      document.location = this.basePath + "profile/?delete=" + event.data.id;
     }
   },
 
-  search : function() {
-    location.href = "/catroid/search/?q=" + $.trim($("#searchQuery").val()) + "&p=1";
-    return false;
+  setProjectObject : function(projectObject) {
+    this.projectObject = projectObject;
+  },
+  
+  saveHistoryState : function(action) {
+    var context  = this.projectObject.getHistoryState();
+    var title = this.languageStringsObject['websiteTitle'] + " - " + this.languageStringsObject['title'];
+
+    if(action == 'init') {
+      var state = this.history.getState();
+      if(typeof state.data.content === 'undefined') {
+        this.history.replaceState({content: context}, title, "");
+      } else {
+        this.restoreHistoryState();
+      }
+    }
+
+    if(action == 'push') {
+      this.history.pushState({content: context}, title, "");
+    }
+  },
+
+  restoreHistoryState : function() {
+    if(this.projectObject != null) {
+      var current = this.projectObject.getHistoryState();
+      var state = this.history.getState();
+      if(typeof state.data.content === 'object') {
+        if(state.data.content.visibleRows != current.visibleRows) {
+          this.projectObject.restoreHistoryState(state.data.content);
+        }
+      }
+    }
   }
 });

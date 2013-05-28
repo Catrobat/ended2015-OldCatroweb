@@ -1,43 +1,35 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="template_header_loading">&#x437;&#x430;&#x433;&#x440;&#x443;&#x437;&#x43A;&#x430;...</string>
   <string name="template_header_cancel">&#x41E;&#x442;&#x43C;&#x435;&#x43D;&#x438;&#x442;&#x44C;</string>
-  <string name="template_header_menu">&#x41C;&#x435;&#x43D;&#x44E;</string>
-  <string name="template_header_profile">&#x41F;&#x440;&#x43E;&#x444;&#x438;&#x43B;&#x44C;</string>
-  <string name="template_header_login">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
-  <string name="template_header_forgot_password">&#x43D;&#x430;&#x436;&#x43C;&#x438;&#x442;&#x435; &#x441;&#x44E;&#x434;&#x430; &#x435;&#x441;&#x43B;&#x438; &#x432;&#x44B; &#x437;&#x430;&#x431;&#x44B;&#x43B;&#x438; &#x441;&#x432;&#x43E;&#x439; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;</string>
   <string name="template_footer_terms_of_use_link">&#x423;&#x441;&#x43B;&#x43E;&#x432;&#x438;&#x44F; &#x438;&#x441;&#x43F;&#x43E;&#x43B;&#x44C;&#x437;&#x43E;&#x432;&#x430;&#x43D;&#x438;&#x44F;</string>
+  <string name="template_header_login">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
   <string name="template_header_password">&#x41F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;:</string>
   <string name="template_common_one_minute_ago">1 &#x43C;&#x438;&#x43D;&#x443;&#x442;&#x443; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_less_than_a_minute_ago">&#x43C;&#x435;&#x43D;&#x44C;&#x448;&#x435; &#x43E;&#x434;&#x43D;&#x43E;&#x439; &#x43C;&#x438;&#x43D;&#x443;&#x442;&#x44B; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
   <string name="template_common_minutes_ago">{*minuteCount*} &#x43C;&#x438;&#x43D;&#x443;&#x442; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_one_hour_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; &#x447;&#x430;&#x441; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_hours_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*hourCount*} &#x447;&#x430;&#x441;&#x43E;&#x432; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
   <string name="template_common_one_day_ago">1 &#x434;&#x435;&#x43D;&#x44C; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_days_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*dayCount*} &#x434;&#x43D;&#x435;&#x439; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
   <string name="template_common_one_month_ago">1 &#x43C;&#x435;&#x441;&#x44F;&#x446; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_months_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*monthCount*} &#x43C;&#x435;&#x441;&#x44F;&#x446;&#x435;&#x432; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_one_year_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; &#x433;&#x43E;&#x434; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_years_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*yearCount*} &#x433;&#x43E;&#x434;&#x430; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_over_years_ago">&#x431;&#x43E;&#x43B;&#x44C;&#x448;&#x435; {*yearCount*} &#x43B;&#x435;&#x442; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
   <string name="template_common_january">&#x42F;&#x43D;&#x432;&#x430;&#x440;&#x44C;</string>
   <string name="template_common_february">&#x424;&#x435;&#x432;&#x440;&#x430;&#x43B;&#x44C;</string>
   <string name="template_common_march">&#x41C;&#x430;&#x440;&#x442;</string>
@@ -94,16 +86,26 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_turkish">&#x422;&#x443;&#x440;&#x435;&#x446;&#x43A;&#x438;&#x439;</string>
   <string name="template_common_ukrainian">&#x423;&#x43A;&#x440;&#x430;&#x438;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
   <string name="template_common_vietnamese">&#x412;&#x44C;&#x435;&#x442;&#x43D;&#x430;&#x43C;&#x441;&#x43A;&#x438;&#x439;</string>
+  <string name="template_header_nick">&#x41F;&#x440;&#x43E;&#x437;&#x432;&#x438;&#x449;&#x435;:</string>
+  <string name="template_header_logout">&#x412;&#x44B;&#x445;&#x43E;&#x434;</string>
+  <string name="template_header_loading">&#x437;&#x430;&#x433;&#x440;&#x443;&#x437;&#x43A;&#x430;...</string>
+  <string name="template_header_logged_in_as">&#x412;&#x44B; &#x432;&#x43E;&#x448;&#x43B;&#x438; &#x43A;&#x430;&#x43A;</string>
+  <string name="template_header_menu">&#x41C;&#x435;&#x43D;&#x44E;</string>
+  <string name="template_header_home">&#x414;&#x43E;&#x43C;</string>
+  <string name="template_header_profile">&#x41F;&#x440;&#x43E;&#x444;&#x438;&#x43B;&#x44C;</string>
+  <string name="template_header_search">&#x41F;&#x43E;&#x438;&#x441;&#x43A;</string>
+  <string name="template_footer_search_header">&#x41F;&#x43E;&#x438;&#x441;&#x43A;</string>
+  <string name="template_header_search_for_projects">&#x41F;&#x43E;&#x438;&#x441;&#x43A; &#x43F;&#x440;&#x43E;&#x435;&#x43A;&#x442;&#x43E;&#x432;</string>
+  <string name="template_footer_more">&#x431;&#x43E;&#x43B;&#x44C;&#x448;&#x435;</string>
+  <string name="template_footer_less">&#x43C;&#x435;&#x43D;&#x44C;&#x448;&#x435;</string>
   <string name="template_footer_privacy_policy_link">&#x41F;&#x43E;&#x43B;&#x438;&#x442;&#x438;&#x43A;&#x430; &#x43A;&#x43E;&#x43D;&#x444;&#x438;&#x434;&#x435;&#x43D;&#x446;&#x438;&#x430;&#x43B;&#x44C;&#x43D;&#x43E;&#x441;&#x442;&#x438;</string>
   <string name="template_footer_copyright_policy_link">&#x41F;&#x43E;&#x43B;&#x438;&#x442;&#x438;&#x43A;&#x430; &#x430;&#x432;&#x442;&#x43E;&#x440;&#x441;&#x43A;&#x438;&#x445; &#x43F;&#x440;&#x430;&#x432;</string>
   <string name="template_footer_imprint_link">&#x41E;&#x442;&#x43F;&#x435;&#x447;&#x430;&#x442;&#x43E;&#x43A;</string>
   <string name="template_footer_contact_link">&#x41A;&#x43E;&#x43D;&#x442;&#x430;&#x43A;&#x442;&#x44B;</string>
-  <string name="template_header_nick">&#x41F;&#x440;&#x43E;&#x437;&#x432;&#x438;&#x449;&#x435;:</string>
-  <string name="template_header_logout">&#x412;&#x44B;&#x445;&#x43E;&#x434;</string>
-  <string name="template_header_logged_in_as">&#x412;&#x44B; &#x432;&#x43E;&#x448;&#x43B;&#x438; &#x43A;&#x430;&#x43A;</string>
-  <string name="template_header_home">&#x414;&#x43E;&#x43C;</string>
-  <string name="template_header_search">&#x41F;&#x43E;&#x438;&#x441;&#x43A;</string>
-  <string name="template_header_search_for_projects">&#x41F;&#x43E;&#x438;&#x441;&#x43A; &#x43F;&#x440;&#x43E;&#x435;&#x43A;&#x442;&#x43E;&#x432;</string>
+  <string name="template_common_hours_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*hourCount*} &#x447;&#x430;&#x441;&#x43E;&#x432; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
+  <string name="template_common_days_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*dayCount*} &#x434;&#x43D;&#x435;&#x439; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
+  <string name="template_common_months_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*monthCount*} &#x43C;&#x435;&#x441;&#x44F;&#x446;&#x435;&#x432; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
+  <string name="template_common_over_years_ago">&#x431;&#x43E;&#x43B;&#x44C;&#x448;&#x435; {*yearCount*} &#x43B;&#x435;&#x442; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
   <string name="template_common_country_austria">Austria</string>
   <string name="template_common_country_australia">Austria</string>
   <string name="template_common_country_bulgaria">&#x411;&#x43E;&#x43B;&#x433;&#x430;&#x440;&#x441;&#x43A;&#x438;&#x439;</string>

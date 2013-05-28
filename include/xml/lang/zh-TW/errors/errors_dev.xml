@@ -1,23 +1,31 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
+  <server>
+    <string name="missing_mcrypt"/>
+    <string name="missing_blowfish"/>
+  </server>
   <db>
     <string name="query_failed">&#x6578;&#x64DA;&#x5EAB;&#x64CD;&#x4F5C;&#x5931;&#x6557;&#x3002;</string>
     <string name="connection_failed">&#x6578;&#x64DA;&#x5EAB;&#x9023;&#x7DDA;&#x5931;&#x6557;&#x3002;</string>
@@ -54,26 +62,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="unsupported_image"/>
     <string name="avatar_creation_failed"/>
     <string name="password_new_board_update_failed"/>
-    <string name="country_update_failed"/>
-    <string name="birth_update_failed"/>
+    <string name="language_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
     <string name="userdata_not_exists">&#x5462;&#x7A31;&#x6216;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x7121;&#x6CD5;&#x641C;&#x7372;&#x3002;</string>
-    <string name="email_address_exists">&#x96FB;&#x90F5;&#x5730;&#x5740;&#x5DF2;&#x5B58;&#x5728;&#x3002;</string>
-    <string name="email_delete_failed"/>
-    <string name="email_update_of_catroweb_failed"/>
+    <string name="email_update_failed"/>
     <string name="create_hash_failed">&#x4E0D;&#x597D;&#x610F;&#x601D;&#xFF0C;&#x6709;&#x932F;&#x8AA4;&#x4E86;&#x3002;&#x8ACB;&#x518D;&#x5617;&#x8A66;&#xFF01;</string>
     <string name="sendmail_failed">&#x767C;&#x9001;&#x96FB;&#x90F5;&#x8A0A;&#x606F;&#x6642;&#x6709;&#x932F;&#x8AA4;&#x3002;&#x53EF;&#x80FD;&#x662F;&#x90F5;&#x4EF6;&#x4F3A;&#x670D;&#x5668;&#x767C;&#x751F;&#x6545;&#x969C;&#x3002;</string>
   </userFunctions>
   <profile>
+    <string name="password_missing">&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
     <string name="email_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
     <string name="city_update_failed">&#x66F4;&#x65B0;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x6709;&#x554F;&#x984C;&#x3002;</string>
-    <string name="password_old_missing">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
-    <string name="password_old_wrong">&#x820A;&#x5BC6;&#x78BC;&#x6709;&#x932F;&#x8AA4;&#x3002;</string>
-    <string name="password_new_missing">&#x65B0;&#x5BC6;&#x78BC;&#x6709;&#x907A;&#x6F0F;&#x3002;</string>
+    <string name="password_equal"/>
   </profile>
   <upload>
     <string name="missing_project_title"/>
     <string name="missing_file_data"/>
-    <string name="missing_post_file_checksum">&#x5BA2;&#x6236;&#x7AEF;&#x6C92;&#x6709;&#x767C;&#x9001;&#x6A94;&#x6848;&#x6821;&#x9A57;&#xFF01;&#x60A8;&#x4F7F;&#x7528;&#x7684;&#x662F;&#x820A;&#x7248;Catroid&#xFF1F;</string>
+    <string name="missing_post_file_checksum"/>
     <string name="copy_failed">&#x9673;&#x8FF0;&#x8907;&#x88FD;&#x5931;&#x6557;&#xFF01;</string>
     <string name="rename_failed">&#x9673;&#x8FF0;&#x6539;&#x540D;&#x5931;&#x6557;&#xFF01;</string>
     <string name="invalid_file_checksum">&#x4E4B;&#x524D;&#x4E0A;&#x8F09;&#x7684;&#x6A94;&#x6848;&#x6821;&#x9A57;&#x8207;&#x5BA2;&#x6236;&#x7AEF;&#x7522;&#x751F;&#x7684;&#x4E0D;&#x540C;&#xFF01;</string>
@@ -81,7 +85,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="project_title_default">&#x4E0D;&#x5141;&#x8A31;&#x4E0A;&#x8F09;&#x548C;&#x300A;&#x9810;&#x8A2D;&#x5C08;&#x6848;&#x300B;&#x540C;&#x540D;&#x7684;&#x5C08;&#x6848;&#x3002;</string>
     <string name="insulting_words_in_project_title">&#x5C08;&#x6848;&#x6A19;&#x984C;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
     <string name="insulting_words_in_project_description">&#x5C08;&#x6848;&#x7C21;&#x4ECB;&#x6709;&#x6C61;&#x8511;&#x7684;&#x5B57;&#x773C;&#xFF01;</string>
-    <string name="qr_code_generation_failed"/>
     <string name="save_thumbnail_failed"/>
     <string name="invalid_project_xml"/>
     <string name="old_catrobat_language"/>
@@ -95,9 +98,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </flag>
   <viewer>
     <string name="html_file_not_found">&#x7121;&#x6CD5;&#x641C;&#x7372;HTML &#x6D4F;&#x89C8;&#x5668;&#x6A94;&#x6848;&#x3002;</string>
-    <string name="ajax_request_page_not_found">&#x7121;&#x6CD5;&#x641C;&#x7372;&#x5FC5;&#x8981;&#x7684;&#x6A21;&#x7D44;&#x7D66;Ajax&#x7684;&#x8ACB;&#x6C42;&#x3002;</string>
-    <string name="ajax_took_too_long"/>
-    <string name="ajax_timed_out"/>
     <string name="ip_is_blocked">&#x60A8;&#x7684; IP &#x5730;&#x5740;&#x5DF2;&#x88AB;&#x5C01;&#x9396;&#x3002;</string>
     <string name="ip_is_blocked_temporary"/>
     <string name="user_is_blocked">&#x60A8;&#x7684;&#x5E33;&#x865F;&#x5DF2;&#x88AB;&#x5C01;&#x9396;&#x3002;</string>

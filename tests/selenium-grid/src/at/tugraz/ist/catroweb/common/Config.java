@@ -51,8 +51,8 @@ public class Config {
   public static final String PROJECTS_THUMBNAIL_EXTENTION_SMALL = "_small.png";
   public static final String PROJECTS_THUMBNAIL_EXTENTION_LARGE = "_large.png";
 
-  public static final int PROJECT_PAGE_LOAD_MAX_PROJECTS = 5;
-  public static final int PROJECT_PAGE_SHOW_MAX_PAGES = 5;
+  public static final int PROJECT_PAGE_LOAD_MAX_PROJECTS = 9;
+  public static final int PROJECT_PAGE_SHOW_MAX_PAGES = 3;
   public static final String PROJECTS_EXTENTION = ".catrobat";
   public static final int PROJECT_SHORT_DESCRIPTION_MAX_LENGTH = 178;
   

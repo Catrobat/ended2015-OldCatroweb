@@ -22,23 +22,51 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="template_header_search_placeholder">search...</string>  
+  <string name="template_header_register">click here to create a new account</string>
+  <string name="template_header_additional_options">Other options to proceed:</string>
+  <string name="template_header_nick">Nick:</string>
+  <string name="template_header_password">Password:</string>
+  <string name="template_header_login">Login</string>
+  <string name="template_header_logout">Logout</string>
+  <string name="template_header_cancel">Cancel</string>
+  <string name="template_header_loading">loading...</string>
+  <string name="template_header_logged_in_as">You are logged in as</string>
+  <string name="template_header_enter_nick">your nickname</string>
+  <string name="template_header_enter_password">your password</string>
+  <string name="template_header_menu">Menu</string>
+  <string name="template_header_home">Home</string>
+  <string name="template_header_profile">Profile</string>
+  <string name="template_header_search">Search</string>
+  <string name="template_header_search_for_projects">Search for projects</string>
+  <string name="template_header_my_profile">My Profile</string>
+  <string name="template_header_change_profile">Change Profile</string>
+  <string name="template_header_logout">Logout</string>
+
+  <string name="template_body_nojs">Please enable JavaScript in your browser.</string>
+  
+  <string name="template_footer_search_placeholder">search...</string>  
+  <string name="template_footer_search_header">Search</string>  
+  <string name="template_footer_more">more</string>
+  <string name="template_footer_less">less</string>
   <string name="template_footer_privacy_policy_link">Privacy policy</string>
   <string name="template_footer_terms_of_use_link">Terms of Use</string>
   <string name="template_footer_copyright_policy_link">Copyright policy</string>
   <string name="template_footer_imprint_link">Imprint</string>
   <string name="template_footer_contact_link">Contact</string>
+  
   <string name="template_common_one_minute_ago">1 minute ago</string>
-  <string name="template_common_less_than_a_minute_ago">less than a minute ago</string>
+  <string name="template_common_less_than_a_minute_ago">just now</string>
   <string name="template_common_minutes_ago">{*minuteCount*} minutes ago</string>
-  <string name="template_common_one_hour_ago">about 1 hour ago</string>
-  <string name="template_common_hours_ago">about {*hourCount*} hours ago</string>
+  <string name="template_common_one_hour_ago">1 hour ago</string>
+  <string name="template_common_hours_ago">{*hourCount*} hours ago</string>
   <string name="template_common_one_day_ago">1 day ago</string>
-  <string name="template_common_days_ago">about {*dayCount*} days ago</string>
+  <string name="template_common_days_ago">{*dayCount*} days ago</string>
   <string name="template_common_one_month_ago">1 month ago</string>
-  <string name="template_common_months_ago">about {*monthCount*} months ago</string>
-  <string name="template_common_one_year_ago">about 1 year ago</string>
-  <string name="template_common_years_ago">about {*yearCount*} years ago</string>
-  <string name="template_common_over_years_ago">over {*yearCount*} years ago</string>
+  <string name="template_common_months_ago">{*monthCount*} months ago</string>
+  <string name="template_common_one_year_ago">1 year ago</string>
+  <string name="template_common_years_ago">{*yearCount*} years ago</string>
+  <string name="template_common_over_years_ago">{*yearCount*} years ago</string>
   <string name="template_common_january">January</string>
   <string name="template_common_february">February</string>
   <string name="template_common_march">March</string>
@@ -95,23 +123,6 @@
   <string name="template_common_turkish">Turkish</string>
   <string name="template_common_ukrainian">Ukrainian</string>
   <string name="template_common_vietnamese">Vietnamese</string>
-  <string name="template_header_forgot_password">click here if you forgot your password</string>  
-  <string name="template_header_register">click here to create a new account</string>
-  <string name="template_header_additional_options">Other options to proceed:</string>
-  <string name="template_header_nick">Nick:</string>
-  <string name="template_header_password">Password:</string>
-  <string name="template_header_login">Login</string>
-  <string name="template_header_logout">Logout</string>
-  <string name="template_header_cancel">Cancel</string>
-  <string name="template_header_loading">loading...</string>
-  <string name="template_header_logged_in_as">You are logged in as</string>
-  <string name="template_header_enter_nick">your nickname</string>
-  <string name="template_header_enter_password">your password</string>
-  <string name="template_header_menu">Menu</string>
-  <string name="template_header_home">Home</string>
-  <string name="template_header_profile">Profile</string>
-  <string name="template_header_search">Search</string>
-  <string name="template_header_search_for_projects">Search for projects</string>
 
   <string name="template_common_country_andorra">Andorra</string>
   <string name="template_common_country_united_arab_emirates">United Arab Emirates</string>

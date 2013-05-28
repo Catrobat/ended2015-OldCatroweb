@@ -68,7 +68,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
         $this->obj->sendPasswordRecoveryEmail($hash, $data['id'], $data['username'], $data['email']);
         $this->fail('EXPECTED EXCEPTION NOT RAISED!');
       } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "http://catroid.local/catroid/passwordrecovery?c=" . $hash);
+        $this->assertEquals($e->getMessage(), "http://catroid.local/passwordrecovery?c=" . $hash);
       }
 
       $this->obj->isRecoveryHashValid($hash);
@@ -338,34 +338,6 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
   /**
    * @dataProvider validRegistrationData
    */
-  public function testUpdateCity($postData) {
-    $newCity = "NewCity";
-    try {
-      $this->obj->register($postData);
-      try {
-        $this->obj->updateCity($newCity);
-        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
-      } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "There was a problem while updating your city.");
-      }
-      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
-      
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['city'], $postData['registrationCity']);
-      $this->obj->updateCity($newCity);
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['city'], $newCity);
-      
-      $this->obj->undoRegister();
-      $this->assertTrue(true);
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
-    }
-  }
-
-  /**
-   * @dataProvider validRegistrationData
-   */
   public function testUpdateCountry($postData) {
     $newCountry = "XX";
     try {
@@ -384,71 +356,6 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $data = $this->obj->getUserData($postData['registrationUsername']);
       $this->assertEquals($data['country'], $newCountry);
       
-      $this->obj->undoRegister();
-      $this->assertTrue(true);
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
-    }
-  }
-
-  /**
-   * @dataProvider validRegistrationData
-   */
-  public function testUpdateGender($postData) {
-    $newGender = "female";
-    try {
-      $this->obj->register($postData);
-      try {
-        $this->obj->updateGender($newGender);
-        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
-      } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "There was a problem while updating your gender.");
-      }
-      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
-      
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['gender'], $postData['registrationGender']);
-      $this->obj->updateGender($newGender);
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['gender'], $newGender);
-      
-      $this->obj->undoRegister();
-      $this->assertTrue(true);
-    } catch(Exception $e) {
-      $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
-    }
-  }
-
-  /**
-   * @dataProvider validRegistrationData
-   */
-  public function testUpdateBirthday($postData) {
-    $newMonth = "12";
-    $newYear = "2012";
-    try {
-      $this->obj->register($postData);
-      try {
-        $this->obj->updateBirthday($newMonth, $newYear);
-        $this->fail('EXPECTED EXCEPTION NOT RAISED!');
-      } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "There was a problem while updating your birthday data.");
-      }
-      $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
-      
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['month'], $postData['registrationMonth']);
-      $this->assertEquals($data['year'], $postData['registrationYear']);
-
-      $this->obj->updateBirthday($newMonth, $newYear);
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['month'], $newMonth);
-      $this->assertEquals($data['year'], $newYear);
-
-      $this->obj->updateBirthday('', '');
-      $data = $this->obj->getUserData($postData['registrationUsername']);
-      $this->assertEquals($data['month'], null);
-      $this->assertEquals($data['year'], null);
-
       $this->obj->undoRegister();
       $this->assertTrue(true);
     } catch(Exception $e) {
@@ -487,28 +394,28 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $this->obj->register($postData);
       $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
     
-      $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
+      $data = $this->obj->getUserData($this->obj->session->userLogin_userNickname);
       $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
       
       try {
-        $this->obj->addEmailAddress($this->obj->session->userLogin_userId, $newEmail);
+        $this->obj->updateAdditionalEmailAddress($this->obj->session->userLogin_userId, $newEmail);
         $this->fail('EXPECTED EXCEPTION NOT RAISED!');
       } catch(Exception $e) {
         $this->assertEquals(200, $e->getCode());
-      }  
-      $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
+      }
+      $data = $this->obj->getUserData($this->obj->session->userLogin_userNickname);
       $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
       $this->assertTrue($this->in_arrayr($newEmail, $data));
       
       try {
-        $this->obj->deleteEmailAddress($postData['registrationEmail']);
+        $this->obj->updateEmailAddress($this->obj->session->userLogin_userId, '');
         $this->fail('EXPECTED EXCEPTION NOT RAISED!');
       } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "Error while deleting this e-mail address. You must have at least one e-mail address.");
+        $this->assertEquals($e->getMessage(), "Error while updating this e-mail address. You must have at least one validated e-mail address.");
       }
       
-      $this->obj->deleteEmailAddress($newEmail);
-      $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
+      $this->obj->updateAdditionalEmailAddress($this->obj->session->userLogin_userId, '');
+      $data = $this->obj->getUserData($this->obj->session->userLogin_userNickname);
       $this->assertFalse($this->in_arrayr($newEmail, $data));
       $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
       
@@ -540,7 +447,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
         $this->obj->sendPasswordRecoveryEmail($hash, $data['id'], $data['username'], $data['email']);
         $this->fail('EXPECTED EXCEPTION NOT RAISED!');
       } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "http://catroid.local/catroid/passwordrecovery?c=" . $hash);
+        $this->assertEquals($e->getMessage(), "http://catroid.local/passwordrecovery?c=" . $hash);
       }
   
       $this->obj->isRecoveryHashValid($hash);

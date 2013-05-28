@@ -1,38 +1,36 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded_by">de {*nicknameString*}</string>
   <string name="uploaded">&#xEE;nc&#x103;rcat</string>
+  <string name="uploaded_by">de {*nicknameString*}</string>
   <string name="login">Login</string>
-  <string name="download">Desc&#x103;rcare</string>
-  <string name="report">Raportare</string>
-  <string name="cancel">Anulare</string>
+  <string name="download_button">Desc&#x103;rcare</string>
   <string name="report_as_inappropriate">raporteaz&#x103; ca necorespunz&#x103;tor</string>
   <string name="report_as_inappropriate_label">De ce crede&#x21B;i c&#x103; acest proiect este necorespunz&#x103;tor?</string>
-  <string name="some_rights_reserved">Unele drepturi dunt rezervate</string>
+  <string name="report">Raportare</string>
+  <string name="cancel">Anulare</string>
+  <string name="flag_reason_placeholder">introduce&#x21B;i un motiv</string>
   <string name="views">vizualiz&#x103;ri</string>
   <string name="downloads">desc&#x103;rc&#x103;ri</string>
-  <string name="version_info_text">Versiunea Catroid:</string>
-  <string name="text_more">mai mult</string>
-  <string name="text_less">mai pu&#x21B;in</string>
-  <string name="show_qr_code_info_button">QR-cod - ce este aceasta?</string>
-  <string name="hide_qr_code_info_button">QR-cod - &#xEE;nchide informa&#x21B;ia</string>
-  <string name="flag_reason_placeholder">introduce&#x21B;i un motiv</string>
 </strings>

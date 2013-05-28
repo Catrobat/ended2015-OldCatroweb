@@ -1,17 +1,21 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
@@ -22,13 +26,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="expired_url">Harap Maaf! URL pemulihan anda telah tamat tempoh.Sila cuba lagi.</string>
     <string name="username_password_equal">Kata laluan mesti berbeza dari nama samaran.</string>
     <string name="board_authentication_failed">Pengesahan board tidak berjaya.</string>
-    <string name="city_update_failed">Terdapat masalah semasa mengemas kini negara asal anda.</string>
     <string name="country_update_failed">Terdapat masalah semasa mengemas kini negara asal anda.</string>
-    <string name="gender_update_failed">Terdapat masalah semasa mengemas kini negara asal anda.</string>
-    <string name="birth_update_failed">Terdapat masalah semasa mengemas kini tarikh lahir anda.</string>
     <string name="language_update_failed">Terdapat masalah semasa mengemas kini tarikh lahir anda.</string>
-    <string name="email_address_exists">Alamat emel sudah wujud.</string>
-    <string name="email_delete_failed"/>
+    <string name="email_update_failed"/>
     <string name="wiki_api_response_incorrect">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
     <string name="create_hash_failed">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
     <string name="hash_not_found"/>
@@ -36,7 +36,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="username_invalid_underscore"/>
     <string name="username_invalid_hash"/>
     <string name="username_invalid_verticalbar"/>
-    <string name="username_invalid_curlybrace"/>
+    <string name="username_invaquery_failedlid_curlybrace"/>
     <string name="username_invalid_lessgreater"/>
     <string name="username_invalid_squarebracket"/>
     <string name="username_invalid_spaces"/>
@@ -49,7 +49,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="password_new_too_long"/>
     <string name="email_missing"/>
     <string name="email_invalid">Alamat emel ini tidak sah.</string>
-    <string name="email_already_exists"/>
+    <string name="last_email"/>
     <string name="country_missing"/>
     <string name="password_or_username_wrong">Katalaluan dan nama samaran anda tidak betul. </string>
     <string name="board_registration_failed"/>
@@ -58,28 +58,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="avatar_creation_failed"/>
     <string name="password_new_board_update_failed">Ada masalah/ralat ketika mengemaskini alamat emel.</string>
     <string name="userdata_not_exists">Nama samaran atau alamat emel anda tidak dijumpa. </string>
-    <string name="email_update_of_catroweb_failed">CatoWeb mesti mempunyai sekurang-kurangnya 2 alamat emel.</string>
     <string name="sendmail_failed">Terdapat ralat/masalah semasa menghantar mesej emel.Sila hubungi pentadbir di {* webmasterEmailAddress *}.</string>
   </userFunctions>
+  <profile>
+    <string name="password_missing">Kata laluan hilang.</string>
+    <string name="password_equal"/>
+  </profile>
   <db>
     <string name="query_failed">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
     <string name="connection_failed">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
     <string name="no_entry_for_id">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
   </db>
   <viewer>
-    <string name="ajax_request_page_not_found">Modul yang sesuai untuk permintaan ajax tidak dapat dijumpai</string>
     <string name="ip_is_blocked">Alamat IP anda telah diblok.</string>
     <string name="ip_is_blocked_temporary"/>
     <string name="user_is_blocked">Akaun anda telah diblok.</string>
     <string name="html_file_not_found">Halaman ini tidak dapat dipaparkan.</string>
-    <string name="ajax_took_too_long">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
-    <string name="ajax_timed_out">Ooooops terdapat masalah/ralat. Sila cuba lagi!</string>
   </viewer>
-  <profile>
-    <string name="password_old_missing">Kata Laluan lama tidak lengkap.</string>
-    <string name="password_old_wrong">Katalaluan lama tidak betul.</string>
-    <string name="password_new_missing">Katalaluan Baru tidak lengkap.</string>
-  </profile>
   <admin>
     <string name="pootle_post_data_missing">POST-data yang hilang: diperlukan: lang.</string>
     <string name="pootle_load_xlf_failed">Tidak dapat memuatkan XLF-fail dari {sumber * *}.</string>
@@ -87,14 +82,17 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="pootle_invalid_stringname_in_xml">Namanya tidak sah dalam sumber XLF-fail: {* stringName *}</string>
     <string name="pootle_could_not_write_xml_file">Tidak dapat menulis XML-fail ke direktori bahasa: {* FileName *}</string>
   </admin>
+  <server>
+    <string name="missing_mcrypt"/>
+    <string name="missing_blowfish"/>
+  </server>
   <upload>
     <string name="missing_project_title">Anda perlu menentukan tajuk untuk projeck anda!</string>
     <string name="missing_file_data"/>
-    <string name="missing_post_file_checksum">Maaf, ada masalah semasa muat naik! Adakah anda menggunakan versi terbaru Catroid?</string>
+    <string name="missing_post_file_checksum"/>
     <string name="copy_failed">Maaf, terdapat ralat ketika muatnaik. Sila cuba lagi!</string>
     <string name="rename_failed">Maaf, terdapat ralat ketika muatnaik. Sila cuba lagi!</string>
     <string name="invalid_file_checksum">Maaf, terdapat ralat ketika muatnaik. Sila cuba lagi!</string>
-    <string name="qr_code_generation_failed">Maaf, terdapat ralat ketika muatnaik. Sila cuba lagi!</string>
     <string name="save_thumbnail_failed">Maaf, terdapat ralat ketika muatnaik. Sila cuba lagi!</string>
     <string name="project_exceed_filesize_limit">Fail projek anda terlalu besar.</string>
     <string name="project_title_default">Anda perlu memberi nama baru kepada project anda, sebelum muatnaik.</string>

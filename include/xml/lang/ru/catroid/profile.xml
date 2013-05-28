@@ -1,39 +1,32 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="change_my_password">&#x438;&#x437;&#x43C;&#x435;&#x43D;&#x438;&#x442;&#x44C; &#x43C;&#x43E;&#x439; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;</string>
   <string name="password">&#x41F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;</string>
   <string name="country">&#x421;&#x442;&#x440;&#x430;&#x43D;&#x430;</string>
-  <string name="city">&#x413;&#x43E;&#x440;&#x43E;&#x434;</string>
-  <string name="birthday">&#x414;&#x435;&#x43D;&#x44C; &#x440;&#x43E;&#x436;&#x434;&#x435;&#x43D;&#x438;&#x44F;</string>
-  <string name="gender">&#x41F;&#x43E;&#x43B;</string>
-  <string name="female">&#x436;&#x435;&#x43D;&#x449;&#x438;&#x43D;&#x430;</string>
-  <string name="male">&#x43C;&#x443;&#x436;&#x447;&#x438;&#x43D;&#x430;</string>
-  <string name="email">&#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x430;&#x44F; &#x43F;&#x43E;&#x447;&#x442;&#x430;</string>
-  <string name="change_my_password">&#x438;&#x437;&#x43C;&#x435;&#x43D;&#x438;&#x442;&#x44C; &#x43C;&#x43E;&#x439; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;</string>
   <string name="save_button">&#x421;&#x43E;&#x445;&#x440;&#x430;&#x43D;&#x438;&#x442;&#x44C; &#x43C;&#x43E;&#x438; &#x438;&#x437;&#x43C;&#x435;&#x43D;&#x435;&#x43D;&#x438;&#x44F;</string>
-  <string name="really_delete">&#x412;&#x44B; &#x443;&#x432;&#x435;&#x440;&#x435;&#x43D;&#x44B; &#x447;&#x442;&#x43E; &#x445;&#x43E;&#x442;&#x438;&#x442;&#x435; &#x443;&#x434;&#x430;&#x43B;&#x438;&#x442;&#x44C; &#x44D;&#x442;&#x43E;&#x442; &#x430;&#x434;&#x440;&#x435;&#x441; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;?</string>
+  <string name="really_delete_email">&#x412;&#x44B; &#x443;&#x432;&#x435;&#x440;&#x435;&#x43D;&#x44B; &#x447;&#x442;&#x43E; &#x445;&#x43E;&#x442;&#x438;&#x442;&#x435; &#x443;&#x434;&#x430;&#x43B;&#x438;&#x442;&#x44C; &#x44D;&#x442;&#x43E;&#x442; &#x430;&#x434;&#x440;&#x435;&#x441; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;?</string>
   <string name="avatar_success">&#x412;&#x44B; &#x443;&#x441;&#x43F;&#x435;&#x448;&#x43D;&#x43E; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x438;&#x43B;&#x438; &#x441;&#x432;&#x43E;&#x44E; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x443;.</string>
   <string name="password_success">&#x412;&#x44B; &#x443;&#x441;&#x43F;&#x435;&#x448;&#x43D;&#x43E; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x438;&#x43B;&#x438; &#x441;&#x432;&#x43E;&#x439; &#x43F;&#x430;&#x440;&#x43E;&#x43B;&#x44C;.</string>
-  <string name="email_delete_success">&#x412;&#x44B; &#x443;&#x441;&#x43F;&#x435;&#x448;&#x43D;&#x43E; &#x443;&#x434;&#x430;&#x43B;&#x438;&#x43B;&#x438; &#x441;&#x432;&#x43E;&#x439; &#x430;&#x434;&#x440;&#x435;&#x441; &#x44D;&#x43B;&#x435;&#x43A;&#x442;&#x440;&#x43E;&#x43D;&#x43D;&#x43E;&#x439; &#x43F;&#x43E;&#x447;&#x442;&#x44B;.</string>
-  <string name="city_success">&#x412;&#x44B; &#x443;&#x441;&#x43F;&#x435;&#x448;&#x43D;&#x43E; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x438;&#x43B;&#x438; &#x441;&#x432;&#x43E;&#x44E; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x443;.</string>
-  <string name="country_success">&#x412;&#x44B; &#x443;&#x441;&#x43F;&#x435;&#x448;&#x43D;&#x43E; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x438;&#x43B;&#x438; &#x441;&#x432;&#x43E;&#x44E; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x443;.</string>
-  <string name="gender_success">&#x412;&#x44B; &#x443;&#x441;&#x43F;&#x435;&#x448;&#x43D;&#x43E; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x438;&#x43B;&#x438; &#x441;&#x432;&#x43E;&#x44E; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x443;.</string>
-  <string name="birthday_success">&#x412;&#x44B; &#x443;&#x441;&#x43F;&#x435;&#x448;&#x43D;&#x43E; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x438;&#x43B;&#x438; &#x441;&#x432;&#x43E;&#x44E; &#x441;&#x442;&#x440;&#x430;&#x43D;&#x443;.</string>
 </strings>

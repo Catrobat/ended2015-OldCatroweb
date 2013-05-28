@@ -27,8 +27,8 @@ class details extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    $this->addCss('projectDetails.css');
-    $this->addJs('projectDetails.js');
+    $this->addCss('details.css');
+    $this->addJs('details.js');
 
     $this->isMobile = $this->clientDetection->isMobile();
     $this->oldVersions = array("", "0.4.3d", "0.5.4a", "0.6.0beta", "&lt; 0.7.0beta");
@@ -73,21 +73,17 @@ class details extends CoreAuthenticationNone {
     $project['uploaded_by_string'] = $this->languageHandler->getString('uploaded_by', $project['uploaded_by']);
     $project['publish_time_precice'] = date('Y-m-d H:i:s', strtotime($project['upload_time']));
     $project['fileSize'] = convertBytesToMegabytes($project['filesize_bytes']);
-    if($project['description']) {
-      $project['description'] = $project['description'];
-    } else {
-      $project['description'] = '';
-    }
+    $project['description'] = wrapUrlsWithAnchors($project['description']);
     if(mb_strlen($project['description'], 'UTF-8') > PROJECT_SHORT_DESCRIPTION_MAX_LENGTH) {
       $project['description_short'] = makeShortString($project['description'], PROJECT_SHORT_DESCRIPTION_MAX_LENGTH, '...');
     } else {
       $project['description_short'] = '';
     }
-    $project['qr_code_catroid_image'] = getCatroidProjectQRCodeUrl($projectId, $project['title']);
+    $project['qr_code_catroid_image'] = "no_qr_code";
 
     $project['is_app_present'] = file_exists(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENSION);
     if($project['is_app_present']) {
-      $project['qr_code_app_image'] = getAppProjectQRCodeUrl($projectId, $project['title']);
+      $project['qr_code_app_image'] = "no_qr_code";
       $project['appFileSize'] = convertBytesToMegabytes(filesize(CORE_BASE_PATH.PROJECTS_DIRECTORY.$projectId.APP_EXTENSION));
     }
     
@@ -108,7 +104,7 @@ class details extends CoreAuthenticationNone {
   
   public function showReportAsInappropriateButton($projectId, $userId) {
     if($this->session->userLogin_userId <= 0) {
-      return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_please_login', '<a href="' . BASE_PATH . 'catroid/login/?requestUri=catroid/details/' . $projectId . '">' . $this->languageHandler->getString('login') . '</a>'));
+      return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_please_login', '<a href="' . BASE_PATH . 'login/?requestUri=details/' . $projectId . '">' . $this->languageHandler->getString('login') . '</a>'));
     }
     if($this->session->userLogin_userId == $userId) {
       return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_own_project'));

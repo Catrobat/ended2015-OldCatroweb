@@ -1,46 +1,37 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="template_header_loading">sedang dimuat...</string>
   <string name="template_header_cancel">Batal</string>
-  <string name="template_header_register">di sini untuk membuat akaun baru.</string>
-  <string name="template_header_menu">Menu</string>
-  <string name="template_header_profile">Profil</string>
-  <string name="template_header_login">Logmasuk</string>
-  <string name="template_header_forgot_password">Klik di sini jika terlupa kata laluan anda?</string>
   <string name="template_footer_terms_of_use_link">Syarat-syarat Pengunaan</string>
+  <string name="template_header_login">Logmasuk</string>
   <string name="template_header_password">Kata Laluan:</string>
   <string name="template_header_enter_nick">nama samaran anda</string>
   <string name="template_header_enter_password">kata laluan anda</string>
   <string name="template_common_one_minute_ago">satu minit lalu</string>
-  <string name="template_common_less_than_a_minute_ago">kurang dari satu minit lalu</string>
   <string name="template_common_minutes_ago">{*minuteCount*} minit lalu</string>
-  <string name="template_common_one_hour_ago">kira-kira 1 jam yang lalu</string>
-  <string name="template_common_hours_ago">kira-kira {*hourCount*} jam lalu</string>
   <string name="template_common_one_day_ago">sehari yang lalu</string>
-  <string name="template_common_days_ago">kira-kira {*dayCount*} hari lalu</string>
   <string name="template_common_one_month_ago">sebulan yang lepas</string>
-  <string name="template_common_months_ago">kira-kira {*monthCount*} bulan lalu</string>
-  <string name="template_common_one_year_ago">kira-kira setahun lalu</string>
-  <string name="template_common_years_ago">kira-kira {*yearCount*} tahun lalu</string>
-  <string name="template_common_over_years_ago">lebih dari {*yearCount*} tahun lalu</string>
   <string name="template_common_january">Januari</string>
   <string name="template_common_february">Februari</string>
   <string name="template_common_march">Mac</string>
@@ -97,16 +88,27 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_turkish">Bahasa Turkish</string>
   <string name="template_common_ukrainian">Bahasa Ukraine</string>
   <string name="template_common_vietnamese">Bahasa Vietnam</string>
+  <string name="template_header_register">di sini untuk membuat akaun baru.</string>
+  <string name="template_header_nick">Nama Samaran:</string>
+  <string name="template_header_logout">Logkeluar</string>
+  <string name="template_header_loading">sedang dimuat...</string>
+  <string name="template_header_logged_in_as">Anda telah logmasuk sebagai</string>
+  <string name="template_header_menu">Menu</string>
+  <string name="template_header_home">Laman Asal</string>
+  <string name="template_header_profile">Profil</string>
+  <string name="template_header_search">Cari</string>
+  <string name="template_footer_search_header">Cari</string>
+  <string name="template_header_search_for_projects">Cari Projek</string>
+  <string name="template_footer_more">lagi</string>
+  <string name="template_footer_less">kurang</string>
   <string name="template_footer_privacy_policy_link">Polisi Privasi</string>
   <string name="template_footer_copyright_policy_link">Polisi Hakcipta</string>
   <string name="template_footer_imprint_link">Cetak</string>
   <string name="template_footer_contact_link">Kontek</string>
-  <string name="template_header_nick">Nama Samaran:</string>
-  <string name="template_header_logout">Logkeluar</string>
-  <string name="template_header_logged_in_as">Anda telah logmasuk sebagai</string>
-  <string name="template_header_home">Laman Asal</string>
-  <string name="template_header_search">Cari</string>
-  <string name="template_header_search_for_projects">Cari Projek</string>
+  <string name="template_common_hours_ago">kira-kira {*hourCount*} jam lalu</string>
+  <string name="template_common_days_ago">kira-kira {*dayCount*} hari lalu</string>
+  <string name="template_common_months_ago">kira-kira {*monthCount*} bulan lalu</string>
+  <string name="template_common_over_years_ago">lebih dari {*yearCount*} tahun lalu</string>
   <string name="template_common_country_andorra">Bahasa Andorra</string>
   <string name="template_common_country_united_arab_emirates">Bahasa United Arab Emirates</string>
   <string name="template_common_country_afghanistan">Bahasa Afghanistan</string>

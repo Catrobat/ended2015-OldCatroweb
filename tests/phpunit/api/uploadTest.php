@@ -115,9 +115,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     
     pg_free_result($result);
 
-    //test qrcode image generation
-    $this->assertTrue(is_file(CORE_BASE_PATH . PROJECTS_QR_DIRECTORY . $insertId . PROJECTS_QR_EXTENSION));
-
     //test deleting from filesystem
     $this->upload->cleanup();
     $this->assertFalse(is_file($filePath));
@@ -179,9 +176,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($pg_result['description'], $cleanedProjectDescription);
     
     pg_free_result($result);
-  
-    //test qrcode image generation
-    $this->assertTrue(is_file(CORE_BASE_PATH . PROJECTS_QR_DIRECTORY . $insertId . PROJECTS_QR_EXTENSION));
   
     //test deleting from filesystem
     $this->upload->cleanup();

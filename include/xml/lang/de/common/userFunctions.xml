@@ -1,30 +1,34 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="registration_mail_subject">Deine Catroid.org Registrierung</string>
-  <string name="registration_mail_text_row1">Gratulation und Willkommen zu der Catroid.org Gemeinschaft!</string>
+  <string name="registration_mail_subject">Deine {*appplication_name*} Registrierung</string>
+  <string name="registration_mail_text_row1">Gratulation und Willkommen zu der {*appplication_url*} Gemeinschaft!</string>
   <string name="registration_mail_text_row2">Bitte behalte dieses E-Mail auf. Deine Benutzerkonto-Informationen lauten:</string>
   <string name="registration_mail_text_row3">Benutzername: {*username*}</string>
   <string name="registration_mail_text_row5">Passwort: {*password*}</string>
-  <string name="registration_mail_text_row6">Du kannst Deinen Benutzernamen und Dein Passwort jederzeit verwenden um Zugriff auf die Catroid Community zu bekommen.</string>
-  <string name="recovery_mail_text_row5">Du kannst Deinen Benutzernamen und Dein Passwort jederzeit verwenden um Zugriff auf die Catroid Community zu bekommen.</string>
+  <string name="registration_mail_text_row6">Du kannst deinen Nickname und dein Passwort jederzeit nutzen, um auf {*appplication_name*} Gemeinschaft zuzugreifen.</string>
+  <string name="recovery_mail_text_row5">Du kannst deinen Nickname und dein Passwort jederzeit nutzen, um auf {*appplication_name*} Gemeinschaft zuzugreifen.</string>
   <string name="registration_mail_text_row7">Um diesen Vorgang abzuschlie&#xDF;en, besuche folgende Seite:</string>
   <string name="recovery_mail_text_row6">Um diesen Vorgang abzuschlie&#xDF;en, besuche folgende Seite:</string>
   <string name="registration_mail_text_row8">Um deine Benutzerkonto-Informationen zu bearbeiten, besuche folgende Seite:</string>
@@ -33,13 +37,13 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="registration_mail_text_row10">Liebe Gr&#xFC;&#xDF;e,</string>
   <string name="recovery_mail_text_row8">Liebe Gr&#xFC;&#xDF;e,</string>
   <string name="email_validation_text_row2">Liebe Gr&#xFC;&#xDF;e,</string>
-  <string name="registration_mail_text_row11">Dein Catroid Team</string>
-  <string name="recovery_mail_text_row9">Dein Catroid Team</string>
-  <string name="email_validation_text_row3">Dein Catroid Team</string>
-  <string name="recovery_mail_subject">Deine Catroid.org Passwort-Wiederherstellung</string>
+  <string name="registration_mail_text_row11">Dein {*appplication_name*} Team</string>
+  <string name="recovery_mail_text_row9">Dein {*appplication_name*} Team</string>
+  <string name="email_validation_text_row3">Dein {*appplication_name*} Team</string>
+  <string name="recovery_mail_subject">Deine {*appplication_name*} Passwort Zur&#xFC;cksetzung</string>
   <string name="recovery_mail_text_row1">Hallo {*username*}.</string>
-  <string name="recovery_mail_text_row2">Weil du dein Passwort auf Catroid.org vergessen hast, willst du dein Passwort zur&#xFC;cksetzten lassen. Wenn du das nicht wolltest, dann ignoriere bitte dieses E-Mail.</string>
+  <string name="recovery_mail_text_row2">Du hast eine Passwort Zur&#xFC;cksetzung auf {*appplication_url*} angefordert, weil du dein Passwort vergessen hast. Wenn du das nicht willst, bitte ignoriere diese Nachricht. Die Option wird innerhalb von 24 Stunden verfallen und nutzlos.</string>
   <string name="recovery_mail_text_row3">Um dein Passwort zur&#xFC;ckzusetzen und ein neues anzufordern, besuche bitte folgende Seite:</string>
-  <string name="email_validation_subject">Deine Catroid.org E-Mail Verifizierung</string>
-  <string name="email_validation_text_row1">Liebe/r {*username*}, um den Prozess des Hinzuf&#xFC;gens einer neuen E-Mail-Adresse abzuschliesen, klicke bitte den Link unten zur Verifikation.</string>
+  <string name="email_validation_subject">Deine {*appplication_name*} E-Mail Best&#xE4;tigung</string>
+  <string name="email_validation_text_row1">Liebe/r {*username*}, um den Prozess des Hinzuf&#xFC;gens einer neuen E-Mail-Adresse abzuschliesen, klicke bitte den Link unten zur Best&#xE4;tigung.</string>
 </strings>

@@ -1,8 +1,12 @@
 RewriteEngine on
 
+RewriteCond %{REQUEST_METHOD} ^(TRACE|TRACK)
+RewriteRule .* - [F]
+
 RewriteRule ^phpinfo.php - [L]
 RewriteRule ^wiki/ - [L]
 RewriteRule ^addons/ - [L]
+RewriteRule ^cache/ - [L]
 RewriteRule ^script/ - [L]
 RewriteRule ^build/ - [L]
 RewriteRule ^images/ - [L]
@@ -11,54 +15,20 @@ RewriteRule ^modules/ - [L]
 RewriteRule ^classes/ - [L]
 RewriteRule ^viewer/ - [L]
 RewriteRule ^resources/ - [L]
+RewriteRule ^services/ - [L]
 RewriteRule ^tests/ - [L]
+RewriteRule ^help/ - [L]
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)([^/]*)/([^/]*)/([^/]*)\.([^\.]*)$ index.php?module=$1&class=$3&method=$4&view=$5 [L,QSA]
 
-RewriteRule ^wiki/ - [L]
-RewriteRule ^addons/ - [L]
-RewriteRule ^script/ - [L]
-RewriteRule ^build/ - [L]
-RewriteRule ^images/ - [L]
-RewriteRule ^include/ - [L]
-RewriteRule ^modules/ - [L]
-RewriteRule ^classes/ - [L]
-RewriteRule ^viewer/ - [L]
-RewriteRule ^resources/ - [L]
-RewriteRule ^tests/ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)([^/]*)/([^/]*)/([^/]*)$ index.php?module=$1&class=$3&method=$4 [L,QSA]
+RewriteRule ^(admin|api|catroid)/([^/]*)/([^/]*)\.([^\.]*)$ index.php?module=$1&class=$2&method=$3&view=$4 [L,QSA]
+RewriteRule ^(admin|api|catroid)/([^/]*)/([^/]*)$ index.php?module=$1&class=$2&method=$3 [L,QSA]
+RewriteRule ^(admin|api|catroid)/([^/]*)$ index.php?module=$1&class=$2 [L,QSA]
+RewriteRule ^(admin|api|catroid)$ index.php?module=$1 [L,QSA]
 
-RewriteRule ^wiki/ - [L]
-RewriteRule ^addons/ - [L]
-RewriteRule ^script/ - [L]
-RewriteRule ^build/ - [L]
-RewriteRule ^images/ - [L]
-RewriteRule ^include/ - [L]
-RewriteRule ^modules/ - [L]
-RewriteRule ^classes/ - [L]
-RewriteRule ^viewer/ - [L]
-RewriteRule ^resources/ - [L]
-RewriteRule ^tests/ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)([^/]*)/([^/]*)$ index.php?module=$1&class=$3 [L,QSA]
+RewriteRule ^([^/]*)/([^/]*)\.([^\.]*)$ index.php?module=catroid&class=$1&method=$2&view=$3 [L,QSA]
+RewriteRule ^([^/]*)/([^/]*)$ index.php?module=catroid&class=$1&method=$2 [L,QSA]
+RewriteRule ^([^/]*)$ index.php?module=catroid&class=$1 [L,QSA]
+RewriteRule ^$ index.php?module=catroid [L,QSA]
 
-RewriteRule ^wiki/ - [L]
-RewriteRule ^addons/ - [L]
-RewriteRule ^script/ - [L]
-RewriteRule ^build/ - [L]
-RewriteRule ^images/ - [L]
-RewriteRule ^include/ - [L]
-RewriteRule ^modules/ - [L]
-RewriteRule ^classes/ - [L]
-RewriteRule ^viewer/ - [L]
-RewriteRule ^resources/ - [L]
-RewriteRule ^tests/ - [L]
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)([^/]*)$ index.php?module=$1 [L,QSA]
-
-Redirect permanent /resources/catroid /catroid/index
