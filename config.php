@@ -73,6 +73,8 @@ define('PROJECT_SORTBY_VIEWS', 'views');
 define('PROJECT_SORTBY_RANDOM', 'random');
 define('PROJECT_SORTBY_DEFAULT', PROJECT_SORTBY_AGE);
 
+define('PROJECT_MEDIA_LICENSE', 'http://developer.catrobat.org/ccbysa_v3');
+define('PROJECT_PROGRAM_LICENSE', 'http://developer.catrobat.org/agpl_v3');
 
 define('APP_EXTENSION','.apk');
 
