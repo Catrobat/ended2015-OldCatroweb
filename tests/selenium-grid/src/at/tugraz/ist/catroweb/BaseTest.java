@@ -291,8 +291,8 @@ public class BaseTest {
     return "passwordrecovery?c=";
   }
 
-  public String getValidationUrl() {
-    String[] parts = getAjaxMessage().split("<");
+  public String getValidationUrl(String message) {
+    String[] parts = message.split("<");
     for(String part : parts) {
       if(part.contains("emailvalidation?c=")) {
         String[] temp = part.split("c=");

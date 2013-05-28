@@ -27,10 +27,6 @@
   margin-left: 1em;
 }
 
-#profileContainer {
-  width: 100%;
-}
-
 #wrapper article div.profileInputs {
   float:left;
   margin-left: 0.7em;
@@ -90,18 +86,14 @@
   float: left; 
 }
 
-#wrapper article div.profilePasswordItem{
- width: 18em;
- padding: 0.5em;
- margin-bottom: 1.5em;
-}
-
 #wrapper article div.profileValid{
   background-color: #FFFFFF;
   border: 0.2em solid #05222a;
   -mox-box-shadow: inset 2px 2px 5px #05222a;
   -webkit-box-shadow: inset 2px 2px 5px #05222a;
   box-shadow: inset 2px 2px 5px #05222a;
+ padding: 0.5em;
+ margin-bottom: 1.5em;
 }
 
 #wrapper article div.profileInvalid{
@@ -110,10 +102,12 @@
   -mox-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
+ padding: 0.5em;
+ margin-bottom: 1.5em;
 }
 
 
-#wrapper article div.profileInputs img{
+#wrapper article div.profileInputs img {
   float: right;
   font-size: 1.4em;
   border: none;
@@ -124,48 +118,26 @@
   border-radius: 0.125em;
   color: #05222a;
   height: 1.8em;
-  width: 10.5em;
+  width: 9em;
   border: none;
   margin-left: 0.2em;
   outline: none;
   font-size: 1.4em;
 }
 
-#wrapper article div.profileInputsRight input{
-  width: 9em;
-}
-
-#wrapper article input.inputInvalid{
+#wrapper article input.inputInvalid {
   background-color: #F78181;
   color: #880000;
   border:0;
   outline:0;
 }
 
-#wrapper article div.profileFirstEmailItem{
- width: 15.7em;
- padding: 0.5em;
- margin-bottom: 1.5em;
-}
-
-#wrapper article div.profileSecondEmailItem{
- width: 15.7em;
- padding: 0.5em;
- margin-bottom: 1.5em;
-}
-
-#wrapper article div.profileDeleteEMail{
- margin-top: -4.5em;
- float: right;
- cursor: pointer;
-}
-
 /*might be needed at select for working in chrome: -webkit-appearance: none;*/
-#wrapper article div.profileCountry{
+#wrapper article div.profileCountry {
   -mox-box-shadow: inset 2px 2px 5px #05222a;
   -webkit-box-shadow: inset 2px 2px 5px #05222a;
   box-shadow: inset 2px 2px 5px #05222a;
-  width: 13.2em;
+  width: 12.9em;
   border: 2px solid #05222a;
   padding-top: 0.5em;
   padding-bottom: 0.2em;

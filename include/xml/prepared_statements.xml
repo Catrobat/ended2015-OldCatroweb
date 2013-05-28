@@ -84,16 +84,14 @@
     <string name="get_user_row_by_recovery_hash">SELECT * FROM cusers WHERE recovery_hash=$1 LIMIT 1</string>
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
     <string name="get_email_hash">SELECT id from cusers WHERE email_validation_hash=$1</string>
-    <string name="get_user_email_by_email">SELECT email FROM cusers WHERE email=$1</string>
-		<string name="get_user_emails_by_id">SELECT email, additional_email, true as validated FROM cusers WHERE id=$1</string>
-		<string name="get_add_email_validation">SELECT email_validated FROM cusers WHERE id=$1</string>
+		<string name="is_additional_email_validated">SELECT additional_email_validated FROM cusers WHERE id=$1 AND additional_email_validated=true</string>
 	
     <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, country, ip_registered, status, auth_token, language) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
 <!--    <string name="delete_user_additional_email">DELETE FROM cusers WHERE email=$1</string>-->
     <string name="update_recovery_hash_recovery_time_by_id">UPDATE cusers SET recovery_hash=$1, recovery_time=$2 WHERE id=$3</string>
     <string name="update_email_validation_hash_by_email_and_id">UPDATE cusers SET email_validation_hash=$1 WHERE (email=$2 OR additional_email=$2) AND id=$3</string>
-    <string name="update_user_email">UPDATE cusers SET email=$2, email_validated=false WHERE id=$1</string>
+    <string name="update_user_email">UPDATE cusers SET email=additional_email, additional_email=$2, additional_email_validated=false WHERE id=$1</string>
     <string name="update_add_user_email">UPDATE cusers SET additional_email=$2, additional_email_validated=false WHERE id=$1</string>
     <string name="validate_email_by_hash">UPDATE cusers SET additional_email_validated='t', email_validation_hash='' WHERE email_validation_hash=$1</string>
     

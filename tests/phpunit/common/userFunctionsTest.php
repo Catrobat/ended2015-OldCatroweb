@@ -394,28 +394,28 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
       $this->obj->register($postData);
       $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
     
-      $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
+      $data = $this->obj->getUserData($this->obj->session->userLogin_userNickname);
       $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
       
       try {
-        $this->obj->addEmailAddress($this->obj->session->userLogin_userId, $newEmail);
+        $this->obj->updateAdditionalEmailAddress($this->obj->session->userLogin_userId, $newEmail);
         $this->fail('EXPECTED EXCEPTION NOT RAISED!');
       } catch(Exception $e) {
         $this->assertEquals(200, $e->getCode());
-      }  
-      $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
+      }
+      $data = $this->obj->getUserData($this->obj->session->userLogin_userNickname);
       $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
       $this->assertTrue($this->in_arrayr($newEmail, $data));
       
       try {
-        $this->obj->deleteEmailAddress($postData['registrationEmail']);
+        $this->obj->updateEmailAddress($this->obj->session->userLogin_userId, '');
         $this->fail('EXPECTED EXCEPTION NOT RAISED!');
       } catch(Exception $e) {
-        $this->assertEquals($e->getMessage(), "Error while deleting this e-mail address. You must have at least one e-mail address.");
+        $this->assertEquals($e->getMessage(), "Error while updating this e-mail address. You must have at least one validated e-mail address.");
       }
       
-      $this->obj->deleteEmailAddress($newEmail);
-      $data = $this->obj->getEmailAddresses($this->obj->session->userLogin_userId);
+      $this->obj->updateAdditionalEmailAddress($this->obj->session->userLogin_userId, '');
+      $data = $this->obj->getUserData($this->obj->session->userLogin_userNickname);
       $this->assertFalse($this->in_arrayr($newEmail, $data));
       $this->assertTrue($this->in_arrayr($postData['registrationEmail'], $data));
       

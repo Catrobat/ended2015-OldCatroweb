@@ -25,7 +25,7 @@
 ?>
   <article>
     <header><?php echo $this->userData['username'];?></header> 
-    <div id="profileContainer">
+    <div>
 
       <div class="profileAvatar">
         <div id="profileAvatarError"></div>
@@ -39,13 +39,13 @@
       <div class="profileInputs">
         <div class="profileInputsLeft">
           <div id="profilePasswordError"></div>
-          <div class="profilePasswordItem profileValid">
-            <input type="password" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password'); ?>" />
+          <div id="profileNewPassword" class="profileValid">
+            <input type="password" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password'); ?>" />
             <div class="img-password"></div>
           </div>
 
-          <div class="profilePasswordItem profileValid">
-            <input type="password" id="profileRepeatPassword" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password'); ?>" />
+          <div id="profileRepeatPassword" class="profileValid">
+            <input type="password" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password'); ?>" />
             <div class="img-password"></div>
           </div>
 
@@ -58,17 +58,15 @@
         
         <div class="profileInputsRight">
           <div id="profileEmailError"></div>
-          <div class="profileFirstEmailItem profileValid">
-            <input type="email" placeholder="<?php echo $this->languageHandler->getString('second_email'); ?>" value="<?php echo $this->userData['email']; ?>" />
+          <div id="profileEmail" class="profileValid">
+            <input type="email" placeholder="<?php echo $this->languageHandler->getString('email'); ?>" value="<?php echo $this->userData['email']; ?>" />
             <div class="img-first-email"></div>
           </div>
-          <div id="profileDeleteFirstEmail" class="img-delete profileDeleteEMail"></div>
 
-          <div class="profileSecondEmailItem profileValid">
-            <input type="email" class="inputValid" placeholder="<?php echo $this->languageHandler->getString('second_email'); ?>" value="<?php echo $this->userData['additional_email']; ?>" />
+          <div id="profileSecondEmail" class="profileValid">
+            <input type="email" placeholder="<?php echo $this->languageHandler->getString('second_email'); ?>" value="<?php echo $this->userData['additional_email']; ?>" />
             <div class="img-second-email"></div>
           </div>
-          <div id="profileDeleteSecondEmail" class="img-delete profileDeleteSecondEmail profileDeleteEMail"></div>
 
           <div>
             <img class="profileLoader" src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
@@ -76,7 +74,7 @@
               <div class="img-saved"></div>
               <span><?php echo $this->languageHandler->getString('saved') ?></span>
             </div>
-            <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save') ?></button>
+            <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save'); ?></button>
           </div>  
         </div>
       </div>

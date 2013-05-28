@@ -31,14 +31,12 @@ var Profile = Class.$extend( {
     
     this.initAvatarUploader();
    
-    $(".profilePasswordItem input").keypress($.proxy(this.passwordCatchKeypress, this));
-    $(".profileRepeatPassword input").keypress($.proxy(this.passwordCatchKeypress, this));
-    $(".profileFirstEmailItem input").keypress($.proxy(this.firstEmailCatchKeypress, this));
-    $(".profileSecondEmailItem input").keypress($.proxy(this.secondEmailCatchKeypress, this));
+    $("#profileNewPassword input").keypress($.proxy(this.passwordCatchKeypress, this));
+    $("#profileRepeatPassword input").keypress($.proxy(this.passwordCatchKeypress, this));
+    $("#profileEmail input").keypress($.proxy(this.firstEmailCatchKeypress, this));
+    $("#profileSecondEmail input").keypress($.proxy(this.secondEmailCatchKeypress, this));
     $(".profileCountry").change($.proxy(this.countryChangedEvent, this));
     $("#profileSaveChanges").click($.proxy(this.updateChangesRequest, this));
-    $("#profileDeleteFirstEmail").click($.proxy(this.deleteEmail,this, 0));
-    $("#profileDeleteSecondEmail").click($.proxy(this.deleteEmail,this, 1));
 
     this.projectObject = null;
     this.history = window.History;
@@ -61,8 +59,9 @@ var Profile = Class.$extend( {
   //-------------------------------------------------------------------------------------------------------------------
 
   getProfileState : function() {
-    state = { 'pwd' : $("#profileNewPassword").val(), 'firstEmail' : $(".profileFirstEmailItem input").val(),
-        'secondEmail' : $(".profileSecondEmailItem input").val(), 'country' : $(".profileCountry select").val()  };
+    state = { 'pwd' : $("#profileNewPassword input").val() + $("#profileRepeatPassword input").val(), 
+        'firstEmail' : $("#profileEmail input").val(), 'secondEmail' : $("#profileSecondEmail input").val(),
+        'country' : $(".profileCountry select").val()  };
     return state;
   },
   
@@ -93,24 +92,30 @@ var Profile = Class.$extend( {
     $(".profileAvatarImageError").removeClass("profileAvatarImageError");
 
     $("#profilePasswordError").hide();
-    $(".profilePasswordItem").removeClass("profileInvalid");
-    $(".profilePasswordItem").addClass("profileValid");
-    $(".profilePasswordItem input").removeClass("inputInvalid");
-    $(".profilePasswordItem div").removeClass("img-failedPw");
-    $(".profilePasswordItem div").addClass("img-password");
+    $("#profileNewPassword").removeClass("profileInvalid");
+    $("#profileNewPassword").addClass("profileValid");
+    $("#profileNewPassword input").removeClass("inputInvalid");
+    $("#profileNewPassword div").removeClass("img-failedPw");
+    $("#profileNewPassword div").addClass("img-password");
+
+    $("#profileRepeatPassword").removeClass("profileInvalid");
+    $("#profileRepeatPassword").addClass("profileValid");
+    $("#profileRepeatPassword input").removeClass("inputInvalid");
+    $("#profileRepeatPassword div").removeClass("img-failedPw");
+    $("#profileRepeatPassword div").addClass("img-password");
 
     $("#profileEmailError").hide();
-    $(".profileFirstEmailItem").removeClass("profileInvalid");
-    $(".profileFirstEmailItem").addClass("profileValid");
-    $(".profileFirstEmailItem input").removeClass("inputInvalid");
-    $(".profileFirstEmailItem div").removeClass("img-failed-first-email");
-    $(".profileFirstEmailItem div").addClass("img-first-email");
+    $("#profileEmail").removeClass("profileInvalid");
+    $("#profileEmail").addClass("profileValid");
+    $("#profileEmail input").removeClass("inputInvalid");
+    $("#profileEmail div").removeClass("img-failed-first-email");
+    $("#profileEmail div").addClass("img-first-email");
     
-    $(".profileSecondEmailItem").removeClass("profileInvalid");
-    $(".profileSecondEmailItem").addClass("profileValid");
-    $(".profileSecondEmailItem input").removeClass("inputInvalid");
-    $(".profileSecondEmailItem div").removeClass("img-failed-second-email");
-    $(".profileSecondEmailItem div").addClass("img-second-email");
+    $("#profileSecondEmail").removeClass("profileInvalid");
+    $("#profileSecondEmail").addClass("profileValid");
+    $("#profileSecondEmail input").removeClass("inputInvalid");
+    $("#profileSecondEmail div").removeClass("img-failed-second-email");
+    $("#profileSecondEmail div").addClass("img-second-email");
   },
 
   //-------------------------------------------------------------------------------------------------------------------
@@ -164,58 +169,6 @@ var Profile = Class.$extend( {
 
   //-------------------------------------------------------------------------------------------------------------------
   
-  deleteEmail : function(additional){ 
-    this.hideErrorMessages();
-    
-    if(additional) {
-      if(confirm(this.languageStringsObject.really_delete_email + " '" + $(".profileSecondEmailItem input").val() + "' ?")) {
-        $(".profileLoader").show();
-        $.ajax({
-          type: "POST",
-          url: this.basePath + 'profile/deleteEmailRequest.json',
-          data : ({
-            additional  : additional,
-            firstEmail  : $(".profileFirstEmailItem input").val(), 
-            secondEmail : $(".profileSecondEmailItem input").val(),
-          }),
-          success : $.proxy(function(result) {
-            if(result.statusCode == 200) {
-              $(".profileLoader").hide();
-              $(".profileSecondEmailItem input").val('');
-              this.state = this.getProfileState();
-            } else {
-              this.deleteEmailRequestError(result);
-            }
-          }, this),
-          error : $.proxy(this.deleteEmailRequestError, this)
-        });
-      }
-    } else {
-      if(confirm(this.languageStringsObject.really_delete_email + " '" + $(".profileFirstEmailItem input").val() + "' ?")) {
-        $(".profileLoader").show();
-        $.ajax({
-          type: "POST",
-          url: this.basePath + 'profile/deleteEmailRequest.json',
-          data : ({
-            additional  : additional,
-            firstEmail  : $(".profileFirstEmailItem input").val(), 
-            secondEmail : $(".profileSecondEmailItem input").val(),
-          }),
-          success : $.proxy(function(result) {
-            if(result.statusCode == 200) {
-              $(".profileLoader").hide();
-              $(".profileFirstEmailItem input").val('');
-              this.state = this.getProfileState();
-            } else {
-              this.deleteEmailRequestError(result);
-            }
-          }, this),
-          error : $.proxy(this.deleteEmailRequestError, this)
-        });
-      }      
-    }
-  },
-  
   passwordCatchKeypress : function(event) {
     if(event.which == '13') {
       this.updateChangesRequest();
@@ -236,8 +189,8 @@ var Profile = Class.$extend( {
           type: "POST",
           url: this.basePath + 'profile/updatePasswordRequest.json',
           data : ({
-            profileNewPassword : $("#profileNewPassword").val(),
-            profileRepeatPassword : $("#profileRepeatPassword").val()
+            profileNewPassword : $("#profileNewPassword input").val(),
+            profileRepeatPassword : $("#profileRepeatPassword input").val()
           }),
           success : $.proxy(this.passwordRequestSuccess, this),
           error : $.proxy(this.passwordRequestError, this)
@@ -249,8 +202,7 @@ var Profile = Class.$extend( {
           type: "POST",
           url: this.basePath + 'profile/updateEmailRequest.json',
           data : ({
-            email : $(".profileFirstEmailItem input").val(),
-            additional : 0
+            email : $("#profileEmail input").val()
           }),
           success : $.proxy(this.firstEmailRequestSuccess, this),
           error : $.proxy(this.firstEmailRequestError, this)
@@ -260,10 +212,9 @@ var Profile = Class.$extend( {
         $(".profileLoader").show();
         $.ajax({
           type: "POST",
-          url: this.basePath + 'profile/updateEmailRequest.json',
+          url: this.basePath + 'profile/updateAdditionalEmailRequest.json',
           data : ({
-            email : $(".profileSecondEmailItem input").val(),
-            additional : 1
+            email : $("#profileSecondEmail input").val()
           }),
           success : $.proxy(this.secondEmailRequestSuccess, this),
           error : $.proxy(this.secondEmailRequestError, this)
@@ -290,8 +241,8 @@ var Profile = Class.$extend( {
     if(result.statusCode == 200) {
       $(".profileLoader").hide();
       $("#profileChangesSuccess").css("visibility", "visible");
-      $("#profileNewPassword").val('');
-      $("#profileRepeatPassword").val('');
+      $("#profileNewPassword input").val('');
+      $("#profileRepeatPassword input").val('');
     } else {
       this.passwordRequestError(result);
     }
@@ -302,22 +253,34 @@ var Profile = Class.$extend( {
     
     $("#profilePasswordError").text(result.answer);
     $("#profilePasswordError").show();
-    $(".profilePasswordItem").removeClass("profileValid");
-    $(".profilePasswordItem").addClass("profileInvalid");
-    $(".profilePasswordItem input").addClass("inputInvalid");
-    $(".profilePasswordItem div").removeClass("img-password");
-    $(".profilePasswordItem div").addClass("img-failedPw");
+    $("#profileNewPassword").removeClass("profileValid");
+    $("#profileNewPassword").addClass("profileInvalid");
+    $("#profileNewPassword input").addClass("inputInvalid");
+    $("#profileNewPassword div").removeClass("img-password");
+    $("#profileNewPassword div").addClass("img-failedPw");
 
-    $("#profileNewPassword").val('');
-    $("#profileRepeatPassword").val('');
+    $("#profileRepeatPassword").removeClass("profileValid");
+    $("#profileRepeatPassword").addClass("profileInvalid");
+    $("#profileRepeatPassword input").addClass("inputInvalid");
+    $("#profileRepeatPassword div").removeClass("img-password");
+    $("#profileRepeatPassword div").addClass("img-failedPw");
+
+    $("#profileNewPassword input").val('');
+    $("#profileRepeatPassword input").val('');
   },
  
   firstEmailRequestSuccess : function(result) {
     if(result.statusCode == 200) {
       $(".profileLoader").hide();
       $("#profileChangesSuccess").css("visibility","visible");
+      
+      $("#profileSecondEmail input").val($("#profileEmail input").val());
+      $("#profileEmail input").val(this.state['secondEmail']);
+
       this.state = this.getProfileState();
-      alert(this.languageStringsObject['email_verification']);
+      if(this.state['secondEmail'] != '') {
+        alert(result.answer);
+      }
     } else {
       this.firstEmailRequestError(result);
     }
@@ -329,12 +292,12 @@ var Profile = Class.$extend( {
     $("#profileEmailError").text(result.answer);
     $("#profileEmailError").show();
 
-    $(".profileFirstEmailItem").removeClass("profileValid");
-    $(".profileFirstEmailItem").addClass("profileInvalid");
-    $(".profileFirstEmailItem input").addClass("inputInvalid");
-    $(".profileFirstEmailItem div").removeClass("img-first-email");
-    $(".profileFirstEmailItem div").addClass("img-failed-first-email");
-    $(".profileFirstEmailItem input").val(this.state['firstEmail']);
+    $("#profileEmail").removeClass("profileValid");
+    $("#profileEmail").addClass("profileInvalid");
+    $("#profileEmail input").addClass("inputInvalid");
+    $("#profileEmail div").removeClass("img-first-email");
+    $("#profileEmail div").addClass("img-failed-first-email");
+    $("#profileEmail input").val(this.state['firstEmail']);
   },
   
   secondEmailRequestSuccess : function(result) {
@@ -342,7 +305,9 @@ var Profile = Class.$extend( {
       $(".profileLoader").hide();
       $("#profileChangesSuccess").css("visibility","visible");
       this.state = this.getProfileState();
-      alert(this.languageStringsObject['email_verification']);
+      if(this.state['secondEmail'] != '') {
+        alert(result.answer);
+      }
     } else {
       this.secondEmailRequestError(result);
     }
@@ -354,22 +319,14 @@ var Profile = Class.$extend( {
     $("#profileEmailError").text(result.answer);
     $("#profileEmailError").show();
 
-    $(".profileSecondEmailItem").removeClass("profileValid");
-    $(".profileSecondEmailItem").addClass("profileInvalid");
-    $(".profileSecondEmailItem input").addClass("inputInvalid");
-    $(".profileSecondEmailItem div").removeClass("img-second-email");
-    $(".profileSecondEmailItem div").addClass("img-failed-second-email");
-    $(".profileSecondEmailItem input").val(this.state['secondEmail']);
+    $("#profileSecondEmail").removeClass("profileValid");
+    $("#profileSecondEmail").addClass("profileInvalid");
+    $("#profileSecondEmail input").addClass("inputInvalid");
+    $("#profileSecondEmail div").removeClass("img-second-email");
+    $("#profileSecondEmail div").addClass("img-failed-second-email");
+    $("#profileSecondEmail input").val(this.state['secondEmail']);
   },
 
-  deleteEmailRequestError : function(result) {
-    $(".profileLoader").hide();
-    $("#profileEmailError").text(result.answer);
-    $("#profileEmailError").show();
-    $(".profileFirstEmailItem input").val(this.state['firstEmail']);
-    $(".profileSecondEmailItem input").val(this.state['secondEmail']);
-  },
-  
   countryRequestSuccess : function(result) {
     $(".profileLoader").hide();
     if(result.statusCode == 200) {

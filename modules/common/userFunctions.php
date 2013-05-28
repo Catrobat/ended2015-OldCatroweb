@@ -532,17 +532,7 @@ class userFunctions extends CoreAuthenticationNone {
     $ipRegistered = $_SERVER['REMOTE_ADDR'];
     $country = checkUserInput($postData['registrationCountry']);
     $status = USER_STATUS_STRING_ACTIVE;
-     
-    $dateOfBirth = NULL;
-    $year = checkUserInput($postData['registrationYear']);
-    $month = checkUserInput($postData['registrationMonth']);
-     
-    if($month != 0 && $year != 0) {
-      $dateOfBirth = $year . '-' . sprintf("%02d", $month) . '-01 00:00:01';
-    }
 
-    $gender = checkUserInput($postData['registrationGender']);
-    $city = checkUserInput($postData['registrationCity']);
     $language = $this->languageHandler->getLanguage();
 
     $result = pg_execute($this->dbConnection, "user_registration", array($username, $usernameClean, $hashedPassword,
@@ -985,139 +975,79 @@ class userFunctions extends CoreAuthenticationNone {
         STATUS_CODE_USER_RECOVERY_NOT_FOUND);
   }
 
-  public function getEmailAddresses($userId) {
-    $result = pg_execute($this->dbConnection, "get_user_emails_by_id", array(intval($userId)));
+  public function updateEmailAddress($userId, $email) {
+    $deleteEmail = (strlen(trim($email)) == 0);
+    if(!$deleteEmail) {
+      $this->checkEmail($email);
+    }
+    
+    $result = pg_execute($this->dbConnection, "is_additional_email_validated", array($userId));
     if(!$result) {
-      return array();
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+          STATUS_CODE_SQL_QUERY_FAILED);
     }
-     
-    $emails = array();
-    while($email = pg_fetch_assoc($result)) {
-      array_push($emails, array('address' => $email['email'], 'valid' => intval($email['validated'] == 't')));
-      array_push($emails, array('address' => $email['add_email'], 'valid' => $email['add_email_validated']));
-    }
+    $isAdditionalEmailValid = (pg_num_rows($result) > 0);
     pg_free_result($result);
     
-    return $emails;
-  }
-
-  public function updateEmailAddress($userId, $email, $additional) {
-    $this->checkEmail($email);
-    
-    if($additional == 0) {
+    if($isAdditionalEmailValid) {
       $result = pg_execute($this->dbConnection, "update_user_email", array($userId, $email));
       if(!$result) {
         throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
             STATUS_CODE_SQL_QUERY_FAILED);
       }
-    } else {
-      $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, $email));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_SQL_QUERY_FAILED);
-      }
-    }
-    pg_free_result($result);
-    
-    $data = $this->getUserDataForRecovery($email);
-    $hash = $this->createUserHash($data);
-    try {
-      while(true) {
-        $this->isValidationHashValid($hash);
-        $hash = $this->createUserHash($data);
-      }
-    } catch(Exception $e) {
-      if($e->getCode() != STATUS_CODE_USER_RECOVERY_EXPIRED) {
-        throw $e;
-      }
-    }
-    
-     $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
-  }
-  
-
-  public function deleteEmailAddress($additional, $firstEmail, $secondEmail) {
-    $userId = intval($this->session->userLogin_userId);
-    if($additional == 1) {   
-      $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_SQL_QUERY_FAILED);
-      }
       pg_free_result($result);
-    } else if($additional == 0 && $secondEmail != '') {
-      $result = pg_execute($this->dbConnection, "get_add_email_validation", array($userId));
-      if($result) {
-        throw new Exception($this->errorHandler->getError('userFunctions', 'no_valid_email'),
-            STATUS_CODE_SQL_QUERY_FAILED);
-      }
       
-      $result = pg_execute($this->dbConnection, "update_user_email", array($userId, $secondEmail));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_SQL_QUERY_FAILED);
+      if(!$deleteEmail) {
+        $data = $this->getUserDataForRecovery($email);
+        $hash = $this->createUserHash($data);
+        try {
+          while(true) {
+            $this->isValidationHashValid($hash);
+            $hash = $this->createUserHash($data);
+          }
+        } catch(Exception $e) {
+          if($e->getCode() != STATUS_CODE_USER_RECOVERY_EXPIRED) {
+            throw $e;
+          }
+        }
+        
+        $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
       }
-      $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, ''));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_SQL_QUERY_FAILED);
-      }
-      pg_free_result($result);
     } else {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'email_delete_failed'),
-          STATUS_CODE_USER_DELETE_EMAIL_FAILED);
+      throw new Exception($this->errorHandler->getError('userFunctions', 'email_update_failed'),
+          STATUS_CODE_USER_UPDATE_EMAIL_FAILED);
     }
-    
+  }
 
-/*    $numberOfValidEmailAddresses = 0;
-    foreach($this->getEmailAddresses($userId) as $emails) {
-      if($emails['address'] == $email && !$emails['valid']) {
-        $numberOfValidEmailAddresses++;
-      }
-      if($emails['valid']) {
-        $numberOfValidEmailAddresses++;
-      }
-    }
-    
-    if($userId == 1 && $numberOfValidEmailAddresses < 3) {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'email_update_of_catroweb_failed'),
-          STATUS_CODE_USER_DELETE_EMAIL_FAILED);
-    } elseif($numberOfValidEmailAddresses < 2) {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'email_delete_failed'),
-          STATUS_CODE_USER_DELETE_EMAIL_FAILED);
+  public function updateAdditionalEmailAddress($userId, $email) {
+    $deleteEmail = (strlen(trim($email)) == 0);
+    if(!$deleteEmail) {
+      $this->checkEmail($email);
     }
 
-    $result = pg_execute($this->dbConnection, "get_user_email_by_email", array($email));
+    $result = pg_execute($this->dbConnection, "update_add_user_email", array($userId, $email));
     if(!$result) {
       throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
           STATUS_CODE_SQL_QUERY_FAILED);
     }
-
-    $getEmailFromAdditionalEmailsList = (pg_num_rows($result) > 0);
     pg_free_result($result);
-
-    if($getEmailFromAdditionalEmailsList) {
-      $result = pg_execute($this->dbConnection, "update_user_email_from_additional_email_by_user_email", array($userId));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_SQL_QUERY_FAILED);
+    
+    if(!$deleteEmail) {
+      $data = $this->getUserDataForRecovery($email);
+      $hash = $this->createUserHash($data);
+      try {
+        while(true) {
+          $this->isValidationHashValid($hash);
+          $hash = $this->createUserHash($data);
+        }
+      } catch(Exception $e) {
+        if($e->getCode() != STATUS_CODE_USER_RECOVERY_EXPIRED) {
+          throw $e;
+        }
       }
-      pg_free_result($result);
-
-      $result = pg_execute($this->dbConnection, "delete_user_email_from_additional_email_by_user_email", array($userId));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_SQL_QUERY_FAILED);
-      }
-      pg_free_result($result);
-    } else {
-      $result = pg_execute($this->dbConnection, "delete_user_additional_email_by_email", array($email));
-      if(!$result) {
-        throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-            STATUS_CODE_SQL_QUERY_FAILED);
-      }
-      pg_free_result($result);
-    }*/
+      
+      $this->sendEmailAddressValidatingEmail($hash, $data['id'], $data['username'], $email);
+    }
   }
 
   public function createUserHash($userData) {

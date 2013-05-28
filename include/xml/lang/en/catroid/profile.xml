@@ -30,6 +30,7 @@
 
   <string name="changeAvatar">Change picture</string>
   <string name="password">Password</string>
+  <string name="email">My first email</string>
   <string name="second_email">My second email</string>
   <string name="projects">Projects</string>
   <string name="country">Country</string>
@@ -48,6 +49,5 @@
   <string name="avatar_success">You updated your avatar successfully.</string>
   <string name="password_success">You updated your password successfully.</string>
   <string name="email_add_success">The new e-mail address was successfully added. Please check your inbox to verify it.</string>
-  <string name="email_delete_success">You deleted your e-mail address successfully.</string>
   <string name="edit_one_entry">You can only update your e-mails and password seperatly.</string>
 </strings>

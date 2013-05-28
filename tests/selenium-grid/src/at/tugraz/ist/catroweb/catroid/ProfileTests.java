@@ -25,6 +25,7 @@ package at.tugraz.ist.catroweb.catroid;
 
 import java.util.HashMap;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 import org.testng.annotations.DataProvider;
@@ -56,17 +57,17 @@ public class ProfileTests extends BaseTest {
       ajaxWait();
 
       assertTrue(isTextPresent(dataset.get("registrationUsername")));
-      assertEquals(dataset.get("registrationEmail"), driver().findElement(By.xpath("//*[@id='profileContainer']/div[2]/div[2]/div[2]/input")).getAttribute("value"));
+      assertEquals(dataset.get("registrationEmail"), driver().findElement(By.xpath("//*[@id='profileEmail']/input")).getAttribute("value"));
 
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
-      assertTrue(isVisible(By.id("profileNewPassword")));
-      assertTrue(isVisible(By.id("profileRepeatPassword")));
+      assertTrue(isVisible(By.xpath("//*[@id='profileNewPassword']/input")));
+      assertTrue(isVisible(By.xpath("//*[@id='profileRepeatPassword']/input")));
       assertTrue(isVisible(By.id("profileSaveChanges")));
 
-      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("changedPassword"));
-      driver().findElement(By.id("profileRepeatPassword")).sendKeys(dataset.get("changedPassword"));
+      driver().findElement(By.xpath("//*[@id='profileNewPassword']/input")).sendKeys(dataset.get("changedPassword"));
+      driver().findElement(By.xpath("//*[@id='profileRepeatPassword']/input")).sendKeys(dataset.get("changedPassword"));
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
@@ -76,8 +77,8 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
-      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("registrationPassword"));
-      driver().findElement(By.id("profileRepeatPassword")).sendKeys(dataset.get("changedPassword"));
+      driver().findElement(By.xpath("//*[@id='profileNewPassword']/input")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.xpath("//*[@id='profileRepeatPassword']/input")).sendKeys(dataset.get("changedPassword"));
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
@@ -87,8 +88,8 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
-      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("emptyPassword"));
-      driver().findElement(By.id("profileRepeatPassword")).sendKeys(dataset.get("emptyPassword"));
+      driver().findElement(By.xpath("//*[@id='profileNewPassword']/input")).sendKeys(dataset.get("emptyPassword"));
+      driver().findElement(By.xpath("//*[@id='profileRepeatPassword']/input")).sendKeys(dataset.get("emptyPassword"));
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
@@ -96,8 +97,8 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
       
-      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("shortPassword"));
-      driver().findElement(By.id("profileRepeatPassword")).sendKeys(dataset.get("shortPassword"));
+      driver().findElement(By.xpath("//*[@id='profileNewPassword']/input")).sendKeys(dataset.get("shortPassword"));
+      driver().findElement(By.xpath("//*[@id='profileRepeatPassword']/input")).sendKeys(dataset.get("shortPassword"));
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
       
@@ -107,15 +108,15 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
-      driver().findElement(By.id("profileNewPassword")).sendKeys(dataset.get("registrationPassword"));
-      driver().findElement(By.id("profileRepeatPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.xpath("//*[@id='profileNewPassword']/input")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.xpath("//*[@id='profileRepeatPassword']/input")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
       assertTrue(isTextPresent("saved!"));
       
       openLocation("profile/");
-      By countrySelect = By.xpath("//*[@id='profileContainer']/div[2]/div[1]/div[4]/select");
+      By countrySelect = By.xpath("//*[@id='wrapper']/article/div[1]/div[2]/div[1]/div[4]/select");
       Select selectCountry = new Select(driver().findElement(countrySelect));
       assertEquals(dataset.get("registrationCountry"), selectCountry.getFirstSelectedOption().getText());
       
@@ -166,14 +167,13 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
       
-      By avatarImage = By.xpath("//*[@id='profileContainer']/div[1]/div/div[2]/img");
+      By avatarImage = By.xpath("//*[@id='wrapper']/article/div[1]/div[1]/img");
       assertTrue(driver().findElement(avatarImage).getAttribute("src").contains("images/symbols/avatar_default.png"));
       makeVisible(By.id("profileAvatarFile"), "");
       makeVisible(By.id("profileAvatarFileWrapper"), "arguments[0].style.width='100px';arguments[0].style.height='100px';");
       driver().findElement(By.id("profileAvatarFile")).sendKeys(Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + "test.zip");
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
-      driver().findElement(By.id("profileSaveChanges")).click();
       
       assertTrue(driver().findElement(avatarImage).getAttribute("src").contains("images/symbols/avatar_default.png"));
       assertTrue(isTextPresent("Invalid image, allowed image types are gif, png or jpeg."));
@@ -181,11 +181,9 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("profileAvatarFile")).sendKeys(Config.FILESYSTEM_BASE_PATH + Config.SELENIUM_GRID_TESTDATA + "catrobat.png");
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
-      driver().findElement(By.id("profileSaveChanges")).click();
       
       assertFalse(driver().findElement(avatarImage).getAttribute("src").contains("images/symbols/avatar_default.png"));
-      assertTrue(isTextPresent("saved!"));
-      
+
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
@@ -215,13 +213,14 @@ public class ProfileTests extends BaseTest {
 
       assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/header"), dataset.get("registrationUsername").toUpperCase()));
       
-      driver().findElement(By.xpath("//*[@id='profileContainer']/div[2]/div[2]/div[3]")).click();
+      driver().findElement(By.xpath("//*[@id='profileEmail']/input")).clear();
+      driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
-      assertTrue(isTextPresent("Error while deleting this e-mail address. You must have at least one e-mail address."));
+      assertTrue(isTextPresent("Error while updating this e-mail address. You must have at least one validated e-mail address."));
       
       openLocation("profile/");
       
-      driver().findElement(By.xpath("//*[@class='profileSecondEmailItem profileValid']/input")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.xpath("//*[@id='profileSecondEmail']/input")).sendKeys(dataset.get("registrationEmail"));
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
       
@@ -229,13 +228,16 @@ public class ProfileTests extends BaseTest {
       
       openLocation("profile/");
       
-      driver().findElement(By.xpath("//*[@id='profileContainer']/div[2]/div[2]/div[3]/input")).sendKeys(dataset.get("secondEmail"));
+      driver().findElement(By.xpath("//*[@id='profileSecondEmail']/input")).sendKeys(dataset.get("secondEmail"));
       driver().findElement(By.id("profileSaveChanges")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(Config.TESTS_BASE_PATH + "emailvalidation?c="));
+      
+      Alert alert = driver().switchTo().alert();
+      String message = alert.getText();
+      alert.accept();
+      assertRegExp(".*/emailvalidation.*", message);
 
       // get validation url and open it
-      String validationUrl = getValidationUrl();
+      String validationUrl = getValidationUrl(message);
       openLocation(validationUrl + "_invalid");
       assertTrue(isTextPresent("Recovery hash was not found."));
       openLocation(validationUrl);
@@ -244,9 +246,10 @@ public class ProfileTests extends BaseTest {
       openLocation("profile/");
       ajaxWait();
 
-      clickOkOnNextConfirmationBox();
-      driver().findElement(By.id("emailDeleteButtons")).findElements(By.tagName("button")).get(0).click();
-      assertTrue(isAjaxMessagePresent("You deleted your e-mail address successfully."));
+      driver().findElement(By.xpath("//*[@id='profileEmail']/input")).clear();
+      driver().findElement(By.id("profileSaveChanges")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("saved!"));
       
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {

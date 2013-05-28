@@ -26,9 +26,7 @@
   <article>
     <header><?php echo $this->userData['username'];?></header>
     <div class="profileAvatar">
-      <div class="profileAvatarImage">
-        <img src="<?php echo $this->userData['avatar']; ?>" />
-      </div>
+      <img class="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
     </div>
 
     <div class="profileInputs">
