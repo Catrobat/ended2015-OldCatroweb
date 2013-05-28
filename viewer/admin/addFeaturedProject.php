@@ -35,12 +35,7 @@
   <?php if($this->answer) {
     echo 'Answer:<br/>'.$this->answer.'<br /><br/>';
     print_r($this->answer);
-  }?>
-  <?php 
-  echo "============<br/>";
-  print_r($this->featuredProjectIds);
-  echo "============<br/>";
-  ?>
+  }?> 
   <div class="projectList">
       <table class="projectTable">
         <tr>
