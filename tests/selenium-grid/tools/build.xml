@@ -25,7 +25,7 @@
 <project name="selenium-tools" basedir=".">
   <description>Selenium Grid Tools (hub and remote-control)</description>
   <dirname property="selenium-tools.basedir" file="${ant.file.selenium-tools}"/>
-  <property name="selenium-tools.version" value="2.32.0" />
+  <property name="selenium-tools.version" value="2.33.0" />
 
   <!-- *** launch and stop hub ********************************************* -->
   <target name="launch-hub" description="Launch Selenium Grid Hub">

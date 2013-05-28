@@ -68,6 +68,8 @@ class upload extends CoreAuthenticationDevice {
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
           $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
           $projectInformation['versionCode']);
+      
+      $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId);
 
       $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
       $this->renameUnzipDirectory(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique,
@@ -298,6 +300,95 @@ class upload extends CoreAuthenticationDevice {
       $this->setState('remove_project_from_db', $insertId);
       return $insertId;
     }
+  }
+  
+  private function checkAndSetLicensesAndRemixInfo($zipFile, $xmlFile, $projectId) {
+    $zip = new ZipArchive();
+    $zip->open($zipFile);
+  
+    $dom = new DOMDocument();
+    $dom->preserveWhiteSpace = false;
+    $dom->formatOutput = true;
+    $dom->load($xmlFile);
+  
+  
+    if(!$this->checkHeaderTag($dom)) {
+      $nodes = $dom->getElementsByTagName('*');
+      $header = $dom->createElement('header');
+      $dom->firstChild->insertBefore($header, $nodes->item(1));
+  
+      $mediaLicense = $dom->createElement('mediaLicense');
+      $programLicense = $dom->createElement('programLicense');
+      $remixOf = $dom->createElement('remixOf');
+      $url = $dom->createElement('url');
+      $userHandle = $dom->createElement('userHandle');
+  
+      $header->appendChild($mediaLicense);
+      $header->appendChild($programLicense);
+      $header->appendChild($remixOf);
+      $header->appendChild($url);
+      $header->appendChild($userHandle);
+    }
+  
+    $header = $dom->getElementsByTagName('header');
+    $mediaLicense = $dom->getElementsByTagName('mediaLicense');
+    $programLicense = $dom->getElementsByTagName('programLicense');
+    $remixOf = $dom->getElementsByTagName('remixOf');
+    $url = $dom->getElementsByTagName('url');
+    $userHandle = $dom->getElementsByTagName('userHandle');
+  
+    if($header->length == 0) {
+      $mediaLicense = $dom->getElementsByTagName('MediaLicense');
+      $programLicense = $dom->getElementsByTagName('ProgramLicense');
+      $remixOf = $dom->getElementsByTagName('RemixOf');
+      $url = $dom->getElementsByTagName('URL');
+      $userHandle = $dom->getElementsByTagName('UserHandle');
+    }
+  
+    foreach($mediaLicense as $value) {
+      if($value->nodeValue != '' && $value->nodeValue != PROJECT_MEDIA_LICENSE)
+        throw new Exception($this->errorHandler->getError('upload', 'invalid_media_license'), STATUS_CODE_UPLOAD_INVALID_MEDIA_LICENSE);
+      $value->nodeValue = PROJECT_MEDIA_LICENSE;
+    }
+  
+    foreach($programLicense as $value) {
+      if($value->nodeValue != '' && $value->nodeValue != PROJECT_PROGRAM_LICENSE)
+        throw new Exception($this->errorHandler->getError('upload', 'invalid_program_license'), STATUS_CODE_UPLOAD_INVALID_PROGRAM_LICENSE);
+      $value->nodeValue = PROJECT_PROGRAM_LICENSE;
+    }
+  
+    foreach($url as $url_value) {
+      if($url_value->nodeValue == '') {
+        $url_value->nodeValue = 'http://pocketcode.org/catroid/details/' . $projectId;
+        foreach($userHandle as $user)
+          $user->nodeValue = $this->session->userLogin_userNickname;
+      }
+      else {
+        foreach($remixOf as $remix_value) {
+          $remix_value->nodeValue = $url_value->nodeValue;
+          $url_value->nodeValue = 'http://pocketcode.org/catroid/details/' . $projectId;
+          foreach($userHandle as $user)
+            $user->nodeValue = $this->session->userLogin_userNickname;
+        }
+      }
+    }
+  
+    $dom->save($xmlFile);
+    $filename = pathinfo($xmlFile);
+    $zip->addFile($xmlFile, $filename['basename']);
+    $zip->close();
+    chmod($zipFile, 0777);
+  }
+  
+  private function checkHeaderTag($dom) {
+    $header = $dom->getElementsByTagName('header');
+    $Header = $dom->getElementsByTagName('Header');
+  
+    if($header->length == 0 && $Header->length == 0) {
+      return false;
+    }
+  
+    return true;
   }
 
   private function renameProjectFile($oldName, $projectId) {
