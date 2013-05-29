@@ -29,7 +29,7 @@ class configTest extends PHPUnit_Framework_TestCase
 
   public function testConfig()
   {
-  	$this->assertEquals(VERSION, '0.6.5');
+  	$this->assertEquals(VERSION, '0.8.0');
   	$this->assertEquals(MIN_CATROBAT_LANGUAGE_VERSION, '0.7');
     $this->assertEquals(APPLICATION_NAME, 'Pocket Code');
     $this->assertEquals(APPLICATION_URL_TEXT, 'PocketCode.org');

@@ -22,7 +22,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('VERSION','0.6.5');
+define('VERSION','0.8.0');
 define('MIN_CATROBAT_LANGUAGE_VERSION', '0.7');
 define('APPLICATION_NAME', 'Pocket Code');
 define('APPLICATION_URL_TEXT', 'PocketCode.org');
