@@ -642,7 +642,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test-0.7.0beta.catrobat', $fileType, 0.6, '0.7.0beta')
+        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test-0.7.0beta.catrobat', $fileType, 0.8, '0.7.0beta')
     );
     return $dataArray;
   }
@@ -659,7 +659,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctLicenses() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct media and program license', 'my project with correct media and program liense.', 'test_license.catrobat', $fileType, 0.6, '0.7.1beta')
+        array('unitTest for correct media and program license', 'my project with correct media and program liense.', 'test_license.catrobat', $fileType, 0.8, '0.7.1beta')
     );
     return $dataArray;
   }
@@ -667,8 +667,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function incorrectLicenses() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for incorrect media license', 'my project with invalid media license', 'test_invalid_license1.catrobat', $fileType, 0.6, '0.7.1beta'),
-        array('unitTest for incorrect program license', 'my project with invalid program license', 'test_invalid_license2.catrobat', $fileType, 0.6, '0.7.1beta')
+        array('unitTest for incorrect media license', 'my project with invalid media license', 'test_invalid_license1.catrobat', $fileType, 0.8, '0.7.1beta'),
+        array('unitTest for incorrect program license', 'my project with invalid program license', 'test_invalid_license2.catrobat', $fileType, 0.8, '0.7.1beta')
     );
     return $dataArray;
   }
