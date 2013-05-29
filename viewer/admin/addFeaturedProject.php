@@ -30,7 +30,7 @@
       document.getElementById(id).submit();
   }
   </script>
-  <h2>Administration Tools - Add Featured Project</h2>
+  <h2>Administration Tools - Add Featured Projects</h2>
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
   <?php if($this->answer) {
     echo 'Answer:<br/>'.$this->answer.'<br /><br/>';

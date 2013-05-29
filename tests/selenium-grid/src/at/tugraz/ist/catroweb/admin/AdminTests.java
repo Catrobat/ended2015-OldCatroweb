@@ -67,6 +67,8 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("Administration Tools"));
       assertTrue(isTextPresent("remove inconsistant project files"));
       assertTrue(isTextPresent("edit projects"));
+      assertTrue(isTextPresent("add featured projects"));
+      assertTrue(isTextPresent("edit featured projects"));
       assertTrue(isTextPresent("thumbnail uploader"));
       assertTrue(isTextPresent("inappropriate projects"));
       assertTrue(isTextPresent("approve unapproved words"));
@@ -87,6 +89,16 @@ public class AdminTests extends BaseTest {
       driver().navigate().back();
       ajaxWait();
 
+      driver().findElement(By.id("aAdminToolsAddFeaturedProjects")).click();
+      assertTrue(isTextPresent("Administration Tools - Add Featured Projects"));
+      driver().navigate().back();
+      ajaxWait();
+      
+      driver().findElement(By.id("aAdminToolsEditFeaturedProjects")).click();
+      assertTrue(isTextPresent("Administration Tools - Edit Featured Projects"));
+      driver().navigate().back();
+      ajaxWait();      
+      
       driver().findElement(By.id("aAdminToolsThumbnailUploader")).click();
       assertTrue(isTextPresent("Administration Tools - Thumbnail Uploader"));
       driver().navigate().back();

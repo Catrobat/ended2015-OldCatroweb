@@ -29,7 +29,7 @@ class configTest extends PHPUnit_Framework_TestCase
 
   public function testConfig()
   {
-  	$this->assertEquals(VERSION, '0.8.0');
+  	$this->assertEquals(VERSION, '0.7.0');
   	$this->assertEquals(MIN_CATROBAT_LANGUAGE_VERSION, '0.7');
     $this->assertEquals(APPLICATION_NAME, 'Pocket Code');
     $this->assertEquals(APPLICATION_URL_TEXT, 'PocketCode.org');
@@ -47,7 +47,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECTS_UNZIPPED_DIRECTORY, 'resources/catroid/');
     $this->assertEquals(PROJECTS_QR_SERVICE_URL, 'http://catroid.local/api/qrCodeGenerator/generate.png?url=');
     $this->assertEquals(PROJECTS_FEATURED_DIRECTORY,'resources/featured/');
-    $this->assertEquals(PROJECTS_FEATURED_EXTENSION,'.png');
+    $this->assertEquals(PROJECTS_FEATURED_EXTENSION,'.gif');
     $this->assertEquals(PROJECTS_THUMBNAIL_DIRECTORY, 'resources/thumbnails/');
     $this->assertEquals(PROJECTS_THUMBNAIL_DEFAULT, 'thumbnail');
     $this->assertEquals(PROJECTS_THUMBNAIL_EXTENSION_ORIG, '_original.png');

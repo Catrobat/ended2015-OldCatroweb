@@ -184,7 +184,7 @@ class tools extends CoreAuthenticationAdmin {
       $this->featuredProjectIds = $featuredProjectIds;
     }
   }
-  public function updateFeaturedProjectsThumbnail() {
+  public function updateFeaturedProjectsImage() {
     if($_POST['projectId']) {
       switch($_FILES['file']['type']) {
         case "image/jpeg":
@@ -214,13 +214,13 @@ class tools extends CoreAuthenticationAdmin {
 
       if($answer == "") {
         $path = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId'].PROJECTS_FEATURED_EXTENSION;
-        if(!imagepng($imageSource, $path, 0)) {
+        if(!imagegif($imageSource, $path)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path."<br/>";
           imagedestroy($imageSource);
         }
         else
-          $answer .= "SUCCESS: Featured image updated!";
+          $answer .= "SUCCESS: Featured image updated!<br/>file=".$path.", size=".round((filesize($path)/1024),2)." kb";
       }
     }
     $this-> answer = $answer;
@@ -235,25 +235,26 @@ class tools extends CoreAuthenticationAdmin {
       } else {
         $answer = "Error: could NOT delete the featured project!";
       }
-      $this->answer = $answer;
     }
-    $this->htmlFile = "editFeaturedProjects.php";
-    $this->projects = $this->retrieveAllFeaturedProjectsFromDatabase();
-    if($this->projects) {
-      foreach($this->projects as $fp) {
-        if($fp['image'] == "") {
-          $id = $fp['id'];
-          if($fp['visible'] == "t") {
+    $projects = $this->retrieveAllFeaturedProjectsFromDatabase();
+    if(count($projects) > 0 ) {
+      for($i=0; $i < count($projects); $i++) {
+        if($projects[$i]['image'] == "") {
+          $id = $projects[$i]['id'];
+          if($projects[$i]['visible'] == "t") {
             $query = "EXECUTE edit_featured_project_visibility_by_id('$id','f');";
             $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
             if(pg_affected_rows($result)) {
-              $answer .= "<br/>Hiding featured project # ".$fp['id']."(project_id=".$fp['project_id'].", title=".$fp['title'].") because no image was found!<br/>";
+              $projects[$i]['visible'] = "f";
+              $answer .= "<br/>Hiding featured project #".$projects[$i]['id']." (project_id=".$projects[$i]['project_id'].", title=".$projects[$i]['title'].") because no image was found!<br/>";
             }
+            pg_free_result($result);
           }
-        }
       }
+        }
     }
-
+    $this->projects = $projects;
+    $this->htmlFile = "editFeaturedProjects.php";
     $this->answer = $answer;
   }
 

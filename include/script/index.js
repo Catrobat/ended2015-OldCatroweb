@@ -110,7 +110,7 @@ var Index = Class.$extend( {
     var container = $("featuredProject");
     var projectId = 0;
     var baseUrl = this.featuredProject['CatrobatInformation'].BaseUrl;
-    if(this.featuredProject['CatrobatInformation'].TotalProjects > 0) {
+    if((this.featuredProject['CatrobatInformation'].TotalProjects > 0) && (this.featuredProject['CatrobatProjects'][0].FeaturedImage != "")) {
       projectId = this.featuredProject['CatrobatProjects'][0].ProjectId;
     }
     

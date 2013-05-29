@@ -22,7 +22,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('VERSION','0.8.0');
+define('VERSION','0.7.0');
 define('MIN_CATROBAT_LANGUAGE_VERSION', '0.7');
 define('APPLICATION_NAME', 'Pocket Code');
 define('APPLICATION_URL_TEXT', 'PocketCode.org');
@@ -43,7 +43,7 @@ define('PROJECTS_DIRECTORY','resources/projects/');
 define('PROJECTS_UNZIPPED_DIRECTORY','resources/catroid/');
 define('PROJECTS_QR_SERVICE_URL', BASE_PATH . 'api/qrCodeGenerator/generate.png?url=');
 define('PROJECTS_FEATURED_DIRECTORY','resources/featured/');
-define('PROJECTS_FEATURED_EXTENSION','.png');
+define('PROJECTS_FEATURED_EXTENSION','.gif');
 define('PROJECTS_THUMBNAIL_DIRECTORY','resources/thumbnails/');
 define('PROJECTS_THUMBNAIL_DEFAULT','thumbnail');
 define('PROJECTS_THUMBNAIL_EXTENSION_ORIG','_original.png');

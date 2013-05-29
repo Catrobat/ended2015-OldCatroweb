@@ -65,7 +65,7 @@
           <td><?php echo $project['uploaded_by']?></td>
           <td width="20%" style="text-align:right;">
             <img src="<?php echo $project['image']?>" alt="<?php echo $project['image']?>" class="projectTableFeaturedImage"/>
-            <form style="" id="imageform<?php echo $project['id']?>" class="admin" action="updateFeaturedProjectsThumbnail" method="POST" enctype="multipart/form-data">
+            <form style="" id="imageform<?php echo $project['id']?>" class="admin" action="updateFeaturedProjectsImage" method="POST" enctype="multipart/form-data">
               <input type="file" name="file"/>
               <input type="hidden" name="featuredId" value="<?php echo $project['id']?>"/>
               <input type="hidden" name="projectId" value="<?php echo $project['project_id']?>"/>

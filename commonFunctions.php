@@ -188,8 +188,8 @@ function getProjectImageUrl($projectId) {
 }
 
 function getFeaturedProjectImageUrl($projectId) {
-  $img = BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$projectId.".png";
-  $imgFile = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$projectId.".png";
+  $img = BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$projectId.PROJECTS_FEATURED_EXTENSION;
+  $imgFile = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$projectId.PROJECTS_FEATURED_EXTENSION;
   if(!is_file($imgFile)) {
     $img = "";
   }
