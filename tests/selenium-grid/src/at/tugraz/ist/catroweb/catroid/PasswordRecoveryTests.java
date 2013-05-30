@@ -41,6 +41,7 @@ public class PasswordRecoveryTests extends BaseTest {
   public void passwordRecoveryRedirectWhenLoggedIn() throws Throwable {
     try {
       login("index");
+      openLocation("index", false);
       ajaxWait();
       driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
