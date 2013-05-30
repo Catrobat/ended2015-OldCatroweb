@@ -363,8 +363,8 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-    width: 60%;
-    max-width: 60%;
+    width: 70%;
+    max-width: 70%;
   }
 
   .projectDetailsInformation {
@@ -403,7 +403,7 @@
   }
 
   .projectDetailsDownloadButton {
-    width: 50%;
+    width: 75%;
     display: block;
     height: auto;
     margin-left: auto;

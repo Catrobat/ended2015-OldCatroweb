@@ -162,12 +162,12 @@ var ProjectDetails = Class.$extend( {
 
   resizeText : function(elem) {
 
-    while(elem.width() > elem.parent().width()-10) {
+    while(elem.width() > elem.parent().width()-20) {
       var fontsize = parseFloat(elem.css('font-size')) - 2.0;
       elem.css('font-size', parseFloat(fontsize) + "px" );
     }
 
-    while(elem.width() < elem.parent().width() - 20) {
+    while(elem.width() < elem.parent().width() - 60) {
       var fontsize = parseFloat(elem.css('font-size')) + 2.0;
       elem.css('font-size', parseFloat(fontsize) + "px" );
     }
