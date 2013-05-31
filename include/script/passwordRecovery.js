@@ -41,6 +41,7 @@ var PasswordRecovery = Class.$extend( {
   passwordRecoverySendLink : function(event) {
     $("#passwordRecoverySendLink").hide();
     $("#passwordRecoverySendLoader").css('display', 'block');
+    $("#recoveryMessage").hide();
     
     $("#passwordRecoveryUserdata").blur();
 
@@ -59,19 +60,17 @@ var PasswordRecovery = Class.$extend( {
   passwordRecoverySendLinkRequestSuccess : function(result) {
     $("#passwordRecoverySendLoader").hide();
     if(result.statusCode == 200) {
-      alert(result.answer);
+      $("#recoveryMessage").show().text(result.answer).css("color", "#a8dff4");
     } else {
       $("#passwordRecoverySendLink").show();
-      alert(result.answer);
+      $("#recoveryMessage").show().text(result.answer);
     }
   },
 
   passwordRecoverySendLinkRequestError : function(error) {
     $("#passwordRecoverySendLink").show();
     $("#passwordRecoverySendLoader").hide();
-
-    console.log(error);
-    alert(error);
+    $("#recoveryMessage").show().text(result.answer);
   },
   
   passwordSavePasswordCatchKeypress : function(event) {
@@ -84,6 +83,7 @@ var PasswordRecovery = Class.$extend( {
   passwordSaveSubmit : function(event) {
     $("#passwordSaveSubmit").hide();
     $("#passwordSaveLoader").css('display', 'block');
+    $("#recoveryMessage").hide();
     
     $("#passwordSavePassword").blur();
 
@@ -106,15 +106,13 @@ var PasswordRecovery = Class.$extend( {
       location.href = this.basePath + 'profile';
     } else {
       $("#passwordSaveSubmit").show();
-      alert(result.answer);
+      $("#recoveryMessage").show().text(result.answer);
     }
   },
 
   changeMyPasswordRequestError : function(error) {
     $("#passwordSaveSubmit").show();
     $("#passwordSaveLoader").hide();
-
-    console.log(error);
-    alert(error);
+    $("#recoveryMessage").show().text(result.answer);    
   }
 });

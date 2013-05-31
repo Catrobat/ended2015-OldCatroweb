@@ -29,7 +29,7 @@
           <form>
             <div class="label"><?php echo $this->languageHandler->getString('enter_userdata')?></div>
             <input type="text" id="passwordRecoveryUserdata" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>" /><br />
-
+            <div id="recoveryMessage"></div>
             <div class="footer">
               <nav>
                 <span id="passwordRecoverySendLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
@@ -46,7 +46,7 @@
           new PasswordRecovery();
           <?php
             if($this->answer != '') {
-              echo 'alert("' . $this->answer . '");';
+              echo '$("#recoveryMessage").show().text("'.$this->answer.'")';
             }
           ?>
         });
