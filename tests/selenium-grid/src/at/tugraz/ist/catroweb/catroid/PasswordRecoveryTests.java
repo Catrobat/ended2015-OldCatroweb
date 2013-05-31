@@ -45,7 +45,6 @@ public class PasswordRecoveryTests extends BaseTest {
       ajaxWait();
       driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
-      assertTrue(isVisible(By.id("menuProfileButton")));
       driver().findElement(By.id("menuProfileButton")).click();
       ajaxWait();
       assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), CommonData.getLoginUserDefault()));
@@ -153,11 +152,8 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.id("loginSubmitButton")).click();
 
-      alert = driver().switchTo().alert();
-      message = alert.getText();
-      alert.accept();
-
-      assertEquals(message, "The password or username was incorrect.");
+      ajaxWait();
+      assertTrue(isTextPresent("The password or username was incorrect."));
 
       // check bad login
       assertTrue(isVisible(By.id("loginSubmitButton")));

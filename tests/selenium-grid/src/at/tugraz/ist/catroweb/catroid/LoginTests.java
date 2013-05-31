@@ -56,7 +56,6 @@ public class LoginTests extends BaseTest {
 
       driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
-      assertTrue(isVisible(By.id("menuProfileButton")));
       driver().findElement(By.id("menuProfileButton")).click();
       ajaxWait();
       assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), dataset.get("username")));
@@ -164,26 +163,20 @@ public class LoginTests extends BaseTest {
 
       for(int i = 0; i < 5; i++) {
         driver().findElement(By.id("loginSubmitButton")).click();
-        Alert alert = driver().switchTo().alert();
-        alert.accept();
+        ajaxWait();
+        assertTrue(isTextPresent("The password or username was incorrect."));
       }
       CommonFunctions.removeAllBlockedIps();
       
       for(int i = 0; i < 5; i++) {
         driver().findElement(By.id("loginSubmitButton")).click();
-        Alert alert = driver().switchTo().alert();
-        String message = alert.getText();
-        alert.accept();
-        
-        assertEquals(message, "The password or username was incorrect.");
+        ajaxWait();
+        assertTrue(isTextPresent("The password or username was incorrect."));
       }
 
       driver().findElement(By.id("loginSubmitButton")).click();
-      Alert alert = driver().switchTo().alert();
-      String message = alert.getText();
-      alert.accept();
-      
-      assertEquals(message, "Your IP-Address has been blocked for 30 seconds.");
+      ajaxWait();
+      assertTrue(isTextPresent("Your IP-Address has been blocked for 30 seconds."));
       CommonFunctions.removeAllBlockedIps();
     } catch(AssertionError e) {
       captureScreen("LoginTests.invalidLogin." + dataset.get("username"));

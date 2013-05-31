@@ -32,6 +32,7 @@
 
             <div class="label"><?php echo $this->languageHandler->getString('password')?></div>
             <input type="password" id="loginPassword" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" /><br />
+            <div id="loginError"></div>
 
             <div class="footer">
               <nav>
