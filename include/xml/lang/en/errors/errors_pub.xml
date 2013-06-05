@@ -109,7 +109,7 @@
     </registration>
     <profile>
       <string name="password_missing">The password is missing.</string>
-      <string name="password_equal">You entered two differend passwords.</string>
+      <string name="password_equal">You entered two different passwords.</string>
     </profile>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>

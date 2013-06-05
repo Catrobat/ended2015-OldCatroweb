@@ -49,7 +49,7 @@
             <div class="img-password"></div>
           </div>
 
-          <b><?php echo $this->languageHandler->getString('country') ?>:</b>
+          <b><?php echo $this->languageHandler->getString('country') ?></b>
           <div class="profileCountry">
             <select><?php echo $this->countryCodeListHTML;?></select>
             <div class="img-select profileSelectImage"></div>
@@ -58,25 +58,26 @@
         
        <div class="profileInputsRight">
           <div id="profileEmailError"></div>
-          <div id="profileEmailDelete" class="img-delete profileDeleteEMaill"></div>
+          <!-- <div id="profileEmailDelete" class="img-delete profileDeleteEMaill"></div>-->
           <div id="profileEmail" class="profileValid">
             <input type="email" placeholder="<?php echo $this->languageHandler->getString('email'); ?>" value="<?php echo $this->userData['email']; ?>" />
             <div class="img-first-email"></div>
           </div>
 
-          <div id="profileSecondEmailDelete" class="img-delete profileDeleteEMaill"></div>
+          <!-- <div id="profileSecondEmailDelete" class="img-delete profileDeleteEMaill"></div>-->
           <div id="profileSecondEmail" class="profileValid">
             <input type="email" placeholder="<?php echo $this->languageHandler->getString('second_email'); ?>" value="<?php echo $this->userData['additional_email']; ?>" />
             <div class="img-second-email"></div>
           </div>
 
           <div>
+          <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save'); ?></button>
             <img class="profileLoader" src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
             <div id="profileChangesSuccess">
               <div class="img-saved"></div>
               <span><?php echo $this->languageHandler->getString('saved') ?></span>
             </div>
-            <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save'); ?></button>
+            
           </div>
         </div>
       </div>

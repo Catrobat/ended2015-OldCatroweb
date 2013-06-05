@@ -45,14 +45,14 @@
 }
 
 #wrapper article div img.profileAvatarImage {
-  outline: 0.7em solid #ffffff;
+  outline: 0.3em solid #ffffff;
   width: 19em;
   margin: 0 auto;
   z-index: 1;
 }
 
 #wrapper article div img.profileAvatarImageError {
-  outline: 0.7em solid #880000;
+  outline: 0.3em solid #880000;
   width: 19em;
   margin: 0 auto;
   z-index: 1;
@@ -89,28 +89,28 @@
 #wrapper article div.profileValid{
   background-color: #FFFFFF;
   border: 0.2em solid #05222a;
-  -mox-box-shadow: inset 2px 2px 5px #05222a;
+  /*border-radius: 0.2em;*/
+  -mox-box-shadow: inset 2px 2px 2px #bbb;
   -webkit-box-shadow: inset 2px 2px 5px #05222a;
   box-shadow: inset 2px 2px 5px #05222a;
- padding: 0.5em 0.5em 0.15em 0.5em;
+ padding: 0.5em 0.5em 0.5em;
  margin-bottom: 1.5em;
 }
 
 #wrapper article div.profileInvalid{
-  border : 0.2em solid #880000;
-  background-color: #F78181;
+  border : 0.15em solid #880000;
+  background-color: #f1997e;
   -mox-box-shadow: none;
   -webkit-box-shadow: none;
   box-shadow: none;
- padding: 0.5em 0.5em 0.15em 0.5em;
+ padding: 0.5em 0.5em 0.5em;
  margin-bottom: 1.5em;
 }
 
 
-#wrapper article div.profileInputs img {
-  float: right;
-  font-size: 1.4em;
-  border: none;
+#wrapper article div.profileInputs div {
+  position: relative;
+  bottom: 0.3em;
 }
 
 #wrapper article input {
@@ -118,16 +118,14 @@
   border-radius: 0.125em;
   color: #05222a;
   height: 1.8em;
-  width: 8em;
+  width: 15em;
   border: none;
   margin-left: 0.2em;
   outline: none;
-  font-size: 1.4em;
+  font-size: 0.9em;
 }
 
-#wrapper article div#profileEmail, #wrapper article div#profileSecondEmail  {
-  width: 15em;
-}
+
 
 #wrapper article div.profileDeleteEMaill  {
   float: right;
@@ -136,27 +134,27 @@
 }
 
 #wrapper article input.inputInvalid {
-  background-color: #F78181;
+  background-color: #f1997e;
   color: #880000;
   border:0;
   outline:0;
+  text-shadow: 0px 1px 0px #FFFFFF
 }
 
-/*might be needed at select for working in chrome: -webkit-appearance: none;*/
 #wrapper article div.profileCountry {
   -mox-box-shadow: inset 2px 2px 5px #05222a;
   -webkit-box-shadow: inset 2px 2px 5px #05222a;
   box-shadow: inset 2px 2px 5px #05222a;
-  width: 12.9em;
+  width: 15.5em;
   border: 2px solid #05222a;
   padding-top: 0.5em;
   padding-bottom: 0.2em;
-  padding-left: 0.5em;
+  padding-left: 1em;
   background-color: #FFFFFF;
   margin-bottom: 1em;
   overflow: hidden;
-  font-size: 1.4em;
-  -webkit-appearance: none;
+  font-size: 0.9em;
+  float: right;
 }
 
 #wrapper article div.profileCountry select {
@@ -164,11 +162,12 @@
   border-radius: 0.125em;
   color: #05222a;
   height: 1.5em;
-  width: 14.3em;
+  width: 17em;
   border: 0;  
   margin-left: -0.5em;
   padding-left: 0.2em;
   z-index: 2;
+  /*-webkit-appearance: none;*/
 }
 
 #wrapper article div.profileCountry option {
@@ -177,26 +176,28 @@
   
 #wrapper article div.profileSelectImage {
   z-index: 1;
-  margin-top: -1.1em;
+  margin-top: -1em;
   margin-right: 0.4em;
 }
 
 #wrapper article img.profileLoader{
   display: none;
-  margin-right: 6em;
+  margin-left: 8em;
+  margin-right: 8em;
+  margin-top: 0.5em;
 }
 
 #wrapper article button#profileSaveChanges {
-  margin-top: 0.3em;
+  margin-top: -0.2em;
   font-size: 1.4em;
   font-weight: bold;
-  background-color: #5EC03F;
+  background-color: #A8DFF4;
   text-transform: uppercase;
   text-shadow: #333333 1px 1px 2px;
   text-align: center;
   color: #ffffff;
   width: 13.6em;
-  height: 2.2em;
+  height: 2em;
   border: none;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
@@ -244,14 +245,14 @@
   float: left;
   margin-left: 1em;
   color: #FFFFFF;
-  margin-top: -0.4em;
+  margin-top: 1em;
   font-weight: bold;
 }
 
 #wrapper article div#profileChangesSuccess div{
   float: left;
-  margin-left: 0em;
-  margin-top: -0.4em;
+  margin-left: 4.5em;
+  margin-top: 1em;
 }
 
 #wrapper article div#profileAvatarError{
@@ -275,7 +276,9 @@
   font-size: 1.4em;
 }
 
-
+#wrapper article span#profileNoResults img{
+  margin-top: 1em;
+}
 
 
 @media screen and (max-width: 1100px) {
@@ -308,11 +311,12 @@
   }
   #wrapper article div.profileInputsLeft{
     margin-top: 2em;
-    left: 50%;
+    margin-left: 2.3em;
   }
   
   #wrapper article div.profileInputsRight{
     clear: left;
+    margin-left: 2.3em;
   }
   
   #wrapper article div.profileInputs {
@@ -336,30 +340,24 @@
     width: 16.5em;
   }
   
-  #wrapper article div.profileInputsLeft{
-  width: 18em;
+  #wrapper article input {
+    width: 14em;
   }
-  
-  #wrapper article div.profileInputsRight{
-    width: 18em;
-  }
-  
-  #wrapper article div#profileEmail, #wrapper article div#profileSecondEmail  {
-    width: 14.5em;
-  }
-
   #wrapper article div.profileCountry {
-    width: 12.2em;
+    width: 12.5em;
   }
 
   #wrapper article div.profileCountry select {
-    width: 13.4em;
+    width: 14em;
   }
   
   #wrapper article button#profileSaveChanges {
-    width: 12.8em;
+    width: 12.3em;
   }
   
-  
+  #wrapper article div.profileInputsRight, #wrapper article div.profileInputsLeft{
+    margin-left: 2.8em;
+    width: 17em;
+  }
   
 }
