@@ -36,10 +36,10 @@
         <input id="profileAvatarFile" type="file" />
       </div>
        
-      <div class="profileInputs">
+       <div class="profileInputs">
         <div class="profileInputsLeft">
           <div id="profilePasswordError"></div>
-          <div id="profileNewPassword" class="profileValid">
+           <div id="profileNewPassword" class="profileValid">
             <input type="password" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password'); ?>" />
             <div class="img-password"></div>
           </div>
@@ -56,7 +56,7 @@
           </div>      
         </div>
         
-        <div class="profileInputsRight">
+       <div class="profileInputsRight">
           <div id="profileEmailError"></div>
           <div id="profileEmailDelete" class="img-delete profileDeleteEMaill"></div>
           <div id="profileEmail" class="profileValid">
@@ -77,7 +77,7 @@
               <span><?php echo $this->languageHandler->getString('saved') ?></span>
             </div>
             <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save'); ?></button>
-          </div>  
+          </div>
         </div>
       </div>
     </div>
@@ -85,7 +85,10 @@
     <div style="clear: both;"></div>
     <h3><?php echo $this->languageHandler->getString('my_projects'); ?></h3>
     <div id="userProjectContainer" class="projectContainer">
-      <span id="profileNoResults"><?php echo $this->languageHandler->getString('no_projects_available'); ?></span>
+      <span id="profileNoResults">
+        <img src="<?php echo BASE_PATH; ?>images/symbols/error_small.png" />
+        <p><?php echo $this->languageHandler->getString('no_projects_available'); ?></p>
+      </span>
     </div>
     <div id="userProjectLoader" class="projectFooter">
       <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
