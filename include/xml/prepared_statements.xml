@@ -128,4 +128,8 @@
     <string name="reset_failed_attempts">DELETE from blocked_ips_temporary where ip_address = substr($1, 1, length(ip_address))</string>
     <string name="is_ip_blocked_temporarily">SELECT ip_address FROM blocked_ips_temporary WHERE substr($1, 1, length(ip_address)) = ip_address AND blocked_until >= current_timestamp</string>
 
+    <string name="number_of_users">SELECT COUNT(id) as count FROM cusers</string>
+    <string name="number_of_projects">SELECT COUNT(id) as count FROM projects</string>
+    <string name="user_with_most_created_projects">SELECT cusers.id, cusers.username, COUNT(cusers.id) AS projects FROM projects JOIN cusers ON projects.user_id=cusers.id GROUP BY cusers.id ORDER BY projects DESC LIMIT $1 OFFSET $2</string>
+
 </statements>
