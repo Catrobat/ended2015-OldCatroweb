@@ -45,7 +45,6 @@ public class PasswordRecoveryTests extends BaseTest {
       ajaxWait();
       driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
-      assertTrue(isVisible(By.id("menuProfileButton")));
       driver().findElement(By.id("menuProfileButton")).click();
       ajaxWait();
       assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), CommonData.getLoginUserDefault()));
@@ -92,13 +91,11 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("passwordRecoveryUserdata")).sendKeys(dataset.get("registrationUsername") + " to test");
       driver().findElement(By.id("passwordRecoverySendLink")).click();
 
-      Alert alert = driver().switchTo().alert();
-      String message = alert.getText();
-      alert.accept();
+      ajaxWait();
+      assertTrue(isTextPresent("The nickname or email address was not found."));
       
       // check error message
       assertTrue(isTextPresent("Enter your nickname or email address:"));
-      assertEquals("The nickname or email address was not found.", message);
       assertTrue(isElementPresent(By.id("passwordRecoveryUserdata")));
       assertTrue(isElementPresent(By.id("passwordRecoverySendLink")));
 
@@ -106,15 +103,13 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("passwordRecoveryUserdata")).clear();
       driver().findElement(By.id("passwordRecoveryUserdata")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("passwordRecoverySendLink")).click();
-
-      alert = driver().switchTo().alert();
-      message = alert.getText();
-      alert.accept();
-
-      assertTrue(message.contains(Config.TESTS_BASE_PATH + "passwordrecovery?c="));
-
+      ajaxWait();
+      
       // get recovery url and open it
-      String recoveryUrl = getRecoveryUrl(message);
+      String recoveryUrl = driver().findElement(By.xpath("//*[@id='recoveryMessage']")).getText();
+      assertTrue(recoveryUrl.contains(Config.TESTS_BASE_PATH + "passwordrecovery?c="));
+      recoveryUrl = recoveryUrl.substring(recoveryUrl.indexOf("passwordrecovery"));
+      
       openLocation(recoveryUrl);
       ajaxWait();
 
@@ -123,14 +118,11 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("passwordSavePassword")).clear();
       driver().findElement(By.id("passwordSavePassword")).sendKeys("short");
       driver().findElement(By.id("passwordSaveSubmit")).click();
+      ajaxWait();
       
-      alert = driver().switchTo().alert();
-      message = alert.getText();
-      alert.accept();
-
       assertTrue(isTextPresent("Please enter your new password:"));
       assertTrue(isElementPresent(By.id("passwordSavePassword")));
-      assertTrue(message.contains("password must have at least"));
+      assertTrue(driver().findElement(By.xpath("//*[@id='recoveryMessage']")).getText().contains("password must have at least"));
 
       // enter the new password correctly
       driver().findElement(By.id("passwordSavePassword")).clear();
@@ -153,11 +145,8 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("registrationPassword"));
       driver().findElement(By.id("loginSubmitButton")).click();
 
-      alert = driver().switchTo().alert();
-      message = alert.getText();
-      alert.accept();
-
-      assertEquals(message, "The password or username was incorrect.");
+      ajaxWait();
+      assertTrue(isTextPresent("The password or username was incorrect."));
 
       // check bad login
       assertTrue(isVisible(By.id("loginSubmitButton")));
@@ -195,12 +184,9 @@ public class PasswordRecoveryTests extends BaseTest {
 
       // Recovery URL should not work again
       driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + recoveryUrl);
-
-      alert = driver().switchTo().alert();
-      message = alert.getText();
-      alert.accept();
+      ajaxWait();
       
-      assertEquals(message, "Recovery hash was not found.");
+      assertEquals(driver().findElement(By.xpath("//*[@id='recoveryMessage']")).getText(), "Recovery hash was not found.");
 
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {

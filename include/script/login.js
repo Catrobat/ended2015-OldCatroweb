@@ -46,6 +46,7 @@ var Login = Class.$extend({
   loginRequest : function(event) {
     if($("#loginUsername").val() != "" &&  $("#loginPassword").val() != "") {
       $("#loginSubmitButton").hide();
+      $("#loginError").hide();
       $("#loginLoader").css('display', 'block');
   
       $("#loginUsername").blur();
@@ -75,13 +76,13 @@ var Login = Class.$extend({
       }
     } else {
       $("#loginSubmitButton").show();
-      alert(result.answer);
+      $("#loginError").show().text(result.answer);
     }
   },
 
   loginRequestError : function(error) {
     $("#loginSubmitButton").show();
     $("#loginLoader").hide();
-    alert(error);
+    $("#loginError").show().text(error);   
   }
 });

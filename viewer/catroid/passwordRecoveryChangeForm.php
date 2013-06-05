@@ -30,7 +30,7 @@
             <div class="label"><?php echo $this->languageHandler->getString('headline')?></div>
             <input type="hidden" id="passwordRecoveryHash" value="<?php echo htmlentities($_GET['c']); ?>" />
             <input type="text" id="passwordSavePassword" placeholder="<?php echo $this->languageHandler->getString('change_password')?>" /><br />
-
+            <div id="recoveryMessage"></div>
             <div class="footer">
               <nav>
                 <span id="passwordSaveLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
