@@ -255,6 +255,22 @@ h3 {
   float: right;
 }
 
+.img-author-big {
+  display:inline-block;
+  width: 39px;
+  height: 39px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -35px -195px;
+}
+
+.img-logout  {
+  display:inline-block;
+  width: 39px;
+  height: 39px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -74px -195px;
+}
+
 .img-select {
   width: 19px;
   height: 19px;
