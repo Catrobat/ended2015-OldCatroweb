@@ -389,8 +389,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
     $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
   
-    $this->assertTrue($this->upload->statusCode >= 519);
-    $this->assertTrue($this->upload->statusCode <= 520);
+    $this->assertTrue($this->upload->statusCode >= 520);
+    $this->assertTrue($this->upload->statusCode <= 521);
   
     // cleanup
     $this->upload->cleanup();
