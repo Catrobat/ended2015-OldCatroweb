@@ -421,7 +421,13 @@ class upload extends CoreAuthenticationDevice {
   }
 
   private function extractThumbnail($unzipDir, $projectId) {
-    $thumbnail = $unzipDir . 'screenshot.png';
+    $automaticThumbnail = $unzipDir . 'automatic_screenshot.png';
+    $manualThumbnail = $unzipDir . 'manual_screenshot.png';
+    
+    $thumbnail = $automaticThumbnail;
+    if(file_exists($manualThumbnail)) {
+      $thumbnail = $manualThumbnail;
+    }
 
     if(is_file($thumbnail)) {
       $thumbImage = imagecreatefrompng($thumbnail);
