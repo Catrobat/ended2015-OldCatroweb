@@ -58,7 +58,8 @@ class upload extends CoreAuthenticationDevice {
 
       $xmlFile = $this->getProjectXmlFile(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique . '/');
       $projectInformation = $this->getProjectInformation($xmlFile, $formData);
-      $this->checkValidCatrobatVersion($projectInformation['versionCode']);
+      $this->checkValidCatrobatVersion($projectInformation['versionName']);
+      $this->checkValidCatrobatCode($projectInformation['versionCode']);
       $this->checkValidProjectTitle($projectInformation['projectTitle']);
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
@@ -224,7 +225,7 @@ class upload extends CoreAuthenticationDevice {
     
     if(!$versionName || !$versionCode) {
       $versionCode = MIN_CATROBAT_LANGUAGE_VERSION;
-      $versionName = '&lt; 0.7.0beta';
+      $versionName = '&lt; ' + MIN_CATROBAT_VERSION + 'beta';
     } else if(stristr($versionName, "-")) {
       $versionName = substr($versionName, 0, strpos($versionName, "-"));
     }
@@ -254,7 +255,13 @@ class upload extends CoreAuthenticationDevice {
     ));
   }
 
-  private function checkValidCatrobatVersion($versionCode) {
+  private function checkValidCatrobatVersion($versionName) {
+    if(floatval($versionName) < floatval(MIN_CATROBAT_VERSION)) {
+      throw new Exception($this->errorHandler->getError('upload', 'old_catrobat_version'), STATUS_CODE_UPLOAD_OLD_CATROBAT_VERSION);
+    }
+  }
+  
+  private function checkValidCatrobatCode($versionCode) {
     if(floatval($versionCode) < floatval(MIN_CATROBAT_LANGUAGE_VERSION)) {
       throw new Exception($this->errorHandler->getError('upload', 'old_catrobat_language'), STATUS_CODE_UPLOAD_OLD_CATROBAT_LANGUAGE);
     }
@@ -414,7 +421,13 @@ class upload extends CoreAuthenticationDevice {
   }
 
   private function extractThumbnail($unzipDir, $projectId) {
-    $thumbnail = $unzipDir . 'screenshot.png';
+    $automaticThumbnail = $unzipDir . 'automatic_screenshot.png';
+    $manualThumbnail = $unzipDir . 'manual_screenshot.png';
+    
+    $thumbnail = $automaticThumbnail;
+    if(file_exists($manualThumbnail)) {
+      $thumbnail = $manualThumbnail;
+    }
 
     if(is_file($thumbnail)) {
       $thumbImage = imagecreatefrompng($thumbnail);

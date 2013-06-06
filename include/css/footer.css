@@ -146,6 +146,15 @@ footer ul a {
 
 
 @media screen and (max-width: 720px) {
+  #wrapper article {
+    padding-bottom: 3.5em;
+  }
+  
+  footer {
+    margin-top: -3.5em; /*negative value of footer height*/
+    height: 3,5em;
+  }
+  
   footer div div:nth-child(1) {
     padding-left: 0;
   }

@@ -72,8 +72,8 @@
           
           <div id="navigationMenu">
             <ul>
-              <li id="menuProfileButton"><div class="img-avatar">&nbsp;</div><div><?php echo $this->languageHandler->getString('template_header_my_profile'); ?></div></li>
-              <li id="menuLogoutButton"><div class="img-avatar">&nbsp;</div><div><?php echo $this->languageHandler->getString('template_header_logout'); ?></div></li>
+              <li id="menuProfileButton"><div class="img-author-big">&nbsp;</div><div><?php echo $this->languageHandler->getString('template_header_my_profile'); ?></div></li>
+              <li id="menuLogoutButton"><div class="img-logout">&nbsp;</div><div><?php echo $this->languageHandler->getString('template_header_logout'); ?></div></li>
             </ul>
           </div>
         </nav>

@@ -82,6 +82,7 @@
         <string name="insulting_words_in_project_description">Please don't use offensive language in your project description.</string>
         <string name="save_thumbnail_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="invalid_project_xml">Sorry, your project file is invalid. Try to save it as a new project and upload it again.</string>
+        <string name="old_catrobat_version">Sorry, you are using an old version of Pocket Code. Please update to the lastest version.</string>
         <string name="old_catrobat_language">Sorry, your project contains an old version of the Catrobat language! Are you using the latest version of Pocket Code?</string>
         <string name="invalid_media_license">Sorry, your project has an invalid media license!</string>
         <string name="invalid_program_license">Sorry, your project has an invalid program license!</string>
