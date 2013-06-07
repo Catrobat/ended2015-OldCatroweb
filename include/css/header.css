@@ -100,12 +100,15 @@
   background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
   vertical-align: middle;
 }
+#wrapper header nav div div.largeSearchBarRight button:nth-child(1) {
+  border: 0.15em solid #fff;
+}
 
 #wrapper header nav div div.largeSearchBarRight button:nth-child(2) {
   margin-left: -0.5625em;
   font-size: 1.1em;
   color: #fff;
-  border: 0;
+
 }
 
 #wrapper header nav div#navigationMenu {
