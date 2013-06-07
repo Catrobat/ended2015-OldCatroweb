@@ -90,11 +90,18 @@
   background-color: #FFFFFF;
   border: 0.2em solid #05222a;
   /*border-radius: 0.2em;*/
-  -mox-box-shadow: inset 2px 2px 2px #bbb;
-  -webkit-box-shadow: inset 2px 2px 5px #05222a;
-  box-shadow: inset 2px 2px 5px #05222a;
+  -mox-box-shadow: inset 2px 2px 2px #999;
+  -webkit-box-shadow: inset 2px 2px 5px #999;
+  box-shadow: inset 2px 2px 5px #999;
  padding: 0.5em 0.5em 0.5em;
  margin-bottom: 1.5em;
+}
+
+.blue {
+  background-color: #7cb5ca;
+  background-image: linear-gradient(top, #A8DFF4, #74b0c7);
+  background-image: -moz-linear-gradient(top, #A8DFF4, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #A8DFF4, #74b0c7);
 }
 
 #wrapper article div.profileInvalid{
@@ -155,6 +162,7 @@
   overflow: hidden;
   font-size: 0.9em;
   float: right;
+  z-index: 3;
 }
 
 #wrapper article div.profileCountry select {
@@ -166,12 +174,13 @@
   border: 0;  
   margin-left: -0.5em;
   padding-left: 0.2em;
-  z-index: 2;
+  z-index: 4;
   /*-webkit-appearance: none;*/
 }
 
 #wrapper article div.profileCountry option {
   width: 10em;
+  z-index: 5;
 }
   
 #wrapper article div.profileSelectImage {
@@ -191,7 +200,6 @@
   margin-top: -0.2em;
   font-size: 1.4em;
   font-weight: bold;
-  background-color: #A8DFF4;
   text-transform: uppercase;
   text-shadow: #333333 1px 1px 2px;
   text-align: center;

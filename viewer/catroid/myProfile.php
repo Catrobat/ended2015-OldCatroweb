@@ -66,12 +66,12 @@
 
           <!-- <div id="profileSecondEmailDelete" class="img-delete profileDeleteEMaill"></div>-->
           <div id="profileSecondEmail" class="profileValid">
+          <div class="img-second-email"></div>
             <input type="email" placeholder="<?php echo $this->languageHandler->getString('second_email'); ?>" value="<?php echo $this->userData['additional_email']; ?>" />
-            <div class="img-second-email"></div>
           </div>
 
           <div>
-          <button id="profileSaveChanges"><?php echo $this->languageHandler->getString('save'); ?></button>
+          <button class= "blue" id="profileSaveChanges"><?php echo $this->languageHandler->getString('save'); ?></button>
             <img class="profileLoader" src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
             <div id="profileChangesSuccess">
               <div class="img-saved"></div>
