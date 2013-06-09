@@ -229,6 +229,17 @@ class Sql:
 			except:
 				pass
 		return ids
+	
+	def getFeaturedProjectList(self):
+		result = self.run('%s -d catroweb -c "SELECT project_id FROM featured_projects;"' % self.cli)
+		
+		ids = []
+		for line in result.split('\n'):
+			try:
+				ids.append(int(line))
+			except:
+				pass
+		return ids
 
 
 

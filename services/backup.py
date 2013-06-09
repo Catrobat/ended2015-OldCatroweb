@@ -68,6 +68,10 @@ class Backup:
 				self.run('tar --append --file=resources.tar resources/projects/%s.*' % project)
 				self.run('tar --append --file=resources.tar resources/thumbnails/%s_small*' % project)
 				self.run('tar --append --file=resources.tar resources/thumbnails/%s_large*' % project)
+
+			for featuredProject in sqlShell.getFeaturedProjectList():
+				self.run('tar --append --file=resources.tar resources/featured/%s.*' % featuredProject)
+			
 			self.run('tar --append --file=resources.tar resources/thumbnails/thumbnail_small.png')
 			self.run('tar --append --file=resources.tar resources/thumbnails/thumbnail_large.png')
 			

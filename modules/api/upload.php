@@ -224,8 +224,8 @@ class upload extends CoreAuthenticationDevice {
     }
     
     if(!$versionName || !$versionCode) {
-      $versionCode = MIN_CATROBAT_LANGUAGE_VERSION;
-      $versionName = '&lt; ' + MIN_CATROBAT_VERSION + 'beta';
+      $versionCode = 0.0;
+      $versionName = "0.0.0beta";
     } else if(stristr($versionName, "-")) {
       $versionName = substr($versionName, 0, strpos($versionName, "-"));
     }
@@ -256,7 +256,7 @@ class upload extends CoreAuthenticationDevice {
   }
 
   private function checkValidCatrobatVersion($versionName) {
-    if(floatval($versionName) < floatval(MIN_CATROBAT_VERSION)) {
+    if(version_compare($versionName, MIN_CATROBAT_VERSION) < 0) {
       throw new Exception($this->errorHandler->getError('upload', 'old_catrobat_version'), STATUS_CODE_UPLOAD_OLD_CATROBAT_VERSION);
     }
   }
