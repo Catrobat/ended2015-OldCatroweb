@@ -97,12 +97,6 @@
  margin-bottom: 1.5em;
 }
 
-.blue {
-  background-color: #7cb5ca;
-  background-image: linear-gradient(top, #A8DFF4, #74b0c7);
-  background-image: -moz-linear-gradient(top, #A8DFF4, #74b0c7);
-  background-image: -webkit-linear-gradient(top, #A8DFF4, #74b0c7);
-}
 
 #wrapper article div.profileInvalid{
   border : 0.15em solid #880000;
