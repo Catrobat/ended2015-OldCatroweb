@@ -26,7 +26,9 @@
       <article>
         <header><?php echo $this->languageHandler->getString('header'); ?></header>
         <div><?php echo $this->languageHandler->getString('results', '<span id="numberOfSearchResults">0</span>'); ?></div>
-        <div id="searchResultContainer" class="projectContainer"></div>
+        <div id="searchResultContainer" class="projectContainer">
+      </div>
+                 
         <div id="searchResultLoader" class="projectFooter">
           <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
           <p>&nbsp;</p>

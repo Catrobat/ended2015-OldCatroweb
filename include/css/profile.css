@@ -97,12 +97,6 @@
  margin-bottom: 1.5em;
 }
 
-.blue {
-  background-color: #7cb5ca;
-  background-image: linear-gradient(top, #A8DFF4, #74b0c7);
-  background-image: -moz-linear-gradient(top, #A8DFF4, #74b0c7);
-  background-image: -webkit-linear-gradient(top, #A8DFF4, #74b0c7);
-}
 
 #wrapper article div.profileInvalid{
   border : 0.15em solid #880000;
@@ -169,7 +163,7 @@
   border-radius: 0.125em;
   color: #05222a;
   height: 1.5em;
-  width: 16.3em;
+  width: 17em;
   border: 0;  
   margin-left: -0.5em;
   padding-left: 0.2em;

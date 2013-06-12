@@ -186,6 +186,13 @@ h3 {
   background-position: -131px -62px;
 }
 
+.blue {
+  background-color: #7cb5ca;
+  background-image: linear-gradient(top, #A8DFF4, #74b0c7);
+  background-image: -moz-linear-gradient(top, #A8DFF4, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #A8DFF4, #74b0c7);
+}
+
 .img-avatar {
   width: 31px;
   height: 31px;

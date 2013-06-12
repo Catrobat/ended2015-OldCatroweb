@@ -65,7 +65,7 @@
             </select>
             
             <div class="footer">
-              <button id="registrationSubmit"><?php echo $this->languageHandler->getString('create')?></button>
+              <button class="blue" id="registrationSubmit"><?php echo $this->languageHandler->getString('create')?></button>
               <div><?php echo $this->languageHandler->getString('additional_options'); ?></div>
               <ul>
                 <li><a id="registrationLogin" href="javascript:;"><?php echo $this->languageHandler->getString('login')?></a></li>
