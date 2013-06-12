@@ -82,7 +82,7 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent("You entered two differend passwords."));
+      assertTrue(isTextPresent("You entered two different passwords."));
       
       openLocation("profile/");
       driver().findElement(By.id("profileSaveChanges")).click();
@@ -214,7 +214,8 @@ public class ProfileTests extends BaseTest {
       assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/header"), dataset.get("registrationUsername").toUpperCase()));
       
       clickOkOnNextConfirmationBox();
-      driver().findElement(By.id("profileEmailDelete")).click();
+      driver().findElement(By.xpath("//*[@id='profileEmail']/input")).clear();
+      driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
       assertTrue(isTextPresent("Error while updating this e-mail address. You must have at least one validated e-mail address."));
       
@@ -247,7 +248,8 @@ public class ProfileTests extends BaseTest {
       ajaxWait();
 
       clickOkOnNextConfirmationBox();
-      driver().findElement(By.id("profileEmailDelete")).click();
+      driver().findElement(By.xpath("//*[@id='profileEmail']/input")).clear();
+      driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
       assertTrue(isTextPresent("saved!"));
       
