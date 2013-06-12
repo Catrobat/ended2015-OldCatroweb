@@ -58,8 +58,8 @@ public class Config {
   
   public static final String DEFAULT_UPLOAD_TITLE = "Testproject";
   public static final String DEFAULT_UPLOAD_DESCRIPTION = "This is my testproject...";
-  public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.0beta.catrobat";
-  public static final String DEFAULT_UPLOAD_CHECKSUM = "a70a14eaa842464bdae13d0aef55fd10";
+  public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.3beta.catrobat";
+  public static final String DEFAULT_UPLOAD_CHECKSUM = "649ff13ee9c1750c3276f15e509f5489";
   public static final String DEFAULT_UPLOAD_EMAIL = "webmaster@catroid.org";
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";
@@ -69,7 +69,7 @@ public class Config {
   public static void setSeleniumGridTestdata(String basedir) {
     if(FILESYSTEM_BASE_PATH.matches(".*tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "$")) {
       FILESYSTEM_BASE_PATH = FILESYSTEM_BASE_PATH.substring(0, FILESYSTEM_BASE_PATH.indexOf("tests"+FILESYSTEM_SEPARATOR +  "selenium-grid"));
-      DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.0beta.catrobat";
+      DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.3beta.catrobat";
     }
   }
 }

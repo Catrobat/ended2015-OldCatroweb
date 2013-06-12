@@ -204,17 +204,6 @@ public class DetailsTests extends BaseTest {
     }
   }
 
-  @DataProvider(name = "oldVersion")
-  public Object[][] oldVersion() {
-    Object[][] returnArray = new Object[][] {
-        { CommonData
-            .getUploadPayload(
-                "This is a very old project.",
-                "The user is not allowed to download this project any more.",
-                "test.zip", "583783a335bd40d3d0195a13432afabb", "", "", "", "") } };
-    return returnArray;
-  }
-  
   @DataProvider(name = "titlesAndDescriptions")
   public Object[][] titlesAndDescriptions() {
     Object[][] returnArray = new Object[][] {
