@@ -434,16 +434,70 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $dom = new DOMDocument();
     $dom->load($xmlFile);
   
-    //     $remixOf = $dom->getElementsByTagName('remixOf');
     $url = $dom->getElementsByTagName('url');
     $userHandle = $dom->getElementsByTagName('userHandle');
   
-    //     foreach($remixOf as $value)
-      //       $this->assertNotEquals($value->nodeValue, '');
     foreach($url as $value)
       $this->assertTrue(isset($value->nodeValue));
     foreach($userHandle as $value)
       $this->assertTrue(isset($value->nodeValue));
+  
+    // cleanup
+    $this->upload->cleanup();
+  }
+  
+  /**
+   * @dataProvider correctRemixUpdate
+   */
+  public function testDoUploadCorrectRemixUpdate($projectTitle, $projectDescription, $fileName, $fileType, $versionCode, $versionName, $uploadEmail = '', $uploadLanguage = '') {
+    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
+    $fileChecksum = md5_file($testFile);
+    $fileSize = filesize($testFile);
+    $formData = array(
+        'projectTitle' => $projectTitle,
+        'projectDescription' => $projectDescription,
+        'fileChecksum' => $fileChecksum,
+        'userEmail' => $uploadEmail,
+        'userLanguage' => $uploadLanguage
+    );
+    $fileData = array(
+        'upload' => array(
+            'name' => $fileName,
+            'type' => $fileType,
+            'tmp_name' => $testFile,
+            'error' => 0,
+            'size' => $fileSize
+        )
+    );
+    $serverData = array('REMOTE_ADDR' => '127.0.0.1');
+    $fileSize = filesize($testFile);
+  
+    $this->upload->doUpload($formData, $fileData, $serverData);
+    $this->assertEquals(200, $this->upload->statusCode);
+    
+    $this->upload->doUpload($formData, $fileData, $serverData);
+    
+    $insertId = $this->upload->projectId;
+    $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
+    $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
+  
+    $this->assertEquals(200, $this->upload->statusCode);
+  
+    $xmlFile = $this->getProjectXmlFile($projectPath . '/');
+  
+    $dom = new DOMDocument();
+    $dom->load($xmlFile);
+  
+    $remixOf = $dom->getElementsByTagName('remixOf');
+    $url = $dom->getElementsByTagName('url');
+    $projectName = $dom->getElementsByTagName('programName');
+  
+    foreach($projectName as $val_name){
+    foreach($remixOf as $val_remix) {
+      foreach($url as $val_url) {
+         $this->assertNotEquals($val_remix->nodeValue, $val_url->nodeValue); 
+      }
+    }}
   
     // cleanup
     $this->upload->cleanup();
@@ -642,7 +696,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test-0.7.0beta.catrobat', $fileType, 0.8, '0.7.0beta')
+        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test-0.7.0beta.catrobat', $fileType, 0.8, '0.7.3beta')
     );
     return $dataArray;
   }
@@ -659,7 +713,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctLicenses() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct media and program license', 'my project with correct media and program liense.', 'test_license.catrobat', $fileType, 0.8, '0.7.1beta')
+        array('unitTest for correct media and program license', 'my project with correct media and program liense.', 'test_license.catrobat', $fileType, 0.8, '0.7.3beta')
     );
     return $dataArray;
   }
@@ -667,8 +721,8 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function incorrectLicenses() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for incorrect media license', 'my project with invalid media license', 'test_invalid_license1.catrobat', $fileType, 0.8, '0.7.1beta'),
-        array('unitTest for incorrect program license', 'my project with invalid program license', 'test_invalid_license2.catrobat', $fileType, 0.8, '0.7.1beta')
+        array('unitTest for incorrect media license', 'my project with invalid media license', 'test_invalid_license1.catrobat', $fileType, 0.8, '0.7.3beta'),
+        array('unitTest for incorrect program license', 'my project with invalid program license', 'test_invalid_license2.catrobat', $fileType, 0.8, '0.7.3beta')
     );
     return $dataArray;
   }
@@ -676,7 +730,16 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctRemixInfo() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct remix info', 'my project with correct remixing information.', 'test_remix.catrobat', $fileType, 0.6, '0.7.1beta')
+        array('unitTest for correct remix info', 'my project with correct remixing information.', 'test_remix.catrobat', $fileType, 0.6, '0.7.3beta'),
+        array('unitText for correct remix info', 'my project with correct remixing information.', 'test_remix_update_1.catrobat', $fileType, 0.8, '0.7.3beta')
+    );
+    return $dataArray;
+  }
+  
+  public function correctRemixUpdate() {
+    $fileType = 'application/x-zip-compressed';
+    $dataArray = array(
+        array('unitTest for correct remix update', 'my project with correct remixing update.', 'test_remix_update_2.catrobat', $fileType, 0.8, '0.7.3beta')
     );
     return $dataArray;
   }

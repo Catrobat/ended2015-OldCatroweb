@@ -65,12 +65,15 @@ class upload extends CoreAuthenticationDevice {
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
       
 
-      $projectId = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
+      $projectIdArray = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
           $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
           $projectInformation['versionCode']);
       
-      $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId);
+      $projectId = $projectIdArray['id'];
+      
+      if(!$projectIdArray['update'])
+        $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId);
 
       $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
       $this->renameUnzipDirectory(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique,
@@ -295,7 +298,11 @@ class upload extends CoreAuthenticationDevice {
       pg_free_result($result);
 
       $this->query("update_project", array($projectDescription, $uploadIp, $fileSize, $versionName, $versionCode, $updateId));
-      return $updateId;
+   
+      return(array(
+          "id" => $updateId,
+          "update" => true
+      ));
     } else {
       pg_free_result($result);
 
@@ -305,7 +312,11 @@ class upload extends CoreAuthenticationDevice {
       pg_free_result($result);
 
       $this->setState('remove_project_from_db', $insertId);
-      return $insertId;
+      
+      return(array(
+          "id" => $insertId,
+          "update" => false
+      ));
     }
   }
   
