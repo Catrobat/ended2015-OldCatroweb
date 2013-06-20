@@ -26,88 +26,88 @@ class index extends CoreAuthenticationNone {
   
   public function __construct() {
     parent::__construct();
-    $this->addCss('projectList.css');
     $this->addCss('index.css');
-    $this->addJs('newestProjects.js');
-    $this->addJs('searchProjects.js');
+    $this->addJs('projectLoader.js');
+    $this->addJs('projectContentFiller.js');
+    $this->addJs('projectObject.js');
     $this->addJs('index.js');
-    $this->htmlHeaderFile = 'htmlIndexHeaderTemplate.php';
+    
+    $this->loadModule('api/projects');
   }
 
   public function __default() {
-    $this->numberOfPages = ceil($this->getNumberOfVisibleProjects() / PROJECT_PAGE_LOAD_MAX_PROJECTS);
+    $pageNr = 2;
+    $projectsPerRow = 9;
 
-    if($this->session->showCatroidDescription == "") {
-      $this->session->showCatroidDescription = 1;
-    }   
-        
-    if(!$this->session->pageNr) {
-      $this->session->pageNr = 1;
-      $this->session->task = "newestProjects";
-    }
+    $pageOne = $this->projects->get(($pageNr - 2) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE);
+    $pageTwo = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE);
+    $this->numberOfPages = max(1, intval(ceil(max(0, intval($pageOne['CatrobatInformation']['TotalProjects'])) /
+        $projectsPerRow)));
+
+    $params = array();
+    $params['layout'] = PROJECT_LAYOUT_GRID_ROW;
+    $params['container'] = '#newestProjects';
+    $params['loader'] = '#newestProjectsLoader';
+    $params['buttons'] = array('prev' => null,
+        'next' => '#newestShowMore'
+    );
+    $featured = $this->projects->featured(1);
+    $this->featuredProject = "'" . addslashes(json_encode($featured)) . "'";
     
-    if(isset($_REQUEST['method']) || isset($_REQUEST['p'])) {
-      if(isset($_REQUEST['method'])) {
-        $this->session->pageNr = intval($_REQUEST['method']);
-      }
-      if(isset($_REQUEST['p'])) {
-        $this->session->pageNr = intval($_REQUEST['p']);
-      }
-      
-      if($this->session->pageNr < 1) {
-        $this->session->pageNr = 1;
-        $this->session->searchQuery = null;
-        $this->session->task = "newestProjects";
-      }
-      
-      if($this->session->pageNr > $this->numberOfPages) {
-        $this->session->pageNr = $this->numberOfPages;
-      }
-    }
-    if(isset($_SERVER['HTTP_REFERER']) && !$this->session->referer) {
-      $this->session->referer = $_SERVER['HTTP_REFERER'];
-    }
-    if(isset($_SERVER['HTTP_REFERER']) && $this->session->referer != $_SERVER['HTTP_REFERER']) {
-      $this->session->referer = $_SERVER['HTTP_REFERER'];
-      $this->session->task = "newestProjects";
-    }
+    $params['content'][0] = $pageOne;
+    $params['content'][1] = $pageTwo;
+    $params['numProjects'] = intval($pageOne['CatrobatInformation']['TotalProjects']);
+    
+    $params['page'] = array('number' => $pageNr,
+        'numProjectsPerPage' => $projectsPerRow,
+        'pageNrMax' => $this->numberOfPages
+    );
+    
+    $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
+    $params['sort'] = PROJECT_SORTBY_AGE;
+    $params['filter'] = array('query' => '',
+        'author' => ''
+    );
+    
+    $params['config'] = array('LAYOUT_GRID_ROW' => PROJECT_LAYOUT_GRID_ROW,
+        'sortby' => array('age' => PROJECT_SORTBY_AGE,
+            'downloads' => PROJECT_SORTBY_DOWNLOADS,
+            'views' => PROJECT_SORTBY_VIEWS,
+            'random' => PROJECT_SORTBY_RANDOM
+        )
+    );
+    
+    $this->newestProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
-    if(isset($_REQUEST['q'])) {
-      $this->session->searchQuery = $_REQUEST['q'];
-      $this->session->task = "searchProjects";
-    }
+    $params['content'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_DOWNLOADS, PROJECT_SORTBY_DOWNLOADS);
+    $params['content'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_DOWNLOADS, PROJECT_SORTBY_DOWNLOADS);
+    $params['container'] = '#mostDownloadedProjects';
+    $params['loader'] = '#mostDownloadedProjectsLoader';
+    $params['buttons'] = array('prev' => null,
+        'next' => '#mostDownloadedShowMore'
+    );
+    $params['mask'] = PROJECT_MASK_GRID_ROW_DOWNLOADS;
+    $params['sort'] = PROJECT_SORTBY_DOWNLOADS;
+    $params['additionalTextLabel'] = $this->languageHandler->getString('downloaded');
+    $this->mostDownloadedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
 
-    if(!$this->session->task) {
-      $this->session->task = "newestProjects";
-    }
-
-    $this->showCatroidDescription = intval($this->session->showCatroidDescription);
-    $this->task = $this->session->task;
-    $this->pageNr = $this->session->pageNr;
-    $this->searchQuery = "";
-    if($this->session->searchQuery != "") {
-      $this->searchQuery = $this->session->searchQuery;
-    }
-
-    //dummy for languageTest: request error ('viewer', 'ajax_request_page_not_found')
-    $error = array();
-    $error['type'] = 'viewer';
-    $error['code'] = 'ajax_request_page_not_found';
-    $error['extra'] = '';
-
-    $this->error = $error;
-  }
-
-  public function getNumberOfVisibleProjects() {
-    $result = pg_execute($this->dbConnection, "get_number_of_visible_projects", array()) or
-              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
-    $number = pg_fetch_all($result);
-    pg_free_result($result);
-
-    if($number[0]['count']) {
-      return $number[0]['count'];
-    }
-    return 0;
+    $params['content'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_VIEWS, PROJECT_SORTBY_VIEWS);
+    $params['content'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_VIEWS, PROJECT_SORTBY_VIEWS);
+    $params['container'] = '#mostViewedProjects';
+    $params['loader'] = '#mostViewedProjectsLoader';
+    $params['buttons'] = array('prev' => null,
+        'next' => '#mostViewedShowMore'
+    );
+    $params['mask'] = PROJECT_MASK_GRID_ROW_VIEWS;
+    $params['sort'] = PROJECT_SORTBY_VIEWS;
+    $params['additionalTextLabel'] = $this->languageHandler->getString('viewed');
+    $this->mostViewedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
   }
 
   public function __destruct() {

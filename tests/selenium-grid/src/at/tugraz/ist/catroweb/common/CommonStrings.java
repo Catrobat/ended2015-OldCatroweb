@@ -24,11 +24,11 @@
 package at.tugraz.ist.catroweb.common;
 
 public class CommonStrings {
-  public static final String WEBSITE_TITLE = "Catroid Website";
+  public static final String WEBSITE_TITLE = "Pocket Code Website";
 
   public static final String NEWEST_PROJECTS_PAGE_TITLE = "Newest Projects";
   public static final String NEWEST_PROJECTS_PAGE_PREV_BUTTON = "« Newer";
-  public static final String NEWEST_PROJECTS_PAGE_NEXT_BUTTON = "Older »";
+  public static final String NEWEST_PROJECTS_PAGE_NEXT_BUTTON = "show more";
   public static final String NEWEST_PROJECTS_PAGE_LOADING_BUTTON = "loading...";
   
   public static final String SEARCH_PROJECTS_PAGE_TITLE = "Search Results";

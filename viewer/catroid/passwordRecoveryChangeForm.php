@@ -23,32 +23,27 @@
  */
 
 ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        new PasswordRecovery();
-      });
-    </script>
+      <article>
+        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
+        <div class="form">
+          <form>
+            <div class="label"><?php echo $this->languageHandler->getString('headline')?></div>
+            <input type="hidden" id="passwordRecoveryHash" value="<?php echo htmlentities($_GET['c']); ?>" />
+            <input type="text" id="passwordSavePassword" placeholder="<?php echo $this->languageHandler->getString('change_password')?>" /><br />
+            <div id="recoveryMessage"></div>
+            <div class="footer">
+              <nav>
+                <span id="passwordSaveLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
+                <button class="blue" id="passwordSaveSubmit"><?php echo $this->languageHandler->getString('change_password_button')?></button>
+              </nav>
+            </div>
+          </form>
+        </div>
+        <div class="projectSpacer"></div>
+      </article>
 
-    <div class="webMainMiddle">
-      <div class="blueBoxMain">
-  		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title'); ?></div>
-                <div class="loginMain">            	
-            	  <div class ="whiteBoxMain">
-            	    <div class="loginText">
-                    <div class="loginHeader"><?php echo $this->languageHandler->getString('headline'); ?></div>
-                    <input type="hidden" id="passwordRecoveryHash" value="<?php echo htmlentities($_GET['c']); ?>" />
-                    <input id="passwordSavePassword" type="text" class="catroid webHeadLoginBox" required="required" /><br />
-                    <input id="passwordSaveSubmit" type="button" class="catroidSubmit button orange loginSubmitButton" value="<?php echo $this->languageHandler->getString('change_password'); ?>" /><br />
-                    <br /> <br /> <br /> <br />
-                    
-                    <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
-                    <ul class="loginOptions">
-                      <li><a id="signUp" href="<?php echo BASE_PATH?>catroid/registration"><?php echo $this->languageHandler->getString('account_link')?></a></li>
-                    </ul>
-                </div> <!-- login Text -->
-              </div> <!--  White Box -->            	
-           </div> <!--  license Main -->  		   		
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>
+      <script type="text/javascript">
+        $(document).ready(function() {
+          new PasswordRecovery();
+        });
+      </script>

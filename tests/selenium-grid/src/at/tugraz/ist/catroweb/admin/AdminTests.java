@@ -41,7 +41,7 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("Administration Tools"));
       driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
       ajaxWait();
-      assertRegExp(".*Catroid Website.*", driver().getTitle());
+      assertRegExp(".*Pocket Code Website.*", driver().getTitle());
       driver().navigate().back();
       if(isTextPresent("Catroid Administration Site") == false) {
         driver().navigate().back();
@@ -67,6 +67,8 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("Administration Tools"));
       assertTrue(isTextPresent("remove inconsistant project files"));
       assertTrue(isTextPresent("edit projects"));
+      assertTrue(isTextPresent("add featured projects"));
+      assertTrue(isTextPresent("edit featured projects"));
       assertTrue(isTextPresent("thumbnail uploader"));
       assertTrue(isTextPresent("inappropriate projects"));
       assertTrue(isTextPresent("approve unapproved words"));
@@ -87,6 +89,16 @@ public class AdminTests extends BaseTest {
       driver().navigate().back();
       ajaxWait();
 
+      driver().findElement(By.id("aAdminToolsAddFeaturedProjects")).click();
+      assertTrue(isTextPresent("Administration Tools - Add Featured Projects"));
+      driver().navigate().back();
+      ajaxWait();
+      
+      driver().findElement(By.id("aAdminToolsEditFeaturedProjects")).click();
+      assertTrue(isTextPresent("Administration Tools - Edit Featured Projects"));
+      driver().navigate().back();
+      ajaxWait();      
+      
       driver().findElement(By.id("aAdminToolsThumbnailUploader")).click();
       assertTrue(isTextPresent("Administration Tools - Thumbnail Uploader"));
       driver().navigate().back();
@@ -120,10 +132,12 @@ public class AdminTests extends BaseTest {
       driver().findElement(By.id("aAdminToolsUpdateBrowserDetection")).click();
       assertTrue(isTextPresent("Administration Tools - Update browser-detection RegEx-Pattern"));
       driver().navigate().back();
+      ajaxWait();
       
       driver().findElement(By.id("aAdminToolsSendEmailNotification")).click();
       assertTrue(isTextPresent("Administration Tools - Send e-mail notification"));
       driver().navigate().back();
+      ajaxWait();
 
       assertTrue(isTextPresent("- back"));
       driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
@@ -140,12 +154,7 @@ public class AdminTests extends BaseTest {
   @Test(groups = { "functionality", "upload", "popupwindows" }, description = "check report as inappropriate functionality")
   public void inappropriateProjects() throws Throwable {
     try {
-      openLocation("catroid/details/1");
-      driver().findElement(By.id("headerProfileButton")).click();
-      driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
-      driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
-      driver().findElement(By.id("loginSubmitButton")).click();
-      ajaxWait();
+      login("details/1");
 
       assertTrue(isElementPresent(By.id("reportAsInappropriateButton")));
       driver().findElement(By.id("reportAsInappropriateButton")).click();
@@ -157,7 +166,7 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("1"));
 
       clickAndWaitForPopUp(By.xpath("//a[@id='detailsLink1']"));
-      assertTrue(isTextPresent("testproject"));
+      assertTrue(isTextPresent("testproject".toUpperCase()));
       closePopUp();
 
       clickOkOnNextConfirmationBox();

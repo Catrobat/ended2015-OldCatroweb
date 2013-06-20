@@ -21,182 +21,195 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
- div.webMainHead {
-  
-}
-
-div.webHeadLogo {
-  cursor: pointer;
-  float: left;
-  margin-left: 2%;
-  min-height: 79px;
-  padding-top: 12px;
-  text-align: left;
-  width: 18%;
-}
-
-div.pointer {
-  cursor: pointer;
-}
-
-div.webHeadLogoXmas {
-  margin-top: -4px;
-  padding-top: 0px;
-}
-
-div.webHeadTitle {
-  background-position: right top;
-  background-repeat: no-repeat;
-  float: left;
-  margin-left: 3%;
-  margin-top: 0;
-  min-height: 84px;
-  text-align: center;
-  width: 45%;
-}
-
-div.webHeadButtons {
-  display: none;
-  min-height: 84px;
-  width: 30%;
-  text-align: right;
-  margin-top: 0px;
-  /*padding-right: 1%;*/
-  margin-right: 2%;
-  float: right;
-}
-
-div.webHeadTitleName {
-  margin-top: 10px;
-}
-
-div.webHeadTitleDownload {
-  margin-top: 12px;
-}
-
-div.webHeadBoxSpacer {
+#wrapper header nav {
+  display: table;
   width: 100%;
-  height: 5px;
+  padding-top: 1.8125em;
+  padding-bottom: 2em;
 }
 
-div.headerProfileBox {
-  font-size: 1.0em;
-  text-align: center;
+#wrapper header nav div {
+  display: table-row;
 }
 
-div.headerSearchBox {
-  font-size: 1.0em;
-  text-align: center;
+#wrapper header nav div div {
+  display: table-cell;
+  white-space: nowrap;
 }
 
-div.headerSearchBoxRight {
-  width: 95%;
-  padding-top: 0.5%;
-  padding-left: 1%;
-  padding-right: 1%;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1.3em;
+#wrapper header button, input {
+  vertical-align: bottom;
 }
 
-div.headerProfileBoxLeft {
-  width: 95%;
-  padding-top: 1.0%;
-  padding-bottom: 1.0%;
-  /*padding-top: 0.5%;*/
-  padding-left: 1%;
-  padding-right: 1%;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 1.3em;
+#wrapper header button {
+  border: 0;
+  padding: 0 0 0.14em 0;
+  background-color: transparent;
+  margin: 0.5625em;
+  background-repeat: norepeat;
 }
 
-div.headerProfileBoxSubmitDiv {
-  display: inline-block;
-  text-align: center;
-  margin-top: 15px;
-}
-
-span.webHeadCancelButtonText {
-  font-size: 2em;
+#wrapper header nav div div.catroidLink {
+  width: 100%;
+  vertical-align: middle;
   font-weight: bold;
+  font-size: 2.2em;
 }
 
-img.webHeadSymbolOnButton {
-  width: 36px;
-  height: 36px;
-  border: 0px;
-}
-
-button.webHeadButtons {
-  width: 70px;
-  height: 70px;
-  margin-top: 8px;
-}
-
-button.webHeadCancelButton {
-  height: 70px;
-  margin-top: 8px;
-  color: black;
-}
-
-input.webHeadLoginBox {
-  width: 25%;
-  font-size: 1.0em;
-  margin-left: 0%;
-  margin-right: 2%;
-}
-
-input.webHeadSearchBox {
-  width: 50%;
-  font-size: 1.0em;
-  margin-left: 0%;
-  margin-right: 2%;
-}
-
-input.webHeadLoginSubmit {
-/*  margin-top: 0.5%;*/
-/*  margin-bottom: 0.5%;*/
-  margin-top: 1.5%;
-  margin-bottom: 1.0%;
-  color: black;
-  font-size: 1.0em;
-  font-weight: bold;
-}
-
-input.webHeadLogoutSubmit {
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
-  color: black;
-  font-size: 1.0em;
-  font-weight: bold;
-}
-
-input.webHeadSearchSubmit {
-  margin-top: 0.5%;
-  margin-bottom: 0.5%;
-  color: black;
-  font-size: 1.0em;
-  font-weight: bold;
-}
-
-span.webHeadTitleName {
+#wrapper header nav div div.catroidLink a {
   color: #ffffff;
-  text-shadow: 0.1em 0.1em #333333;
-  font-size: 1.5em;
-  font-weight: bold;
-  letter-spacing: 0.2em;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 
-span.webHeadTitleBeta {
-  color: #ffffff;
+#wrapper header nav div div.catroidLink img {
+  max-height: 1.5em;
+  margin-top: -0.53em;
+}
+
+#wrapper header nav div div.largeSearchBarLeft {
+  background-color: #74b1c6;
+  border-top-left-radius: 0.125em;
+  border-bottom-left-radius: 0.125em;
+  background-image: linear-gradient(top, #93c4d7, #74b0c7);
+  background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
+  vertical-align: middle;
+}
+
+#wrapper header nav div div.largeSearchBarMiddle {
+  background-color: #74b1c6;
+  border-right: 1px solid #c8e3ee;
+  padding-right: 0.625em;
+  background-image: linear-gradient(top, #93c4d7, #74b0c7);
+  background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
+  vertical-align: middle;
+}
+
+#wrapper header nav div div.largeSearchBarMiddle input {
+  border: 0;
+  background-color: #c8e3ee;
+  border-radius: 0.125em;
+  padding: 0.5em;
+  color: #000000;
+  margin: 0.375em 0 0.375em 0;
+}
+
+#wrapper header nav div div.largeSearchBarRight {
+  background-color: #74b1c6;
+  border-top-right-radius: 0.125em;
+  border-bottom-right-radius: 0.125em;
+  background-image: linear-gradient(top, #93c4d7, #74b0c7);
+  background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
+  vertical-align: middle;
+}
+#wrapper header nav div div.largeSearchBarRight button:nth-child(1) {
+  border: 0.15em solid #fff;
+}
+
+#wrapper header nav div div.largeSearchBarRight button:nth-child(2) {
+  margin-left: -0.5625em;
   font-size: 1.1em;
-  letter-spacing: 0.1em;
+  color: #fff;
+
 }
 
-a.webHeadTitleDownload {
-  color: #ffffff;
-  font-size: 0.9em;
-  letter-spacing: 0.2em;
+#wrapper header nav div#navigationMenu {
+  display: none;
+  background-image: url("../images/symbols/menu_upper_border.png");
+  background-repeat: no-repeat;
+  background-position: right top;
+  position: absolute;
+  z-index: 1000;
+  margin-top: 0.3em;
+  opacity: 0.95;
+}
+
+#wrapper header nav div#navigationMenu ul {
+  list-style: none;
+}
+
+#wrapper header nav div#navigationMenu li {
+  background-color: #74B1C6;
+  color: #fff;
   font-weight: bold;
+  font-size: 1.1em;
+  padding: 1em 1em 1em 0;
+  cursor: pointer;
+}
+
+#wrapper header nav div#navigationMenu li div {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 1em;
+}
+
+#wrapper header nav div#navigationMenu li:active {
+  background-color: #025168;
+}
+
+#wrapper header nav div#smallMenu #mobileSearchButton, #mobileMenuButton {
+  background-color:#74b1c6;
+  border-radius: 0.125em;
+}
+
+#wrapper header nav div div#smallSearchBar {
+  display: none;
+  width: 100%;
+  border-top: 1px solid #74b1c6;
+  border-left: 1px solid #74b1c6;
+  background-color: #29505f;
+  vertical-align: middle;
+  border-bottom: 1px solid #74b1c6;
+}
+
+#wrapper header nav div div#smallSearchBar input {
+  font-size: 0.9em;
+  border: 0;
+  background-color: #29505f;
+  padding: 0.625em 0 0.5em 0.5em;
+  color: #ffffff;
+  width: 95%;
+}
+
+#wrapper header nav div#smallMenu {
+  display: none;
+}
+
+@media screen and (max-width: 1024px) {
+  #wrapper header nav div div.marginSpacer {
+    padding: 0 0.3125em 0 0.3125em;
+  }
+}
+
+
+
+@media screen and (max-width: 720px) {
+  #wrapper header nav div#smallMenu {
+    display: table-row;
+  }
+  #wrapper header nav div#largeMenu {
+    display: none;
+  }
+  #wrapper header nav div div.marginSpacer {
+    padding: 0 0.3125em 0 0.3125em;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
+    font-size: 2.0em;
+  }
+}
+
+@media screen and (max-width: 360px) {
+  #wrapper header nav div div.catroidLink {
+    font-size: 1.6em;
+  }
 }

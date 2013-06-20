@@ -23,36 +23,31 @@
  */
 
 ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        new PasswordRecovery();
-        <?php
-          if($this->answer != '') {
-            echo 'common.showAjaxErrorMsg("' . $this->answer . '");'; 
-          }
-        ?>
-      });
-    </script>
-
-    <div class="webMainMiddle">
-      <div class="blueBoxMain">
-  		   	<div class="webMainContent">
-              <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title'); ?></div>
-                <div class="loginMain">            	
-            	  <div class ="whiteBoxMain">
-            	    <div class="loginText">
-                    <div class="loginHeader"><?php echo $this->languageHandler->getString('enter_userdata'); ?></div>
-                    <input id="passwordRecoveryUserdata" type="text" class="catroid webHeadLoginBox" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder'); ?>" required="required" /><br />
-                    <input id="passwordRecoverySendLink" type="button" class="catroidSubmit button orange loginSubmitButton" value="<?php echo $this->languageHandler->getString('send_link'); ?>" /><br />
-                    <br /> <br /> <br /> <br />
-                    
-                    <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
-                    <ul class="loginOptions">
-                      <li><a id="signUp" href="<?php echo BASE_PATH?>catroid/registration"><?php echo $this->languageHandler->getString('account_link')?></a></li>
-                    </ul>
-                </div> <!-- login Text -->
-              </div> <!--  White Box -->            	
-           </div> <!--  license Main -->  		   		
-  		  </div> <!-- mainContent close //-->
-  		</div> <!-- blueBoxMain close //-->
-  	</div>
+      <article>
+        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
+        <div class="form">
+          <form>
+            <div class="label"><?php echo $this->languageHandler->getString('enter_userdata')?></div>
+            <input type="text" id="passwordRecoveryUserdata" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>" /><br />
+            <div id="recoveryMessage"></div>
+            <div class="footer">
+              <nav>
+                <span id="passwordRecoverySendLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
+                <button class="blue" id="passwordRecoverySendLink"><?php echo $this->languageHandler->getString('send_link')?></button>
+              </nav>
+            </div>
+          </form>
+        </div>
+        <div class="projectSpacer"></div>
+      </article>
+  
+      <script type="text/javascript">
+        $(document).ready(function() {
+          new PasswordRecovery();
+          <?php
+            if($this->answer != '') {
+              echo '$("#recoveryMessage").show().text("'.$this->answer.'")';
+            }
+          ?>
+        });
+      </script>

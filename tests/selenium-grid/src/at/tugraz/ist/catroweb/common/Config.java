@@ -51,15 +51,15 @@ public class Config {
   public static final String PROJECTS_THUMBNAIL_EXTENTION_SMALL = "_small.png";
   public static final String PROJECTS_THUMBNAIL_EXTENTION_LARGE = "_large.png";
 
-  public static final int PROJECT_PAGE_LOAD_MAX_PROJECTS = 5;
-  public static final int PROJECT_PAGE_SHOW_MAX_PAGES = 5;
+  public static final int PROJECT_PAGE_LOAD_MAX_PROJECTS = 9;
+  public static final int PROJECT_PAGE_SHOW_MAX_PAGES = 3;
   public static final String PROJECTS_EXTENTION = ".catrobat";
   public static final int PROJECT_SHORT_DESCRIPTION_MAX_LENGTH = 178;
   
   public static final String DEFAULT_UPLOAD_TITLE = "Testproject";
   public static final String DEFAULT_UPLOAD_DESCRIPTION = "This is my testproject...";
-  public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.0beta.catrobat";
-  public static final String DEFAULT_UPLOAD_CHECKSUM = "e60affe0c115ba4e10474eab3efc47d6";
+  public static String DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.3beta.catrobat";
+  public static final String DEFAULT_UPLOAD_CHECKSUM = "649ff13ee9c1750c3276f15e509f5489";
   public static final String DEFAULT_UPLOAD_EMAIL = "webmaster@catroid.org";
   public static final String DEFAULT_UPLOAD_LANGUAGE = "en";
   public static final String DEFAULT_UPLOAD_TOKEN = "31df676f845b4ce9908f7a716a7bfa50";
@@ -69,7 +69,7 @@ public class Config {
   public static void setSeleniumGridTestdata(String basedir) {
     if(FILESYSTEM_BASE_PATH.matches(".*tests" + FILESYSTEM_SEPARATOR + "selenium-grid" + FILESYSTEM_SEPARATOR + "$")) {
       FILESYSTEM_BASE_PATH = FILESYSTEM_BASE_PATH.substring(0, FILESYSTEM_BASE_PATH.indexOf("tests"+FILESYSTEM_SEPARATOR +  "selenium-grid"));
-      DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.0beta.catrobat";
+      DEFAULT_UPLOAD_FILE = FILESYSTEM_BASE_PATH + SELENIUM_GRID_TESTDATA + "test-0.7.3beta.catrobat";
     }
   }
 }

@@ -204,11 +204,11 @@ class Sql:
 
 
 	def restoreDb(self, database):
-		if 'No such file' not in self.run('ls %s -sql.tar.gz' % database):
+		if 'No such file' not in self.run('ls %s-sql.tar.gz' % database):
 			self.dropDb(database)
 			self.createDb(database)
 
-			result = self.run('gzip -dc %s-sql.tar.gz | pg_restore -d %s -U %s' % (database, database, self.dbUser))
+			result = self.run('gzip -dc %s-sql.tar.gz | pg_restore --no-owner -d %s -U %s' % (database, database, self.dbUser))
 			if 'ERROR' in result:
 				print('error restoring %s' % database)
 				print(result)
@@ -217,6 +217,29 @@ class Sql:
 				print('')
 		else:
 			print('FATAL ERROR: Found no file to restore.')
+
+
+	def getProjectList(self):
+		result = self.run('%s -d catroweb -c "SELECT id FROM projects;"' % self.cli)
+		
+		ids = []
+		for line in result.split('\n'):
+			try:
+				ids.append(int(line))
+			except:
+				pass
+		return ids
+	
+	def getFeaturedProjectList(self):
+		result = self.run('%s -d catroweb -c "SELECT project_id FROM featured_projects;"' % self.cli)
+		
+		ids = []
+		for line in result.split('\n'):
+			try:
+				ids.append(int(line))
+			except:
+				pass
+		return ids
 
 
 

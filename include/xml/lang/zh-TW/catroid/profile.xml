@@ -1,37 +1,30 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="change_my_password">&#x66F4;&#x63DB;&#x5BC6;&#x78BC;</string>
   <string name="password">&#x5BC6;&#x78BC;</string>
   <string name="country">&#x570B;&#x5BB6;</string>
-  <string name="city">&#x57CE;&#x5E02;</string>
-  <string name="birthday">&#x751F;&#x65E5;&#x65E5;&#x671F;</string>
-  <string name="gender">&#x6027;&#x5225;</string>
-  <string name="female">&#x5973;</string>
-  <string name="male">&#x7537;</string>
-  <string name="email">&#x96FB;&#x5B50;&#x90F5;&#x4EF6;</string>
-  <string name="change_my_password">&#x66F4;&#x63DB;&#x5BC6;&#x78BC;</string>
   <string name="avatar_success">&#x6210;&#x529F;&#x66F4;&#x65B0;&#x60A8;&#x7684;&#x570B;&#x5BB6;&#x3002;</string>
   <string name="password_success">&#x6210;&#x529F;&#x66F4;&#x65B0;&#x60A8;&#x7684;&#x5BC6;&#x78BC;&#x3002;</string>
-  <string name="email_delete_success">&#x6210;&#x529F;&#x66F4;&#x65B0;&#x60A8;&#x7684;&#x96FB;&#x90F5;&#x5730;&#x5740;&#x3002;</string>
-  <string name="city_success">&#x6210;&#x529F;&#x66F4;&#x65B0;&#x60A8;&#x7684;&#x570B;&#x5BB6;&#x3002;</string>
-  <string name="country_success">&#x6210;&#x529F;&#x66F4;&#x65B0;&#x60A8;&#x7684;&#x570B;&#x5BB6;&#x3002;</string>
-  <string name="gender_success">&#x6210;&#x529F;&#x66F4;&#x65B0;&#x60A8;&#x7684;&#x570B;&#x5BB6;&#x3002;</string>
-  <string name="birthday_success">&#x6210;&#x529F;&#x66F4;&#x65B0;&#x60A8;&#x7684;&#x570B;&#x5BB6;&#x3002;</string>
 </strings>

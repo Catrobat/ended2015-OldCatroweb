@@ -1,0 +1,32 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Syarat-syarat Pengunaan</string>
+  <string name="terms_of_use_enumeration_1">dari negara-negara dan budaya yang berbeza</string>
+  <string name="terms_of_use_enumeration_2">dari lingkungan usia (dari kanak-kanak kepada remaja dan datuk nenek)</string>
+  <string name="terms_of_use_enumeration_3">dangan tahap pengalaman yang pelbagai</string>
+  <string name="terms_of_use_your_support">Kami memerlukan bantuan anda untuk membuat komuniti ini sebagai tempat sokongan bagi setiap ahli. Berikut adalah bagaimana anda boleh membantu:</string>
+  <string name="terms_of_use_enumeration_6">Bersikap jujur&#x200B;&#x200B;. Jangan berpura-pura menjadi orang lain atau cuba menipu masyarakat.</string>
+  <string name="terms_of_use_enumeration_7">Pastikan maklumat peribadi dirahsiakan. Jangan berkongsi alamat e-mel, nombor telefon, atau maklumat- maklumat hubungan peribadi lain.</string>
+</strings>

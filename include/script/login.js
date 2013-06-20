@@ -34,62 +34,55 @@ var Login = Class.$extend({
     $("#loginSubmitButton").click($.proxy(this.loginRequest, this));
     $("#loginUsername").keypress($.proxy(this.loginCatchKeypress, this));
     $("#loginPassword").keypress($.proxy(this.loginCatchKeypress, this));
-
-    $("#logoutSubmitButton").click($.proxy(this.logoutRequest, this));
   },
 
   loginCatchKeypress : function(event) {
     if(event.which == '13') {
-      this.loginRequest();
+      this.loginRequest(event);
       event.preventDefault();
     }
   },
 
-  loginRequest : function() {
-    $.ajax({
-      type : "POST",
-      url : this.basePath + 'catroid/login/loginRequest.json',
-      data : ({
-        loginUsername : $("#loginUsername").val(),
-        loginPassword : $("#loginPassword").val()
-      }),
-      timeout : this.ajaxTimeout,
-      success : $.proxy(this.loginRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
+  loginRequest : function(event) {
+    if($("#loginUsername").val() != "" &&  $("#loginPassword").val() != "") {
+      $("#loginSubmitButton").hide();
+      $("#loginError").hide();
+      $("#loginLoader").css('display', 'block');
+  
+      $("#loginUsername").blur();
+      $("#loginPassword").blur();
+
+      $.ajax({
+        type : "POST",
+        url : this.basePath + 'login/loginRequest.json',
+        data : ({
+          loginUsername : $("#loginUsername").val(),
+          loginPassword : $("#loginPassword").val()
+        }),
+        success : $.proxy(this.loginRequestSuccess, this),
+        error : $.proxy(this.loginRequestError, this)
+      });
+    }
+    event.preventDefault();
   },
 
   loginRequestSuccess : function(result) {
+    $("#loginLoader").hide();
     if(result.statusCode == 200) {
-      if(this.requestUri != '') {
-        location.href = this.basePath + 'catroid/login?requestUri=' + this.requestUri;
+      if(this.requestUri == '') {
+        location.href = this.basePath + 'profile';
       } else {
-        location.reload();
+        location.href = this.basePath + this.requestUri;
       }
     } else {
-      $("#loginHelperDiv").delay(400).slideDown(500);
-      common.showPreHeaderMessages(result);
-      common.showAjaxErrorMsg(result.answer);
+      $("#loginSubmitButton").show();
+      $("#loginError").show().text(result.answer);
     }
   },
 
-  logoutRequest : function() {
-    $.ajax({
-      type : "POST",
-      url : this.basePath + "catroid/login/logoutRequest.json",
-      success : $.proxy(this.logoutRequestSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
-    });
-  },
-
-  logoutRequestSuccess : function(result) {
-    common.showPreHeaderMessages(result);
-    if(result.statusCode == 200) {
-      if(this.requestUri != '') {
-        location.href = this.basePath + 'catroid/login?requestUri=' + this.requestUri;
-      } else {
-        location.reload();
-      }
-    }
+  loginRequestError : function(error) {
+    $("#loginSubmitButton").show();
+    $("#loginLoader").hide();
+    $("#loginError").show().text(error);   
   }
 });

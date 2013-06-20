@@ -69,7 +69,6 @@ class directoryPermissionsTest extends PHPUnit_Framework_TestCase {
      array('addons/board/images/avatars/upload',false),
      array('resources/catroid',false),
      array('resources/projects',false),
-     array('resources/qrcodes',false),
      array('resources/thumbnails',false),
     array('include/xml/lang',true),
     array('tests/phpunit/framework/testdata',true),

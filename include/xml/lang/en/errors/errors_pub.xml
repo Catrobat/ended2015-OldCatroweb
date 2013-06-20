@@ -22,6 +22,10 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
+		<server>
+				<string name="missing_mcrypt">Please tell the administrator to install mcrypt. Thanks.</string>
+				<string name="missing_blowfish">Please tell the administrator to install CRYPT_BLOWFISH. Thanks.</string>
+		</server>
     <db>
         <string name="query_failed">Ooooops something went wrong. Please try again!</string>
         <string name="connection_failed">Ooooops something went wrong. Please try again!</string>
@@ -34,7 +38,7 @@
       <string name="username_invalid_underscore">The nickname you have entered is not allowed. Please do not use underscores (_).</string>
       <string name="username_invalid_hash">The nickname you have entered is not allowed. Please do not use hash signs (#).</string>
       <string name="username_invalid_verticalbar">The nickname you have entered is not allowed. Please do not use vertical bars (|).</string>
-      <string name="username_invalid_curlybrace">The nickname you have entered is not allowed. Please do not use curly braces ({ or }).</string>
+      <string name="username_invaquery_failedlid_curlybrace">The nickname you have entered is not allowed. Please do not use curly braces ({ or }).</string>
       <string name="username_invalid_lessgreater">The nickname you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
       <string name="username_invalid_squarebracket">The nickname you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
       <string name="username_invalid_spaces">The nickname you have entered is not allowed. Please do not use spaces (" ").</string>
@@ -48,7 +52,7 @@
       <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
       <string name="email_missing">You haven't entered an email address, please add one.</string>
       <string name="email_invalid">This email address is not valid.</string>
-      <string name="email_already_exists">The email address you have entered already exists.</string>
+      <string name="last_email">One email address is required.</string>
       <string name="country_missing">You haven't entered a country, please add one.</string>
       <string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
       <string name="board_authentication_failed">The board authentication failed.</string>
@@ -58,22 +62,17 @@
       <string name="unsupported_image">This image type is not supported, please try another image.</string>
       <string name="avatar_creation_failed">Sorry, we encountered an error while processing your registration. Please try again!</string>
       <string name="password_new_board_update_failed">There was a problem while updating the password.</string>
-      <string name="city_update_failed">There was a problem while updating your city.</string>
       <string name="country_update_failed">There was a problem while updating your home country.</string>
-			<string name="gender_update_failed">There was a problem while updating your gender.</string>
-      <string name="birth_update_failed">There was a problem while updating your birthday data.</string>
       <string name="language_update_failed">There was a problem while updating your language.</string>
       <string name="userdata_not_exists">Your nickname or email address was not found.</string>
-      <string name="email_address_exists">The email address already exists.</string>
-      <string name="email_delete_failed">Error while deleting this e-mail address. You must have at least one e-mail address.</string>
-      <string name="email_update_of_catroweb_failed">Catroweb must have at least two e-mail addresses.</string>
+      <string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
       <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
       <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
     </userFunctions>
     <upload>
         <string name="missing_project_title">You need to specify a title for your project!</string>
         <string name="missing_file_data">Sorry, there was a problem during the upload!</string>
-        <string name="missing_post_file_checksum">Sorry, there was a problem during the upload! Are you using the latest version of Catroid?</string>
+        <string name="missing_post_file_checksum">Sorry, there was a problem during the upload! Are you using the latest version of Pocket Code?</string>
         <string name="copy_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="rename_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="invalid_file_checksum">Sorry, there was an error during the upload. Try again!</string>
@@ -81,10 +80,12 @@
         <string name="project_title_default">You have to rename your project, before uploading it.</string>
         <string name="insulting_words_in_project_title">Please don't use offensive language in your project title.</string>
         <string name="insulting_words_in_project_description">Please don't use offensive language in your project description.</string>
-        <string name="qr_code_generation_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="save_thumbnail_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="invalid_project_xml">Sorry, your project file is invalid. Try to save it as a new project and upload it again.</string>
-        <string name="old_catrobat_language">Sorry, your project contains an old version of the Catrobat language! Are you using the latest version of Catroid?</string>
+        <string name="old_catrobat_version">Sorry, you are using an old version of Pocket Code. Please update to the lastest version.</string>
+        <string name="old_catrobat_language">Sorry, your project contains an old version of the Catrobat language! Are you using the latest version of Pocket Code?</string>
+        <string name="invalid_media_license">Sorry, your project has an invalid media license!</string>
+        <string name="invalid_program_license">Sorry, your project has an invalid program license!</string>
     </upload>
     <download>
     	<string name="file_not_found">The requested project is not available at the time. Try again later!</string>
@@ -95,9 +96,6 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">This page cannot be displayed.</string>
-    	<string name="ajax_request_page_not_found">Could not find necessary module for ajax request</string>
-    	<string name="ajax_took_too_long">Sorry something went wrong, please try again.</string>
-    	<string name="ajax_timed_out">Sorry something went wrong, please try again.</string>
       <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
       <string name="ip_is_blocked_temporary">Your IP-Address has been blocked for 30 seconds.</string>
       <string name="user_is_blocked">Your Account has been blocked.</string>
@@ -111,9 +109,8 @@
       <string name="postdata_missing">Please enter your login data.</string>
     </registration>
     <profile>
-      <string name="password_old_missing">The old password is missing.</string>
-      <string name="password_old_wrong">The old password was incorrect.</string>
-      <string name="password_new_missing">The new password is missing.</string>
+      <string name="password_missing">The password is missing.</string>
+      <string name="password_equal">You entered two different passwords.</string>
     </profile>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>

@@ -1,38 +1,36 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded_by">&#x7B14; {*nicknameString*}</string>
   <string name="uploaded">&#x5DF2;&#x4E0A;&#x8F7D;</string>
+  <string name="uploaded_by">&#x7B14; {*nicknameString*}</string>
   <string name="login">&#x767B;&#x5F55;</string>
-  <string name="download">&#x4E0B;&#x8F7D;</string>
-  <string name="report">&#x5448;&#x62A5;</string>
-  <string name="cancel">&#x53D6;&#x6D88;</string>
+  <string name="download_button">&#x4E0B;&#x8F7D;</string>
   <string name="report_as_inappropriate">&#x5448;&#x62A5;&#x4E3A;&#x4E0D;&#x9002;&#x5F53;&#x7684;&#x5185;&#x5BB9;</string>
   <string name="report_as_inappropriate_label">&#x4E3A;&#x65F6;&#x4E48;&#x60A8;&#x89C9;&#x5F97;&#x8FD9;&#x4E2A;&#x9879;&#x76EE;&#x4E0D;&#x9002;&#x5F53;&#xFF1F;</string>
-  <string name="some_rights_reserved">&#x4FDD;&#x7559;&#x90E8;&#x5206;&#x6743;&#x5229;</string>
+  <string name="report">&#x5448;&#x62A5;</string>
+  <string name="cancel">&#x53D6;&#x6D88;</string>
+  <string name="flag_reason_placeholder">&#x8F93;&#x5165;&#x4E00;&#x4E2A;&#x7406;&#x7531;</string>
   <string name="views">&#x89C6;&#x56FE;</string>
   <string name="downloads">&#x4E0B;&#x8F7D;</string>
-  <string name="version_info_text">Catroid &#x7248;&#x672C;</string>
-  <string name="text_more">&#x6BD4;&#x8F83;&#x591A;</string>
-  <string name="text_less">&#x6BD4;&#x8F83;&#x5C11;</string>
-  <string name="show_qr_code_info_button">QR&#x4EE3;&#x7801; - &#x8FD9;&#x662F;&#x4EC0;&#x4E48;&#xFF1F;</string>
-  <string name="hide_qr_code_info_button">QR&#x4EE3;&#x7801; - &#x5173;&#x95ED;&#x4FE1;&#x606F;</string>
-  <string name="flag_reason_placeholder">&#x8F93;&#x5165;&#x4E00;&#x4E2A;&#x7406;&#x7531;</string>
 </strings>

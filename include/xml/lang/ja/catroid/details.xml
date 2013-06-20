@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="uploaded">&#x30A2;&#x30C3;&#x30D7;&#x30ED;&#x30FC;&#x30C9;</string>
+  <string name="uploaded_by">&#x30AF;&#x30EA;&#x30A8;&#x30A4;&#x30BF;&#x30FC;&#xFF1A;{*nicknameString*}</string>
+  <string name="download_button">&#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;</string>
+  <string name="report_as_inappropriate">&#x4E0D;&#x9069;&#x5207;&#x306A;&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x5831;&#x544A;&#x3059;&#x308B;</string>
+  <string name="report_as_inappropriate_label">&#x306A;&#x305C;&#x3053;&#x306E;&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x304C;&#x4E0D;&#x9069;&#x5207;&#x3060;&#x3068;&#x601D;&#x3044;&#x307E;&#x3059;&#x304B;&#xFF1F;</string>
+  <string name="report_as_inappropriate_please_login">&#x3053;&#x306E;&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x5831;&#x544A;&#x3059;&#x308B;&#x305F;&#x3081;&#x306B;&#x30ED;&#x30B0;&#x30A4;&#x30F3;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#x3002;</string>
+  <string name="report">&#x5831;&#x544A;&#x3059;&#x308B;</string>
+  <string name="flag_reason_placeholder">&#x7406;&#x7531;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3057;</string>
+  <string name="views">&#x518D;&#x751F;&#x56DE;&#x6570;</string>
+  <string name="downloads">&#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;&#x56DE;&#x6570;</string>
+</strings>

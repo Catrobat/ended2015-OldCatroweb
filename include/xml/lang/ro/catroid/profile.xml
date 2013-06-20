@@ -1,39 +1,32 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="change_my_password">scimbarea parolei</string>
   <string name="password">Parola</string>
   <string name="country">&#x21A;ara</string>
-  <string name="city">Ora&#x219;ul</string>
-  <string name="birthday">Ziua de na&#x219;tere</string>
-  <string name="gender">Sexul</string>
-  <string name="female">femenin</string>
-  <string name="male">masculin</string>
-  <string name="email">email</string>
-  <string name="change_my_password">scimbarea parolei</string>
   <string name="save_button">Salva&#x21B;i schimb&#x103;rile mele</string>
-  <string name="really_delete">Sunte&#x21B;i siguri c&#x103; dori&#x21B;i s&#x103; &#x219;terge&#x21B;i aceast&#x103; adres&#x103; de e-mail?</string>
+  <string name="really_delete_email">Sunte&#x21B;i siguri c&#x103; dori&#x21B;i s&#x103; &#x219;terge&#x21B;i aceast&#x103; adres&#x103; de e-mail?</string>
   <string name="avatar_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
   <string name="password_success">A&#x21B;i actualizat parola dvs. cu succes.</string>
-  <string name="email_delete_success">A&#x21B;i &#x219;ters adresa dvs. de e-mail.</string>
-  <string name="city_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
-  <string name="country_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
-  <string name="gender_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
-  <string name="birthday_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
 </strings>

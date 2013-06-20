@@ -21,6 +21,36 @@
  *along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+$.fn.highlight = function(word) {
+  function innerHighlight(node, word) {
+    var result = 0;
+   
+    if(node.nodeType === 3) {
+      var position = node.data.toUpperCase().indexOf(word);
+      if(position >= 0) {
+        var spannode = document.createElement('span');
+        spannode.className = 'highlight';
+        var selection = node.splitText(position);
+        selection.splitText(word.length);
+        var selectionclone = selection.cloneNode(true);
+        spannode.appendChild(selectionclone);
+
+        selection.parentNode.replaceChild(spannode, selection);
+        result = 1;
+      }
+    } else if(node.nodeType == 1 && node.childNodes && !/(script|style)/i.test(node.tagName)) {
+      for(var i = 0; i < node.childNodes.length; ++i) {
+        i += innerHighlight(node.childNodes[i], word);
+      }
+    }
+    return result;
+  }
+  return this.length && word && word.length ? this.each(function() {
+    innerHighlight(this, word.toUpperCase());
+  }) : this;
+};
+
+
 var ProjectContentFiller = Class
     .$extend({
       __include__ : [__baseClassVars],
@@ -28,200 +58,309 @@ var ProjectContentFiller = Class
         this.cbParams = cbParams;
         this.ready = false;
         this.params = this.cbParams.call(this);
-        this.layout = this.params.layout;
         
-        this.hasPrevButton = false;
-        this.hasNextButton = false;
-        
-        if(this.params.buttons != null) {
-          if((this.params.buttons.prev != null) && (this.params.buttons.prev != "")) {
-            this.hasPrevButton = true;
-          }
-          
-          if((this.params.buttons.next != null) && (this.params.buttons.next != "")) {
-            this.hasNextButton = true;
-          }
-        }
-        
-        this.fillSkeleton = null;
+        this.extend = null;
+        this.fillLayout = null;
+        this.clear = null;
+        this.getHistoryState = null;
+        this.restoreHistoryState = null;
         this.error = {"type" : "", code : 0, extra : ""};
 
-        this.createSkeletonHandler(this.params.layout);
+        this.initializeLayout(this.params.layout, this.params.sort);
       },
       
       isReady: function() {
         return this.ready;
       },
       
-      createSkeletonHandler : function(layout) {
+      initializeLayout : function(layout, sort) {
+        this.ready = false;
+        
         switch(layout) {
-        case this.params.config.PROJECT_LAYOUT_ROW:
-          this.createSkeletonRow();
-          this.fillSkeleton = this.fillSkeletonRow;
-          this.ready = true;
-          break;
-        default:
-          this.ready = false;
+          case this.params.config.LAYOUT_GRID_ROW:
+            this.visibleRows = 0;
+            this.gridRowHeight = 0;
+
+            switch(sort) {
+              case this.params.config.sortby.downloads:
+                this.fillLayout = this.fillGridRowDownloads;
+                break;
+              case this.params.config.sortby.views:
+                this.fillLayout = this.fillGridRowViews;
+                break;
+              default:
+                this.fillLayout = this.fillGridRowAge;
+            }
+            
+            if(typeof this.params.callbacks['delete'] === 'function') {
+              this.fillLayout = this.fillGridRowEdit;
+            }
+            
+            this.extend = this.asyncGrowGridRowContainer;
+            this.clear = this.clearGridRowContainer;
+            this.getHistoryState = this.getGridRowHistory;
+            this.restoreHistoryState = this.restoreGridRowHistory;
+            
+            this.clear();
+            this.ready = true;
+            break;
+          default:
+            this.ready = false;
         }
+        this.display();
       },
 
-      createSkeletonRow : function() {
-        if(!this.initialized){
-          var containerContent = $("<div />").addClass("projectListRow");
-
-          var whiteBox = null;
-          var projectListElementRow = null;
-          for( var i = 0; i < this.params.page.numProjectsPerPage; i++){
-            if(whiteBox != null){
-              whiteBox.append(projectListElementRow);
-              whiteBox.append("<div />").css("clear", "both");
-              containerContent.append(whiteBox);
-              var projectListSpacer = $("<div />").addClass("projectListSpacer").attr("id", "projectListSpacer" + i)
-                  .css("display", "none");
-              containerContent.append(projectListSpacer);
+      display : function() {
+        if(this.ready && this.params.content != null) {
+          for(var index = 0, amount = this.params.content.length; index < amount; index++) {
+            if(this.params.content[index].CatrobatProjects.length > 0) {
+              this.fill(this.params.content[index]);
             }
-
-            whiteBox = $("<div />").addClass("whiteBoxMain").attr("id", "whiteBox" + i).css("display", "none");
-            projectListElementRow = $("<div />").addClass("projectListElementRow");
-
-            var projectListElement = $("<div />").addClass("projectListElement").attr("id", "projectListElement" + i);
-
-            var projectListThumbnail = $("<div />").addClass("projectListThumbnail").attr("id",
-                "projectListThumbnail" + i);
-            var projectListDetailsLinkThumb = $("<a />").addClass("projectListDetailsLink").attr("id",
-                "projectListDetailsLinkThumb" + i);
-            var projectListPreview = $("<img />").addClass("projectListPreview").attr("id", "projectListPreview" + i);
-
-            var projectListTitle = $("<div />").addClass("projectDetailLine").attr("id", "projectListTitle" + i);
-            var projectListDescription = $("<div />").addClass("projectDetailLine").attr("id",
-                "projectListDescription" + i);
-            var projectListDetails = $("<div />").addClass("projectListDetails");
-
-            projectListThumbnail.append(projectListDetailsLinkThumb.append(projectListPreview).wrap("<div />"));
-            projectListDetails.append(projectListTitle);
-            projectListDetails.append(projectListDescription);
-
-            projectListElement.append(projectListThumbnail);
-            projectListElement.append(projectListDetails);
-
-            projectListElementRow.append(projectListElement);
           }
-
-          whiteBox.append(projectListElementRow);
-          whiteBox.append("<div />").css("clear", "both");
-          containerContent.append(whiteBox);
-          containerContent.append($("<div />").addClass("projectListSpacer").attr("id", "projectListSpacer" + i).css(
-              "display", "none"));
-
-          var navigationButtonPrev = $("<button />").addClass("navigationButtons").addClass("button").addClass("white")
-              .addClass("medium").attr("type", "button");
-          var navigationButtonNext = $("<button />").addClass("navigationButtons").addClass("button").addClass("white")
-              .addClass("medium").attr("type", "button");
-
-          $(this.params.container)
-              .append(
-                  $("<div />").addClass("webMainNavigationButtons").append(
-                      navigationButtonPrev.attr("id", "fewerProjects").append(
-                          $("<span />").addClass("navigationButtons"))));
-          $(this.params.container).append($("<div />").addClass("projectListSpacer"));
-          $(this.params.container).append(containerContent);
-          $(this.params.container).append($("<div />").addClass("projectListSpacer"));
-          $(this.params.container).append(
-              $("<div />").addClass("webMainNavigationButtons").append(
-                  navigationButtonNext.attr("id", "moreProjects").append($("<span />").addClass("navigationButtons"))));
-        }
-
-      },
-
-      fillSkeletonRow : function(projects, buttons, pageLabels) {
-        var self = this;
-        this.params.pageLabels = pageLabels;
-        $("#projectListTitle").text(this.params.pageLabels['title'] + " (" + this.params.pageLabels['pageNr'] + ")");
-        if(this.hasPrevButton) {
-          $(this.params.buttons.prev).children("span").html(this.params.pageLabels['prevButton']);
-        }
-        if(this.hasNextButton) {
-          $(this.params.buttons.next).children("span").html(this.params.pageLabels['nextButton']);
-        }
-        
-        if(projects === "NIL"){
-          var msg = ("ERROR: fillSkeletonRow: no projects! ");
-          console.log(msg);
-          $(this.params.container).html("<b>" + msg + "</b>");
-          return;
-        }
-
-        for( var i = 0; i < this.params.page.numProjectsPerPage; i++){
-          if(projects != null && projects[i]){
-            if($("#projectListElement" + i).length > 0){
-              $("#whiteBox" + i).css("display", "block");
-              $("#projectListSpacer" + i).css("display", "block");
-              $("#projectListThumbnail" + i).attr("title", projects[i]['title']);
-              $("#projectListDetailsLinkThumb" + i)
-                  .attr("href", this.basePath + "catroid/details/" + projects[i]['id']);
-              $("#projectListDetailsLinkThumb" + i).unbind('click');
-              $("#projectListDetailsLinkThumb" + i).bind("click", {
-                pageNr : projects[i]['pageNr']
-              }, function(event) {
-                // TODO: session handling
-                // self.saveStateToSession(event.data.pageNr);
-              });
-              $("#projectListPreview" + i).attr("src", projects[i]['thumbnail']).attr("alt", projects[i]['title']);
-
-              $("#projectListTitle" + i).html(
-                  "<div class='projectDetailLineMaxWidth'><a class='projectListDetailsLinkBold' href='" + this.basePath
-                      + "catroid/details/" + projects[i]['id'] + "'>" + projects[i]['title'] + "</a></div>");
-              $("#projectListTitle" + i).unbind('click');
-              $("#projectListTitle" + i).bind("click", {
-                pageNr : projects[i]['pageNr']
-              }, function(event) {
-                // session handling
-              });
-              $("#projectListDescription" + i).html(
-                  projects[i]['last_activity'] + " " + projects[i]['uploaded_by_string'] + "<br/>" +
-                  "d: " + projects[i]['download_count'] + ", v: " + projects[i]['view_count'] + "<br/>"
-                  );
+          
+          if(this.params.numProjects == 0) {
+            this.params.reachedLastPage = true;
+            $(this.params.buttons.next).hide();
+            
+            if(typeof this.params.noResults !== 'undefined') {
+              $(this.params.noResults).show();
             }
-          } else{
-            $("#whiteBox" + i).css("display", "none");
-            $("#projectListSpacer" + i).css("display", "none");
+          } else if(typeof this.params.noResults !== 'undefined') {
+            $(this.params.noResults).hide();
           }
         }
-        if(this.hasPrevButton) {
-          $(this.params.buttons.prev).toggle(buttons.prevButton);
+      },
+
+      addGridRow : function() {
+        if($("ul", this.params.container).length == 0) {
+          $(this.params.container).append($("<ul />"));
+        }
+
+        var container = $("ul", this.params.container);
+        for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+          var project = $("<a />");
+
+          var projectThumbnail = $("<img />");
+          var projectTitle = $("<div />").addClass("projectTitle").text("a");
+          var projectAddition = $("<div />").addClass("projectAddition").text("z");
+
+          project.append(projectThumbnail);
+          project.append(projectTitle);
+          project.append(projectAddition);
+
+          $(container).append($("<li />").append(project));
+
+          if(this.gridRowHeight == 0) {
+            this.gridRowHeight = $(container).height();
+            $(container).height(this.gridRowHeight);
+          }
+        }
+      },
+
+      addGridRowEdit : function() {
+        if($("ul", this.params.container).length == 0) {
+          $(this.params.container).append($("<ul />"));
+        }
+
+        var container = $("ul", this.params.container);
+        for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+          var project = $("<a />");
+
+          var projectThumbnail = $("<img />");
+          var projectTitle = $("<div />").addClass("projectTitle").text("a");
+          var projectAddition = $("<div />").addClass("projectAddition").text("z");
+          var projectActions = $("<div />").addClass("projectDeleteButton img-delete");
+          
+          project.append(projectThumbnail);
+          project.append(projectTitle);
+          project.append(projectAddition);
+          
+          $(container).append($("<li />").append(project).append(projectActions));
+          
+          if(this.gridRowHeight == 0) {
+            this.gridRowHeight = $(container).height();
+            $(container).height(this.gridRowHeight);
+          }
+        }
+      },
+      
+      asyncGrowGridRowContainer : function() {
+        this.visibleRows += 1;
+        setTimeout($.proxy(this.extendGridRowContainer, this), 20);
+      },
+      
+      extendGridRowContainer : function() {
+        var container = $("ul", this.params.container);
+        
+        var heights = [];
+        var hidden = [];
+        var elements = container.children();
+        for(var index = 0, amount = elements.length; index < amount; index++) {
+          if($(elements[index]).css('visibility') == 'visible') {
+            var position = Math.round($(elements[index]).position().top + this.gridRowHeight);
+            if($.inArray(position, heights) === -1) {
+              heights.push(position);
+            }
+          } else {
+            hidden.push(index);
+          }
         }
         
-        if(this.hasNextButton) { 
-          $(this.params.buttons.next).toggle(buttons.nextButton);
+        var currentPage = Math.max(0, this.visibleRows - 1);
+        if(currentPage < heights.length) {
+          $(container).height(heights[currentPage]);
+        }
+        if(this.params.reachedLastPage && heights.length == this.visibleRows) {
+          for(var index = 0, amount = hidden.length; index < amount; index++) {
+            $(elements[hidden[index]]).hide();
+          }
+          $(this.params.buttons.next).hide();
+          $(container).height('auto');
         }
       },
       
-      setError : function(error) {
-        this.error = error;
+      clearGridRowContainer : function() {
+        $(this.params.buttons.next).show();
+        this.visibleRows = 0;
+        this.params.reachedLastPage = false;
+        $("ul", this.params.container).empty();
+        $("ul", this.params.container).height('auto');
       },
       
-      setErrorByString : function(type, code, extra) {
-        this.error.type = type;
-        this.error.code = code;
-        this.error.extra = extra;
+      getGridRowHistory : function(state) {
+        state.visibleRows = this.visibleRows;
+        return state;
       },
       
-      getError : function() {       
-        return this.error;
+      restoreGridRowHistory : function(state) {
+        this.visibleRows = state.visibleRows;
+        this.extendGridRowContainer();
       },
       
+      fillGridRowAge : function(result) {
+        if(result.CatrobatInformation != null && result.CatrobatProjects != null) {
+          this.addGridRow();
+          
+          var info = result.CatrobatInformation;
+          var projects = result.CatrobatProjects;
+          
+          var elements = $('> ul', this.params.container).children();
+          
+          var elementOffset = this.visibleRows * this.params.page.numProjectsPerPage;
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+            var index = elementOffset + i;
+            if(projects != null && projects[i]) {
+              $(elements[index]).css("visibility", "visible");
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
+              $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
+              $('div.projectAddition', elements[index]).html(projects[i]['UploadedString']);
+            } else {
+              $(elements[index]).css("visibility", "hidden");
+            }
+          }
+          this.extend();
+        }
+      },
+      
+      fillGridRowDownloads : function(result) {
+        if(result.CatrobatInformation != null && result.CatrobatProjects != null) {
+          this.addGridRow();
+          
+          var info = result.CatrobatInformation;
+          var projects = result.CatrobatProjects;
+          
+          var elements = $('> ul', this.params.container).children();
+          
+          var elementOffset = this.visibleRows * this.params.page.numProjectsPerPage;
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+            var index = elementOffset + i;
+            if(projects != null && projects[i]) {
+              $(elements[index]).css("visibility", "visible");
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
+              $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
+              $('div.projectAddition', elements[index]).html(projects[i]['Downloads'] + ' ' + this.params.additionalTextLabel);
+            } else {
+              $(elements[index]).css("visibility", "hidden");
+            }
+          }
+          this.extend();
+        }
+      },
+      
+      fillGridRowViews : function(result) {
+        if(result.CatrobatInformation != null && result.CatrobatProjects != null) {
+          this.addGridRow();
+          
+          var info = result.CatrobatInformation;
+          var projects = result.CatrobatProjects;
+          
+          var elements = $('> ul', this.params.container).children();
+          
+          var elementOffset = this.visibleRows * this.params.page.numProjectsPerPage;
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+            var index = elementOffset + i;
+            if(projects != null && projects[i]) {
+              $(elements[index]).css("visibility", "visible");
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
+              $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
+              $('div.projectAddition', elements[index]).html(projects[i]['Views'] + ' ' + this.params.additionalTextLabel);
+            } else {
+              $(elements[index]).css("visibility", "hidden");
+            }
+          }
+          this.extend();
+        }
+      },
+      
+      fillGridRowEdit : function(result) {
+        if(result.CatrobatInformation != null && result.CatrobatProjects != null) {
+          this.addGridRowEdit();
+          
+          var info = result.CatrobatInformation;
+          var projects = result.CatrobatProjects;
+          
+          var elements = $('> ul', this.params.container).children();
+          
+          var elementOffset = this.visibleRows * this.params.page.numProjectsPerPage;
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+            var index = elementOffset + i;
+            if(projects != null && projects[i]) {
+              $(elements[index]).css("visibility", "visible");
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
+              $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
+              $('div.projectAddition', elements[index]).html(projects[i]['UploadedString']);
+              $('div.projectDeleteButton', elements[index]).click({id: projects[i]['ProjectId'], name: projects[i]['ProjectName']}, this.params.callbacks['delete']);
+            } else {
+              $(elements[index]).css("visibility", "hidden");
+            }
+          }
+          this.extend();
+        }
+      },
+   
       fill : function(result) {
-        if(!this.params.container || this.params.container === 'undefined'){          
-          this.setErrorByString("ERROR: no container", "501", "extra");
-          return false;          
-        }        
-        else if(result.error){
-          this.setError(result.error);
-          return false;
-        } else{        
-          this.params.pageLabels = result.pageLabels;
-          this.fillSkeleton.call(this, result.content, result.buttons, result.pageLabels);
-          return true;
+        if(this.params.page.number >= this.params.page.pageNrMax) {
+          this.params.reachedLastPage = true;
+        }
+        
+        if(this.params.numProjects == 0) {
+          this.params.reachedLastPage = true;
+          $(this.params.buttons.next).hide();
+        }
+        
+        this.fillLayout.call(this, result);
+        
+        var searchWords = this.params.filter.query.split(" ");
+        $.each(searchWords, $.proxy(function(index, value) { 
+          $(this.params.container).highlight(value);
+        }, this));
+        
+        if(typeof this.params.callbacks['success'] === 'function') {
+          this.params.callbacks['success'].call();
         }
       }
     });

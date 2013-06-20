@@ -26,9 +26,10 @@ class login extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
-    $this->htmlHeaderFile = 'htmlLoginHeaderTemplate.php';
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
     $this->loadModule('common/userFunctions');
+    $this->addJs('login.js');
+    $this->addCss('login.css');
   }
 
   public function __default() {
@@ -37,7 +38,7 @@ class login extends CoreAuthenticationNone {
         header('Location: ' . BASE_PATH . $_REQUEST['requestUri']);
         exit();
       } else {
-        header('Location: ' . BASE_PATH . 'catroid/index');
+        header('Location: ' . BASE_PATH . 'index');
         exit();
       }
     } else {

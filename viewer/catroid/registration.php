@@ -23,58 +23,62 @@
  */
 
 ?>
-    <script type="text/javascript">
-      $(document).ready(function() {
-        new Registration();
-      });
-    </script>
-    <div class="webMainMiddle">
-      <div class="blueBoxMain">
-        <div class="webMainContent">
-          <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('title')?></div>
-          <div class="registrationMain">            	
-            <div class="whiteBoxMain">
-              <form class="registrationForm catroid">
-                <label for="registrationUsername"><?php echo $this->languageHandler->getString('nickname')?></label> 
-                <input type="text" id="registrationUsername" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_nickname')?>" class="catroid" />
-                <div class="catroidFormInfoBox"><?php echo $this->languageHandler->getString('nickname_info')?></div>
-                <label for="registrationPassword"><?php echo $this->languageHandler->getString('password')?></label> 
-                <input type="password" id="registrationPassword" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" class="catroid" />
-                <label for="registrationEmail"><?php echo $this->languageHandler->getString('email')?></label> 
-                <input type="email" id="registrationEmail" required="required" placeholder="<?php echo $this->languageHandler->getString('enter_email')?>" class="catroid" />
-                <div class="catroidFormInfoBox"><?php echo $this->languageHandler->getString('email_info', '<a href="http://developer.catrobat.org/privacy_policy" target="_blank">' . $this->languageHandler->getString('email_info_link_title') . '</a>')?></div>
-                <div><?php echo $this->languageHandler->getString('country')?></div>
-                <select id="registrationCountry" required="required" class="catroid">
+      <article>
+        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
+        <div class="form">
+          <form>
+            <div class="label"><?php echo $this->languageHandler->getString('nickname')?></div>
+            <input type="text" id="registrationUsername" placeholder="<?php echo $this->languageHandler->getString('enter_nickname')?>" /><br />
+            <div><?php echo $this->languageHandler->getString('nickname_info')?></div>
+  
+            <div class="label"><?php echo $this->languageHandler->getString('password')?></div> 
+            <input type="password" id="registrationPassword" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" />
+
+            <div class="label"><?php echo $this->languageHandler->getString('email')?></div> 
+            <input type="email" id="registrationEmail" placeholder="<?php echo $this->languageHandler->getString('enter_email')?>" />
+            <div><?php echo $this->languageHandler->getString('email_info', '<a href="http://developer.catrobat.org/privacy_policy" target="_blank">' . $this->languageHandler->getString('email_info_link_title') . '</a>')?></div>
+
+            <div class="label"><?php echo $this->languageHandler->getString('country')?></div>
+            <select id="registrationCountry">
 <?php echo $this->module->generateCountryCodeList(); ?>
-                </select>
-                <label for="registrationCity"><?php echo $this->languageHandler->getString('city')?></label> 
-                <input type="text" id="registrationCity" placeholder="<?php echo $this->languageHandler->getString('enter_city')?>" class="catroid" />
-                <div><?php echo $this->languageHandler->getString('birth')?></div>
-                <div>
-                  <select id="registrationMonth" class="catroid catroidTwoColumn catroidLeftColumn">
+            </select>
+
+            <div class="label"><?php echo $this->languageHandler->getString('city')?></div>
+            <input type="text" id="registrationCity" placeholder="<?php echo $this->languageHandler->getString('enter_city')?>" />
+
+            <div class="label"><?php echo $this->languageHandler->getString('birth')?></div>
+            <div>
+              <select id="registrationMonth" class="two">
 <?php echo $this->module->generateMonthList(); ?>
-                  </select>
-                  <select id="registrationYear" class="catroid catroidTwoColumn catroidRightColumn">
+              </select>
+              <select id="registrationYear" class="two right">
 <?php echo $this->module->generateYearList(); ?>
-                  </select>
-                </div>
-                <div><?php echo $this->languageHandler->getString('gender')?></div>
-                <select id="registrationGender" class="catroid" >
-                  <option value="" selected="selected"><?php echo $this->languageHandler->getString('select_gender')?></option>
-                  <option value="female"><?php echo $this->languageHandler->getString('female')?></option>
-                  <option value="male"><?php echo $this->languageHandler->getString('male')?></option>
-                </select>
-                <input type="button" id="registrationSubmit" value="<?php echo $this->languageHandler->getString('create')?>" class="catroidSubmit button orange registrationSubmitButton"/>
-                <br /> <br /> <br /> <br />
-                
-                <div class="otherOptions"><?php echo $this->languageHandler->getString('additional_options'); ?></div>
-                <ul class="loginOptions">
-                  <li><a id="registrationLogin" href="javascript:;"><?php echo $this->languageHandler->getString('login')?></a></li>
-                  <li><a id="forgotPassword" href="<?php echo BASE_PATH?>catroid/passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></li>
-                </ul>
-              </form> <!-- registrationForm -->
-            </div> <!-- White Box -->
-          </div> <!-- registration Main -->
-        </div> <!-- mainContent close //-->
-      </div> <!-- blueBoxMain close //-->
-    </div>
+              </select>
+            </div>
+            <div style="clear: both;"></div>
+            
+            <div class="label"><?php echo $this->languageHandler->getString('gender')?></div>
+            <select id="registrationGender">
+              <option value="" selected="selected"><?php echo $this->languageHandler->getString('select_gender')?></option>
+              <option value="female"><?php echo $this->languageHandler->getString('female')?></option>
+              <option value="male"><?php echo $this->languageHandler->getString('male')?></option>
+            </select>
+            
+            <div class="footer">
+              <button class="blue" id="registrationSubmit"><?php echo $this->languageHandler->getString('create')?></button>
+              <div><?php echo $this->languageHandler->getString('additional_options'); ?></div>
+              <ul>
+                <li><a id="registrationLogin" href="javascript:;"><?php echo $this->languageHandler->getString('login')?></a></li>
+                <li><a id="forgotPassword" href="<?php echo BASE_PATH?>passwordrecovery"><?php echo $this->languageHandler->getString('password_recover')?></a></li>
+              </ul>
+            </div>
+          </form>
+        </div>
+        <div class="projectSpacer"></div>
+      </article>
+
+      <script type="text/javascript">
+        $(document).ready(function() {
+          new Registration();
+        });
+      </script>

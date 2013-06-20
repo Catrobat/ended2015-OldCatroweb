@@ -21,128 +21,338 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-div.profileMain {
-  margin-left: 2.5%;
-  margin-right: 2.5%;
-}
-
-div.profileFormContainer {
-  padding: 1.5%; 
-  padding-left: 4%;
-  padding-right: 4%;  
-  font-size:1.3em;
-}
-
-#profilePasswordInput {
-  padding-bottom: 20px;
-  display:none;
-}
-
-div#profilePasswordInput .profileChangePassword {
-  display: inline-block;
-  margin:20px 0 0 0;
-  width: 300px;
-}
-
-input.profileSubmitButton {
-  color: black;
-  font-size:0.8em;
-  font-weight: bold;
-  margin: 20px 0 0 0;
-  width: 300px;
-}
-
-div.profileItem {
-  margin: 25px 0 25px 0;
-  min-height: 40px;
-}
-
-div.profileItem div {
+#wrapper article div.profileAvatar{
   float: left;
+  width: 19em;
+  margin-left: 1em;
 }
 
-div.profileItem .label {
-  width: 220px;
-  font-weight: bold;
-  white-space: nowrap;
-  overflow: hidden;  
+#wrapper article div.profileInputs {
+  float:left;
+  margin-left: 0.7em;
 }
 
-div.profileItem .labelEmail {
-  padding: 10px 0 10px 0;
+#wrapper article div.profileInputsLeft{
+  float: left;
+  width: 19em;
+  margin-left: 2em;
 }
 
-div.profileItem .labelInput {
-  padding: 10px 0 14px 0;
+#wrapper article div.profileInputsRight{
+  float: left;
+  width: 19em;
+  margin-left: 2em;
 }
 
-input.profileInput, input.profileInputSmall {
-  padding-left: 4px;
+#wrapper article div img.profileAvatarImage {
+  outline: 0.3em solid #ffffff;
+  width: 19em;
+  margin: 0 auto;
+  z-index: 1;
 }
 
-div.profileItem div .profileInput {
-  color: #000;
-  opacity: 1.0;
-  display:inline-block;
-  width: 453px;
-  background: none;
+#wrapper article div img.profileAvatarImageError {
+  outline: 0.3em solid #880000;
+  width: 19em;
+  margin: 0 auto;
+  z-index: 1;
 }
 
-div.profileItem div .profileInputSmall {
-  color: #000;
-  opacity: 1.0;
-  display:inline-block;
-  background: none;
-}
-
-div.profileItem div .profileInputTwo {
-  color: #000;
-  opacity: 1.0;
-  display:inline-block;
-  width: 223px;
-  background: none;
-}
-
-#addEmailInput {
-  display:inline-block;
-  width:400px;  
-}
-#addEmailButton {
-  margin: 5px;
-}
-
-div.menuColumnLabels {
-   float: left;
-   width: 20%;
-   font-weight: bold;
-}
-
-div.menuColumnLabels div {
-  padding:15px 10px 15px 0;
-  min-height:40px;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-div.menuColumnContent div {
-  padding:15px 10px 15px 0;
-  min-height:40px;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-div.avatarContainer {
-  float: right;
-  white-space: nowrap;
-  text-align: center;
-}
-
-img.avatar {
-  border: 2px solid #777;
+#wrapper article button#profileChangeAvatarButton { 
+  position: absolute;
+  z-index: 2;
+  margin-left: 4.7em;
+  margin-top: -4.5em;
+  font-size: 1em;
+  background-color: #05222a;
+  text-align:center;
+  text-decoration: none;
+  border: none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
   border-radius: 5px;
-  margin-top: 20px;
+  height: 2em;
+  width: 10em;
+  font-weight: bold;
 }
 
-#profileChangeAvatar {
+#wrapper article input#profileAvatarFile {
+  visibility: hidden;
+}
+
+#wrapper article div.profileInformations {
+  font-size: 1.3em;
+  padding-left: 2em;
+  float: left; 
+}
+
+#wrapper article div.profileValid{
+  background-color: #FFFFFF;
+  border: 0.2em solid #05222a;
+  /*border-radius: 0.2em;*/
+  -mox-box-shadow: inset 2px 2px 2px #999;
+  -webkit-box-shadow: inset 2px 2px 5px #999;
+  box-shadow: inset 2px 2px 5px #999;
+ padding: 0.5em 0.5em 0.5em;
+ margin-bottom: 1.5em;
+}
+
+
+#wrapper article div.profileInvalid{
+  border : 0.15em solid #880000;
+  background-color: #f1997e;
+  -mox-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+ padding: 0.5em 0.5em 0.5em;
+ margin-bottom: 1.5em;
+}
+
+#wrapper article div.profileInputIcon {
+  margin-top: -0.3em;
+}
+
+
+#wrapper article input {
+  background-color: #FFFFFF;
+  border-radius: 0.125em;
+  color: #05222a;
+  height: 1.8em;
+  width: 15em;
+  border: none;
+  margin-left: 0.2em;
+  outline: none;
+  font-size: 0.9em;
+}
+
+
+
+#wrapper article div.profileDeleteEMaill  {
+  float: right;
+  margin: 0.9em 0 0.9em 0.2em;
+  cursor: pointer;
+}
+
+#wrapper article input.inputInvalid {
+  background-color: #f1997e;
+  color: #880000;
+  border:0;
+  outline:0;
+  text-shadow: 0px 1px 0px #FFFFFF
+}
+
+#wrapper article div.profileCountry {
+  -mox-box-shadow: inset 2px 2px 2px #05222a;
+  -webkit-box-shadow: inset 2px 2px 2px #05222a;
+  box-shadow: inset 2px 2px 2px #05222a;
+  -webkit-appearance: none;
+  width: 14.9em;
+  border: 2px solid #05222a;
+  padding-top: 0.5em;
+  padding-bottom: 0.2em;
+  padding-left: 1em;
+  background-color: #FFFFFF;
+  margin-bottom: 1em;
+  overflow: hidden;
+  font-size: 0.9em;
+  float: right;
+}
+
+#wrapper article div.profileCountry select {
+  background-color: transparent;
+  border-radius: 0.125em;
+  color: #05222a;
+  height: 1.5em;
+  width: 17em;
+  border: 0;  
+  margin-left: -0.5em;
+  padding-left: 0.2em;
+  z-index: 3;
+}
+  
+#wrapper article div.profileSelectImage {
+  z-index: 1;
+  margin-top: -1.3em;
+  margin-right: 0.4em;
+}
+
+#wrapper article img.profileLoader{
   display: none;
+  margin-left: 8em;
+  margin-right: 8em;
+  margin-top: 0.5em;
+}
+
+#wrapper article button#profileSaveChanges {
+  margin-top: -0.2em;
+  font-size: 1.4em;
+  font-weight: bold;
+  text-transform: uppercase;
+  text-shadow: #333333 1px 1px 2px;
+  text-align: center;
+  color: #ffffff;
+  width: 13.6em;
+  height: 2em;
+  border: none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  padding: 0em 0.1em 0em 0.1em;
+}
+
+#wrapper article h3 {
+  border: 0;
+  border-top: 1px solid #477889;
+  background-color: #00475d;
+  background-image: none;
+  color: #a8dff4;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em 0 0.07em 0.375em;
+  text-align: center;
+  text-shadow: #000000 1px 1px 1px;
+  margin-top: 1.55em;
+  margin-bottom: 0;
+}
+
+#wrapper article div.projectContainer {
+  background-color: #00475d;
+}
+
+#wrapper article div#userProjectLoader {
+  display: none;
+}
+
+#wrapper article div.projectContainer ul li div.projectDeleteButton {
+	margin: 0.4em auto;
+	cursor: pointer;
+}
+
+#wrapper article div#profileChangesSuccess{
+  height: 1em;
+  float: left; 
+  visibility: hidden;
+  margin-left: 2em;
+}
+
+#wrapper article div#profileChangesSuccess span{
+  float: left;
+  margin-left: 1em;
+  color: #FFFFFF;
+  margin-top: 1em;
+  font-weight: bold;
+}
+
+#wrapper article div#profileChangesSuccess div{
+  float: left;
+  margin-left: 4.5em;
+  margin-top: 1em;
+}
+
+#wrapper article div#profileAvatarError{
+  display: none;
+  color: #F78181;
+  padding-bottom: 1em;
+  font-size: 1.4em;
+}
+
+#wrapper article div#profilePasswordError {
+  display: none;
+  color: #F78181;
+  padding-bottom: 1em;
+  font-size: 1.4em;
+}
+
+#wrapper article div#profileEmailError {
+  display: none;
+  color: #F78181;
+  padding-bottom: 1em;
+  font-size: 1.4em;
+}
+
+#wrapper article span#profileNoResults img{
+  margin-top: 1em;
+}
+
+
+@media screen and (max-width: 1100px) {
+  .profileInputs {
+    padding-left: 5%;
+  }
+  .profileInputsRight {
+    clear:left;
+  }
+}
+
+@media screen and (max-width: 720px) {
+  
+  .profileAvatar {
+    min-width: 100%;
+  }
+  
+  .profileAvatar img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #wrapper article button#profileChangeAvatarButton  {
+    left: 50%;
+    margin-left: -4.3em;
+  }
+  .profileInputs {
+    padding-left: 0%;
+  }
+  #wrapper article div.profileInputsLeft{
+    margin-top: 2em;
+    margin-left: 2.3em;
+  }
+  
+  #wrapper article div.profileInputsRight{
+    clear: left;
+    margin-left: 2.3em;
+  }
+  
+  #wrapper article div.profileInputs {
+    position:relative;
+    left: 50%;
+    margin-left: -10.8em;
+  }
+}
+
+@media screen and (max-width: 400px) {
+    #wrapper article div.profileAvatar{
+    width: 16.5em;
+    margin-left: 0.5em;
+  }  
+  
+  #wrapper article div img.profileAvatarImage {
+    width: 16.5em;
+  }
+
+#wrapper article div img.profileAvatarImageError {
+    width: 16.5em;
+  }
+  
+  #wrapper article input {
+    width: 14em;
+  }
+  #wrapper article div.profileCountry {
+    width: 12.5em;
+  }
+
+  #wrapper article div.profileCountry select {
+    width: 14em;
+  }
+  
+  #wrapper article button#profileSaveChanges {
+    width: 12.3em;
+  }
+  
+  #wrapper article div.profileInputsRight, #wrapper article div.profileInputsLeft{
+    margin-left: 2.8em;
+    width: 17em;
+  }
+  
 }

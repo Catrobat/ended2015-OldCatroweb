@@ -138,7 +138,7 @@ function getIpBlockClassWhitelistArray() {
     "loadNewestProjects",
     "switchLanguage",
     "termsofuse",
-    "errorPage"
+    "error"
   );
   return $whitelistClasses;
 }
@@ -147,7 +147,7 @@ function getUserBlockClassWhitelistArray() {
   $whitelistClasses = array(
     "terms",
     "contactus",
-    "errorPage",
+    "error",
     "login",
     "logout"
   );
@@ -187,48 +187,13 @@ function getProjectImageUrl($projectId) {
   return $img;
 }
 
-function getCatroidProjectQRCodeUrl($projectId, $projectTitle) {
-  $qr = BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION;
-  $qrFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION;
-  
-  if (stristr($qrFile, "\\")) 
-  	$qrFile = preg_replace("/\//", "\\", $qrFile);
-  
-  if(!is_file($qrFile)) {
-    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.PROJECTS_EXTENSION.'?fname='.urlencode($projectTitle));
-    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.PROJECTS_QR_EXTENSION;
-    if(!generateQRCode($urlToEncode, $destinationPath)) {
-      return false;
-    }
+function getFeaturedProjectImageUrl($projectId) {
+  $img = BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$projectId.PROJECTS_FEATURED_EXTENSION;
+  $imgFile = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$projectId.PROJECTS_FEATURED_EXTENSION;
+  if(!is_file($imgFile)) {
+    $img = "";
   }
-  return $qr;
-}
-
-function getAppProjectQRCodeUrl($projectId, $projectTitle) {
-  $qr = BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.APP_QR_EXTENSION;
-  $qrFile = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.APP_QR_EXTENSION;
-  if(!is_file($qrFile)) {
-    $urlToEncode = urlencode(BASE_PATH.'catroid/download/'.$projectId.APP_EXTENSION.'?fname='.urlencode($projectTitle));
-    $destinationPath = CORE_BASE_PATH.PROJECTS_QR_DIRECTORY.$projectId.APP_QR_EXTENSION;
-    if(!generateQRCode($urlToEncode, $destinationPath)) {
-      return false;
-    }
-  }
-  return $qr;
-}
-
-function generateQRCode($urlToEncode, $destinationPath) {
-  $serviceUrl = PROJECTS_QR_SERVICE_URL.$urlToEncode;
-  $qrImageHandle = @imagecreatefrompng($serviceUrl);
-  if(!$qrImageHandle) {
-    return false;
-  }
-  if(!@imagepng($qrImageHandle, $destinationPath, 9)) {
-    return false;
-  }
-  @imagedestroy($qrImageHandle);
-  chmod($destinationPath, 0666);
-  return true;
+  return $img;
 }
 
 function getTimeInWords($fromTime, $languageHandler, $toTime = -1) {
@@ -237,8 +202,8 @@ function getTimeInWords($fromTime, $languageHandler, $toTime = -1) {
   }
   $seconds = round(abs($toTime - $fromTime));
   $minutes = round($seconds/60);
-  if($minutes <= 1) {
-    return ($minutes == 0) ? $languageHandler->getString('template_common_less_than_a_minute_ago') : $languageHandler->getString('template_common_one_minute_ago');
+  if($minutes < 1) {
+    return $languageHandler->getString('template_common_less_than_a_minute_ago');
   }
   if($minutes < 45) {
     return $languageHandler->getString('template_common_minutes_ago', $minutes);
@@ -312,7 +277,7 @@ function getSupportedLanguagesArray($languageHandler) {
     'hu'=>array('name'=>$languageHandler->getString('template_common_hungarian'), 'nameNative'=>'‪magyar‬', 'supported'=>false),
     'id'=>array('name'=>$languageHandler->getString('template_common_indonesian'), 'nameNative'=>'‪Bahasa Indonesia‬', 'supported'=>false),
     'it'=>array('name'=>$languageHandler->getString('template_common_italian'), 'nameNative'=>'‪italiano‬', 'supported'=>false),
-    'ja'=>array('name'=>$languageHandler->getString('template_common_japanese'), 'nameNative'=>'‪日本語‬', 'supported'=>false),
+    'ja'=>array('name'=>$languageHandler->getString('template_common_japanese'), 'nameNative'=>'‪日本語‬', 'supported'=>true),
     'ko'=>array('name'=>$languageHandler->getString('template_common_korean'), 'nameNative'=>'‪한국어‬', 'supported'=>false),
     'lv'=>array('name'=>$languageHandler->getString('template_common_latvian'), 'nameNative'=>'‪latviešu‬', 'supported'=>false),
     'lt'=>array('name'=>$languageHandler->getString('template_common_lithuanian'), 'nameNative'=>'‪lietuvių‬', 'supported'=>false),

@@ -100,6 +100,16 @@ public class CommonData {
     }
     return data;
   }
+  
+  public static HashMap<String, String> getUploadPayload(String projectTitle, String projectDescription, String filename, String fileChecksum,
+      String userEmail, String userLanguage, String username, String token, String expected) {
+    HashMap<String, String> data = new HashMap<String, String>();
+    data = getUploadPayload(projectTitle, projectDescription, filename, fileChecksum, userEmail, userLanguage, username, token);
+    if(!expected.isEmpty()) {
+      data.put("expected", expected);
+    }
+    return data;
+  }
 
   public static HashMap<String, String> getUploadFtpPayload(String projectTitle, String projectDescription, String catroidFileName, String fileChecksum,
       String userEmail, String userLanguage, String username, String token) {

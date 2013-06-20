@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2013 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Terms of Use</string>
+  <string name="terms_of_use_welcome">Welcome to the Catrobat community! As part of the Catrobat community, you are sharing programs and ideas with people:</string>
+  <string name="terms_of_use_enumeration_1">from many different countries and cultures</string>
+  <string name="terms_of_use_enumeration_2">of all ages (from young children to teens and grandparents)</string>
+  <string name="terms_of_use_enumeration_3">with all levels of experience</string>
+  <string name="terms_of_use_your_support">We need your help to make this community a supportive place for every member. Here's how you can help:</string>
+  <string name="terms_of_use_enumeration_4">Be respectful. When sharing programs, please remember that people of many different ages and backgrounds will see your contributions.</string>
+  <string name="terms_of_use_enumeration_5">Give credit. Feel free to make modified versions of other people's programs - just make sure to give them credit. One place to give credit is in your program's description. Please see the paragraph below this dotted list for details about modifying programs of other users.</string>
+  <string name="terms_of_use_enumeration_6">Be honest. Don't pretend to be someone other than who you are or try to trick the community.</string>
+  <string name="terms_of_use_enumeration_7">Keep personal information private. Don't share your email address, phone number, or other personal contact information.</string>
+  <string name="terms_of_use_enumeration_8">Help keep the site friendly. If you feel others would find a program or comment mean, insulting, too violent, or otherwise inappropriate, just click the 'report as inappropriate' button and leave a short explanation. The Catrobat team will review your report and may remove any program, comment, or post.</string>
+  <string name="terms_of_use_become_a_member">Through the Catrobat project we want to foster cooperation and allow everyone's creativity to combine for the benefit of all of humanity. You also can become an active member of the Catrobat community by giving your programs back to the community as a gift, in the same way as other active members are giving their programs to you:</string>
+  <string name="terms_of_use_enumeration_9">By uploading a program to our websites, you accept and agree to put this work under certain free licenses of uploaded Catrobat programs. Similar to the free licenses under which the Catrobat system itself is available to you, these free licenses of uploaded Catrobat programs give everyone the right to learn from work previously uploaded by others and to adapt and remix that work to build their own new fascinating games, animations, and other programs. This allows everyone to 'stand on the shoulders of one's peers', one of them being you! Your work will thus benefit the whole world and remain free for everyone to use, a bit similar to text and pictures freely contributed to Wikipedia by volunteers from all over the world. Think of it as your present to humanity: you give to everyone, and all others that upload their work to our websites give to you. Thus an uploaded program is a gift of great value which its owner is giving to you for free, with the condition that you participate in the community on the same terms.</string>
+  <string name="terms_of_use_enumeration_10">You do not have to accept the gift; if you do, certain rules apply. The benefits of these rules are that you can learn from the work and build upon it to make even cooler stuff yourself, which you can then, e.g., again upload to our websites as your own. Another benefit is that these licenses make sure that you cannot be held liable for any problems arising to others through their use of your program.</string>
+  <string name="terms_of_use_enumeration_11">One important additional condition is that you clearly give attribution to the authors on whose works you based your own work. At the same time, we will work hard so that your work will be clearly appreciated by others to having been contributed by you, by giving attribution to the unique name you have freely chosen to represent you in Catrobat's community, and by giving others the opportunity to express their gratitude to you in public ways for having given your work to everyone, and in particular to them.</string>
+  <string name="terms_of_use_enumeration_12">Please consult {*licenseofuploadedprojects*} for the precise legal terms and conditions.</string>
+  <string name="terms_of_use_our_gift">Our gift to you:</string>
+  <string name="terms_of_use_enumeration_13">We offer all our own software and Internet resources related to the Catrobat system, e.g., the software written by the Catrobat team, our websites and Internet resources, our own source code related to the Catrobat system, and all additional included materials such as, e.g., pictures, sounds, and texts, now and in the future to you under Catrobat's free licenses.</string>
+  <string name="terms_of_use_enumeration_14">These licenses make all parts of Catrobat both free of charge to you as well as free in the sense of giving you the freedom to use them however you like, with only a few restrictions ensuring, among others, that the Catrobat system will forever remain free and useful for everyone.</string>
+  <string name="terms_of_use_enumeration_15">Please consult {*licenseofsystem*} for the precise legal terms and conditions. The source code of the Catrobat system as well as many other documents and resources are available via {*googlecode*}.</string>
+  <string name="terms_of_use_our_terms">Our Terms of Service:</string>
+  <string name="terms_of_use_enumeration_16">We reserve the rights to reject, delete, or hide programs, user accounts, and any digital materials uploaded to Catrobat's websites at any time in our sole discretion, for instance if we find that a program contains inappropriate material or that a user infringes on the rights of other persons.</string>
+  <string name="terms_of_use_enumeration_17">All of Catrobat's Internet resources are offered in the hope that they will be useful, but without any warranty.</string>
+  <string name="terms_of_use_enumeration_18">Please consult our {*termsofservice*} for precise formulations of above points and some additional legal terms and conditions.</string>
+  <string name="terms_of_use_check_back">Check back here from time-to-time, because we are always trying to improve our Terms of Use.</string>
+  <string name="terms_of_use_mail_us">Please mail any suggestions regarding these Terms of Use to {*mailus*}.</string>
+  <string name="terms_of_use_dated">Version 1.1, 2 April 2013</string>
+</strings>

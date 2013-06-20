@@ -25,9 +25,11 @@ package at.tugraz.ist.catroweb;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.net.URLEncoder;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -39,7 +41,6 @@ import static org.testng.AssertJUnit.assertTrue;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
-import org.openqa.selenium.ElementNotVisibleException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.OutputType;
@@ -66,7 +67,6 @@ import org.testng.annotations.Parameters;
 
 import at.tugraz.ist.catroweb.common.CommonData;
 import at.tugraz.ist.catroweb.common.CommonFunctions;
-import at.tugraz.ist.catroweb.common.CommonStrings;
 import at.tugraz.ist.catroweb.common.Config;
 import at.tugraz.ist.catroweb.common.ProjectUploader;
 
@@ -263,43 +263,28 @@ public class BaseTest {
     return containsElementText(By.tagName("body"), text);
   }
   
-  public String getAjaxMessage() {
-    waitForElementPresent(By.id("ajaxAnswerBoxContainer"));
-    try {
-      ajaxWait();
-    } catch(Exception ignore) {
-    }
-
-    return (String)((JavascriptExecutor) driver()).executeScript("return arguments[0].innerHTML",
-        driver().findElement(By.id("ajaxAnswerBoxContainer")));
-  }
-
-  public boolean isAjaxMessagePresent(String text) {
-    return getAjaxMessage().contains(text);
-  }
-
-  public String getRecoveryUrl() {
-    String[] parts = getAjaxMessage().split("<");
+  public String getRecoveryUrl(String message) {
+    String[] parts = message.split("<");
     for(String part : parts) {
       if(part.contains("passwordrecovery?c=")) {
         String[] temp = part.split("c=");
-        return "catroid/passwordrecovery?c=" + temp[1];
+        return "passwordrecovery?c=" + temp[1];
       }
     }
     
-    return "catroid/passwordrecovery?c=";
+    return "passwordrecovery?c=";
   }
 
-  public String getValidationUrl() {
-    String[] parts = getAjaxMessage().split("<");
+  public String getValidationUrl(String message) {
+    String[] parts = message.split("<");
     for(String part : parts) {
       if(part.contains("emailvalidation?c=")) {
         String[] temp = part.split("c=");
-        return "catroid/emailvalidation?c=" + temp[1];
+        return "emailvalidation?c=" + temp[1];
       }
     }
     
-    return "catroid/emailvalidation?c=";
+    return "emailvalidation?c=";
   }
 
   public boolean containsElementText(By selector, String text) {
@@ -352,7 +337,31 @@ public class BaseTest {
 
     //workaround fo Issue 2714
     //https://code.google.com/p/selenium/issues/detail?id=2714
-    driver().manage().window().setSize(new Dimension(840,2000));
+    driver().manage().window().setSize(new Dimension(1024,2000));
+  }
+
+  protected void openMobileLocation() {
+    openMobileLocation("");
+  }
+  
+  protected void openMobileLocation(String location) {
+    openMobileLocation(location, true);
+  }
+  
+  protected void openMobileLocation(String location, Boolean forceDefaultLanguage) {
+    if(forceDefaultLanguage == true) {
+      if(location.contains("?")) {
+        driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "&userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      } else {
+        driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      }
+    } else {
+      driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location);
+    }
+    
+    //workaround fo Issue 2714
+    //https://code.google.com/p/selenium/issues/detail?id=2714
+    driver().manage().window().setSize(new Dimension(320,2000));
   }
 
   protected void openAdminLocation() {
@@ -396,43 +405,47 @@ public class BaseTest {
   }
 
   protected void assertProjectPresent(String project) {
-    openLocation();
+    String query = "";
+    try {
+      query = URLEncoder.encode(project, "UTF-8");
+    } catch(UnsupportedEncodingException ignore) {
+      assertTrue(false);
+    }
+    
+    openLocation("search/?q=" + query + "&p=1");
     ajaxWait();
-//    try {
-//      driver().findElement(By.id("headerSearchButton")).click();
-//      ajaxWait();
-//    } catch(ElementNotVisibleException ignore) {
-//    }
-    assertTrue(isVisible(By.id("searchQuery")));
-    driver().findElement(By.id("searchQuery")).clear();
-    driver().findElement(By.id("searchQuery")).sendKeys("clear-cache");
-    driver().findElement(By.id("webHeadSearchSubmit")).click();
-    ajaxWait();
-    driver().findElement(By.id("searchQuery")).clear();
-    driver().findElement(By.id("searchQuery")).sendKeys(project);
-    driver().findElement(By.id("webHeadSearchSubmit")).click();
-    ajaxWait();
-    assertTrue(isTextPresent(project));
+
+    try {
+      while(driver().findElement(By.id("moreResults")).isDisplayed()) {
+        driver().findElement(By.id("moreResults")).click();
+        ajaxWait();
+      }
+    } catch(NoSuchElementException ignore) {
+    }
+
+    assertTrue(isElementPresent(By.xpath("//a[@title=\"" + project + "\"]")));
   }
 
   protected void assertProjectNotPresent(String project) {
-    openLocation();
+    String query = "";
+    try {
+      query = URLEncoder.encode(project, "UTF-8");
+    } catch(UnsupportedEncodingException ignore) {
+      assertTrue(false);
+    }
+    
+    openLocation("search/?q=" + query + "&p=1");
     ajaxWait();
-//    try {
-//      driver().findElement(By.id("headerSearchButton")).click();
-//      ajaxWait();
-//    } catch(ElementNotVisibleException ignore) {
-//    }
-    assertTrue(isVisible(By.id("searchQuery")));
-    driver().findElement(By.id("searchQuery")).clear();
-    driver().findElement(By.id("searchQuery")).sendKeys("clear-cache");
-    driver().findElement(By.id("webHeadSearchSubmit")).click();
-    ajaxWait();
-    driver().findElement(By.id("searchQuery")).clear();
-    driver().findElement(By.id("searchQuery")).sendKeys(project);
-    driver().findElement(By.id("webHeadSearchSubmit")).click();
-    ajaxWait();
-    assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
+
+    try {
+      while(driver().findElement(By.id("moreResults")).isDisplayed()) {
+        driver().findElement(By.id("moreResults")).click();
+        ajaxWait();
+      }
+    } catch(NoSuchElementException ignore) {
+    }
+
+    assertTrue(isElementPresent(By.xpath("//a[@title=\"" + project + "\"]")) == false);
   }
 
   public void waitForElementPresent(By selector) {
@@ -445,17 +458,18 @@ public class BaseTest {
 
   public void clickLastVisibleProject() {
     try {
-      while(driver().findElement(By.id("moreProjects")).isDisplayed()) {
-        driver().findElement(By.id("moreProjects")).click();
+      while(driver().findElement(By.id("newestShowMore")).isDisplayed()) {
+        driver().findElement(By.id("newestShowMore")).click();
         ajaxWait();
       }
     } catch(NoSuchElementException ignore) {
     }
 
+    
     WebElement lastLink = null;
-    List<WebElement> allLinks = driver().findElements(By.tagName("a"));
+    List<WebElement> allLinks = driver().findElement(By.id("newestProjects")).findElements(By.tagName("a"));
     for(WebElement link : allLinks) {
-      if(link.getAttribute("class").equals("projectListDetailsLinkBold") && link.isDisplayed()) {
+      if(link.isDisplayed()) {
         lastLink = link;
       }
     }
@@ -473,7 +487,7 @@ public class BaseTest {
     
     driver().get(this.webSite + Config.TESTS_BASE_PATH + "api/checkToken/.json?username=" + 
         CommonData.getLoginUserDefault() + "&token=" + Config.DEFAULT_UPLOAD_TOKEN);
-    driver().get(location);
+    driver().get(location.replace("//", "/"));
     ajaxWait();
   }
   
@@ -486,8 +500,8 @@ public class BaseTest {
       location = this.webSite + Config.TESTS_BASE_PATH + location;
     }
     
-    driver().get(this.webSite + Config.TESTS_BASE_PATH + "catroid/login/logoutRequest.json");
-    driver().get(location);
+    driver().get(this.webSite + Config.TESTS_BASE_PATH + "login/logoutRequest.json");
+    driver().get(location.replace("//", "/"));
     ajaxWait();
   }
   
@@ -511,7 +525,6 @@ public class BaseTest {
       File scrFile = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
       FileUtils.copyFile(scrFile, new File(Config.FILESYSTEM_BASE_PATH + imagePath));
       Reporter.log("<a href=\"../" + imageName + imageExtension + "\">Screenshot (" + imageName + ")</a>");
-      Reporter.log("Ajax message: " + getAjaxMessage());
     } catch(IOException e) {
       e.printStackTrace();
     } catch(NullPointerException e) {

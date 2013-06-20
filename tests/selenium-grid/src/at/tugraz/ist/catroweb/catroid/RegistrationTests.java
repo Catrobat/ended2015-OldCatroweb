@@ -25,6 +25,7 @@ package at.tugraz.ist.catroweb.catroid;
 
 import java.util.HashMap;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -39,9 +40,9 @@ public class RegistrationTests extends BaseTest {
   @Test(groups = { "visibility" }, description = "check expected elements are visible and texts are present")
   public void checkElementsVisibleAndTextPresent() throws Throwable {
     try {
-      openLocation("catroid/registration/");
+      openLocation("registration/");
       
-      assertTrue(isTextPresent(CommonStrings.REGISTRATION_PAGE_TITLE));
+      assertTrue(isTextPresent(CommonStrings.REGISTRATION_PAGE_TITLE.toUpperCase()));
       
       assertTrue(isTextPresent(CommonStrings.REGISTRATION_NICKNAME));
       assertTrue(isElementPresent(By.id("registrationUsername")));
@@ -61,8 +62,7 @@ public class RegistrationTests extends BaseTest {
       assertTrue(isTextPresent(CommonStrings.REGISTRATION_GENDER));
       assertTrue(isElementPresent(By.id("registrationGender")));
       
-      assertTrue((driver().findElement(By.id("registrationSubmit"))).
-          getAttribute("value").contains(CommonStrings.REGISTRATION_SUBMIT));
+      assertTrue((driver().findElement(By.id("registrationSubmit"))).getText().contains(CommonStrings.REGISTRATION_SUBMIT.toUpperCase()));
       assertTrue(isElementPresent(By.id("registrationSubmit")));
       
       assertTrue(isTextPresent(CommonStrings.REGISTRATION_LOGIN));
@@ -81,7 +81,7 @@ public class RegistrationTests extends BaseTest {
   @Test(dataProvider = "triggerErrorsData", groups = { "functionality" }, description = "trigger all error messages and check whether they present")
   public void checkErrorMessages(HashMap<String, String> dataset) throws Throwable {
     try {
-      openLocation("catroid/registration/");
+      openLocation("registration/");
 
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -91,11 +91,11 @@ public class RegistrationTests extends BaseTest {
       driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
       driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
       driver().findElement(By.id("registrationSubmit")).click();
-      ajaxWait();
 
-      assertTrue(isVisible(By.id("ajaxAnswerBoxContainer")));
-      ajaxWait();
-      assertTrue(isAjaxMessagePresent(dataset.get("expectedError")));
+      Alert alert = driver().switchTo().alert();
+      String message = alert.getText().replace("<", "&lt;").replace(">", "&gt;");
+      alert.accept();
+      assertTrue(message.contains(dataset.get("expectedError")));
     } catch(AssertionError e) {      
       captureScreen("RegistrationTests.checkElementsVisible." + CommonFunctions.getTimeStamp()); 
       throw e;
@@ -108,7 +108,7 @@ public class RegistrationTests extends BaseTest {
   @Test(dataProvider = "validRegistrationData", groups = { "functionality" }, description = "check registration with valid data")
   public void validRegistration(HashMap<String, String> dataset) throws Throwable {
     try {
-      openLocation("catroid/registration/");
+      openLocation("registration/");
 
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -122,20 +122,6 @@ public class RegistrationTests extends BaseTest {
       ajaxWait();
 
       assertTrue(isTextPresent(dataset.get("registrationUsername")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertTrue(isTextPresent(dataset.get("registrationUsername")));
-      driver().findElement(By.id("headerMenuButton")).click();
-      ajaxWait();
-
-      clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
-      closePopUp();
-
-      clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
-      closePopUp();
-      
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {      
       captureScreen("RegistrationTests.validRegistration." + CommonFunctions.getTimeStamp()); 
@@ -154,7 +140,7 @@ public class RegistrationTests extends BaseTest {
       // wiki username creation
       String wikiUsername = dataset.get("registrationUsername").substring(0, 1).toUpperCase() + dataset.get("registrationUsername").substring(1).toLowerCase();
 
-      openLocation("catroid/registration/");
+      openLocation("registration/");
 
       driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
       driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
@@ -165,29 +151,11 @@ public class RegistrationTests extends BaseTest {
       driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
       driver().findElement(By.id("registrationCity")).sendKeys(dataset.get("registrationCity"));
       driver().findElement(By.id("registrationSubmit")).click();
-      ajaxWait();
 
-      assertTrue(isAjaxMessagePresent(dataset.get("expectedError")));
-
-      openLocation();
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("registrationUsername"));
-      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("registrationPassword"));
-      driver().findElement(By.id("loginSubmitButton")).click();
-      ajaxWait();
-
-      openLocation();
-      driver().findElement(By.id("headerMenuButton")).click();
-      ajaxWait();
-
-      clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
-      closePopUp();
-
-      clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
-      closePopUp();
+      Alert alert = driver().switchTo().alert();
+      String message = alert.getText().replace("<", "&lt;").replace(">", "&gt;");
+      alert.accept();
+      assertTrue(message.contains(dataset.get("expectedError")));
     } catch(AssertionError e) {
       captureScreen("RegistrationTests.invalidRegistration." + dataset.get("registrationUsername"));
       throw e;

@@ -57,7 +57,7 @@
       7f5fec6c47975cbcb11b8848ba6fcda7  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test2.zip
       a810e424a5b4044c9b27e683feac080c  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test_invalid_projectfile.zip
       7f2fe1c18bb49f0514168c4b3a2ef652  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test_thumbnail.zip
-      e60affe0c115ba4e10474eab3efc47d6  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test-0.7.0beta.catrobat
+      a70a14eaa842464bdae13d0aef55fd10  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test-0.7.0beta.catrobat
     </pre>
     <input type="submit" name="uploadButton" value="upload" />
   </form>

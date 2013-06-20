@@ -35,7 +35,6 @@ var Registration = Class.$extend( {
   	$("#registrationSubmit").bind('keydown', { submit: true }, $.proxy(this.keydownHandler, this));
   	$("#registrationSubmit").click($.proxy(this.submit, this));
 	
-    $("#registrationLogin").click($.proxy(this.toggleProfileBox, this));
   },
   
   toggleProfileBox : function() {
@@ -48,7 +47,7 @@ var Registration = Class.$extend( {
   
   registrationSubmit : function() {
     $("#registrationErrorMsg").toggle(false);
-    var url = this.basePath + 'catroid/registration/registrationRequest.json';
+    var url = this.basePath + 'registration/registrationRequest.json';
     $.ajax({
       type : "POST",
       url : url,
@@ -62,19 +61,23 @@ var Registration = Class.$extend( {
         registrationYear : $("#registrationYear").val(),
         registrationGender : $("#registrationGender").val()
       }),
-      timeout : (this.ajaxTimeout),
+      timeout : $.proxy(this.registrationError, this),
       success : $.proxy(this.registrationSuccess, this),
-      error : $.proxy(common.ajaxTimedOut, this)
+      error : $.proxy(this.registrationError, this)
     });
   },
 
   registrationSuccess : function(response) {
     if(response.statusCode == 200) {
-      location.href = this.basePath + 'catroid/profile';
+      location.href = this.basePath + 'profile';
     } else {
-      common.showPreHeaderMessages(response);
-      common.showAjaxErrorMsg(response.answer);
+      alert(response.answer);
     }
+  },
+  
+  registrationError : function(response) {
+    console.log(response);
+    alert(response);
   },
 
   keydownHandler : function(event) {
@@ -107,8 +110,9 @@ var Registration = Class.$extend( {
     $(document).scrollTop(element.offset().top - this.scrollMargin);
   },
   
-  submit : function() {
+  submit : function(event) {
     document.activeElement.blur();
     this.registrationSubmit();
+    event.preventDefault();
   }
 });

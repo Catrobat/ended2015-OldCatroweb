@@ -23,23 +23,26 @@
  */
 
 ?>
-    <script type="text/javascript">
-      $(document).ready(function() {        
-        new LanguageHandler();
-      });
-    </script>
-    <div class="webMainBottom">
-      <div class="blueBoxMain">
-        <div class="webMainLicense"> 
-          <a class="license" id="_privacy" href="http://developer.catrobat.org/privacy_policy" target="_blank"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a>
-          <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_termsofuse" href="<?php echo BASE_PATH?>catroid/termsofuse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a>  	      
-          <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_copyright" href="http://developer.catrobat.org/copyright_policy" target="_blank"><?php echo $this->languageHandler->getString('template_footer_copyright_policy_link')?></a>
-          <span class="webMainBottomSpacer">|</span>
-          <a class="license" id="_imprint" href="http://developer.catrobat.org/imprint" target="_blank"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a>
-          <span class="webMainBottomSpacer">|</span>
-          <select id="switchLanguage" class="languageSwitchSelect">
+      <div>
+        <div id="largeFooterMenu">
+          <div>
+            <ul>
+              <li><a href="http://developer.catrobat.org/privacy_policy" target="_blank"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a></li>
+              <li><a href="<?php echo BASE_PATH?>termsOfUse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a></li>
+              <li><a href="http://developer.catrobat.org/imprint" target="_blank"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a></li>
+            </ul>
+          </div>
+          <div>
+            <span id="footerSearchButton" class="img-magnifying-glass-blue"></span>
+            <span>
+               <header><?php echo $this->languageHandler->getString('template_footer_search_header'); ?></header>
+               <input type="search" placeholder="<?php echo $this->languageHandler->getString('template_footer_search_placeholder'); ?>" />
+            </span>
+          </div>
+        </div>
+        <div class="footerMenu">
+          <div>
+            <select id="switchLanguage">
 <?php 
   $supportedLanguages = getSupportedLanguagesArray($this->languageHandler);
     foreach($supportedLanguages as $lang => $details) {
@@ -49,10 +52,37 @@
           $selected = "selected ";
         }
 ?>
-            <option <?php echo $selected?>value="<?php echo $lang?>"><?php echo $details['name'].' - '.$details['nameNative']?></option>
+              <option <?php echo $selected?>value="<?php echo $lang?>"><?php echo $details['nameNative']?></option>
 <?php }
     } ?>
-          </select>
+            </select>
+          </div>
+          <div>
+            &copy; Catrobat
+          </div>
+          <div>
+            <span id="footerMoreButton">
+              <span class="img-more"></span> <?php echo $this->languageHandler->getString('template_footer_more')?>
+            </span>
+            <span id="footerLessButton">
+              <span class="img-less"></span> <?php echo $this->languageHandler->getString('template_footer_less')?>
+            </span>
+          </div>
         </div>
       </div>
-    </div> <!--  WEBMAINBOTTOM -->
+
+      <div id="mobileFooterMenu">
+        <ul>
+          <li><a href="http://developer.catrobat.org/privacy_policy" target="_blank"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a></li>
+          <li><a href="<?php echo BASE_PATH?>termsOfUse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a></li>
+          <li><a href="http://developer.catrobat.org/imprint" target="_blank"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a></li>
+        </ul>
+      </div>
+        
+      <script type="text/javascript">
+        $(document).ready(function() {
+          new Footer();
+          new LanguageHandler();
+        });
+      </script>
+      

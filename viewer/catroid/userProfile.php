@@ -23,46 +23,52 @@
  */
 
 ?>
-      <div class="webMainMiddle">
-        <div class="blueBoxMain">
-          <div class="webMainContent">
-            <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('userTitle'); ?></div> 
-            <div class="profileMain">                
-              <div class ="whiteBoxMain">
-                <div class="profileFormContainer">
-                    
-                  <div class="avatarContainer">
-                    <img src="<?php echo $this->userData['avatar']; ?>" class="avatar" />
-                  </div>
-  
-                  <div class="profileItem">
-                    <div class="label"><?php echo $this->languageHandler->getString('name'); ?></div>
-                    <div><?php echo $this->userData['username']; ?></div>
-                  </div>
-  
-                  <div class="profileItem">
-                    <div class="label"><?php echo $this->languageHandler->getString('location'); ?></div>
-                    <div>
-                      <?php 
-                        $countries = getCountryArray($this->languageHandler);
-                        if($this->userData['country'] != "") {
-                          echo $countries[$this->userData['country']];
-                        }
-                      ?>
-                    </div>
-                  </div>
-  
-                  <div class="profileItem">
-                    <div class="label"><?php echo $this->languageHandler->getString('projects'); ?></div>
-                    <div>
-                      <div><?php echo $this->userData['project_count']; ?></div>
-                    </div>
-                  </div>
-  
-                </div> <!-- profileFormContainer -->
-              </div> <!--  White Box -->                
-            </div> <!--  license Main -->                     
-          </div> <!-- mainContent close //-->
-        </div> <!-- blueBoxMain close //-->
-      </div>
+  <article>
+    <header><?php echo $this->userData['username'];?></header>
+    <div class="profileAvatar">
+      <img class="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
+    </div>
 
+    <div class="profileInputs">
+      <div class="profileInformations">
+      <p>
+        <strong><?php echo $this->languageHandler->getString('country'); ?>: </strong>
+        <?php 
+        if($this->userData['country'] != "") {
+          $countries = getCountryArray($this->languageHandler);
+          echo $countries[$this->userData['country']];
+        }
+        ?>
+      </p>
+      <p>
+        <strong><?php echo $this->languageHandler->getString('projects'); ?>: </strong>
+        <?php echo $this->userData['project_count']; ?>
+      </p>
+      </div>
+    </div>
+    <div style="clear: both;"></div>
+
+    <h3><?php echo $this->languageHandler->getString('user_projects')," ", $this->userData['username']; ?></h3>
+    <div id="userProjectContainer" class="projectContainer">
+      <span id="profileNoResults"><?php echo $this->languageHandler->getString('no_projects_available'); ?></span>
+    </div>
+    <div id="userProjectLoader" class="projectFooter">
+      <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
+      <p>&nbsp;</p>
+    </div>
+    <div id="moreResults" class="projectFooter">
+      <div class="img-load-more"></div>
+      <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+    </div>
+    <div class="projectSpacer"></div>
+  </article>
+
+  <script type="text/javascript">
+    $(document).ready(function() {
+      var profile = Profile({'websiteTitle' : '<?php echo SITE_DEFAULT_TITLE; ?>', 'title' : '<?php echo $this->languageHandler->getString('userTitle'); ?>'});
+      var projects = ProjectObject(<?php echo $this->jsParams; ?>, {'history' : $.proxy(profile.saveHistoryState, profile) });
+
+      profile.setProjectObject(projects);
+      projects.init();
+    });
+  </script>

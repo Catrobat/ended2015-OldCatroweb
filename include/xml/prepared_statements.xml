@@ -24,14 +24,6 @@
 
 <statements>
     <string name="get_projects_ordered_by_uploadtime">SELECT * FROM projects ORDER BY upload_time DESC</string>
-    <string name="get_visible_projects_ordered_by_uploadtime">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY upload_time DESC</string>
-    <string name="get_visible_projects_ordered_by_uploadtime_limited_offset">SELECT projects.id, projects.title, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY last_activity DESC LIMIT $1 OFFSET $2</string>
-    <string name="get_visible_projects_ordered_by_uploadtime_limited_offset_api">SELECT projects.id, projects.title, projects.description, projects.view_count, projects.download_count, projects.version_name, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id ORDER BY last_activity DESC LIMIT $1 OFFSET $2</string>
-    <string name="get_visible_projects_orderby_age_limited_offset">SELECT projects.id, projects.title, projects.download_count, projects.view_count, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id AND (projects.title ILIKE $3 OR projects.description ILIKE $3) AND cusers.username ILIKE $4 ORDER BY last_activity DESC, projects.id DESC LIMIT $1 OFFSET $2</string>
-    <string name="get_visible_projects_orderby_download_count_limited_and_offset">SELECT projects.id, projects.title, projects.upload_time, projects.download_count, projects.view_count, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id AND (projects.title ILIKE $3 OR projects.description ILIKE $3) AND cusers.username ILIKE $4 ORDER BY projects.download_count DESC, projects.id DESC LIMIT $1 OFFSET $2</string>
-    <string name="get_visible_projects_orderby_view_count_limited_and_offset">SELECT projects.id, projects.title, projects.upload_time, projects.download_count, projects.view_count, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity,  cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id AND (projects.title ILIKE $3 OR projects.description ILIKE $3) AND cusers.username ILIKE $4 ORDER BY projects.view_count DESC, projects.id DESC LIMIT $1 OFFSET $2</string>
-    <string name="get_visible_projects_orderby_random_limited_and_offset">SELECT projects.id, projects.title, projects.upload_time, projects.download_count, projects.view_count, coalesce(extract(epoch from "timestamp"(projects.update_time)), extract(epoch from "timestamp"(projects.upload_time))) AS last_activity, cusers.username AS uploaded_by FROM projects, cusers WHERE visible=true AND cusers.id=projects.user_id AND (projects.title ILIKE $3 OR projects.description ILIKE $3) AND cusers.username ILIKE $4 ORDER BY random() LIMIT $1 OFFSET $2</string>
-    <string name="get_number_of_visible_projects">SELECT count(id) FROM projects WHERE visible=true</string>
     <string name="get_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND projects.visible=true AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_language, filesize_bytes, version_name, language_code, user_id) 
@@ -42,9 +34,17 @@
     <string name="increment_view_counter">UPDATE projects SET view_count=view_count+1 WHERE id=$1</string>
     <string name="set_project_new_filename">UPDATE projects SET source=$1 WHERE id=$2</string>
     <string name="delete_project_by_id">DELETE FROM projects WHERE id=$1</string>
+    <string name="insert_new_featured_project">INSERT INTO featured_projects (project_id, visible) VALUES ($1, $2)</string>
+    <string name="get_featured_project_by_id">SELECT p.id as project_id, p.title, p.description, p.user_id, c.username, fp.* FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) WHERE fp.id=$1 ORDER BY fp.update_time DESC LIMIT 1</string>
+    <string name="get_featured_projects_ordered_by_update_time">SELECT p.id as id, p.title, p.description, p.user_id, c.username AS uploaded_by FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY fp.update_time DESC</string>
+    <string name="get_featured_projects_admin_ordered_by_update_time">SELECT p.id as project_id, p.title, p.description, p.user_id, p.download_count, p.view_count, c.username AS uploaded_by, fp.* FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY fp.update_time DESC</string>
+    <string name="get_featured_projects_ordered_by_update_time_limited">SELECT p.id as id, p.title, p.description, p.user_id, c.username AS uploaded_by FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) WHERE fp.visible=$2 ORDER BY fp.update_time DESC LIMIT $1</string>
+    <string name="edit_featured_project_visibility_by_id">UPDATE featured_projects SET update_time=DEFAULT, visible=$2 WHERE id=$1 RETURNING id</string> 
+    <string name="delete_featured_project_by_id">DELETE FROM featured_projects WHERE id=$1</string>
     <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, user_id, reason, user_ip) VALUES ($1, $2, $3, $4)</string>
     <string name="get_flags_for_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND resolved=false</string>
     <string name="hide_project">UPDATE projects SET visible=false WHERE id=$1</string>
+    <string name="hide_user_project">UPDATE projects SET visible=false WHERE id=$1 AND user_id=$2</string>
     <string name="show_project">UPDATE projects SET visible=true WHERE id=$1</string>
     <string name="set_mail_sent_on_inappropriate">UPDATE flagged_projects SET mail_sent=true WHERE project_id=$1</string>
     <string name="set_resolved_on_inappropriate">UPDATE flagged_projects SET resolved=true WHERE project_id=$1</string>
@@ -75,47 +75,36 @@
     <string name="get_project_list_containing_insulting_words">SELECT * FROM unapproved_words_in_projects WHERE word_id=$1</string>
     <string name="delete_word_from_list">DELETE FROM unapproved_words_in_projects WHERE word_id=$1</string>
 
-    <string name="get_user_login">SELECT id, username FROM cusers WHERE username_clean=$1 AND password=$2 LIMIT 1</string>
-    <string name="get_user_salt">SELECT salt FROM cusers WHERE username_clean=$1 LIMIT 1</string>
+    <string name="get_user_password_hash">SELECT id, username, password, avatar FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_token">SELECT auth_token FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_device_login">SELECT * FROM cusers WHERE username_clean=$1 AND auth_token=$2 LIMIT 1</string>
-    <string name="get_user_row_by_username">SELECT cusers.id, cusers.username, cusers.gender, cusers.country, cusers.city, cusers.language, to_char(cusers.date_of_birth, 'MM') AS month, to_char(cusers.date_of_birth, 'YYYY') AS year, cusers.avatar, (SELECT count(*) FROM projects WHERE projects.user_id=cusers.id) AS project_count FROM cusers WHERE username=$1 LIMIT 1</string>
+    <string name="get_user_row_by_username">SELECT cusers.id, cusers.username, cusers.email, cusers.additional_email, cusers.country, cusers.language, cusers.avatar, (SELECT count(*) FROM projects WHERE projects.user_id=cusers.id) AS project_count FROM cusers WHERE username=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
 
-    <string name="get_user_row_by_email">SELECT DISTINCT u.* FROM cusers u, cusers_additional_email e WHERE u.email=$1 OR (e.email=$1 AND e.user_id=u.id)</string>
-    <string name="get_user_row_by_valid_email">SELECT DISTINCT u.* FROM cusers u, cusers_additional_email e WHERE u.email=$1 OR (e.email=$1 AND e.validated=true AND e.user_id=u.id)</string>
+    <string name="get_user_row_by_email">SELECT u.* FROM cusers u WHERE u.email=$1 OR u.additional_email=$1</string>
     <string name="get_user_language">SELECT language FROM cusers WHERE id=$1</string>
     
-    
-    <string name="add_user_email">INSERT INTO cusers_additional_email (user_id, email) VALUES ($1, $2)</string>
     <string name="get_user_row_by_recovery_hash">SELECT * FROM cusers WHERE recovery_hash=$1 LIMIT 1</string>
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
-    <string name="get_email_hash">SELECT id from cusers_additional_email WHERE validation_hash=$1</string>
-    <string name="get_user_email_by_email">SELECT email FROM cusers WHERE email=$1</string>
-    <string name="get_user_emails_by_id">SELECT u.email, true as validated FROM cusers u WHERE u.id=$1 UNION SELECT e.email, e.validated FROM cusers_additional_email e WHERE e.user_id=$1</string>
-
-    <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, date_of_birth, gender, country, city, ip_registered, status, auth_token, language, salt) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING id</string>
+    <string name="get_email_hash">SELECT id from cusers WHERE email_validation_hash=$1</string>
+		<string name="is_additional_email_validated">SELECT additional_email_validated FROM cusers WHERE id=$1 AND additional_email_validated=true</string>
+	
+    <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, country, ip_registered, status, auth_token, language) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
-    <string name="delete_user_additional_email_by_email">DELETE FROM cusers_additional_email WHERE email=$1</string>
-    <string name="delete_user_email_from_additional_email_by_user_email">DELETE FROM cusers_additional_email WHERE email=(SELECT email FROM cusers WHERE id=$1)</string>
+<!--    <string name="delete_user_additional_email">DELETE FROM cusers WHERE email=$1</string>-->
     <string name="update_recovery_hash_recovery_time_by_id">UPDATE cusers SET recovery_hash=$1, recovery_time=$2 WHERE id=$3</string>
-    <string name="update_email_validation_hash_by_email_and_id">UPDATE cusers_additional_email SET validation_hash=$1 WHERE email=$2 AND user_id=$3</string>
-    <string name="update_user_email_from_additional_email_by_user_email">UPDATE cusers SET email=(SELECT email FROM cusers_additional_email WHERE user_id=$1 LIMIT 1) WHERE id=$1</string> <!-- hkajläsdfalösjkfä -->    
-    <string name="validate_email_by_hash">UPDATE cusers_additional_email SET validated='t', validation_hash='' WHERE validation_hash=$1</string>
+    <string name="update_email_validation_hash_by_email_and_id">UPDATE cusers SET email_validation_hash=$1 WHERE (email=$2 OR additional_email=$2) AND id=$3</string>
+    <string name="update_user_email">UPDATE cusers SET email=additional_email, additional_email=$2, additional_email_validated=false WHERE id=$1</string>
+    <string name="update_add_user_email">UPDATE cusers SET additional_email=$2, additional_email_validated=false WHERE id=$1</string>
+    <string name="validate_email_by_hash">UPDATE cusers SET additional_email_validated='t', email_validation_hash='' WHERE email_validation_hash=$1</string>
     
     <string name="update_user_country">UPDATE cusers SET country=$1 WHERE id=$2</string>
-    <string name="update_user_city">UPDATE cusers SET city=$1 WHERE id=$2</string>
-    <string name="update_user_birth">UPDATE cusers SET date_of_birth=$1 WHERE id=$2</string>
-    <string name="update_user_gender">UPDATE cusers SET gender=$1 WHERE id=$2</string>
     <string name="update_user_language_by_id">UPDATE cusers SET language=$1 WHERE id=$2</string>
     <string name="update_avatar_by_id">UPDATE cusers SET avatar=$1 WHERE id=$2</string>
     
-    <string name="update_password_by_username">UPDATE cusers SET password=$1, auth_token=$3, salt=$4, recovery_hash=NULL, recovery_time=NULL WHERE username_clean=$2</string>
+    <string name="update_password_by_username">UPDATE cusers SET password=$1, auth_token=$3, recovery_hash=NULL, recovery_time=NULL WHERE username_clean=$2</string>
     <string name="update_auth_token">UPDATE cusers SET auth_token=$1 WHERE id=$2</string>
-    <string name="delete_user_birth">UPDATE cusers SET date_of_birth=NULL WHERE id=$1</string>
     
-    <string name="get_my_projects">SELECT *, coalesce(extract(epoch from "timestamp"(update_time)), extract(epoch from "timestamp"(upload_time))) AS last_activity FROM projects WHERE user_id=$1 AND visible=true ORDER BY last_activity DESC</string>
-
     
     <string name="admin_block_user">INSERT INTO blocked_cusers (user_id, user_name) VALUES ($1, $2)</string>
     <string name="admin_block_user_id">INSERT INTO blocked_cusers (user_id) VALUES ($1)</string>

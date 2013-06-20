@@ -35,7 +35,7 @@ class passwordrecovery extends CoreAuthenticationNone {
 
   public function __default() {
     if($this->session->userLogin_userId > 0) {
-      header('Location: ' . BASE_PATH . 'catroid/profile');
+      header('Location: ' . BASE_PATH . 'profile');
       exit();
     }
 

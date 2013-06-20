@@ -34,7 +34,7 @@ class CorePresenter_catrobat extends CorePresenterCommon {
     $file = CORE_BASE_PATH . PROJECTS_DIRECTORY . $data['source_file'];
     $filename = $data['file_name'];
     if(is_file($file)) {
-      header("Content-type: application/zip");
+      header("Content-type: application/catrobat+zip");
       header('Content-Disposition: inline; filename=' . rawurlencode($filename) . PROJECTS_EXTENSION . '; filename*=' . rawurlencode($filename) . PROJECTS_EXTENSION);
       header("Cache-Control: public");
       header("Content-Transfer-Encoding: binary");

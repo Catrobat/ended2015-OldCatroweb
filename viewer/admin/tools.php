@@ -28,6 +28,8 @@
   <h2>Administration Tools</h2>
   <a id="aAdminToolsRemoveInconsitantProjectFiles" href="<?php echo BASE_PATH;?>admin/tools/removeInconsistantProjectFiles">remove inconsistant project files</a><br />
   <a id="aAdminToolsEditProjects" href="<?php echo BASE_PATH;?>admin/tools/editProjects">edit projects</a><br />
+  <a id="aAdminToolsAddFeaturedProjects" href="<?php echo BASE_PATH;?>admin/tools/addFeaturedProject">add featured projects</a><br />
+  <a id="aAdminToolsEditFeaturedProjects" href="<?php echo BASE_PATH;?>admin/tools/editFeaturedProjects">edit featured projects</a><br />
   <a id="aAdminToolsThumbnailUploader" href="<?php echo BASE_PATH;?>admin/tools/thumbnailUploader">thumbnail uploader</a><br />
   <a id="aAdminToolsInappropriateProjects" href="<?php echo BASE_PATH;?>admin/tools/inappropriateProjects">inappropriate projects</a><br />
   <a id="aAdminToolsApproveWords" href="<?php echo BASE_PATH;?>admin/tools/approveWords">approve unapproved words</a><br />

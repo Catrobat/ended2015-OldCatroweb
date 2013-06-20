@@ -58,7 +58,8 @@ class upload extends CoreAuthenticationDevice {
 
       $xmlFile = $this->getProjectXmlFile(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique . '/');
       $projectInformation = $this->getProjectInformation($xmlFile, $formData);
-      $this->checkValidCatrobatVersion($projectInformation['versionCode']);
+      $this->checkValidCatrobatVersion($projectInformation['versionName']);
+      $this->checkValidCatrobatCode($projectInformation['versionCode']);
       $this->checkValidProjectTitle($projectInformation['projectTitle']);
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
@@ -68,13 +69,13 @@ class upload extends CoreAuthenticationDevice {
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
           $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
           $projectInformation['versionCode']);
+      
+      $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId);
 
       $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
       $this->renameUnzipDirectory(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique,
           CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $projectId);
       $this->extractThumbnail(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $projectId . '/', $projectId);
-
-      $this->getQRCode($projectId, $projectInformation['projectTitle']);
 
       $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
       if($unapprovedWords) {
@@ -223,8 +224,8 @@ class upload extends CoreAuthenticationDevice {
     }
     
     if(!$versionName || !$versionCode) {
-      $versionCode = MIN_CATROBAT_LANGUAGE_VERSION;
-      $versionName = '&lt; 0.7.0beta';
+      $versionCode = 0.0;
+      $versionName = "0.0.0beta";
     } else if(stristr($versionName, "-")) {
       $versionName = substr($versionName, 0, strpos($versionName, "-"));
     }
@@ -254,7 +255,13 @@ class upload extends CoreAuthenticationDevice {
     ));
   }
 
-  private function checkValidCatrobatVersion($versionCode) {
+  private function checkValidCatrobatVersion($versionName) {
+    if(version_compare($versionName, MIN_CATROBAT_VERSION) < 0) {
+      throw new Exception($this->errorHandler->getError('upload', 'old_catrobat_version'), STATUS_CODE_UPLOAD_OLD_CATROBAT_VERSION);
+    }
+  }
+  
+  private function checkValidCatrobatCode($versionCode) {
     if(floatval($versionCode) < floatval(MIN_CATROBAT_LANGUAGE_VERSION)) {
       throw new Exception($this->errorHandler->getError('upload', 'old_catrobat_language'), STATUS_CODE_UPLOAD_OLD_CATROBAT_LANGUAGE);
     }
@@ -301,6 +308,95 @@ class upload extends CoreAuthenticationDevice {
       return $insertId;
     }
   }
+  
+  private function checkAndSetLicensesAndRemixInfo($zipFile, $xmlFile, $projectId) {
+    $zip = new ZipArchive();
+    $zip->open($zipFile);
+  
+    $dom = new DOMDocument();
+    $dom->preserveWhiteSpace = false;
+    $dom->formatOutput = true;
+    $dom->load($xmlFile);
+  
+  
+    if(!$this->checkHeaderTag($dom)) {
+      $nodes = $dom->getElementsByTagName('*');
+      $header = $dom->createElement('header');
+      $dom->firstChild->insertBefore($header, $nodes->item(1));
+  
+      $mediaLicense = $dom->createElement('mediaLicense');
+      $programLicense = $dom->createElement('programLicense');
+      $remixOf = $dom->createElement('remixOf');
+      $url = $dom->createElement('url');
+      $userHandle = $dom->createElement('userHandle');
+  
+      $header->appendChild($mediaLicense);
+      $header->appendChild($programLicense);
+      $header->appendChild($remixOf);
+      $header->appendChild($url);
+      $header->appendChild($userHandle);
+    }
+  
+    $header = $dom->getElementsByTagName('header');
+    $mediaLicense = $dom->getElementsByTagName('mediaLicense');
+    $programLicense = $dom->getElementsByTagName('programLicense');
+    $remixOf = $dom->getElementsByTagName('remixOf');
+    $url = $dom->getElementsByTagName('url');
+    $userHandle = $dom->getElementsByTagName('userHandle');
+  
+    if($header->length == 0) {
+      $mediaLicense = $dom->getElementsByTagName('MediaLicense');
+      $programLicense = $dom->getElementsByTagName('ProgramLicense');
+      $remixOf = $dom->getElementsByTagName('RemixOf');
+      $url = $dom->getElementsByTagName('URL');
+      $userHandle = $dom->getElementsByTagName('UserHandle');
+    }
+  
+    foreach($mediaLicense as $value) {
+      if($value->nodeValue != '' && $value->nodeValue != PROJECT_MEDIA_LICENSE)
+        throw new Exception($this->errorHandler->getError('upload', 'invalid_media_license'), STATUS_CODE_UPLOAD_INVALID_MEDIA_LICENSE);
+      $value->nodeValue = PROJECT_MEDIA_LICENSE;
+    }
+  
+    foreach($programLicense as $value) {
+      if($value->nodeValue != '' && $value->nodeValue != PROJECT_PROGRAM_LICENSE)
+        throw new Exception($this->errorHandler->getError('upload', 'invalid_program_license'), STATUS_CODE_UPLOAD_INVALID_PROGRAM_LICENSE);
+      $value->nodeValue = PROJECT_PROGRAM_LICENSE;
+    }
+  
+    foreach($url as $url_value) {
+      if($url_value->nodeValue == '') {
+        $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
+        foreach($userHandle as $user)
+          $user->nodeValue = $this->session->userLogin_userNickname;
+      }
+      else {
+        foreach($remixOf as $remix_value) {
+          $remix_value->nodeValue = $url_value->nodeValue;
+          $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
+          foreach($userHandle as $user)
+            $user->nodeValue = $this->session->userLogin_userNickname;
+        }
+      }
+    }
+  
+    $dom->save($xmlFile);
+    $filename = pathinfo($xmlFile);
+    $zip->addFile($xmlFile, $filename['basename']);
+    $zip->close();
+    chmod($zipFile, 0777);
+  }
+  
+  private function checkHeaderTag($dom) {
+    $header = $dom->getElementsByTagName('header');
+    $Header = $dom->getElementsByTagName('Header');
+  
+    if($header->length == 0 && $Header->length == 0) {
+      return false;
+    }
+  
+    return true;
+  }
 
   private function renameProjectFile($oldName, $projectId) {
     $newName = CORE_BASE_PATH.PROJECTS_DIRECTORY . $projectId . PROJECTS_EXTENSION;
@@ -325,7 +421,13 @@ class upload extends CoreAuthenticationDevice {
   }
 
   private function extractThumbnail($unzipDir, $projectId) {
-    $thumbnail = $unzipDir . 'screenshot.png';
+    $automaticThumbnail = $unzipDir . 'automatic_screenshot.png';
+    $manualThumbnail = $unzipDir . 'manual_screenshot.png';
+    
+    $thumbnail = $automaticThumbnail;
+    if(file_exists($manualThumbnail)) {
+      $thumbnail = $manualThumbnail;
+    }
 
     if(is_file($thumbnail)) {
       $thumbImage = imagecreatefrompng($thumbnail);
@@ -372,17 +474,6 @@ class upload extends CoreAuthenticationDevice {
     return false;
   }
 
-  private function getQRCode($projectId, $projectTitle) {
-    $urlToEncode = urlencode(BASE_PATH . 'catroid/download/' . $projectId . PROJECTS_EXTENSION . '?fname=' . urlencode($projectTitle));
-    $destinationPath = CORE_BASE_PATH . PROJECTS_QR_DIRECTORY . $projectId . PROJECTS_QR_EXTENSION;
-    if(!generateQRCode($urlToEncode, $destinationPath)) {
-      $this->sendQRFailNotificationEmail($projectId, $projectTitle);
-      throw new Exception($this->errorHandler->getError('upload', 'qr_code_generation_failed'), STATUS_CODE_UPLOAD_QRCODE_GENERATION_FAILED);
-    }
-    $this->setState('remove_files', $destinationPath);
-    return true;
-  }
-
   private function sendUnapprovedWordlistPerEmail() {
     $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
     $mailSubject = '';
@@ -393,7 +484,7 @@ class upload extends CoreAuthenticationDevice {
       $mailSubject = 'There is ' . $unapprovedWordCount . ' new unapproved word!';
     }
 
-    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText = "Hello ".APPLICATION_URL_TEXT." Administrator!\n\n";
     $mailText .= "New word(s):\n";
     for($i = 0; $i < $unapprovedWordCount; $i++) {
       $mailText .= $unapprovedWords[$i].(($unapprovedWordCount-1 == $i) ? "" : ", ");
@@ -406,7 +497,7 @@ class upload extends CoreAuthenticationDevice {
   private function buildNativeApp($projectId) {
     $pythonHandler = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC . "nativeAppBuilding/src/handle_project.py";
     $projectFile = CORE_BASE_PATH . PROJECTS_DIRECTORY . $projectId . PROJECTS_EXTENSION;
-    $catroidSource = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC . "catroid/";
+    $catroidSource = CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC;
     $outputFolder = CORE_BASE_PATH . PROJECTS_DIRECTORY;
 
     if(is_dir(CORE_BASE_PATH . PROJECTS_APP_BUILDING_SRC)) {
@@ -414,21 +505,9 @@ class upload extends CoreAuthenticationDevice {
     }
   }
 
-  private function sendQRFailNotificationEmail($projectId, $projectTitle) {
-    $mailSubject = 'QR-Code generation failed!';
-    $mailText = "Hello catroid.org Administrator!\n\n";
-    $mailText .= "The generation of the QR-Code for the following project failed:\n\n";
-    $mailText .= "---PROJECT DETAILS---\n";
-    $mailText .= "ID: " . $projectId . "\n";
-    $mailText .= "TITLE: " . $projectTitle . "\n\n";
-    $mailText .= "You should check this!";
-
-    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
-  }
-
   private function sendUploadFailAdminEmail($formData, $fileData) {
     $mailSubject = 'Upload of a project failed!';
-    $mailText = "Hello catroid.org Administrator!\n\n";
+    $mailText = "Hello ".APPLICATION_URL_TEXT." Administrator!\n\n";
     $mailText .= "The Upload of a project failed:\n\n";
     $mailText .= "---PROJECT DETAILS---\n";
     $mailText .= "Upload Error Code: " . $this->statusCode . "\n";

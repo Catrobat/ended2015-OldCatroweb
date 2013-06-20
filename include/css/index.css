@@ -21,46 +21,70 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-div.whiteBoxGradient {
-  background: -webkit-gradient(linear, left top, left bottom, from(#e1e7f5), to(#fff) );
-  /* @alternate */ background: -moz-linear-gradient(top, #e1e7f5, #fff); 
+#wrapper article header {
+  border: 0;
+  border-top: 1px solid #477889;
+  background-color: #00475d;
+  background-image: none;
+  color: #a8dff4;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em 0 0.07em 0.375em;
+  text-align: center;
+  text-shadow: #000000 1px 1px 1px;
+  margin-top: 0.55em;
+  margin-bottom: 0;
 }
 
-div.infoboxLeft {
-  text-align:left;
-  padding-left:0.75em;
+#wrapper article #programmOfTheWeek header {
+  margin-top: 0;
 }
 
-div.infoboxRight {
-  float:right;
-  padding-right:0.75em;
-  text-align:right;
+#wrapper article #programmOfTheWeek div {
+  background-color: #a8e8f1;
+  margin-top: 0.2em;
+  position: relative; 
+  width: 100%;
+  text-align: center;
 }
 
-div.infoboxText {
-  font-size:1.4em;
-  text-align: justify;
+#wrapper article #programmOfTheWeek div div {
+  background: transparent;
+  text-align: left;
+  color: #05222a;
+  position: absolute; 
+  bottom: 1.0em;
 }
 
-div.infoboxDownloadBox {
-  text-align:center;
+#wrapper article #programmOfTheWeek div div span {
+  margin-left: 4%;
+  font-weight: bold;
 }
 
-button.infobox {
-  color:#000;
-  font-size:1.5em;
-  font-weight:bold;
-  margin:1.6em 0.6em 0.6em 0.6em;
+#wrapper article #programmOfTheWeek div div span:nth-child(1) {
+  font-size: 1.6em;
 }
 
-img.infoboxCloseButton {
-  cursor:pointer;
-  margin-top:0.3em;
-  margin-bottom:0.5em;
+#wrapper article div.projectContainer {
+  background-color: #00475d;
 }
 
-img.infoboxScreenshot {
-  border:0;
-  box-shadow: 2px 2px 2px 2px #888;
-  margin: 1.0em 0 0 1.0em;
+#wrapper article div.projectContainer ul li div.projectLink {
+	background-color: #05222a;
 }
+
+#wrapper article div.projectFooter {
+  background-color: #00475d;
+}
+
+#wrapper article div#newestProjectsLoader, #wrapper article div#mostDownloadedProjectsLoader, #wrapper article div#mostViewedProjectsLoader {
+  display: none;
+}
+
+#wrapper article div.projectContainerFooter {
+  background-color: #00475d;
+  padding-bottom: 1em;
+  margin-bottom: 2.8em;
+}
+

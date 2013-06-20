@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">&#x4F7F;&#x7528;&#x6761;&#x6B3E;</string>
+  <string name="terms_of_use_enumeration_1">&#x6765;&#x81EA;&#x8BB8;&#x591A;&#x4E0D;&#x540C;&#x7684;&#x56FD;&#x5BB6;&#x4E0E;&#x6587;&#x5316;</string>
+  <string name="terms_of_use_enumeration_2">&#x5404;&#x5E74;&#x9F84;&#x6BB5;&#xFF08;&#x4ECE;&#x5E7C;&#x513F;&#x5230;&#x9752;&#x5C11;&#x5E74;&#x548C;&#x7956;&#x7236;&#x6BCD;&#xFF09;</string>
+  <string name="terms_of_use_enumeration_3">&#x6709;&#x5404;&#x7EA7;&#x7684;&#x7ECF;&#x9A8C;</string>
+</strings>

@@ -24,11 +24,9 @@
 package at.tugraz.ist.catroweb.catroid;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.Keys;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -48,30 +46,19 @@ public class SearchTests extends BaseTest {
       String projectTitle = dataset.get("projectTitle");
       String projectDescription = dataset.get("projectDescription");
 
-      openLocation();
+      openLocation("search/?q=" + projectTitle + "&p=1");
       ajaxWait();
 
-      assertTrue(isVisible(By.id("headerSearchBox")));
-
-      driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
-      driver().findElement(By.id("webHeadSearchSubmit")).click();
-      ajaxWait();
-
-      assertFalse(isVisible(By.id("fewerProjects")));
-      assertFalse(isVisible(By.id("moreProjects")));
-      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-      assertTrue(isTextPresent(projectTitle));
+      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE.toUpperCase()));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitle + "\"]")));
 
       // test description
-      driver().findElement(By.id("searchQuery")).clear();
-      driver().findElement(By.id("searchQuery")).sendKeys(projectDescription);
-      driver().findElement(By.id("webHeadSearchSubmit")).click();
+      driver().findElement(By.xpath("//*[@id='largeMenu']/div[4]/input")).clear();
+      driver().findElement(By.xpath("//*[@id='largeMenu']/div[4]/input")).sendKeys(projectDescription);
+      driver().findElement(By.id("largeSearchButton")).click();
       ajaxWait();
-      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-      assertTrue(isTextPresent(projectTitle));
-
-      assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
-      assertTrue(isTextPresent(projectTitle));
+      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE.toUpperCase()));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitle + "\"]")));
     } catch(AssertionError e) {
       captureScreen("SearchTests.titleAndDescription." + dataset.get("projectTitle"));
       log(dataset.get("projectTitle"));
@@ -83,26 +70,130 @@ public class SearchTests extends BaseTest {
     }
   }
 
+
+  @Test(groups = { "functionality" }, description = "checks all search boxes and buttons")
+  public void searchBoxesAndButton() throws Throwable {
+    try {
+      String projectTitleA = "searchFunctionalityA" + CommonData.getRandomShortString(22);
+      projectUploader.upload(CommonData.getUploadPayload(projectTitleA, CommonData.getRandomLongString(200), "", "", "", "", "", ""));
+      String projectTitleB = "searchFunctionalityA" + CommonData.getRandomShortString(22);
+      projectUploader.upload(CommonData.getUploadPayload(projectTitleB, CommonData.getRandomLongString(200), "", "", "", "", "", ""));
+
+      By largeTopSearchBox = By.xpath("//*[@id='largeMenu']/div[4]/input");
+      By largeFooterSearchBox = By.xpath("//*[@id='largeFooterMenu']/div[2]/span[2]/input");
+      By mobileSearchBox = By.xpath("//*[@id='smallSearchBar']/input");
+
+      // large layout search bar on the top
+      openLocation();
+      assertTrue(isVisible(By.id("largeSearchButton")));
+      assertTrue(isVisible(largeTopSearchBox));
+      
+      driver().findElement(largeTopSearchBox).sendKeys(projectTitleA);
+      driver().findElement(largeTopSearchBox).sendKeys(Keys.RETURN);
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitleA + "\"]")));
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitleB + "\"]")));
+
+      driver().findElement(largeTopSearchBox).clear();
+      driver().findElement(largeTopSearchBox).sendKeys(projectTitleB);
+      driver().findElement(largeTopSearchBox).sendKeys(Keys.RETURN);
+      ajaxWait();
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitleA + "\"]")));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitleB + "\"]")));
+      
+      openLocation();
+      driver().findElement(largeTopSearchBox).sendKeys(projectTitleA);
+      driver().findElement(By.id("largeSearchButton")).click();
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitleA + "\"]")));
+
+      driver().findElement(largeTopSearchBox).clear();
+      driver().findElement(largeTopSearchBox).sendKeys(projectTitleB);
+      driver().findElement(By.id("largeSearchButton")).click();
+      ajaxWait();
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitleA + "\"]")));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitleB + "\"]")));
+      
+      // large layout search bar on the bottom
+      openLocation();
+      assertTrue(isVisible(By.id("footerSearchButton")));
+      assertTrue(isVisible(largeFooterSearchBox));
+      
+      driver().findElement(largeFooterSearchBox).sendKeys(projectTitleA);
+      driver().findElement(largeFooterSearchBox).sendKeys(Keys.RETURN);
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitleA + "\"]")));
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitleB + "\"]")));
+      
+      driver().findElement(largeFooterSearchBox).clear();
+      driver().findElement(largeFooterSearchBox).sendKeys(projectTitleB);
+      driver().findElement(largeFooterSearchBox).sendKeys(Keys.RETURN);
+      ajaxWait();
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitleA + "\"]")));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitleB + "\"]")));
+      
+      openLocation();
+      driver().findElement(largeFooterSearchBox).sendKeys(projectTitleA);
+      driver().findElement(By.id("footerSearchButton")).click();
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitleA + "\"]")));
+      
+      driver().findElement(largeFooterSearchBox).clear();
+      driver().findElement(largeFooterSearchBox).sendKeys(projectTitleB);
+      driver().findElement(By.id("footerSearchButton")).click();
+      ajaxWait();
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitleA + "\"]")));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitleB + "\"]")));
+
+      // mobile layout search bar on the top
+      openMobileLocation();
+      assertTrue(isVisible(By.id("mobileSearchButton")));
+      assertFalse(isVisible(mobileSearchBox));
+      
+      driver().findElement(By.id("mobileSearchButton")).click();
+      driver().findElement(mobileSearchBox).sendKeys(projectTitleA);
+      driver().findElement(mobileSearchBox).sendKeys(Keys.RETURN);
+      ajaxWait();
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitleA + "\"]")));
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitleB + "\"]")));
+      
+      driver().findElement(mobileSearchBox).clear();
+      driver().findElement(mobileSearchBox).sendKeys(projectTitleB);
+      driver().findElement(mobileSearchBox).sendKeys(Keys.RETURN);
+      ajaxWait();
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitleA + "\"]")));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitleB + "\"]")));
+    } catch(AssertionError e) {
+      captureScreen("SearchTests.searchBoxesAndButton");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("SearchTests.searchBoxesAndButton");
+      throw e;
+    }
+  }
+
   @Test(dataProvider = "specialChars", groups = { "functionality", "upload" }, description = "search forspecial chars")
   public void specialChars(String specialchars) throws Throwable {
     try {
-      String projectPrefix = "searchtest";
+      String projectPrefix = "searchtest" + CommonData.getRandomShortString(10);
       String projectTitle = projectPrefix + specialchars;
+      String htmlProjectTitle = projectTitle.replace("&", "&amp;").replace("\"", "&quot;");
       projectUploader.upload(CommonData.getUploadPayload(projectTitle, CommonData.getRandomLongString(200), "", "", "", "", "", ""));
 
       openLocation();
       ajaxWait();
       
+      By searchBox = By.xpath("//*[@id='largeMenu']/div[4]/input");
       for(int i = projectTitle.length() - specialchars.length(); i < projectTitle.length(); i++) {
-        driver().findElement(By.id("searchQuery")).clear();
-        driver().findElement(By.id("searchQuery")).sendKeys(projectPrefix + projectTitle.substring(projectPrefix.length(), i + 1));
-        driver().findElement(By.id("webHeadSearchSubmit")).click();
+        driver().findElement(searchBox).clear();
+        driver().findElement(searchBox).sendKeys(projectPrefix + projectTitle.substring(projectPrefix.length(), i + 1));
+        driver().findElement(By.id("largeSearchButton")).click();
         ajaxWait();
-        assertTrue(isTextPresent(projectTitle));
+        assertTrue(isElementPresent(By.xpath("//a[@title=\"" + htmlProjectTitle + "\"]")));
 
-        driver().findElement(By.id("searchQuery")).clear();
-        driver().findElement(By.id("searchQuery")).sendKeys(CommonData.getRandomShortString(10));
-        driver().findElement(By.id("webHeadSearchSubmit")).click();
+        driver().findElement(searchBox).clear();
+        driver().findElement(searchBox).sendKeys(CommonData.getRandomShortString(10));
+        driver().findElement(By.id("largeSearchButton")).click();
         ajaxWait();
       }
     } catch(AssertionError e) {
@@ -125,62 +216,39 @@ public class SearchTests extends BaseTest {
       System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
       for(int i = 0; i < uploadCount; i++) {
         projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "", "", "", "", "", ""));
-        if((i%5) == 0) {
-          driver().findElement(By.id("aIndexWebLogoLeft")).click();          
+        if((i%Config.PROJECT_PAGE_LOAD_MAX_PROJECTS) == 0) {
+          driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();          
         }
       }
-      
-      driver().findElement(By.id("aIndexWebLogoLeft")).click();
-      ajaxWait();
 
-      driver().findElement(By.id("searchQuery")).clear();
-      driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
-      driver().findElement(By.id("webHeadSearchSubmit")).click();
+      driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();
+      ajaxWait();
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitle + "0\"]")));
+
+      By searchBox = By.xpath("//*[@id='largeMenu']/div[4]/input");
+      driver().findElement(searchBox).clear();
+      driver().findElement(searchBox).sendKeys(projectTitle);
+      driver().findElement(By.id("largeSearchButton")).click();
       ajaxWait();
 
       int pageNr = 0;
       for(; pageNr < Config.PROJECT_PAGE_SHOW_MAX_PAGES; pageNr++) {
-        driver().findElement(By.id("moreProjects")).click();
+        driver().findElement(By.id("moreResults")).click();
         ajaxWait();
         assertRegExp(".*p=" + (pageNr + 2) + ".*", driver().getCurrentUrl());
       }
+      pageNr++;
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitle + "0\"]")));
 
-      assertTrue(isVisible(By.id("fewerProjects")));
-      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_PREV_BUTTON));
-      driver().findElement(By.id("fewerProjects")).click();
-      ajaxWait();
-      assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (pageNr) + "", driver().getTitle());
-
-      assertTrue(isVisible(By.id("moreProjects")));
-
-      // test session
-      openLocation("catroid/search/?q=" + projectTitle + "&p=" + String.valueOf(pageNr));
-      ajaxWait();
-
-      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-      assertRegExp(".*p=" + (pageNr) + ".*", driver().getCurrentUrl());
-
-      assertTrue(isElementPresent(By.id("fewerProjects")));
-      assertTrue(isVisible(By.id("fewerProjects")));
-      assertTrue(isElementPresent(By.id("moreProjects")));
-      assertTrue(isVisible(By.id("moreProjects")));
-      
       // test links to details page
-      driver().findElement(By.xpath("//a[@class='projectListDetailsLink'][1]")).click();
+      driver().findElement(By.xpath("//*[@id='searchResultContainer']/ul/li/a")).click();
       ajaxWait();
-      assertRegExp(".*/catroid/details.*", driver().getCurrentUrl());
+      assertRegExp(".*/details.*", driver().getCurrentUrl());
       driver().navigate().back();
       ajaxWait();
-      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
+      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE.toUpperCase()));
       assertRegExp(CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.SEARCH_PROJECTS_PAGE_TITLE + " - " + projectTitle + " - " + (pageNr) + "", driver().getTitle());
-
-      assertTrue(isVisible(By.id("fewerProjects")));
-      assertTrue(isVisible(By.id("moreProjects")));
-
-      // test header click
-      driver().findElement(By.id("aIndexWebLogoLeft")).click();
-      ajaxWait();
-      assertRegExp("^" + CommonStrings.WEBSITE_TITLE + " - " + CommonStrings.NEWEST_PROJECTS_PAGE_TITLE + " - " + (1) + "$", driver().getTitle());
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitle + "0\"]")));
     } catch(AssertionError e) {
       captureScreen("SearchTests.pageNavigation");
       throw e;
@@ -200,20 +268,20 @@ public class SearchTests extends BaseTest {
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle1, "identical_search_project_2", "", "", "", "", "", ""));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
-      openLocation("/catroid/search/?q=" + projectTitle + "&p=1", false);
+      openLocation("/search/?q=" + projectTitle + "&p=1", false);
       ajaxWait();
 
-      assertTrue(isTextPresent(projectTitle1));
-      assertFalse(isTextPresent(projectTitle2));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitle1 + "\"]")));
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitle2 + "\"]")));
 
       projectUploader.upload(CommonData.getUploadPayload(projectTitle2, "identical_search_project_2", "", "", "", "", "", ""));
       driver().navigate().refresh();
       ajaxWait();
-      driver().findElement(By.id("webHeadSearchSubmit")).click();
+      driver().findElement(By.id("largeSearchButton")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent(projectTitle1));
-      assertTrue(isTextPresent(projectTitle2));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitle1 + "\"]")));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitle2 + "\"]")));
     } catch(AssertionError e) {
       captureScreen("SearchTests.identicalSearchQuery");
       throw e;
@@ -227,22 +295,17 @@ public class SearchTests extends BaseTest {
   public void highlightSearchQuery() throws Throwable {
     try {
       
-      String projectTitle = "HighLight_Project" + CommonData.getRandomShortString(10);
+      String projectTitle = CommonData.getRandomShortString(7);
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "identical_search_project_2", "", "", "", "", CommonData.getLoginUserDefault(), Config.DEFAULT_UPLOAD_TOKEN));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
-      openLocation("/catroid/search/?q=" + projectTitle + "&p=1", false);
+      openLocation("/search/?q=" + projectTitle + "&p=1", false);
       ajaxWait();  
       assertEquals(projectTitle, driver().findElement(By.className("highlight")).getText());
       
-      openLocation("/catroid/search/?q=" + projectTitle.toUpperCase() + "&p=1", false);
+      openLocation("/search/?q=" + projectTitle.toUpperCase() + "&p=1", false);
       ajaxWait();
       assertEquals(projectTitle, driver().findElement(By.className("highlight")).getText());
-      
-      openLocation("/catroid/search/?q=" + CommonData.getLoginUserDefault() + "&p=1", false);
-      ajaxWait();
-      assertEquals(CommonData.getLoginUserDefault(), driver().findElement(By.className("highlight")).getText());
-      
     } catch(AssertionError e) {
       captureScreen("SearchTests.highlightSearchQuery");
       throw e;
@@ -266,39 +329,21 @@ public class SearchTests extends BaseTest {
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("toggle" + projectID)).click();
 
-      openLocation();
-      ajaxWait();
-      driver().findElement(By.id("searchQuery")).clear();
-      driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
-      driver().findElement(By.id("webHeadSearchSubmit")).click();
+      openLocation("search/?q=" + projectTitle + "&p=1");
       ajaxWait();
 
-      assertFalse(isTextPresent(projectTitle));
-      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
-
-      driver().findElement(By.id("aIndexWebLogoLeft")).click();
-      ajaxWait();
-      assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE));
+      assertFalse(isElementPresent(By.xpath("//a[@title=\"" + projectTitle + "\"]")));
 
       // unhide project
       openAdminLocation("/tools/editProjects");
       clickOkOnNextConfirmationBox();
       driver().findElement(By.id("toggle" + projectID)).click();
 
-      openLocation();
-      ajaxWait();
-      driver().findElement(By.id("searchQuery")).clear();
-      driver().findElement(By.id("searchQuery")).sendKeys(projectTitle);
-      driver().findElement(By.id("webHeadSearchSubmit")).click();
+      openLocation("search/?q=" + projectTitle + "&p=1");
       ajaxWait();
 
-      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE));
-      assertTrue(isTextPresent(projectTitle));
-      assertFalse(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_NO_RESULTS));
-
-      assertFalse(isVisible(By.id("fewerProjects")));
-      assertFalse(isVisible(By.id("moreProjects")));
+      assertTrue(isTextPresent(CommonStrings.SEARCH_PROJECTS_PAGE_TITLE.toUpperCase()));
+      assertTrue(isElementPresent(By.xpath("//a[@title=\"" + projectTitle + "\"]")));
     } catch(AssertionError e) {
       captureScreen("SearchTests.searchAndHideProject");
       throw e;
@@ -308,7 +353,8 @@ public class SearchTests extends BaseTest {
     }
   }
 
-  
+  /*
+   * at the moment not supported
   @Test(dataProvider = "searchUser", groups = { "functionality", "upload" }, description = "search for user and find projects")
   public void searchAndFindUser(HashMap<String, String> dataset) throws Throwable {
     try {
@@ -356,7 +402,7 @@ public class SearchTests extends BaseTest {
       captureScreen("SearchTests.searchUser." + dataset.get("projectTitle"));
       throw e;
     }
-  }  
+  }*/
   
   @DataProvider(name = "specialChars")
   public Object[][] specialChars() {

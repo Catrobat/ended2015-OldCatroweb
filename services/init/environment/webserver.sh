@@ -24,7 +24,7 @@ backport_source="deb http://backports.debian.org/debian-backports squeeze-backpo
 grep -q "${backport_source}" /etc/apt/sources.list || echo "${backport_source}" >> /etc/apt/sources.list
 apt-get update
 
-apt-get --assume-yes install apache2 graphviz imagemagick openjdk-6-jre-headless php5 php5-gd php5-curl php5-mcrypt qrencode
+apt-get --assume-yes install apache2 graphviz imagemagick openjdk-6-jre-headless php5 php5-gd php5-curl php5-mcrypt php-xml-serializer unzip qrencode
 apt-get --assume-yes --target-release squeeze-backports install postgresql-9.1 phppgadmin
 
 

@@ -1,0 +1,414 @@
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#projectDetailsContainer {
+  margin-left: 1%;
+  margin-right: 1%;
+  max-width: 98%;
+}
+
+.projectDetailsThumbnail, .projectDetailsDescription, .projectDetailsDownload {
+  float: left;
+  margin: 0 1% 0% 1%;
+  padding: 0;
+}
+
+.projectDetailsAuthorTop {
+  float: right;
+  font-size: 0.7em;
+  padding-right: 1%;
+  text-transform: none;
+  vertical-align: middle;
+}
+
+.projectDetailsAuthorTop ul {
+  float: left;
+  font-size: 1.0em;
+  list-style:none;
+  margin: 2% 0% 2% 0%;
+  padding: 0;
+  width: 100%;
+}
+
+.projectDetailsAuthorTop ul li {
+  float: left;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.projectDetailsAuthorTop ul li > div {
+    float: left;
+}
+
+.projectDetailsAuthorTop a {
+  vertical-align: middle;
+  color: #fff;
+}
+
+#wrapper .projectDetailsAuthorTop a:link {
+  text-decoration: none;
+  color: #fff;
+}
+
+.projectDetailsThumbnail {
+  float: left;
+  width: 30%;
+}
+
+.projectDetailsThumbnail img {
+  outline: 0.3em solid #fff;
+  vertical-align: middle;
+}
+
+.projectDetailsThumbnail:hover, .green:hover {
+  opacity: 0.9;
+}
+
+.projectDetailsDescription {
+  width: 37%;
+  max-width: 37%;
+  text-align: justify;
+  padding: 0;
+  margin: 0;
+}
+
+.projectDetailsDescriptionHeading{
+  margin-left: 0.7em;
+  color: #a8dff4;
+  font-size: 1.4em;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.projectDetailsDescriptionText {
+  margin: 8%;
+  overflow: hidden;
+  text-align: left;
+}
+
+.projectDetailsDescriptionText a{
+  font-weight: bold;
+  color: #fff;
+ }
+.projectDetailsDownload {
+  display: table;
+  text-decoration: none;
+  margin-left: 1em;
+  max-width: 27%;
+  width: 27%;
+}
+
+.projectDetailsDownloadButton {
+  display: table-cell;
+  text-align: right;
+  vertical-align: middle;
+  width: 90%;
+}
+
+.projectDetailsDownload a {
+  color: #a8dff4;
+  font-weight: bold;
+}
+
+.green,.blue {
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1.8em;
+  padding: 3%;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-shadow: #333333 1px 1px 1px;
+  text-align: center;
+}
+
+.blue {
+  background-color: #7cb5ca;
+  background-image: linear-gradient(top, #A8DFF4, #74b0c7);
+  background-image: -moz-linear-gradient(top, #A8DFF4, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #A8DFF4, #74b0c7);
+}
+
+.green {
+  background-color: #5EC03F;
+  background-image: linear-gradient(top, #5EC03F, #6F992F);
+  background-image: -moz-linear-gradient(top, #5EC03F, #6F992F);
+  background-image: -webkit-linear-gradient(top, #5EC03F, #6F992F);
+}
+
+#projectDetailsDownloadVersion {
+  font-size: 0.7em;
+}
+
+#projectDetailsDownloadLicense {
+  font-size: 0.9em;
+  text-transform: uppercase;
+}
+
+.projectDetailsSeperator {
+  background-color:#000;
+  border: 0;
+  color: #8abbcc;
+  clear:both;
+  float: left;
+  margin-bottom: 1.7em;
+  width: 100%;
+
+}
+
+.projectDetailsInformation {
+  clear: both;
+  float: left;
+  width: 98%;
+  margin-left: 1%;
+  margin-right: 1%;
+}
+
+.projectDetailsInformationText {
+  line-height: 2.2em;
+  padding-left: 1em;
+  color:#a8dff4;
+}
+
+.projectDetailsInformationText a {
+  color:#a8dff4;
+}
+
+.projectDetailsInformation ul {
+  float: left;
+  margin-left: 1%;
+  margin-right: 1%;
+  font-size: 1.0em;
+  list-style: none;
+  padding: 0;
+  width: 100%;
+}
+
+.projectDetailsInformation ul li {
+  float: left;
+  text-align: justify;
+  width: 25%;
+}
+
+.projectDetailsInformation ul li > div {
+    float: left;
+}
+
+#wrapper .projectDetailsInformation ul li a:link {
+  font-weight: normal;
+  text-decoration: none;
+}
+
+.projectDetailsInformation ul>li:first-of-type {
+    display:none;
+}
+
+#wrapper article #projectDetailsContainer textarea {
+  width: 50%;
+  border: 0;
+  border-radius: 0.125em;
+  color: #000000;
+
+  -mox-box-shadow: inset 2px 2px 5px #05222a;
+  -webkit-box-shadow: inset 2px 2px 5px #05222a;
+  box-shadow: inset 2px 2px 5px #05222a;
+
+  margin: 0.2em 0 0.2em -0.2em;
+  padding: 0.4em 0 0.4em 0.4em;
+}
+
+#projectDetailsReportContainer{
+  float:left;
+  padding-bottom: 1.7em;
+  text-align: center;
+  width: 98%;
+  margin-left:1%;
+  margin-right:1%;
+}
+
+.reportAsInappropriateDialog, #reportAsInappropriateAnswer {
+  color: #a8dff4;
+  font-size: 1.3em;
+  margin-top: 1em;
+  padding-bottom: 1em;
+  padding-top: 1em;
+}
+
+.reportAsInappropriateDialog a{
+  color:#A8DFF4;
+  font-weight: bold;
+}
+
+.reportInappropriateReason {
+  color: #000;
+  height: 5em;
+  width: 50%;
+}
+
+#wrapper article #projectDetailsContainer .buttonBlue, #wrapper article #projectDetailsContainer .buttonGreen, #wrapper article #projectDetailsContainer .buttonWhite{
+  border-radius: 4px;
+  border: 0;
+  color: #fff;
+  font-size: 1.3em;
+  font-weight: bold;
+  padding: 0.4em;
+  text-align: center;
+  text-shadow: #333333 1px 1px 1px;
+  text-transform: uppercase;
+}
+
+#wrapper article #projectDetailsContainer .buttonGreen{
+  background-color: #5EC03F;
+  background-image: linear-gradient(top, #5EC03F, #6F992F);
+  background-image: -moz-linear-gradient(top, #5EC03F, #6F992F);
+  background-image: -webkit-linear-gradient(top, #5EC03F, #6F992F);
+}
+
+#wrapper article #projectDetailsContainer .buttonBlue{
+  background-color: #7db6ff;
+  color: #fff;
+}
+#wrapper article #projectDetailsContainer .buttonWhite{
+  background-color: #EAEAEA;
+  color: #000;
+}
+
+#wrapper article #projectDetailsContainer .buttonSmall {
+  height: 2.2em;
+}
+
+.reportAsInappropriateDialogButtons input:nth-child(odd) {
+  margin-right: 1em;
+}
+
+/*
+ * MEDIA QUERIES
+ */
+
+@media screen and (max-width: 800px) {
+  .projectDetailsAuthorTop {
+    display: none;
+  }
+
+  .projectDetailsDescription {
+     max-width: 38%;
+  }
+
+  .projectDetailsDescriptionHeading {
+    margin-left: 5%;
+  }
+
+  .projectDetailsDescriptionText {
+    margin: 8%;
+  }
+
+  .green {
+    font-size: 1.3em;
+    padding: 5% 0 5% 0;
+  }
+
+  .projectDetailsInformation ul>li:first-of-type {
+    display: inline-block;
+  }
+
+  .projectDetailsInformation ul li {
+    width: 33%; /* two rows */
+  }
+
+  .projectDetailsInformation ul li:nth-child(n+4) {
+    margin-top: 2%;
+  }
+
+  .reportAsInappropriateDialogButtons {
+    font-size: 0.7em;
+  }
+
+  #wrapper article #projectDetailsContainer textarea {
+    width: 75%;
+  }
+}
+
+@media screen and (max-width: 555px) {
+  #projectDetailsProjectTitle {
+    display:table;
+    font-size: 0.8em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .projectDetailsThumbnail {
+    width: 100%;
+  }
+
+  .projectDetailsThumbnail img {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    max-width: 70%;
+  }
+
+  .projectDetailsInformation {
+    margin-top: 0;
+    padding-top:0;
+    padding-left: 5%;
+    width: 93%;
+  }
+
+  .projectDetailsInformation ul>li:first-of-type {
+     margin-top: 0;
+    padding-top:0;
+    display: inline;
+  }
+
+  .projectDetailsInformation ul li:nth-child(n+4) {
+    margin-top: 5%;
+  }
+
+  .projectDetailsInformation ul li {
+    clear: both;
+    margin-top: 5%;
+    width: 100%;
+  }
+
+  .projectDetailsDescription {
+    width: 100%;
+    margin-top: 10%;
+    max-width: 100%;
+  }
+
+  .projectDetailsDownload {
+    min-width: 100%;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .projectDetailsDownloadButton {
+    width: 75%;
+    display: block;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+}
+

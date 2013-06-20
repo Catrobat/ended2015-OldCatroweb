@@ -25,6 +25,7 @@ package at.tugraz.ist.catroweb.catroid;
 
 import java.util.HashMap;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -32,6 +33,7 @@ import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.CommonFunctions;
+import at.tugraz.ist.catroweb.common.CommonStrings;
 
 @Test(groups = { "catroid", "LoginTests" })
 public class LoginTests extends BaseTest {
@@ -39,123 +41,11 @@ public class LoginTests extends BaseTest {
   @Test(dataProvider = "validLoginData", groups = { "functionality", "popupwindows" }, description = "check login with valid data")
   public void validLogin(HashMap<String, String> dataset) throws Throwable {
     try {
-      openLocation();
-
-      // wiki username creation
-      String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
-
-      // check if we are not logged in to board & wiki
-      driver().findElement(By.id("headerMenuButton")).click();
-
-      clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
-      closePopUp();
-
-      clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
-      closePopUp();
-
       // test login
       openLocation();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
+      assertTrue(isVisible(By.id("largeMenuButton")));
+      driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
-      assertFalse(isVisible(By.id("headerProfileButton")));
-      assertTrue(isVisible(By.id("headerCancelButton")));
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.id("loginUsername")));
-      assertTrue(isVisible(By.id("loginPassword")));
-      driver().findElement(By.id("headerCancelButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      assertFalse(isVisible(By.id("headerCancelButton")));
-      assertFalse(isVisible(By.id("loginSubmitButton")));
-      assertFalse(isVisible(By.id("loginUsername")));
-      assertFalse(isVisible(By.id("loginPassword")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertFalse(isVisible(By.id("headerProfileButton")));
-      assertTrue(isVisible(By.id("headerCancelButton")));
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.id("loginUsername")));
-      assertTrue(isVisible(By.id("loginPassword")));
-
-      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
-      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
-
-      driver().findElement(By.id("loginSubmitButton")).click();
-      ajaxWait();
-
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-
-      driver().findElement(By.id("headerMenuButton")).click();
-      ajaxWait();
-
-      clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
-      closePopUp();
-
-      clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
-      closePopUp();
-
-      // test logout
-      logout();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      driver().findElement(By.id("headerCancelButton")).click();
-      ajaxWait();
-
-      driver().findElement(By.id("headerMenuButton")).click();
-      ajaxWait();
-
-      clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
-      closePopUp();
-
-      clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
-      closePopUp();
-    } catch(AssertionError e) {
-      captureScreen("LoginTests.validLogin." + dataset.get("username"));
-      throw e;
-    } catch(Exception e) {
-      captureScreen("LoginTests.validLogin." + dataset.get("username"));
-      throw e;
-    }
-  }
-  
-  @Test(dataProvider = "invalidLoginData", groups = { "functionality", "popupwindows" }, description = "check login with invalid data; waitpage after five attempts")
-  public void waitForLogin(HashMap<String, String> dataset) throws Throwable {
-    try {
-      // test login
-      openLocation();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertFalse(isVisible(By.id("headerProfileButton")));
-      assertTrue(isVisible(By.id("headerCancelButton")));
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.id("loginUsername")));
-      assertTrue(isVisible(By.id("loginPassword")));
-      driver().findElement(By.id("headerCancelButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      assertFalse(isVisible(By.id("headerCancelButton")));
-      assertFalse(isVisible(By.id("loginSubmitButton")));
-      assertFalse(isVisible(By.id("loginUsername")));
-      assertFalse(isVisible(By.id("loginPassword")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertFalse(isVisible(By.id("headerProfileButton")));
-      assertTrue(isVisible(By.id("headerCancelButton")));
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.id("loginUsername")));
-      assertTrue(isVisible(By.id("loginPassword")));
 
       driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
       driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
@@ -163,33 +53,48 @@ public class LoginTests extends BaseTest {
       driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
       
+
+      driver().findElement(By.id("largeMenuButton")).click();
+      ajaxWait();
+      driver().findElement(By.id("menuProfileButton")).click();
+      ajaxWait();
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), dataset.get("username")));
+      
+      // test logout
+      driver().findElement(By.id("largeMenuButton")).click();
+      ajaxWait();
+      assertTrue(isVisible(By.id("menuLogoutButton")));
+      driver().findElement(By.id("menuLogoutButton")).click();
+      ajaxWait();
       assertTrue(isVisible(By.id("loginSubmitButton")));
-      waitForElementPresent(By.id("loginHelperDiv"));
-      assertTrue(isAjaxMessagePresent("The password or username was incorrect."));
     } catch(AssertionError e) {
-      captureScreen("LoginTests.waitForLogin." + dataset.get("username"));
+      captureScreen("LoginTests.validLogin." + dataset.get("username"));
       throw e;
     } catch(Exception e) {
-      captureScreen("LoginTests.waitForLogin." + dataset.get("username"));
+      captureScreen("LoginTests.validLogin." + dataset.get("username"));
       throw e;
     }
   }
-  
+
   @Test(dataProvider = "validLoginData", groups = { "functionality", "popupwindows" }, description = "if logged in, registration page should redirect to profile page")
   public void redirection(HashMap<String, String> dataset) throws Throwable {
     try {      
+      // test login
       openLocation();
-      driver().findElement(By.id("headerProfileButton")).click();
+      assertTrue(isVisible(By.id("largeMenuButton")));
+      driver().findElement(By.id("largeMenuButton")).click();
+      ajaxWait();
 
-      assertFalse(isTextPresent("You are logged in as"));
       driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
       driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
 
       driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), dataset.get("username")));
       
-      driver().findElement(By.id("headerProfileButton")).click();
-      assertTrue(isTextPresent(dataset.get("username")));
+      openLocation("registration");
+      assertFalse(isTextPresent(CommonStrings.REGISTRATION_PAGE_TITLE.toUpperCase()));
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), dataset.get("username")));
     } catch(AssertionError e) {
       captureScreen("LoginTests.redirection." + dataset.get("username"));
       throw e;
@@ -199,67 +104,6 @@ public class LoginTests extends BaseTest {
     }
   }
   
-
-  @Test(dataProvider = "invalidLoginData", groups = { "functionality", "popupwindows" }, description = "check login with invalid data")
-  public void invalidLogin(HashMap<String, String> dataset) throws Throwable {
-    try {
-      openLocation();
-
-      // wiki username creation
-      String wikiUsername = dataset.get("username").substring(0, 1).toUpperCase() + dataset.get("username").substring(1).toLowerCase();
-
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertFalse(isVisible(By.id("headerProfileButton")));
-      assertTrue(isVisible(By.id("headerCancelButton")));
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.id("loginUsername")));
-      assertTrue(isVisible(By.id("loginPassword")));
-      driver().findElement(By.id("headerCancelButton")).click();
-      ajaxWait();
-      assertTrue(isVisible(By.id("headerProfileButton")));
-      assertFalse(isVisible(By.id("headerCancelButton")));
-      assertFalse(isVisible(By.id("loginSubmitButton")));
-      assertFalse(isVisible(By.id("loginUsername")));
-      assertFalse(isVisible(By.id("loginPassword")));
-      driver().findElement(By.id("headerProfileButton")).click();
-      ajaxWait();
-      assertFalse(isVisible(By.id("headerProfileButton")));
-      assertTrue(isVisible(By.id("headerCancelButton")));
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      assertTrue(isVisible(By.id("loginUsername")));
-      assertTrue(isVisible(By.id("loginPassword")));
-
-      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
-      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
-
-      driver().findElement(By.id("loginSubmitButton")).click();
-      ajaxWait();
-
-      assertTrue(isVisible(By.id("loginSubmitButton")));
-      driver().findElement(By.id("headerCancelButton")).click();
-      ajaxWait();
-
-      driver().findElement(By.id("headerMenuButton")).click();
-      ajaxWait();
-
-      clickAndWaitForPopUp(By.id("menuForumButton"));
-      assertEquals("https://groups.google.com/forum/?fromgroups=#!forum/pocketcode",  driver().getCurrentUrl());
-      closePopUp();
-
-      clickAndWaitForPopUp(By.id("menuWikiButton"));
-      assertEquals("https://github.com/Catrobat/Catroid/wiki/_pages",  driver().getCurrentUrl());
-      closePopUp();
-    } catch(AssertionError e) {
-      captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
-      throw e;
-    } catch(Exception e) {
-      captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
-      throw e;
-    }
-  }
-
   @Test(groups = { "functionality" }, description = "try login with different lower upper case in username")
   public void differentCaseInUsernameLogin() throws Throwable {
     String username = "maxmustermann";
@@ -269,7 +113,7 @@ public class LoginTests extends BaseTest {
 
     try {
       CommonFunctions.deleteUserFromDatabase(username);
-      openLocation("catroid/registration/");
+      openLocation("registration/");
       
       driver().findElement(By.id("registrationUsername")).sendKeys(username);
       driver().findElement(By.id("registrationPassword")).sendKeys(password);
@@ -278,19 +122,22 @@ public class LoginTests extends BaseTest {
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent(username));
-      logout("catroid/index");
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), username));
+      logout("index");
 
-      openLocation("catroid/login");
+      openLocation("login");
       driver().findElement(By.id("loginUsername")).sendKeys("MAXmUstermann");
       driver().findElement(By.id("loginPassword")).sendKeys("password");
 
       driver().findElement(By.id("loginSubmitButton")).click();
       ajaxWait();
 
-      driver().findElement(By.id("headerProfileButton")).click();
+      driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
-      assertTrue(isTextPresent("My Profile"));
+      assertTrue(isVisible(By.id("menuProfileButton")));
+      driver().findElement(By.id("menuProfileButton")).click();
+      ajaxWait();
+      assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), username));
       
       CommonFunctions.deleteUserFromDatabase(username);
     } catch(AssertionError e) {
@@ -298,6 +145,44 @@ public class LoginTests extends BaseTest {
       throw e;
     } catch(Exception e) {
       captureScreen("LoginTests.differentCaseInUsernameLogin." + username);
+      throw e;
+    }
+  }
+  
+  @Test(dataProvider = "invalidLoginData", groups = { "functionality", "popupwindows" }, description = "check login with invalid data; waitpage after five attempts")
+  public void invalidLogin(HashMap<String, String> dataset) throws Throwable {
+    try {
+      // test login
+      openLocation();
+      assertTrue(isVisible(By.id("largeMenuButton")));
+      driver().findElement(By.id("largeMenuButton")).click();
+      ajaxWait();
+
+      driver().findElement(By.id("loginUsername")).sendKeys(dataset.get("username"));
+      driver().findElement(By.id("loginPassword")).sendKeys(dataset.get("password"));
+
+      for(int i = 0; i < 5; i++) {
+        driver().findElement(By.id("loginSubmitButton")).click();
+        ajaxWait();
+        assertTrue(isTextPresent("The password or username was incorrect."));
+      }
+      CommonFunctions.removeAllBlockedIps();
+      
+      for(int i = 0; i < 5; i++) {
+        driver().findElement(By.id("loginSubmitButton")).click();
+        ajaxWait();
+        assertTrue(isTextPresent("The password or username was incorrect."));
+      }
+
+      driver().findElement(By.id("loginSubmitButton")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Your IP-Address has been blocked for 30 seconds."));
+      CommonFunctions.removeAllBlockedIps();
+    } catch(AssertionError e) {
+      captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
+      throw e;
+    } catch(Exception e) {
+      captureScreen("LoginTests.invalidLogin." + dataset.get("username"));
       throw e;
     }
   }

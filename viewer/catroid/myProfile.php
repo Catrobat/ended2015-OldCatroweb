@@ -23,125 +23,103 @@
  */
 
 ?>
-      <div class="webMainMiddle">
-        <div class="blueBoxMain">
-          <div class="webMainContent">
-            <div class="webMainContentTitle"><?php echo $this->languageHandler->getString('myTitle'); ?></div> 
-            <div class="profileMain">                
-              <div class ="whiteBoxMain">
-                <div class="profileFormContainer">
+  <article>
+    <header><?php echo $this->userData['username'];?></header> 
+    <div>
 
-                  <div class="avatarContainer">
-                    <img id="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" class="avatar" /><br />
-                    <div id="profileChangeAvatar"><a href="javascript:;"><?php echo $this->languageHandler->getString('changePicture'); ?></a></div>
-                    <input id="profileAvatarFile" type="file" />
-                  </div>
-
-                  <div class="profileItem">
-                    <div class="label"><?php echo $this->languageHandler->getString('name'); ?></div>
-                    <div>
-                      <?php echo $this->userData['username']; ?>
-                    </div>
-                  </div>
-
-                  <div class="profileItem">
-                    <div class="label">&nbsp;</div>
-                    <div>
-                      <a id="profileMyProfileLink" href="<?php echo BASE_PATH . 'catroid/myprojects' ?>"><?php echo $this->languageHandler->getString('my_projects'); ?></a>
-                    </div>
-                  </div>
-
-                  <div class="profileItem">
-                    <div class="label"><?php echo $this->languageHandler->getString('password'); ?></div>
-                    <div>
-                      <a href="javascript:;" id="profileChangePassword"><?php echo $this->languageHandler->getString('change_my_password')?></a><br>
-                      <div id="profilePasswordInput">
-                        <input class="catroid profileChangePassword" type="text" id="profileOldPassword" value="<?php echo htmlspecialchars($this->postData['profileOldPassword']); ?>" required="required" placeholder="<?php echo $this->languageHandler->getString('old_password')?>" /><br />
-                        <input class="catroid profileChangePassword" type="text" id="profileNewPassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" required="required" placeholder="<?php echo $this->languageHandler->getString('new_password')?>" /><br />
-                        <input type="button" id="profilePasswordSubmit" value="<?php echo $this->languageHandler->getString('save_button')?>" class="button orange compact profileSubmitButton" />
-                      </div>
-                    </div>
-                    <div style="clear:both;"></div>  
-                  </div>
-
-                  <div class="profileItem">
-                    <div class="label labelEmail"><?php echo $this->languageHandler->getString('email'); ?></div>
-                    <div>
-                      <span id="emailDeleteButtons"></span><br />
-                      <div><strong>Add another email address:</strong></div> <br/>
-                      <div>
-                        <input id="addEmailInput" type="text" class="catroid profileInputSmall" />
-                        <button id="addEmailButton" class="button orange compact"><img width="24px" src="<?php echo BASE_PATH; ?>images/symbols/add.png"></button>
-                      </div>                          
-                    </div>
-                    <div style="clear:both"></div>  
-                  </div>
-                  
-                  <div class="profileItem">
-                    <div class="label labelInput"><?php echo $this->languageHandler->getString('country'); ?></div>
-                    <div>
-                      <select id="countrySelect" class="catroid profileInput">
-                        <?php echo $this->countryCodeListHTML; ?>
-                      </select>
-                    </div>
-                    <div style="clear:both"></div>  
-                  </div>
-                  
-                  <div class="profileItem">
-                    <div class="label labelInput"><?php echo $this->languageHandler->getString('city'); ?></div>
-                    <div>
-                      <input id="cityInput" class="catroid profileInput" type="text" value="<?php echo $this->userData['city']; ?>" /><br />
-                    </div>
-                    <div style="clear:both"></div>  
-                  </div>
-
-                  <div class="profileItem">
-                    <div class="label labelInput"><?php echo $this->languageHandler->getString('gender'); ?></div>
-                    <div>
-                      <select id="genderSelect" class="catroid profileInput">
-                        <?php echo $this->genderListHTML; ?>
-                      </select>
-                    </div>
-                    <div style="clear:both"></div>  
-                  </div>
-
-                  <div class="profileItem">
-                    <div class="label labelInput"><?php echo $this->languageHandler->getString('birthday'); ?></div>
-                    <div>
-                      <select id="birthdayMonthSelect" class="catroid profileInputTwo">
-                        <?php echo $this->monthListHTML; ?>
-                      </select> 
-                      <select id="birthdayYearSelect" class="catroid profileInputTwo">
-                        <?php echo $this->yearListHTML; ?>
-                      </select>
-                    </div>
-                    <div style="clear:both"></div>  
-                  </div>
-
-                  <div class="profileItem">
-                    <div class="label labelInput"><?php echo $this->languageHandler->getString('language'); ?></div>
-                    <div>
-                      <select id="profileSwitchLanguage" class="catroid profileInput">
-                        <?php echo $this->laguageListHTML; ?>
-                      </select>
-                    </div>
-                    <div style="clear:both"></div>  
-                  </div>
-
-                  <div style="clear:both;"></div>
-                </div> <!-- profileFormContainer -->
-              </div> <!--  White Box -->                
-            </div> <!--  license Main -->                     
-          </div> <!-- mainContent close //-->
-        </div> <!-- blueBoxMain close //-->
+      <div class="profileAvatar">
+        <div id="profileAvatarError"></div>
+        <img class="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
+        <div>
+          <button id="profileChangeAvatarButton"><?php echo $this->languageHandler->getString('changeAvatar'); ?></button>
+        </div>
+        <input id="profileAvatarFile" type="file" />
       </div>
+       
+       <div class="profileInputs">
+        <div class="profileInputsLeft">
+          <div id="profilePasswordError"></div>
+           <div id="profileNewPassword" class="profileValid">
+            <input type="password" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password'); ?>" />
+            <div class="img-password profileInputIcon"></div>
+          </div>
 
-      <script type="text/javascript">
-          $(document).ready(function() {
-            var languageStringsObject = { 
-              "really_delete" : "<?php echo $this->languageHandler->getString('really_delete'); ?>",
-              "image_too_big" : "<?php echo $this->languageHandler->getString('image_too_big'); ?>"
-            };
-            new Profile(languageStringsObject);
-          });
-      </script>
+          <div id="profileRepeatPassword" class="profileValid">
+            <input type="password" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password'); ?>" />
+            <div class="img-password profileInputIcon"></div>
+          </div>
+
+          <b><?php echo $this->languageHandler->getString('country') ?></b>
+          <div class="profileCountry">
+            <select><?php echo $this->countryCodeListHTML;?></select>
+            <div class="img-select profileSelectImage"></div>
+          </div>      
+        </div>
+        
+       <div class="profileInputsRight">
+          <div id="profileEmailError"></div>
+          <!-- <div id="profileEmailDelete" class="img-delete profileDeleteEMaill"></div>-->
+          <div id="profileEmail" class="profileValid">
+            <input type="email" placeholder="<?php echo $this->languageHandler->getString('email'); ?>" value="<?php echo $this->userData['email']; ?>" />
+            <div class="img-first-email profileInputIcon"></div>
+          </div>
+
+          <!-- <div id="profileSecondEmailDelete" class="img-delete profileDeleteEMaill"></div>-->
+          <div id="profileSecondEmail" class="profileValid">
+          <div class="img-second-email profileInputIcon"></div>
+            <input type="email" placeholder="<?php echo $this->languageHandler->getString('second_email'); ?>" value="<?php echo $this->userData['additional_email']; ?>" />
+          </div>
+
+          <div>
+          <button class= "blue" id="profileSaveChanges"><?php echo $this->languageHandler->getString('save'); ?></button>
+            <img class="profileLoader" src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
+            <div id="profileChangesSuccess">
+              <div class="img-saved"></div>
+              <span><?php echo $this->languageHandler->getString('saved') ?></span>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div style="clear: both;"></div>
+    <h3><?php echo $this->languageHandler->getString('my_projects'); ?></h3>
+    <div id="userProjectContainer" class="projectContainer">
+      <span id="profileNoResults">
+        <img src="<?php echo BASE_PATH; ?>images/symbols/error_small.png" />
+        <p><?php echo $this->languageHandler->getString('no_projects_available'); ?></p>
+      </span>
+    </div>
+    <div id="userProjectLoader" class="projectFooter">
+      <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
+      <p>&nbsp;</p>
+    </div>
+    <div id="moreResults" class="projectFooter">
+      <div class="img-load-more"></div>
+      <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+    </div>
+    <div class="projectSpacer"></div>
+  </article>
+  
+  <script type="text/javascript">
+      $(document).ready(function() {
+        var languageStringsObject = { 
+          "really_delete_email" : "<?php echo $this->languageHandler->getString('really_delete_email'); ?>",
+          "really_delete_project" : "<?php echo $this->languageHandler->getString('really_delete_project'); ?>",
+          "image_too_big" : "<?php echo $this->languageHandler->getString('image_too_big'); ?>",
+          "second_email" : "<?php echo $this->languageHandler->getString('second_email'); ?>",
+          "websiteTitle" : "<?php echo SITE_DEFAULT_TITLE; ?>",
+          "title" : "<?php echo $this->languageHandler->getString('userTitle'); ?>",
+          "email_verification" : "<?php echo $this->languageHandler->getString('email_add_success'); ?>",
+          "edit_one_entry" : "<?php echo $this->languageHandler->getString('edit_one_entry'); ?>"
+        };
+        var profile = Profile(languageStringsObject);
+        var projects = ProjectObject(<?php echo $this->jsParams; ?>, {'delete' : $.proxy(profile.deleteProject, profile), 
+          'history' : $.proxy(profile.saveHistoryState, profile)});
+
+        profile.setProjectObject(projects);
+        projects.init();
+      });
+  </script>
+      

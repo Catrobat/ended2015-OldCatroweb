@@ -1,50 +1,45 @@
 <?xml version="1.0"?>
 <!--
-Catroid: An on-device graphical programming language for Android devices
-Copyright (C) 2010-2012 The Catroid Team
-(<http://code.google.com/p/catroid/wiki/Credits>)
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU Affero General Public License as
 published by the Free Software Foundation, either version 3 of the
 License, or (at your option) any later version.
 
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 GNU Affero General Public License for more details.
 
 You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded_by">von {*nicknameString*}</string>
   <string name="uploaded">hochgeladen</string>
   <string name="updated">aktualisiert</string>
-  <string name="project">Projekt</string>
-  <string name="app">App</string>
+  <string name="uploaded_by">von {*nicknameString*}</string>
   <string name="login">einloggen</string>
-  <string name="download">Herunterladen</string>
-  <string name="filesize">Dateigr&#xF6;&#xDF;e</string>
-  <string name="report">Melden</string>
-  <string name="cancel">Abbrechen</string>
+  <string name="download_button">Herunterladen</string>
+  <string name="filesize">gro&#xDF;</string>
   <string name="report_as_inappropriate">Als unpassend melden</string>
   <string name="report_as_inappropriate_label">Warum ist dieses Projekt unpassend?</string>
   <string name="report_as_inappropriate_please_login">Bitte {*login_link*} um dieses Projekt als unpassend zu melden.</string>
   <string name="report_as_inappropriate_own_project">Du kannst dein eigenes Projekt nicht markieren.</string>
   <string name="report_as_inappropriate_already_flagged">Du hast dieses Projekt bereits als unpassend gemeldet.</string>
-  <string name="some_rights_reserved">Einige Rechte vorbehalten</string>
+  <string name="report">Melden</string>
+  <string name="cancel">Abbrechen</string>
+  <string name="flag_reason_placeholder">Gib einen Grund an</string>
+  <string name="some_rights_reserved">Lizenz zum Spielen</string>
   <string name="views">mal gesehen</string>
   <string name="downloads">mal heruntergeladen</string>
-  <string name="version_info_text">Catroid Version:</string>
-  <string name="text_more">mehr</string>
-  <string name="text_less">weniger</string>
-  <string name="download_info_catroid">Lade das Projekt herunter und &#xF6;ffne es direkt in Catroid. Du kannst das Projekt ver&#xE4;ndern, erweitern und abspielen, aber auch einfach nachsehen, wie das Projekt aufgebaut ist.</string>
-  <string name="download_info_app">Lade das Projekt herunter und installiere es als Anwendung auf deinem Ger&#xE4;t. Du kannst diese Version des Projekts nur starten und damit spielen, dazu muss Catroid nicht installiert sein.</string>
-  <string name="qrcode_info">Wenn du einen Barcode-Leser installiert hast, kannst du diesen QR-Code scannen, um dieses Projekt direkt auf dein Handy zu laden. &#xD6;ffne einfach deinen Barcode-Leser auf deinem Ger&#xE4;t und halte die Kamera auf den QR-Code. Der Download beginnt dann sofort.</string>
-  <string name="show_qr_code_info_button">QR-Code - Was ist das?</string>
-  <string name="hide_qr_code_info_button">QR-Code - Info schlie&#xDF;en</string>
-  <string name="flag_reason_placeholder">Gib einen Grund an</string>
-  <string name="old_version">Es tut uns Leid, aber dieses Projekt wurde mit einer &#xE4;lteren Version von Catroid erstellt und kann nicht mehr heruntergeladen werden.</string>
-  <string name="old_version_author">Wenn du der Autor von diesem Projekt bist und es aktualisieren willst, kannst du es nocheinmal mit der aktuellen Version von Catroid hochladen.</string>
+  <string name="version_info_text">Pocket Code Version:</string>
+  <string name="description">Beschreibung</string>
+  <string name="no_description_available">Keine Beschreibung verf&#xFC;gbar.</string>
 </strings>

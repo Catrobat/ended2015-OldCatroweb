@@ -27,13 +27,16 @@ class profile extends CoreAuthenticationUser {
   public function __construct() {
     parent::__construct();
     $this->addCss('profile.css');
+    $this->addJs('projectLoader.js');
+    $this->addJs('projectContentFiller.js');
+    $this->addJs('projectObject.js');
     $this->addJs("profile.js");
     
     $this->loadModule('common/userFunctions');
   }
 
   public function __authenticationFailed() {
-    header("Location: " . BASE_PATH . "catroid/login/?requestUri=catroid/profile/");
+    header("Location: " . BASE_PATH . "login/?requestUri=" . ltrim($_SERVER['REQUEST_URI'], '/'));
     exit();
   }
   
@@ -52,6 +55,9 @@ class profile extends CoreAuthenticationUser {
         $this->errorHandler->showErrorPage('profile','no_such_user');
       }
     } else {
+      if(isset($_GET['delete'])) {
+        $this->deleteProject();
+      }
       $showUser = $this->session->userLogin_userNickname;
       $ownProfile = true;
     }
@@ -65,6 +71,55 @@ class profile extends CoreAuthenticationUser {
       $this->setWebsiteTitle($this->languageHandler->getString('userTitle'));
       $this->loadView('userProfile');
     }
+
+    $this->loadModule('api/projects');
+    $pageNr = 1;
+    $projectsPerRow = 9;
+    
+    $requestedPage = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE, '', $this->userData['username']);
+    $this->numberOfPages = max(1, intval(ceil(max(0, intval($requestedPage['CatrobatInformation']['TotalProjects'])) /
+        $projectsPerRow)));
+    
+    $params = array();
+    $params['layout'] = PROJECT_LAYOUT_GRID_ROW;
+    $params['container'] = '#userProjectContainer';
+    $params['loader'] = '#userProjectLoader';
+    $params['noResults'] = '#profileNoResults';
+    $params['buttons'] = array('prev' => null,
+        'next' => '#moreResults'
+    );
+    $params['content'][0] = $requestedPage;
+    $params['numProjects'] = intval($requestedPage['CatrobatInformation']['TotalProjects']);
+    
+    $params['page'] = array('number' => $pageNr,
+        'numProjectsPerPage' => $projectsPerRow,
+        'pageNrMax' => $this->numberOfPages
+    );
+    
+    $params['mask'] = PROJECT_MASK_GRID_ROW_AGE;
+    $params['sort'] = PROJECT_SORTBY_AGE;
+    $params['filter'] = array('query' => '',
+        'author' => $this->userData['username']
+    );
+    
+    $params['config'] = array('LAYOUT_GRID_ROW' => PROJECT_LAYOUT_GRID_ROW,
+        'sortby' => array('age' => PROJECT_SORTBY_AGE,
+            'downloads' => PROJECT_SORTBY_DOWNLOADS,
+            'views' => PROJECT_SORTBY_VIEWS,
+            'random' => PROJECT_SORTBY_RANDOM
+        )
+    );
+    
+    $this->jsParams = "'" . addslashes(json_encode($params)) . "'";
+  }
+
+  private function deleteProject() {
+    $projectId = intval($_GET['delete']);
+    if($projectId > 0 && $this->session->userLogin_userId > 0) {
+      pg_execute($this->dbConnection, "hide_user_project", array($projectId, $this->session->userLogin_userId)) or
+        $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    }
   }
   
   //--------------------------------------------------------------------------------------------------------------------
@@ -72,20 +127,8 @@ class profile extends CoreAuthenticationUser {
     $language = getLanguageOptions($this->languageHandler, $userData['language']);
     $this->laguageListHTML = $language['html'];
     $this->countryCodeListHTML = $this->generateCountryCodeList($userData);
-    $this->monthListHTML = $this->generateMonthList($userData);
-    $this->yearListHTML = $this->generateYearList($userData);
-    $this->genderListHTML = $this->generateGenderList($userData);
   }
 
-  private function generateUserEmailList() {
-    $userEmailList = '';
-    
-    foreach($this->userFunctions->getEmailAddresses($this->session->userLogin_userId) as $email) {
-      $userEmailList .= '<div style="width:408px; padding: 10px 0 10px 0;">' . $email['address'] . '</div><button name="' . $email['address'] . '" style="margin: 5px;" class="button orange compact"><img name="' . $email['address'] . '" width="24px" src="' . BASE_PATH . 'images/symbols/trash_recyclebin.png"></button><br />';
-    }
-    
-    return $userEmailList;
-  }
 
   private function generateCountryCodeList($userData) {
     $countryCodeList = getCountryArray($this->languageHandler);
@@ -105,50 +148,6 @@ class profile extends CoreAuthenticationUser {
     return $optionList;
   }
   
-  private function generateMonthList($userData) {
-    $months = getMonthsArray($this->languageHandler);
-    $optionList = '<option value="0"></option>';
-  
-    for($i = 1; $i < 13; $i++) {
-      $selected = "";
-      if(intval($userData['month']) == $i) {
-        $selected = "selected='selected'";
-      }
-      $optionList .= "<option value='" . $i . "'" . $selected . ">" . $months[$i] . "</option>";
-    }
-    return $optionList;
-  }
-  
-  private function generateYearList($userData) {
-    $optionList = '<option value="0"></option>';
-  
-    $year = date('Y') + 1;
-    for($i=1; $i<101; $i++) {
-      $year--;
-      $selected = "";
-      if(intval($userData['year']) == $year) {
-        $selected = "selected='selected'";
-      }
-      $optionList .= "<option value='" . $year . "'" . $selected . ">" . $year . "</option>";
-    }
-    return $optionList;
-  }
-
-  private function generateGenderList($userData) {
-    $optionList = "";
-    $options = array('', 'female', 'male');
-    
-    foreach($options as $option) {
-      $selected = "";
-      if(strcmp($userData['gender'], $option) == 0) {
-        $selected = " selected='selected'";
-      }
-      
-      $optionList .= "<option value='" . $option . "'" . $selected . ">" . $this->languageHandler->getString($option) . "</option>";
-    }
-    return $optionList;
-  }
-
   //--------------------------------------------------------------------------------------------------------------------
   public function updateAvatarRequest() {
     try {
@@ -164,94 +163,66 @@ class profile extends CoreAuthenticationUser {
   
   //--------------------------------------------------------------------------------------------------------------------
   public function updatePasswordRequest() {
-    $oldPassword = (isset($_POST['profileOldPassword']) ? trim(strval($_POST['profileOldPassword'])) : '');
-    $newPassword = (isset($_POST['profileNewPassword']) ? trim(strval($_POST['profileNewPassword'])) : '');
+    $newPassword =  (isset($_POST['profileNewPassword']) ? trim(strval($_POST['profileNewPassword'])) : '');
+    $repeatPassword = (isset($_POST['profileRepeatPassword']) ? trim(strval($_POST['profileRepeatPassword'])) : '');
     
     try {
-      $this->checkOldPassword($oldPassword);
-      $this->checkNewPassword($newPassword);
-      $this->userFunctions->updatePassword($this->session->userLogin_userNickname, $newPassword);
-      
-      $this->statusCode = STATUS_CODE_OK;
-      $this->answer = $this->languageHandler->getString('password_success');
-    } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
+       $this->checkNewPassword($newPassword);
+       $this->checkNewPassword($repeatPassword);
+       $this->checkPasswordsEquality($newPassword, $repeatPassword);
+       $this->userFunctions->updatePassword($this->session->userLogin_userNickname, $newPassword);
+       $this->statusCode = STATUS_CODE_OK;
+       $this->answer = $this->languageHandler->getString('password_success');
+     } catch(Exception $e) {
+       $this->statusCode = $e->getCode();
+       $this->answer = $e->getMessage();
     }
   }
   
-  private function checkOldPassword($oldPassword) {
-    if($oldPassword == '') {
-      throw new Exception($this->errorHandler->getError('profile', 'password_old_missing'),
-          STATUS_CODE_PROFILE_OLD_PASSWORD_MISSING);
-    }
-  
-    $loginSuccess = $this->userFunctions->checkLoginData($this->session->userLogin_userNickname,
-        $this->userFunctions->hashPassword($this->session->userLogin_userNickname, $oldPassword));
-    if(!$loginSuccess) {
-      throw new Exception($this->errorHandler->getError('profile', 'password_old_wrong'),
-          STATUS_CODE_PROFILE_OLD_PASSWORD_WRONG);
-    }
-  }
-  
+
   private function checkNewPassword($newPassword) {
     if($newPassword == '') {
-      throw new Exception($this->errorHandler->getError('profile', 'password_new_missing'),
+      throw new Exception($this->errorHandler->getError('profile', 'password_missing'),
           STATUS_CODE_PROFILE_NEW_PASSWORD_MISSING);
     }
     $this->userFunctions->checkPassword($this->session->userLogin_userNickname, $newPassword);
   }
+  
+  private function checkPasswordsEquality($newPassword, $repeatPassword) {
+    if($newPassword != $repeatPassword) {
+      throw new Exception($this->errorHandler->getError('profile', 'password_equal'),
+          STATUS_CODE_PROFILE_NEW_PASSWORD_MISSING);
+    }
+  }
 
   //--------------------------------------------------------------------------------------------------------------------
-  public function getEmailListRequest() {
-    $this->answer = $this->generateUserEmailList();
-  }
-  
-  public function addEmailRequest() {
-    $addEmail = (isset($_POST['profileEmail']) ? trim(strval($_POST['profileEmail'])) : '');
-    
+  public function updateEmailRequest() {
+    $email = (isset($_POST['email']) ? trim(strval($_POST['email'])) : '');
     try {
-      $this->userFunctions->addEmailAddress($this->session->userLogin_userId, $addEmail);
-      $this->statusCode = STATUS_CODE_OK;
-      $this->answer = $this->languageHandler->getString('email_add_success');
-    } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
-    }
-  }
-  
-  public function deleteEmailRequest() {
-    $deleteEmail = (isset($_POST['profileEmail']) ? trim(strval($_POST['profileEmail'])) : '');
-    
-    try {
-      $this->userFunctions->deleteEmailAddress($deleteEmail);
-      $this->statusCode = STATUS_CODE_OK;
-      $this->answer = $this->languageHandler->getString('email_delete_success');
-    } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
-    }
+       $this->userFunctions->updateEmailAddress($this->session->userLogin_userId, $email);
+       $this->statusCode = STATUS_CODE_OK;
+       $this->answer = $this->languageHandler->getString('email_add_success');
+     } catch(Exception $e) {
+       $this->statusCode = $e->getCode();
+       $this->answer = $e->getMessage();
+     }
   }
 
-  //--------------------------------------------------------------------------------------------------------------------  
-  public function updateCityRequest() {
-    $city = (isset($_POST['city']) ? trim(strval($_POST['city'])) : '');
-  
+  public function updateAdditionalEmailRequest() {
+    $email = (isset($_POST['email']) ? trim(strval($_POST['email'])) : '');
     try {
-      $this->userFunctions->updateCity($city);
-  
-      $this->statusCode = STATUS_CODE_OK;
-      $this->answer = $this->languageHandler->getString('city_success');
-    } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
-    }
+       $this->userFunctions->updateAdditionalEmailAddress($this->session->userLogin_userId, $email);
+       $this->statusCode = STATUS_CODE_OK;
+       $this->answer = $this->languageHandler->getString('email_add_success');
+     } catch(Exception $e) {
+       $this->statusCode = $e->getCode();
+       $this->answer = $e->getMessage();
+     }
   }
-
+  
   //--------------------------------------------------------------------------------------------------------------------  
   public function updateCountryRequest() {
     $country = (isset($_POST['country']) ? trim(strval($_POST['country'])) : '');
-  
     try {
       $this->userFunctions->updateCountry($country);
   
@@ -263,39 +234,5 @@ class profile extends CoreAuthenticationUser {
     }
   }
 
-  //--------------------------------------------------------------------------------------------------------------------  
-  public function updateGenderRequest() {
-    $gender = (isset($_POST['gender']) ? trim(strval($_POST['gender'])) : '');
-  
-    try {
-      $this->userFunctions->updateGender($gender);
-  
-      $this->statusCode = STATUS_CODE_OK;
-      $this->answer = $this->languageHandler->getString('gender_success');
-    } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
-    }
-  }
-
-  //--------------------------------------------------------------------------------------------------------------------  
-  public function updateBirthdayRequest() {
-    $birthdayMonth = (isset($_POST['birthdayMonth']) ? intval($_POST['birthdayMonth']) : '');
-    $birthdayYear = (isset($_POST['birthdayYear']) ? intval($_POST['birthdayYear']) : '');
-
-    try {
-      $this->userFunctions->updateBirthday($birthdayMonth, $birthdayYear);
-  
-      $this->statusCode = STATUS_CODE_OK;
-      $this->answer = $this->languageHandler->getString('birthday_success');
-    } catch(Exception $e) {
-      $this->statusCode = $e->getCode();
-      $this->answer = $e->getMessage();
-    }
-  }
- 
-  public function __destruct() {
-    parent::__destruct();
-  }
 }
 ?>

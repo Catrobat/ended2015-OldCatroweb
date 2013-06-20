@@ -244,6 +244,7 @@ public class CommonFunctions {
       Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
       Statement statement = connection.createStatement();
       statement.executeUpdate("DELETE FROM blocked_ips;");
+      statement.executeUpdate("DELETE FROM blocked_ips_temporary;");
       statement.close();
       connection.close();
       DriverManager.deregisterDriver(driver);

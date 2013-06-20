@@ -29,7 +29,7 @@ class registration extends CoreAuthenticationNone {
     $this->loadModule('common/userFunctions');
 
     if($this->userFunctions->isLoggedIn()) {
-      header("location: " . BASE_PATH . "catroid/profile/");
+      header("location: " . BASE_PATH . "profile/");
       exit();
     }
     

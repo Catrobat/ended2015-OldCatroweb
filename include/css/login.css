@@ -20,41 +20,99 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
-div.loginMain {
-  margin-left: 2.5%;
-  margin-right: 2.5%;
+ 
+#wrapper article div.header {
+  border-top: 1px solid #477889;
+  background-color: #00475d;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em;
+  text-shadow: #000000 1px 1px 1px;
+  text-align: center;
 }
 
-div.loginText {
-  padding: 3%;
-  padding-left: 8%;
-  padding-right: 8%;
+#wrapper article div.form {
+  background-color: #00475d;
+  margin-top: 0.2em;
+}
+
+#wrapper article div.form form {
+  margin: 0 auto;
   font-size: 1.3em;
+  max-width: 50%;
 }
 
-div.loginHeader {
+#wrapper article div.form form input {
+  width: 100%;
+
+  border: 0;
+  border-radius: 0.125em;
+  color: #000000;
+
+  -mox-box-shadow: inset 2px 2px 5px #05222a;
+  -webkit-box-shadow: inset 2px 2px 5px #05222a;
+  box-shadow: inset 2px 2px 5px #05222a;
+
+  margin: 0.2em 0 0.2em -0.2em;
+  padding: 0.4em 0 0.4em 0.4em;
+}
+
+#wrapper article div.form form div.label {
   font-weight: bold;
+  padding-top: 0.6em;
   font-size: 1.2em;
-  margin-top: 1.5%;
-  margin-bottom: 3.5%;
 }
 
-ul.loginOptions {
-  margin: 0;
+#wrapper article div.form form div.footer {
+  padding: 1.4em 0 1.4em 0;
+  text-align: center;
 }
 
-ul.loginOptions li {
-  padding: 5px;
-}
-
-input.loginSubmitButton {
-  color: black;
-  font-size: 0.8em;
+#wrapper article div.form form div button#loginSubmitButton {
+  border: 0;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 1.4em;
+  padding: 0.4em;
+  text-shadow: #333333 1px 1px 1px;
+  text-align: center;
+  text-transform: uppercase;
   font-weight: bold;
 }
 
-div.otherOptions {
-  font-size: 1.2em;
-  padding: 1%;
+#wrapper article div#loginError {
+  display: none;
+  color: #F78181;
+  padding-top: 1em;
+  padding-bottom: 1em;
+  font-size: 1.1em;
+}
+
+#wrapper article div.form form div.footer nav {
+  height: 3em;
+}
+
+#wrapper article div.form form div.footer nav span {
+  display: none;
+  padding: 0.72em;
+}
+
+#wrapper article div.form form div.footer div {
+  text-align: left;
+  margin-top: 4em;
+  font-weight: bold;
+}
+
+#wrapper article a:link, a:visited { 
+  text-decoration: underline; 
+  color: #a8dff4; 
+  font-weight: bold;
+}
+
+
+@media screen and (max-width: 720px) {
+  #wrapper article div.form form {
+     max-width: 75%;
+  }
 }
