@@ -72,8 +72,7 @@ class upload extends CoreAuthenticationDevice {
       
       $projectId = $projectIdArray['id'];
       
-      if(!$projectIdArray['update'])
-        $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId);
+      $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId, $projectIdArray['update']);
 
       $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
       $this->renameUnzipDirectory(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique,
@@ -320,7 +319,7 @@ class upload extends CoreAuthenticationDevice {
     }
   }
   
-  private function checkAndSetLicensesAndRemixInfo($zipFile, $xmlFile, $projectId) {
+  private function checkAndSetLicensesAndRemixInfo($zipFile, $xmlFile, $projectId, $update) {
     $zip = new ZipArchive();
     $zip->open($zipFile);
   
@@ -383,7 +382,8 @@ class upload extends CoreAuthenticationDevice {
       }
       else {
         foreach($remixOf as $remix_value) {
-          $remix_value->nodeValue = $url_value->nodeValue;
+          if(!$update)
+            $remix_value->nodeValue = $url_value->nodeValue;
           $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
           foreach($userHandle as $user)
             $user->nodeValue = $this->session->userLogin_userNickname;

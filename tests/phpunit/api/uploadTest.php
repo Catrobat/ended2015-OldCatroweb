@@ -490,14 +490,20 @@ class uploadTest extends PHPUnit_Framework_TestCase
   
     $remixOf = $dom->getElementsByTagName('remixOf');
     $url = $dom->getElementsByTagName('url');
+    $userHandle = $dom->getElementsByTagName('userHandle');
     $projectName = $dom->getElementsByTagName('programName');
   
-    foreach($projectName as $val_name){
+    
     foreach($remixOf as $val_remix) {
       foreach($url as $val_url) {
-         $this->assertNotEquals($val_remix->nodeValue, $val_url->nodeValue); 
+         $this->assertNotEquals($val_remix->nodeValue, $val_url->nodeValue);
       }
-    }}
+    }
+    
+    foreach($userHandle as $value)
+      $this->assertTrue(isset($value->nodeValue));
+    foreach($url as $value)
+      $this->assertTrue(isset($value->nodeValue));
   
     // cleanup
     $this->upload->cleanup();
@@ -730,8 +736,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctRemixInfo() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct remix info', 'my project with correct remixing information.', 'test_remix.catrobat', $fileType, 0.6, '0.7.3beta'),
-        array('unitText for correct remix info', 'my project with correct remixing information.', 'test_remix_update_1.catrobat', $fileType, 0.8, '0.7.3beta')
+        array('unitTest for correct remix info', 'my project with correct remixing information.', 'test_remix.catrobat', $fileType, 0.6, '0.7.3beta')
     );
     return $dataArray;
   }
@@ -739,7 +744,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctRemixUpdate() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct remix update', 'my project with correct remixing update.', 'test_remix_update_2.catrobat', $fileType, 0.8, '0.7.3beta')
+        array('unitTest for correct remix update', 'my project with correct remixing update.', 'test_remix_update_1.catrobat', $fileType, 0.8, '0.7.3beta')
     );
     return $dataArray;
   }
