@@ -64,7 +64,8 @@ class upload extends CoreAuthenticationDevice {
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
       
-
+      //$remixOfID = getRemixOfID($xmlFile);
+      
       $projectIdArray = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
           $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
