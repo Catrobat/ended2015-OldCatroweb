@@ -167,31 +167,13 @@ class profile extends CoreAuthenticationUser {
     $repeatPassword = (isset($_POST['profileRepeatPassword']) ? trim(strval($_POST['profileRepeatPassword'])) : '');
     
     try {
-       $this->checkNewPassword($newPassword);
-       $this->checkNewPassword($repeatPassword);
-       $this->checkPasswordsEquality($newPassword, $repeatPassword);
+       $this->userFunctions->checkPassword($this->session->userLogin_userNickname, $newPassword, $repeatPassword);
        $this->userFunctions->updatePassword($this->session->userLogin_userNickname, $newPassword);
        $this->statusCode = STATUS_CODE_OK;
        $this->answer = $this->languageHandler->getString('password_success');
      } catch(Exception $e) {
        $this->statusCode = $e->getCode();
        $this->answer = $e->getMessage();
-    }
-  }
-  
-
-  private function checkNewPassword($newPassword) {
-    if($newPassword == '') {
-      throw new Exception($this->errorHandler->getError('profile', 'password_missing'),
-          STATUS_CODE_PROFILE_NEW_PASSWORD_MISSING);
-    }
-    $this->userFunctions->checkPassword($this->session->userLogin_userNickname, $newPassword);
-  }
-  
-  private function checkPasswordsEquality($newPassword, $repeatPassword) {
-    if($newPassword != $repeatPassword) {
-      throw new Exception($this->errorHandler->getError('profile', 'password_equal'),
-          STATUS_CODE_PROFILE_NEW_PASSWORD_MISSING);
     }
   }
 

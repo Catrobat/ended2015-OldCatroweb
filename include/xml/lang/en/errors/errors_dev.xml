@@ -47,6 +47,7 @@
     	<string name="username_blacklisted">This nickname is on the blacklist and not allowed.</string>
     	<string name="username_already_exists">This nickname already exists.</string>
     	<string name="password_missing">The password is missing.</string>
+    	<string name="password_not_equal_password2">The passwords didn't match.</string>
     	<string name="username_password_equal">The password must differ from the nickname.</string>
       <string name="password_new_too_short">Your password must have at least {*minimumPasswordLength*} characters.</string>
       <string name="password_new_too_long">Your password can have a maximum of {*maximumPasswordLength*} characters.</string>
@@ -108,10 +109,6 @@
     <registration>
     	<string name="postdata_missing">Nothing was sent.</string>
     </registration>
-    <profile>
-      <string name="password_missing">The password is missing.</string>
-      <string name="password_equal">You entered two different passwords.</string>
-    </profile>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
       <string name="pootle_load_xlf_failed">Could not load XLF-file from {*source*}.</string>

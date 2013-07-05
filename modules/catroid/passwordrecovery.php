@@ -71,7 +71,7 @@ class passwordrecovery extends CoreAuthenticationNone {
       try {
         $this->userFunctions->isRecoveryHashValid($_POST['c']);
         $data = $this->userFunctions->getUserDataByRecoveryHash($_POST['c']);
-        $this->userFunctions->checkPassword($data['username'], $_POST['passwordSavePassword']);
+        $this->userFunctions->checkPassword($data['username'], $_POST['passwordSavePassword'], $_POST['passwordSavePassword2']);
 
         $this->userFunctions->updatePassword($data['username'], $_POST['passwordSavePassword']);
         $this->userFunctions->login($data['username'], $_POST['passwordSavePassword']);
