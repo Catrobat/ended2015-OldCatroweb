@@ -22,7 +22,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class profile extends CoreAuthenticationUser {
+class profile extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
@@ -35,11 +35,6 @@ class profile extends CoreAuthenticationUser {
     $this->loadModule('common/userFunctions');
   }
 
-  public function __authenticationFailed() {
-    header("Location: " . BASE_PATH . "login/?requestUri=" . ltrim($_SERVER['REQUEST_URI'], '/'));
-    exit();
-  }
-  
   public function __default() {
     $showUser = "";
     $ownProfile = false;
@@ -55,6 +50,10 @@ class profile extends CoreAuthenticationUser {
         $this->errorHandler->showErrorPage('profile','no_such_user');
       }
     } else {
+      if($this->session->userLogin_userId == 0) {
+        header("Location: " . BASE_PATH . "login/?requestUri=" . ltrim($_SERVER['REQUEST_URI'], '/'));
+        exit();
+      }
       if(isset($_GET['delete'])) {
         $this->deleteProject();
       }
