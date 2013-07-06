@@ -3,21 +3,21 @@
   Catroid: An on-device visual programming system for Android devices
   Copyright (C) 2010-2013 The Catrobat Team
   (<http://developer.catrobat.org/credits>)
-  
+
   This program is free software: you can redistribute it and/or modify
   it under the terms of the GNU Affero General Public License as
   published by the Free Software Foundation, either version 3 of the
   License, or (at your option) any later version.
-  
+
   An additional term exception under section 7 of the GNU Affero
   General Public License, version 3, is available at
   http://developer.catrobat.org/license_additional_term
-  
+
   This program is distributed in the hope that it will be useful,
   but WITHOUT ANY WARRANTY; without even the implied warranty of
   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
   GNU Affero General Public License for more details.
-  
+
   You should have received a copy of the GNU Affero General Public License
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
@@ -26,7 +26,7 @@
     <string name="get_projects_ordered_by_uploadtime">SELECT * FROM projects ORDER BY upload_time DESC</string>
     <string name="get_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND projects.visible=true AND cusers.id=projects.user_id LIMIT 1</string>
-    <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_language, filesize_bytes, version_name, language_code, user_id) 
+    <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_language, filesize_bytes, version_name, language_code, user_id)
     	VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id</string>
     <string name="does_project_already_exist">SELECT projects.* FROM projects WHERE projects.title=$1 AND projects.user_id=$2</string>
     <string name="update_project">UPDATE projects SET description=$1, upload_ip=$2, filesize_bytes=$3, version_name=$4, language_code=$5, update_time=now(), visible=true WHERE projects.id=$6</string>
@@ -39,7 +39,7 @@
     <string name="get_featured_projects_ordered_by_update_time">SELECT p.id as id, p.title, p.description, p.user_id, c.username AS uploaded_by FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY fp.update_time DESC</string>
     <string name="get_featured_projects_admin_ordered_by_update_time">SELECT p.id as project_id, p.title, p.description, p.user_id, p.download_count, p.view_count, c.username AS uploaded_by, fp.* FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY fp.update_time DESC</string>
     <string name="get_featured_projects_ordered_by_update_time_limited">SELECT p.id as id, p.title, p.description, p.user_id, c.username AS uploaded_by FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) WHERE fp.visible=$2 ORDER BY fp.update_time DESC LIMIT $1</string>
-    <string name="edit_featured_project_visibility_by_id">UPDATE featured_projects SET update_time=DEFAULT, visible=$2 WHERE id=$1 RETURNING id</string> 
+    <string name="edit_featured_project_visibility_by_id">UPDATE featured_projects SET update_time=DEFAULT, visible=$2 WHERE id=$1 RETURNING id</string>
     <string name="delete_featured_project_by_id">DELETE FROM featured_projects WHERE id=$1</string>
     <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, user_id, reason, user_ip) VALUES ($1, $2, $3, $4)</string>
     <string name="get_flags_for_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND resolved=false</string>
@@ -49,15 +49,15 @@
     <string name="set_mail_sent_on_inappropriate">UPDATE flagged_projects SET mail_sent=true WHERE project_id=$1</string>
     <string name="set_resolved_on_inappropriate">UPDATE flagged_projects SET resolved=true WHERE project_id=$1</string>
     <string name="get_flagged_projects_ordered_by_uploadtime">
-      SELECT projects.id, projects.title, projects.upload_time, projects.upload_ip, projects.visible, count(projects.id) 
-      FROM projects, flagged_projects 
-      WHERE projects.id=flagged_projects.project_id AND flagged_projects.mail_sent=true AND flagged_projects.resolved=false 
-      GROUP BY projects.id, projects.title, projects.upload_time, projects.upload_ip, projects.visible 
+      SELECT projects.id, projects.title, projects.upload_time, projects.upload_ip, projects.visible, count(projects.id)
+      FROM projects, flagged_projects
+      WHERE projects.id=flagged_projects.project_id AND flagged_projects.mail_sent=true AND flagged_projects.resolved=false
+      GROUP BY projects.id, projects.title, projects.upload_time, projects.upload_ip, projects.visible
       ORDER BY projects.upload_time DESC
     </string>
     <string name="get_flagged_projects_reason_and_user">
-      SELECT fp.user_id, fp.reason, u.username, fp.time 
-      FROM flagged_projects fp, cusers u 
+      SELECT fp.user_id, fp.reason, u.username, fp.time
+      FROM flagged_projects fp, cusers u
       WHERE fp.user_id = u.id
       AND fp.project_id = $1
       ORDER BY fp.time
@@ -70,7 +70,7 @@
     <string name="get_word_from_wordlist">SELECT * FROM wordlist WHERE word=$1</string>
     <string name="set_word_meaning">UPDATE wordlist SET good_meaning = $1, approved = TRUE WHERE id=$2</string>
     <string name="delete_word_by_id">DELETE FROM wordlist WHERE id=$1</string>
-    
+
     <string name="add_mapping_to_unapproved_words_in_projects">INSERT INTO unapproved_words_in_projects (project_id, word_id) VALUES ($1, $2)</string>
     <string name="get_project_list_containing_insulting_words">SELECT * FROM unapproved_words_in_projects WHERE word_id=$1</string>
     <string name="delete_word_from_list">DELETE FROM unapproved_words_in_projects WHERE word_id=$1</string>
@@ -83,12 +83,12 @@
 
     <string name="get_user_row_by_email">SELECT u.* FROM cusers u WHERE u.email=$1 OR u.additional_email=$1</string>
     <string name="get_user_language">SELECT language FROM cusers WHERE id=$1</string>
-    
+
     <string name="get_user_row_by_recovery_hash">SELECT * FROM cusers WHERE recovery_hash=$1 LIMIT 1</string>
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
     <string name="get_email_hash">SELECT id from cusers WHERE email_validation_hash=$1</string>
 		<string name="is_additional_email_validated">SELECT additional_email_validated FROM cusers WHERE id=$1 AND additional_email_validated=true</string>
-	
+
     <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, country, ip_registered, status, auth_token, language) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
 <!--    <string name="delete_user_additional_email">DELETE FROM cusers WHERE email=$1</string>-->
@@ -97,15 +97,15 @@
     <string name="update_user_email">UPDATE cusers SET email=additional_email, additional_email=$2, additional_email_validated=false WHERE id=$1</string>
     <string name="update_add_user_email">UPDATE cusers SET additional_email=$2, additional_email_validated=false WHERE id=$1</string>
     <string name="validate_email_by_hash">UPDATE cusers SET additional_email_validated='t', email_validation_hash='' WHERE email_validation_hash=$1</string>
-    
+
     <string name="update_user_country">UPDATE cusers SET country=$1 WHERE id=$2</string>
     <string name="update_user_language_by_id">UPDATE cusers SET language=$1 WHERE id=$2</string>
     <string name="update_avatar_by_id">UPDATE cusers SET avatar=$1 WHERE id=$2</string>
-    
+
     <string name="update_password_by_username">UPDATE cusers SET password=$1, auth_token=$3, recovery_hash=NULL, recovery_time=NULL WHERE username_clean=$2</string>
     <string name="update_auth_token">UPDATE cusers SET auth_token=$1 WHERE id=$2</string>
-    
-    
+
+
     <string name="admin_block_user">INSERT INTO blocked_cusers (user_id, user_name) VALUES ($1, $2)</string>
     <string name="admin_block_user_id">INSERT INTO blocked_cusers (user_id) VALUES ($1)</string>
     <string name="admin_block_username">INSERT INTO blocked_cusers (user_name) VALUES ($1)</string>
@@ -123,9 +123,12 @@
     <string name="admin_is_blocked_ip">SELECT * FROM blocked_ips WHERE substr($1, 1, length(ip_address)) = ip_address</string>
     <string name="admin_remove_all_blocked_ips">DELETE FROM blocked_ips</string>
     <string name="get_all_blocked_ips">SELECT * FROM blocked_ips</string>
-    
+
     <string name="save_failed_attempts">SELECT save_failed_attempt($1)</string>
     <string name="reset_failed_attempts">DELETE from blocked_ips_temporary where ip_address = substr($1, 1, length(ip_address))</string>
     <string name="is_ip_blocked_temporarily">SELECT ip_address FROM blocked_ips_temporary WHERE substr($1, 1, length(ip_address)) = ip_address AND blocked_until >= current_timestamp</string>
+
+    <string name="get_tags_of_project">SELECT * FROM projects_tags WHERE project_id=$1</string>
+    <string name="get_tag_name">SELECT tag_name FROM tags WHERE id=$1</string>
 
 </statements>

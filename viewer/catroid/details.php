@@ -61,6 +61,13 @@
 
     <div class="projectDetailsDownload">
       <div class="projectDetailsDownloadButton">
+        <div class="projectDetailsTags">
+        <?php
+          foreach ($this->tag as $value) {
+            print "<span class=\"tag orange\">" . $value . "</span> ";
+          }
+        ?>
+        </div>
         <span id="projectDetailsDownloadVersion"><?php echo $this->languageHandler->getString('version_info_text') . " " . $this->project['version_name'];?></span>
         <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
           <div class="blue">
