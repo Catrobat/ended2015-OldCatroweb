@@ -45,6 +45,8 @@ public class PasswordRecoveryTests extends BaseTest {
       ajaxWait();
       driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
+      captureScreen("PasswordRecoveryTests.passwordRecoveryRedirectWhenLoggedIn");
+      assertTrue(isVisible(By.id("menuProfileButton")));
       driver().findElement(By.id("menuProfileButton")).click();
       ajaxWait();
       assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), CommonData.getLoginUserDefault()));
@@ -117,6 +119,9 @@ public class PasswordRecoveryTests extends BaseTest {
       assertTrue(isTextPresent("Please enter your new password:"));
       driver().findElement(By.id("passwordSavePassword")).clear();
       driver().findElement(By.id("passwordSavePassword")).sendKeys("short");
+      driver().findElement(By.id("passwordSavePassword2")).clear();
+      driver().findElement(By.id("passwordSavePassword2")).sendKeys("short");
+      
       driver().findElement(By.id("passwordSaveSubmit")).click();
       ajaxWait();
       
@@ -127,6 +132,9 @@ public class PasswordRecoveryTests extends BaseTest {
       // enter the new password correctly
       driver().findElement(By.id("passwordSavePassword")).clear();
       driver().findElement(By.id("passwordSavePassword")).sendKeys(dataset.get("registrationPassword") + " new");
+      driver().findElement(By.id("passwordSavePassword2")).clear();
+      driver().findElement(By.id("passwordSavePassword2")).sendKeys(dataset.get("registrationPassword") + " new");
+
       driver().findElement(By.id("passwordSaveSubmit")).click();
       ajaxWait();
       assertTrue(containsElementText(By.xpath("//*[@id='largeMenuButton']/button[2]"), dataset.get("registrationUsername")));
@@ -166,6 +174,7 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
 
+      ajaxWait();
       driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
       assertTrue(isVisible(By.id("menuProfileButton")));

@@ -82,7 +82,7 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent("You entered two different passwords."));
+      assertTrue(isTextPresent(CommonStrings.PROFILE_PASSWORD_DIDNT_MATCH));
       
       openLocation("profile/");
       driver().findElement(By.id("profileSaveChanges")).click();
