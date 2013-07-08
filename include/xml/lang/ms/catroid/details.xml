@@ -33,4 +33,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="flag_reason_placeholder">Sila beri alasan</string>
   <string name="views">Lihat</string>
   <string name="downloads">Muat Turun</string>
+  <string name="tags">menandai</string>
 </strings>

@@ -61,6 +61,10 @@
 
     <div class="projectDetailsDownload">
       <div class="projectDetailsDownloadButton">
+        <span class="projectDetailsDescriptionHeading">
+          <?php echo $this->languageHandler->getString('tags'); ?>
+        </span>
+        <br><br>
         <div class="projectDetailsTags">
         <?php
           foreach ($this->tag as $value) {
@@ -68,6 +72,7 @@
           }
         ?>
         </div>
+        <br>
         <span id="projectDetailsDownloadVersion"><?php echo $this->languageHandler->getString('version_info_text') . " " . $this->project['version_name'];?></span>
         <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
           <div class="blue">
