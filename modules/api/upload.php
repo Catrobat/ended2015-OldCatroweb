@@ -64,13 +64,16 @@ class upload extends CoreAuthenticationDevice {
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
       
-
-      $projectId = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
+      //$remixOfID = getRemixOfID($xmlFile);
+      
+      $projectIdArray = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
           $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
           $projectInformation['versionCode']);
       
-      $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId);
+      $projectId = $projectIdArray['id'];
+      
+      $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId, $projectIdArray['update']);
 
       $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
       $this->renameUnzipDirectory(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique,
@@ -295,7 +298,11 @@ class upload extends CoreAuthenticationDevice {
       pg_free_result($result);
 
       $this->query("update_project", array($projectDescription, $uploadIp, $fileSize, $versionName, $versionCode, $updateId));
-      return $updateId;
+   
+      return(array(
+          "id" => $updateId,
+          "update" => true
+      ));
     } else {
       pg_free_result($result);
 
@@ -305,11 +312,15 @@ class upload extends CoreAuthenticationDevice {
       pg_free_result($result);
 
       $this->setState('remove_project_from_db', $insertId);
-      return $insertId;
+      
+      return(array(
+          "id" => $insertId,
+          "update" => false
+      ));
     }
   }
   
-  private function checkAndSetLicensesAndRemixInfo($zipFile, $xmlFile, $projectId) {
+  private function checkAndSetLicensesAndRemixInfo($zipFile, $xmlFile, $projectId, $update) {
     $zip = new ZipArchive();
     $zip->open($zipFile);
   
@@ -372,7 +383,8 @@ class upload extends CoreAuthenticationDevice {
       }
       else {
         foreach($remixOf as $remix_value) {
-          $remix_value->nodeValue = $url_value->nodeValue;
+          if(!$update)
+            $remix_value->nodeValue = $url_value->nodeValue;
           $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
           foreach($userHandle as $user)
             $user->nodeValue = $this->session->userLogin_userNickname;
