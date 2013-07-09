@@ -121,7 +121,7 @@
 .projectDetailsDownloadButton {
   display: table-cell;
   text-align: right;
-  vertical-align: middle;
+  vertical-align: top;
   width: 90%;
 }
 
