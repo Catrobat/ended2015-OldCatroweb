@@ -112,7 +112,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
    */
   public function testCheckPasswordValid($data) {
     try {
-      $this->obj->checkPassword($data[0], $data[1]);
+      $this->obj->checkPassword($data[0], $data[1], $data[2]);
       $this->assertTrue(true);
     } catch(Exception $e) {
       $this->fail('EXCEPTION RAISED (origin: ' . $e->getLine() . '): ' . $e->getMessage());
@@ -124,10 +124,10 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
    */
   public function testCheckPasswordInvalid($data) {
     try {
-      $this->obj->checkPassword($data[0], $data[1]);
+      $this->obj->checkPassword($data[0], $data[1], $data[2]);
       $this->fail('EXPECTED EXCEPTION NOT RAISED!');
     } catch(Exception $e) {
-      $this->assertEquals($e->getMessage(), $data[2]);
+      $this->assertEquals($e->getMessage(), $data[3]);
     }
   }
 
@@ -535,18 +535,20 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
 
   public function validPassword() {
     $dataArray = array(
-        array(array('catroweb', 'mein-tolles-passwort')),
-        array(array('catroweb', 'ein-a#d3res-p@sswort'))
+        array(array('catroweb', 'mein-tolles-passwort', 'mein-tolles-passwort')),
+        array(array('catroweb', 'ein-a#d3res-p@sswort', 'ein-a#d3res-p@sswort')),
+        array(array('catroweb', '123456', '123456'))
     );
     return $dataArray;
   }
 
   public function invalidPassword() {
     $dataArray = array(
-        array(array('catroweb', '', 'The password is missing.')),
-        array(array('catroweb', 'catroweb', 'The password must differ from the nickname.')),
-        array(array('catroweb', 'abc', 'Your password must have at least 6 characters.')),
-        array(array('catroweb', 'very-very-very-very-long-password', 'Your password can have a maximum of 32 characters.'))
+        array(array('catroweb', '', '', 'The password is missing.', '')),
+        array(array('catroweb', 'catroweb', 'catroweb', 'The password must differ from the nickname.', '')),
+        array(array('catroweb', 'abc', 'abc', 'Your password must have at least 6 characters.', '')),
+        array(array('catroweb', '123456', '654321', 'The passwords didn\'t match.', '')),
+        array(array('catroweb', 'very-very-very-very-long-password', 'very-very-very-very-long-password', 'Your password can have a maximum of 32 characters.', ''))
     );
     return $dataArray;
   }

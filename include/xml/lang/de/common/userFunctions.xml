@@ -23,7 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="registration_mail_subject">Deine {*appplication_name*} Registrierung</string>
-  <string name="registration_mail_text_row1">Gratulation und Willkommen zu der {*appplication_url*} Gemeinschaft!</string>
+  <string name="registration_mail_text_row1">Herzlichen Gl&#xFC;ckwunsch und Willkommen in der {*appplication_url*} Gemeinschaft!</string>
   <string name="registration_mail_text_row2">Bitte behalte dieses E-Mail auf. Deine Benutzerkonto-Informationen lauten:</string>
   <string name="registration_mail_text_row3">Benutzername: {*username*}</string>
   <string name="registration_mail_text_row5">Passwort: {*password*}</string>

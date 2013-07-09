@@ -22,7 +22,7 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-class profile extends CoreAuthenticationUser {
+class profile extends CoreAuthenticationNone {
 
   public function __construct() {
     parent::__construct();
@@ -35,11 +35,6 @@ class profile extends CoreAuthenticationUser {
     $this->loadModule('common/userFunctions');
   }
 
-  public function __authenticationFailed() {
-    header("Location: " . BASE_PATH . "login/?requestUri=" . ltrim($_SERVER['REQUEST_URI'], '/'));
-    exit();
-  }
-  
   public function __default() {
     $showUser = "";
     $ownProfile = false;
@@ -55,6 +50,10 @@ class profile extends CoreAuthenticationUser {
         $this->errorHandler->showErrorPage('profile','no_such_user');
       }
     } else {
+      if($this->session->userLogin_userId == 0) {
+        header("Location: " . BASE_PATH . "login/?requestUri=" . ltrim($_SERVER['REQUEST_URI'], '/'));
+        exit();
+      }
       if(isset($_GET['delete'])) {
         $this->deleteProject();
       }
@@ -167,31 +166,13 @@ class profile extends CoreAuthenticationUser {
     $repeatPassword = (isset($_POST['profileRepeatPassword']) ? trim(strval($_POST['profileRepeatPassword'])) : '');
     
     try {
-       $this->checkNewPassword($newPassword);
-       $this->checkNewPassword($repeatPassword);
-       $this->checkPasswordsEquality($newPassword, $repeatPassword);
+       $this->userFunctions->checkPassword($this->session->userLogin_userNickname, $newPassword, $repeatPassword);
        $this->userFunctions->updatePassword($this->session->userLogin_userNickname, $newPassword);
        $this->statusCode = STATUS_CODE_OK;
        $this->answer = $this->languageHandler->getString('password_success');
      } catch(Exception $e) {
        $this->statusCode = $e->getCode();
        $this->answer = $e->getMessage();
-    }
-  }
-  
-
-  private function checkNewPassword($newPassword) {
-    if($newPassword == '') {
-      throw new Exception($this->errorHandler->getError('profile', 'password_missing'),
-          STATUS_CODE_PROFILE_NEW_PASSWORD_MISSING);
-    }
-    $this->userFunctions->checkPassword($this->session->userLogin_userNickname, $newPassword);
-  }
-  
-  private function checkPasswordsEquality($newPassword, $repeatPassword) {
-    if($newPassword != $repeatPassword) {
-      throw new Exception($this->errorHandler->getError('profile', 'password_equal'),
-          STATUS_CODE_PROFILE_NEW_PASSWORD_MISSING);
     }
   }
 

@@ -69,11 +69,7 @@ var Login = Class.$extend({
   loginRequestSuccess : function(result) {
     $("#loginLoader").hide();
     if(result.statusCode == 200) {
-      if(this.requestUri == '') {
-        location.href = this.basePath + 'profile';
-      } else {
         location.href = this.basePath + this.requestUri;
-      }
     } else {
       $("#loginSubmitButton").show();
       $("#loginError").show().text(result.answer);

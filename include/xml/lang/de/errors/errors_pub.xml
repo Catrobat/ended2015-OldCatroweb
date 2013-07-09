@@ -69,6 +69,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="connection_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
     <string name="no_entry_for_id">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
   </db>
+  <upload>
+    <string name="old_catrobat_version">Es tut uns Leid, du nutzt eine alte Version von Pocket Code. Bitte lade dir die aktuelle Version herunter.</string>
+    <string name="missing_project_title">Du musst einen Titel f&#xFC;r dein Projekt angeben!</string>
+    <string name="missing_file_data">Leider gab es ein Problem beim Upload!</string>
+    <string name="missing_post_file_checksum">Es gab ein Problem beim Upload! Verwendest du die neueste Version von Pocket Code?</string>
+    <string name="copy_failed">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte versuche es erneut!</string>
+    <string name="rename_failed">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte versuche es erneut!</string>
+    <string name="invalid_file_checksum">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte versuche es erneut!</string>
+    <string name="save_thumbnail_failed">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte versuche es erneut!</string>
+    <string name="project_exceed_filesize_limit">Dein Projekt &#xFC;berschreitet das Gr&#xF6;&#xDF;en-Limit!</string>
+    <string name="project_title_default">Du musst dein Projekt umbenennen bevor du es hochladen kannst!</string>
+    <string name="insulting_words_in_project_title">Bitte verwende keine anst&#xF6;&#xDF;igen Begriffe im Titel Deines Projekts.</string>
+    <string name="insulting_words_in_project_description">Bitte verwende keine anst&#xF6;&#xDF;igen Begriffe in der Beschreibung Deines Projekts.</string>
+    <string name="invalid_project_xml">Entschuldigung, deine Projektdatei enth&#xE4;lt Fehler. Versuche dein Projekt als neues Projekt abzuspeichern und versuche es noch einmal.</string>
+    <string name="old_catrobat_language">Dein Projekt enth&#xE4;lt eine alte Version der Catrobat Sprache! Verwendest du die neueste Version von Pocket Code?</string>
+    <string name="invalid_media_license">Es tut uns Leid, dein Projekt hat eine ung&#xFC;ltige Medienlizenz!</string>
+    <string name="invalid_program_license">Es tut uns Leid, dein Projekt hat eine ung&#xFC;ltige Programmlizenz!</string>
+  </upload>
   <viewer>
     <string name="ip_is_blocked">Deine IP-Adresse wurde geblockt.</string>
     <string name="ip_is_blocked_temporary">Deine IP-Adresse ist f&#xFC;r 30 Sekunden blockiert.</string>
@@ -86,21 +104,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="missing_mcrypt">Bitte sage dem Administrator, dass er mcrypt installieren soll. Vielen Dank.</string>
     <string name="missing_blowfish">Bitte sag dem Administrator, dass er CRYPT_BLOWFISH installieren soll. Vielen Dank.</string>
   </server>
-  <upload>
-    <string name="missing_project_title">Du musst einen Titel f&#xFC;r dein Projekt angeben!</string>
-    <string name="missing_file_data">Leider gab es ein Problem beim Upload!</string>
-    <string name="missing_post_file_checksum">Es gab ein Problem beim Upload! Verwendest du die neueste Version von Pocket Code?</string>
-    <string name="copy_failed">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte versuche es erneut!</string>
-    <string name="rename_failed">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte versuche es erneut!</string>
-    <string name="invalid_file_checksum">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte versuche es erneut!</string>
-    <string name="save_thumbnail_failed">W&#xE4;hrend dem Hochladen ist etwas schiefgegangen. Bitte versuche es erneut!</string>
-    <string name="project_exceed_filesize_limit">Dein Projekt &#xFC;berschreitet das Gr&#xF6;&#xDF;en-Limit!</string>
-    <string name="project_title_default">Du musst dein Projekt umbenennen bevor du es hochladen kannst!</string>
-    <string name="insulting_words_in_project_title">Bitte verwende keine anst&#xF6;&#xDF;igen Begriffe im Titel Deines Projekts.</string>
-    <string name="insulting_words_in_project_description">Bitte verwende keine anst&#xF6;&#xDF;igen Begriffe in der Beschreibung Deines Projekts.</string>
-    <string name="invalid_project_xml">Entschuldigung, deine Projektdatei enth&#xE4;lt Fehler. Versuche dein Projekt als neues Projekt abzuspeichern und versuche es noch einmal.</string>
-    <string name="old_catrobat_language">Dein Projekt enth&#xE4;lt eine alte Version der Catrobat Sprache! Verwendest du die neueste Version von Pocket Code?</string>
-  </upload>
   <download>
     <string name="file_not_found">Das gew&#xFC;nschte Projekt ist nicht verf&#xFC;gbar. Bitte sp&#xE4;ter noch einmal versuchen!</string>
   </download>

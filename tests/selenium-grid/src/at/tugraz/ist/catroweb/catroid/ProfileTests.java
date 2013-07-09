@@ -82,7 +82,7 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("profileSaveChanges")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent("You entered two different passwords."));
+      assertTrue(isTextPresent(CommonStrings.PROFILE_PASSWORD_DIDNT_MATCH));
       
       openLocation("profile/");
       driver().findElement(By.id("profileSaveChanges")).click();
@@ -281,12 +281,39 @@ public class ProfileTests extends BaseTest {
       ajaxWait();
       
       logout("profile/" + dataset.get("registrationUsername"));
-      assertTrue(isTextPresent("Login".toUpperCase()));
+      // not logged in, view foreign profile
+      assertFalse(isElementPresent(By.id("profileNewPassword")));
+      assertFalse(isElementPresent(By.id("profileRepeatPassword")));
+      assertFalse(isElementPresent(By.id("profileCountry")));
+      assertFalse(isElementPresent(By.id("profileEmail")));
+      assertFalse(isElementPresent(By.id("profileSecondEmail")));
+      assertFalse(isElementPresent(By.id("profileSaveChanges")));
+      assertFalse(isTextPresent("MY PROJECTS"));
+      assertTrue(isTextPresent("PROJECTS OF " + dataset.get("registrationUsername").toUpperCase()));
+      assertFalse(isElementPresent(By.id("registrationSubmit")));
+      assertFalse(isTextPresent("Login".toUpperCase()));
+      assertTrue(isTextPresent(dataset.get("registrationUsername").toUpperCase()));
 
+      // /profile/ without username should redirect to login page when not logged in
+      openLocation("profile/");
+      assertTrue(isTextPresent("Login".toUpperCase()));
+      
       login("profile/" + dataset.get("registrationUsername"));
+      // logged in as catroweb, view foreign profile
       assertTrue(isTextPresent(dataset.get("registrationUsername").toUpperCase()));
       assertTrue(isTextPresent(dataset.get("registrationCountry")));
       assertTrue(isTextPresent("0"));
+      assertFalse(isElementPresent(By.id("profileNewPassword")));
+      assertFalse(isElementPresent(By.id("profileRepeatPassword")));
+      assertFalse(isElementPresent(By.id("profileCountry")));
+      assertFalse(isElementPresent(By.id("profileEmail")));
+      assertFalse(isElementPresent(By.id("profileSecondEmail")));
+      assertFalse(isElementPresent(By.id("profileSaveChanges")));
+      assertFalse(isTextPresent("MY PROJECTS"));
+      assertTrue(isTextPresent("PROJECTS OF " + dataset.get("registrationUsername").toUpperCase()));
+      assertFalse(isElementPresent(By.id("registrationSubmit")));
+      assertFalse(isTextPresent("Login".toUpperCase()));
+      assertTrue(isTextPresent(dataset.get("registrationUsername").toUpperCase()));
       
       String projectTitle = dataset.get("registrationUsername");
       String authToken = CommonFunctions.getAuthenticationToken(dataset.get("registrationUsername"));
@@ -295,6 +322,20 @@ public class ProfileTests extends BaseTest {
 
       openLocation("profile/" + dataset.get("registrationUsername"));
       assertTrue(isTextPresent("1"));
+      
+   // /profile/ without username should show own profile when logged in
+      openLocation("profile/");
+      assertFalse(isTextPresent("Login".toUpperCase()));
+      assertFalse(isTextPresent(dataset.get("registrationUsername").toUpperCase()));
+      assertTrue(isTextPresent(CommonData.getLoginUserDefault().toUpperCase()));
+      assertTrue(isElementPresent(By.id("profileNewPassword")));
+      assertTrue(isElementPresent(By.id("profileRepeatPassword")));
+      assertTrue(isElementPresent(By.xpath("/html/body/div/article/div/div[2]/div/div[4]/select")));
+      assertTrue(isElementPresent(By.id("profileEmail")));
+      assertTrue(isElementPresent(By.id("profileSecondEmail")));
+      assertTrue(isElementPresent(By.id("profileSaveChanges")));
+      assertTrue(isTextPresent("MY PROJECTS"));
+      assertTrue(isElementPresent(By.id("profileSaveChanges")));
 
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
     } catch(AssertionError e) {

@@ -86,7 +86,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="insulting_words_in_project_description">Die Beschreibung enth&#xE4;lt Schimpfw&#xF6;rter!</string>
     <string name="save_thumbnail_failed">Speichern des Thumbnails fehlgeschlagen!</string>
     <string name="invalid_project_xml">Die XML-Datei deines Projekts enth&#xE4;lt Fehler!</string>
+    <string name="old_catrobat_version">Es tut uns Leid, du nutzt eine alte Version von Pocket Code. Bitte lade dir die aktuelle Version herunter.</string>
     <string name="old_catrobat_language">Projekt enth&#xE4;lt eine alte Catrobat Sprache!</string>
+    <string name="invalid_media_license">Ung&#xFC;ltige Medienlizenz!</string>
+    <string name="invalid_program_license">Ung&#xFC;ltige Programmlizenz!</string>
   </upload>
   <download>
     <string name="file_not_found">Konnte angeforderte Datei nicht auf dem Server finden.</string>

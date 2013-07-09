@@ -185,13 +185,18 @@ class userFunctions extends CoreAuthenticationNone {
     }
   }
 
-  public function checkPassword($username, $password) {
+  public function checkPassword($username, $password, $password2) {
     $password = trim(strval($password));
     if($password == '') {
       throw new Exception($this->errorHandler->getError('userFunctions', 'password_missing'),
           STATUS_CODE_USER_PASSWORD_MISSING);
     }
 
+    if($password != $password2) {
+      throw new Exception($this->errorHandler->getError('userFunctions', 'password_not_equal_password2'),
+          STATUS_CODE_USER_PASSWORD_NOT_EQUAL_PASSWORD2);
+    }
+    
     if(strcasecmp($username, $password) == 0) {
       throw new Exception($this->errorHandler->getError('userFunctions', 'username_password_equal'),
           STATUS_CODE_USER_USERNAME_PASSWORD_EQUAL);
@@ -504,7 +509,7 @@ class userFunctions extends CoreAuthenticationNone {
   public function register($postData) {
     try {
       $this->checkUsername($postData['registrationUsername']);
-      $this->checkPassword($postData['registrationUsername'], $postData['registrationPassword']);
+      $this->checkPassword($postData['registrationUsername'], $postData['registrationPassword'],$postData['registrationPassword']);
       $this->checkEmail($postData['registrationEmail']);
       $this->checkCountry($postData['registrationCountry']);
        

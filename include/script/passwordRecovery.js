@@ -90,10 +90,7 @@ var PasswordRecovery = Class.$extend( {
     $.ajax({
       type: "POST",
       url: this.basePath + 'passwordrecovery/changeMyPasswordRequest.json',
-      data : ({
-        c : $("#passwordRecoveryHash").val(),
-        passwordSavePassword : $("#passwordSavePassword").val()
-      }),
+      data : ( $('form').serializeArray()),
       success : $.proxy(this.changeMyPasswordRequestSuccess, this),
       error : $.proxy(this.changeMyPasswordRequestError, this)
     });
