@@ -21,6 +21,11 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
  
+ header[role="banner"] {
+  padding-top: 2em;
+  padding-bottom: 2em;
+}
+ 
 #wrapper article div.header {
   border-top: 1px solid #477889;
   background-color: #00475d;
@@ -115,4 +120,8 @@
   #wrapper article div.form form {
      max-width: 75%;
   }
+}
+
+#wrapper header nav div div.catroidLink {
+  text-align: center;
 }
