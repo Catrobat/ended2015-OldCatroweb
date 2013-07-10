@@ -64,7 +64,6 @@ class upload extends CoreAuthenticationDevice {
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
       
-      //$remixOfID = getRemixOfID($xmlFile);
       
       $projectIdArray = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
@@ -74,6 +73,9 @@ class upload extends CoreAuthenticationDevice {
       $projectId = $projectIdArray['id'];
       
       $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId, $projectIdArray['update']);
+      
+      if(!$projectIdArray['update'])
+        $this->insertRemixOfIDIntoDatabase($projectId, $xmlFile);
 
       $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
       $this->renameUnzipDirectory(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique,
@@ -408,6 +410,23 @@ class upload extends CoreAuthenticationDevice {
     }
   
     return true;
+  }
+  
+  private function insertRemixOfIDIntoDatabase($projectId, $xmlFile) {
+    $dom = new DOMDocument();
+    $dom->load($xmlFile);
+    
+    $remixOf = $dom->getElementsByTagName('remixOf');
+    if($remixOf->length == 0)
+      $remixOf = $dom->getElementsByTagName('RemixOf');
+    
+    foreach($remixOf as $value) {
+      if($value->nodeValue != '') {
+        $str_to_delte = "http://pocketcode.org/details/";
+        $remixID = intval(str_replace($str_to_delte, "", $value->nodeValue));
+        $this->query("set_remixof_id", array($remixID, $projectId));
+      }
+    }
   }
 
   private function renameProjectFile($oldName, $projectId) {
