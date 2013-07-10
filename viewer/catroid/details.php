@@ -67,8 +67,15 @@
         <br><br>
         <div class="projectDetailsTags">
         <?php
-          foreach ($this->tag as $value) {
-            print "<span class=\"tag orange\">" . $value . "</span> ";
+          if($this->tag)
+          {
+            foreach ($this->tag as $value) {
+              print "<span class=\"tag orange\">" . $value . "</span> ";
+            }
+          }
+          else
+          {
+            print "No tags yet.";
           }
         ?>
         </div>

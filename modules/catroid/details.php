@@ -100,8 +100,7 @@ class details extends CoreAuthenticationNone {
 
   public function getTags($projectId) {
     $query = null;
-    $query = pg_execute($this->dbConnection, "get_tags_of_project" ,array($projectId)) or
-                $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $query = pg_execute($this->dbConnection, "get_tags_of_project" ,array($projectId));
     $tags = array();
     while($row = pg_fetch_assoc($query))
     {
@@ -112,10 +111,6 @@ class details extends CoreAuthenticationNone {
     }
     pg_free_result($query);
 
-    if(!$tags) {
-      $this->errorHandler->showErrorPage('db', 'no_entry_for_id', 'ID TAG: '.$projectId);
-      exit();
-    }
 
     return $tags;
 
