@@ -127,5 +127,6 @@
     <string name="save_failed_attempts">SELECT save_failed_attempt($1)</string>
     <string name="reset_failed_attempts">DELETE from blocked_ips_temporary where ip_address = substr($1, 1, length(ip_address))</string>
     <string name="is_ip_blocked_temporarily">SELECT ip_address FROM blocked_ips_temporary WHERE substr($1, 1, length(ip_address)) = ip_address AND blocked_until >= current_timestamp</string>
+    <string name="set_remixof_id">UPDATE projects SET remixof=$1 WHERE id=$2</string>
 
 </statements>
