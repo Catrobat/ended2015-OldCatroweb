@@ -30,6 +30,8 @@ class details extends CoreAuthenticationNone {
     $this->addCss('details.css');
     $this->addJs('details.js');
 
+    $this->loadModule('common/userFunctions');
+
     $this->isMobile = $this->clientDetection->isMobile();
     $this->oldVersions = array("", "0.4.3d", "0.5.4a", "0.6.0beta", "&lt; 0.7.0beta");
   }
@@ -38,6 +40,15 @@ class details extends CoreAuthenticationNone {
     $projectId = $_REQUEST['method'];
     $this->project = $this->getProjectDetails($projectId);
     $this->tag = $this->getTags($projectId);
+
+    if(strcmp($this->project['uploaded_by'],$this->session->userLogin_userNickname) == 0 )
+    {
+      $this->loadView('myDetails');
+    }
+    else
+    {
+      $this->loadView('details');
+    }
 
     $this->setWebsiteTitle($this->project['title']);
   }
