@@ -154,5 +154,8 @@ class details extends CoreAuthenticationNone {
   public function __destruct() {
     parent::__destruct();
   }
+  public function returnsomeval(){
+    echo "hahahaha";
+  }
 }
 ?>
