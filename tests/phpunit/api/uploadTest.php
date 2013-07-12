@@ -508,6 +508,62 @@ class uploadTest extends PHPUnit_Framework_TestCase
     // cleanup
     $this->upload->cleanup();
   }
+  
+  /**
+   * @dataProvider correctRemixofIdInDatabase
+   */
+  public function testDoUploadWithCorrectRemixofIdInDatabase($projectTitle, $projectDescription, $fileName, $fileType, $versionCode, $versionName, $uploadEmail = '', $uploadLanguage = '') {
+    $testFile = dirname(__FILE__).'/testdata/'.$fileName;
+    $fileChecksum = md5_file($testFile);
+    $fileSize = filesize($testFile);
+    $formData = array(
+        'projectTitle' => $projectTitle,
+        'projectDescription' => $projectDescription,
+        'fileChecksum' => $fileChecksum,
+        'userEmail' => $uploadEmail,
+        'userLanguage' => $uploadLanguage
+    );
+    $fileData = array(
+        'upload' => array(
+            'name' => $fileName,
+            'type' => $fileType,
+            'tmp_name' => $testFile,
+            'error' => 0,
+            'size' => $fileSize
+        )
+    );
+    $serverData = array('REMOTE_ADDR' => '127.0.0.1');
+    $fileSize = filesize($testFile);
+  
+    $this->upload->doUpload($formData, $fileData, $serverData);
+    $this->assertEquals(200, $this->upload->statusCode);
+    
+    $insertId = $this->upload->projectId;
+    $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
+    
+    // get remixOf ID from XML
+    $xmlFile = $this->getProjectXmlFile($projectPath . '/');
+    $dom = new DOMDocument();
+    $dom->load($xmlFile);
+    $remixOf = $dom->getElementsByTagName('remixOf');
+    foreach($remixOf as $value)
+      $id_xml = intval(str_replace(PROJECT_URL_TEXT, "", $value->nodeValue));
+    
+    $this->assertTrue(isset($id_xml));
+    
+    // get remixOf ID from Database
+    $query = "SELECT * FROM projects WHERE remixof='$id_xml'";
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
+    $this->assertEquals(1, pg_num_rows($result));    
+    while($row = pg_fetch_array($result))
+      $id_db = $row['remixof'];
+    
+    // remixOf ID must be same in XML and Database!
+    $this->assertEquals($id_xml, $id_db);
+    
+    // cleanup
+    $this->upload->cleanup();    
+  }
 
   /**
    * @dataProvider correctPostDataThumbailInRootFolderPNG
@@ -554,7 +610,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     //test deleting from database
     $query = "SELECT * FROM projects WHERE id='$insertId'";
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $this->assertEquals(0, pg_num_rows($result));
+    $this->assertEquals(1, pg_num_rows($result));
   }
 
   /**
@@ -745,6 +801,14 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
         array('unitTest for correct remix update', 'my project with correct remixing update.', 'test_remix_update_1.catrobat', $fileType, 0.8, '0.7.3beta')
+    );
+    return $dataArray;
+  }
+  
+  public function correctRemixofIdInDatabase() {
+    $fileType = 'application/x-zip-compressed';
+    $dataArray = array(
+        array('unitTest for correct RemixOf ID in database', 'my project with correct remixOf id in db', 'test_remix.catrobat', $fileType, 0.8, '0.7.3beta')
     );
     return $dataArray;
   }
