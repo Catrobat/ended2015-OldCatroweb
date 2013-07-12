@@ -379,7 +379,7 @@ class upload extends CoreAuthenticationDevice {
   
     foreach($url as $url_value) {
       if($url_value->nodeValue == '') {
-        $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
+        $url_value->nodeValue = PROJECT_URL_TEXT . $projectId;
         foreach($userHandle as $user)
           $user->nodeValue = $this->session->userLogin_userNickname;
       }
@@ -387,7 +387,7 @@ class upload extends CoreAuthenticationDevice {
         foreach($remixOf as $remix_value) {
           if(!$update)
             $remix_value->nodeValue = $url_value->nodeValue;
-          $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
+          $url_value->nodeValue = PROJECT_URL_TEXT . $projectId;
           foreach($userHandle as $user)
             $user->nodeValue = $this->session->userLogin_userNickname;
         }
@@ -422,8 +422,7 @@ class upload extends CoreAuthenticationDevice {
     
     foreach($remixOf as $value) {
       if($value->nodeValue != '') {
-        $str_to_delte = "http://pocketcode.org/details/";
-        $remixID = intval(str_replace($str_to_delte, "", $value->nodeValue));
+        $remixID = intval(str_replace(PROJECT_URL_TEXT, "", $value->nodeValue));
         $this->query("set_remixof_id", array($remixID, $projectId));
       }
     }
