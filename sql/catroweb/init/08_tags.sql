@@ -3,8 +3,9 @@
 -- Table structure for "public"."tags"
 -- ----------------------------
 
+CREATE SEQUENCE tags_id_seq;
 CREATE TABLE "public"."tags" (
-	"id" int4,
+	"id" int4 DEFAULT nextval('tags_id_seq'::regclass) NOT NULL,
 	"tag_name" varchar(255) DEFAULT NULL,
 
 	PRIMARY KEY ("id")
