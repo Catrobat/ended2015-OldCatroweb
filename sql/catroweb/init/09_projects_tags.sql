@@ -5,7 +5,7 @@
 CREATE TABLE "public"."projects_tags" (
 	"project_id" int4,
 	"tag_id" int4,
-
+	PRIMARY KEY ("project_id","tag_id"),
 	CONSTRAINT "projectID" FOREIGN KEY ("project_id") REFERENCES "public"."projects" ("id") ON DELETE CASCADE ON UPDATE CASCADE,
 	CONSTRAINT "tagID" FOREIGN KEY ("tag_id") REFERENCES "public"."tags" ("id") ON DELETE CASCADE ON UPDATE CASCADE
 	)
