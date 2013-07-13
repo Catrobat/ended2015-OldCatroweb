@@ -337,6 +337,18 @@ a.tagButtonLink:hover{
   margin-right: 1em;
 }
 
+.projectDetailsDownload input {
+  background-color: #FFFFFF;
+  border-radius: 0.125em;
+  color: #05222a;
+  height: 1.8em;
+  width: 15em;
+  border: none;
+  margin-left: 0.2em;
+  outline: none;
+  font-size: 0.9em;
+}
+
 /*
  * MEDIA QUERIES
  */

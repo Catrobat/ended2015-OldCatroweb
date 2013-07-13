@@ -27,6 +27,7 @@ var ProjectDetails = Class.$extend( {
     this.downloadState = { 'selected': 0, 'catroid': 0, 'app': 1 };
     this.downloadInfoVisible = false;
     this.projectId = projectId;
+    this.tagState = this.getTagState();
 
 //    $("#downloadCatroidSwitch").bind('click', { type: this.downloadState.catroid }, $.proxy(this.changeDownloadType, this));
 //    $("#downloadAppSwitch").bind('click', { type: this.downloadState.app }, $.proxy(this.changeDownloadType, this));
@@ -43,6 +44,7 @@ var ProjectDetails = Class.$extend( {
    });
    $("#reportInappropriateReportButton").click($.proxy(this.reportInappropriateSubmit, this));
    $("#reportInappropriateReason").keypress($.proxy(this.reportInappropriateCatchKeypress, this));
+   $('#updateTagsButton').click($.proxy(this.updateTagsRequest, this));
 
     window.onresize = $.proxy(function(){
       $.proxy(this.resizeColumnsAndText(), this);
@@ -171,6 +173,43 @@ var ProjectDetails = Class.$extend( {
       var fontsize = parseFloat(elem.css('font-size')) + 2.0;
       elem.css('font-size', parseFloat(fontsize) + "px" );
     }
+  },
+
+  getTagState : function() {
+    tagState = $("#editTags input").val();
+    return tagState;
+  },
+
+  isTagStateModified :function() {
+    var tagState = this.getTagState();
+    if(tagState != this.tagState)
+      return true;
+    return false;
+  },
+
+  updateTagsRequest : function(){
+    if(this.isTagStateModified()) {
+      $.ajax({
+            type: "POST",
+            url: this.basePath + 'details/updateTagsRequest.json',
+            data : ({
+              editedTags : $("#editTags input").val()
+            }),
+            success : $.proxy(this.tagsUpdateRequestSuccess, this),
+            error : $.proxy(this.tagsUpdateRequestError, this)
+          });
+    }
+    else {
+
+    }
+  },
+
+  tagsUpdateRequestSuccess : function(result){
+    alert(result.answer + "Successsss!");
+  },
+
+  tagsUpdateRequestError : function(result){
+    alert(result.answer);
   }
 
 });

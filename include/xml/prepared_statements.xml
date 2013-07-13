@@ -130,5 +130,9 @@
 
     <string name="get_tags_of_project">SELECT * FROM projects_tags WHERE project_id=$1</string>
     <string name="get_tag_name">SELECT tag_name FROM tags WHERE id=$1</string>
+    <string name="get_tags_name">SELECT tag_name FROM tags WHERE id IN (SELECT tag_id FROM projects_tags WHERE project_id=$1)</string>
+    <string name="get_tag_id">SELECT id FROM tags WHERE tag_name = '$1'</string>
+    <string name="insert_tag">INSERT INTO tags (tag_name) VALUES ($1) RETURNING id</string>
+    <string name="insert_tag_into_projects_tags">INSERT INTO projects_tags VALUES($1,$2)</string>
 
 </statements>

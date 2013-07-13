@@ -83,6 +83,11 @@
         <div class="tagButton">
           <a class="tagButtonLink" href="">+ EDIT TAGS</a>
         </div>
+        <div id="editTags">
+          <input type="text" value="<?php foreach($this->tag as $key=>$value){print $value; if($key!=(count($this->tag)-1))print ",";} ?>"/><br>
+        </div>
+        <button type="button" id="updateTagsButton" class="green">Save</button><br>
+
         <span id="projectDetailsDownloadVersion"><?php echo $this->languageHandler->getString('version_info_text') . " " . $this->project['version_name'];?></span>
         <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
           <div class="blue">

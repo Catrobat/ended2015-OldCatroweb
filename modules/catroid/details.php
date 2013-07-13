@@ -30,7 +30,7 @@ class details extends CoreAuthenticationNone {
     $this->addCss('details.css');
     $this->addJs('details.js');
 
-    $this->loadModule('common/userFunctions');
+    //$this->loadModule('common/userFunctions');
 
     $this->isMobile = $this->clientDetection->isMobile();
     $this->oldVersions = array("", "0.4.3d", "0.5.4a", "0.6.0beta", "&lt; 0.7.0beta");
@@ -111,14 +111,11 @@ class details extends CoreAuthenticationNone {
 
   public function getTags($projectId) {
     $query = null;
-    $query = pg_execute($this->dbConnection, "get_tags_of_project" ,array($projectId));
+    $query = pg_execute($this->dbConnection, "get_tags_name" ,array($projectId));
     $tags = array();
-    while($row = pg_fetch_assoc($query))
+    while($value = pg_fetch_assoc($query))
     {
-      $query_for_tag_name = pg_execute($this->dbConnection,"get_tag_name",array($row['tag_id']));
-      $tag_name = pg_fetch_assoc($query_for_tag_name);
-      pg_free_result($query_for_tag_name);
-      array_push($tags, $tag_name['tag_name']);
+      array_push($tags, $value['tag_name']);
     }
     pg_free_result($query);
 
@@ -154,8 +151,54 @@ class details extends CoreAuthenticationNone {
   public function __destruct() {
     parent::__destruct();
   }
-  public function returnsomeval(){
-    echo "hahahaha";
+
+  public function updateTagsRequest() {
+    $updatedTagString = (isset($_POST['editedTags']) ? trim(strval($_POST['editedTags'])) : '');
+    try{
+      $updatedTags = explode(',',$updatedTagString);
+      $updatedTags = array_unique($updatedTags);
+      $existingTags = $this->tag;
+
+      foreach($existingTags as $value) {
+        if(!in_array($value,$updatedTags)) {
+          // Remove particular tag
+        }
+      }
+
+      foreach($updatedTags as $value) {
+        if(!in_array($value,$existingTags)) {
+          // Add particular tag
+          $this->answer = $this->languageHandler->getString('tag_edit_success') . $value;
+          $this->addTag($value);
+        }
+      }
+
+      $this->statusCode = STATUS_CODE_OK;
+      //$this->answer = $this->languageHandler->getString('tag_edit_success');
+    } catch(Exception $e) {
+       $this->statusCode = $e->getCode();
+       $this->answer = $e->getMessage();
+     }
+  }
+
+  public function addTag($tag) {
+
+    $queryForTagId = pg_execute($this->dbConnection, "get_tag_id", array($tag));
+    if(!queryForTagId) {
+      $queryForTagId = pg_execute($this->dbConnection, "insert_tag" ,array($tag));
+    }
+    $tagRow = pg_fetch_assoc($queryForTagId);
+
+    $args = array($this->project['id'], $tagRow['id']);
+    $query = pg_execute($this->dbConnection, "insert_tag_into_projects_tags", $args);
+
+    pg_free_result($query);
+    pg_free_result($queryForTagId);
+
+  }
+
+  public function removeTag($tag) {
+
   }
 }
 ?>
