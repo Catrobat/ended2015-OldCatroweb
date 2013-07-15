@@ -84,7 +84,8 @@
           <a class="tagButtonLink" href="">+ EDIT TAGS</a>
         </div>
         <div id="editTags">
-          <input type="text" value="<?php foreach($this->tag as $key=>$value){print $value; if($key!=(count($this->tag)-1))print ",";} ?>"/><br>
+          <input type="text" id="updatedTagsField" value="<?php foreach($this->tag as $key=>$value){print $value; if($key!=(count($this->tag)-1))print ",";} ?>"/><br>
+          <input type="hidden" id="hiddenProjectIdField" value="<?php /*Hidden field to store projectId for updating tags*/ print $this->project['id'];?>"/>
         </div>
         <button type="button" id="updateTagsButton" class="green">Save</button><br>
 

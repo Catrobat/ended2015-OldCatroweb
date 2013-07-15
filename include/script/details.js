@@ -193,7 +193,8 @@ var ProjectDetails = Class.$extend( {
             type: "POST",
             url: this.basePath + 'details/updateTagsRequest.json',
             data : ({
-              editedTags : $("#editTags input").val()
+              editedTags : $("#editTags #updatedTagsField").val(),
+              projectId : $("#editTags #hiddenProjectIdField").val()
             }),
             success : $.proxy(this.tagsUpdateRequestSuccess, this),
             error : $.proxy(this.tagsUpdateRequestError, this)

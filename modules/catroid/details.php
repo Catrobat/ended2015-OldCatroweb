@@ -110,14 +110,14 @@ class details extends CoreAuthenticationNone {
   }
 
   public function getTags($projectId) {
-    $query = null;
-    $query = pg_execute($this->dbConnection, "get_tags_name" ,array($projectId));
+    $result = null;
+    $result = pg_execute($this->dbConnection, "get_tags_name" ,array($projectId));
     $tags = array();
-    while($value = pg_fetch_assoc($query))
+    while($value = pg_fetch_assoc($result))
     {
       array_push($tags, $value['tag_name']);
     }
-    pg_free_result($query);
+    pg_free_result($result);
 
 
     return $tags;
@@ -153,8 +153,11 @@ class details extends CoreAuthenticationNone {
   }
 
   public function updateTagsRequest() {
-    $updatedTagString = (isset($_POST['editedTags']) ? trim(strval($_POST['editedTags'])) : '');
     try{
+      $updatedTagString = (isset($_POST['editedTags']) ? trim(strval($_POST['editedTags'])) : '');
+      $projectId = (isset($_POST['projectId']) ? trim(strval($_POST['projectId'])) : '');
+      $projectId = $projectId + 0; //To convert to integer type
+
       $updatedTags = explode(',',$updatedTagString);
       $updatedTags = array_unique($updatedTags);
       $existingTags = $this->tag;
@@ -168,8 +171,10 @@ class details extends CoreAuthenticationNone {
       foreach($updatedTags as $value) {
         if(!in_array($value,$existingTags)) {
           // Add particular tag
-          $this->answer = $this->languageHandler->getString('tag_edit_success') . $value;
-          $this->addTag($value);
+
+          //$temporary=
+          $this->addTag($value, $projectId);
+          $this->answer=$this->languageHandler->getString('tag_edit_success') . $value . $temporary;
         }
       }
 
@@ -181,15 +186,17 @@ class details extends CoreAuthenticationNone {
      }
   }
 
-  public function addTag($tag) {
+  public function addTag($tag, $projectId) {
 
     $queryForTagId = pg_execute($this->dbConnection, "get_tag_id", array($tag));
-    if(!queryForTagId) {
-      $queryForTagId = pg_execute($this->dbConnection, "insert_tag" ,array($tag));
-    }
     $tagRow = pg_fetch_assoc($queryForTagId);
+    if(!$tagRow) {
+      $queryForTagId = pg_execute($this->dbConnection, "insert_tag" ,array($tag));
+      $tagRow = pg_fetch_assoc($queryForTagId);
+    }
 
-    $args = array($this->project['id'], $tagRow['id']);
+    $args = array($projectId, $tagRow['id']);
+    //return $projectId;
     $query = pg_execute($this->dbConnection, "insert_tag_into_projects_tags", $args);
 
     pg_free_result($query);
