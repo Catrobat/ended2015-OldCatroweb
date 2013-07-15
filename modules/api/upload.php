@@ -387,6 +387,12 @@ class upload extends CoreAuthenticationDevice {
         foreach($remixOf as $remix_value) {
           if(!$update)
             $remix_value->nodeValue = $url_value->nodeValue;
+          else {
+            $result = $this->query("get_remixof_id", array($projectId));
+            while($row = pg_fetch_assoc($result)) {
+              $remix_value->nodeValue = PROJECT_URL_TEXT . $row['remixof'];
+            }            
+          }
           $url_value->nodeValue = PROJECT_URL_TEXT . $projectId;
           foreach($userHandle as $user)
             $user->nodeValue = $this->session->userLogin_userNickname;

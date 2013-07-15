@@ -554,7 +554,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     // get remixOf ID from Database
     $query = "SELECT * FROM projects WHERE remixof='$id_xml'";
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $this->assertEquals(1, pg_num_rows($result));    
+    $this->assertNotEquals(0, pg_num_rows($result));    
     while($row = pg_fetch_array($result))
       $id_db = $row['remixof'];
     
