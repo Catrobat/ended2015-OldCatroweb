@@ -160,26 +160,26 @@ class details extends CoreAuthenticationNone {
 
       $updatedTags = explode(',',$updatedTagString);
       $updatedTags = array_unique($updatedTags);
-      $existingTags = $this->tag;
+      $existingTags = $this->getTags($projectId);
 
       foreach($existingTags as $value) {
         if(!in_array($value,$updatedTags)) {
           // Remove particular tag
+          $this->removeTag($value, $projectId);
         }
       }
 
       foreach($updatedTags as $value) {
-        if(!in_array($value,$existingTags)) {
-          // Add particular tag
-
-          //$temporary=
-          $this->addTag($value, $projectId);
-          $this->answer=$this->languageHandler->getString('tag_edit_success') . $value . $temporary;
+        if($value != '') {
+          if(!in_array($value,$existingTags)) {
+            // Add particular tag
+            $this->addTag($value, $projectId);
+          }
         }
       }
 
       $this->statusCode = STATUS_CODE_OK;
-      //$this->answer = $this->languageHandler->getString('tag_edit_success');
+      $this->answer = $this->languageHandler->getString('tag_edit_success');
     } catch(Exception $e) {
        $this->statusCode = $e->getCode();
        $this->answer = $e->getMessage();
@@ -196,16 +196,24 @@ class details extends CoreAuthenticationNone {
     }
 
     $args = array($projectId, $tagRow['id']);
-    //return $projectId;
-    $query = pg_execute($this->dbConnection, "insert_tag_into_projects_tags", $args);
+    //$query =
+    pg_execute($this->dbConnection, "insert_tag_into_projects_tags", $args);
 
-    pg_free_result($query);
+    //pg_free_result($query);
     pg_free_result($queryForTagId);
 
   }
 
-  public function removeTag($tag) {
+  public function removeTag($tag, $projectId) {
+    $resultForTagId = pg_execute($this->dbConnection, "get_tag_id", array($tag));
+    $tagRow = pg_fetch_assoc($resultForTagId);
 
+    $args = array($projectId, $tagRow['id']);
+    //$result =
+    pg_execute($this->dbConnection, "delete_entry_from_projects_tags", $args);
+
+    pg_free_result($resultForTagId);
+    //pg_free_result($result);
   }
 }
 ?>
