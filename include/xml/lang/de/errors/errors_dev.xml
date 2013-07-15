@@ -47,6 +47,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="username_blacklisted">Der Benutzername ist auf der schwarzen Liste und deswegen nicht erlaubt.</string>
     <string name="username_already_exists">Der Benutzername existiert bereits.</string>
     <string name="password_missing">Du hast kein Passwort angegeben.</string>
+    <string name="password_not_equal_password2">Die Passw&#xF6;rter stimmen nicht &#xFC;berein.</string>
     <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
     <string name="password_new_too_short">Dein Passwort muss mindestens {*minimumPasswordLength*} Zeichen haben.</string>
     <string name="password_new_too_long">Dein Passwort kann maximal aus {*maximumPasswordLength*} Zeichen bestehen.</string>
@@ -69,10 +70,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
     <string name="sendmail_failed">Fehler w&#xE4;hrend dem Senden des Emails. Vielleicht funktioniert dein Mailserver nicht?</string>
   </userFunctions>
-  <profile>
-    <string name="password_missing">Du hast kein Passwort angegeben.</string>
-    <string name="password_equal">Du hast zwei unterschiedliche Passw&#xF6;rrter eingegeben.</string>
-  </profile>
   <upload>
     <string name="missing_project_title">Es wurde kein projectTitle angegeben. (XML-Datei und POST-Daten, zumindest einer ist erforderlich.)</string>
     <string name="missing_file_data">POST-Daten nicht korrekt oder fehlt!</string>

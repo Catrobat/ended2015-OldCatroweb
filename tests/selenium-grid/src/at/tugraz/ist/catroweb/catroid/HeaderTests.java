@@ -100,10 +100,7 @@ public class HeaderTests extends BaseTest {
       assertTrue(isVisible(By.id("mobileSearchButton")));
       assertTrue(isVisible(By.id("mobileMenuButton")));
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
-      
-      driver().findElement(By.id("mobileMenuButton")).click();
-      
-      assertRegExp(".*/login", driver().getCurrentUrl());
+            
       driver().findElement(By.xpath("//*[@id='smallMenuBar']/a")).click();
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
       
@@ -119,6 +116,7 @@ public class HeaderTests extends BaseTest {
       
       driver().findElement(By.id("mobileMenuButton")).click();
       
+      assertRegExp(".*/login", driver().getCurrentUrl());
       driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
       driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
       

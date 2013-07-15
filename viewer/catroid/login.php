@@ -24,14 +24,19 @@
 
 ?>
       <article>
-        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
         <div class="form">
           <form>
-            <div class="label"><?php echo $this->languageHandler->getString('nickname')?></div>
-            <input type="text" id="loginUsername" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>" /><br />
-
-            <div class="label"><?php echo $this->languageHandler->getString('password')?></div>
-            <input type="password" id="loginPassword" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" /><br />
+          
+          <div class="loginValid">
+          <input type="text" id="loginUsername" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>" />
+          <div class="img-login loginInputIcon"></div>
+          </div>
+            
+            <div class="loginValid">
+            <input type="password" id="loginPassword" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" />
+            <div class="img-password loginInputIcon"></div>
+            </div>
+            
             <div id="loginError"></div>
 
             <div class="footer">

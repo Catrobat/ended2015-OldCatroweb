@@ -102,7 +102,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_header_profile">Profil</string>
   <string name="template_header_search">Suche</string>
   <string name="template_footer_search_header">Suche</string>
-  <string name="template_header_search_for_projects">Nach Projekten suchen</string>
+  <string name="template_header_search_for_projects">Nach Programmen suchen</string>
   <string name="template_header_change_profile">Profil bearbeiten</string>
   <string name="template_body_nojs">Bitte aktiviere JavaScript in deinem Browser.</string>
   <string name="template_footer_more">mehr</string>

@@ -23,7 +23,10 @@
  
  header[role="banner"] {
   padding-top: 2em;
-  padding-bottom: 2em;
+}
+
+#wrapper header nav {
+  padding-bottom: 0.5em;
 }
  
 #wrapper article div.header {
@@ -40,6 +43,10 @@
 #wrapper article div.form {
   background-color: #00475d;
   margin-top: 0.2em;
+  margin: 0 auto;
+  max-width: 50%;
+  /*width: 30em;*/
+  padding-top: 2em;
 }
 
 #wrapper article div.form form {
@@ -48,7 +55,23 @@
   max-width: 50%;
 }
 
-#wrapper article div.form form input {
+#wrapper article div.loginValid{
+  background-color: #FFFFFF;
+  border: 0.2em solid #05222a;
+  /*border-radius: 0.2em;*/
+  -mox-box-shadow: inset 2px 2px 2px #999;
+  -webkit-box-shadow: inset 2px 2px 5px #999;
+  box-shadow: inset 2px 2px 5px #999;
+ padding: 0.3em;
+/* margin-bottom: 1.5em;*/
+  min-width: 11em;
+}
+
+/*#wrapper article div.loginInputIcon {
+  margin-top: -0.3em;
+}*/
+
+/*#wrapper article div.form form input {
   width: 100%;
 
   border: 0;
@@ -61,6 +84,18 @@
 
   margin: 0.2em 0 0.2em -0.2em;
   padding: 0.4em 0 0.4em 0.4em;
+}*/
+
+#wrapper article input {
+  background-color: #FFFFFF;
+  border-radius: 0.125em;
+  color: #05222a;
+  height: 1.8em;
+  width: 79%;
+  border: none;
+  margin-left: 0.2em;
+  outline: none;
+  font-size: 0.9em;
 }
 
 #wrapper article div.form form div.label {
@@ -105,7 +140,7 @@
 
 #wrapper article div.form form div.footer div {
   text-align: left;
-  margin-top: 4em;
+  margin-top: 1em;
   font-weight: bold;
 }
 
@@ -119,6 +154,16 @@
 @media screen and (max-width: 720px) {
   #wrapper article div.form form {
      max-width: 75%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  #wrapper {
+     margin: 0em;
+  }
+  #wrapper article div.form  {
+     margin: 0em;
+     max-width: 100%;
   }
 }
 

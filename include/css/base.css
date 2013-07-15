@@ -231,6 +231,14 @@ h3 {
   float: right;
 }
 
+.img-login {
+  width: 40px;
+  height: 40px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -35px 0px;
+  float: right;
+}
+
 .img-first-email {
   width: 40px;
   height: 40px;

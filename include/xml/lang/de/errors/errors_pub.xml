@@ -24,6 +24,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <errors>
   <userFunctions>
     <string name="expired_url">Die G&#xFC;ltigkeit deiner Wiederherstellungs-URL ist abgelaufen.</string>
+    <string name="password_not_equal_password2">Die Passw&#xF6;rter stimmen nicht &#xFC;berein.</string>
     <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
     <string name="board_authentication_failed">Anmeldung im Forum fehlgeschlagen!</string>
     <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deiner Heimatstadt.</string>
@@ -60,10 +61,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="userdata_not_exists">Der Benutzername oder die E-Mail Adresse konnte nicht gefunden werden.</string>
     <string name="sendmail_failed">W&#xE4;hrend dem Senden der E-Mail ist ein Fehler aufgetreten. Bitte kontaktiere uns unter {*webmasterEmailAddress*}.</string>
   </userFunctions>
-  <profile>
-    <string name="password_missing">Du hast kein Passwort angegeben.</string>
-    <string name="password_equal">Du hast zwei unterschiedliche Passw&#xF6;rrter eingegeben.</string>
-  </profile>
   <db>
     <string name="query_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>
     <string name="connection_failed">Uuups, etwas ist schiefgelaufen! Probier es einfach noch einmal!</string>

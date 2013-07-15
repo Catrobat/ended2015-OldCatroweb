@@ -43,9 +43,11 @@ public class PasswordRecoveryTests extends BaseTest {
       login("index");
       openLocation("index", false);
       ajaxWait();
+      
+      /*this click action doesn't work. don't know why?*/
       driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
-      captureScreen("PasswordRecoveryTests.passwordRecoveryRedirectWhenLoggedIn");
+      
       assertTrue(isVisible(By.id("menuProfileButton")));
       driver().findElement(By.id("menuProfileButton")).click();
       ajaxWait();
