@@ -94,7 +94,7 @@
 
 .projectDetailsDescriptionHeading{
   margin-left: 0.7em;
-  color: #a8dff4;
+  color: #6ab7ce;
   font-size: 1.4em;
   font-weight: bold;
   text-transform: uppercase;
@@ -126,7 +126,7 @@
 }
 
 .projectDetailsDownload a {
-  color: #a8dff4;
+  color: #6ab7ce;
   font-weight: bold;
 }
 
@@ -143,9 +143,9 @@
 
 .blue {
   background-color: #7cb5ca;
-  background-image: linear-gradient(top, #A8DFF4, #74b0c7);
-  background-image: -moz-linear-gradient(top, #A8DFF4, #74b0c7);
-  background-image: -webkit-linear-gradient(top, #A8DFF4, #74b0c7);
+  background-image: linear-gradient(top, #6ab7ce, #74b0c7);
+  background-image: -moz-linear-gradient(top, #6ab7ce, #74b0c7);
+  background-image: -webkit-linear-gradient(top, ##6ab7ce, #74b0c7);
 }
 
 .green {
@@ -186,11 +186,11 @@
 .projectDetailsInformationText {
   line-height: 2.2em;
   padding-left: 1em;
-  color:#a8dff4;
+  color:#6ab7ce;
 }
 
 .projectDetailsInformationText a {
-  color:#a8dff4;
+  color:#6ab7ce;
 }
 
 .projectDetailsInformation ul {
@@ -246,7 +246,7 @@
 }
 
 .reportAsInappropriateDialog, #reportAsInappropriateAnswer {
-  color: #a8dff4;
+  color: #6ab7ce;
   font-size: 1.3em;
   margin-top: 1em;
   padding-bottom: 1em;
@@ -254,7 +254,7 @@
 }
 
 .reportAsInappropriateDialog a{
-  color:#A8DFF4;
+  color:#6ab7ce;
   font-weight: bold;
 }
 

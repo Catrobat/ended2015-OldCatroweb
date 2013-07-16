@@ -62,7 +62,7 @@ button,
 input,
 select,
 textarea {
-  color: #a8dff4;
+  color: #6ab7ce;
 }
 
 input:focus {
@@ -188,9 +188,9 @@ h3 {
 
 .blue {
   background-color: #7cb5ca;
-  background-image: linear-gradient(top, #A8DFF4, #74b0c7);
-  background-image: -moz-linear-gradient(top, #A8DFF4, #74b0c7);
-  background-image: -webkit-linear-gradient(top, #A8DFF4, #74b0c7);
+  background-image: linear-gradient(top, #6ab7ce, #74b0c7);
+  background-image: -moz-linear-gradient(top, #6ab7ce, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #6ab7ce, #74b0c7);
 }
 
 .img-avatar {
@@ -399,7 +399,7 @@ body img#ga {
 }
 
 #wrapper article div.projectContainer ul li img {
-	border: 2px solid #a8dff4;
+	border: 2px solid #6ab7ce;
   width: 80px;
   height: 80px;
 	display: block;
@@ -413,7 +413,7 @@ body img#ga {
 
 #wrapper article div.projectContainer ul li a {
   text-decoration: none; 
-  color: #a8dff4; 
+  color: #6ab7ce; 
 }
 
 #wrapper article div.projectContainer ul li div.projectTitle {

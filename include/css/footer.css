@@ -106,14 +106,14 @@ footer div#largeFooterMenu div:nth-child(2) span input {
 footer select {
   border: 0;
   background-color: #05222a;
-  color: #a8dff4;
+  color: #6ab7ce;
   padding: 0.4em 0.6em 0.4em 0.6em;
 }
 
 footer input {
   border: 0;
   background-color: #05222a;
-  color: #a8dff4;
+  color: #6ab7ce;
   padding: 0.8em 0.6em 0.8em 0.6em;
 }
 
@@ -140,7 +140,7 @@ footer ul li {
 
 footer ul a {
   text-decoration: none;
-  color: #a8dff4;
+  color: #6ab7ce;
 }
 
 
