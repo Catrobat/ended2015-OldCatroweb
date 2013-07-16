@@ -62,7 +62,7 @@ button,
 input,
 select,
 textarea {
-  color: #6ab7ce;
+  color: #17a5b8;
 }
 
 input:focus {
@@ -188,9 +188,9 @@ h3 {
 
 .blue {
   background-color: #7cb5ca;
-  background-image: linear-gradient(top, #6ab7ce, #74b0c7);
-  background-image: -moz-linear-gradient(top, #6ab7ce, #74b0c7);
-  background-image: -webkit-linear-gradient(top, #6ab7ce, #74b0c7);
+  background-image: linear-gradient(top, #17a5b8, #74b0c7);
+  background-image: -moz-linear-gradient(top, #17a5b8, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #17a5b8, #74b0c7);
 }
 
 .img-avatar {
@@ -348,11 +348,11 @@ h3 {
   color: #05222A; 
   text-transform: uppercase;
   font-weight: bold;
-  background-color: #7db6cb;
-  /*text-shadow: #333333 1px 1px 2px;*/
+  /*background-color: #7db6cb;
+  text-shadow: #333333 1px 1px 2px;
   background-image: linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
-  background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);*/
   margin-bottom: 0.8em;
 }
 
@@ -399,7 +399,7 @@ body img#ga {
 }
 
 #wrapper article div.projectContainer ul li img {
-	border: 2px solid #6ab7ce;
+	border: 2px solid #17a5b8;
   width: 80px;
   height: 80px;
 	display: block;
@@ -413,7 +413,7 @@ body img#ga {
 
 #wrapper article div.projectContainer ul li a {
   text-decoration: none; 
-  color: #6ab7ce; 
+  color: #17a5b8; 
 }
 
 #wrapper article div.projectContainer ul li div.projectTitle {
