@@ -75,7 +75,7 @@
 }
 
 #wrapper article div.projectFooter {
-  background-color: #00475d;
+  /*background-color: #00475d;*/
 }
 
 #wrapper article div#newestProjectsLoader, #wrapper article div#mostDownloadedProjectsLoader, #wrapper article div#mostViewedProjectsLoader {
@@ -83,7 +83,7 @@
 }
 
 #wrapper article div.projectContainerFooter {
-  background-color: #00475d;
+  /*background-color: #00475d;*/
   padding-bottom: 1em;
   margin-bottom: 2.8em;
 }

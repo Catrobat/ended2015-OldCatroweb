@@ -40,7 +40,7 @@
         </div>
         <div id="newestShowMore" class="projectFooter">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+          <!-- <p><?php echo $this->languageHandler->getString('showMore'); ?></p>-->
         </div>
         <div class="projectSpacer"></div>
 
@@ -52,7 +52,7 @@
         </div>
         <div id="mostDownloadedShowMore" class="projectFooter">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+          <!-- <p><?php echo $this->languageHandler->getString('showMore'); ?></p>-->
         </div>
         <div class="projectSpacer"></div>
 
@@ -64,7 +64,7 @@
         </div>
         <div id="mostViewedShowMore" class="projectFooter">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+          <!-- <p><?php echo $this->languageHandler->getString('showMore'); ?></p>-->
         </div>
         <div class="projectSpacer"></div>
 
