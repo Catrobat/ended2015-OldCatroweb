@@ -78,17 +78,19 @@
             print "No tags yet.";
           }
         ?>
-        </div>
-        <br>
-        <div class="tagButton">
-          <a class="tagButtonLink" href="">+ EDIT TAGS</a>
+        <br><br>
         </div>
         <div id="editTags">
           <input type="text" id="updatedTagsField" value="<?php foreach($this->tag as $key=>$value){print $value; if($key!=(count($this->tag)-1))print ",";} ?>"/><br>
-          <input type="hidden" id="hiddenProjectIdField" value="<?php /*Hidden field to store projectId for updating tags*/ print $this->project['id'];?>"/>
+          <input type="hidden" id="hiddenProjectIdField" value="<?php /*Hidden field to store projectId for updating tags*/ print $this->project['id'];?>"/><br>
+          <button type="button" id="updateTagsButton" class="buttonGreen buttonSmall">Save</button>
+          <button type="button" id="cancelUpdateTagsButton" class="buttonBlue buttonSmall">Cancel</button><br>
         </div>
-        <button type="button" id="updateTagsButton" class="green">Save</button><br>
 
+        <div id="editTagsButton">
+          <button class="buttonGreen buttonSmall" style="width:100%;">+ EDIT TAGS</button><br>
+        </div>
+        <br>
         <span id="projectDetailsDownloadVersion"><?php echo $this->languageHandler->getString('version_info_text') . " " . $this->project['version_name'];?></span>
         <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
           <div class="blue">

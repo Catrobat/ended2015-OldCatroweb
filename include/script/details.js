@@ -44,7 +44,28 @@ var ProjectDetails = Class.$extend( {
    });
    $("#reportInappropriateReportButton").click($.proxy(this.reportInappropriateSubmit, this));
    $("#reportInappropriateReason").keypress($.proxy(this.reportInappropriateCatchKeypress, this));
+
+   $('#editTags').toggle(false);
    $('#updateTagsButton').click($.proxy(this.updateTagsRequest, this));
+
+   /*$('#updateTagsButton').click(
+    $.proxy(this.updateTagsRequest, this),
+    $('#editTags').toggle(false),
+    $('#editTagsButton button').toggle(),
+    $('.projectDetailsTags').toggle()
+    );*/
+
+   $('#cancelUpdateTagsButton').click(function() {
+    $('#editTags').toggle(false);
+    $('#editTagsButton').toggle();
+    $('.projectDetailsTags').toggle();
+   });
+
+   $('#editTagsButton button').click(function() {
+      $('#editTags').toggle();
+      $('#editTagsButton').toggle(false);
+      $('.projectDetailsTags').toggle(false);
+   });
 
     window.onresize = $.proxy(function(){
       $.proxy(this.resizeColumnsAndText(), this);
@@ -203,6 +224,9 @@ var ProjectDetails = Class.$extend( {
     else {
 
     }
+    $('#editTags').toggle(false);
+    $('#editTagsButton button').toggle();
+    $('.projectDetailsTags').toggle();
   },
 
   tagsUpdateRequestSuccess : function(result){

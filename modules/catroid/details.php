@@ -196,10 +196,8 @@ class details extends CoreAuthenticationNone {
     }
 
     $args = array($projectId, $tagRow['id']);
-    //$query =
     pg_execute($this->dbConnection, "insert_tag_into_projects_tags", $args);
 
-    //pg_free_result($query);
     pg_free_result($queryForTagId);
 
   }
@@ -209,11 +207,9 @@ class details extends CoreAuthenticationNone {
     $tagRow = pg_fetch_assoc($resultForTagId);
 
     $args = array($projectId, $tagRow['id']);
-    //$result =
     pg_execute($this->dbConnection, "delete_entry_from_projects_tags", $args);
 
     pg_free_result($resultForTagId);
-    //pg_free_result($result);
   }
 }
 ?>

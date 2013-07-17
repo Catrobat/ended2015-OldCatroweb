@@ -178,7 +178,7 @@
   text-shadow: #333333 1px 1px 1px;
 }
 
-.tagButton{
+#editTagsButton{
   height: 40px;
   text-align: center;
   line-height: 200%;
