@@ -33,6 +33,10 @@
   padding: 0;
 }
 
+.projectDetailsThumbnail{
+  margin: 0;
+}
+
 .projectDetailsAuthorTop {
   float: right;
   font-size: 0.7em;
@@ -92,16 +96,21 @@
   margin: 0;
 }
 
+#projectDetailsProjectTitle {
+  color: #17a5b8;
+}
+  
 .projectDetailsDescriptionHeading{
   margin-left: 0.7em;
-  color: #6ab7ce;
+  color: #17a5be;
   font-size: 1.4em;
   font-weight: bold;
   text-transform: uppercase;
 }
 
 .projectDetailsDescriptionText {
-  margin: 8%;
+  margin: 5%;
+  margin-left: 1em;
   overflow: hidden;
   text-align: left;
 }
@@ -184,9 +193,10 @@
 .projectDetailsInformation {
   clear: both;
   float: left;
-  width: 98%;
+  width: 100%;/*width: 98%;
   margin-left: 1%;
-  margin-right: 1%;
+  margin-right: 1%;*/
+  border-top: 1px solid #17a5b8;
 }
 
 .projectDetailsInformationText {
