@@ -45,7 +45,6 @@
   margin-top: 0.2em;
   margin: 0 auto;
   max-width: 50%;
-  /*width: 30em;*/
   padding-top: 2em;
 }
 
@@ -58,40 +57,19 @@
 #wrapper article div.loginValid{
   background-color: #FFFFFF;
   border: 0.2em solid #05222a;
-  /*border-radius: 0.2em;*/
   -mox-box-shadow: inset 2px 2px 2px #999;
   -webkit-box-shadow: inset 2px 2px 5px #999;
   box-shadow: inset 2px 2px 5px #999;
  padding: 0.3em;
-/* margin-bottom: 1.5em;*/
   min-width: 11em;
 }
-
-/*#wrapper article div.loginInputIcon {
-  margin-top: -0.3em;
-}*/
-
-/*#wrapper article div.form form input {
-  width: 100%;
-
-  border: 0;
-  border-radius: 0.125em;
-  color: #000000;
-
-  -mox-box-shadow: inset 2px 2px 5px #05222a;
-  -webkit-box-shadow: inset 2px 2px 5px #05222a;
-  box-shadow: inset 2px 2px 5px #05222a;
-
-  margin: 0.2em 0 0.2em -0.2em;
-  padding: 0.4em 0 0.4em 0.4em;
-}*/
 
 #wrapper article input {
   background-color: #FFFFFF;
   border-radius: 0.125em;
   color: #05222a;
   height: 1.8em;
-  width: 79%;
+  width: 78%;
   border: none;
   margin-left: 0.2em;
   outline: none;

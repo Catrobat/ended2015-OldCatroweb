@@ -57,6 +57,11 @@
           <?php echo ($this->project['description'])? $this->project['description'] : $this->languageHandler->getString('no_description_available');?>
         </span>
       </div>
+      <div class="detailsFlagButton">
+        <button type="button" id="reportAsInappropriateButton">
+          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
+        </button>
+      </div>
     </div>
 
     <div class="projectDetailsDownload">
@@ -113,11 +118,6 @@
     </div>
 
     <div id="projectDetailsReportContainer">
-      <div id="detailsFlagButton">
-        <button type="button" class="buttonBlue" id="reportAsInappropriateButton">
-          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
-        </button>
-      </div>
       <?php if($this->project['showReportAsInappropriateButton']['show']) : ?>
       <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
         <form method="POST" class="reportInappropriateForm">

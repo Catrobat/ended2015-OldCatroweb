@@ -115,6 +115,12 @@
   text-align: left;
 }
 
+.detailsFlagButton {
+  margin: 8%;
+  overflow: hidden;
+  text-align: left;
+}
+
 .projectDetailsDescriptionText a{
   font-weight: bold;
   color: #fff;
@@ -308,6 +314,20 @@
 
 .reportAsInappropriateDialogButtons input:nth-child(odd) {
   margin-right: 1em;
+}
+
+#wrapper article #reportAsInappropriateButton {
+  background-color: #00475D;
+  border: 1px solid #00475D;
+  text-transform: uppercase;
+  border-radius: 0.2em; 
+  -moz-border-radius: 0.2em; 
+  -webkit-border-radius: 0.2em;  
+
+}
+
+#wrapper article #detailsFlagButtonText{
+  font-weight: bold;
 }
 
 /*
