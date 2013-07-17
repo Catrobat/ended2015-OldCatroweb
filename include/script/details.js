@@ -214,7 +214,7 @@ var ProjectDetails = Class.$extend( {
             type: "POST",
             url: this.basePath + 'details/updateTagsRequest.json',
             data : ({
-              editedTags : $("#editTags #updatedTagsField").val(),
+              editedTags : $("#editTags #tagsinput").val(),
               projectId : $("#editTags #hiddenProjectIdField").val()
             }),
             success : $.proxy(this.tagsUpdateRequestSuccess, this),
@@ -227,6 +227,7 @@ var ProjectDetails = Class.$extend( {
     $('#editTags').toggle(false);
     $('#editTagsButton button').toggle();
     $('.projectDetailsTags').toggle();
+    location.reload(true);
   },
 
   tagsUpdateRequestSuccess : function(result){

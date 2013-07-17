@@ -30,6 +30,7 @@ class details extends CoreAuthenticationNone {
     $this->addCss('details.css');
     $this->addJs('details.js');
 
+    $this->addJs('tagsInput.js');
     //$this->loadModule('common/userFunctions');
 
     $this->isMobile = $this->clientDetection->isMobile();

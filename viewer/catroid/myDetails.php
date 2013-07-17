@@ -81,8 +81,8 @@
         <br><br>
         </div>
         <div id="editTags">
-          <input type="text" id="updatedTagsField" value="<?php foreach($this->tag as $key=>$value){print $value; if($key!=(count($this->tag)-1))print ",";} ?>"/><br>
-          <input type="hidden" id="hiddenProjectIdField" value="<?php /*Hidden field to store projectId for updating tags*/ print $this->project['id'];?>"/><br>
+          <input name="tagsinput" id="tagsinput" class="tagsinput" value="<?php foreach($this->tag as $key=>$value){print $value; if($key!=(count($this->tag)-1))print ",";} ?>"/>
+          <input type="hidden" id="hiddenProjectIdField" value="<?php /*Hidden field to store projectId for updating tags*/ print $this->project['id'];?>"/>
           <button type="button" id="updateTagsButton" class="buttonGreen buttonSmall">Save</button>
           <button type="button" id="cancelUpdateTagsButton" class="buttonBlue buttonSmall">Cancel</button><br>
         </div>
