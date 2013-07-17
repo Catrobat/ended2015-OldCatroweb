@@ -153,21 +153,41 @@
   padding-left: 1em;
   background-color: #FFFFFF;
   margin-bottom: 1em;
+  margin-left: -0.5em;
   overflow: hidden;
   font-size: 0.9em;
   float: right;
+  
 }
+
+.img-dropdown {
+  background: url(../images/symbols/arrow_down.png) no-repeat;
+  background-position: 14.2em center;
+}
+
+/*#wrapper article div.profileCountry option {
+  background-color: transparent;
+  -mox-box-shadow: inset 6px 0px 5px -5px #05222a !important;
+  -webkit-box-shadow: inset 6px 0px 5px -5px #05222a;
+  box-shadow: inset 6px 0px 5px -5px #05222a;
+  color: #000000;
+  height: 1.5em;
+  width: 12.3em;
+  padding-left: 1em;
+  border: none;
+}*/
 
 #wrapper article div.profileCountry select {
   background-color: transparent;
+  border: 1px solid transparent;
   border-radius: 0.125em;
   color: #05222a;
   height: 1.5em;
-  width: 17em;
-  border: 0;  
+  width: 17em; 
   margin-left: -0.5em;
   padding-left: 0.2em;
   z-index: 3;
+  outline: none;
 }
   
 #wrapper article div.profileSelectImage {
@@ -232,6 +252,8 @@
 	margin: 0.4em auto;
 	cursor: pointer;
 }
+
+
 
 #wrapper article div#profileChangesSuccess{
   height: 1em;
@@ -301,6 +323,7 @@
     margin-right: auto;
   }
   
+  
   #wrapper article button#profileChangeAvatarButton  {
     left: 50%;
     margin-left: -4.3em;
@@ -348,6 +371,10 @@
 
   #wrapper article div.profileCountry select {
     width: 14em;
+  }
+  
+  .img-dropdown {
+    background-position: 12em center;
   }
   
   #wrapper article button#profileSaveChanges {
