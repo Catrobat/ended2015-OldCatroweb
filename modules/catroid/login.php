@@ -31,7 +31,6 @@ class login extends CoreAuthenticationNone {
     $this->addJs('login.js');
     $this->addCss('login.css');
     $this->htmlHeaderFile = 'htmlLoginHeaderTemplate.php';
-    $this->htmlFooterFile = 'htmlLoginFooterTemplate.php';
   }
 
   public function __default() {
