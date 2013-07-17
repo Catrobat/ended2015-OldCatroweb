@@ -106,7 +106,7 @@
   vertical-align: middle;
 }
 #wrapper header nav div div.largeSearchBarRight button:nth-child(1) {
-  border: 0.15em solid #fff;
+  border: 0.05em solid #fff;
 }
 
 #wrapper header nav div div.largeSearchBarRight button:nth-child(2) {

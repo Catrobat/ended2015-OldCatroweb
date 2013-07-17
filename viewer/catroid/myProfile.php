@@ -50,9 +50,9 @@
           </div>
 
           <b><?php echo $this->languageHandler->getString('country') ?></b>
-          <div class="profileCountry">
+          <div class="profileCountry img-dropdown">
             <select><?php echo $this->countryCodeListHTML;?></select>
-            <div class="img-select profileSelectImage"></div>
+           <!--  <div class="img-dropdown profileSelectImage"></div>-->
           </div>      
         </div>
         
