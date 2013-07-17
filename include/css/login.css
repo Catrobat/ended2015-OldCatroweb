@@ -148,3 +148,7 @@
 #wrapper header nav div div.catroidLink {
   text-align: center;
 }
+
+a#forgotPassword {
+  font-size: 0.75em;
+}
