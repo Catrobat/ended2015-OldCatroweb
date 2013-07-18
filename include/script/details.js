@@ -59,6 +59,7 @@ var ProjectDetails = Class.$extend( {
     $('#editTags').toggle(false);
     $('#editTagsButton').toggle();
     $('.projectDetailsTags').toggle();
+    location.reload(true);
    });
 
    $('#editTagsButton button').click(function() {
@@ -209,7 +210,7 @@ var ProjectDetails = Class.$extend( {
   },
 
   updateTagsRequest : function(){
-    if(this.isTagStateModified()) {
+    //if(this.isTagStateModified()) {
       $.ajax({
             type: "POST",
             url: this.basePath + 'details/updateTagsRequest.json',
@@ -220,10 +221,10 @@ var ProjectDetails = Class.$extend( {
             success : $.proxy(this.tagsUpdateRequestSuccess, this),
             error : $.proxy(this.tagsUpdateRequestError, this)
           });
-    }
-    else {
+    //}
+    //else {
 
-    }
+    //}
     $('#editTags').toggle(false);
     $('#editTagsButton button').toggle();
     $('.projectDetailsTags').toggle();
