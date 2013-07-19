@@ -42,4 +42,5 @@
   <string name="version_info_text">Pocket Code version:</string>
   <string name="description">Description</string>
   <string name="no_description_available">No description available.</string>
+  <string name="remix_of">Remix of</string>
 </strings>

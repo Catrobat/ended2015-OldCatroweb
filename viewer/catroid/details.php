@@ -106,6 +106,14 @@
             <?php echo $this->project['view_count'] . " " . $this->languageHandler->getString('views'); ?>
           </div>
         </li>
+        <?php if($this->project['remixof'] != 0) { ?>
+        <li>
+          <div class="img-views"></div>
+          <div class="projectDetailsInformationText">
+            <?php echo $this->languageHandler->getString('remix_of'); ?> <a href="<?php echo BASE_PATH; ?>details/<?php echo $this->remixedProject['id']; ?>"><?php echo $this->remixedProject['title']; ?></a>
+          </div>
+        </li>
+        <?php } ?>
       </ul>
     </div>
 

@@ -39,6 +39,8 @@ class details extends CoreAuthenticationNone {
     $this->project = $this->getProjectDetails($projectId);
     
     $this->setWebsiteTitle($this->project['title']);
+    
+    $this->remixedProject = $this->getRemixedProject();
   }
 
   public function getProjectDetails($projectId) {
@@ -119,6 +121,13 @@ class details extends CoreAuthenticationNone {
       return array('show' => false, 'message' => $this->languageHandler->getString('report_as_inappropriate_already_flagged'));
     }
     return array('show' => true, 'message' => "");
+  }
+  
+  public function getRemixedProject() {
+    $result = pg_execute($this->dbConnection, "get_remixof_id", array($this->project['remixof'])) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    
+    return pg_fetch_assoc($result);
   }
   
   public function __destruct() {
