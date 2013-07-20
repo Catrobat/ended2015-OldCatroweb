@@ -228,15 +228,16 @@ var ProjectDetails = Class.$extend( {
     $('#editTags').toggle(false);
     $('#editTagsButton button').toggle();
     $('.projectDetailsTags').toggle();
-    location.reload(true);
+
   },
 
   tagsUpdateRequestSuccess : function(result){
-    alert(result.answer + "Successsss!");
+    //alert(result.answer);
+    location.reload(true);
   },
 
   tagsUpdateRequestError : function(result){
-    alert(result.answer);
+    //alert(result.answer);
   }
 
 });

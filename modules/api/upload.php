@@ -3,21 +3,21 @@
  * Catroid: An on-device visual programming system for Android devices
  * Copyright (C) 2010-2013 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
- * 
+ *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU Affero General Public License as
  * published by the Free Software Foundation, either version 3 of the
  * License, or (at your option) any later version.
- * 
+ *
  * An additional term exception under section 7 of the GNU Affero
  * General Public License, version 3, is available at
  * http://developer.catrobat.org/license_additional_term
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
  * GNU Affero General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
@@ -63,16 +63,19 @@ class upload extends CoreAuthenticationDevice {
       $this->checkValidProjectTitle($projectInformation['projectTitle']);
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
-      
+      //$this->checkTagsForInsultingWords($projectInformation['projectTags']);
+
       //$remixOfID = getRemixOfID($xmlFile);
-      
+
       $projectIdArray = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
           $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
           $projectInformation['versionCode']);
-      
+
       $projectId = $projectIdArray['id'];
-      
+
+      //$this->updateProjectTagsInDatabase($projectId, $projectInformation['projectTags']);
+
       $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId, $projectIdArray['update']);
 
       $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
@@ -87,7 +90,7 @@ class upload extends CoreAuthenticationDevice {
       }
 
       $this->buildNativeApp($projectId);
-      
+
       $this->projectId = $projectId;
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('upload_successfull');
@@ -211,7 +214,8 @@ class upload extends CoreAuthenticationDevice {
     $versionCode = current($node[0]->catrobatLanguageVersion);
     $projectTitle = current($node[0]->programName);
     $projectDescription = current($node[0]->description);
-    
+    //$projectTags = current($node[0]->tags);
+
     // workaround for temporary xml file
     if(!$versionName) {
       $versionName = current($node->applicationVersion);
@@ -225,7 +229,10 @@ class upload extends CoreAuthenticationDevice {
     if(!$projectDescription) {
       $projectDescription = current($node->description);
     }
-    
+    /*if(!$projectTags) {
+      $projectTags = current($node->tags);
+    }*/
+
     if(!$versionName || !$versionCode) {
       $versionCode = 0.0;
       $versionName = "0.0.0beta";
@@ -234,16 +241,20 @@ class upload extends CoreAuthenticationDevice {
     }
 
     if(!$projectTitle) {
-      $projectTitle = pg_escape_string($projectTitle); 
-      $projectTitle = ((isset($formData['projectTitle']) && $formData['projectTitle'] != "") ? checkUserInput($formData['projectTitle']) : "");      
+      $projectTitle = pg_escape_string($projectTitle);
+      $projectTitle = ((isset($formData['projectTitle']) && $formData['projectTitle'] != "") ? checkUserInput($formData['projectTitle']) : "");
       if($projectTitle == "") {
         throw new Exception($this->errorHandler->getError('upload', 'missing_project_title'), STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE);
       }
     }
     if(!$projectDescription) {
-      $projectDescription = pg_escape_string($projectDescription); 
+      $projectDescription = pg_escape_string($projectDescription);
       $projectDescription = ((isset($formData['projectDescription'])) ? checkUserInput($formData['projectDescription']) : "");
     }
+    /*if(!$projectTags) {
+      $projectTags = pg_escape_string($projectTags);
+      $projectTags = ((isset($formData['projectTags'])) ? checkUserInput($formData['projectTags']) : "");
+    }*/
 
     $uploadIp = (isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'');
     $uploadLanguage = ((isset($formData['userLanguage'])) ? checkUserInput($formData['userLanguage']) : 'en');
@@ -254,7 +265,8 @@ class upload extends CoreAuthenticationDevice {
         "versionName" => $versionName,
         "versionCode" => $versionCode,
         "uploadIp" => $uploadIp,
-        "uploadLanguage" => $uploadLanguage
+        "uploadLanguage" => $uploadLanguage//,
+        //"projectTags" => $projectTags
     ));
   }
 
@@ -263,7 +275,7 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($this->errorHandler->getError('upload', 'old_catrobat_version'), STATUS_CODE_UPLOAD_OLD_CATROBAT_VERSION);
     }
   }
-  
+
   private function checkValidCatrobatCode($versionCode) {
     if(floatval($versionCode) < floatval(MIN_CATROBAT_LANGUAGE_VERSION)) {
       throw new Exception($this->errorHandler->getError('upload', 'old_catrobat_language'), STATUS_CODE_UPLOAD_OLD_CATROBAT_LANGUAGE);
@@ -288,6 +300,12 @@ class upload extends CoreAuthenticationDevice {
     }
   }
 
+  private function checkTagsForInsultingWords($tags) {
+    if($tags && $this->badWordsFilter->areThereInsultingWords($tags)) {
+      throw new Exception($this->errorHandler->getError('upload', 'insulting_words_in_project_tags'), STATUS_CODE_UPLOAD_RUDE_PROJECT_TAGS);
+    }
+  }
+
   private function updateOrInsertProjectIntoDatabase($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode) {
     $userId = (($this->session->userLogin_userId) ? $this->session->userLogin_userId : 0);
 
@@ -298,7 +316,7 @@ class upload extends CoreAuthenticationDevice {
       pg_free_result($result);
 
       $this->query("update_project", array($projectDescription, $uploadIp, $fileSize, $versionName, $versionCode, $updateId));
-   
+
       return(array(
           "id" => $updateId,
           "update" => true
@@ -312,49 +330,49 @@ class upload extends CoreAuthenticationDevice {
       pg_free_result($result);
 
       $this->setState('remove_project_from_db', $insertId);
-      
+
       return(array(
           "id" => $insertId,
           "update" => false
       ));
     }
   }
-  
+
   private function checkAndSetLicensesAndRemixInfo($zipFile, $xmlFile, $projectId, $update) {
     $zip = new ZipArchive();
     $zip->open($zipFile);
-  
+
     $dom = new DOMDocument();
     $dom->preserveWhiteSpace = false;
     $dom->formatOutput = true;
     $dom->load($xmlFile);
-  
-  
+
+
     if(!$this->checkHeaderTag($dom)) {
       $nodes = $dom->getElementsByTagName('*');
       $header = $dom->createElement('header');
       $dom->firstChild->insertBefore($header, $nodes->item(1));
-  
+
       $mediaLicense = $dom->createElement('mediaLicense');
       $programLicense = $dom->createElement('programLicense');
       $remixOf = $dom->createElement('remixOf');
       $url = $dom->createElement('url');
       $userHandle = $dom->createElement('userHandle');
-  
+
       $header->appendChild($mediaLicense);
       $header->appendChild($programLicense);
       $header->appendChild($remixOf);
       $header->appendChild($url);
       $header->appendChild($userHandle);
     }
-  
+
     $header = $dom->getElementsByTagName('header');
     $mediaLicense = $dom->getElementsByTagName('mediaLicense');
     $programLicense = $dom->getElementsByTagName('programLicense');
     $remixOf = $dom->getElementsByTagName('remixOf');
     $url = $dom->getElementsByTagName('url');
     $userHandle = $dom->getElementsByTagName('userHandle');
-  
+
     if($header->length == 0) {
       $mediaLicense = $dom->getElementsByTagName('MediaLicense');
       $programLicense = $dom->getElementsByTagName('ProgramLicense');
@@ -362,19 +380,19 @@ class upload extends CoreAuthenticationDevice {
       $url = $dom->getElementsByTagName('URL');
       $userHandle = $dom->getElementsByTagName('UserHandle');
     }
-  
+
     foreach($mediaLicense as $value) {
       if($value->nodeValue != '' && $value->nodeValue != PROJECT_MEDIA_LICENSE)
         throw new Exception($this->errorHandler->getError('upload', 'invalid_media_license'), STATUS_CODE_UPLOAD_INVALID_MEDIA_LICENSE);
       $value->nodeValue = PROJECT_MEDIA_LICENSE;
     }
-  
+
     foreach($programLicense as $value) {
       if($value->nodeValue != '' && $value->nodeValue != PROJECT_PROGRAM_LICENSE)
         throw new Exception($this->errorHandler->getError('upload', 'invalid_program_license'), STATUS_CODE_UPLOAD_INVALID_PROGRAM_LICENSE);
       $value->nodeValue = PROJECT_PROGRAM_LICENSE;
     }
-  
+
     foreach($url as $url_value) {
       if($url_value->nodeValue == '') {
         $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
@@ -391,22 +409,22 @@ class upload extends CoreAuthenticationDevice {
         }
       }
     }
-  
+
     $dom->save($xmlFile);
     $filename = pathinfo($xmlFile);
     $zip->addFile($xmlFile, $filename['basename']);
     $zip->close();
     chmod($zipFile, 0777);
   }
-  
+
   private function checkHeaderTag($dom) {
     $header = $dom->getElementsByTagName('header');
     $Header = $dom->getElementsByTagName('Header');
-  
+
     if($header->length == 0 && $Header->length == 0) {
       return false;
     }
-  
+
     return true;
   }
 
@@ -435,7 +453,7 @@ class upload extends CoreAuthenticationDevice {
   private function extractThumbnail($unzipDir, $projectId) {
     $automaticThumbnail = $unzipDir . 'automatic_screenshot.png';
     $manualThumbnail = $unzipDir . 'manual_screenshot.png';
-    
+
     $thumbnail = $automaticThumbnail;
     if(file_exists($manualThumbnail)) {
       $thumbnail = $manualThumbnail;
@@ -568,6 +586,38 @@ class upload extends CoreAuthenticationDevice {
         array_push($this->uploadState[$type], $new);
         break;
     }
+  }
+
+  private function updateProjectTagsInDatabase($projectId, $projectTagsString) {
+    $result = $this->query("remove_tags_of_project", array($projectId));
+    pg_free_result($result);
+
+    $projectTagsString = str_replace(' ','',$projectTagsString);
+    $updatedTags = explode(',', $projectTagsString);
+    $updatedTags = array_unique($updatedTags);
+
+    foreach($updatedTags as $value) {
+      if($value != '') {
+          // Add particular tag
+          $this->addTag($value, $projectId);
+      }
+    }
+  }
+
+  private function addTag($tag, $projectId) {
+
+    $queryForTagId = $this->query("get_tag_id", array($tag));
+    $tagRow = pg_fetch_assoc($queryForTagId);
+    if(!$tagRow) {
+      $queryForTagId = $this->query("insert_tag" ,array($tag));
+      $tagRow = pg_fetch_assoc($queryForTagId);
+    }
+
+    $args = array($projectId, $tagRow['id']);
+    pg_execute($this->dbConnection, "insert_tag_into_projects_tags", $args);
+
+    pg_free_result($queryForTagId);
+
   }
 }
 ?>

@@ -128,12 +128,11 @@
     <string name="reset_failed_attempts">DELETE from blocked_ips_temporary where ip_address = substr($1, 1, length(ip_address))</string>
     <string name="is_ip_blocked_temporarily">SELECT ip_address FROM blocked_ips_temporary WHERE substr($1, 1, length(ip_address)) = ip_address AND blocked_until >= current_timestamp</string>
 
-    <string name="get_tags_of_project">SELECT * FROM projects_tags WHERE project_id=$1</string>
-    <string name="get_tag_name">SELECT tag_name FROM tags WHERE id=$1</string>
     <string name="get_tags_name">SELECT tag_name FROM tags WHERE id IN (SELECT tag_id FROM projects_tags WHERE project_id=$1)</string>
     <string name="get_tag_id">SELECT id FROM tags WHERE tag_name=$1</string>
     <string name="insert_tag">INSERT INTO tags (tag_name) VALUES ($1) RETURNING id</string>
     <string name="insert_tag_into_projects_tags">INSERT INTO projects_tags VALUES($1,$2)</string>
     <string name="delete_entry_from_projects_tags">DELETE FROM projects_tags WHERE project_id=$1 AND tag_id=$2</string>
+    <string name="remove_tags_of_project">DELETE FROM projects_tags WHERE project_id=$1</string>
 
 </statements>
