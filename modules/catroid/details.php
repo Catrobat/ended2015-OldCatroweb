@@ -41,6 +41,7 @@ class details extends CoreAuthenticationNone {
     $this->setWebsiteTitle($this->project['title']);
     
     $this->remixedProject = $this->getRemixedProject();
+    $this->numberOfRemixes = $this->getNumberOfRemixes();
   }
 
   public function getProjectDetails($projectId) {
@@ -128,6 +129,13 @@ class details extends CoreAuthenticationNone {
               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     
     return pg_fetch_assoc($result);
+  }
+  
+  public function getNumberOfRemixes() {
+    $result = pg_execute($this->dbConnection, "get_num_remixes_of_program", array($this->project['id'])) or
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    
+    return pg_num_rows($result);
   }
   
   public function __destruct() {

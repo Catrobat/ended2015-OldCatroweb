@@ -114,6 +114,14 @@
           </div>
         </li>
         <?php } ?>
+        <?php if($this->numberOfRemixes != 0) { ?>
+        <li>
+          <div class="img-views"></div>
+          <div class="projectDetailsInformationText">
+            <?php echo $this->numberOfRemixes . " " . $this->languageHandler->getString('remixes') ?>
+          </div>
+        </li>
+        <?php } ?>
       </ul>
     </div>
 
