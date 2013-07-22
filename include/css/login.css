@@ -107,9 +107,9 @@
   font-size: 1.1em;
 }
 
-#wrapper article div.form form div.footer nav {
-  height: 3em;
-}
+/* #wrapper article div.form form div.footer nav { */
+/*   height: 3em; */
+/* } */
 
 #wrapper article div.form form div.footer nav span {
   display: none;
