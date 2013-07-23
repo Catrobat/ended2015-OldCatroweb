@@ -22,13 +22,16 @@
  */
 
 footer {
-  background-color: #00475D;
+  //background-color: #00475D;
 }
 
 footer div {
   display: table;
   width: 100%;
-  background-color: #00475D;
+  //background-color: #00475D;
+  background-image: linear-gradient(top, #17A5B8, #177f8d);
+  background-image: -moz-linear-gradient(top, #17A5B8, #177f8d);
+  background-image: -webkit-linear-gradient(top, #17A5B8, #177f8d);
 }
 
 footer div div {
@@ -182,6 +185,6 @@ footer ul a {
   }
 
   footer div#largeFooterMenu {
-    display: none;
+    //display: none;
   }
 }
