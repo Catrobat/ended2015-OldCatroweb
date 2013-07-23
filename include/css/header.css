@@ -207,9 +207,3 @@
     font-size: 2.0em;
   }
 }
-
-@media screen and (max-width: 360px) {
-  #wrapper header nav div div.catroidLink {
-    font-size: 1.6em;
-  }
-}
