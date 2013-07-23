@@ -203,6 +203,29 @@ public class DetailsTests extends BaseTest {
       throw e;
     }
   }
+  
+  @Test(dataProvider = "detailsRemixOf", description = "check if title of remixed program is shown in remix")
+  public void correctRemixOfTitle(HashMap<String, String> dataset) throws Throwable {
+    try {
+      String response = projectUploader.upload(dataset);
+      String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
+      
+      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      openLocation("details/" + id);
+      ajaxWait();
+      assertTrue(isTextPresent("Remix of "));
+      openLocation("details/1");
+      ajaxWait();
+      assertTrue(isTextPresent(" remixes"));
+      
+    } catch(AssertionError e) {
+      captureScreen("DetailsTests.incorrectRemixOfTitle");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("DetailsTests.incorrectRemixOfTitle");
+      throw e;
+    }
+  }
 
   @DataProvider(name = "titlesAndDescriptions")
   public Object[][] titlesAndDescriptions() {
@@ -225,6 +248,14 @@ public class DetailsTests extends BaseTest {
     Object[][] returnArray = new Object[][] {
         { CommonData.getUploadPayload("details_test1small", "details_test_description", "", "", "", "", "catroid", CommonFunctions.getAuthenticationToken("catroid")) },
         { CommonData.getUploadPayload("details_test2big", "details_test_description", "", "", "", "", "catroid", CommonFunctions.getAuthenticationToken("catroid")) }, };
+    return returnArray;
+  }
+  
+  @DataProvider(name = "detailsRemixOf")
+  public Object[][] remixOfTitle() {
+    Object[][] returnArray = new Object[][] {
+        { CommonData.getUploadFtpPayload("testing title of remix", "Testing title of remixed program.", "test_remix.catrobat", "c3de4012b4bbc7bb567395f3656f5584", "", "", "", "") }
+    };
     return returnArray;
   }
 }
