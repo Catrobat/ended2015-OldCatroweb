@@ -28,20 +28,8 @@
 #wrapper header nav {
   padding-bottom: 0.5em;
 }
- 
-#wrapper article div.header {
-  border-top: 1px solid #477889;
-  background-color: #00475d;
-  font-size: 1.8em;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em;
-  text-shadow: #000000 1px 1px 1px;
-  text-align: center;
-}
 
 #wrapper article div.form {
-  background-color: #00475d;
   margin-top: 0.2em;
   margin: 0 auto;
   max-width: 50%;
@@ -51,7 +39,7 @@
 #wrapper article div.form form {
   margin: 0 auto;
   font-size: 1.3em;
-  max-width: 50%;
+  width: 14.5em;
 }
 
 #wrapper article div.loginValid{
@@ -60,8 +48,9 @@
   -mox-box-shadow: inset 2px 2px 2px #999;
   -webkit-box-shadow: inset 2px 2px 5px #999;
   box-shadow: inset 2px 2px 5px #999;
- padding: 0.3em;
-  min-width: 11em;
+  padding: 0.3em;
+  margin-bottom: 0.6em;
+  
 }
 
 #wrapper article input {
@@ -87,6 +76,10 @@
   text-align: center;
 }
 
+#wrapper article div.loginInputIcon{
+  margin-top: -0.1em;
+}
+
 #wrapper article div.form form div button#loginSubmitButton {
   border: 0;
   border-radius: 4px;
@@ -104,7 +97,6 @@
   color: #F78181;
   padding-top: 1em;
   padding-bottom: 1em;
-  font-size: 1.1em;
 }
 
 /* #wrapper article div.form form div.footer nav { */
@@ -117,22 +109,14 @@
 }
 
 #wrapper article div.form form div.footer div {
-  text-align: left;
   margin-top: 1em;
   font-weight: bold;
 }
 
 #wrapper article a:link, a:visited { 
   text-decoration: underline; 
-  color: #6ab7ce; 
+  color: #17a5b8; 
   font-weight: bold;
-}
-
-
-@media screen and (max-width: 720px) {
-  #wrapper article div.form form {
-     max-width: 75%;
-  }
 }
 
 @media screen and (max-width: 400px) {
@@ -144,6 +128,8 @@
      max-width: 100%;
   }
 }
+
+
 
 #wrapper header nav div div.catroidLink {
   text-align: center;

@@ -41,7 +41,7 @@
 
             <div class="footer">
               <nav>
-                <span id="loginLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
+                <span id="loginLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></span>
                 <button class="blue" id="loginSubmitButton"><?php echo $this->languageHandler->getString('login')?></button>
               </nav>
               <div>
