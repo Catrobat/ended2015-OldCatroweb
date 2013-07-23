@@ -58,6 +58,7 @@
   float: left;
   vertical-align: middle;
   width: 100%;
+  margin-top: -0.25em;
 }
 
 .projectDetailsAuthorTop ul li > div {
@@ -116,7 +117,7 @@
 }
 
 .detailsFlagButton {
-  margin: 8%;
+  margin: 4%;
   overflow: hidden;
   text-align: left;
 }
@@ -171,7 +172,7 @@
 }
 
 #projectDetailsDownloadVersion {
-  font-size: 0.7em;
+  font-size: 0.9em;
 }
 
 #projectDetailsDownloadLicense {
@@ -344,11 +345,11 @@
   }
 
   .projectDetailsDescriptionHeading {
-    margin-left: 5%;
+    margin-left: 4%;
   }
 
   .projectDetailsDescriptionText {
-    margin: 8%;
+    margin: 4%;
   }
 
   .green {
