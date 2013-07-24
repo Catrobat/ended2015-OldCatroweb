@@ -32,20 +32,20 @@
   <string name="password">Password</string>
   <string name="email">My first email</string>
   <string name="second_email">My second email</string>
-  <string name="projects">Projects</string>
+  <string name="projects">Programs</string>
   <string name="country">Country</string>
 
 
-  <string name="my_projects">My Projects</string>
-  <string name="user_projects">Projects of</string>
-  <string name="no_projects_available">There are currently no projects.</string>
+  <string name="my_projects">My Programs</string>
+  <string name="user_projects">Programs of</string>
+  <string name="no_projects_available">There are currently no programs.</string>
   <string name="new_password">New password</string>
   <string name="repeat_password">Repeat password</string>
   <string name="save">save changes</string>
   <string name="saved">saved!</string>
 
   <string name="really_delete_email">Do you really want to delete this email address</string>
-  <string name="really_delete_project">Do you really want to delete your project</string>
+  <string name="really_delete_project">Do you really want to delete your program</string>
   <string name="image_too_big">Your chosen picture is too large, please do not use images larger than 5mb.</string>
   <string name="other">Other</string>
   <string name="avatar_success">You updated your avatar successfully.</string>
