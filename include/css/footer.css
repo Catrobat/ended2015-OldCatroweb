@@ -194,6 +194,6 @@ footer ul li a{
   }
 
   footer div#largeFooterMenu {
-    //display: none;
+    display: none;
   }
 }
