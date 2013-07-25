@@ -125,7 +125,12 @@ var Header = Class.$extend( {
        if(this.requestUri != '') {
          location.href = this.basePath + 'login?requestUri=' + this.requestUri;
        } else {
-         location.reload();
+         if (location.href == this.basePath + 'profile') {
+           location.href = this.basePath;
+         }
+         else {
+           location.reload();
+         }
        }
      }
    },
