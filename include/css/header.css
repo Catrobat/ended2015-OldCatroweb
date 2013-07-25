@@ -129,6 +129,11 @@
 
 }
 
+#wrapper header div#largeMenuButton button#userNameButton {
+  padding-left: 0.25em;
+}
+
+
 #wrapper header nav div#navigationMenu {
   display: none;
   background-image: url("../images/symbols/menu_upper_border.png");

@@ -42,7 +42,7 @@
             
             <div id="largeMenuButton" class="largeSearchBarRight">
               <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover;background-position:center;background-image:url(' . $this->module->session->userLogin_userAvatar . ');"' : ''; ?>></button>
-              <?php echo ($this->module->session->userLogin_userNickname) ? '<button>' . $this->module->session->userLogin_userNickname . '</button>' : ''; ?>
+              <?php echo ($this->module->session->userLogin_userNickname) ? '<button id="userNameButton">' . $this->module->session->userLogin_userNickname . '</button>' : ''; ?>
             </div>
             <div class="marginSpacer"></div>
           </div>
