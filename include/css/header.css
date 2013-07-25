@@ -92,9 +92,22 @@
   background-color: #96CED6;
   border-radius: 0.125em;
   padding: 0.5em;
-  color: #17a5b8; /// ÄNDERN!!!
+  color: #17a5b8;
   margin: 0.375em 0 0.375em 0;
 }
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #17a5b8;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #17a5b8;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #17a5b8;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #17a5b8;
+}
+
 
 #wrapper header nav div div.largeSearchBarRight {
   background-color: #74b1c6;
