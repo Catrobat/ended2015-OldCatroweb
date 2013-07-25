@@ -31,6 +31,9 @@
         <string name="connection_failed">Ooooops something went wrong. Please try again!</string>
         <string name="no_entry_for_id">Ooooops something went wrong. Please try again!</string>
     </db>
+		<profile>
+			<string name="no_such_user">Ooooops something went wrong. Please try again!</string>
+		</profile>
     <userFunctions>
       <string name="hash_not_found">Sorry! Couldn't find something to recover. Please try again.</string>
 			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>
