@@ -27,7 +27,7 @@
   /*background-color: #00475d;
   background-image: none;*/
   color: #17a5b8;
-  font-size: 1.8em;
+  font-size: 1.8em; /*header font size vom "featured"*/
   text-transform: uppercase;
   font-weight: bold;
   padding: 0.07em 0 0.07em 0.375em;
@@ -88,3 +88,69 @@
   margin-bottom: 2.8em;
 }
 
+
+@media screen and (max-width: 642px) {
+  #wrapper article header {
+    font-size: 1.76em;
+  } 
+}
+@media screen and (max-width: 614px) {
+  #wrapper article header {
+    font-size: 1.73em;
+  } 
+}
+@media screen and (max-width: 598px) {
+  #wrapper article header {
+    font-size: 1.7em;
+  } 
+}
+@media screen and (max-width: 570px) {
+  #wrapper article header {
+    font-size: 1.66em;
+  } 
+}
+@media screen and (max-width: 542px) {
+  #wrapper article header {
+    font-size: 1.63em;
+  } 
+}
+@media screen and (max-width: 514px) {
+  #wrapper article header {
+    font-size: 1.6em;
+  } 
+}
+@media screen and (max-width: 498px) {
+  #wrapper article header {
+    font-size: 1.56em;
+  } 
+}
+@media screen and (max-width: 470px) {
+  #wrapper article header {
+    font-size: 1.53em;
+  } 
+}
+@media screen and (max-width: 442px) {
+  #wrapper article header {
+    font-size: 1.5em;
+  } 
+}
+@media screen and (max-width: 420px) {
+  #wrapper article header {
+    font-size: 1.46em;
+  } 
+}
+@media screen and (max-width: 400px) {
+  #wrapper article header {
+    font-size: 1.43em;
+  } 
+}
+@media screen and (max-width: 360px) {
+  #wrapper article header {
+    font-size: 1.4em;
+  } 
+}
+@media screen and (max-width: 320px) {
+  #wrapper article header {
+    font-size: 1.35em;
+  } 
+}
