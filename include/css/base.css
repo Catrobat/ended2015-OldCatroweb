@@ -97,6 +97,7 @@ h3 {
   background-color: #9933CC;
 }
 
+
 .img-age {  
   display:inline-block;
   width: 35px;
@@ -344,7 +345,7 @@ h3 {
   border-bottom: 1px solid #8abbcc;
   font-size: 1.8em;
   padding: 0.07em 0 0.07em 0.375em; 
-  color: #05222A; 
+  color: #17a5b8; 
   text-transform: uppercase;
   font-weight: bold;
   /*background-color: #7db6cb;
