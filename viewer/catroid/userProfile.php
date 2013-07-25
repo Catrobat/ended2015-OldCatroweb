@@ -27,10 +27,12 @@
     <header><?php echo $this->userData['username'];?></header>
     <div class="profileAvatar">
       <img class="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
-    </div>
-
-    <div class="profileInputs">
+    
       <div class="profileInformations">
+      <p>
+        <strong><?php echo $this->languageHandler->getString('projects'); ?>: </strong>
+        <?php echo $this->userData['project_count']; ?>
+      </p>
       <p>
         <strong><?php echo $this->languageHandler->getString('country'); ?>: </strong>
         <?php 
@@ -40,16 +42,13 @@
         }
         ?>
       </p>
-      <p>
-        <strong><?php echo $this->languageHandler->getString('projects'); ?>: </strong>
-        <?php echo $this->userData['project_count']; ?>
-      </p>
+      
       </div>
     </div>
-    <div style="clear: both;"></div>
 
-    <h3><?php echo $this->languageHandler->getString('user_projects')," ", $this->userData['username']; ?></h3>
+    
     <div id="userProjectContainer" class="projectContainer">
+      <h3><?php echo $this->languageHandler->getString('user_projects')," ", $this->userData['username']; ?></h3>
       <span id="profileNoResults"><?php echo $this->languageHandler->getString('no_projects_available'); ?></span>
     </div>
     <div id="userProjectLoader" class="projectFooter">

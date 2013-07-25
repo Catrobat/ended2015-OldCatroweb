@@ -32,7 +32,7 @@
             <div id="recoveryMessage"></div>
             <div class="footer">
               <nav>
-                <span id="passwordRecoverySendLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
+                <span id="passwordRecoverySendLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></span>
                 <button class="blue" id="passwordRecoverySendLink"><?php echo $this->languageHandler->getString('send_link')?></button>
               </nav>
             </div>

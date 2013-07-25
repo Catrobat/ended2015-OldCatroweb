@@ -29,7 +29,7 @@
 
 #wrapper article div.profileInputs {
   float:left;
-  margin-left: 0.7em;
+  margin-left: 0.2em;
 }
 
 #wrapper article div.profileInputsLeft{
@@ -81,9 +81,13 @@
 }
 
 #wrapper article div.profileInformations {
-  font-size: 1.3em;
-  padding-left: 2em;
+  font-size: 1em;
   float: left; 
+  background-color: #ffffff;
+  color: #000000;
+  margin-left: -0.3em;
+  padding-left: 0.5em;
+  width: 19.1em;
 }
 
 #wrapper article div.profileValid{
@@ -122,7 +126,7 @@
   border: none;
   margin-left: 0.2em;
   outline: none;
-  font-size: 0.9em;
+  font-size: 1.0em;
 }
 
 
@@ -221,8 +225,7 @@
 }
 
 #wrapper article h3 {
-  border: 0;
-  border-top: 1px solid #477889;
+  //border-bottom: 1px solid #477889;
   /*background-color: #00475d;*/
   background-image: none;
   color: #17a5b8;
@@ -230,10 +233,9 @@
   text-transform: uppercase;
   font-weight: bold;
   padding: 0.07em 0 0.07em 0.375em;
-  text-align: center;
-  text-shadow: #000000 1px 1px 1px;
-  margin-top: 1.55em;
+  text-align: left;
   margin-bottom: 0;
+  margin-top: -0.3em;
 }
 
 #wrapper article header{
@@ -241,7 +243,7 @@
 }
 
 #wrapper article div.projectContainer {
-  /*background-color: #00475d;*/
+  clear: top;
 }
 
 #wrapper article div#userProjectLoader {
@@ -249,11 +251,13 @@
 }
 
 #wrapper article div.projectContainer ul li div.projectDeleteButton {
-	margin: 0.4em auto;
+	margin-left: 0.4em;
 	cursor: pointer;
 }
 
-
+#wrapper article div#userProjectContainer {
+  padding-left: 2em;
+}
 
 #wrapper article div#profileChangesSuccess{
   height: 1em;
@@ -353,6 +357,10 @@
     width: 16.5em;
     margin-left: 0.5em;
   }  
+  
+  #wrapper article div.profileInformations{
+    width: 16.5em;
+  }
   
   #wrapper article div img.profileAvatarImage {
     width: 16.5em;

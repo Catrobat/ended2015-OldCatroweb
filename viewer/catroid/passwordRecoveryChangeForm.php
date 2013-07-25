@@ -34,7 +34,7 @@
             <div id="recoveryMessage"></div>
             <div class="footer">
               <nav>
-                <span id="passwordSaveLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
+                <span id="passwordSaveLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></span>
                 <button class="blue" id="passwordSaveSubmit"><?php echo $this->languageHandler->getString('change_password_button')?></button>
               </nav>
             </div>
