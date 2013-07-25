@@ -29,10 +29,10 @@ footer {
 footer div {
   display: table;
   width: 100%;
-  background-color: #177f8d;
-  /* background-image: linear-gradient(top, #17A5B8, #177f8d);
+  background-color: #17A5B8;
+  background-image: linear-gradient(top, #17A5B8, #177f8d);
   background-image: -moz-linear-gradient(top, #17A5B8, #177f8d);
-  background-image: -webkit-linear-gradient(top, #17A5B8, #177f8d); */
+  background-image: -webkit-linear-gradient(top, #17A5B8, #177f8d);
 }
 
 footer div div {

@@ -158,10 +158,10 @@
 }
 
 .blue {
-  background-color: #7cb5ca;
+  background-color: #74b0c7;
   background-image: linear-gradient(top, #6ab7ce, #74b0c7);
   background-image: -moz-linear-gradient(top, #6ab7ce, #74b0c7);
-  background-image: -webkit-linear-gradient(top, ##6ab7ce, #74b0c7);
+  background-image: -webkit-linear-gradient(top, #6ab7ce, #74b0c7);
 }
 
 .green {
