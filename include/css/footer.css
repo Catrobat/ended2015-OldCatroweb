@@ -23,6 +23,7 @@
 
 footer {
   //background-color: #00475D;
+  color: #fff;
 }
 
 footer div {
@@ -104,20 +105,30 @@ footer div#largeFooterMenu div:nth-child(2) span header {
 
 footer div#largeFooterMenu div:nth-child(2) span input {
   width: 20em;
+  border: 0;
+  background-color: #96CED6;
+  border-radius: 0.125em;
+  color: #17a5b8;
+  padding: 0.8em 0.6em 0.8em 0.6em;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #17a5b8;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #17a5b8;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #17a5b8;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #17a5b8;
 }
 
 footer select {
   border: 0;
-  background-color: #05222a;
-  color: #6ab7ce;
+  background-color: #96CED6;
+  color: #17a5b8;
   padding: 0.4em 0.6em 0.4em 0.6em;
-}
-
-footer input {
-  border: 0;
-  background-color: #05222a;
-  color: #6ab7ce;
-  padding: 0.8em 0.6em 0.8em 0.6em;
 }
 
 footer ul {
@@ -136,16 +147,14 @@ footer div#mobileFooterMenu ul {
   display: none;
 }
 
-footer ul li {
+footer ul li{
   padding: 0.5em;
-  text-shadow: #333333 1px 1px 2px;
 }
 
-footer ul a {
+footer ul li a{
+  color: #fff;
   text-decoration: none;
-  color: #6ab7ce;
 }
-
 
 
 @media screen and (max-width: 720px) {
