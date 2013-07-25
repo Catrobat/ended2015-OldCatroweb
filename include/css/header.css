@@ -204,7 +204,7 @@
 
 
 
-@media screen and (max-width: 720px) {
+@media screen and (max-width: 698px) {
   #wrapper header nav div#smallMenu {
     display: table-row;
   }
@@ -215,39 +215,12 @@
     max-height: 1.5em;
     margin-top: -0.57em;
   }
-  #wrapper header nav div div.catroidLink {
-    font-size: 2.35em;
-  }
+  
   #wrapper header nav div div.marginSpacer {
     padding: 0 0.3125em 0 0.3125em;
   }
 }
 
-@media screen and (max-width: 698px) {
-  #wrapper header nav div div.catroidLink img {
-    max-height: 1.5em;
-    margin-top: -0.57em;
-  }
-  #wrapper header nav div div.catroidLink {
-    font-size: 2.3em;
-  }
-  #wrapper header nav div div.marginSpacer {
-    padding: 0 0.3115em 0 0.3115em;
-  }
-}
-
-@media screen and (max-width: 670px) {
-  #wrapper header nav div div.catroidLink img {
-    max-height: 1.5em;
-    margin-top: -0.57em;
-  }
-  #wrapper header nav div div.catroidLink {
-    font-size: 2.25em;
-  }
-  #wrapper header nav div div.marginSpacer {
-    padding: 0 0.3015em 0 0.3015em;
-  }
-}
 
 @media screen and (max-width: 642px) {
   #wrapper header nav div div.catroidLink img {
@@ -258,7 +231,7 @@
     font-size: 2.2em;
   }
   #wrapper header nav div div.marginSpacer {
-    padding: 0 0.3em 0 0.3em;
+    padding: 0 0.3025em 0 0.3025em;
   }
 }
 
@@ -401,7 +374,7 @@
     font-size: 1.65em;
   }
   #wrapper header nav div div.marginSpacer {
-    padding: 0 0.19em 0 0.19em;
+    padding: 0 0.18em 0 0.18em;
   }
 }
 
@@ -416,8 +389,9 @@
   #wrapper header nav div div.marginSpacer {
     padding: 0 0.17em 0 0.17em;
   }
-  
-@media screen and (max-width: 320px) {
+}
+
+@media screen and (max-width: 345px) {
   #wrapper header nav div div.catroidLink img {
     max-height: 1.5em;
     margin-top: -0.57em;
@@ -426,7 +400,33 @@
     font-size: 1.55em;
   }
   #wrapper header nav div div.marginSpacer {
+    padding: 0 0.16em 0 0.16em;
+  }
+}
+
+@media screen and (max-width: 335px) {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
+    font-size: 1.5em;
+  }
+  #wrapper header nav div div.marginSpacer {
     padding: 0 0.15em 0 0.15em;
+  }
+}
+
+@media screen and (max-width: 320px) {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
+    font-size: 1.45em;
+  }
+  #wrapper header nav div div.marginSpacer {
+    padding: 0 0.14em 0 0.14em;
   }
 }
   
