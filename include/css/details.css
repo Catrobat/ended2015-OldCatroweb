@@ -336,12 +336,21 @@
  */
 
 @media screen and (max-width: 800px) {
+  #projectDetailsProjectTitle {
+    display:table;
+    font-size: 0.8em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
   .projectDetailsAuthorTop {
     display: none;
   }
 
   .projectDetailsDescription {
-     max-width: 38%;
+    width: 100%;
+    margin-top: 10%;
+    max-width: 100%;
   }
 
   .projectDetailsDescriptionHeading {
@@ -351,26 +360,67 @@
   .projectDetailsDescriptionText {
     margin: 4%;
   }
+  
+  .projectDetailsThumbnail, .projectDetailsDescription, .projectDetailsDownload {
+    clear: left;
+  }
+  
+  .projectDetailsThumbnail {
+    width: 70%;
+  }
+  
+  .projectDetailsThumbnail img {
+    display: block;
+    margin-left: 35%;
+    margin-right: 35%;
+    width: 70%;
+    max-width: 70%;
+  }
 
   .green {
     font-size: 1.3em;
     padding: 5% 0 5% 0;
   }
 
-  .projectDetailsInformation ul>li:first-of-type {
-    display: inline-block;
+  .projectDetailsInformation {
+    margin-top: 0;
+    padding-top:0;
+    padding-left: 5%;
+    width: 93%;
   }
 
-  .projectDetailsInformation ul li {
-    width: 33%; /* two rows */
+  .projectDetailsInformation ul>li:first-of-type {
+     margin-top: 0;
+    padding-top:0;
+    display: inline;
   }
 
   .projectDetailsInformation ul li:nth-child(n+4) {
-    margin-top: 2%;
+    margin-top: 5%;
+  }
+
+  .projectDetailsInformation ul li {
+    clear: both;
+    margin-top: 5%;
+    width: 100%;
   }
 
   .reportAsInappropriateDialogButtons {
     font-size: 0.7em;
+  }
+  
+  .projectDetailsDownload {
+    min-width: 100%;
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .projectDetailsDownloadButton {
+    width: 50%;
+    display: block;
+    height: auto;
+    margin-left: auto;
+    margin-right: auto;
   }
 
   #wrapper article #projectDetailsContainer textarea {
