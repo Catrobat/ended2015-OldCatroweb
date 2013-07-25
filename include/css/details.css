@@ -336,6 +336,13 @@
  */
 
 @media screen and (max-width: 800px) {
+  #projectDetailsProjectTitle {
+    display:table;
+    font-size: 0.8em;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
   .projectDetailsAuthorTop {
     display: none;
   }
