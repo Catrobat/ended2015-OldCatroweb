@@ -254,7 +254,8 @@ var ProjectContentFiller = Class
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
-              $('div.projectAddition', elements[index]).html(projects[i]['UploadedString']);
+              $('div.projectAddition', elements[index]).html("<div class='img-timesmall' style='float:left;'></div>"  );
+              $('div.projectAddition', elements[index]).append(projects[i]['UploadedString']);
             } else {
               $(elements[index]).css("visibility", "hidden");
             }
@@ -280,7 +281,9 @@ var ProjectContentFiller = Class
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
-              $('div.projectAddition', elements[index]).html(projects[i]['Downloads'] + ' ' + this.params.additionalTextLabel);
+              $('div.projectAddition', elements[index]).html("<div class='img-downloadssmall' style='float:left;'></div>"  );
+              $('div.projectAddition', elements[index]).append(projects[i]['Downloads']);// + ' ' + this.params.additionalTextLabel);
+              //$('div.projectAddition', elements[index]).html(projects[i]['Downloads'] + ' ' + this.params.additionalTextLabel);
             } else {
               $(elements[index]).css("visibility", "hidden");
             }
@@ -306,7 +309,9 @@ var ProjectContentFiller = Class
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
-              $('div.projectAddition', elements[index]).html(projects[i]['Views'] + ' ' + this.params.additionalTextLabel);
+              $('div.projectAddition', elements[index]).html("<div class='img-viewssmall' style='float:left;'></div>"  );
+              $('div.projectAddition', elements[index]).append(projects[i]['Views']);// + ' ' + this.params.additionalTextLabel);
+              //$('div.projectAddition', elements[index]).html(projects[i]['Views'] + ' ' + this.params.additionalTextLabel);
             } else {
               $(elements[index]).css("visibility", "hidden");
             }

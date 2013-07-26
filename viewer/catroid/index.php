@@ -57,7 +57,9 @@ onload = function(){
         <div class="projectSpacer"></div>
 
         <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
-        <div id="newestProjects" class="projectContainer"></div>
+        <div id="newestProjects" class="projectContainer">    
+        </div>
+        
         <div id="newestProjectsLoader" class="projectFooter">
           <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
           <p>&nbsp;</p>
