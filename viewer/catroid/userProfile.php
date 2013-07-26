@@ -26,10 +26,10 @@
   <article>
     <header><?php echo $this->userData['username'];?></header>
     <div class="userProfileAvatar">
-    <div class="userProfileInformations">
-      <img class="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
     
-      
+      <img class="userProfileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
+    
+      <div class="userProfileInformations">
       <p>
         <strong><?php echo $this->languageHandler->getString('projects'); ?>: </strong>
         <?php echo $this->userData['project_count']; ?>

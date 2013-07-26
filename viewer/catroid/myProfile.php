@@ -40,13 +40,15 @@
         <div class="profileInputsLeft">
           <div id="profilePasswordError"></div>
            <div id="profileNewPassword" class="profileValid">
+           <div class="img-password profileInputIcon"></div>
             <input type="password" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password'); ?>" />
-            <div class="img-password profileInputIcon"></div>
+            
           </div>
 
           <div id="profileRepeatPassword" class="profileValid">
+          <div class="img-password profileInputIcon"></div>
             <input type="password" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password'); ?>" />
-            <div class="img-password profileInputIcon"></div>
+            
           </div>
 
           <b><?php echo $this->languageHandler->getString('country') ?></b>
@@ -60,8 +62,9 @@
           <div id="profileEmailError"></div>
           <!-- <div id="profileEmailDelete" class="img-delete profileDeleteEMaill"></div>-->
           <div id="profileEmail" class="profileValid">
+          <div class="img-first-email profileInputIcon"></div>
             <input type="email" placeholder="<?php echo $this->languageHandler->getString('email'); ?>" value="<?php echo $this->userData['email']; ?>" />
-            <div class="img-first-email profileInputIcon"></div>
+            
           </div>
 
           <!-- <div id="profileSecondEmailDelete" class="img-delete profileDeleteEMaill"></div>-->
