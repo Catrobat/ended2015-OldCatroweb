@@ -343,7 +343,7 @@ h3 {
 }
 
 #wrapper article header {
-  border-bottom: 1px solid #8abbcc;
+  border-bottom: 1px solid #17a5b8;
   font-size: 1.8em;
   padding: 0.07em 0 0.07em 0.375em; 
   color: #17a5b8; 
@@ -386,14 +386,14 @@ body img#ga {
 	margin:auto;
 	padding:0;
 	list-style:none;
-	position:relative;
-	left:50%;
+	//position:relative; //for centralized projects
+	//left:50%; //for centralized projects
 }
 
 #wrapper article div.projectContainer ul li {
 	display:inline-block;
 	position:relative;
-	left:-50%;
+	//left:-50%; //for centralized projects
 	width: 84px;
 	margin: 0.6em 0.54em 1.6em 0.54em;
 	vertical-align: top;
