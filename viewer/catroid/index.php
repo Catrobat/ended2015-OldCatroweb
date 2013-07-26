@@ -24,10 +24,39 @@
 
 ?>
 
+ <SCRIPT>
+ <!--
+ /*
+ Script by FPMC at http://jsarchive.8m.com
+ Submitted to JavaScript Kit (http://javascriptkit.com)
+ For this and 400+ free scripts, visit http://javascriptkit.com
+ */
+ src = ["resources/featured/1.gif", "resources/featured/2.jpg"];
+ duration = 2;
+ ads=[]; ct=0;
+ function switchAd() {
+   var n=(ct+1)%src.length;
+   if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
+     document["Ad_Image"].src = ads[ct=n].src;
+     }
+   ads[n=(ct+1)%src.length] = new Image;
+   ads[n].src = src[n];
+   setTimeout("switchAd()",duration*1000);
+   }
+ function doLink(){
+   location.href = url[ct];
+   } onload = function(){
+     if (document.images)
+       switchAd();
+     };
+ //-->
+ </SCRIPT>
+
+
       <article>
         <div id="programmOfTheWeek">
           <header><?php echo $this->languageHandler->getString('recommended'); ?></header>
-          <div id="featuredProject">
+          <div id="slideshow"><img name="Ad_Image" src="<?php echo BASE_PATH; ?>resources/featured/1.png" border=0 alt="">
           </div>
         </div>
         <div class="projectSpacer"></div>
