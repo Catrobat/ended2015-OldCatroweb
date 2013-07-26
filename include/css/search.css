@@ -25,3 +25,13 @@
   display: none;
 }
 
+#wrapper article div.projectContainer ul {
+  position:static;
+	left:0;
+}
+
+#wrapper article div.projectContainer ul li {
+
+	position:static;
+	left:0;
+}

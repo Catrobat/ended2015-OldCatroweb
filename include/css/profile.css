@@ -75,6 +75,7 @@
   z-index: 1;
 }
 
+
 #wrapper article div img.profileAvatarImageError {
   outline: 0.3em solid #880000;
   width: 19em;
@@ -264,9 +265,18 @@
   display: none;
 }
 
-#wrapper article div.projectContainer ul li div.projectDeleteButton {
-	margin-left: 0.4em;
+#wrapper article div.projectDeleteButton {
+	float: right;
+	top: 1em;
+	margin-right: -1em;
+	margin-top: -1.6em;
 	cursor: pointer;
+	position: relative;
+	z-index: 2;
+}
+
+#wrapper article div.projectContainer ul li a img {
+  z-index: 1;
 }
 
 #wrapper article div#userProjectContainer {
@@ -329,6 +339,7 @@
 	position:static;
 	left:0;
 }
+
 
 
 @media screen and (max-width: 1100px) {

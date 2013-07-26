@@ -171,11 +171,12 @@ var ProjectContentFiller = Class
           var projectAddition = $("<div />").addClass("projectAddition").text("z");
           var projectActions = $("<div />").addClass("projectDeleteButton img-delete");
           
+          
           project.append(projectThumbnail);
           project.append(projectTitle);
           project.append(projectAddition);
           
-          $(container).append($("<li />").append(project).append(projectActions));
+          $(container).append($("<li />").append(projectActions).append(project));
           
           if(this.gridRowHeight == 0) {
             this.gridRowHeight = $(container).height();
