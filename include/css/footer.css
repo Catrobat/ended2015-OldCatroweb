@@ -108,26 +108,26 @@ footer div#largeFooterMenu div:nth-child(2) span input {
   border: 0;
   background-color: #96CED6;
   border-radius: 0.125em;
-  color: #17a5b8;
+  color: #05222a;
   padding: 0.8em 0.6em 0.8em 0.6em;
 }
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color:    #17a5b8;
+    color:    #05222a !important;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #17a5b8;
+    color:    #05222a !important;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #17a5b8;
+    color:    #05222a !important;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-    color:    #17a5b8;
+    color:    #05222a !important;
 }
 
 footer select {
   border: 0;
   background-color: #96CED6;
-  color: #17a5b8;
+  color: #05222a;
   padding: 0.4em 0.6em 0.4em 0.6em;
 }
 

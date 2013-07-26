@@ -92,20 +92,20 @@
   background-color: #96CED6;
   border-radius: 0.125em;
   padding: 0.5em;
-  color: #17a5b8;
+  color: #05222a;
   margin: 0.375em 0 0.375em 0;
 }
 ::-webkit-input-placeholder { /* WebKit browsers */
-    color:    #17a5b8;
+    color:    #05222a !important;
 }
 :-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #17a5b8;
+    color:    #05222a !important;
 }
 ::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #17a5b8;
+    color:    #05222a !important;
 }
 :-ms-input-placeholder { /* Internet Explorer 10+ */
-    color:    #17a5b8;
+    color:    #05222a !important;
 }
 
 
