@@ -24,6 +24,30 @@
 
 ?>
 
+<script>
+src = ["resources/featured/58.gif", "resources/featured/1.gif"];
+duration = 5;
+ads=[]; ct=0;
+function switchAd() {
+  var n=(ct+1)%src.length;
+  if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
+    document["Ad_Image"].src = ads[ct=n].src;
+  }
+  ads[n=(ct+1)%src.length] = new Image;
+  ads[n].src = src[n];
+  setTimeout("switchAd()",duration*1000);
+}
+
+function doLink(){
+  location.href = url[ct];
+}
+
+onload = function(){
+  if (document.images)
+    switchAd();
+};
+</script>
+
       <article>
         <div id="programmOfTheWeek">
           <header><?php echo $this->languageHandler->getString('recommended'); ?></header>

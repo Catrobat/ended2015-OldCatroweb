@@ -117,11 +117,12 @@ var Index = Class.$extend( {
     if(projectId > 0) {
       $("#programmOfTheWeek").css('display', 'block');
       $(".projectSpacer:first").css('display', 'block');
-      $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'"><img src="' + baseUrl + this.featuredProject['CatrobatProjects'][0].FeaturedImage + '" /></a>');
+      $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'"><img name="Ad_Image" src="' + baseUrl + this.featuredProject['CatrobatProjects'][0].FeaturedImage + '" /></a>');
     }
     else {
       $("#programmOfTheWeek").css('display', 'none');
       $(".projectSpacer:first").css('display', 'none');
     }
   }
+
 });
