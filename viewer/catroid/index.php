@@ -25,7 +25,7 @@
 ?>
 
 <script>
-src = ["resources/featured/58.gif", "resources/featured/1.gif"];
+src = ["resources/featured/821.gif", "resources/featured/719.gif"];
 duration = 5;
 ads=[]; ct=0;
 function switchAd() {
