@@ -64,7 +64,6 @@ class upload extends CoreAuthenticationDevice {
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
       
-      //$remixOfID = getRemixOfID($xmlFile);
       
       $projectIdArray = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
@@ -74,6 +73,9 @@ class upload extends CoreAuthenticationDevice {
       $projectId = $projectIdArray['id'];
       
       $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId, $projectIdArray['update']);
+      
+      if(!$projectIdArray['update'])
+        $this->insertRemixOfIDIntoDatabase($projectId, $xmlFile);
 
       $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
       $this->renameUnzipDirectory(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique,
@@ -377,7 +379,7 @@ class upload extends CoreAuthenticationDevice {
   
     foreach($url as $url_value) {
       if($url_value->nodeValue == '') {
-        $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
+        $url_value->nodeValue = PROJECT_URL_TEXT . $projectId;
         foreach($userHandle as $user)
           $user->nodeValue = $this->session->userLogin_userNickname;
       }
@@ -385,7 +387,13 @@ class upload extends CoreAuthenticationDevice {
         foreach($remixOf as $remix_value) {
           if(!$update)
             $remix_value->nodeValue = $url_value->nodeValue;
-          $url_value->nodeValue = 'http://pocketcode.org/details/' . $projectId;
+          else {
+            $result = $this->query("get_remixof_id", array($projectId));
+            while($row = pg_fetch_assoc($result)) {
+              $remix_value->nodeValue = PROJECT_URL_TEXT . $row['remixof'];
+            }            
+          }
+          $url_value->nodeValue = PROJECT_URL_TEXT . $projectId;
           foreach($userHandle as $user)
             $user->nodeValue = $this->session->userLogin_userNickname;
         }
@@ -408,6 +416,22 @@ class upload extends CoreAuthenticationDevice {
     }
   
     return true;
+  }
+  
+  private function insertRemixOfIDIntoDatabase($projectId, $xmlFile) {
+    $dom = new DOMDocument();
+    $dom->load($xmlFile);
+    
+    $remixOf = $dom->getElementsByTagName('remixOf');
+    if($remixOf->length == 0)
+      $remixOf = $dom->getElementsByTagName('RemixOf');
+    
+    foreach($remixOf as $value) {
+      if($value->nodeValue != '') {
+        $remixID = intval(str_replace(PROJECT_URL_TEXT, "", $value->nodeValue));
+        $this->query("set_remixof_id", array($remixID, $projectId));
+      }
+    }
   }
 
   private function renameProjectFile($oldName, $projectId) {

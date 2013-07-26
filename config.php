@@ -58,6 +58,7 @@ define('PROJECT_PAGE_LOAD_MAX_PROJECTS', 5);
 define('PROJECT_PAGE_SHOW_MAX_PAGES', 5);
 define('PROJECT_ROW_MAX_PROJECTS', 3);
 define('PROJECT_FLAG_NOTIFICATION_THRESHOLD', 1);
+define('PROJECT_URL_TEXT', 'http://pocketcode.org/details/');
 
 define('PROJECT_LAYOUT_GRID_ROW', 1);
 
