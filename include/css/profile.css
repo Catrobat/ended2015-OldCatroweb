@@ -35,6 +35,12 @@
   background-color: #ffffff;
 }
 
+#wrapper article div.userProfileAvatarContainer{
+  float: left;
+  width: 19em;
+  margin-left: 0.3em;
+}
+
 #wrapper article div.userProfileInformations {
   font-size: 1em;
   margin-left: 0.3em;
@@ -353,6 +359,11 @@
 
 @media screen and (max-width: 720px) {
   
+  #wrapper article div.userProfileAvatarContainer{
+    min-width: 100%;
+    margin-bottom: 2em;
+  }
+  
   .profileAvatar {
     min-width: 100%;
   }
@@ -388,7 +399,7 @@
 }
 
 @media screen and (max-width: 400px) {
-    #wrapper article div.profileAvatar{
+  #wrapper article div.profileAvatar{
     width: 16.5em;
     margin-left: 0.5em;
   }  
@@ -401,7 +412,7 @@
     width: 16.5em;
   }
 
-#wrapper article div img.profileAvatarImageError {
+  #wrapper article div img.profileAvatarImageError {
     width: 16.5em;
   }
   
@@ -427,6 +438,10 @@
   #wrapper article div.profileInputsRight, #wrapper article div.profileInputsLeft{
     margin-left: 2.5em;
     width: 17.9em;
+  }
+  
+  #wrapper article div.profileAvatar {
+    left: 0;
   }
   
 }

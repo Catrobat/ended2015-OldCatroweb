@@ -25,27 +25,31 @@
 ?>
   <article>
     <header><?php echo $this->userData['username'];?></header>
-    <div class="userProfileAvatar">
     
-      <img class="userProfileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
-    
-      <div class="userProfileInformations">
-      <p>
-        <strong><?php echo $this->languageHandler->getString('projects'); ?>: </strong>
-        <?php echo $this->userData['project_count']; ?>
-      </p>
-      <p>
-        <strong><?php echo $this->languageHandler->getString('country'); ?>: </strong>
-        <?php 
-        if($this->userData['country'] != "") {
-          $countries = getCountryArray($this->languageHandler);
-          echo $countries[$this->userData['country']];
-        }
-        ?>
-      </p>
+    <div class="userProfileAvatarContainer">
+      <div class="userProfileAvatar">
       
+        <img class="userProfileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
+      
+        <div class="userProfileInformations">
+        <p>
+          <strong><?php echo $this->languageHandler->getString('projects'); ?>: </strong>
+          <?php echo $this->userData['project_count']; ?>
+        </p>
+        <p>
+          <strong><?php echo $this->languageHandler->getString('country'); ?>: </strong>
+          <?php 
+          if($this->userData['country'] != "") {
+            $countries = getCountryArray($this->languageHandler);
+            echo $countries[$this->userData['country']];
+          }
+          ?>
+        </p>
+        
+        </div>
       </div>
     </div>
+
 
     
     <div id="userProjectContainer" class="projectContainer">
