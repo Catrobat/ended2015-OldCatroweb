@@ -33,7 +33,7 @@
             </ul>
           </div>
           <div>
-            <span id="footerSearchButton" class="img-magnifying-glass-blue"></span>
+            <span id="footerSearchButton" class="img-magnifying-glass"></span>
             <span>
                <header><?php echo $this->languageHandler->getString('template_footer_search_header'); ?></header>
                <input type="search" placeholder="<?php echo $this->languageHandler->getString('template_footer_search_placeholder'); ?>" />

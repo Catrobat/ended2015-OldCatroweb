@@ -30,9 +30,6 @@ footer div {
   display: table;
   width: 100%;
   background-color: #17A5B8;
-  background-image: linear-gradient(top, #17A5B8, #177f8d);
-  background-image: -moz-linear-gradient(top, #17A5B8, #177f8d);
-  background-image: -webkit-linear-gradient(top, #17A5B8, #177f8d);
 }
 
 footer div div {
@@ -53,6 +50,7 @@ footer div div span {
 
 footer div.footerMenu div {
   border-top: 1px solid #385f6e;
+  color: #ffffff;
 }
 
 footer div div div {
@@ -101,6 +99,7 @@ footer div#largeFooterMenu div:nth-child(2) span header {
   text-transform: uppercase;
   font-size: 1.4em;
   font-weight: bold;
+  color: #ffffff;
 }
 
 footer div#largeFooterMenu div:nth-child(2) span input {
