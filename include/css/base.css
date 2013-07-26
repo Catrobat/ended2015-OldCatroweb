@@ -303,6 +303,30 @@ h3 {
   height: 25px;
 }
 
+.img-timesmall {
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -162px -38px;
+  width: 19px;
+  height: 18px;
+  margin-right: 3px;
+}
+
+.img-downloadssmall {
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -162px 0px;
+  width: 19px;
+  height: 18px;
+  margin-right: 3px;
+}
+
+.img-viewssmall {
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -162px -18px;
+  width: 19px;
+  height: 18px;
+  margin-right: 3px;
+}
+
 ::-moz-selection {
   color: #ffffff;
   background: #9933CC;
