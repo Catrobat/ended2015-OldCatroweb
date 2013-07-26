@@ -87,7 +87,7 @@
     </div>
 
     <div style="clear: both;"></div>
-    <h3><?php echo $this->languageHandler->getString('my_projects'); ?></h3>
+    <h3 class="myH3"><?php echo $this->languageHandler->getString('my_projects'); ?></h3>
     <div id="userProjectContainer" class="projectContainer">
       <span id="profileNoResults">
         <img src="<?php echo BASE_PATH; ?>images/symbols/error_small.png" />

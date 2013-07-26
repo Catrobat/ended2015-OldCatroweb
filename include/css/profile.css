@@ -59,13 +59,13 @@
 #wrapper article div.profileInputsLeft{
   float: left;
   width: 19em;
-  margin-left: 2em;
+  margin-left: 3em;
 }
 
 #wrapper article div.profileInputsRight{
   float: left;
   width: 19em;
-  margin-left: 2em;
+  margin-left: 3em;
 }
 
 #wrapper article div img.profileAvatarImage {
@@ -252,6 +252,10 @@
   margin-top: -0.3em;
 }
 
+#wrapper article h3.myH3 {
+  margin-top: 1.0em;
+}
+
 #wrapper article div.projectContainer {
   clear: top;
 }
@@ -313,6 +317,17 @@
 
 #wrapper article span#profileNoResults img{
   margin-top: 1em;
+}
+
+#wrapper article div.projectContainer ul {
+  position:static;
+	left:0;
+}
+
+#wrapper article div.projectContainer ul li {
+
+	position:static;
+	left:0;
 }
 
 

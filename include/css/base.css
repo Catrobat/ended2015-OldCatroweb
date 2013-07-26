@@ -386,14 +386,14 @@ body img#ga {
 	margin:auto;
 	padding:0;
 	list-style:none;
-	//position:relative; //for centralized projects
-	//left:50%; //for centralized projects
+  position:relative;
+	left:50%;
 }
 
 #wrapper article div.projectContainer ul li {
 	display:inline-block;
 	position:relative;
-	//left:-50%; //for centralized projects
+	left:-50%;
 	width: 84px;
 	margin: 0.6em 0.54em 1.6em 0.54em;
 	vertical-align: top;
