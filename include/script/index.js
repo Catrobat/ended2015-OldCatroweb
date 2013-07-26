@@ -32,6 +32,8 @@ var Index = Class.$extend( {
     this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
     this.featuredProject = $.parseJSON(featured);
     
+    console.log(this.featuredProject);
+    
     this.displayFeaturedProject();
     $(".catroidLink").click($.proxy(this.clearHistory, this));
     
