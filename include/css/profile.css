@@ -361,8 +361,7 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
-  }
-  
+  }  
   
   #wrapper article button#profileChangeAvatarButton  {
     left: 50%;
@@ -373,12 +372,12 @@
   }
   #wrapper article div.profileInputsLeft{
     margin-top: 2.0em;
-    margin-left: 3.0em;
+    margin-left: 1.6em;
   }
   
   #wrapper article div.profileInputsRight{
     clear: left;
-    margin-left: 3.0em;
+    margin-left: 1.6em;
   }
   
   #wrapper article div.profileInputs {
@@ -426,8 +425,8 @@
   }
   
   #wrapper article div.profileInputsRight, #wrapper article div.profileInputsLeft{
-    margin-left: 2.8em;
-    width: 17em;
+    margin-left: 2.5em;
+    width: 17.9em;
   }
   
 }
