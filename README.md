@@ -17,4 +17,4 @@ A step by step guide for Ubuntu.
 * Type 'make init-dev' (You'll be asked for the SQL-Username and SQL-Password, you can find it in 'passwords.php')
 * Type 'make init-all' (This may take a while)
 * Open the browser and go to 'catroid.local'
-* **Have Fun!**
+* **Have fun!**
