@@ -69,7 +69,7 @@ class upload extends CoreAuthenticationDevice {
       $projectIdArray = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
           $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
-          $projectInformation['versionCode']);
+          $projectInformation['versionCode'], $projectInformation['visible']);
       
       $projectId = $projectIdArray['id'];
       
@@ -248,13 +248,16 @@ class upload extends CoreAuthenticationDevice {
     $uploadIp = (isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'');
     $uploadLanguage = ((isset($formData['userLanguage'])) ? checkUserInput($formData['userLanguage']) : 'en');
 
+    $visible = $this->checkVisible(((isset($formData['visible'])) ? checkUserInput($formData['visible']) : 't'));
+    
     return(array(
-        "projectTitle" => $projectTitle,
+        "projectTitle"       => $projectTitle,
         "projectDescription" => $projectDescription,
-        "versionName" => $versionName,
-        "versionCode" => $versionCode,
-        "uploadIp" => $uploadIp,
-        "uploadLanguage" => $uploadLanguage
+        "versionName"        => $versionName,
+        "versionCode"        => $versionCode,
+        "uploadIp"           => $uploadIp,
+        "uploadLanguage"     => $uploadLanguage,
+        "visible"            => $visible
     ));
   }
 
@@ -288,7 +291,7 @@ class upload extends CoreAuthenticationDevice {
     }
   }
 
-  private function updateOrInsertProjectIntoDatabase($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode) {
+  private function updateOrInsertProjectIntoDatabase($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode, $visible) {
     $userId = (($this->session->userLogin_userId) ? $this->session->userLogin_userId : 0);
 
     $result = $this->query("does_project_already_exist", array($projectTitle, $userId));
@@ -297,7 +300,7 @@ class upload extends CoreAuthenticationDevice {
       $updateId = $row['id'];
       pg_free_result($result);
 
-      $this->query("update_project", array($projectDescription, $uploadIp, $fileSize, $versionName, $versionCode, $updateId));
+      $this->query("update_project", array($projectDescription, $uploadIp, $fileSize, $versionName, $versionCode, $updateId, $visible));
    
       return(array(
           "id" => $updateId,
@@ -306,7 +309,7 @@ class upload extends CoreAuthenticationDevice {
     } else {
       pg_free_result($result);
 
-      $result = $this->query("insert_new_project", array($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode, $userId));
+      $result = $this->query("insert_new_project", array($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode, $userId, $visible));
       $row = pg_fetch_assoc($result);
       $insertId = $row['id'];
       pg_free_result($result);
@@ -568,6 +571,13 @@ class upload extends CoreAuthenticationDevice {
         array_push($this->uploadState[$type], $new);
         break;
     }
+  }
+  
+  private function checkVisible($visible) { 
+    if(! in_array($visible,array('t','f')) ) {
+      throw new Exception($this->errorHandler->getError('upload', 'visibility_incorrect'), STATUS_CODE_UPLOAD_VISIBILITY_INCORRECT);
+    }
+    return $visible;
   }
 }
 ?>
