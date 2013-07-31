@@ -7,17 +7,27 @@ usage: $0 options
 
 This script tests if a project file is downloadable.
 
+Return-Values:
+0: OK       Host is online
+1: Warning  Host maybe down
+2: Critical Host is down
+3: Unknown  e.g. invalid commandline
+
 OPTIONS:
-   -h      host
+   -h      host (e.g. https://pocketcode.org)
+   -p      projectID (e.g. 322)
 EOF
 }
 
 HOST=
-while getopts "h:" OPTION
+while getopts "h:p:" OPTION
 do
     case $OPTION in
 	h)
 	    HOST=$OPTARG
+	    ;;
+        p)
+	    PROJECTID=$OPTARG
 	    ;;
     esac
 done
@@ -27,12 +37,22 @@ if [ -z "$HOST" ]; then
     exit 3
 fi
 
-#                                      projectId           Projectname
-#catroweb_project=$(curl $HOST/download/880.catrobat?fname=compass+life+long+kindergarten 2>&1)
-catroweb_project=$(curl $HOST/download/322.catrobat?fname=Monitoring 2>&1)
+if [ -z "$PROJECTID" ]; then
+    usage
+    exit 3
+fi
 
-#cat <<< "$catroweb_project"
-#wc -l <<< "$catroweb_project"
-#md5sum <<< "$catroweb_project"
+catroweb_project=$(curl -s $HOST/download/$PROJECTID.catrobat 2>&1)
 
-#delete file? it's invisible! at least it should be! ;-)
+file_size=$(wc -c <<< "$catroweb_project")
+
+  if [ $file_size -gt 1 ]
+    then
+      echo "OK: $HOST supports downloading projects"
+      status=0
+  else
+      echo "CRITICAL: $HOST doesn't support downloading projects"
+      status=2
+  fi
+
+exit $status

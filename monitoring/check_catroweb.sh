@@ -5,10 +5,16 @@ usage()
 cat << EOF
 usage: $0 options
 
-This script  tests if the host is alive and actual content is delivered.
+This script tests if the host is alive and actual content is delivered.
+
+Return-Values:
+0: OK       Host is online
+1: Warning  Host maybe down
+2: Critical Host is down
+3: Unknown  e.g. invalid commandline
 
 OPTIONS:
-   -h      host
+   -h      host (e.g. https://pocketcode.org)
 EOF
 }
 
@@ -27,20 +33,27 @@ if [ -z "$HOST" ]; then
     exit 3
 fi
 
-catroweb_login=$(curl $HOST/login 2>&1)
 
-grep -q loginUsername <<< "$catroweb_login"
+SITE="login"
 
-status=$?
+  catroweb_login=$(curl $HOST/$SITE 2>&1)
 
-#    if [ $status -ne 0 ]; then
-#        echo "error with $1"
-#    fi
-#    return $status
+  grep -q loginUsername <<< "$catroweb_login"
+
+  status=$?
+
+    if [ $status -eq 0 ]
+    then
+        echo "OK: $HOST is online"
+    elif [ $status -eq 1 ]
+    then
+      echo "WARNING: $HOST maybe down"
+    elif [ $status -eq 2 ]
+    then
+      echo "CRITICAL: $HOST is down"
+    else
+      echo "UNKOWN: $HOST is in unkown state"
+      status=3
+    fi
+
 exit $status
-
-# 0: OK       AOK
-# 1: Warning  some warning
-# 2: Critical some error
-# 3: Unknown  invalid commandline
-exit 3
