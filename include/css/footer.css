@@ -155,6 +155,10 @@ footer ul li a{
   text-decoration: none;
 }
 
+footer ul li a:link, footer ul li a:visited {
+  text-decoration: none;
+}
+
 @media screen and (max-width: 720px) {
   #wrapper article {
     padding-bottom: 3.5em;
