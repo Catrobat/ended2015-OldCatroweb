@@ -367,6 +367,11 @@
     margin-left: -10.3em;
   }
   
+  #wrapper article div#userProjectContainer {
+  padding-left: 2em;
+  padding-top: 1em;
+}
+  
   #wrapper article div.userProfileAvatarContainer{
     min-width: 100%;
     margin-bottom: 2em;
