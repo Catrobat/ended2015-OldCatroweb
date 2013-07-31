@@ -114,9 +114,8 @@
 }
 
 #wrapper article a:link, a:visited { 
-  text-decoration: underline; 
-  color: #17a5b8; 
-  font-weight: bold;
+  text-decoration: none;  
+  /* font-weight: bold; */
 }
 
 @media screen and (max-width: 400px) {
