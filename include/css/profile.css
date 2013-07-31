@@ -359,6 +359,14 @@
 
 @media screen and (max-width: 720px) {
   
+  .userProfileAvatarContainerTop {
+    /* width: 100%; */
+    display: block;
+    position: relative;
+    left: 50%;
+    margin-left: -10.3em;
+  }
+  
   #wrapper article div.userProfileAvatarContainer{
     min-width: 100%;
     margin-bottom: 2em;
