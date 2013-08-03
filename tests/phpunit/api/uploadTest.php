@@ -603,6 +603,162 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(0, pg_num_rows($result));
   }
 
+  /**
+   * @dataProvider correctPostData
+   */
+  public function testDoUploadProjectVisible($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadLanguage = '') {
+    $formData = array(
+        'projectTitle' => $projectTitle,
+        'projectDescription' => $projectDescription,
+        'fileChecksum' => $fileChecksum,
+        'userLanguage'=>$uploadLanguage,
+        'visible'=>'t'
+    );
+    $fileData = array(
+        'upload' => array(
+            'name' => $fileName,
+            'type' => $fileType,
+            'tmp_name' => $testFile,
+            'error' => 0,
+            'size'=>$fileSize
+        )
+    );
+    $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+    $fileSize = filesize($testFile);
+  
+    $this->upload->doUpload($formData, $fileData, $serverData);
+    $insertId = $this->upload->projectId;
+    $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
+    $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
+  
+    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertNotEquals(0, $insertId);
+    $this->assertTrue(is_file($filePath));
+  
+    $this->assertTrue(is_dir($projectPath));
+    $this->assertTrue(is_dir($projectPath . "/images"));
+    $this->assertTrue(is_dir($projectPath . "/sounds"));
+  
+    $this->assertTrue($this->upload->projectId > 0);
+  
+    if($uploadLanguage) {
+      $query = "SELECT upload_language FROM projects WHERE id='$insertId'";
+      $result = pg_query($this->dbConnection, $query);
+      $row = pg_fetch_row($result);
+      $this->assertEquals($uploadLanguage, $row[0]);
+      pg_free_result($result);
+    }
+    if($fileSize) {
+      $query = "SELECT filesize_bytes FROM projects WHERE id='$insertId'";
+      $result = pg_query($this->dbConnection, $query);
+      $row = pg_fetch_row($result);
+      $this->assertEquals($fileSize, $row[0]);
+      pg_free_result($result);
+    }
+  
+    $query = "SELECT title, description, visible FROM projects WHERE id='$insertId'";
+    $result = pg_query($this->dbConnection, $query);
+    $pg_result = pg_fetch_assoc($result);
+  
+    $cleanedProjectTitle = $this->cleanUserInput($projectTitle);
+    $cleanedProjectDescription = $this->cleanUserInput($projectDescription);
+    $this->assertEquals($pg_result['title'], $cleanedProjectTitle);
+    $this->assertEquals($pg_result['description'], $cleanedProjectDescription);
+    $this->assertEquals($pg_result['visible'], 't');
+  
+    pg_free_result($result);
+  
+    //test deleting from filesystem
+    $this->upload->cleanup();
+    $this->assertFalse(is_file($filePath));
+    $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_SMALL));
+    $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_LARGE));
+    $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_ORIG));
+  
+    //test deleting from database
+    $query = "SELECT * FROM projects WHERE id='$insertId'";
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
+    $this->assertEquals(0, pg_num_rows($result));
+  }
+ 
+  /**
+   * @dataProvider correctPostData
+   */
+  public function testDoUploadProjectInvisible($projectTitle, $projectDescription, $testFile, $fileName, $fileChecksum, $fileSize, $fileType, $uploadLanguage = '') {
+    $formData = array(
+        'projectTitle' => $projectTitle,
+        'projectDescription' => $projectDescription,
+        'fileChecksum' => $fileChecksum,
+        'userLanguage'=>$uploadLanguage,
+        'visible'=>'f'
+    );
+    $fileData = array(
+        'upload' => array(
+            'name' => $fileName,
+            'type' => $fileType,
+            'tmp_name' => $testFile,
+            'error' => 0,
+            'size'=>$fileSize
+        )
+    );
+    $serverData = array('REMOTE_ADDR'=>'127.0.0.1');
+    $fileSize = filesize($testFile);
+  
+    $this->upload->doUpload($formData, $fileData, $serverData);
+    $insertId = $this->upload->projectId;
+    $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
+    $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
+  
+    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertNotEquals(0, $insertId);
+    $this->assertTrue(is_file($filePath));
+  
+    $this->assertTrue(is_dir($projectPath));
+    $this->assertTrue(is_dir($projectPath . "/images"));
+    $this->assertTrue(is_dir($projectPath . "/sounds"));
+  
+    $this->assertTrue($this->upload->projectId > 0);
+  
+    if($uploadLanguage) {
+      $query = "SELECT upload_language FROM projects WHERE id='$insertId'";
+      $result = pg_query($this->dbConnection, $query);
+      $row = pg_fetch_row($result);
+      $this->assertEquals($uploadLanguage, $row[0]);
+      pg_free_result($result);
+    }
+    if($fileSize) {
+      $query = "SELECT filesize_bytes FROM projects WHERE id='$insertId'";
+      $result = pg_query($this->dbConnection, $query);
+      $row = pg_fetch_row($result);
+      $this->assertEquals($fileSize, $row[0]);
+      pg_free_result($result);
+    }
+  
+    $query = "SELECT title, description, visible FROM projects WHERE id='$insertId'";
+    $result = pg_query($this->dbConnection, $query);
+    $pg_result = pg_fetch_assoc($result);
+  
+    $cleanedProjectTitle = $this->cleanUserInput($projectTitle);
+    $cleanedProjectDescription = $this->cleanUserInput($projectDescription);
+    $this->assertEquals($pg_result['title'], $cleanedProjectTitle);
+    $this->assertEquals($pg_result['description'], $cleanedProjectDescription);
+    $this->assertEquals($pg_result['visible'], 'f');
+  
+    pg_free_result($result);
+  
+    //test deleting from filesystem
+    $this->upload->cleanup();
+    $this->assertFalse(is_file($filePath));
+    $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_SMALL));
+    $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_LARGE));
+    $this->assertFalse(is_file(CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $insertId . PROJECTS_THUMBNAIL_EXTENSION_ORIG));
+  
+    //test deleting from database
+    $query = "SELECT * FROM projects WHERE id='$insertId'";
+    $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
+    $this->assertEquals(0, pg_num_rows($result));
+  }
+  
   /* *** DATA PROVIDERS *** */
   public function correctPostData() {
     $fileName = 'test.zip';
