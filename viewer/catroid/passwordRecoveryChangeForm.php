@@ -24,7 +24,7 @@
 
 ?>
       <article>
-        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
+        <!-- <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div> -->
         <div class="form">
           <form>
             <!--  <div class="label"><?php echo $this->languageHandler->getString('headline')?></div>-->
