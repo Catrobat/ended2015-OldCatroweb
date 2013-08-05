@@ -27,7 +27,7 @@
         <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
         <div class="form">
           <form>
-            <div class="label"><?php echo $this->languageHandler->getString('headline')?></div>
+            <!--  <div class="label"><?php echo $this->languageHandler->getString('headline')?></div>-->
             <input type="hidden" id="passwordRecoveryHash" name="c" value="<?php echo htmlentities($_GET['c']); ?>" />
             <input type="password" id="passwordSavePassword" name="passwordSavePassword" placeholder="<?php echo $this->languageHandler->getString('change_password')?>" /><br />
             <input type="password" id="passwordSavePassword2" name="passwordSavePassword2" placeholder="<?php echo $this->languageHandler->getString('change_password')?>" /><br />
