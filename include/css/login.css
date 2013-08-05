@@ -114,7 +114,8 @@
 }
 
 #wrapper article a:link, a:visited { 
-  text-decoration: underline;  
+  text-decoration: underline; 
+  color: #17a5b8; 
 }
 
 @media screen and (max-width: 400px) {

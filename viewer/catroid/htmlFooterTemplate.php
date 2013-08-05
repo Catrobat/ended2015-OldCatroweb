@@ -73,7 +73,7 @@
 
       <div id="mobileFooterMenu">
         <ul>
-          <li><a class="test123" href="http://developer.catrobat.org/privacy_policy" target="_blank"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a></li>
+          <li><a href="http://developer.catrobat.org/privacy_policy" target="_blank"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a></li>
           <li><a href="<?php echo BASE_PATH?>termsOfUse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a></li>
           <li><a href="http://developer.catrobat.org/imprint" target="_blank"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a></li>
         </ul>

@@ -157,6 +157,7 @@ footer ul li a{
 
 footer ul li a:link, footer ul li a:visited {
   text-decoration: none;
+  color: #fff;
 }
 
 @media screen and (max-width: 720px) {
