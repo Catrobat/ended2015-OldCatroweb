@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2013 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Maak een nieuwe gebruikersnaam</string>
+  <string name="nickname">Gebruikersnaam</string>
+  <string name="enter_nickname">voer een gebruikersnaam in</string>
+  <string name="nickname_info">Gebruik een verzonnen gebruikersnaam, zoals "grappige draak" (waarom zou ik mijn eigen naam niet gebruiken?).</string>
+  <string name="password">Wachtwoord</string>
+  <string name="enter_password">voer een wachtwoord in</string>
+  <string name="email">E-Mailadres</string>
+  <string name="enter_email">voer je e-mailadres in</string>
+  <string name="email_info">We sturen je gebruikersnaam, wachtwoord en toegangsgegevens naar je e-mailadres. We zullen je e-mailadres nooit met anderen delen. Bekijk ons {*privacyPolicyLink*} voor meer info.</string>
+  <string name="email_info_link_title">privacybeleid</string>
+  <string name="country">Land</string>
+  <string name="select_country">kies je land</string>
+  <string name="other">Overig</string>
+  <string name="city">Woonplaats</string>
+  <string name="enter_city">voer je woonplaats in</string>
+  <string name="birth">Geboortedatum</string>
+  <string name="select_month">kies je maand</string>
+  <string name="select_year">kies je jaar</string>
+  <string name="gender">Geslacht</string>
+  <string name="select_gender">kies je geslacht</string>
+  <string name="female">vrouw</string>
+  <string name="male">man</string>
+  <string name="create">Maak mijn gebruikersnaam aan</string>
+  <string name="login">probeer in te loggen als je al een gebruikersnaam hebt</string>
+  <string name="password_recover">klik hier als je je wachtwoord bent vergeten</string>
+  <string name="additional_options">Andere opties om door te gaan:</string>
+  <string name="registration_success">Registratie succesvol!</string>
+</strings>
