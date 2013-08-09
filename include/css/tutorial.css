@@ -1,0 +1,62 @@
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#wrapper article div.header {
+  border: 0;
+  border-bottom: 1px solid #17a5b8;
+  /*background-color: #00475d;
+  background-image: none;*/
+  color: #17a5b8;
+  font-size: 1.8em; /*header font size vom "featured"*/
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em 0 0.07em 0.375em;
+  text-align: left;
+  text-shadow: #000000 1px 1px 1px;
+  margin-top: 0.55em;
+  margin-bottom: 0.8em;
+}
+
+#wrapper article div.tutorialMain {
+  /* background-color: #00475d; */
+  margin-top: 0.2em;
+}
+
+#wrapper article div.tutorialMainHeader {
+  text-align: left;
+  width: 100%;
+  margin-bottom: 0.5em;
+}
+
+#wrapper article div.tutorialMainContent {
+  width: 100%;
+}
+
+#wrapper article div.tutorialMainContentDetail {
+  text-align: center;
+  float: left;
+  width: 33%%;
+}
+
+
+
