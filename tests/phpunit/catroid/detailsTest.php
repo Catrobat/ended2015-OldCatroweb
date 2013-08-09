@@ -141,5 +141,20 @@ class detailsTest extends PHPUnit_Framework_TestCase
     $tags = $this->obj->getTags($id);
     $this->assertTrue(is_array($tags));
   }
+
+  public function testAddRemoveTags($id)
+  {
+    $tagString = "testAddRemove";
+
+    $this->obj->addTag($tagString, $id);
+    $tags = $this->obj->getTags($id);
+
+    $this->assertTrue(in_array($tagString, $tags));
+
+    $this->obj->removeTag($tagString, $id);
+    $tags = $this->obj->getTags($id);
+
+    $this->assertFalse(in_array($tagString, $tags));
+  }
 }
 ?>
