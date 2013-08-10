@@ -288,8 +288,8 @@ public class ProfileTests extends BaseTest {
       assertFalse(isElementPresent(By.id("profileEmail")));
       assertFalse(isElementPresent(By.id("profileSecondEmail")));
       assertFalse(isElementPresent(By.id("profileSaveChanges")));
-      assertFalse(isTextPresent("MY PROJECTS"));
-      assertTrue(isTextPresent("PROJECTS OF " + dataset.get("registrationUsername").toUpperCase()));
+      assertFalse(isTextPresent("MY PROGRAMS"));
+      assertTrue(isTextPresent("PROGRAMS OF " + dataset.get("registrationUsername").toUpperCase()));
       assertFalse(isElementPresent(By.id("registrationSubmit")));
       assertFalse(isTextPresent("Login".toUpperCase()));
       assertTrue(isTextPresent(dataset.get("registrationUsername").toUpperCase()));
@@ -309,8 +309,8 @@ public class ProfileTests extends BaseTest {
       assertFalse(isElementPresent(By.id("profileEmail")));
       assertFalse(isElementPresent(By.id("profileSecondEmail")));
       assertFalse(isElementPresent(By.id("profileSaveChanges")));
-      assertFalse(isTextPresent("MY PROJECTS"));
-      assertTrue(isTextPresent("PROJECTS OF " + dataset.get("registrationUsername").toUpperCase()));
+      assertFalse(isTextPresent("MY PROGRAMS"));
+      assertTrue(isTextPresent("PROGRAMS OF " + dataset.get("registrationUsername").toUpperCase()));
       assertFalse(isElementPresent(By.id("registrationSubmit")));
       assertFalse(isTextPresent("Login".toUpperCase()));
       assertTrue(isTextPresent(dataset.get("registrationUsername").toUpperCase()));
@@ -334,7 +334,7 @@ public class ProfileTests extends BaseTest {
       assertTrue(isElementPresent(By.id("profileEmail")));
       assertTrue(isElementPresent(By.id("profileSecondEmail")));
       assertTrue(isElementPresent(By.id("profileSaveChanges")));
-      assertTrue(isTextPresent("MY PROJECTS"));
+      assertTrue(isTextPresent("MY PROGRAMS"));
       assertTrue(isElementPresent(By.id("profileSaveChanges")));
 
       CommonFunctions.deleteUserFromDatabase(dataset.get("registrationUsername"));
