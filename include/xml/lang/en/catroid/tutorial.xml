@@ -24,4 +24,26 @@
 <strings>
 	<string name="title">Tutorial Cards</string>
   <string name="head_text">This cards show you how to use effective bricks in Pocket Code</string>
+  
+  <string name="title">Tutorial Card</string>
+	<string name="project1_short">Key Moves</string>
+	<string name="project1">Key Moves</string>
+	<string name="project2_short">Glide</string>
+	<string name="project2">Glide</string>
+	<string name="project3_short">Say Someth...</string>
+	<string name="project3">Say Something</string>
+	<string name="project4_short">Card4</string>
+	<string name="project4">Card4</string>
+	<string name="project5_short">Card5</string>
+	<string name="project5">Card5</string>
+	<string name="project6_short">Card6</string>
+	<string name="project6">Card6</string>
+	<string name="project7_short">Card7</string>
+	<string name="project7">Card7</string>
+	<string name="project8_short">Card8</string>
+	<string name="project8">Card8</string>
+	<string name="project9_short">Card9</string>
+	<string name="project9">Card9</string>
+	<string name="project10_short">Card10</string>
+	<string name="project10">Card10</string>
 </strings>

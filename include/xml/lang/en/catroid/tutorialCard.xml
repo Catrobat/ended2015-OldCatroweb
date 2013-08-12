@@ -22,27 +22,31 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+
+  <string name="project1">Key Moves</string>
+	<string name="project2">Glide</string>
+	<string name="project3">Say Something</string>
+	<string name="project4">Card4</string>
+	<string name="project5">Card5</string>
+	<string name="project6">Card6</string>
+	<string name="project7">Card7</string>
+	<string name="project8">Card8</string>
+	<string name="project9">Card9</string>
+	<string name="project10">Card10</string>
+
 	<string name="title">Tutorial Card</string>
-	<string name="project1">Glide</string>
 	<string name="project1_description">Move smoothly from one point to another</string>
-	<string name="project2">2</string>
-	<string name="project2_description">Description</string>
-	<string name="project3">3</string>
+	<string name="project2_description">Move smoothly from one point to another</string>
 	<string name="project3_description">Description</string>
-	<string name="project4">4</string>
 	<string name="project4_description">Description</string>
-	<string name="project5">5</string>
 	<string name="project5_description">Description</string>
-	<string name="project6">6</string>
 	<string name="project6_description">Description</string>
-	<string name="project7">7</string>
 	<string name="project7_description">Description</string>
-	<string name="project8">8</string>
 	<string name="project8_description">Description</string>
-	<string name="project9">9</string>
 	<string name="project9_description">Description</string>
-	<string name="project10">10</string>
 	<string name="project10_description">Description</string>
+	
+	
 	
 	
 	
