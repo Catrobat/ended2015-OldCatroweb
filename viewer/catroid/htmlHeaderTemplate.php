@@ -24,12 +24,13 @@
 
 
 ?>
+    <?php if(isset($_GET['inapp'])) $_SESSION['inapp'] = true; ?>
       <header role="banner">
         <nav role="navigation">
           <div id="largeMenu">
             <div class="marginSpacer"></div>
             <div class="catroidLink">
-              <a href="<?php echo BASE_PATH; ?>"><img src="<?php echo BASE_PATH;?>images/logo/logo_text.png" alt="<?php echo APPLICATION_NAME;?>" /></a>
+              <a href="<?php echo BASE_PATH; ?>"><img src="<?php echo BASE_PATH;?>images/logo/logo_text.png" alt="<?php echo APPLICATION_NAME;?>" <?php if($_SESSION['inapp']) echo 'style="display:none;"' ?>/></a>
             </div>
             
             <div id="largeSearchButton" class="largeSearchBarLeft">
@@ -50,7 +51,7 @@
             <div class="marginSpacer"></div>
             
             <div id="smallMenuBar" class="catroidLink">
-              <a href="<?php echo BASE_PATH; ?>"><img src="<?php echo BASE_PATH;?>images/logo/logo_text.png" alt="<?php echo APPLICATION_NAME;?>"/></a>
+              <a href="<?php echo BASE_PATH; ?>"><img src="<?php echo BASE_PATH;?>images/logo/logo_text.png" alt="<?php echo APPLICATION_NAME;?>" <?php if($_SESSION['inapp']) echo 'style="display:none;"' ?>/></a>
             </div>
 
             <div id="smallSearchBar">
