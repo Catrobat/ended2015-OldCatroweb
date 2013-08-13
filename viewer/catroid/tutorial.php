@@ -23,73 +23,75 @@
  */
 ?>
 <article>
-  <div class="header"><?php echo $this->languageHandler->getString('title')?></div>
+  <div class="header">
+    <?php echo $this->languageHandler->getString('title'); ?>
+  </div>
   <div class="tutorialMain">
     <div class="tutorialMainHeader">
-      <?php echo $this->languageHandler->getString('head_text')?>
+      <?php echo $this->languageHandler->getString('head_text'); ?>
     </div>
-     <div class="tutorialMainContent">
+    <div class="tutorialMainContent">
       <div class="tutorialMainContentDetail">
         <a class="tutorialLinkStyle" href="/tutorialCard?id=1">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/1.png" title="<?php echo $this->languageHandler->getString('project1')?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project1_short')?></div>
+          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/1.png" title="<?php echo $this->languageHandler->getString('project1'); ?>" />
+          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project1_short'); ?></div>
         </a>
       </div>
       <div class="tutorialMainContentDetail">
         <a href="/tutorialCard?id=2">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/2.png" title="<?php echo $this->languageHandler->getString('project2')?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project2_short')?></div>
+          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/2.png" title="<?php echo $this->languageHandler->getString('project2'); ?>" />
+          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project2_short'); ?></div>
         </a>
       </div>
       <div class="tutorialMainContentDetail">
         <a href="/tutorialCard?id=3">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/3.png" title="<?php echo $this->languageHandler->getString('project3')?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project3_short')?></div>
+          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/3.png" title="<?php echo $this->languageHandler->getString('project3'); ?>" />
+          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project3_short'); ?></div>
         </a>
       </div>
-      <div class="tutorialMainContentDetail">
+      <!-- <div class="tutorialMainContentDetail">
         <a href="/tutorialCard?id=4">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/4.png" title="<?php echo $this->languageHandler->getString('project4')?>"/>
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project4_short')?></div>
+          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/4.png" title="<?php echo $this->languageHandler->getString('project4'); ?>"/>
+          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project4_short'); ?></div>
         </a>
       </div>
       <div class="tutorialMainContentDetail">
         <a href="/tutorialCard?id=5">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/5.png" title="<?php echo $this->languageHandler->getString('project5')?>" /><br />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project5_short')?></div>
+          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/5.png" title="<?php echo $this->languageHandler->getString('project5'); ?>" /><br />
+          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project5_short'); ?></div>
         </a>
       </div>
       <div class="tutorialMainContentDetail">
         <a href="/tutorialCard?id=6">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/6.png" title="<?php echo $this->languageHandler->getString('project6')?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project6_short')?></div>
+          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/6.png" title="<?php echo $this->languageHandler->getString('project6'); ?>" />
+          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project6_short'); ?></div>
         </a>
       </div>
       <div class="tutorialMainContentDetail">
         <a href="/tutorialCard?id=7">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/7.png" title="<?php echo $this->languageHandler->getString('project7')?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project7_short')?></div>
+          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/7.png" title="<?php echo $this->languageHandler->getString('project7'); ?>" />
+          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project7_short'); ?></div>
         </a>
       </div>
       <div class="tutorialMainContentDetail">
         <a href="/tutorialCard?id=8">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/8.png" title="<?php echo $this->languageHandler->getString('project8')?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project8_short')?></div>
+          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/8.png" title="<?php echo $this->languageHandler->getString('project8'); ?>" />
+          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project8_short'); ?></div>
         </a>
       </div>
       <div class="tutorialMainContentDetail">
         <a href="/tutorialCard?id=9">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/9.png" title="<?php echo $this->languageHandler->getString('project9')?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project9_short')?></div>
+          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/9.png" title="<?php echo $this->languageHandler->getString('project9'); ?>" />
+          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project9_short'); ?></div>
         </a>
       </div>
       <div class="tutorialMainContentDetail">
         <a href="/tutorialCard?id=10">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/10.png" title="<?php echo $this->languageHandler->getString('project10')?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project10_short')?></div>
+          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/10.png" title="<?php echo $this->languageHandler->getString('project10'); ?>" />
+          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project10_short'); ?></div>
         </a>
-      </div>
-    </div> 
+      </div>-->
+    </div>
   </div>  <!--  license Main -->
   <div class="projectSpacer"></div>
 </article>

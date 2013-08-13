@@ -23,31 +23,42 @@
  */
 ?>
 <article>
-  <div class="header"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).'')?></div>
+  <div class="header"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).''); ?></div>
    
   <div class="tutorialCardMain">
-   <div class="tutorialCardMainContentDescription"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).'_description')?></div>
+   <div class="tutorialCardMainContentDescription"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).'_description'); ?></div>
     <div class="tutorialCardMainContent">
-      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/1_1.png" />
+      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/<?php echo intval($_GET['id']); ?>_1.png" />
     </div>
     <div class="tutorialCardMainContentTitle">
-    get Ready:
+      <?php echo $this->languageHandler->getString('headline1')?>
     </div>
     <div class="tutorialCardMainContent">
-      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/1_2_1.png" />
+      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/<?php echo intval($_GET['id']); ?>_2_1.png" />
     </div>
     <div class="tutorialCardMainContentTitle">
-    Try this code:
+      <?php echo $this->languageHandler->getString('headline2')?>
     </div>
     <div class="tutorialCardMainContent">
-      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/1_3.png" />
+      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/<?php echo intval($_GET['id']); ?>_3.png" />
     </div>
     <div class="tutorialCardMainContentTitle">
-    Do it!
+      <?php echo $this->languageHandler->getString('headline3')?>
     </div>
     <div class="tutorialCardMainContent">
-      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/1_4.png" />
+      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/<?php echo intval($_GET['id']); ?>_4.png" />
     </div>
+    <?php     
+      
+      if(@fopen(BASE_PATH.'images/tutorial/tutorialcards/'.intval($_GET['id']).'_5.png','r')) 
+      { ?>
+        <div class="tutorialCardMainContentTitle">
+          <?php echo $this->languageHandler->getString('headline4')?>
+        </div>
+        <div class="tutorialCardMainContent">
+          <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/<?php echo intval($_GET['id']); ?>_5.png" />
+        </div>
+<?php } ?>
   </div>  <!--  license Main -->
   <div class="projectSpacer"></div>
 </article>
