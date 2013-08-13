@@ -27,7 +27,8 @@
     <div class="header"><?php echo $this->languageHandler->getString('title')?></div>
     <div class="licenseMain">            	
       <div class="licenseText">
-        <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_welcome')?></p>
+        <div class="licenseTextHeaddline"><?php echo $this->languageHandler->getString('terms_of_use_welcome')?></div>
+        
         <ul>
           <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_1')?></li>
           <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_2')?></li>

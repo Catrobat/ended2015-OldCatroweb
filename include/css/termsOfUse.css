@@ -22,8 +22,7 @@
  */
 
 #wrapper article div.header {
-  border-top: 1px solid #477889;
-  background-color: #00475d;
+  border-bottom: 1px solid #17a5b8;
   font-size: 1.8em;
   text-transform: uppercase;
   font-weight: bold;
@@ -33,14 +32,34 @@
 }
 
 #wrapper article div.licenseMain {
-  background-color: #00475d;
   margin-top: 0.2em;
+  
+
 }
 
 #wrapper article div.licenseText {
   padding: 1em; 
-  /* text-align:justify; */
-  font-size:1.3em;
+  font-size:1em;
+  text-align: justify;
+  
+  -moz-column-count:2; /* Firefox */
+  -webkit-column-count:2; /* Safari and Chrome */
+  column-count:2;
+
+  -moz-column-gap:40px; /* Firefox */
+  -webkit-column-gap:40px; /* Safari and Chrome */
+  column-gap:40px;
+
+
+}
+
+#wrapper article div.licenseTextHeadline {
+  text-transform: uppercase; 
+  font-size: 1.6em;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0.5em;
+  
 }
 
 #wrapper article p.licenseText { 
@@ -53,4 +72,3 @@
   color: #6ab7ce; 
   font-weight: bold;
 }
-
