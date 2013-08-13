@@ -35,3 +35,7 @@
 	position:static;
 	left:0;
 }
+
+#wrapper article div.searchResult {
+  text-align: left;
+}
