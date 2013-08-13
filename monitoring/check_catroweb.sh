@@ -45,15 +45,12 @@ SITE="login"
     if [ $status -eq 0 ]
     then
         echo "OK: $HOST is online"
-    elif [ $status -eq 1 ]
-    then
-      echo "WARNING: $HOST maybe down"
     elif [ $status -eq 2 ]
     then
-      echo "CRITICAL: $HOST is down"
+      echo "WARNING: $HOST maybe down"
     else
-      echo "UNKOWN: $HOST is in unkown state"
-      status=3
+      echo "CRITICAL: $HOST is down"
+      status=2
     fi
 
 exit $status
