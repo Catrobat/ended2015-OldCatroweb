@@ -26,13 +26,13 @@
       <div>
         <div id="largeFooterMenu">
           <div>
-            <ul style="float: left; width: 10em;">
+            <ul style="float: left;">
               <li><a href="http://developer.catrobat.org/privacy_policy" target="_blank"><?php echo $this->languageHandler->getString('template_footer_privacy_policy_link')?></a></li>
               <li><a href="<?php echo BASE_PATH?>termsOfUse"><?php echo $this->languageHandler->getString('template_footer_terms_of_use_link')?></a></li>
               <li><a href="http://developer.catrobat.org/imprint" target="_blank"><?php echo $this->languageHandler->getString('template_footer_imprint_link')?></a></li>
             </ul>
-            <ul>
-              <li><a href="<?php echo BASE_PATH;?>/tutorial"><?php echo $this->languageHandler->getString('template_footer_tutorial_link')?></a></li>              
+            <ul style="padding-left: 150px;">
+              <li><a href="<?php echo BASE_PATH;?>tutorial"><?php echo $this->languageHandler->getString('template_footer_tutorial_link')?></a></li>              
             </ul>
           </div>
           <div>
