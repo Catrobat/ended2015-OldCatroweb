@@ -24,10 +24,8 @@
 #wrapper article div.header {
   border: 0;
   border-bottom: 1px solid #17a5b8;
-  /*background-color: #00475d;
-  background-image: none;*/
   color: #17a5b8;
-  font-size: 1.8em; /*header font size vom "featured"*/
+  font-size: 1.8em; 
   text-transform: uppercase;
   font-weight: bold;
   padding: 0.07em 0 0.07em 0.375em;
@@ -38,7 +36,6 @@
 }
 
 #wrapper article div.tutorialMain {
-  /* background-color: #00475d; */
   margin-top: 0.2em;
 }
 
@@ -71,7 +68,7 @@
   font-weight: bold;
 }
 
-#wrapper article img.thumbs {
+#wrapper article img.tutorialThumbs {
   width: 80px;
   height: 80px;
   margin-bottom: 0.5em; 
@@ -104,20 +101,5 @@
  #wrapper article div.tutorialMainContentDetail {
    margin: 0.6em 0.8em 1.6em 0.8em;
  }
- 
 }
-
-/* @media screen and (max-width: 720px) {
- 
- #wrapper article div.tutorialMainContent {
-  text-align: center;
-  padding-left: 0em;
- }
- 
- #wrapper article div.tutorialMainContentDetail {
-   margin: 0.6em 0.5em 1.6em 0.5em;
- }
- 
-} */
-
 
