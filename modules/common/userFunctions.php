@@ -1075,8 +1075,8 @@ class userFunctions extends CoreAuthenticationNone {
     $mailSubject = $this->languageHandler->getString('registration_mail_subject', APPLICATION_NAME);
     $mailText =    $this->languageHandler->getString('registration_mail_text_row1', APPLICATION_URL_TEXT) . "\r\n\r\n";
     $mailText .=   $this->languageHandler->getString('registration_mail_text_row2') . "\r\n";
-    $mailText .=   $this->languageHandler->getString('registration_mail_text_row3', $username) . "\r\n";
-    $mailText .=   $this->languageHandler->getString('registration_mail_text_row5', $password) . "\r\n\r\n";
+    $mailText .=   $this->languageHandler->getString('registration_mail_text_row3', $username) . "\r\n\r\n";
+//     $mailText .=   $this->languageHandler->getString('registration_mail_text_row5', $password) . "\r\n\r\n";
     $mailText .=   $this->languageHandler->getString('registration_mail_text_row6', APPLICATION_NAME) . "\r\n\r\n";
     $mailText .=   $this->languageHandler->getString('registration_mail_text_row7') . "\r\n";
     $mailText .=   "{unwrap}" . $catroidLoginUrl . "{/unwrap}\r\n\r\n";
