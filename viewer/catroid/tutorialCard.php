@@ -35,6 +35,13 @@
     </div>
     <div class="tutorialCardMainContent">
       <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/<?php echo intval($_GET['id']); ?>_2_1.png" />
+       <?php     
+      
+      if(@fopen(BASE_PATH.'images/tutorial/tutorialcards/'.intval($_GET['id']).'_2_2.png','r')) 
+      { ?>
+        <div class="tutorialCardMainSpace"></div>
+        <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/<?php echo intval($_GET['id']); ?>_2_2.png" />
+<?php }?>
     </div>
     <div class="tutorialCardMainContentTitle">
       <?php echo $this->languageHandler->getString('headline2')?>
