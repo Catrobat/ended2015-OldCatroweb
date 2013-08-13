@@ -28,7 +28,7 @@
     <div class="tutorialMainHeader">
       <?php echo $this->languageHandler->getString('head_text')?>
     </div>
-    <!-- <div class="tutorialMainContent">
+     <div class="tutorialMainContent">
       <div class="tutorialMainContentDetail">
         <a class="tutorialLinkStyle" href="/tutorialCard?id=1">
           <img class="thumbs" src="<?php echo BASE_PATH; ?>images/tutorial/1.png" title="<?php echo $this->languageHandler->getString('project1')?>" />
@@ -89,8 +89,8 @@
           <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project10_short')?>
         </a>
       </div>
-    </div> -->
-    <div class="tutorialMainContent1">
+    </div> 
+    <!-- <div class="tutorialMainContent1">
       <ul style="height: 643px;">
         <li style="visibility: visible;">
           <img class="thumbs" src="<?php echo BASE_PATH; ?>images/tutorial/1.png" title="<?php echo $this->languageHandler->getString('project1')?>"/>
@@ -124,7 +124,7 @@
         </li>
       </ul>
     
-    </div>
+    </div>-->
   </div>  <!--  license Main -->
   <div class="projectSpacer"></div>
 </article>

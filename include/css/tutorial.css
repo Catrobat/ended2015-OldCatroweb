@@ -50,48 +50,15 @@
 
 #wrapper article div.tutorialMainContent {
   width: 100%;
-  float: left;
   display: block;
   margin: 0 auto;
 }
-
-#wrapper article div.tutorialMainContent1 {
-  overflow: hidden;
-  text-align: center;
-  margin-top: 0.2em;
-  width: 100%;
-  left: 50%;
-  margin-left: -512px;
-}
-
-#wrapper article div.tutorialMainContent1 ul{
-  float: left;
-  margin: auto;
-  padding: 0;
-  list-style: none;
-  position: relative;
-}
-
-#wrapper article div.tutorialMainContent1 ul li{
-  margin: 0.6em 0.84em 1.6em 0.84em;
-  float: left;
-}
-
-#wrapper article div.tutorialMainContent1 ul li img{
-  border: 2px solid #17a5b8;
-  width: 80px;
-  height: 80px;
-  display: block;
-  margin: auto;
-}
-
 
 
 #wrapper article div.tutorialMainContentDetail {
   text-align: left; 
   display: inline-block;
-  /* width: 10%; */
-  margin: 0.6em 0.84em 1.6em 0.84em;
+  margin: 0.6em 1em 1.6em 1em;
   font-size: 0.8em;
   font-weight: bold;
 }
@@ -105,22 +72,52 @@
 }
 
 #wrapper article img.thumbs {
-  /* width: 80px;
+  width: 80px;
   height: 80px;
-  margin-bottom: 0.5em; */
-  page-break-inside: avoid;
-  max-width: 100%;
-  vertical-align: middle;
+  margin-bottom: 0.5em; 
+  border: 2px solid #17a5b8;
 }
 
 #wrapper article .tutorialTitle {  
   white-space: nowrap;
   overflow: hidden;
 }
-
-/* #wrapper article .tutorialClear {
-  clear: left;
+ 
+ @media screen and (max-width: 1280px) {
+ 
+ #wrapper article div.tutorialMainContent {
+  text-align: center;
+ }
+ 
+ #wrapper article div.tutorialMainContentDetail {
+   margin: 0.6em 0.8em 1.6em 0.8em;
+ }
+ 
 }
- */
+
+ @media screen and (max-width: 1280px) {
+ 
+ #wrapper article div.tutorialMainContent {
+  text-align: center;
+ }
+ 
+ #wrapper article div.tutorialMainContentDetail {
+   margin: 0.6em 0.8em 1.6em 0.8em;
+ }
+ 
+}
+
+/* @media screen and (max-width: 720px) {
+ 
+ #wrapper article div.tutorialMainContent {
+  text-align: center;
+  padding-left: 0em;
+ }
+ 
+ #wrapper article div.tutorialMainContentDetail {
+   margin: 0.6em 0.5em 1.6em 0.5em;
+ }
+ 
+} */
 
 
