@@ -23,29 +23,32 @@
  */
 ?>
 <article>
-  <div class="header"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).'')?></div>
+  <div class="header"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).'')?>
+    <div class="tutorialCardMainContentDescription"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).'_description')?></div>
+  </div>
+   
   <div class="tutorialCardMain">
-    <div class="tutorialCardMainContentTitle"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).'_description')?></div>
+   
     <div class="tutorialCardMainContent">
-      erstes Bild
+      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/1_1.png" />
     </div>
     <div class="tutorialCardMainContentTitle">
      get Ready:
     </div>
     <div class="tutorialCardMainContent">
-      zweites Bild
+      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/1_2_1.png" />
     </div>
     <div class="tutorialCardMainContentTitle">
       Try this code:
     </div>
     <div class="tutorialCardMainContent">
-      zweites Bild
+      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/1_3.png" />
     </div>
     <div class="tutorialCardMainContentTitle">
       Do it!
     </div>
     <div class="tutorialCardMainContent">
-      zweites Bild
+      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/1_4.png" />
     </div>
   </div>  <!--  license Main -->
   <div class="projectSpacer"></div>

@@ -23,9 +23,9 @@
 -->
 <strings>
 	<string name="title">Tutorial Cards</string>
-  <string name="head_text">This cards show you how to use effective bricks in Pocket Code</string>
+  <string name="head_text">This cards show you how to use effective bricks in Pocket Code.</string>
   
-  <string name="title">Tutorial Card</string>
+  <string name="title">Tutorial Cards</string>
 	<string name="project1_short">Key Moves</string>
 	<string name="project1">Key Moves</string>
 	<string name="project2_short">Glide</string>

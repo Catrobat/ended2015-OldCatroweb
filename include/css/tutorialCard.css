@@ -60,13 +60,26 @@
   margin-top: 25px;
 }
 
+#wrapper article div.tutorialCardMainContentDescription {
+  width: 50%;
+  text-align: left;
+  color: #17a5be;
+  font-size: 12pt;
+  margin-bottom: 10px;
+  margin-top: 25px;
+}
+
 #wrapper article div.tutorialCardMainContent {
   width: 50%;
-  height: 500px;
+  /* height: 500px; */
   text-align: center;
   left: 50%;
   margin: 0 auto;
-  border: 1px #FFF solid;
+  /* border: 1px #FFF solid; */
+}
+
+#wrapper article img.tutorialCardImage {
+  border: 1px #FFFFFF solid;
 }
 
 

@@ -83,7 +83,7 @@
  @media screen and (max-width: 1280px) {
  
  #wrapper article div.tutorialMainContent {
-  text-align: center;
+   text-align: center;
  }
  
  #wrapper article div.tutorialMainContentDetail {
@@ -92,14 +92,14 @@
  
 }
 
- @media screen and (max-width: 1280px) {
+@media screen and (max-width: 720px) {
  
  #wrapper article div.tutorialMainContent {
-  text-align: center;
+  text-align: left;
  }
  
  #wrapper article div.tutorialMainContentDetail {
-   margin: 0.6em 0.8em 1.6em 0.8em;
+   margin: 0.6em 1em 1.6em 1em;
  }
 }
 
