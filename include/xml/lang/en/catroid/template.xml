@@ -54,6 +54,7 @@
   <string name="template_footer_copyright_policy_link">Copyright policy</string>
   <string name="template_footer_imprint_link">Imprint</string>
   <string name="template_footer_contact_link">Contact</string>
+  <string name="template_footer_tutorial_link">Tutorial Cards</string>
   
   <string name="template_common_one_minute_ago">1 minute</string>
   <string name="template_common_less_than_a_minute_ago">just now</string>
