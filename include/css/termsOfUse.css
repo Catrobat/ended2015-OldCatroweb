@@ -37,20 +37,24 @@
 
 }
 
-#wrapper article div.licenseText {
-  padding: 1em; 
-  font-size:1em;
-  text-align: justify;
+  #wrapper article div.licenseText {
+    padding: 1em; 
+    font-size:1em;
+    text-align: justify;
+  }
+
+
+@media screen and (min-width: 800px) {
+  #wrapper article div.licenseText {
+    
+    -moz-column-count:2; 
+    -webkit-column-count:2; 
+    column-count:2;
   
-  -moz-column-count:2; /* Firefox */
-  -webkit-column-count:2; /* Safari and Chrome */
-  column-count:2;
-
-  -moz-column-gap:40px; /* Firefox */
-  -webkit-column-gap:40px; /* Safari and Chrome */
-  column-gap:40px;
-
-
+    -moz-column-gap:40px; 
+    -webkit-column-gap:40px;
+    column-gap:40px;
+  }
 }
 
 #wrapper article div.licenseTextHeadline {
