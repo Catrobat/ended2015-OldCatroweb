@@ -24,8 +24,7 @@
 
 ?>
       <article>
-        <header><?php echo $this->languageHandler->getString('header'); ?></header>       
-        
+        <header><?php echo $this->languageHandler->getString('header'); ?></header>               
         <div class="searchResult"><?php echo $this->languageHandler->getString('results', '<span id="numberOfSearchResults">0</span>'); ?></div>
         <div id="searchResultContainer" class="projectContainer">
       </div>
