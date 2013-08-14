@@ -32,21 +32,21 @@ class monitoringTests extends PHPUnit_Framework_TestCase {
   
   
   public function testCheckCatrowebUsage() {
-    exec('../../monitoring/check_catroweb.sh',$output,$return_var);
+    exec('cd ../../monitoring/ && ./check_catroweb_is_online.sh',$output,$return_var);
 
     $this->assertStringStartsWith('usage:', $output[0]);
     $this->assertEquals($return_var,3);
   }  
 
   public function testCheckCatrowebIsOnline() {
-    exec('../../monitoring/check_catroweb.sh -h ' . BASE_PATH,$output,$return_var);
+    exec('cd ../../monitoring/ && ./check_catroweb_is_online.sh -h ' . BASE_PATH,$output,$return_var);
     
-    $this->assertEquals($output[0], 'OK: ' . BASE_PATH . ' is online');
+    $this->assertEquals('OK: ' . BASE_PATH . ' is online', $output[0]);
     $this->assertEquals($return_var,0);
   }
   
   public function testCheckCatrowebError() {
-    exec('../../monitoring/check_catroweb.sh -h Error',$output,$return_var);
+    exec('cd ../../monitoring/ && ./check_catroweb_is_online.sh -h Error',$output,$return_var);
   
     $this->assertStringStartsWith('CRITICAL:',$output[0]);
     $this->assertEquals($return_var,2);
