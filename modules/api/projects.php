@@ -178,7 +178,7 @@ class projects extends CoreAuthenticationNone {
     }
   
   
-    $searchTerms = explode(" ", $query);
+    $searchTerms = array("$query");
     foreach($searchTerms as $term) {
       if(strlen($term) > 0) {
         $searchQuery .= (($searchQuery == "") ? " AND (" : " OR " );
