@@ -167,12 +167,12 @@ class projects extends CoreAuthenticationNone {
   
   
     if(strlen($user) > 0) {
-      $userQuery = " AND (cusers.username ILIKE \$" . $keywordsCount;
-      $userQuery .= " OR cusers.username_clean ILIKE \$" . $keywordsCount . ") ";
+      $userQuery = " AND (cusers.username = \$" . $keywordsCount;
+      $userQuery .= " OR cusers.username_clean = \$" . $keywordsCount . ") ";
   
       $username = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($user)));
       $username = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $username);
-      array_push($queryParameter, "%" . $username . "%");
+      array_push($queryParameter, $username);
   
       $keywordsCount++;
     }
