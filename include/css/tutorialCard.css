@@ -40,16 +40,15 @@
 #wrapper article div.tutorialCardMain {
   /* background-color: #00475d; */
   margin-top: 0.2em;
+  overflow: hidden;
 }
 
 #wrapper article div.tutorialCardMainHeader {
   text-align: left;
-  width: 100%;
   margin-bottom: 0.5em;
 }
 
 #wrapper article div.tutorialCardMainContentTitle {
-  width: 100%;
   text-align: left;
   margin: 0 auto;
   color: #17a5be;
