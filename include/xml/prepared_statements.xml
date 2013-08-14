@@ -78,7 +78,7 @@
     <string name="get_user_password_hash">SELECT id, username, password, avatar FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_token">SELECT auth_token FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_device_login">SELECT * FROM cusers WHERE username_clean=$1 AND auth_token=$2 LIMIT 1</string>
-    <string name="get_user_row_by_username">SELECT cusers.id, cusers.username, cusers.email, cusers.additional_email, cusers.country, cusers.language, cusers.avatar, (SELECT count(*) FROM projects WHERE projects.user_id=cusers.id) AS project_count FROM cusers WHERE username=$1 LIMIT 1</string>
+    <string name="get_user_row_by_username">SELECT cusers.id, cusers.username, cusers.email, cusers.additional_email, cusers.country, cusers.language, cusers.avatar, (SELECT count(*) FROM projects WHERE projects.user_id=cusers.id AND visible = true) AS project_count FROM cusers WHERE username=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
 
     <string name="get_user_row_by_email">SELECT u.* FROM cusers u WHERE u.email=$1 OR u.additional_email=$1</string>
