@@ -108,6 +108,15 @@ class userFunctions extends CoreAuthenticationNone {
      
     return $userExists;
   }
+  
+  public function checkEmailExists($email) {
+    $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($email));
+    
+    if(pg_num_rows($result) > 0)
+      return true;
+    
+    return false;
+  }
 
   public function checkUsername($username) {
     $username = trim(strval($username));
