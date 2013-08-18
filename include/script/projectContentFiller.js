@@ -88,6 +88,9 @@ var ProjectContentFiller = Class
               case this.params.config.sortby.views:
                 this.fillLayout = this.fillGridRowViews;
                 break;
+              case this.params.config.sortby.remixes:
+                this.fillLayout = this.fillGridRowRemixes;
+                break;
               default:
                 this.fillLayout = this.fillGridRowAge;
             }
@@ -307,6 +310,32 @@ var ProjectContentFiller = Class
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
               $('div.projectAddition', elements[index]).html(projects[i]['Views'] + ' ' + this.params.additionalTextLabel);
+            } else {
+              $(elements[index]).css("visibility", "hidden");
+            }
+          }
+          this.extend();
+        }
+      },
+      
+      fillGridRowRemixes : function(result) {
+        if(result.CatrobatInformation != null && result.CatrobatProjects != null) {
+          this.addGridRow();
+          
+          var info = result.CatrobatInformation;
+          var projects = result.CatrobatProjects;
+          
+          var elements = $('> ul', this.params.container).children();
+          
+          var elementOffset = this.visibleRows * this.params.page.numProjectsPerPage;
+          for(var i = 0; i < this.params.page.numProjectsPerPage; i++) {
+            var index = elementOffset + i;
+            if(projects != null && projects[i]) {
+              $(elements[index]).css("visibility", "visible");
+              $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
+              $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
+              $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
+              $('div.projectAddition', elements[index]).html(projects[i]['Remixes'] + ' ' + this.params.additionalTextLabel);
             } else {
               $(elements[index]).css("visibility", "hidden");
             }

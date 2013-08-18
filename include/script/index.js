@@ -28,6 +28,7 @@ var Index = Class.$extend( {
     this.newestProjects = null;
     this.downloadProjects = null;
     this.viewProjects = null;
+    this.remixProjects = null;
     this.history = window.History;
     this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
     this.featuredProject = $.parseJSON(featured);
@@ -48,10 +49,11 @@ var Index = Class.$extend( {
     event.preventDefault();
   },
   
-  setProjectObjects : function(newest, downloads, views) {
+  setProjectObjects : function(newest, downloads, views, remixes) {
     this.newestProjects = newest;
     this.downloadProjects = downloads;
     this.viewProjects = views;
+    this.remixProjects = remixes;
   },
   
   saveHistoryState : function(action) {
@@ -59,12 +61,13 @@ var Index = Class.$extend( {
     context['newest'] = this.newestProjects.getHistoryState();
     context['downloads'] = this.downloadProjects.getHistoryState();
     context['views'] = this.viewProjects.getHistoryState();
+    context['remixes'] = this.remixProjects.getHistoryState();
 
-    if($.isEmptyObject(context['newest']) == false && $.isEmptyObject(context['downloads']) == false && $.isEmptyObject(context['views']) == false) {
+    if($.isEmptyObject(context['newest']) == false && $.isEmptyObject(context['downloads']) == false && $.isEmptyObject(context['views']) == false && $.isEmptyObject(context['remixes']) == false) {
       if(action == 'init') {
         var state = this.history.getState();
-        if(typeof state.data.newest === 'undefined' && typeof state.data.downloads === 'undefined' && typeof state.data.views === 'undefined') {
-          this.history.replaceState({newest: context['newest'], downloads: context['downloads'], views: context['views']}, 
+        if(typeof state.data.newest === 'undefined' && typeof state.data.downloads === 'undefined' && typeof state.data.views === 'undefined' && typeof state.data.remixes === 'undefined') {
+          this.history.replaceState({newest: context['newest'], downloads: context['downloads'], views: context['views'], remixes: context['remixes']}, 
                 this.pageLabels['websiteTitle'], '');
         } else {
           this.restoreHistoryState();
@@ -72,7 +75,7 @@ var Index = Class.$extend( {
       }
       
       if(action == 'push') {
-        this.history.pushState({newest: context['newest'], downloads: context['downloads'], views: context['views']},
+        this.history.pushState({newest: context['newest'], downloads: context['downloads'], views: context['views'], remixes: context['remixes']},
               this.pageLabels['websiteTitle'], '');
       }
     }
@@ -101,6 +104,14 @@ var Index = Class.$extend( {
       if(typeof state.data.views === 'object') {
         if(state.data.views.visibleRows != current.visibleRows) {
           this.viewProjects.restoreHistoryState(state.data.views);
+        }
+      }
+    }
+    if(this.remixProjects != null) {
+      var current = this.remixProjects.getHistoryState();
+      if(typeof state.data.remixes === 'object') {
+        if(state.data.remixes.visibleRows != current.visibleRows) {
+          this.remixProjects.restoreHistoryState(state.data.remixes);
         }
       }
     }

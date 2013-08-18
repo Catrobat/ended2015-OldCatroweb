@@ -131,5 +131,6 @@
     <string name="set_remixof_id">UPDATE projects SET remixof=$1 WHERE id=$2</string>
     <string name="get_remixof_id">SELECT * FROM projects WHERE id=$1</string>
     <string name="get_num_remixes_of_program">SELECT * FROM projects WHERE remixof=$1</string>
+    <string name="increase_remix_count">UPDATE projects SET remix_count=remix_count+1 WHERE id=$1</string>
 
 </statements>

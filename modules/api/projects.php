@@ -28,9 +28,10 @@ class projects extends CoreAuthenticationNone {
       PROJECT_MASK_GRID_ROW_AGE => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'UploadedString'),
       PROJECT_MASK_GRID_ROW_DOWNLOADS => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Downloads'),
       PROJECT_MASK_GRID_ROW_VIEWS => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Views'),
+      PROJECT_MASK_GRID_ROW_REMIXES => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Remixes'),
       PROJECT_MASK_FEATURED => array('ProjectId', 'ProjectName', 'FeaturedImage', 'Author'),
       PROJECT_MASK_ALL => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotBig', 'ScreenshotSmall', 'Author',
-          'Description', 'Uploaded', 'UploadedString', 'Version', 'Views', 'Downloads', 'ProjectUrl', 'DownloadUrl'));
+          'Description', 'Uploaded', 'UploadedString', 'Version', 'Views', 'Remixes', 'Downloads', 'ProjectUrl', 'DownloadUrl'));
 
   public function __construct() {
     parent::__construct();
@@ -156,6 +157,9 @@ class projects extends CoreAuthenticationNone {
       case PROJECT_SORTBY_VIEWS:
         $orderQuery = "ORDER BY projects.view_count DESC, projects.id DESC";
         break;
+      case PROJECT_SORTBY_REMIXES:
+        $orderQuery = "ORDER BY projects.remix_count DESC, projects.id DESC";
+        break;
       case PROJECT_SORTBY_RANDOM:
         $orderQuery = "ORDER BY random()";
         break;
@@ -200,7 +204,7 @@ class projects extends CoreAuthenticationNone {
         "_q" . ((strlen($query) > 0) ? count($searchTerms) : '0') .
         "_" . $order;
     $sqlQuery = "SELECT
-        projects.id, projects.title, projects.description, projects.view_count, projects.download_count, projects.version_name,
+        projects.id, projects.title, projects.description, projects.view_count, projects.remix_count, projects.download_count, projects.version_name,
         coalesce(extract(epoch from \"timestamp\"(projects.update_time)), extract(epoch from \"timestamp\"(projects.upload_time))) AS last_activity,
         cusers.username AS uploaded_by
     FROM projects, cusers
@@ -303,6 +307,9 @@ class projects extends CoreAuthenticationNone {
       }
       if(in_array('Views', $selectedFields)) {
         $currentProject['Views'] = $project['view_count'];
+      }
+      if(in_array('Remixes', $selectedFields)) {
+        $currentProject['Remixes'] = $project['remix_count'];
       }
       if(in_array('Downloads', $selectedFields)) {
         $currentProject['Downloads'] = $project['download_count'];

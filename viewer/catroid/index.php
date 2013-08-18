@@ -67,6 +67,18 @@
           <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div>
         <div class="projectSpacer"></div>
+        
+        <header><?php echo $this->languageHandler->getString('mostRemixed'); ?></header>
+        <div id="mostRemixedProjects" class="projectContainer"></div>
+        <div id="mostRemixedProjectsLoader" class="projectFooter">
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <p>&nbsp;</p>
+        </div>
+        <div id="mostRemixedShowMore" class="projectFooter">
+          <div class="img-load-more"></div>
+          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+        </div>
+        <div class="projectSpacer"></div>
 
       </article>
       <script type="text/javascript">
@@ -77,10 +89,12 @@
           var newest = ProjectObject(<?php echo $this->newestProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
           var downloads = ProjectObject(<?php echo $this->mostDownloadedProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
           var views = ProjectObject(<?php echo $this->mostViewedProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
-          index.setProjectObjects(newest, downloads, views);
+          var remixes = ProjectObject(<?php echo $this->mostRemixedProjectsParams; ?>, {'history' : $.proxy(index.saveHistoryState, index) });
+          index.setProjectObjects(newest, downloads, views, remixes);
 
           newest.init();
           downloads.init();
           views.init();
+          remixes.init();
         });
       </script>

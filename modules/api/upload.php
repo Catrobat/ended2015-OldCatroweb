@@ -75,7 +75,7 @@ class upload extends CoreAuthenticationDevice {
       $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId, $projectIdArray['update']);
       
       if(!$projectIdArray['update'])
-        $this->insertRemixOfIDIntoDatabase($projectId, $xmlFile);
+        $this->updateRemixInformationInDatabase($projectId, $xmlFile);
 
       $this->renameProjectFile(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $projectId);
       $this->renameUnzipDirectory(CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique,
@@ -418,7 +418,7 @@ class upload extends CoreAuthenticationDevice {
     return true;
   }
   
-  private function insertRemixOfIDIntoDatabase($projectId, $xmlFile) {
+  private function updateRemixInformationInDatabase($projectId, $xmlFile) {
     $dom = new DOMDocument();
     $dom->load($xmlFile);
     
@@ -430,6 +430,7 @@ class upload extends CoreAuthenticationDevice {
       if($value->nodeValue != '') {
         $remixID = intval(str_replace(PROJECT_URL_TEXT, "", $value->nodeValue));
         $this->query("set_remixof_id", array($remixID, $projectId));
+        $this->query("increase_remix_count", array($remixID));
       }
     }
   }

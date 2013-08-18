@@ -29,4 +29,6 @@
     <string name="mostViewed">Most Viewed</string>
     <string name="viewed">views</string>
     <string name="showMore">show more</string>
+    <string name="mostRemixed">Most Remixed</string>
+    <string name="remixed">remixes</string>
 </strings>

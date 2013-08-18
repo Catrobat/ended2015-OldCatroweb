@@ -66,12 +66,14 @@ define('PROJECT_MASK_DEFAULT', 'min');
 define('PROJECT_MASK_GRID_ROW_AGE', 'listAge');
 define('PROJECT_MASK_GRID_ROW_DOWNLOADS', 'listDownloads');
 define('PROJECT_MASK_GRID_ROW_VIEWS', 'listViews');
+define('PROJECT_MASK_GRID_ROW_REMIXES', 'listRemixes');
 define('PROJECT_MASK_FEATURED', 'featured');
 define('PROJECT_MASK_ALL', 'all');
 
 define('PROJECT_SORTBY_AGE', 'age');
 define('PROJECT_SORTBY_DOWNLOADS', 'downloads');
 define('PROJECT_SORTBY_VIEWS', 'views');
+define('PROJECT_SORTBY_REMIXES', 'remixes');
 define('PROJECT_SORTBY_RANDOM', 'random');
 define('PROJECT_SORTBY_DEFAULT', PROJECT_SORTBY_AGE);
 

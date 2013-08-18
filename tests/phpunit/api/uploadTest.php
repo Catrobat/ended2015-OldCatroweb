@@ -610,7 +610,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     //test deleting from database
     $query = "SELECT * FROM projects WHERE id='$insertId'";
     $result = pg_query($this->dbConnection, $query) or die('DB operation failed: ' . pg_last_error());
-    $this->assertEquals(1, pg_num_rows($result));
+    $this->assertEquals(0, pg_num_rows($result));
   }
 
   /**

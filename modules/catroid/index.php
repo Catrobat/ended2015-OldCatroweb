@@ -75,7 +75,8 @@ class index extends CoreAuthenticationNone {
         'sortby' => array('age' => PROJECT_SORTBY_AGE,
             'downloads' => PROJECT_SORTBY_DOWNLOADS,
             'views' => PROJECT_SORTBY_VIEWS,
-            'random' => PROJECT_SORTBY_RANDOM
+            'random' => PROJECT_SORTBY_RANDOM,
+            'remixes' => PROJECT_SORTBY_REMIXES
         )
     );
     
@@ -108,6 +109,20 @@ class index extends CoreAuthenticationNone {
     $params['sort'] = PROJECT_SORTBY_VIEWS;
     $params['additionalTextLabel'] = $this->languageHandler->getString('viewed');
     $this->mostViewedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
+    
+    $params['content'][0] = $this->projects->get(($pageNr - 2) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_REMIXES, PROJECT_SORTBY_REMIXES);
+    $params['content'][1] = $this->projects->get(($pageNr - 1) * $projectsPerRow,
+        $projectsPerRow, PROJECT_MASK_GRID_ROW_REMIXES, PROJECT_SORTBY_REMIXES);
+    $params['container'] = '#mostRemixedProjects';
+    $params['loader'] = '#mostRemixedProjectsLoader';
+    $params['buttons'] = array('prev' => null,
+        'next' => '#mostRemixedShowMore'
+    );
+    $params['mask'] = PROJECT_MASK_GRID_ROW_REMIXES;
+    $params['sort'] = PROJECT_SORTBY_REMIXES;
+    $params['additionalTextLabel'] = $this->languageHandler->getString('remixed');
+    $this->mostRemixedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
   }
 
   public function __destruct() {
