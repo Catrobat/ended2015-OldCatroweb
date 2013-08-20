@@ -334,6 +334,7 @@
 /*
  * MEDIA QUERIES
  */
+ 
 
 @media screen and (max-width: 800px) {
   #projectDetailsProjectTitle {
@@ -505,7 +506,7 @@
     font-size: 0.8em;
     margin-left: auto;
     margin-right: auto;
-  }
+  }  
 }
 @media screen and (max-width: 698px) {
   #projectDetailsProjectTitle {
