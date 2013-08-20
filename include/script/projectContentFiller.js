@@ -149,13 +149,6 @@ var ProjectContentFiller = Class
           project.append(projectAddition);
 
           $(container).append($("<li />").append(project));
-
-//          if(this.gridRowHeight == 0) {
-//            this.gridRowHeight = $(container).height();
-//            $(container).height(this.gridRowHeight);
-//          }
-          
-          
           
         }
       },
