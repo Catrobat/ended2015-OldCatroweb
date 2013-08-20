@@ -198,7 +198,7 @@ var ProjectContentFiller = Class
         var elements = container.children();
         for(var index = 0, amount = elements.length; index < amount; index++) {
           if($(elements[index]).css('visibility') == 'visible') {
-            var position = Math.round($(elements[index]).position().top + "10px");
+            var position = Math.round($(elements[index]).position().top + this.gridRowHeight);
             if($.inArray(position, heights) === -1) {
               heights.push(position);
             }
