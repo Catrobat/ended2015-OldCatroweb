@@ -150,10 +150,13 @@ var ProjectContentFiller = Class
 
           $(container).append($("<li />").append(project));
 
-          if(this.gridRowHeight == 0) {
-            this.gridRowHeight = $(container).height();
-            $(container).height(this.gridRowHeight);
-          }
+//          if(this.gridRowHeight == 0) {
+//            this.gridRowHeight = $(container).height();
+//            $(container).height(this.gridRowHeight);
+//          }
+          
+          
+          
         }
       },
 
@@ -198,7 +201,7 @@ var ProjectContentFiller = Class
         var elements = container.children();
         for(var index = 0, amount = elements.length; index < amount; index++) {
           if($(elements[index]).css('visibility') == 'visible') {
-            var position = Math.round($(elements[index]).position().top + this.gridRowHeight);
+            var position = Math.round($(elements[index]).position().top + "10px");
             if($.inArray(position, heights) === -1) {
               heights.push(position);
             }
