@@ -66,7 +66,7 @@
 
     <div class="projectDetailsDownload">
       <div class="projectDetailsDownloadButton">
-        <span id="projectDetailsDownloadVersion"><?php echo $this->languageHandler->getString('version_info_text') . " " . $this->project['version_name'];?></span>
+        <span id="projectDetailsDownloadLanguageVersion"><?php echo $this->languageHandler->getString('language_version_info_text') . " " . $this->project['language_code'];?></span>
         <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
           <div class="blue">
             <span class="projectDetailsDownloadText shrinkTextToFit"><?php echo $this->languageHandler->getString('download_button');?></span>

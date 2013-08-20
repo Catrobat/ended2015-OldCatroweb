@@ -175,6 +175,10 @@
   font-size: 0.9em;
 }
 
+#projectDetailsDownloadLanguageVersion {
+  font-size: 0.9em;
+}
+
 #projectDetailsDownloadLicense {
   font-size: 0.9em;
   text-transform: uppercase;
