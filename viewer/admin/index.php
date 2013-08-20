@@ -28,7 +28,6 @@
   <h2>Catroid Administration Site</h2>
   <a id="aAdministrationTools" href="<?php echo BASE_PATH;?>admin/tools">Administration Tools</a><br />
   <a id="aProjectUploader" href="<?php echo BASE_PATH;?>admin/projectUploader">Project Uploader</a><br />
-  <a id="aCheckEmailExists" href="<?php echo BASE_PATH;?>admin/checkEmailExists">Check Mail Exists</a><br />
   <br />
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>">&lt;- back to catroidweb</a>
 </body>

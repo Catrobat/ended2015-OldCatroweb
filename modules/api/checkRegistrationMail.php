@@ -34,11 +34,11 @@ class checkRegistrationMail extends CoreAuthenticationNone {
   public function checkRegistrationMail() {
     if($_POST) {
       try {
-        if(!filter_var($_POST['registrationEMail'], FILTER_VALIDATE_EMAIL)) {
+        if(!filter_var($_POST['email'], FILTER_VALIDATE_EMAIL)) {
           throw new Exception($this->errorHandler->getError('userFunctions', 'email_invalid'),
               STATUS_CODE_REGISTRATION_EMAIL_INVALID);
         }
-        if($this->userFunctions->checkEmailExists($_POST['registrationEMail'])) {
+        if($this->userFunctions->checkEmailExists($_POST['email'])) {
           throw new Exception($this->errorHandler->getError('userFunctions', 'email_already_exists'),
               STATUS_CODE_REGISTRATION_EMAIL_ALREADY_EXISTS);
         }
