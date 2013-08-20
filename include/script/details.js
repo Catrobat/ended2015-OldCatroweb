@@ -152,7 +152,8 @@ var ProjectDetails = Class.$extend( {
     var cssMediaQueryWidth = 535; /* defined in details.css (media query for single column layout) */
 
     if($('body').width() > cssMediaQueryWidth) {
-      colDownload.height(colHeightMax);
+//      colDownload.height(colHeightMax);
+      colDownload.css("height", "auto");
     }else {
       colThumbnail.css("height", "auto");
       colDescription.css("height", "auto");
