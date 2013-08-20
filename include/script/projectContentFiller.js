@@ -196,8 +196,10 @@ var ProjectContentFiller = Class
         var heights = [];
         var hidden = [];
         var elements = container.children();
+        
         for(var index = 0, amount = elements.length; index < amount; index++) {
           if($(elements[index]).css('visibility') == 'visible') {
+            
             var position = Math.round($(elements[index]).position().top + this.gridRowHeight);
             if($.inArray(position, heights) === -1) {
               heights.push(position);
@@ -209,7 +211,8 @@ var ProjectContentFiller = Class
         
         var currentPage = Math.max(0, this.visibleRows - 1);
         if(currentPage < heights.length) {
-          $(container).height(heights[currentPage]);
+//          $(container).height(heights[currentPage]);
+          $(container).height('auto');
         }
         if(this.params.reachedLastPage && heights.length == this.visibleRows) {
           for(var index = 0, amount = hidden.length; index < amount; index++) {
