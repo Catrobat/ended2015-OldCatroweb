@@ -210,9 +210,16 @@ var ProjectContentFiller = Class
         }
         
         var currentPage = Math.max(0, this.visibleRows - 1);
+        
         if(currentPage < heights.length) {
-//          $(container).height(heights[currentPage]);
-          $(container).height('auto');
+          
+          if (window.document.location.toString().indexOf("search") !== -1) {
+            $(container).height(heights[currentPage-1]-50);
+          } else {
+            $(container).height(heights[currentPage]);
+          }
+          //$(container).height(heights[currentPage]);
+          //$(container).height('auto');
         }
         if(this.params.reachedLastPage && heights.length == this.visibleRows) {
           for(var index = 0, amount = hidden.length; index < amount; index++) {
