@@ -400,7 +400,7 @@ body img#ga {
 
 
 #wrapper article div.projectContainer {
-  margin-top: 0.2em;
+  margin-top: 0.1em;
   text-align: center;
   overflow: hidden;
 }
@@ -419,7 +419,7 @@ body img#ga {
 	position:relative;
 	left:-50%;
 	width: 84px;
-	margin: 0.6em 0.54em 1.6em 0.54em;
+	margin: 0.1em 0.54em 1.6em 0.54em;
 	vertical-align: top;
 }
 
@@ -497,134 +497,134 @@ body img#ga {
 
 @media screen and (min-width: 320px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.54em 1.6em 0.54em;
+		margin: 0.1em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 360px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.84em 1.6em 0.84em;
+		margin: 0.1em 0.84em 1.6em 0.84em;
   }
 }
 @media screen and (min-width: 400px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.94em 1.6em 0.94em;
+		margin: 0.1em 0.94em 1.6em 0.94em;
   }
 }
 @media screen and (min-width: 420px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.54em 1.6em 0.54em;
+		margin: 0.1em 0.54em 1.6em 0.54em;
   }
 }
 
 
 @media screen and (min-width: 414px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.54em 1.6em 0.54em;
+		margin: 0.1em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 442px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.64em 1.6em 0.64em;
+		margin: 0.1em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 470px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.74em 1.6em 0.74em;
+		margin: 0.1em 0.74em 1.6em 0.74em;
   }
 }
 @media screen and (min-width: 498px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.84em 1.6em 0.84em;
+		margin: 0.1em 0.84em 1.6em 0.84em;
   }
 }
 
 @media screen and (min-width: 514px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.54em 1.6em 0.54em;
+		margin: 0.1em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 542px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.64em 1.6em 0.64em;
+		margin: 0.1em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 570px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.74em 1.6em 0.74em;
+		margin: 0.1em 0.74em 1.6em 0.74em;
   }
 }
 @media screen and (min-width: 598px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.84em 1.6em 0.84em;
+		margin: 0.1em 0.84em 1.6em 0.84em;
   }
 }
 
 @media screen and (min-width: 614px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.54em 1.6em 0.54em;
+		margin: 0.1em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 642px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.64em 1.6em 0.64em;
+		margin: 0.1em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 670px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.74em 1.6em 0.74em;
+		margin: 0.1em 0.74em 1.6em 0.74em;
   }
 }
 @media screen and (min-width: 698px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.84em 1.6em 0.84em;
+		margin: 0.1em 0.84em 1.6em 0.84em;
   }
 }
 
 @media screen and (min-width: 714px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.54em 1.6em 0.54em;
+		margin: 0.1em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 742px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.64em 1.6em 0.64em;
+		margin: 0.1em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 798px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.84em 1.6em 0.84em;
+		margin: 0.1em 0.84em 1.6em 0.84em;
   }
 }
 
 @media screen and (min-width: 814px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.54em 1.6em 0.54em;
+		margin: 0.1em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 842px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.64em 1.6em 0.64em;
+		margin: 0.1em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 898px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.84em 1.6em 0.84em;
+		margin: 0.1em 0.84em 1.6em 0.84em;
   }
 }
 
 @media screen and (min-width: 914px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.54em 1.6em 0.54em;
+		margin: 0.1em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 942px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.64em 1.6em 0.64em;
+		margin: 0.1em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 998px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.6em 0.84em 1.6em 0.84em;
+		margin: 0.1em 0.84em 1.6em 0.84em;
   }
 }
 
