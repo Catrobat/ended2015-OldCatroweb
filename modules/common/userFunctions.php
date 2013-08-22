@@ -707,7 +707,7 @@ class userFunctions extends CoreAuthenticationNone {
   }
   
   public function updateAvatar() {
-    $maxAvatarSize = 128;
+    $maxAvatarSize = 256;
     
     if(intval($this->session->userLogin_userId) > 0 && isset($_FILES['file'])) {
       $data = "";
@@ -755,8 +755,11 @@ class userFunctions extends CoreAuthenticationNone {
         imagesavealpha($avatar, true);
         imagefill($avatar, 0, 0, imagecolorallocatealpha($avatar, 0, 0, 0, 127));
         
-        if(!imagecopyresampled($avatar, $avatarSource, floor(($maxAvatarSize - $desiredWidth) / 2.0),
-            floor(($maxAvatarSize - $desiredHeight) / 2.0), 0, 0, $desiredWidth, $desiredHeight, $width, $height)) {
+        //if(!imagecopyresampled($avatar, $avatarSource, floor(($maxAvatarSize - $desiredWidth) / 2.0),
+        //    floor(($maxAvatarSize - $desiredHeight) / 2.0), 0, 0, $desiredWidth, $desiredHeight, $width, $height))
+        //imagecopyresized ( resource $dst_im , resource $src_im , int $dstX , int $dstY , int $srcX , int $srcY , int $dstW , int $dstH , int $srcW , int $srcH )
+        if(!imagecopyresized($avatar, $avatarSource, 0,
+            0, 0, 0, $maxAvatarSize, $maxAvatarSize, $width, $height)) {
           imagedestroy($avatar);
           throw new Exception($this->errorHandler->getError('userFunctions', 'avatar_creation_failed'),
               STATUS_CODE_USER_AVATER_CREATION_FAILED);
