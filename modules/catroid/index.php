@@ -116,15 +116,11 @@ class index extends CoreAuthenticationNone {
     $result = pg_execute($this->dbConnection, "get_visible_featured_projects", array());
     if(pg_num_rows($result) == 0)
       return 0;
-    
     $featuredProjects = pg_fetch_all($result);
-    
     $projects = array();
-    
     foreach ($featuredProjects as $project) {
-      array_push($projects, getFeaturedProjectImageUrl($project['project_id']));
+      array_push($projects, getFeaturedProjectImageUrl($project['project_id']) );
     }
-    
     return $projects;
   }
 
