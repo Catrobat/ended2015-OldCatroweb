@@ -108,6 +108,24 @@ class index extends CoreAuthenticationNone {
     $params['sort'] = PROJECT_SORTBY_VIEWS;
     $params['additionalTextLabel'] = $this->languageHandler->getString('viewed');
     $this->mostViewedProjectsParams = "'" . addslashes(json_encode($params)) . "'";
+    
+    $this->featuredProjects = $this->getVisibleFeaturedImages();
+  }
+  
+  public function getVisibleFeaturedImages() {
+    $result = pg_execute($this->dbConnection, "get_visible_featured_projects", array());
+    if(pg_num_rows($result) == 0)
+      return 0;
+    
+    $featuredProjects = pg_fetch_all($result);
+    
+    $projects = array();
+    
+    foreach ($featuredProjects as $project) {
+      array_push($projects, getFeaturedProjectImageUrl($project['project_id']));
+    }
+    
+    return $projects;
   }
 
   public function __destruct() {

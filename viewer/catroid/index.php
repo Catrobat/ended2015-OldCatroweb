@@ -25,7 +25,12 @@
 ?>
 
 <script>
-src = ["resources/featured/821.gif", "resources/featured/719.gif"];
+
+src = [<?php
+        for($i=0; $i < count($this->featuredProjects); $i++)
+          echo '"'.$this->featuredProjects[$i].'", ';
+        ?>];
+
 duration = 5;
 ads=[]; ct=0;
 function switchAd() {
