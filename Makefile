@@ -58,8 +58,13 @@ run-checker-deadlinks:
 	@python services/tests.py deadlinks
 	@echo ""
 
-run-phpunit-tests: run-phpunit-framework-tests run-phpunit-catroid-tests run-phpunit-admin-tests run-phpunit-api-tests run-phpunit-common-tests
+run-phpunit-tests: run-phpunit-monitoring-tests run-phpunit-framework-tests run-phpunit-catroid-tests run-phpunit-admin-tests run-phpunit-api-tests run-phpunit-common-tests
 
+run-phpunit-monitoring-tests:
+	@echo "run PHPUnit Monitoring Tests..."
+	@python services/tests.py phpunit monitoring
+	@echo ""
+	
 run-phpunit-framework-tests:
 	@echo "Run PHPUnit Framework Tests..."
 	@python services/tests.py phpunit framework

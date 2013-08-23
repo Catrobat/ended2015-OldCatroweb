@@ -166,7 +166,7 @@ public class DetailsTests extends BaseTest {
       ajaxWait();
       assertFalse(isVisible(By.id("reportInappropriateReason")));
       ajaxWait();
-      assertTrue(isTextPresent("You reported this project as inappropriate!"));
+      assertTrue(isTextPresent("You reported this program as inappropriate!"));
 
       driver().navigate().refresh();
       ajaxWait();

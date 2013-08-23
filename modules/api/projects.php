@@ -167,12 +167,12 @@ class projects extends CoreAuthenticationNone {
   
   
     if(strlen($user) > 0) {
-      $userQuery = " AND (cusers.username ILIKE \$" . $keywordsCount;
-      $userQuery .= " OR cusers.username_clean ILIKE \$" . $keywordsCount . ") ";
+      $userQuery = " AND (cusers.username = \$" . $keywordsCount;
+      $userQuery .= " OR cusers.username_clean = \$" . $keywordsCount . ") ";
   
       $username = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($user)));
       $username = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $username);
-      array_push($queryParameter, "%" . $username . "%");
+      array_push($queryParameter, $username);
   
       $keywordsCount++;
     }
@@ -184,6 +184,7 @@ class projects extends CoreAuthenticationNone {
         $searchQuery .= (($searchQuery == "") ? " AND (" : " OR " );
         $searchQuery .= "title ILIKE \$" . $keywordsCount;
         $searchQuery .= " OR description ILIKE \$" . $keywordsCount;
+        $searchQuery .= " OR username ILIKE \$" . $keywordsCount;
   
         $searchTerm = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($term)));
         $searchTerm = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $searchTerm);
@@ -200,7 +201,7 @@ class projects extends CoreAuthenticationNone {
         "_q" . ((strlen($query) > 0) ? count($searchTerms) : '0') .
         "_" . $order;
     $sqlQuery = "SELECT
-        projects.id, projects.title, projects.description, projects.view_count, projects.download_count, projects.version_name,
+        projects.id, projects.title, projects.description, projects.view_count, projects.user_id, projects.download_count, projects.version_name,
         coalesce(extract(epoch from \"timestamp\"(projects.update_time)), extract(epoch from \"timestamp\"(projects.upload_time))) AS last_activity,
         cusers.username AS uploaded_by
     FROM projects, cusers
