@@ -39,6 +39,7 @@
     <string name="get_featured_projects_ordered_by_update_time">SELECT p.id as id, p.title, p.description, p.user_id, c.username AS uploaded_by FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY fp.update_time DESC</string>
     <string name="get_featured_projects_admin_ordered_by_update_time">SELECT p.id as project_id, p.title, p.description, p.user_id, p.download_count, p.view_count, c.username AS uploaded_by, fp.* FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY fp.update_time DESC</string>
     <string name="get_featured_projects_ordered_by_update_time_limited">SELECT p.id as id, p.title, p.description, p.user_id, c.username AS uploaded_by FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) WHERE fp.visible=$2 ORDER BY fp.update_time DESC LIMIT $1</string>
+    <string name="get_visible_featured_projects">SELECT project_id FROM featured_projects WHERE visible=true</string>
     <string name="edit_featured_project_visibility_by_id">UPDATE featured_projects SET update_time=DEFAULT, visible=$2 WHERE id=$1 RETURNING id</string> 
     <string name="delete_featured_project_by_id">DELETE FROM featured_projects WHERE id=$1</string>
     <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, user_id, reason, user_ip) VALUES ($1, $2, $3, $4)</string>
