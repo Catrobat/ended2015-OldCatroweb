@@ -914,7 +914,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctVersionData() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test-0.7.0beta.catrobat', $fileType, 0.8, '0.7.3beta')
+        array('unitTest for correct version info 0.6.0b', 'my project description for correct version info.', 'test-0.7.0beta.catrobat', $fileType, 0.9, '0.7.3beta')
     );
     return $dataArray;
   }
@@ -956,7 +956,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function correctRemixUpdate() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for correct remix update', 'my project with correct remixing update.', 'test_remix_update_1.catrobat', $fileType, 0.8, '0.7.3beta')
+        array('unitTest for correct remix update', 'my project with correct remixing update.', 'test_remix_update_1.catrobat', $fileType, 0.9, '0.7.3beta')
     );
     return $dataArray;
   }
