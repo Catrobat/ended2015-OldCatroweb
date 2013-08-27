@@ -199,7 +199,7 @@ h3 {
   height: 31px;
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -131px -93px;
-  outline: 1px solid #FFFFFF;
+/*   outline: 1px solid #FFFFFF; */
 }
 
 .img-undo-search {

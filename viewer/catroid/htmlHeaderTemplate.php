@@ -41,7 +41,7 @@
             </div>
             
             <div id="largeMenuButton" class="largeSearchBarRight">
-              <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover;background-position:center;background-image:url(' . $this->module->session->userLogin_userAvatar . ');"' : ''; ?>></button>
+              <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover;background-position:center;background-image:url(' . $this->module->session->userLogin_userAvatar . ');outline:1px solid #FFFFFF;"' : ''; ?>></button>
               <?php echo ($this->module->session->userLogin_userNickname) ? '<button id="userNameButton"><div style="float:left;">' . $this->module->session->userLogin_userNickname . '</div><div class="img-dropdownArrow"></div></button>' : ''; ?>
             </div>
             <div class="marginSpacer"></div>

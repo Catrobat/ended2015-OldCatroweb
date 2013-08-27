@@ -25,21 +25,26 @@
 ?>
 
 <script>
-src = ["resources/featured/821.gif", "resources/featured/719.gif"];
+
+src = [<?php
+        for($i=0; $i < count($this->featuredProjects); $i++)
+          echo '"'.$this->featuredProjects[$i].'", ';
+        ?>];
+
 duration = 5;
 ads=[]; ct=0;
 function switchAd() {
   var n=(ct+1)%src.length;
   if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
     document["Ad_Image"].src = ads[ct=n].src;
+
+    var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
+    x = x.replace(".gif","");
+    $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
   }
   ads[n=(ct+1)%src.length] = new Image;
   ads[n].src = src[n];
   setTimeout("switchAd()",duration*1000);
-}
-
-function doLink(){
-  location.href = url[ct];
 }
 
 onload = function(){

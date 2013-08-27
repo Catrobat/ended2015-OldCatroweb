@@ -36,9 +36,10 @@
           <?php echo $this->userData['project_count']; ?>
         </p>
         <p>
-          <strong><?php echo $this->languageHandler->getString('country'); ?>: </strong>
+          
           <?php 
           if($this->userData['country'] != "") {
+            echo "<strong>" . $this->languageHandler->getString('country') . ": </strong>";
             $countries = getCountryArray($this->languageHandler);
             echo $countries[$this->userData['country']];
           }
