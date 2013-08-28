@@ -251,6 +251,17 @@ h3 {
   float: right;
 }
 
+.img-password-recovery {
+  width: 40px;
+  height: 40px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -35px 0px;
+  position:relative;
+  top:-45px;
+  float: right;
+
+}
+
 .img-first-email {
   width: 40px;
   height: 40px;
