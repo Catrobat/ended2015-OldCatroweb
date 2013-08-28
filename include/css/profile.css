@@ -266,6 +266,7 @@
 }
 
 #wrapper article div.projectContainer {
+  padding-top:7px;
   clear: top;
 }
 

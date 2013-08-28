@@ -139,7 +139,7 @@ footer ul {
 footer div#mobileFooterMenu {
   display: none;
   text-align: center;
-  background-color: #17A5B8;
+  background-color: #177f8d;
 }
 
 footer div#mobileFooterMenu ul {
@@ -194,7 +194,7 @@ footer ul li a:link, footer ul li a:visited {
   
   footer div#mobileFooterMenu {
     display: block;
-    background-color: #17A5B8;
+    background-color: #177f8d;
   }
 
   footer div#largeFooterMenu {
