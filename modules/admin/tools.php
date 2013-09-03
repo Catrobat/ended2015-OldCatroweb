@@ -211,14 +211,33 @@ class tools extends CoreAuthenticationAdmin {
           $answer = "ERROR: Image upload failed! File dimensions mismatch (must be 1024x400px)!";
         }
       }
+      
+      $image_400 = imagecreatetruecolor(400, 156);
+      $image_720 = imagecreatetruecolor(720, 281);
+      
+      imagecopyresampled($image_400, $imageSource, 0, 0, 0, 0, 400, 156, 1024, 400);
+      imagecopyresampled($image_720, $imageSource, 0, 0, 0, 0, 720, 281, 1024, 400);     
 
       if($answer == "") {
         $path = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId'].PROJECTS_FEATURED_EXTENSION;
+        $path1 = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId']."_400".PROJECTS_FEATURED_EXTENSION;
+        $path2 = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId']."_720".PROJECTS_FEATURED_EXTENSION;
+  
         if(!imagegif($imageSource, $path)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path."<br/>";
           imagedestroy($imageSource);
         }
+        if(!imagegif($image_400, $path1)) {
+          $answer = "ERROR: Image upload failed! Could not save image!";
+          $answer .= "<br/>path: ".$path1."<br/>";
+          imagedestroy($image_400);
+        }
+        if(!imagegif($image_720, $path2)) {
+          $answer = "ERROR: Image upload failed! Could not save image!";
+          $answer .= "<br/>path: ".$path2."<br/>";
+          imagedestroy($image_720);
+        }          
         else
           $answer .= "SUCCESS: Featured image updated!<br/>file=".$path.", size=".round((filesize($path)/1024),2)." kb";
       }
@@ -300,8 +319,11 @@ class tools extends CoreAuthenticationAdmin {
 
     $project =  pg_fetch_assoc($result);
     if($project['project_id'] > 0) {
-      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION))
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION)) {
         @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION);
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id']."_400".PROJECTS_FEATURED_EXTENSION);
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id']."_720".PROJECTS_FEATURED_EXTENSION);
+      }
     }
 
     $query = "EXECUTE delete_featured_project_by_id('$id');";

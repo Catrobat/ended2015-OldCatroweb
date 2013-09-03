@@ -119,7 +119,15 @@ var Index = Class.$extend( {
     if(projectId > 0) {
       $("#programmOfTheWeek").css('display', 'block');
       $(".projectSpacer:first").css('display', 'block');
-      $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'" id="switch_image"><img name="Ad_Image" src="' + baseUrl + this.featuredProject['CatrobatProjects'][0].FeaturedImage + '" /></a>');
+      
+      var filePath = this.featuredProject['CatrobatProjects'][0].FeaturedImage;
+      
+      if(document.width <= 400)
+        filePath = filePath.replace(".gif", "_400.gif");
+      else if(document.width <= 720)
+        filePath = filePath.replace(".gif", "_720.gif");
+      
+      $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'" id="switch_image"><img name="Ad_Image" src="' + baseUrl + filePath + '" /></a>');
     }
     else {
       $("#programmOfTheWeek").css('display', 'none');
