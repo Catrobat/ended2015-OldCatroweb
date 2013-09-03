@@ -181,7 +181,6 @@ class projects extends CoreAuthenticationNone {
     
     $searchTerms = explode(" ", $query);
     $this->completeTerm = $query;
-//     $keywordsCountCom = $keywordsCount;
     for($i = 0; $i < sizeof($searchTerms); $i++) {
       if (strlen($searchTerms[$i]) < 4) {
         unset($searchTerms[$i]);
@@ -191,62 +190,6 @@ class projects extends CoreAuthenticationNone {
     }
 
     array_unshift($searchTerms,$query);
-    
-//     /* ********************************************************************* */
-    
-//     if(strlen($completeTerm) > 0) {
-//       $searchQueryCom .= (($searchQueryCom == "") ? " AND (" : " OR " );
-//       $searchQueryCom .= "title = \$" . $keywordsCount;
-//       $searchQueryCom .= " OR description = \$" . $keywordsCount;
-//       $searchQueryCom .= " OR username = \$" . $keywordsCount;
-
-//       $searchTermCom = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($completeTerm)));
-//       $searchTermCom = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $searchTermCom);
-//       array_push($queryParameter,  $searchTermCom );
-
-//       $keywordsCountCom++;
-//     }
-//     $searchQueryCom .= (($searchQueryCom != "") ? ") " : "" );
-//     //print_r( $queryParameter);
-    
-//         $statementName = "query_u" . ((strlen($user) > 0) ? '1' : '0') .
-//             "_q" . ((strlen($query) > 0) ? count($completeTerm) : '0') .
-//             "_" . $order;
-//         $sqlQuery = "SELECT
-//             projects.id, projects.title, projects.description, projects.view_count, projects.user_id, projects.download_count, projects.version_name,
-//             coalesce(extract(epoch from \"timestamp\"(projects.update_time)), extract(epoch from \"timestamp\"(projects.upload_time))) AS last_activity,
-//             cusers.username AS uploaded_by
-//         FROM projects, cusers
-//         WHERE visible = true AND cusers.id=projects.user_id" . $userQuery . $searchQueryCom . "
-//         " . $orderQuery . "
-//         LIMIT \$1 OFFSET \$2";
-    
-//         if($this->prepareStatement($statementName, $sqlQuery)) {
-//           $result = pg_execute($this->dbConnection, $statementName, $queryParameter);
-//           if($result) {
-//             if(pg_num_rows($result) > 0) {
-//               $projects = pg_fetch_all($result);
-//               echo $projects[0]['title'];
-//                print_r($projects[0]);
-// //               unset($projects[0]);
-//               $this->generateOutput($projects, $mask, $this->getNumberOfVisibleProjects($statementName, $queryParameter));
-//             } else {
-//               $this->generateOutput(array(), $mask, $this->getNumberOfVisibleProjects($statementName, $queryParameter));
-//             }
-//             pg_free_result($result);
-//           } else {
-//             $this->Error = 'query failed ' . pg_last_error();
-//           }
-//         }
-    
-    
-    
-    
-    
-    
-//     /* ********************************************************************* */
-    
-    
     
     foreach($searchTerms as $term) {
       if(strlen($term) > 0) {
@@ -369,6 +312,86 @@ class projects extends CoreAuthenticationNone {
     return $numberOfRows;
   }
   
+  private function shortString($projectTitle) {
+    
+    $countBigChars = preg_match_all('/[A-Z]/', $projectTitle, $bigChars);
+    $countSmallChars = preg_match_all('/[a-z]/', $projectTitle, $smallChars);
+    $countWords = str_word_count($projectTitle,0,'àáãçµ@0..9');
+
+    if ($countWords == 1) {
+      if (($countBigChars > 0) && ($countSmallChars == 0)) {
+        return makeShortString($projectTitle, 7, '…');        
+      } else if (($countBigChars == 0) && ($countSmallChars > 0)) {
+        return makeShortString($projectTitle, 8, '…');
+      } else if (($countBigChars > 0) && ($countSmallChars > 0)) {
+        if ($countBigChars > 4) {
+          return makeShortString($projectTitle, 7, '…');
+        } else {
+          return makeShortString($projectTitle, 9, '…');
+        }             
+      }
+    } else {
+      if (($countBigChars > 0) && ($countSmallChars == 0)) {
+        $pos = 7;
+        if ($projectTitle[$pos] == ' ') {
+          return makeShortString($projectTitle, $pos, '…');
+        } else {
+          for($var = 1; $var <= 3; $var++) {
+            if ($projectTitle[$pos+$var] == ' ' || ($projectTitle[$pos+$var] == '')) {
+              return makeShortString($projectTitle, $pos+$var+1, '…');
+            }          
+          }
+          for($var = 1; $var <= 3; $var++) {
+            if ($projectTitle[$pos-$var] == ' ' || ($projectTitle[$pos+$var] == '')) {
+              return makeShortString($projectTitle, $pos-$var+1, '…');
+            }
+          }
+        }
+        return makeShortString($projectTitle, $pos, '…');
+        
+      } else if (($countBigChars == 0) && ($countSmallChars > 0)) {
+        $pos = 7;
+        if ($projectTitle[$pos] == ' ') {
+          return makeShortString($projectTitle, $pos, '…');
+        } else {
+          for($var = 1; $var <= 3; $var++) {
+            if ($projectTitle[$pos+$var] == ' ' || ($projectTitle[$pos+$var] == '')) {
+              return makeShortString($projectTitle, $pos+$var+1, '…');
+            }
+          }
+          for($var = 1; $var <= 3; $var++) {
+            if ($projectTitle[$pos-$var] == ' ' || ($projectTitle[$pos+$var] == '')) {
+              return makeShortString($projectTitle, $pos-$var+1, '…');
+            }
+          }
+        }
+        return makeShortString($projectTitle, $pos, '…');
+        
+      } else if (($countBigChars > 0) && ($countSmallChars > 0)) {
+        $pos = 9;
+        
+        if ($projectTitle[$pos] == ' ') {
+          return makeShortString($projectTitle, $pos, '…');
+        } else {
+          for($var = 1; $var <= 3; $var++) {
+          
+            if (($projectTitle[$pos+$var] == ' ') || ($projectTitle[$pos+$var] == '')) {
+              return makeShortString($projectTitle, $pos+$var+1, '…');
+            }
+          }
+          for($var = 1; $var <= 3; $var++) {
+            if ($projectTitle[$pos-$var] == ' ' || ($projectTitle[$pos+$var] == '')) {
+              return makeShortString($projectTitle, $pos-$var+1, '…');
+            }
+          }
+        }
+        return makeShortString($projectTitle, $pos, '…');
+        
+      }
+    }
+    return makeShortString($projectTitle, 9, '…');
+  }
+  
   private function generateOutput($projects, $mask=PROJECT_MASK_DEFAULT, $total=0) {
     $tempProjectList = array();
     foreach($projects as $project) {
@@ -386,7 +409,7 @@ class projects extends CoreAuthenticationNone {
         $currentProject['ProjectName'] = $project['title'];
       }
       if(in_array('ProjectNameShort', $selectedFields)) {
-        $currentProject['ProjectNameShort'] = makeShortString($project['title'], 9, '…');
+        $currentProject['ProjectNameShort'] = $this->shortString($project['title']);//makeShortString($project['title'], 9, '…');
       }
       if(in_array('ScreenshotBig', $selectedFields)) {
         $currentProject['ScreenshotBig'] = str_replace(BASE_PATH, "", getProjectImageUrl($project['id']));
