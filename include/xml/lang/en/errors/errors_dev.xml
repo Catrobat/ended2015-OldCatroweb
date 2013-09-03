@@ -90,6 +90,7 @@
         <string name="old_catrobat_language">Project contains old Catrobat language!</string>
         <string name="invalid_media_license">Invalid media license!</string>
         <string name="invalid_program_license">Invalid program license!</string>
+        <string name="visibility_incorrect">The visibility is incorrect!</string>
     </upload>
     <download>
     	<string name="file_not_found">Could not find requested file on server</string>

@@ -75,8 +75,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
       if(isset($requestData['source'])) {
         $source = $requestData['source'];
       } else {
-        $pootleFriendlyLang = preg_replace("^-^", "_", $lang);
-        $source = ADMIN_POOTLE_ROOT_URL.$pootleFriendlyLang.'/catweb/catweb.po/export/xlf';
+        $pootleFriendlyLang = preg_replace("^-^", "_", $lang);        
+        $source = BASE_PATH.'pootle/'.$pootleFriendlyLang.'/catweb.xlf';
       }
       try {
         $xmlArrays = $this->getXmlArrays($this->getXmlObject($this->loadXlfFile($source)));

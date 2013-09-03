@@ -25,16 +25,14 @@
 ?>
       <article>
         <div class="form">
-          <form>
-          
-          <div class="loginValid">
-          <input type="text" id="loginUsername" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>" />
-          <div class="img-login loginInputIcon"></div>
-          </div>
-            
+          <form>         
             <div class="loginValid">
-            <input type="password" id="loginPassword" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" />
-            <div class="img-password loginInputIcon"></div>
+              <input type="text" id="loginUsername" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>" />
+              <div class="img-login loginInputIcon"></div>
+            </div>         
+            <div class="loginValid">
+              <input type="password" id="loginPassword" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" />
+              <div class="img-password loginInputIcon"></div>
             </div>
             
             <div id="loginError"></div>

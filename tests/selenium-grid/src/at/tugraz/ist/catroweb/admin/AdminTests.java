@@ -161,7 +161,7 @@ public class AdminTests extends BaseTest {
       driver().findElement(By.id("reportInappropriateReason")).sendKeys("my selenium reason");
       driver().findElement(By.id("reportInappropriateReportButton")).click();
       ajaxWait();
-      assertTrue(isTextPresent("You reported this project as inappropriate!"));
+      assertTrue(isTextPresent("You reported this program as inappropriate!"));
       openAdminLocation("/tools/inappropriateProjects");
       assertTrue(isTextPresent("1"));
 

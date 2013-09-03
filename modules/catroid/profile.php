@@ -73,7 +73,7 @@ class profile extends CoreAuthenticationNone {
 
     $this->loadModule('api/projects');
     $pageNr = 1;
-    $projectsPerRow = 9;
+    $projectsPerRow = 6;
     
     $requestedPage = $this->projects->get(($pageNr - 1) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE, '', $this->userData['username']);

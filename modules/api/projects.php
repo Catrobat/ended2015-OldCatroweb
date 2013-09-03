@@ -167,23 +167,93 @@ class projects extends CoreAuthenticationNone {
   
   
     if(strlen($user) > 0) {
-      $userQuery = " AND (cusers.username ILIKE \$" . $keywordsCount;
-      $userQuery .= " OR cusers.username_clean ILIKE \$" . $keywordsCount . ") ";
+      $userQuery = " AND (cusers.username = \$" . $keywordsCount;
+      $userQuery .= " OR cusers.username_clean = \$" . $keywordsCount . ") ";
   
       $username = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($user)));
       $username = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $username);
-      array_push($queryParameter, "%" . $username . "%");
+      array_push($queryParameter, $username);
   
       $keywordsCount++;
     }
-  
-  
+   
+    
+    
     $searchTerms = explode(" ", $query);
+    $this->completeTerm = $query;
+//     $keywordsCountCom = $keywordsCount;
+    for($i = 0; $i < sizeof($searchTerms); $i++) {
+      if (strlen($searchTerms[$i]) < 4) {
+        unset($searchTerms[$i]);
+        $searchTerms = array_values($searchTerms);     
+        $i = $i - 1;
+      }
+    }
+
+    array_unshift($searchTerms,$query);
+    
+//     /* ********************************************************************* */
+    
+//     if(strlen($completeTerm) > 0) {
+//       $searchQueryCom .= (($searchQueryCom == "") ? " AND (" : " OR " );
+//       $searchQueryCom .= "title = \$" . $keywordsCount;
+//       $searchQueryCom .= " OR description = \$" . $keywordsCount;
+//       $searchQueryCom .= " OR username = \$" . $keywordsCount;
+
+//       $searchTermCom = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($completeTerm)));
+//       $searchTermCom = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $searchTermCom);
+//       array_push($queryParameter,  $searchTermCom );
+
+//       $keywordsCountCom++;
+//     }
+//     $searchQueryCom .= (($searchQueryCom != "") ? ") " : "" );
+//     //print_r( $queryParameter);
+    
+//         $statementName = "query_u" . ((strlen($user) > 0) ? '1' : '0') .
+//             "_q" . ((strlen($query) > 0) ? count($completeTerm) : '0') .
+//             "_" . $order;
+//         $sqlQuery = "SELECT
+//             projects.id, projects.title, projects.description, projects.view_count, projects.user_id, projects.download_count, projects.version_name,
+//             coalesce(extract(epoch from \"timestamp\"(projects.update_time)), extract(epoch from \"timestamp\"(projects.upload_time))) AS last_activity,
+//             cusers.username AS uploaded_by
+//         FROM projects, cusers
+//         WHERE visible = true AND cusers.id=projects.user_id" . $userQuery . $searchQueryCom . "
+//         " . $orderQuery . "
+//         LIMIT \$1 OFFSET \$2";
+    
+//         if($this->prepareStatement($statementName, $sqlQuery)) {
+//           $result = pg_execute($this->dbConnection, $statementName, $queryParameter);
+//           if($result) {
+//             if(pg_num_rows($result) > 0) {
+//               $projects = pg_fetch_all($result);
+//               echo $projects[0]['title'];
+//                print_r($projects[0]);
+// //               unset($projects[0]);
+//               $this->generateOutput($projects, $mask, $this->getNumberOfVisibleProjects($statementName, $queryParameter));
+//             } else {
+//               $this->generateOutput(array(), $mask, $this->getNumberOfVisibleProjects($statementName, $queryParameter));
+//             }
+//             pg_free_result($result);
+//           } else {
+//             $this->Error = 'query failed ' . pg_last_error();
+//           }
+//         }
+    
+    
+    
+    
+    
+    
+//     /* ********************************************************************* */
+    
+    
+    
     foreach($searchTerms as $term) {
       if(strlen($term) > 0) {
         $searchQuery .= (($searchQuery == "") ? " AND (" : " OR " );
         $searchQuery .= "title ILIKE \$" . $keywordsCount;
         $searchQuery .= " OR description ILIKE \$" . $keywordsCount;
+        $searchQuery .= " OR username ILIKE \$" . $keywordsCount;
   
         $searchTerm = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($term)));
         $searchTerm = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $searchTerm);
@@ -200,7 +270,7 @@ class projects extends CoreAuthenticationNone {
         "_q" . ((strlen($query) > 0) ? count($searchTerms) : '0') .
         "_" . $order;
     $sqlQuery = "SELECT
-        projects.id, projects.title, projects.description, projects.view_count, projects.download_count, projects.version_name,
+        projects.id, projects.title, projects.description, projects.view_count, projects.user_id, projects.download_count, projects.version_name,
         coalesce(extract(epoch from \"timestamp\"(projects.update_time)), extract(epoch from \"timestamp\"(projects.upload_time))) AS last_activity,
         cusers.username AS uploaded_by
     FROM projects, cusers
@@ -214,6 +284,8 @@ class projects extends CoreAuthenticationNone {
       if($result) {
         if(pg_num_rows($result) > 0) {
           $projects = pg_fetch_all($result);
+          if(strlen($query) != 0)
+            usort($projects, array($this, 'cmp')); 
           $this->generateOutput($projects, $mask, $this->getNumberOfVisibleProjects($statementName, $queryParameter));
         } else {
           $this->generateOutput(array(), $mask, $this->getNumberOfVisibleProjects($statementName, $queryParameter));
@@ -223,6 +295,45 @@ class projects extends CoreAuthenticationNone {
         $this->Error = 'query failed ' . pg_last_error();
       }
     }
+    
+  }
+  
+  private function cmp($value_1, $value_2)  {
+    $title1 = strtolower($value_1['title']);
+    $title2 = strtolower($value_2['title']);
+    $description1 = strtolower($value_1['description']);
+    $description2 = strtolower($value_2['description']);
+    $uploader1 = strtolower($value_1['uploaded_by']);
+    $uploader2 = strtolower($value_2['uploaded_by']);
+    $count1 = 0;
+    $count2 = 0;
+  
+    if ($this->completeTerm === $title1)
+      $count1 += 1;
+    if ($this->completeTerm === $description1)
+      $count1 += 1;
+    if ($this->completeTerm === $uploader1)
+      $count1 += 1;
+    
+    if ($this->completeTerm === $title2)
+      $count2 += 1;
+    if ($this->completeTerm === $description2)
+      $count2 += 1;
+    if ($this->completeTerm === $uploader2)
+      $count2 += 1;
+    
+    $count1 += substr_count($title1, $this->completeTerm);
+    $count1 += substr_count($description1, $this->completeTerm);
+    $count1 += substr_count($uploader1, $this->completeTerm);
+    
+    $count2 += substr_count($title2, $this->completeTerm);
+    $count2 += substr_count($description2, $this->completeTerm);
+    $count2 += substr_count($uploader2, $this->completeTerm);
+
+    if ($count1 === $count2)
+      return 0;
+  
+    return ($count1 > $count2) ? -1 : 1;
   }
   
   private function prepareStatement($statementName, $sqlQuery) {
@@ -324,4 +435,5 @@ class projects extends CoreAuthenticationNone {
     $this->CatrobatProjects = $tempProjectList;
   }
 }
+
 ?>

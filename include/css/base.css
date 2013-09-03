@@ -224,6 +224,17 @@ h3 {
   float: right;
 }
 
+.img-dropdownArrow {
+  width: 16px;
+  height: 14px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -114px -17px;
+  float: right;
+  margin-left:0.3em;
+  top: 5px;
+  position:relative;
+}
+
 .img-failedPw {
   width: 39px;
   height: 39px;
@@ -238,6 +249,17 @@ h3 {
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -35px 0px;
   float: right;
+}
+
+.img-password-recovery {
+  width: 40px;
+  height: 40px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -35px 0px;
+  position:relative;
+  top:-45px;
+  float: right;
+
 }
 
 .img-first-email {
@@ -401,7 +423,7 @@ body img#ga {
 
 #wrapper article div.projectContainer {
   margin-top: 0.1em;
-  text-align: center;
+  text-align: left;
   overflow: hidden;
 }
 

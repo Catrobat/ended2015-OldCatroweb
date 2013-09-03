@@ -266,6 +266,7 @@
 }
 
 #wrapper article div.projectContainer {
+  padding-top:7px;
   clear: top;
 }
 
@@ -372,8 +373,10 @@
   #wrapper article div#userProjectContainer {
   clear: both;
   padding-left: 2em;
+  padding-right: 2em;
   padding-top: 1em;
 }
+
   
   #wrapper article div.userProfileAvatarContainer{
     margin-bottom: 2em;
