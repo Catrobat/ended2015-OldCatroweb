@@ -62,10 +62,12 @@ class profile extends CoreAuthenticationNone {
     }
     
     $this->userData = $this->userFunctions->getUserData($showUser);
+    $projectsPerRow = 6;
     if($ownProfile) {
       $this->setWebsiteTitle($this->languageHandler->getString('myTitle'));
       $this->initProfile($this->userData);
       $this->loadView('myProfile');
+      $projectsPerRow = 8;
     } else {
       $this->setWebsiteTitle($this->languageHandler->getString('userTitle'));
       $this->loadView('userProfile');
@@ -73,7 +75,7 @@ class profile extends CoreAuthenticationNone {
 
     $this->loadModule('api/projects');
     $pageNr = 1;
-    $projectsPerRow = 6;
+    
     
     $requestedPage = $this->projects->get(($pageNr - 1) * $projectsPerRow,
         $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE, '', $this->userData['username']);

@@ -197,10 +197,16 @@ var ProjectContentFiller = Class
         var hidden = [];
         var elements = container.children();
         var correction = 0;
-
         for(var index = 0, amount = elements.length; index < amount; index++) {
           if($(elements[index]).css('visibility') == 'visible') {
-            if ($(elements[0]).position().top > 400) {
+            
+            
+            if (($(".myH3").text() != '') && ($(elements[0]).position().top > 700 ) ) {
+              correction = 790;
+              $(container).height(150);
+            } else if (($(".myH3").text() != '') && ($(elements[0]).position().top <= 700 ) ) {
+              correction = 330;  
+            } else if ($(elements[0]).position().top > 400) {
               correction = 400 + $("h3").height(); 
             } else {
               $('#moreResults').css('margin-left',$('.userProfileAvatarContainer').width());
@@ -236,6 +242,8 @@ var ProjectContentFiller = Class
             $(elements[hidden[index]]).hide();
           }
           $(this.params.buttons.next).hide();
+          $(".projectContainer ul").css("margin-left","0.9em");
+          $(".projectContainer ul").css("text-align","left");
           $(container).height('auto');
         }
       },
