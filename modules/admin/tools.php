@@ -403,7 +403,22 @@ class tools extends CoreAuthenticationAdmin {
     $this->blockedusers = $this->getListOfBlockedUsersFromDatabase();
     $this->allusers = $this->getListOfUsersFromDatabase();
   }
-
+  
+  public function deletingUser() {
+    if(isset($_POST['deleteUserValue'])) {
+      $this->delete_user_projects($_POST['deleteUserValue']);
+      $username = $this->deleteUserByID($_POST['deleteUserValue']);
+      $answer = "The user <b>".$username."</b> was deleted.";
+      $this->answer = $answer;
+    }
+    $this->htmlFile = "deleteUsers.php";
+    $this->allusers = $this->getListOfUsersFromDatabase();
+  }
+  
+  public function deleteUsers() {
+    $this->htmlFile = "deleteUsers.php";
+    $this->allusers = $this->getListOfUsersFromDatabase();
+  }
 
   public function toggleProjects() {
     if(isset($_POST['toggle'])) {
@@ -613,7 +628,27 @@ class tools extends CoreAuthenticationAdmin {
     pg_free_result($fresult);
     return($details);
   }
+  
+  public function delete_user_projects($user_id) {
+    $query = "EXECUTE get_projects_by_userid('$user_id');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    while($row = pg_fetch_array($result)) {
+      $this->deleteProject($row['id']);
+    }
+  }
 
+  public function deleteUserByID($user_id) {
+    $username = $this->getUsernameById($user_id);
+    $query = "EXECUTE admin_unblock_user_id('$user_id');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+
+    $query = "EXECUTE delete_user_by_id('$user_id');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  
+    return $username;
+  }
+  
+  
   public function deleteProject($id) {
     $directory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
     $thumbnailDirectory = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;
@@ -741,6 +776,7 @@ class tools extends CoreAuthenticationAdmin {
       return false;
     }
   }
+  
 
   public function updateProjectFilesizeInDatabase($id, $filesize) {
     $query = "EXECUTE update_project_filesize('$id', '$filesize');";
