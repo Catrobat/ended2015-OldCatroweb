@@ -468,6 +468,11 @@ body img#ga {
 	font-size: 0.8em;
 	font-weight: bold;
 	margin-top: 0.5em;
+
+	overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+/*   width: 42em; */
 }
 
 #wrapper article div.projectContainer ul li div.projectAddition {

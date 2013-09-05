@@ -312,86 +312,6 @@ class projects extends CoreAuthenticationNone {
     return $numberOfRows;
   }
   
-  private function shortString($projectTitle) {
-    
-    $countBigChars = preg_match_all('/[A-Z]/', $projectTitle, $bigChars);
-    $countSmallChars = preg_match_all('/[a-z]/', $projectTitle, $smallChars);
-    $countWords = str_word_count($projectTitle,0,'àáãçµ@0..9');
-
-    if ($countWords == 1) {
-      if (($countBigChars > 0) && ($countSmallChars == 0)) {
-        return makeShortString($projectTitle, 7, '…');        
-      } else if (($countBigChars == 0) && ($countSmallChars > 0)) {
-        return makeShortString($projectTitle, 8, '…');
-      } else if (($countBigChars > 0) && ($countSmallChars > 0)) {
-        if ($countBigChars > 4) {
-          return makeShortString($projectTitle, 7, '…');
-        } else {
-          return makeShortString($projectTitle, 9, '…');
-        }             
-      }
-    } else {
-      if (($countBigChars > 0) && ($countSmallChars == 0)) {
-        $pos = 7;
-        if ($projectTitle[$pos] == ' ') {
-          return makeShortString($projectTitle, $pos, '…');
-        } else {
-          for($var = 1; $var <= 3; $var++) {
-            if ($projectTitle[$pos+$var] == ' ' || ($projectTitle[$pos+$var] == '')) {
-              return makeShortString($projectTitle, $pos+$var+1, '…');
-            }          
-          }
-          for($var = 1; $var <= 3; $var++) {
-            if ($projectTitle[$pos-$var] == ' ' || ($projectTitle[$pos+$var] == '')) {
-              return makeShortString($projectTitle, $pos-$var+1, '…');
-            }
-          }
-        }
-        return makeShortString($projectTitle, $pos, '…');
-        
-      } else if (($countBigChars == 0) && ($countSmallChars > 0)) {
-        $pos = 7;
-        if ($projectTitle[$pos] == ' ') {
-          return makeShortString($projectTitle, $pos, '…');
-        } else {
-          for($var = 1; $var <= 3; $var++) {
-            if ($projectTitle[$pos+$var] == ' ' || ($projectTitle[$pos+$var] == '')) {
-              return makeShortString($projectTitle, $pos+$var+1, '…');
-            }
-          }
-          for($var = 1; $var <= 3; $var++) {
-            if ($projectTitle[$pos-$var] == ' ' || ($projectTitle[$pos+$var] == '')) {
-              return makeShortString($projectTitle, $pos-$var+1, '…');
-            }
-          }
-        }
-        return makeShortString($projectTitle, $pos, '…');
-        
-      } else if (($countBigChars > 0) && ($countSmallChars > 0)) {
-        $pos = 9;
-        
-        if ($projectTitle[$pos] == ' ') {
-          return makeShortString($projectTitle, $pos, '…');
-        } else {
-          for($var = 1; $var <= 3; $var++) {
-          
-            if (($projectTitle[$pos+$var] == ' ') || ($projectTitle[$pos+$var] == '')) {
-              return makeShortString($projectTitle, $pos+$var+1, '…');
-            }
-          }
-          for($var = 1; $var <= 3; $var++) {
-            if ($projectTitle[$pos-$var] == ' ' || ($projectTitle[$pos+$var] == '')) {
-              return makeShortString($projectTitle, $pos-$var+1, '…');
-            }
-          }
-        }
-        return makeShortString($projectTitle, $pos, '…');
-        
-      }
-    }
-    return makeShortString($projectTitle, 9, '…');
-  }
-  
   private function generateOutput($projects, $mask=PROJECT_MASK_DEFAULT, $total=0) {
     $tempProjectList = array();
     foreach($projects as $project) {
@@ -409,7 +329,7 @@ class projects extends CoreAuthenticationNone {
         $currentProject['ProjectName'] = $project['title'];
       }
       if(in_array('ProjectNameShort', $selectedFields)) {
-        $currentProject['ProjectNameShort'] = $this->shortString($project['title']);//makeShortString($project['title'], 9, '…');
+        $currentProject['ProjectNameShort'] = $project['title'];//makeShortString($project['title'], 9, '…');
       }
       if(in_array('ScreenshotBig', $selectedFields)) {
         $currentProject['ScreenshotBig'] = str_replace(BASE_PATH, "", getProjectImageUrl($project['id']));
