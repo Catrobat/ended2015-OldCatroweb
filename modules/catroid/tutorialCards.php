@@ -21,21 +21,21 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
+class tutorialCards extends CoreAuthenticationNone {
+  public function __construct() {
+    parent::__construct();
+    $this->addCss('tutorialCards.css');
+    $this->setWebsiteTitle($this->languageHandler->getString('title'));
+  }
+
+  public function __default() {
+    
+  }
+
+ 
+  public function __destruct() {
+    parent::__destruct();
+  }
+}
 ?>
-<article>
-  <div class="header">
-    <div class="headerLarge">
-      <?php echo $this->languageHandler->getString('title'); ?>
-    </div>  
-     <div class="headerSmall">
-    &nbsp;<?php echo $this->languageHandler->getString('head_text'); ?>
-    </div>  
-  </div> 
-  <div class="clear"></div>
-  <div class="tutorialMain"></div>
-   
-    <div class="tutorialMainContent">
-      
-  </div>  <!--  license Main -->
-  <div class="projectSpacer"></div>
-</article>

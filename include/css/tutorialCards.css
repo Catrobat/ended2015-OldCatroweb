@@ -33,42 +33,26 @@
   text-shadow: #000000 1px 1px 1px;
   margin-top: 0.55em;
   margin-bottom: 0.8em;
-  
-  
 }
 
-#wrapper article div.headerLarge {
-  text-transform: uppercase;
-  float: left;
-}
-
-#wrapper article div.headerSmall {
-  text-transform: none;
-  
-}
-
-#wrapper article div.clear {
-  clear: both;
-}
-
-#wrapper article div.tutorialMain {
+#wrapper article div.tutorialCardsMain {
   margin-top: 0.2em;
   overflow: hidden;
 }
 
-#wrapper article div.tutorialMainHeader {
+#wrapper article div.tutorialCardsMainHeader {
   text-align: left;
   margin-bottom: 0.5em;
   margin-left: 0.8em;
 }
 
-#wrapper article div.tutorialMainContent {
+#wrapper article div.tutorialCardsMainContent {
   display: block;
   margin: 0 auto;
 }
 
 
-#wrapper article div.tutorialMainContentDetail {
+#wrapper article div.tutorialCardsMainContentDetail {
   text-align: left; 
   display: inline-block;
   margin: 0.6em 1em 1.6em 1em;
@@ -84,25 +68,25 @@
   font-weight: bold;
 }
 
-#wrapper article img.tutorialThumbs {
+#wrapper article img.tutorialCardsThumbs {
   width: 80px;
   height: 80px;
   margin-bottom: 0.5em; 
   border: 2px solid #17a5b8;
 }
 
-#wrapper article .tutorialTitle {  
+#wrapper article .tutorialCardsTitle {  
   white-space: nowrap;
   overflow: hidden;
 }
  
  @media screen and (max-width: 1280px) {
  
- #wrapper article div.tutorialMainContent {
+ #wrapper article div.tutorialCardsMainContent {
    text-align: left;
  }
  
- #wrapper article div.tutorialMainContentDetail {
+ #wrapper article div.tutorialCardsMainContentDetail {
    margin: 0.6em 0.8em 1.6em 0.8em;
  }
  
@@ -110,11 +94,11 @@
 
 @media screen and (max-width: 720px) {
  
- #wrapper article div.tutorialMainContent {
+ #wrapper article div.tutorialCardsMainContent {
   text-align: left;
  }
  
- #wrapper article div.tutorialMainContentDetail {
+ #wrapper article div.tutorialCardsMainContentDetail {
    margin: 0.6em 1em 1.6em 1em;
  }
 }

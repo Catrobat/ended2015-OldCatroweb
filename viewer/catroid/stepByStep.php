@@ -26,10 +26,7 @@
   <div class="header">
     <div class="headerLarge">
       <?php echo $this->languageHandler->getString('title'); ?>
-    </div>  
-     <div class="headerSmall">
-    &nbsp;<?php echo $this->languageHandler->getString('head_text'); ?>
-    </div>  
+    </div>     
   </div> 
   <div class="clear"></div>
   <div class="tutorialMain"></div>

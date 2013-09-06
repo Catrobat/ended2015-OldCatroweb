@@ -22,8 +22,12 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-	<string name="title">Help -</string>
-  <string name="head_text">Get Started with Pocket Code</string>
+	<string name="title">Starter Programs</string>
+  <string name="head_text">This cards show you how to use effective bricks in Pocket Code.</string>
+  
+  <string name="group1">Games</string>
+  <string name="group2">Animations</string>
+  <string name="group3">Interactive Art and Stories</string>
   
 	<string name="project1_short">Glide</string>
 	<string name="project1">Glide</string>
