@@ -62,11 +62,80 @@
   margin-left: 0.8em;
 }
 
-#wrapper article div.tutorialMainContent {
+#wrapper article div.tutorialTopContainer {
   display: block;
+  width: 100%;
   margin: 0 auto;
 }
 
+#wrapper article div.tutorialBottomContainer {
+  display: block;
+  width: 100%;
+  margin: 0 auto;
+  margin-top: 3em;
+}
+
+#wrapper article div.tutorialTopLeft {
+  float: left;
+  width: 400px;
+  text-align: center;
+  background-color: gray;
+}
+
+#wrapper article div.tutorialTopCenter {
+  float: left;
+  background-color: blue;
+  width: 21%;
+}
+
+#wrapper article div.tutorialTopRight {
+  float: left;
+  width: 400px;
+  text-align: center;
+  background-color: gray;
+}
+
+#wrapper article div.tutorialBottomLeft {
+  float: left;
+  width: 400px;
+  text-align: center;
+  background-color: gray;
+}
+
+#wrapper article div.tutorialLeft {
+  float: left;
+  width: 150px;
+  text-align: center;
+  background-color: green;
+}
+
+#wrapper article div.tutorialCenter {
+  float: left;
+  width: 25%;
+  text-align: center;
+  background-color: navy;
+}
+
+#wrapper article div.tutorialRight {
+  float: left;
+  width: 150px;
+  text-align: center;
+  background-color: green;
+}
+
+
+#wrapper article div.tutorialBottomCenter {
+  float: left;
+  background-color: blue;
+  width: 21%;
+}
+
+#wrapper article div.tutorialBottomRight {
+  float: left;
+  width: 400px;
+  text-align: center;
+  background-color: gray;
+}
 
 #wrapper article div.tutorialMainContentDetail {
   text-align: left; 
