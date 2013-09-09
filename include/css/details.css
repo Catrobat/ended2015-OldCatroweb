@@ -21,6 +21,26 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+#wrapper article h3 {
+  border: 0;
+  border-top: 1px solid #477889;
+  background-color: #00475d;
+  background-image: none;
+  color: #a8dff4;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em 0 0.07em 0.375em;
+  text-align: center;
+  text-shadow: #000000 1px 1px 1px;
+  margin-top: 1.55em;
+  margin-bottom: 0;
+}
+
+#wrapper article div.projectContainer {
+  background-color: #00475d;
+}
+
 #projectDetailsContainer {
   margin-left: 1%;
   margin-right: 1%;

@@ -40,8 +40,9 @@ class details extends CoreAuthenticationNone {
     
     $this->setWebsiteTitle($this->project['title']);
     
-    $this->remixedProject = $this->getRemixedProject();
+    $this->remixOfProject = $this->getRemixOfProject();
     $this->numberOfRemixes = $this->getNumberOfRemixes();
+    $this->remixedProjects = $this->getRemixedProjects();
   }
 
   public function getProjectDetails($projectId) {
@@ -124,7 +125,7 @@ class details extends CoreAuthenticationNone {
     return array('show' => true, 'message' => "");
   }
   
-  public function getRemixedProject() {
+  public function getRemixOfProject() {
     $result = pg_execute($this->dbConnection, "get_remixof_id", array($this->project['remixof'])) or
               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     
@@ -132,10 +133,16 @@ class details extends CoreAuthenticationNone {
   }
   
   public function getNumberOfRemixes() {
-    $result = pg_execute($this->dbConnection, "get_num_remixes_of_program", array($this->project['id'])) or
+    $result = pg_execute($this->dbConnection, "get_remixes_of_program", array($this->project['id'])) or
               $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     
     return pg_num_rows($result);
+  }
+  
+  public function getRemixedProjects() {
+    $result = pg_execute($this->dbConnection, "get_remixes_of_program", array($this->project['id'])) or 
+              $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    return pg_fetch_all($result);
   }
   
   public function __destruct() {

@@ -44,4 +44,6 @@
   <string name="no_description_available">No description available.</string>
   <string name="remix_of">Remix of</string>
   <string name="remixes">remixes</string>
+  <string name="remixes_of">Remixes of</string>
+  <string name="showMore">show more</string>
 </strings>

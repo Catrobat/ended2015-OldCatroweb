@@ -110,7 +110,7 @@
         <li>
           <div class="img-views"></div>
           <div class="projectDetailsInformationText">
-            <?php echo $this->languageHandler->getString('remix_of'); ?> <a href="<?php echo BASE_PATH; ?>details/<?php echo $this->remixedProject['id']; ?>"><?php echo $this->remixedProject['title']; ?></a>
+            <?php echo $this->languageHandler->getString('remix_of'); ?> <a href="<?php echo BASE_PATH; ?>details/<?php echo $this->remixOfProject['id']; ?>"><?php echo $this->remixOfProject['title']; ?></a>
           </div>
         </li>
         <?php } ?>
@@ -155,10 +155,46 @@
       </div>
     <?php endif; ?>
     </div>
+    
+    <?php if($this->project[remix_count] != 0) : ?>
+    <div style="clear: both;"></div>
+    <h3><?php echo $this->languageHandler->getString('remixes_of') . ' ' . $this->project['title']; ?></h3>
+    <div id="remixesProjectContainer" class="projectContainer">
+    </div>
+    <div id="remixesProjectLoader" class="projectFooter">
+      <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
+      <p>&nbsp;</p>
+    </div>
+    <div id="moreResultsRemixes" class="projectFooter">
+      <div class="img-load-more"></div>
+      <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+    </div>
+    <div class="projectSpacer"></div>
+    <?php endif; ?>
+    
   </div>
 </article>
 <script type="text/javascript">
   $(document).ready(function() {
-    Details = new ProjectDetails();
+    var remixedProjects = new Array();
+
+    <?php
+    for($i=0; $i < count($this->remixedProjects); $i++) {
+      echo "remixedProjects[$i] = {
+        'id':       '". $this->remixedProjects[$i]['id'] ."', 
+        'title':    '". $this->remixedProjects[$i]['title'] ."',
+        'remix_count':  '". $this->remixedProjects[$i]['remix_count'] ."',
+      ";
+      
+      if(file_exists(BASE_PATH . "resources/thumbnails/". $this->remixedProjects[$i]['id'] . "_small.png'"))
+        echo "'thumbnail':'". BASE_PATH ."resources/thumbnails/". $this->remixedProjects[$i]['id'] ."_small.png',";
+      else
+        echo "'thumbnail':'". BASE_PATH ."resources/thumbnails/thumbnail_small.png',";
+      
+      echo "};";
+    } 
+    ?>
+
+    Details = new ProjectDetails(remixedProjects);
   });
 </script>

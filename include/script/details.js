@@ -23,10 +23,11 @@
 
 var ProjectDetails = Class.$extend( {
   __include__ : [__baseClassVars],
-  __init__ : function(projectId) {
+  __init__ : function(remixedProjects, projectId) {
     this.downloadState = { 'selected': 0, 'catroid': 0, 'app': 1 };
     this.downloadInfoVisible = false;
     this.projectId = projectId;
+    this.remixedProjects = remixedProjects;
 
 //    $("#downloadCatroidSwitch").bind('click', { type: this.downloadState.catroid }, $.proxy(this.changeDownloadType, this));
 //    $("#downloadAppSwitch").bind('click', { type: this.downloadState.app }, $.proxy(this.changeDownloadType, this));
@@ -51,6 +52,8 @@ var ProjectDetails = Class.$extend( {
     window.onload = $.proxy(function(){
       $.proxy(this.resizeColumnsAndText(), this);
     }, this);
+    
+    this.setUpRemixContainer();
   },
 
   reportInappropriateCatchKeypress : function(event) {
@@ -171,6 +174,43 @@ var ProjectDetails = Class.$extend( {
       var fontsize = parseFloat(elem.css('font-size')) + 2.0;
       elem.css('font-size', parseFloat(fontsize) + "px" );
     }
-  }
+  },
+  
+  setUpRemixContainer : function() {
+    $('#remixesProjectLoader').css({'display':'none'});
+    $('#moreResultsRemixes').css({'display':'none'});
+    
+    $('#moreResultsRemixes').click(function(){
+      $(this).css({'display':'none'});
+      $('#remixesProjectLoader').css({'display':'block'});
+    });
+    
+    var ul = document.createElement('ul');
+    ul.style.height = 'auto';
+    $('#remixesProjectContainer').append(ul);
+    
+    var numRemixes = this.remixedProjects.length;
+    
+    for(var i = 0; i < numRemixes; i++) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      var img = document.createElement('img');
+      var div_title = document.createElement('div');
+      var div_addition = document.createElement('div');
+      div_title.className = 'projectTitle';
+      div_addition.className = 'projectAddition';
+      
+      a.href = this.remixedProjects[i]['id'];
+      img.src = this.remixedProjects[i]['thumbnail'];
+      div_title.innerText = this.remixedProjects[i]['title'];
+      div_addition.innerText = this.remixedProjects[i]['remix_count'] + ' remixes';
+      
+      ul.appendChild(li);
+      li.appendChild(a);
+      a.appendChild(img);
+      a.appendChild(div_title);
+      a.appendChild(div_addition);
+    }
+  },
 
 });
