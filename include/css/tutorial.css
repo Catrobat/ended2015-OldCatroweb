@@ -79,12 +79,16 @@
   float: left;
   width: 400px;
   text-align: center;
-  background-color: gray;
+  height: 200px;
+  /* background-color: gray; */
+  background-image: url("../resources/featured/1.png");
+  background-repeat: no-repeat;
 }
 
 #wrapper article div.tutorialTopCenter {
   float: left;
   background-color: blue;
+  height: 200px;
   width: 21%;
 }
 
@@ -92,7 +96,9 @@
   float: left;
   width: 400px;
   text-align: center;
-  background-color: gray;
+  background-image: url("../resources/featured/1.png");
+  background-repeat: no-repeat;
+  height: 200px;
 }
 
 #wrapper article div.tutorialBottomLeft {

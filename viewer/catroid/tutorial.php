@@ -35,23 +35,23 @@
   <div class="tutorialMain">
    
     <div class="tutorialTopContainer">
-     <div class="tutorialTopLeft"><a href="/stepByStep"><img src="#" /></a></div>
+     <div class="tutorialTopLeft"><a href="/stepByStep"></a></div>
      <div class="tutorialTopCenter">&nbsp;</div>
-     <div class="tutorialTopRight"><a href="/stepByStep"><img src="#" /></a></div>
+     <div class="tutorialTopRight"><a href="/stepByStep"></a></div>
     </div> 
-    
+    <div class="clear"></div>
     <div class="tutorialBottomContainer">
      <div class="tutorialBottomLeft">
-       <div class="tutorialLeft"><a href="/tutorialCards"><img src="#" /></a></div>
+       <div class="tutorialLeft"><a href="/tutorialCards"><img src="resources/featured/1.png" /></a></div>
        <div class="tutorialCenter">&nbsp;</div>
-       <div class="tutorialRight"><a href="/tutorialCards"><img src="#" /></a></div>
+       <div class="tutorialRight"><a href="/tutorialCards"><img src="resources/featured/1.png" /></a></div>
      
      </div>
      <div class="tutorialBottomCenter">&nbsp;</div>
      <div class="tutorialBottomRight">
-       <div class="tutorialLeft"><a href="/starterProjects"><img src="#" /></a></div>
+       <div class="tutorialLeft"><a href="/starterProjects"><img src="resources/featured/1.png" /></a></div>
        <div class="tutorialCenter">&nbsp;</div>
-       <div class="tutorialRight"><a href="/starterProjects"><img src="#" /></a></div>     
+       <div class="tutorialRight"><a href="/starterProjects"><img src="resources/featured/1.png" /></a></div>     
      </div>
     </div> 
   </div> <!--  license Main -->
