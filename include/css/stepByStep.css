@@ -49,29 +49,14 @@
   clear: both;
 }
 
-#wrapper article div.tutorialMain {
+#wrapper article div.stepByStepMain {
   margin-top: 0.2em;
   overflow: hidden;
 }
 
-#wrapper article div.tutorialMainHeader {
-  text-align: left;
-  margin-bottom: 0.5em;
-  margin-left: 0.8em;
-}
-
-#wrapper article div.tutorialMainContent {
+#wrapper article div.stepByStepMainContent {
   display: block;
   margin: 0 auto;
-}
-
-
-#wrapper article div.tutorialMainContentDetail {
-  text-align: left; 
-  display: inline-block;
-  margin: 0.6em 1em 1.6em 1em;
-  font-size: 0.8em;
-  font-weight: bold;
 }
 
 #wrapper article a {
@@ -81,39 +66,19 @@
   font-size: 1em;
   font-weight: bold;
 }
-
-#wrapper article img.tutorialThumbs {
-  width: 80px;
-  height: 80px;
-  margin-bottom: 0.5em; 
-  border: 2px solid #17a5b8;
-}
-
-#wrapper article .tutorialTitle {  
-  white-space: nowrap;
-  overflow: hidden;
-}
  
  @media screen and (max-width: 1280px) {
  
- #wrapper article div.tutorialMainContent {
+ #wrapper article div.stepByStepMainContent {
    text-align: left;
- }
- 
- #wrapper article div.tutorialMainContentDetail {
-   margin: 0.6em 0.8em 1.6em 0.8em;
  }
  
 }
 
 @media screen and (max-width: 720px) {
  
- #wrapper article div.tutorialMainContent {
+ #wrapper article div.stepByStepMainContent {
   text-align: left;
- }
- 
- #wrapper article div.tutorialMainContentDetail {
-   margin: 0.6em 1em 1.6em 1em;
  }
 }
 

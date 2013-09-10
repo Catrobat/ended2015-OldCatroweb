@@ -133,5 +133,11 @@
     <string name="is_ip_blocked_temporarily">SELECT ip_address FROM blocked_ips_temporary WHERE substr($1, 1, length(ip_address)) = ip_address AND blocked_until >= current_timestamp</string>
     <string name="set_remixof_id">UPDATE projects SET remixof=$1 WHERE id=$2</string>
     <string name="get_remixof_id">SELECT * FROM projects WHERE id=$1</string>
+    
+    <string name="get_starterProjectIds_group1">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=1</string>
+    <string name="get_starterProjectIds_group2">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=2</string>
+    <string name="get_starterProjectIds_group3">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=3</string>
+    
+    <string name="get_starterProjects_group">SELECT * FROM projects WHERE projects.id=$1 AND visible=true</string>
 
 </statements>

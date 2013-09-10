@@ -49,9 +49,9 @@
      </div>
      <div class="tutorialBottomCenter">&nbsp;</div>
      <div class="tutorialBottomRight">
-       <div class="tutorialLeft"><a href="/starterProjects"><img src="resources/featured/1.png" /></a></div>
+       <div class="tutorialLeft"><a href="/starterPrograms"><img src="resources/featured/1.png" /></a></div>
        <div class="tutorialCenter">&nbsp;</div>
-       <div class="tutorialRight"><a href="/starterProjects"><img src="resources/featured/1.png" /></a></div>     
+       <div class="tutorialRight"><a href="/starterPrograms"><img src="resources/featured/1.png" /></a></div>     
      </div>
     </div> 
   </div> <!--  license Main -->

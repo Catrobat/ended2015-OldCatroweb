@@ -29,9 +29,9 @@
     </div>     
   </div> 
   <div class="clear"></div>
-  <div class="tutorialMain"></div>
+  <div class="stepByStepMain"></div>
    
-    <div class="tutorialMainContent">
+    <div class="stepByStepMainContent">
       
   </div>  <!--  license Main -->
   <div class="projectSpacer"></div>
