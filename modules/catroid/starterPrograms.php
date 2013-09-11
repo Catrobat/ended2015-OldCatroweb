@@ -76,10 +76,12 @@ class starterPrograms extends CoreAuthenticationNone {
 
       $tmp = pg_fetch_object($tmp);
       
-      if(!is_file(CORE_BASE_PATH."resources/thumbnails".$tmp->id."_small.png"))
+      $file = BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
+
+      if(!file_exists($file))
         $tmp->thumb = BASE_PATH."resources/thumbnails/thumbnail_small.png";
       else
-        $tmp->thumb = BASE_PATH."resources/thumbnails".$tmp->id."_small.png";
+        $tmp->thumb = BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
       
       array_push($result["group1"], $tmp);
     }
@@ -90,10 +92,12 @@ class starterPrograms extends CoreAuthenticationNone {
     
       $tmp = pg_fetch_object($tmp);
       
-      if(!is_file(CORE_BASE_PATH."resources/thumbnails".$tmp->id."_small.png"))
+      $file = BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
+      
+      if(!file_exists($file))
         $tmp->thumb = BASE_PATH."resources/thumbnails/thumbnail_small.png";
       else
-        $tmp->thumb = BASE_PATH."resources/thumbnails".$tmp->id."_small.png";
+        $tmp->thumb = BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
       
       array_push($result["group2"], $tmp);
     }
@@ -104,10 +108,12 @@ class starterPrograms extends CoreAuthenticationNone {
     
       $tmp = pg_fetch_object($tmp);
       
-      if(!is_file(CORE_BASE_PATH."resources/thumbnails".$tmp->id."_small.png"))
+      $file = BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
+      
+      if(!file_exists($file))
         $tmp->thumb = BASE_PATH."resources/thumbnails/thumbnail_small.png";
       else
-        $tmp->thumb = BASE_PATH."resources/thumbnails".$tmp->id."_small.png";
+        $tmp->thumb = BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
       
       array_push($result["group3"], $tmp);
     }  
