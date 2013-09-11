@@ -52,11 +52,83 @@
 #wrapper article div.stepByStepMain {
   margin-top: 0.2em;
   overflow: hidden;
+  width: 100%;
 }
 
-#wrapper article div.stepByStepMainContent {
+#wrapper article div.stepByStepMainContent1 {
   display: block;
   margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+}
+
+#wrapper article div.stepByStepMainContent2 {
+  display: none;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+}
+
+#wrapper article div.stepByStepMainContent3 {
+  display: none;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+}
+
+#wrapper article div.stepByStepMainContent4 {
+  display: none;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+}
+
+#wrapper article div.stepByStepMainContent5 {
+  display: none;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+}
+
+#wrapper article div.stepByStepMainContent6 {
+  display: none;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+}
+
+#wrapper article div.stepByStepMainContent7 {
+  display: none;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+}
+
+#wrapper article div.stepByStepMainContent8 {
+  display: none;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+}
+
+#wrapper article div.stepByStepMainContent9 {
+  display: none;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+}
+
+#wrapper article div.stepByStepMainContent10 {
+  display: none;
+  margin: 0 auto;
+  width: 80%;
+  background-color: #000;
+}
+
+#wrapper article div.stepByStepNavigation {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
 }
 
 #wrapper article a {

@@ -21,3 +21,46 @@
  *along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
+var currentSlide = 1;
+
+function changeContainer(slide) {
+  
+  currentSlide = slide;
+  
+  for(var i=1;i<=11;i++) {
+    if(i === slide) {
+      $(".stepByStepMainContent"+i).css("display", "block");
+      $(".navigation"+i).css("color", "#FFFFFF");
+    }
+    else {
+      $(".stepByStepMainContent"+i).css("display", "none");
+      $(".navigation"+i).css("color", "#17a5b8");
+    }
+  }  
+}
+
+function decrementContainer() {
+  
+  if(currentSlide >1) {  
+    $(".stepByStepMainContent"+(currentSlide-1)).css("display", "block");
+    $(".navigation"+(currentSlide-1)).css("color", "#FFFFFF");
+    
+    $(".stepByStepMainContent"+currentSlide).css("display", "none");
+    $(".navigation"+currentSlide).css("color", "#17a5b8");
+    
+    currentSlide -= 1;
+  }
+}
+
+function incrementContainer() {
+  
+  if(currentSlide < 10) {
+    $(".stepByStepMainContent"+(currentSlide+1)).css("display", "block");
+    $(".navigation"+(currentSlide+1)).css("color", "#FFFFFF");
+    
+    $(".stepByStepMainContent"+currentSlide).css("display", "none");
+    $(".navigation"+currentSlide).css("color", "#17a5b8");
+    
+    currentSlide += 1;
+  }
+}

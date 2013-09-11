@@ -39,8 +39,6 @@ class starterPrograms extends CoreAuthenticationNone {
     
     $this->projectsGrouped = $this->getGroupedProjects($starterProjectsIdGroup1, $starterProjectsIdGroup2, $starterProjectsIdGroup3);
     
-//     var_dump($this->projects["group1"][0]->id);
-    
   }
   
   public function getStarterProjects() {
@@ -87,7 +85,7 @@ class starterPrograms extends CoreAuthenticationNone {
     }
     
     for($i=0;isset($starterProjectsIdGroup2[$i]);$i++) {
-      $tmp = pg_execute($this->dbConnection, "get_starterProjects_group", array($starterProjectsIdGroup1[$i]['project_id'])) or
+      $tmp = pg_execute($this->dbConnection, "get_starterProjects_group", array($starterProjectsIdGroup2[$i]['project_id'])) or
       $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     
       $tmp = pg_fetch_object($tmp);
@@ -101,7 +99,7 @@ class starterPrograms extends CoreAuthenticationNone {
     }
     
     for($i=0;isset($starterProjectsIdGroup3[$i]);$i++) {
-      $tmp = pg_execute($this->dbConnection, "get_starterProjects_group", array($starterProjectsIdGroup1[$i]['project_id'])) or
+      $tmp = pg_execute($this->dbConnection, "get_starterProjects_group", array($starterProjectsIdGroup3[$i]['project_id'])) or
       $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     
       $tmp = pg_fetch_object($tmp);

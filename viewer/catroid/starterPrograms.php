@@ -21,6 +21,7 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
+
 ?>
 <article>
   <div class="header">
@@ -40,6 +41,10 @@
           <a class="starterProjectsLinkStyle" href="/details/<?php echo $this->projectsGrouped["group1"][$i]->id; ?>">
             <img class="starterProjectsThumbs" src="<?php echo $this->projectsGrouped["group1"][$i]->thumb; ?>" title="<?php echo $this->projectsGrouped["group1"][$i]->title; ?>" />
             <div class="starterProjectsTitle"><?php echo $this->projectsGrouped["group1"][$i]->title; ?></div>
+            <div class="starterProjectsAdditional">
+            <div class="starterProjectsTime"></div>
+              <?php echo $this->projectsGrouped["group1"][$i]->download_count; ?>
+            </div>
           </a>
         </div>
         <?php } ?>
@@ -51,8 +56,12 @@
         ?>
         <div class="starterProjectsMainContentDetail">
           <a class="starterProjectsLinkStyle" href="/details/<?php echo $this->projectsGrouped["group2"][$i]->id; ?>">
-            <img class="starterProjectsThumbs" src="<?php echo $this->projectsGrouped["group2"][$i]->thumb; ?>" title="<?php echo $this->projectsGrouped["group1"][$i]->title; ?>" />
+            <img class="starterProjectsThumbs" src="<?php echo $this->projectsGrouped["group2"][$i]->thumb; ?>" title="<?php echo $this->projectsGrouped["group2"][$i]->title; ?>" />
             <div class="starterProjectsTitle"><?php echo $this->projectsGrouped["group2"][$i]->title; ?></div>
+            <div class="starterProjectsAdditional">
+            <div class="starterProjectsTime"></div>
+              <?php echo $this->projectsGrouped["group2"][$i]->download_count; ?>
+            </div>
           </a>
         </div>
         <?php } ?>
@@ -66,6 +75,10 @@
           <a class="starterProjectsLinkStyle" href="/details/<?php echo $this->projectsGrouped["group3"][$i]->id; ?>">
             <img class="starterProjectsThumbs" src="<?php echo $this->projectsGrouped["group3"][$i]->thumb; ?>" title="<?php echo $this->projectsGrouped["group3"][$i]->title; ?>" />
             <div class="starterProjectsTitle"><?php echo $this->projectsGrouped["group3"][$i]->title; ?></div>
+            <div class="starterProjectsAdditional">
+            <div class="starterProjectsTime"></div>
+              <?php echo $this->projectsGrouped["group3"][$i]->download_count; ?>
+            </div>
           </a>
         </div>
         <?php } ?>

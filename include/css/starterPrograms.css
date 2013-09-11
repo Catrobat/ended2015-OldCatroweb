@@ -86,8 +86,31 @@
 }
 
 #wrapper article .starterProjectsTitle {  
-  white-space: nowrap;
+/*   white-space: nowrap;
+  overflow: hidden; */
+  
+  text-align: left;
+  font-weight: bold;
+  margin-top: 0.5em;
   overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#wrapper article .starterProjectsAdditional {
+  text-align: left;
+  font-size: 0.8em;
+  font-weight: lighter;
+  line-height: 1.6;
+}
+
+#wrapper article .starterProjectsTime {
+  float: left;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -162px 0px;
+  width: 19px;
+  height: 18px;
+  margin-right: 3px;
 }
  
  @media screen and (max-width: 1280px) {

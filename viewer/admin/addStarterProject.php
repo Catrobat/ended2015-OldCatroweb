@@ -26,11 +26,11 @@
 <body>
   <script type="text/javascript">
   function submitAddForm(id, name) {
-    if (confirm("Add featured project '"+name+"'?"))
+    if (confirm("Add starter project '"+name+"'?"))
       document.getElementById(id).submit();
   }
   </script>
-  <h2>Administration Tools - Add Featured Projects</h2>
+  <h2>Administration Tools - Add Starter Projects</h2>
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
   <?php if($this->answer) {
     echo 'Answer:<br/>'.$this->answer.'<br /><br/>';
@@ -47,7 +47,7 @@
           <th>Visible</th>
           <th>Add</th>
         </tr>
-      <?php
+      <?php   
         if($this->projects) {
         foreach($this->projects as $project) {?>
         <tr>
@@ -63,16 +63,22 @@
                   
           <td>
           <?php 
-            if($this->starterProjectIds && in_array($project['id'], $this->starterProjectIds)) {
+            if($this->featuredProjectIds && in_array($project['id'], $this->featuredProjectIds)) {
               ?>
-              already added 
+              already featured 
            <?php 
             }
           else{ ?>
-          <form id="addform<?php echo $project['id']?>" class="admin" action="addFeaturedProject" method="POST">
+          <form id="addform<?php echo $project['id']?>" class="admin" action="addStarterProject" method="POST">
+              <select name="group">
+                <option value="1">Games</option>
+                <option value="2">Animations</option>
+                <option value="3">Interactive Art and Stories</option>
+              </select>
+              <input type="hidden" name="visible" value="<?php echo $project['visible']?>"/>
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
               <input type="hidden" name="add" value="add"/>
-              <input type="button" value="feature" name="addButton" id="add<?php echo $project['id']?>" onclick="javascript:submitAddForm('addform<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" /> <!-- chg -->
+              <input type="button" value="add" name="addButton" id="add<?php echo $project['id']?>" onclick="javascript:submitAddForm('addform<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" /> <!-- chg -->
             </form>
             <?php 
             }

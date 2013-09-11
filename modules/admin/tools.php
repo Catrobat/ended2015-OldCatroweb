@@ -150,6 +150,43 @@ class tools extends CoreAuthenticationAdmin {
     $this->htmlFile = "editProjectList.php";
     $this->projects = $this->retrieveAllProjectsFromDatabase();
   }
+  
+  public function addStarterProject() {
+    if(isset($_POST['add'])) {
+      $id = $_POST['projectId'];
+      $group = $_POST['group'];
+      $visible = $_POST['visible'];
+      $query = "EXECUTE get_starter_project_by_id('$id');";
+      $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+      
+      if($result && pg_affected_rows($result) == 0) {
+        $query = "EXECUTE insert_new_starter_project('$id', '$visible', '$group');";
+        $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+        
+        if($result && pg_affected_rows($result) == 1) {
+          $answer = "The starter project was added!";
+        }
+        else {
+          $answer = "The starter project could NOT be added!";
+        }
+      }
+      else {
+        $answer = "This project is already a starter project!";
+      }
+      $this->answer = $answer;
+    }
+  
+    $this->htmlFile = "addStarterProject.php";
+    $this->projects = $this->retrieveAllProjectsFromDatabase();
+    $this->starterProjects = $this->retrieveAllStarterProjectsFromDatabase();
+    $starterProjectIds = array();
+    if($this->starterProjects) {
+      foreach($this->starterProjects as $sp) {
+        array_push($starterProjectIds, $sp['project_id']);;
+      }
+      $this->starterProjectIds = $starterProjectIds;
+    }
+  }
 
   public function addFeaturedProject() {
     if(isset($_POST['add'])) {
@@ -549,6 +586,20 @@ class tools extends CoreAuthenticationAdmin {
     }
     return($projects);
   }
+  
+  private function retrieveAllStarterProjectsFromDatabase() {
+    $query = 'EXECUTE get_starter_projects_admin_ordered_by_update_time;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $projects =  pg_fetch_all($result);   
+    
+    pg_free_result($result);
+//     if($projects) {
+//       for($i=0;$i<count($projects);$i++) {
+//         $projects[$i]['image'] = getFeaturedProjectImageUrl($projects[$i]['project_id']);
+//       }
+//     }
+    return($projects);
+  }
 
   private function retrieveAllFeaturedProjectsFromDatabase() {
     $query = 'EXECUTE get_featured_projects_admin_ordered_by_update_time;';
@@ -700,19 +751,33 @@ class tools extends CoreAuthenticationAdmin {
 
   public function hideProject($id) {
     $query = "EXECUTE hide_project('$id');";
+    $query1 = "EXECUTE hide_starter_project('$id');";
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if($result) {
       pg_free_result($result);
     }
+    
+    $result1 = @pg_query($query1) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result1) {
+      pg_free_result($result1);
+    }
+    
     return $result;
   }
 
   public function showProject($id) {
     $query = "EXECUTE show_project('$id');";
+    $query1 = "EXECUTE show_starter_project('$id');";
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if($result) {
       pg_free_result($result);
     }
+    
+    $result1 = @pg_query($query1) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result1) {
+      pg_free_result($result1);
+    }
+    
     return $result;
   }
 

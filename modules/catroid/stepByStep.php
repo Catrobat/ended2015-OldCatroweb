@@ -26,6 +26,7 @@ class stepByStep extends CoreAuthenticationNone {
   public function __construct() {
     parent::__construct();
     $this->addCss('stepByStep.css');
+    $this->addJs('stepByStep.js');
     $this->setWebsiteTitle($this->languageHandler->getString('title'));
   }
 

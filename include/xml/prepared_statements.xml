@@ -42,11 +42,16 @@
     <string name="get_visible_featured_projects">SELECT project_id FROM featured_projects WHERE visible=true</string>
     <string name="edit_featured_project_visibility_by_id">UPDATE featured_projects SET update_time=DEFAULT, visible=$2 WHERE id=$1 RETURNING id</string> 
     <string name="delete_featured_project_by_id">DELETE FROM featured_projects WHERE id=$1</string>
+    <string name="get_starter_project_by_id">SELECT p.id as project_id, p.title, p.description, p.user_id, c.username, sp.* FROM starter_projects as sp JOIN projects as p ON (sp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) WHERE sp.project_id=$1 ORDER BY sp.updated_time DESC LIMIT 1</string>
+    <string name="get_starter_projects_admin_ordered_by_update_time">SELECT p.id as project_id, p.title, p.description, p.user_id, p.download_count, p.view_count, c.username AS uploaded_by, sp.* FROM starter_projects as sp JOIN projects as p ON (sp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY sp.updated_time DESC</string>
+    <string name="insert_new_starter_project">INSERT INTO starter_projects (project_id, visible, "group") VALUES ($1, $2, $3)</string>
     <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, user_id, reason, user_ip) VALUES ($1, $2, $3, $4)</string>
     <string name="get_flags_for_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND resolved=false</string>
     <string name="hide_project">UPDATE projects SET visible=false WHERE id=$1</string>
     <string name="hide_user_project">UPDATE projects SET visible=false WHERE id=$1 AND user_id=$2</string>
     <string name="show_project">UPDATE projects SET visible=true WHERE id=$1</string>
+    <string name="hide_starter_project">UPDATE starter_projects SET visible=false WHERE project_id=$1</string>
+    <string name="show_starter_project">UPDATE starter_projects SET visible=true WHERE project_id=$1</string>
     <string name="set_mail_sent_on_inappropriate">UPDATE flagged_projects SET mail_sent=true WHERE project_id=$1</string>
     <string name="set_resolved_on_inappropriate">UPDATE flagged_projects SET resolved=true WHERE project_id=$1</string>
     <string name="get_flagged_projects_ordered_by_uploadtime">
@@ -134,9 +139,9 @@
     <string name="set_remixof_id">UPDATE projects SET remixof=$1 WHERE id=$2</string>
     <string name="get_remixof_id">SELECT * FROM projects WHERE id=$1</string>
     
-    <string name="get_starterProjectIds_group1">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=1</string>
-    <string name="get_starterProjectIds_group2">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=2</string>
-    <string name="get_starterProjectIds_group3">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=3</string>
+    <string name="get_starterProjectIds_group1">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=1 AND visible=true</string>
+    <string name="get_starterProjectIds_group2">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=2 AND visible=true</string>
+    <string name="get_starterProjectIds_group3">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=3 AND visible=true</string>
     
     <string name="get_starterProjects_group">SELECT * FROM projects WHERE projects.id=$1 AND visible=true</string>
 

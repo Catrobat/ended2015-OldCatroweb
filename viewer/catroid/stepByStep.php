@@ -29,10 +29,45 @@
     </div>     
   </div> 
   <div class="clear"></div>
-  <div class="stepByStepMain"></div>
-   
-    <div class="stepByStepMainContent">
-      
-  </div>  <!--  license Main -->
+  <div class="stepByStepMain">
+    <div class="stepByStepMainContent1">
+      1
+    </div>
+    <div class="stepByStepMainContent2">
+      2
+    </div>
+    <div class="stepByStepMainContent3">
+      3
+    </div>
+    <div class="stepByStepMainContent4">
+      4
+    </div>
+    <div class="stepByStepMainContent5">
+      5
+    </div>
+    <div class="stepByStepMainContent6">
+      6
+    </div>
+    <div class="stepByStepMainContent7">
+      7
+    </div>
+    <div class="stepByStepMainContent8">
+      8
+    </div>
+    <div class="stepByStepMainContent9">
+      9
+    </div>
+    <div class="stepByStepMainContent10">
+      10
+    </div>
+    <div class="stepByStepNavigation">
+      <a href="#" onclick="decrementContainer()"> < </a>
+      <?php for($i=1;$i<=10;$i++) {?>
+        <a class="navigation<?php echo $i; ?>" href="#" onclick="changeContainer(<?php echo $i; ?>);"><?php echo $i; ?></a>
+      <?php }?>
+      <a href="#" onclick="incrementContainer()"> > </a>
+    </div>
+  </div> 
+      <!--  license Main -->
   <div class="projectSpacer"></div>
 </article>
