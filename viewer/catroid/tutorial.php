@@ -34,24 +34,41 @@
   <div class="clear"></div>
   <div class="tutorialMain">
    
-    <div class="tutorialTopContainer">
-     <div class="tutorialTopLeft"><a href="/stepByStep">StepByStep</a></div>
-     <div class="tutorialTopRight"><a href="/stepByStep"><img class="stepByStepImg" src="resources/featured/1.png" /></a></div>
+    <div class="tutorialTopContainer" onclick="self.location.href='/stepByStep'">
+      <div class="tutorialHeader1">
+        Step By Step
+        <img src="images/symbols/step_by_step.png" />
+      </div>
+      <div style="clear: both;"></div>
+      <div class="tutorialText">
+      Do you want to program in Pocket Code?<br />
+      Do this in 10 steps. <img src="images/symbols/arrow_right.png" />
+      </div>
     </div> 
     <div class="clear"></div>
-    <div class="tutorialBottomContainer">
-     <div class="tutorialBottomLeft">
-       <div class="tutorialLeft"><a href="/tutorialCards"><img src="resources/featured/1.png" /></a></div>
-       <div class="tutorialCenter">&nbsp;</div>
-       <div class="tutorialRight"><a href="/tutorialCards"><img src="resources/featured/1.png" /></a></div>
-     
-     </div>
-     <div class="tutorialBottomCenter">&nbsp;</div>
-     <div class="tutorialBottomRight">
-       <div class="tutorialLeft"><a href="/starterPrograms"><img src="resources/featured/1.png" /></a></div>
-       <div class="tutorialCenter">&nbsp;</div>
-       <div class="tutorialRight"><a href="/starterPrograms"><img src="resources/featured/1.png" /></a></div>     
-     </div>
+    <div class="tutorialCardsContainer" onclick="self.location.href='/tutorialCards'">
+      <div class="tutorialHeader2">
+        Tutorial Cards
+        <img src="images/symbols/cards.png" />
+      </div>
+      <div class="tutorialText">
+        This Cards show you effective Tricks
+        in Pocket Code. 
+        <img src="images/symbols/arrow_right.png" />
+      </div>
+    </div>
+    <div class="break"></div>
+    <div class="tutorialStarterProgamsContainer" onclick="self.location.href='/starterPrograms'">
+      <div class="tutorialHeader3">
+        Starter Programs
+        <img src="images/symbols/starter.png" />
+      </div>
+      <div class="tutorialText1">
+      Try out these programs and
+      remix them. <img src="images/symbols/arrow_right.png" />
+      </div>
+    </div> 
+    <div class="clear"></div>
     </div> 
   </div> <!--  license Main -->
   <div class="projectSpacer"></div>

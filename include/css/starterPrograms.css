@@ -119,6 +119,11 @@
  
  @media screen and (max-width: 1280px) {
 
+  
+  #wrapper article div.starterProjectsMain {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
  
  #wrapper article div.starterProjectsMainContentDetail {
    margin: 0.6em 0.8em 1.6em 0.8em;
