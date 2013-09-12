@@ -24,7 +24,7 @@
 
 define('VERSION','0.7.0');
 define('MIN_CATROBAT_VERSION', '0.7.3beta');
-define('MIN_CATROBAT_LANGUAGE_VERSION', '0.8');
+define('MIN_CATROBAT_LANGUAGE_VERSION', '0.9');
 define('APPLICATION_NAME', 'Pocket Code');
 define('APPLICATION_URL_TEXT', 'PocketCode.org');
 // define('BASE_PATH',((!empty($_SERVER['HTTPS'])) ? 'https' : 'http').'://'.str_replace('//', '/', $_SERVER['SERVER_NAME'].str_replace('\\', '/', dirname($_SERVER['SCRIPT_NAME']).'/')));
