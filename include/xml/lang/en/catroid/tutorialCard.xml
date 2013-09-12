@@ -28,16 +28,15 @@
   <string name="headline3">Do it:</string>
   <string name="headline4">Extra Tip:</string>
 
-  <string name="project1">Glide</string>
-	<string name="project2">Sensors</string>
-	<string name="project3">Animation</string>
-	<string name="project4">Card4</string>
-	<string name="project5">Card5</string>
-	<string name="project6">Card6</string>
-	<string name="project7">Card7</string>
-	<string name="project8">Card8</string>
-	<string name="project9">Card9</string>
-	<string name="project10">Card10</string>
+	<string name="project1">Change Size</string>
+	<string name="project2">Change Look</string>
+	<string name="project3">Moving Animation</string>
+	<string name="project4">Glide</string>
+	<string name="project5">Play Sound</string>
+	<string name="project6">Speak Something</string>
+	<string name="project7">GSensor</string>
+	<string name="project8">Compass</string>
+	<string name="project9">Broadcast</string>
 
 	<string name="title">Tutorial Card</string>
 	<string name="project1_description">Move smoothly from one point to another.</string>
@@ -50,6 +49,11 @@
 	<string name="project8_description">Description</string>
 	<string name="project9_description">Description</string>
 	<string name="project10_description">Description</string>
+	
+	<string name="project5_extratip_1">1. Click "+"</string>
+	<string name="project5_extratip_2">2. Select "Pocket Code Recorder"</string>
+	<string name="project5_extratip_3">3. Press icon to record your sound</string>
+	<string name="project7_extratip_1">If too sensitive, divide by 10</string>
 
 	
 	
