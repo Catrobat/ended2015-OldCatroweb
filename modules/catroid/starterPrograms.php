@@ -36,8 +36,9 @@ class starterPrograms extends CoreAuthenticationNone {
     $starterProjectsIdGroup1 = pg_fetch_all($starterProjects[0]);
     $starterProjectsIdGroup2 = pg_fetch_all($starterProjects[1]);
     $starterProjectsIdGroup3 = pg_fetch_all($starterProjects[2]);
+    $starterProjectsIdGroup4 = pg_fetch_all($starterProjects[3]);
     
-    $this->projectsGrouped = $this->getGroupedProjects($starterProjectsIdGroup1, $starterProjectsIdGroup2, $starterProjectsIdGroup3);
+    $this->projectsGrouped = $this->getGroupedProjects($starterProjectsIdGroup1, $starterProjectsIdGroup2, $starterProjectsIdGroup3, $starterProjectsIdGroup4);
     
   }
   
@@ -50,25 +51,31 @@ class starterPrograms extends CoreAuthenticationNone {
     
     $result3 = pg_execute($this->dbConnection, "get_starterProjectIds_group3", array()) or
     $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    
+    $result4 = pg_execute($this->dbConnection, "get_starterProjectIds_group4", array()) or
+    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
 
     $result = array();
     
     array_push($result, $result1);
     array_push($result, $result2);
     array_push($result, $result3);
+    array_push($result, $result4);
     
     return $result;
   }
   
-  public function getGroupedProjects($starterProjectsIdGroup1, $starterProjectsIdGroup2, $starterProjectsIdGroup3) {
+  public function getGroupedProjects($starterProjectsIdGroup1, $starterProjectsIdGroup2, $starterProjectsIdGroup3, $starterProjectsIdGroup4) {
        
     $group1 = array();
     $group2 = array();
     $group3 = array();
+    $group4 = array();
     
     $result = array("group1" => array(),
                     "group2" => array(),
-                    "group3" => array());
+                    "group3" => array(),
+                    "group4" => array());
    
     for($i=0;isset($starterProjectsIdGroup1[$i]);$i++) {
       $tmp = pg_execute($this->dbConnection, "get_starterProjects_group", array($starterProjectsIdGroup1[$i]['project_id'])) or
@@ -76,7 +83,7 @@ class starterPrograms extends CoreAuthenticationNone {
 
       $tmp = pg_fetch_object($tmp);
       
-      $file = BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
+      $file = CORE_BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
 
       if(!file_exists($file))
         $tmp->thumb = BASE_PATH."resources/thumbnails/thumbnail_small.png";
@@ -92,7 +99,7 @@ class starterPrograms extends CoreAuthenticationNone {
     
       $tmp = pg_fetch_object($tmp);
       
-      $file = BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
+      $file = CORE_BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
       
       if(!file_exists($file))
         $tmp->thumb = BASE_PATH."resources/thumbnails/thumbnail_small.png";
@@ -108,7 +115,7 @@ class starterPrograms extends CoreAuthenticationNone {
     
       $tmp = pg_fetch_object($tmp);
       
-      $file = BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
+      $file = CORE_BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
       
       if(!file_exists($file))
         $tmp->thumb = BASE_PATH."resources/thumbnails/thumbnail_small.png";
@@ -117,6 +124,22 @@ class starterPrograms extends CoreAuthenticationNone {
       
       array_push($result["group3"], $tmp);
     }  
+    
+    for($i=0;isset($starterProjectsIdGroup4[$i]);$i++) {
+      $tmp = pg_execute($this->dbConnection, "get_starterProjects_group", array($starterProjectsIdGroup4[$i]['project_id'])) or
+      $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    
+      $tmp = pg_fetch_object($tmp);
+    
+      $file = CORE_BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
+    
+      if(!file_exists($file))
+        $tmp->thumb = BASE_PATH."resources/thumbnails/thumbnail_small.png";
+      else
+        $tmp->thumb = BASE_PATH."resources/thumbnails/".$tmp->id."_small.png";
+    
+      array_push($result["group4"], $tmp);
+    }
     
     return $result;
     

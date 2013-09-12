@@ -63,9 +63,9 @@
                   
           <td>
           <?php 
-            if($this->featuredProjectIds && in_array($project['id'], $this->featuredProjectIds)) {
+            if($this->starterProjectIds && in_array($project['id'], $this->starterProjectIds)) {
               ?>
-              already featured 
+              is already a starter project
            <?php 
             }
           else{ ?>
@@ -74,6 +74,7 @@
                 <option value="1">Games</option>
                 <option value="2">Animations</option>
                 <option value="3">Interactive Art and Stories</option>
+                <option value="4">Music and Dance</option>
               </select>
               <input type="hidden" name="visible" value="<?php echo $project['visible']?>"/>
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
@@ -89,7 +90,7 @@
       <?php }}?>
       </table>
       <p>
-        <a id="aAdminToolsEditFeaturedProjects" href="<?php echo BASE_PATH;?>admin/tools/editFeaturedProjects">edit / view featured projects</a><br />
+        <a id="aAdminToolsEditFeaturedProjects" href="<?php echo BASE_PATH;?>admin/tools/editProjects">edit projects</a><br />
       </p>
   </div>
 </body>

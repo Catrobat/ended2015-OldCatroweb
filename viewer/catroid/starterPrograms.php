@@ -34,6 +34,7 @@
     <div class="starterProjectsMainContent">
       <div class="starterProjectsGroup">
         <div class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group1'); ?></div>
+        <div class="border"></div>
         <?php
         for($i=0;isset($this->projectsGrouped["group1"][$i]);$i++) { 
         ?>
@@ -51,6 +52,7 @@
       </div>
       <div class="starterProjectsGroup">
         <div class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group2'); ?></div>
+        <div class="border"></div>
         <?php
         for($i=0;isset($this->projectsGrouped["group2"][$i]);$i++) { 
         ?>
@@ -68,6 +70,7 @@
       </div>
       <div class="starterProjectsGroup">
         <div class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group3'); ?></div>
+        <div class="border"></div>
         <?php
         for($i=0;isset($this->projectsGrouped["group3"][$i]);$i++) { 
         ?>
@@ -83,25 +86,25 @@
         </div>
         <?php } ?>
       </div>
+       <div class="starterProjectsGroup">
+        <div class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group4'); ?></div>
+        <div class="border"></div>
+        <?php
+        for($i=0;isset($this->projectsGrouped["group4"][$i]);$i++) { 
+        ?>
+        <div class="starterProjectsMainContentDetail">
+          <a class="starterProjectsLinkStyle" href="/details/<?php echo $this->projectsGrouped["group4"][$i]->id; ?>">
+            <img class="starterProjectsThumbs" src="<?php echo $this->projectsGrouped["group4"][$i]->thumb; ?>" title="<?php echo $this->projectsGrouped["group4"][$i]->title; ?>" />
+            <div class="starterProjectsTitle"><?php echo $this->projectsGrouped["group4"][$i]->title; ?></div>
+            <div class="starterProjectsAdditional">
+            <div class="starterProjectsTime"></div>
+              <?php echo $this->projectsGrouped["group4"][$i]->download_count; ?>
+            </div>
+          </a>
+        </div>
+        <?php } ?>
+      </div>
     </div>
   </div>  <!--  license Main -->
   <div class="projectSpacer"></div>
 </article>
-<!-- <script type="text/javascript">
-  $(document).ready(function() {
-    var projectGroup1 = new Array();
-
-    <?php
-    for($i=0; isset($this->projectsGrouped["group1"][$i]); $i++) {
-      echo "projectGroup1[$i] = {
-        'id':       '". $this->projectsGrouped["group1"][$i]->id ."', 
-        'title':    '". $this->projectsGrouped["group1"][$i]->title ."',
-      ";          
-      
-      echo "};";
-    } 
-    ?>
-
-    Details = new StarterPrograms(projectGroup1);
-  });
-</script> -->

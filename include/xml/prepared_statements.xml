@@ -34,6 +34,7 @@
     <string name="increment_view_counter">UPDATE projects SET view_count=view_count+1 WHERE id=$1</string>
     <string name="set_project_new_filename">UPDATE projects SET source=$1 WHERE id=$2</string>
     <string name="delete_project_by_id">DELETE FROM projects WHERE id=$1</string>
+    <string name="delete_starter_project_by_id">DELETE FROM starter_projects WHERE project_id=$1</string>
     <string name="insert_new_featured_project">INSERT INTO featured_projects (project_id, visible) VALUES ($1, $2)</string>
     <string name="get_featured_project_by_id">SELECT p.id as project_id, p.title, p.description, p.user_id, c.username, fp.* FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) WHERE fp.id=$1 ORDER BY fp.update_time DESC LIMIT 1</string>
     <string name="get_featured_projects_ordered_by_update_time">SELECT p.id as id, p.title, p.description, p.user_id, c.username AS uploaded_by FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY fp.update_time DESC</string>
@@ -142,6 +143,7 @@
     <string name="get_starterProjectIds_group1">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=1 AND visible=true</string>
     <string name="get_starterProjectIds_group2">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=2 AND visible=true</string>
     <string name="get_starterProjectIds_group3">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=3 AND visible=true</string>
+    <string name="get_starterProjectIds_group4">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=4 AND visible=true</string>
     
     <string name="get_starterProjects_group">SELECT * FROM projects WHERE projects.id=$1 AND visible=true</string>
 

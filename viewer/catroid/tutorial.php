@@ -35,9 +35,8 @@
   <div class="tutorialMain">
    
     <div class="tutorialTopContainer">
-     <div class="tutorialTopLeft"><a href="/stepByStep"></a></div>
-     <div class="tutorialTopCenter">&nbsp;</div>
-     <div class="tutorialTopRight"><a href="/stepByStep"></a></div>
+     <div class="tutorialTopLeft"><a href="/stepByStep">StepByStep</a></div>
+     <div class="tutorialTopRight"><a href="/stepByStep"><img class="stepByStepImg" src="resources/featured/1.png" /></a></div>
     </div> 
     <div class="clear"></div>
     <div class="tutorialBottomContainer">

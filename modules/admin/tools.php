@@ -733,8 +733,11 @@ class tools extends CoreAuthenticationAdmin {
     if(!$this->deleteFile($sourceFile)) {
       return false;
     } else {
+      $query1 = "EXECUTE delete_starter_project_by_id('$id');";
+      $result1 = @pg_query($query1) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+      
       $query = "EXECUTE delete_project_by_id('$id');";
-      $result = @pg_query($query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
+      $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());     
       return true;
     }
   }

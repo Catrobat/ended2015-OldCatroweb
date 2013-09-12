@@ -77,11 +77,10 @@
 
 #wrapper article div.tutorialTopLeft {
   float: left;
-  width: 400px;
+  width: 60%;
   text-align: center;
-  height: 200px;
-  /* background-color: gray; */
-  background-image: url("../resources/featured/1.png");
+  height: 100%;
+  background-color: gray;
   background-repeat: no-repeat;
 }
 
@@ -90,13 +89,14 @@
   background-color: blue;
   height: 200px;
   width: 21%;
+  background-color: blue;
 }
 
 #wrapper article div.tutorialTopRight {
   float: left;
-  width: 400px;
+  width: 40%;
   text-align: center;
-  background-image: url("../resources/featured/1.png");
+  /* background-image: url("../resources/featured/1.png"); */
   background-repeat: no-repeat;
   height: 200px;
 }
@@ -183,6 +183,15 @@
  
 }
 
+@media screen and (max-width: 1200px) {
+
+/*  #wrapper article div.tutorialTopCenter {
+  background-color: #000000;
+  width: 10%;
+ } */
+  
+}
+
 @media screen and (max-width: 720px) {
  
  #wrapper article div.tutorialMainContent {
@@ -192,5 +201,11 @@
  #wrapper article div.tutorialMainContentDetail {
    margin: 0.6em 1em 1.6em 1em;
  }
+ 
+ /* #wrapper article div.tutorialTopCenter {
+  background-color: #000000;
+  width: 10%;
+ } */
+
 }
 
