@@ -57,7 +57,7 @@ class Deploy:
 		if sys.stdin.readline() != 'y\n':
 			sys.exit(-1)
 
-
+  
 	def remoteCommand(self, command):
 		print('FATAL ERROR: shell not set.')
 		sys.exit(-1)
@@ -148,7 +148,12 @@ class Deploy:
 					line = "define('DEVELOPMENT_MODE',false);\n" 
 				sys.stdout.write(line)
 		
-		sqlShell = Sql(self.remoteCommand)
+		print type
+		if type == 'development':
+		  sqlShell = Sql(self.remoteCommand,'webtest')
+		else:
+			sqlShell = Sql(self.remoteCommand,'catroweb')
+		  
 		if sqlShell.checkConnection():
 			self.upload(os.path.join(self.buildDir, release), self.remoteDir)
 			self.moveFilesIntoPlace(os.path.join(self.buildDir, release), release)
@@ -163,13 +168,13 @@ if __name__ == '__main__':
 	parameter = 'empty'
 	try:
 		if sys.argv[1] == 'webtest':
-			deploy = Deploy(RemoteShell('catroidwebtest.ist.tugraz.at', 'unpriv', ''))
+			deploy = Deploy(RemoteShell('web-test.catrob.at', 'unpriv', '', 22, '/var/www/webtest'))
 			if len(sys.argv) > 2:
 				deploy.run(files=sys.argv[2])
 			else:
 				deploy.run()
 		elif sys.argv[1] == 'catroidtest':
-			deploy = Deploy(RemoteShell('catroidtest.ist.tugraz.at', 'unpriv', ''))
+			deploy = Deploy(RemoteShell('catroid-test.catrob.at', 'unpriv', '', 22, '/var/www/catroidtest'))
 			if len(sys.argv) > 2:
 				deploy.run(type=sys.argv[1], files=sys.argv[2])
 			else:
