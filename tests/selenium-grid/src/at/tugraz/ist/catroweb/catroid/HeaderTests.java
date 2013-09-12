@@ -79,7 +79,6 @@ public class HeaderTests extends BaseTest {
 
       driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
-      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/div[1]"), "Login".toUpperCase()));
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerMenuButtons");
       throw e;
@@ -136,7 +135,6 @@ public class HeaderTests extends BaseTest {
       
       driver().findElement(By.id("mobileMenuButton")).click();
       ajaxWait();
-      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/div[1]"), "Login".toUpperCase()));
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerButtonsMobile");
       throw e;
