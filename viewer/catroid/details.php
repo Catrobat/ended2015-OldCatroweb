@@ -26,7 +26,7 @@
 <article>
   <header>
     <div>
-      <span id="projectDetailsProjectTitle"><?php echo $this->project['title']?></span>
+      <?php echo $this->project['title']?>
       <div class="projectDetailsAuthorTop">
         <ul>
           <li>
