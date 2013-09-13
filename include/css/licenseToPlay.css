@@ -22,30 +22,29 @@
  */
 
 #wrapper article div.header {
-  border-top: 1px solid #477889;
-  background-color: #00475d;
+  border-bottom: 1px solid #17a5b8;
   font-size: 1.8em;
   text-transform: uppercase;
   font-weight: bold;
   padding: 0.07em;
   text-shadow: #000000 1px 1px 1px;
-  text-align: center;
+  text-align: left;
 }
 
 #wrapper article div.licenseMain {
-  background-color: #00475d;
   margin-top: 0.2em;
 }
 
 #wrapper article div.licenseText {
   padding: 1em; 
-  /* text-align:justify; */
-  font-size:1.3em;
+  text-align:justify;
+  font-size:1em;
 }
 
 #wrapper article p.licenseText { 
   margin:0;
   padding:0;
+  font-weight: bold;
 }
 
 #wrapper article a:link, a:visited { 

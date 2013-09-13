@@ -344,11 +344,13 @@
 }
 
 #wrapper article div.projectContainer ul li {
-
 	position:static;
 	left:0;
 }
 
+#wrapper article div#moreResults {
+  width: 100%;
+}
 
 
 @media screen and (max-width: 1100px) {
