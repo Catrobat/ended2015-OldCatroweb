@@ -22,19 +22,7 @@
  */
 
 #wrapper article div.header {
-  border: 0;
-  border-bottom: 1px solid #17a5b8;
-  color: #17a5b8;
-  font-size: 1.8em; 
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em 0 0.07em 0.375em;
-  text-align: left;
-  text-shadow: #000000 1px 1px 1px;
-  margin-top: 0.55em;
-  margin-bottom: 0.8em;
   display: none;
-    
 }
 
 #wrapper article div.headerLarge {
