@@ -21,17 +21,6 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#wrapper article div.header {
-  border-top: 1px solid #477889;
-  background-color: #00475d;
-  font-size: 1.8em;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em;
-  text-shadow: #000000 1px 1px 1px;
-  text-align: center;
-}
-
 #wrapper article div.form {
   background-color: #00475d;
   margin-top: 0.2em;
@@ -45,7 +34,6 @@
 #wrapper article div.form form input,
 #wrapper article div.form form select {
   width: 100%;
-
   border: 0;
   border-radius: 0.125em;
   color: #000000;

@@ -72,7 +72,7 @@ input:focus {
 
 html {
   height: 100%;
-  font-size: 1.0em;
+  font-size: 0.9em;
 }
 
 body {
@@ -96,7 +96,6 @@ h3 {
   color: #ffffff;
   background-color: #9933CC;
 }
-
 
 .img-age {  
   display:inline-block;
@@ -188,7 +187,6 @@ h3 {
 }
 
 .blue {
-  background-color: #177f8d;
   background-image: linear-gradient(top, #17A5B8, #177f8d);
   background-image: -moz-linear-gradient(top, #17A5B8, #177f8d);
   background-image: -webkit-linear-gradient(top, #17A5B8, #177f8d);
@@ -199,7 +197,7 @@ h3 {
   height: 31px;
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -131px -93px;
-/*   outline: 1px solid #FFFFFF; */
+  outline: 1px solid #FFFFFF;
 }
 
 .img-undo-search {
@@ -224,17 +222,6 @@ h3 {
   float: right;
 }
 
-.img-dropdownArrow {
-  width: 16px;
-  height: 14px;
-  background-image: url('../images/symbols/sprite_icons_web.png');
-  background-position: -114px -17px;
-  float: right;
-  margin-left:0.3em;
-  top: 5px;
-  position:relative;
-}
-
 .img-failedPw {
   width: 39px;
   height: 39px;
@@ -249,17 +236,6 @@ h3 {
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -35px 0px;
   float: right;
-}
-
-.img-password-recovery {
-  width: 40px;
-  height: 40px;
-  background-image: url('../images/symbols/sprite_icons_web.png');
-  background-position: -35px 0px;
-  position:relative;
-  top:-45px;
-  float: right;
-
 }
 
 .img-first-email {
@@ -325,30 +301,6 @@ h3 {
   height: 25px;
 }
 
-.img-timesmall {
-  background-image: url('../images/symbols/sprite_icons_web.png');
-  background-position: -162px -38px;
-  width: 19px;
-  height: 18px;
-  margin-right: 3px;
-}
-
-.img-downloadssmall {
-  background-image: url('../images/symbols/sprite_icons_web.png');
-  background-position: -162px 0px;
-  width: 19px;
-  height: 18px;
-  margin-right: 3px;
-}
-
-.img-viewssmall {
-  background-image: url('../images/symbols/sprite_icons_web.png');
-  background-position: -162px -18px;
-  width: 19px;
-  height: 18px;
-  margin-right: 3px;
-}
-
 ::-moz-selection {
   color: #ffffff;
   background: #9933CC;
@@ -389,10 +341,10 @@ h3 {
 }
 
 #wrapper article header {
-  border-bottom: 1px solid #17a5b8;
+  border-bottom: 1px solid #8abbcc;
   font-size: 1.8em;
   padding: 0.07em 0 0.07em 0.375em; 
-  color: #17a5b8; 
+  color: #05222A; 
   text-transform: uppercase;
   font-weight: bold;
   /*background-color: #7db6cb;
@@ -401,7 +353,6 @@ h3 {
   background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);*/
   margin-bottom: 0.8em;
-  text-align: left;
 }
 
 footer {
@@ -423,7 +374,7 @@ body img#ga {
 
 
 #wrapper article div.projectContainer {
-  margin-top: 0.1em;
+  margin-top: 0.2em;
   text-align: center;
   overflow: hidden;
 }
@@ -433,7 +384,7 @@ body img#ga {
 	margin:auto;
 	padding:0;
 	list-style:none;
-  position:relative;
+	position:relative;
 	left:50%;
 }
 
@@ -442,7 +393,7 @@ body img#ga {
 	position:relative;
 	left:-50%;
 	width: 84px;
-	margin: 0.1em 0.54em 1.6em 0.54em;
+	margin: 0.6em 0.54em 1.6em 0.54em;
 	vertical-align: top;
 }
 
@@ -469,11 +420,6 @@ body img#ga {
 	font-size: 0.8em;
 	font-weight: bold;
 	margin-top: 0.5em;
-
-	overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-/*   width: 42em; */
 }
 
 #wrapper article div.projectContainer ul li div.projectAddition {
@@ -525,140 +471,140 @@ body img#ga {
 
 @media screen and (min-width: 320px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.54em 1.6em 0.54em;
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 360px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.84em 1.6em 0.84em;
+		margin: 0.6em 0.84em 1.6em 0.84em;
   }
 }
 @media screen and (min-width: 400px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.94em 1.6em 0.94em;
+		margin: 0.6em 0.94em 1.6em 0.94em;
   }
 }
 @media screen and (min-width: 420px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.54em 1.6em 0.54em;
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
 
 
 @media screen and (min-width: 414px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.54em 1.6em 0.54em;
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 442px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.64em 1.6em 0.64em;
+		margin: 0.6em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 470px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.74em 1.6em 0.74em;
+		margin: 0.6em 0.74em 1.6em 0.74em;
   }
 }
 @media screen and (min-width: 498px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.84em 1.6em 0.84em;
+		margin: 0.6em 0.84em 1.6em 0.84em;
   }
 }
 
 @media screen and (min-width: 514px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.54em 1.6em 0.54em;
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 542px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.64em 1.6em 0.64em;
+		margin: 0.6em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 570px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.74em 1.6em 0.74em;
+		margin: 0.6em 0.74em 1.6em 0.74em;
   }
 }
 @media screen and (min-width: 598px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.84em 1.6em 0.84em;
+		margin: 0.6em 0.84em 1.6em 0.84em;
   }
 }
 
 @media screen and (min-width: 614px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.54em 1.6em 0.54em;
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 642px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.64em 1.6em 0.64em;
+		margin: 0.6em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 670px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.74em 1.6em 0.74em;
+		margin: 0.6em 0.74em 1.6em 0.74em;
   }
 }
 @media screen and (min-width: 698px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.84em 1.6em 0.84em;
+		margin: 0.6em 0.84em 1.6em 0.84em;
   }
 }
 
 @media screen and (min-width: 714px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.54em 1.6em 0.54em;
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 742px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.64em 1.6em 0.64em;
+		margin: 0.6em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 798px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.84em 1.6em 0.84em;
+		margin: 0.6em 0.84em 1.6em 0.84em;
   }
 }
 
 @media screen and (min-width: 814px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.54em 1.6em 0.54em;
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 842px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.64em 1.6em 0.64em;
+		margin: 0.6em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 898px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.84em 1.6em 0.84em;
+		margin: 0.6em 0.84em 1.6em 0.84em;
   }
 }
 
 @media screen and (min-width: 914px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.54em 1.6em 0.54em;
+		margin: 0.6em 0.54em 1.6em 0.54em;
   }
 }
 @media screen and (min-width: 942px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.64em 1.6em 0.64em;
+		margin: 0.6em 0.64em 1.6em 0.64em;
   }
 }
 @media screen and (min-width: 998px) {
   #wrapper article div.projectContainer ul li {
-		margin: 0.1em 0.84em 1.6em 0.84em;
+		margin: 0.6em 0.84em 1.6em 0.84em;
   }
 }
 
-/*@media screen and (min-width: 700px) {
+@media screen and (min-width: 700px) {
   html {
     font-size: 0.9em;
   }
 }
-*/
+

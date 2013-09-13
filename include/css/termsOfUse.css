@@ -21,27 +21,16 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#wrapper article div.header {
-  border-bottom: 1px solid #17a5b8;
-  font-size: 1.8em;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em;
-  text-shadow: #000000 1px 1px 1px;
-  text-align: left;
-}
-
 #wrapper article div.licenseMain {
   margin-top: 0.2em;
 }
 
-  #wrapper article div.licenseText {
-    padding: 1em; 
-    font-size:1em;
-    text-align: justify;
-    
-  }
-
+#wrapper article div.licenseText {
+  padding: 1em; 
+  font-size:1em;
+  text-align: justify;
+  
+}
 
 @media screen and (min-width: 800px) {
   #wrapper article div.licenseText {

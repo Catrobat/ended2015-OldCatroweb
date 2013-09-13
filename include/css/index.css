@@ -22,17 +22,8 @@
  */
 
 #wrapper article header {
-  border: 0;
-  border-bottom: 1px solid #17a5b8;
-  /*background-color: #00475d;
-  background-image: none;*/
-  color: #17a5b8;
-  font-size: 1.8em; /*header font size vom "featured"*/
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em 0 0.07em 0.375em;
   text-align: center;
-  text-shadow: #000000 1px 1px 1px;
+  //text-shadow: #000000 1px 1px 1px;
   margin-top: 0.55em;
   margin-bottom: 0;
 }

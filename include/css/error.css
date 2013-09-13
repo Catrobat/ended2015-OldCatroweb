@@ -25,16 +25,6 @@
   text-align: center;
 }
 
-#wrapper article div.header {
-  border-top: 1px solid #477889;
-  background-color: #00475d;
-  font-size: 1.8em;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em;
-  text-shadow: #000000 1px 1px 1px;
-}
-
 #wrapper article  img {
   margin: 2em 0 0 0;
 }
