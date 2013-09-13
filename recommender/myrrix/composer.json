@@ -1,0 +1,15 @@
+{
+    "name": "bcc/myrrix",
+    "type": "library",
+    "stability": "dev",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": { "BCC\\Myrrix": "src/" }
+    },
+    "require": {
+        "guzzle/guzzle": "dev-master"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~3.7"
+    }
+}
