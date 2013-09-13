@@ -52,6 +52,7 @@ class details extends CoreAuthenticationNone {
     }
 
     $this->setWebsiteTitle($this->project['title']);
+    $this->similarProjectDetails = $this->getSimilarProjects();
   }
 
   public function getProjectDetails($projectId) {
@@ -211,6 +212,39 @@ class details extends CoreAuthenticationNone {
     pg_execute($this->dbConnection, "delete_entry_from_projects_tags", $args);
 
     pg_free_result($resultForTagId);
+  }
+
+  public function getSimilarProjects() {
+
+    require 'myr/vendor/autoload.php';
+    $myrrix = new BCC\Myrrix\MyrrixService('localhost', 9090);
+    $projectId = $_REQUEST['method'];
+
+    /*Queries the myrrix instance for 4 similar projects to the selected project*/
+    $this->output = $myrrix->getSimilarItems(array($projectId),4);
+
+    $similarProjectDetails = array();
+    $rows=$this->output;
+    foreach ($rows as $key => $row) {
+      $flag = 0;
+      foreach ($row as $column => $value) {
+        if($flag == 0)
+          {
+            $projectDetails = $this->getProjectDetails($value);
+
+            $tempDetails = array(
+              'title' => $projectDetails['title'],
+              'id' => $projectDetails['id'],
+              'image' => $projectDetails['image']
+              );
+            array_push($similarProjectDetails, $tempDetails);
+            //array_push($similarProjectDetails, $projectDetails['image']);
+            //array_push($similarProjectDetails, $projectDetails['title']);
+            $flag = 1;
+          }
+      }
+    }
+    return $similarProjectDetails;
   }
 }
 ?>

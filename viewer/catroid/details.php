@@ -158,6 +158,48 @@
       </div>
     <?php endif; ?>
     </div>
+
+    <div>
+        <span class="projectDetailsDescriptionHeading">
+          Similar Projects
+        </span>
+    </div>
+    <div class="projectDetailsInformation">
+      <ul>
+        <li>
+          <div class="projectDetailsInformationText">
+          </div>
+        </li>
+
+        <?php
+              //print_r($this->similarProjectDetails);$flag = 0;
+              foreach ($this->similarProjectDetails as $value) {
+                echo "<li>";
+                echo "<div><img style=\"display:inline-block; width: 50px; height: 50px; top:0px; left:0px;\"src=\"". $value['image'] ."\"/></div>";
+                echo "<div class=\"projectDetailsInformationText\"> <a href=\"". BASE_PATH ."details/". $value['id'] ."\">";
+                echo $value['title'];
+                echo "</a></div>";
+                echo "</li>";
+                /*if($flag==0)
+                  {
+                    echo "<li>";
+                    //echo "<img width=\"100\" height =\"100\" src=\"". $value ."\"/>";
+                    $flag=1;
+                    //echo "<div style=\"display:inline-block; width: 35px; height: 35px; background-image: url('". $value . "'); background-position: 0px 0px;\"></div>";
+                    echo "<div><img style=\"display:inline-block; width: 50px; height: 50px; top:0px; left:0px;\"src=\"". $value ."\"/></div>";
+                  }
+                else
+                  {
+                    echo "<div class=\"projectDetailsInformationText\"> <a href=\"". BASE_PATH ."details/". $_REQUEST['method'] ."\">";
+                    echo $value . "<br>"; $flag=0;
+                    echo "</a></div>";
+                    echo "</li>";
+                  }*/
+              }
+            ?>
+      </ul>
+    </div>
+
   </div>
 </article>
 <script type="text/javascript">
