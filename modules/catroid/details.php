@@ -216,7 +216,7 @@ class details extends CoreAuthenticationNone {
 
   public function getSimilarProjects() {
 
-    require 'myr/vendor/autoload.php';
+    require CORE_BASE_PATH . 'recommender/myrrix/vendor/autoload.php';
     $myrrix = new BCC\Myrrix\MyrrixService('localhost', 9090);
     $projectId = $_REQUEST['method'];
 
