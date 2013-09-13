@@ -66,7 +66,7 @@ public class LoginTests extends BaseTest {
       assertTrue(isVisible(By.id("menuLogoutButton")));
       driver().findElement(By.id("menuLogoutButton")).click();
       ajaxWait();
-      assertTrue(isVisible(By.id("loginSubmitButton")));
+      assertTrue(isVisible(By.id("largeMenuButton")));
     } catch(AssertionError e) {
       captureScreen("LoginTests.validLogin." + dataset.get("username"));
       throw e;
