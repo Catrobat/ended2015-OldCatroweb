@@ -42,4 +42,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="version_info_text">Pocket Code Version:</string>
   <string name="description">Beschreibung</string>
   <string name="no_description_available">Keine Beschreibung verf&#xFC;gbar.</string>
+  <string name="tags">Etikett</string>
 </strings>

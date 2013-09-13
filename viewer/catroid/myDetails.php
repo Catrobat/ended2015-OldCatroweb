@@ -57,11 +57,6 @@
           <?php echo ($this->project['description'])? $this->project['description'] : $this->languageHandler->getString('no_description_available');?>
         </span>
       </div>
-      <div class="detailsFlagButton">
-        <button type="button" id="reportAsInappropriateButton">
-          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
-        </button>
-      </div>
     </div>
 
     <div class="projectDetailsDownload">
@@ -83,9 +78,20 @@
             print "No tags yet.";
           }
         ?>
+        <br><br>
+        </div>
+        <div id="editTags">
+          <input name="tagsinput" id="tagsinput" class="tagsinput" value="<?php foreach($this->tag as $key=>$value){print $value; if($key!=(count($this->tag)-1))print ",";} ?>"/>
+          <input type="hidden" id="hiddenProjectIdField" value="<?php /*Hidden field to store projectId for updating tags*/ print $this->project['id'];?>"/>
+          <button type="button" id="updateTagsButton" class="buttonGreen buttonSmall">Save</button>
+          <button type="button" id="cancelUpdateTagsButton" class="buttonBlue buttonSmall">Cancel</button><br>
+        </div>
+
+        <div id="editTagsButton">
+          <button class="buttonGreen buttonSmall" style="width:100%;">+ EDIT TAGS</button><br>
         </div>
         <br>
-        <span id="projectDetailsDownloadLanguageVersion"><?php echo $this->languageHandler->getString('language_version_info_text') . " " . $this->project['language_code'];?></span>
+        <span id="projectDetailsDownloadVersion"><?php echo $this->languageHandler->getString('version_info_text') . " " . $this->project['version_name'];?></span>
         <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
           <div class="blue">
             <span class="projectDetailsDownloadText shrinkTextToFit"><?php echo $this->languageHandler->getString('download_button');?></span>

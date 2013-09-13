@@ -27,6 +27,7 @@ var ProjectDetails = Class.$extend( {
     this.downloadState = { 'selected': 0, 'catroid': 0, 'app': 1 };
     this.downloadInfoVisible = false;
     this.projectId = projectId;
+    this.tagState = this.getTagState();
 
 //    $("#downloadCatroidSwitch").bind('click', { type: this.downloadState.catroid }, $.proxy(this.changeDownloadType, this));
 //    $("#downloadAppSwitch").bind('click', { type: this.downloadState.app }, $.proxy(this.changeDownloadType, this));
@@ -43,6 +44,29 @@ var ProjectDetails = Class.$extend( {
    });
    $("#reportInappropriateReportButton").click($.proxy(this.reportInappropriateSubmit, this));
    $("#reportInappropriateReason").keypress($.proxy(this.reportInappropriateCatchKeypress, this));
+
+   $('#editTags').toggle(false);
+   $('#updateTagsButton').click($.proxy(this.updateTagsRequest, this));
+
+   /*$('#updateTagsButton').click(
+    $.proxy(this.updateTagsRequest, this),
+    $('#editTags').toggle(false),
+    $('#editTagsButton button').toggle(),
+    $('.projectDetailsTags').toggle()
+    );*/
+
+   $('#cancelUpdateTagsButton').click(function() {
+    $('#editTags').toggle(false);
+    $('#editTagsButton').toggle();
+    $('.projectDetailsTags').toggle();
+    location.reload(true);
+   });
+
+   $('#editTagsButton button').click(function() {
+      $('#editTags').toggle();
+      $('#editTagsButton').toggle(false);
+      $('.projectDetailsTags').toggle(false);
+   });
 
     window.onresize = $.proxy(function(){
       $.proxy(this.resizeColumnsAndText(), this);
@@ -171,6 +195,49 @@ var ProjectDetails = Class.$extend( {
       var fontsize = parseFloat(elem.css('font-size')) + 2.0;
       elem.css('font-size', parseFloat(fontsize) + "px" );
     }
+  },
+
+  getTagState : function() {
+    tagState = $("#editTags input").val();
+    return tagState;
+  },
+
+  isTagStateModified :function() {
+    var tagState = this.getTagState();
+    if(tagState != this.tagState)
+      return true;
+    return false;
+  },
+
+  updateTagsRequest : function(){
+    //if(this.isTagStateModified()) {
+      $.ajax({
+            type: "POST",
+            url: this.basePath + 'details/updateTagsRequest.json',
+            data : ({
+              editedTags : $("#editTags #tagsinput").val(),
+              projectId : $("#editTags #hiddenProjectIdField").val()
+            }),
+            success : $.proxy(this.tagsUpdateRequestSuccess, this),
+            error : $.proxy(this.tagsUpdateRequestError, this)
+          });
+    //}
+    //else {
+
+    //}
+    $('#editTags').toggle(false);
+    $('#editTagsButton button').toggle();
+    $('.projectDetailsTags').toggle();
+
+  },
+
+  tagsUpdateRequestSuccess : function(result){
+    //alert(result.answer);
+    location.reload(true);
+  },
+
+  tagsUpdateRequestError : function(result){
+    //alert(result.answer);
   }
 
 });

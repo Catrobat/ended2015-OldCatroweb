@@ -30,6 +30,9 @@ class details extends CoreAuthenticationNone {
     $this->addCss('details.css');
     $this->addJs('details.js');
 
+    $this->addJs('tagsInput.js');
+    //$this->loadModule('common/userFunctions');
+
     $this->isMobile = $this->clientDetection->isMobile();
     $this->oldVersions = array("", "0.4.3d", "0.5.4a", "0.6.0beta", "&lt; 0.7.0beta");
   }
@@ -37,7 +40,17 @@ class details extends CoreAuthenticationNone {
   public function __default() {
     $projectId = $_REQUEST['method'];
     $this->project = $this->getProjectDetails($projectId);
-    
+    $this->tag = $this->getTags($projectId);
+
+    if(strcmp($this->project['uploaded_by'],$this->session->userLogin_userNickname) == 0 )
+    {
+      $this->loadView('myDetails');
+    }
+    else
+    {
+      $this->loadView('details');
+    }
+
     $this->setWebsiteTitle($this->project['title']);
   }
 
@@ -92,10 +105,24 @@ class details extends CoreAuthenticationNone {
       $project['show_warning'] = true;
     }
     
-    
     $project['showReportAsInappropriateButton'] = $this->showReportAsInappropriateButton($projectId, $project['user_id']);
     $this->incrementViewCounter($projectId);
     return $project;
+  }
+
+  public function getTags($projectId) {
+    $result = null;
+    $result = pg_execute($this->dbConnection, "get_tags_name" ,array($projectId));
+    $tags = array();
+    while($value = pg_fetch_assoc($result))
+    {
+      array_push($tags, $value['tag_name']);
+    }
+    pg_free_result($result);
+
+
+    return $tags;
+
   }
 
   public function incrementViewCounter($projectId) {
@@ -124,6 +151,66 @@ class details extends CoreAuthenticationNone {
   
   public function __destruct() {
     parent::__destruct();
+  }
+
+  public function updateTagsRequest() {
+    try{
+      $updatedTagString = (isset($_POST['editedTags']) ? trim(strval($_POST['editedTags'])) : '');
+      $projectId = (isset($_POST['projectId']) ? trim(strval($_POST['projectId'])) : '');
+      $projectId = $projectId + 0; //To convert to integer type
+
+      $updatedTags = explode(',',$updatedTagString);
+      $updatedTags = array_unique($updatedTags);
+      $existingTags = $this->getTags($projectId);
+
+      foreach($existingTags as $value) {
+        if(!in_array($value,$updatedTags)) {
+          // Remove particular tag
+          $this->removeTag($value, $projectId);
+        }
+      }
+
+      foreach($updatedTags as $value) {
+        if($value != '') {
+          if(!in_array($value,$existingTags)) {
+            // Add particular tag
+            $this->addTag($value, $projectId);
+          }
+        }
+      }
+
+      $this->statusCode = STATUS_CODE_OK;
+      $this->answer = $this->languageHandler->getString('tag_edit_success');
+    } catch(Exception $e) {
+       $this->statusCode = $e->getCode();
+       $this->answer = $e->getMessage();
+     }
+  }
+
+  public function addTag($tag, $projectId) {
+
+    $queryForTagId = pg_execute($this->dbConnection, "get_tag_id", array($tag));
+    $tagRow = pg_fetch_assoc($queryForTagId);
+    if(!$tagRow) {
+      $queryForTagId = pg_execute($this->dbConnection, "insert_tag" ,array($tag));
+      $tagRow = pg_fetch_assoc($queryForTagId);
+    }
+
+    $args = array($projectId, $tagRow['id']);
+    pg_execute($this->dbConnection, "insert_tag_into_projects_tags", $args);
+
+    pg_free_result($queryForTagId);
+
+  }
+
+  public function removeTag($tag, $projectId) {
+    $resultForTagId = pg_execute($this->dbConnection, "get_tag_id", array($tag));
+    $tagRow = pg_fetch_assoc($resultForTagId);
+
+    $args = array($projectId, $tagRow['id']);
+    pg_execute($this->dbConnection, "delete_entry_from_projects_tags", $args);
+
+    pg_free_result($resultForTagId);
   }
 }
 ?>

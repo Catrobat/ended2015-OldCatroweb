@@ -63,15 +63,17 @@ class upload extends CoreAuthenticationDevice {
       $this->checkValidProjectTitle($projectInformation['projectTitle']);
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
-      
-      
+      //$this->checkTagsForInsultingWords($projectInformation['projectTags']);
+
       $projectIdArray = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
           $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
           $projectInformation['versionCode'], $projectInformation['visible']);
       
       $projectId = $projectIdArray['id'];
-      
+
+      //$this->updateProjectTagsInDatabase($projectId, $projectInformation['projectTags']);
+
       $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId, $projectIdArray['update']);
       
       if(!$projectIdArray['update'])
@@ -213,7 +215,8 @@ class upload extends CoreAuthenticationDevice {
     $versionCode = current($node[0]->catrobatLanguageVersion);
     $projectTitle = current($node[0]->programName);
     $projectDescription = current($node[0]->description);
-    
+    //$projectTags = current($node[0]->tags);
+
     // workaround for temporary xml file
     if(!$versionName) {
       $versionName = current($node->applicationVersion);
@@ -227,7 +230,10 @@ class upload extends CoreAuthenticationDevice {
     if(!$projectDescription) {
       $projectDescription = current($node->description);
     }
-    
+    /*if(!$projectTags) {
+      $projectTags = current($node->tags);
+    }*/
+
     if(!$versionName || !$versionCode) {
       $versionCode = 0.0;
       $versionName = "0.0.0beta";
@@ -246,6 +252,10 @@ class upload extends CoreAuthenticationDevice {
       $projectDescription = pg_escape_string($projectDescription); 
       $projectDescription = ((isset($formData['projectDescription'])) ? checkUserInput($formData['projectDescription']) : "");
     }
+    /*if(!$projectTags) {
+      $projectTags = pg_escape_string($projectTags);
+      $projectTags = ((isset($formData['projectTags'])) ? checkUserInput($formData['projectTags']) : "");
+    }*/
 
     $uploadIp = (isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'');
     $uploadLanguage = ((isset($formData['userLanguage'])) ? checkUserInput($formData['userLanguage']) : 'en');
@@ -253,13 +263,14 @@ class upload extends CoreAuthenticationDevice {
     $visible = $this->checkVisible(((isset($formData['visible'])) ? checkUserInput($formData['visible']) : 't'));
     
     return(array(
-        "projectTitle"       => $projectTitle,
+        "projectTitle" => $projectTitle,
         "projectDescription" => $projectDescription,
         "versionName"        => $versionName,
         "versionCode"        => $versionCode,
         "uploadIp"           => $uploadIp,
         "uploadLanguage"     => $uploadLanguage,
-        "visible"            => $visible
+        "visible"            => $visible,
+        //"projectTags"        => $projectTags
     ));
   }
 
@@ -290,6 +301,12 @@ class upload extends CoreAuthenticationDevice {
   private function checkDescriptionForInsultingWords($description) {
     if($description && $this->badWordsFilter->areThereInsultingWords($description)) {
       throw new Exception($this->errorHandler->getError('upload', 'insulting_words_in_project_description'), STATUS_CODE_UPLOAD_RUDE_PROJECT_DESCRIPTION);
+    }
+  }
+
+  private function checkTagsForInsultingWords($tags) {
+    if($tags && $this->badWordsFilter->areThereInsultingWords($tags)) {
+      throw new Exception($this->errorHandler->getError('upload', 'insulting_words_in_project_tags'), STATUS_CODE_UPLOAD_RUDE_PROJECT_TAGS);
     }
   }
 
@@ -602,6 +619,38 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($this->errorHandler->getError('upload', 'visibility_incorrect'), STATUS_CODE_UPLOAD_VISIBILITY_INCORRECT);
     }
     return $visible;
+  }
+
+  private function updateProjectTagsInDatabase($projectId, $projectTagsString) {
+    $result = $this->query("remove_tags_of_project", array($projectId));
+    pg_free_result($result);
+
+    $projectTagsString = str_replace(' ','',$projectTagsString);
+    $updatedTags = explode(',', $projectTagsString);
+    $updatedTags = array_unique($updatedTags);
+
+    foreach($updatedTags as $value) {
+      if($value != '') {
+          // Add particular tag
+          $this->addTag($value, $projectId);
+      }
+    }
+  }
+
+  private function addTag($tag, $projectId) {
+
+    $queryForTagId = $this->query("get_tag_id", array($tag));
+    $tagRow = pg_fetch_assoc($queryForTagId);
+    if(!$tagRow) {
+      $queryForTagId = $this->query("insert_tag" ,array($tag));
+      $tagRow = pg_fetch_assoc($queryForTagId);
+    }
+
+    $args = array($projectId, $tagRow['id']);
+    pg_execute($this->dbConnection, "insert_tag_into_projects_tags", $args);
+
+    pg_free_result($queryForTagId);
+
   }
 }
 ?>
