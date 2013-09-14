@@ -629,7 +629,7 @@ class upload extends CoreAuthenticationDevice {
 
     $userId = (($this->session->userLogin_userId) ? $this->session->userLogin_userId : 0);
 
-    $myrrix->setPreference($userId, $projectId, 0.30);
+    $myrrix->setPreference($userId, $projectId, 0.50);
 
   }
 }
