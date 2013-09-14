@@ -74,7 +74,9 @@ class upload extends CoreAuthenticationDevice {
 
       $projectId = $projectIdArray['id'];
 
-      //$this->updateProjectTagsInDatabase($projectId, $projectInformation['projectTags']);
+      //$this->updateProjectTagsInDatabase($projectId, $projectInformation['projectTags']); /*Uncomment after adding tag upload facility to moblie client*/
+
+      //$this->addPreference($projectId); /*Uncomment after finalizing the deployment of the recommender system */
 
       $this->checkAndSetLicensesAndRemixInfo(CORE_BASE_PATH . PROJECTS_DIRECTORY . $tempFilenameUnique, $xmlFile, $projectId, $projectIdArray['update']);
 
@@ -617,6 +619,17 @@ class upload extends CoreAuthenticationDevice {
     pg_execute($this->dbConnection, "insert_tag_into_projects_tags", $args);
 
     pg_free_result($queryForTagId);
+
+  }
+
+  private function addPreference($projectId) {
+
+    require CORE_BASE_PATH . 'recommender/myrrix/vendor/autoload.php';
+    $myrrix = new BCC\Myrrix\MyrrixService('localhost', 9090);
+
+    $userId = (($this->session->userLogin_userId) ? $this->session->userLogin_userId : 0);
+
+    $myrrix->setPreference($userId, $projectId, 0.30);
 
   }
 }
