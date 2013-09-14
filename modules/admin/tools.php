@@ -230,9 +230,6 @@ class tools extends CoreAuthenticationAdmin {
         case "image/png":
           $imageSource = imagecreatefrompng($_FILES['file']['tmp_name']);
           break;
-        case "image/gif":
-          $imageSource = imagecreatefromgif($_FILES['file']['tmp_name']);
-          break;
         default:
           $answer = "ERROR: Image upload failed! (unsupported file type)";
       }
@@ -260,17 +257,17 @@ class tools extends CoreAuthenticationAdmin {
         $path1 = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId']."_400".PROJECTS_FEATURED_EXTENSION;
         $path2 = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId']."_720".PROJECTS_FEATURED_EXTENSION;
   
-        if(!imagegif($imageSource, $path)) {
+        if(!imagepng($imageSource, $path)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path."<br/>";
           imagedestroy($imageSource);
         }
-        if(!imagegif($image_400, $path1)) {
+        if(!imagepng($image_400, $path1)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path1."<br/>";
           imagedestroy($image_400);
         }
-        if(!imagegif($image_720, $path2)) {
+        if(!imagepng($image_720, $path2)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path2."<br/>";
           imagedestroy($image_720);
