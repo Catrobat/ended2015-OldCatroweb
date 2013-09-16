@@ -152,6 +152,11 @@ class tools extends CoreAuthenticationAdmin {
   }
   
   public function addStarterProject() {
+    
+//     if(isset($_POST['checkRemove']))
+//       $this->removeStarterProject();
+//     else
+//     {
     if(isset($_POST['add'])) {
       $id = $_POST['projectId'];
       $group = $_POST['group'];
@@ -171,7 +176,7 @@ class tools extends CoreAuthenticationAdmin {
         }
       }
       else {
-        $answer = "This project is already a starter project!";
+        $answer = "This project is already a starter project! - Group: ".$_POST['group'];
       }
       $this->answer = $answer;
     }
@@ -185,6 +190,49 @@ class tools extends CoreAuthenticationAdmin {
         array_push($starterProjectIds, $sp['project_id']);;
       }
       $this->starterProjectIds = $starterProjectIds;
+    }
+  }
+  
+  public function removeStarterProject() {
+
+    $id = $_POST['projectId'];
+    
+    $query = "EXECUTE remove_starter_project_by_id('$id');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    
+    $this->htmlFile = 'addStarterProject.php';
+    $this->projects = $this->retrieveAllProjectsFromDatabase();
+    $this->starterProjects = $this->retrieveAllStarterProjectsFromDatabase();
+    $starterProjectIds = array();
+    if($this->starterProjects) {
+      foreach($this->starterProjects as $sp) {
+        array_push($starterProjectIds, $sp['project_id']);;
+      }
+      $this->starterProjectIds = $starterProjectIds;
+    }
+   
+  }
+  
+  public function retrieveStarterProjectById($projectId) {
+    
+    $query = "EXECUTE get_starter_project_by_id('$projectId');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    
+    $starterProject = pg_fetch_object($result);
+    
+    echo $this->getStarterProjectGroupById($starterProject->group);
+  }
+  
+  public function getStarterProjectGroupById($id) {
+    switch ($id) {
+      case 1:
+        return "Games";
+      case 2:
+        return "Animations";
+      case 3:
+        return "Interactiv Art and Stories";
+      case 4:
+        return "Music and Dance";        
     }
   }
 

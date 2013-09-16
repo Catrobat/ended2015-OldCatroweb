@@ -46,6 +46,7 @@
     <string name="get_starter_project_by_id">SELECT p.id as project_id, p.title, p.description, p.user_id, c.username, sp.* FROM starter_projects as sp JOIN projects as p ON (sp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) WHERE sp.project_id=$1 ORDER BY sp.updated_time DESC LIMIT 1</string>
     <string name="get_starter_projects_admin_ordered_by_update_time">SELECT p.id as project_id, p.title, p.description, p.user_id, p.download_count, p.view_count, c.username AS uploaded_by, sp.* FROM starter_projects as sp JOIN projects as p ON (sp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY sp.updated_time DESC</string>
     <string name="insert_new_starter_project">INSERT INTO starter_projects (project_id, visible, "group") VALUES ($1, $2, $3)</string>
+    <string name="remove_starter_project_by_id">DELETE FROM starter_projects WHERE project_id=$1</string>
     <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, user_id, reason, user_ip) VALUES ($1, $2, $3, $4)</string>
     <string name="get_flags_for_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND resolved=false</string>
     <string name="hide_project">UPDATE projects SET visible=false WHERE id=$1</string>
