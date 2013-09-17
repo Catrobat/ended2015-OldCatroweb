@@ -214,7 +214,7 @@ h3 {
   height: 31px;
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -131px -186px;
-  -webkit-filter: drop-shadow(2px 2px 2px #222);
+  -webkit-filter: drop-shadow(2px 0px 2px #222)
 }
 
 .img-password {
