@@ -150,6 +150,43 @@ class tools extends CoreAuthenticationAdmin {
     $this->htmlFile = "editProjectList.php";
     $this->projects = $this->retrieveAllProjectsFromDatabase();
   }
+  
+  public function addStarterProject() {
+    if(isset($_POST['add'])) {
+      $id = $_POST['projectId'];
+      $group = $_POST['group'];
+      $visible = $_POST['visible'];
+      $query = "EXECUTE get_starter_project_by_id('$id');";
+      $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+      
+      if($result && pg_affected_rows($result) == 0) {
+        $query = "EXECUTE insert_new_starter_project('$id', '$visible', '$group');";
+        $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+        
+        if($result && pg_affected_rows($result) == 1) {
+          $answer = "The starter project was added!";
+        }
+        else {
+          $answer = "The starter project could NOT be added!";
+        }
+      }
+      else {
+        $answer = "This project is already a starter project!";
+      }
+      $this->answer = $answer;
+    }
+  
+    $this->htmlFile = "addStarterProject.php";
+    $this->projects = $this->retrieveAllProjectsFromDatabase();
+    $this->starterProjects = $this->retrieveAllStarterProjectsFromDatabase();
+    $starterProjectIds = array();
+    if($this->starterProjects) {
+      foreach($this->starterProjects as $sp) {
+        array_push($starterProjectIds, $sp['project_id']);;
+      }
+      $this->starterProjectIds = $starterProjectIds;
+    }
+  }
 
   public function addFeaturedProject() {
     if(isset($_POST['add'])) {
@@ -193,9 +230,6 @@ class tools extends CoreAuthenticationAdmin {
         case "image/png":
           $imageSource = imagecreatefrompng($_FILES['file']['tmp_name']);
           break;
-        case "image/gif":
-          $imageSource = imagecreatefromgif($_FILES['file']['tmp_name']);
-          break;
         default:
           $answer = "ERROR: Image upload failed! (unsupported file type)";
       }
@@ -211,14 +245,33 @@ class tools extends CoreAuthenticationAdmin {
           $answer = "ERROR: Image upload failed! File dimensions mismatch (must be 1024x400px)!";
         }
       }
+      
+      $image_400 = imagecreatetruecolor(400, 156);
+      $image_720 = imagecreatetruecolor(720, 281);
+      
+      imagecopyresampled($image_400, $imageSource, 0, 0, 0, 0, 400, 156, 1024, 400);
+      imagecopyresampled($image_720, $imageSource, 0, 0, 0, 0, 720, 281, 1024, 400);     
 
       if($answer == "") {
         $path = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId'].PROJECTS_FEATURED_EXTENSION;
-        if(!imagegif($imageSource, $path)) {
+        $path1 = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId']."_400".PROJECTS_FEATURED_EXTENSION;
+        $path2 = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId']."_720".PROJECTS_FEATURED_EXTENSION;
+  
+        if(!imagepng($imageSource, $path)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path."<br/>";
           imagedestroy($imageSource);
         }
+        if(!imagepng($image_400, $path1)) {
+          $answer = "ERROR: Image upload failed! Could not save image!";
+          $answer .= "<br/>path: ".$path1."<br/>";
+          imagedestroy($image_400);
+        }
+        if(!imagepng($image_720, $path2)) {
+          $answer = "ERROR: Image upload failed! Could not save image!";
+          $answer .= "<br/>path: ".$path2."<br/>";
+          imagedestroy($image_720);
+        }          
         else
           $answer .= "SUCCESS: Featured image updated!<br/>file=".$path.", size=".round((filesize($path)/1024),2)." kb";
       }
@@ -300,8 +353,11 @@ class tools extends CoreAuthenticationAdmin {
 
     $project =  pg_fetch_assoc($result);
     if($project['project_id'] > 0) {
-      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION))
+      if(file_exists(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION)) {
         @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id'].PROJECTS_FEATURED_EXTENSION);
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id']."_400".PROJECTS_FEATURED_EXTENSION);
+        @unlink(CORE_BASE_PATH.'/'.PROJECTS_FEATURED_DIRECTORY.'/'.$project['project_id']."_720".PROJECTS_FEATURED_EXTENSION);
+      }
     }
 
     $query = "EXECUTE delete_featured_project_by_id('$id');";
@@ -381,7 +437,22 @@ class tools extends CoreAuthenticationAdmin {
     $this->blockedusers = $this->getListOfBlockedUsersFromDatabase();
     $this->allusers = $this->getListOfUsersFromDatabase();
   }
-
+  
+  public function deletingUser() {
+    if(isset($_POST['deleteUserValue'])) {
+      $this->delete_user_projects($_POST['deleteUserValue']);
+      $username = $this->deleteUserByID($_POST['deleteUserValue']);
+      $answer = "The user <b>".$username."</b> was deleted.";
+      $this->answer = $answer;
+    }
+    $this->htmlFile = "deleteUsers.php";
+    $this->allusers = $this->getListOfUsersFromDatabase();
+  }
+  
+  public function deleteUsers() {
+    $this->htmlFile = "deleteUsers.php";
+    $this->allusers = $this->getListOfUsersFromDatabase();
+  }
 
   public function toggleProjects() {
     if(isset($_POST['toggle'])) {
@@ -512,6 +583,20 @@ class tools extends CoreAuthenticationAdmin {
     }
     return($projects);
   }
+  
+  private function retrieveAllStarterProjectsFromDatabase() {
+    $query = 'EXECUTE get_starter_projects_admin_ordered_by_update_time;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $projects =  pg_fetch_all($result);   
+    
+    pg_free_result($result);
+//     if($projects) {
+//       for($i=0;$i<count($projects);$i++) {
+//         $projects[$i]['image'] = getFeaturedProjectImageUrl($projects[$i]['project_id']);
+//       }
+//     }
+    return($projects);
+  }
 
   private function retrieveAllFeaturedProjectsFromDatabase() {
     $query = 'EXECUTE get_featured_projects_admin_ordered_by_update_time;';
@@ -591,7 +676,27 @@ class tools extends CoreAuthenticationAdmin {
     pg_free_result($fresult);
     return($details);
   }
+  
+  public function delete_user_projects($user_id) {
+    $query = "EXECUTE get_projects_by_userid('$user_id');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+    while($row = pg_fetch_array($result)) {
+      $this->deleteProject($row['id']);
+    }
+  }
 
+  public function deleteUserByID($user_id) {
+    $username = $this->getUsernameById($user_id);
+    $query = "EXECUTE admin_unblock_user_id('$user_id');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+
+    $query = "EXECUTE delete_user_by_id('$user_id');";
+    $result = pg_query($query) or die($this->errorHandler->showError('db', 'query_failed', pg_last_error()));
+  
+    return $username;
+  }
+  
+  
   public function deleteProject($id) {
     $directory = CORE_BASE_PATH.PROJECTS_DIRECTORY;
     $thumbnailDirectory = CORE_BASE_PATH.PROJECTS_THUMBNAIL_DIRECTORY;
@@ -625,8 +730,11 @@ class tools extends CoreAuthenticationAdmin {
     if(!$this->deleteFile($sourceFile)) {
       return false;
     } else {
+      $query1 = "EXECUTE delete_starter_project_by_id('$id');";
+      $result1 = @pg_query($query1) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+      
       $query = "EXECUTE delete_project_by_id('$id');";
-      $result = @pg_query($query) or $this->errorHandler->showError('db', 'query_failed', pg_last_error());
+      $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());     
       return true;
     }
   }
@@ -643,19 +751,33 @@ class tools extends CoreAuthenticationAdmin {
 
   public function hideProject($id) {
     $query = "EXECUTE hide_project('$id');";
+    $query1 = "EXECUTE hide_starter_project('$id');";
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if($result) {
       pg_free_result($result);
     }
+    
+    $result1 = @pg_query($query1) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result1) {
+      pg_free_result($result1);
+    }
+    
     return $result;
   }
 
   public function showProject($id) {
     $query = "EXECUTE show_project('$id');";
+    $query1 = "EXECUTE show_starter_project('$id');";
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if($result) {
       pg_free_result($result);
     }
+    
+    $result1 = @pg_query($query1) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result1) {
+      pg_free_result($result1);
+    }
+    
     return $result;
   }
 
@@ -719,6 +841,7 @@ class tools extends CoreAuthenticationAdmin {
       return false;
     }
   }
+  
 
   public function updateProjectFilesizeInDatabase($id, $filesize) {
     $query = "EXECUTE update_project_filesize('$id', '$filesize');";

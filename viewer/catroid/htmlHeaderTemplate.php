@@ -24,6 +24,7 @@
 
 
 ?>
+    
       <header role="banner">
         <nav role="navigation">
           <div id="largeMenu">
@@ -50,7 +51,7 @@
             <div class="marginSpacer"></div>
             
             <div id="smallMenuBar" class="catroidLink">
-              <a href="<?php echo BASE_PATH; ?>"><img src="<?php echo BASE_PATH;?>images/logo/logo_text.png" alt="<?php echo APPLICATION_NAME;?>"/></a>
+              <a href="<?php echo BASE_PATH; ?>"><img src="<?php echo BASE_PATH;?>images/logo/logo_text.png" alt="<?php echo APPLICATION_NAME;?>" /></a>
             </div>
 
             <div id="smallSearchBar">
@@ -64,7 +65,7 @@
             <div class="marginSpacer"></div>
 
             <div id="mobileMenuButton">
-              <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover; background-position:center; background-repeat: norepeat; background-image:url(' . $this->module->session->userLogin_userAvatar . ');"' : ''; ?>></button>
+              <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover; background-position:center; background-repeat: norepeat; background-image:url(' . $this->module->session->userLogin_userAvatar . ');outline:1px solid #FFFFFF;"' : ''; ?>></button>
             </div>
             
             <div class="marginSpacer"></div>

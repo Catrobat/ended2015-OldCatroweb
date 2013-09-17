@@ -167,7 +167,7 @@ footer ul li a:link, footer ul li a:visited {
   
   footer {
     margin-top: -3.5em; /*negative value of footer height*/
-    height: 3,5em;
+    height: 3.5em;
   }
   
   footer div div:nth-child(1) {
@@ -199,5 +199,6 @@ footer ul li a:link, footer ul li a:visited {
 
   footer div#largeFooterMenu {
     display: none;
+    visibility: hidden;
   }
 }

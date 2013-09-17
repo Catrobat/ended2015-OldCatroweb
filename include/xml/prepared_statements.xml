@@ -26,14 +26,15 @@
     <string name="get_projects_ordered_by_uploadtime">SELECT * FROM projects ORDER BY upload_time DESC</string>
     <string name="get_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND projects.visible=true AND cusers.id=projects.user_id LIMIT 1</string>
-    <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_language, filesize_bytes, version_name, language_code, user_id) 
-    	VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING id</string>
+    <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_language, filesize_bytes, version_name, language_code, user_id, visible) 
+    	VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id</string>
     <string name="does_project_already_exist">SELECT projects.* FROM projects WHERE projects.title=$1 AND projects.user_id=$2</string>
-    <string name="update_project">UPDATE projects SET description=$1, upload_ip=$2, filesize_bytes=$3, version_name=$4, language_code=$5, update_time=now(), visible=true WHERE projects.id=$6</string>
+    <string name="update_project">UPDATE projects SET description=$1, upload_ip=$2, filesize_bytes=$3, version_name=$4, language_code=$5, update_time=now(), visible=$7 WHERE projects.id=$6</string>
     <string name="increment_download_counter">UPDATE projects SET download_count=download_count+1 WHERE id=$1</string>
     <string name="increment_view_counter">UPDATE projects SET view_count=view_count+1 WHERE id=$1</string>
     <string name="set_project_new_filename">UPDATE projects SET source=$1 WHERE id=$2</string>
     <string name="delete_project_by_id">DELETE FROM projects WHERE id=$1</string>
+    <string name="delete_starter_project_by_id">DELETE FROM starter_projects WHERE project_id=$1</string>
     <string name="insert_new_featured_project">INSERT INTO featured_projects (project_id, visible) VALUES ($1, $2)</string>
     <string name="get_featured_project_by_id">SELECT p.id as project_id, p.title, p.description, p.user_id, c.username, fp.* FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) WHERE fp.id=$1 ORDER BY fp.update_time DESC LIMIT 1</string>
     <string name="get_featured_projects_ordered_by_update_time">SELECT p.id as id, p.title, p.description, p.user_id, c.username AS uploaded_by FROM featured_projects as fp JOIN projects as p ON (fp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY fp.update_time DESC</string>
@@ -42,11 +43,16 @@
     <string name="get_visible_featured_projects">SELECT project_id FROM featured_projects WHERE visible=true</string>
     <string name="edit_featured_project_visibility_by_id">UPDATE featured_projects SET update_time=DEFAULT, visible=$2 WHERE id=$1 RETURNING id</string> 
     <string name="delete_featured_project_by_id">DELETE FROM featured_projects WHERE id=$1</string>
+    <string name="get_starter_project_by_id">SELECT p.id as project_id, p.title, p.description, p.user_id, c.username, sp.* FROM starter_projects as sp JOIN projects as p ON (sp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) WHERE sp.project_id=$1 ORDER BY sp.updated_time DESC LIMIT 1</string>
+    <string name="get_starter_projects_admin_ordered_by_update_time">SELECT p.id as project_id, p.title, p.description, p.user_id, p.download_count, p.view_count, c.username AS uploaded_by, sp.* FROM starter_projects as sp JOIN projects as p ON (sp.project_id=p.id) JOIN cusers as c on (p.user_id=c.id) ORDER BY sp.updated_time DESC</string>
+    <string name="insert_new_starter_project">INSERT INTO starter_projects (project_id, visible, "group") VALUES ($1, $2, $3)</string>
     <string name="insert_new_flagged_project">INSERT INTO flagged_projects (project_id, user_id, reason, user_ip) VALUES ($1, $2, $3, $4)</string>
     <string name="get_flags_for_project">SELECT id FROM flagged_projects WHERE project_id=$1 AND resolved=false</string>
     <string name="hide_project">UPDATE projects SET visible=false WHERE id=$1</string>
     <string name="hide_user_project">UPDATE projects SET visible=false WHERE id=$1 AND user_id=$2</string>
     <string name="show_project">UPDATE projects SET visible=true WHERE id=$1</string>
+    <string name="hide_starter_project">UPDATE starter_projects SET visible=false WHERE project_id=$1</string>
+    <string name="show_starter_project">UPDATE starter_projects SET visible=true WHERE project_id=$1</string>
     <string name="set_mail_sent_on_inappropriate">UPDATE flagged_projects SET mail_sent=true WHERE project_id=$1</string>
     <string name="set_resolved_on_inappropriate">UPDATE flagged_projects SET resolved=true WHERE project_id=$1</string>
     <string name="get_flagged_projects_ordered_by_uploadtime">
@@ -79,7 +85,7 @@
     <string name="get_user_password_hash">SELECT id, username, password, avatar FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_token">SELECT auth_token FROM cusers WHERE username_clean=$1 LIMIT 1</string>
     <string name="get_user_device_login">SELECT * FROM cusers WHERE username_clean=$1 AND auth_token=$2 LIMIT 1</string>
-    <string name="get_user_row_by_username">SELECT cusers.id, cusers.username, cusers.email, cusers.additional_email, cusers.country, cusers.language, cusers.avatar, (SELECT count(*) FROM projects WHERE projects.user_id=cusers.id) AS project_count FROM cusers WHERE username=$1 LIMIT 1</string>
+    <string name="get_user_row_by_username">SELECT cusers.id, cusers.username, cusers.email, cusers.additional_email, cusers.country, cusers.language, cusers.avatar, (SELECT count(*) FROM projects WHERE projects.user_id=cusers.id AND visible = true) AS project_count FROM cusers WHERE username=$1 LIMIT 1</string>
     <string name="get_user_row_by_username_or_username_clean">SELECT * FROM cusers WHERE username=$1 OR username_clean=$2 LIMIT 1</string>
 
     <string name="get_user_row_by_email">SELECT u.* FROM cusers u WHERE u.email=$1 OR u.additional_email=$1</string>
@@ -89,6 +95,8 @@
     <string name="get_user_password_hash_time">SELECT recovery_time from cusers WHERE recovery_hash=$1</string>
     <string name="get_email_hash">SELECT id from cusers WHERE email_validation_hash=$1</string>
 		<string name="is_additional_email_validated">SELECT additional_email_validated FROM cusers WHERE id=$1 AND additional_email_validated=true</string>
+	
+		<string name="get_projects_by_userid">SELECT id FROM projects WHERE user_id=$1</string>
 	
     <string name="user_registration">INSERT INTO cusers (username, username_clean, password, email, country, ip_registered, status, auth_token, language) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING id</string>
     <string name="delete_user_by_id">DELETE FROM cusers WHERE id=$1</string>
@@ -113,6 +121,7 @@
     <string name="admin_unblock_user">DELETE FROM blocked_cusers WHERE user_id=$1 AND user_name=$2</string>
     <string name="admin_unblock_username">DELETE FROM blocked_cusers WHERE user_name=$1</string>
     <string name="admin_unblock_user_id">DELETE FROM blocked_cusers WHERE user_id=$1</string>
+
     <string name="admin_is_blocked_user">SELECT * FROM blocked_cusers WHERE user_id=$1 AND user_name=$2</string>
     <string name="admin_is_blocked_user_by_id">SELECT b.user_id FROM blocked_cusers b WHERE b.user_id=$1</string>
     <string name="get_all_blocked_users">SELECT * FROM blocked_cusers</string>
@@ -130,5 +139,12 @@
     <string name="is_ip_blocked_temporarily">SELECT ip_address FROM blocked_ips_temporary WHERE substr($1, 1, length(ip_address)) = ip_address AND blocked_until >= current_timestamp</string>
     <string name="set_remixof_id">UPDATE projects SET remixof=$1 WHERE id=$2</string>
     <string name="get_remixof_id">SELECT * FROM projects WHERE id=$1</string>
+    
+    <string name="get_starterProjectIds_group1">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=1 AND visible=true</string>
+    <string name="get_starterProjectIds_group2">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=2 AND visible=true</string>
+    <string name="get_starterProjectIds_group3">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=3 AND visible=true</string>
+    <string name="get_starterProjectIds_group4">SELECT starter_projects.project_id FROM starter_projects WHERE starter_projects.group=4 AND visible=true</string>
+    
+    <string name="get_starterProjects_group">SELECT * FROM projects WHERE projects.id=$1 AND visible=true</string>
 
 </statements>

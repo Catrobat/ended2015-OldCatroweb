@@ -45,8 +45,7 @@ class coreMailHandlerTest extends PHPUnit_Framework_TestCase {
     $mailSubject = USER_EMAIL_SUBJECT_PREFIX.' - Your '.APPLICATION_NAME.' Registration';
     $mailText  = "Congratulations and welcome to the ".APPLICATION_URL_TEXT." community.\r\n\r\n";
     $mailText .= "Please keep this e-mail for your records. Your account information is as follows:\r\n";
-    $mailText .= "Username: ".$registrationUsername."\r\n";
-    $mailText .= "Password: ".$registrationPassword."\r\n\r\n";
+    $mailText .= "Username: ".$registrationUsername."\r\n\r\n";
     $mailText .= "You can use your nickname and your password at any time to access the ".APPLICATION_NAME." community.\r\n\r\n";
     $mailText .= "To do so, just visit the following page:\r\n";
     $mailText .= "{unwrap}".$this->loginUrl."{/unwrap}\r\n\r\n";

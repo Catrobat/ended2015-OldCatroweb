@@ -30,6 +30,7 @@
   <a id="aAdminToolsEditProjects" href="<?php echo BASE_PATH;?>admin/tools/editProjects">edit projects</a><br />
   <a id="aAdminToolsAddFeaturedProjects" href="<?php echo BASE_PATH;?>admin/tools/addFeaturedProject">add featured projects</a><br />
   <a id="aAdminToolsEditFeaturedProjects" href="<?php echo BASE_PATH;?>admin/tools/editFeaturedProjects">edit featured projects</a><br />
+  <a id="aAdminToolsAddStarterProjects" href="<?php echo BASE_PATH;?>admin/tools/addStarterProject">add starter projects</a><br />
   <a id="aAdminToolsThumbnailUploader" href="<?php echo BASE_PATH;?>admin/tools/thumbnailUploader">thumbnail uploader</a><br />
   <a id="aAdminToolsInappropriateProjects" href="<?php echo BASE_PATH;?>admin/tools/inappropriateProjects">inappropriate projects</a><br />
   <a id="aAdminToolsApproveWords" href="<?php echo BASE_PATH;?>admin/tools/approveWords">approve unapproved words</a><br />
@@ -38,6 +39,7 @@
   <br />
   <a id="aAdminToolsBlockIp" href="<?php echo BASE_PATH;?>admin/tools/editBlockedIps">block IPs</a><br />
   <a id="aAdminToolsBlockUser" href="<?php echo BASE_PATH;?>admin/tools/editBlockedUsers">block Users</a><br />
+  <a id="aAdminToolsDeleteUser" href="<?php echo BASE_PATH;?>admin/tools/deleteUsers">delete Users</a><br />
   <br />
   <a id="aAdminToolsUpdateBrowserDetection" href="<?php echo BASE_PATH;?>admin/tools/updateBrowserDetection">update browser-detection RegEx-pattern</a><br />
   <br />

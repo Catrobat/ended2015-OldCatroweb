@@ -1,0 +1,159 @@
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#wrapper article div.header {
+  border: 0;
+  border-bottom: 1px solid #17a5b8;
+  color: #17a5b8;
+  font-size: 1.8em; 
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em 0 0.07em 0.375em;
+  text-align: left;
+  text-shadow: #000000 1px 1px 1px;
+  margin-top: 0.55em;
+  margin-bottom: 0.8em;
+}
+
+#wrapper article div.starterProjectsMain {
+  margin-top: 0.2em;
+  overflow: hidden;
+}
+
+#wrapper article div.starterProjectsMainHeader {
+  text-align: left;
+  margin-bottom: 0.5em;
+  margin-left: 0.8em;
+}
+
+#wrapper article div.starterProjectsMainContent {
+  display: block;
+  margin: 0 auto;
+  text-align: left;
+}
+
+#wrapper article div.starterProjectsGroup {
+  margin-bottom: 2em;
+}
+
+#wrapper article div.starterProjectsGroupHeadline {
+  font-size: 1.6em;
+  
+}
+
+#wrapper article div.border {
+  width: 45%;
+  border-bottom: 1px #17a5b8 solid;
+}
+
+#wrapper article div.starterProjectsMainContentDetail {
+  text-align: left; 
+  display: inline-block;
+   margin: 0.6em 1em 1.6em 1em;
+  font-size: 0.8em;
+  font-weight: bold;
+}
+
+#wrapper article a {
+
+  color: #17a5b8;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: bold;
+}
+
+#wrapper article img.starterProjectsThumbs {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 0.5em; 
+  border: 2px solid #17a5b8;
+}
+
+#wrapper article .starterProjectsTitle {  
+/*   white-space: nowrap;
+  overflow: hidden; */
+  
+  text-align: left;
+  font-weight: bold;
+  margin-top: 0.5em;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+#wrapper article .starterProjectsAdditional {
+  text-align: left;
+  font-size: 0.8em;
+  font-weight: lighter;
+  line-height: 1.6;
+}
+
+#wrapper article .starterProjectsTime {
+  float: left;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -162px 0px;
+  width: 19px;
+  height: 18px;
+  margin-right: 3px;
+}
+ 
+ @media screen and (max-width: 1280px) {
+
+  
+  #wrapper article div.starterProjectsMain {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+  }
+ 
+ #wrapper article div.starterProjectsMainContentDetail {
+   margin: 0.6em 0.8em 1.6em 0.8em;
+ }
+ 
+}
+
+@media screen and (max-width: 720px) {
+ 
+ 
+ #wrapper article div.starterProjectsMainContentDetail {
+   margin: 0.6em 1em 1.6em 1em;
+ }
+ 
+ #wrapper article div.border {
+  width: 70%;
+ }
+ 
+}
+
+@media screen and (max-width: 600px) {
+  
+  #wrapper article div.border {
+    width: 85%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+ 
+ #wrapper article div.border {
+  width: 85%;
+ }
+}

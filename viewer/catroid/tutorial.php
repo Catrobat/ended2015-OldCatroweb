@@ -24,74 +24,52 @@
 ?>
 <article>
   <div class="header">
-    <?php echo $this->languageHandler->getString('title'); ?>
-  </div>
+    <div class="headerLarge">
+      <?php echo $this->languageHandler->getString('title'); ?>
+    </div>  
+     <div class="headerSmall">
+    &nbsp;<?php echo $this->languageHandler->getString('head_text'); ?>
+    </div>  
+  </div> 
+  <div class="clear"></div>
   <div class="tutorialMain">
-    <div class="tutorialMainHeader">
-      <?php echo $this->languageHandler->getString('head_text'); ?>
+   
+    <div class="tutorialTopContainer" onclick="self.location.href='/stepByStep'">
+      <div class="tutorialHeader1">
+        Step By Step
+        <img src="images/symbols/step_by_step.png" />
+      </div>
+      <div style="clear: both;"></div>
+      <div class="tutorialText">
+      Do you want to program in Pocket Code?<br />
+      Do this in 10 steps. <img src="images/symbols/arrow_right.png" />
+      </div>
+    </div> 
+    <div class="clear"></div>
+    <div class="tutorialCardsContainer" onclick="self.location.href='/tutorialCards'">
+      <div class="tutorialHeader2">
+        Tutorial Cards
+        <img src="images/symbols/cards.png" />
+      </div>
+      <div class="tutorialText">
+        This Cards show you effective Tricks
+        in Pocket Code. 
+        <img src="images/symbols/arrow_right.png" />
+      </div>
     </div>
-    <div class="tutorialMainContent">
-      <div class="tutorialMainContentDetail">
-        <a class="tutorialLinkStyle" href="/tutorialCard?id=1">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/1.png" title="<?php echo $this->languageHandler->getString('project1'); ?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project1_short'); ?></div>
-        </a>
+    <div class="break"></div>
+    <div class="tutorialStarterProgamsContainer" onclick="self.location.href='/starterPrograms'">
+      <div class="tutorialHeader3">
+        Starter Programs
+        <img src="images/symbols/starter.png" />
       </div>
-      <div class="tutorialMainContentDetail">
-        <a href="/tutorialCard?id=2">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/2.png" title="<?php echo $this->languageHandler->getString('project2'); ?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project2_short'); ?></div>
-        </a>
+      <div class="tutorialText1">
+      Try out these programs and
+      remix them. <img src="images/symbols/arrow_right.png" />
       </div>
-      <div class="tutorialMainContentDetail">
-        <a href="/tutorialCard?id=3">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/3.png" title="<?php echo $this->languageHandler->getString('project3'); ?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project3_short'); ?></div>
-        </a>
-      </div>
-      <!-- <div class="tutorialMainContentDetail">
-        <a href="/tutorialCard?id=4">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/4.png" title="<?php echo $this->languageHandler->getString('project4'); ?>"/>
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project4_short'); ?></div>
-        </a>
-      </div>
-      <div class="tutorialMainContentDetail">
-        <a href="/tutorialCard?id=5">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/5.png" title="<?php echo $this->languageHandler->getString('project5'); ?>" /><br />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project5_short'); ?></div>
-        </a>
-      </div>
-      <div class="tutorialMainContentDetail">
-        <a href="/tutorialCard?id=6">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/6.png" title="<?php echo $this->languageHandler->getString('project6'); ?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project6_short'); ?></div>
-        </a>
-      </div>
-      <div class="tutorialMainContentDetail">
-        <a href="/tutorialCard?id=7">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/7.png" title="<?php echo $this->languageHandler->getString('project7'); ?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project7_short'); ?></div>
-        </a>
-      </div>
-      <div class="tutorialMainContentDetail">
-        <a href="/tutorialCard?id=8">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/8.png" title="<?php echo $this->languageHandler->getString('project8'); ?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project8_short'); ?></div>
-        </a>
-      </div>
-      <div class="tutorialMainContentDetail">
-        <a href="/tutorialCard?id=9">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/9.png" title="<?php echo $this->languageHandler->getString('project9'); ?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project9_short'); ?></div>
-        </a>
-      </div>
-      <div class="tutorialMainContentDetail">
-        <a href="/tutorialCard?id=10">
-          <img class="tutorialThumbs" src="<?php echo BASE_PATH; ?>images/tutorial/10.png" title="<?php echo $this->languageHandler->getString('project10'); ?>" />
-          <div class="tutorialTitle"><?php echo $this->languageHandler->getString('project10_short'); ?></div>
-        </a>
-      </div>-->
-    </div>
-  </div>  <!--  license Main -->
+    </div> 
+    <div class="clear"></div>
+    </div> 
+  </div> <!--  license Main -->
   <div class="projectSpacer"></div>
 </article>

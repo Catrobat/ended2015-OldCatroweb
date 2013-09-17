@@ -153,7 +153,7 @@ var ProjectContentFiller = Class
           if(this.gridRowHeight == 0) {
             this.gridRowHeight = $(container).height();
             $(container).height(this.gridRowHeight);
-          }          
+          }  
         }
       },
 
@@ -196,11 +196,25 @@ var ProjectContentFiller = Class
         var heights = [];
         var hidden = [];
         var elements = container.children();
-        
+        var correction = 0;
         for(var index = 0, amount = elements.length; index < amount; index++) {
           if($(elements[index]).css('visibility') == 'visible') {
             
-            var position = Math.round($(elements[index]).position().top + this.gridRowHeight);
+            
+            if (($(".myH3").text() != '') && ($(elements[0]).position().top > 700 ) ) {
+              correction = 790;
+              $(container).height(150);
+            } else if (($(".myH3").text() != '') && ($(elements[0]).position().top <= 700 ) ) {
+              correction = 330;  
+            } else if ($(elements[0]).position().top > 400) {
+              correction = 400 + $("h3").height(); 
+            } else {
+              $('#moreResults').css('margin-left',$('.userProfileAvatarContainer').width());
+              $('#userProjectLoader').css('margin-left',$('.userProfileAvatarContainer').width());
+            }
+
+            var position = Math.round($(elements[index]).position().top + this.gridRowHeight - correction);
+            correction = 0;
             if($.inArray(position, heights) === -1) {
               heights.push(position);
             }
@@ -215,6 +229,8 @@ var ProjectContentFiller = Class
           
           if (window.document.location.toString().indexOf("search") !== -1) {
             $(container).height(heights[currentPage-1]-50);
+          }else if (window.document.location.toString().indexOf("profile") !== -1) {
+            $(container).height(heights[currentPage-1]-80);
           } else {
             $(container).height(heights[currentPage]);
           }
@@ -226,6 +242,8 @@ var ProjectContentFiller = Class
             $(elements[hidden[index]]).hide();
           }
           $(this.params.buttons.next).hide();
+          $(".projectContainer ul").css("margin-left","0.9em");
+          $(".projectContainer ul").css("text-align","left");
           $(container).height('auto');
         }
       },

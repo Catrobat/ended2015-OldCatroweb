@@ -22,17 +22,21 @@
  */
 
 #wrapper article div.header {
-  border: 0;
-  border-bottom: 1px solid #17a5b8;
-  color: #17a5b8;
-  font-size: 1.8em; 
+  display: none;
+}
+
+#wrapper article div.headerLarge {
   text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em 0 0.07em 0.375em;
-  text-align: left;
-  text-shadow: #000000 1px 1px 1px;
-  margin-top: 0.55em;
-  margin-bottom: 0.8em;
+  float: left;
+}
+
+#wrapper article div.headerSmall {
+  text-transform: none;
+  
+}
+
+#wrapper article div.clear {
+  clear: both;
 }
 
 #wrapper article div.tutorialMain {
@@ -46,11 +50,168 @@
   margin-left: 0.8em;
 }
 
-#wrapper article div.tutorialMainContent {
+#wrapper article div.tutorialTopContainer {
   display: block;
+  width: 100%;
   margin: 0 auto;
+  height: 1.6em;
 }
 
+#wrapper article div.tutorialTopContainer:hover {
+  cursor: pointer;
+}
+
+#wrapper article div.break {
+  
+}
+
+#wrapper article div.tutorialHeader1 {
+  width: 100%;
+  float: left;
+  font-size: 1.6em;
+  font-weight: bold; 
+  text-transform: uppercase;
+  border-bottom: 1px solid #17a5b8;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.3em;
+  margin-top: 5px;
+}
+
+#wrapper article div.tutorialHeader2 {
+  width: 100%;
+  float: left;
+  font-size: 1.6em;
+  font-weight: bold; 
+  text-transform: uppercase;
+  border-bottom: 1px solid #17a5b8;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.3em;
+  margin-top: 5px;
+}
+
+#wrapper article div.tutorialHeader3 {
+  width: 100%;
+  float: left;
+  font-size: 1.6em;
+  font-weight: bold; 
+  text-transform: uppercase;
+  border-bottom: 1px solid #17a5b8;
+  padding-bottom: 0.2em;
+  margin-bottom: 0.3em;
+  margin-top: 5px;
+}
+
+#wrapper article div.tutorialHeader1 img {
+  float: right;
+  height: 1.1em;
+  padding-top: 0.1em;
+}
+
+#wrapper article div.tutorialHeader2 img {
+  float: right;
+  height: 1.1em;
+  padding-top: 0.1em;
+}
+
+#wrapper article div.tutorialHeader3 img {
+  float: right;
+  height: 1.1em;
+  padding-top: 0.1em;
+}
+
+#wrapper article div.tutorialText {
+  font-size: 1.2em;
+}
+
+#wrapper article div.tutorialText1 {
+  font-size: 1.2em;
+}
+
+#wrapper article div.tutorialCardsContainer {
+  display: block;
+  width: 47%;
+  margin: 0 auto;
+  margin-top: 9em;
+  float: left;
+  cursor: pointer;
+}
+
+#wrapper article div.tutorialStarterProgamsContainer {
+  display: block;
+  width: 47%;
+  margin: 0 auto;
+  margin-top: 9em;
+  float: right;
+  cursor: pointer;
+}
+
+#wrapper article div.tutorialTopLeft {
+  float: left;
+  width: 60%;
+  text-align: center;
+  height: 100%;
+  background-color: gray;
+  background-repeat: no-repeat;
+}
+
+#wrapper article div.tutorialTopCenter {
+  float: left;
+  background-color: blue;
+  height: 200px;
+  width: 21%;
+  background-color: blue;
+}
+
+#wrapper article div.tutorialTopRight {
+  float: left;
+  width: 40%;
+  text-align: center;
+  /* background-image: url("../resources/featured/1.png"); */
+  background-repeat: no-repeat;
+  height: 200px;
+}
+
+#wrapper article div.tutorialBottomLeft {
+  float: left;
+  width: 400px;
+  text-align: center;
+  background-color: gray;
+}
+
+#wrapper article div.tutorialLeft {
+  float: left;
+  width: 150px;
+  text-align: center;
+  background-color: green;
+}
+
+#wrapper article div.tutorialCenter {
+  float: left;
+  width: 25%;
+  text-align: center;
+  background-color: navy;
+}
+
+#wrapper article div.tutorialRight {
+  float: left;
+  width: 150px;
+  text-align: center;
+  background-color: green;
+}
+
+
+#wrapper article div.tutorialBottomCenter {
+  float: left;
+  background-color: blue;
+  width: 21%;
+}
+
+#wrapper article div.tutorialBottomRight {
+  float: left;
+  width: 400px;
+  text-align: center;
+  background-color: gray;
+}
 
 #wrapper article div.tutorialMainContentDetail {
   text-align: left; 
@@ -79,8 +240,17 @@
   white-space: nowrap;
   overflow: hidden;
 }
+
+@media screen and (max-width: 1280px) {
+  
+ #wrapper article div.tutorialMain {
+   margin-left: 0.5em;
+   margin-right: 0.5em;
+ }
  
- @media screen and (max-width: 1280px) {
+}
+ 
+ @media screen and (max-width: 800px) {
  
  #wrapper article div.tutorialMainContent {
    text-align: left;
@@ -90,7 +260,25 @@
    margin: 0.6em 0.8em 1.6em 0.8em;
  }
  
+ #wrapper article div.tutorialMain {
+   margin-left: 0.5em;
+   margin-right: 0.5em;
+ }
+ 
+ #wrapper article div.break {
+   clear: both;
+ }
+ 
+ #wrapper article div.tutorialStarterProgamsContainer { 
+   width: 100%;
+ }
+ 
+ #wrapper article div.tutorialCardsContainer { 
+   width: 100%;
+ }
+ 
 }
+
 
 @media screen and (max-width: 720px) {
  
@@ -101,5 +289,11 @@
  #wrapper article div.tutorialMainContentDetail {
    margin: 0.6em 1em 1.6em 1em;
  }
+ 
+ /* #wrapper article div.tutorialTopCenter {
+  background-color: #000000;
+  width: 10%;
+ } */
+
 }
 

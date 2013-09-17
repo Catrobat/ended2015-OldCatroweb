@@ -53,18 +53,24 @@
       <?php echo $this->languageHandler->getString('headline3')?>
     </div>
     <div class="tutorialCardMainContent">
-      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/<?php echo intval($_GET['id']); ?>_4.png" />
-    </div>
+      <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/do_it.png" />
+    </div>    
     <?php     
       
-      if(@fopen(BASE_PATH.'images/tutorial/tutorialcards/'.intval($_GET['id']).'_5.png','r')) 
-      { ?>
+      for($i=1;@fopen(BASE_PATH.'images/tutorial/tutorialcards/'.intval($_GET['id']).'_4_'.$i.'.png','r');$i++) 
+      { 
+        if($i == 1) 
+        { ?>
         <div class="tutorialCardMainContentTitle">
           <?php echo $this->languageHandler->getString('headline4')?>
         </div>
+        <?php 
+        }?>
         <div class="tutorialCardMainContent">
-          <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/<?php echo intval($_GET['id']); ?>_5.png" />
+        <div class="tutorialCardMainContentDescription"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).'_extratip_'.$i); ?></div>
+          <img class="tutorialCardImage" src="<?php echo BASE_PATH;?>images/tutorial/tutorialcards/<?php echo intval($_GET['id']); ?>_4_<?php echo $i;?>.png" />
         </div>
+        <div class="tutorialCardMainSpace"></div>
 <?php } ?>
   </div>  <!--  license Main -->
   <div class="projectSpacer"></div>

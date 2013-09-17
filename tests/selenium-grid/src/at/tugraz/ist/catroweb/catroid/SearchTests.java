@@ -294,7 +294,6 @@ public class SearchTests extends BaseTest {
   @Test(groups = { "functionality" }, description = "search project, highlight search query")
   public void highlightSearchQuery() throws Throwable {
     try {
-      
       String projectTitle = CommonData.getRandomShortString(7);
       String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "identical_search_project_2", "", "", "", "", CommonData.getLoginUserDefault(), Config.DEFAULT_UPLOAD_TOKEN));
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));

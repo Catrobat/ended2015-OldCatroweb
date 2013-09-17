@@ -214,7 +214,7 @@ h3 {
   height: 31px;
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -131px -186px;
-  -webkit-filter:drop-shadow(1px 1px 1px #222);
+  -webkit-filter: drop-shadow(2px 2px 2px #222);
 }
 
 .img-password {
@@ -250,6 +250,17 @@ h3 {
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -35px 0px;
   float: right;
+}
+
+.img-password-recovery {
+  width: 40px;
+  height: 40px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -35px 0px;
+  position:relative;
+  top:-45px;
+  float: right;
+
 }
 
 .img-first-email {
@@ -391,6 +402,7 @@ h3 {
   background-image: -moz-linear-gradient(top, #93c4d7, #74b0c7);
   background-image: -webkit-linear-gradient(top, #93c4d7, #74b0c7);*/
   margin-bottom: 0.8em;
+  text-align: left;
 }
 
 footer {
@@ -458,6 +470,11 @@ body img#ga {
 	font-size: 0.8em;
 	font-weight: bold;
 	margin-top: 0.5em;
+
+	overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+/*   width: 42em; */
 }
 
 #wrapper article div.projectContainer ul li div.projectAddition {
@@ -639,6 +656,73 @@ body img#ga {
 		margin: 0.1em 0.84em 1.6em 0.84em;
   }
 }
+
+@media screen and (max-width: 642px) {
+  #wrapper article header {
+    font-size: 1.76em;
+  } 
+}
+@media screen and (max-width: 614px) {
+  #wrapper article header {
+    font-size: 1.73em;
+  } 
+}
+@media screen and (max-width: 598px) {
+  #wrapper article header {
+    font-size: 1.7em;
+  } 
+}
+@media screen and (max-width: 570px) {
+  #wrapper article header {
+    font-size: 1.66em;
+  } 
+}
+@media screen and (max-width: 542px) {
+  #wrapper article header {
+    font-size: 1.63em;
+  } 
+}
+@media screen and (max-width: 514px) {
+  #wrapper article header {
+    font-size: 1.6em;
+  } 
+}
+@media screen and (max-width: 498px) {
+  #wrapper article header {
+    font-size: 1.56em;
+  } 
+}
+@media screen and (max-width: 470px) {
+  #wrapper article header {
+    font-size: 1.53em;
+  } 
+}
+@media screen and (max-width: 442px) {
+  #wrapper article header {
+    font-size: 1.5em;
+  } 
+}
+@media screen and (max-width: 420px) {
+  #wrapper article header {
+    font-size: 1.46em;
+  } 
+}
+@media screen and (max-width: 400px) {
+  #wrapper article header {
+    font-size: 1.43em;
+  } 
+}
+@media screen and (max-width: 360px) {
+  #wrapper article header {
+    font-size: 1.4em;
+  } 
+}
+@media screen and (max-width: 320px) {
+  #wrapper article header {
+    font-size: 1.35em;
+  } 
+}
+
 
 /*@media screen and (min-width: 700px) {
   html {

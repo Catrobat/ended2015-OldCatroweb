@@ -24,11 +24,10 @@
 
 ?>
       <article>
-        <!--<div class="header"><?php echo $this->languageHandler->getString('title'); ?></div> -->
         <div class="form">
           <form>
-            <!--   <div class="label"><?php echo $this->languageHandler->getString('enter_userdata')?></div>-->
-            <input type="text" id="passwordRecoveryUserdata" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>" /><br />
+            <input type="text" id="passwordRecoveryUserdata" placeholder=" <?php echo $this->languageHandler->getString('nickname_placeholder') ?>" /><br />
+            <div class="img-password-recovery"></div>
             <div id="recoveryMessage"></div>
             <div class="footer">
               <nav>

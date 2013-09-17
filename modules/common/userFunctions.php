@@ -108,6 +108,15 @@ class userFunctions extends CoreAuthenticationNone {
      
     return $userExists;
   }
+  
+  public function checkEmailExists($email) {
+    $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($email));
+    
+    if(pg_num_rows($result) > 0)
+      return true;
+    
+    return false;
+  }
 
   public function checkUsername($username) {
     $username = trim(strval($username));
@@ -1078,8 +1087,8 @@ class userFunctions extends CoreAuthenticationNone {
     $mailSubject = $this->languageHandler->getString('registration_mail_subject', APPLICATION_NAME);
     $mailText =    $this->languageHandler->getString('registration_mail_text_row1', APPLICATION_URL_TEXT) . "\r\n\r\n";
     $mailText .=   $this->languageHandler->getString('registration_mail_text_row2') . "\r\n";
-    $mailText .=   $this->languageHandler->getString('registration_mail_text_row3', $username) . "\r\n";
-    $mailText .=   $this->languageHandler->getString('registration_mail_text_row5', $password) . "\r\n\r\n";
+    $mailText .=   $this->languageHandler->getString('registration_mail_text_row3', $username) . "\r\n\r\n";
+//     $mailText .=   $this->languageHandler->getString('registration_mail_text_row5', $password) . "\r\n\r\n";
     $mailText .=   $this->languageHandler->getString('registration_mail_text_row6', APPLICATION_NAME) . "\r\n\r\n";
     $mailText .=   $this->languageHandler->getString('registration_mail_text_row7') . "\r\n";
     $mailText .=   "{unwrap}" . $catroidLoginUrl . "{/unwrap}\r\n\r\n";

@@ -63,7 +63,7 @@
     </div>
     <div id="moreResults" class="projectFooter">
       <div class="img-load-more"></div>
-      <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+      <!-- <p><?php echo $this->languageHandler->getString('showMore'); ?></p>-->
     </div>
     <div class="projectSpacer"></div>
   </article>

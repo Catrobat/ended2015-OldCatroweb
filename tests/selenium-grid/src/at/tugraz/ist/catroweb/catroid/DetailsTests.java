@@ -86,8 +86,8 @@ public class DetailsTests extends BaseTest {
       }
 
       HashMap<String, String> versionInfo = CommonFunctions.getVersionInfo(id);
-      String versionInfoText = driver().findElement(By.id("projectDetailsDownloadVersion")).getText();
-      assertEquals("Pocket Code version: " + versionInfo.get("version_name"), versionInfoText);
+      String versionInfoText = driver().findElement(By.id("projectDetailsDownloadLanguageVersion")).getText();
+      assertEquals("Catrobat Language version: " + versionInfo.get("version_code"), versionInfoText);
     } catch(AssertionError e) {
       captureScreen("DetailsTests.detailsPageCounterLink." + dataset.get("projectTitle"));
       throw e;
@@ -166,7 +166,7 @@ public class DetailsTests extends BaseTest {
       ajaxWait();
       assertFalse(isVisible(By.id("reportInappropriateReason")));
       ajaxWait();
-      assertTrue(isTextPresent("You reported this project as inappropriate!"));
+      assertTrue(isTextPresent("You reported this program as inappropriate!"));
 
       driver().navigate().refresh();
       ajaxWait();
