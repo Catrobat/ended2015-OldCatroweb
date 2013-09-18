@@ -52,7 +52,7 @@
 
 #wrapper article div img.userProfileAvatarImage {
   width: 19em;
-  margin: 0 auto;
+  margin: 0;
 }
 
 #wrapper article div.userProfileInformations p{
@@ -386,7 +386,7 @@
   }
   
   .profileAvatar {
-    min-width: 100%;
+    min-width: 98%;
   }
 
   .projectDetailsThumbnail img {
@@ -429,14 +429,15 @@
 
 @media screen and (max-width: 400px) {
   
-  #wrapper article div.projectContainer {
+  /*#wrapper article div.projectContainer {
     margin-left: -1.8em;
     width: 100%;
-  }
+  }*/
   
   #wrapper article div.profileAvatar{
     width: 16.5em;
   }  
+  
  
   #wrapper article div.profileInformations{
     width: 16.5em;
@@ -451,9 +452,10 @@
   }
   
   #wrapper article div.userProfileAvatarContainer {
-    width: 17.2em;
+    max-width: 17.2em;
     margin-bottom: 2em;
-    margin-left: 1.5em;
+    margin-left: 1.1em;
+    max-height: 22.8em;
   }
   
   #wrapper article div img.profileAvatarImageError {
