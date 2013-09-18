@@ -230,10 +230,13 @@ h3 {
   height: 14px;
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -114px -17px;
-  float: right;
-  margin-left:0.3em;
-  top: 5px;
-  position:relative;
+}
+
+.img-dropdownMobile {
+  width: 8px;
+  height: 8px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -123px -50px;
 }
 
 .img-failedPw {

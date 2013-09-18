@@ -43,7 +43,7 @@
             
             <div id="largeMenuButton" class="largeSearchBarRight">
               <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover;background-position:center;background-image:url(' . $this->module->session->userLogin_userAvatar . ');outline:1px solid #FFFFFF;"' : ''; ?>></button>
-              <?php echo ($this->module->session->userLogin_userNickname) ? '<button id="userNameButton"><div style="float:left;">' . $this->module->session->userLogin_userNickname . '</div><div class="img-dropdownArrow"></div></button>' : ''; ?>
+              <?php echo ($this->module->session->userLogin_userNickname) ? '<button id="userNameButton"><div style="float:left;padding-right:0.5em">' . $this->module->session->userLogin_userNickname . '<div class="img-dropdownArrow dropdownArrow"></div></div></button>' : ''; ?>
             </div>
             <div class="marginSpacer"></div>
           </div>
@@ -65,7 +65,8 @@
             <div class="marginSpacer"></div>
 
             <div id="mobileMenuButton">
-              <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover; background-position:center; background-repeat: norepeat; background-image:url(' . $this->module->session->userLogin_userAvatar . ');outline:1px solid #FFFFFF;"' : ''; ?>></button>
+              <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover; background-position:center; background-repeat: norepeat; background-image:url(' . $this->module->session->userLogin_userAvatar . ');outline:1px solid #FFFFFF;' : ''; ?>></button>
+<!--<?php echo ($this->module->session->userLogin_userNickname) ? '<div class="img-dropdownMobile"></div>' : ''; ?>-->
             </div>
             
             <div class="marginSpacer"></div>
