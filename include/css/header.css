@@ -72,6 +72,11 @@
   float: right;
 }
 
+#wrapper header div.dropdownMobile {
+  margin-top: 23px;
+  z-index: 2;
+}
+
 #wrapper header nav div div.largeSearchBarLeft {
   background-color: #17A5B8;
   border-top-left-radius: 0.125em;
