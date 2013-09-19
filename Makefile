@@ -135,6 +135,12 @@ deploy-public-all:
 	@python services/deploy.py public all
 	@echo ""
 
+deploy-myrrix:
+	@echo "Deploy the myrrix jar file..."
+	@java -jar recommender/myrrix-serving-1.0.1.jar --port 9090 &
+	@sleep 12
+	@php recommender/init.php
+
 info:
 	@echo "Usage: Basic commands to get along with the Catroweb project."
 	@echo ""
