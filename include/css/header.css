@@ -230,14 +230,22 @@
     margin-top: -0.57em;
   }
   
+  #wrapper header nav div div.headerImg img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  
   #wrapper header nav div div.marginSpacer {
     padding: 0 0.3125em 0 0.3125em;
   }
 }
 
-
 @media screen and (max-width: 642px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 2.2em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -246,7 +254,11 @@
 }
 
 @media screen and (max-width: 614px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 2.15em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -255,7 +267,11 @@
 }
 
 @media screen and (max-width: 598px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 2.1em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -264,7 +280,11 @@
 }
 
 @media screen and (max-width: 570px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 2.05em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -273,7 +293,11 @@
 }
 
 @media screen and (max-width: 542px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 2.0em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -282,7 +306,11 @@
 }
 
 @media screen and (max-width: 514px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 1.95em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -291,7 +319,11 @@
 }
 
 @media screen and (max-width: 498px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 1.9em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -300,7 +332,11 @@
 }
 
 @media screen and (max-width: 470px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 1.85em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -309,7 +345,11 @@
 }
 
 @media screen and (max-width: 442px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 1.8em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -318,7 +358,11 @@
 }
 
 @media screen and (max-width: 420px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 1.75em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -327,7 +371,11 @@
 }
 
 @media screen and (max-width: 414px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 1.7em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -336,7 +384,11 @@
 }
 
 @media screen and (max-width: 400px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 1.65em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -345,7 +397,11 @@
 }
 
 @media screen and (max-width: 360px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 1.6em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -354,7 +410,11 @@
 }
 
 @media screen and (max-width: 345px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 1.55em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -363,7 +423,11 @@
 }
 
 @media screen and (max-width: 335px) {
-  #wrapper header nav div div.headerImg {
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
     font-size: 1.5em;
   }
   #wrapper header nav div div.marginSpacer {
@@ -372,8 +436,12 @@
 }
 
 @media screen and (max-width: 320px) {
-  #wrapper header nav div div.headerImg {
-    font-size: 1.30em;
+  #wrapper header nav div div.catroidLink img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  #wrapper header nav div div.catroidLink {
+    font-size: 1.45em;
   }
   #wrapper header nav div div.marginSpacer {
     padding: 0 0.14em 0 0.14em;
