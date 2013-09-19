@@ -372,6 +372,7 @@ h3 {
   max-width: 1024px;
   min-height: 100%;
   min-width: 320px;
+  margin-bottom: -10em;
 }
 
 #wrapper article {
@@ -416,7 +417,6 @@ footer {
   font-size: 0.8em;
 
   position: relative;
-  margin-top: -12.8em; /* negative value of footer height */
   height: 12.8 em;
 }
 

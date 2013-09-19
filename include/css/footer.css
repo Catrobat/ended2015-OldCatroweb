@@ -161,13 +161,18 @@ footer ul li a:link, footer ul li a:visited {
 }
 
 @media screen and (max-width: 720px) {
+
+  #wrapper {
+    margin-bottom: 0em;
+  }
+  
   #wrapper article {
     padding-bottom: 3.5em;
   }
   
   footer {
-    margin-top: -3.5em; /*negative value of footer height*/
-    height: 3.5em;
+/*     margin-top: -3.5em; negative value of footer height */
+/*     height: 3.5em; */
   }
   
   footer div div:nth-child(1) {
