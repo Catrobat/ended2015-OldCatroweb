@@ -66,7 +66,7 @@
 
             <div id="mobileMenuButton">
               <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover; background-position:center; background-repeat: norepeat; background-image:url(' . $this->module->session->userLogin_userAvatar . ');outline:1px solid #FFFFFF;' : ''; ?>></button>
-<!--<?php echo ($this->module->session->userLogin_userNickname) ? '<div class="img-dropdownMobile"></div>' : ''; ?>-->
+              <?php echo ($this->module->session->userLogin_userNickname) ? '<div class="img-dropdownMobile"></div>' : ''; ?>
             </div>
             
             <div class="marginSpacer"></div>
