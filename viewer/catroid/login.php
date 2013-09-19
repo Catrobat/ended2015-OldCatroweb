@@ -53,6 +53,7 @@
 
       <script type="text/javascript">
       	$(document).ready(function() {
+        	$('#loginUsername').focus();
           var languageStringsObject = { 
               "username_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'username_missing'); ?>",
               "password_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'password_missing'); ?>"
