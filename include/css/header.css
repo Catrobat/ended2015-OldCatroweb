@@ -195,6 +195,18 @@
   color: #ffffff;
   width: 95%;
 }
+#wrapper header nav div div#smallSearchBar input::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #ffffff !important;
+}
+#wrapper header nav div div#smallSearchBar input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #ffffff !important;
+}
+#wrapper header nav div div#smallSearchBar input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #ffffff !important;
+}
+#wrapper header nav div div#smallSearchBar input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #ffffff !important;
+}
 
 #wrapper header nav div#smallMenu {
   display: none;
