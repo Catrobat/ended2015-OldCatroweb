@@ -137,8 +137,9 @@ deploy-public-all:
 
 deploy-myrrix:
 	@echo "Deploy the myrrix jar file..."
-	@java -jar recommender/myrrix-serving-1.0.1.jar --port 9090 &
+	@nohup java -jar recommender/myrrix-serving-1.0.1.jar --port 9090 &
 	@sleep 12
+	@rm nohup.out
 	@php recommender/init.php
 
 info:
@@ -192,6 +193,8 @@ info:
 	@echo "                        Deploys the website and addons to catroidtest."
 	@echo "  deploy-public         Deploys the website to catroidweb."
 	@echo "  deploy-public-all     Deploys the website and addons to catroidweb."
+	@echo ""
+	@echo "  deploy-myrrix         Deploys the jar instance of the myrrix recommender system."
 	@echo ""
 	@echo "  info                  Shows the available options."
 	@echo ""
