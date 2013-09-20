@@ -25,20 +25,8 @@
   text-align: center;
 }
 
-<<<<<<< HEAD
-#wrapper article div.header {
-  border-bottom: 1px solid #477889;
-  font-size: 1.8em;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em;
-  text-shadow: #000000 1px 1px 1px;
-}
-
-=======
->>>>>>> 29ed92ec66920b22e8c23c2f39bd32949ed5b4c8
 #wrapper article  img {
-  margin: 2em 0 0 0;
+  margin: 7em 0 0 0;
 }
 
 #wrapper article  p {

@@ -26,8 +26,10 @@
       <article>
         <div class="form">
           <form>
-            <input type="text" id="passwordRecoveryUserdata" placeholder=" <?php echo $this->languageHandler->getString('nickname_placeholder') ?>" /><br />
-            <div class="img-password-recovery"></div>
+            <div class="passwordRecoveryValid">
+              <input type="text" id="passwordRecoveryUserdata" placeholder=" <?php echo $this->languageHandler->getString('nickname_placeholder') ?>" /><br />
+              <div class="img-password-recovery pwRecoveryIcon"></div>
+            </div>
             <div id="recoveryMessage"></div>
             <div class="footer">
               <nav>

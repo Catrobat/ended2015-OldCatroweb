@@ -24,33 +24,25 @@
 
 ?>
 <article>
-  <div class="header"><?php echo $this->languageHandler->getString('title')?></div>
+  <header><?php echo $this->languageHandler->getString('title')?></header>
   <div class="licenseMain">
     <div class="licenseText">
-      <p class="licenseText">
-        <?php echo $this->languageHandler->getString('project_licence_part1')?>
-        <br /> <br />
-        <?php echo $this->languageHandler->getString('project_licence_part2')?>
-        <br /> <br />
-        <?php echo $this->languageHandler->getString('project_licence_part3')?>
-      </p>
+      <?php echo $this->languageHandler->getString('project_licence_part1')?>
+      <p><?php echo $this->languageHandler->getString('project_licence_part2')?></p>
+      <p class="licenseText"><?php echo $this->languageHandler->getString('project_licence_part3')?></p>
       <ul>
         <li><?php echo $this->languageHandler->getString('project_licence_part3_list_element1')?>
         </li>
         <li><?php echo $this->languageHandler->getString('project_licence_part3_list_element2')?>
         </li>
       </ul>
-      <p class="licenseText">
-        <?php echo $this->languageHandler->getString('project_licence_part4')?>
-        <br /> <br />
-        <?php echo $this->languageHandler->getString('project_licence_part5')?>
-        <br /> <br />
-        <?php echo $this->languageHandler->getString('project_licence_learn_more_new','<a class="license" href="'.BASE_PATH.'termsOfUse">'.BASE_PATH.'termsOfUse</a>')?>
-        <br /> <br />
-      </p>
-      <p class="licenseText">
+      <p><?php echo $this->languageHandler->getString('project_licence_part4')?></p>
+      <p><?php echo $this->languageHandler->getString('project_licence_part5')?></p>
+      <p><?php echo $this->languageHandler->getString('project_licence_learn_more_new',
+          '<a class="license" href="'.BASE_PATH.'termsOfUse">'.BASE_PATH.'termsOfUse</a>')?></p>
+      <p>
         <?php echo $this->languageHandler->getString('project_licence_dated')?>
-        <br />
+        <br/>
       </p>
     </div>  <!-- License Text -->
   </div>  <!--  license Main -->

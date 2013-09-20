@@ -22,7 +22,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="template_header_search_placeholder">search...</string>  
+  <string name="template_header_search_placeholder">Search ...</string>  
   <string name="template_header_register">click here to create a new account</string>
   <string name="template_header_additional_options">Other options to proceed:</string>
   <string name="template_header_nick">Nick:</string>

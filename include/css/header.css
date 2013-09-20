@@ -73,7 +73,8 @@
 }
 
 #wrapper header div.dropdownMobile {
-  margin-top: 23px;
+  margin-top: 22px;
+  margin-right: 1px;
   z-index: 2;
 }
 

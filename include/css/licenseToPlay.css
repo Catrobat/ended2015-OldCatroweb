@@ -26,9 +26,8 @@
 }
 
 #wrapper article div.licenseText {
-  padding: 1em; 
   text-align:justify;
-  font-size:1em;
+  padding: 0 1em 0 1em;
 }
 
 #wrapper article p.licenseText { 
@@ -39,7 +38,19 @@
 
 #wrapper article a:link, a:visited { 
   text-decoration: underline; 
-  color: #6ab7ce; 
+  color: #17a5b8; 
   font-weight: bold;
 }
 
+@media screen and (min-width: 800px) {
+  #wrapper article div.licenseText {
+    
+    -moz-column-count:2; 
+    -webkit-column-count:2; 
+    column-count:2;
+  
+    -moz-column-gap:40px; 
+    -webkit-column-gap:40px;
+    column-gap:40px;
+  }
+}

@@ -93,8 +93,8 @@
   width: 37%;
   max-width: 37%;
   text-align: justify;
-  padding: 0;
-  margin: 0;
+
+  padding-left: 0.5em;
 }
 
 #projectDetailsProjectTitle {
@@ -129,9 +129,13 @@
 .projectDetailsDownload {
   display: table;
   text-decoration: none;
-  margin-left: 1em;
+  float: right;
   max-width: 27%;
   width: 27%;
+}
+
+#wrapper article div.blue {
+  margin: 0.2em 0;
 }
 
 .projectDetailsDownloadButton {
