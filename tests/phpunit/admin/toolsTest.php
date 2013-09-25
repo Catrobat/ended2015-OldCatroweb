@@ -195,7 +195,7 @@ class toolsTest extends PHPUnit_Framework_TestCase
   /**
    * @dataProvider noStarterProjects
    */
-  public function testAddRemoveStarterProjects($id, $group, $visibility) {
+  public function testAddAndRemoveStarterProjects($id, $group, $visibility) {
     $_POST['add'] = 1;
     $_POST['projectId'] = $id;
     $_POST['group'] = $group;
