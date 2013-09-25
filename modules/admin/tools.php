@@ -152,11 +152,8 @@ class tools extends CoreAuthenticationAdmin {
   }
   
   public function addStarterProject() {
+    $retval = null;
     
-//     if(isset($_POST['checkRemove']))
-//       $this->removeStarterProject();
-//     else
-//     {
     if(isset($_POST['add'])) {
       $id = $_POST['projectId'];
       $group = $_POST['group'];
@@ -170,13 +167,16 @@ class tools extends CoreAuthenticationAdmin {
         
         if($result && pg_affected_rows($result) == 1) {
           $answer = "The starter project was added!";
+          $retval = STATUS_CODE_OK;
         }
         else {
           $answer = "The starter project could NOT be added!";
+          $retval = STATUS_CODE_STARTER_PROJECT_NOT_ADDED;
         }
       }
       else {
         $answer = "This project is already a starter project! - Group: ".$_POST['group'];
+        $retval = STATUS_CODE_STARTER_PROJECT_ALREADY_ADDED;
       }
       $this->answer = $answer;
     }
@@ -191,14 +191,23 @@ class tools extends CoreAuthenticationAdmin {
       }
       $this->starterProjectIds = $starterProjectIds;
     }
+    
+    return $retval;
   }
   
   public function removeStarterProject() {
 
+    $retval = null;
+    
     $id = $_POST['projectId'];
     
     $query = "EXECUTE remove_starter_project_by_id('$id');";
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    
+    if($result)
+      $retval = STATUS_CODE_OK;
+    else
+      $retval = STATUS_CODE_STARTER_PROJECT_NOT_REMOVED;
     
     $this->htmlFile = 'addStarterProject.php';
     $this->projects = $this->retrieveAllProjectsFromDatabase();
@@ -206,11 +215,12 @@ class tools extends CoreAuthenticationAdmin {
     $starterProjectIds = array();
     if($this->starterProjects) {
       foreach($this->starterProjects as $sp) {
-        array_push($starterProjectIds, $sp['project_id']);;
+        array_push($starterProjectIds, $sp['project_id']);
       }
       $this->starterProjectIds = $starterProjectIds;
     }
    
+    return $retval;
   }
   
   public function retrieveStarterProjectById($projectId) {
