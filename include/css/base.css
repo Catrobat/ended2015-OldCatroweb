@@ -202,6 +202,15 @@ h3 {
 /*   outline: 1px solid #FFFFFF; */
 }
 
+.img-avatarMobile {
+  width: 45px;
+  height: 45px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -131px -93px;
+  border-radius: 0.125em;
+/*   outline: 1px solid #FFFFFF; */
+}
+
 .img-undo-search {
   width: 31px;
   height: 31px;
