@@ -184,9 +184,9 @@
 }
 
 #wrapper header nav div#mobileMenuButton {
-  background-color:#fff;
   border-radius: 0.125em;
 }
+
 
 #wrapper header nav div div#smallSearchBar {
   display: none;

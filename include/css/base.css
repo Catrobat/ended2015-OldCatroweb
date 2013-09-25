@@ -203,8 +203,8 @@ h3 {
 }
 
 .img-avatarMobile {
-  width: 45px;
-  height: 45px;
+  width: 31px;
+  height: 31px;
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -131px -93px;
   border-radius: 0.125em;
