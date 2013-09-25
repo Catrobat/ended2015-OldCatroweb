@@ -214,6 +214,7 @@ h3 {
   height: 31px;
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -131px -186px;
+  -webkit-filter: drop-shadow(2px 0px 2px #222)
 }
 
 .img-password {
@@ -230,9 +231,14 @@ h3 {
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: -114px -17px;
   float: right;
-  margin-left:0.3em;
-  top: 5px;
-  position:relative;
+}
+
+.img-dropdownMobile {
+  width: 8px;
+  height: 8px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: -123px -50px;
+  float: right;
 }
 
 .img-failedPw {
@@ -368,6 +374,7 @@ h3 {
   max-width: 1024px;
   min-height: 100%;
   min-width: 320px;
+  margin-bottom: -10em;
 }
 
 #wrapper article {
@@ -412,7 +419,6 @@ footer {
   font-size: 0.8em;
 
   position: relative;
-  margin-top: -12.8em; /* negative value of footer height */
   height: 12.8 em;
 }
 

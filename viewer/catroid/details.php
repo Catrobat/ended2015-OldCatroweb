@@ -26,7 +26,7 @@
 <article>
   <header>
     <div>
-      <?php echo $this->project['title']?>
+      <span id="projectDetailsProjectTitle"><?php echo $this->project['title']?></span>
       <div class="projectDetailsAuthorTop">
         <ul>
           <li>
@@ -49,7 +49,7 @@
     <div class="projectDetailsDescription">
       <div>
         <span class="projectDetailsDescriptionHeading">
-          <?php echo nl2br($this->languageHandler->getString('description')); ?>
+          <?php echo $this->languageHandler->getString('description'); ?>
         </span>
       </div>
       <div class="projectDetailsDescriptionText">

@@ -67,8 +67,18 @@
   margin-top: -0.53em;
 }
 
+#wrapper header div.dropdownArrow {
+  margin:0.25em 0 0 0.2em;
+  float: right;
+}
+
+#wrapper header div.dropdownMobile {
+  margin-top: 23px;
+  z-index: 2;
+}
+
 #wrapper header nav div div.largeSearchBarLeft {
-  background-color: #74b1c6;
+  background-color: #17A5B8;
   border-top-left-radius: 0.125em;
   border-bottom-left-radius: 0.125em;
   background-image: linear-gradient(top, #17A5B8, #177f8d);
@@ -78,7 +88,7 @@
 }
 
 #wrapper header nav div div.largeSearchBarMiddle {
-  background-color: #74b1c6;
+  background-color: #17A5B8;
   border-right: 1px solid #c8e3ee;
   padding-right: 0.625em;
   background-image: linear-gradient(top, #17A5B8, #177f8d);
@@ -110,16 +120,13 @@
 
 
 #wrapper header nav div div.largeSearchBarRight {
-  background-color: #74b1c6;
+  background-color: #17A5B8;
   border-top-right-radius: 0.125em;
   border-bottom-right-radius: 0.125em;
   background-image: linear-gradient(top, #17A5B8, #177f8d);
   background-image: -moz-linear-gradient(top, #17A5B8, #177f8d);
   background-image: -webkit-linear-gradient(top, #17A5B8, #177f8d);
   vertical-align: middle;
-}
-#wrapper header nav div div.largeSearchBarRight button:nth-child(1) {
-  border: 0.05em solid #fff;
 }
 
 #wrapper header nav div div.largeSearchBarRight button:nth-child(2) {
@@ -168,18 +175,21 @@
 }
 
 #wrapper header nav div#smallMenu #mobileSearchButton, #mobileMenuButton {
-  background-color:#74b1c6;
+  background-color:#17A5B8;
+  background-image: linear-gradient(top, #17A5B8, #177f8d);
+  background-image: -moz-linear-gradient(top, #17A5B8, #177f8d);
+  background-image: -webkit-linear-gradient(top, #17A5B8, #177f8d);
   border-radius: 0.125em;
 }
 
 #wrapper header nav div div#smallSearchBar {
   display: none;
   width: 100%;
-  border-top: 1px solid #74b1c6;
-  border-left: 1px solid #74b1c6;
+  border-top: 1px solid #17A5B8;
+  border-left: 1px solid #17A5B8;
   background-color: #29505f;
   vertical-align: middle;
-  border-bottom: 1px solid #74b1c6;
+  border-bottom: 1px solid #17A5B8;
 }
 
 #wrapper header nav div div#smallSearchBar input {
@@ -189,6 +199,18 @@
   padding: 0.625em 0 0.5em 0.5em;
   color: #ffffff;
   width: 95%;
+}
+#wrapper header nav div div#smallSearchBar input::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #ffffff !important;
+}
+#wrapper header nav div div#smallSearchBar input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #ffffff !important;
+}
+#wrapper header nav div div#smallSearchBar input::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #ffffff !important;
+}
+#wrapper header nav div div#smallSearchBar input:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #ffffff !important;
 }
 
 #wrapper header nav div#smallMenu {
@@ -200,8 +222,6 @@
     padding: 0 0.3125em 0 0.3125em;
   }
 }
-
-
 
 @media screen and (max-width: 698px) {
   #wrapper header nav div#smallMenu {
@@ -215,11 +235,15 @@
     margin-top: -0.57em;
   }
   
+  #wrapper header nav div div.headerImg img {
+    max-height: 1.5em;
+    margin-top: -0.57em;
+  }
+  
   #wrapper header nav div div.marginSpacer {
     padding: 0 0.3125em 0 0.3125em;
   }
 }
-
 
 @media screen and (max-width: 642px) {
   #wrapper header nav div div.catroidLink img {

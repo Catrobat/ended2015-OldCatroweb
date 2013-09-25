@@ -28,7 +28,7 @@
     <div>
 
       <div class="profileAvatar">
-        <div id="profileAvatarError"></div>
+         <div id="profileAvatarError"></div>
         <img class="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
         <div>
           <button id="profileChangeAvatarButton"><?php echo $this->languageHandler->getString('changeAvatar'); ?></button>

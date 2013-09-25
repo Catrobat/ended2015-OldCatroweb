@@ -296,6 +296,8 @@ class upload extends CoreAuthenticationDevice {
   private function updateOrInsertProjectIntoDatabase($projectTitle, $projectDescription, $uploadIp, $uploadLanguage, $fileSize, $versionName, $versionCode, $visible) {
     $userId = (($this->session->userLogin_userId) ? $this->session->userLogin_userId : 0);
 
+    $projectDescription = nl2br($projectDescription);
+    
     $result = $this->query("does_project_already_exist", array($projectTitle, $userId));
     if(pg_num_rows($result) == 1) {
       $row = pg_fetch_assoc($result);
