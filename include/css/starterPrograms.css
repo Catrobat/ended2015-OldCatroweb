@@ -74,6 +74,15 @@
   font-weight: bold;
 }
 
+#wrapper article div.tutorialCardsHeadText1 {
+  float: left;
+}
+
+#wrapper article div.tutorialCardsHeadText2 {
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
 #wrapper article a {
 
   color: #17a5b8;

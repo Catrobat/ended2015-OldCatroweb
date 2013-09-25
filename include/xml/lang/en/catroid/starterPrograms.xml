@@ -23,7 +23,7 @@
 -->
 <strings>
 	<string name="title">Starter Programs</string>
-  <string name="head_text">This cards show you how to use effective bricks in Pocket Code.</string>
+  <string name="head_text1">Try out these starter programs. Look inside to make changes and add your ideas.</string>
   
   <string name="group1">Games</string>
   <string name="group2">Animations</string>

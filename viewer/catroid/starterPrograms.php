@@ -29,7 +29,7 @@
   </div>
   <div class="starterProjectsMain">
     <div class="starterProjectsMainHeader">
-      <?php echo $this->languageHandler->getString('head_text'); ?>
+      <?php echo $this->languageHandler->getString('head_text1'); ?>&nbsp;
     </div>
     <div class="starterProjectsMainContent">
       <div class="starterProjectsGroup">
