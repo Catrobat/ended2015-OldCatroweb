@@ -99,15 +99,13 @@
 }
 
 #wrapper article .starterProjectsTitle {  
-/*   white-space: nowrap;
-  overflow: hidden; */
-  
+  width: 80px;
   text-align: left;
   font-weight: bold;
   margin-top: 0.5em;
   overflow: hidden;
   text-overflow: ellipsis;
-  white-space: nowrap;
+  white-space: nowrap;  
 }
 
 #wrapper article .starterProjectsAdditional {
