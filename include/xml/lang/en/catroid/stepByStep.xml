@@ -23,25 +23,59 @@
 -->
 <strings>
 	<string name="title">Step-by-Step Intro</string>
+	
+	<string name="step1_title">1. Make a new program</string>
+	<string name="step1_description"></string>
+	<string name="step1_additional_text_1">Tap on "New".</string>
+	<string name="step1_additional_text_2">Enter a progam name, select "Create empty program" and tap "OK".</string>
+	
+  <string name="step2_title">2. Create a new object</string>
+	<string name="step2_description"></string>
+	<string name="step2_additional_text_1">Tap:</string>
+	<string name="step2_additional_text_2">Choose the source of the first look of your  new object.</string>
+	<string name="step2_additional_text_3">Draw a new look.</string>
+	<string name="step2_additional_text_4">Choose from gallery.</string>
+	<string name="step2_additional_text_5">Take a picture.</string>
+  <string name="step2_additional_text_6">Enter an object name and tap “OK” to create the object.</string>  
+
+  <string name="step3_title">3. Start Moving</string>
+	<string name="step3_description"></string>
+	<string name="step3_additional_text_1">Tap:</string>
+	<string name="step3_additional_text_2">The first brick we use is out of the category "Motion".</string>
+	<string name="step3_additional_text_3">Choose the "Glide" brick. The object will move to the new position defined with the brick on the stage.</string>
+	<string name="step3_additional_text_4">Tap “Play” to go to the stage and see the object gliding.</string>
+	<string name="step3_additional_text_5">Use the Android Back Button to get back from the stage.</string>
   
-	<string name="project1_short">Glide</string>
-	<string name="project1">Glide</string>
-	<string name="project2_short">Sensors</string>
-	<string name="project2">Sensors</string>
-	<string name="project3_short">Animation</string>
-	<string name="project3">Animation</string>
-	<string name="project4_short">Card4</string>
-	<string name="project4">Card4</string>
-	<string name="project5_short">Card5</string>
-	<string name="project5">Card5</string>
-	<string name="project6_short">Card6</string>
-	<string name="project6">Card6</string>
-	<string name="project7_short">Card7</string>
-	<string name="project7">Card7</string>
-	<string name="project8_short">Card8</string>
-	<string name="project8">Card8</string>
-	<string name="project9_short">Card9</string>
-	<string name="project9">Card9</string>
-	<string name="project10_short">Card10</string>
-	<string name="project10">Card10</string>
+  <string name="step4_title">4. Change Look</string>
+	<string name="step4_description">You can change the look of your object.</string>
+	<string name="step4_additional_text_1">Choose the “Switch to look” brick. With this brick you can choose a look or create a new one.</string>
+	<string name="step4_additional_text_2">Snap the brick underneath the others.</string>
+	<string name="step4_additional_text_3">Tap into the dropdown field to create a new look.</string>
+	<string name="step4_additional_text_4">Choose the source of the image like before.</string>
+	<string name="step4_additional_text_5">Now you have to select the new image.</string>
+	<string name="step4_additional_text_6">Tap play to see the behaviour on the stage.</string>
+	
+	<string name="step5_title">5. Speak</string>
+	<string name="step5_description">Now you will find out how to make an object talk.</string>
+	<string name="step5_additional_text_1">Choose the “Speak” brick. The object speaks the text, when this brick is executed.</string>
+	<string name="step5_additional_text_2">Snap the brick underneath the "Switch to look" brick.</string>
+	<string name="step5_additional_text_3">Tap play to see the behaviour on the stage.</string>
+	
+	<string name="step6_title">6. Again and again</string>
+	<string name="step6_description">This step shows you how to repeat behaviour of objects.</string>
+	<string name="step6_additional_text_1">Choose the “Forever” brick. Everything in the loop repeats forever.</string>
+	<string name="step6_additional_text_2">Snap the “Forever” brick underneath the first brick.</string>
+	<string name="step6_additional_text_3">Add another “Glide” brick.</string>
+	<string name="step6_additional_text_4">Snap the “Glide” brick aboth the “End of loop” brick. </string>
+	<string name="step6_additional_text_5">Tap into the text field of the x and y value and set to 0.</string>
+	<string name="step6_additional_text_6">Tap play to see the behaviour on the stage.</string>
+	
+	<string name="step7_title">7. Copy, delete or edit a brick.</string>
+	<string name="step7_description">This step shows you how to repeat behaviour of objects.</string>
+	<string name="step7_additional_text_1">Choose the “Forever” brick. Everything in the loop will repeat forever.</string>
+	<string name="step7_additional_text_2">Now you have this script.</string>
+	<string name="step7_additional_text_3">Now you have this script.</string>
+	<string name="step7_additional_text_4">Now you have this script.</string>
+	<string name="step7_additional_text_5">Tap play to see the behaviour on the stage.</string>
+
 </strings>

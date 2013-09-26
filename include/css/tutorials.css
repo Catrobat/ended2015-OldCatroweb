@@ -40,6 +40,15 @@
   overflow: hidden;
 }
 
+#wrapper article div.tutorialCardsHeadText1 {
+  float: left;
+}
+
+#wrapper article div.tutorialCardsHeadText2 {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
 #wrapper article div.tutorialCardsMainHeader {
   text-align: left;
   margin-bottom: 0.5em;
@@ -93,11 +102,9 @@
 }
 
 #wrapper article .tutorialCardsTitle {  
-  white-space: nowrap;
-  overflow: hidden;
   height: 80px;
   line-height: 80px;
-  padding-left: 10px;
+  padding-left: 100px;
   font-size: 1.8em;
   font-weight: normal;
 }
@@ -115,6 +122,16 @@
 }
 
 @media screen and (max-width: 720px) {
+  
+ #wrapper article div.tutorialLeftContainer {
+   float: none;
+   width: 100%;
+ }
+ 
+ #wrapper article div.tutorialRightContainer {
+   float: none;
+   width: 100%;
+ }
  
  #wrapper article div.tutorialCardsMainContent {
   text-align: left;

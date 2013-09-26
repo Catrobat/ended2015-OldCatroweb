@@ -55,74 +55,217 @@
   width: 100%;
 }
 
+#wrapper article div.stepByStepHeadline {
+    width: 100%;
+    padding-left: 1em;
+    padding-top: 1em;
+    font-size: 1.5em;
+  }
+  
+#wrapper article div.stepByStepContentLeft {
+    width: 35%;
+    float: left;
+    padding-left: 2em;
+  }
+  
+#wrapper article div.stepByStepContentRight {
+    width: 57%;
+    float: left;
+    padding-left: 2em;
+  }
+  
+#wrapper article div.stepByStepContentFooter {
+  width: 100%;
+  padding-top: 2em;
+  text-align: center;
+}
+
+#wrapper article div.stepByStepContentFooter img {
+  width: 5%;
+  border: 1px #FFFFFF solid;
+}
+  
+#wrapper article div.stepByStepDescription {
+  margin-bottom: 0.5em;
+  margin-top: 2em;
+}
+
+#wrapper article div.stepByStepDetailContainerLeft {
+  float: left;
+  width: 30%;
+}
+
+#wrapper article div.stepByStepDetailContainerRight {
+  float: left;
+  width: 70%;
+  font-size: 0.8em;
+}
+
+#wrapper article div.stepByStepDetailRight {
+  width: 100%;
+  padding-left: 1em;
+  padding-bottom: 0.5em;
+}
+
+#wrapper article div.stepByStepDetailRight img {
+  width: 7%;
+  margin-right: 1em;
+}
+
+#wrapper article div.stepByStepContentRight img {
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentLeft img.leftThumb {
+  width: 70%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.rightThumb {
+  width: 50%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.rightThumb2 {
+  width: 30%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.rightThumb3 {
+  width: 40%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.rightThumb4 {
+  width: 80%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.thumbBack {
+  width: 10%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.rightDetailThumb {
+  width: 100%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.plusThumb {
+  width: 20%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.plusThumb {
+  width: 20%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.newThumb {
+  width: 40%;
+  border: 1px #FFFFFF solid;
+}
+
+
 #wrapper article div.stepByStepMainContent1 {
   display: block;
   margin: 0 auto;
-  width: 80%;
-  background-color: #000;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
 }
 
 #wrapper article div.stepByStepMainContent2 {
   display: none;
   margin: 0 auto;
-  width: 80%;
-  background-color: #000;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
 }
 
 #wrapper article div.stepByStepMainContent3 {
   display: none;
   margin: 0 auto;
-  width: 80%;
-  background-color: #000;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
 }
 
 #wrapper article div.stepByStepMainContent4 {
   display: none;
   margin: 0 auto;
-  width: 80%;
-  background-color: #000;
+ 
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
 }
 
 #wrapper article div.stepByStepMainContent5 {
   display: none;
   margin: 0 auto;
-  width: 80%;
-  background-color: #000;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
 }
 
 #wrapper article div.stepByStepMainContent6 {
   display: none;
   margin: 0 auto;
-  width: 80%;
-  background-color: #000;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
 }
 
 #wrapper article div.stepByStepMainContent7 {
   display: none;
   margin: 0 auto;
-  width: 80%;
-  background-color: #000;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
 }
 
 #wrapper article div.stepByStepMainContent8 {
   display: none;
   margin: 0 auto;
-  width: 80%;
-  background-color: #000;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
 }
 
 #wrapper article div.stepByStepMainContent9 {
   display: none;
   margin: 0 auto;
-  width: 80%;
-  background-color: #000;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
 }
 
 #wrapper article div.stepByStepMainContent10 {
   display: none;
   margin: 0 auto;
-  width: 80%;
-  background-color: #000;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
 }
 
 #wrapper article div.stepByStepNavigation {
