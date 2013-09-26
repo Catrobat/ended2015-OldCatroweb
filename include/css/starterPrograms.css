@@ -35,6 +35,24 @@
   margin-bottom: 0.8em;
 }
 
+#wrapper article div.menuContainer {
+    width: 100%;
+    text-transform: uppercase;
+    border-bottom: 1px solid #17a5b8;
+    padding-bottom: 0.8em;
+    margin-bottom: 0.8em;
+}
+  
+#wrapper article div.menuDetail {
+  width: 25%;
+  float: left;
+  text-align: center;
+}
+
+#wrapper article div.clear {
+  clear: both;
+}
+
 #wrapper article div.starterProjectsMain {
   margin-top: 0.2em;
   overflow: hidden;
