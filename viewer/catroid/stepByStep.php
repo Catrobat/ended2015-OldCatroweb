@@ -31,25 +31,143 @@
   <div class="clear"></div>
   <div class="stepByStepMain">
     <div class="stepByStepMainContent1">
-      1
+      <div class="stepByStepHeadline"><?php echo $this->languageHandler->getString('step1_title'); ?></div>
+      <div class="stepByStepContentLeft">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step1_description'); ?></div>
+        <img class="leftThumb" src="images/stepbystep/1_left.png" />
+      </div>
+      <div class="stepByStepContentRight">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step1_additional_text_1'); ?></div>
+        <img class="newThumb" src="images/stepbystep/1_right_1.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step1_additional_text_2'); ?></div>
+        <img class="rightThumb" src="images/stepbystep/1_right_2.png" />
+      </div>
+      <div class="clear"></div>      
     </div>
     <div class="stepByStepMainContent2">
-      2
+      <div class="stepByStepHeadline"><?php echo $this->languageHandler->getString('step2_title'); ?></div>
+      <div class="stepByStepContentLeft">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step2_description'); ?></div>
+        <img class="leftThumb" src="images/stepbystep/1_left.png" />
+      </div>
+      <div class="stepByStepContentRight">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step2_additional_text_1'); ?></div>
+        <img class="plusThumb" src="images/stepbystep/plus.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step2_additional_text_2'); ?></div>
+        <div class="stepByStepDetailContainerLeft">
+          <img class="rightDetailThumb" src="images/stepbystep/2_right_1.png" />
+        </div>
+        <div class="stepByStepDetailContainerRight">
+          <div class="stepByStepDetailRight"><img class="rightThumb1" src="images/stepbystep/2_right_2.png" /><?php echo $this->languageHandler->getString('step2_additional_text_3'); ?></div>
+          <div class="stepByStepDetailRight"><img class="rightThumb1" src="images/stepbystep/2_right_3.png" /><?php echo $this->languageHandler->getString('step2_additional_text_4'); ?></div>
+          <div class="stepByStepDetailRight"><img class="rightThumb1" src="images/stepbystep/2_right_4.png" /><?php echo $this->languageHandler->getString('step2_additional_text_5'); ?></div>
+        </div>
+        <div class="clear"></div>
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step2_additional_text_6'); ?></div>
+        <img class="rightThumb2" src="images/stepbystep/2_right_5.png" />
+      </div>
+      <div class="clear"></div>
     </div>
     <div class="stepByStepMainContent3">
-      3
+      <div class="stepByStepHeadline"><?php echo $this->languageHandler->getString('step3_title'); ?></div>
+      <div class="stepByStepContentLeft">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step3_description'); ?></div>
+        <img class="leftThumb" src="images/stepbystep/3_left.png" />
+      </div>
+      <div class="stepByStepContentRight">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step3_additional_text_1'); ?></div>
+        <img class="plusThumb" src="images/stepbystep/plus.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step3_additional_text_2'); ?></div>
+        <img class="rightThumb3" src="images/stepbystep/3_right_1.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step3_additional_text_3'); ?></div>
+        <img class="rightThumb" src="images/stepbystep/3_right_2.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step3_additional_text_4'); ?></div>
+        <img class="plusThumb" src="images/stepbystep/arrow_right.png" />
+        
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step3_additional_text_5'); ?></div>
+        <img class="thumbBack" src="images/stepbystep/arrow_back.png" />
+      </div>
+      <div class="clear"></div>
     </div>
     <div class="stepByStepMainContent4">
-      4
+      <div class="stepByStepHeadline"><?php echo $this->languageHandler->getString('step4_title'); ?></div>
+      <div class="stepByStepContentLeft">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step4_description'); ?></div>
+        <img class="leftThumb" src="images/stepbystep/4_left.png" />
+      </div>
+      <div class="stepByStepContentRight">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step4_additional_text_1'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/4_right_1.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step4_additional_text_2'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/4_right_2.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step4_additional_text_3'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/4_right_3.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step4_additional_text_4'); ?></div>
+        <img class="rightThumb3" src="images/stepbystep/4_right_4.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step4_additional_text_5'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/4_right_5.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step4_additional_text_6'); ?></div>
+        <img class="plusThumb" src="images/stepbystep/arrow_right.png" />
+      </div>
+      <div class="clear"></div>
     </div>
     <div class="stepByStepMainContent5">
-      5
+      <div class="stepByStepHeadline"><?php echo $this->languageHandler->getString('step5_title'); ?></div>
+      <div class="stepByStepContentLeft">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step5_description'); ?></div>
+        <img class="leftThumb" src="images/stepbystep/5_left.png" />
+      </div>
+      <div class="stepByStepContentRight">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step5_additional_text_1'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/5_right_1.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step5_additional_text_2'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/5_right_2.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step5_additional_text_3'); ?></div>
+        <img class="plusThumb" src="images/stepbystep/arrow_right.png" />
+      </div>
+      <div class="clear"></div>
     </div>
     <div class="stepByStepMainContent6">
-      6
+      <div class="stepByStepHeadline"><?php echo $this->languageHandler->getString('step6_title'); ?></div>
+      <div class="stepByStepContentLeft">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step6_description'); ?></div>
+        <img class="leftThumb" src="images/stepbystep/6_left.png" />
+      </div>
+      <div class="stepByStepContentRight">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step6_additional_text_1'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/6_right_1.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step6_additional_text_2'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/6_right_2.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step6_additional_text_3'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/6_right_3.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step6_additional_text_4'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/6_right_4.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step6_additional_text_5'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/6_right_5.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step6_additional_text_6'); ?></div>
+        <img class="plusThumb" src="images/stepbystep/arrow_right.png" />
+      </div>
+      <div class="clear"></div>
     </div>
     <div class="stepByStepMainContent7">
-      7
+      <div class="stepByStepHeadline"><?php echo $this->languageHandler->getString('step7_title'); ?></div>
+      <div class="stepByStepContentLeft">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step7_description'); ?></div>
+        <img class="leftThumb" src="images/stepbystep/7_left.png" />
+      </div>
+      <div class="stepByStepContentRight">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step7_additional_text_1'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/7_right_1.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step7_additional_text_2'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/7_right_2.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step7_additional_text_3'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/7_right_3.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step7_additional_text_4'); ?></div>
+        <img class="rightThumb4" src="images/stepbystep/7_right_4.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step7_additional_text_5'); ?></div>
+        <img class="plusThumb" src="images/stepbystep/arrow_right.png" />
+      </div>
+      <div class="clear"></div>
     </div>
     <div class="stepByStepMainContent8">
       8

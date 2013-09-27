@@ -23,6 +23,8 @@
 
 var currentSlide = 1;
 
+$(".navigation"+1).css("color", "#FFFFFF");
+
 function changeContainer(slide) {
   
   currentSlide = slide;

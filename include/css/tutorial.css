@@ -39,6 +39,10 @@
   clear: both;
 }
 
+#wrapper article img {
+  border: none;
+}
+
 #wrapper article div.tutorialMain {
   margin-top: 0.2em;
   overflow: hidden;
@@ -48,6 +52,37 @@
   text-align: left;
   margin-bottom: 0.5em;
   margin-left: 0.8em;
+}
+
+#wrapper article div.tutorialStepByStep1 {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+#wrapper article div.tutorialStepByStep2 {
+  display: none;
+}
+
+#wrapper article div.tutorialBottomContainer {
+  width: 100%;
+  padding-top: 2.2em;
+}
+
+#wrapper article div.tutorialTutorials {
+  width: 48%;
+  float: left;
+}
+
+#wrapper article div.tutorialStarters {
+  width: 48%;
+  float: right;
+}
+
+#wrapper article div.tutorialStartersThumb {
+  width: 48%;
+  float: right;
+  display: none;
 }
 
 #wrapper article div.tutorialTopContainer {
@@ -241,16 +276,16 @@
   overflow: hidden;
 }
 
-@media screen and (max-width: 1280px) {
+/* @media screen and (max-width: 1280px) {
   
  #wrapper article div.tutorialMain {
    margin-left: 0.5em;
    margin-right: 0.5em;
  }
  
-}
+} */
  
- @media screen and (max-width: 800px) {
+ @media screen and (max-width: 1100px) {
  
  #wrapper article div.tutorialMainContent {
    text-align: left;
@@ -268,6 +303,33 @@
  #wrapper article div.break {
    clear: both;
  }
+ 
+ #wrapper article div.tutorialStepByStep1 {
+   display: none; 
+ }
+ 
+ #wrapper article div.tutorialStepByStep2 {
+   display: block; 
+   text-align: center;
+ }
+ 
+ #wrapper article div.tutorialTutorials {
+   width: 100%;
+   float:none;
+   text-align: center;
+ }
+ 
+ #wrapper article div.tutorialStarters {
+   display: none;
+ }
+ 
+  #wrapper article div.tutorialStartersThumb {
+   display: block;
+   width: 100%;
+   padding-top: 2.2em;
+   text-align: center;
+ }
+ 
  
  #wrapper article div.tutorialStarterProgamsContainer { 
    width: 100%;

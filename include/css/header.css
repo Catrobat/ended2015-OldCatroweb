@@ -68,7 +68,6 @@
 }
 
 #wrapper header div.dropdownArrow {
-  margin:0.25em 0 0 0.2em;
   float: right;
 }
 
@@ -138,6 +137,8 @@
 
 #wrapper header div#largeMenuButton button#userNameButton {
   padding-left: 0.25em;
+  padding-right: 0;
+  margin-right:0;
 }
 
 
@@ -175,13 +176,18 @@
   background-color: #025168;
 }
 
-#wrapper header nav div#smallMenu #mobileSearchButton, #mobileMenuButton {
+#wrapper header nav div#smallMenu #mobileSearchButton {
   background-color:#17A5B8;
   background-image: linear-gradient(top, #17A5B8, #177f8d);
   background-image: -moz-linear-gradient(top, #17A5B8, #177f8d);
   background-image: -webkit-linear-gradient(top, #17A5B8, #177f8d);
   border-radius: 0.125em;
 }
+
+#wrapper header nav div#mobileMenuButton {
+  border-radius: 0.125em;
+}
+
 
 #wrapper header nav div div#smallSearchBar {
   display: none;

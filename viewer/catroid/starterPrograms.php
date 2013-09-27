@@ -27,13 +27,20 @@
   <div class="header">
     <?php echo $this->languageHandler->getString('title'); ?>
   </div>
+  <div class="menuContainer">
+    <div class="menuDetail"><a href="#group1"><?php echo $this->languageHandler->getString('group1'); ?></a></div>
+    <div class="menuDetail"><a href="#group2"><?php echo $this->languageHandler->getString('group2'); ?></a></div>
+    <div class="menuDetail"><a href="#group3"><?php echo $this->languageHandler->getString('group3'); ?></a></div>
+    <div class="menuDetail"><a href="#group4"><?php echo $this->languageHandler->getString('group4'); ?></a></div>
+    <div class="clear"></div>
+  </div>
   <div class="starterProjectsMain">
     <div class="starterProjectsMainHeader">
-      <?php echo $this->languageHandler->getString('head_text'); ?>
+      <?php echo $this->languageHandler->getString('head_text1'); ?>&nbsp;
     </div>
     <div class="starterProjectsMainContent">
       <div class="starterProjectsGroup">
-        <div class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group1'); ?></div>
+        <div id="group1" class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group1'); ?></div>
         <div class="border"></div>
         <?php
         for($i=0;isset($this->projectsGrouped["group1"][$i]);$i++) { 
@@ -51,7 +58,7 @@
         <?php } ?>
       </div>
       <div class="starterProjectsGroup">
-        <div class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group2'); ?></div>
+        <div id="group2" class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group2'); ?></div>
         <div class="border"></div>
         <?php
         for($i=0;isset($this->projectsGrouped["group2"][$i]);$i++) { 
@@ -69,7 +76,7 @@
         <?php } ?>
       </div>
       <div class="starterProjectsGroup">
-        <div class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group3'); ?></div>
+        <div id="group3" class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group3'); ?></div>
         <div class="border"></div>
         <?php
         for($i=0;isset($this->projectsGrouped["group3"][$i]);$i++) { 
@@ -87,7 +94,7 @@
         <?php } ?>
       </div>
        <div class="starterProjectsGroup">
-        <div class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group4'); ?></div>
+        <div id="group4" class="starterProjectsGroupHeadline"><?php echo $this->languageHandler->getString('group4'); ?></div>
         <div class="border"></div>
         <?php
         for($i=0;isset($this->projectsGrouped["group4"][$i]);$i++) { 

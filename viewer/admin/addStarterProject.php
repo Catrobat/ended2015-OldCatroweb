@@ -29,6 +29,11 @@
     if (confirm("Add starter project '"+name+"'?"))
       document.getElementById(id).submit();
   }
+
+  function submitRemoveForm(id, name) {
+    if (confirm("Remove starter project '"+name+"'?"))
+      document.getElementById(id).submit();
+  }
   </script>
   <h2>Administration Tools - Add Starter Projects</h2>
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
@@ -65,7 +70,15 @@
           <?php 
             if($this->starterProjectIds && in_array($project['id'], $this->starterProjectIds)) {
               ?>
-              is already a starter project
+             Group: <?php echo $this->module->retrieveStarterProjectById($project['id']); ?>
+             
+             <form id="removeform<?php echo $project['id']?>" class="admin" action="removeStarterProject" method="POST">              
+              <input type="hidden" name="visible" value="<?php echo $project['visible']?>"/>
+              <input type="hidden" name="checkRemove" value="true"/>
+              <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
+              <input type="hidden" name="remove" value="remove"/>
+              <input type="button" value="remove" name="removeButton" id="remove<?php echo $project['id']?>" onclick="javascript:submitRemoveForm('removeform<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" /> <!-- chg -->
+            </form>            
            <?php 
             }
           else{ ?>

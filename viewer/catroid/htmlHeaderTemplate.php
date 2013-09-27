@@ -43,7 +43,7 @@
             
             <div id="largeMenuButton" class="largeSearchBarRight">
               <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? ' style="background-size:cover;background-position:center;background-image:url(' . $this->module->session->userLogin_userAvatar . ');outline:1px solid #FFFFFF;"' : ''; ?>></button>
-              <?php echo ($this->module->session->userLogin_userNickname) ? '<button id="userNameButton"><div style="float:left;padding-right:0.5em">' . $this->module->session->userLogin_userNickname . '<div class="img-dropdownArrow dropdownArrow"></div></div></button>' : ''; ?>
+              <?php echo ($this->module->session->userLogin_userNickname) ? '<button id="userNameButton"><div style="float:left;padding-right:0.5em">' . $this->module->session->userLogin_userNickname . '</div></button><button style="margin-bottom: 0.9em;margin-left:0em;"><div class="img-dropdownArrow dropdownArrow"></div></button>' : ''; ?>
             </div>
             <div class="marginSpacer"></div>
           </div>
@@ -62,10 +62,10 @@
               <button class="img-magnifying-glass"></button>
             </div>
             
-            <div class="marginSpacer"></div>
-
-            <div id="mobileMenuButton">
-              <button class="img-avatar"<?php echo ($this->module->session->userLogin_userAvatar) ? 'style="background-size:cover; background-position:center; background-repeat: norepeat; background-image:url(' . $this->module->session->userLogin_userAvatar . ');outline:1px solid #FFFFFF;"' : ''; ?>>
+            <div class="marginSpacer"></div>            
+            
+            <div id="mobileMenuButton" style="<?php echo ($this->module->session->userLogin_userAvatar) ? 'background-color:#fff;' : 'background-color:#17A5B8;background-image: linear-gradient(top, #17A5B8, #177f8d);background-image: -moz-linear-gradient(top, #17A5B8, #177f8d);background-image: -webkit-linear-gradient(top, #17A5B8, #177f8d);'; ?>">
+              <button class="img-avatarMobile"<?php echo ($this->module->session->userLogin_userAvatar) ? 'style="width:45px;height:45px;margin:2px;background-size:cover; background-position:center; background-repeat: norepeat; background-image:url(' . $this->module->session->userLogin_userAvatar . ');outline:1px solid #FFFFFF;"' : ''; ?>>
                 <?php echo ($this->module->session->userLogin_userNickname) ? '<div class="img-dropdownMobile dropdownMobile"></div>' :'';?>
               </button>
             </div>
