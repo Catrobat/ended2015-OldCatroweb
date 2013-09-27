@@ -74,30 +74,30 @@
       <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
     </userFunctions>
     <upload>
-        <string name="missing_project_title">You need to specify a title for your project!</string>
+        <string name="missing_project_title">You need to specify a title for your programm!</string>
         <string name="missing_file_data">Sorry, there was a problem during the upload!</string>
         <string name="missing_post_file_checksum">Sorry, there was a problem during the upload! Are you using the latest version of Pocket Code?</string>
         <string name="copy_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="rename_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="invalid_file_checksum">Sorry, there was an error during the upload. Try again!</string>
-        <string name="project_exceed_filesize_limit">Your project file is too large.</string>
-        <string name="project_title_default">You have to rename your project, before uploading it.</string>
-        <string name="insulting_words_in_project_title">Please don't use offensive language in your project title.</string>
-        <string name="insulting_words_in_project_description">Please don't use offensive language in your project description.</string>
+        <string name="project_exceed_filesize_limit">Your programm file is too large.</string>
+        <string name="project_title_default">You have to rename your programm, before uploading it.</string>
+        <string name="insulting_words_in_project_title">Please don't use offensive language in your programm title.</string>
+        <string name="insulting_words_in_project_description">Please don't use offensive language in your programm description.</string>
         <string name="save_thumbnail_failed">Sorry, there was an error during the upload. Try again!</string>
-        <string name="invalid_project_xml">Sorry, your project file is invalid. Try to save it as a new project and upload it again.</string>
+        <string name="invalid_project_xml">Sorry, your programm file is invalid. Try to save it as a new programm and upload it again.</string>
         <string name="old_catrobat_version">Sorry, you are using an old version of Pocket Code. Please update to the lastest version.</string>
-        <string name="old_catrobat_language">Sorry, your project contains an old version of the Catrobat language! Are you using the latest version of Pocket Code?</string>
-        <string name="invalid_media_license">Sorry, your project has an invalid media license!</string>
-        <string name="invalid_program_license">Sorry, your project has an invalid program license!</string>
+        <string name="old_catrobat_language">Sorry, your programm contains an old version of the Catrobat language! Are you using the latest version of Pocket Code?</string>
+        <string name="invalid_media_license">Sorry, your programm has an invalid media license!</string>
+        <string name="invalid_program_license">Sorry, your programm has an invalid program license!</string>
         <string name="visibility_incorrect">The visibility is incorrect!</string>
     </upload>
     <download>
-    	<string name="file_not_found">The requested project is not available at the time. Try again later!</string>
+    	<string name="file_not_found">The requested programm is not available at the time. Try again later!</string>
     </download>
     <flag>
-        <string name="missing_post_data">You must enter a reason why you want to report this project as inappropriate!</string>
-        <string name="sql_insert_failed">Sorry, there was an error while reporting the project!</string>
+        <string name="missing_post_data">You must enter a reason why you want to report this programm as inappropriate!</string>
+        <string name="sql_insert_failed">Sorry, there was an error while reporting the programm!</string>
     </flag>
     <viewer>
     	<string name="html_file_not_found">This page cannot be displayed.</string>
