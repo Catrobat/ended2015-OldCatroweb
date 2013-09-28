@@ -25,6 +25,10 @@
   display: none;
 }
 
+#wrapper article div.projectContainer {
+  margin-top: 1.8em;
+}
+
 #wrapper article div.projectContainer ul {
   position:static;
 	left:0;

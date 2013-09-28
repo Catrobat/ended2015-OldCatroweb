@@ -162,7 +162,7 @@ class CoreErrorHandler {
       return $msg;
     }
     for($i=0; $i<count($args); $i++) {
-      $pattern = "/[{][\*][a-zA-Z0-9_]+[\*][}]/";
+      $pattern = "/[{][\*]([a-zA-Z0-9_]+(<br/>)?)+[\*][}]/";
       $msg = preg_replace($pattern, $args[$i], $msg, 1);
     }
     return $msg;
@@ -170,7 +170,7 @@ class CoreErrorHandler {
 
   public function checkParamCount($msg, $num) {
     $ret = array();
-    $paramCount = preg_match_all("/[{][\*][a-zA-Z0-9_]+[\*][}]/", $msg, $ret);
+    $paramCount = preg_match_all("/[{][\*]([a-zA-Z0-9_]+(<br/>)?)+[\*][}]/", $msg, $ret);
     if($paramCount == $num) {
       return true;
     } else {

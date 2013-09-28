@@ -45,7 +45,6 @@
 
   <string name="template_body_nojs">Please enable JavaScript in your browser.</string>
   
-  <string name="template_footer_search_placeholder">search...</string>  
   <string name="template_footer_search_header">Search</string>  
   <string name="template_footer_more">more</string>
   <string name="template_footer_less">less</string>
