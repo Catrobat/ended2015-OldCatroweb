@@ -124,21 +124,21 @@ if __name__ == '__main__':
 				Backup().restoreBackup(sys.argv[3])
 
 		elif sys.argv[1] == 'webtest':
-			shell = RemoteShell('catroidwebtest.ist.tugraz.at', 'unpriv', '')
+			shell = RemoteShell('catroidwebtest.ist.tugraz.at', 'ask', 'coordinator')
 			if sys.argv[2] == 'backup':
 				Backup(shell).createBackup()
 			elif sys.argv[2] == 'restore':
 				Backup(shell).restoreBackup(sys.argv[3])
 
 		elif sys.argv[1] == 'catroidtest':
-			shell = RemoteShell('catroidtest.ist.tugraz.at', 'unpriv', '')
+			shell = RemoteShell('catroidtest.ist.tugraz.at', 'ask', 'coordinator')
 			if sys.argv[2] == 'backup':
 				Backup(shell).createBackup()
 			elif sys.argv[2] == 'restore':
 				Backup(shell).restoreBackup(sys.argv[3])
 
 		elif sys.argv[1] == 'public':
-			shell = RemoteShell('catroidpublic.ist.tugraz.at', 'unpriv', '')
+			shell = RemoteShell('catroidpublic.ist.tugraz.at', 'ask', 'coordinator')
 			if sys.argv[2] == 'backup':
 				Backup(shell).createBackup()
 			elif sys.argv[2] == 'restore':

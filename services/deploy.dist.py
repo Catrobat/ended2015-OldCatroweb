@@ -86,7 +86,7 @@ class Deploy:
 			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'environment', 'setup-db.sh'), 'setup-db.sh')
 			self.sftp.put(os.path.join(self.basePath, 'services', 'init', 'environment', 'VirtualHost.conf'), 'VirtualHost.conf')
 			print('This host is not prepared to run Catroweb.')
-			print('To setup please ssh into your server and run: su -c "sh setup.sh unpriv"')
+			print('To setup please ssh into your server and run: su -c "sh setup.sh *loginname*"')
 			sys.exit(-1)
 
 
@@ -168,19 +168,19 @@ if __name__ == '__main__':
 	parameter = 'empty'
 	try:
 		if sys.argv[1] == 'webtest':
-			deploy = Deploy(RemoteShell('web-test.catrob.at', 'unpriv', '', 22, '/var/www/webtest'))
+			deploy = Deploy(RemoteShell('web-test.catrob.at', 'ask', 'coordinator', 'for', 'access'))
 			if len(sys.argv) > 2:
 				deploy.run(files=sys.argv[2])
 			else:
 				deploy.run()
 		elif sys.argv[1] == 'catroidtest':
-			deploy = Deploy(RemoteShell('catroid-test.catrob.at', 'unpriv', '', 22, '/var/www/catroidtest'))
+			deploy = Deploy(RemoteShell('catroid-test.catrob.at', 'ask', 'coordinator', 'for', 'access'))
 			if len(sys.argv) > 2:
 				deploy.run(type=sys.argv[1], files=sys.argv[2])
 			else:
 				deploy.run()
 		elif sys.argv[1] == 'public':
-			deploy = Deploy(RemoteShell('catroidpublic.ist.tugraz.at', 'unpriv', ''))
+			deploy = Deploy(RemoteShell('catroidpublic.ist.tugraz.at', 'ask', 'coordinator', 'for', 'access'))
 			if len(sys.argv) > 2:
 				deploy.run(type=sys.argv[1], files=sys.argv[2])
 			else:
