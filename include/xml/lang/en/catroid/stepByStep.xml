@@ -71,11 +71,15 @@
 	<string name="step6_additional_text_6">Tap play to see the behaviour on the stage.</string>
 	
 	<string name="step7_title">7. Copy, delete or edit a brick.</string>
-	<string name="step7_description">This step shows you how to repeat behaviour of objects.</string>
-	<string name="step7_additional_text_1">Choose the “Forever” brick. Everything in the loop will repeat forever.</string>
-	<string name="step7_additional_text_2">Now you have this script.</string>
-	<string name="step7_additional_text_3">Now you have this script.</string>
+	<string name="step7_description">You can also control the behaviour of the object when the program is running on the stage.</string>
+	<string name="step7_additional_text_1">Choose the “When tapped” brick. Every brick underneath the “When tapped” will be executed one time when you tap the object on the stage.</string>
+	<string name="step7_additional_text_2">Place the “When tapped” underneath the other bricks.</string>
+	<string name="step7_additional_text_3">Choose the “Turn right” brick and snap it underneath the “When tapped” brick.</string>
 	<string name="step7_additional_text_4">Now you have this script.</string>
 	<string name="step7_additional_text_5">Tap play to see the behaviour on the stage.</string>
+	
+	<string name="step8_title">8. Copy, delete or edit a brick</string>
+	<string name="step8_description"></string>
+	<string name="step8_additional_text_1">Single tap on the left side of each brick opens the context menu. There you can move, copy, delete or edit the values of the brick with the formula editor.</string>
 
 </strings>
