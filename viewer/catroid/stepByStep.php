@@ -170,7 +170,16 @@
       <div class="clear"></div>
     </div>
     <div class="stepByStepMainContent8">
-      8
+      <div class="stepByStepHeadline"><?php echo $this->languageHandler->getString('step8_title'); ?></div>
+      <div class="stepByStepContentLeft">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step8_description'); ?></div>
+        <img class="leftThumb" src="images/stepbystep/8_left.png" />
+      </div>
+      <div class="stepByStepContentRight">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step8_additional_text_1'); ?></div>
+        <img class="rightThumb" src="images/stepbystep/8_right_1.png" />
+      </div>
+      <div class="clear"></div>   
     </div>
     <div class="stepByStepMainContent9">
       9
