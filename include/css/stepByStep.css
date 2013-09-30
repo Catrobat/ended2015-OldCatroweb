@@ -290,6 +290,18 @@
  
 }
 
+@media screen and (max-width: 840px) {
+ 
+ #wrapper article div.stepByStepContentLeft {
+   width: 100%;
+ }
+ 
+ #wrapper article div.stepByStepContentRight {
+   width: 100%;
+ }
+ 
+}
+
 @media screen and (max-width: 720px) {
  
  #wrapper article div.stepByStepMainContent {
