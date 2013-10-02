@@ -28,7 +28,7 @@
     <header><?php echo $this->userData['username'];?></header>
     
     <div class="userProfileAvatarContainerTop">
-      <div class="userProfileAvatarContainer">
+       <div class="userProfileAvatarContainer">
        <div class="userProfileAvatar">
          <img class="userProfileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
         <div class="userProfileInformations">

@@ -144,7 +144,6 @@
 }
 
 .projectDetailsDownload a {
-  color: #6ab7ce;
   font-weight: bold;
 }
 
@@ -196,12 +195,9 @@
 .projectDetailsInformationText {
   line-height: 2.2em;
   padding-left: 1em;
-  color:#6ab7ce;
 }
 
-.projectDetailsInformationText a {
-  color:#6ab7ce;
-}
+
 
 .projectDetailsInformation ul {
   float: left;
@@ -256,7 +252,6 @@
 }
 
 .reportAsInappropriateDialog, #reportAsInappropriateAnswer {
-  color: #6ab7ce;
   font-size: 1.3em;
   margin-top: 1em;
   padding-bottom: 1em;
@@ -264,7 +259,6 @@
 }
 
 .reportAsInappropriateDialog a{
-  color:#6ab7ce;
   font-weight: bold;
 }
 
