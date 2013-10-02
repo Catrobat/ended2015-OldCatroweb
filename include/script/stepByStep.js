@@ -29,7 +29,7 @@ function changeContainer(slide) {
   
   currentSlide = slide;
   
-  for(var i=1;i<=11;i++) {
+  for(var i=1;i<=12;i++) {
     if(i === slide) {
       $(".stepByStepMainContent"+i).css("display", "block");
       $(".navigation"+i).css("color", "#FFFFFF");
@@ -56,7 +56,7 @@ function decrementContainer() {
 
 function incrementContainer() {
   
-  if(currentSlide < 10) {
+  if(currentSlide < 11) {
     $(".stepByStepMainContent"+(currentSlide+1)).css("display", "block");
     $(".navigation"+(currentSlide+1)).css("color", "#FFFFFF");
     

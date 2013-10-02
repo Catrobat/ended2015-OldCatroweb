@@ -101,6 +101,41 @@
   font-size: 0.8em;
 }
 
+/* #wrapper article div.stepByStepDetailContainerLeft1 {
+  float: left;
+  width: 20%;
+}
+
+#wrapper article div.stepByStepDetailContainerRight1 {
+  float: left;
+  width: 80%;
+  font-size: 0.8em;
+} */
+
+#wrapper article div.stepByStepDescription1 {
+  margin-bottom: 0.5em;  
+  display: table-cell; 
+  vertical-align: middle;
+}
+
+#wrapper article div.stepByStepTableView {
+  display: table;
+}
+
+#wrapper article div.miniThumb {
+  width: 20%;
+}
+
+#wrapper article div.stepByStepFloating img {
+  max-width: 100px !important;
+}
+
+#wrapper article div.stepByStepFloating {
+  float: left;
+  padding-right: 2em;
+}
+
+
 #wrapper article div.stepByStepDetailRight {
   width: 100%;
   padding-left: 1em;
@@ -259,6 +294,16 @@
 }
 
 #wrapper article div.stepByStepMainContent10 {
+  display: none;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent11 {
   display: none;
   margin: 0 auto;
   border: 8px #17a5b8 solid;
