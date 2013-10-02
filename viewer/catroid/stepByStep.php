@@ -242,7 +242,11 @@
             <div class="stepByStepDescription1"><?php echo $this->languageHandler->getString('step11_additional_text_5'); ?></div>
           </div>
           <div class="clear"></div>
-                         
+          <div class="stepByStepTableView">
+            <div class="stepByStepFloating"><img class="miniThumb" src="images/stepbystep/11_right_6.png" /></div>
+            <div class="stepByStepDescription1"><?php echo $this->languageHandler->getString('step11_additional_text_6'); ?></div>
+          </div>
+          <div class="clear"></div>
       </div>
       <div class="clear"></div>
     </div>
