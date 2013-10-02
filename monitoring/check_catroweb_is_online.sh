@@ -52,7 +52,7 @@ fi
 #-------------------------------------------------------------------------------
 if [ $status_login -eq 0 ]
 then
-  catroweb_upload=$(curl --form upload=@testdata/test.zip --form projectTitle=Monitoring --form token=31df676f845b4ce9908f7a716a7bfa50 --form username=catroweb --form fileChecksum=14a5b75f6092726dbd5df8d12dc5aaf7 --form visible=f $HOST/api/upload/upload.json 2>&1)
+  catroweb_upload=$(curl --form upload=@testdata/test.zip --form projectTitle=Monitoring --form token=31df676f845b4ce9908f7a716a7bfa50 --form username=catroweb --form fileChecksum=d20c3ca0d3cd601582510fe6aca3ad0e --form visible=f $HOST/api/upload/upload.json 2>&1)
 
 #check for success?
   grep -q \"statusCode\":200 <<< "$catroweb_upload"
