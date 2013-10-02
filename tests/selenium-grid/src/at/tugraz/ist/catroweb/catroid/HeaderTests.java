@@ -50,7 +50,7 @@ public class HeaderTests extends BaseTest {
       driver().findElement(By.id("largeMenuButton")).click();
       
       assertRegExp(".*/login", driver().getCurrentUrl());
-      driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();
+      driver().findElement(By.xpath("//*[@id='largeMenuLogin']/div[2]/a")).click();
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
 
       driver().findElement(By.xpath("//*[@id='largeMenu']/div[4]/input")).sendKeys("test");

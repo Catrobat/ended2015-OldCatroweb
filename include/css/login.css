@@ -117,6 +117,31 @@
   color: #17a5b8; 
 }
 
+#wrapper header nav div div.catroidLink {
+  text-align: center;
+}
+
+a#forgotPassword {
+  font-size: 0.75em;
+}
+
+@media screen and (max-width: 720px) {
+  #wrapper article div.form form {
+    max-width: 100%;   
+  }
+  #wrapper article div.form {
+    max-width: 100%;
+  }
+  #wrapper header nav div div.catroidLink {
+  font-size: 2.2em;
+}
+  #wrapper article div.form form div button#passwordRecoverySendLink,
+  #wrapper article div.form form div button#passwordSaveSubmit{
+    padding: 0.2em;
+  }
+
+}
+
 @media screen and (max-width: 400px) {
   #wrapper {
      margin: 0em;
@@ -125,14 +150,4 @@
      margin: 0em;
      max-width: 100%;
   }
-}
-
-
-
-#wrapper header nav div div.catroidLink {
-  text-align: center;
-}
-
-a#forgotPassword {
-  font-size: 0.75em;
 }
