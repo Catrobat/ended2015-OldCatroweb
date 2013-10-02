@@ -61,7 +61,8 @@ html,
 button,
 input,
 select,
-textarea {
+textarea, 
+a {
   color: #17a5b8;
 }
 
@@ -507,7 +508,7 @@ body img#ga {
 	font-size: 1.4em;
 	text-transform: uppercase;
 	text-decoration: none;
-	color: #76b0c6;
+	color: #17a5b8;
 	font-weight: bold;
 }
 

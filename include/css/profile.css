@@ -363,15 +363,18 @@
 }
 
 @media screen and (max-width: 720px) {
-  
+
   .userProfileAvatarContainerTop {
-     width: 90%;
     display: block;
     position: relative;
     left: 50%;
     margin-left: -10.3em;
+    padding: 0;
+    margin-right: 0;
+    width: 50%;
   }
   
+
   #wrapper article div#userProjectContainer {
   clear: both;
   padding-left: 2em;
