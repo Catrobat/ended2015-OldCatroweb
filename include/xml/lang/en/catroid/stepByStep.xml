@@ -81,5 +81,17 @@
 	<string name="step8_title">8. Copy, delete or edit a brick</string>
 	<string name="step8_description"></string>
 	<string name="step8_additional_text_1">Single tap on the left side of each brick opens the context menu. There you can move, copy, delete or edit the values of the brick with the formula editor.</string>
+	
+	<string name="step9_title">9. Navigation in the app</string>
+	<string name="step9_description"></string>
+	<string name="step9_additional_text_1">Use the Android Back Button to navigate in the app.</string>
+	<string name="step9_additional_text_2">Go back one screen to the overview of your object. Here you can go into the scripts and also to an powerful representation of the looks and sounds of the object. There you can rename, copy add or delete looks and sounds.</string>
+	<string name="step9_additional_text_3">Use again the Android Back Button to get to the overview of your objects and your background.</string>
+	
+	<string name="step10_title">10. Change the background</string>
+	<string name="step10_description">This is the overview of your objects and the background depends to one program.</string>
+	<string name="step10_additional_text_1">The background is like an object, but you just can have on background.</string>
+	<string name="step10_additional_text_2">You can add scripts, sounds and look in the same way to the background object.</string>
+	<string name="step10_additional_text_3">Use again the Android Back Button to get to the overview of your objects and your background.</string>
 
 </strings>

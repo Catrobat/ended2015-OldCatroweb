@@ -182,10 +182,36 @@
       <div class="clear"></div>   
     </div>
     <div class="stepByStepMainContent9">
-      9
+      <div class="stepByStepHeadline"><?php echo $this->languageHandler->getString('step9_title'); ?></div>
+      <div class="stepByStepContentLeft">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step9_description'); ?></div>
+        <img class="leftThumb" src="images/stepbystep/9_left.png" />
+      </div>
+      <div class="stepByStepContentRight">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step9_additional_text_1'); ?></div>
+        <img class="thumbBack" src="images/stepbystep/arrow_back.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step9_additional_text_2'); ?></div>
+        <img class="rightThumb" src="images/stepbystep/9_right_1.png" />      
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step9_additional_text_3'); ?></div>
+        <img class="thumbBack" src="images/stepbystep/arrow_back.png" />        
+      </div>
+      <div class="clear"></div>
     </div>
     <div class="stepByStepMainContent10">
-      10
+      <div class="stepByStepHeadline"><?php echo $this->languageHandler->getString('step10_title'); ?></div>
+      <div class="stepByStepContentLeft">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step10_description'); ?></div>
+        <img class="leftThumb" src="images/stepbystep/10_left.png" />
+      </div>
+      <div class="stepByStepContentRight">
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step10_additional_text_1'); ?></div>
+        <img class="thumbBack" src="images/stepbystep/10_right_1.png" />
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step9_additional_text_2'); ?></div>
+        <img class="rightThumb" src="images/stepbystep/9_right_1.png" />      
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step9_additional_text_3'); ?></div>
+        <img class="thumbBack" src="images/stepbystep/arrow_back.png" />        
+      </div>
+      <div class="clear"></div>
     </div>
     <div class="stepByStepNavigation">
       <a href="#" onclick="decrementContainer()"> < </a>
