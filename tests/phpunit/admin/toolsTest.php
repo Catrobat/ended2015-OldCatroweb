@@ -240,9 +240,13 @@ class toolsTest extends PHPUnit_Framework_TestCase
     $query = 'SELECT * FROM starter_projects';
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $projects = pg_fetch_all($result);
-    pg_free_result($result);
     
     $condition = null;
+    
+    if(pg_num_rows($result) != 0)
+      $condition = "WHERE ";
+    
+    pg_free_result($result);
     
     for($i=0;isset($projects[$i]);$i++) {
       if(!isset($projects[$i+1]))
@@ -251,7 +255,7 @@ class toolsTest extends PHPUnit_Framework_TestCase
         $condition .= "id!=".$projects[$i]['project_id']." AND ";
     }
     
-    $query = 'SELECT * FROM projects WHERE '.$condition.' ORDER BY random() LIMIT 3';
+    $query = 'SELECT * FROM projects '.$condition.' ORDER BY random() LIMIT 3';
     $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
     $starterProjects = pg_fetch_all($result);
     pg_free_result($result);
