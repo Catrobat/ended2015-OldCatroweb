@@ -23,8 +23,7 @@
 -->
 <strings>
   <string name="title">Terms of Use</string>
-  <string name="terms_of_use_welcome1">Welcome to the Catrobat community!</string>
-  <string name="terms_of_use_welcome2">As part of the Catrobat community, you are sharing programs and ideas with people:</string>
+  <string name="terms_of_use_welcome">Welcome to the Catrobat community! As part of the Catrobat community, you are sharing programs and ideas with people:</string>
   <string name="terms_of_use_enumeration_1">from many different countries and cultures</string>
   <string name="terms_of_use_enumeration_2">of all ages (from young children to teens and grandparents)</string>
   <string name="terms_of_use_enumeration_3">with all levels of experience</string>

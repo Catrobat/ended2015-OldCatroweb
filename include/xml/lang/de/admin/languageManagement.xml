@@ -22,11 +22,5 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="viewed">mal gesehen</string>
-  <string name="downloaded">mal heruntergeladen</string>
-  <string name="recommended">Empfohlen</string>
-  <string name="newestProjects">Neueste Programme</string>
-  <string name="mostDownloaded">Meist Heruntergeladen</string>
-  <string name="mostViewed">Meist Gesehen</string>
-  <string name="showMore">mehr anzeigen</string>
+  <string name="pootle_language_successfully_created">Die Sprache {*languageName*} wurde erfolgreich aktualisiert!</string>
 </strings>
