@@ -23,9 +23,10 @@
 -->
 <strings>
     <string name="recommended">Featured</string>
-    <string name="newestProjects">Newest Programs</string>
+    <string name="newestProjects">Newest</string>
     <string name="mostDownloaded">Most Downloaded</string>
     <string name="downloaded">downloads</string>
     <string name="mostViewed">Most Viewed</string>
     <string name="viewed">views</string>
+    <string name="showMore">show more</string>
 </strings>
