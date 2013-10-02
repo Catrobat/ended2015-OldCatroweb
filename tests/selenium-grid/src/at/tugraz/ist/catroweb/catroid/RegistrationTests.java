@@ -42,7 +42,7 @@ public class RegistrationTests extends BaseTest {
     try {
       openLocation("registration/");
       
-      assertTrue(isTextPresent(CommonStrings.REGISTRATION_PAGE_TITLE.toUpperCase()));
+      assertTrue(isTextPresent(CommonStrings.REGISTRATION_PAGE_TITLE));
       
       assertTrue(isTextPresent(CommonStrings.REGISTRATION_NICKNAME));
       assertTrue(isElementPresent(By.id("registrationUsername")));
