@@ -32,7 +32,7 @@
         <string name="no_entry_for_id">No entry was found for the given ID</string>
     </db>
     <profile>
-			<string name="no_such_user">Ooooops something went wrong.Please try again!</string>
+			<string name="no_such_user">Ooooops something went wrong./nPlease try again!</string>
 		</profile>
     <userFunctions>
     	<string name="hash_not_found">Recovery hash was not found.</string>
@@ -70,7 +70,7 @@
       <string name="language_update_failed">There was a problem while updating your language.</string>
     	<string name="userdata_not_exists">The nickname or email address was not found.</string>
     	<string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
-    	<string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
+    	<string name="create_hash_failed">Ooooops something went wrong./nPlease try again!</string>
     	<string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>
     </userFunctions>
     <upload>

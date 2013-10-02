@@ -27,9 +27,9 @@
 				<string name="missing_blowfish">Please tell the administrator to install CRYPT_BLOWFISH. Thanks.</string>
 		</server>
     <db>
-        <string name="query_failed">Ooooops something went wrong. Please try again!</string>
-        <string name="connection_failed">Ooooops something went wrong. Please try again!</string>
-        <string name="no_entry_for_id">Ooooops something went wrong. Please try again!</string>
+        <string name="query_failed">Ooooops something went wrong./nPlease try again!</string>
+        <string name="connection_failed">Ooooops something went wrong./nPlease try again!</string>
+        <string name="no_entry_for_id">Ooooops something went wrong./nPlease try again!</string>
     </db>
 		<profile>
 			<string name="no_such_user">Ooooops something went wrong.</string>
@@ -61,7 +61,7 @@
       <string name="country_missing">You haven't entered a country, please add one.</string>
       <string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
       <string name="board_authentication_failed">The board authentication failed.</string>
-      <string name="wiki_api_response_incorrect">Ooooops something went wrong. Please try again!</string>
+      <string name="wiki_api_response_incorrect">Ooooops something went wrong./nPlease try again!</string>
       <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
       <string name="userdata_missing">Your nickname or email address is missing.</string>
       <string name="unsupported_image">This image type is not supported, please try another image.</string>
@@ -71,7 +71,7 @@
       <string name="language_update_failed">There was a problem while updating your language.</string>
       <string name="userdata_not_exists">Your nickname or email address was not found.</string>
       <string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
-      <string name="create_hash_failed">Ooooops something went wrong. Please try again!</string>
+      <string name="create_hash_failed">Ooooops something went wrong./nPlease try again!</string>
       <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
     </userFunctions>
     <upload>
