@@ -25,14 +25,11 @@
   <string name="myTitle">My Profile</string>
   <string name="userTitle">User Profile</string>
 
-  <string name="showMore">show more</string>
-
-
   <string name="changeAvatar">Change picture</string>
   <string name="password">Password</string>
   <string name="email">My first email</string>
   <string name="second_email">My second email</string>
-  <string name="projects">Programs</string>
+  <string name="projects">Amount of programs</string>
   <string name="country">Country</string>
 
 

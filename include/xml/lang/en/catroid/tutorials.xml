@@ -27,22 +27,13 @@
   <string name="head_text2">Pocket Code.</string>
   
   <string name="title">Tutorials</string>
-	<string name="project1_short">Change Size</string>
 	<string name="project1">Change Size</string>
-	<string name="project2_short">Change Look</string>
 	<string name="project2">Change Look</string>
-	<string name="project3_short">Moving Anim...</string>
 	<string name="project3">Moving Animation</string>
-	<string name="project4_short">Glide</string>
 	<string name="project4">Glide</string>
-	<string name="project5_short">Play Sound</string>
 	<string name="project5">Play Sound</string>
-	<string name="project6_short">Speak Some...</string>
 	<string name="project6">Speak Something</string>
-	<string name="project7_short">GSensor</string>
 	<string name="project7">GSensor</string>
-	<string name="project8_short">Compass</string>
 	<string name="project8">Compass</string>
-	<string name="project9_short">Broadcast</string>
 	<string name="project9">Broadcast</string>
 </strings>
