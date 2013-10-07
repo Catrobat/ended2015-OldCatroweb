@@ -74,7 +74,11 @@
     <string name="update_project_filesize">UPDATE projects SET filesize_bytes=$2 WHERE id=$1</string>
 
     <string name="add_word_to_wordlist">INSERT INTO wordlist (word, good_meaning, approved) VALUES ($1, $2, $3)</string>
+    
     <string name="get_unapproved_words">SELECT * FROM wordlist WHERE approved = FALSE ORDER BY id DESC</string>
+    <string name="get_count_unapproved_words">SELECT * FROM wordlist WHERE approved = FALSE</string>
+    <string name="get_unapproved_words_limit">SELECT * FROM wordlist WHERE approved = FALSE ORDER BY id DESC LIMIT $1 OFFSET $2 </string>
+    
     <string name="get_word_from_wordlist">SELECT * FROM wordlist WHERE word=$1</string>
     <string name="set_word_meaning">UPDATE wordlist SET good_meaning = $1, approved = TRUE WHERE id=$2</string>
     <string name="delete_word_by_id">DELETE FROM wordlist WHERE id=$1</string>

@@ -568,6 +568,72 @@ class tools extends CoreAuthenticationAdmin {
       }
       $this->answer = $answer;
     }
+    
+    if(isset($_POST['delete'])) {
+      if($this->deleteWord($_POST['wordId'])) {
+        if($this->deleteWordFromUnapprovedWordList($_POST['wordId'])) {
+          $answer = "The word was succesfully deleted!";
+        } else {
+          $answer = "Error: could NOT remove word from list!";
+        }
+      } else {
+        $answer = "Error: could NOT delete the word!";
+      }
+      $this->answer = $answer;
+    }
+    
+    $this->htmlFile = "approveWordsList.php";
+    $this->count = $this->countAllUnapprovedWordsFromDatabase();
+
+    $this->start = isset($_GET['page_number'])?(int)$_GET['page_number']:1;
+    $this->per_page = isset($_GET['per_page'])?(int)$_GET['per_page']:20;
+    if ($this->per_page != 10 AND $this->per_page != 20 AND $this->per_page != 50)
+      $this->per_page = 20;
+
+    $this->num_pages = ceil($this->count/$this->per_page);
+    
+    if ($this->start < 1)
+      $this->start = 1;
+    if ($this->start > $this->num_pages)
+      $this->start = $this->num_pages;
+    //$this->words = $this->retrieveAllUnapprovedWordsFromDatabase();
+    $offset = ($this->start-1)*$this->per_page;
+    $this->words = $this->retrieveAllUnapprovedWordsFromDatabaseLimit($this->per_page, $offset);
+  }
+  
+  public function platzhalter() {
+    if(isset($_POST['approve'])) {
+      $meaning = $_POST['meaning'];
+      $wordId = $_POST['wordId'];
+      if($meaning == 0) {
+        if($this->hideProjectsContainingInsultingWords($wordId)) {
+          if($this->setWordMeaning('false', $wordId)) {
+            if($this->deleteWordFromUnapprovedWordList($wordId)) {
+              $answer = "The word was succesfully approved!";
+            } else {
+              $answer = "Error: could NOT remove word from list!";
+            }
+          } else {
+            $answer = "Error: could NOT approve the word!";
+          }
+        } else {
+          $answer = "Error: could NOT hide project!";
+        }
+      } else if($meaning == 1) {
+        if($this->setWordMeaning('true', $wordId)) {
+          if($this->deleteWordFromUnapprovedWordList($wordId)) {
+            $answer = "The word was succesfully approved!";
+          } else {
+            $answer = "Error: could NOT remove word from list!";
+          }
+        } else {
+          $answer = "Error: could NOT approve the word!";
+        }
+      } else {
+        $answer = "Error: no word meaning selected!";
+      }
+      $this->answer = $answer;
+    }
 
     if(isset($_POST['delete'])) {
       if($this->deleteWord($_POST['wordId'])) {
@@ -628,6 +694,22 @@ class tools extends CoreAuthenticationAdmin {
     $words =  pg_fetch_all($result);
     pg_free_result($result);
     return($words);
+  }
+  
+  public function retrieveAllUnapprovedWordsFromDatabaseLimit($limit, $offset) {
+    $query = "EXECUTE get_unapproved_words_limit('$limit','$offset');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $words =  pg_fetch_all($result);
+    pg_free_result($result);
+    return($words);
+  }
+  
+  public function countAllUnapprovedWordsFromDatabase() {
+    $query = 'EXECUTE get_count_unapproved_words;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $count =  pg_num_rows($result);
+    //pg_free_result($count);
+    return($count);
   }
 
   private function retrieveAllProjectsFromDatabase() {
