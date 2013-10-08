@@ -101,10 +101,15 @@
         <?php }else {
             echo "20";
           }
-          if ($this->per_page != 50){ ?> 
+          if ($this->per_page != 50){ ?>
             <a href="approveWords.php?per_page=50&page_number=<?php echo $this->start;?>">50</a>
         <?php }else {
-            echo "50";
+            echo "20";
+          }
+          if ($this->per_page != $this->count){ ?> 
+            <a id="allProjects" href="approveWords.php?per_page=<?php echo $this->count;?>&page_number=<?php echo $this->start;?>">ALL</a>
+        <?php }else {
+            echo "ALL";
           } ?>
       </td>
     </tr>

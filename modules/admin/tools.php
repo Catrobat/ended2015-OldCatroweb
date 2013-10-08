@@ -587,10 +587,10 @@ class tools extends CoreAuthenticationAdmin {
 
     $this->start = isset($_GET['page_number'])?(int)$_GET['page_number']:1;
     $this->per_page = isset($_GET['per_page'])?(int)$_GET['per_page']:20;
-    if ($this->per_page != 10 AND $this->per_page != 20 AND $this->per_page != 50)
+    if ($this->per_page != 10 AND $this->per_page != 20 AND $this->per_page != 50 AND $this->per_page != $this->count)
       $this->per_page = 20;
-
-    $this->num_pages = ceil($this->count/$this->per_page);
+    if ($this->per_page > 0)
+      $this->num_pages = ceil($this->count/$this->per_page);
     
     if ($this->start < 1)
       $this->start = 1;
@@ -598,6 +598,8 @@ class tools extends CoreAuthenticationAdmin {
       $this->start = $this->num_pages;
     //$this->words = $this->retrieveAllUnapprovedWordsFromDatabase();
     $offset = ($this->start-1)*$this->per_page;
+    if ($offset < 1)
+      $offset = 0;
     $this->words = $this->retrieveAllUnapprovedWordsFromDatabaseLimit($this->per_page, $offset);
   }
   
