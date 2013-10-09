@@ -38,11 +38,11 @@ public class CommonStrings {
   public static final String SEARCH_PROJECTS_PAGE_NO_RESULTS = "Your search returned no results.";
   
   public static final String REGISTRATION_PAGE_TITLE = "Create a new account";
-  public static final String REGISTRATION_NICKNAME = "Nickname";
-  public static final String REGISTRATION_NICKNAME_INFO = "Use an invented nickname such as \"funny dragon\" (why shouldn't I use my real name?).";
+  public static final String REGISTRATION_NICKNAME = "Username";
+  public static final String REGISTRATION_NICKNAME_INFO = "Use an invented username such as \"funny dragon\" (why shouldn't I use my real name?).";
   public static final String REGISTRATION_PASSWORD = "Password";
   public static final String REGISTRATION_EMAIL = "E-Mail Address";
-  public static final String REGISTRATION_EMAIL_INFO = "We will send your nickname, password, and access data to your email address. We will never share your email address with anyone. See our privacy policy for details.";
+  public static final String REGISTRATION_EMAIL_INFO = "We will send your username, password, and access data to your email address. We will never share your email address with anyone. See our privacy policy for details.";
   public static final String REGISTRATION_COUNTRY = "Country";
   public static final String REGISTRATION_CITY = "City";
   public static final String REGISTRATION_BIRTHDAY = "Birthday";
