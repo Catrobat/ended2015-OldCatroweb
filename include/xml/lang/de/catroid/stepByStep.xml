@@ -1,0 +1,39 @@
+<?xml version="1.0"?>
+<!--
+Catroid: An on-device visual programming system for Android devices
+Copyright (C) 2010-2013 The Catrobat Team
+(<http://developer.catrobat.org/credits>)
+
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU Affero General Public License as
+published by the Free Software Foundation, either version 3 of the
+License, or (at your option) any later version.
+
+An additional term exception under section 7 of the GNU Affero
+General Public License, version 3, is available at
+http://developer.catrobat.org/license_additional_term
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License
+along with this program.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="step1_title">1. Erstelle ein neues Programm</string>
+  <string name="step1_additional_text_1">Tippe auf "Neu".</string>
+  <string name="step1_additional_text_2">Gib einen Programmnamen ein, w&#xE4;hle "Erstelle leeres Programm" und tippe auf "OK".</string>
+  <string name="step2_title">2. Erstelle ein neues Objekt</string>
+  <string name="step2_additional_text_2">W&#xE4;hle die Quelle des ersten Aussehens von deinem neuen Objekt.</string>
+  <string name="step2_additional_text_6">Gib einen Objektnamen ein und tippe "OK" um das Objekt zu erstellen.</string>
+  <string name="step3_additional_text_4">Tippe "Play" um zur B&#xFC;hne zu gelangen und das Objekt gleiten zu sehen.</string>
+  <string name="step4_title">4. Aussehen &#xE4;ndern</string>
+  <string name="step4_additional_text_5">Jetzt musst du das neue Bild ausw&#xE4;hlen.</string>
+  <string name="step5_additional_text_1">W&#xE4;hle den "Sprechen" Baustein. Das Objekt spricht den Text vor, wenn der Baustein ausgef&#xFC;hrt wird.</string>
+  <string name="step6_additional_text_1">W&#xE4;hle den "F&#xFC;rimmer" Baustein. Alles in der Schleife wiederholt sich f&#xFC;r immer.</string>
+  <string name="step6_additional_text_3">F&#xFC;ge noch ein "Gleiten" Baustein hinzu.</string>
+  <string name="step2_additional_text_3">Zeichne ein neues Aussehen.</string>
+  <string name="step2_additional_text_5">Mach ein Foto.</string>
+</strings>

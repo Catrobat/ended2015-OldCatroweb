@@ -34,38 +34,38 @@
     <userFunctions>
       <string name="hash_not_found">Sorry! Couldn't find something to recover. Please try again.</string>
 			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>
-      <string name="username_missing">You haven't entered a nickname, please add one.</string>
-      <string name="username_invalid_underscore">The nickname you have entered is not allowed. Please do not use underscores (_).</string>
-      <string name="username_invalid_hash">The nickname you have entered is not allowed. Please do not use hash signs (#).</string>
-      <string name="username_invalid_verticalbar">The nickname you have entered is not allowed. Please do not use vertical bars (|).</string>
-      <string name="username_invaquery_failedlid_curlybrace">The nickname you have entered is not allowed. Please do not use curly braces ({ or }).</string>
-      <string name="username_invalid_lessgreater">The nickname you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
-      <string name="username_invalid_squarebracket">The nickname you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
-      <string name="username_invalid_spaces">The nickname you have entered is not allowed. Please do not use spaces (" ").</string>
-      <string name="username_invalid_insulting_words">The nickname you have entered is not allowed. Please do not use insulting words.</string>
-      <string name="username_invalid">The nickname you have entered is not allowed.</string>
-      <string name="username_blacklisted">The nickname you have entered is not allowed.</string>
-      <string name="username_already_exists">The nickname you have entered already exists.</string>
+      <string name="username_missing">You haven't entered a username, please add one.</string>
+      <string name="username_invalid_underscore">The username you have entered is not allowed. Please do not use underscores (_).</string>
+      <string name="username_invalid_hash">The username you have entered is not allowed. Please do not use hash signs (#).</string>
+      <string name="username_invalid_verticalbar">The username you have entered is not allowed. Please do not use vertical bars (|).</string>
+      <string name="username_invaquery_failedlid_curlybrace">The username you have entered is not allowed. Please do not use curly braces ({ or }).</string>
+      <string name="username_invalid_lessgreater">The username you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
+      <string name="username_invalid_squarebracket">The username you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
+      <string name="username_invalid_spaces">The username you have entered is not allowed. Please do not use spaces (" ").</string>
+      <string name="username_invalid_insulting_words">The username you have entered is not allowed. Please do not use insulting words.</string>
+      <string name="username_invalid">The username you have entered is not allowed.</string>
+      <string name="username_blacklisted">The username you have entered is not allowed.</string>
+      <string name="username_already_exists">The username you have entered already exists.</string>
       <string name="password_missing">You haven't entered a password, please add one.</string>
       <string name="password_not_equal_password2">The passwords didn't match.</string>
-      <string name="username_password_equal">The password must differ from the nickname.</string>
+      <string name="username_password_equal">The password must differ from the username.</string>
       <string name="password_new_too_short">The new password must have at least {*minimumPasswordLength*} characters.</string>
       <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
       <string name="email_missing">You haven't entered an email address, please add one.</string>
       <string name="email_invalid">This email address is not valid.</string>
       <string name="last_email">One email address is required.</string>
       <string name="country_missing">You haven't entered a country, please add one.</string>
-      <string name="password_or_username_wrong">Your password or nickname was incorrect.</string>
+      <string name="password_or_username_wrong">Your password or username was incorrect.</string>
       <string name="board_authentication_failed">The board authentication failed.</string>
       <string name="wiki_api_response_incorrect">Ooooops something went wrong./nPlease try again!</string>
       <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
-      <string name="userdata_missing">Your nickname or email address is missing.</string>
+      <string name="userdata_missing">Your username or email address is missing.</string>
       <string name="unsupported_image">This image type is not supported, please try another image.</string>
       <string name="avatar_creation_failed">Sorry, we encountered an error while processing your registration. Please try again!</string>
       <string name="password_new_board_update_failed">There was a problem while updating the password.</string>
       <string name="country_update_failed">There was a problem while updating your home country.</string>
       <string name="language_update_failed">There was a problem while updating your language.</string>
-      <string name="userdata_not_exists">Your nickname or email address was not found.</string>
+      <string name="userdata_not_exists">Your username or email address was not found.</string>
       <string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
       <string name="create_hash_failed">Ooooops something went wrong./nPlease try again!</string>
       <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
@@ -103,8 +103,8 @@
       <string name="user_is_blocked">Your Account has been blocked.</string>
     </viewer>
     <auth>
-    	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your nickname and password!</string>
-			<string name="device_auth_username_exists">Sorry, your nickname is already in use.</string>
+    	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your username and password!</string>
+			<string name="device_auth_username_exists">Sorry, your username is already in use.</string>
       <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
     </auth>
     <registration>

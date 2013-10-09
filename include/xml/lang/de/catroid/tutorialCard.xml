@@ -22,5 +22,12 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="title">Fehler</string>
+  <string name="project1">Gr&#xF6;&#xDF;e &#xE4;ndern</string>
+  <string name="project2">Aussehen &#xE4;ndern</string>
+  <string name="project4">Gleiten</string>
+  <string name="project7">GSensor</string>
+  <string name="project8">Kompass</string>
+  <string name="title">Tutorial Karten</string>
+  <string name="project3">Bewegte Animation</string>
+  <string name="project6">Sprich etwas</string>
 </strings>

@@ -25,14 +25,14 @@
   <string name="template_header_search_placeholder">Search ...</string>  
   <string name="template_header_register">click here to create a new account</string>
   <string name="template_header_additional_options">Other options to proceed:</string>
-  <string name="template_header_nick">Nick:</string>
+  <string name="template_header_nick">Username:</string>
   <string name="template_header_password">Password:</string>
   <string name="template_header_login">Login</string>
   <string name="template_header_logout">Logout</string>
   <string name="template_header_cancel">Cancel</string>
   <string name="template_header_loading">loading...</string>
   <string name="template_header_logged_in_as">You are logged in as</string>
-  <string name="template_header_enter_nick">your nickname</string>
+  <string name="template_header_enter_nick">your username</string>
   <string name="template_header_enter_password">your password</string>
   <string name="template_header_menu">Menu</string>
   <string name="template_header_home">Home</string>
