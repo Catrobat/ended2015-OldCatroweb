@@ -512,23 +512,23 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
 
   public function invalidUsername() {
     $dataArray = array(
-        array(array('', 'The nickname is missing.')),
-        array(array('username invalid _', 'The nickname is invalid. Underscores (_) are not allowed.')),
-        array(array('username invalid #', 'The nickname is invalid. Hash signs (#) are not allowed.')),
-        array(array('username invalid |', 'The nickname is invalid. Vertical bars (|) are not allowed.')),
-        array(array('username invalid {', 'The nickname is invalid. Curly braces ({ or }) are not allowed.')),
-        array(array('username invalid }', 'The nickname is invalid. Curly braces ({ or }) are not allowed.')),
-        array(array('username invalid <', 'The nickname is invalid. Less than or greater than signs (< or >) are not allowed.')),
-        array(array('username invalid >', 'The nickname is invalid. Less than or greater than signs (< or >) are not allowed.')),
-        array(array('username invalid [', 'The nickname is invalid. Square brackets ([ or ]) are not allowed.')),
-        array(array('username invalid ]', 'The nickname is invalid. Square brackets ([ or ]) are not allowed.')),
-        array(array('username invalid', 'The nickname is invalid. Spaces (" ") are not allowed.')),
-        array(array('129.0.12.123', 'The nickname is invalid.')),
-        array(array('aDmIn', 'This nickname is on the blacklist and not allowed.')),
-        array(array('caTRoid', 'This nickname is on the blacklist and not allowed.')),
-        array(array('kittyroiD', 'This nickname is on the blacklist and not allowed.')),
-        array(array('anonymous', 'This nickname already exists.')),
-        array(array('shit', 'The nickname is invalid. There are insulting words in the username field!'))
+        array(array('', 'The username is missing.')),
+        array(array('username invalid _', 'The username is invalid. Underscores (_) are not allowed.')),
+        array(array('username invalid #', 'The username is invalid. Hash signs (#) are not allowed.')),
+        array(array('username invalid |', 'The username is invalid. Vertical bars (|) are not allowed.')),
+        array(array('username invalid {', 'The username is invalid. Curly braces ({ or }) are not allowed.')),
+        array(array('username invalid }', 'The username is invalid. Curly braces ({ or }) are not allowed.')),
+        array(array('username invalid <', 'The username is invalid. Less than or greater than signs (< or >) are not allowed.')),
+        array(array('username invalid >', 'The username is invalid. Less than or greater than signs (< or >) are not allowed.')),
+        array(array('username invalid [', 'The username is invalid. Square brackets ([ or ]) are not allowed.')),
+        array(array('username invalid ]', 'The username is invalid. Square brackets ([ or ]) are not allowed.')),
+        array(array('username invalid', 'The username is invalid. Spaces (" ") are not allowed.')),
+        array(array('129.0.12.123', 'The username is invalid.')),
+        array(array('aDmIn', 'This username is on the blacklist and not allowed.')),
+        array(array('caTRoid', 'This username is on the blacklist and not allowed.')),
+        array(array('kittyroiD', 'This username is on the blacklist and not allowed.')),
+        array(array('anonymous', 'This username already exists.')),
+        array(array('shit', 'The username is invalid. There are insulting words in the username field!'))
     );
     return $dataArray;
   }
@@ -545,7 +545,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
   public function invalidPassword() {
     $dataArray = array(
         array(array('catroweb', '', '', 'The password is missing.', '')),
-        array(array('catroweb', 'catroweb', 'catroweb', 'The password must differ from the nickname.', '')),
+        array(array('catroweb', 'catroweb', 'catroweb', 'The password must differ from the username.', '')),
         array(array('catroweb', 'abc', 'abc', 'Your password must have at least 6 characters.', '')),
         array(array('catroweb', '123456', '654321', 'The passwords didn\'t match.', '')),
         array(array('catroweb', 'very-very-very-very-long-password', 'very-very-very-very-long-password', 'Your password can have a maximum of 32 characters.', ''))
