@@ -185,6 +185,72 @@ public class CommonFunctions {
       Reporter.log(e.getMessage());
     }
   }
+  
+  public static String getUserIDFromDatabase(String username) {
+    String id = "";
+    try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      ResultSet result = statement.executeQuery("SELECT id FROM cusers WHERE username='" + username + "' LIMIT 1");
+      if(result.next()) {
+        id = result.getString(1);
+      }
+      result.close();
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
+    } catch(SQLException e) {
+      Reporter.log("CommonFunctions: removeUserFromBD: SQL Exception couldn't execute sql query!");
+      Reporter.log(e.getMessage());
+    }
+    return id;
+  }
+  
+  public static boolean isUserInDatabase(String username) {
+    boolean bol = false;
+    try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      ResultSet result = statement.executeQuery("SELECT id FROM cusers WHERE username='" + username + "' LIMIT 1");
+      if(result.next()) {
+        bol = true;
+      }
+      result.close();
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
+    } catch(SQLException e) {
+      Reporter.log("CommonFunctions: removeUserFromBD: SQL Exception couldn't execute sql query!");
+      Reporter.log(e.getMessage());
+    }
+    return bol;
+  }
+  
+  public static boolean isProjectInDatabase(String user_id) {
+    boolean bol = false;
+    try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      ResultSet result = statement.executeQuery("SELECT id FROM projects WHERE user_id='" + user_id + "'");
+      if(result.next()) {
+        bol = true;
+      }
+      result.close();
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
+    } catch(SQLException e) {
+      Reporter.log("CommonFunctions: removeUserFromBD: SQL Exception couldn't execute sql query!");
+      Reporter.log(e.getMessage());
+    }
+    return bol;
+  }
 
   public static String getTimeStamp() {
     java.util.Date time = new java.util.Date();
