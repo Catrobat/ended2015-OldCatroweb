@@ -24,24 +24,24 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 <errors>
   <userFunctions>
     <string name="password_not_equal_password2">Du hast zwei unterschiedliche Passw&#xF6;rrter eingegeben.</string>
-    <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
+    <string name="username_password_equal">Passwort und Username d&#xFC;rfen nicht gleich sein.</string>
     <string name="language_update_failed">Es gab ein Problem beim Aktualisieren deiner Sprache.</string>
     <string name="email_update_failed">Fehler beim Speicher dieser E-Mail Adresse. Du musst zumindest eine verifizierte E-Mail Adresse haben.</string>
-    <string name="username_missing">Du hast keinen Benutzernamen eingetragen, f&#xFC;ge bitte einen ein.</string>
+    <string name="username_missing">Du hast keinen Usernamen eingetragen, f&#xFC;ge bitte einen ein.</string>
     <string name="username_invalid_lessgreater"/>
     <string name="username_invalid_squarebracket"/>
     <string name="password_new_too_long">Das neue Passwort kann aus maximal {*maximumPasswordLength*} Zeichen bestehen.</string>
     <string name="email_invalid">Diese E-mail Adresse ist ung&#xFC;ltig!</string>
-    <string name="userdata_missing">Der Benutzername oder die E-Mail Adresse fehlt.</string>
+    <string name="userdata_missing">Der Username oder die E-Mail Adresse fehlt.</string>
     <string name="unsupported_image">Dieser Bild-Typ wird nicht unterst&#xFC;tzt, versuche ein anderes Bild.</string>
-    <string name="userdata_not_exists">Der Benutzername oder die E-Mail Adresse konnte nicht gefunden werden.</string>
+    <string name="userdata_not_exists">Der Username oder die E-Mail Adresse konnte nicht gefunden werden.</string>
     <string name="sendmail_failed">Fehler w&#xE4;hrend dem Senden des Emails. Vielleicht funktioniert dein Mailserver nicht?</string>
     <string name="expired_url">Die G&#xFC;ltigkeit deiner Wiederherstellungs-URL ist abgelaufen.</string>
     <string name="username_invalid_underscore"/>
     <string name="username_invalid_spaces"/>
     <string name="username_invalid_insulting_words"/>
-    <string name="username_invalid">Der Benutzername ist ung&#xFC;ltig.</string>
-    <string name="username_blacklisted">Der Benutzername ist ung&#xFC;ltig.</string>
+    <string name="username_invalid">Der Username ist ung&#xFC;ltig.</string>
+    <string name="username_blacklisted">Der Username ist ung&#xFC;ltig.</string>
     <string name="password_missing">Du hast noch kein Passwort eingegeben, bitte f&#xFC;ge eines ein.</string>
     <string name="password_new_too_short">Dein neues Passwort muss mindestens {*minimumPasswordLength*} Zeichen lang sein.</string>
     <string name="country_missing">Bitte gib ein Land ein.</string>
@@ -58,7 +58,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="username_already_exists">Der eingegebe Username ist schon vergeben.</string>
     <string name="email_missing">Du hast noch keine E-Mail-Adresse eingegeben, bitte f&#xFC;ge eine ein.</string>
     <string name="last_email">Eine E-Mail Adresse wird ben&#xF6;tigt.</string>
-    <string name="password_or_username_wrong">Das Passwort oder der Benutzername war falsch!</string>
+    <string name="password_or_username_wrong">Das Passwort oder der Username ist falsch.</string>
     <string name="avatar_creation_failed"/>
   </userFunctions>
   <upload>

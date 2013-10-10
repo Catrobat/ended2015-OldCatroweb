@@ -33,15 +33,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </db>
   <userFunctions>
     <string name="hash_not_found">Wiederherstellungs Hash wurde nicht gefunden.</string>
-    <string name="username_invalid_underscore">Der Benutzername ist ung&#xFC;ltig. Unterstriche (_) sind nicht erlaubt.</string>
-    <string name="username_invalid_curlybrace">Der Benutzername ist ung&#xFC;ltig. Geschweifte Klammern ({ oder }) sind nicht erlaubt.</string>
+    <string name="username_invalid_underscore">Der Username ist ung&#xFC;ltig. Unterstriche (_) sind nicht erlaubt.</string>
+    <string name="username_invalid_curlybrace">Der Username ist ung&#xFC;ltig. Geschweifte Klammern ({ oder }) sind nicht erlaubt.</string>
     <string name="username_invalid_lessgreater"/>
-    <string name="username_invalid_squarebracket">Der Benutzername ist ung&#xFC;ltig. Eckige Klammern ([ oder ]) sind nicht erlaubt.</string>
+    <string name="username_invalid_squarebracket">Der Username ist ung&#xFC;ltig. Eckige Klammern ([ oder ]) sind nicht erlaubt.</string>
     <string name="username_invalid_insulting_words"/>
-    <string name="username_already_exists">Der Benutzername existiert bereits.</string>
+    <string name="username_already_exists">Der Username existiert bereits.</string>
     <string name="password_missing">Du hast kein Passwort angegeben.</string>
     <string name="password_not_equal_password2">Du hast zwei unterschiedliche Passw&#xF6;rrter eingegeben.</string>
-    <string name="username_password_equal">Passwort und Benutzername d&#xFC;rfen nicht gleich sein.</string>
+    <string name="username_password_equal">Passwort und Username d&#xFC;rfen nicht gleich sein.</string>
     <string name="password_new_too_short">Dein Passwort muss mindestens {*minimumPasswordLength*} Zeichen haben.</string>
     <string name="password_new_too_long">Dein Passwort kann maximal aus {*maximumPasswordLength*} Zeichen bestehen.</string>
     <string name="country_missing">Du hast kein Land angegeben.</string>
@@ -50,25 +50,25 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="email_update_failed">Fehler beim Speicher dieser E-Mail Adresse. Du musst zumindest eine verifizierte E-Mail Adresse haben.</string>
     <string name="sendmail_failed">Fehler w&#xE4;hrend dem Senden des Emails. Vielleicht funktioniert dein Mailserver nicht?</string>
     <string name="expired_url">Die G&#xFC;ltigkeit deiner Wiederherstellungs-URL ist abgelaufen.</string>
-    <string name="username_missing">Du hast keinen Benutzernamen angegeben.</string>
-    <string name="username_invalid_hash">Der Benutzername ist ung&#xFC;ltig. Rautezeichen (#) sind nicht erlaubt.</string>
-    <string name="username_invalid_verticalbar">Der Benutzername ist ung&#xFC;ltig. Vertikale Striche Unterstriche (|) sind nicht erlaubt.</string>
-    <string name="username_invalid_spaces">Der Benutzername ist ung&#xFC;ltig. Leerzeichen ( ) sind nicht erlaubt.</string>
+    <string name="username_missing">Du hast keinen Usernamen angegeben.</string>
+    <string name="username_invalid_hash">Der Username ist ung&#xFC;ltig. Rautezeichen (#) sind nicht erlaubt.</string>
+    <string name="username_invalid_verticalbar">Der Username ist ung&#xFC;ltig. Vertikale Striche Unterstriche (|) sind nicht erlaubt.</string>
+    <string name="username_invalid_spaces">Der Username ist ung&#xFC;ltig. Leerzeichen ( ) sind nicht erlaubt.</string>
     <string name="email_missing">Du hast keine E-Mail-Adresse angegeben.</string>
     <string name="email_already_exists">Die E-Mail Adresse existiert bereits!</string>
-    <string name="password_or_username_wrong">Das Passwort oder der Benutzername ist falsch.</string>
+    <string name="password_or_username_wrong">Das Passwort oder der Username ist falsch.</string>
     <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
     <string name="unsupported_image">Unerlaubtes Bild, erlaubte Bildtypen sind gif, png oder jpeg.</string>
     <string name="password_new_board_update_failed">Konnte das Forums Passwort nicht aktualisieren.</string>
-    <string name="userdata_not_exists">Der Benutzername oder die E-Mail Adresse konnte nicht gefunden werden.</string>
-    <string name="username_invalid">Der Benutzername ist ung&#xFC;ltig.</string>
+    <string name="userdata_not_exists">Der Username oder die E-Mail Adresse konnte nicht gefunden werden.</string>
+    <string name="username_invalid">Der Username ist ung&#xFC;ltig.</string>
     <string name="email_invalid">Diese E-mail Adresse ist ung&#xFC;ltig!</string>
     <string name="board_authentication_failed">Anmeldung im Forum fehlgeschlagen!</string>
-    <string name="userdata_missing">Der Benutzername oder die E-Mail Adresse fehlt.</string>
+    <string name="userdata_missing">Der Username oder die E-Mail Adresse fehlt.</string>
     <string name="avatar_creation_failed">Das Erstellen des neuen Avatars ist fehlgeschlagen.</string>
     <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deines Heimatlandes.</string>
     <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
-    <string name="username_blacklisted">Der Benutzername ist auf der schwarzen Liste und deswegen nicht erlaubt.</string>
+    <string name="username_blacklisted">Der Username ist auf der schwarzen Liste und deswegen nicht erlaubt.</string>
   </userFunctions>
   <upload>
     <string name="missing_post_file_checksum">Der Client hat die fileChecksum nicht mitgeschickt! Verwendest du eine veraltete Version von Pocket Code?</string>
@@ -114,7 +114,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </download>
   <auth>
     <string name="device_auth_invalid_token">Authentifizierung des Ger&#xE4;ts fehlgeschlagen: ung&#xFC;ltiger auth-token!</string>
-    <string name="device_auth_username_exists">Anmeldung fehlgeschlagen: Benutzername existiert bereits!</string>
+    <string name="device_auth_username_exists">Anmeldung fehlgeschlagen: Username existiert bereits!</string>
     <string name="not_a_tugraz_ip">Diese Seite kann nur von localhost oder innerhalb des TU Graz Netzwerkes erreicht werden.</string>
   </auth>
 </errors>
