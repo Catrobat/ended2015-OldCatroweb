@@ -60,7 +60,7 @@ var PasswordRecovery = Class.$extend( {
   passwordRecoverySendLinkRequestSuccess : function(result) {
     $("#passwordRecoverySendLoader").hide();
     if(result.statusCode == 200) {
-      $("#recoveryMessage").show().text(result.answer).css("color", "#a8dff4");
+      $("#recoveryMessage").show().text(result.answer).css("color", "#6ab7ce");
     } else {
       $("#passwordRecoverySendLink").show();
       $("#recoveryMessage").show().text(result.answer);

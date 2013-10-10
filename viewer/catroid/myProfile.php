@@ -28,7 +28,7 @@
     <div>
 
       <div class="profileAvatar">
-        <div id="profileAvatarError"></div>
+         <div id="profileAvatarError"></div>
         <img class="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
         <div>
           <button id="profileChangeAvatarButton"><?php echo $this->languageHandler->getString('changeAvatar'); ?></button>
@@ -40,19 +40,21 @@
         <div class="profileInputsLeft">
           <div id="profilePasswordError"></div>
            <div id="profileNewPassword" class="profileValid">
+           <div class="img-password profileInputIcon"></div>
             <input type="password" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password'); ?>" />
-            <div class="img-password profileInputIcon"></div>
+            
           </div>
 
           <div id="profileRepeatPassword" class="profileValid">
+          <div class="img-password profileInputIcon"></div>
             <input type="password" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password'); ?>" />
-            <div class="img-password profileInputIcon"></div>
+            
           </div>
 
           <b><?php echo $this->languageHandler->getString('country') ?></b>
-          <div class="profileCountry">
+          <div class="profileCountry img-dropdown">
             <select><?php echo $this->countryCodeListHTML;?></select>
-            <div class="img-select profileSelectImage"></div>
+           <!--  <div class="img-dropdown profileSelectImage"></div>-->
           </div>      
         </div>
         
@@ -60,8 +62,9 @@
           <div id="profileEmailError"></div>
           <!-- <div id="profileEmailDelete" class="img-delete profileDeleteEMaill"></div>-->
           <div id="profileEmail" class="profileValid">
+          <div class="img-first-email profileInputIcon"></div>
             <input type="email" placeholder="<?php echo $this->languageHandler->getString('email'); ?>" value="<?php echo $this->userData['email']; ?>" />
-            <div class="img-first-email profileInputIcon"></div>
+            
           </div>
 
           <!-- <div id="profileSecondEmailDelete" class="img-delete profileDeleteEMaill"></div>-->
@@ -84,7 +87,7 @@
     </div>
 
     <div style="clear: both;"></div>
-    <h3><?php echo $this->languageHandler->getString('my_projects'); ?></h3>
+    <h3 class="myH3"><?php echo $this->languageHandler->getString('my_projects'); ?></h3>
     <div id="userProjectContainer" class="projectContainer">
       <span id="profileNoResults">
         <img src="<?php echo BASE_PATH; ?>images/symbols/error_small.png" />
@@ -97,7 +100,7 @@
     </div>
     <div id="moreResults" class="projectFooter">
       <div class="img-load-more"></div>
-      <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+      
     </div>
     <div class="projectSpacer"></div>
   </article>

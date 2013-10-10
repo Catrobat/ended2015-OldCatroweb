@@ -149,7 +149,7 @@ var ProjectDetails = Class.$extend( {
     var colThumbnailImg    = $("#projectDetailsThumbnailImage");
     var colHeightMax       = Math.max(colThumbnail.height(), colThumbnailImg.height(), colDescription.height());
     var colHeightMin       = Math.min(colDescription.height(), colDownload.height());
-    var cssMediaQueryWidth = 535; /* defined in details.css (media query for single column layout) */
+    var cssMediaQueryWidth = 800; /* defined in details.css (media query for single column layout) */
 
     if($('body').width() > cssMediaQueryWidth) {
       colDownload.height(colHeightMax);

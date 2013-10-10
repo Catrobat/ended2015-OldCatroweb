@@ -176,9 +176,21 @@ class projects extends CoreAuthenticationNone {
   
       $keywordsCount++;
     }
-  
-  
+   
+    
+    
     $searchTerms = explode(" ", $query);
+    $this->completeTerm = $query;
+    for($i = 0; $i < sizeof($searchTerms); $i++) {
+      if (strlen($searchTerms[$i]) < 4) {
+        unset($searchTerms[$i]);
+        $searchTerms = array_values($searchTerms);     
+        $i = $i - 1;
+      }
+    }
+
+    array_unshift($searchTerms,$query);
+    
     foreach($searchTerms as $term) {
       if(strlen($term) > 0) {
         $searchQuery .= (($searchQuery == "") ? " AND (" : " OR " );
@@ -215,6 +227,8 @@ class projects extends CoreAuthenticationNone {
       if($result) {
         if(pg_num_rows($result) > 0) {
           $projects = pg_fetch_all($result);
+          if(strlen($query) != 0)
+            usort($projects, array($this, 'cmp')); 
           $this->generateOutput($projects, $mask, $this->getNumberOfVisibleProjects($statementName, $queryParameter));
         } else {
           $this->generateOutput(array(), $mask, $this->getNumberOfVisibleProjects($statementName, $queryParameter));
@@ -224,6 +238,45 @@ class projects extends CoreAuthenticationNone {
         $this->Error = 'query failed ' . pg_last_error();
       }
     }
+    
+  }
+  
+  private function cmp($value_1, $value_2)  {
+    $title1 = strtolower($value_1['title']);
+    $title2 = strtolower($value_2['title']);
+    $description1 = strtolower($value_1['description']);
+    $description2 = strtolower($value_2['description']);
+    $uploader1 = strtolower($value_1['uploaded_by']);
+    $uploader2 = strtolower($value_2['uploaded_by']);
+    $count1 = 0;
+    $count2 = 0;
+  
+    if ($this->completeTerm === $title1)
+      $count1 += 1;
+    if ($this->completeTerm === $description1)
+      $count1 += 1;
+    if ($this->completeTerm === $uploader1)
+      $count1 += 1;
+    
+    if ($this->completeTerm === $title2)
+      $count2 += 1;
+    if ($this->completeTerm === $description2)
+      $count2 += 1;
+    if ($this->completeTerm === $uploader2)
+      $count2 += 1;
+    
+    $count1 += substr_count($title1, $this->completeTerm);
+    $count1 += substr_count($description1, $this->completeTerm);
+    $count1 += substr_count($uploader1, $this->completeTerm);
+    
+    $count2 += substr_count($title2, $this->completeTerm);
+    $count2 += substr_count($description2, $this->completeTerm);
+    $count2 += substr_count($uploader2, $this->completeTerm);
+
+    if ($count1 === $count2)
+      return 0;
+  
+    return ($count1 > $count2) ? -1 : 1;
   }
   
   private function prepareStatement($statementName, $sqlQuery) {
@@ -276,7 +329,7 @@ class projects extends CoreAuthenticationNone {
         $currentProject['ProjectName'] = $project['title'];
       }
       if(in_array('ProjectNameShort', $selectedFields)) {
-        $currentProject['ProjectNameShort'] = makeShortString($project['title'], 9, '…');
+        $currentProject['ProjectNameShort'] = $project['title'];//makeShortString($project['title'], 9, '…');
       }
       if(in_array('ScreenshotBig', $selectedFields)) {
         $currentProject['ScreenshotBig'] = str_replace(BASE_PATH, "", getProjectImageUrl($project['id']));
@@ -325,4 +378,5 @@ class projects extends CoreAuthenticationNone {
     $this->CatrobatProjects = $tempProjectList;
   }
 }
+
 ?>

@@ -21,36 +21,51 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-#wrapper article div.header {
-  border-top: 1px solid #477889;
-  background-color: #00475d;
-  font-size: 1.8em;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em;
-  text-shadow: #000000 1px 1px 1px;
-  text-align: center;
-}
-
 #wrapper article div.licenseMain {
-  background-color: #00475d;
   margin-top: 0.2em;
 }
 
 #wrapper article div.licenseText {
   padding: 1em; 
-  /* text-align:justify; */
-  font-size:1.3em;
+  font-size:1em;
+  text-align: justify;
+  
+}
+
+#wrapper article div.licenseTextHeadline {
+  text-transform: uppercase; 
+  font-size: 1.4em;
+  font-weight: bold;
+  text-align: left;
+  margin-bottom: 0.5em;
+  
 }
 
 #wrapper article p.licenseText { 
   margin:0;
   padding:0;
+  font-weight: bold;
+}
+
+#wrapper article li {
+  word-wrap:break-word;
 }
 
 #wrapper article a:link, a:visited { 
   text-decoration: underline; 
-  color: #a8dff4; 
+  color: #17a5b8; 
   font-weight: bold;
 }
 
+@media screen and (min-width: 800px) {
+  #wrapper article div.licenseText {
+    
+    -moz-column-count:2; 
+    -webkit-column-count:2; 
+    column-count:2;
+  
+    -moz-column-gap:40px; 
+    -webkit-column-gap:40px;
+    column-gap:40px;
+  }
+}

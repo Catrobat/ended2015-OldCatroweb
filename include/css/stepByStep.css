@@ -1,0 +1,356 @@
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#wrapper article div.header {
+  border: 0;
+  border-bottom: 1px solid #17a5b8;
+  color: #17a5b8;
+  font-size: 1.8em; 
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em 0 0.07em 0.375em;
+  text-align: left;
+  text-shadow: #000000 1px 1px 1px;
+  margin-top: 0.55em;
+  margin-bottom: 0.8em;
+  
+}
+
+#wrapper article div.headerLarge {
+  text-transform: uppercase;
+}
+
+#wrapper article div.headerSmall {
+  text-transform: none;
+  
+}
+
+#wrapper article div.clear {
+  clear: both;
+}
+
+#wrapper article div.stepByStepMain {
+  margin-top: 0.2em;
+  overflow: hidden;
+  width: 100%;
+}
+
+#wrapper article div.stepByStepHeadline {
+    width: 100%;
+    padding-left: 1em;
+    padding-top: 1em;
+    font-size: 1.5em;
+  }
+  
+#wrapper article div.stepByStepContentLeft {
+    width: 35%;
+    float: left;
+    padding-left: 2em;
+  }
+  
+#wrapper article div.stepByStepContentRight {
+    width: 57%;
+    float: left;
+    padding-left: 2em;
+  }
+  
+#wrapper article div.stepByStepContentFooter {
+  width: 100%;
+  padding-top: 2em;
+  text-align: center;
+}
+
+#wrapper article div.stepByStepContentFooter img {
+  width: 5%;
+  border: 1px #FFFFFF solid;
+}
+  
+#wrapper article div.stepByStepDescription {
+  margin-bottom: 0.5em;
+  margin-top: 2em;
+}
+
+#wrapper article div.stepByStepDetailContainerLeft {
+  float: left;
+  width: 30%;
+}
+
+#wrapper article div.stepByStepDetailContainerRight {
+  float: left;
+  width: 70%;
+  font-size: 0.8em;
+}
+
+/* #wrapper article div.stepByStepDetailContainerLeft1 {
+  float: left;
+  width: 20%;
+}
+
+#wrapper article div.stepByStepDetailContainerRight1 {
+  float: left;
+  width: 80%;
+  font-size: 0.8em;
+} */
+
+#wrapper article div.stepByStepDescription1 {
+  margin-bottom: 0.5em;  
+  display: table-cell; 
+  vertical-align: middle;
+}
+
+#wrapper article div.stepByStepTableView {
+  display: table;
+}
+
+#wrapper article div.miniThumb {
+  width: 20%;
+}
+
+#wrapper article div.stepByStepFloating img {
+  max-width: 100px !important;
+}
+
+#wrapper article div.stepByStepFloating {
+  float: left;
+  padding-right: 2em;
+}
+
+
+#wrapper article div.stepByStepDetailRight {
+  width: 100%;
+  padding-left: 1em;
+  padding-bottom: 0.5em;
+}
+
+#wrapper article div.stepByStepDetailRight img {
+  width: 7%;
+  margin-right: 1em;
+}
+
+#wrapper article div.stepByStepContentRight img {
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentLeft img.leftThumb {
+  width: 70%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.rightThumb {
+  width: 50%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.rightThumb2 {
+  width: 30%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.rightThumb3 {
+  width: 40%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.rightThumb4 {
+  width: 80%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.thumbBack {
+  width: 10%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.rightDetailThumb {
+  width: 100%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.plusThumb {
+  width: 20%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.plusThumb {
+  width: 20%;
+  border: 1px #FFFFFF solid;
+}
+
+#wrapper article div.stepByStepContentRight img.newThumb {
+  width: 40%;
+  border: 1px #FFFFFF solid;
+}
+
+
+#wrapper article div.stepByStepMainContent1 {
+  display: block;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent2 {
+  display: none;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent3 {
+  display: none;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent4 {
+  display: none;
+  margin: 0 auto;
+ 
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent5 {
+  display: none;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent6 {
+  display: none;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent7 {
+  display: none;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent8 {
+  display: none;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent9 {
+  display: none;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent10 {
+  display: none;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepMainContent11 {
+  display: none;
+  margin: 0 auto;
+  border: 8px #17a5b8 solid;
+  -moz-border-radius: 20px;
+  border-radius: 20px;
+  padding-bottom: 2em;
+  padding-right: 1em;
+}
+
+#wrapper article div.stepByStepNavigation {
+  width: 100%;
+  text-align: center;
+  margin-top: 10px;
+}
+
+#wrapper article a {
+
+  color: #17a5b8;
+  text-decoration: none;
+  font-size: 1em;
+  font-weight: bold;
+}
+ 
+ @media screen and (max-width: 1280px) {
+ 
+ #wrapper article div.stepByStepMainContent {
+   text-align: left;
+ }
+ 
+}
+
+@media screen and (max-width: 840px) {
+ 
+ #wrapper article div.stepByStepContentLeft {
+   width: 100%;
+ }
+ 
+ #wrapper article div.stepByStepContentRight {
+   width: 100%;
+ }
+ 
+}
+
+@media screen and (max-width: 720px) {
+ 
+ #wrapper article div.stepByStepMainContent {
+  text-align: left;
+ }
+}
+

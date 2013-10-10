@@ -85,6 +85,7 @@ public class BadWordsFilterTests extends BaseTest {
       driver().findElement(By.id("aAdministrationTools")).click();
       ajaxWait();
       driver().findElement(By.id("aAdminToolsApproveWords")).click();
+      driver().findElement(By.id("allProjects")).click();
       assertTrue(isTextPresent(unapprovedWord));
       (new Select(driver().findElement(By.id("meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord))))).selectByVisibleText("bad");
       clickOkOnNextConfirmationBox();

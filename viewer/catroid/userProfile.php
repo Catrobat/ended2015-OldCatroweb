@@ -24,42 +24,47 @@
 
 ?>
   <article>
+  
     <header><?php echo $this->userData['username'];?></header>
-    <div class="profileAvatar">
-      <img class="profileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
-    </div>
-
-    <div class="profileInputs">
-      <div class="profileInformations">
-      <p>
-        <strong><?php echo $this->languageHandler->getString('country'); ?>: </strong>
-        <?php 
-        if($this->userData['country'] != "") {
-          $countries = getCountryArray($this->languageHandler);
-          echo $countries[$this->userData['country']];
-        }
-        ?>
-      </p>
-      <p>
-        <strong><?php echo $this->languageHandler->getString('projects'); ?>: </strong>
-        <?php echo $this->userData['project_count']; ?>
-      </p>
+    
+    <div class="userProfileAvatarContainerTop">
+       <div class="userProfileAvatarContainer">
+       <div class="userProfileAvatar">
+         <img class="userProfileAvatarImage" src="<?php echo $this->userData['avatar']; ?>" />
+        <div class="userProfileInformations">
+        <p>
+          <strong><?php echo $this->languageHandler->getString('projects'); ?>: </strong>
+          <?php echo $this->userData['project_count']; ?>
+        </p>
+        <p>
+          
+          <?php 
+          if($this->userData['country'] != "") {
+            echo "<strong>" . $this->languageHandler->getString('country') . ": </strong>";
+            $countries = getCountryArray($this->languageHandler);
+            echo $countries[$this->userData['country']];
+          }
+          ?>
+        </p>
+        
+        </div>
       </div>
     </div>
-    <div style="clear: both;"></div>
+    </div>
 
-    <h3><?php echo $this->languageHandler->getString('user_projects')," ", $this->userData['username']; ?></h3>
     <div id="userProjectContainer" class="projectContainer">
+      <h3><?php echo $this->languageHandler->getString('user_projects')," ", $this->userData['username']; ?></h3>
       <span id="profileNoResults"><?php echo $this->languageHandler->getString('no_projects_available'); ?></span>
     </div>
     <div id="userProjectLoader" class="projectFooter">
       <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
       <p>&nbsp;</p>
     </div>
+        
     <div id="moreResults" class="projectFooter">
       <div class="img-load-more"></div>
-      <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
     </div>
+
     <div class="projectSpacer"></div>
   </article>
 

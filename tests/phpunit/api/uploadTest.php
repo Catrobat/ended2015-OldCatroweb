@@ -898,7 +898,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
         array('uploadTestFail3', 'no file checksum is send together with this project', $validTestFile, $validFileName, '', $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_CHECKSUM),
         array('uploadTestFail4', 'this project has an invalid fileChecksum', $validTestFile, $validFileName, $invalidFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_INVALID_CHECKSUM),
         array('uploadTestFail5', 'this project contains an corrupt spf xml file', $corruptTestFile, $corruptFileName, $corruptFileChecksum, $corruptFileSize, $fileType, STATUS_CODE_UPLOAD_INVALID_XML),
-        array('defaultProject', 'this project is named defaultProject', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_DEFAULT_PROJECT_TITLE),
+        array('defaultProgram', 'this project is named defaultProgram', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_DEFAULT_PROJECT_TITLE),
         array('uploadTestFail8 fucking project title', 'this project has an insulting projectTitle', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_TITLE),
         array('uploadTestFail9', 'this project has an insulting projectDescription - Fuck!', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_RUDE_PROJECT_DESCRIPTION),
         array('uploadTestFail10', 'this project has an old catrobatLanguageVersion!', $oldVersionFile, $oldVersionFileName, $oldVersionFileChecksum, $oldVersionFileSize, $fileType, STATUS_CODE_UPLOAD_OLD_CATROBAT_LANGUAGE),

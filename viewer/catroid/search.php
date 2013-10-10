@@ -24,8 +24,8 @@
 
 ?>
       <article>
-        <header><?php echo $this->languageHandler->getString('header'); ?></header>
-        <div><?php echo $this->languageHandler->getString('results', '<span id="numberOfSearchResults">0</span>'); ?></div>
+        <header><?php echo $this->languageHandler->getString('header'); ?></header>               
+        <div class="searchResult"><?php echo $this->languageHandler->getString('results', '<span id="numberOfSearchResults">0</span>'); ?></div>
         <div id="searchResultContainer" class="projectContainer">
       </div>
                  
@@ -35,7 +35,6 @@
         </div>
         <div id="moreResults" class="projectFooter">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div>
         <div class="projectSpacer"></div>
       </article>
@@ -49,5 +48,6 @@
 
           search.setProjectObject(projects);
           projects.init();
+   
         });
       </script>

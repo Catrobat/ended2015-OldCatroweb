@@ -48,7 +48,7 @@ public class UploadTests extends BaseTest {
       
       openLocation("details/" + id);
       assertTrue(containsElementText(By.id("projectDetailsProjectTitle"), title.toUpperCase()));
-      assertTrue(isTextPresent("version: 0.7.3beta"));
+      assertTrue(isTextPresent("Catrobat Language version: 0.9"));
 
       //update the project
       response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.7.4beta.catrobat", "f1bd3e7dcf7d7cc40aa791c5878f0f35", "", "", "", ""));
@@ -58,7 +58,7 @@ public class UploadTests extends BaseTest {
       
       openLocation("details/" + id);
       assertTrue(containsElementText(By.id("projectDetailsProjectTitle"), title.toUpperCase()));
-      assertTrue(isTextPresent("version: 0.7.4beta"));
+      assertTrue(isTextPresent("Catrobat Language version: 0.9"));
     } catch(AssertionError e) {
       captureScreen("UploadTests.uploadResubmission");
       throw e;

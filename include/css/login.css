@@ -21,41 +21,47 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
  
-#wrapper article div.header {
-  border-top: 1px solid #477889;
-  background-color: #00475d;
-  font-size: 1.8em;
-  text-transform: uppercase;
-  font-weight: bold;
-  padding: 0.07em;
-  text-shadow: #000000 1px 1px 1px;
-  text-align: center;
+ header[role="banner"] {
+  padding-top: 2em;
+}
+
+#wrapper header nav {
+  padding-bottom: 0.5em;
 }
 
 #wrapper article div.form {
-  background-color: #00475d;
   margin-top: 0.2em;
+  margin: 0 auto;
+  max-width: 50%;
+  padding-top: 2em;
 }
 
 #wrapper article div.form form {
   margin: 0 auto;
   font-size: 1.3em;
-  max-width: 50%;
+  width: 14.5em;
 }
 
-#wrapper article div.form form input {
-  width: 100%;
+#wrapper article div.loginValid{
+  background-color: #FFFFFF;
+  border: 0.2em solid #05222a;
+  -mox-box-shadow: inset 2px 2px 2px #999;
+  -webkit-box-shadow: inset 2px 2px 5px #999;
+  box-shadow: inset 2px 2px 5px #999;
+  padding: 0.3em;
+  margin-bottom: 0.6em;
+}
 
-  border: 0;
+#wrapper article input {
+  background-color: #FFFFFF;
   border-radius: 0.125em;
-  color: #000000;
-
-  -mox-box-shadow: inset 2px 2px 5px #05222a;
-  -webkit-box-shadow: inset 2px 2px 5px #05222a;
-  box-shadow: inset 2px 2px 5px #05222a;
-
-  margin: 0.2em 0 0.2em -0.2em;
-  padding: 0.4em 0 0.4em 0.4em;
+  color: #05222a;
+  height: 1.8em;
+  width: 78%;
+  border: none;
+  margin-left: 0.2em;
+  outline: none;
+  font-size: 0.9em;
 }
 
 #wrapper article div.form form div.label {
@@ -67,6 +73,10 @@
 #wrapper article div.form form div.footer {
   padding: 1.4em 0 1.4em 0;
   text-align: center;
+}
+
+#wrapper article div.loginInputIcon{
+  margin-top: -0.1em;
 }
 
 #wrapper article div.form form div button#loginSubmitButton {
@@ -86,12 +96,11 @@
   color: #F78181;
   padding-top: 1em;
   padding-bottom: 1em;
-  font-size: 1.1em;
 }
 
-#wrapper article div.form form div.footer nav {
-  height: 3em;
-}
+/* #wrapper article div.form form div.footer nav { */
+/*   height: 3em; */
+/* } */
 
 #wrapper article div.form form div.footer nav span {
   display: none;
@@ -99,20 +108,46 @@
 }
 
 #wrapper article div.form form div.footer div {
-  text-align: left;
-  margin-top: 4em;
+  margin-top: 1em;
   font-weight: bold;
 }
 
 #wrapper article a:link, a:visited { 
   text-decoration: underline; 
-  color: #a8dff4; 
-  font-weight: bold;
+  color: #17a5b8; 
 }
 
+#wrapper header nav div div.catroidLink {
+  text-align: center;
+}
+
+a#forgotPassword {
+  font-size: 0.75em;
+}
 
 @media screen and (max-width: 720px) {
   #wrapper article div.form form {
-     max-width: 75%;
+    max-width: 100%;   
+  }
+  #wrapper article div.form {
+    max-width: 100%;
+  }
+  #wrapper header nav div div.catroidLink {
+  font-size: 2.2em;
+}
+  #wrapper article div.form form div button#passwordRecoverySendLink,
+  #wrapper article div.form form div button#passwordSaveSubmit{
+    padding: 0.2em;
+  }
+
+}
+
+@media screen and (max-width: 400px) {
+  #wrapper {
+     margin: 0em;
+  }
+  #wrapper article div.form  {
+     margin: 0em;
+     max-width: 100%;
   }
 }

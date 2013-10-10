@@ -50,7 +50,7 @@ public class HeaderTests extends BaseTest {
       driver().findElement(By.id("largeMenuButton")).click();
       
       assertRegExp(".*/login", driver().getCurrentUrl());
-      driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();
+      driver().findElement(By.xpath("//*[@id='largeMenuLogin']/div[2]/a")).click();
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
 
       driver().findElement(By.xpath("//*[@id='largeMenu']/div[4]/input")).sendKeys("test");
@@ -79,7 +79,6 @@ public class HeaderTests extends BaseTest {
 
       driver().findElement(By.id("largeMenuButton")).click();
       ajaxWait();
-      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/div[1]"), "Login".toUpperCase()));
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerMenuButtons");
       throw e;
@@ -100,10 +99,7 @@ public class HeaderTests extends BaseTest {
       assertTrue(isVisible(By.id("mobileSearchButton")));
       assertTrue(isVisible(By.id("mobileMenuButton")));
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
-      
-      driver().findElement(By.id("mobileMenuButton")).click();
-      
-      assertRegExp(".*/login", driver().getCurrentUrl());
+            
       driver().findElement(By.xpath("//*[@id='smallMenuBar']/a")).click();
       assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
       
@@ -119,6 +115,7 @@ public class HeaderTests extends BaseTest {
       
       driver().findElement(By.id("mobileMenuButton")).click();
       
+      assertRegExp(".*/login", driver().getCurrentUrl());
       driver().findElement(By.id("loginUsername")).sendKeys(CommonData.getLoginUserDefault());
       driver().findElement(By.id("loginPassword")).sendKeys(CommonData.getLoginPasswordDefault());
       
@@ -138,7 +135,6 @@ public class HeaderTests extends BaseTest {
       
       driver().findElement(By.id("mobileMenuButton")).click();
       ajaxWait();
-      assertTrue(containsElementText(By.xpath("//*[@id='wrapper']/article/div[1]"), "Login".toUpperCase()));
     } catch(AssertionError e) {
       captureScreen("HeaderTests.headerButtonsMobile");
       throw e;

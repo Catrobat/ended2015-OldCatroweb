@@ -39,6 +39,7 @@ class error extends CoreAuthenticationNone {
   	if($extraInfo && DEVELOPMENT_MODE) {
       $errorMessage .= ':<br/>'.$extraInfo;
     }
+    $errorMessage = str_replace('/n', '<br/>', $errorMessage);
     $this->errorMessage = $errorMessage;
 	}
 

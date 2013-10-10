@@ -103,7 +103,7 @@ public class LicenseTests extends BaseTest {
       assertTrue(isElementPresent(By.id("footerMoreButton")));
       driver().findElement(By.id("footerMoreButton")).click();
       
-      By privacy = By.xpath("//*[@id='mobileFooterMenu']/ul/li[1]/a");
+      By privacy = By.xpath("//*[@id='mobileFooterMenu']/ul/li[2]/a");
       assertTrue(isElementPresent(privacy));
       
       clickAndWaitForPopUp(privacy);
@@ -125,7 +125,7 @@ public class LicenseTests extends BaseTest {
       driver().findElement(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[2]/a")).click();
       ajaxWait();
 
-      assertTrue(isTextPresent("Welcome to the Catrobat community!"));
+      assertTrue(isTextPresent("WELCOME TO THE CATROBAT COMMUNITY!"));
       assertTrue(isTextPresent("As part of the Catrobat community, you are sharing programs and ideas with people:"));
 
       // click onto licenseofuploadedprojects link
@@ -166,10 +166,10 @@ public class LicenseTests extends BaseTest {
       driver().findElement(By.id("footerMoreButton")).click();
       ajaxWait();
       
-      driver().findElement(By.xpath("//*[@id='mobileFooterMenu']/ul/li[2]/a")).click();
+      driver().findElement(By.xpath("//*[@id='mobileFooterMenu']/ul/li[3]/a")).click();
       ajaxWait();
       
-      assertTrue(isTextPresent("Welcome to the Catrobat community!"));
+      assertTrue(isTextPresent("WELCOME TO THE CATROBAT COMMUNITY!"));
       assertTrue(isTextPresent("As part of the Catrobat community, you are sharing programs and ideas with people:"));
       
       // click onto licenseofuploadedprojects link
@@ -226,7 +226,7 @@ public class LicenseTests extends BaseTest {
       driver().findElement(By.id("footerMoreButton")).click();
       ajaxWait();
 
-      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[3]/a"));
+      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[4]/a"));
       assertRegExp(".*Imprint.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {

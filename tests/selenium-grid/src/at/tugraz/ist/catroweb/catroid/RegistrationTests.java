@@ -42,7 +42,7 @@ public class RegistrationTests extends BaseTest {
     try {
       openLocation("registration/");
       
-      assertTrue(isTextPresent(CommonStrings.REGISTRATION_PAGE_TITLE.toUpperCase()));
+      assertTrue(isTextPresent(CommonStrings.REGISTRATION_PAGE_TITLE));
       
       assertTrue(isTextPresent(CommonStrings.REGISTRATION_NICKNAME));
       assertTrue(isElementPresent(By.id("registrationUsername")));
@@ -178,7 +178,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError", "The nickname is missing.");
+        put("expectedError", "The username is missing.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -200,7 +200,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError", "The nickname is invalid. Underscores (_) are not allowed.");
+        put("expectedError", "The username is invalid. Underscores (_) are not allowed.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -222,7 +222,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError", "The nickname is invalid. Hash signs (#) are not allowed.");
+        put("expectedError", "The username is invalid. Hash signs (#) are not allowed.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -244,7 +244,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError", "The nickname is invalid. Vertical bars (|) are not allowed.");
+        put("expectedError", "The username is invalid. Vertical bars (|) are not allowed.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -277,7 +277,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "");
         put("registrationYear", "");
         put("registrationGender", "");
-        put("expectedError", "The nickname is invalid. Curly braces ({ or }) are not allowed.");
+        put("expectedError", "The username is invalid. Curly braces ({ or }) are not allowed.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -288,7 +288,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError", "The nickname is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.");
+        put("expectedError", "The username is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -299,7 +299,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError", "The password must differ from the nickname.");
+        put("expectedError", "The password must differ from the username.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -310,7 +310,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError", "The nickname is invalid. Square brackets ([ or ]) are not allowed.");
+        put("expectedError", "The username is invalid. Square brackets ([ or ]) are not allowed.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -332,7 +332,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError", "The nickname is invalid. Spaces (\" \") are not allowed.");
+        put("expectedError", "The username is invalid. Spaces (\" \") are not allowed.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -376,7 +376,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError", "The nickname is invalid.");
+        put("expectedError", "The username is invalid.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -398,7 +398,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError", "This nickname is on the blacklist and not allowed.");
+        put("expectedError", "This username is on the blacklist and not allowed.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -409,7 +409,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationMonth", "February");
         put("registrationYear", "2008");
         put("registrationGender", "female");
-        put("expectedError", "This nickname already exists.");
+        put("expectedError", "This username already exists.");
       }
     } } };
     return dataArray;
@@ -463,7 +463,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationYear", "1980");
         put("registrationCountry", "Austria");
         put("registrationCity", "Graz");
-        put("expectedError", "The nickname is invalid.");
+        put("expectedError", "The username is invalid.");
       }
     } }, { new HashMap<String, String>() {
       {
@@ -475,7 +475,7 @@ public class RegistrationTests extends BaseTest {
         put("registrationYear", "1971");
         put("registrationCountry", "Germany");
         put("registrationCity", "Berlin");
-        put("expectedError", "This nickname is on the blacklist and not allowed.");
+        put("expectedError", "This username is on the blacklist and not allowed.");
       }
     } } };
     return dataArray;

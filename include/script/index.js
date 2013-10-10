@@ -32,6 +32,8 @@ var Index = Class.$extend( {
     this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
     this.featuredProject = $.parseJSON(featured);
     
+    console.log(this.featuredProject);
+    
     this.displayFeaturedProject();
     $(".catroidLink").click($.proxy(this.clearHistory, this));
     
@@ -117,11 +119,20 @@ var Index = Class.$extend( {
     if(projectId > 0) {
       $("#programmOfTheWeek").css('display', 'block');
       $(".projectSpacer:first").css('display', 'block');
-      $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'"><img src="' + baseUrl + this.featuredProject['CatrobatProjects'][0].FeaturedImage + '" /></a>');
+      
+      var filePath = this.featuredProject['CatrobatProjects'][0].FeaturedImage;
+      
+      if(document.width <= 400)
+        filePath = filePath.replace(".gif", "_400.gif");
+      else if(document.width <= 720)
+        filePath = filePath.replace(".gif", "_720.gif");
+      
+      $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'" id="switch_image"><img name="Ad_Image" src="' + baseUrl + filePath + '" /></a>');
     }
     else {
       $("#programmOfTheWeek").css('display', 'none');
       $(".projectSpacer:first").css('display', 'none');
     }
   }
+
 });

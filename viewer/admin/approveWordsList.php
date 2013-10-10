@@ -84,4 +84,65 @@
 	<?php }}?>
   </table>
   </div>
+  <table>
+    <tr>
+      <td style="text-align: left">
+        <b><?php echo $this->count;?> Words in Database</b> 
+      </td>
+      <td style="text-align: left">
+        <?php echo " --> Choose words per Site: ";
+          if ($this->per_page != 10) {?> 
+            <a href="approveWords.php?per_page=10&page_number=<?php echo $this->start;?>">10</a>
+        <?php }else {
+            echo "10";
+          }
+          if ($this->per_page != 20){ ?> 
+            <a href="approveWords.php?per_page=20&page_number=<?php echo $this->start;?>">20</a>
+        <?php }else {
+            echo "20";
+          }
+          if ($this->per_page != 50){ ?>
+            <a href="approveWords.php?per_page=50&page_number=<?php echo $this->start;?>">50</a>
+        <?php }else {
+            echo "20";
+          }
+          if ($this->per_page != $this->count){ ?> 
+            <a id="allProjects" href="approveWords.php?per_page=<?php echo $this->count;?>&page_number=<?php echo $this->start;?>">ALL</a>
+        <?php }else {
+            echo "ALL";
+          } ?>
+      </td>
+    </tr>
+  </table>
+  
+  <table>
+    <tr>
+      <td style="width:50px">
+        <?php echo "Seite: \n"; ?>
+      </td>
+      <td>
+        <?php if ($this->start != 1) { ?>
+            <a href="approveWords.php?per_page=<?php echo $this->per_page; ?>&page_number=<?php echo ($this->start-1);?>">&lt;</a>
+        <?php }for($i=1; $i<=$this->num_pages; $i++) {
+          if ($i==$this->start){
+            echo $i."\n";
+          }else { 
+            if ((($i >= ($this->start - 5)) && (($i <= ($this->start + 5)))) || ($i == 1) || ($i == $this->num_pages)) { ?> 
+            <a href="approveWords.php?per_page=<?php echo $this->per_page;?>&page_number=<?php echo $i;?>"><?php echo $i;?></a>
+        <?php  } else {
+          if (($i < $this->start) && $check != 1) {
+            $check = 1;
+            echo "...";
+        } if (($i > $this->start) && $check1 != 1) {
+            $check1 = 1;
+            echo "..."; 
+          }}}}
+          $check1 = 0;
+          $check = 0;
+          if ($this->start != $this->num_pages) {?>
+            <a href="approveWords.php?per_page=<?php echo $this->per_page;?>&page_number=<?php echo ($this->start+1);?>">&gt;</a>
+        <?php }?>
+      </td>
+    </tr>
+  </table>  
 </body>

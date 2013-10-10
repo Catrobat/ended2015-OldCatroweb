@@ -184,6 +184,26 @@ class toolsTest extends PHPUnit_Framework_TestCase
     $this->assertFalse($this->tools->isBlockedIp($check_ip));
     $this->tools->unblockIp($ip);
   }
+  
+  /**
+   * @dataProvider starterProjectGroups
+   */
+  public function testStarterProjectGroups($id, $group) {    
+    $this->assertEquals($this->tools->getStarterProjectGroupById($id), $group);
+  }
+  
+  /**
+   * @dataProvider noStarterProjects
+   */
+  public function testAddAndRemoveStarterProjects($id, $group, $visibility) {
+    $_POST['add'] = 1;
+    $_POST['projectId'] = $id;
+    $_POST['group'] = $group;
+    $_POST['visible'] = $visibility;
+    
+    $this->assertEquals($this->tools->addStarterProject(), STATUS_CODE_OK);
+    $this->assertEquals($this->tools->removeStarterProject(), STATUS_CODE_OK);
+  }
 
   /* *** DATA PROVIDERS *** */
   //choose random ids from database
@@ -201,6 +221,50 @@ class toolsTest extends PHPUnit_Framework_TestCase
     }
 
     return $returnArray;
+  }
+  
+  public function starterProjectGroups() {
+    $dataArray = array(
+        array(1, "Games"), 
+        array(2, "Animations"),
+        array(3, "Interactiv Art and Stories"),
+        array(4, "Music and Dance"),
+        );
+    
+    return $dataArray;
+  }
+  
+  public function noStarterProjects() {
+    $dataArray = array(array(1, "Games"));
+    
+    $query = 'SELECT * FROM starter_projects';
+    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $projects = pg_fetch_all($result);
+    
+    $condition = null;
+    
+    if(pg_num_rows($result) != 0)
+      $condition = "WHERE ";
+    
+    pg_free_result($result);
+    
+    for($i=0;isset($projects[$i]);$i++) {
+      if(!isset($projects[$i+1]))
+        $condition .= "id!=".$projects[$i]['project_id'];
+      else
+        $condition .= "id!=".$projects[$i]['project_id']." AND ";
+    }
+    
+    $query = 'SELECT * FROM projects '.$condition.' ORDER BY random() LIMIT 3';
+    $result = pg_query($query) or die('DB operation failed: ' . pg_last_error());
+    $starterProjects = pg_fetch_all($result);
+    pg_free_result($result);
+    
+    for($i=0;isset($starterProjects[$i]);$i++) {
+      $dataArray[$i] = array($starterProjects[$i]['id'], 1, $starterProjects[$i]['visible']);
+    }
+    
+    return $dataArray;
   }
 
   public function blockUser() {

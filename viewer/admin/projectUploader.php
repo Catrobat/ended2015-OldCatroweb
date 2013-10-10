@@ -47,17 +47,17 @@
       <input name="upload" type="file" />
     </p>
     <p>Checksum:<br />
-      <input name="fileChecksum" type="text" value="60c06bf702f4bc6ae1c5196be9b972ec" />
+      <input name="fileChecksum" type="text" value="95c94843a95062bb8f83336df21cd2db" />
     </p>
 
     <p>Known Checksums:</p>
     <pre>
-      60c06bf702f4bc6ae1c5196be9b972ec  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test.catrobat
-      14a5b75f6092726dbd5df8d12dc5aaf7  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test.zip
-      6e12cd534a77ad3a254527edacc05b74  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test2.zip
+      95c94843a95062bb8f83336df21cd2db  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test.catrobat
+      d20c3ca0d3cd601582510fe6aca3ad0e  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test.zip
+      fe312b4d2f8fe0a04fa1b9ca0a9bbdbe  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test2.zip
       a810e424a5b4044c9b27e683feac080c  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test_invalid_projectfile.zip
-      3196f1c81917733747b52bea96cdd4e4  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test_thumbnail.zip
-      267b40d354a2b8aa344cbf8a8d7dcffb  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test-0.7.0beta.catrobat
+      f1a71e31eb7cfff5cc2b5272b5e08845  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test_thumbnail.zip
+      a6c78067ea4f5340c631b9529c2f7b99  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test-0.7.0beta.catrobat
     </pre>
     <input type="submit" name="uploadButton" value="upload" />
   </form>
