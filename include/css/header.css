@@ -72,9 +72,9 @@
 }
 
 #wrapper header div.dropdownMobile {
-  margin-top: 28px;
-  margin-right: 1px;
-
+  position: relative;
+  top: 15px;
+  right: 1px;
 }
 
 #wrapper header nav div div.largeSearchBarLeft {
