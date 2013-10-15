@@ -46,7 +46,7 @@ class coreMailHandlerTest extends PHPUnit_Framework_TestCase {
     $mailText  = "Congratulations and welcome to the ".APPLICATION_URL_TEXT." community.\r\n\r\n";
     $mailText .= "Please keep this e-mail for your records. Your account information is as follows:\r\n";
     $mailText .= "Username: ".$registrationUsername."\r\n\r\n";
-    $mailText .= "You can use your nickname and your password at any time to access the ".APPLICATION_NAME." community.\r\n\r\n";
+    $mailText .= "You can use your username and your password at any time to access the ".APPLICATION_NAME." community.\r\n\r\n";
     $mailText .= "To do so, just visit the following page:\r\n";
     $mailText .= "{unwrap}".$this->loginUrl."{/unwrap}\r\n\r\n";
     $mailText .= "To edit your profile details, go to this page:\r\n";
@@ -68,7 +68,7 @@ class coreMailHandlerTest extends PHPUnit_Framework_TestCase {
     $mailText .= "Please keep this e-mail for your records. Your account information is as follows:\r\n";
     $mailText .= "Username: ".$registrationUsername."\r\n";
     $mailText .= "Password: ".$registrationPassword."\r\n\r\n";
-    $mailText .= "You can use your nickname and your password at any time to access the\r\n".APPLICATION_NAME." community.\r\n\r\n";
+    $mailText .= "You can use your username and your password at any time to access the\r\n".APPLICATION_NAME." community.\r\n\r\n";
     $mailText .= "To do so, just visit the following page:\r\n";
     $mailText .= $this->loginUrl."\r\n\r\n";
     $mailText .= "To edit your profile details, go to this page:\r\n";
@@ -77,7 +77,7 @@ class coreMailHandlerTest extends PHPUnit_Framework_TestCase {
     $mailText .= $this->recoveryUrl."\r\n\r\n";
     $mailText .= "Best regards,\r\n";
     $mailText .= "Your ".APPLICATION_NAME." Team";
-    $expectedOutput = "Congratulations and welcome to the ".APPLICATION_URL_TEXT." community.\r\n\r\nPlease keep this e-mail for your records. Your account information is as\r\nfollows:\r\nUsername: ".$registrationUsername."\r\nPassword: ".$registrationPassword."\r\n\r\nYou can use your nickname and your password at any time to access the\r\n".APPLICATION_NAME." community.\r\n\r\nTo do so, just visit the following page:\r\n".$this->loginUrl."\r\n\r\nTo edit your profile details, go to this page:\r\n".$this->profileUrl."\r\n\r\nIn the event that you forgot your password, you will be able to reset it\r\nusing the email address or your username associated with your account.\r\n".$this->recoveryUrl."\r\n\r\nBest regards,\r\nYour ".APPLICATION_NAME." Team\r\n";
+    $expectedOutput = "Congratulations and welcome to the ".APPLICATION_URL_TEXT." community.\r\n\r\nPlease keep this e-mail for your records. Your account information is as\r\nfollows:\r\nUsername: ".$registrationUsername."\r\nPassword: ".$registrationPassword."\r\n\r\nYou can use your username and your password at any time to access the\r\n".APPLICATION_NAME." community.\r\n\r\nTo do so, just visit the following page:\r\n".$this->loginUrl."\r\n\r\nTo edit your profile details, go to this page:\r\n".$this->profileUrl."\r\n\r\nIn the event that you forgot your password, you will be able to reset it\r\nusing the email address or your username associated with your account.\r\n".$this->recoveryUrl."\r\n\r\nBest regards,\r\nYour ".APPLICATION_NAME." Team\r\n";
     $this->assertEquals($expectedOutput, $this->mailHandler->word_wrap($mailText));
   }
   

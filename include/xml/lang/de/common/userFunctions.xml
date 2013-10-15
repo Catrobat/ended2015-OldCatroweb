@@ -26,7 +26,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="registration_mail_text_row5">Passwort: {*password*}</string>
   <string name="registration_mail_text_row8">Um deine Benutzerkonto-Informationen zu bearbeiten, besuche folgende Seite:</string>
   <string name="recovery_mail_text_row7">Um deine Benutzerkonto-Informationen zu bearbeiten, besuche folgende Seite:</string>
-  <string name="registration_mail_text_row9">Wenn du dein Passwort vergessen haben solltest, kannst du es jederzeit mit Hilfe deiner E-Mail Adresse oder deinem Benutzernamen zur&#xFC;cksetzen.</string>
+  <string name="registration_mail_text_row9">Wenn du dein Passwort vergessen haben solltest, kannst du es jederzeit mit Hilfe deiner E-Mail Adresse oder deinem Usernamen zur&#xFC;cksetzen.</string>
   <string name="recovery_mail_subject">Deine {*appplication_name*} Passwort Zur&#xFC;cksetzung</string>
   <string name="recovery_mail_text_row3">Um dein Passwort zur&#xFC;ckzusetzen und ein neues anzufordern, besuche bitte folgende Seite:</string>
   <string name="registration_mail_text_row2">Bitte behalte dieses E-Mail auf. Deine Benutzerkonto-Informationen lauten:</string>
@@ -43,5 +43,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="registration_mail_text_row7">Um diesen Vorgang abzuschlie&#xDF;en, besuche folgende Seite:</string>
   <string name="recovery_mail_text_row6">Um diesen Vorgang abzuschlie&#xDF;en, besuche folgende Seite:</string>
   <string name="recovery_mail_text_row2">Du hast eine Passwort Zur&#xFC;cksetzung auf {*appplication_url*} angefordert, weil du dein Passwort vergessen hast. Wenn du das nicht willst, bitte ignoriere diese Nachricht. Die Option wird innerhalb von 24 Stunden verfallen und nutzlos.</string>
-  <string name="registration_mail_text_row3">Benutzername: {*username*}</string>
+  <string name="registration_mail_text_row3">Username: {*username*}</string>
 </strings>

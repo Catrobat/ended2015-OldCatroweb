@@ -92,19 +92,19 @@
       <td style="text-align: left">
         <?php echo " --> Choose words per Site: ";
           if ($this->per_page != 10) {?> 
-            <a href="approveWords.php?per_page=10&page_number=<?php echo $this->start;?>">10</a>
+            <a id="Projects10" href="approveWords.php?per_page=10&page_number=<?php echo $this->start;?>">10</a>
         <?php }else {
             echo "10";
           }
           if ($this->per_page != 20){ ?> 
-            <a href="approveWords.php?per_page=20&page_number=<?php echo $this->start;?>">20</a>
+            <a id="Projects20" href="approveWords.php?per_page=20&page_number=<?php echo $this->start;?>">20</a>
         <?php }else {
             echo "20";
           }
           if ($this->per_page != 50){ ?>
-            <a href="approveWords.php?per_page=50&page_number=<?php echo $this->start;?>">50</a>
+            <a id="Projects50" href="approveWords.php?per_page=50&page_number=<?php echo $this->start;?>">50</a>
         <?php }else {
-            echo "20";
+            echo "50";
           }
           if ($this->per_page != $this->count){ ?> 
             <a id="allProjects" href="approveWords.php?per_page=<?php echo $this->count;?>&page_number=<?php echo $this->start;?>">ALL</a>
@@ -122,13 +122,13 @@
       </td>
       <td>
         <?php if ($this->start != 1) { ?>
-            <a href="approveWords.php?per_page=<?php echo $this->per_page; ?>&page_number=<?php echo ($this->start-1);?>">&lt;</a>
+            <a id="lessThen" href="approveWords.php?per_page=<?php echo $this->per_page; ?>&page_number=<?php echo ($this->start-1);?>">&lt;</a>
         <?php }for($i=1; $i<=$this->num_pages; $i++) {
           if ($i==$this->start){
             echo $i."\n";
           }else { 
             if ((($i >= ($this->start - 5)) && (($i <= ($this->start + 5)))) || ($i == 1) || ($i == $this->num_pages)) { ?> 
-            <a href="approveWords.php?per_page=<?php echo $this->per_page;?>&page_number=<?php echo $i;?>"><?php echo $i;?></a>
+            <a id="site<?php echo $i;?>" href="approveWords.php?per_page=<?php echo $this->per_page;?>&page_number=<?php echo $i;?>"><?php echo $i;?></a>
         <?php  } else {
           if (($i < $this->start) && $check != 1) {
             $check = 1;
@@ -140,7 +140,7 @@
           $check1 = 0;
           $check = 0;
           if ($this->start != $this->num_pages) {?>
-            <a href="approveWords.php?per_page=<?php echo $this->per_page;?>&page_number=<?php echo ($this->start+1);?>">&gt;</a>
+            <a id="greaterThen" href="approveWords.php?per_page=<?php echo $this->per_page;?>&page_number=<?php echo ($this->start+1);?>">&gt;</a>
         <?php }?>
       </td>
     </tr>
