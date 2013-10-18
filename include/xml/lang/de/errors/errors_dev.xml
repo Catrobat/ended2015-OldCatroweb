@@ -30,8 +30,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="query_failed">Datenbank Operation fehlgeschlagen.</string>
     <string name="connection_failed">Datenbank Verbindung fehlgeschlagen.</string>
     <string name="no_entry_for_id">Kein Eintrag f&#xFC;r diese ID gefunden</string>
-    <string name="no_such_user">User nicht gefunden!</string>
-  </db>
+    </db>
+    <profile>
+    	<string name="no_such_user">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
+    </profile>
   <userFunctions>
     <string name="username_invalid_underscore">Der Username ist ung&#xFC;ltig. Unterstriche (_) sind nicht erlaubt.</string>
     <string name="username_invalid_curlybrace">Der Username ist ung&#xFC;ltig. Geschweifte Klammern ({ oder }) sind nicht erlaubt.</string>

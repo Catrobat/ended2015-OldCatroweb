@@ -107,6 +107,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="connection_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
     <string name="no_entry_for_id">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
   </db>
+  <profile>
+  	<string name="no_such_user">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
+  </profile>
   <flag>
     <string name="sql_insert_failed">Es trat ein Fehler auf beim melden dieses Programms. Versuch es nocheinmal!</string>
     <string name="missing_post_data">Du musst einen Grund angeben warum du dieses Programm als unpassend melden willst!</string>
