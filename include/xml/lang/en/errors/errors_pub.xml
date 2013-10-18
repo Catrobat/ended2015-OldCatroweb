@@ -30,6 +30,7 @@
         <string name="query_failed">Ooooops something went wrong./nPlease try again!</string>
         <string name="connection_failed">Ooooops something went wrong./nPlease try again!</string>
         <string name="no_entry_for_id">Ooooops something went wrong./nPlease try again!</string>
+        <string name="no_such_user">Ooooops something went wrong./nPlease try again!</string>
     </db>
     <userFunctions>
       <string name="hash_not_found">Sorry! Couldn't find something to recover. Please try again.</string>

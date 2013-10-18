@@ -38,10 +38,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="email_validation_text_row3">Dein {*appplication_name*} Team</string>
   <string name="recovery_mail_text_row1">Hallo {*username*}.</string>
   <string name="email_validation_subject">Deine {*appplication_name*} E-Mail Best&#xE4;tigung</string>
-  <string name="email_validation_text_row1">Liebe/r {*username*}, um den Prozess des Hinzuf&#xFC;gens einer neuen E-Mail-Adresse abzuschliesen, klicke bitte den Link unten zur Best&#xE4;tigung.</string>
+  <string name="recovery_mail_text_row2">Du hast eine Passwort Zur&#xFC;cksetzung auf {*appplication_url*} angefordert, weil du dein Passwort vergessen hast. Wenn du das nicht willst, bitte ignoriere diese Nachricht. Die Option wird innerhalb von 24 Stunden verfallen und nutzlos.</string>
   <string name="registration_mail_subject">Deine {*application_name*} Registration</string>
+  <string name="registration_mail_text_row3">Username: {*username*}</string>
   <string name="registration_mail_text_row7">Um diesen Vorgang abzuschlie&#xDF;en, besuche folgende Seite:</string>
   <string name="recovery_mail_text_row6">Um diesen Vorgang abzuschlie&#xDF;en, besuche folgende Seite:</string>
-  <string name="recovery_mail_text_row2">Du hast eine Passwort Zur&#xFC;cksetzung auf {*appplication_url*} angefordert, weil du dein Passwort vergessen hast. Wenn du das nicht willst, bitte ignoriere diese Nachricht. Die Option wird innerhalb von 24 Stunden verfallen und nutzlos.</string>
-  <string name="registration_mail_text_row3">Username: {*username*}</string>
+  <string name="email_validation_text_row1">Liebe/r {*username*}, um den Prozess des Hinzuf&#xFC;gens einer neuen E-Mail-Adresse abzuschliesen, klicke bitte den Link unten zur Best&#xE4;tigung.</string>
 </strings>

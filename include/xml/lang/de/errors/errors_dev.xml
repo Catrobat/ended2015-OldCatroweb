@@ -30,12 +30,11 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="query_failed">Datenbank Operation fehlgeschlagen.</string>
     <string name="connection_failed">Datenbank Verbindung fehlgeschlagen.</string>
     <string name="no_entry_for_id">Kein Eintrag f&#xFC;r diese ID gefunden</string>
+    <string name="no_such_user">User nicht gefunden!</string>
   </db>
   <userFunctions>
-    <string name="hash_not_found">Wiederherstellungs Hash wurde nicht gefunden.</string>
     <string name="username_invalid_underscore">Der Username ist ung&#xFC;ltig. Unterstriche (_) sind nicht erlaubt.</string>
     <string name="username_invalid_curlybrace">Der Username ist ung&#xFC;ltig. Geschweifte Klammern ({ oder }) sind nicht erlaubt.</string>
-    <string name="username_invalid_lessgreater"/>
     <string name="username_invalid_squarebracket">Der Username ist ung&#xFC;ltig. Eckige Klammern ([ oder ]) sind nicht erlaubt.</string>
     <string name="username_invalid_insulting_words"/>
     <string name="username_already_exists">Der Username existiert bereits.</string>
@@ -46,53 +45,51 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="password_new_too_long">Dein Passwort kann maximal aus {*maximumPasswordLength*} Zeichen bestehen.</string>
     <string name="country_missing">Du hast kein Land angegeben.</string>
     <string name="wiki_api_response_incorrect">Die Antwort von der Mediawiki API war inkorrekt.</string>
+    <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deines Heimatlandes.</string>
     <string name="language_update_failed">Es gab ein Problem beim Aktualisieren deiner Sprache.</string>
     <string name="email_update_failed">Fehler beim Speicher dieser E-Mail Adresse. Du musst zumindest eine verifizierte E-Mail Adresse haben.</string>
-    <string name="sendmail_failed">Fehler w&#xE4;hrend dem Senden des Emails. Vielleicht funktioniert dein Mailserver nicht?</string>
+    <string name="hash_not_found">Wiederherstellungs Hash wurde nicht gefunden.</string>
     <string name="expired_url">Die G&#xFC;ltigkeit deiner Wiederherstellungs-URL ist abgelaufen.</string>
-    <string name="username_missing">Du hast keinen Usernamen angegeben.</string>
+    <string name="username_missing">Du hast keinen Username angegeben.</string>
     <string name="username_invalid_hash">Der Username ist ung&#xFC;ltig. Rautezeichen (#) sind nicht erlaubt.</string>
-    <string name="username_invalid_verticalbar">Der Username ist ung&#xFC;ltig. Vertikale Striche Unterstriche (|) sind nicht erlaubt.</string>
+    <string name="username_invalid_verticalbar">Der Nickname ist ung&#xFC;ltig. Vertikale Striche Unterstriche (|) sind nicht erlaubt.</string>
     <string name="username_invalid_spaces">Der Username ist ung&#xFC;ltig. Leerzeichen ( ) sind nicht erlaubt.</string>
     <string name="email_missing">Du hast keine E-Mail-Adresse angegeben.</string>
     <string name="email_already_exists">Die E-Mail Adresse existiert bereits!</string>
     <string name="password_or_username_wrong">Das Passwort oder der Username ist falsch.</string>
-    <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
+    <string name="userdata_not_exists">Der Username oder die E-Mail Adresse konnte nicht gefunden werden.</string>
+    <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
+    <string name="sendmail_failed">Fehler w&#xE4;hrend dem Senden des Emails. Vielleicht funktioniert dein Mailserver nicht?</string>
+    <string name="username_invalid_lessgreater"/>
+    <string name="board_authentication_failed">Anmeldung im Forum fehlgeschlagen!</string>
     <string name="unsupported_image">Unerlaubtes Bild, erlaubte Bildtypen sind gif, png oder jpeg.</string>
     <string name="password_new_board_update_failed">Konnte das Forums Passwort nicht aktualisieren.</string>
-    <string name="userdata_not_exists">Der Username oder die E-Mail Adresse konnte nicht gefunden werden.</string>
-    <string name="username_invalid">Der Username ist ung&#xFC;ltig.</string>
+    <string name="username_invalid">Der Nickname ist ung&#xFC;ltig.</string>
+    <string name="username_blacklisted">Der Nickname ist auf der schwarzen Liste und deswegen nicht erlaubt.</string>
     <string name="email_invalid">Diese E-mail Adresse ist ung&#xFC;ltig!</string>
-    <string name="board_authentication_failed">Anmeldung im Forum fehlgeschlagen!</string>
-    <string name="userdata_missing">Der Username oder die E-Mail Adresse fehlt.</string>
+    <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
+    <string name="userdata_missing">Der Nickname oder die E-Mail Adresse fehlt.</string>
     <string name="avatar_creation_failed">Das Erstellen des neuen Avatars ist fehlgeschlagen.</string>
-    <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deines Heimatlandes.</string>
-    <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
-    <string name="username_blacklisted">Der Username ist auf der schwarzen Liste und deswegen nicht erlaubt.</string>
   </userFunctions>
   <upload>
+    <string name="missing_project_title">Es wurde kein Programmtitel spezifiziert. (XML Datei oder POST Daten, eines davon ist erforderlich.)</string>
     <string name="missing_post_file_checksum">Der Client hat die fileChecksum nicht mitgeschickt! Verwendest du eine veraltete Version von Pocket Code?</string>
-    <string name="rename_failed">Das Umbenennen der Datei hat nicht funktioniert!</string>
-    <string name="project_exceed_filesize_limit">Die gr&#xF6;&#xDF;e von dem Programm &#xFC;berschreitet das Limit f&#xFC;r die maximale Dateigr&#xF6;&#xDF;e.</string>
+    <string name="project_title_default">Du kannst keine Projekte hochladen die den Standard Projekt-Namen haben. Bitte benenne dein Projekt vorher um.</string>
+    <string name="insulting_words_in_project_description">Die Beschreibung enth&#xE4;lt Schimpfw&#xF6;rter!</string>
     <string name="save_thumbnail_failed">Speichern des Thumbnails fehlgeschlagen!</string>
     <string name="old_catrobat_version">Es tut uns Leid, du nutzt eine alte Version von Pocket Code. Bitte lade dir die aktuelle Version herunter.</string>
-    <string name="old_catrobat_language">Programm enth&#xE4;lt eine alte Catrobat Sprache!</string>
-    <string name="missing_project_title">Es wurde kein Programmtitel spezifiziert. (XML Datei oder POST Daten, eines davon ist erforderlich.)</string>
-    <string name="invalid_file_checksum">Die Checksumme der hochgeladenen Datei unterscheidet sich von der Chekcsumme der generierten Datei vom Client!</string>
-    <string name="insulting_words_in_project_description">Die Beschreibung enth&#xE4;lt Schimpfw&#xF6;rter!</string>
-    <string name="missing_file_data">POST-Daten nicht korrekt oder fehlt!</string>
-    <string name="copy_failed">Das Kopieren der Datei hat nicht funktioniert!</string>
-    <string name="project_title_default">Du kannst keine Projekte hochladen die den Standard Projekt-Namen haben. Bitte benenne dein Projekt vorher um.</string>
-    <string name="insulting_words_in_project_title">Die Beschreibung enth&#xE4;lt Schimpfw&#xF6;rter!</string>
+    <string name="visibility_incorrect">Die Sichtbarkeit ist nicht korrekt!</string>
+    <string name="rename_failed">Das Umbenennen der Datei hat nicht funktioniert!</string>
     <string name="invalid_project_xml">Die XML-Datei deines Projekts enth&#xE4;lt Fehler!</string>
+    <string name="copy_failed">Das Kopieren der Datei hat nicht funktioniert!</string>
+    <string name="invalid_file_checksum">Die Checksumme der hochgeladenen Datei unterscheidet sich von der Chekcsumme der generierten Datei vom Client!</string>
+    <string name="old_catrobat_language">Programm enth&#xE4;lt eine alte Catrobat Sprache!</string>
     <string name="invalid_media_license">Ung&#xFC;ltige Medienlizenz!</string>
     <string name="invalid_program_license">Ung&#xFC;ltige Programmlizenz!</string>
-    <string name="visibility_incorrect">Die Sichtbarkeit ist nicht korrekt!</string>
+    <string name="missing_file_data">POST-Daten nicht korrekt oder fehlt!</string>
+    <string name="project_exceed_filesize_limit">Die gr&#xF6;&#xDF;e von dem Programm &#xFC;berschreitet das Limit f&#xFC;r die maximale Dateigr&#xF6;&#xDF;e.</string>
+    <string name="insulting_words_in_project_title">Der Programmtitel enth&#xE4;lt Schimpfw&#xF6;rter!</string>
   </upload>
-  <flag>
-    <string name="missing_post_data">POST-Daten fehlen oder sind nicht korrekt! Erforderlich: projectId und flagReason.</string>
-    <string name="sql_insert_failed">SQL Statement insert_new_flagged_project hat nicht funktioniert!</string>
-  </flag>
   <viewer>
     <string name="user_is_blocked">Dein Konto wurde gesperrt.</string>
     <string name="html_file_not_found">Konnte html viewer Datei nicht finden.</string>
@@ -101,11 +98,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </viewer>
   <admin>
     <string name="pootle_post_data_missing">POST-Daten fehlen: ben&#xF6;tigt: lang.</string>
-    <string name="pootle_could_not_write_xml_file">Konnte die XML-Datei nicht in das Sprach-Verzeichnis schreiben: {*fileName*}</string>
     <string name="pootle_not_valid_xml">Konnte kein XML-Objekt von der XLF-Zeichenkette generieren.</string>
     <string name="pootle_invalid_stringname_in_xml">Ung&#xFC;ltiger Zeichenketten Name in der XLF-Datei: {*stringName*}</string>
+    <string name="pootle_could_not_write_xml_file">Konnte die XML-Datei nicht in das Sprach-Verzeichnis schreiben: {*fileName*}</string>
     <string name="pootle_load_xlf_failed">Konnte die XLF-Datei nicht von {*source*} laden.</string>
   </admin>
+  <flag>
+    <string name="sql_insert_failed">SQL Statement insert_new_flagged_project hat nicht funktioniert!</string>
+    <string name="missing_post_data">POST-Daten fehlen oder sind nicht korrekt! Erforderlich: projectId und flagReason.</string>
+  </flag>
   <registration>
     <string name="postdata_missing">Es wurde nichts gesendet.</string>
   </registration>

@@ -30,6 +30,7 @@
         <string name="query_failed">DB operation failed.</string>
         <string name="connection_failed">DB connection failed.</string>
         <string name="no_entry_for_id">No entry was found for the given ID</string>
+        <string name="no_such_user">No such user found</string>
     </db>
     <userFunctions>
     	<string name="hash_not_found">Recovery hash was not found.</string>

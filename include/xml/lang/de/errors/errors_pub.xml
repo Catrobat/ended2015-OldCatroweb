@@ -25,60 +25,60 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <userFunctions>
     <string name="password_not_equal_password2">Du hast zwei unterschiedliche Passw&#xF6;rrter eingegeben.</string>
     <string name="username_password_equal">Passwort und Username d&#xFC;rfen nicht gleich sein.</string>
+    <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deines Heimatlandes.</string>
     <string name="language_update_failed">Es gab ein Problem beim Aktualisieren deiner Sprache.</string>
     <string name="email_update_failed">Fehler beim Speicher dieser E-Mail Adresse. Du musst zumindest eine verifizierte E-Mail Adresse haben.</string>
-    <string name="username_missing">Du hast keinen Usernamen eingetragen, f&#xFC;ge bitte einen ein.</string>
+    <string name="username_missing">Du hast keinen Username eingetragen, f&#xFC;ge bitte einen ein.</string>
     <string name="username_invalid_lessgreater"/>
     <string name="username_invalid_squarebracket"/>
     <string name="password_new_too_long">Das neue Passwort kann aus maximal {*maximumPasswordLength*} Zeichen bestehen.</string>
     <string name="email_invalid">Diese E-mail Adresse ist ung&#xFC;ltig!</string>
-    <string name="userdata_missing">Der Username oder die E-Mail Adresse fehlt.</string>
+    <string name="userdata_missing">Dein Username oder deine E-Mail Adresse fehlt.</string>
     <string name="unsupported_image">Dieser Bild-Typ wird nicht unterst&#xFC;tzt, versuche ein anderes Bild.</string>
-    <string name="userdata_not_exists">Der Username oder die E-Mail Adresse konnte nicht gefunden werden.</string>
-    <string name="sendmail_failed">Fehler w&#xE4;hrend dem Senden des Emails. Vielleicht funktioniert dein Mailserver nicht?</string>
+    <string name="sendmail_failed">Es trat ein Fehler w&#xE4;hrend dem Versand der Email auf. Bitte kontaktieren unseren Administrator unter {*webmasterEmailAddress*}.</string>
     <string name="expired_url">Die G&#xFC;ltigkeit deiner Wiederherstellungs-URL ist abgelaufen.</string>
-    <string name="username_invalid_underscore"/>
+    <string name="wiki_api_response_incorrect">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
+    <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
     <string name="username_invalid_spaces"/>
     <string name="username_invalid_insulting_words"/>
-    <string name="username_invalid">Der Username ist ung&#xFC;ltig.</string>
-    <string name="username_blacklisted">Der Username ist ung&#xFC;ltig.</string>
-    <string name="password_missing">Du hast noch kein Passwort eingegeben, bitte f&#xFC;ge eines ein.</string>
     <string name="password_new_too_short">Dein neues Passwort muss mindestens {*minimumPasswordLength*} Zeichen lang sein.</string>
     <string name="country_missing">Bitte gib ein Land ein.</string>
     <string name="board_registration_failed"/>
     <string name="password_new_board_update_failed">Es gab ein Problem beim Aktualisieren deines Passwortes.</string>
+    <string name="userdata_not_exists">Der Nickname oder die E-Mail Adresse konnte nicht gefunden werden.</string>
     <string name="board_authentication_failed">Anmeldung im Forum fehlgeschlagen!</string>
-    <string name="country_update_failed">Es gab ein Problem beim Aktualisieren deines Heimatlandes.</string>
-    <string name="wiki_api_response_incorrect">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
-    <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
     <string name="hash_not_found">Sorry! Konnte nichts zum Wiederherstellen finden. Bitte versuche es erneut.</string>
+    <string name="username_invalid_underscore"/>
     <string name="username_invalid_hash"/>
     <string name="username_invalid_verticalbar"/>
-    <string name="username_invaquery_failedlid_curlybrace"/>
-    <string name="username_already_exists">Der eingegebe Username ist schon vergeben.</string>
+    <string name="username_invalid">Der Nickname ist ung&#xFC;ltig.</string>
+    <string name="username_blacklisted">Der Nickname ist ung&#xFC;ltig.</string>
+    <string name="password_missing">Du hast noch kein Passwort eingegeben, bitte f&#xFC;ge eines ein.</string>
     <string name="email_missing">Du hast noch keine E-Mail-Adresse eingegeben, bitte f&#xFC;ge eine ein.</string>
+    <string name="password_or_username_wrong">Das Passwort oder der Username war falsch!</string>
+    <string name="username_invaquery_failedlid_curlybrace"/>
+    <string name="username_already_exists">Der eingegebe Nickname ist schon vergeben.</string>
     <string name="last_email">Eine E-Mail Adresse wird ben&#xF6;tigt.</string>
-    <string name="password_or_username_wrong">Das Passwort oder der Username ist falsch.</string>
     <string name="avatar_creation_failed"/>
   </userFunctions>
   <upload>
     <string name="old_catrobat_version">Es tut uns Leid, du nutzt eine alte Version von Pocket Code. Bitte lade dir die aktuelle Version herunter.</string>
+    <string name="visibility_incorrect">Die Sichtbarkeit ist nicht korrekt!</string>
     <string name="missing_project_title">Du musst einen Titel f&#xFC;r dein Projekt angeben!</string>
-    <string name="missing_file_data"/>
+    <string name="invalid_project_xml">Entschuldigung, deine Projektdatei enth&#xE4;lt Fehler. Versuche dein Projekt als neues Projekt abzuspeichern und lade es noch einmal hoch.</string>
+    <string name="invalid_program_license">Es tut uns Leid, dein Projekt hat eine ung&#xFC;ltige Programmlizenz!</string>
     <string name="copy_failed"/>
     <string name="rename_failed"/>
     <string name="invalid_file_checksum"/>
     <string name="save_thumbnail_failed"/>
-    <string name="project_title_default">Du musst dein Programm umbennenen, bevor du es hochladest.</string>
     <string name="insulting_words_in_project_title">Bitte verwende keine anst&#xF6;&#xDF;igen Begriffe im Titel Deines Projekts.</string>
     <string name="insulting_words_in_project_description">Bitte verwende keine anst&#xF6;&#xDF;igen Begriffe in der Beschreibung Deines Projekts.</string>
-    <string name="invalid_project_xml">Entschuldigung, deine Projektdatei enth&#xE4;lt Fehler. Versuche dein Projekt als neues Projekt abzuspeichern und lade es noch einmal hoch.</string>
     <string name="old_catrobat_language"/>
-    <string name="invalid_media_license">Es tut uns Leid, dein Projekt hat eine ung&#xFC;ltige Medienlizenz!</string>
+    <string name="missing_file_data"/>
     <string name="missing_post_file_checksum">Es gab ein Problem beim Upload! Verwendest du die neueste Version von Pocket Code?</string>
     <string name="project_exceed_filesize_limit">Deine Programmdatei ist zu gro&#xDF;.</string>
-    <string name="invalid_program_license">&gt;Es tut uns Leid, dein Projekt hat eine ung&#xFC;ltige Programmlizenz!</string>
-    <string name="visibility_incorrect">Die Sichtbarkeit ist nicht korrekt!</string>
+    <string name="project_title_default">Du musst dein Programm umbennenen, bevor du es hochladest.</string>
+    <string name="invalid_media_license">Es tut uns Leid, dein Projekt hat eine ung&#xFC;ltige Medienlizenz!</string>
   </upload>
   <viewer>
     <string name="user_is_blocked">Dein Konto wurde gesperrt.</string>
@@ -88,9 +88,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </viewer>
   <admin>
     <string name="pootle_post_data_missing">POST-Daten fehlen: ben&#xF6;tigt: lang.</string>
-    <string name="pootle_could_not_write_xml_file">Konnte die XML-Datei nicht in das Sprach-Verzeichnis schreiben: {*fileName*}</string>
     <string name="pootle_not_valid_xml">Konnte kein XML-Objekt von der XLF-Zeichenkette generieren.</string>
     <string name="pootle_invalid_stringname_in_xml">Ung&#xFC;ltiger Zeichenketten Name in der XLF-Datei: {*stringName*}</string>
+    <string name="pootle_could_not_write_xml_file">Konnte die XML-Datei nicht in das Sprach-Verzeichnis schreiben: {*fileName*}</string>
     <string name="pootle_load_xlf_failed">Konnte die XLF-Datei nicht von {*source*} laden.</string>
   </admin>
   <server>
@@ -98,23 +98,23 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="missing_mcrypt">Bitte sage dem Administrator, dass er mcrypt installieren soll. Vielen Dank.</string>
   </server>
   <auth>
-    <string name="device_auth_username_exists">Dieser Username wird bereits verwendet.</string>
     <string name="device_auth_invalid_token"/>
+    <string name="device_auth_username_exists">Dieser Nickname wird bereits verwendet.</string>
     <string name="not_a_tugraz_ip">Du bist nicht berechtigt diese Seite zu sehen.</string>
   </auth>
-  <flag>
-    <string name="missing_post_data">Du musst einen Grund angeben warum du dieses Programm als unpassend melden willst!</string>
-    <string name="sql_insert_failed">Es trat ein Fehler auf beim melden dieses Programms. Versuch es nocheinmal!</string>
-  </flag>
-  <registration>
-    <string name="postdata_missing"/>
-  </registration>
   <db>
     <string name="query_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
     <string name="connection_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
     <string name="no_entry_for_id">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
   </db>
+  <flag>
+    <string name="sql_insert_failed">Es trat ein Fehler auf beim melden dieses Programms. Versuch es nocheinmal!</string>
+    <string name="missing_post_data">Du musst einen Grund angeben warum du dieses Programm als unpassend melden willst!</string>
+  </flag>
   <download>
     <string name="file_not_found">Das angeforderte Programm ist im Moment nicht verf&#xFC;gbar. Versuche es sp&#xE4;ter nochmal!</string>
   </download>
+  <registration>
+    <string name="postdata_missing"/>
+  </registration>
 </errors>
