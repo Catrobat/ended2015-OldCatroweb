@@ -32,18 +32,6 @@
         </div>
         <div class="projectSpacer"></div>
 
-        <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
-        <div id="newestProjects" class="projectContainer"></div>
-        <div id="newestProjectsLoader" class="projectFooter">
-          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
-          <p>&nbsp;</p>
-        </div>
-        <div id="newestShowMore" class="projectFooter">
-          <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
-        </div>
-        <div class="projectSpacer"></div>
-
         <header><?php echo $this->languageHandler->getString('mostDownloaded'); ?></header>
         <div id="mostDownloadedProjects" class="projectContainer"></div>
         <div id="mostDownloadedProjectsLoader" class="projectFooter">
@@ -63,6 +51,18 @@
           <p>&nbsp;</p>
         </div>
         <div id="mostViewedShowMore" class="projectFooter">
+          <div class="img-load-more"></div>
+          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
+        </div>
+        <div class="projectSpacer"></div>
+        
+        <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
+        <div id="newestProjects" class="projectContainer"></div>
+        <div id="newestProjectsLoader" class="projectFooter">
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <p>&nbsp;</p>
+        </div>
+        <div id="newestShowMore" class="projectFooter">
           <div class="img-load-more"></div>
           <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div>
