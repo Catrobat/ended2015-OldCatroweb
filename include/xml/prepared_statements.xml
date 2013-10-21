@@ -152,4 +152,8 @@
     
     <string name="get_starterProjects_group">SELECT * FROM projects WHERE projects.id=$1 AND visible=true</string>
 
+    <string name="insert_uploadnotifications_email">INSERT INTO upload_notifications (email) VALUES ($1)</string>
+    <string name="remove_uploadnotifications_email">DELETE FROM upload_notifications WHERE id=$1</string>
+    <string name="get_uploadnotifications_email_list">SELECT * FROM upload_notifications</string>
+
 </statements>

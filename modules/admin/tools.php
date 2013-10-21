@@ -1177,6 +1177,53 @@ class tools extends CoreAuthenticationAdmin {
     $code = $this->loadNewRegexPatternFromUrl($clientDetectionUpdateUrl);
     return trim($this->extractRegexCode($code, "url"));
   }
+  
+  public function uploadNotificationsList() {
+    if(isset($_POST['uploadNotificationsAdd'])) {
+      if($this->addUploadNotificationsEMail($_POST['email'])) {
+        $answer = "E-Mail added successfully!";
+      } else {
+        $answer = "Error: could NOT add E-Mail!";
+      }
+      $this->answer = $answer;
+    }
+    
+    if(isset($_POST['uploadNotificationsRemove'])) {
+      if($this->removeUploadNotificationsEMail($_POST['id'])) {
+        $answer = "E-Mail removed successfully!";
+      } else {
+        $answer = "Error: could NOT remove E-Mail!";
+      }
+      $this->answer = $answer;
+    }    
+    
+    $this->htmlFile = "uploadNotificationsList.php";
+    $this->emailList = $this->getUploadNotificationsEMailList();
+  }
+  
+  public function addUploadNotificationsEMail($email) {
+//     if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+//       return false;
+//     }
+    $query = "EXECUTE insert_uploadnotifications_email('$email');";
+    return @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+  }
+  
+  public function removeUploadNotificationsEMail($id) {
+    $query = "EXECUTE remove_uploadnotifications_email('$id');";
+    return @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+  }
+  
+  public function getUploadNotificationsEMailList() {
+    
+    $result = pg_execute($this->dbConnection, "get_uploadnotifications_email_list", array());
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+          STATUS_CODE_SQL_QUERY_FAILED);
+    }
+    
+    return pg_fetch_all($result);
+  }
 
 
   public function __destruct() {
