@@ -623,11 +623,11 @@ class upload extends CoreAuthenticationDevice {
   
   private function getUploadNotificationsEMailAddress() {
     $result = $this->query("get_uploadnotifications_email_list", array());
-    $emaiList = pg_fetch_all($result);
+    $emailList = pg_fetch_all($result);
     
     $address = "";
-    foreach($emaiList as $email) {
-      $address .= $email['email'];
+    for($i=0; $i < count($emailList); $i++) {
+      $address .= $emailList[$i]['email'];
       $address .= ", ";
     }
     

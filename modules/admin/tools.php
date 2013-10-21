@@ -1202,9 +1202,9 @@ class tools extends CoreAuthenticationAdmin {
   }
   
   public function addUploadNotificationsEMail($email) {
-//     if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-//       return false;
-//     }
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      return false;
+    }
     $query = "EXECUTE insert_uploadnotifications_email('$email');";
     return @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
   }
