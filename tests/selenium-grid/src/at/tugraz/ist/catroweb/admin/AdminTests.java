@@ -259,7 +259,9 @@ public class AdminTests extends BaseTest {
       openAdminLocation();
       assertTrue(isTextPresent("Catroid Administration Site"));
       driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsUploadNotificationsList")).click();
+      ajaxWait();
       assertTrue(isTextPresent("Administration Tools - Upload Notifications List"));
       driver().findElement(By.id("emailInput")).sendKeys("e@mailcom");
       driver().findElement(By.id("addEmail")).click();
