@@ -45,6 +45,7 @@
       <string name="username_invalid_lessgreater">The username you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
       <string name="username_invalid_squarebracket">The username you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
       <string name="username_invalid_spaces">The username you have entered is not allowed. Please do not use spaces (" ").</string>
+      <string name="username_is_email_address">Your username may not be an email address.</string>
       <string name="username_invalid_insulting_words">The username you have entered is not allowed. Please do not use insulting words.</string>
       <string name="username_invalid">The username you have entered is not allowed.</string>
       <string name="username_blacklisted">The username you have entered is not allowed.</string>
