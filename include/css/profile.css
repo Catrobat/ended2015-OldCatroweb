@@ -137,6 +137,11 @@
  margin-bottom: 1.5em;
 }
 
+#wrapper article div#profileCountryString {
+  padding-top: 6px;
+  float: left;
+}
+
 #wrapper article div.profileInputIcon {
   margin-right: -0.2em;
   margin-top: -0.2em;
