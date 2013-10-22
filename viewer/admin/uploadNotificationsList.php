@@ -48,13 +48,13 @@
   <form id="enterEmailForm" class="admin" action="uploadNotificationsList" method="POST">
     <input type="hidden" name="uploadNotificationsAdd" />
     <input type="text" name="email" placeholder="email..." id="emailInput"/>
-    <input type="button" value="add email" name="deleteButton" id="addEmail" onclick="javascript:addEmailForm();" />
+    <input type="button" value="add email" name="addButton" id="addEmail" onclick="javascript:addEmailForm();" />
   </form>
   
   <br />
   
   <div class="projectList">
-    <table class="projectTable">
+    <table class="projectTable" id="projectTableId">
       <tr>
         <th>E-Mail</th>
         <th>delete</th>
@@ -65,14 +65,14 @@
         <td colspan=2>No entry</td>
       </tr>
       <?php else: ?>
-        <?php foreach($this->emailList as $email) :?>
+        <?php foreach($this->emailList as $email) : ?>
         <tr>
           <td><?php echo $email['email']; ?></td>
           <td>
             <form id="removeEmailForm_<?php echo $email['id']; ?>" class="admin" action="uploadNotificationsList" method="POST">
               <input type="hidden" name="uploadNotificationsRemove" />
-              <input type="hidden" name="id" value="<?php echo $email['id']; ?>">
-              <input type="button" value="delete" id="removeEmail" onclick="javascript:removeEmailForm(<?php echo $email['id']; ?>);" />
+              <input type="hidden" name="id" value="<?php echo $email['id']; ?>" />
+              <input type="button" name="deleteButton" value="delete" id="deleteEmail" onclick="javascript:removeEmailForm(<?php echo $email['id']; ?>);" />
             </form>
           </td>
         </tr>
