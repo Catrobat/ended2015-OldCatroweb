@@ -65,7 +65,25 @@ class CoreMailHandler {
 	  $this->_bcc = '';
 	
 	  return($this->send());
-  } 
+  }
+
+  public function sendUploadNotificationToAdmin($subject, $text, $address) {
+    if (!(SEND_NOTIFICATION_EMAIL))
+      return false;
+    if(!$subject || !$text) {
+      return false;
+    }
+    $this->_subject = ADMIN_EMAIL_SUBJECT_PREFIX.' - '.$subject;
+    $this->_text = $this->word_wrap($text);
+    $this->_return = "-f" . ADMIN_EMAIL_WEBMASTER;
+    $this->_reply = ADMIN_EMAIL_NOREPLY;
+    $this->_from = ADMIN_EMAIL_NOREPLY;
+    $this->_to = $address;
+    $this->_bcc = '';
+    
+    return($this->send());
+  }
+  
   public function word_wrap($str, $length = 76, $end = "\r\n") {
     $lastUnwrap = strrpos($str, "{/unwrap}");
     preg_match_all('|(.*?){unwrap}(.*?){/unwrap}|ism', $str, $parts);

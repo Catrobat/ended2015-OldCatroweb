@@ -23,6 +23,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="template_footer_terms_of_use_link">Nutzungsbedingungen</string>
+  <string name="template_header_nick">Username:</string>
   <string name="template_header_password">Passwort:</string>
   <string name="template_common_march">M&#xE4;rz</string>
   <string name="template_common_june">Juni</string>
@@ -44,7 +45,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_one_minute_ago">1 Minute</string>
   <string name="template_common_years_ago">{*yearCount*} Jahre</string>
   <string name="template_common_over_years_ago">{*yearCount*} Jahre</string>
-  <string name="template_header_nick">Nick:</string>
   <string name="template_header_enter_password">dein Passwort</string>
   <string name="template_header_home">Start</string>
   <string name="template_header_search_for_projects">Nach Programmen suchen</string>

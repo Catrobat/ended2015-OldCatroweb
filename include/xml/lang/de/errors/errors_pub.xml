@@ -55,7 +55,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="username_blacklisted">Der Nickname ist ung&#xFC;ltig.</string>
     <string name="password_missing">Du hast noch kein Passwort eingegeben, bitte f&#xFC;ge eines ein.</string>
     <string name="email_missing">Du hast noch keine E-Mail-Adresse eingegeben, bitte f&#xFC;ge eine ein.</string>
-    <string name="password_or_username_wrong">Das Passwort oder der Username war falsch!</string>
+    <string name="password_or_username_wrong">Das Passwort oder der Username ist falsch.</string>
     <string name="username_invaquery_failedlid_curlybrace"/>
     <string name="username_already_exists">Der eingegebe Nickname ist schon vergeben.</string>
     <string name="last_email">Eine E-Mail Adresse wird ben&#xF6;tigt.</string>
@@ -107,9 +107,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="connection_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
     <string name="no_entry_for_id">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
   </db>
-  <profile>
-  	<string name="no_such_user">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
-  </profile>
   <flag>
     <string name="sql_insert_failed">Es trat ein Fehler auf beim melden dieses Programms. Versuch es nocheinmal!</string>
     <string name="missing_post_data">Du musst einen Grund angeben warum du dieses Programm als unpassend melden willst!</string>
