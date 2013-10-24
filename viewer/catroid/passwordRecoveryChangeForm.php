@@ -34,8 +34,8 @@
             <div class="passwordRecoveryInput">
               <input type="password" id="passwordSavePassword2" name="passwordSavePassword2" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('repeat_password')?>" />
               <div class="img-password loginInputIcon"></div>
-            <div id="recoveryMessage"></div>
             </div>
+            <div id="recoveryMessage"></div>
                         
             <div class="footer">
               <nav>
