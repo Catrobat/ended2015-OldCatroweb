@@ -24,10 +24,12 @@
 
 ?>
   <article>
-    <div class="header"><?php echo $this->languageHandler->getString('title')?></div>
+    <header><?php echo $this->languageHandler->getString('title')?></header>
     <div class="licenseMain">            	
       <div class="licenseText">
-        <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_welcome')?></p>
+        <div class="licenseTextHeadline"><?php echo $this->languageHandler->getString('terms_of_use_welcome1')?></div>
+        
+        <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_welcome2')?></p>
         <ul>
           <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_1')?></li>
           <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_2')?></li>

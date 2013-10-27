@@ -24,17 +24,22 @@
 
 ?>
       <article>
-        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
         <div class="form">
           <form>
-            <div class="label"><?php echo $this->languageHandler->getString('headline')?></div>
-            <input type="hidden" id="passwordRecoveryHash" name="c" value="<?php echo htmlentities($_GET['c']); ?>" />
-            <input type="password" id="passwordSavePassword" name="passwordSavePassword" placeholder="<?php echo $this->languageHandler->getString('change_password')?>" /><br />
-            <input type="password" id="passwordSavePassword2" name="passwordSavePassword2" placeholder="<?php echo $this->languageHandler->getString('change_password')?>" /><br />
+            <div class="passwordRecoveryInput">
+              <input type="hidden" id="passwordRecoveryHash" name="c" value="<?php echo htmlentities($_GET['c']); ?>" />
+              <input type="password" id="passwordSavePassword" name="passwordSavePassword" value="<?php echo htmlspecialchars($this->postData['profileNewPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('new_password'); ?>" />
+              <div class="img-password loginInputIcon"></div>
+            </div>
+            <div class="passwordRecoveryInput">
+              <input type="password" id="passwordSavePassword2" name="passwordSavePassword2" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>" placeholder="<?php echo $this->languageHandler->getString('repeat_password')?>" />
+              <div class="img-password loginInputIcon"></div>
             <div id="recoveryMessage"></div>
+            </div>
+                        
             <div class="footer">
               <nav>
-                <span id="passwordSaveLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
+                <span id="passwordSaveLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></span>
                 <button class="blue" id="passwordSaveSubmit"><?php echo $this->languageHandler->getString('change_password_button')?></button>
               </nav>
             </div>

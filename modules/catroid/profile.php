@@ -62,34 +62,42 @@ class profile extends CoreAuthenticationNone {
     }
     
     $this->userData = $this->userFunctions->getUserData($showUser);
+    $projectsPerRow = 6;
     if($ownProfile) {
       $this->setWebsiteTitle($this->languageHandler->getString('myTitle'));
       $this->initProfile($this->userData);
       $this->loadView('myProfile');
+      $projectsPerRow = 8;
     } else {
       $this->setWebsiteTitle($this->languageHandler->getString('userTitle'));
       $this->loadView('userProfile');
     }
-
-    $this->loadModule('api/projects');
-    $pageNr = 1;
-    $projectsPerRow = 9;
-    
-    $requestedPage = $this->projects->get(($pageNr - 1) * $projectsPerRow,
-        $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE, '', $this->userData['username']);
-    $this->numberOfPages = max(1, intval(ceil(max(0, intval($requestedPage['CatrobatInformation']['TotalProjects'])) /
-        $projectsPerRow)));
-    
     $params = array();
-    $params['layout'] = PROJECT_LAYOUT_GRID_ROW;
+    $params['numProjects'] = $this->userData['project_count'];
+    
+    $this->loadModule('api/projects');
+    $pageNr = ceil($params['numProjects']/2);
+    
+
+    for($page = 0; $page < $pageNr; $page++) {
+      $requestedPage[$page] = $this->projects->get($page * $projectsPerRow,
+          $projectsPerRow, PROJECT_MASK_GRID_ROW_AGE, PROJECT_SORTBY_AGE, '', $this->userData['username']);
+    }
+    
+    $this->numberOfPages = max(1, intval(ceil(max(0, $pageNr))));
+    
+    $params['layout'] = 1;
     $params['container'] = '#userProjectContainer';
     $params['loader'] = '#userProjectLoader';
     $params['noResults'] = '#profileNoResults';
     $params['buttons'] = array('prev' => null,
         'next' => '#moreResults'
     );
-    $params['content'][0] = $requestedPage;
-    $params['numProjects'] = intval($requestedPage['CatrobatInformation']['TotalProjects']);
+    
+    for($page = 0; $page < $pageNr; $page++) {
+      $params['content'][$page] = $requestedPage[$page];
+    }
+    
     
     $params['page'] = array('number' => $pageNr,
         'numProjectsPerPage' => $projectsPerRow,

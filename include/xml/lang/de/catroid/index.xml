@@ -23,10 +23,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="viewed">mal gesehen</string>
+  <string name="mostViewed">Meist Gesehen</string>
+  <string name="newestProjects">Neueste</string>
+  <string name="mostDownloaded">Meist Heruntergeladen</string>
   <string name="downloaded">mal heruntergeladen</string>
   <string name="recommended">Empfohlen</string>
-  <string name="newestProjects">Neueste Programme</string>
-  <string name="mostDownloaded">Meist Heruntergeladen</string>
-  <string name="mostViewed">Meist Gesehen</string>
-  <string name="showMore">mehr anzeigen</string>
 </strings>

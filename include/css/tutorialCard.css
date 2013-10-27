@@ -1,0 +1,89 @@
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+#wrapper article div.header {
+  border: 0;
+  border-bottom: 1px solid #17a5b8;
+  color: #17a5b8;
+  font-size: 1.8em;
+  text-transform: uppercase;
+  font-weight: bold;
+  padding: 0.07em 0 0.07em 0.375em;
+  text-align: left;
+  text-shadow: #000000 1px 1px 1px;
+  margin-top: 0.55em;
+  margin-bottom: 0.8em;
+}
+
+#wrapper article div.tutorialCardMain {
+  margin-top: 0.2em;
+  overflow: hidden;
+}
+
+#wrapper article div.tutorialCardMainHeader {
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+#wrapper article div.tutorialCardMainContentTitle {
+  text-align: left;
+  margin: 0 auto;
+  color: #17a5be;
+  font-size: 1.4em;
+  font-weight: bold;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  margin-top: 35px;
+  margin-left: 0.8em;
+}
+
+#wrapper article div.tutorialCardMainContentDescription {
+  width: 100%;
+  text-align: left;
+  color: #17a5be;
+  font-size: 12pt;
+  text-transform: none !important;
+  margin-bottom: 25px;
+  margin-top: 25px;
+  margin-left: 0.8em;
+}
+
+#wrapper article div.tutorialCardMainContent {
+  width: 50%;
+  /* height: 500px; */
+  text-align: center;
+  left: 50%;
+  margin: 0 auto;
+  /* border: 1px #FFF solid; */
+}
+
+#wrapper article img.tutorialCardImage {
+  border: 1px #FFFFFF solid; 
+}
+
+#wrapper article div.tutorialCardMainSpace {
+  width: 100%;
+  height: 30px;
+}
+
+

@@ -24,15 +24,16 @@
 
 ?>
       <article>
-        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
         <div class="form">
           <form>
-            <div class="label"><?php echo $this->languageHandler->getString('enter_userdata')?></div>
-            <input type="text" id="passwordRecoveryUserdata" placeholder="<?php echo $this->languageHandler->getString('nickname_placeholder')?>" /><br />
+            <div class="passwordRecoveryValid">
+              <input type="text" id="passwordRecoveryUserdata" placeholder=" <?php echo $this->languageHandler->getString('nickname_placeholder') ?>" /><br />
+              <div class="img-password-recovery pwRecoveryIcon"></div>
+            </div>
             <div id="recoveryMessage"></div>
             <div class="footer">
               <nav>
-                <span id="passwordRecoverySendLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
+                <span id="passwordRecoverySendLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></span>
                 <button class="blue" id="passwordRecoverySendLink"><?php echo $this->languageHandler->getString('send_link')?></button>
               </nav>
             </div>

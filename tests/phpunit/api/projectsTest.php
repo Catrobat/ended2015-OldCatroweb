@@ -46,11 +46,15 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $user = trim(strval($user));
     $limit = min(abs(intval($limit)), 100);
     $offset = max(intval($offset), 0);
+    
+    
     $keywordsCount = 3;
     $userQuery = "";
     $searchQuery = "";
     $orderQuery = "";
     $queryParameter = array($limit, $offset);
+    
+    
     switch($order) {
       case PROJECT_SORTBY_AGE:
         $orderQuery = "ORDER BY last_activity DESC, projects.id DESC";
@@ -71,23 +75,35 @@ class projectsTest extends PHPUnit_Framework_TestCase
     }
     
     if(strlen($user) > 0) {
-      $userQuery = " AND (cusers.username ILIKE \$" . $keywordsCount;
-      $userQuery .= " OR cusers.username_clean ILIKE \$" . $keywordsCount . ") ";
+      $userQuery = " AND (cusers.username = \$" . $keywordsCount;
+      $userQuery .= " OR cusers.username_clean = \$" . $keywordsCount . ") ";
     
       $username = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($user)));
       $username = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $username);
-      array_push($queryParameter, "%" . $username . "%");
+      array_push($queryParameter, $username);
     
       $keywordsCount++;
     }
     
     $searchTerms = explode(" ", $query);
+    $this->completeTerm = $query; 
+    for($i = 0; $i < sizeof($searchTerms); $i++) {
+      if (strlen($searchTerms[$i]) < 4) {
+        unset($searchTerms[$i]);
+        $searchTerms = array_values($searchTerms);
+        $i = $i - 1;
+      }
+    }
+    
+    array_unshift($searchTerms,$query);
+    
     foreach($searchTerms as $term) {
       if(strlen($term) > 0) {
         $searchQuery .= (($searchQuery == "") ? " AND (" : " OR " );
         $searchQuery .= "title ILIKE \$" . $keywordsCount;
         $searchQuery .= " OR description ILIKE \$" . $keywordsCount;
-    
+        $searchQuery .= " OR username ILIKE \$" . $keywordsCount;
+        
         $searchTerm = pg_escape_string(preg_replace("/\\\/", "\\\\\\", checkUserInput($term)));
         $searchTerm = preg_replace(array("/\%/", "/\_/"), array("\\\%", "\\\_"), $searchTerm);
         array_push($queryParameter, "%" . $searchTerm . "%");
@@ -110,9 +126,51 @@ class projectsTest extends PHPUnit_Framework_TestCase
     LIMIT \$1 OFFSET \$2";
     
     $result = pg_query_params($this->dbConnection, $sqlQuery, $queryParameter) or die('DB operation failed: ' . pg_last_error());
-    $projects = pg_fetch_all($result);
+    if(pg_num_rows($result) > 0) {
+      $projects = pg_fetch_all($result);
+      if(strlen($query) != 0)
+        usort($projects, array($this, 'cmp'));
+    }
     pg_free_result($result);
     return $projects;
+  }
+  
+  private function cmp($value_1, $value_2)  {
+    $title1 = strtolower($value_1['title']);
+    $title2 = strtolower($value_2['title']);
+    $description1 = strtolower($value_1['description']);
+    $description2 = strtolower($value_2['description']);
+    $uploader1 = strtolower($value_1['uploaded_by']);
+    $uploader2 = strtolower($value_2['uploaded_by']);
+    $count1 = 0;
+    $count2 = 0;
+  
+    if ($this->completeTerm === $title1)
+      $count1 += 1;
+    if ($this->completeTerm === $description1)
+      $count1 += 1;
+    if ($this->completeTerm === $uploader1)
+      $count1 += 1;
+  
+    if ($this->completeTerm === $title2)
+      $count2 += 1;
+    if ($this->completeTerm === $description2)
+      $count2 += 1;
+    if ($this->completeTerm === $uploader2)
+      $count2 += 1;
+  
+    $count1 += substr_count($title1, $this->completeTerm);
+    $count1 += substr_count($description1, $this->completeTerm);
+    $count1 += substr_count($uploader1, $this->completeTerm);
+  
+    $count2 += substr_count($title2, $this->completeTerm);
+    $count2 += substr_count($description2, $this->completeTerm);
+    $count2 += substr_count($uploader2, $this->completeTerm);
+  
+    if ($count1 === $count2)
+      return 0;
+  
+    return ($count1 > $count2) ? -1 : 1;
   }
   
   /**
@@ -413,9 +471,7 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertEquals(pg_affected_rows($result), 1);
       pg_free_result($result);
     }
-  
     array_multisort($dlSorted, SORT_DESC, SORT_NUMERIC, $idSorted, SORT_DESC, SORT_NUMERIC);
-    
     $limit = count($idSorted);
     $offset = 0;
   
@@ -535,15 +591,18 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(count($insertIds), intval($searchProjects['CatrobatInformation']['TotalProjects']));
     $this->assertEquals(count($insertIds), count($pgProjects));
   
-    reset($idSorted);
-    reset($dlSorted);
+    array_pop($dlSorted);
+    array_pop($idSorted);
+    end($idSorted);
+    end($dlSorted);
+    
     $i = 0;
     foreach($searchProjects['CatrobatProjects'] as $searchProject) {
       $this->assertEquals($searchProject['ProjectId'], $pgProjects[$i]['id']);
       $this->assertEquals($searchProject['Downloads'], $pgProjects[$i]['download_count']);
       $this->assertEquals($searchProject['ProjectName'], $pgProjects[$i]['title']);
       $this->assertEquals($projects['CatrobatInformation']['BaseUrl'].$searchProject['ScreenshotSmall'], getProjectThumbnailUrl($pgProjects[$i]['id']));
-
+      
       $this->assertEquals(current($dlSorted), $searchProject['Downloads']);
       $this->assertEquals(current($idSorted), intval($searchProject['ProjectId']));
 
@@ -557,8 +616,8 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['Version']));
       $this->assertFalse(isset($project['Views']));
       $i++;
-      next($idSorted);
-      next($dlSorted);
+      prev($idSorted);
+      prev($dlSorted);
     }
     
     // search for author
@@ -575,8 +634,8 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(count($insertIds), count($pgProjects));
   
     $i = 0;
-    reset($idSorted);
-    reset($dlSorted);
+    end($idSorted);
+    end($dlSorted);
     foreach($searchProjects['CatrobatProjects'] as $searchProject) {
       $this->assertEquals($searchProject['ProjectId'], $pgProjects[$i]['id']);
       $this->assertEquals($searchProject['Downloads'], $pgProjects[$i]['download_count']);
@@ -596,8 +655,8 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['Version']));
       $this->assertFalse(isset($project['Views']));
       $i++;
-      next($idSorted);
-      next($dlSorted);
+      prev($idSorted);
+      prev($dlSorted);
     }
   
     $this->upload->cleanup();
@@ -801,8 +860,11 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(count($insertIds), intval($searchProjects['CatrobatInformation']['TotalProjects']));
     $this->assertEquals(count($insertIds), count($pgProjects));
   
-    reset($idSorted);
-    reset($viewedSorted);
+    array_pop($viewedSorted);
+    array_pop($idSorted);
+    end($idSorted);
+    end($viewedSorted);
+    
     $i = 0;
     foreach($searchProjects['CatrobatProjects'] as $searchProject) {
       $this->assertEquals($searchProject['ProjectId'], $pgProjects[$i]['id']);
@@ -823,8 +885,8 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['UploadedString']));
       $this->assertFalse(isset($project['Version']));
       $i++;
-      next($idSorted);
-      next($viewedSorted);
+      prev($idSorted);
+      prev($viewedSorted);
     }
   
     // search for author
@@ -841,8 +903,8 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(count($insertIds), count($pgProjects));
   
     $i = 0;
-    reset($idSorted);
-    reset($viewedSorted);
+    end($idSorted);
+    end($viewedSorted);
     foreach($searchProjects['CatrobatProjects'] as $searchProject) {
       $this->assertEquals($searchProject['ProjectId'], $pgProjects[$i]['id']);
       $this->assertEquals($searchProject['ProjectName'], $pgProjects[$i]['title']);
@@ -862,8 +924,8 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['UploadedString']));
       $this->assertFalse(isset($project['Version']));
       $i++;
-      next($idSorted);
-      next($viewedSorted);
+      prev($idSorted);
+      prev($viewedSorted);
     }
   
     $this->upload->cleanup();

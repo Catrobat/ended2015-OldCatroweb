@@ -22,13 +22,14 @@
  */
 
 footer {
-  background-color: #00475D;
+  //background-color: #00475D;
+  color: #fff;
 }
 
 footer div {
   display: table;
   width: 100%;
-  background-color: #00475D;
+  background-color: #177f8d;
 }
 
 footer div div {
@@ -49,6 +50,7 @@ footer div div span {
 
 footer div.footerMenu div {
   border-top: 1px solid #385f6e;
+  color: #ffffff;
 }
 
 footer div div div {
@@ -97,24 +99,35 @@ footer div#largeFooterMenu div:nth-child(2) span header {
   text-transform: uppercase;
   font-size: 1.4em;
   font-weight: bold;
+  color: #ffffff;
 }
 
 footer div#largeFooterMenu div:nth-child(2) span input {
   width: 20em;
+  border: 0;
+  background-color: #96CED6;
+  border-radius: 0.125em;
+  color: #05222a;
+  padding: 0.8em 0.6em 0.8em 0.6em;
+}
+::-webkit-input-placeholder { /* WebKit browsers */
+    color:    #05222a !important;
+}
+:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
+    color:    #05222a !important;
+}
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+    color:    #05222a !important;
+}
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+    color:    #05222a !important;
 }
 
 footer select {
   border: 0;
-  background-color: #05222a;
-  color: #a8dff4;
+  background-color: #96CED6;
+  color: #05222a;
   padding: 0.4em 0.6em 0.4em 0.6em;
-}
-
-footer input {
-  border: 0;
-  background-color: #05222a;
-  color: #a8dff4;
-  padding: 0.8em 0.6em 0.8em 0.6em;
 }
 
 footer ul {
@@ -126,33 +139,40 @@ footer ul {
 footer div#mobileFooterMenu {
   display: none;
   text-align: center;
+  background-color: #177f8d;
 }
 
 footer div#mobileFooterMenu ul {
-  background-color: #013042;
   display: none;
 }
 
-footer ul li {
+footer ul li{
   padding: 0.5em;
-  text-shadow: #333333 1px 1px 2px;
 }
 
-footer ul a {
+footer ul li a{
+  color: #fff;
   text-decoration: none;
-  color: #a8dff4;
 }
 
-
+footer ul li a:link, footer ul li a:visited {
+  text-decoration: none;
+  color: #fff;
+}
 
 @media screen and (max-width: 720px) {
+
+  #wrapper {
+    margin-bottom: 0em;
+  }
+  
   #wrapper article {
     padding-bottom: 3.5em;
   }
   
   footer {
-    margin-top: -3.5em; /*negative value of footer height*/
-    height: 3,5em;
+/*     margin-top: -3.5em; negative value of footer height */
+/*     height: 3.5em; */
   }
   
   footer div div:nth-child(1) {
@@ -179,9 +199,11 @@ footer ul a {
   
   footer div#mobileFooterMenu {
     display: block;
+    background-color: #177f8d;
   }
 
   footer div#largeFooterMenu {
     display: none;
+    visibility: hidden;
   }
 }

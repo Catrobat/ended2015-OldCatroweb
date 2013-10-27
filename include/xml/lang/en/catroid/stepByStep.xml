@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2013 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+	<string name="title">Step-by-Step Intro</string>
+	
+	<string name="step1_title">1. Make a new program</string>
+	<string name="step1_description"></string>
+	<string name="step1_additional_text_1">Tap on "New".</string>
+	<string name="step1_additional_text_2">Enter a progam name, select "Create empty program" and tap "OK".</string>
+	
+  <string name="step2_title">2. Create a new object</string>
+	<string name="step2_description"></string>
+	<string name="step2_additional_text_1">Tap:</string>
+	<string name="step2_additional_text_2">Choose the source of the first look of your  new object.</string>
+	<string name="step2_additional_text_3">Draw a new look.</string>
+	<string name="step2_additional_text_4">Choose from gallery.</string>
+	<string name="step2_additional_text_5">Take a picture.</string>
+  <string name="step2_additional_text_6">Enter an object name and tap “OK” to create the object.</string>  
+
+  <string name="step3_title">3. Start Moving</string>
+	<string name="step3_description"></string>
+	<string name="step3_additional_text_1">Tap:</string>
+	<string name="step3_additional_text_2">The first brick we use is out of the category "Motion".</string>
+	<string name="step3_additional_text_3">Choose the "Glide" brick. The object will move to the new position defined with the brick on the stage.</string>
+	<string name="step3_additional_text_4">Tap “Play” to go to the stage and see the object gliding.</string>
+	<string name="step3_additional_text_5">Use the Android Back Button to get back from the stage.</string>
+  
+  <string name="step4_title">4. Change Look</string>
+	<string name="step4_description">You can change the look of your object.</string>
+	<string name="step4_additional_text_1">Choose the “Switch to look” brick. With this brick you can choose a look or create a new one.</string>
+	<string name="step4_additional_text_2">Snap the brick underneath the others.</string>
+	<string name="step4_additional_text_3">Tap into the dropdown field to create a new look.</string>
+	<string name="step4_additional_text_4">Choose the source of the image like before.</string>
+	<string name="step4_additional_text_5">Now you have to select the new image.</string>
+	<string name="step4_additional_text_6">Tap play to see the behaviour on the stage.</string>
+	
+	<string name="step5_title">5. Speak</string>
+	<string name="step5_description">Now you will find out how to make an object talk.</string>
+	<string name="step5_additional_text_1">Choose the “Speak” brick. The object speaks the text, when this brick is executed.</string>
+	<string name="step5_additional_text_2">Snap the brick underneath the "Switch to look" brick.</string>
+	<string name="step5_additional_text_3">Tap play to see the behaviour on the stage.</string>
+	
+	<string name="step6_title">6. Again and again</string>
+	<string name="step6_description">This step shows you how to repeat behaviour of objects.</string>
+	<string name="step6_additional_text_1">Choose the “Forever” brick. Everything in the loop repeats forever.</string>
+	<string name="step6_additional_text_2">Snap the “Forever” brick underneath the first brick.</string>
+	<string name="step6_additional_text_3">Add another “Glide” brick.</string>
+	<string name="step6_additional_text_4">Snap the “Glide” brick aboth the “End of loop” brick. </string>
+	<string name="step6_additional_text_5">Tap into the text field of the x and y value and set to 0.</string>
+	<string name="step6_additional_text_6">Tap play to see the behaviour on the stage.</string>
+	
+	<string name="step7_title">7. Copy, delete or edit a brick.</string>
+	<string name="step7_description">You can also control the behaviour of the object when the program is running on the stage.</string>
+	<string name="step7_additional_text_1">Choose the “When tapped” brick. Every brick underneath the “When tapped” will be executed one time when you tap the object on the stage.</string>
+	<string name="step7_additional_text_2">Place the “When tapped” underneath the other bricks.</string>
+	<string name="step7_additional_text_3">Choose the “Turn right” brick and snap it underneath the “When tapped” brick.</string>
+	<string name="step7_additional_text_4">Now you have this script.</string>
+	<string name="step7_additional_text_5">Tap play to see the behaviour on the stage.</string>
+	
+	<string name="step8_title">8. Copy, delete or edit a brick</string>
+	<string name="step8_description"></string>
+	<string name="step8_additional_text_1">Single tap on the left side of each brick opens the context menu. There you can move, copy, delete or edit the values of the brick with the formula editor.</string>
+
+</strings>

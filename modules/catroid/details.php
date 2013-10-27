@@ -92,6 +92,7 @@ class details extends CoreAuthenticationNone {
       $project['show_warning'] = true;
     }
     
+    
     $project['showReportAsInappropriateButton'] = $this->showReportAsInappropriateButton($projectId, $project['user_id']);
     $this->incrementViewCounter($projectId);
     return $project;

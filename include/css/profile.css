@@ -24,32 +24,66 @@
 #wrapper article div.profileAvatar{
   float: left;
   width: 19em;
-  margin-left: 1em;
+  height: 19em;
+  margin-left: 0.3em;
+}
+
+#wrapper article div.userProfileAvatar{
+  float: left;
+  width: 19em;
+  height: 19em;
+  margin-left: 0.3em;
+  margin-top: 0.3em;
+}
+
+#wrapper article div.userProfileAvatarContainer{
+  float: left;
+  width: 19.6em;
+  background-color: #ffffff;
+  height: 25em;
+}
+
+#wrapper article div.userProfileInformations {
+  font-size: 1em;
+  margin-left: 0.3em;
+  color: #000000;
+  padding-bottom: 0.1em;
+}
+
+#wrapper article div img.userProfileAvatarImage {
+  width: 19em;
+  margin: 0;
+}
+
+#wrapper article div.userProfileInformations p{
+  padding-left: 0.2em;
 }
 
 #wrapper article div.profileInputs {
   float:left;
-  margin-left: 0.7em;
+  margin-left: 0.2em;
+  padding: 0;
 }
 
 #wrapper article div.profileInputsLeft{
   float: left;
   width: 19em;
-  margin-left: 2em;
+  margin-left: 3em;
 }
 
 #wrapper article div.profileInputsRight{
   float: left;
   width: 19em;
-  margin-left: 2em;
+  margin-left: 3em;
 }
 
 #wrapper article div img.profileAvatarImage {
   outline: 0.3em solid #ffffff;
-  width: 19em;
   margin: 0 auto;
+  width: 19em;
   z-index: 1;
 }
+
 
 #wrapper article div img.profileAvatarImageError {
   outline: 0.3em solid #880000;
@@ -57,6 +91,7 @@
   margin: 0 auto;
   z-index: 1;
 }
+
 
 #wrapper article button#profileChangeAvatarButton { 
   position: absolute;
@@ -78,12 +113,6 @@
 
 #wrapper article input#profileAvatarFile {
   visibility: hidden;
-}
-
-#wrapper article div.profileInformations {
-  font-size: 1.3em;
-  padding-left: 2em;
-  float: left; 
 }
 
 #wrapper article div.profileValid{
@@ -108,8 +137,15 @@
  margin-bottom: 1.5em;
 }
 
+#wrapper article div#profileCountryString {
+  padding-top: 6px;
+  float: left;
+}
+
 #wrapper article div.profileInputIcon {
-  margin-top: -0.3em;
+  margin-right: -0.2em;
+  margin-top: -0.2em;
+  padding: 0;
 }
 
 
@@ -122,7 +158,8 @@
   border: none;
   margin-left: 0.2em;
   outline: none;
-  font-size: 0.9em;
+  font-size: 1.0em;
+  padding: 0;
 }
 
 
@@ -153,21 +190,41 @@
   padding-left: 1em;
   background-color: #FFFFFF;
   margin-bottom: 1em;
+  margin-left: -0.5em;
   overflow: hidden;
   font-size: 0.9em;
   float: right;
+  
 }
+
+.img-dropdown {
+  background: url(../images/symbols/arrow_down.png) no-repeat;
+  background-position: 14.2em center;
+}
+
+/*#wrapper article div.profileCountry option {
+  background-color: transparent;
+  -mox-box-shadow: inset 6px 0px 5px -5px #05222a !important;
+  -webkit-box-shadow: inset 6px 0px 5px -5px #05222a;
+  box-shadow: inset 6px 0px 5px -5px #05222a;
+  color: #000000;
+  height: 1.5em;
+  width: 12.3em;
+  padding-left: 1em;
+  border: none;
+}*/
 
 #wrapper article div.profileCountry select {
   background-color: transparent;
+  border: 1px solid transparent;
   border-radius: 0.125em;
   color: #05222a;
   height: 1.5em;
-  width: 17em;
-  border: 0;  
+  width: 17em; 
   margin-left: -0.5em;
   padding-left: 0.2em;
   z-index: 3;
+  outline: none;
 }
   
 #wrapper article div.profileSelectImage {
@@ -201,32 +258,46 @@
 }
 
 #wrapper article h3 {
-  border: 0;
-  border-top: 1px solid #477889;
-  background-color: #00475d;
   background-image: none;
-  color: #a8dff4;
+  color: #17a5b8;
   font-size: 1.8em;
   text-transform: uppercase;
   font-weight: bold;
-  padding: 0.07em 0 0.07em 0.375em;
-  text-align: center;
-  text-shadow: #000000 1px 1px 1px;
-  margin-top: 1.55em;
+  padding: 0 0 0.5em 0.3em;
+  text-align: left;
   margin-bottom: 0;
+  margin-top: -0.3em;
+}
+
+#wrapper article h3.myH3 {
+  margin-top: 1.0em;
 }
 
 #wrapper article div.projectContainer {
-  background-color: #00475d;
+  padding-top:7px;
+  clear: top;
 }
 
 #wrapper article div#userProjectLoader {
   display: none;
 }
 
-#wrapper article div.projectContainer ul li div.projectDeleteButton {
-	margin: 0.4em auto;
+#wrapper article div.projectDeleteButton {
+	float: right;
+	top: 1em;
+	margin-right: -1em;
+	margin-top: -1.6em;
 	cursor: pointer;
+	position: relative;
+	z-index: 2;
+}
+
+#wrapper article div.projectContainer ul li a img {
+  z-index: 1;
+}
+
+#wrapper article div#userProjectContainer {
+  padding-left: 1.9em;
 }
 
 #wrapper article div#profileChangesSuccess{
@@ -275,6 +346,20 @@
   margin-top: 1em;
 }
 
+#wrapper article div.projectContainer ul {
+  position:static;
+	left:0;
+}
+
+#wrapper article div.projectContainer ul li {
+	position:static;
+	left:0;
+}
+
+#wrapper article div#moreResults {
+  width: 100%;
+}
+
 
 @media screen and (max-width: 1100px) {
   .profileInputs {
@@ -286,16 +371,48 @@
 }
 
 @media screen and (max-width: 720px) {
+
+  .userProfileAvatarContainerTop {
+    display: block;
+    position: relative;
+    left: 50%;
+    margin-left: -10.3em;
+    padding: 0;
+    margin-right: 0;
+    width: 50%;
+  }
+  
+
+  #wrapper article div#userProjectContainer {
+  clear: both;
+  padding-left: 2em;
+  padding-right: 2em;
+  padding-top: 1em;
+}
+
+  #wrapper article div.userProfileAvatarContainer{
+    display: block;
+    margin: 0 auto 2em auto;
+    
+  }
   
   .profileAvatar {
-    min-width: 100%;
+    min-width: 98%;
+  }
+
+  .projectDetailsThumbnail img {
+    display: block;
+    margin-left: 35%;
+    margin-right: 35%;
   }
   
   .profileAvatar img {
     display: block;
     margin-left: auto;
     margin-right: auto;
-  }
+    width: 70%;
+    max-width: 70%;
+  }  
   
   #wrapper article button#profileChangeAvatarButton  {
     left: 50%;
@@ -305,13 +422,13 @@
     padding-left: 0%;
   }
   #wrapper article div.profileInputsLeft{
-    margin-top: 2em;
-    margin-left: 2.3em;
+    margin-top: 2.0em;
+    margin-left: 1.6em;
   }
   
   #wrapper article div.profileInputsRight{
     clear: left;
-    margin-left: 2.3em;
+    margin-left: 1.6em;
   }
   
   #wrapper article div.profileInputs {
@@ -320,23 +437,97 @@
     margin-left: -10.8em;
   }
 }
+@media screen and (max-width: 642px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.76em;
+  } 
+}
+@media screen and (max-width: 614px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.73em;
+  } 
+}
+@media screen and (max-width: 598px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.7em;
+  } 
+}
+@media screen and (max-width: 570px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.66em;
+  } 
+}
+@media screen and (max-width: 542px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.63em;
+  } 
+}
+@media screen and (max-width: 514px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.6em;
+  } 
+}
+@media screen and (max-width: 498px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.56em;
+  } 
+}
+@media screen and (max-width: 470px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.53em;
+  } 
+}
+@media screen and (max-width: 442px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.5em;
+  } 
+}
+@media screen and (max-width: 420px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.46em;
+  } 
+}
 
 @media screen and (max-width: 400px) {
-    #wrapper article div.profileAvatar{
+   /*#wrapper article div.projectContainer{
+    margin-left: -1.8em;
+    width: 100%;
+   }*/
+   
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3{
+    font-size: 1.43em;
+  }
+  
+  #wrapper article div.profileAvatar{
     width: 16.5em;
-    margin-left: 0.5em;
   }  
+  
+ 
+  #wrapper article div.profileInformations{
+    width: 16.5em;
+  }
   
   #wrapper article div img.profileAvatarImage {
     width: 16.5em;
   }
 
-#wrapper article div img.profileAvatarImageError {
+  #wrapper article div img.userProfileAvatarImage {
+    width: 16.5em;
+  }
+  
+  #wrapper article div.userProfileAvatarContainer {
+    max-width: 17.2em;
+    margin-bottom: 2em;
+    margin-left: 1.1em;
+    max-height: 22.8em;
+  }
+  
+  #wrapper article div img.profileAvatarImageError {
     width: 16.5em;
   }
   
   #wrapper article input {
-    width: 14em;
+    width: 13.8em;
   }
   #wrapper article div.profileCountry {
     width: 12.5em;
@@ -346,13 +537,27 @@
     width: 14em;
   }
   
+  .img-dropdown {
+    background-position: 12em center;
+  }
+  
   #wrapper article button#profileSaveChanges {
     width: 12.3em;
   }
   
   #wrapper article div.profileInputsRight, #wrapper article div.profileInputsLeft{
-    margin-left: 2.8em;
-    width: 17em;
-  }
-  
+    margin-left: 2.5em;
+    width: 17.9em;
+  }    
+}
+
+@media screen and (max-width: 360px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.4em;
+  } 
+}
+@media screen and (max-width: 320px) {
+  #wrapper article div.projectContainer h3, #wrapper article h3.myH3 {
+    font-size: 1.35em;
+  } 
 }

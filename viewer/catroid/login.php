@@ -24,19 +24,22 @@
 
 ?>
       <article>
-        <div class="header"><?php echo $this->languageHandler->getString('title'); ?></div>
         <div class="form">
-          <form>
-            <div class="label"><?php echo $this->languageHandler->getString('nickname')?></div>
-            <input type="text" id="loginUsername" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>" /><br />
-
-            <div class="label"><?php echo $this->languageHandler->getString('password')?></div>
-            <input type="password" id="loginPassword" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" /><br />
+          <form>         
+            <div class="loginValid">
+              <input type="text" id="loginUsername" placeholder="<?php echo $this->languageHandler->getString('enter_nick')?>" />
+              <div class="img-login loginInputIcon"></div>
+            </div>         
+            <div class="loginValid">
+              <input type="password" id="loginPassword" placeholder="<?php echo $this->languageHandler->getString('enter_password')?>" />
+              <div class="img-password loginInputIcon"></div>
+            </div>
+            
             <div id="loginError"></div>
 
             <div class="footer">
               <nav>
-                <span id="loginLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" /></span>
+                <span id="loginLoader"><img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" /></span>
                 <button class="blue" id="loginSubmitButton"><?php echo $this->languageHandler->getString('login')?></button>
               </nav>
               <div>
@@ -50,6 +53,7 @@
 
       <script type="text/javascript">
       	$(document).ready(function() {
+        	$('#loginUsername').focus();
           var languageStringsObject = { 
               "username_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'username_missing'); ?>",
               "password_missing" : "<?php echo $this->module->errorHandler->getError('userFunctions', 'password_missing'); ?>"

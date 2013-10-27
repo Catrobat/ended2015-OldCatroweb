@@ -57,11 +57,16 @@
           <?php echo ($this->project['description'])? $this->project['description'] : $this->languageHandler->getString('no_description_available');?>
         </span>
       </div>
+      <div class="detailsFlagButton">
+        <button type="button" id="reportAsInappropriateButton">
+          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
+        </button>
+      </div>
     </div>
 
     <div class="projectDetailsDownload">
       <div class="projectDetailsDownloadButton">
-        <span id="projectDetailsDownloadVersion"><?php echo $this->languageHandler->getString('version_info_text') . " " . $this->project['version_name'];?></span>
+        <span id="projectDetailsDownloadLanguageVersion"><?php echo $this->languageHandler->getString('language_version_info_text') . " " . $this->project['language_code'];?></span>
         <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
           <div class="blue">
             <span class="projectDetailsDownloadText shrinkTextToFit"><?php echo $this->languageHandler->getString('download_button');?></span>
@@ -113,11 +118,6 @@
     </div>
 
     <div id="projectDetailsReportContainer">
-      <div id="detailsFlagButton">
-        <button type="button" class="buttonBlue" id="reportAsInappropriateButton">
-          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
-        </button>
-      </div>
       <?php if($this->project['showReportAsInappropriateButton']['show']) : ?>
       <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
         <form method="POST" class="reportInappropriateForm">

@@ -54,6 +54,11 @@ var Search = Class.$extend( {
   
   updateSearchResults : function() {
     $('#numberOfSearchResults').text(this.params.numProjects);
+    
+    if($('#numberOfSearchResults').html() == 0)
+      $('.searchResult').css({"text-align":"center", "font-size":"1.4em","font-weight":"bold"});
+    else
+      $('.searchResult').css({"text-align":"left","font-size":"1em","font-weight":"normal"});
   },
 
   saveHistoryState : function(action) {
@@ -65,6 +70,7 @@ var Search = Class.$extend( {
       var state = this.history.getState();
       if(typeof state.data.content === 'undefined') {
         this.history.replaceState({content: context}, title, "?q=" + escape(context.query) + "&p=" + context.visibleRows);
+        $('.searchResult').css({"text-align":"center", "font-size":"1.4em","font-weight":"bold"});
       } else {
         this.restoreHistoryState();
       }

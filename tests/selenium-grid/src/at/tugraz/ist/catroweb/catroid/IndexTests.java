@@ -82,7 +82,6 @@ public class IndexTests extends BaseTest {
       assertFalse(isElementPresent(By.xpath("//*[@id='newestProjects']/ul/li/a[@title=\"" + projectTitle + "0\"]")));
 
       assertTrue(isVisible(By.id("newestShowMore")));
-      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_NEXT_BUTTON));
       int pageNr = 0;
       for(; pageNr < Config.PROJECT_PAGE_SHOW_MAX_PAGES; pageNr++) {
         driver().findElement(By.id("newestShowMore")).click();

@@ -149,11 +149,11 @@ var ProjectContentFiller = Class
           project.append(projectAddition);
 
           $(container).append($("<li />").append(project));
-
+          
           if(this.gridRowHeight == 0) {
             this.gridRowHeight = $(container).height();
             $(container).height(this.gridRowHeight);
-          }
+          }  
         }
       },
 
@@ -171,11 +171,12 @@ var ProjectContentFiller = Class
           var projectAddition = $("<div />").addClass("projectAddition").text("z");
           var projectActions = $("<div />").addClass("projectDeleteButton img-delete");
           
+          
           project.append(projectThumbnail);
           project.append(projectTitle);
           project.append(projectAddition);
           
-          $(container).append($("<li />").append(project).append(projectActions));
+          $(container).append($("<li />").append(projectActions).append(project));
           
           if(this.gridRowHeight == 0) {
             this.gridRowHeight = $(container).height();
@@ -195,9 +196,25 @@ var ProjectContentFiller = Class
         var heights = [];
         var hidden = [];
         var elements = container.children();
+        var correction = 0;
         for(var index = 0, amount = elements.length; index < amount; index++) {
           if($(elements[index]).css('visibility') == 'visible') {
-            var position = Math.round($(elements[index]).position().top + this.gridRowHeight);
+            
+            
+            if (($(".myH3").text() != '') && ($(elements[0]).position().top > 700 ) ) {
+              correction = 790;
+              $(container).height(150);
+            } else if (($(".myH3").text() != '') && ($(elements[0]).position().top <= 700 ) ) {
+              correction = 330;  
+            } else if ($(elements[0]).position().top > 400) {
+              correction = 400 + $("h3").height(); 
+            } else {
+              $('#moreResults').css('margin-left',$('.userProfileAvatarContainer').width());
+              $('#userProjectLoader').css('margin-left',$('.userProfileAvatarContainer').width());
+            }
+
+            var position = Math.round($(elements[index]).position().top + this.gridRowHeight - correction);
+            correction = 0;
             if($.inArray(position, heights) === -1) {
               heights.push(position);
             }
@@ -207,14 +224,26 @@ var ProjectContentFiller = Class
         }
         
         var currentPage = Math.max(0, this.visibleRows - 1);
+        
         if(currentPage < heights.length) {
-          $(container).height(heights[currentPage]);
+          
+          if (window.document.location.toString().indexOf("search") !== -1) {
+            $(container).height(heights[currentPage-1]-50);
+          }else if (window.document.location.toString().indexOf("profile") !== -1) {
+            $(container).height(heights[currentPage-1]-80);
+          } else {
+            $(container).height(heights[currentPage]);
+          }
+          //$(container).height(heights[currentPage]);
+          //$(container).height('auto');
         }
         if(this.params.reachedLastPage && heights.length == this.visibleRows) {
           for(var index = 0, amount = hidden.length; index < amount; index++) {
             $(elements[hidden[index]]).hide();
           }
           $(this.params.buttons.next).hide();
+          $(".projectContainer ul").css("margin-left","0.9em");
+          $(".projectContainer ul").css("text-align","left");
           $(container).height('auto');
         }
       },
@@ -254,7 +283,8 @@ var ProjectContentFiller = Class
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
-              $('div.projectAddition', elements[index]).html(projects[i]['UploadedString']);
+              $('div.projectAddition', elements[index]).html("<div class='img-timesmall' style='float:left;'></div>"  );
+              $('div.projectAddition', elements[index]).append(projects[i]['UploadedString']);
             } else {
               $(elements[index]).css("visibility", "hidden");
             }
@@ -280,7 +310,9 @@ var ProjectContentFiller = Class
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
-              $('div.projectAddition', elements[index]).html(projects[i]['Downloads'] + ' ' + this.params.additionalTextLabel);
+              $('div.projectAddition', elements[index]).html("<div class='img-downloadssmall' style='float:left;'></div>"  );
+              $('div.projectAddition', elements[index]).append(projects[i]['Downloads']);// + ' ' + this.params.additionalTextLabel);
+              //$('div.projectAddition', elements[index]).html(projects[i]['Downloads'] + ' ' + this.params.additionalTextLabel);
             } else {
               $(elements[index]).css("visibility", "hidden");
             }
@@ -306,7 +338,9 @@ var ProjectContentFiller = Class
               $('a', elements[index]).attr('href', info['BaseUrl'] + 'details/' + projects[i]['ProjectId']).attr('title', projects[i]['ProjectName']);
               $('img', elements[index]).attr('src', info['BaseUrl'] + projects[i]['ScreenshotSmall']).attr('alt', projects[i]['ProjectName']);
               $('div.projectTitle', elements[index]).html(projects[i]['ProjectNameShort']);
-              $('div.projectAddition', elements[index]).html(projects[i]['Views'] + ' ' + this.params.additionalTextLabel);
+              $('div.projectAddition', elements[index]).html("<div class='img-viewssmall' style='float:left;'></div>"  );
+              $('div.projectAddition', elements[index]).append(projects[i]['Views']);// + ' ' + this.params.additionalTextLabel);
+              //$('div.projectAddition', elements[index]).html(projects[i]['Views'] + ' ' + this.params.additionalTextLabel);
             } else {
               $(elements[index]).css("visibility", "hidden");
             }

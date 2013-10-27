@@ -24,6 +24,43 @@
 
 ?>
 
+<script>
+
+src = [<?php
+        for($i=0; $i < count($this->featuredProjects); $i++)
+          echo '"'.$this->featuredProjects[$i].'", ';
+        ?>];
+
+duration = 5;
+ads=[]; ct=0;
+function switchAd() {
+  var n=(ct+1)%src.length;
+  if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
+    document["Ad_Image"].src = ads[ct=n].src;
+
+    var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
+    x = x.replace(".png","");
+    
+    $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
+  }
+  ads[n=(ct+1)%src.length] = new Image;
+
+  if(document.width <= 400)
+    ads[n].src = src[n].replace(".png", "_400.png");
+  else if(document.width <= 720)
+    ads[n].src = src[n].replace(".png", "_720.png");
+  else
+    ads[n].src = src[n];
+  
+  setTimeout("switchAd()",duration*1000);
+}
+
+onload = function(){
+  if (document.images)
+    switchAd();
+};
+</script>
+
       <article>
         <div id="programmOfTheWeek">
           <header><?php echo $this->languageHandler->getString('recommended'); ?></header>
@@ -35,39 +72,38 @@
         <header><?php echo $this->languageHandler->getString('mostDownloaded'); ?></header>
         <div id="mostDownloadedProjects" class="projectContainer"></div>
         <div id="mostDownloadedProjectsLoader" class="projectFooter">
-          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
           <p>&nbsp;</p>
         </div>
         <div id="mostDownloadedShowMore" class="projectFooter">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div>
         <div class="projectSpacer"></div>
 
         <header><?php echo $this->languageHandler->getString('mostViewed'); ?></header>
         <div id="mostViewedProjects" class="projectContainer"></div>
         <div id="mostViewedProjectsLoader" class="projectFooter">
-          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
           <p>&nbsp;</p>
         </div>
         <div id="mostViewedShowMore" class="projectFooter">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div>
         <div class="projectSpacer"></div>
         
         <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
-        <div id="newestProjects" class="projectContainer"></div>
+        <div id="newestProjects" class="projectContainer">    
+        </div>
+        
         <div id="newestProjectsLoader" class="projectFooter">
-          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-bright.gif" />
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
           <p>&nbsp;</p>
         </div>
         <div id="newestShowMore" class="projectFooter">
           <div class="img-load-more"></div>
-          <p><?php echo $this->languageHandler->getString('showMore'); ?></p>
         </div>
         <div class="projectSpacer"></div>
-
+        
       </article>
       <script type="text/javascript">
         $(document).ready(function() {
