@@ -90,6 +90,8 @@ class upload extends CoreAuthenticationDevice {
 
       $this->buildNativeApp($projectId);
       
+      $this->sendUploadNotificationPerMail($projectId, $projectInformation['projectTitle'], $projectInformation['projectDescription']);
+      
       $this->projectId = $projectId;
       $this->statusCode = STATUS_CODE_OK;
       $this->answer = $this->languageHandler->getString('upload_successfull');
@@ -604,6 +606,32 @@ class upload extends CoreAuthenticationDevice {
       throw new Exception($this->errorHandler->getError('upload', 'visibility_incorrect'), STATUS_CODE_UPLOAD_VISIBILITY_INCORRECT);
     }
     return $visible;
+  }
+  
+  private function sendUploadNotificationPerMail($projectId, $projectTitle, $projectDescription) {
+    $mailSubject = APPLICATION_URL_TEXT.' - UPLOAD!';
+    $mailText = "Hello ".APPLICATION_URL_TEXT." Administrator!\n\n";
+    $mailText .= "A new programm was uploaded successfully\n\n";
+    $mailText .= "ID: " . $projectId ."\n";
+    $mailText .= "Title: ". $projectTitle ."\n";
+    $mailText .= "Description: " .$projectDescription;
+  
+    $address = $this->getUploadNotificationsEMailAddress();
+    
+    return($this->mailHandler->sendUploadNotificationToAdmin($mailSubject, $mailText, $address));
+  }
+  
+  private function getUploadNotificationsEMailAddress() {
+    $result = $this->query("get_uploadnotifications_email_list", array());
+    $emailList = pg_fetch_all($result);
+    
+    $address = "";
+    for($i=0; $i < count($emailList); $i++) {
+      $address .= $emailList[$i]['email'];
+      $address .= ", ";
+    }
+    
+    return $address;
   }
 }
 ?>

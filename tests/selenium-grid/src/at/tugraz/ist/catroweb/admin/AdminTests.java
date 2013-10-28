@@ -25,7 +25,11 @@ package at.tugraz.ist.catroweb.admin;
 
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
+
 import static org.testng.AssertJUnit.*;
+import java.util.HashMap;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;
@@ -52,6 +56,68 @@ public class AdminTests extends BaseTest {
       throw e;
     } catch(Exception e) {
       captureScreen("AdminTests.successfulLogin");
+      throw e;
+    }
+  }
+  
+  @Test(dataProvider = "validRegistrationData", groups = { "visibility" }, description = "deleting user and check is deleted?")
+  public void deleteUser(HashMap<String, String> dataset) throws Throwable {
+    try {
+      String idButton = "deleteUser";
+      openLocation("registration/");
+
+      driver().findElement(By.id("registrationUsername")).sendKeys(dataset.get("registrationUsername"));
+      driver().findElement(By.id("registrationPassword")).sendKeys(dataset.get("registrationPassword"));
+      driver().findElement(By.id("registrationEmail")).sendKeys(dataset.get("registrationEmail"));
+      driver().findElement(By.id("registrationCountry")).sendKeys(dataset.get("registrationCountry"));
+      driver().findElement(By.id("registrationCity")).sendKeys(dataset.get("registrationCity"));
+      driver().findElement(By.id("registrationMonth")).sendKeys(dataset.get("registrationMonth"));
+      driver().findElement(By.id("registrationYear")).sendKeys(dataset.get("registrationYear"));
+      driver().findElement(By.id("registrationGender")).sendKeys(dataset.get("registrationGender"));
+      driver().findElement(By.id("registrationSubmit")).click();
+      ajaxWait();
+
+      assertTrue(isTextPresent(dataset.get("registrationUsername")));
+      assertTrue(CommonFunctions.isUserInDatabase(dataset.get("registrationUsername")));
+      
+      openAdminLocation();
+      driver().findElement(By.id("aProjectUploader")).click();
+      assertTrue(isTextPresent("Project Uploader"));
+      driver().findElement(By.name("uploadButton")).click();
+      assertTrue(isTextPresent("501"));
+      
+      // upload a project
+      String projectTitle = "testproject" + CommonData.getRandomLongString(200);
+      String auth_token = CommonFunctions.getAuthenticationToken(dataset.get("registrationUsername"));
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", dataset.get("registrationUsername"), auth_token));
+      String projectId = CommonFunctions.getValueFromJSONobject(response, "projectId");
+      
+      assertTrue(CommonFunctions.isProjectInDatabase(CommonFunctions.getUserIDFromDatabase(dataset.get("registrationUsername"))));
+      
+      openAdminLocation();
+      assertRegExp(".*Administration - Catroid Website.*", driver().getTitle());
+      assertTrue(isTextPresent("Administration Tools"));
+      
+      driver().findElement(By.id("aAdministrationTools")).click();
+      assertTrue(isTextPresent("delete Users"));
+      
+      driver().findElement(By.id("aAdminToolsDeleteUser")).click();
+      assertTrue(isTextPresent("List of all users:"));
+      
+      idButton += CommonFunctions.getUserIDFromDatabase(dataset.get("registrationUsername"));
+      clickOkOnNextConfirmationBox();
+      
+      driver().findElement(By.id(idButton)).click();    
+      assertTrue(isTextPresent("The user " + dataset.get("registrationUsername") + " was deleted."));
+
+      assertTrue(!(CommonFunctions.isUserInDatabase(dataset.get("registrationUsername"))));
+      assertTrue(!(CommonFunctions.isProjectInDatabase(CommonFunctions.getUserIDFromDatabase(dataset.get("registrationUsername")))));
+      
+    } catch(AssertionError e) {
+      captureScreen("AdminTests.deleteUser");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("AdminTests.deleteUser");
       throw e;
     }
   }
@@ -138,6 +204,11 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("Administration Tools - Send e-mail notification"));
       driver().navigate().back();
       ajaxWait();
+      
+      driver().findElement(By.id("aAdminToolsUploadNotificationsList")).click();
+      assertTrue(isTextPresent("Administration Tools - Upload Notifications List"));
+      driver().navigate().back();
+      ajaxWait();
 
       assertTrue(isTextPresent("- back"));
       driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
@@ -180,5 +251,73 @@ public class AdminTests extends BaseTest {
       captureScreen("AdminTests.inappropriateProjects");
       throw e;
     }
+  }
+  
+  @Test(groups = { "functionality", "notificationlist" }, description = "check upload notifications list")
+  public void uploadNotificationsList() throws Throwable {
+    try {
+      openAdminLocation();
+      assertTrue(isTextPresent("Catroid Administration Site"));
+      driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
+      driver().findElement(By.id("aAdminToolsUploadNotificationsList")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Administration Tools - Upload Notifications List"));
+      driver().findElement(By.id("emailInput")).sendKeys("e@mailcom");
+      driver().findElement(By.id("addEmail")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Error: could NOT add E-Mail!"));
+      driver().findElement(By.id("emailInput")).sendKeys("e@mail.com");
+      driver().findElement(By.id("addEmail")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("E-Mail added successfully!"));
+      assertTrue(isTextPresent("e@mail.com"));
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[2]/form/input[3]")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("E-Mail removed successfully!"));
+      
+    } catch(AssertionError e) {
+      captureScreen("AdminTests.uploadNotificationsList");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("AdminTests.uploadNotificationsList");
+      throw e;
+    }
+  }
+  
+  @SuppressWarnings("serial")
+  @DataProvider(name = "validRegistrationData")
+  public Object[][] validRegistrationData() {
+    final String randomString1 = CommonData.getRandomShortString(10);
+    final String randomString2 = CommonData.getRandomShortString(10);
+    final String randomString3 = CommonData.getRandomShortString(10);
+    final String chineseString1 = CommonData.getRandomChineseString(10);
+    final String chineseString2 = CommonData.getRandomChineseString(10);
+
+    Object[][] dataArray = new Object[][] { { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "registrationUsername" + randomString1);
+        put("registrationPassword", "registrationPassword" + randomString2);
+        put("registrationEmail", "test" + randomString1 + "@selenium.de");
+        put("registrationGender", "female");
+        put("registrationMonth", "December");
+        put("registrationYear", "1971");
+        put("registrationCountry", "Germany");
+        put("registrationCity", "Berlin");
+      }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", chineseString1);
+        put("registrationPassword", chineseString2);
+        put("registrationEmail", "test" + randomString3 + "@selenium.cn");
+        put("registrationGender", "male");
+        put("registrationMonth", "October");
+        put("registrationYear", "1911");
+        put("registrationCountry", "China");
+        put("registrationCity", "Bejing");
+      }
+    } } };
+    return dataArray;
   }
 }

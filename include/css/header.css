@@ -72,12 +72,13 @@
 }
 
 #wrapper header div.dropdownMobile {
-  margin-top: 37px;
-  z-index: 2;
+  position: relative;
+  top: 15px;
+  right: 1px;
 }
 
 #wrapper header nav div div.largeSearchBarLeft {
-  background-color: #17A5B8;
+  background-color: #17A5B8;0.14
   border-top-left-radius: 0.125em;
   border-bottom-left-radius: 0.125em;
   background-image: linear-gradient(top, #17A5B8, #177f8d);
@@ -227,6 +228,9 @@
   #wrapper header nav div div.marginSpacer {
     padding: 0 0.3125em 0 0.3125em;
   }
+      #wrapper header button {
+    padding: 0 0 0 0;
+  }
 }
 
 @media screen and (max-width: 698px) {
@@ -275,6 +279,7 @@
   #wrapper header nav div div.marginSpacer {
     padding: 0 0.29em 0 0.29em;
   }
+
 }
 
 @media screen and (max-width: 598px) {
@@ -301,6 +306,7 @@
   #wrapper header nav div div.marginSpacer {
     padding: 0 0.27em 0 0.27em;
   }
+ 
 }
 
 @media screen and (max-width: 542px) {

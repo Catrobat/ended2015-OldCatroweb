@@ -69,19 +69,6 @@ onload = function(){
         </div>
         <div class="projectSpacer"></div>
 
-        <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
-        <div id="newestProjects" class="projectContainer">    
-        </div>
-        
-        <div id="newestProjectsLoader" class="projectFooter">
-          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
-          <p>&nbsp;</p>
-        </div>
-        <div id="newestShowMore" class="projectFooter">
-          <div class="img-load-more"></div>
-        </div>
-        <div class="projectSpacer"></div>
-
         <header><?php echo $this->languageHandler->getString('mostDownloaded'); ?></header>
         <div id="mostDownloadedProjects" class="projectContainer"></div>
         <div id="mostDownloadedProjectsLoader" class="projectFooter">
@@ -103,7 +90,20 @@ onload = function(){
           <div class="img-load-more"></div>
         </div>
         <div class="projectSpacer"></div>
-
+        
+        <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
+        <div id="newestProjects" class="projectContainer">    
+        </div>
+        
+        <div id="newestProjectsLoader" class="projectFooter">
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
+          <p>&nbsp;</p>
+        </div>
+        <div id="newestShowMore" class="projectFooter">
+          <div class="img-load-more"></div>
+        </div>
+        <div class="projectSpacer"></div>
+        
       </article>
       <script type="text/javascript">
         $(document).ready(function() {

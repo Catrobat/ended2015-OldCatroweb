@@ -67,7 +67,7 @@ public class PasswordRecoveryTests extends BaseTest {
       driver().findElement(By.id("passwordRecoverySendLink")).click();
 
       ajaxWait();
-      assertTrue(isTextPresent("The nickname or email address was not found."));
+      assertTrue(isTextPresent("username or email address was not found."));
       
       // check error message
       //assertTrue(isTextPresent("username or email"));

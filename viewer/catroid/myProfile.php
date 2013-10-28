@@ -50,8 +50,10 @@
             <input type="password" value="<?php echo htmlspecialchars($this->postData['profileRepeatPassword']); ?>"placeholder="<?php echo $this->languageHandler->getString('repeat_password'); ?>" />
             
           </div>
-
-          <b><?php echo $this->languageHandler->getString('country') ?></b>
+          
+          <div id="profileCountryString">
+            <b><?php echo $this->languageHandler->getString('country') ?></b>
+          </div>          
           <div class="profileCountry img-dropdown">
             <select><?php echo $this->countryCodeListHTML;?></select>
            <!--  <div class="img-dropdown profileSelectImage"></div>-->

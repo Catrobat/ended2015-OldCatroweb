@@ -116,7 +116,7 @@ public class ProfileTests extends BaseTest {
       assertTrue(isTextPresent("saved!"));
       
       openLocation("profile/");
-      By countrySelect = By.xpath("//*[@id='wrapper']/article/div[1]/div[2]/div[1]/div[4]/select");
+      By countrySelect = By.xpath("//*[@id='wrapper']/article/div[1]/div[2]/div[1]/div[5]/select");
       Select selectCountry = new Select(driver().findElement(countrySelect));
       assertEquals(dataset.get("registrationCountry"), selectCountry.getFirstSelectedOption().getText());
       
@@ -330,7 +330,7 @@ public class ProfileTests extends BaseTest {
       assertTrue(isTextPresent(CommonData.getLoginUserDefault().toUpperCase()));
       assertTrue(isElementPresent(By.id("profileNewPassword")));
       assertTrue(isElementPresent(By.id("profileRepeatPassword")));
-      assertTrue(isElementPresent(By.xpath("/html/body/div/article/div/div[2]/div/div[4]/select")));
+      assertTrue(isElementPresent(By.xpath("/html/body/div/article/div/div[2]/div/div[5]/select")));
       assertTrue(isElementPresent(By.id("profileEmail")));
       assertTrue(isElementPresent(By.id("profileSecondEmail")));
       assertTrue(isElementPresent(By.id("profileSaveChanges")));

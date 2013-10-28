@@ -22,28 +22,27 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="showMore">mehr anzeigen</string>
-  <string name="password">Passwort</string>
-  <string name="country">Land</string>
-  <string name="other">Andere</string>
-  <string name="myTitle">Mein Profil</string>
-  <string name="userTitle">Benutzerprofil</string>
-  <string name="changeAvatar">Bild &#xE4;ndern</string>
   <string name="email">Meine erste E-Mail</string>
-  <string name="second_email">Meine zweite E-Mail</string>
-  <string name="projects">Programme</string>
-  <string name="my_projects">Meine Programme</string>
+  <string name="projects">Anzahl der Programme</string>
   <string name="user_projects">Programme von</string>
   <string name="no_projects_available">Es gibt im Moment keine Programme.</string>
-  <string name="new_password">Neues Passwort</string>
-  <string name="repeat_password">Passwort wiederholen</string>
   <string name="save">&#xC4;nderungen speichern</string>
   <string name="saved">gespeichert</string>
-  <string name="really_delete_email">Willst du diese E-Mail Adresse wirklich l&#xF6;schen</string>
-  <string name="really_delete_project">Willst du wirklich dein Programm l&#xF6;schen</string>
   <string name="image_too_big">Dein gew&#xE4;hltes Bild ist zu gro&#xDF;, verwende bitte keine Bilder, die gr&#xF6;&#xDF;er als 5MB sind.</string>
   <string name="avatar_success">Du hast deinen Avatar erfolgreich ge&#xE4;ndert.</string>
+  <string name="other">Andere</string>
+  <string name="new_password">Neues Passwort</string>
+  <string name="repeat_password">Passwort wiederholen</string>
+  <string name="really_delete_email">Willst du diese E-Mail Adresse wirklich l&#xF6;schen</string>
   <string name="password_success">Du hast dein Passwort erfolgreich ge&#xE4;ndert.</string>
+  <string name="country">Land</string>
+  <string name="myTitle">Mein Profil</string>
+  <string name="second_email">Meine zweite E-Mail</string>
+  <string name="my_projects">Meine Programme</string>
+  <string name="really_delete_project">Willst du wirklich dein Programm l&#xF6;schen</string>
   <string name="email_add_success">Die neue E-Mail-Adresse wurde erfolgreich hinzugef&#xFC;gt. Bitte &#xFC;berpr&#xFC;fen Sie Ihren Posteingang um dies zu &#xFC;berpr&#xFC;fen.</string>
   <string name="edit_one_entry">Du kannst deine E-Mails und Passwort nur getrennt bearbeiten.</string>
+  <string name="password">Passwort</string>
+  <string name="userTitle">Benutzerprofil</string>
+  <string name="changeAvatar">Bild &#xE4;ndern</string>
 </strings>

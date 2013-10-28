@@ -23,14 +23,14 @@
 -->
 <strings>
   <string name="title">Create a new account</string>
-  <string name="nickname">Nickname</string>
-  <string name="enter_nickname">enter a nickname</string>
-  <string name="nickname_info">Use an invented nickname such as "funny dragon" (why shouldn't I use my real name?).</string>
+  <string name="nickname">Username</string>
+  <string name="enter_nickname">enter a username</string>
+  <string name="nickname_info">Use an invented username such as "funny dragon" (why shouldn't I use my real name?).</string>
   <string name="password">Password</string>
   <string name="enter_password">enter a password</string>
   <string name="email">E-Mail Address</string>
   <string name="enter_email">enter your email address</string>
-  <string name="email_info">We will send your nickname, password, and access data to your email address. We will never share your email address with anyone. See our {*privacyPolicyLink*} for details.</string>
+  <string name="email_info">We will send your username, password, and access data to your email address. We will never share your email address with anyone. See our {*privacyPolicyLink*} for details.</string>
   <string name="email_info_link_title">privacy policy</string>
   <string name="country">Country</string>
   <string name="select_country">select your country</string>
