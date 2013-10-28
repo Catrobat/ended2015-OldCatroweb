@@ -209,6 +209,11 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("Administration Tools - Upload Notifications List"));
       driver().navigate().back();
       ajaxWait();
+      
+      driver().findElement(By.id("aAdminToolsUploadNotificationsList")).click();
+      assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
+      driver().navigate().back();
+      ajaxWait();
 
       assertTrue(isTextPresent("- back"));
       driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
@@ -282,6 +287,47 @@ public class AdminTests extends BaseTest {
       throw e;
     } catch(Exception e) {
       captureScreen("AdminTests.uploadNotificationsList");
+      throw e;
+    }
+  }
+
+  @Test(groups = { "functionality", "approveProjectslist" }, description = "check approve projects list")
+  public void approveProjectsList() throws Throwable {
+    try {
+      CommonFunctions.setAllProjectsToUnapproved();
+      
+      openAdminLocation();
+      driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("approve unapproved projects"));
+      driver().findElement(By.id("aAdminToolsApproveProjects")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
+      
+      openAdminLocation();
+      assertTrue(isTextPresent("Unapproved projects: "));
+      driver().findElement(By.id("aAdminApprovedProjects")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[6]/form/input[3]")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("The project was successfully approved!"));
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[6]/form/input[3]")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("The project was successfully approved!"));
+      
+      openAdminLocation();
+      assertTrue(isTextPresent("All projects approved"));
+      
+      CommonFunctions.setAllProjectsToUnapproved();
+      
+    } catch(AssertionError e) {
+      captureScreen("AdminTests.approveProjectsList");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("AdminTests.approveProjectsList");
       throw e;
     }
   }

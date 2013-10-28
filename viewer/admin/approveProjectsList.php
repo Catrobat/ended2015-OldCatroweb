@@ -27,7 +27,7 @@
 <body>
   <script type="text/javascript">
     function submitToggleForm(id, title, newstate) {
-      if (confirm("Change project '"+name+"' to "+newstate+"?"))
+      if (confirm("Change project '"+title+"' to "+newstate+"?"))
 	      document.getElementById(id).submit();
     }
     
@@ -47,7 +47,7 @@
     echo 'Answer:<br/>'.$this->answer.'<br /><br/>';
   }?>
   <div class="projectList">
-    <table class="projectTable">
+    <table class="projectTable" id="projectTableId">
       <tr>
         <th>ID</th>
         <th>Title</th>
