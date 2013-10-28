@@ -123,9 +123,9 @@ var Index = Class.$extend( {
       var filePath = this.featuredProject['CatrobatProjects'][0].FeaturedImage;
       
       if(document.width <= 400)
-        filePath = filePath.replace(".gif", "_400.gif");
+        filePath = filePath.replace(".jpg", "_400.jpg");
       else if(document.width <= 720)
-        filePath = filePath.replace(".gif", "_720.gif");
+        filePath = filePath.replace(".jpg", "_720.jpg");
       
       $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'" id="switch_image"><img name="Ad_Image" src="' + baseUrl + filePath + '" /></a>');
     }

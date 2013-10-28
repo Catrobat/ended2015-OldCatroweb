@@ -39,16 +39,16 @@ function switchAd() {
     document["Ad_Image"].src = ads[ct=n].src;
 
     var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
-    x = x.replace(".png","");
+    x = x.replace(".jpg","");
     
-    $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
+    document.getElementById(switch_image).setAttribute('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
   }
   ads[n=(ct+1)%src.length] = new Image;
 
   if(document.width <= 400)
-    ads[n].src = src[n].replace(".png", "_400.png");
+    ads[n].src = src[n].replace(".jpg", "_400.jpg");
   else if(document.width <= 720)
-    ads[n].src = src[n].replace(".png", "_720.png");
+    ads[n].src = src[n].replace(".jpg", "_720.jpg");
   else
     ads[n].src = src[n];
   
