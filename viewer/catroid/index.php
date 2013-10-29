@@ -41,7 +41,7 @@ function switchAd() {
     var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
     x = x.replace(".jpg","");
     
-    document.getElementById(switch_image).setAttribute('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
+    $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
   }
   ads[n=(ct+1)%src.length] = new Image;
 
