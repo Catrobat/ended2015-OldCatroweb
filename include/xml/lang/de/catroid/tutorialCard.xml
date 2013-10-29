@@ -30,4 +30,22 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="title">Tutorial Karten</string>
   <string name="project3">Bewegte Animation</string>
   <string name="project6">Sprich etwas</string>
+  <string name="headline1">Bereite alles vor: </string>
+  <string name="headline2">Versuche diesen Code: </string>
+  <string name="headline4">Extra Tipp: </string>
+  <string name="project5">Spiele einen Klang ab</string>
+  <string name="headline3">Tu es:</string>
+  <string name="project3_description">Verwende diesen Trick um den Papagei fliegen zu lassen.</string>
+  <string name="project6_description">Verwende diesen Code damit ein Objekt spricht.</string>
+  <string name="project9_description">Schau dir diesen Code an! Er zeigt dir, wie man zwischen Objekten kommuniziert.</string>
+  <string name="project1_description">Tippe auf die Ente um ihre Gr&#xF6;&#xDF;e zu ver&#xE4;ndern.</string>
+  <string name="project7_description">Verwende diesen Trick um ein Objekt mit Neigung deines Handys zu kontrollieren. </string>
+  <string name="project5_extratip_2">2. W&#xE4;hle "Pocket Code Rekorder"</string>
+  <string name="project2_description">Verwende diesen Trick um automatisch mitzuz&#xE4;hlen.</string>
+  <string name="project8_description">Verwende diesen Code um einen Kompass zu erstellen.</string>
+  <string name="project5_extratip_3">3. Tippe auf das Icon um einen Klang aufzunehmen</string>
+  <string name="project7_extratip_1">Wenn zu empfindlich, teile durch 10</string>
+  <string name="project4_description">Gleite mit einem Objekt &#xFC;ber den Bildschirm.</string>
+  <string name="project5_description">Tippe auf die Trommel um den Klang abzuspielen.</string>
+  <string name="project5_extratip_1">1. Tipp "+"</string>
 </strings>

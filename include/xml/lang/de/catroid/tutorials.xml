@@ -30,5 +30,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="project8">Kompass</string>
   <string name="project3">Bewegte Animation</string>
   <string name="project6">Sprich etwas</string>
+  <string name="head_text1">Diese Tutorials zeigen dir, wie man effektive Tricks verwendet in </string>
   <string name="head_text2">Pocket Code.</string>
+  <string name="project5">Spiele einen Klang ab</string>
 </strings>

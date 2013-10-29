@@ -22,7 +22,10 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="title">Starter Programme</string>
   <string name="group1">Spiele</string>
   <string name="group4">Musik und Tanz</string>
+  <string name="head_text1">Probiere diese Starter Programme aus. Schau dir den Code an und ver&#xE4;ndere ihn so wie du willst.</string>
   <string name="group2">Animationen</string>
+  <string name="group3">Interaktive Kunst und Geschichten</string>
 </strings>
