@@ -94,7 +94,7 @@
 	<string name="step10_additional_text_2">You can add scripts, sounds and look in the same way to the background object.</string>
 	<string name="step10_additional_text_3">Use again the Android Back Button to get to the overview of your objects and your background.</string>
 	
-	<string name="step11_title">11 Main Menu</string>
+	<string name="step11_title">11. Main Menu</string>
 	<string name="step11_description">Use the Android Back Button to get to this screen.</string>
 	<string name="step11_additional_text_1">Continue with your currently opened program.</string>
 	<string name="step11_additional_text_2">Add a new program.</string>

@@ -39,7 +39,7 @@
 	<string name="project9">Broadcast</string>
 
 	<string name="title">Tutorial Card</string>
-<!--	<string name="project1_description">Tap the duck to change the size.</string>
+  <string name="project1_description">Tap the duck to change the size.</string>
 	<string name="project2_description">Use this trick to count automatically.</string>
 	<string name="project3_description">Use this trick when you want a flying parrot.</string>
 	<string name="project4_description">Move smoothly from one point to another.</string>
@@ -52,7 +52,7 @@
 	<string name="project5_extratip_1">1. Click "+"</string>
 	<string name="project5_extratip_2">2. Select "Pocket Code Recorder"</string>
 	<string name="project5_extratip_3">3. Press icon to record your sound</string>
-	<string name="project7_extratip_1">If too sensitive, divide by 10</string>-->
+	<string name="project7_extratip_1">If too sensitive, divide by 10</string>
 
 	
 	
