@@ -70,7 +70,7 @@
 	<string name="step6_additional_text_5">Tap into the text field of the x and y value and set to 0.</string>
 	<string name="step6_additional_text_6">Tap play to see the behaviour on the stage.</string>
 	
-	<string name="step7_title">7. Copy, delete or edit a brick.</string>
+	<string name="step7_title">7. Tapping is everything.</string>
 	<string name="step7_description">You can also control the behaviour of the object when the program is running on the stage.</string>
 	<string name="step7_additional_text_1">Choose the “When tapped” brick. Every brick underneath the “When tapped” will be executed one time when you tap the object on the stage.</string>
 	<string name="step7_additional_text_2">Place the “When tapped” underneath the other bricks.</string>

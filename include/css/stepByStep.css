@@ -403,8 +403,12 @@
    height: 105px;
    float: left;
    margin-left: 1.5em;
-  margin-right: 1.5em;
+   margin-right: 1.5em; 
+ }
  
+ #wrapper article div.linkBackground {
+   margin-top: 0.1em;
+   margin-bottom: 0.1em;
  }
  
  #wrapper article div.mobileNavContainer {
