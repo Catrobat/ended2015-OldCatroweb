@@ -315,23 +315,25 @@ class tools extends CoreAuthenticationAdmin {
         $path1 = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId']."_400".PROJECTS_FEATURED_EXTENSION;
         $path2 = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId']."_720".PROJECTS_FEATURED_EXTENSION;
   
-        if(!imagepng($imageSource, $path)) {
+        if(!imagejpeg($imageSource, $path, 100)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path."<br/>";
           imagedestroy($imageSource);
         }
-        if(!imagepng($image_400, $path1)) {
+        if(!imagejpeg($image_400, $path1, 100)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path1."<br/>";
           imagedestroy($image_400);
         }
-        if(!imagepng($image_720, $path2)) {
+        if(!imagejpeg($image_720, $path2, 100)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path2."<br/>";
           imagedestroy($image_720);
         }          
         else
           $answer .= "SUCCESS: Featured image updated!<br/>file=".$path.", size=".round((filesize($path)/1024),2)." kb";
+          $answer .= "<br/>file=".$path1.", size=".round((filesize($path1)/1024),2)." kb";
+          $answer .= "<br/>file=".$path2.", size=".round((filesize($path2)/1024),2)." kb<br />";
       }
     }
     $this-> answer = $answer;
