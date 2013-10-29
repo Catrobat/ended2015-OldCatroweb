@@ -57,6 +57,7 @@
 #wrapper article div.tutorialStepByStep1 {
   display: block;
   width: 100%;
+  margin-left: 21px;
   text-align: center;
 }
 
@@ -67,21 +68,36 @@
 #wrapper article div.tutorialBottomContainer {
   width: 100%;
   padding-top: 2.2em;
+  padding-bottom: 2.2em;
 }
 
 #wrapper article div.tutorialTutorials {
-  width: 48%;
   float: left;
+  margin-left: 61px;
+}
+
+#wrapper article div.spacer {
+  float: left;
+  width: 50px;
+  height: 200px;
 }
 
 #wrapper article div.tutorialStarters {
-  width: 48%;
-  float: right;
 }
 
 #wrapper article div.tutorialStartersThumb {
   width: 48%;
   float: right;
+  display: none;
+}
+
+#wrapper article div.tutorialDiscuss1 {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+#wrapper article div.tutorialDiscuss2 {
   display: none;
 }
 
@@ -201,7 +217,6 @@
   float: left;
   width: 40%;
   text-align: center;
-  /* background-image: url("../resources/featured/1.png"); */
   background-repeat: no-repeat;
   height: 200px;
 }
@@ -276,16 +291,8 @@
   overflow: hidden;
 }
 
-/* @media screen and (max-width: 1280px) {
-  
- #wrapper article div.tutorialMain {
-   margin-left: 0.5em;
-   margin-right: 0.5em;
- }
  
-} */
- 
- @media screen and (max-width: 1100px) {
+ @media screen and (max-width: 1024px) {
  
  #wrapper article div.tutorialMainContent {
    text-align: left;
@@ -293,6 +300,10 @@
  
  #wrapper article div.tutorialMainContentDetail {
    margin: 0.6em 0.8em 1.6em 0.8em;
+ }
+ 
+ #wrapper article div.spacer {
+   display: none;
  }
  
  #wrapper article div.tutorialMain {
@@ -317,6 +328,7 @@
    width: 100%;
    float:none;
    text-align: center;
+   margin-left: 0px;
  }
  
  #wrapper article div.tutorialStarters {
@@ -330,7 +342,16 @@
    text-align: center;
  }
  
+ #wrapper article div.tutorialDiscuss1 {
+   display: none; 
+ }
  
+ #wrapper article div.tutorialDiscuss2 {
+   display: block; 
+   text-align: center;
+   padding-top: 2.2em;
+ }
+  
  #wrapper article div.tutorialStarterProgamsContainer { 
    width: 100%;
  }
@@ -341,7 +362,6 @@
  
 }
 
-
 @media screen and (max-width: 720px) {
  
  #wrapper article div.tutorialMainContent {
@@ -351,11 +371,6 @@
  #wrapper article div.tutorialMainContentDetail {
    margin: 0.6em 1em 1.6em 1em;
  }
- 
- /* #wrapper article div.tutorialTopCenter {
-  background-color: #000000;
-  width: 10%;
- } */
 
 }
 

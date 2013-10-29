@@ -28,10 +28,14 @@
     <?php echo $this->languageHandler->getString('title'); ?>
   </div>
   <div class="menuContainer">
-    <div class="menuDetail"><a href="#group1"><?php echo $this->languageHandler->getString('group1'); ?></a></div>
-    <div class="menuDetail"><a href="#group2"><?php echo $this->languageHandler->getString('group2'); ?></a></div>
-    <div class="menuDetail"><a href="#group3"><?php echo $this->languageHandler->getString('group3'); ?></a></div>
-    <div class="menuDetail"><a href="#group4"><?php echo $this->languageHandler->getString('group4'); ?></a></div>
+    <div class="menuDetailsLeft">
+      <div class="menuDetail"><a href="#group1"><?php echo $this->languageHandler->getString('group1'); ?></a></div>
+      <div class="menuDetail"><a href="#group2"><?php echo $this->languageHandler->getString('group2'); ?></a></div>
+    </div>
+    <div class="menuDetailsLeft">
+      <div class="menuDetail"><a href="#group3"><?php echo $this->languageHandler->getString('group3'); ?></a></div>
+      <div class="menuDetail"><a href="#group4"><?php echo $this->languageHandler->getString('group4'); ?></a></div>
+    </div>
     <div class="clear"></div>
   </div>
   <div class="starterProjectsMain">

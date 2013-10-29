@@ -36,7 +36,7 @@ function changeContainer(slide) {
     }
     else {
       $(".stepByStepMainContent"+i).css("display", "none");
-      $(".navigation"+i).css("color", "#17a5b8");
+      $(".navigation"+i).css("color", "#05222a");
     }
   }  
 }
@@ -48,7 +48,7 @@ function decrementContainer() {
     $(".navigation"+(currentSlide-1)).css("color", "#FFFFFF");
     
     $(".stepByStepMainContent"+currentSlide).css("display", "none");
-    $(".navigation"+currentSlide).css("color", "#17a5b8");
+    $(".navigation"+currentSlide).css("color", "#05222a");
     
     currentSlide -= 1;
   }
@@ -61,7 +61,7 @@ function incrementContainer() {
     $(".navigation"+(currentSlide+1)).css("color", "#FFFFFF");
     
     $(".stepByStepMainContent"+currentSlide).css("display", "none");
-    $(".navigation"+currentSlide).css("color", "#17a5b8");
+    $(".navigation"+currentSlide).css("color", "#05222a");
     
     currentSlide += 1;
   }

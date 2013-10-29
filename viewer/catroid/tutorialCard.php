@@ -23,8 +23,18 @@
  */
 ?>
 <article>
+<!--  <?php echo $this->languageHandler->getString('project1_description'); ?>-->
+<!--   <div id="hiddxen"> -->
+    <?php 
+    
+//       for($i=1;$i<12;$i++) {
+//         echo $this->languageHandler->getString('project'.$i);
+//         echo $this->languageHandler->getString('project'.$i.'_extratip_'.$i);
+//         echo $this->languageHandler->getString('project'.$i.'_description');
+//       }
+//     ?>
+<!--   </div> -->
   <div class="header"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).''); ?></div>
-   
   <div class="tutorialCardMain">
    <div class="tutorialCardMainContentDescription"><?php echo $this->languageHandler->getString('project'.intval($_GET['id']).'_description'); ?></div>
     <div class="tutorialCardMainContent">
