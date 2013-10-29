@@ -343,6 +343,11 @@
   font-weight: bold;
 }
 
+#wrapper article div.break {
+  float: left;
+  display: none;
+}
+
 #wrapper article div.linkBackground {
   background-color: #17a5b8;
   width: 35px;
@@ -356,6 +361,19 @@
 #wrapper article div.linkContainer {
   display: table;
   margin: 0 auto;
+}
+
+#wrapper article div.mobileNavContainer {
+   height: 35px;
+   float: left;
+   margin-top: 0px;
+}
+
+#wrapper article div.mobileNavCenter {
+  height: 35px;
+  float: left;
+  margin-left: 0em;
+  margin-right: 0em;
 }
  
  @media screen and (max-width: 1280px) {
@@ -374,6 +392,25 @@
  
  #wrapper article div.stepByStepContentRight {
    width: 100%;
+ }
+ 
+ #wrapper article div.break {
+   float: none;
+   display: block;
+ }
+ 
+ #wrapper article div.mobileNavCenter {
+   height: 105px;
+   float: left;
+   margin-left: 1.5em;
+  margin-right: 1.5em;
+ 
+ }
+ 
+ #wrapper article div.mobileNavContainer {
+   height: 105px;
+   float: left;
+   margin-top: 36px;
  }
  
 }
