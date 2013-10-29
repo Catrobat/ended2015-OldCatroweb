@@ -39,6 +39,9 @@
   margin-top: 0.2em;
   overflow: hidden;
 }
+#wrapper article div#hidden {
+  display: none;
+}
 
 #wrapper article div.tutorialCardMainHeader {
   text-align: left;

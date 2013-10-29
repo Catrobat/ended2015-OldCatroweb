@@ -251,11 +251,13 @@
       <div class="clear"></div>
     </div>
     <div class="stepByStepNavigation">
-      <a class="stepLinks" onclick="decrementContainer()"> < </a>
-      <?php for($i=1;$i<=11;$i++) {?>
-        <a class="stepLinks navigation<?php echo $i; ?>" onclick="changeContainer(<?php echo $i; ?>);"><?php echo $i; ?></a>
-      <?php }?>
-      <a class="stepLinks" onclick="incrementContainer()"> > </a>
+      <div class="linkContainer">
+        <a class="stepLinks arrow" onclick="decrementContainer()"><div class="linkBackgroundArrowLeft"></div> </a>
+        <?php for($i=1;$i<=11;$i++) {?>
+          <a class="stepLinks navigation<?php echo $i; ?>" onclick="changeContainer(<?php echo $i; ?>);"><div class="linkBackground"><?php echo $i; ?></div></a>
+        <?php }?>
+        <a class="stepLinks" onclick="incrementContainer()"><div class="linkBackgroundArrowRight"></div></a>
+      </div>
     </div>
   </div> 
       <!--  license Main -->

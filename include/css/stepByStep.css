@@ -57,6 +57,29 @@
 
 #wrapper article a.stepLinks {
   cursor: pointer;
+  line-height: 35px;
+}
+
+#wrapper article div.linkBackgroundArrowLeft {
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari and Chrome */
+  width: 35px;
+  height: 35px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: 0px -175px;
+  float: left;
+}
+
+#wrapper article div.linkBackgroundArrowRight {
+  transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg); /* IE 9 */
+  -webkit-transform: rotate(-90deg); /* Safari and Chrome */
+  width: 35px;
+  height: 35px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: 0px -175px;
+  float: left;
 }
 
 #wrapper article div.stepByStepHeadline {
@@ -314,10 +337,25 @@
 
 #wrapper article a {
 
-  color: #17a5b8;
+  color: #05222a;
   text-decoration: none;
   font-size: 1em;
   font-weight: bold;
+}
+
+#wrapper article div.linkBackground {
+  background-color: #17a5b8;
+  width: 35px;
+  height: 35px;
+  float: left;
+  border-radius: 50%;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+#wrapper article div.linkContainer {
+  display: table;
+  margin: 0 auto;
 }
  
  @media screen and (max-width: 1280px) {

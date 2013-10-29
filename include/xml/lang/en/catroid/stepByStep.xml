@@ -92,7 +92,6 @@
 	<string name="step10_description">This is the overview of your objects and the background depends to one program.</string>
 	<string name="step10_additional_text_1">The background is like an object, but you just can have on background.</string>
 	<string name="step10_additional_text_2">You can add scripts, sounds and look in the same way to the background object.</string>
-	<string name="step10_additional_text_3">Use again the Android Back Button to get to the overview of your objects and your background.</string>
 	
 	<string name="step11_title">11. Main Menu</string>
 	<string name="step11_description">Use the Android Back Button to get to this screen.</string>
