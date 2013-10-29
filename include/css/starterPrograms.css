@@ -80,14 +80,14 @@
 }
 
 #wrapper article div.border {
-  width: 45%;
+  width: 440px;
   border-bottom: 1px #17a5b8 solid;
 }
 
 #wrapper article div.starterProjectsMainContentDetail {
   text-align: left; 
   display: inline-block;
-   margin: 0.6em 1em 1.6em 1em;
+  margin: 0.6em 1em 1.6em 1em;
   font-size: 0.8em;
   font-weight: bold;
 }
@@ -142,43 +142,52 @@
   margin-right: 3px;
 }
  
- @media screen and (max-width: 1280px) {
+@media screen and (max-width: 1280px) {
 
-  
   #wrapper article div.starterProjectsMain {
     margin-left: 0.5em;
     margin-right: 0.5em;
   }
  
- #wrapper article div.starterProjectsMainContentDetail {
-   margin: 0.6em 0.8em 1.6em 0.8em;
- }
+  #wrapper article div.starterProjectsMainContentDetail {
+    margin: 0.6em 1.0em 1.6em 0.8em;
+  }
  
 }
 
 @media screen and (max-width: 720px) {
  
  
- #wrapper article div.starterProjectsMainContentDetail {
-   margin: 0.6em 1em 1.6em 1em;
- }
+/*  #wrapper article div.starterProjectsMainContentDetail { */
+/*    margin: 0.6em 1em 1.6em 1em; */
+/*  } */
  
- #wrapper article div.border {
-  width: 70%;
- }
+/*  #wrapper article div.border { */
+/*   width: 70%; */
+/*  } */
  
 }
 
 @media screen and (max-width: 600px) {
   
-  #wrapper article div.border {
-    width: 85%;
-  }
+/*   #wrapper article div.border { */
+/*     width: 85%; */
+/*   } */
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 450px) {
  
- #wrapper article div.border {
-  width: 85%;
+/*  #wrapper article div.border { */
+/*   width: 85%; */
+/*  } */
+ 
+ #wrapper article div.menuDetailsLeft {
+   clear: both;
  }
+ 
+ #wrapper article div.menuDetail {
+   width: 50%;
+   margin-bottom: 1em;
+ }
+ 
 }
