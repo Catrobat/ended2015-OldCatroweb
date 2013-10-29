@@ -43,8 +43,8 @@
       <div class="tutorialStartersThumb"><a href="/starterPrograms"><img src="images/tutorial/1_starters.png" /></a></div>
     </div>
     <div class="clear"></div>
-     <div class="tutorialDiscuss1"><a href="https://groups.google.com/forum/m/?fromgroups#!forum/pocketcode"><img src="images/tutorial/1_discuss.png" /></a></div>
-     <div class="tutorialDiscuss2"><a href="https://groups.google.com/forum/m/?fromgroups#!forum/pocketcode"><img src="images/tutorial/2_discuss.png" /></a></div>    
+     <div class="tutorialDiscuss1"><a href="https://groups.google.com/forum/m/?fromgroups#!forum/pocketcode" target="_blank" ><img src="images/tutorial/1_discuss.png" /></a></div>
+     <div class="tutorialDiscuss2"><a href="https://groups.google.com/forum/m/?fromgroups#!forum/pocketcode" target="_blank" ><img src="images/tutorial/2_discuss.png" /></a></div>    
   </div> <!--  license Main -->
   <div class="projectSpacer"></div>
 </article>

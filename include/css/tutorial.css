@@ -217,7 +217,6 @@
   float: left;
   width: 40%;
   text-align: center;
-  /* background-image: url("../resources/featured/1.png"); */
   background-repeat: no-repeat;
   height: 200px;
 }
@@ -292,14 +291,6 @@
   overflow: hidden;
 }
 
-/* @media screen and (max-width: 1280px) {
-  
- #wrapper article div.tutorialMain {
-   margin-left: 0.5em;
-   margin-right: 0.5em;
- }
- 
-} */
  
  @media screen and (max-width: 1024px) {
  
