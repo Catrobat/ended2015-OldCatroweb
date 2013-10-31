@@ -210,8 +210,8 @@ public class AdminTests extends BaseTest {
       driver().navigate().back();
       ajaxWait();
       
-      driver().findElement(By.id("aAdminToolsUploadNotificationsList")).click();
-      assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
+      driver().findElement(By.id("aAdminToolsApproveProjects")).click();
+      assertTrue(isTextPresent("Administration Tools - List of unapproved projects"));
       driver().navigate().back();
       ajaxWait();
 

@@ -41,7 +41,7 @@
         document.getElementById(id).submit();
     }
   </script>
-  <h2>Administration Tools - List of inappropriate projects</h2>
+  <h2>Administration Tools - List of unapproved projects</h2>
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
   <?php if($this->answer) {
     echo 'Answer:<br/>'.$this->answer.'<br /><br/>';
