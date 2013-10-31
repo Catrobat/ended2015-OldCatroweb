@@ -321,6 +321,18 @@ public class AdminTests extends BaseTest {
       openAdminLocation();
       assertTrue(isTextPresent("All projects approved"));
       
+      driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
+      driver().findElement(By.id("aAdminToolsEditProjects")).click();
+      ajaxWait();
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[9]/form/input[3]")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("The project was succesfully set to state unapproved!"));
+      
+      openAdminLocation();
+      assertTrue(isTextPresent("Unapproved projects: 1"));
+      
       CommonFunctions.setAllProjectsToUnapproved();
       
     } catch(AssertionError e) {

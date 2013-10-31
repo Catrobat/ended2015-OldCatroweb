@@ -534,6 +534,30 @@ class tools extends CoreAuthenticationAdmin {
     $this->htmlFile = "editProjectList.php";
     $this->projects = $this->retrieveAllProjectsFromDatabase();
   }
+  
+  public function toggleApprovedProjects() {
+  if(isset($_POST['toggle'])) {
+      if ($_POST['toggle'] == "approve") {
+        if($this->approveProject($_POST['projectId'])) {
+          $answer = "The project was succesfully set to state approved!";
+        } else {
+          $answer = "Error could NOT change project to state approved!";
+        }
+        $this->answer = $answer;
+      }
+      if ($_POST['toggle'] == "unapprove") {
+        if($this->unapproveProject($_POST['projectId'])) {
+          $answer = "The project was succesfully set to state unapproved!";
+        } else {
+          $answer = "Error could NOT change project to state unapproved!";
+        }
+        $this->answer = $answer;
+      }
+    }
+    
+    $this->htmlFile = "editProjectList.php";
+    $this->projects = $this->retrieveAllProjectsFromDatabase();
+  }
 
   public function approveWords() {
     if(isset($_POST['approve'])) {
@@ -1274,12 +1298,22 @@ class tools extends CoreAuthenticationAdmin {
   }
   
   public function approveProject($projectId) {
-    $query = "EXECUTE approve_project('$projectId');";
+    $query = "EXECUTE approve_project(true, '$projectId');";
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     if($result) {
       pg_free_result($result);
     }
   
+    return $result;
+  }
+  
+  public function unapproveProject($projectId) {
+    $query = "EXECUTE approve_project(false, '$projectId');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result) {
+      pg_free_result($result);
+    }
+    
     return $result;
   }
 
