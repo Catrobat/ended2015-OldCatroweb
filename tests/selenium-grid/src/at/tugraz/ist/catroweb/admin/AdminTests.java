@@ -204,6 +204,16 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("Administration Tools - Send e-mail notification"));
       driver().navigate().back();
       ajaxWait();
+      
+      driver().findElement(By.id("aAdminToolsUploadNotificationsList")).click();
+      assertTrue(isTextPresent("Administration Tools - Upload Notifications List"));
+      driver().navigate().back();
+      ajaxWait();
+      
+      driver().findElement(By.id("aAdminToolsApproveProjects")).click();
+      assertTrue(isTextPresent("Administration Tools - List of unapproved projects"));
+      driver().navigate().back();
+      ajaxWait();
 
       assertTrue(isTextPresent("- back"));
       driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
@@ -244,6 +254,92 @@ public class AdminTests extends BaseTest {
       throw e;
     } catch(Exception e) {
       captureScreen("AdminTests.inappropriateProjects");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "functionality", "notificationlist" }, description = "check upload notifications list")
+  public void uploadNotificationsList() throws Throwable {
+    try {
+      openAdminLocation();
+      assertTrue(isTextPresent("Catroid Administration Site"));
+      driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
+      driver().findElement(By.id("aAdminToolsUploadNotificationsList")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Administration Tools - Upload Notifications List"));
+      driver().findElement(By.id("emailInput")).sendKeys("e@mailcom");
+      driver().findElement(By.id("addEmail")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Error: could NOT add E-Mail!"));
+      driver().findElement(By.id("emailInput")).sendKeys("e@mail.com");
+      driver().findElement(By.id("addEmail")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("E-Mail added successfully!"));
+      assertTrue(isTextPresent("e@mail.com"));
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[2]/form/input[3]")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("E-Mail removed successfully!"));
+      
+    } catch(AssertionError e) {
+      captureScreen("AdminTests.uploadNotificationsList");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("AdminTests.uploadNotificationsList");
+      throw e;
+    }
+  }
+
+  @Test(groups = { "functionality", "approveProjectslist" }, description = "check approve projects list")
+  public void approveProjectsList() throws Throwable {
+    try {
+      CommonFunctions.setAllProjectsToUnapproved();
+      
+      openAdminLocation();
+      driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("approve unapproved projects"));
+      driver().findElement(By.id("aAdminToolsApproveProjects")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
+      
+      openAdminLocation();
+      assertTrue(isTextPresent("Unapproved projects: "));
+      driver().findElement(By.id("aAdminApprovedProjects")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[6]/form/input[3]")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("The project was successfully approved!"));
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[6]/form/input[3]")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("The project was successfully approved!"));
+      
+      openAdminLocation();
+      assertTrue(isTextPresent("All projects approved"));
+      
+      driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
+      driver().findElement(By.id("aAdminToolsEditProjects")).click();
+      ajaxWait();
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[9]/form/input[3]")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("The project was succesfully set to state unapproved!"));
+      
+      openAdminLocation();
+      assertTrue(isTextPresent("Unapproved projects: 1"));
+      
+      CommonFunctions.setAllProjectsToUnapproved();
+      
+    } catch(AssertionError e) {
+      captureScreen("AdminTests.approveProjectsList");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("AdminTests.approveProjectsList");
       throw e;
     }
   }

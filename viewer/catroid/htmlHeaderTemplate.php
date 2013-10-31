@@ -66,7 +66,7 @@
             
             <div id="mobileMenuButton" style="<?php echo ($this->module->session->userLogin_userAvatar) ? 'background-color:#fff;' : 'background-color:#17A5B8;background-image: linear-gradient(top, #17A5B8, #177f8d);background-image: -moz-linear-gradient(top, #17A5B8, #177f8d);background-image: -webkit-linear-gradient(top, #17A5B8, #177f8d);'; ?>">
               <button class="img-avatarMobile"<?php echo ($this->module->session->userLogin_userAvatar) ? 'style="width:45px;height:45px;margin:2px;background-size:cover; background-position:center; background-repeat: norepeat; background-image:url(' . $this->module->session->userLogin_userAvatar . ');outline:1px solid #FFFFFF;"' : ''; ?>>
-                <?php echo ($this->module->session->userLogin_userNickname) ? '<div class="img-dropdownMobile dropdownMobile"></div>' :'';?>
+                <?php echo ($this->module->session->userLogin_userNickname) & ($this->module->session->userLogin_userAvatar) ? '<div class="img-dropdownMobile dropdownMobile"></div>' :'';?>
               </button>
             </div>
             

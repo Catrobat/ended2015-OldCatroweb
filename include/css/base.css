@@ -162,7 +162,7 @@ h3 {
   width: 10px;
   height: 10px;
   background-image: url('../images/symbols/sprite_icons_web.png');
-  background-position: -117px -58px;
+  background-position: -117px -61px;
   background-repeat: no-repeat;
 }
 
@@ -170,7 +170,7 @@ h3 {
   width: 10px;
   height: 10px;
   background-image: url('../images/symbols/sprite_icons_web.png');
-  background-position: -117px -69px;
+  background-position: -117px -72px;
   background-repeat: no-repeat;
 }
 
@@ -244,10 +244,10 @@ h3 {
 }
 
 .img-dropdownMobile {
-  width: 8px;
-  height: 8px;
+  width: 13px;
+  height: 13px;
   background-image: url('../images/symbols/sprite_icons_web.png');
-  background-position: -123px -50px;
+  background-position: -118px -48px;
   float: right;
 }
 

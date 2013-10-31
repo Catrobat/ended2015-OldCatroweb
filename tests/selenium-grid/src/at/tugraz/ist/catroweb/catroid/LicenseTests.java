@@ -103,7 +103,7 @@ public class LicenseTests extends BaseTest {
       assertTrue(isElementPresent(By.id("footerMoreButton")));
       driver().findElement(By.id("footerMoreButton")).click();
       
-      By privacy = By.xpath("//*[@id='mobileFooterMenu']/ul/li[2]/a");
+      By privacy = By.xpath("//*[@id='mobileFooterMenu']/ul/li[1]/a");
       assertTrue(isElementPresent(privacy));
       
       clickAndWaitForPopUp(privacy);
@@ -166,7 +166,7 @@ public class LicenseTests extends BaseTest {
       driver().findElement(By.id("footerMoreButton")).click();
       ajaxWait();
       
-      driver().findElement(By.xpath("//*[@id='mobileFooterMenu']/ul/li[3]/a")).click();
+      driver().findElement(By.xpath("//*[@id='mobileFooterMenu']/ul/li[2]/a")).click();
       ajaxWait();
       
       assertTrue(isTextPresent("WELCOME TO THE CATROBAT COMMUNITY!"));
@@ -226,7 +226,7 @@ public class LicenseTests extends BaseTest {
       driver().findElement(By.id("footerMoreButton")).click();
       ajaxWait();
 
-      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[4]/a"));
+      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[3]/a"));
       assertRegExp(".*Imprint.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {

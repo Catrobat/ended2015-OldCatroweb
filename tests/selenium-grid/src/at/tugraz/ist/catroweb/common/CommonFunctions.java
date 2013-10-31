@@ -335,4 +335,21 @@ public class CommonFunctions {
       Reporter.log(e.getMessage());
     }
   }
+  
+  public static void setAllProjectsToUnapproved() {
+    try {
+      Driver driver = new Driver();
+      DriverManager.registerDriver(driver);
+
+      Connection connection = DriverManager.getConnection(Config.DB_HOST + Config.DB_NAME, Config.DB_USER, Config.DB_PASS);
+      Statement statement = connection.createStatement();
+      statement.executeUpdate("UPDATE projects SET approved=false");
+      statement.close();
+      connection.close();
+      DriverManager.deregisterDriver(driver);
+    } catch(SQLException e) {
+      Reporter.log("CommonFunctions: setAllProjectsToUnapproved: SQL Exception couldn't execute sql query!");
+      Reporter.log(e.getMessage());
+    }
+  }
 }

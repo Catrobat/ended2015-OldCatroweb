@@ -30,9 +30,13 @@
       document.getElementById(id).submit();
   }
   function submitToggleForm(id, name, newstate) {
-	    if (confirm("Change project '"+name+"' to "+newstate+"?"))
-	      document.getElementById(id).submit();
-	  }
+	  if (confirm("Change project '"+name+"' to "+newstate+"?"))
+	    document.getElementById(id).submit();
+	}
+	function submitToggleApprovedForm(id, name, newstate) {
+		if (confirm("Change project '"+name+"' to "+newstate+"?"))
+			document.getElementById(id).submit();
+	}
   </script>
   <h2>Administration Tools - List of available projects</h2>
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
@@ -40,7 +44,7 @@
     echo 'Answer:<br/>'.$this->answer.'<br /><br/>';
   }?>
   <div class="projectList">
-      <table class="projectTable">
+      <table class="projectTable" id="projectTableId">
         <tr>
           <th>ID</th>
           <th>Title</th>
@@ -50,6 +54,7 @@
           <th>Flagged</th>
           <th>Visible</th>
           <th>Delete</th>
+          <th>Approved</th>
         </tr>
       <?php
         if($this->projects) {
@@ -75,6 +80,14 @@
               <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
               <input type="hidden" name="delete" value="delete"/>
               <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitDeleteForm('deleteform<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" /> <!-- chg -->
+            </form>
+          </td>
+          <td>
+            <form id="toggleApprovedForm<?php echo $project['id']?>" class="admin" action="toggleApprovedProjects" method="POST">
+            <?php echo ($project['approved']=='t' ? 'approved' : '<em>unapproved</em>');?> 
+              <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
+              <input type="hidden" name="toggle" value="<?php echo ($project['approved']=='t' ? 'unapprove' : 'approve'); ?>">
+              <input type="button" value="change" name="toggleApprovedProject" id="toggle<?php echo $project['id']?>" onclick="javascript:submitToggleApprovedForm('toggleApprovedForm<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>', '<?php echo ($project['approved']=='t' ? 'unapprove' : 'approve');?>');" /> <!-- chg -->
             </form>
           </td>
         </tr>

@@ -39,16 +39,16 @@ function switchAd() {
     document["Ad_Image"].src = ads[ct=n].src;
 
     var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
-    x = x.replace(".png","");
+    x = x.replace(".jpg","");
     
     $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
   }
   ads[n=(ct+1)%src.length] = new Image;
 
   if(document.width <= 400)
-    ads[n].src = src[n].replace(".png", "_400.png");
+    ads[n].src = src[n].replace(".jpg", "_400.jpg");
   else if(document.width <= 720)
-    ads[n].src = src[n].replace(".png", "_720.png");
+    ads[n].src = src[n].replace(".jpg", "_720.jpg");
   else
     ads[n].src = src[n];
   
@@ -66,19 +66,6 @@ onload = function(){
           <header><?php echo $this->languageHandler->getString('recommended'); ?></header>
           <div id="featuredProject">
           </div>
-        </div>
-        <div class="projectSpacer"></div>
-
-        <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
-        <div id="newestProjects" class="projectContainer">    
-        </div>
-        
-        <div id="newestProjectsLoader" class="projectFooter">
-          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
-          <p>&nbsp;</p>
-        </div>
-        <div id="newestShowMore" class="projectFooter">
-          <div class="img-load-more"></div>
         </div>
         <div class="projectSpacer"></div>
 
@@ -103,7 +90,20 @@ onload = function(){
           <div class="img-load-more"></div>
         </div>
         <div class="projectSpacer"></div>
-
+        
+        <header><?php echo $this->languageHandler->getString('newestProjects'); ?></header>
+        <div id="newestProjects" class="projectContainer">    
+        </div>
+        
+        <div id="newestProjectsLoader" class="projectFooter">
+          <img src="<?php echo BASE_PATH; ?>images/symbols/ajax-loader-dark.gif" />
+          <p>&nbsp;</p>
+        </div>
+        <div id="newestShowMore" class="projectFooter">
+          <div class="img-load-more"></div>
+        </div>
+        <div class="projectSpacer"></div>
+        
       </article>
       <script type="text/javascript">
         $(document).ready(function() {

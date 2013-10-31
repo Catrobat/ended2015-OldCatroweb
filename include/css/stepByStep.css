@@ -55,6 +55,33 @@
   width: 100%;
 }
 
+#wrapper article a.stepLinks {
+  cursor: pointer;
+  line-height: 35px;
+}
+
+#wrapper article div.linkBackgroundArrowLeft {
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg); /* IE 9 */
+  -webkit-transform: rotate(90deg); /* Safari and Chrome */
+  width: 35px;
+  height: 35px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: 0px -175px;
+  float: left;
+}
+
+#wrapper article div.linkBackgroundArrowRight {
+  transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg); /* IE 9 */
+  -webkit-transform: rotate(-90deg); /* Safari and Chrome */
+  width: 35px;
+  height: 35px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: 0px -175px;
+  float: left;
+}
+
 #wrapper article div.stepByStepHeadline {
     width: 100%;
     padding-left: 1em;
@@ -100,17 +127,6 @@
   width: 70%;
   font-size: 0.8em;
 }
-
-/* #wrapper article div.stepByStepDetailContainerLeft1 {
-  float: left;
-  width: 20%;
-}
-
-#wrapper article div.stepByStepDetailContainerRight1 {
-  float: left;
-  width: 80%;
-  font-size: 0.8em;
-} */
 
 #wrapper article div.stepByStepDescription1 {
   margin-bottom: 0.5em;  
@@ -321,10 +337,43 @@
 
 #wrapper article a {
 
-  color: #17a5b8;
+  color: #05222a;
   text-decoration: none;
   font-size: 1em;
   font-weight: bold;
+}
+
+#wrapper article div.break {
+  float: left;
+  display: none;
+}
+
+#wrapper article div.linkBackground {
+  background-color: #17a5b8;
+  width: 35px;
+  height: 35px;
+  float: left;
+  border-radius: 50%;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+#wrapper article div.linkContainer {
+  display: table;
+  margin: 0 auto;
+}
+
+#wrapper article div.mobileNavContainer {
+   height: 35px;
+   float: left;
+   margin-top: 0px;
+}
+
+#wrapper article div.mobileNavCenter {
+  height: 35px;
+  float: left;
+  margin-left: 0em;
+  margin-right: 0em;
 }
  
  @media screen and (max-width: 1280px) {
@@ -343,6 +392,29 @@
  
  #wrapper article div.stepByStepContentRight {
    width: 100%;
+ }
+ 
+ #wrapper article div.break {
+   float: none;
+   display: block;
+ }
+ 
+ #wrapper article div.mobileNavCenter {
+   height: 105px;
+   float: left;
+   margin-left: 1.5em;
+   margin-right: 1.5em; 
+ }
+ 
+ #wrapper article div.linkBackground {
+   margin-top: 0.1em;
+   margin-bottom: 0.1em;
+ }
+ 
+ #wrapper article div.mobileNavContainer {
+   height: 105px;
+   float: left;
+   margin-top: 36px;
  }
  
 }

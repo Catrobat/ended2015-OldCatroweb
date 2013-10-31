@@ -31,6 +31,9 @@
         <string name="connection_failed">DB connection failed.</string>
         <string name="no_entry_for_id">No entry was found for the given ID</string>
     </db>
+    <profile>
+    	<string name="no_such_user">Ooooops something went wrong./nPlease try again!</string>
+    </profile>
     <userFunctions>
     	<string name="hash_not_found">Recovery hash was not found.</string>
 			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>

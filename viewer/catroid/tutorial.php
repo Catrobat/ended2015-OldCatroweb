@@ -38,45 +38,13 @@
     <div class="tutorialBottomContainer">
       <div class="tutorialTutorials"><a href="/tutorials"><img src="images/tutorial/tutorials.png" /></a></div>
       <div class="break"></div>
+      <div class="spacer"></div>
       <div class="tutorialStarters"><a href="/starterPrograms"><img src="images/tutorial/1_starters.png" /></a></div>
-      <div class="tutorialStartersThumb"><a href="/starterPrograms"><img src="images/tutorial/2_starters.png" /></a></div>
+      <div class="tutorialStartersThumb"><a href="/starterPrograms"><img src="images/tutorial/1_starters.png" /></a></div>
     </div>
-    <!-- <div class="tutorialTopContainer" onclick="self.location.href='/stepByStep'">
-      <div class="tutorialHeader1">
-        Step By Step
-        <img src="images/symbols/step_by_step.png" />
-      </div>
-      <div style="clear: both;"></div>
-      <div class="tutorialText">
-      Do you want to program in Pocket Code?<br />
-      Do this in 10 steps. <img src="images/symbols/arrow_right.png" />
-      </div>
-    </div> 
     <div class="clear"></div>
-    <div class="tutorialCardsContainer" onclick="self.location.href='/tutorials'">
-      <div class="tutorialHeader2">
-        Tutorials
-        <img src="images/symbols/cards.png" />
-      </div>
-      <div class="tutorialText">
-        This Cards show you effective tricks
-        in Pocket Code. 
-        <img src="images/symbols/arrow_right.png" />
-      </div>
-    </div>
-    <div class="break"></div>
-    <div class="tutorialStarterProgamsContainer" onclick="self.location.href='/starterPrograms'">
-      <div class="tutorialHeader3">
-        Starter Programs
-        <img src="images/symbols/starter.png" />
-      </div>
-      <div class="tutorialText1">
-      Try out these programs and
-      remix them. <img src="images/symbols/arrow_right.png" />
-      </div>
-    </div> 
-    <div class="clear"></div>
-    </div> -->
+     <div class="tutorialDiscuss1"><a href="https://groups.google.com/forum/m/?fromgroups#!forum/pocketcode" target="_blank" ><img src="images/tutorial/1_discuss.png" /></a></div>
+     <div class="tutorialDiscuss2"><a href="https://groups.google.com/forum/m/?fromgroups#!forum/pocketcode" target="_blank" ><img src="images/tutorial/2_discuss.png" /></a></div>    
   </div> <!--  license Main -->
   <div class="projectSpacer"></div>
 </article>

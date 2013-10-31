@@ -39,9 +39,50 @@ import at.tugraz.ist.catroweb.common.*;
 
 @Test(groups = { "admin", "BadWordsFilterTests" })
 public class BadWordsFilterTests extends BaseTest {
-
-  @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word as good")
   
+  @Test(groups = { "functionality", "upload" }, description = "check the scrolling function from unapproved word")
+  public void checkScrollingFunction() throws Throwable {
+    deleteAllUnapprovedWords();
+    try {
+      String response = "";
+      String [] unapprovedWord = new String[20];
+      for (int i = 0; i < 20; i++) {
+        unapprovedWord[i] = "badwordfiltertestsscrollingfunction" + CommonData.getRandomShortString(10);
+        response = projectUploader.upload(CommonData.getUploadPayload(unapprovedWord[i], "", "", "", "", "", "", ""));
+        assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      }
+      
+      openAdminLocation();
+      driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
+      driver().findElement(By.id("aAdminToolsApproveWords")).click();
+      ajaxWait();   
+      driver().findElement(By.id("Projects10")).click();
+      ajaxWait();
+      assertTrue(isElementPresent(By.id("site2")));
+      assertTrue(isElementPresent(By.id("greaterThen")));
+      
+      for (int i = 19; i > 9; i--) {
+        assertTrue(isTextPresent(unapprovedWord[i]));
+      }
+      
+      assertTrue(!isTextPresent(unapprovedWord[9]));
+      assertTrue(!isTextPresent(unapprovedWord[0]));
+      
+      for (int i = 0; i < 20; i++) {
+        deletePreviouslyUploadedProjectAndUnapprovedWord(unapprovedWord[i]);
+      }
+      
+    } catch(AssertionError e) {
+      captureScreen("BadWordsFilterTests.checkScrollingFunction");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("BadWordsFilterTests.checkScrollingFunction");
+      throw e;
+    }
+  }
+
+  @Test(groups = { "functionality", "upload" }, description = "approve an unapproved word as good") 
   public void approveButtonGood() throws Throwable {
     deleteAllUnapprovedWords();
     try {
@@ -85,7 +126,9 @@ public class BadWordsFilterTests extends BaseTest {
       driver().findElement(By.id("aAdministrationTools")).click();
       ajaxWait();
       driver().findElement(By.id("aAdminToolsApproveWords")).click();
+      ajaxWait();
       driver().findElement(By.id("allProjects")).click();
+      ajaxWait();
       assertTrue(isTextPresent(unapprovedWord));
       (new Select(driver().findElement(By.id("meaning" + CommonFunctions.getUnapprovedWordId(unapprovedWord))))).selectByVisibleText("bad");
       clickOkOnNextConfirmationBox();

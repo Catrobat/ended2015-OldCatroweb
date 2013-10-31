@@ -242,16 +242,27 @@
             <div class="stepByStepDescription1"><?php echo $this->languageHandler->getString('step11_additional_text_5'); ?></div>
           </div>
           <div class="clear"></div>
-                         
+          <div class="stepByStepTableView">
+            <div class="stepByStepFloating"><img class="miniThumb" src="images/stepbystep/11_right_6.png" /></div>
+            <div class="stepByStepDescription1"><?php echo $this->languageHandler->getString('step11_additional_text_6'); ?></div>
+          </div>
+          <div class="clear"></div>
       </div>
       <div class="clear"></div>
     </div>
     <div class="stepByStepNavigation">
-      <a href="#" onclick="decrementContainer()"> < </a>
-      <?php for($i=1;$i<=11;$i++) {?>
-        <a class="navigation<?php echo $i; ?>" href="#" onclick="changeContainer(<?php echo $i; ?>);"><?php echo $i; ?></a>
-      <?php }?>
-      <a href="#" onclick="incrementContainer()"> > </a>
+      <div class="linkContainer">
+        <a class="stepLinks arrow" onclick="decrementContainer()"><div class="mobileNavContainer"><div class="linkBackgroundArrowLeft"></div></div></a>
+        <div class="mobileNavCenter">
+          <?php for($i=1;$i<=11;$i++) {?>
+            <a class="stepLinks navigation<?php echo $i; ?>" onclick="changeContainer(<?php echo $i; ?>);"><div class="linkBackground"><?php echo $i; ?></div></a>
+            <?php 
+            if($i%5 == 0)
+              echo "<div class='break'></div>"; ?>
+          <?php }?>
+        </div>
+        <a class="stepLinks" onclick="incrementContainer()"><div class="mobileNavContainer"><div class="linkBackgroundArrowRight"></div></div></a>
+      </div>
     </div>
   </div> 
       <!--  license Main -->

@@ -22,13 +22,13 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+  <string name="password_link">Passwort oder Usernamen vergessen?</string>
+  <string name="nickname">Username:</string>
   <string name="password">Passwort:</string>
   <string name="additional_options">Andere M&#xF6;glichkeiten, um fortzufahren:</string>
   <string name="title">Einloggen</string>
   <string name="login">Einloggen</string>
-  <string name="enter_password">Passwort</string>
-  <string name="nickname">Username:</string>
-  <string name="catroid_logout_success">Abmelden war erfolgreich.</string>
-  <string name="password_link">Passwort oder Usernamen vergessen?</string>
   <string name="enter_nick">Username</string>
+  <string name="enter_password">Passwort</string>
+  <string name="catroid_logout_success">Abmelden war erfolgreich.</string>
 </strings>

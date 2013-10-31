@@ -22,6 +22,6 @@ You should have received a copy of the GNU Affero General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="title">Best&#xE4;tige deine E-Mail-Adresse.</string>
   <string name="success">Du hast erfolgreich deine E-Mail-Adresse best&#xE4;tigt.</string>
+  <string name="title">Best&#xE4;tige deine E-Mail-Adresse.</string>
 </strings>

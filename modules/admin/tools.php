@@ -315,23 +315,25 @@ class tools extends CoreAuthenticationAdmin {
         $path1 = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId']."_400".PROJECTS_FEATURED_EXTENSION;
         $path2 = CORE_BASE_PATH.PROJECTS_FEATURED_DIRECTORY.$_POST['projectId']."_720".PROJECTS_FEATURED_EXTENSION;
   
-        if(!imagepng($imageSource, $path)) {
+        if(!imagejpeg($imageSource, $path, 100)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path."<br/>";
           imagedestroy($imageSource);
         }
-        if(!imagepng($image_400, $path1)) {
+        if(!imagejpeg($image_400, $path1, 100)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path1."<br/>";
           imagedestroy($image_400);
         }
-        if(!imagepng($image_720, $path2)) {
+        if(!imagejpeg($image_720, $path2, 100)) {
           $answer = "ERROR: Image upload failed! Could not save image!";
           $answer .= "<br/>path: ".$path2."<br/>";
           imagedestroy($image_720);
         }          
         else
           $answer .= "SUCCESS: Featured image updated!<br/>file=".$path.", size=".round((filesize($path)/1024),2)." kb";
+          $answer .= "<br/>file=".$path1.", size=".round((filesize($path1)/1024),2)." kb";
+          $answer .= "<br/>file=".$path2.", size=".round((filesize($path2)/1024),2)." kb<br />";
       }
     }
     $this-> answer = $answer;
@@ -531,6 +533,30 @@ class tools extends CoreAuthenticationAdmin {
         $this->answer = $answer;
       }
     }
+    $this->htmlFile = "editProjectList.php";
+    $this->projects = $this->retrieveAllProjectsFromDatabase();
+  }
+  
+  public function toggleApprovedProjects() {
+  if(isset($_POST['toggle'])) {
+      if ($_POST['toggle'] == "approve") {
+        if($this->approveProject($_POST['projectId'])) {
+          $answer = "The project was succesfully set to state approved!";
+        } else {
+          $answer = "Error could NOT change project to state approved!";
+        }
+        $this->answer = $answer;
+      }
+      if ($_POST['toggle'] == "unapprove") {
+        if($this->unapproveProject($_POST['projectId'])) {
+          $answer = "The project was succesfully set to state unapproved!";
+        } else {
+          $answer = "Error could NOT change project to state unapproved!";
+        }
+        $this->answer = $answer;
+      }
+    }
+    
     $this->htmlFile = "editProjectList.php";
     $this->projects = $this->retrieveAllProjectsFromDatabase();
   }
@@ -1177,7 +1203,121 @@ class tools extends CoreAuthenticationAdmin {
     $code = $this->loadNewRegexPatternFromUrl($clientDetectionUpdateUrl);
     return trim($this->extractRegexCode($code, "url"));
   }
-
+  
+  public function uploadNotificationsList() {
+    if(isset($_POST['uploadNotificationsAdd'])) {
+      if($this->addUploadNotificationsEMail($_POST['email'])) {
+        $answer = "E-Mail added successfully!";
+      } else {
+        $answer = "Error: could NOT add E-Mail!";
+      }
+      $this->answer = $answer;
+    }
+    
+    if(isset($_POST['uploadNotificationsRemove'])) {
+      if($this->removeUploadNotificationsEMail($_POST['id'])) {
+        $answer = "E-Mail removed successfully!";
+      } else {
+        $answer = "Error: could NOT remove E-Mail!";
+      }
+      $this->answer = $answer;
+    }    
+    
+    $this->htmlFile = "uploadNotificationsList.php";
+    $this->emailList = $this->getUploadNotificationsEMailList();
+  }
+  
+  public function addUploadNotificationsEMail($email) {
+    if(!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      return false;
+    }
+    $query = "EXECUTE insert_uploadnotifications_email('$email');";
+    return @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+  }
+  
+  public function removeUploadNotificationsEMail($id) {
+    $query = "EXECUTE remove_uploadnotifications_email('$id');";
+    return @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+  }
+  
+  public function getUploadNotificationsEMailList() {
+    
+    $result = pg_execute($this->dbConnection, "get_uploadnotifications_email_list", array());
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+          STATUS_CODE_SQL_QUERY_FAILED);
+    }
+    
+    return pg_fetch_all($result);
+  }
+  
+  public function approveProjects() {
+    if(isset($_POST['toggle'])) {
+      if ($_POST['toggle'] == "visible") {
+        if($this->showProject($_POST['projectId'])) {
+          $answer = "The project was succesfully set to state visible!";
+        } else {
+          $answer = "Error could NOT change project to state visible!";
+        }
+        $this->answer = $answer;
+      }
+      if ($_POST['toggle'] == "invisible") {
+        if($this->hideProject($_POST['projectId'])) {
+          $answer = "The project was succesfully set to state invisible!";
+        } else {
+          $answer = "Error could NOT change project to state invisible!";
+        }
+        $this->answer = $answer;
+      }
+    }
+    if(isset($_POST['delete'])) {
+      if($this->deleteProject($_POST['projectId'])) {
+        $answer = "The project was succesfully deleted!";
+      } else {
+        $answer = "Error: could NOT delete the project!";
+      }
+      $this->answer = $answer;
+    }
+    if(isset($_POST['approve'])) {
+      if($this->approveProject($_POST['projectId'])) {
+        $answer = "The project was successfully approved!";
+      } else {
+        $answer = "Error: could NOT approve the project!";
+      }
+      $this->answer = $answer;
+    }
+    
+    $this->htmlFile = "approveProjectsList.php";
+    $this->unapprovedProjects = $this->retrieveAllUnapprovedProjectsFromDatabase();
+  }
+  
+  public function retrieveAllUnapprovedProjectsFromDatabase() {
+    $query = 'EXECUTE get_unapproved_projects;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $words =  pg_fetch_all($result);
+    pg_free_result($result);
+    return($words);
+  }
+  
+  public function approveProject($projectId) {
+    $query = "EXECUTE approve_project(true, '$projectId');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result) {
+      pg_free_result($result);
+    }
+  
+    return $result;
+  }
+  
+  public function unapproveProject($projectId) {
+    $query = "EXECUTE approve_project(false, '$projectId');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result) {
+      pg_free_result($result);
+    }
+    
+    return $result;
+  }
 
   public function __destruct() {
     parent::__destruct();

@@ -34,6 +34,7 @@
   <a id="aAdminToolsThumbnailUploader" href="<?php echo BASE_PATH;?>admin/tools/thumbnailUploader">thumbnail uploader</a><br />
   <a id="aAdminToolsInappropriateProjects" href="<?php echo BASE_PATH;?>admin/tools/inappropriateProjects">inappropriate projects</a><br />
   <a id="aAdminToolsApproveWords" href="<?php echo BASE_PATH;?>admin/tools/approveWords">approve unapproved words</a><br />
+  <a id="aAdminToolsApproveProjects" href="<?php echo BASE_PATH;?>admin/tools/approveProjects">approve unapproved projects</a><br />
   <br />
   <a id="aAdminToolsLanguageManagement" href="<?php echo BASE_PATH;?>admin/languageManagement">manage Languages</a><br />
   <br />
@@ -44,6 +45,7 @@
   <a id="aAdminToolsUpdateBrowserDetection" href="<?php echo BASE_PATH;?>admin/tools/updateBrowserDetection">update browser-detection RegEx-pattern</a><br />
   <br />
   <a id="aAdminToolsSendEmailNotification" href="<?php echo BASE_PATH;?>admin/tools/sendEmailNotification">send e-mail notification</a><br />
+  <a id="aAdminToolsUploadNotificationsList" href="<?php echo BASE_PATH;?>admin/tools/uploadNotificationsList">upload notifications list</a><br />
   <br />
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/index">&lt;- back</a>
   <br /><br />
