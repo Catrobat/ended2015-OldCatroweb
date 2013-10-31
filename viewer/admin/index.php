@@ -30,4 +30,17 @@
   <a id="aProjectUploader" href="<?php echo BASE_PATH;?>admin/projectUploader">Project Uploader</a><br />
   <br />
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>">&lt;- back to catroidweb</a>
+  
+  <br />
+  <br />
+  <?php if($this->numUnapprovedProjects > 0) : ?>
+  
+  <div class="unapprovedProjects">
+    <a id="aAdminApprovedProjects" href="<?php echo BASE_PATH; ?>admin/tools/approveProjects">
+      Unapproved projects: <?php echo $this->numUnapprovedProjects; ?>
+    </a>
+  </div>
+  <?php else : ?>
+  <div class="approvedProjects">All projects approved</div>
+  <?php endif; ?>
 </body>

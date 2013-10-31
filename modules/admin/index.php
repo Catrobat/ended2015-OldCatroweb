@@ -29,11 +29,16 @@ class index extends CoreAuthenticationAdmin {
   }
 
   public function __default() {
-
+    $this->numUnapprovedProjects = $this->getNumUnapprovedProjects();
   }
 
   public function __destruct() {
     parent::__destruct();
+  }
+  
+  public function getNumUnapprovedProjects() {
+    $result = pg_execute($this->dbConnection, "get_unapproved_projects", array());
+    return pg_num_rows($result);
   }
 }
 ?>

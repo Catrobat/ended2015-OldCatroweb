@@ -155,5 +155,8 @@
     <string name="insert_uploadnotifications_email">INSERT INTO upload_notifications (email) VALUES ($1)</string>
     <string name="remove_uploadnotifications_email">DELETE FROM upload_notifications WHERE id=$1</string>
     <string name="get_uploadnotifications_email_list">SELECT * FROM upload_notifications</string>
+    
+    <string name="get_unapproved_projects">SELECT * FROM projects WHERE approved=false ORDER BY projects DESC</string>
+    <string name="approve_project">UPDATE projects SET approved=$1 WHERE projects.id=$2</string>
 
 </statements>

@@ -536,6 +536,30 @@ class tools extends CoreAuthenticationAdmin {
     $this->htmlFile = "editProjectList.php";
     $this->projects = $this->retrieveAllProjectsFromDatabase();
   }
+  
+  public function toggleApprovedProjects() {
+  if(isset($_POST['toggle'])) {
+      if ($_POST['toggle'] == "approve") {
+        if($this->approveProject($_POST['projectId'])) {
+          $answer = "The project was succesfully set to state approved!";
+        } else {
+          $answer = "Error could NOT change project to state approved!";
+        }
+        $this->answer = $answer;
+      }
+      if ($_POST['toggle'] == "unapprove") {
+        if($this->unapproveProject($_POST['projectId'])) {
+          $answer = "The project was succesfully set to state unapproved!";
+        } else {
+          $answer = "Error could NOT change project to state unapproved!";
+        }
+        $this->answer = $answer;
+      }
+    }
+    
+    $this->htmlFile = "editProjectList.php";
+    $this->projects = $this->retrieveAllProjectsFromDatabase();
+  }
 
   public function approveWords() {
     if(isset($_POST['approve'])) {
@@ -1226,7 +1250,74 @@ class tools extends CoreAuthenticationAdmin {
     
     return pg_fetch_all($result);
   }
-
+  
+  public function approveProjects() {
+    if(isset($_POST['toggle'])) {
+      if ($_POST['toggle'] == "visible") {
+        if($this->showProject($_POST['projectId'])) {
+          $answer = "The project was succesfully set to state visible!";
+        } else {
+          $answer = "Error could NOT change project to state visible!";
+        }
+        $this->answer = $answer;
+      }
+      if ($_POST['toggle'] == "invisible") {
+        if($this->hideProject($_POST['projectId'])) {
+          $answer = "The project was succesfully set to state invisible!";
+        } else {
+          $answer = "Error could NOT change project to state invisible!";
+        }
+        $this->answer = $answer;
+      }
+    }
+    if(isset($_POST['delete'])) {
+      if($this->deleteProject($_POST['projectId'])) {
+        $answer = "The project was succesfully deleted!";
+      } else {
+        $answer = "Error: could NOT delete the project!";
+      }
+      $this->answer = $answer;
+    }
+    if(isset($_POST['approve'])) {
+      if($this->approveProject($_POST['projectId'])) {
+        $answer = "The project was successfully approved!";
+      } else {
+        $answer = "Error: could NOT approve the project!";
+      }
+      $this->answer = $answer;
+    }
+    
+    $this->htmlFile = "approveProjectsList.php";
+    $this->unapprovedProjects = $this->retrieveAllUnapprovedProjectsFromDatabase();
+  }
+  
+  public function retrieveAllUnapprovedProjectsFromDatabase() {
+    $query = 'EXECUTE get_unapproved_projects;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $words =  pg_fetch_all($result);
+    pg_free_result($result);
+    return($words);
+  }
+  
+  public function approveProject($projectId) {
+    $query = "EXECUTE approve_project(true, '$projectId');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result) {
+      pg_free_result($result);
+    }
+  
+    return $result;
+  }
+  
+  public function unapproveProject($projectId) {
+    $query = "EXECUTE approve_project(false, '$projectId');";
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    if($result) {
+      pg_free_result($result);
+    }
+    
+    return $result;
+  }
 
   public function __destruct() {
     parent::__destruct();
