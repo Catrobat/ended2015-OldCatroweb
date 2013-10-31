@@ -24,6 +24,8 @@
 
 class upload extends CoreAuthenticationDevice {
   private $uploadState;
+  private $allowed_file_endings = Array(".png",".jpg",".jpeg",".xml", ".spf", ".catroid",".mp3",".wav",".mid",".nomedia");
+  private $allowed_unlinked_files = Array("automatic_screenshot.png","manual_screenshot.png","screenshot.png");
 
   public function __construct() {
     parent::__construct();
@@ -60,6 +62,8 @@ class upload extends CoreAuthenticationDevice {
       $projectInformation = $this->getProjectInformation($xmlFile, $formData);
       $this->checkValidCatrobatVersion($projectInformation['versionName']);
       $this->checkValidCatrobatCode($projectInformation['versionCode']);
+      $this->checkValidFileExtensions($projectInformation["files"]);
+      $this->compareXMLAndProjectFiles($projectInformation["files"],CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique . '/');
       $this->checkValidProjectTitle($projectInformation['projectTitle']);
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
@@ -190,6 +194,22 @@ class upload extends CoreAuthenticationDevice {
     chmodDir($destDir, 0666, 0777);
     $this->setState('remove_dirs', $destDir);
   }
+  
+  private function getFilesInDirectoryRecursive($dir) {
+    $fileList = array();
+  
+      foreach (scandir($dir) as $file) {
+        if ($file !== '.' and $file !== '..') {
+          if (is_dir("$dir/$file")) {
+            $fileList = array_merge($fileList, $this->getFilesInDirectoryRecursive("$dir/$file"));
+          } else {
+            $fileList[] = $file;
+          }
+        }
+      }
+  
+    return $fileList;
+  }
 
   private function getProjectXmlFile($unzipDir) {
     $dirHandler = opendir($unzipDir);
@@ -215,6 +235,17 @@ class upload extends CoreAuthenticationDevice {
     $versionCode = current($node[0]->catrobatLanguageVersion);
     $projectTitle = current($node[0]->programName);
     $projectDescription = current($node[0]->description);
+    
+    $fileArray = Array();
+    $fileNameTags = Array("//fileName","//FileName","//imageName","//soundfileName");
+    foreach($fileNameTags as $fileNameTag)
+    {
+      $includedFiles = $xml->xpath($fileNameTag);
+      foreach($includedFiles as $fileString)
+      {
+        array_push($fileArray, $fileString);
+      }
+    }
     
     // workaround for temporary xml file
     if(!$versionName) {
@@ -254,6 +285,8 @@ class upload extends CoreAuthenticationDevice {
 
     $visible = $this->checkVisible(((isset($formData['visible'])) ? checkUserInput($formData['visible']) : 't'));
     
+    
+    
     return(array(
         "projectTitle"       => $projectTitle,
         "projectDescription" => $projectDescription,
@@ -261,10 +294,59 @@ class upload extends CoreAuthenticationDevice {
         "versionCode"        => $versionCode,
         "uploadIp"           => $uploadIp,
         "uploadLanguage"     => $uploadLanguage,
-        "visible"            => $visible
+        "visible"            => $visible,
+        "files"              => $fileArray
     ));
   }
 
+  private function checkValidFileExtensions($fileArray)
+  {
+    foreach($fileArray as $fileString)
+    { 
+      $fileEnding = strstr($fileString, ".");
+      if($fileEnding !== FALSE && !in_array($fileEnding,$this->allowed_file_endings))
+      {
+        throw new Exception($this->errorHandler->getError('upload', 'invalid_project_file',$fileString), STATUS_CODE_UPLOAD_INVALID_FILE_EXTENSION);
+      }
+    }
+  }
+  
+  private function compareXMLAndProjectFiles($xmlFiles,$procetDirectory)
+  {
+    $projectFiles = $this->getFilesInDirectoryRecursive($procetDirectory);
+    $nonexistingFiles = array_diff($xmlFiles, $projectFiles);
+    if(count($nonexistingFiles) > 0)
+    {
+      throw new Exception($this->errorHandler->getError('upload', 'linked_project_file_not_found',"Files not in ProjectFolder: ".implode(",", $nonexistingFiles)), STATUS_CODE_UPLOAD_LINKED_FILE_NOT_FOUND);
+    }
+    
+    $nonlinkedFiles = array_diff($projectFiles, $xmlFiles);
+    
+    $projectFileIndex = array_search(basename($this->getProjectXmlFile($procetDirectory)),$nonlinkedFiles);
+    if($projectFileIndex !== FALSE){
+      unset($nonlinkedFiles[$projectFileIndex]);
+    }
+    
+    foreach(array_keys($nonlinkedFiles,".nomedia") as $shadowFile)
+    {
+      if($shadowFile !== FALSE){
+        unset($nonlinkedFiles[$shadowFile]);
+      }
+    }
+    
+    foreach($this->allowed_unlinked_files as $allowedFile)
+    {
+      $projectFileIndex = array_search($allowedFile,$nonlinkedFiles);
+      if($projectFileIndex !== FALSE){
+          unset($nonlinkedFiles[$projectFileIndex]);
+      }
+    }
+    if(count($nonlinkedFiles) > 0)
+    {
+      throw new Exception($this->errorHandler->getError('upload', 'unlinked_project_file',"Files in XML: ".print_r($xmlFiles)." Files not in XML: ".implode(",",$nonlinkedFiles)), STATUS_CODE_UPLOAD_UNLINKED_EXISTING_FILE);
+    }
+  }
+  
   private function checkValidCatrobatVersion($versionName) {
     if(version_compare($versionName, MIN_CATROBAT_VERSION) < 0) {
       throw new Exception($this->errorHandler->getError('upload', 'old_catrobat_version'), STATUS_CODE_UPLOAD_OLD_CATROBAT_VERSION);

@@ -79,7 +79,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
     $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
 
-    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertEquals(200, $this->upload->statusCode,"not 200, error-message: ".$this->upload->answer);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
 
@@ -156,7 +156,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
     $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
   
-    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertEquals(200, $this->upload->statusCode,"not 200, error-message: ".$this->upload->answer);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
   
@@ -590,7 +590,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $insertId = $this->upload->projectId;
     $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
 
-    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertEquals(200, $this->upload->statusCode,"not 200, error-message: ".$this->upload->answer);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
     $this->assertTrue($this->upload->projectId > 0);

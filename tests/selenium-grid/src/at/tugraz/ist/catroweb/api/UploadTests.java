@@ -44,7 +44,7 @@ public class UploadTests extends BaseTest {
       String response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.7.3beta.catrobat", "8ecb0b576e76843c81124415d67b2ccb", "", "", "", ""));
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
-      assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      assertEquals("200 was expected, message was: "+CommonFunctions.getValueFromJSONobject(response, "answer"),"200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       
       openLocation("details/" + id);
       assertTrue(containsElementText(By.id("projectDetailsProjectTitle"), title.toUpperCase()));
@@ -130,7 +130,7 @@ public class UploadTests extends BaseTest {
   public void uploadInvalidProjects(HashMap<String, String> dataset) throws Throwable {
     try {
       String response = projectUploader.upload(dataset);
-      assertEquals(dataset.get("expected"), CommonFunctions.getValueFromJSONobject(response, "statusCode"));
+      assertEquals("expected StatusCode:"+dataset.get("expected")+", got "+CommonFunctions.getValueFromJSONobject(response, "statusCode")+" Error: "+CommonFunctions.getValueFromJSONobject(response, "answer"),dataset.get("expected"), CommonFunctions.getValueFromJSONobject(response, "statusCode"));
       openLocation();
       ajaxWait();
       assertProjectNotPresent(dataset.get("projectTitle"));
