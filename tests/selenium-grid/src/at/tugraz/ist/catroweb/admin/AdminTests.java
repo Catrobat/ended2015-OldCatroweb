@@ -308,7 +308,7 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("Unapproved projects: "));
       driver().findElement(By.id("aAdminApprovedProjects")).click();
       ajaxWait();
-      assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
+      assertTrue(isTextPresent("Administration Tools - List of unapproved projects"));
       clickOkOnNextConfirmationBox();
       driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[6]/form/input[3]")).click();
       ajaxWait();
