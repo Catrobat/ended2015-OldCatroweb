@@ -91,6 +91,9 @@
         <string name="invalid_media_license">Invalid media license!</string>
         <string name="invalid_program_license">Invalid program license!</string>
         <string name="visibility_incorrect">The visibility is incorrect!</string>
+        <string name="invalid_project_file">User tried to upload some file with wrong extension</string>
+        <string name="linked_project_file_not_found">Project XML metions a file which not exists in project-folder</string>
+        <string name="unlinked_project_file">Project contains files which are not mentioned in the XML</string>
     </upload>
     <download>
     	<string name="file_not_found">Could not find requested file on server</string>

@@ -164,21 +164,20 @@ class languageTest extends PHPUnit_Framework_TestCase {
       }
     }
     
+    $this->walkThroughDirectory(CORE_BASE_PATH.'viewer/');
     foreach($foundError as $key => $tuple) {
       $errorType = $tuple[0];
       $errorName = $tuple[1];
       
-      $this->walkThroughDirectory(CORE_BASE_PATH.'viewer/');
-
       foreach($this->file_listing as $module=>$files) {
         foreach($files as $file) {
           $moduleFile = CORE_BASE_PATH.MODULE_PATH.$module.'/'.$file;
           $viewerFile = CORE_BASE_PATH.VIEWER_PATH.$module.'/'.$file;
 
-          if(preg_match("/'".$errorType."', '".$errorName."'/i", $this->getFileContent($moduleFile))) {
+          if(preg_match("/'".$errorType."', ?'".$errorName."'/i", $this->getFileContent($moduleFile))) {
             $foundError[$key][2] = true;
             break;
-          } else if(preg_match("/'".$errorType."', '".$errorName."'/i", $this->getFileContent($viewerFile))) {
+          } else if(preg_match("/'".$errorType."', ?'".$errorName."'/i", $this->getFileContent($viewerFile))) {
             $foundError[$key][2] = true;
             break;
           }
@@ -191,7 +190,7 @@ class languageTest extends PHPUnit_Framework_TestCase {
       if(!$foundError[$key][2]) {
         foreach($classFileListing as $file) {
           $classFile = CORE_BASE_PATH.CLASS_PATH.$file;
-          if(preg_match("/'".$errorType."', '".$errorName."'/i", $this->getFileContent($classFile))) {
+          if(preg_match("/'".$errorType."', ?'".$errorName."'/i", $this->getFileContent($classFile))) {
             $foundError[$key][2] = true;
             break;
           }
@@ -203,7 +202,7 @@ class languageTest extends PHPUnit_Framework_TestCase {
       if(!$tuple[2]) {
         echo "\nThe error type '".$tuple[0]."' message '".$tuple[1]."' was never used from:\n".$errorDevFile."\n";  
       }
-      $this->assertTrue($tuple[2]);
+      $this->assertTrue($tuple[2],"Errormessage ".$tuple[1]." was never used");
     }
   }
 
@@ -237,6 +236,7 @@ class languageTest extends PHPUnit_Framework_TestCase {
               
               foreach($foundString as $key => $pair) {
                 $string = $pair[0];
+                $string = preg_replace("~(\d+)~","(\..*\.)|($1)",$string);
                 if(preg_match("/getString\('".$string."'/i", $this->getFileContent($moduleFile))) {
                   $foundString[$key][1] = true;
                 } else {

@@ -52,13 +52,13 @@ fi
 #-------------------------------------------------------------------------------
 if [ $status_login -eq 0 ]
 then
-  catroweb_upload=$(curl --form upload=@testdata/test.zip --form projectTitle=Monitoring --form token=31df676f845b4ce9908f7a716a7bfa50 --form username=catroweb --form fileChecksum=d20c3ca0d3cd601582510fe6aca3ad0e --form visible=f $HOST/api/upload/upload.json 2>&1)
+  md5=`md5sum ./testdata/test.zip | awk '{ print $1 }'`
+  catroweb_upload=$(curl --form upload=@testdata/test.zip --form projectTitle=Monitoring --form token=31df676f845b4ce9908f7a716a7bfa50 --form username=catroweb --form fileChecksum=$md5 --form visible=f $HOST/api/upload/upload.json 2>&1)
 
 #check for success?
   grep -q \"statusCode\":200 <<< "$catroweb_upload"
 
   status_upload=$?
-
 #get project id from response "projectId":"322"
   PROJECTID=$(echo $catroweb_upload | sed -e 's/.*projectId":"//' | sed -e 's/\([0-9]\+\)\(.*\)/\1/')
 else

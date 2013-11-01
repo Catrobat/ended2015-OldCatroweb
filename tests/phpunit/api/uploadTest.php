@@ -79,7 +79,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
     $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
 
-    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertEquals(200, $this->upload->statusCode,"not 200, error-message: ".$this->upload->answer);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
 
@@ -156,7 +156,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
     $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
   
-    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertEquals(200, $this->upload->statusCode,"not 200, error-message: ".$this->upload->answer);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
   
@@ -590,7 +590,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $insertId = $this->upload->projectId;
     $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
 
-    $this->assertEquals(200, $this->upload->statusCode);
+    $this->assertEquals(200, $this->upload->statusCode,"not 200, error-message: ".$this->upload->answer);
     $this->assertNotEquals(0, $insertId);
     $this->assertTrue(is_file($filePath));
     $this->assertTrue($this->upload->projectId > 0);
@@ -880,17 +880,33 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $invalidFileName = 'nonExistingFile.zip';
     $corruptFileName = 'test_invalid_projectfile.zip';
     $oldVersionFileName = 'test0.3.catrobat';
+    $tooManyFilesFileName = 'test_toomanyfiles.zip';
+    $tooFewFilesFileName = 'test_toofewfiles.zip';
+    $wrongExtensionFileName = 'test_wrongextensionfile.zip';
+    
     $validTestFile = dirname(__FILE__) . '/testdata/' . $validFileName;
     $invalidTestFile = dirname(__FILE__) . '/testdata/' . $invalidFileName;
     $corruptTestFile = dirname(__FILE__) . '/testdata/' . $corruptFileName;
     $oldVersionFile = dirname(__FILE__) . '/testdata/' . $oldVersionFileName;
+    $tooManyFilesFile = dirname(__FILE__) . '/testdata/' . $tooManyFilesFileName;
+    $tooFewFilesFile = dirname(__FILE__) . '/testdata/' . $tooFewFilesFileName;
+    $wrongExtensionFile = dirname(__FILE__) . '/testdata/' . $wrongExtensionFileName;
+    
     $validFileChecksum = md5_file($validTestFile);
     $corruptFileChecksum = md5_file($corruptTestFile);
     $invalidFileChecksum = 'invalidfilechecksum';
     $oldVersionFileChecksum = md5_file($oldVersionFile);
+    $tooManyFilesFileChecksum = md5_file($tooManyFilesFile);
+    $tooFewFilesFileChecksum = md5_file($tooFewFilesFile);
+    $wrongExtensionFileChecksum = md5_file($wrongExtensionFile);
+    
     $validFileSize = filesize($validTestFile);
     $corruptFileSize = filesize($corruptTestFile);
     $oldVersionFileSize = filesize($oldVersionFile);
+    $tooManyFilesFileSize = filesize($tooManyFilesFile);
+    $tooFewFilesFileSize = filesize($tooFewFilesFile);
+    $wrongExtensionFileSize = filesize($wrongExtensionFile);
+    
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
         array('uploadTestFail1', 'this project uses a non existing file for upload', $invalidTestFile, $invalidFileName, $validFileChecksum, 0, $fileType, STATUS_CODE_UPLOAD_MISSING_DATA),
@@ -907,6 +923,9 @@ class uploadTest extends PHPUnit_Framework_TestCase
         array('<!-- abc -->', 'this project should also have an empty project title after being cleaned.".', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
         array('  ', 'phpuploadtest with tab in project title".', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
         array('    ', 'phpuploadtest with tab, LF, CR, in project title".', $validTestFile, $validFileName, $validFileChecksum, $validFileSize, $fileType, STATUS_CODE_UPLOAD_MISSING_PROJECT_TITLE),
+        array('uploadTestFail11','this project contains not in xml mentioned files',$tooManyFilesFile,$tooManyFilesFileName,$tooManyFilesFileChecksum,$tooManyFilesFileSize,$fileType,STATUS_CODE_UPLOAD_UNLINKED_EXISTING_FILE),
+        array('uploadTestFail11','files mentioned in xml are not existing',$tooFewFilesFile,$tooFewFilesFileName,$tooFewFilesFileChecksum,$tooFewFilesFileSize,$fileType,STATUS_CODE_UPLOAD_LINKED_FILE_NOT_FOUND),
+        array('uploadTestFail11','files in zip having not supported extension',$wrongExtensionFile,$wrongExtensionFileName,$wrongExtensionFileChecksum,$wrongExtensionFileSize,$fileType,STATUS_CODE_UPLOAD_INVALID_FILE_EXTENSION),
     );
     return $dataArray;
   }
