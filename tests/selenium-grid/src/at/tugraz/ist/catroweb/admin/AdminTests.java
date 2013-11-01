@@ -302,7 +302,7 @@ public class AdminTests extends BaseTest {
       assertTrue(isTextPresent("approve unapproved projects"));
       driver().findElement(By.id("aAdminToolsApproveProjects")).click();
       ajaxWait();
-      assertTrue(isTextPresent("Administration Tools - List of inappropriate projects"));
+      assertTrue(isTextPresent("Administration Tools - List of unapproved projects"));
       
       openAdminLocation();
       assertTrue(isTextPresent("Unapproved projects: "));
