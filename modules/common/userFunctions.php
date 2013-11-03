@@ -22,23 +22,17 @@
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-define('IN_PHPBB', true);
-global $phpbb_root_path, $phpEx, $user, $db, $config, $cache, $template, $auth;
-$phpbb_root_path = (defined('PHPBB_ROOT_PATH')) ? PHPBB_ROOT_PATH : CORE_BASE_PATH . 'addons/board/';
+
+global $phpEx, $user, $db, $config, $cache, $template, $auth;
 $phpEx = substr(strrchr(__FILE__, '.'), 1);
-require_once($phpbb_root_path . 'common.' . $phpEx);
-require_once($phpbb_root_path . 'includes/functions_user.' . $phpEx);
+
 
 class userFunctions extends CoreAuthenticationNone {
   protected $registerCatroidId;
-  protected $registerBoardId;
-  protected $registerWikiId;
 
   public function __construct() {
     parent::__construct();
     $this->registerCatroidId = 0;
-    $this->registerBoardId = 0;
-    $this->registerWikiId = 0;
   }
 
   public function __default() {
@@ -390,74 +384,6 @@ class userFunctions extends CoreAuthenticationNone {
         STATUS_CODE_AUTHENTICATION_FAILED);
   }
 
-  private function loginBoard($username, $password) {
-    if(!$this->checkLoginData($username, $this->hashPassword($username, $password))) {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'password_or_username_wrong'),
-          STATUS_CODE_AUTHENTICATION_FAILED);
-    }
-    
-    global $auth, $db, $user;
-    $db->sql_connect(DB_HOST_BOARD, DB_USER_BOARD, DB_PASS_BOARD, DB_NAME_BOARD, '', false, defined('PHPBB_DB_NEW_LINK') ? PHPBB_DB_NEW_LINK : false);
- 	  $user->session_begin();
- 	  $auth->acl($user->data);
- 	  $user->setup();
- 	  
- 	  $auth->login($username, $password, false, 1);
- 	  if(intval($user->data['user_id']) <= 0) {
- 	    throw new Exception($this->errorHandler->getError('userFunctions', 'board_authentication_failed'),
- 	        STATUS_CODE_AUTHENTICATION_FAILED);
- 	  }
-  }
-
-  private function loginWiki($username, $password) {
-    if(!$this->checkLoginData($username, $this->hashPassword($username, $password))) {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'password_or_username_wrong'),
-          STATUS_CODE_AUTHENTICATION_FAILED);
-    }
-
-    require_once(CORE_BASE_PATH . 'include/lib/Snoopy.php');
-    $snoopy = new Snoopy();
-    $snoopy->curl_path = false;
-    $wikiroot = BASE_PATH . 'addons/mediawiki';
-    $apiUrl = $wikiroot . "/api.php";
-
-    $loginVars['action'] = "login";
-    //wiki login needs first letter capitalized
-    $loginVars['lgname'] = mb_convert_case($this->cleanUsername($username), MB_CASE_TITLE, "UTF-8");
-    $loginVars['lgpassword'] = $password;
-    $loginVars['format'] = "php";
-
-    $snoopy->submit($apiUrl, $loginVars);
-    $response = unserialize($snoopy->results);
-    if(!isset($response['login']['result']) || !isset($response['login']['token']) ||
-        !isset($response['login']['cookieprefix']) || !isset($response['login']['sessionid'])) {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'wiki_api_response_incorrect', $snoopy->results),
-          STATUS_CODE_AUTHENTICATION_FAILED);
-    }
-
-    $loginVars['lgtoken'] = $response['login']['token'];
-    $cookiePrefix = $response['login']['cookieprefix'];
-    $snoopy->cookies[$cookiePrefix . "_session"] = $response['login']['sessionid'];
-
-    $snoopy->submit($apiUrl, $loginVars);
-    $response = unserialize($snoopy->results);
-
-    if(!isset($response['login']['result']) || !isset($response['login']['lgtoken']) ||
-        !isset($response['login']['cookieprefix']) || !isset($response['login']['lgusername']) ||
-        !isset($response['login']['lgtoken']) || !isset($response['login']['sessionid'])) {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'wiki_api_response_incorrect', $snoopy->results),
-          STATUS_CODE_AUTHENTICATION_FAILED);
-    }
-
-    $cookieExpire = 0;//time() + (60*60*24*2);
-    $cookieDomain = '';
-
-    setcookie($cookiePrefix . 'UserName', $response['login']['lgusername'], $cookieExpire, "/", $cookieDomain, false, true);
-    setcookie($cookiePrefix . 'UserID', $response['login']['lguserid'], $cookieExpire, "/", $cookieDomain, false, true);
-    setcookie($cookiePrefix . 'Token', $response['login']['lgtoken'], $cookieExpire, "/", $cookieDomain, false, true);
-    setcookie($cookiePrefix . '_session', $response['login']['sessionid'], 0, "/", $cookieDomain, false, true);
-  }
-
   private function setUserLanguage($userId) {
     $result = pg_execute($this->dbConnection, "get_user_language", array($userId));
 
@@ -476,8 +402,6 @@ class userFunctions extends CoreAuthenticationNone {
 
   public function logout() {
     $this->logoutCatroid();
-    //$this->logoutBoard();
-    //$this->logoutWiki();
   }
 
   private function logoutCatroid() {
@@ -485,38 +409,6 @@ class userFunctions extends CoreAuthenticationNone {
     $this->session->userLogin_userNickname = '';
     $this->session->userLogin_userAvatar = '';
     $this->session->adminUser = false;
-  }
-
-  private function logoutBoard() {
-    global $auth, $db, $user;
-    $db->sql_connect(DB_HOST_BOARD, DB_USER_BOARD, DB_PASS_BOARD, DB_NAME_BOARD, '', false, defined('PHPBB_DB_NEW_LINK') ? PHPBB_DB_NEW_LINK : false);
-    $user->session_begin();
-    $auth->acl($user->data);
-    $user->setup();
-    $user->session_kill();
-  }
-
-  private function logoutWiki() {
-    require_once(CORE_BASE_PATH . 'include/lib/Snoopy.php');
-    $snoopy = new Snoopy();
-    $snoopy->curl_path = false;
-    $wikiroot = BASE_PATH.'addons/mediawiki';
-    $apiUrl = $wikiroot . "/api.php?action=logout";
-
-    $logoutVars['action'] = "logout";
-    $snoopy->submit($apiUrl, $logoutVars);
-    $response = $snoopy->results;
-
-    $now = date('YmdHis', time());
-    $cookieExpires = time() + (60*60*24*2);
-    $cookieExpired = time() - (60*60*24*2);
-    $cookieDomain = '';
-
-    setcookie('catrowikiLoggedOut', $now, $cookieExpires, "/", $cookieDomain, false, true);
-    setcookie('catrowiki_session', '', $cookieExpired, "/", $cookieDomain, false, true);
-    setcookie('catrowikiUserID', '', $cookieExpired, "/", $cookieDomain, false, true);
-    setcookie('catrowikiUserName', '', $cookieExpired, "/", $cookieDomain, false, true);
-    setcookie('catrowikiToken', '', $cookieExpired, "/", $cookieDomain, false, true);
   }
 
   public function register($postData) {
@@ -527,8 +419,6 @@ class userFunctions extends CoreAuthenticationNone {
       $this->checkCountry($postData['registrationCountry']);
        
       $this->registerCatroidId = $this->registerCatroid($postData);
-      //$this->registerBoardId = $this->registerBoard($postData);
-      //$this->registerWikiId = $this->registerWiki($postData);
       	
       $this->sendRegistrationEmail($postData);
     } catch(Exception $e) {
@@ -565,71 +455,6 @@ class userFunctions extends CoreAuthenticationNone {
 
     return $row['id'];
   }
-
-  private function registerBoard($postData) {
-    global $auth, $db, $phpbb_root_path, $user;
-    $db->sql_connect(DB_HOST_BOARD, DB_USER_BOARD, DB_PASS_BOARD, DB_NAME_BOARD, '', false, defined('PHPBB_DB_NEW_LINK') ? PHPBB_DB_NEW_LINK : false);
-    $user->session_begin();
-    $auth->acl($user->data);
-    $user->setup();
-
-    $username = checkUserInput($postData['registrationUsername']);
-    $password = md5($postData['registrationPassword']);
-    $email = checkUserInput($postData['registrationEmail']);
-
-    $user_row = array(
-        'username' => $username,
-        'user_password' => $password,
-        'user_email' => '', //$email,
-        'group_id' => '2',
-        'user_timezone' => '0',
-        'user_dst' => '0',
-        'user_lang' => 'en',
-        'user_type' => '0',
-        'user_actkey' => '',
-        'user_dateformat' => 'D M d, Y g:i a',
-        'user_style' => '1',
-        'user_regdate' => time()
-    );
-
-    if($phpbb_user_id = user_add($user_row)) {
-      return $phpbb_user_id;
-    } else {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'board_registration_failed'),
-          STATUS_CODE_USER_REGISTRATION_FAILED);
-    }
-  }
-
-  private function registerWiki($postData) {
-    $wikiDbConnection = pg_connect("host=" . DB_HOST_WIKI . " dbname=" . DB_NAME_WIKI . " user=" . DB_USER_WIKI .
-        " password=" . DB_PASS_WIKI);
-    if(!$wikiDbConnection) {
-      throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_SQL_QUERY_FAILED);
-    }
-
-    $username = checkUserInput($postData['registrationUsername']);
-    $username = $this->cleanUsername($username);
-    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
-    $userToken = md5($username);
-    $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
-    $hash = md5($hexSalt . '-' . md5($postData['registrationPassword']));
-    $password = ":B:$hexSalt:$hash";
-
-    pg_prepare($wikiDbConnection, "add_wiki_user", "INSERT INTO mwuser (user_name, user_token, user_password, user_registration) VALUES (\$1, \$2, \$3, now()) RETURNING user_id");
-    $result = pg_execute($wikiDbConnection, "add_wiki_user", array($username, $userToken, $password));
-    pg_query($wikiDbConnection, 'DEALLOCATE add_wiki_user');
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_SQL_QUERY_FAILED);
-    }
-
-    $row = pg_fetch_assoc($result);
-    pg_free_result($result);
-    pg_close($wikiDbConnection);
-
-    return $row['user_id'];
-  }
   
   public function generateAuthenticationToken() {
     $authToken = $this->randomString(32);
@@ -652,8 +477,6 @@ class userFunctions extends CoreAuthenticationNone {
 
   public function undoRegister() {
     $this->undoRegisterCatroid();
-    //$this->undoRegisterBoard();
-    //$this->undoRegisterWiki();
   }
 
   private function undoRegisterCatroid() {
@@ -663,34 +486,6 @@ class userFunctions extends CoreAuthenticationNone {
         pg_free_result($result);
       }
       $this->registerCatroidId = 0;
-    }
-  }
-
-  private function undoRegisterBoard() {
-    if($this->registerBoardId != 0) {
-      global $auth, $db, $phpbb_root_path, $user;
-      $db->sql_connect(DB_HOST_BOARD, DB_USER_BOARD, DB_PASS_BOARD, DB_NAME_BOARD, '', false, defined('PHPBB_DB_NEW_LINK') ? PHPBB_DB_NEW_LINK : false);
-      $user->session_begin();
-      $auth->acl($user->data);
-      $user->setup();
-       
-      user_delete('remove', $this->registerBoardId);
-      $this->registerBoardId = 0;
-    }
-  }
-
-  private function undoRegisterWiki() {
-    if($this->registerWikiId != 0) {
-      $wikiDbConnection = pg_connect("host=" . DB_HOST_WIKI . " dbname=" . DB_NAME_WIKI . " user=" . DB_USER_WIKI .
-          " password=" . DB_PASS_WIKI);
-       
-      pg_prepare($wikiDbConnection, "delete_wiki_user", "DELETE FROM mwuser WHERE user_id=$1");
-      $result = pg_execute($wikiDbConnection, "delete_wiki_user", array($this->registerWikiId));
-      if($result) {
-        pg_free_result($result);
-      }
-      pg_close($wikiDbConnection);
-      $this->registerWikiId = 0;
     }
   }
 
@@ -824,43 +619,6 @@ class userFunctions extends CoreAuthenticationNone {
           STATUS_CODE_SQL_QUERY_FAILED);
     }
     pg_free_result($result);
-  }
-
-  private function updateBoardPassword($username, $password) {
-    global $db;
-    $db->sql_connect(DB_HOST_BOARD, DB_USER_BOARD, DB_PASS_BOARD, DB_NAME_BOARD, '', false, defined('PHPBB_DB_NEW_LINK') ? PHPBB_DB_NEW_LINK : false);
-    $password = phpbb_hash($password);
-
-    $sql = "UPDATE phpbb_users SET user_password='" . $password . "',
-    user_pass_convert = 0 WHERE username_clean='" . $username . "'";
-
-    if(!$db->sql_query($sql)) {
-      throw new Exception($this->errorHandler->getError('userFunctions', 'password_new_board_update_failed'),
-          STATUS_CODE_USER_NEW_PASSWORD_BOARD_UPDATE_FAILED);
-    }
-  }
-
-  private function updateWikiPassword($username, $password) {
-    $wikiDbConnection = pg_connect("host=" . DB_HOST_WIKI . " dbname=" . DB_NAME_WIKI . " user=" . DB_USER_WIKI .
-        " password=" . DB_PASS_WIKI);
-    if(!$wikiDbConnection) {
-      throw new Exception($this->errorHandler->getError('db', 'connection_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_SQL_CONNECTION_FAILED);
-    }
-
-    $username = mb_convert_case($username, MB_CASE_TITLE, "UTF-8");
-    $hexSalt = sprintf("%08x", mt_rand(0, 0x7fffffff));
-    $hash = md5($hexSalt.'-'.md5($password));
-    $password = ":B:$hexSalt:$hash";
-
-    pg_prepare($wikiDbConnection, "update_wiki_user_password", "UPDATE mwuser SET user_password=$1 WHERE user_name=$2");
-    $result = pg_execute($wikiDbConnection, "update_wiki_user_password", array($password, $username));
-    if(!$result) {
-      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
-          STATUS_CODE_SQL_QUERY_FAILED);
-    }
-    pg_free_result($result);
-    pg_close($wikiDbConnection);
   }
 
   public function updateAuthenticationToken() {
@@ -1177,8 +935,12 @@ class userFunctions extends CoreAuthenticationNone {
   }
   
   private function cleanUsername($username) {
-    $username_clean = utf8_clean_string(trim($username));
-    return $username_clean;
+    //TODO: include
+    //$username_clean = normalize($username,Normalizer::FORM_KC);
+    $username_clean = preg_replace('#(?:[\x00-\x1F\x7F]+|(?:\xC2[\x80-\x9F])+)#', '', $username_clean);
+    $username_clean = preg_replace('# {2,}#', ' ', $username_clean);
+    
+    return trim($username_clean);
   }
   
   private function randomString($length=8) {
