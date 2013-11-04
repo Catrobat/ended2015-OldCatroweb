@@ -411,6 +411,17 @@ public class RegistrationTests extends BaseTest {
         put("registrationGender", "female");
         put("expectedError", "This username already exists.");
       }
+    } }, { new HashMap<String, String>() {
+      {
+        put("registrationUsername", "anonymous@selenium.com");
+        put("registrationPassword", "validPassword");
+        put("registrationEmail", "testuser@selenium.com");
+        put("registrationCountry", "Austria");
+        put("registrationMonth", "February");
+        put("registrationYear", "2008");
+        put("registrationGender", "female");
+        put("expectedError", "Your username may not be an email address.");
+      }
     } } };
     return dataArray;
   }

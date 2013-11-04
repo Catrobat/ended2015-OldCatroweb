@@ -81,7 +81,7 @@ class search extends CoreAuthenticationNone {
     
     $this->jsParams = "'" . addslashes(json_encode($params)) . "'";
     $this->setWebsiteTitle($this->languageHandler->getString('header') . " - " . 
-        strval($_REQUEST['q']) . " - " . $this->session->searchPageNr);
+        htmlspecialchars(strval($_REQUEST['q'])) . " - " . $this->session->searchPageNr);
   }
   
   public function __destruct() {

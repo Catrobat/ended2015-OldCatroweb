@@ -154,6 +154,10 @@ class userFunctions extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_spaces'),
           STATUS_CODE_USER_USERNAME_INVALID_CHARACTER);
     }
+    if(filter_var($username, FILTER_VALIDATE_EMAIL)) {
+      throw new Exception($this->errorHandler->getError('userFunctions', 'username_is_email_address'),
+          STATUS_CODE_USER_NAME_IS_EMAIL_ADDRESS);
+    }
 
     if($this->badWordsFilter->areThereInsultingWords($username)) {
       throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_insulting_words'),
