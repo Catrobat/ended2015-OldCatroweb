@@ -344,6 +344,32 @@ public class AdminTests extends BaseTest {
     }
   }
   
+  @Test(groups = { "functionality", "approveProjectslist" }, description = "check approve projects list")
+  public void showProjectsContent() throws Throwable {
+    try {
+      CommonFunctions.setAllProjectsToUnapproved();
+      
+      openAdminLocation();
+      driver().findElement(By.id("aAdministrationTools")).click();
+      assertTrue(isTextPresent("approve unapproved projects"));
+      driver().findElement(By.id("aAdminToolsApproveProjects")).click();
+      assertTrue(isTextPresent("Administration Tools - List of unapproved projects"));
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[7]/form/input[3]")).click();
+      assertTrue(isTextPresent("Images"));
+      assertTrue(isTextPresent("Strings"));
+      assertTrue(isTextPresent("Sounds"));
+            
+      CommonFunctions.setAllProjectsToUnapproved();
+      
+    } catch(AssertionError e) {
+      captureScreen("AdminTests.approveProjectsList");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("AdminTests.approveProjectsList");
+      throw e;
+    }
+  }
+  
   @SuppressWarnings("serial")
   @DataProvider(name = "validRegistrationData")
   public Object[][] validRegistrationData() {

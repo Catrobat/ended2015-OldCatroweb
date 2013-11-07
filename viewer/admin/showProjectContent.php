@@ -1,0 +1,104 @@
+<?php
+/*
+ * Catroid: An on-device visual programming system for Android devices
+ * Copyright (C) 2010-2013 The Catrobat Team
+ * (<http://developer.catrobat.org/credits>)
+ * 
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ * 
+ * An additional term exception under section 7 of the GNU Affero
+ * General Public License, version 3, is available at
+ * http://developer.catrobat.org/license_additional_term
+ * 
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU Affero General Public License for more details.
+ * 
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+?>
+
+<body>
+  <script type="text/javascript">
+    function submitApproveForm(id, title) {
+      if(confirm("Approve project "+title+"?"))
+        document.getElementById(id).submit();
+    }
+  </script>
+  <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
+  <?php if($this->answer) {
+    echo 'Answer:<br/>'.$this->answer.'<br /><br/>';
+  }?>
+  <h1><?php echo $this->projectTitle?></h1>
+  <div>
+  <form id="nextform<?php echo $this->projectId?>" class="admin" action="showProjectsContent" method="POST">
+    <input type="hidden" name="projectId" value="<?php echo ($this->projectId)?>"/>
+    <input  type = <?= sizeof($this->unapprovedProjects) == 1 ? "hidden" : "submit"?> value="Next" name="nextProject" id="next<?php echo $project['id']?>" >
+  </form>  
+  <form id="approveform<?php echo $this->projectId?>" class="admin" action="showProjectsContent" method="POST">
+    <input type="hidden" name="projectId" value="<?php echo $this->projectId?>"/>
+    <input type="hidden" name="approve" value="approve"/>
+    <input type="button" value="Approve" name="approveButton" id="approve<?php echo $this->projectId?>" onclick="javascript:submitApproveForm('approveform<?php echo $this->projectId?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" />
+  </form>
+  </div>  
+    <article>
+      <div>
+        <div class="projects">
+          <h2>Images</h2>
+          <?php 
+            $dir = new DirectoryIterator(PROJECTS_UNZIPPED_DIRECTORY . $this->projectId . '/images');
+            foreach($dir as $file ){ 
+              if($file != '.' && $file != '..' && $file != '.nomedia') {?>
+                <div class="projectImages"><img src="<?php echo "/" . PROJECTS_UNZIPPED_DIRECTORY . $this->projectId . 
+                    '/images/' . $file ?>"></div>
+              <?php }} ?>
+        </div>
+        <div class="projects">
+          <h2>Strings</h2>
+          <div class="innerStringDiv">
+          <?php 
+            $divClosed = false;
+            $i = 1;
+            foreach($this->parsedStrings as $string) {
+              $divClosed = false;echo $string;
+              ?><br>
+              <?php 
+              if($i % 10 == 0) {
+                echo '</div><div class="innerStringDiv">';
+                $divClosed = true;
+              }
+              $i++;
+            }
+            if(!$divClosed) {
+              echo "</div>";
+            }
+          ?>
+        </div>
+        <div id="projectStrings" class="projects">
+          <h2>Sounds</h2>
+          <?php 
+            $dir = new DirectoryIterator(PROJECTS_UNZIPPED_DIRECTORY . $this->projectId . '/sounds');
+            foreach($dir as $file ){ 
+              if($file != '.' && $file != '..' && $file != '.nomedia') {?>
+                <div class="projectImages">
+                  <audio controls>
+                    <source src="<?php echo "/" . PROJECTS_UNZIPPED_DIRECTORY . $this->projectId .'/sounds/' . $file ?> " type="audio/mpeg">
+                    <embed height="250" width="400" src="<?php echo "/" . PROJECTS_UNZIPPED_DIRECTORY . $this->projectId .'/sounds/' . $file ?> ">
+                  </audio>
+                </div>
+              <?php 
+                }
+              } ?>
+        </div>
+      </div>        
+    </article>        
+    
+    
+</body>
+

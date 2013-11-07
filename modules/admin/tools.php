@@ -1291,6 +1291,75 @@ class tools extends CoreAuthenticationAdmin {
     $this->unapprovedProjects = $this->retrieveAllUnapprovedProjectsFromDatabase();
   }
   
+  private function getProjectXmlFile($unzipDir) {
+    $dirHandler = opendir($unzipDir);
+    while(($file = readdir($dirHandler)) !== false) {
+      $details = pathinfo($file);
+      if(isset($details['extension']) && file_exists($unzipDir . $file) && (strcmp($details['extension'], 'spf') == 0 ||
+          strcmp($details['extension'], 'xml') == 0 || strcmp($details['extension'], 'catroid') == 0)) {
+        return $unzipDir.$file;
+      }
+    }
+    throw new Exception($this->errorHandler->getError('tools', 'project_xml_not_found'), STATUS_CODE_UPLOAD_MISSING_XML);
+  }  
+  
+  public function showProjectsContent() {
+    
+    function cmp($a, $b) {
+      if (strlen($a) == strlen($b)) {
+        return 0;
+      }
+      return (strlen($a) < strlen($b)) ? 1 : -1;
+    }    
+    $this->projectId = $_POST['projectId'];
+//     $this->projectTitle = $_POST['title'];        
+    if(isset($_POST['approve'])) {
+      if($this->approveProject($_POST['projectId'])) {
+        $answer = "The project was successfully approved!";
+      } else {
+        $answer = "Error: could NOT approve the project!";
+      }
+      $this->answer = $answer;
+    }
+    $this->unapprovedProjects = $this->retrieveAllUnapprovedProjectsFromDatabase(); 
+    if (!$this->unapprovedProjects) {
+      $this->htmlFile = "approveProjectsList.php";
+      return;
+    }   
+    $endOfList = false;
+    if (isset($_POST['nextProject']) || isset($_POST['approve'])) {
+      foreach($this->unapprovedProjects as $project) {
+        if($project['id'] < $this->projectId) {        
+          $this->projectId = $project['id'];
+          $endOfList = true;
+          break;
+        } 
+      }
+      if(!$endOfList) {
+        $project = $this->unapprovedProjects[0];
+        $this->projectId = $project['id'];
+      }
+    }
+    $recource = PROJECTS_UNZIPPED_DIRECTORY . $this->projectId . "/";
+    $xml = fopen( $this->getProjectXmlFile($recource), r);
+    $data = '';
+    while ($input = fread($xml, 1024)) {
+      $data .= $input;
+    }  
+    fclose($xml);
+    if (preg_match_all("#>(.*[A-Za-z]+.*)<#", $data, $match, PREG_PATTERN_ORDER)) {
+      $match = array_unique($match[1]);
+    }
+    uasort($match, 'cmp');    
+    $this->parsedStrings = $match;    
+    $xmlstr = new SimpleXMLElement($data);
+    $this->projectTitle = $xmlstr->header->programName;
+    echo $this->projectTitle;
+    $site = $this->htmlFile = "showProjectContent.php";
+    $this->addCss('showProjectContent.css'); 
+  }
+  
+  
   public function retrieveAllUnapprovedProjectsFromDatabase() {
     $query = 'EXECUTE get_unapproved_projects;';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
