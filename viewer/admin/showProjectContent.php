@@ -55,8 +55,7 @@
             $dir = new DirectoryIterator(PROJECTS_UNZIPPED_DIRECTORY . $this->projectId . '/images');
             foreach($dir as $file ){ 
               if($file != '.' && $file != '..' && $file != '.nomedia') {?>
-                <div class="projectImages"><img src="<?php echo "/" . PROJECTS_UNZIPPED_DIRECTORY . $this->projectId . 
-                    '/images/' . $file ?>"></div>
+                <div class="projectImages"><img width="auto" height="auto" src="<?php echo "/admin/tools/getResource.".pathinfo($file,PATHINFO_EXTENSION)."?project_id=".$this->projectId ."&file_name=images/".pathinfo($file,PATHINFO_FILENAME) ?>"></div>
               <?php }} ?>
         </div>
         <div class="projects">
@@ -87,10 +86,12 @@
             foreach($dir as $file ){ 
               if($file != '.' && $file != '..' && $file != '.nomedia') {?>
                 <div class="projectImages">
-                  <audio controls>
-                    <source src="<?php echo "/" . PROJECTS_UNZIPPED_DIRECTORY . $this->projectId .'/sounds/' . $file ?> " type="audio/mpeg">
-                    <embed height="250" width="400" src="<?php echo "/" . PROJECTS_UNZIPPED_DIRECTORY . $this->projectId .'/sounds/' . $file ?> ">
+                  <audio controls style="height:50px;">
+                    <source src="<?php echo "/admin/tools/getResource.".pathinfo($file,PATHINFO_EXTENSION)."?project_id=".$this->projectId ."&file_name=sounds/".pathinfo($file,PATHINFO_FILENAME) ?>">
+                    <embed  width="auto" height="auto" src="<?php echo "/admin/tools/getResource.".pathinfo($file,PATHINFO_EXTENSION)."?project_id=". $this->projectId ."&file_name=sounds/". pathinfo($file,PATHINFO_FILENAME) ?>">
                   </audio>
+                  <br/>
+                  <a href="<?php echo "/admin/tools/getResource.".pathinfo($file,PATHINFO_EXTENSION)."?project_id=".$this->projectId ."&file_name=sounds/".pathinfo($file,PATHINFO_FILENAME) ?>">Download <?=$file?></a>
                 </div>
               <?php 
                 }

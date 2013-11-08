@@ -29,10 +29,29 @@ class projectUploader extends CoreAuthenticationAdmin {
   }
 
   public function __default() {
+    $this->listPreparedProjects();
   }
 
   public function __destruct() {
     parent::__destruct();
+  }
+  
+  public function listPreparedProjects()
+  {
+    $fileList = array();
+    $path = "./tests/phpunit/api/testdata/";
+    if(is_dir($path) && $handle = opendir($path))
+    {
+      while(false !== ($entry = readdir($handle)))
+      {
+        if($entry != "." && $entry != "..")
+        {
+          $fileList[md5_file($path.$entry)] = realpath($path.$entry);
+        }
+      }
+    }
+    asort($fileList);
+    $this->md5FileList = $fileList;
   }
 }
 ?>

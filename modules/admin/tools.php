@@ -1342,6 +1342,8 @@ class tools extends CoreAuthenticationAdmin {
     }
     $recource = PROJECTS_UNZIPPED_DIRECTORY . $this->projectId . "/";
     $xml = fopen( $this->getProjectXmlFile($recource), r);
+    if(!$xml)
+      die("Sorry, couldn't open xml-File ".$this->getProjectXmlFile($recource));
     $data = '';
     while ($input = fread($xml, 1024)) {
       $data .= $input;
@@ -1386,6 +1388,18 @@ class tools extends CoreAuthenticationAdmin {
     }
     
     return $result;
+  }
+  
+  public function getResource()
+  {
+    $file = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY . $_GET['project_id'] ."/".$_GET['file_name'].".".$_GET["view"];
+    if(is_file($file)) {
+      $resource = file_get_contents($file);
+    } else {
+      header("HTTP/1.0 404 Not Found");
+      die();
+    }
+    $this->__set(1, $resource);
   }
 
   public function __destruct() {
