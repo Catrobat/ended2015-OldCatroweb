@@ -43,7 +43,7 @@ $this->module->addGlobalJs('searchBar.js');
   <head>
     <meta charset="utf-8" />
     <title><?php echo $this->getWebsiteTitle() ?></title>
-    <meta name="description" content="Catroid is a visual programming language for Android devices that is inspired by the Scratch programming language for PCs, developed by the Lifelong Kindergarten Group at the MIT Media Lab. It is the aim of the Catroid project to facilitate the learning of programming skills among children and users of all ages. No desktop or notebook computer is needed.">
+    <meta name="description" content="Catrobat is a visual programming language and set of creativity tools for mobile devices.">
     <meta name="viewport" content="width=device-width">
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
