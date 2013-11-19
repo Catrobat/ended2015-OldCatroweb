@@ -304,7 +304,7 @@ class upload extends CoreAuthenticationDevice {
     foreach($fileArray as $fileString)
     { 
       $fileEnding = strstr($fileString, ".");
-      if($fileEnding !== FALSE && !in_array($fileEnding,$this->allowed_file_endings))
+      if($fileEnding !== FALSE && !in_array(strtolower($fileEnding),$this->allowed_file_endings))
       {
         throw new Exception($this->errorHandler->getError('upload', 'invalid_project_file',$fileString), STATUS_CODE_UPLOAD_INVALID_FILE_EXTENSION);
       }
