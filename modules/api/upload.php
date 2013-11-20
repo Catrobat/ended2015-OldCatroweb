@@ -343,7 +343,7 @@ class upload extends CoreAuthenticationDevice {
     }
     if(count($nonlinkedFiles) > 0)
     {
-      throw new Exception($this->errorHandler->getError('upload', 'unlinked_project_file',"Files in XML: ".print_r($xmlFiles)." Files not in XML: ".implode(",",$nonlinkedFiles)), STATUS_CODE_UPLOAD_UNLINKED_EXISTING_FILE);
+      throw new Exception($this->errorHandler->getError('upload', 'unlinked_project_file',"Files in XML: ".print_r($xmlFiles,true)." Files not in XML: ".implode(",",$nonlinkedFiles)), STATUS_CODE_UPLOAD_UNLINKED_EXISTING_FILE);
     }
   }
   
