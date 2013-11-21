@@ -46,6 +46,7 @@
       <class name="at.tugraz.ist.catroweb.catroid.ReportAsInappropriateTests" />
       <class name="at.tugraz.ist.catroweb.catroid.SearchTests" />
       <class name="at.tugraz.ist.catroweb.catroid.WebsiteTitleTests" />
+      <class name="at.tugraz.ist.catroweb.catroid.TutorialTests" />
     </classes>
   </test>
   <test name="BlockedIpTests" >
