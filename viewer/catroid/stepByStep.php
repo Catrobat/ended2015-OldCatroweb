@@ -252,16 +252,11 @@
     </div>
     <div class="stepByStepNavigation">
       <div class="linkContainer">
-        <a class="stepLinks arrow" onclick="decrementContainer()"><div class="mobileNavContainer"><div class="linkBackgroundArrowLeft"></div></div></a>
-        <div class="mobileNavCenter">
+        <a class="stepLinks arrow" onclick="decrementContainer()"><div class="linkBackgroundArrowLeft"></div></a>
           <?php for($i=1;$i<=11;$i++) {?>
-            <a class="stepLinks navigation<?php echo $i; ?>" onclick="changeContainer(<?php echo $i; ?>);"><div class="linkBackground"><?php echo $i; ?></div></a>
-            <?php 
-            if($i%5 == 0)
-              echo "<div class='break'></div>"; ?>
+            <a class="stepLinks navigation<?php echo $i; ?>" onclick="changeContainer(<?php echo $i; ?>);"><div class="linkBackground"> <?php echo $i; ?></div></a>
           <?php }?>
-        </div>
-        <a class="stepLinks" onclick="incrementContainer()"><div class="mobileNavContainer"><div class="linkBackgroundArrowRight"></div></div></a>
+        <a class="stepLinks" onclick="incrementContainer()"><div class="linkBackgroundArrowRight"></div></a>
       </div>
     </div>
   </div> 
