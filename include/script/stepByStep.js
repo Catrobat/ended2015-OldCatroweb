@@ -25,9 +25,34 @@ var currentSlide = 1;
 
 $(".navigation"+1).css("color", "#FFFFFF");
 
+
+if($(window).width() <= 840) {
+  for(i=4;i<12;i++) {
+    if(i === 1 || i === 11)
+      continue;
+    $(".navigation"+i).hide();
+  }
+}
+
+//$(window).resize(function() {
+//  if($(window).width() > 840) {
+//    for(i=1;i<=12;i++) {
+//      $(".navigation"+i).show();
+//    }
+//  }
+//  else {
+//    for(i=4;i<=12;i++) {
+//      $(".navigation"+i).hide();
+//    }
+//  }
+//});
+
+
 function changeContainer(slide) {
   
   currentSlide = slide;
+  
+  hideNavigations(3);
   
   for(var i=1;i<=12;i++) {
     if(i === slide) {
@@ -38,12 +63,16 @@ function changeContainer(slide) {
       $(".stepByStepMainContent"+i).css("display", "none");
       $(".navigation"+i).css("color", "#05222a");
     }
+
   }  
 }
 
 function decrementContainer() {
-  
-  if(currentSlide >1) {  
+
+  if(currentSlide > 1) {  
+   
+    hideNavigations(1);
+
     $(".stepByStepMainContent"+(currentSlide-1)).css("display", "block");
     $(".navigation"+(currentSlide-1)).css("color", "#FFFFFF");
     
@@ -54,9 +83,12 @@ function decrementContainer() {
   }
 }
 
-function incrementContainer() {
+function incrementContainer() {  
   
   if(currentSlide < 11) {
+    
+    hideNavigations(2);    
+    
     $(".stepByStepMainContent"+(currentSlide+1)).css("display", "block");
     $(".navigation"+(currentSlide+1)).css("color", "#FFFFFF");
     
@@ -64,5 +96,60 @@ function incrementContainer() {
     $(".navigation"+currentSlide).css("color", "#05222a");
     
     currentSlide += 1;
+  }
+}
+
+function hideNavigations(type) {
+  
+  for(i=2;i<=11;i++) {
+    
+    if(i === 11)
+      continue;
+    
+    if(type === 1) {
+      if((currentSlide <= 2 && i<=3))
+        continue;      
+        if(i === currentSlide-1-1 || i === currentSlide-1 || i === currentSlide+1-1)
+          $(".navigation"+i).show();
+        else
+          $(".navigation"+i).hide();
+    }
+    else if(type === 2) {
+        if(currentSlide >= 10 && i>=9)
+          continue;
+        if(i === currentSlide+1-1 || i === currentSlide+1 || i === currentSlide+1+1)
+          $(".navigation"+i).show();
+        else
+          $(".navigation"+i).hide();
+
+    }
+    else if(type === 3){
+      
+      if(currentSlide === 11) {
+        if(i === 11 || i === 10 || i === 9)
+          $(".navigation"+i).show();
+        else 
+          $(".navigation"+i).hide();
+        
+        if(i === 9)
+          $(".navigation"+i).before('<div class="blub" style="float: left;">...</div>');
+
+      }
+      else if(currentSlide === 1) {
+        if(i === 1 || i === 2 || i === 3)
+          $(".navigation"+i).show();
+        else 
+          $(".navigation"+i).hide();
+        
+        if(i === 3)
+          $(".navigation"+i).after('<div class="blub" style="float: left;">...</div>');
+      }
+      else {
+        if(currentSlide-1 === i || currentSlide === i || currentSlide+1 === i)
+          $(".navigation"+i).show();
+        else
+          $(".navigation"+i).hide();
+      }
+    }
   }
 }
