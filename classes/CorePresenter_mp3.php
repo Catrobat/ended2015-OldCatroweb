@@ -22,22 +22,20 @@
   * along with this program. If not, see <http://www.gnu.org/licenses/>.
   */
 
-class CorePresenter_png extends CorePresenterCommon {
-  private $data;
-
+class CorePresenter_mp3 extends CorePresenterCommon {
   public function __construct(CoreModule $module) {
     parent::__construct($module);
-    $this->data = $this->module->getData();
   }
 
   public function display() {
-    header("Content-Type: image/png");
+    header('Content-Type: audio/mpeg');
+    header('Content-Disposition: inline;');
+    header('Cache-Control: no-cache');
+    header("Content-Transfer-Encoding: binary"); 
+    $this->data = $this->module->getData();
     if(is_array($this->data) && !empty($this->data)) {
       foreach ($this->data as $key => $val) {
-        $img = imagecreatefromstring($val);
-        imagesavealpha($img, true);
-        imagepng($img, null, 9, PNG_NO_FILTER);
-        imagedestroy($img);
+        echo $val;
       }
     }
     return true;

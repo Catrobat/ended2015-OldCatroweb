@@ -50,14 +50,13 @@
       <input name="fileChecksum" type="text" value="95c94843a95062bb8f83336df21cd2db" />
     </p>
 
-    <p>Known Checksums:</p>
+    <p>Found Checksums (realtime, on Host):</p>
     <pre>
-      95c94843a95062bb8f83336df21cd2db  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test.catrobat
-      d20c3ca0d3cd601582510fe6aca3ad0e  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test.zip
-      fe312b4d2f8fe0a04fa1b9ca0a9bbdbe  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test2.zip
-      a810e424a5b4044c9b27e683feac080c  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test_invalid_projectfile.zip
-      f1a71e31eb7cfff5cc2b5272b5e08845  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test_thumbnail.zip
-      a6c78067ea4f5340c631b9529c2f7b99  /home/catroweb/Workspace/catroweb/tests/phpunit/api/testdata/test-0.7.0beta.catrobat
+<?php foreach($this->md5FileList as $sum=>$filePath)
+    {
+      echo $sum."  ".$filePath."\n";
+    }
+?>
     </pre>
     <input type="submit" name="uploadButton" value="upload" />
   </form>
