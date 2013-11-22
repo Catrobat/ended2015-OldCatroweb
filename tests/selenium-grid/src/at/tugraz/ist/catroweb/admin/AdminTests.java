@@ -336,20 +336,20 @@ public class AdminTests extends BaseTest {
       }
       
       driver().findElement(By.id("aAdministrationTools")).click();
-//      ajaxWait();
+      ajaxWait();
       assertTrue(isTextPresent("approve unapproved projects"));
       driver().findElement(By.id("aAdminToolsApproveProjects")).click();
-//      ajaxWait();
+      ajaxWait();
       assertTrue(isTextPresent("Administration Tools - List of unapproved projects"));
       driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[6]/form/input[3]")).click();
-//      ajaxWait();
+      ajaxWait();
       assertTrue(isTextPresent("Images"));
       assertTrue(isTextPresent("Strings"));
       assertTrue(isTextPresent("Sounds"));            
       String objectId = driver().findElement(By.id("projectId")).getAttribute("innerHTML");
       int id = Integer.valueOf(objectId);
       driver().findElement(By.id("nextClick")).click();
-//      ajaxWait();
+      ajaxWait();
       String nextObjectId = driver().findElement(By.id("projectId")).getAttribute("innerHTML");
       int nextId = Integer.valueOf((String)nextObjectId);
       assertTrue(id > nextId); 
@@ -357,7 +357,7 @@ public class AdminTests extends BaseTest {
       String approveForm = "approveform" + nextId;
       
       driver().findElement(By.xpath("//*[@id='" + approveForm + "']/input[4]")).click();
-//      ajaxWait();
+      ajaxWait();
       Alert alert = driver().switchTo().alert();
       alert.accept(); 
       assertTrue(isTextPresent("The project was successfully approved!"));
@@ -374,11 +374,11 @@ public class AdminTests extends BaseTest {
 
       openAdminLocation();
       driver().findElement(By.id("aAdministrationTools")).click();
-//      ajaxWait();
+      ajaxWait();
       driver().findElement(By.id("aAdminToolsEditProjects")).click();
-//      ajaxWait();
+      ajaxWait();
       driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[3]/td[9]/form/input[3]")).click();
-//      ajaxWait();
+      ajaxWait();
       alert = driver().switchTo().alert();
       alert.accept(); 
       Thread.sleep(5000);
