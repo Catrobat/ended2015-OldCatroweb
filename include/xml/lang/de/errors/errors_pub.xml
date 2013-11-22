@@ -60,6 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="username_already_exists">Der eingegebe Nickname ist schon vergeben.</string>
     <string name="last_email">Eine E-Mail Adresse wird ben&#xF6;tigt.</string>
     <string name="avatar_creation_failed"/>
+    <string name="username_is_email_address"/>
   </userFunctions>
   <upload>
     <string name="old_catrobat_version">Es tut uns Leid, du nutzt eine alte Version von Pocket Code. Bitte lade dir die aktuelle Version herunter.</string>
@@ -79,6 +80,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="project_exceed_filesize_limit">Deine Programmdatei ist zu gro&#xDF;.</string>
     <string name="project_title_default">Du musst dein Programm umbennenen, bevor du es hochladest.</string>
     <string name="invalid_media_license">Es tut uns Leid, dein Projekt hat eine ung&#xFC;ltige Medienlizenz!</string>
+    <string name="invalid_project_file"/>
+    <string name="linked_project_file_not_found"/>
+    <string name="unlinked_project_file"/>
   </upload>
   <viewer>
     <string name="user_is_blocked">Dein Konto wurde gesperrt.</string>

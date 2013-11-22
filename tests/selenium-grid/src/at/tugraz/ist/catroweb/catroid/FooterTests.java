@@ -29,49 +29,139 @@ import static org.testng.AssertJUnit.*;
 
 import at.tugraz.ist.catroweb.BaseTest;
 
-@Test(groups = { "catroid", "LicenseTests" })
-public class LicenseTests extends BaseTest {
+@Test(groups = { "catroid", "FooterTests" })
+public class FooterTests extends BaseTest {
 
 
-  @Test(groups = { "visibility" }, description = "check if license links are present")
-  public void licenseLinks() throws Throwable {
+  @Test(groups = { "visibility" }, description = "check if footer links are present")
+  public void footerLinks() throws Throwable {
     try {
       openLocation();
 
-      assertTrue(isTextPresent("Privacy policy"));
+      assertTrue(isTextPresent("About"));
+      assertTrue(isTextPresent("Google Play"));
+      assertTrue(isTextPresent("Privacy Policy"));
       assertTrue(isTextPresent("Terms of Use"));
       assertTrue(isTextPresent("Imprint"));
     } catch(AssertionError e) {
-      captureScreen("LicenseTests.licenseLinks");
+      captureScreen("FooterTests.footerLinks");
       throw e;
     } catch(Exception e) {
-      captureScreen("LicenseTests.licenseLinks");
+      captureScreen("FooterTests.footerLinks");
       throw e;
     }
   }
   
-  @Test(groups = { "visibility" }, description = "check if license links are present on mobile site")
-  public void licenseLinksMobile() throws Throwable {
+  @Test(groups = { "visibility" }, description = "check if footer links are present on mobile site")
+  public void footerLinksMobile() throws Throwable {
     try {
       openMobileLocation();
       assertTrue(isElementPresent(By.id("footerMoreButton")));
       assertTrue(isElementPresent(By.id("footerLessButton")));
       driver().findElement(By.id("footerMoreButton")).click();
       
-      assertTrue(isTextPresent("Privacy policy"));
+      assertTrue(isTextPresent("About"));
+      assertTrue(isTextPresent("Google Play"));
+      assertTrue(isTextPresent("Privacy Policy"));
       assertTrue(isTextPresent("Terms of Use"));
       assertTrue(isTextPresent("Imprint"));
       
       driver().findElement(By.id("footerLessButton")).click();
       
-      assertFalse(isTextPresent("Privacy policy"));
+      assertFalse(isTextPresent("About"));
+      assertFalse(isTextPresent("Google Play"));
+      assertFalse(isTextPresent("Privacy Policy"));
       assertFalse(isTextPresent("Terms of Use"));
       assertFalse(isTextPresent("Imprint"));
     } catch(AssertionError e) {
-      captureScreen("LicenseTests.licenseLinksMobile");
+      captureScreen("FooterTests.footerLinksMobile");
       throw e;
     } catch(Exception e) {
-      captureScreen("LicenseTests.licenseLinksMobile");
+      captureScreen("FooterTests.footerLinksMobile");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "visibility" }, description = "check about link/page")
+  public void about() throws Throwable {
+    try {
+      openLocation();
+      
+      By about = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[1]/a");
+      assertTrue(isElementPresent(about));
+      
+      clickAndWaitForPopUp(about);
+      assertRegExp(".*Catrobat*", driver().getTitle());
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("FooterTests.about");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("FooterTests.about");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "visibility" }, description = "check about link/page")
+  public void aboutMobile() throws Throwable {
+    try {
+      openMobileLocation();
+      assertTrue(isElementPresent(By.id("footerMoreButton")));
+      driver().findElement(By.id("footerMoreButton")).click();
+      
+      By about = By.xpath("//*[@id='mobileFooterMenu']/ul/li[1]/a");
+      assertTrue(isElementPresent(about));
+      
+      clickAndWaitForPopUp(about);
+      assertRegExp(".*Catrobat*", driver().getTitle());
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("FooterTests.aboutMobile");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("FooterTests.aboutMobile");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "visibility" }, description = "check google play link/page")
+  public void googlePlay() throws Throwable {
+    try {
+      openLocation();
+      
+      By googlePlay = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[2]/a");
+      assertTrue(isElementPresent(googlePlay));
+      
+      clickAndWaitForPopUp(googlePlay);
+      assertRegExp(".*Pocket Code Beta - Android-Apps auf Google Play*", driver().getTitle());
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("FooterTests.googlePlay");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("FooterTests.googlePlay");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "visibility" }, description = "check google play link/page")
+  public void googlePlayMobile() throws Throwable {
+    try {
+      openMobileLocation();
+      assertTrue(isElementPresent(By.id("footerMoreButton")));
+      driver().findElement(By.id("footerMoreButton")).click();
+      
+      By googlePlay = By.xpath("//*[@id='mobileFooterMenu']/ul/li[2]/a");
+      assertTrue(isElementPresent(googlePlay));
+      
+      clickAndWaitForPopUp(googlePlay);
+      assertRegExp(".*Pocket Code Beta - Android-Apps auf Google Play*", driver().getTitle());
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("FooterTests.googlePlayMobile");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("FooterTests.googlePlayMobile");
       throw e;
     }
   }
@@ -81,17 +171,17 @@ public class LicenseTests extends BaseTest {
     try {
       openLocation();
       
-      By privacy = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[1]/a");
+      By privacy = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[3]/a");
       assertTrue(isElementPresent(privacy));
       
       clickAndWaitForPopUp(privacy);
       assertRegExp(".*Privacy Policy.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
-      captureScreen("LicenseTests.privacyPolicy");
+      captureScreen("FooterTests.privacyPolicy");
       throw e;
     } catch(Exception e) {
-      captureScreen("LicenseTests.privacyPolicy");
+      captureScreen("FooterTests.privacyPolicy");
       throw e;
     }
   }
@@ -103,17 +193,17 @@ public class LicenseTests extends BaseTest {
       assertTrue(isElementPresent(By.id("footerMoreButton")));
       driver().findElement(By.id("footerMoreButton")).click();
       
-      By privacy = By.xpath("//*[@id='mobileFooterMenu']/ul/li[1]/a");
+      By privacy = By.xpath("//*[@id='mobileFooterMenu']/ul/li[3]/a");
       assertTrue(isElementPresent(privacy));
       
       clickAndWaitForPopUp(privacy);
       assertRegExp(".*Privacy Policy.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
-      captureScreen("LicenseTests.privacyPolicyMobile");
+      captureScreen("FooterTests.privacyPolicyMobile");
       throw e;
     } catch(Exception e) {
-      captureScreen("LicenseTests.privacyPolicyMobile");
+      captureScreen("FooterTests.privacyPolicyMobile");
       throw e;
     }
   }
@@ -122,7 +212,7 @@ public class LicenseTests extends BaseTest {
   public void termsOfUse() throws Throwable {
     try {
       openLocation();
-      driver().findElement(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[2]/a")).click();
+      driver().findElement(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul[2]/li[1]/a")).click();
       ajaxWait();
 
       assertTrue(isTextPresent("WELCOME TO THE CATROBAT COMMUNITY!"));
@@ -150,10 +240,10 @@ public class LicenseTests extends BaseTest {
       assertTrue(driver().findElement(By.xpath("//p[@class='licenseText'][7]/a")).getAttribute("href")
           .contains("mailto:webmaster@catrobat.org?subject=Terms%20of%20Use"));
     } catch(AssertionError e) {
-      captureScreen("LicenseTests.termsOfUse");
+      captureScreen("FooterTests.termsOfUse");
       throw e;
     } catch(Exception e) {
-      captureScreen("LicenseTests.termsOfUse");
+      captureScreen("FooterTests.termsOfUse");
       throw e;
     }
   }
@@ -166,7 +256,7 @@ public class LicenseTests extends BaseTest {
       driver().findElement(By.id("footerMoreButton")).click();
       ajaxWait();
       
-      driver().findElement(By.xpath("//*[@id='mobileFooterMenu']/ul/li[2]/a")).click();
+      driver().findElement(By.xpath("//*[@id='mobileFooterMenu']/ul/li[4]/a")).click();
       ajaxWait();
       
       assertTrue(isTextPresent("WELCOME TO THE CATROBAT COMMUNITY!"));
@@ -194,10 +284,10 @@ public class LicenseTests extends BaseTest {
       assertTrue(driver().findElement(By.xpath("//p[@class='licenseText'][7]/a")).getAttribute("href")
           .contains("mailto:webmaster@catrobat.org?subject=Terms%20of%20Use"));
     } catch(AssertionError e) {
-      captureScreen("LicenseTests.termsOfUseMobile");
+      captureScreen("FooterTests.termsOfUseMobile");
       throw e;
     } catch(Exception e) {
-      captureScreen("LicenseTests.termsOfUseMobile");
+      captureScreen("FooterTests.termsOfUseMobile");
       throw e;
     }
   }
@@ -206,14 +296,14 @@ public class LicenseTests extends BaseTest {
   public void imprint() throws Throwable {
     try {
       openLocation();
-      clickAndWaitForPopUp(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[3]/a"));
+      clickAndWaitForPopUp(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul[2]/li[2]/a"));
       assertRegExp(".*Imprint.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
-      captureScreen("LicenseTests.imprint");
+      captureScreen("FooterTests.imprint");
       throw e;
     } catch(Exception e) {
-      captureScreen("LicenseTests.imprint");
+      captureScreen("FooterTests.imprint");
       throw e;
     }
   }
@@ -226,14 +316,14 @@ public class LicenseTests extends BaseTest {
       driver().findElement(By.id("footerMoreButton")).click();
       ajaxWait();
 
-      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[3]/a"));
+      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[5]/a"));
       assertRegExp(".*Imprint.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
-      captureScreen("LicenseTests.imprintMobile");
+      captureScreen("FooterTests.imprintMobile");
       throw e;
     } catch(Exception e) {
-      captureScreen("LicenseTests.imprintMobile");
+      captureScreen("FooterTests.imprintMobile");
       throw e;
     }
   }

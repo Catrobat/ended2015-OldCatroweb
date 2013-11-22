@@ -134,7 +134,7 @@
 
   <target name="-get-selenium-grid-single-test-parameters">
     <input
-      message="Please enter a class to test (e.g.: catroid.LicenseTests): "
+      message="Please enter a class to test (e.g.: catroid.FooterTests): "
       addproperty="class"
     />
 

@@ -48,7 +48,9 @@
   <string name="template_footer_search_header">Search</string>  
   <string name="template_footer_more">more</string>
   <string name="template_footer_less">less</string>
-  <string name="template_footer_privacy_policy_link">Privacy policy</string>
+  <string name="template_footer_about">About</string>
+  <string name="template_footer_google_play">Google Play</string>
+  <string name="template_footer_privacy_policy_link">Privacy Policy</string>
   <string name="template_footer_terms_of_use_link">Terms of Use</string>
   <string name="template_footer_copyright_policy_link">Copyright policy</string>
   <string name="template_footer_imprint_link">Imprint</string>
