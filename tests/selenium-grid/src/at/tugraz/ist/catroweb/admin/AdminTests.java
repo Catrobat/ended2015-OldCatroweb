@@ -23,6 +23,7 @@
 
 package at.tugraz.ist.catroweb.admin;
 
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
@@ -309,29 +310,6 @@ public class AdminTests extends BaseTest {
       driver().findElement(By.id("aAdminApprovedProjects")).click();
       ajaxWait();
       assertTrue(isTextPresent("Administration Tools - List of unapproved projects"));
-      clickOkOnNextConfirmationBox();
-      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[6]/form/input[3]")).click();
-      ajaxWait();
-      assertTrue(isTextPresent("The project was successfully approved!"));
-      clickOkOnNextConfirmationBox();
-      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[6]/form/input[3]")).click();
-      ajaxWait();
-      assertTrue(isTextPresent("The project was successfully approved!"));
-      
-      openAdminLocation();
-      assertTrue(isTextPresent("All projects approved"));
-      
-      driver().findElement(By.id("aAdministrationTools")).click();
-      ajaxWait();
-      driver().findElement(By.id("aAdminToolsEditProjects")).click();
-      ajaxWait();
-      clickOkOnNextConfirmationBox();
-      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[9]/form/input[3]")).click();
-      ajaxWait();
-      assertTrue(isTextPresent("The project was succesfully set to state unapproved!"));
-      
-      openAdminLocation();
-      assertTrue(isTextPresent("Unapproved projects: 1"));
       
       CommonFunctions.setAllProjectsToUnapproved();
       
@@ -344,23 +322,71 @@ public class AdminTests extends BaseTest {
     }
   }
   
-  @Test(groups = { "functionality", "approveProjectslist" }, description = "check approve projects list")
+  @Test(groups = { "functionality", "projectsContent" }, description = "show a project's contents")
   public void showProjectsContent() throws Throwable {
     try {
       CommonFunctions.setAllProjectsToUnapproved();
       
       openAdminLocation();
+      assertTrue(isTextPresent("Unapproved projects: "));
+      String numOfUnapproveProjects = driver().findElement(By.id("numberOfUnapprovedProjects")).getAttribute("innerHTML");
+      int numOfUnapprProj = Integer.valueOf(numOfUnapproveProjects);
+      if (numOfUnapprProj < 3) {
+        return;
+      }
+      
       driver().findElement(By.id("aAdministrationTools")).click();
+//      ajaxWait();
       assertTrue(isTextPresent("approve unapproved projects"));
       driver().findElement(By.id("aAdminToolsApproveProjects")).click();
+//      ajaxWait();
       assertTrue(isTextPresent("Administration Tools - List of unapproved projects"));
-      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[7]/form/input[3]")).click();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[6]/form/input[3]")).click();
+//      ajaxWait();
       assertTrue(isTextPresent("Images"));
       assertTrue(isTextPresent("Strings"));
-      assertTrue(isTextPresent("Sounds"));
-            
-      CommonFunctions.setAllProjectsToUnapproved();
+      assertTrue(isTextPresent("Sounds"));            
+      String objectId = driver().findElement(By.id("projectId")).getAttribute("innerHTML");
+      int id = Integer.valueOf(objectId);
+      driver().findElement(By.id("nextClick")).click();
+//      ajaxWait();
+      String nextObjectId = driver().findElement(By.id("projectId")).getAttribute("innerHTML");
+      int nextId = Integer.valueOf((String)nextObjectId);
+      assertTrue(id > nextId); 
+      id = nextId;
+      String approveForm = "approveform" + nextId;
       
+      driver().findElement(By.xpath("//*[@id='" + approveForm + "']/input[4]")).click();
+//      ajaxWait();
+      Alert alert = driver().switchTo().alert();
+      alert.accept(); 
+      assertTrue(isTextPresent("The project was successfully approved!"));
+      nextObjectId = driver().findElement(By.id("projectId")).getAttribute("innerHTML");
+      nextId = Integer.valueOf((String)nextObjectId);
+      assertTrue(id > nextId); 
+      
+      openAdminLocation();
+      assertTrue(isTextPresent("Unapproved projects: "));
+      String newNumOfUnapproveProjects = driver().findElement(By.id("numberOfUnapprovedProjects")).getAttribute("innerHTML");
+      int newNumOfUnapprProj = Integer.valueOf(newNumOfUnapproveProjects);
+      assertTrue(numOfUnapprProj > newNumOfUnapprProj);
+      
+
+      openAdminLocation();
+      driver().findElement(By.id("aAdministrationTools")).click();
+//      ajaxWait();
+      driver().findElement(By.id("aAdminToolsEditProjects")).click();
+//      ajaxWait();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[3]/td[9]/form/input[3]")).click();
+//      ajaxWait();
+      alert = driver().switchTo().alert();
+      alert.accept(); 
+      Thread.sleep(5000);
+      assertTrue(isTextPresent("The project was succesfully set to state unapproved!"));
+      
+      
+      
+      CommonFunctions.setAllProjectsToUnapproved();
     } catch(AssertionError e) {
       captureScreen("AdminTests.approveProjectsList");
       throw e;

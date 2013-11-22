@@ -33,6 +33,10 @@ class CorePresenter_jpg extends CorePresenterCommon {
     if(is_array($this->data) && !empty($this->data)) {
       foreach ($this->data as $key => $val) {
         $img = imagecreatefromstring($val);
+        $background = imagecolorallocate($img, 255, 255, 255);
+        imagefill($img, 0, 0, $background);
+        imagealphablending($img, false);
+        imagesavealpha($img, true);
         imagejpeg($img);
         imagedestroy($img);
       }

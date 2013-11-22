@@ -35,6 +35,7 @@ class CorePresenter_png extends CorePresenterCommon {
     if(is_array($this->data) && !empty($this->data)) {
       foreach ($this->data as $key => $val) {
         $img = imagecreatefromstring($val);
+        imagesavealpha($img, true);
         imagepng($img, null, 9, PNG_NO_FILTER);
         imagedestroy($img);
       }

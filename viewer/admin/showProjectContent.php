@@ -27,23 +27,24 @@
 <body>
   <script type="text/javascript">
     function submitApproveForm(id, title) {
-      if(confirm("Approve project "+title+"?"))
+      if(confirm("Approve project?"))
         document.getElementById(id).submit();
     }
   </script>
-  <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
+  <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools/approveProjects">&lt;- back</a><br /><br />
   <?php if($this->answer) {
     echo 'Answer:<br/>'.$this->answer.'<br /><br/>';
   }?>
-  <h1><?php echo $this->projectTitle?></h1>
+  <h1><?php echo $this->projectTitle . ' - ID: <span id="projectId">' . $this->projectId . "</span>"?></h1>
   <div>
-  <form id="nextform<?php echo $this->projectId?>" class="admin" action="showProjectsContent" method="POST">
+  <form id="nextform" class="admin" action="showProjectsContent" method="POST">
     <input type="hidden" name="projectId" value="<?php echo ($this->projectId)?>"/>
-    <input  type = <?= sizeof($this->unapprovedProjects) == 1 ? "hidden" : "submit"?> value="Next" name="nextProject" id="next<?php echo $project['id']?>" >
+    <input id="nextClick" type = <?= sizeof($this->unapprovedProjects) == 1 ? "hidden" : "submit"?> value="Next" name="nextProject" id="next<?php echo $project['id']?>" >
   </form>  
   <form id="approveform<?php echo $this->projectId?>" class="admin" action="showProjectsContent" method="POST">
     <input type="hidden" name="projectId" value="<?php echo $this->projectId?>"/>
     <input type="hidden" name="approve" value="approve"/>
+    <input type="hidden" name="title" value="<?php echo $this->projectTitle?>"/>
     <input type="button" value="Approve" name="approveButton" id="approve<?php echo $this->projectId?>" onclick="javascript:submitApproveForm('approveform<?php echo $this->projectId?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" />
   </form>
   </div>  
@@ -54,8 +55,12 @@
           <?php 
             $dir = new DirectoryIterator(PROJECTS_UNZIPPED_DIRECTORY . $this->projectId . '/images');
             foreach($dir as $file ){ 
-              if($file != '.' && $file != '..' && $file != '.nomedia') {?>
-                <div class="projectImages"><img width="auto" height="auto" src="<?php echo "/admin/tools/getResource.".pathinfo($file,PATHINFO_EXTENSION)."?project_id=".$this->projectId ."&file_name=images/".pathinfo($file,PATHINFO_FILENAME) ?>"></div>
+              if($file != '.' && $file != '..' && $file != '.nomedia') { ?>
+                <div class="projectImages"><img width="auto" height="auto" src="<?php
+                if(pathinfo($file,PATHINFO_EXTENSION) == "")
+                  echo "/admin/tools/getResource.png?project_id=".$this->projectId ."&file_name=images/".pathinfo($file,PATHINFO_FILENAME);
+                else  
+                  echo "/admin/tools/getResource.".pathinfo($file,PATHINFO_EXTENSION)."?project_id=".$this->projectId ."&file_name=images/".pathinfo($file,PATHINFO_FILENAME) ?>"></div>
               <?php }} ?>
         </div>
         <div class="projects">
@@ -86,8 +91,8 @@
             foreach($dir as $file ){ 
               if($file != '.' && $file != '..' && $file != '.nomedia') {?>
                 <div class="projectImages">
-                  <audio controls style="height:50px;">
-                    <source src="<?php echo "/admin/tools/getResource.".pathinfo($file,PATHINFO_EXTENSION)."?project_id=".$this->projectId ."&file_name=sounds/".pathinfo($file,PATHINFO_FILENAME) ?>">
+                  <audio controls style="height:50px;" preload="auto">
+                    <source src="<?php echo "/admin/tools/getResource.".pathinfo($file,PATHINFO_EXTENSION)."?project_id=".$this->projectId ."&file_name=sounds/".pathinfo($file,PATHINFO_FILENAME) ?>" preload="auto">
                     <embed  width="auto" height="auto" src="<?php echo "/admin/tools/getResource.".pathinfo($file,PATHINFO_EXTENSION)."?project_id=". $this->projectId ."&file_name=sounds/". pathinfo($file,PATHINFO_FILENAME) ?>">
                   </audio>
                   <br/>

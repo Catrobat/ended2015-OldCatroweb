@@ -1292,7 +1292,17 @@ class tools extends CoreAuthenticationAdmin {
   }
   
   private function getProjectXmlFile($unzipDir) {
-    $dirHandler = opendir($unzipDir);
+    if(!$dirHandler = opendir($unzipDir)){
+      echo '<a id="aAdminToolsBackToCatroidweb" href="' . BASE_PATH . 'admin/tools/approveProjects">&lt;- back</a><br /><br />';
+      
+      echo '<form id="nextform" class="admin" action="showProjectsContent" method="POST">
+      <input type="hidden" name="projectId" value="' . ($this->projectId) . '"/>
+      <input  type =  "submit" value="Next" name="nextProject" id="next' . $project['id'] . '" >
+        </form>';
+      echo "unzipped directory: " . $unzipDir;
+      die();
+    }
+      
     while(($file = readdir($dirHandler)) !== false) {
       $details = pathinfo($file);
       if(isset($details['extension']) && file_exists($unzipDir . $file) && (strcmp($details['extension'], 'spf') == 0 ||
@@ -1312,7 +1322,8 @@ class tools extends CoreAuthenticationAdmin {
       return (strlen($a) < strlen($b)) ? 1 : -1;
     }    
     $this->projectId = $_POST['projectId'];
-//     $this->projectTitle = $_POST['title'];        
+//     $this->projectTitle = $_POST['title']; 
+
     if(isset($_POST['approve'])) {
       if($this->approveProject($_POST['projectId'])) {
         $answer = "The project was successfully approved!";
@@ -1348,15 +1359,16 @@ class tools extends CoreAuthenticationAdmin {
     while ($input = fread($xml, 1024)) {
       $data .= $input;
     }  
-    fclose($xml);
     if (preg_match_all("#>(.*[A-Za-z]+.*)<#", $data, $match, PREG_PATTERN_ORDER)) {
       $match = array_unique($match[1]);
     }
+    fclose($xml);
     uasort($match, 'cmp');    
-    $this->parsedStrings = $match;    
-    $xmlstr = new SimpleXMLElement($data);
-    $this->projectTitle = $xmlstr->header->programName;
-    echo $this->projectTitle;
+    $this->parsedStrings = $match; 
+    $xmlstr = simplexml_load_file($this->getProjectXmlFile($recource));
+    
+    $node = $xmlstr->children();
+    $this->projectTitle = current($node[0]->programName);
     $site = $this->htmlFile = "showProjectContent.php";
     $this->addCss('showProjectContent.css'); 
   }
@@ -1376,7 +1388,7 @@ class tools extends CoreAuthenticationAdmin {
     if($result) {
       pg_free_result($result);
     }
-  
+    
     return $result;
   }
   
@@ -1396,8 +1408,13 @@ class tools extends CoreAuthenticationAdmin {
     if(is_file($file)) {
       $resource = file_get_contents($file);
     } else {
-      header("HTTP/1.0 404 Not Found");
-      die();
+      $file = CORE_BASE_PATH.PROJECTS_UNZIPPED_DIRECTORY . $_GET['project_id'] ."/".$_GET['file_name'];
+      if(is_file($file)) {
+        $resource = file_get_contents($file);
+      }else{
+        header("HTTP/1.0 404 Not Found");
+        die();
+      }
     }
     $this->__set(1, $resource);
   }

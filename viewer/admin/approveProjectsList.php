@@ -54,7 +54,6 @@
         <th>Description</th>
         <th>Visible</th>
         <th>Delete</th>
-        <th>Approve</th>
         <th>Content</th>
       </tr>
       
@@ -77,13 +76,6 @@
             <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
             <input type="hidden" name="delete" value="delete"/>
             <input type="button" value="delete" name="deleteButton" id="delete<?php echo $project['id']?>" onclick="javascript:submitDeleteForm('deleteform<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" />
-          </form>
-        </td>
-        <td>
-          <form id="approveform<?php echo $project['id']?>" class="admin" action="approveProjects" method="POST">
-            <input type="hidden" name="projectId" value="<?php echo $project['id']?>"/>
-            <input type="hidden" name="approve" value="approve"/>
-            <input type="button" value="approve" name="approveButton" id="approve<?php echo $project['id']?>" onclick="javascript:submitApproveForm('approveform<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" />
           </form>
         </td>
         <td>
