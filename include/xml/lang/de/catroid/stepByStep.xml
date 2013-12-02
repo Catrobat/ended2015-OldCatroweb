@@ -60,6 +60,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="step6_title">6. Immer wieder</string>
   <string name="step6_description">Jetzt werden wir dir zeigen, wie du das Verhalten deines Objektes wiederholen kannst.</string>
   <string name="step6_additional_text_2">Platziere den "Wiederhole fortlaufend" - Baustein unterhalb des ersten Bausteins.</string>
+  <string name="step7_title">7. Tippen ist alles.</string>
   <string name="step7_additional_text_1">W&#xE4;hle den "Wenn angetippt" - Baustein aus. Jeden Baustein, den du unterhalb dieses Bausteins einf&#xFC;gst, wird erst ausgef&#xFC;hrt, wenn du das Objekt auf der B&#xFC;hne antippst.</string>
   <string name="step7_additional_text_4">Jetzt solltest du dieses Skript haben.</string>
   <string name="step2_additional_text_3">Zeichne ein neues Aussehen.</string>
@@ -83,5 +84,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="step11_additional_text_4">Gehe auf die Hilfe-Seite und diskutiere mit anderen.</string>
   <string name="step11_additional_text_5">Entdecke die Welt der Pocket Code Programme. Wenn dir eines gef&#xE4;llt, lade es herunter und remixe es.</string>
   <string name="step11_additional_text_3">&#xDC;bersicht &#xFC;ber alle Pocket Code Programme auf deinem Handy.</string>
-  <string name="step7_title">7. Tippen ist alles.</string>
 </strings>

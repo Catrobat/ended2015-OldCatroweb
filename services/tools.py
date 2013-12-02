@@ -104,7 +104,7 @@ class JSCompiler:
 	basePath = os.getcwd()
 	toolsDir = os.path.join(basePath, 'tools')
 	
-	downloadURL = 'https://closure-compiler.googlecode.com/files/'
+	downloadURL = 'http://dl.google.com/closure-compiler/'
 	serverZip = 'compiler-latest.zip'
 	serverJar = 'compiler.jar'
 

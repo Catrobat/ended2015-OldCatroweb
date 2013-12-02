@@ -70,6 +70,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
     <string name="userdata_missing">Der Nickname oder die E-Mail Adresse fehlt.</string>
     <string name="avatar_creation_failed">Das Erstellen des neuen Avatars ist fehlgeschlagen.</string>
+    <string name="username_is_email_address"/>
   </userFunctions>
   <upload>
     <string name="missing_project_title">Es wurde kein Programmtitel spezifiziert. (XML Datei oder POST Daten, eines davon ist erforderlich.)</string>
@@ -89,6 +90,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="missing_file_data">POST-Daten nicht korrekt oder fehlt!</string>
     <string name="project_exceed_filesize_limit">Die gr&#xF6;&#xDF;e von dem Programm &#xFC;berschreitet das Limit f&#xFC;r die maximale Dateigr&#xF6;&#xDF;e.</string>
     <string name="insulting_words_in_project_title">Der Programmtitel enth&#xE4;lt Schimpfw&#xF6;rter!</string>
+    <string name="invalid_project_file"/>
+    <string name="linked_project_file_not_found"/>
+    <string name="unlinked_project_file"/>
   </upload>
   <viewer>
     <string name="user_is_blocked">Dein Konto wurde gesperrt.</string>

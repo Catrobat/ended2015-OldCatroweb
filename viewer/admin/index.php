@@ -37,7 +37,7 @@
   
   <div class="unapprovedProjects">
     <a id="aAdminApprovedProjects" href="<?php echo BASE_PATH; ?>admin/tools/approveProjects">
-      Unapproved projects: <?php echo $this->numUnapprovedProjects; ?>
+      Unapproved projects: <span id="numberOfUnapprovedProjects"><?php echo $this->numUnapprovedProjects; ?></span>
     </a>
   </div>
   <?php else : ?>

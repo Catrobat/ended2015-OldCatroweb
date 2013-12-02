@@ -24,7 +24,7 @@
 
 class upload extends CoreAuthenticationDevice {
   private $uploadState;
-  private $allowed_file_endings = Array(".png",".jpg",".jpeg",".xml", ".spf", ".catroid",".mp3",".wav",".mid",".nomedia");
+  private $allowed_file_endings = Array(".gif", ".png",".jpg",".jpeg",".xml", ".spf", ".catroid",".mp3",".wav",".mid",".nomedia");
   private $allowed_unlinked_files = Array("automatic_screenshot.png","manual_screenshot.png","screenshot.png");
 
   public function __construct() {
@@ -304,7 +304,7 @@ class upload extends CoreAuthenticationDevice {
     foreach($fileArray as $fileString)
     { 
       $fileEnding = strstr($fileString, ".");
-      if($fileEnding !== FALSE && !in_array($fileEnding,$this->allowed_file_endings))
+      if($fileEnding !== FALSE && !in_array(strtolower($fileEnding),$this->allowed_file_endings))
       {
         throw new Exception($this->errorHandler->getError('upload', 'invalid_project_file',$fileString), STATUS_CODE_UPLOAD_INVALID_FILE_EXTENSION);
       }
@@ -343,7 +343,7 @@ class upload extends CoreAuthenticationDevice {
     }
     if(count($nonlinkedFiles) > 0)
     {
-      throw new Exception($this->errorHandler->getError('upload', 'unlinked_project_file',"Files in XML: ".print_r($xmlFiles)." Files not in XML: ".implode(",",$nonlinkedFiles)), STATUS_CODE_UPLOAD_UNLINKED_EXISTING_FILE);
+      throw new Exception($this->errorHandler->getError('upload', 'unlinked_project_file',"Files in XML: ".print_r($xmlFiles,true)." Files not in XML: ".implode(",",$nonlinkedFiles)), STATUS_CODE_UPLOAD_UNLINKED_EXISTING_FILE);
     }
   }
   
