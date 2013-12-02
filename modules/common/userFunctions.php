@@ -935,8 +935,8 @@ class userFunctions extends CoreAuthenticationNone {
   }
   
   private function cleanUsername($username) {
-    //TODO: include
-    //$username_clean = normalize($username,Normalizer::FORM_KC);
+    //TODO: Test
+    $username_clean = Normalizer::normalize($username,Normalizer::FORM_KC);
     $username_clean = preg_replace('#(?:[\x00-\x1F\x7F]+|(?:\xC2[\x80-\x9F])+)#', '', $username_clean);
     $username_clean = preg_replace('# {2,}#', ' ', $username_clean);
     

@@ -38,7 +38,7 @@ class Sql:
 	dbPass = ''
 	sqlPath = os.path.join(basePath, 'sql')
 	overviewPath = os.path.join(basePath, 'sql', 'overview')
-	databases = ['catroboard', 'catroweb', 'catrowiki']
+	databases = ['catroweb']
 	
 	stateTable = 'record_of_my_database_state'
 	cli = ''

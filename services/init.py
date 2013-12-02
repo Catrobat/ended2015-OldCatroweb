@@ -37,8 +37,8 @@ import zipfile
 
 class EnvironmentChecker:
 	basePath = os.getcwd()
-	folders = [[os.path.join('addons', 'board', 'cache'), False],
-			[os.path.join('addons', 'board', 'images', 'avatars', 'upload'), False],
+	folders = [['cache', False],
+			[os.path.join('images', 'avatars', 'upload'), False],
 			['cache', False], 
 			[os.path.join('resources', 'catroid'), False],
 			[os.path.join('resources', 'featured'), False],
@@ -156,9 +156,7 @@ class SetupBackup:
 
 		try:
 			shell.sftp.mkdir(os.path.join('backup', 'sql'))
-			shell.sftp.mkdir(os.path.join('backup', 'sql', 'catroboard'))
 			shell.sftp.mkdir(os.path.join('backup', 'sql', 'catroweb'))
-			shell.sftp.mkdir(os.path.join('backup', 'sql', 'catrowiki'))
 		except:
 			pass
 				
