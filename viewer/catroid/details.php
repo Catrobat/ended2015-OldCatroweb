@@ -32,7 +32,7 @@
           <li>
             <div class="img-author"></div>
             <div style="padding-left: 0.5em;">
-              <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['uploaded_by']; ?>"><?php echo $this->project['uploaded_by']; ?></a>
+              <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['user_id']; ?>"><?php echo $this->project['uploaded_by']; ?></a>
             </div>
           </li>
         </ul>
@@ -80,6 +80,7 @@
     </div>
 
     <div class="projectDetailsInformation">
+    
       <ul>
         <li>
           <div class="img-author-blue"></div>

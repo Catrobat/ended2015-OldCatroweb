@@ -109,6 +109,27 @@ class userFunctions extends CoreAuthenticationNone {
     return $userExists;
   }
   
+  public function checkUserExistsId($userId) {
+    
+    if(empty($userId) || !is_numeric($userId)) {  
+      if($userId != "0") {
+        return false;
+      }
+    }
+    $result = pg_execute($this->dbConnection, "get_user_row_by_id", array($userId));
+    $userExists = (pg_num_rows($result) > 0);
+    pg_free_result($result);
+   
+    return $userExists;
+  }
+  
+  public function getUserName($userId) {
+    $result = pg_execute($this->dbConnection, "get_user_row_by_id", array($userId));  
+    $user = pg_fetch_assoc($result);
+    pg_free_result($result);
+    return $user['username'];
+  }
+  
   public function checkEmailExists($email) {
     $result = pg_execute($this->dbConnection, "get_user_row_by_email", array($email));
     
