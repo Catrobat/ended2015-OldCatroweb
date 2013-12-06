@@ -280,7 +280,9 @@ public class ProfileTests extends BaseTest {
       driver().findElement(By.id("registrationSubmit")).click();
       ajaxWait();
       
-      logout("profile/" + dataset.get("registrationUsername"));
+      String userId = CommonFunctions.getUserIDFromDatabase(dataset.get("registrationUsername"));
+      
+      logout("profile/" + userId);
       // not logged in, view foreign profile
       assertFalse(isElementPresent(By.id("profileNewPassword")));
       assertFalse(isElementPresent(By.id("profileRepeatPassword")));
@@ -298,7 +300,7 @@ public class ProfileTests extends BaseTest {
       openLocation("profile/");
       assertTrue(isTextPresent("Login".toUpperCase()));
       
-      login("profile/" + dataset.get("registrationUsername"));
+      login("profile/" + userId);
       // logged in as catroweb, view foreign profile
       assertTrue(isTextPresent(dataset.get("registrationUsername").toUpperCase()));
       assertTrue(isTextPresent(dataset.get("registrationCountry")));
@@ -320,7 +322,7 @@ public class ProfileTests extends BaseTest {
       projectUploader.upload(CommonData.getUploadPayload(projectTitle, "", "", "", "", "", dataset.get("registrationUsername"), authToken));
       assertProjectPresent(projectTitle);
 
-      openLocation("profile/" + dataset.get("registrationUsername"));
+      openLocation("profile/" + userId);
       assertTrue(isTextPresent("1"));
       
    // /profile/ without username should show own profile when logged in
