@@ -57,11 +57,6 @@
           <?php echo ($this->project['description'])? $this->project['description'] : $this->languageHandler->getString('no_description_available');?>
         </span>
       </div>
-      <div class="detailsFlagButton">
-        <button type="button" id="reportAsInappropriateButton">
-          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
-        </button>
-      </div>
     </div>
 
     <div class="projectDetailsDownload">
@@ -73,6 +68,14 @@
           </div>
         </a>
         <a id="projectDetailsDownloadLicense" href="<?php echo BASE_PATH?>licenseToPlay"><?php echo $this->languageHandler->getString('some_rights_reserved');?></a>
+      </div>
+    </div>
+    
+    <div class="projectDetailsDescription">
+      <div class="detailsFlagButton">
+        <button type="button" id="reportAsInappropriateButton">
+          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
+        </button>
       </div>
     </div>
 
