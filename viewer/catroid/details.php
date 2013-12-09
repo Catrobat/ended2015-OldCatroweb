@@ -88,7 +88,7 @@
         <li>
           <div class="img-author-blue"></div>
           <div class="projectDetailsInformationText">
-            <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['uploaded_by']; ?>"><?php echo $this->project['uploaded_by_string']; ?></a>
+            <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['user_id']; ?>"><?php echo $this->project['uploaded_by']; ?></a>
           </div>
         </li>
         <li>
