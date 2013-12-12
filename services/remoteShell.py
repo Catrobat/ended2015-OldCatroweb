@@ -50,11 +50,17 @@ class RemoteShell:
 			sys.exit(-1)
 
 
-	def run(self, command):
+	def run(self, command, erroroutput = 1):
 		(stdin, stdout, stderr) = self.ssh.exec_command('cd %s; %s' % (self.remoteDir, command))
 		error = stderr.readlines()
-		if len(error) > 0:
+		if len(error) > 0 and erroroutput == 1:
 			print('** Output **********************************************************************')
 			print(''.join(error))
 			return ''.join(stdout.readlines() + error).strip()
 		return ''.join(stdout.readlines()).strip()
+		
+	def download(self, remotepath, localpath):
+		self.sftp.get(remotepath, localpath)
+		
+	def close(self):
+		self.sftp.close()
