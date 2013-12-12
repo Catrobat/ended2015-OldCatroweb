@@ -48,9 +48,9 @@ public class DetailsTests extends BaseTest {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
 
-      By viewsElement = By.xpath("//*[@id='projectDetailsContainer']/div[5]/ul/li[5]/div[2]");
-      By downloadsElement = By.xpath("//*[@id='projectDetailsContainer']/div[5]/ul/li[4]/div[2]/span");
-      By filesizeElement = By.xpath("//*[@id='projectDetailsContainer']/div[5]/ul/li[3]/div[2]");
+      By viewsElement = By.xpath("//*[@id='projectDetailsContainer']/div[6]/ul/li[5]/div[2]");
+      By downloadsElement = By.xpath("//*[@id='projectDetailsContainer']/div[6]/ul/li[4]/div[2]/span");
+      By filesizeElement = By.xpath("//*[@id='projectDetailsContainer']/div[6]/ul/li[3]/div[2]");
       By downloadsButton = By.xpath("//*[@id='projectDetailsContainer']/div[3]/div/a[1]/div/span");
 
       openLocation("details/" + id);
@@ -105,7 +105,7 @@ public class DetailsTests extends BaseTest {
       int numOfDownloads = -1;
       int numOfDownloadsAfter = -1;
       
-      By downloadsElement = By.xpath("//*[@id='projectDetailsContainer']/div[5]/ul/li[4]/div[2]/span");
+      By downloadsElement = By.xpath("//*[@id='projectDetailsContainer']/div[6]/ul/li[4]/div[2]/span");
       
       openLocation("details/" + id);
       
@@ -219,8 +219,32 @@ public class DetailsTests extends BaseTest {
                     "", "", "", "", "", "") }, };
     return returnArray;
   }
+  
+  @Test(groups = { "visibility" }, description = "check view counter , only plus 1 per session")
+  public void checkViewCounter() throws Throwable {
+    int numOfViews = -1;
+    int numOfViews2 = -1;
+    int numOfViews3 = -1;
+    
+    openLocation("details/1");
+    By viewsElement = By.xpath("//*[@id='projectDetailsContainer']/div[6]/ul/li[5]/div[2]");
+    numOfViews = Integer.parseInt(driver().findElement(viewsElement).getText().split(" ")[0]);
+    
+    driver().navigate().refresh();
+    By viewsElement2 = By.xpath("//*[@id='projectDetailsContainer']/div[6]/ul/li[5]/div[2]");
+    numOfViews2 = Integer.parseInt(driver().findElement(viewsElement2).getText().split(" ")[0]);
+    
+    driver().navigate().refresh();
+    By viewsElement3 = By.xpath("//*[@id='projectDetailsContainer']/div[6]/ul/li[5]/div[2]");
+    numOfViews3 = Integer.parseInt(driver().findElement(viewsElement3).getText().split(" ")[0]);
+    
+    assertEquals(numOfViews + 1, numOfViews2);
+    assertEquals(numOfViews2 , numOfViews3);
+    
+  }
+  
 
-  @DataProvider(name = "detailsProject")
+@DataProvider(name = "detailsProject")
   public Object[][] detailsProject() {
     Object[][] returnArray = new Object[][] {
         { CommonData.getUploadPayload("details_test1small", "details_test_description", "", "", "", "", "catroid", CommonFunctions.getAuthenticationToken("catroid")) },

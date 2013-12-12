@@ -22,21 +22,22 @@
   * along with this program. If not, see <http://www.gnu.org/licenses/>.
   */
 
-class CorePresenter_png extends CorePresenterCommon {
-  private $data;
-
+class CorePresenter_jpeg extends CorePresenterCommon {
   public function __construct(CoreModule $module) {
     parent::__construct($module);
-    $this->data = $this->module->getData();
   }
 
   public function display() {
-    header("Content-Type: image/png");
+    header('Content-Type: image/jpeg');
+    $this->data = $this->module->getData();
     if(is_array($this->data) && !empty($this->data)) {
       foreach ($this->data as $key => $val) {
         $img = imagecreatefromstring($val);
+        $background = imagecolorallocate($img, 255, 255, 255);
+        imagefill($img, 0, 0, $background);
+        imagealphablending($img, false);
         imagesavealpha($img, true);
-        imagepng($img, null, 9, PNG_NO_FILTER);
+        imagejpeg($img);
         imagedestroy($img);
       }
     }

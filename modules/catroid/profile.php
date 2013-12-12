@@ -40,11 +40,11 @@ class profile extends CoreAuthenticationNone {
     $ownProfile = false;
     
     if(isset($_GET['method']) && trim($_GET['method']) != '') {
-      if(strcmp($_GET['method'], $this->session->userLogin_userNickname) == 0) {
+      if(strcmp($_GET['method'], $this->session->userLogin_userId) == 0) {
         $showUser = $this->session->userLogin_userNickname;
         $ownProfile = true;
-      } else if($this->userFunctions->checkUserExists($_GET['method'])) {
-        $showUser = checkUserInput($_GET['method']);
+      } else if($this->userFunctions->checkUserExistsId($_GET['method'])) {
+        $showUser = $this->userFunctions->getUserName($_GET['method']);
         $ownProfile = false;
       } else {
         $this->errorHandler->showErrorPage('profile','no_such_user');

@@ -32,7 +32,7 @@
           <li>
             <div class="img-author"></div>
             <div style="padding-left: 0.5em;">
-              <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['uploaded_by']; ?>"><?php echo $this->project['uploaded_by']; ?></a>
+              <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['user_id']; ?>"><?php echo $this->project['uploaded_by']; ?></a>
             </div>
           </li>
         </ul>
@@ -57,11 +57,6 @@
           <?php echo ($this->project['description'])? $this->project['description'] : $this->languageHandler->getString('no_description_available');?>
         </span>
       </div>
-      <div class="detailsFlagButton">
-        <button type="button" id="reportAsInappropriateButton">
-          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
-        </button>
-      </div>
     </div>
 
     <div class="projectDetailsDownload">
@@ -75,16 +70,25 @@
         <a id="projectDetailsDownloadLicense" href="<?php echo BASE_PATH?>licenseToPlay"><?php echo $this->languageHandler->getString('some_rights_reserved');?></a>
       </div>
     </div>
+    
+    <div class="projectDetailsDescription">
+      <div class="detailsFlagButton">
+        <button type="button" id="reportAsInappropriateButton">
+          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
+        </button>
+      </div>
+    </div>
 
     <div class="projectDetailsSeperator">
     </div>
 
     <div class="projectDetailsInformation">
+    
       <ul>
         <li>
           <div class="img-author-blue"></div>
           <div class="projectDetailsInformationText">
-            <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['uploaded_by']; ?>"><?php echo $this->project['uploaded_by_string']; ?></a>
+            <a href="<?php echo BASE_PATH; ?>profile/<?php echo $this->project['user_id']; ?>"><?php echo $this->project['uploaded_by']; ?></a>
           </div>
         </li>
         <li>

@@ -150,7 +150,7 @@ footer ul li{
   padding: 0.5em;
 }
 
-footer ul li a{
+footer ul li a, footer #copyright a {
   color: #fff;
   text-decoration: none;
 }
