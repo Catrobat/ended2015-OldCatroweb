@@ -589,6 +589,16 @@ class upload extends CoreAuthenticationDevice {
       if(!imagecopyresampled($thumbnail, $thumbImage, 0, 0, 0, 0, $desiredWidth, $desiredHeight, $width, $height)) {
         return false;
       }
+      if(strstr($extension,".jpg") || strstr($extension,".jpeg"))
+      {
+        $background = imagecolorallocate($thumbnail, 255, 255, 255);
+        imagefill($thumbnail, 0, 0, $background);
+        imagealphablending($thumbnail, false);
+        imagesavealpha($thumbnail, true);
+        if(!imagejpeg($thumbnail, CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $projectId . $extension))
+          return false;
+      }
+      else 
       if(!imagepng($thumbnail, CORE_BASE_PATH . PROJECTS_THUMBNAIL_DIRECTORY . $projectId . $extension, 7)) {
         return false;
       }
