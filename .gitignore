@@ -27,4 +27,5 @@ tests/selenium-grid/target
 tests/selenium-grid/tools/*.jar
 tools/
 services/deploy.py
+services/backup.py
 
