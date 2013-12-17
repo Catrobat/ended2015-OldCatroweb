@@ -296,7 +296,7 @@ public class FooterTests extends BaseTest {
   public void imprint() throws Throwable {
     try {
       openLocation();
-      clickAndWaitForPopUp(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul[2]/li[2]/a"));
+      clickAndWaitForPopUp(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul[2]/li[3]/a"));
       assertRegExp(".*Imprint.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
@@ -316,7 +316,7 @@ public class FooterTests extends BaseTest {
       driver().findElement(By.id("footerMoreButton")).click();
       ajaxWait();
 
-      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[5]/a"));
+      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[6]/a"));
       assertRegExp(".*Imprint.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {

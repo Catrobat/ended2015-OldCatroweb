@@ -359,4 +359,5 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_country_tunisia">Tunesien</string>
   <string name="template_common_country_mayotte">Mayotte</string>
   <string name="template_footer_about">&#xDC;ber Catrobat</string>
+  <string name="template_footer_rights_reserved">Lizenz zum Spielen</string>
 </strings>

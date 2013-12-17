@@ -25,7 +25,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="uploaded">hochgeladen</string>
   <string name="updated">aktualisiert</string>
   <string name="download_button">Herunterladen</string>
-  <string name="some_rights_reserved">Lizenz zum Spielen</string>
   <string name="views">mal gesehen</string>
   <string name="report_as_inappropriate_label">Warum ist dieses Programm unpassend?</string>
   <string name="report_as_inappropriate_please_login">Bitte {*login_link*} um dieses Programm als unpassend zu melden.</string>
