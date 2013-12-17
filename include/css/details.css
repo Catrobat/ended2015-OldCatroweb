@@ -145,9 +145,7 @@
 }
 
 .projectDetailsDownloadButton {
-  display: table-cell;
-  text-align: right;
-  vertical-align: middle;
+  margin:5% 0 5% 0;
   width: 90%;
 }
 
@@ -159,7 +157,7 @@
   border-radius: 4px;
   color: #fff;
   font-size: 1.8em;
-  padding: 3%;
+  padding: 3% 10%;
   text-transform: uppercase;
   text-decoration: none;
   text-shadow: #333333 1px 1px 1px;
@@ -172,11 +170,6 @@
 
 #projectDetailsDownloadLanguageVersion {
   font-size: 0.9em;
-}
-
-#projectDetailsDownloadLicense {
-  font-size: 0.9em;
-  text-transform: uppercase;
 }
 
 .projectDetailsSeperator {
@@ -261,9 +254,7 @@
 
 .reportAsInappropriateDialog, #reportAsInappropriateAnswer {
   font-size: 1.3em;
-  margin-top: 1em;
   padding-bottom: 1em;
-  padding-top: 1em;
 }
 
 .reportAsInappropriateDialog a{
@@ -311,7 +302,7 @@
 .reportAsInappropriateDialogButtons input:nth-child(odd) {
   margin-right: 1em;
 }
-
+/*
 #wrapper article #reportAsInappropriateButton {
   background-color: #00475D;
   border: 1px solid #00475D;
@@ -323,6 +314,12 @@
 }
 
 #wrapper article #detailsFlagButtonText{
+  font-weight: bold;
+}
+*/
+#wrapper article #reportAsInappropriateButton {
+  text-decoration: underline;
+  cursor: pointer;
   font-weight: bold;
 }
 
@@ -409,11 +406,9 @@
   }
 
   .projectDetailsDownloadButton {
+    margin:5% 0 5% 0;
     width: 50%;
-    display: block;
     height: auto;
-    margin-left: auto;
-    margin-right: 0;
   }
 
   #wrapper article #projectDetailsContainer textarea {
@@ -470,11 +465,9 @@
   }
 
   .projectDetailsDownloadButton {
+    margin:5% 0 5% 0;
     width: 75%;
-    display: block;
     height: auto;
-    margin-left: auto;
-    margin-right: 0;
   }
 
 }
