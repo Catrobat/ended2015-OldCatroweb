@@ -108,7 +108,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </auth>
   <db>
     <string name="query_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
-    <string name="connection_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
     <string name="no_entry_for_id">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
   </db>
   <flag>

@@ -28,7 +28,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   </server>
   <db>
     <string name="query_failed">Datenbank Operation fehlgeschlagen.</string>
-    <string name="connection_failed">Datenbank Verbindung fehlgeschlagen.</string>
     <string name="no_entry_for_id">Kein Eintrag f&#xFC;r diese ID gefunden</string>
     <string name="no_such_user">User nicht gefunden!</string>
   </db>

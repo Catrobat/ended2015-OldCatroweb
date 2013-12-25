@@ -65,8 +65,6 @@ class directoryPermissionsTest extends PHPUnit_Framework_TestCase {
   /* *** DATA PROVIDERS *** */
   public function writeableDirectories() {
     $dataArray = array(
-     array('addons/board/cache',false),
-     array('addons/board/images/avatars/upload',false),
      array('resources/catroid',false),
      array('resources/projects',false),
      array('resources/thumbnails',false),
