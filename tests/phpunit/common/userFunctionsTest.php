@@ -192,7 +192,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
     
     $this->assertFalse($this->obj->isLoggedIn());
 
-    $usernameClean = utf8_clean_string(trim($postData['registrationUsername']));
+    $usernameClean = $this->obj->cleanUsername(trim($postData['registrationUsername']));
     $result = pg_execute($this->obj->dbConnection, "get_user_token", array($usernameClean));
     if($result) {
       $row = pg_fetch_array($result);
@@ -273,7 +273,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
    */
   public function testUpdateAuthToken($postData) {
     $newPassword = "testBlaBlub";
-    $usernameClean = utf8_clean_string(trim($postData['registrationUsername']));
+    $usernameClean = $this->obj->cleanUsername(trim($postData['registrationUsername']));
     try {
       $this->obj->register($postData);
     
@@ -309,7 +309,7 @@ class userFunctionsTests extends PHPUnit_Framework_TestCase {
    */
   public function testUpdatePassword($postData) {
     $newPassword = "testBlaBlub";
-    $usernameClean = utf8_clean_string(trim($postData['registrationUsername']));
+    $usernameClean = $this->obj->cleanUsername(trim($postData['registrationUsername']));
     try {
       $this->obj->register($postData);
       $this->obj->login($postData['registrationUsername'], $postData['registrationPassword']);
