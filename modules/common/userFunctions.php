@@ -118,7 +118,7 @@ class userFunctions extends CoreAuthenticationNone {
       throw new Exception($this->errorHandler->getError('userFunctions', 'username_missing'),
           STATUS_CODE_USER_USERNAME_MISSING);
     }
-
+    
     // # < > [ ] | { }
     if(preg_match('/_|^_$/', $username)) {
       throw new Exception($this->errorHandler->getError('userFunctions', 'username_invalid_underscore'),
@@ -174,10 +174,7 @@ class userFunctions extends CoreAuthenticationNone {
           STATUS_CODE_USER_USERNAME_INVALID);
     }
 
-    if ($username == 'aDmIn'){
-      print($username . " " . $usernameClean);
-      var_dump(getUsernameBlacklistArray());
-    }
+ 
     if(in_array($username, getUsernameBlacklistArray()) || in_array($usernameClean, getUsernameBlacklistArray())) {
       throw new Exception($this->errorHandler->getError('userFunctions', 'username_blacklisted'),
           STATUS_CODE_USER_USERNAME_INVALID);
@@ -939,7 +936,15 @@ class userFunctions extends CoreAuthenticationNone {
   }
   
   public function cleanUsername($username) {
-    $username_clean = Normalizer::normalize($username,Normalizer::FORM_KC);
+    static $homographs = array();
+    if (empty($homographs))
+    {
+      $homographs = include(CORE_BASE_PATH . LIB_PATH . 'utf/data/confusables.php');
+    }
+    
+    $username_clean = strtolower($username);
+    $username_clean = Normalizer::normalize($username_clean,Normalizer::FORM_KC);
+    $username_clean = strtr($username_clean, $homographs);
     $username_clean = preg_replace('#(?:[\x00-\x1F\x7F]+|(?:\xC2[\x80-\x9F])+)#', '', $username_clean);
     $username_clean = preg_replace('# {2,}#', ' ', $username_clean);
     

@@ -127,5 +127,6 @@ define('GA_PIXEL','ga.php');
 define('SESSION_LIFETIME', 60*60*24*365);
 define('JQUERY_VERSION', '2.0.0');
 define('MOBILE_BROWSERDETECTION_URL_FOR_UPDATE', 'http://detectmobilebrowsers.com/download/php');
+define('LIB_PATH','include/lib/');
 
 ?>
