@@ -74,8 +74,9 @@ if __name__ == '__main__':
 			clean = Cleaner()
 			clean.clearCache()
 			clean.cleanResources()
+			
 			Release().removeBuildDir()
-			Sql().purgeDbs()
+			Sql().purgeDbs() # <-- Error!
 			clean.removeSQLoverview()
 			Pootle().cleanGeneratedFiles()
 		elif sys.argv[1] == 'tools':
