@@ -1,2 +1,2 @@
-drop database catroboard;
-drop database catrowiki;
+drop database if exists catroboard;
+drop database if exists catrowiki;

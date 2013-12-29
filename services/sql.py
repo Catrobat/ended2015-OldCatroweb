@@ -31,7 +31,6 @@ import shutil
 import string
 import sys
 
-
 class Sql:
 	basePath = os.getcwd()
 	dbUser = ''
@@ -54,7 +53,7 @@ class Sql:
 
 	def __init__(self, callback=localCommand, database='catroweb'):
 		self.run = callback
-		self.databases[1] = database
+		self.databases[0] = database
 		
 		match = re.match(r".*?\\'DB_USER\\',\\'(?P<dbUser>.+?)\\'.*?\\'DB_PASS\\',\\'(?P<dbPass>.+?)\\'", self.run('cat passwords.php').encode('string-escape'))
 		try:
@@ -65,8 +64,6 @@ class Sql:
 			if self.checkConnection():
 				## CAUTON: pg_stat_activity.procpid may change to pg_stat_activity.pid in postgres 9.2
 				self.run('%s -d template1 -c "SELECT dbo.pg_kill_user_process(pg_stat_activity.procpid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'%s\';"' % (self.cli, self.databases[0]))
-				self.run('%s -d template1 -c "SELECT dbo.pg_kill_user_process(pg_stat_activity.procpid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'%s\';"' % (self.cli, self.databases[1]))
-				self.run('%s -d template1 -c "SELECT dbo.pg_kill_user_process(pg_stat_activity.procpid) FROM pg_stat_activity WHERE pg_stat_activity.datname = \'%s\';"' % (self.cli, self.databases[2]))
 			else:
 				self.run = self.error
 		except:
