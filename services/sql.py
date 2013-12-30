@@ -104,9 +104,13 @@ class Sql:
 	def backupDbs(self):
 		dumps = ''
 		for database in self.databases:
+			print 'start dumping ' + database
 			dumps += '%s-sql.tar.gz ' % database
 			self.dumpDb(database)
 
+
+		print 'start packing sql (first cleaning if necessary)'
+		self.run('rm sql.tar', 0)
 		self.run('tar -cjf sql.tar %s' % dumps)
 		self.run('rm %s' % dumps)
 

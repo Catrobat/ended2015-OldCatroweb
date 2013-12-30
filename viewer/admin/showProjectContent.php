@@ -59,7 +59,7 @@
                 <div class="projectImages"><img width="auto" height="auto" src="<?php
                 if(pathinfo($file,PATHINFO_EXTENSION) == "")
                   echo "/admin/tools/getResource.png?project_id=".$this->projectId ."&file_name=images/".pathinfo($file,PATHINFO_FILENAME);
-                else  
+                else
                   echo "/admin/tools/getResource.".pathinfo($file,PATHINFO_EXTENSION)."?project_id=".$this->projectId ."&file_name=images/".pathinfo($file,PATHINFO_FILENAME) ?>"></div>
               <?php }} ?>
         </div>
@@ -84,7 +84,7 @@
             }
           ?>
         </div>
-        <div id="projectStrings" class="projects">
+        <div class="projects">
           <h2>Sounds</h2>
           <?php 
             $dir = new DirectoryIterator(PROJECTS_UNZIPPED_DIRECTORY . $this->projectId . '/sounds');

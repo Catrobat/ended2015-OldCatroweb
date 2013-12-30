@@ -42,6 +42,7 @@ class Backup:
 			self.download = remoteShell.sftp.get
 			self.upload = remoteShell.sftp.put
 			self.remoteDir = remoteShell.remoteDir
+			self.close = remoteShell.close
 			print 'remote backup:'
 		except:
 			print 'local backup:'
@@ -57,28 +58,52 @@ class Backup:
 
 	def upload(self, localFile, remoteFile):
 		pass
+		
+	def close(self):
+		pass
 
 
 	def createBackup(self):
+		print 'connecting sql...'
 		sqlShell = Sql(self.run)
 		if sqlShell.checkConnection():
+			print '----start creating sql backup...'
 			sqlShell.backupDbs()
-			self.run('tar -c resources.tar --no-recursion resources/*')
-			for project in sqlShell.getProjectList():
+			print '----end creating sql backup.'
+			print '----start creating resources backup...'
+			self.run('rm resources.tar',0)
+			self.run('tar -c resources.tar --no-recursion resources/*',0)
+			'''for project in sqlShell.getProjectList():
 				self.run('tar --append --file=resources.tar resources/projects/%s.*' % project)
 				self.run('tar --append --file=resources.tar resources/thumbnails/%s_small*' % project)
 				self.run('tar --append --file=resources.tar resources/thumbnails/%s_large*' % project)
-
-			for featuredProject in sqlShell.getFeaturedProjectList():
+			'''
+			print 'packing featured'
+			self.run('tar --append --file=resources.tar resources/featured/*')
+			
+			print 'packing projects'
+			self.run('tar --append --file=resources.tar resources/projects/*')
+			
+			print 'packing thumbnails'
+			self.run('tar --append --file=resources.tar resources/thumbnails/*')
+			
+			
+			'''for featuredProject in sqlShell.getFeaturedProjectList():
 				self.run('tar --append --file=resources.tar resources/featured/%s.*' % featuredProject)
 			
 			self.run('tar --append --file=resources.tar resources/thumbnails/thumbnail_small.png')
 			self.run('tar --append --file=resources.tar resources/thumbnails/thumbnail_large.png')
-			
+			'''
+			print '----end creating resources backup.'
+			print 'adding sql and resources into one package...'
 			self.run('tar -zcf catroweb-' + self.today + '.tar.gz sql.tar resources.tar')
 			self.run('rm sql.tar resources.tar')
+			print 'generated package size:'+ self.run('du -h catroweb-' + self.today + '.tar.gz')
+			print 'downloading the package...'
 			self.download(os.path.join(self.remoteDir, 'catroweb-' + self.today + '.tar.gz'), os.path.join(os.getcwd(), 'catroweb-' + self.today + '.tar.gz'))
 			print 'created backup'
+		else:
+			print 'failed'
 
 
 	def restoreBackup(self, backup):
@@ -124,7 +149,7 @@ if __name__ == '__main__':
 				Backup().restoreBackup(sys.argv[3])
 
 		elif sys.argv[1] == 'webtest':
-			shell = RemoteShell('catroidwebtest.ist.tugraz.at', 'ask', 'coordinator')
+			shell = RemoteShell('web-test.catrob.at', 'ask', 'coordinator')
 			if sys.argv[2] == 'backup':
 				Backup(shell).createBackup()
 			elif sys.argv[2] == 'restore':
