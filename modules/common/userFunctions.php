@@ -349,8 +349,6 @@ class userFunctions extends CoreAuthenticationNone {
     }
 
     $this->loginCatroid($username, $this->hashPassword($username, $password));
-    //$this->loginBoard($username, $password);
-    //$this->loginWiki($username, $password);
     $this->setUserLanguage($this->session->userLogin_userId);
 
     $token = '-1';
@@ -625,8 +623,6 @@ class userFunctions extends CoreAuthenticationNone {
     $username = $this->cleanUsername($username);
 
     $this->updateCatroidPassword($username, $newPassword);
-    //$this->updateBoardPassword($username, $newPassword);
-    //$this->updateWikiPassword($username, $newPassword);
   }
 
   private function updateCatroidPassword($username, $password) {

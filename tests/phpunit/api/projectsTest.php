@@ -506,12 +506,12 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['UploadedString']));
       $this->assertFalse(isset($project['Version']));
       $this->assertFalse(isset($project['Views']));
-      if($last_download_count == $project['Downloads']){
-        $this->assertGreaterThanOrEqual($project['id'], $lastId);
-      }
+//       if($last_download_count == $project['Downloads']){
+//         $this->assertGreaterThanOrEqual($project['id'], $lastId);
+//       }
       
       $last_download_count = $project['Downloads'];
-      $lastId = $project['id'];
+//       $lastId = $project['id'];
       next($idSorted);
       next($dlSorted);
       $i++;

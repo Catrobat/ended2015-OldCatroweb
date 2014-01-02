@@ -25,7 +25,6 @@ package at.tugraz.ist.catroweb.catroid;
 
 import java.util.HashMap;
 
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

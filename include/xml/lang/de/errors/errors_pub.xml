@@ -43,10 +43,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="username_invalid_insulting_words"/>
     <string name="password_new_too_short">Dein neues Passwort muss mindestens {*minimumPasswordLength*} Zeichen lang sein.</string>
     <string name="country_missing">Bitte gib ein Land ein.</string>
-    <string name="board_registration_failed"/>
-    <string name="password_new_board_update_failed">Es gab ein Problem beim Aktualisieren deines Passwortes.</string>
     <string name="userdata_not_exists">Der Nickname oder die E-Mail Adresse konnte nicht gefunden werden.</string>
-    <string name="board_authentication_failed">Anmeldung im Forum fehlgeschlagen!</string>
     <string name="hash_not_found">Sorry! Konnte nichts zum Wiederherstellen finden. Bitte versuche es erneut.</string>
     <string name="username_invalid_underscore"/>
     <string name="username_invalid_hash"/>

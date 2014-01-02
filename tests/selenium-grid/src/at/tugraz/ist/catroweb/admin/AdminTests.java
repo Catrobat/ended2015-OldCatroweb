@@ -30,7 +30,6 @@ import org.testng.annotations.Test;
 import static org.testng.AssertJUnit.*;
 import java.util.HashMap;
 import org.testng.annotations.DataProvider;
-import org.testng.annotations.Test;
 
 import at.tugraz.ist.catroweb.BaseTest;
 import at.tugraz.ist.catroweb.common.*;

@@ -97,9 +97,7 @@ define('REAL_BASE_PATH',str_replace('help/', '', BASE_PATH));
 			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>:4444/grid/console" target="_blank">Grid	Console</a> - Selenium-Grid Server Status<br/> 
 			<a href="<?php echo REAL_BASE_PATH;?>tests/selenium-grid/target/reports/" target="_blank">Test	Reports</a> - Test results of last testrun<br/> 
 			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/phppgadmin/" target="_blank">phpPgAdmin</a> -  WebBased SQL administration tool<br/><br/>
-			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/sql/overview/catroboard.html" target="_blank">Database Schema</a> -  catroboard<br/>
 			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/sql/overview/catroweb.html" target="_blank">Database Schema</a> -  catroweb<br/>
-			<a href="http://<?php echo $_SERVER['SERVER_NAME']?>/sql/overview/catrowiki.html" target="_blank">Database Schema</a> -  catrowiki<br/>
 			
 			<h1>kittyroidlocal</h1> 
 			<h3>(http://catroidtestserver.ist.tugraz.at)</h3>

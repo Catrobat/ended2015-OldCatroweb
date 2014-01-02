@@ -28,7 +28,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import org.openqa.selenium.By;
 import org.postgresql.Driver;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

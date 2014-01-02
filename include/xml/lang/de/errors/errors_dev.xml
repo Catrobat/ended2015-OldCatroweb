@@ -60,13 +60,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="create_hash_failed">Uuups, etwas ist schiefgelaufen!/nProbier es einfach noch einmal!</string>
     <string name="sendmail_failed">Fehler w&#xE4;hrend dem Senden des Emails. Vielleicht funktioniert dein Mailserver nicht?</string>
     <string name="username_invalid_lessgreater"/>
-    <string name="board_authentication_failed">Anmeldung im Forum fehlgeschlagen!</string>
     <string name="unsupported_image">Unerlaubtes Bild, erlaubte Bildtypen sind gif, png oder jpeg.</string>
-    <string name="password_new_board_update_failed">Konnte das Forums Passwort nicht aktualisieren.</string>
     <string name="username_invalid">Der Nickname ist ung&#xFC;ltig.</string>
     <string name="username_blacklisted">Der Nickname ist auf der schwarzen Liste und deswegen nicht erlaubt.</string>
     <string name="email_invalid">Diese E-mail Adresse ist ung&#xFC;ltig!</string>
-    <string name="board_registration_failed">Registrierung im Forum fehlgeschlagen!</string>
     <string name="userdata_missing">Der Nickname oder die E-Mail Adresse fehlt.</string>
     <string name="avatar_creation_failed">Das Erstellen des neuen Avatars ist fehlgeschlagen.</string>
     <string name="username_is_email_address"/>
