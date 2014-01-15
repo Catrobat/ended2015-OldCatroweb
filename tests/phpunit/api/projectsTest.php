@@ -776,11 +776,11 @@ class projectsTest extends PHPUnit_Framework_TestCase
       $this->assertFalse(isset($project['UploadedString']));
       $this->assertFalse(isset($project['Version']));
       if($lastViewCount == $project['Views']){
-        $this->assertGreaterThanOrEqual($project['id'], $lastId);
+        $this->assertGreaterThanOrEqual($project['ProjectId'], $lastId);
       }
   
       $lastViewCount = $project['Views'];
-      $lastId = $project['id'];
+      $lastId = $project['ProjectId'];
       next($idSorted);
       next($viewedSorted);
       $i++;
