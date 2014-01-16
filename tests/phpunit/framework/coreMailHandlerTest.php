@@ -40,7 +40,10 @@ class coreMailHandlerTest extends PHPUnit_Framework_TestCase {
    * @dataProvider registrationData
    */
   public function testRegistrationMail($registrationUsername, $registrationPassword) {
-    $mail = $this->userFunctions->sendRegistrationEmail(array('registrationUsername' => $registrationUsername, 'registrationPassword' => $registrationPassword));
+    $mail = $this->userFunctions->sendRegistrationEmail(array('registrationUsername' => $registrationUsername
+                                                             , 'registrationPassword' => $registrationPassword
+                                                             , 'registrationEmail'    => USER_EMAIL_NOREPLY)
+                                  );
     $mail['text'] = $this->mailHandler->word_wrap($mail['text']);
     $mailSubject = USER_EMAIL_SUBJECT_PREFIX.' - Your '.APPLICATION_NAME.' Registration';
     $mailText  = "Congratulations and welcome to the ".APPLICATION_URL_TEXT." community.\r\n\r\n";
