@@ -7,6 +7,8 @@ The website features Catrobat projects (also called Catrobat programs) uploaded 
 
 The Community website with sample programs can be found at [https://www.pocketcode.org](https://www.pocketcode.org/).
 
+**Please report all bugs on our [Jira Bugtracker](https://jira.catrob.at/secure/CreateIssue.jspa?pid=10301&issuetype=1)**
+
 ###How to get started:
 
 A step by step guide for Ubuntu.
