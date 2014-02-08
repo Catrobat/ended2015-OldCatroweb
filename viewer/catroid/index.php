@@ -33,6 +33,7 @@ src = [<?php
 
 duration = 5;
 ads=[]; ct=0;
+var timeOut;
 function switchAd() {
   var n=(ct+1)%src.length;
   if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
@@ -42,8 +43,56 @@ function switchAd() {
     x = x.replace(".jpg","");
     
     $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
+  } else {
+     ads[n] = new Image;
   }
-  ads[n=(ct+1)%src.length] = new Image;
+  
+  if(document.width <= 400)
+    ads[n].src = src[n].replace(".jpg", "_400.jpg");
+  else if(document.width <= 720)
+    ads[n].src = src[n].replace(".jpg", "_720.jpg");
+  else
+    ads[n].src = src[n];
+  //timeOut = setTimeout("switchAd()",duration*1000);
+}
+
+function switchAdNext() {
+  var n=(ct+1)%src.length;
+  if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
+    document["Ad_Image"].src = ads[ct=n].src;
+
+    var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
+    x = x.replace(".jpg","");
+    
+    $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
+  } else {
+    ads[n=(ct+1)%src.length] = new Image;
+  }
+  if(document.width <= 400)
+    ads[n].src = src[n].replace(".jpg", "_400.jpg");
+  else if(document.width <= 720)
+    ads[n].src = src[n].replace(".jpg", "_720.jpg");
+  else
+    ads[n].src = src[n];
+  clearTimeout(timeOut);
+  timeOut = setTimeout("switchAd()",duration*1000);
+}
+
+function switchAdPrev() {
+  if (ct == 0) {
+    ct = src.length;
+  }
+  var n=(ct-1)%src.length;
+  if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
+    document["Ad_Image"].src = ads[ct=n].src;
+
+    var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
+    x = x.replace(".jpg","");
+    
+    $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
+  } else {
+     ads[n] = new Image;
+  }
 
   if(document.width <= 400)
     ads[n].src = src[n].replace(".jpg", "_400.jpg");
@@ -51,19 +100,20 @@ function switchAd() {
     ads[n].src = src[n].replace(".jpg", "_720.jpg");
   else
     ads[n].src = src[n];
-  
-  setTimeout("switchAd()",duration*1000);
+  clearTimeout(timeOut);
+  timeOut = setTimeout("switchAd()",duration*1000);
 }
 
 onload = function(){
   if (document.images)
     switchAd();
 };
+
 </script>
 
       <article>
         <div id="programmOfTheWeek">
-          <header><?php echo $this->languageHandler->getString('recommended'); ?></header>
+          <header id="header"><?php echo $this->languageHandler->getString('recommended'); ?></header>
           <div id="featuredProject">
           </div>
         </div>

@@ -127,7 +127,9 @@ var Index = Class.$extend( {
       else if(document.width <= 720)
         filePath = filePath.replace(".jpg", "_720.jpg");
       
-      $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'" id="switch_image"><img name="Ad_Image" src="' + baseUrl + filePath + '" /></a>');
+      $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'" id="switch_image"><img name="Ad_Image" src="' + baseUrl + filePath + '" /></a>' +
+          '<div class="group1-Wrapper"><a onclick="switchAdPrev()" class="group1-Prev"></a>' +
+            '<a onclick="switchAdNext()" class="group1-Next"></a></div>');
     }
     else {
       $("#programmOfTheWeek").css('display', 'none');

@@ -79,4 +79,30 @@
   padding-bottom: 1em;
   margin-bottom: 2.8em;
 }
+
+.group1-Wrapper
+{
+    position:absolute;
+    z-index:20;
+    top:120px;
+    margin-left:50%;
+    width:100px;
 }
+
+a.group1-Prev, a.group1-Next
+{
+    width:50px;height:150px;
+    background:transparent url(/images/symbols/navbuttons2.gif); 
+    display:block; 
+    cursor:pointer;
+    position:absolute;
+    top:0;
+    user-select: none;
+}
+a.group1-Prev{background-position:0 0; left: -510px;}
+a.group1-Next {background-position:0 -150px;left:460px;}
+
+a.group1-Prev:hover{background-position:50px 0;}
+a.group1-Next:hover {background-position:50px -150px;}
+
+
