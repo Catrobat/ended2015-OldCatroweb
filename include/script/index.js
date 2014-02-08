@@ -128,8 +128,8 @@ var Index = Class.$extend( {
         filePath = filePath.replace(".jpg", "_720.jpg");
       
       $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'" id="switch_image"><img name="Ad_Image" src="' + baseUrl + filePath + '" /></a>' +
-          '<div class="group1-Wrapper"><a onclick="switchAdPrev()" class="group1-Prev"></a>' +
-            '<a onclick="switchAdNext()" class="group1-Next"></a></div>');
+          '<a onclick="switchAdPrev()" class="nvgt" id="prev"></a>' +
+            '<a onclick="switchAdNext()" class="nvgt" id="next"></a>');
     }
     else {
       $("#programmOfTheWeek").css('display', 'none');
