@@ -90,6 +90,56 @@ class projects extends CoreAuthenticationNone {
     $this->retrieve($offset, $limit, PROJECT_MASK_ALL, PROJECT_SORTBY_AGE);
   }
   
+  public function getInfoById() {
+    $offset = 0;
+    $limit = 1;
+    $projects = array();
+    if(isset($_REQUEST['id'])) {
+      $id = $_REQUEST['id'];
+    }else{
+      $this->Error = 'no id given';
+      return;
+    }
+    if(!is_numeric($id)){
+      $this->Error = 'given id is not an integer';
+      return;
+    }
+    
+    $result = pg_execute($this->dbConnection, "get_project_by_id", array($id)) or
+    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $projects = pg_fetch_all($result);
+    if($projects == null){
+      $this->Error = 'Project not found (uploaded)';
+      return;
+    }
+    $this->generateOutput($projects, PROJECT_MASK_ALL, 0);
+    
+    return array('CatrobatInformation' => $this->CatrobatInformation,'CatrobatProjects' => $this->CatrobatProjects);
+  }
+  
+  public function getInfoByTitle() {
+    $offset = 0;
+    $limit = 1;
+    $projects = array();
+    if(isset($_REQUEST['title'])) {
+      $title = $_REQUEST['title'];
+    }else{
+      $this->Error = 'no title given';
+      return;
+    }
+  
+    $result = pg_execute($this->dbConnection, "get_project_by_title", array($title)) or
+    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $projects = pg_fetch_all($result);
+    if($projects == null){
+      $this->Error = 'Project not found (uploaded)';
+      return;
+    }
+    $this->generateOutput($projects, PROJECT_MASK_ALL, 0);
+  
+    return array('CatrobatInformation' => $this->CatrobatInformation,'CatrobatProjects' => $this->CatrobatProjects);
+  }
+  
   public function search() {
     if(!isset($_REQUEST['query']) || strlen(trim($_REQUEST['query'])) == 0) {
       $this->Error = 'no search query';

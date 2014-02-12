@@ -24,6 +24,7 @@
 
 <statements>
     <string name="get_projects_ordered_by_uploadtime">SELECT * FROM projects ORDER BY upload_time DESC</string>
+    <string name="get_project_by_title">SELECT * FROM projects WHERE projects.title=$1</string>
     <string name="get_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="get_visible_project_by_id">SELECT projects.*, cusers.username AS uploaded_by FROM projects, cusers WHERE projects.id=$1 AND projects.visible=true AND cusers.id=projects.user_id LIMIT 1</string>
     <string name="insert_new_project">INSERT INTO projects (title, description, upload_ip, upload_language, filesize_bytes, version_name, language_code, user_id, visible) 
