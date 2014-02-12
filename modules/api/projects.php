@@ -105,7 +105,7 @@ class projects extends CoreAuthenticationNone {
       return;
     }
     
-    $result = pg_execute($this->dbConnection, "get_project_by_id", array($id)) or
+    $result = pg_execute($this->dbConnection, "get_visible_project_by_id", array($id)) or
     $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $projects = pg_fetch_all($result);
     if($projects == null){
