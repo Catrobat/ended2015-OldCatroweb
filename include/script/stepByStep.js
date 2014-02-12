@@ -24,29 +24,13 @@
 var currentSlide = 1;
 
 $(".navigation"+1).css("color", "#FFFFFF");
-$(".navigation3").after('<div class="navigationPoints" style="float: left;">...</div>');
+$(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
 
-//if($(window).width() <= 840) {
   for(i=4;i<12;i++) {
     if(i === 1 || i === 11)
       continue;
     $(".navigation"+i).hide();
   }
-//}
-
-//$(window).resize(function() {
-//  if($(window).width() > 840) {
-//    for(i=1;i<=12;i++) {
-//      $(".navigation"+i).show();
-//    }
-//  }
-//  else {
-//    for(i=4;i<=12;i++) {
-//      $(".navigation"+i).hide();
-//    }
-//  }
-//});
-
 
 function changeContainer(slide) {
   
@@ -96,7 +80,6 @@ function incrementContainer() {
     $(".stepByStepMainContent"+(currentSlide-1)).css("display", "none");
     $(".navigation"+(currentSlide-1)).css("color", "#05222a");
     
-    
   }
 }
 
@@ -110,11 +93,11 @@ function hideNavigations(type) {
       
       if(currentSlide < 3 && i <= 3) {
         $(".navigationPoints").remove();
-        $(".navigation3").after('<div class="navigationPoints" style="float: left;">...</div>');
+        $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
       } else if(currentSlide > 9 && i >= 9) {
         $(".navigationPoints").remove();
-        $(".navigation9").before('<div class="navigationPoints" style="float: left;">...</div>');
+        $(".navigation9").before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
       }
       
@@ -128,9 +111,9 @@ function hideNavigations(type) {
         
       if(i - 1 === currentSlide || i === currentSlide || i + 1 === currentSlide) {
         if((i - 1 === currentSlide) && currentSlide > 3 && currentSlide <= 9)
-          $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left;">...</div>');
+          $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         if((i + 1 === currentSlide) && currentSlide >= 3 && currentSlide < 9)
-          $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left;">...</div>');
+          $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
           
         $(".navigation"+i).show();
       }
@@ -146,12 +129,12 @@ function hideNavigations(type) {
       
       if(currentSlide < 3 && i <= 3) {
         $(".navigationPoints").remove();
-        $(".navigation3").after('<div class="navigationPoints" style="float: left;">...</div>');
+        $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
       }
       else if(currentSlide > 9 && i >= 9) {
         $(".navigationPoints").remove();
-        $(".navigation9").before('<div class="navigationPoints" style="float: left;">...</div>');
+        $(".navigation9").before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
       }
       
@@ -165,9 +148,9 @@ function hideNavigations(type) {
       
        if(i - 1 === currentSlide || i === currentSlide || i + 1 === currentSlide) {
         if(i - 1 === currentSlide  && currentSlide > 3 && currentSlide <= 9)
-          $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left;">...</div>');
+          $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         if(i + 1 === currentSlide && currentSlide >= 3 && currentSlide < 9) 
-          $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left;">...</div>');
+          $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         
         $(".navigation"+i).show();
       }
@@ -189,19 +172,19 @@ function hideNavigations(type) {
       
       if(currentSlide < 3 && i <= 3) {
         $(".navigationPoints").remove();
-        $(".navigation3").after('<div class="navigationPoints" style="float: left;">...</div>');
+        $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
       }    
       else if(currentSlide > 9 && i >= 9) {
         $(".navigationPoints").remove();
-        $(".navigation9").before('<div class="navigationPoints" style="float: left;">...</div>');
+        $(".navigation9").before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
       }
       else {
         if(i - 1 === currentSlide  && currentSlide > 3 && currentSlide <= 9)
-          $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left;">...</div>');
+          $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         if(i + 1 === currentSlide && currentSlide >= 3 && currentSlide < 9) 
-          $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left;">...</div>');
+          $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
       }
       
       if(currentSlide === 11) {
