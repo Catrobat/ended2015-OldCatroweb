@@ -358,6 +358,18 @@
   margin-right: 0.1em;
 }
 
+#wrapper article div.navigationPoints {
+  background-color: #17a5b8;
+  color: #FFFFFF;
+  font-size: 1.1em;
+  width: 35px;
+  height: 35px;
+  float: left;
+  border-radius: 50%;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
 #wrapper article div.linkContainer {
   display: table;
   margin: 0 auto;
