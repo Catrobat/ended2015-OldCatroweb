@@ -24,15 +24,15 @@
 var currentSlide = 1;
 
 $(".navigation"+1).css("color", "#FFFFFF");
+$(".navigation3").after('<div class="navigationPoints" style="float: left;">...</div>');
 
-
-if($(window).width() <= 840) {
+//if($(window).width() <= 840) {
   for(i=4;i<12;i++) {
     if(i === 1 || i === 11)
       continue;
     $(".navigation"+i).hide();
   }
-}
+//}
 
 //$(window).resize(function() {
 //  if($(window).width() > 840) {
@@ -71,15 +71,15 @@ function decrementContainer() {
 
   if(currentSlide > 1) {  
    
+    currentSlide -= 1;
     hideNavigations(1);
 
-    $(".stepByStepMainContent"+(currentSlide-1)).css("display", "block");
-    $(".navigation"+(currentSlide-1)).css("color", "#FFFFFF");
+    $(".stepByStepMainContent"+currentSlide).css("display", "block");
+    $(".navigation"+currentSlide).css("color", "#FFFFFF");
     
-    $(".stepByStepMainContent"+currentSlide).css("display", "none");
-    $(".navigation"+currentSlide).css("color", "#05222a");
+    $(".stepByStepMainContent"+(currentSlide+1)).css("display", "none");
+    $(".navigation"+(currentSlide+1)).css("color", "#05222a");
     
-    currentSlide -= 1;
   }
 }
 
@@ -87,69 +87,144 @@ function incrementContainer() {
   
   if(currentSlide < 11) {
     
+    currentSlide += 1;
     hideNavigations(2);    
     
-    $(".stepByStepMainContent"+(currentSlide+1)).css("display", "block");
-    $(".navigation"+(currentSlide+1)).css("color", "#FFFFFF");
+    $(".stepByStepMainContent"+currentSlide).css("display", "block");
+    $(".navigation"+currentSlide).css("color", "#FFFFFF");
     
-    $(".stepByStepMainContent"+currentSlide).css("display", "none");
-    $(".navigation"+currentSlide).css("color", "#05222a");
+    $(".stepByStepMainContent"+(currentSlide-1)).css("display", "none");
+    $(".navigation"+(currentSlide-1)).css("color", "#05222a");
     
-    currentSlide += 1;
+    
   }
 }
 
 function hideNavigations(type) {
   
-  for(i=2;i<=11;i++) {
+  if(type === 1) {
     
-    if(i === 11)
-      continue;
-    
-    if(type === 1) {
-      if((currentSlide <= 2 && i<=3))
-        continue;      
-        if(i === currentSlide-1-1 || i === currentSlide-1 || i === currentSlide+1-1)
-          $(".navigation"+i).show();
-        else
-          $(".navigation"+i).hide();
-    }
-    else if(type === 2) {
-        if(currentSlide >= 10 && i>=9)
-          continue;
-        if(i === currentSlide+1-1 || i === currentSlide+1 || i === currentSlide+1+1)
-          $(".navigation"+i).show();
-        else
-          $(".navigation"+i).hide();
-
-    }
-    else if(type === 3){
+    check = false;
+    console.log("currentSlide: "+currentSlide);
+    for(i=1;i<=11;i++) {
       
-      if(currentSlide === 11) {
-        if(i === 11 || i === 10 || i === 9)
-          $(".navigation"+i).show();
-        else 
-          $(".navigation"+i).hide();
-        
-        if(i === 9)
-          $(".navigation"+i).before('<div class="blub" style="float: left;">...</div>');
-
+      if(currentSlide < 3 && i <= 3) {
+        $(".navigationPoints").remove();
+        $(".navigation3").after('<div class="navigationPoints" style="float: left;">...</div>');
+        check = true;
+      } else if(currentSlide > 9 && i >= 9) {
+        $(".navigationPoints").remove();
+        $(".navigation9").before('<div class="navigationPoints" style="float: left;">...</div>');
+        check = true;
       }
-      else if(currentSlide === 1) {
-        if(i === 1 || i === 2 || i === 3)
-          $(".navigation"+i).show();
-        else 
-          $(".navigation"+i).hide();
+      
+      if(i <= 3 && currentSlide <3)
+        continue;
+      
+      if(check === false) 
+        $(".navigationPoints").remove();
+      
+      check = true;
         
-        if(i === 3)
-          $(".navigation"+i).after('<div class="blub" style="float: left;">...</div>');
+      if(i - 1 === currentSlide || i === currentSlide || i + 1 === currentSlide) {
+        if((i - 1 === currentSlide) && currentSlide > 3 && currentSlide <= 9)
+          $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left;">...</div>');
+        if((i + 1 === currentSlide) && currentSlide >= 3 && currentSlide < 9)
+          $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left;">...</div>');
+          
+        $(".navigation"+i).show();
+      }
+      else if(i !== 1 && i !== 11)
+        $(".navigation"+i).hide();
+    }
+  }
+  else if(type === 2) {
+    
+    check = false;
+    
+    for(i=1;i<=11;i++) {
+      
+      if(currentSlide < 3 && i <= 3) {
+        $(".navigationPoints").remove();
+        $(".navigation3").after('<div class="navigationPoints" style="float: left;">...</div>');
+        check = true;
+      }
+      else if(currentSlide > 9 && i >= 9) {
+        $(".navigationPoints").remove();
+        $(".navigation9").before('<div class="navigationPoints" style="float: left;">...</div>');
+        check = true;
+      }
+      
+      if(currentSlide > 9 && i >= 9)
+        continue;
+
+      if(check === false) 
+        $(".navigationPoints").remove();
+      
+      check = true;
+      
+       if(i - 1 === currentSlide || i === currentSlide || i + 1 === currentSlide) {
+        if(i - 1 === currentSlide  && currentSlide > 3 && currentSlide <= 9)
+          $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left;">...</div>');
+        if(i + 1 === currentSlide && currentSlide >= 3 && currentSlide < 9) 
+          $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left;">...</div>');
+        
+        $(".navigation"+i).show();
+      }
+      else if(i !== 1 && i !== 11)
+        $(".navigation"+i).hide();
+    }
+    
+  }
+  else if(type === 3) {
+    
+    check = false;
+    
+    if(check === false) 
+      $(".navigationPoints").remove();
+    
+    check = true;
+    
+    for(i=1;i<=11;i++) {
+      
+      if(currentSlide < 3 && i <= 3) {
+        $(".navigationPoints").remove();
+        $(".navigation3").after('<div class="navigationPoints" style="float: left;">...</div>');
+        check = true;
+      }    
+      else if(currentSlide > 9 && i >= 9) {
+        $(".navigationPoints").remove();
+        $(".navigation9").before('<div class="navigationPoints" style="float: left;">...</div>');
+        check = true;
       }
       else {
-        if(currentSlide-1 === i || currentSlide === i || currentSlide+1 === i)
+        if(i - 1 === currentSlide  && currentSlide > 3 && currentSlide <= 9)
+          $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left;">...</div>');
+        if(i + 1 === currentSlide && currentSlide >= 3 && currentSlide < 9) 
+          $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left;">...</div>');
+      }
+      
+      if(currentSlide === 11) {
+        if(i === 11 || i === 10 || i === 9 || i === 1) 
+          $(".navigation"+i).show();
+        else 
+          $(".navigation"+i).hide();
+      }
+      else if(currentSlide === 1) {
+        if(i === 1 || i === 2 || i === 3 || i === 11) 
+          $(".navigation"+i).show();
+        else 
+          $(".navigation"+i).hide();
+      }
+      else {
+        if(currentSlide-1 === i || currentSlide === i || currentSlide+1 === i || i === 1 || i === 11)
           $(".navigation"+i).show();
         else
           $(".navigation"+i).hide();
       }
     }
   }
+  
+  $('html, body').animate({ scrollTop: $('.header').offset().top }, 'medium');
+  
 }
