@@ -34,34 +34,256 @@ import at.tugraz.ist.catroweb.common.*;
 @Test(groups = { "catroid", "TutorialTests" })
 public class TutorialTests extends BaseTest {
 
-  @Test(groups = { "visibility", "popupwindows" }, description = "click download,header,details -links ")
-  public void tutorial() throws Throwable {
+  @Test(groups = { "visibility", "popupwindows" }, description = "try to navigate through stepByStep page ")
+  public void stepbystep() throws Throwable {
     try {
       openLargeLocation("tutorial", false);
       ajaxWait();
+      
+      assertTrue(isVisible(By.xpath("//div[@class='tutorialStepByStep1']")));
+      assertFalse(isVisible(By.xpath("//div[@class='tutorialStepByStep2']")));
+      
+      assertTrue(isVisible(By.xpath("//div[@class='tutorialDiscuss1']")));
+      assertFalse(isVisible(By.xpath("//div[@class='tutorialDiscuss2']")));
+      
+      // test page title and header title
+      assertTrue(driver().getTitle().matches("^Pocket Code Website.*"));
+
+      assertRegExp(".*/tutorial", driver().getCurrentUrl());
+      
+      driver().findElement(By.xpath("//div[@class='tutorialStepByStep1']")).click();
+      assertRegExp(".*/stepByStep", driver().getCurrentUrl());
+      ajaxWait();
+      
+      assertTrue(isTextPresent("STEP-BY-STEP INTRO"));
+      assertTrue(isTextPresent("1. Make a new program"));
+      
+      driver().findElement(By.xpath("//a[@class='stepLinks navigation2']")).click();
+      ajaxWait();
+      
+      assertTrue(isTextPresent("STEP-BY-STEP INTRO"));
+      assertTrue(isTextPresent("2. Create a new object"));
+      
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation1']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation2']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation3']")));
+      assertFalse(isVisible(By.xpath("//a[@class='stepLinks navigation4']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation11']")));
+      
+      driver().findElement(By.xpath("//a[@class='stepLinks']")).click();
+      ajaxWait();
+      
+      assertTrue(isTextPresent("STEP-BY-STEP INTRO"));
+      assertTrue(isTextPresent("3. Start Moving"));
+      
+      driver().findElement(By.xpath("//a[@class='stepLinks']")).click();
+      ajaxWait();
+      
+      assertTrue(isTextPresent("STEP-BY-STEP INTRO"));
+      assertTrue(isTextPresent("4. Change Look"));
+      
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation1']")));
+      assertFalse(isVisible(By.xpath("//a[@class='stepLinks navigation2']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation3']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation4']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation5']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation11']")));
+      
+      driver().findElement(By.xpath("//a[@class='stepLinks navigation11']")).click();
+      ajaxWait();
+      
+      assertTrue(isTextPresent("STEP-BY-STEP INTRO"));
+      assertTrue(isTextPresent("11. Main Menu"));
+      
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation1']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation11']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation10']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation9']")));
+      assertFalse(isVisible(By.xpath("//a[@class='stepLinks navigation8']")));
+      
+      driver().findElement(By.xpath("//a[@class='stepLinks arrow']")).click();
+      ajaxWait();
+      
+      assertTrue(isTextPresent("STEP-BY-STEP INTRO"));
+      assertTrue(isTextPresent("10. Change the background"));
+      
+      driver().findElement(By.xpath("//a[@class='stepLinks arrow']")).click();
+      ajaxWait();
+      
+      assertTrue(isTextPresent("STEP-BY-STEP INTRO"));
+      assertTrue(isTextPresent("9. Navigation in the app"));
+      
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation1']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation11']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation10']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation9']")));
+      assertTrue(isVisible(By.xpath("//a[@class='stepLinks navigation8']")));
+      assertFalse(isVisible(By.xpath("//a[@class='stepLinks navigation7']")));
+      
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorial", driver().getCurrentUrl());
+      
+    } catch(AssertionError e) {
+      captureScreen("TutorialTests.tutorial");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("TutorialTests.tutorial");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "visibility", "popupwindows" }, description = "try to navigate through tutorials page ")
+  public void tutorials() throws Throwable {
+    try {
+      openLargeLocation("tutorial", false);
+      ajaxWait();
+      
+      assertTrue(isVisible(By.xpath("//div[@class='tutorialStepByStep1']")));
+      assertFalse(isVisible(By.xpath("//div[@class='tutorialStepByStep2']")));
+      
+      assertTrue(isVisible(By.xpath("//div[@class='tutorialDiscuss1']")));
+      assertFalse(isVisible(By.xpath("//div[@class='tutorialDiscuss2']")));
+      
       // test page title and header title
       assertTrue(driver().getTitle().matches("^Pocket Code Website.*"));
 
       assertRegExp(".*/tutorial", driver().getCurrentUrl());
 
-      driver().findElement(By.xpath("//div[@class='tutorialStepByStep1']")).click();
-      assertRegExp(".*/stepByStep", driver().getCurrentUrl());
-      ajaxWait();
-      
-      driver().navigate().back();
-      ajaxWait();
-      
       driver().findElement(By.xpath("//div[@class='tutorialTutorials']")).click();
       assertRegExp(".*/tutorials", driver().getCurrentUrl());
       ajaxWait();
       
-      driver().navigate().back();
+      assertTrue(isTextPresent("TUTORIALS"));
+      assertTrue(isTextPresent("This tutorials show you how to use effective tricks in"));
+      assertTrue(isTextPresent("POCKET CODE."));
       
+      assertTrue(isTextPresent("Change Size"));
+      assertTrue(isTextPresent("Change Look"));
+      assertTrue(isTextPresent("Moving Animation"));
+      assertTrue(isTextPresent("Glide"));
+      assertTrue(isTextPresent("Play Sound"));
+      assertTrue(isTextPresent("Speak Something"));
+      assertTrue(isTextPresent("GSensor"));
+      assertTrue(isTextPresent("Compass"));
+      assertTrue(isTextPresent("Broadcast"));
+      
+      driver().findElement(By.xpath("//a[@class='tutorialCardsLinkStyle']")).click();
+      ajaxWait();
+      
+      assertRegExp(".*/tutorialCard.?id=1", driver().getCurrentUrl());
+      assertTrue(isTextPresent("CHANGE SIZE"));
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorials", driver().getCurrentUrl());
+      
+      
+      driver().findElement(By.xpath("//*[@class='tutorialLeftContainer']/div[3]/a[1]")).click();
+      assertRegExp(".*/tutorialCard.?id=2", driver().getCurrentUrl());
+      assertTrue(isTextPresent("CHANGE LOOK"));
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorials", driver().getCurrentUrl());
+      
+      driver().findElement(By.xpath("//*[@class='tutorialLeftContainer']/div[4]/a[1]")).click();
+      assertRegExp(".*/tutorialCard.?id=3", driver().getCurrentUrl());
+      assertTrue(isTextPresent("MOVING ANIMATION"));
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorials", driver().getCurrentUrl());
+      
+      driver().findElement(By.xpath("//*[@class='tutorialLeftContainer']/div[5]/a[1]")).click();
+      assertRegExp(".*/tutorialCard.?id=4", driver().getCurrentUrl());
+      assertTrue(isTextPresent("GLIDE"));
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorials", driver().getCurrentUrl());
+      
+      driver().findElement(By.xpath("//*[@class='tutorialLeftContainer']/div[6]/a[1]")).click();
+      assertRegExp(".*/tutorialCard.?id=5", driver().getCurrentUrl());
+      assertTrue(isTextPresent("PLAY SOUND"));
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorials", driver().getCurrentUrl());
+      
+      driver().findElement(By.xpath("//*[@class='tutorialRightContainer']/div[1]/a[1]")).click();
+      assertRegExp(".*/tutorialCard.?id=6", driver().getCurrentUrl());
+      assertTrue(isTextPresent("SPEAK SOMETHING"));
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorials", driver().getCurrentUrl());
+      
+      driver().findElement(By.xpath("//*[@class='tutorialRightContainer']/div[2]/a[1]")).click();
+      assertRegExp(".*/tutorialCard.?id=7", driver().getCurrentUrl());
+      assertTrue(isTextPresent("GSENSOR"));
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorials", driver().getCurrentUrl());
+      
+      driver().findElement(By.xpath("//*[@class='tutorialRightContainer']/div[3]/a[1]")).click();
+      assertRegExp(".*/tutorialCard.?id=8", driver().getCurrentUrl());
+      assertTrue(isTextPresent("COMPASS"));
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorials", driver().getCurrentUrl());
+      
+      driver().findElement(By.xpath("//*[@class='tutorialRightContainer']/div[4]/a[1]")).click();
+      assertRegExp(".*/tutorialCard.?id=9", driver().getCurrentUrl());
+      assertTrue(isTextPresent("BROADCAST"));
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorials", driver().getCurrentUrl());
+      
+      driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorial", driver().getCurrentUrl());
+      
+    } catch(AssertionError e) {
+      captureScreen("TutorialTests.tutorial");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("TutorialTests.tutorial");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "visibility", "popupwindows" }, description = "try to navigate through starters page ")
+  public void starter() throws Throwable {
+    try {
+      openLargeLocation("tutorial", false);
+      ajaxWait();
+      
+      assertTrue(isVisible(By.xpath("//div[@class='tutorialStepByStep1']")));
+      assertFalse(isVisible(By.xpath("//div[@class='tutorialStepByStep2']")));
+      
+      assertTrue(isVisible(By.xpath("//div[@class='tutorialDiscuss1']")));
+      assertFalse(isVisible(By.xpath("//div[@class='tutorialDiscuss2']")));
+      
+      // test page title and header title
+      assertTrue(driver().getTitle().matches("^Pocket Code Website.*"));
+
+      assertRegExp(".*/tutorial", driver().getCurrentUrl());
+
       driver().findElement(By.xpath("//div[@class='tutorialStarters']")).click();
       assertRegExp(".*/starterPrograms", driver().getCurrentUrl());
       ajaxWait();
       
+      assertTrue(isTextPresent("STARTER PROGRAMS"));
+      assertTrue(isTextPresent("GAMES"));
+      assertTrue(isTextPresent("ANIMATIONS"));
+      assertTrue(isTextPresent("INTERACTIVE ART AND STORIES"));
+      assertTrue(isTextPresent("MUSIC AND DANCE"));
+
+      assertTrue(isTextPresent("Try out these starter programs. Look inside to make changes and add your ideas."));
+      
+      assertTrue(isTextPresent("Games"));
+      assertTrue(isTextPresent("Animations"));
+      assertTrue(isTextPresent("Interactive Art and Stories"));
+      assertTrue(isTextPresent("Music and Dance"));
+      
       driver().navigate().back();
+      ajaxWait();
+      assertRegExp(".*/tutorial", driver().getCurrentUrl());
  
     } catch(AssertionError e) {
       captureScreen("TutorialTests.tutorial");
@@ -71,85 +293,30 @@ public class TutorialTests extends BaseTest {
       throw e;
     }
   }
+  
+  @Test(groups = { "visibility", "popupwindows" }, description = "check mobile view ")
+  public void mobile() throws Throwable {
+    try {
+      openMobileLocation("tutorial", false);
+      ajaxWait();
+      // test page title and header title
+      assertTrue(driver().getTitle().matches("^Pocket Code Website.*"));
 
-//  @Test(groups = { "functionality", "upload" }, description = "page navigation tests")
-//  public void pageNavigation() throws Throwable {
-//    try {
-//      String projectTitle = CommonData.getRandomShortString(10);
-//      openLocation();
-//      ajaxWait();
-//
-//      int uploadCount = Config.PROJECT_PAGE_LOAD_MAX_PROJECTS * (Config.PROJECT_PAGE_SHOW_MAX_PAGES + 1);
-//      System.out.println("*** NOTICE *** Uploading " + uploadCount + " projects");
-//      for(int i = 0; i < uploadCount; i++) {
-//        projectUploader.upload(CommonData.getUploadPayload(projectTitle + i, "pagenavigationtest", "", "", "", "", "", ""));
-//        if((i%Config.PROJECT_PAGE_LOAD_MAX_PROJECTS) == 0) {
-//          driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();          
-//        }
-//      }
-//      
-//      driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();
-//      ajaxWait();
-//      assertFalse(isElementPresent(By.xpath("//*[@id='newestProjects']/ul/li/a[@title=\"" + projectTitle + "0\"]")));
-//
-//      assertTrue(isVisible(By.id("newestShowMore")));
-//      int pageNr = 0;
-//      for(; pageNr < Config.PROJECT_PAGE_SHOW_MAX_PAGES; pageNr++) {
-//        driver().findElement(By.id("newestShowMore")).click();
-//        ajaxWait();
-//      }
-//      assertTrue(isElementPresent(By.xpath("//*[@id='newestProjects']/ul/li/a[@title=\"" + projectTitle + "0\"]")));
-//
-//      // test session
-//      driver().navigate().refresh();
-//      ajaxWait();
-//      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
-//      assertTrue(isElementPresent(By.xpath("//*[@id='newestProjects']/ul/li/a[@title=\"" + projectTitle + "0\"]")));
-//
-//      // test links to details page
-//      driver().findElement(By.xpath("//*[@id='newestProjects']/ul/li/a")).click();
-//      ajaxWait();
-//      assertRegExp(".*/details.*", driver().getCurrentUrl());
-//      driver().navigate().back();
-//      ajaxWait();
-//      assertTrue(isTextPresent(CommonStrings.NEWEST_PROJECTS_PAGE_TITLE.toUpperCase()));
-//      assertTrue(isElementPresent(By.xpath("//*[@id='newestProjects']/ul/li/a[@title=\"" + projectTitle + "0\"]")));
-//
-//      driver().findElement(By.xpath("//*[@id='largeMenu']/div[2]/a")).click();
-//      ajaxWait();
-//      assertFalse(isElementPresent(By.xpath("//*[@id='newestProjects']/ul/li/a[@title=\"" + projectTitle + "0\"]")));
-//    } catch(AssertionError e) {
-//      captureScreen("IndexTests.pageNavigation");
-//      throw e;
-//    } catch(Exception e) {
-//      captureScreen("IndexTests.pageNavigation");
-//      throw e;
-//    }
-//  }
-//
-//  @Test(groups = { "functionality", "upload" }, description = "language select tests")
-//  public void languageSelect() throws Throwable {
-//    try {
-//      openLocation("termsOfUse");
-//      assertTrue(isTextPresent("Terms of Use".toUpperCase()));
-//      assertTrue(isElementPresent(By.xpath("//html[@lang='" + Config.SITE_DEFAULT_LANGUAGE + "']")));
-//      openLocation("termsOfUse", false);
-//      assertTrue(isElementPresent(By.id("switchLanguage")));
-//      (new Select(driver().findElement(By.id("switchLanguage")))).selectByValue("de");
-//      ajaxWait();
-//      assertTrue(isTextPresent("Nutzungsbedingungen".toUpperCase()));
-//      assertTrue(isElementPresent(By.id("switchLanguage")));
-//      assertTrue(isElementPresent(By.xpath("//html[@lang='de']")));
-//      (new Select(driver().findElement(By.id("switchLanguage")))).selectByValue("en");
-//      ajaxWait();
-//      assertTrue(isTextPresent("Terms of Use".toUpperCase()));
-//      assertTrue(isElementPresent(By.xpath("//html[@lang='en']")));
-//    } catch(AssertionError e) {
-//      captureScreen("IndexTests.languageSelect");
-//      throw e;
-//    } catch(Exception e) {
-//      captureScreen("IndexTests.languageSelect");
-//      throw e;
-//    }
-//  }
+      assertRegExp(".*/tutorial", driver().getCurrentUrl());
+      ajaxWait();
+      
+      assertFalse(isVisible(By.xpath("//div[@class='tutorialStepByStep1']")));
+      assertTrue(isVisible(By.xpath("//div[@class='tutorialStepByStep2']")));
+      
+      assertFalse(isVisible(By.xpath("//div[@class='tutorialDiscuss1']")));
+      assertTrue(isVisible(By.xpath("//div[@class='tutorialDiscuss2']")));
+ 
+    } catch(AssertionError e) {
+      captureScreen("TutorialTests.tutorial");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("TutorialTests.tutorial");
+      throw e;
+    }
+  }
 }
