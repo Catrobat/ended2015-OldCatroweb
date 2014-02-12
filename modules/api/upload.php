@@ -697,23 +697,10 @@ class upload extends CoreAuthenticationDevice {
     $mailText .= "ID: " . $projectId ."\n";
     $mailText .= "Title: ". $projectTitle ."\n";
     $mailText .= "Description: " .$projectDescription;
-  
-    $address = $this->getUploadNotificationsEMailAddress();
     
-    return($this->mailHandler->sendUploadNotificationToAdmin($mailSubject, $mailText, $address));
+    return($this->mailHandler->sendNotificationToAdmin($mailSubject, $mailText));
   }
   
-  private function getUploadNotificationsEMailAddress() {
-    $result = $this->query("get_uploadnotifications_email_list", array());
-    $emailList = pg_fetch_all($result);
-    
-    $address = "";
-    for($i=0; $i < count($emailList); $i++) {
-      $address .= $emailList[$i]['email'];
-      $address .= ", ";
-    }
-    
-    return $address;
-  }
+  
 }
 ?>

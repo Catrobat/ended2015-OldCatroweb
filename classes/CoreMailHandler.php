@@ -67,7 +67,7 @@ class CoreMailHandler {
 	  return($this->send());
   }
 
-  public function sendUploadNotificationToAdmin($subject, $text, $address) {
+  public function sendNotificationToAdmin($subject, $text) {
     if (!(SEND_NOTIFICATION_EMAIL))
       return false;
     if(!$subject || !$text) {
@@ -78,10 +78,23 @@ class CoreMailHandler {
     $this->_return = "-f" . ADMIN_EMAIL_WEBMASTER;
     $this->_reply = ADMIN_EMAIL_NOREPLY;
     $this->_from = ADMIN_EMAIL_NOREPLY;
-    $this->_to = $address;
+    $this->_to = getUploadNotificationsEMailAddress();
     $this->_bcc = '';
     
     return($this->send());
+  }
+  
+  private function getUploadNotificationsEMailAddress() {
+    $result = $this->query("get_uploadnotifications_email_list", array());
+    $emailList = pg_fetch_all($result);
+  
+    $address = "";
+    for($i=0; $i < count($emailList); $i++) {
+      $address .= $emailList[$i]['email'];
+      $address .= ", ";
+    }
+  
+    return $address;
   }
   
   public function word_wrap($str, $length = 76, $end = "\r\n") {

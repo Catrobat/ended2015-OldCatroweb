@@ -106,7 +106,7 @@ class flagInappropriate extends CoreAuthenticationNone {
     $mailText .= "--- *** ---\n\n";
     $mailText .= "You should check this!";
 
-    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+    return($this->mailHandler->sendNotificationToAdmin($mailSubject, $mailText));
   }
   
   public function __destruct() {
