@@ -53,7 +53,7 @@ function switchAd() {
     ads[n].src = src[n].replace(".jpg", "_720.jpg");
   else
     ads[n].src = src[n];
-  //timeOut = setTimeout("switchAd()",duration*1000);
+  timeOut = setTimeout("switchAd()",duration*1000);
 }
 
 function switchAdNext() {

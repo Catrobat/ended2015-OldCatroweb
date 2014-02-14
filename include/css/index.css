@@ -91,21 +91,23 @@
 
 .nvgt{
 	position:absolute;
-	top:170px;
+	top:165px;
 	height: 20%;
 	width: 30px;
 	opacity: 0.6;
 }
 .nvgt:hover{
 	opacity: 0.9;
+	cursor: pointer;
+	cursor: hand;
 }
 
 #prev{
-	background: #000 url(/images/symbols/prev) no-repeat center;
+	background: #000 url(/images/symbols/prev.png) no-repeat center;
 	left: 0px;
 }
 #next{
-	background: #000 url(/images/symbols/next) no-repeat center;
+	background: #000 url(/images/symbols/next.png) no-repeat center;
 	right: 0px;
 }
 
