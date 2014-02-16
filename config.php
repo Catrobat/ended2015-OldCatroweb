@@ -1,7 +1,7 @@
 <?php
 /*
  * Catroid: An on-device visual programming system for Android devices
- * Copyright (C) 2010-2013 The Catrobat Team
+ * Copyright (C) 2010-2014 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -75,7 +75,7 @@ define('PROJECT_SORTBY_VIEWS', 'views');
 define('PROJECT_SORTBY_RANDOM', 'random');
 define('PROJECT_SORTBY_DEFAULT', PROJECT_SORTBY_AGE);
 
-define('PROJECT_MEDIA_LICENSE', 'http://developer.catrobat.org/ccbysa_v3');
+define('PROJECT_MEDIA_LICENSE', 'http://developer.catrobat.org/ccbysa_v4');
 define('PROJECT_PROGRAM_LICENSE', 'http://developer.catrobat.org/agpl_v3');
 
 define('APP_EXTENSION','.apk');
