@@ -1,7 +1,7 @@
 <?php
 /*
  * Catroid: An on-device visual programming system for Android devices
- * Copyright (C) 2010-2013 The Catrobat Team
+ * Copyright (C) 2010-2014 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -64,7 +64,7 @@
         <ul>
           <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_16')?></li>
           <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_17')?></li>
-          <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_18', '<a href="http://developer.catrobat.org/terms_of_service" target="_blank">developer.catrobat.org/terms_of_service</a>')?></li>
+          <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_18', '<a href="http://developer.catrobat.org/terms_of_use_and_service" target="_blank">developer.catrobat.org/terms_of_use_and_service</a>')?></li>
         </ul>
         <br />
         <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_check_back')?></p>
