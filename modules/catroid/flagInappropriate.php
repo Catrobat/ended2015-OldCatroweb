@@ -105,8 +105,10 @@ class flagInappropriate extends CoreAuthenticationNone {
     $mailText .= "User IP: <".$_SERVER['REMOTE_ADDR'].">\n";
     $mailText .= "--- *** ---\n\n";
     $mailText .= "You should check this!";
-
-    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+    
+    $address = $this->userFunctions->getUploadNotificationsEMailAddress();
+    
+    return($this->mailHandler->sendUploadNotificationToAdmin($mailSubject, $mailText, $address));
   }
   
   public function __destruct() {
