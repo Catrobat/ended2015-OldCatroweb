@@ -938,7 +938,7 @@ class projectsTest extends PHPUnit_Framework_TestCase
     
     $json = file_get_contents(BASE_PATH . '/api/projects/getInfoById.json?id=' . $projectId);
     $project_json = json_decode($json);
-    $result = pg_execute($this->dbConnection, "get_project_by_id", array($projectId)) or
+    $result = pg_execute($this->dbConnection, "get_visible_project_by_id", array($projectId)) or
     $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     
     $project = pg_fetch_all($result);
@@ -947,9 +947,7 @@ class projectsTest extends PHPUnit_Framework_TestCase
     $this->assertEquals($project_json->{'CatrobatProjects'}[0]->{'ProjectId'}, $project[0]['id']);
     $this->assertEquals($project_json->{'CatrobatProjects'}[0]->{'ProjectName'}, $project[0]['title']);
     $this->assertEquals($project_json->{'CatrobatProjects'}[0]->{'Author'}, $project[0]['uploaded_by']);
-    
-    //var_dump($project_json->{'CatrobatProjects'}[0]->{'ProjectId'});
-    //var_dump($project);
+
   }
   
   /* *** DATA PROVIDERS *** */

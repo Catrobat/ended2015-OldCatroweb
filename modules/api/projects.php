@@ -127,7 +127,7 @@ class projects extends CoreAuthenticationNone {
       $this->Error = 'no title given';
       return;
     }
-  
+    
     $result = pg_execute($this->dbConnection, "get_project_by_title", array($title)) or
     $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $projects = pg_fetch_all($result);
@@ -135,6 +135,9 @@ class projects extends CoreAuthenticationNone {
       $this->Error = 'Project not found (uploaded)';
       return;
     }
+    foreach($projects as $project)
+      $project['last_activity'] = 1392727935;
+      //$project['last_activity'] = 1392727935;
     $this->generateOutput($projects, PROJECT_MASK_ALL, 0);
   
     return array('CatrobatInformation' => $this->CatrobatInformation,'CatrobatProjects' => $this->CatrobatProjects);
