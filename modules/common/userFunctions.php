@@ -1258,19 +1258,6 @@ class userFunctions extends CoreAuthenticationNone {
   public function __destruct() {
     parent::__destruct();
   }
-  
-  private function getUploadNotificationsEMailAddress() {
-    $result = $this->query("get_uploadnotifications_email_list", array());
-    $emailList = pg_fetch_all($result);
-  
-    $address = "";
-    for($i=0; $i < count($emailList); $i++) {
-      $address .= $emailList[$i]['email'];
-      $address .= ", ";
-    }
-  
-    return $address;
-  }
 }
 
 ?>

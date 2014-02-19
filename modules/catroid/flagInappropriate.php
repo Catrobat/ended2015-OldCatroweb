@@ -106,9 +106,22 @@ class flagInappropriate extends CoreAuthenticationNone {
     $mailText .= "--- *** ---\n\n";
     $mailText .= "You should check this!";
     
-    $address = $this->userFunctions->getUploadNotificationsEMailAddress();
+    $address = $this->getUploadNotificationsEMailAddress();
     
     return($this->mailHandler->sendUploadNotificationToAdmin($mailSubject, $mailText, $address));
+  }
+  
+  private function getUploadNotificationsEMailAddress() {
+    $result = $this->query("get_uploadnotifications_email_list", array());
+    $emailList = pg_fetch_all($result);
+
+    $address = "";
+    for($i=0; $i < count($emailList); $i++) {
+      $address .= $emailList[$i]['email'];
+      $address .= ", ";
+    }
+  
+    return $address;
   }
   
   public function __destruct() {
