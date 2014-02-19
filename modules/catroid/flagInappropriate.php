@@ -112,7 +112,8 @@ class flagInappropriate extends CoreAuthenticationNone {
   }
   
   private function getUploadNotificationsEMailAddress() {
-    $result = $this->query("get_uploadnotifications_email_list", array());
+    $result = pg_execute($this->dbConnection, "get_uploadnotifications_email_list", array()) or
+    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $emailList = pg_fetch_all($result);
 
     $address = "";
