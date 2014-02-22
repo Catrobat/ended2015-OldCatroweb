@@ -22,6 +22,9 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+
+  <string name="starting_position">Starting position:</string>
+  
 	<string name="title">Step-by-Step Intro</string>
 	
 	<string name="step1_title">1. Make a new program</string>
@@ -45,11 +48,12 @@
 	<string name="step3_additional_text_3">Choose the "Glide" brick. The object will move to the new position defined with the brick on the stage.</string>
 	<string name="step3_additional_text_4">Tap “Play” to go to the stage and see the object gliding.</string>
 	<string name="step3_additional_text_5">Use the Android Back Button to get back from the stage.</string>
+	<string name="step3_additional_text_6">The brick is now floating. To paste it, move the brick to the desired position. You can also move already inserted bricks by tapping the brick until it is floating again.</string>
   
   <string name="step4_title">4. Change Look</string>
 	<string name="step4_description">You can change the look of your object.</string>
 	<string name="step4_additional_text_1">Choose the “Switch to look” brick. With this brick you can choose a look or create a new one.</string>
-	<string name="step4_additional_text_2">Snap the brick underneath the others.</string>
+	<string name="step4_additional_text_2">Snap the brick underneath the "Glide" - brick.</string>
 	<string name="step4_additional_text_3">Tap into the dropdown field to create a new look.</string>
 	<string name="step4_additional_text_4">Choose the source of the image like before.</string>
 	<string name="step4_additional_text_5">Now you have to select the new image.</string>
@@ -64,7 +68,7 @@
 	<string name="step6_title">6. Again and again</string>
 	<string name="step6_description">This step shows you how to repeat behaviour of objects.</string>
 	<string name="step6_additional_text_1">Choose the “Forever” brick. Everything in the loop repeats forever.</string>
-	<string name="step6_additional_text_2">Snap the “Forever” brick underneath the first brick.</string>
+	<string name="step6_additional_text_2">Snap the “Forever” brick underneath the "When program started" - brick.</string>
 	<string name="step6_additional_text_3">Add another “Glide” brick.</string>
 	<string name="step6_additional_text_4">Snap the “Glide” brick aboth the “End of loop” brick. </string>
 	<string name="step6_additional_text_5">Tap into the text field of the x and y value and set to 0.</string>
@@ -76,7 +80,7 @@
 	<string name="step7_additional_text_2">Place the “When tapped” underneath the other bricks.</string>
 	<string name="step7_additional_text_3">Choose the “Turn right” brick and snap it underneath the “When tapped” brick.</string>
 	<string name="step7_additional_text_4">Now you have this script.</string>
-	<string name="step7_additional_text_5">Tap play to see the behaviour on the stage.</string>
+	<string name="step7_additional_text_5">Tap play to see the behaviour on the stage. If you now tap on the object, it spins.</string>
 	
 	<string name="step8_title">8. Copy, delete or edit a brick</string>
 	<string name="step8_description"></string>

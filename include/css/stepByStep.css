@@ -60,6 +60,10 @@
   line-height: 35px;
 }
 
+#wrapper article .stepByStepStartingPosition {
+  margin-bottom: 0.5em;
+}
+
 #wrapper article div.linkBackgroundArrowLeft {
   transform: rotate(90deg);
   -ms-transform: rotate(90deg); /* IE 9 */
@@ -157,6 +161,7 @@
 
 #wrapper article div.stepByStepFloating {
   float: left;
+  margin-bottom: 10px;
   padding-right: 2em;
 }
 
