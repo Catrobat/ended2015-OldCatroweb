@@ -1,7 +1,7 @@
 <?php
 /*
  * Catroid: An on-device visual programming system for Android devices
- * Copyright (C) 2010-2013 The Catrobat Team
+ * Copyright (C) 2010-2014 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -21,100 +21,54 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
-
+  $this->module->addGlobalCss('font-awesome.min.css');
 ?>
 
+<script src="/include/script/jquery.slides.min.js"></script>
 <script>
+    $(function() {
+      $('#featuredProject').slidesjs({
+        width: 1024,
+        height: 400,
+        navigation: {
+          active: false,
+          effect: "slide"
+        },
+        play: {
+          active: true,
+          effect: "slide",
+          interval: 5000,
+          auto: true,
+          swap: false,
+          pauseOnHover: false,
+          restartDelay: 5000
+        },
+        callback: {
+          complete: function(number) {
+              var pluginInstance = $('#featuredProject').data('plugin_slidesjs');
 
-src = [<?php
-        for($i=0; $i < count($this->featuredProjects); $i++)
-          echo '"'.$this->featuredProjects[$i].'", ';
-        ?>];
-
-duration = 5;
-ads=[]; ct=0;
-var timeOut;
-function switchAd() {
-  var n=(ct+1)%src.length;
-  if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
-    document["Ad_Image"].src = ads[ct=n].src;
-
-    var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
-    x = x.replace(".jpg","");
-    
-    $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
-  } else {
-     ads[n] = new Image;
-  }
-  
-  if(document.width <= 400)
-    ads[n].src = src[n].replace(".jpg", "_400.jpg");
-  else if(document.width <= 720)
-    ads[n].src = src[n].replace(".jpg", "_720.jpg");
-  else
-    ads[n].src = src[n];
-  timeOut = setTimeout("switchAd()",duration*1000);
-}
-
-function switchAdNext() {
-  var n=(ct+1)%src.length;
-  if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
-    document["Ad_Image"].src = ads[ct=n].src;
-
-    var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
-    x = x.replace(".jpg","");
-    
-    $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
-  } else {
-    ads[n=(ct+1)%src.length] = new Image;
-  }
-  if(document.width <= 400)
-    ads[n].src = src[n].replace(".jpg", "_400.jpg");
-  else if(document.width <= 720)
-    ads[n].src = src[n].replace(".jpg", "_720.jpg");
-  else
-    ads[n].src = src[n];
-  clearTimeout(timeOut);
-  timeOut = setTimeout("switchAd()",duration*1000);
-}
-
-function switchAdPrev() {
-  if (ct == 0) {
-    ct = src.length;
-  }
-  var n=(ct-1)%src.length;
-  if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
-    document["Ad_Image"].src = ads[ct=n].src;
-
-    var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
-    x = x.replace(".jpg","");
-    
-    $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
-  } else {
-     ads[n] = new Image;
-  }
-
-  if(document.width <= 400)
-    ads[n].src = src[n].replace(".jpg", "_400.jpg");
-  else if(document.width <= 720)
-    ads[n].src = src[n].replace(".jpg", "_720.jpg");
-  else
-    ads[n].src = src[n];
-  clearTimeout(timeOut);
-  timeOut = setTimeout("switchAd()",duration*1000);
-}
-
-onload = function(){
-  if (document.images)
-    switchAd();
-};
-
-</script>
+              setTimeout(function() {
+                  pluginInstance.play(true);
+              }, pluginInstance.options.play.interval);
+          }
+        }
+      });
+    });
+  </script>
 
       <article>
         <div id="programmOfTheWeek">
-          <header id="header"><?php echo $this->languageHandler->getString('recommended'); ?></header>
+          <header><?php echo $this->languageHandler->getString('recommended'); ?></header>
           <div id="featuredProject">
+            <?php
+              for($i=0; $i < count($this->featuredProjects); $i++)
+                echo '<img src=' . $this->featuredProjects[$i] . '>';
+              
+            ?>
+            <a class="slidesjs-previous slidesjs-navigation" href="#">              
+            </a>
+            <a class="slidesjs-next slidesjs-navigation" href="#">
+            </a>
           </div>
         </div>
         <div class="projectSpacer"></div>
