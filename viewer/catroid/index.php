@@ -53,7 +53,17 @@
           }
         }
       });
+
+      $(function isTouchEnabled() { 
+        if(!!document.createTouch) {
+          document.getElementById("slider_next").setAttribute("style", "display:none");
+          document.getElementById("slider_prev").setAttribute("style", "display:none");
+        } else {
+        }
+      });
+      
     });
+    
   </script>
 
       <article>
@@ -65,9 +75,9 @@
                 echo '<img src=' . $this->featuredProjects[$i] . '>';
               
             ?>
-            <a class="slidesjs-previous slidesjs-navigation" href="#">              
+            <a id="slider_next" class="slidesjs-previous slidesjs-navigation" href="#">              
             </a>
-            <a class="slidesjs-next slidesjs-navigation" href="#">
+            <a id="slider_prev" class="slidesjs-next slidesjs-navigation" href="#">
             </a>
           </div>
         </div>

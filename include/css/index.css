@@ -92,6 +92,10 @@
   margin-bottom:0px;
 }
 
+#featuredProject{
+  display: none;
+}
+
 .slidesjs-pagination {
   display:  none;
 }
@@ -135,15 +139,65 @@
 }
 
 .slidesjs-previous.slidesjs-navigation:hover{
-opacity: 0.9;
-cursor: pointer;
-cursor: hand;
+  opacity: 0.9;
+  cursor: pointer;
+  cursor: hand;
 }
+
 .slidesjs-next.slidesjs-navigation:hover{
-opacity: 0.9;
-cursor: pointer;
-cursor: hand;
+  opacity: 0.9;
+  cursor: pointer;
+  cursor: hand;
 }
+
 .slidesjs-play.slidesjs-navigation.slidesjs-playing{
-  display:none;
+    display:none;
+}
+
+/* For tablets & smart phones */
+@media (max-width: 767px) {
+/*   .slidesjs-next.slidesjs-navigation { */
+/*     top:90px; */
+/*     width: 30px; */
+/*     height: 50px; */
+/*   } */
+/*   .slidesjs-previous.slidesjs-navigation { */
+/*     top:90px; */
+/*     width: 30px; */
+/*     height: 50px; */
+  }
+  .container {
+    width: auto;
+  }
+}
+
+/* For smartphones */
+@media (max-width: 480px) {
+/*   .slidesjs-next.slidesjs-navigation { */
+/*     top:35px; */
+/*     width: 20px; */
+/*     height: 40px; */
+/*   } */
+/*   .slidesjs-previous.slidesjs-navigation { */
+/*     top:35px; */
+/*     width: 20px; */
+/*     height: 40px; */
+  }
+  .container {
+    width: auto;
+  }
+}
+
+/* For smaller displays like laptops */
+@media (min-width: 768px) and (max-width: 979px) {
+  .container {
+    width: 724px;
+  }
+}
+
+/* For larger displays */
+@media (min-width: 1200px) {
+  .container {
+    width: 1170px;
+  }
 }
