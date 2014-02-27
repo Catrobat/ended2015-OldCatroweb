@@ -38,6 +38,7 @@ public class FooterTests extends BaseTest {
     try {
       openLocation();
 
+      assertTrue(isTextPresent("Help"));
       assertTrue(isTextPresent("About"));
       assertTrue(isTextPresent("Google Play"));
       assertTrue(isTextPresent("Privacy Policy"));
@@ -60,6 +61,7 @@ public class FooterTests extends BaseTest {
       assertTrue(isElementPresent(By.id("footerLessButton")));
       driver().findElement(By.id("footerMoreButton")).click();
       
+      assertTrue(isTextPresent("Help"));
       assertTrue(isTextPresent("About"));
       assertTrue(isTextPresent("Google Play"));
       assertTrue(isTextPresent("Privacy Policy"));
@@ -68,6 +70,7 @@ public class FooterTests extends BaseTest {
       
       driver().findElement(By.id("footerLessButton")).click();
       
+      assertFalse(isTextPresent("Help"));
       assertFalse(isTextPresent("About"));
       assertFalse(isTextPresent("Google Play"));
       assertFalse(isTextPresent("Privacy Policy"));
@@ -83,11 +86,53 @@ public class FooterTests extends BaseTest {
   }
   
   @Test(groups = { "visibility" }, description = "check about link/page")
+  public void help() throws Throwable {
+    try {
+      openLocation();
+      
+      By help = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[1]/a");
+      assertTrue(isElementPresent(help));
+      
+      clickAndWaitForPopUp(help);
+      assertRegExp(".*Pocket Code Website - Help -*", driver().getTitle());
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("FooterTests.help");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("FooterTests.help");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "visibility" }, description = "check about link/page")
+  public void helpMobile() throws Throwable {
+    try {
+      openMobileLocation();
+      assertTrue(isElementPresent(By.id("footerMoreButton")));
+      driver().findElement(By.id("footerMoreButton")).click();
+      
+      By help = By.xpath("//*[@id='mobileFooterMenu']/ul/li[1]/a");
+      assertTrue(isElementPresent(help));
+      
+      clickAndWaitForPopUp(help);
+      assertRegExp(".*Pocket Code Website - Help -*", driver().getTitle());
+      closePopUp();
+    } catch(AssertionError e) {
+      captureScreen("FooterTests.helpMobile");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("FooterTests.helpMobile");
+      throw e;
+    }
+  }
+  
+  @Test(groups = { "visibility" }, description = "check about link/page")
   public void about() throws Throwable {
     try {
       openLocation();
       
-      By about = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[1]/a");
+      By about = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[2]/a");
       assertTrue(isElementPresent(about));
       
       clickAndWaitForPopUp(about);
@@ -109,7 +154,7 @@ public class FooterTests extends BaseTest {
       assertTrue(isElementPresent(By.id("footerMoreButton")));
       driver().findElement(By.id("footerMoreButton")).click();
       
-      By about = By.xpath("//*[@id='mobileFooterMenu']/ul/li[1]/a");
+      By about = By.xpath("//*[@id='mobileFooterMenu']/ul/li[2]/a");
       assertTrue(isElementPresent(about));
       
       clickAndWaitForPopUp(about);
@@ -129,7 +174,7 @@ public class FooterTests extends BaseTest {
     try {
       openLocation();
       
-      By googlePlay = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[2]/a");
+      By googlePlay = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[3]/a");
       assertTrue(isElementPresent(googlePlay));
       
       clickAndWaitForPopUp(googlePlay);
@@ -151,7 +196,7 @@ public class FooterTests extends BaseTest {
       assertTrue(isElementPresent(By.id("footerMoreButton")));
       driver().findElement(By.id("footerMoreButton")).click();
       
-      By googlePlay = By.xpath("//*[@id='mobileFooterMenu']/ul/li[2]/a");
+      By googlePlay = By.xpath("//*[@id='mobileFooterMenu']/ul/li[3]/a");
       assertTrue(isElementPresent(googlePlay));
       
       clickAndWaitForPopUp(googlePlay);
@@ -171,7 +216,7 @@ public class FooterTests extends BaseTest {
     try {
       openLocation();
       
-      By privacy = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul/li[3]/a");
+      By privacy = By.xpath("//*[@id='largeFooterMenu']/div[1]/ul[2]/li[1]/a");
       assertTrue(isElementPresent(privacy));
       
       clickAndWaitForPopUp(privacy);
@@ -193,7 +238,7 @@ public class FooterTests extends BaseTest {
       assertTrue(isElementPresent(By.id("footerMoreButton")));
       driver().findElement(By.id("footerMoreButton")).click();
       
-      By privacy = By.xpath("//*[@id='mobileFooterMenu']/ul/li[3]/a");
+      By privacy = By.xpath("//*[@id='mobileFooterMenu']/ul/li[4]/a");
       assertTrue(isElementPresent(privacy));
       
       clickAndWaitForPopUp(privacy);
@@ -212,7 +257,7 @@ public class FooterTests extends BaseTest {
   public void termsOfUse() throws Throwable {
     try {
       openLocation();
-      driver().findElement(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul[2]/li[1]/a")).click();
+      driver().findElement(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul[2]/li[2]/a")).click();
       ajaxWait();
 
       assertTrue(isTextPresent("WELCOME TO THE CATROBAT COMMUNITY!"));
@@ -256,7 +301,7 @@ public class FooterTests extends BaseTest {
       driver().findElement(By.id("footerMoreButton")).click();
       ajaxWait();
       
-      driver().findElement(By.xpath("//*[@id='mobileFooterMenu']/ul/li[4]/a")).click();
+      driver().findElement(By.xpath("//*[@id='mobileFooterMenu']/ul/li[5]/a")).click();
       ajaxWait();
       
       assertTrue(isTextPresent("WELCOME TO THE CATROBAT COMMUNITY!"));
@@ -296,7 +341,7 @@ public class FooterTests extends BaseTest {
   public void imprint() throws Throwable {
     try {
       openLocation();
-      clickAndWaitForPopUp(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul[2]/li[2]/a"));
+      clickAndWaitForPopUp(By.xpath("//*[@id='largeFooterMenu']/div[1]/ul[2]/li[3]/a"));
       assertRegExp(".*Imprint.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
@@ -316,7 +361,7 @@ public class FooterTests extends BaseTest {
       driver().findElement(By.id("footerMoreButton")).click();
       ajaxWait();
 
-      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[5]/a"));
+      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[6]/a"));
       assertRegExp(".*Imprint.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
