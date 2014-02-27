@@ -44,7 +44,6 @@
   text-align: left;
   color: #05222a;
   position: absolute; 
-  bottom: 1.0em;
 }
 
 #wrapper article #programmOfTheWeek div div span {
@@ -200,4 +199,8 @@
   .container {
     width: 1170px;
   }
+}
+
+.img_slider {
+  min_height: 400px;
 }

@@ -59,6 +59,9 @@
           document.getElementById("slider_next").setAttribute("style", "display:none");
           document.getElementById("slider_prev").setAttribute("style", "display:none");
         } else {
+          var height = $("#featuredProject").height();
+          var pxFromTop = height / 2.7;
+          $("#slider_next").attr("style", "top: " + pxFromTop + "px");
         }
       });
       
@@ -72,7 +75,7 @@
           <div id="featuredProject">
             <?php
               for($i=0; $i < count($this->featuredProjects); $i++)
-                echo '<img src=' . $this->featuredProjects[$i] . '>';
+                echo '<img src=' . $this->featuredProjects[$i] . ' class="img_slider">';
               
             ?>
             <a id="slider_next" class="slidesjs-previous slidesjs-navigation" href="#">              
