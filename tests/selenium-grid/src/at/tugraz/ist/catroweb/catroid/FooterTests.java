@@ -278,7 +278,7 @@ public class FooterTests extends BaseTest {
       closePopUp();
 
       // click onto termsofservice link
-      clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[5]/li[3]/a[1]"));
+      clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[5]/li[5]/a[1]"));
       assertRegExp(".*Terms of Use and Service.*", driver().getTitle());
       closePopUp();
 
@@ -322,7 +322,7 @@ public class FooterTests extends BaseTest {
       closePopUp();
       
       // click onto termsofservice link
-      clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[5]/li[3]/a[1]"));
+      clickAndWaitForPopUp(By.xpath("//div[@class='licenseText']/ul[5]/li[5]/a[1]"));
       assertRegExp(".*Terms of Use and Service.*", driver().getTitle());
       closePopUp();
       

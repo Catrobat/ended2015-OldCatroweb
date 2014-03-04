@@ -62,6 +62,8 @@
         <br />
         <p class="licenseText"><?php echo $this->languageHandler->getString('terms_of_use_our_terms')?></p>
         <ul>
+          <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_19', '<a href="http://developer.catrobat.org/terms_of_use_and_service" target="_blank">developer.catrobat.org/terms_of_use_and_service</a>')?></li>
+          <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_20')?></li>
           <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_16')?></li>
           <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_17')?></li>
           <li><?php echo $this->languageHandler->getString('terms_of_use_enumeration_18', '<a href="http://developer.catrobat.org/terms_of_use_and_service" target="_blank">developer.catrobat.org/terms_of_use_and_service</a>')?></li>
