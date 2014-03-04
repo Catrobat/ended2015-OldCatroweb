@@ -125,9 +125,7 @@ var Index = Class.$extend( {
       if(document.width <= 400)
         filePath = filePath.replace(".jpg", "_400.jpg");
       else if(document.width <= 720)
-        filePath = filePath.replace(".jpg", "_720.jpg");
-      
-      $("#featuredProject").html('<a href="' + baseUrl + 'details/' + projectId +'" id="switch_image"><img name="Ad_Image" src="' + baseUrl + filePath + '" /></a>');
+        filePath = filePath.replace(".jpg", "_720.jpg");      
     }
     else {
       $("#programmOfTheWeek").css('display', 'none');
