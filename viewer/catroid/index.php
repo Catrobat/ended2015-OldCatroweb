@@ -23,50 +23,119 @@
  */
 
 ?>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="//code.jquery.com/mobile/1.4.2/jquery.mobile-1.4.2.min.css">
+<script src="/include/script/jquery.mobile.custom.js"></script>
 
 <script>
-
+var actualElement = 0;
 src = [<?php
-        for($i=0; $i < count($this->featuredProjects); $i++)
-          echo '"'.$this->featuredProjects[$i].'", ';
-        ?>];
+    for($i=0; $i < count($this->featuredProjects); $i++)
+      echo '"'.$this->featuredProjects[$i].'", ';
+    ?>];
+var maxNumberOfElements = <?php echo(count($this->featuredProjects));              
+  ?>
 
-duration = 5;
-ads=[]; ct=0;
-function switchAd() {
-  var n=(ct+1)%src.length;
-  if (ads[n] && (ads[n].complete || ads[n].complete==null)) {
-    document["Ad_Image"].src = ads[ct=n].src;
-
-    var x = src[n].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
-    x = x.replace(".jpg","");
-    
-    $('#switch_image').attr('href', '<?php echo BASE_PATH . 'details/'; ?>' + x);
-  }
-  ads[n=(ct+1)%src.length] = new Image;
-
-  if(document.width <= 400)
-    ads[n].src = src[n].replace(".jpg", "_400.jpg");
-  else if(document.width <= 720)
-    ads[n].src = src[n].replace(".jpg", "_720.jpg");
-  else
-    ads[n].src = src[n];
+var timeout;
   
-  setTimeout("switchAd()",duration*1000);
+function getProjectLink(num) {
+  var x = src[num].replace("<?php echo BASE_PATH . 'resources/featured/'; ?>","");
+  x = x.replace(".jpg","");
+  var link = <?php echo '"' . BASE_PATH . 'details/"'; ?> + x;
+  return link;
 }
+  
+function fade() {
+  document.getElementById("" + actualElement).setAttribute("style", "display: none");
+  document.getElementById("span" + actualElement).setAttribute("class", "pagination");
+  
+  actualElement++;
+  if (actualElement == maxNumberOfElements ) {
+    actualElement = 0;
+  }
+  
+  document.getElementById("" + actualElement).setAttribute("style", "display: visible");
+  document.getElementById("span" + actualElement).setAttribute("class", "pagination_selected");  
+  
+  clearTimeout(timeout);
+  timeout = setTimeout("fade()",5*1000);
+};
+
+function next(nextElement) {
+  if (nextElement == maxNumberOfElements ) {
+    nextElement = 0;
+  }
+  
+  document.getElementById("" + actualElement).setAttribute("style", "display: none");
+  document.getElementById("span" + actualElement).setAttribute("class", "pagination");
+  
+  actualElement++;
+  if (actualElement == maxNumberOfElements ) {
+    actualElement = 0;
+  }
+  document.getElementById("" + nextElement).setAttribute("style", "display: visible");
+  document.getElementById("span" + nextElement).setAttribute("class", "pagination_selected");  
+  
+  actualElement = nextElement;
+  clearTimeout(timeout);
+  timeout = setTimeout("fade()",5*1000);
+};
+
+function prev() {
+  document.getElementById("" + actualElement).setAttribute("style", "display: none");
+  document.getElementById("span" + actualElement).setAttribute("class", "pagination");
+
+  actualElement--;
+  if (actualElement < 0 ) {
+    actualElement = maxNumberOfElements - 1;
+  }
+  
+  document.getElementById("" + actualElement).setAttribute("style", "display: visible");
+  document.getElementById("span" + actualElement).setAttribute("class", "pagination_selected");  
+  
+  clearTimeout(timeout);
+  timeout = setTimeout("fade()",5*1000);
+};
+
+$(function(){
+  $( '#featuredProject' ).on( "swipeleft", swipeleftHandler );
+  function swipeleftHandler( event ){
+    fade();
+  }
+});
+
+$(function(){
+  $( '#featuredProject' ).on( "swiperight", swiperightHandler );
+  function swiperightHandler( event ){
+    document.getElementById("featuredProject").setAttribute("Reeesl", "nje " + actualElement );
+    prev();
+  }
+});
 
 onload = function(){
-  if (document.images)
-    switchAd();
+  document.getElementById("0").setAttribute("style", "display: visible");
+  document.getElementById("span0").setAttribute("class", "pagination_selected");
+
+  timeout = setTimeout("fade()",5*1000);
 };
+
 </script>
 
       <article>
         <div id="programmOfTheWeek">
           <header><?php echo $this->languageHandler->getString('recommended'); ?></header>
           <div id="featuredProject">
+             <?php
+              for($i=0; $i < count($this->featuredProjects); $i++)
+                echo '<img id="' . $i . '" style="display:none;" src=' . $this->featuredProjects[$i] . ' 
+                      onclick="javascript:location.href=getProjectLink(' . $i . ')">';              
+            ?>
           </div>
         </div>
+        <?php
+          for($i=0; $i < count($this->featuredProjects); $i++)
+            echo '<span class="pagination" onclick="javascript:next(' . $i . ')" id="span' . $i . '"></span>';              
+        ?>
         <div class="projectSpacer"></div>
 
         <header><?php echo $this->languageHandler->getString('mostDownloaded'); ?></header>
