@@ -95,8 +95,8 @@
 }
 
 .projectDetailsDescription {
-  width: 37%;
-  max-width: 37%;
+  width: 60%;
+  max-width: 60%;
   text-align: justify;
 
   padding-left: 0.5em;
@@ -146,7 +146,7 @@
 
 .projectDetailsDownloadButton {
   margin:5% 0 5% 0;
-  width: 90%;
+  width: 200px;
 }
 
 .projectDetailsDownload a {
@@ -407,7 +407,7 @@
 
   .projectDetailsDownloadButton {
     margin:5% 0 5% 0;
-    width: 50%;
+    width: 200px;
     height: auto;
   }
 
@@ -466,7 +466,7 @@
 
   .projectDetailsDownloadButton {
     margin:5% 0 5% 0;
-    width: 75%;
+    width: 200px;
     height: auto;
   }
 
