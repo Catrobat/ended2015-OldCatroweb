@@ -84,7 +84,7 @@
         <img class="rightThumb3" src="images/stepbystep/3_right_1.png" />
         <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step3_additional_text_3'); ?></div>
         <img class="rightThumb" src="images/stepbystep/3_right_2.png" />
-        <div><?php echo $this->languageHandler->getString('step3_additional_text_6'); ?></div>
+        <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step3_additional_text_6'); ?></div>
         <div class="stepByStepDescription"><?php echo $this->languageHandler->getString('step3_additional_text_4'); ?></div>
         <img class="plusThumb" src="images/stepbystep/arrow_right.png" />
         

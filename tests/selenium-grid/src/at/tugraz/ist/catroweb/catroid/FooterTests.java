@@ -38,7 +38,7 @@ public class FooterTests extends BaseTest {
     try {
       openLocation();
 
-      assertTrue(isTextPresent("Help"));
+      assertTrue(isTextPresent("Tutorial"));
       assertTrue(isTextPresent("About"));
       assertTrue(isTextPresent("Google Play"));
       assertTrue(isTextPresent("Privacy Policy"));
@@ -61,7 +61,7 @@ public class FooterTests extends BaseTest {
       assertTrue(isElementPresent(By.id("footerLessButton")));
       driver().findElement(By.id("footerMoreButton")).click();
       
-      assertTrue(isTextPresent("Help"));
+      assertTrue(isTextPresent("Tutorial"));
       assertTrue(isTextPresent("About"));
       assertTrue(isTextPresent("Google Play"));
       assertTrue(isTextPresent("Privacy Policy"));
@@ -70,7 +70,7 @@ public class FooterTests extends BaseTest {
       
       driver().findElement(By.id("footerLessButton")).click();
       
-      assertFalse(isTextPresent("Help"));
+      assertFalse(isTextPresent("Tutorial"));
       assertFalse(isTextPresent("About"));
       assertFalse(isTextPresent("Google Play"));
       assertFalse(isTextPresent("Privacy Policy"));

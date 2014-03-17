@@ -138,7 +138,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_header_change_profile">Profil bearbeiten</string>
   <string name="template_body_nojs">Bitte aktiviere JavaScript in deinem Browser.</string>
   <string name="template_footer_imprint_link">Impressum</string>
-  <string name="template_footer_tutorial_link">Hilfe</string>
+  <string name="template_footer_tutorial_link">Tutorial</string>
   <string name="template_common_less_than_a_minute_ago">soeben</string>
   <string name="template_common_country_united_arab_emirates">Vereinigte Arabische Emirate</string>
   <string name="template_common_country_afghanistan">Afghanistan</string>
