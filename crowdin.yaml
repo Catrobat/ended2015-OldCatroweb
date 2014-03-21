@@ -8,4 +8,10 @@ files:
   -
     source: '/include/xml/lang/en/**/*.xml'                                   #source files filter
     translation: '/include/xml/lang/%two_letters_code%/**/%original_file_name%'  #where translations live
-      
+    language_mapping:
+      two-letters-code:
+        # crowdin_language_code: local_name
+        'zh-CN': 'zh-CN'
+    ignore:
+      - /include/xml/lang/zh-TW
+
