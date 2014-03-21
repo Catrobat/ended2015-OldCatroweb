@@ -1,6 +1,6 @@
 /**
   *Catroid: An on-device visual programming system for Android devices
-  *Copyright (C) 2010-2013 The Catrobat Team
+  *Copyright (C) 2010-2014 The Catrobat Team
   *(<http://developer.catrobat.org/credits>)
   *
   *This program is free software: you can redistribute it and/or modify
@@ -362,6 +362,30 @@ public class BaseTest {
     //workaround fo Issue 2714
     //https://code.google.com/p/selenium/issues/detail?id=2714
     driver().manage().window().setSize(new Dimension(320,2000));
+  }
+  
+  protected void openLargeLocation() {
+    openLargeLocation("");
+  }
+  
+  protected void openLargeLocation(String location) {
+    openLargeLocation(location, true);
+  }
+  
+  protected void openLargeLocation(String location, Boolean forceDefaultLanguage) {
+    if(forceDefaultLanguage == true) {
+      if(location.contains("?")) {
+        driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "&userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      } else {
+        driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location + "?userLanguage=" + Config.SITE_DEFAULT_LANGUAGE);
+      }
+    } else {
+      driver().get(this.webSite + Config.TESTS_BASE_PATH.substring(1) + location);
+    }
+    
+    //workaround fo Issue 2714
+    //https://code.google.com/p/selenium/issues/detail?id=2714
+    driver().manage().window().setSize(new Dimension(1400,2000));
   }
 
   protected void openAdminLocation() {

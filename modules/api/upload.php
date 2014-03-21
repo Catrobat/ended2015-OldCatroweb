@@ -1,7 +1,7 @@
 <?php
 /*
  * Catroid: An on-device visual programming system for Android devices
- * Copyright (C) 2010-2013 The Catrobat Team
+ * Copyright (C) 2010-2014 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -698,22 +698,23 @@ class upload extends CoreAuthenticationDevice {
     $mailText .= "Title: ". $projectTitle ."\n";
     $mailText .= "Description: " .$projectDescription;
   
-    $address = $this->getUploadNotificationsEMailAddress();
-    
+    $address = $this->getUploadNotificationsEMailAddress();  
     return($this->mailHandler->sendUploadNotificationToAdmin($mailSubject, $mailText, $address));
   }
   
   private function getUploadNotificationsEMailAddress() {
     $result = $this->query("get_uploadnotifications_email_list", array());
     $emailList = pg_fetch_all($result);
-    
+  
     $address = "";
     for($i=0; $i < count($emailList); $i++) {
       $address .= $emailList[$i]['email'];
       $address .= ", ";
     }
-    
+  
     return $address;
   }
+  
+  
 }
 ?>

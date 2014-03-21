@@ -1,7 +1,7 @@
 <?php
 /*
  * Catroid: An on-device visual programming system for Android devices
- * Copyright (C) 2010-2013 The Catrobat Team
+ * Copyright (C) 2010-2014 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -105,8 +105,24 @@ class flagInappropriate extends CoreAuthenticationNone {
     $mailText .= "User IP: <".$_SERVER['REMOTE_ADDR'].">\n";
     $mailText .= "--- *** ---\n\n";
     $mailText .= "You should check this!";
+    
+    $address = $this->getUploadNotificationsEMailAddress();
+    
+    return($this->mailHandler->sendUploadNotificationToAdmin($mailSubject, $mailText, $address));
+  }
+  
+  private function getUploadNotificationsEMailAddress() {
+    $result = pg_execute($this->dbConnection, "get_uploadnotifications_email_list", array()) or
+    $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $emailList = pg_fetch_all($result);
 
-    return($this->mailHandler->sendAdministrationMail($mailSubject, $mailText));
+    $address = "";
+    for($i=0; $i < count($emailList); $i++) {
+      $address .= $emailList[$i]['email'];
+      $address .= ", ";
+    }
+  
+    return $address;
   }
   
   public function __destruct() {

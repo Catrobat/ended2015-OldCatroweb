@@ -1,6 +1,6 @@
 /*
  * Catroid: An on-device visual programming system for Android devices
- * Copyright (C) 2010-2013 The Catrobat Team
+ * Copyright (C) 2010-2014 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -60,6 +60,10 @@
   line-height: 35px;
 }
 
+#wrapper article .stepByStepStartingPosition {
+  margin-bottom: 0.5em;
+}
+
 #wrapper article div.linkBackgroundArrowLeft {
   transform: rotate(90deg);
   -ms-transform: rotate(90deg); /* IE 9 */
@@ -83,7 +87,7 @@
 }
 
 #wrapper article div.stepByStepHeadline {
-    width: 100%;
+    width: 90%;
     padding-left: 1em;
     padding-top: 1em;
     font-size: 1.5em;
@@ -115,6 +119,7 @@
 #wrapper article div.stepByStepDescription {
   margin-bottom: 0.5em;
   margin-top: 2em;
+  width: 90%;
 }
 
 #wrapper article div.stepByStepDetailContainerLeft {
@@ -128,14 +133,22 @@
   font-size: 0.8em;
 }
 
+#wrapper article div.stepByStepDescriptionContainer {
+  width: 60%;
+  float: left;
+  height: 92px;
+  line-height: 92px;
+}
+
 #wrapper article div.stepByStepDescription1 {
-  margin-bottom: 0.5em;  
-  display: table-cell; 
+  
+  display: inline-block;
   vertical-align: middle;
+  line-height: 18px;
 }
 
 #wrapper article div.stepByStepTableView {
-  display: table;
+  width: 100%;
 }
 
 #wrapper article div.miniThumb {
@@ -148,6 +161,7 @@
 
 #wrapper article div.stepByStepFloating {
   float: left;
+  margin-bottom: 10px;
   padding-right: 2em;
 }
 
@@ -358,6 +372,18 @@
   margin-right: 0.1em;
 }
 
+#wrapper article div.navigationPoints {
+  background-color: #17a5b8;
+  color: #FFFFFF;
+  font-size: 1.1em;
+  width: 35px;
+  height: 35px;
+  float: left;
+  border-radius: 50%;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
 #wrapper article div.linkContainer {
   display: table;
   margin: 0 auto;
@@ -388,6 +414,7 @@
  
  #wrapper article div.stepByStepContentLeft {
    width: 100%;
+   margin-bottom: 10px;
  }
  
  #wrapper article div.stepByStepContentRight {

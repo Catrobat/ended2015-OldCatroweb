@@ -1,6 +1,6 @@
 /*
  * Catroid: An on-device visual programming system for Android devices
- * Copyright (C) 2010-2013 The Catrobat Team
+ * Copyright (C) 2010-2014 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -59,10 +59,12 @@
   width: 100%;
   margin-left: 21px;
   text-align: center;
+  cursor: pointer;
 }
 
 #wrapper article div.tutorialStepByStep2 {
   display: none;
+  cursor: pointer;
 }
 
 #wrapper article div.tutorialBottomContainer {
@@ -74,6 +76,7 @@
 #wrapper article div.tutorialTutorials {
   float: left;
   margin-left: 61px;
+  cursor: pointer;
 }
 
 #wrapper article div.spacer {
@@ -83,22 +86,26 @@
 }
 
 #wrapper article div.tutorialStarters {
+  cursor: pointer;
 }
 
 #wrapper article div.tutorialStartersThumb {
   width: 48%;
   float: right;
   display: none;
+  cursor: pointer;
 }
 
 #wrapper article div.tutorialDiscuss1 {
   display: block;
   width: 100%;
   text-align: center;
+  cursor: pointer;
 }
 
 #wrapper article div.tutorialDiscuss2 {
   display: none;
+  cursor: pointer;
 }
 
 #wrapper article div.tutorialTopContainer {

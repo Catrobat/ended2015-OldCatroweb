@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Catroid: An on-device visual programming system for Android devices
-  Copyright (C) 2010-2013 The Catrobat Team
+  Copyright (C) 2010-2014 The Catrobat Team
   (<http://developer.catrobat.org/credits>)
   
   This program is free software: you can redistribute it and/or modify
@@ -43,11 +43,13 @@
   <string name="terms_of_use_enumeration_13">We offer all our own software and Internet resources related to the Catrobat system, e.g., the software written by the Catrobat team, our websites and Internet resources, our own source code related to the Catrobat system, and all additional included materials such as, e.g., pictures, sounds, and texts, now and in the future to you under Catrobat's free licenses.</string>
   <string name="terms_of_use_enumeration_14">These licenses make all parts of Catrobat both free of charge to you as well as free in the sense of giving you the freedom to use them however you like, with only a few restrictions ensuring, among others, that the Catrobat system will forever remain free and useful for everyone.</string>
   <string name="terms_of_use_enumeration_15">Please consult {*licenseofsystem*} for the precise legal terms and conditions. The source code of the Catrobat system as well as many other documents and resources are available via {*googlecode*}.</string>
-  <string name="terms_of_use_our_terms">Our Terms of Service:</string>
+  <string name="terms_of_use_our_terms">Our Terms of Use and Service:</string>
   <string name="terms_of_use_enumeration_16">We reserve the rights to reject, delete, or hide programs, user accounts, and any digital materials uploaded to Catrobat's websites at any time in our sole discretion, for instance if we find that a program contains inappropriate material or that a user infringes on the rights of other persons.</string>
-  <string name="terms_of_use_enumeration_17">All of Catrobat's Internet resources are offered in the hope that they will be useful, but without any warranty.</string>
+  <string name="terms_of_use_enumeration_17">All of Catrobat's software and Internet resources are offered in the hope that they will be useful, but without any warranty.</string>
   <string name="terms_of_use_enumeration_18">Please consult our {*termsofservice*} for precise formulations of above points and some additional legal terms and conditions.</string>
+  <string name="terms_of_use_enumeration_19">If you, or, if you are below 13 years of age, your parents or legal guardians, are associated with an organization involved in or responsible for dragnet type privacy violations and/or bulk or mass surveillance, then you are not allowed to use our software applications and to access our services. The precise details of this restriction and certain exceptions to it are delineated in Sections 4.a and 4.b on our {*termsofservice*}.</string>
+  <string name="terms_of_use_enumeration_20">If you are under 13 years of age, then you have to ask your parents or legal guardians whether they allow you to use Catrobat’s Software Applications and Services.</string>
   <string name="terms_of_use_check_back">Check back here from time-to-time, because we are always trying to improve our Terms of Use.</string>
   <string name="terms_of_use_mail_us">Please mail any suggestions regarding these Terms of Use to {*mailus*}.</string>
-  <string name="terms_of_use_dated">Version 1.1, 2 April 2013</string>
+  <string name="terms_of_use_dated">Version 1.3, 4 March 2014</string>
 </strings>

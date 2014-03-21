@@ -1,7 +1,7 @@
 <?php
 /*
  * Catroid: An on-device visual programming system for Android devices
- * Copyright (C) 2010-2013 The Catrobat Team
+ * Copyright (C) 2010-2014 The Catrobat Team
  * (<http://developer.catrobat.org/credits>)
  * 
  * This program is free software: you can redistribute it and/or modify
@@ -77,7 +77,7 @@ class configTest extends PHPUnit_Framework_TestCase
     $this->assertEquals(PROJECT_SORTBY_RANDOM, 'random');
     $this->assertEquals(PROJECT_SORTBY_DEFAULT, PROJECT_SORTBY_AGE);
     
-    $this->assertEquals(PROJECT_MEDIA_LICENSE, 'http://developer.catrobat.org/ccbysa_v3');
+    $this->assertEquals(PROJECT_MEDIA_LICENSE, 'http://developer.catrobat.org/ccbysa_v4');
     $this->assertEquals(PROJECT_PROGRAM_LICENSE, 'http://developer.catrobat.org/agpl_v3');
     
     $this->assertEquals(APP_EXTENSION,'.apk');

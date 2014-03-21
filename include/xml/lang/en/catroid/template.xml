@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
   Catroid: An on-device visual programming system for Android devices
-  Copyright (C) 2010-2013 The Catrobat Team
+  Copyright (C) 2010-2014 The Catrobat Team
   (<http://developer.catrobat.org/credits>)
   
   This program is free software: you can redistribute it and/or modify
@@ -55,7 +55,7 @@
   <string name="template_footer_copyright_policy_link">Copyright policy</string>
   <string name="template_footer_imprint_link">Imprint</string>
   <string name="template_footer_contact_link">Contact</string>
-  <string name="template_footer_tutorial_link">Help</string>
+  <string name="template_footer_tutorial_link">Tutorial</string>
   
   <string name="template_common_one_minute_ago">1 minute</string>
   <string name="template_common_less_than_a_minute_ago">just now</string>

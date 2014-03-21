@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!--
 Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2013 The Catrobat Team
+Copyright (C) 2010-2014 The Catrobat Team
 (<http://developer.catrobat.org/credits>)
 
 This program is free software: you can redistribute it and/or modify
@@ -38,16 +38,18 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="terms_of_use_enumeration_13">Wir bieten alle unsere eigenen Software- und Internet-Ressourcen im Zusammenhang mit dem Catrobat System, zB die Software, die von dem Catrobat Team geschrieben wird, unsere Webseiten und Internet-Ressourcen, unseren eigenen Quellcode im Zusammenhang mit dem Catrobat System und alle zus&#xE4;tzlich enthalten Materialien, wie z. B. , Bilder, Sounds und Texte, jetzt und in der Zukunft, unter den freien Lizenzen von Catrobat.</string>
   <string name="terms_of_use_enumeration_14">Diese Lizenzen machen alle Teile von Catrobat sowohl kostenlos als auch frei im Sinne von Freiheit, dass du alles nutzen kannst wie du willst, lediglich mit ein paar Einschr&#xE4;nkungen, um gew&#xE4;hrleisten zu k&#xF6;nnen, dass das Catrobat System f&#xFC;r immer frei bleiben und n&#xFC;tzlich f&#xFC;r jeden sein wird.</string>
   <string name="terms_of_use_check_back">Schaue hier von Zeit zu Zeit vorbei, weil wir immer versuchen unsere Nutzungsbedingungen zu verbessern.</string>
-  <string name="terms_of_use_dated">Version 1.1, 2 April 2013</string>
+  <string name="terms_of_use_dated">Version 1.3, 4. März 2014</string>
   <string name="terms_of_use_welcome2">Als Teil der Catrobat Gemeinschaft, teilst du Programme und Ideen mit andere Leuten:</string>
   <string name="terms_of_use_enumeration_3">die unterschiedliche F&#xE4;higkeiten haben</string>
   <string name="terms_of_use_your_support">Wir ben&#xF6;tigen Deine Hilfe um diese Community zu einem hilfreichen Platz f&#xFC;r alle Mitglieder zu machen. Und so kannst Du uns helfen:</string>
   <string name="terms_of_use_our_terms">Unsere allgemeinen Gesch&#xE4;ftsbedingungen:</string>
-  <string name="terms_of_use_enumeration_17">Alle Internet-Ressourcen von Catrobat werden in der Hoffnung, dass sie n&#xFC;tzlich sind bereitgestellt, allerdings ohne jeglicher Garantie.</string>
+  <string name="terms_of_use_enumeration_17">Alle Software und Internet-Ressourcen von Catrobat werden in der Hoffnung, dass sie n&#xFC;tzlich sind bereitgestellt, allerdings ohne jeglicher Garantie.</string>
   <string name="terms_of_use_mail_us">Bitte sende deine Verbesserungsvorschl&#xE4;ge zu diesen Nutzungsbedingungen an {*mailus*}.</string>
   <string name="terms_of_use_enumeration_1">aus vielen verschieden L&#xE4;ndern und Kulturkreisen</string>
   <string name="terms_of_use_enumeration_2">mit unterschiedlichem Alter (von kleinen Kindern &#xFC;ber Jugendliche bis Gro&#xDF;eltern)</string>
   <string name="terms_of_use_enumeration_5">Gib Anerkennung. Du kannst modifizierte Versionen der Programme anderer Leuten machen - achte nur darauf ihnen anschliesend deine Anerkennung zu geben. Eine Stelle daf&#xFC;r ist in deiner Programmbeschreibung. Bitte lies dir den Abschnitt unterhalb dieser gepunkteten Liste f&#xFC;r Details &#xFC;ber das &#xC4;ndern von Programmen anderer Teilnehmer.</string>
   <string name="terms_of_use_enumeration_16">Wir behalten uns das Recht vor, Programme, Benutzerkonten, und alle digitalen Materialien, die auf die Catrobat Webseiten hochgeladen werden, in unserem alleinigen Ermessen jederzeit abzulehnen, zu l&#xF6;schen oder zu verstecken, zum Beispiel, wenn wir feststellen, dass ein Programm unangemessenes Material enth&#xE4;lt, oder dass ein Benutzer die Rechte anderer Personen verletzt.</string>
   <string name="terms_of_use_enumeration_18">Bitte konsultiere unsere {*termsofservice*} f&#xFC;r pr&#xE4;zise Formulierungen der oben genannten Punkte und einige zus&#xE4;tzliche rechtliche Bedingungen.</string>
+  <string name="terms_of_use_enumeration_19">Wenn du, oder, wenn du jünger als 13 Jahre bist, deine Eltern oder Erziehungsberechtigen an einer Organisation beteiligt bist/sind, die involviert oder verantwortlich für Rasterfahdungsartige Datenschutzverletzungen und/oder Groß- oder Massenüberwachung ist, dann bist du, oder sind sie, nicht berechtigt unsere Software-Anwendungen zu nutzen und auf unsere Dienste zuzugreifen. Die genauen Einzelheiten dieser Beschränkung und bestimmte Ausnahmen sind in den Sektionen 4.a und 4.b auf {*termsofservice*} beschrieben.</string>
+  <string name="terms_of_use_enumeration_20">Wenn du jünger als 13 Jahre bist, musst du deine Eltern oder Erziehungsberechtigten fragen ob sie dir erlauben Catrobat Software-Anwendungen und Services zu nutzen.</string>
 </strings>
