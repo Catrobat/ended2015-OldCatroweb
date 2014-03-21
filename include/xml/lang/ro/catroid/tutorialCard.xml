@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+
+  <string name="headline1"></string>
+  <string name="headline2"></string>
+  <string name="headline3"></string>
+  <string name="headline4"></string>
+
+	<string name="project1"></string>
+	<string name="project2"></string>
+	<string name="project3"></string>
+	<string name="project4">Alunecă</string>
+	<string name="project5"></string>
+	<string name="project6"></string>
+	<string name="project7"></string>
+	<string name="project8"></string>
+	<string name="project9">Difuzează</string>
+
+	<string name="title"></string>
+  <string name="project1_description"></string>
+	<string name="project2_description"></string>
+	<string name="project3_description"></string>
+	<string name="project4_description"></string>
+	<string name="project5_description"></string>
+	<string name="project6_description"></string>
+	<string name="project7_description"></string>
+	<string name="project8_description"></string>
+	<string name="project9_description"></string>
+	
+	<string name="project5_extratip_1"></string>
+	<string name="project5_extratip_2"></string>
+	<string name="project5_extratip_3"></string>
+	<string name="project7_extratip_1"></string>
+
+	
+	
+</strings>

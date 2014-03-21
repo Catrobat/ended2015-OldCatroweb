@@ -1,25 +1,25 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="template_common_one_minute_ago">1&#x5206;&#x524D;</string>
@@ -48,20 +48,46 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_december">&#x5341;&#x4E8C;&#x6708;</string>
   <string name="template_common_arabic">&#x30A2;&#x30E9;&#x30D3;&#x30A2;&#x8A9E;</string>
   <string name="template_common_bulgarian">&#x30D6;&#x30EB;&#x30AC;&#x30EA;&#x30A2;&#x8A9E;</string>
-  <string name="template_common_chinese_simplified_han">&#x4E2D;&#x56FD;&#x8A9E;&#xFF08;&#x7C21;&#x4F53;&#x5B57;&#x6F22;&#xFF09;</string>
-  <string name="template_common_chinese_traditional_han">&#x4E2D;&#x56FD;&#x8A9E;&#xFF08;&#x7E41;&#x4F53;&#x5B57;&#x6F22;&#xFF09;</string>
-  <string name="template_common_english_united_states">&#x82F1;&#x8A9E;&#xFF08;&#x7C73;&#x56FD;&#xFF09;</string>
-  <string name="template_common_french">&#x30D5;&#x30E9;&#x30F3;&#x30B9;&#x8A9E;</string>
-  <string name="template_common_german">&#x30C9;&#x30A4;&#x30C4;&#x8A9E;</string>
-  <string name="template_common_hindi">&#x30D2;&#x30F3;&#x30C7;&#x30A3;&#x30FC;&#x8A9E;</string>
-  <string name="template_common_hungarian">&#x30D6;&#x30EB;&#x30AC;&#x30EA;&#x30A2;&#x8A9E;</string>
-  <string name="template_common_indonesian">&#x30A4;&#x30F3;&#x30C9;&#x30CD;&#x30B7;&#x30A2;&#x8A9E;</string>
-  <string name="template_common_italian">&#x30A4;&#x30BF;&#x30EA;&#x30A2;&#x8A9E;</string>
-  <string name="template_common_japanese">&#x65E5;&#x672C;&#x8A9E;</string>
-  <string name="template_common_korean">&#x97D3;&#x56FD;&#x8A9E;</string>
-  <string name="template_common_malay">&#x30DE;&#x30EC;&#x30FC;&#x8A9E;</string>
-  <string name="template_common_romanian">&#x30EB;&#x30FC;&#x30DE;&#x30CB;&#x30A2;&#x8A9E;</string>
-  <string name="template_common_russian">&#x30ED;&#x30B7;&#x30A2;&#x8A9E;</string>
-  <string name="template_common_turkish">&#x30C8;&#x30EB;&#x30B3;&#x8A9E;</string>
-  <string name="template_common_ukrainian">&#x30A6;&#x30AF;&#x30E9;&#x30A4;&#x30CA;&#x8A9E;</string>
+  <string name="template_common_catalan">&#x4E2D;&#x56FD;&#x8A9E;&#xFF08;&#x7C21;&#x4F53;&#x5B57;&#x6F22;&#xFF09;</string>
+  <string name="template_common_chinese_simplified_han">&#x4E2D;&#x56FD;&#x8A9E;&#xFF08;&#x7E41;&#x4F53;&#x5B57;&#x6F22;&#xFF09;</string>
+  <string name="template_common_chinese_traditional_han">&#x82F1;&#x8A9E;&#xFF08;&#x7C73;&#x56FD;&#xFF09;</string>
+  <string name="template_common_croatian">&#x30D5;&#x30E9;&#x30F3;&#x30B9;&#x8A9E;</string>
+  <string name="template_common_czech">&#x30C9;&#x30A4;&#x30C4;&#x8A9E;</string>
+  <string name="template_common_danish">&#x30D2;&#x30F3;&#x30C7;&#x30A3;&#x30FC;&#x8A9E;</string>
+  <string name="template_common_dutch">&#x30D6;&#x30EB;&#x30AC;&#x30EA;&#x30A2;&#x8A9E;</string>
+  <string name="template_common_english_united_kingdom">&#x30A4;&#x30F3;&#x30C9;&#x30CD;&#x30B7;&#x30A2;&#x8A9E;</string>
+  <string name="template_common_english_united_states">&#x30A4;&#x30BF;&#x30EA;&#x30A2;&#x8A9E;</string>
+  <string name="template_common_estonian">&#x65E5;&#x672C;&#x8A9E;</string>
+  <string name="template_common_filipino">&#x97D3;&#x56FD;&#x8A9E;</string>
+  <string name="template_common_finnish">&#x30DE;&#x30EC;&#x30FC;&#x8A9E;</string>
+  <string name="template_common_french">&#x30EB;&#x30FC;&#x30DE;&#x30CB;&#x30A2;&#x8A9E;</string>
+  <string name="template_common_german">&#x30ED;&#x30B7;&#x30A2;&#x8A9E;</string>
+  <string name="template_common_greek">&#x30C8;&#x30EB;&#x30B3;&#x8A9E;</string>
+  <string name="template_common_hebrew">&#x30A6;&#x30AF;&#x30E9;&#x30A4;&#x30CA;&#x8A9E;</string>
+  <string name="template_common_hindi"></string>
+  <string name="template_common_hungarian"></string>
+  <string name="template_common_indonesian"></string>
+  <string name="template_common_italian"></string>
+  <string name="template_common_japanese"></string>
+  <string name="template_common_korean"></string>
+  <string name="template_common_latvian"></string>
+  <string name="template_common_lithuanian"></string>
+  <string name="template_common_malay"></string>
+  <string name="template_common_norwegian"></string>
+  <string name="template_common_persian"></string>
+  <string name="template_common_polish"></string>
+  <string name="template_common_portuguese_brazil"></string>
+  <string name="template_common_portuguese_portugal"></string>
+  <string name="template_common_romanian"></string>
+  <string name="template_common_russian"></string>
+  <string name="template_common_serbian"></string>
+  <string name="template_common_slovak"></string>
+  <string name="template_common_slovenian"></string>
+  <string name="template_common_spanish_latin_america"></string>
+  <string name="template_common_spanish_spain"></string>
+  <string name="template_common_swedish"></string>
+  <string name="template_common_thai"></string>
+  <string name="template_common_turkish"></string>
+  <string name="template_common_ukrainian"></string>
+  <string name="template_common_vietnamese"></string>
 </strings>

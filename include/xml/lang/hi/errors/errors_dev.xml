@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<errors>
+		<server>
+				<string name="missing_mcrypt"></string>
+				<string name="missing_blowfish"></string>
+		</server>
+    <db>
+        <string name="query_failed"></string>
+        <string name="connection_failed"></string>
+        <string name="no_entry_for_id"></string>
+    </db>
+    <profile>
+    	<string name="no_such_user"></string>
+    </profile>
+    <userFunctions>
+    	<string name="hash_not_found"></string>
+			<string name="expired_url"></string>
+    	<string name="username_missing"></string>
+    	<string name="username_invalid_underscore"></string>
+    	<string name="username_invalid_hash"></string>
+    	<string name="username_invalid_verticalbar"></string>
+    	<string name="username_invalid_curlybrace"></string>
+    	<string name="username_invalid_lessgreater"></string>
+    	<string name="username_invalid_squarebracket"></string>
+    	<string name="username_invalid_spaces"></string>
+    	<string name="username_is_email_address"></string>
+    	<string name="username_invalid_insulting_words"></string>
+    	<string name="username_invalid"></string>
+    	<string name="username_blacklisted"></string>
+    	<string name="username_already_exists"></string>
+    	<string name="password_missing"></string>
+    	<string name="password_not_equal_password2"></string>
+    	<string name="username_password_equal"></string>
+      <string name="password_new_too_short"></string>
+      <string name="password_new_too_long"></string>
+      <string name="email_missing"></string>
+      <string name="email_invalid"></string>
+    	<string name="email_already_exists"></string>
+    	<string name="country_missing"></string>
+      <string name="password_or_username_wrong"></string>
+      <string name="board_authentication_failed"></string>
+      <string name="wiki_api_response_incorrect"></string>
+    	<string name="board_registration_failed"></string>
+    	<string name="userdata_missing"></string>
+      <string name="unsupported_image"></string>
+      <string name="avatar_creation_failed"></string>
+    	<string name="password_new_board_update_failed"></string>
+      <string name="country_update_failed"></string>
+      <string name="language_update_failed"></string>
+    	<string name="userdata_not_exists"></string>
+    	<string name="email_update_failed"></string>
+    	<string name="create_hash_failed"></string>
+    	<string name="sendmail_failed"></string>
+    </userFunctions>
+    <upload>
+        <string name="missing_project_title"></string>
+        <string name="missing_file_data"></string>
+        <string name="missing_post_file_checksum"></string>
+        <string name="copy_failed"></string>
+        <string name="rename_failed"></string>
+        <string name="invalid_file_checksum"></string>
+        <string name="project_exceed_filesize_limit"></string>
+        <string name="project_title_default"></string>
+        <string name="insulting_words_in_project_title"></string>
+        <string name="insulting_words_in_project_description"></string>
+        <string name="save_thumbnail_failed"></string>
+        <string name="invalid_project_xml"></string>
+        <string name="old_catrobat_version"></string>
+        <string name="old_catrobat_language"></string>
+        <string name="invalid_media_license"></string>
+        <string name="invalid_program_license"></string>
+        <string name="visibility_incorrect"></string>
+        <string name="invalid_project_file"></string>
+        <string name="linked_project_file_not_found"></string>
+        <string name="unlinked_project_file"></string>
+    </upload>
+    <download>
+    	<string name="file_not_found"></string>
+    </download>
+    <flag>
+        <string name="missing_post_data"></string>
+        <string name="sql_insert_failed"></string>
+    </flag>
+    <viewer>
+    	<string name="html_file_not_found"></string>
+    	<string name="ip_is_blocked"></string>
+    	<string name="ip_is_blocked_temporary"></string>
+      <string name="user_is_blocked"></string>
+    </viewer>
+    <auth>
+    	<string name="device_auth_invalid_token"></string>
+    	<string name="device_auth_username_exists"></string>
+      <string name="not_a_tugraz_ip"></string>
+    </auth>
+    <registration>
+    	<string name="postdata_missing"></string>
+    </registration>
+    <admin>
+      <string name="pootle_post_data_missing"></string>
+      <string name="pootle_load_xlf_failed"></string>
+      <string name="pootle_not_valid_xml"></string>
+      <string name="pootle_invalid_stringname_in_xml"></string>
+      <string name="pootle_could_not_write_xml_file"></string>
+    </admin>
+</errors>

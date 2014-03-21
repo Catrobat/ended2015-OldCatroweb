@@ -1,32 +1,52 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="change_my_password">scimbarea parolei</string>
-  <string name="password">Parola</string>
-  <string name="country">&#x21A;ara</string>
-  <string name="save_button">Salva&#x21B;i schimb&#x103;rile mele</string>
-  <string name="really_delete_email">Sunte&#x21B;i siguri c&#x103; dori&#x21B;i s&#x103; &#x219;terge&#x21B;i aceast&#x103; adres&#x103; de e-mail?</string>
-  <string name="avatar_success">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
-  <string name="password_success">A&#x21B;i actualizat parola dvs. cu succes.</string>
+  <string name="myTitle">scimbarea parolei</string>
+  <string name="userTitle">Parola</string>
+
+  <string name="changeAvatar">&#x21A;ara</string>
+  <string name="password"></string>
+  <string name="email">Sunte&#x21B;i siguri c&#x103; dori&#x21B;i s&#x103; &#x219;terge&#x21B;i aceast&#x103; adres&#x103; de e-mail?</string>
+  <string name="second_email">A&#x21B;i actualizat &#x21B;ara dvs. cu succes.</string>
+  <string name="projects">A&#x21B;i actualizat parola dvs. cu succes.</string>
+  <string name="country"></string>
+
+
+  <string name="my_projects"></string>
+  <string name="user_projects"></string>
+  <string name="no_projects_available"></string>
+  <string name="new_password"></string>
+  <string name="repeat_password"></string>
+  <string name="save"></string>
+  <string name="saved"></string>
+
+  <string name="really_delete_email"></string>
+  <string name="really_delete_project"></string>
+  <string name="image_too_big"></string>
+  <string name="other"></string>
+  <string name="avatar_success"></string>
+  <string name="password_success"></string>
+  <string name="email_add_success"></string>
+  <string name="edit_one_entry"></string>
 </strings>

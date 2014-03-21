@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="template_common_one_minute_ago"></string>
+  <string name="template_common_less_than_a_minute_ago"></string>
+  <string name="template_common_minutes_ago"></string>
+  <string name="template_common_one_hour_ago"></string>
+  <string name="template_common_hours_ago"></string>
+  <string name="template_common_one_day_ago"></string>
+  <string name="template_common_days_ago"></string>
+  <string name="template_common_one_month_ago"></string>
+  <string name="template_common_months_ago"></string>
+  <string name="template_common_one_year_ago"></string>
+  <string name="template_common_years_ago"></string>
+  <string name="template_common_over_years_ago"></string>
+  <string name="template_common_january"></string>
+  <string name="template_common_february"></string>
+  <string name="template_common_march"></string>
+  <string name="template_common_april"></string>
+  <string name="template_common_may"></string>
+  <string name="template_common_june"></string>
+  <string name="template_common_july"></string>
+  <string name="template_common_august"></string>
+  <string name="template_common_september"></string>
+  <string name="template_common_october"></string>
+  <string name="template_common_november"></string>
+  <string name="template_common_december"></string>
+  <string name="template_common_arabic"></string>
+  <string name="template_common_bulgarian"></string>
+  <string name="template_common_catalan"></string>
+  <string name="template_common_chinese_simplified_han"></string>
+  <string name="template_common_chinese_traditional_han"></string>
+  <string name="template_common_croatian"></string>
+  <string name="template_common_czech"></string>
+  <string name="template_common_danish"></string>
+  <string name="template_common_dutch"></string>
+  <string name="template_common_english_united_kingdom"></string>
+  <string name="template_common_english_united_states"></string>
+  <string name="template_common_estonian"></string>
+  <string name="template_common_filipino"></string>
+  <string name="template_common_finnish"></string>
+  <string name="template_common_french"></string>
+  <string name="template_common_german"></string>
+  <string name="template_common_greek"></string>
+  <string name="template_common_hebrew"></string>
+  <string name="template_common_hindi"></string>
+  <string name="template_common_hungarian"></string>
+  <string name="template_common_indonesian"></string>
+  <string name="template_common_italian"></string>
+  <string name="template_common_japanese"></string>
+  <string name="template_common_korean"></string>
+  <string name="template_common_latvian"></string>
+  <string name="template_common_lithuanian"></string>
+  <string name="template_common_malay"></string>
+  <string name="template_common_norwegian"></string>
+  <string name="template_common_persian"></string>
+  <string name="template_common_polish"></string>
+  <string name="template_common_portuguese_brazil"></string>
+  <string name="template_common_portuguese_portugal"></string>
+  <string name="template_common_romanian"></string>
+  <string name="template_common_russian"></string>
+  <string name="template_common_serbian"></string>
+  <string name="template_common_slovak"></string>
+  <string name="template_common_slovenian"></string>
+  <string name="template_common_spanish_latin_america"></string>
+  <string name="template_common_spanish_spain"></string>
+  <string name="template_common_swedish"></string>
+  <string name="template_common_thai"></string>
+  <string name="template_common_turkish"></string>
+  <string name="template_common_ukrainian"></string>
+  <string name="template_common_vietnamese"></string>
+</strings>

@@ -1,89 +1,109 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
+
   <string name="starting_position">Ausgangsposition:</string>
-  <string name="step2_additional_text_1">Tippe auf "+".</string>
-  <string name="step3_additional_text_1">Tippe auf "+".</string>
-  <string name="step2_additional_text_4">W&#xE4;hle von der Galerie.</string>
-  <string name="step3_title">3. Erstelle Bewegungen.</string>
-  <string name="step3_additional_text_2">Wir wollen einen Baustein aus der Kategorie "Bewegung" verwenden.</string>
-  <string name="step3_additional_text_5">Dr&#xFC;cke den "Zur&#xFC;ck"-Button, um die B&#xFC;hne zu verlassen.</string>
-  <string name="step4_additional_text_1">W&#xE4;hle den "Setze Aussehen" - Baustein aus. Mit diesem Baustein kannst du ein vorhandenes Aussehen ausw&#xE4;hlen oder ein neues erstellen.</string>
-  <string name="step4_additional_text_4">F&#xFC;ge wie vorher ein neues Bild hinzu.</string>
-  <string name="step6_additional_text_5">Tippe in das Textfeld der x und y Koordinaten und setze sie auf 0.</string>
-  <string name="step8_title">8. Kopiere, l&#xF6;sche oder bearbeite einen Baustein.</string>
-  <string name="step1_title">1. Erstelle ein neues Programm</string>
-  <string name="step1_additional_text_1">Tippe auf "Neu".</string>
-  <string name="step1_additional_text_2">Gib einen Programmnamen ein, w&#xE4;hle "Erstelle leeres Programm" und tippe auf "OK".</string>
-  <string name="step2_title">2. Erstelle ein neues Objekt</string>
-  <string name="step2_additional_text_2">W&#xE4;hle die Quelle des ersten Aussehens von deinem neuen Objekt.</string>
-  <string name="step2_additional_text_6">Gib einen Objektnamen ein und tippe "OK" um das Objekt zu erstellen.</string>
-  <string name="step3_additional_text_4">Tippe "Play" um zur B&#xFC;hne zu gelangen und das Objekt gleiten zu sehen.</string>
-  <string name="step3_additional_text_6">Der Baustein wird jetzt schwebend angezeigt. Du kannst ihn einf&#xFC;gen, indem du ihn an die gew&#xFC;nschte Stelle ziehst. Du kannst auch bereits eingef&#xFC;gte Bausteine verschieben, indem du den Baustein solange antippst, bis er wieder schwebend wird.</string>
-  <string name="step4_title">4. Aussehen &#xE4;ndern</string>
-  <string name="step4_additional_text_5">Jetzt musst du das neue Bild ausw&#xE4;hlen.</string>
-  <string name="step5_additional_text_1">W&#xE4;hle den "Sprechen" Baustein. Das Objekt spricht den Text vor, wenn der Baustein ausgef&#xFC;hrt wird.</string>
-  <string name="step6_additional_text_1">W&#xE4;hle den "Wiederhole fortlaufend" Baustein. Alles in der Schleife wiederholt sich f&#xFC;r immer.</string>
-  <string name="step6_additional_text_3">F&#xFC;ge noch ein "Gleiten" Baustein hinzu.</string>
-  <string name="step6_additional_text_4">Platziere den "Gleiten" - Baustein oberhalb des "Wiederholen beenden" - Bausteins.</string>
-  <string name="step7_description">Du kannst das Verhalten eines Objektes auch ver&#xE4;ndern, wenn dein Programm auf der B&#xFC;hne ausgef&#xFC;hrt wird.</string>
-  <string name="step7_additional_text_2">Platziere den "Wenn angetippt" - Baustein unterhalb der anderen Bausteine.</string>
-  <string name="step7_additional_text_3">W&#xE4;hle den "Drehe rechts" - Baustein und platziere ihn unterhalb des "Wenn angetippt" - Bausteins.</string>
-  <string name="step8_additional_text_1">Wenn du einen Baustein auf der linken Seite antippst, &#xF6;ffnet sich ein Men&#xFC;. Damit kannst du das Objekt bewegen, kopieren oder die Werte des Bausteins mit dem Formel-Editor ver&#xE4;ndern.</string>
-  <string name="step3_additional_text_3">W&#xE4;hle den "Gleiten" - Baustein aus. Das Objekt wird zu der Position gleiten, die du in den Baustein eingibst.</string>
-  <string name="step4_additional_text_3">Um ein neues Aussehen zu erstellen, tippe zuerst in das Dropdown-Feld.</string>
-  <string name="step4_additional_text_6">Tippe auf den Start-Button, um die &#xC4;nderungen auf der B&#xFC;hne zu sehen.</string>
-  <string name="step5_additional_text_3">Tippe auf den Start-Button, um die &#xC4;nderungen auf der B&#xFC;hne zu sehen.</string>
-  <string name="step6_additional_text_6">Tippe auf den Start-Button, um die &#xC4;nderungen auf der B&#xFC;hne zu sehen.</string>
-  <string name="step7_additional_text_5">Tippe auf den Start-Button, um die &#xC4;nderungen auf der B&#xFC;hne zu sehen. Wenn du jetzt das neue Objekt antippst, wird es sich drehen.</string>
-  <string name="step5_title">5. Sprechen</string>
-  <string name="step5_additional_text_2">Platziere den Baustein unter dem "Setze Aussehen" - Baustein.</string>
-  <string name="step6_title">6. Immer wieder</string>
-  <string name="step6_description">Jetzt werden wir dir zeigen, wie du das Verhalten deines Objektes wiederholen kannst.</string>
-  <string name="step6_additional_text_2">Platziere den "Wiederhole fortlaufend" - Baustein unterhalb des "Wenn Programm gestartet" - Bausteins.</string>
-  <string name="step7_title">7. Tippen ist alles.</string>
-  <string name="step7_additional_text_1">W&#xE4;hle den "Wenn angetippt" - Baustein aus. Jeden Baustein, den du unterhalb dieses Bausteins einf&#xFC;gst, wird erst ausgef&#xFC;hrt, wenn du das Objekt auf der B&#xFC;hne antippst.</string>
-  <string name="step7_additional_text_4">Jetzt solltest du dieses Skript haben.</string>
-  <string name="step2_additional_text_3">Zeichne ein neues Aussehen.</string>
-  <string name="step2_additional_text_5">Mach ein Foto.</string>
-  <string name="step4_description">Du kannst das Aussehen deines Objektes ver&#xE4;ndern.</string>
-  <string name="step4_additional_text_2">Platziere den Baustein unter dem "Gleiten" - Baustein.</string>
-  <string name="step5_description">Jetzt wirst du herausfinden, wie man ein Objekt zum "Sprechen" bringt.</string>
-  <string name="step9_additional_text_2">Gehe einmal zur&#xFC;ck um zur &#xDC;bersicht deines Objektes zu gelangen. Von hier gelangst du zu den Skripten, Aussehen und Kl&#xE4;nge deines Objektes. Hier kannst du sie umbenennen, kopieren, editieren oder l&#xF6;schen.</string>
-  <string name="step10_additional_text_1">Der Hintergrund verh&#xE4;lt sich wie ein Objekt, allerdings gibt es nur ein Hintergrund-Objekt.</string>
-  <string name="step11_title">11. Hauptmen&#xFC;</string>
-  <string name="step10_title">10. Ver&#xE4;ndere den Hintergrund</string>
-  <string name="step10_description">Das ist die &#xDC;bersicht &#xFC;ber deine Objekte und den Hintergrund deines Programmes. </string>
-  <string name="step11_additional_text_2">Erstelle ein neues Programm.</string>
-  <string name="step11_additional_text_6">Lade dein aktuelles Programm hoch.</string>
-  <string name="step9_title">9. Navigation in der App</string>
-  <string name="step9_additional_text_1">Nutze den Android "Zur&#xFC;ck" - Button, um zum vorherigen Bildschirm zur&#xFC;ck zu gelangen.</string>
-  <string name="step9_additional_text_3">Wenn du noch einmal den Android "Zur&#xFC;ck"-Button antippst, gelangst du zur &#xDC;bersicht &#xFC;ber deine Objekte und den Hintergrund.</string>
-  <string name="step10_additional_text_2">Du kannst Skripte, Aussehen und Kl&#xE4;nge auf die gleiche Weise zum Hintergrund-Objekt hinzuf&#xFC;gen, wie bei den Objekten.</string>
-  <string name="step11_description">Tippe noch einmal auf den Android "Zur&#xFC;ck"-Button, um zu diesem Bildschirm zu gelangen.</string>
-  <string name="step11_additional_text_1">Setze dein aktuelles Programm fort.</string>
-  <string name="step11_additional_text_4">Gehe auf die Hilfe-Seite und diskutiere mit anderen.</string>
-  <string name="step11_additional_text_5">Entdecke die Welt der Pocket Code Programme. Wenn dir eines gef&#xE4;llt, lade es herunter und remixe es.</string>
-  <string name="step11_additional_text_3">&#xDC;bersicht &#xFC;ber alle Pocket Code Programme auf deinem Handy.</string>
+  
+	<string name="title">Tippe auf "+".</string>
+	
+	<string name="step1_title">Tippe auf "+".</string>
+	<string name="step1_description"></string>
+	<string name="step1_additional_text_1">3. Erstelle Bewegungen.</string>
+	<string name="step1_additional_text_2">Wir wollen einen Baustein aus der Kategorie "Bewegung" verwenden.</string>
+	
+  <string name="step2_title">Dr&#xFC;cke den "Zur&#xFC;ck"-Button, um die B&#xFC;hne zu verlassen.</string>
+	<string name="step2_description"></string>
+	<string name="step2_additional_text_1">F&#xFC;ge wie vorher ein neues Bild hinzu.</string>
+	<string name="step2_additional_text_2">Tippe in das Textfeld der x und y Koordinaten und setze sie auf 0.</string>
+	<string name="step2_additional_text_3">8. Kopiere, l&#xF6;sche oder bearbeite einen Baustein.</string>
+	<string name="step2_additional_text_4">1. Erstelle ein neues Programm</string>
+	<string name="step2_additional_text_5">Tippe auf "Neu".</string>
+  <string name="step2_additional_text_6">Gib einen Programmnamen ein, w&#xE4;hle "Erstelle leeres Programm" und tippe auf "OK".</string>  
+
+  <string name="step3_title">2. Erstelle ein neues Objekt</string>
+	<string name="step3_description"></string>
+	<string name="step3_additional_text_1">F&#xFC;ge wie vorher ein neues Bild hinzu.</string>
+	<string name="step3_additional_text_2">Tippe "Play" um zur B&#xFC;hne zu gelangen und das Objekt gleiten zu sehen.</string>
+	<string name="step3_additional_text_3">Der Baustein wird jetzt schwebend angezeigt. Du kannst ihn einf&#xFC;gen, indem du ihn an die gew&#xFC;nschte Stelle ziehst. Du kannst auch bereits eingef&#xFC;gte Bausteine verschieben, indem du den Baustein solange antippst, bis er wieder schwebend wird.</string>
+	<string name="step3_additional_text_4">4. Aussehen &#xE4;ndern</string>
+	<string name="step3_additional_text_5">Jetzt musst du das neue Bild ausw&#xE4;hlen.</string>
+	<string name="step3_additional_text_6">W&#xE4;hle den "Sprechen" Baustein. Das Objekt spricht den Text vor, wenn der Baustein ausgef&#xFC;hrt wird.</string>
+  
+  <string name="step4_title">W&#xE4;hle den "Wiederhole fortlaufend" Baustein. Alles in der Schleife wiederholt sich f&#xFC;r immer.</string>
+	<string name="step4_description">F&#xFC;ge noch ein "Gleiten" Baustein hinzu.</string>
+	<string name="step4_additional_text_1">Platziere den "Gleiten" - Baustein oberhalb des "Wiederholen beenden" - Bausteins.</string>
+	<string name="step4_additional_text_2">Du kannst das Verhalten eines Objektes auch ver&#xE4;ndern, wenn dein Programm auf der B&#xFC;hne ausgef&#xFC;hrt wird.</string>
+	<string name="step4_additional_text_3">Platziere den "Wenn angetippt" - Baustein unterhalb der anderen Bausteine.</string>
+	<string name="step4_additional_text_4">W&#xE4;hle den "Drehe rechts" - Baustein und platziere ihn unterhalb des "Wenn angetippt" - Bausteins.</string>
+	<string name="step4_additional_text_5">Wenn du einen Baustein auf der linken Seite antippst, &#xF6;ffnet sich ein Men&#xFC;. Damit kannst du das Objekt bewegen, kopieren oder die Werte des Bausteins mit dem Formel-Editor ver&#xE4;ndern.</string>
+	<string name="step4_additional_text_6">W&#xE4;hle den "Gleiten" - Baustein aus. Das Objekt wird zu der Position gleiten, die du in den Baustein eingibst.</string>
+	
+	<string name="step5_title">Um ein neues Aussehen zu erstellen, tippe zuerst in das Dropdown-Feld.</string>
+	<string name="step5_description">Tippe auf den Start-Button, um die &#xC4;nderungen auf der B&#xFC;hne zu sehen.</string>
+	<string name="step5_additional_text_1">Tippe auf den Start-Button, um die &#xC4;nderungen auf der B&#xFC;hne zu sehen.</string>
+	<string name="step5_additional_text_2">Tippe auf den Start-Button, um die &#xC4;nderungen auf der B&#xFC;hne zu sehen.</string>
+	<string name="step5_additional_text_3">W&#xE4;hle den "Gleiten" - Baustein aus. Das Objekt wird zu der Position gleiten, die du in den Baustein eingibst.</string>
+	
+	<string name="step6_title">5. Sprechen</string>
+	<string name="step6_description">Platziere den Baustein unter dem "Setze Aussehen" - Baustein.</string>
+	<string name="step6_additional_text_1">6. Immer wieder</string>
+	<string name="step6_additional_text_2">Jetzt werden wir dir zeigen, wie du das Verhalten deines Objektes wiederholen kannst.</string>
+	<string name="step6_additional_text_3">Platziere den "Wiederhole fortlaufend" - Baustein unterhalb des "Wenn Programm gestartet" - Bausteins.</string>
+	<string name="step6_additional_text_4">7. Tippen ist alles. </string>
+	<string name="step6_additional_text_5">W&#xE4;hle den "Wenn angetippt" - Baustein aus. Jeden Baustein, den du unterhalb dieses Bausteins einf&#xFC;gst, wird erst ausgef&#xFC;hrt, wenn du das Objekt auf der B&#xFC;hne antippst.</string>
+	<string name="step6_additional_text_6">W&#xE4;hle den "Gleiten" - Baustein aus. Das Objekt wird zu der Position gleiten, die du in den Baustein eingibst.</string>
+	
+	<string name="step7_title">Zeichne ein neues Aussehen.</string>
+	<string name="step7_description">Mach ein Foto.</string>
+	<string name="step7_additional_text_1">Du kannst das Aussehen deines Objektes ver&#xE4;ndern.</string>
+	<string name="step7_additional_text_2">Platziere den Baustein unter dem "Gleiten" - Baustein.</string>
+	<string name="step7_additional_text_3">Jetzt wirst du herausfinden, wie man ein Objekt zum "Sprechen" bringt.</string>
+	<string name="step7_additional_text_4">Gehe einmal zur&#xFC;ck um zur &#xDC;bersicht deines Objektes zu gelangen. Von hier gelangst du zu den Skripten, Aussehen und Kl&#xE4;nge deines Objektes. Hier kannst du sie umbenennen, kopieren, editieren oder l&#xF6;schen.</string>
+	<string name="step7_additional_text_5">Der Hintergrund verh&#xE4;lt sich wie ein Objekt, allerdings gibt es nur ein Hintergrund-Objekt.</string>
+	
+	<string name="step8_title">11. Hauptmen&#xFC;</string>
+	<string name="step8_description"></string>
+	<string name="step8_additional_text_1">Das ist die &#xDC;bersicht &#xFC;ber deine Objekte und den Hintergrund deines Programmes.</string>
+	
+	<string name="step9_title">Erstelle ein neues Programm.</string>
+	<string name="step9_description"></string>
+	<string name="step9_additional_text_1">9. Navigation in der App</string>
+	<string name="step9_additional_text_2">Nutze den Android "Zur&#xFC;ck" - Button, um zum vorherigen Bildschirm zur&#xFC;ck zu gelangen.</string>
+	<string name="step9_additional_text_3">Wenn du noch einmal den Android "Zur&#xFC;ck"-Button antippst, gelangst du zur &#xDC;bersicht &#xFC;ber deine Objekte und den Hintergrund.</string>
+	
+	<string name="step10_title">Du kannst Skripte, Aussehen und Kl&#xE4;nge auf die gleiche Weise zum Hintergrund-Objekt hinzuf&#xFC;gen, wie bei den Objekten.</string>
+	<string name="step10_description">Tippe noch einmal auf den Android "Zur&#xFC;ck"-Button, um zu diesem Bildschirm zu gelangen.</string>
+	<string name="step10_additional_text_1">Setze dein aktuelles Programm fort.</string>
+	<string name="step10_additional_text_2">Gehe auf die Hilfe-Seite und diskutiere mit anderen.</string>
+	
+	<string name="step11_title">Entdecke die Welt der Pocket Code Programme. Wenn dir eines gef&#xE4;llt, lade es herunter und remixe es.</string>
+	<string name="step11_description">&#xDC;bersicht &#xFC;ber alle Pocket Code Programme auf deinem Handy.</string>
+	<string name="step11_additional_text_1"></string>
+	<string name="step11_additional_text_2"></string>
+	<string name="step11_additional_text_3"></string>
+	<string name="step11_additional_text_4"></string>
+	<string name="step11_additional_text_5"></string>
+	<string name="step11_additional_text_6"></string>
+
 </strings>
