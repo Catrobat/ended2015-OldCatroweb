@@ -63,7 +63,7 @@ class upload extends CoreAuthenticationDevice {
       $this->checkValidCatrobatVersion($projectInformation['versionName']);
       $this->checkValidCatrobatCode($projectInformation['versionCode']);
       $this->checkValidFileExtensions($projectInformation["files"]);
-      $this->compareXMLAndProjectFiles($projectInformation["files"],CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique . '/');
+      //$this->compareXMLAndProjectFiles($projectInformation["files"],CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique . '/');
       $this->checkValidProjectTitle($projectInformation['projectTitle']);
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
       $this->checkDescriptionForInsultingWords($projectInformation['projectDescription']);
