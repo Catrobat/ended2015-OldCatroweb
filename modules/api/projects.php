@@ -160,6 +160,10 @@ class projects extends CoreAuthenticationNone {
   }
   
   public function featured($limit = 1, $visible = "t") {
+    if(isset($_REQUEST['limit'])) {
+      $limit = $_REQUEST['limit'];
+    }
+    
     $projects = array();
     $result = pg_execute($this->dbConnection, "get_featured_projects_ordered_by_update_time_limited", array($limit, $visible)) or
     $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
