@@ -178,7 +178,7 @@ public class FooterTests extends BaseTest {
       assertTrue(isElementPresent(googlePlay));
       
       clickAndWaitForPopUp(googlePlay);
-      assertRegExp(".*Pocket Code Beta - Android-Apps auf Google Play*", driver().getTitle());
+      assertRegExp(".*Pocket Code - Android-Apps auf Google Play*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("FooterTests.googlePlay");
@@ -200,7 +200,7 @@ public class FooterTests extends BaseTest {
       assertTrue(isElementPresent(googlePlay));
       
       clickAndWaitForPopUp(googlePlay);
-      assertRegExp(".*Pocket Code Beta - Android-Apps auf Google Play*", driver().getTitle());
+      assertRegExp(".*Pocket Code - Android-Apps auf Google Play*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
       captureScreen("FooterTests.googlePlayMobile");
