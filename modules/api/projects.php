@@ -90,6 +90,76 @@ class projects extends CoreAuthenticationNone {
     $this->retrieve($offset, $limit, PROJECT_MASK_ALL, PROJECT_SORTBY_AGE);
   }
   
+  public function recentIDs() {
+    $offset = 0;
+    if(isset($_REQUEST['offset'])) {
+      $offset = $_REQUEST['offset'];
+    }
+    
+    $limit = 20;
+    if(isset($_REQUEST['limit'])) {
+      $limit = $_REQUEST['limit'];
+    }
+    
+    $this->retrieve($offset, $limit, PROJECT_MASK_DEFAULT, PROJECT_SORTBY_AGE);
+  }
+  
+  public function mostDownloaded() {
+    $offset = 0;
+    if(isset($_REQUEST['offset'])) {
+      $offset = $_REQUEST['offset'];
+    }
+  
+    $limit = 20;
+    if(isset($_REQUEST['limit'])) {
+      $limit = $_REQUEST['limit'];
+    }
+     
+    $this->retrieve($offset, $limit, PROJECT_MASK_ALL, PROJECT_SORTBY_DOWNLOADS);
+  }
+  
+  public function  mostDownloadedIDs() {
+    $offset = 0;
+    if(isset($_REQUEST['offset'])) {
+      $offset = $_REQUEST['offset'];
+    }
+  
+    $limit = 20;
+    if(isset($_REQUEST['limit'])) {
+      $limit = $_REQUEST['limit'];
+    }
+  
+    $this->retrieve($offset, $limit, PROJECT_MASK_DEFAULT, PROJECT_SORTBY_DOWNLOADS);
+  }
+  
+  public function mostViewed() {
+    $offset = 0;
+    if(isset($_REQUEST['offset'])) {
+      $offset = $_REQUEST['offset'];
+    }
+  
+    $limit = 20;
+    if(isset($_REQUEST['limit'])) {
+      $limit = $_REQUEST['limit'];
+    }
+  
+    $this->retrieve($offset, $limit, PROJECT_MASK_ALL, PROJECT_SORTBY_VIEWS);
+  }
+  
+  public function mostViewedIDs() {
+    $offset = 0;
+    if(isset($_REQUEST['offset'])) {
+      $offset = $_REQUEST['offset'];
+    }
+  
+    $limit = 20;
+    if(isset($_REQUEST['limit'])) {
+      $limit = $_REQUEST['limit'];
+    }
+  
+    $this->retrieve($offset, $limit, PROJECT_MASK_DEFAULT, PROJECT_SORTBY_VIEWS);
+  }
+  
   public function getInfoById() {
     $offset = 0;
     $limit = 1;
