@@ -79,7 +79,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="missing_post_file_checksum">Es gab ein Problem beim Upload! Verwendest du die neueste Version von Pocket Code?</string>
     <string name="project_exceed_filesize_limit">Deine Programmdatei ist zu gro&#xDF;.</string>
     <string name="project_title_default">Du musst dein Programm umbennenen, bevor du es hochladest.</string>
-    <string name="invalid_media_license">Es tut uns Leid, dein Projekt hat eine ung&#xFC;ltige Medienlizenz!</string>
     <string name="invalid_project_file"/>
     <string name="linked_project_file_not_found"/>
     <string name="unlinked_project_file"/>

@@ -89,7 +89,6 @@
         <string name="invalid_project_xml">Sorry, your programm file is invalid. Try to save it as a new programm and upload it again.</string>
         <string name="old_catrobat_version">Sorry, you are using an old version of Pocket Code. Please update to the lastest version.</string>
         <string name="old_catrobat_language">Sorry, your programm contains an old version of the Catrobat language! Are you using the latest version of Pocket Code?</string>
-        <string name="invalid_media_license">Sorry, your programm has an invalid media license!</string>
         <string name="invalid_program_license">Sorry, your programm has an invalid program license!</string>
         <string name="visibility_incorrect">The visibility is incorrect!</string>
         <string name="invalid_project_file">Sorry, your program contains some files with unknown fileformat.</string>

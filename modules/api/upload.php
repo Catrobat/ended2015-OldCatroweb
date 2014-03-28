@@ -455,8 +455,6 @@ class upload extends CoreAuthenticationDevice {
     }
   
     foreach($mediaLicense as $value) {
-      if($value->nodeValue != '' && $value->nodeValue != PROJECT_MEDIA_LICENSE)
-        throw new Exception($this->errorHandler->getError('upload', 'invalid_media_license'), STATUS_CODE_UPLOAD_INVALID_MEDIA_LICENSE);
       $value->nodeValue = PROJECT_MEDIA_LICENSE;
     }
   

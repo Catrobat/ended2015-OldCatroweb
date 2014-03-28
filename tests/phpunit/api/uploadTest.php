@@ -389,8 +389,7 @@ class uploadTest extends PHPUnit_Framework_TestCase
     $filePath = CORE_BASE_PATH . PROJECTS_DIRECTORY . $insertId . PROJECTS_EXTENSION;
     $projectPath = CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $insertId;
   
-    $this->assertTrue($this->upload->statusCode >= 520);
-    $this->assertTrue($this->upload->statusCode <= 521);
+    $this->assertTrue($this->upload->statusCode == 521);
   
     // cleanup
     $this->upload->cleanup();
@@ -958,7 +957,6 @@ class uploadTest extends PHPUnit_Framework_TestCase
   public function incorrectLicenses() {
     $fileType = 'application/x-zip-compressed';
     $dataArray = array(
-        array('unitTest for incorrect media license', 'my project with invalid media license', 'test_invalid_license1.catrobat', $fileType, 0.8, '0.7.3beta'),
         array('unitTest for incorrect program license', 'my project with invalid program license', 'test_invalid_license2.catrobat', $fileType, 0.8, '0.7.3beta')
     );
     return $dataArray;

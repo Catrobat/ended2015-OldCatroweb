@@ -85,7 +85,6 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="copy_failed">Das Kopieren der Datei hat nicht funktioniert!</string>
     <string name="invalid_file_checksum">Die Checksumme der hochgeladenen Datei unterscheidet sich von der Chekcsumme der generierten Datei vom Client!</string>
     <string name="old_catrobat_language">Programm enth&#xE4;lt eine alte Catrobat Sprache!</string>
-    <string name="invalid_media_license">Ung&#xFC;ltige Medienlizenz!</string>
     <string name="invalid_program_license">Ung&#xFC;ltige Programmlizenz!</string>
     <string name="missing_file_data">POST-Daten nicht korrekt oder fehlt!</string>
     <string name="project_exceed_filesize_limit">Die gr&#xF6;&#xDF;e von dem Programm &#xFC;berschreitet das Limit f&#xFC;r die maximale Dateigr&#xF6;&#xDF;e.</string>
