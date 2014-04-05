@@ -1,119 +1,127 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
-  <userFunctions>
-    <string name="expired_url"/>
-    <string name="username_password_equal"/>
-    <string name="board_authentication_failed"/>
-    <string name="country_update_failed"/>
-    <string name="language_update_failed"/>
-    <string name="email_update_failed"/>
-    <string name="wiki_api_response_incorrect"/>
-    <string name="create_hash_failed"/>
-    <string name="hash_not_found"/>
-    <string name="username_missing"/>
-    <string name="username_invalid_underscore"/>
-    <string name="username_invalid_hash"/>
-    <string name="username_invalid_verticalbar"/>
-    <string name="username_invaquery_failedlid_curlybrace"/>
-    <string name="username_invalid_lessgreater"/>
-    <string name="username_invalid_squarebracket"/>
-    <string name="username_invalid_spaces"/>
-    <string name="username_invalid_insulting_words"/>
-    <string name="username_invalid"/>
-    <string name="username_blacklisted"/>
-    <string name="username_already_exists"/>
-    <string name="password_missing"/>
-    <string name="password_new_too_short"/>
-    <string name="password_new_too_long"/>
-    <string name="email_missing"/>
-    <string name="email_invalid"/>
-    <string name="last_email"/>
-    <string name="country_missing"/>
-    <string name="password_or_username_wrong"/>
-    <string name="board_registration_failed"/>
-    <string name="userdata_missing"/>
-    <string name="unsupported_image"/>
-    <string name="avatar_creation_failed"/>
-    <string name="password_new_board_update_failed"/>
-    <string name="userdata_not_exists"/>
-    <string name="sendmail_failed"/>
-  </userFunctions>
-  <profile>
-    <string name="password_missing"/>
-    <string name="password_equal"/>
-  </profile>
-  <db>
-    <string name="query_failed"/>
-    <string name="connection_failed"/>
-    <string name="no_entry_for_id"/>
-  </db>
-  <viewer>
-    <string name="ip_is_blocked"/>
-    <string name="ip_is_blocked_temporary"/>
-    <string name="user_is_blocked"/>
-    <string name="html_file_not_found"/>
-  </viewer>
-  <admin>
-    <string name="pootle_post_data_missing"/>
-    <string name="pootle_load_xlf_failed"/>
-    <string name="pootle_not_valid_xml"/>
-    <string name="pootle_invalid_stringname_in_xml"/>
-    <string name="pootle_could_not_write_xml_file"/>
-  </admin>
-  <server>
-    <string name="missing_mcrypt"/>
-    <string name="missing_blowfish"/>
-  </server>
-  <upload>
-    <string name="missing_project_title">&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x306E;&#x30BF;&#x30A4;&#x30C8;&#x30EB;&#x3092;&#x6307;&#x5B9A;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#xFF01;</string>
-    <string name="missing_file_data"/>
-    <string name="missing_post_file_checksum"/>
-    <string name="copy_failed"/>
-    <string name="rename_failed"/>
-    <string name="invalid_file_checksum"/>
-    <string name="save_thumbnail_failed"/>
-    <string name="project_exceed_filesize_limit"/>
-    <string name="project_title_default"/>
-    <string name="insulting_words_in_project_title"/>
-    <string name="insulting_words_in_project_description"/>
-    <string name="invalid_project_xml"/>
-    <string name="old_catrobat_language"/>
-  </upload>
-  <download>
-    <string name="file_not_found"/>
-  </download>
-  <flag>
-    <string name="missing_post_data">&#x4E0D;&#x9069;&#x5207;&#x3068;&#x3057;&#x3066;&#x3053;&#x306E;&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;&#x3092;&#x5831;&#x544A;&#x3057;&#x305F;&#x3044;&#x7406;&#x7531;&#x3092;&#x5165;&#x529B;&#x3057;&#x3066;&#x304F;&#x3060;&#x3055;&#x3044;&#xFF01;</string>
-    <string name="sql_insert_failed"/>
-  </flag>
-  <auth>
-    <string name="device_auth_invalid_token"/>
-    <string name="device_auth_username_exists"/>
-    <string name="not_a_tugraz_ip"/>
-  </auth>
-  <registration>
-    <string name="postdata_missing"/>
-  </registration>
+		<server>
+				<string name="missing_mcrypt">Mcrypt をインストールする管理者を教えてください。ありがとう。</string>
+				<string name="missing_blowfish">CRYPT_BLOWFISH をインストールする管理者を教えてください。ありがとう。</string>
+		</server>
+    <db>
+        <string name="query_failed">Ooooops 何か行った間違った/してくださいもう一度やり直してください ！</string>
+        <string name="connection_failed">Ooooops 何か行った間違った/してくださいもう一度やり直してください ！</string>
+        <string name="no_entry_for_id">Ooooops 何か行った間違った/してくださいもう一度やり直してください ！</string>
+    </db>
+    <profile>
+    	<string name="no_such_user">Ooooops 何か行った間違った/してくださいもう一度やり直してください ！</string>
+    </profile>
+    <userFunctions>
+      <string name="hash_not_found">申し訳ありません ！回復するために何かを見つけることができなかった。もう一度やり直してください。</string>
+			<string name="expired_url">申し訳ありません ！あなたの回復は、url の有効期限が切れています。もう一度やり直してください。</string>
+      <string name="username_missing">ユーザー名を入力していない、1 つを追加してください。</string>
+      <string name="username_invalid_underscore">入力したユーザー名は許可されていません。アンダー スコア (_) を使用しないでください。</string>
+      <string name="username_invalid_hash">入力したユーザー名は許可されていません。ハッシュ記号を使用しないでください (#)。</string>
+      <string name="username_invalid_verticalbar">入力したユーザー名は許可されていません。垂直バー (|) を使用しないでください。</string>
+      <string name="username_invaquery_failedlid_curlybrace">入力したユーザー名は許可されていません。中かっこを使用しないでください ({または})。</string>
+      <string name="username_invalid_lessgreater">入力したユーザー名は許可されていません。未満か不等号を使用しないでください (&lt; または &gt;)。</string>
+      <string name="username_invalid_squarebracket">入力したユーザー名は許可されていません。角かっこを使用しないでください ([または])。</string>
+      <string name="username_invalid_spaces">入力したユーザー名は許可されていません。スペースを使用しないでください ("")。</string>
+      <string name="username_is_email_address">ユーザー名に、電子メール アドレスが使えません。</string>
+      <string name="username_invalid_insulting_words">入力したユーザー名は許可されていません。侮辱的な言葉を使用しないでください。</string>
+      <string name="username_invalid">入力したユーザー名は許可されていません。</string>
+      <string name="username_blacklisted">入力したユーザー名は許可されていません。</string>
+      <string name="username_already_exists">既に入力したユーザー名が存在します。</string>
+      <string name="password_missing">パスワードを入力していない、1 つを追加してください。</string>
+      <string name="password_not_equal_password2">パスワードが一致しませんでした。</string>
+      <string name="username_password_equal">パスワードは、ユーザー名と異なる必要があります。</string>
+      <string name="password_new_too_short">パスワードは少なくとも {* minimumPasswordLength *} 文字が必要です。</string>
+      <string name="password_new_too_long">パスワードの最大 {* maximumPasswordLength *} 文字を持つことができます。</string>
+      <string name="email_missing">メール アドレスを入力していない、1 つを追加してください。</string>
+      <string name="email_invalid">この電子メール アドレスが無効です。</string>
+      <string name="last_email">1 つのメール アドレスが必要です。</string>
+      <string name="country_missing">国を入力していない、1 つを追加してください。</string>
+      <string name="password_or_username_wrong">ユーザー名またはパスワードが正しくありません。</string>
+      <string name="board_authentication_failed">ボードの認証に失敗しました。</string>
+      <string name="wiki_api_response_incorrect">Ooooops 何か行った間違った/してくださいもう一度やり直してください ！</string>
+      <string name="board_registration_failed">申し訳ありませんが、そこあなたの登録の処理中にエラーが発生しました。もう一度試してください ！</string>
+      <string name="userdata_missing">ユーザー名または電子メール アドレスがありません。</string>
+      <string name="unsupported_image">このタイプのイメージはサポートされていません、別の画像を試してください。</string>
+      <string name="avatar_creation_failed">申し訳ありませんが、我々 はあなたの登録の処理中のエラーが発生しました。もう一度試してください ！</string>
+      <string name="password_new_board_update_failed">パスワードの更新中に問題があった。</string>
+      <string name="country_update_failed">ご自宅の国の更新中に問題があった。</string>
+      <string name="language_update_failed">あなたの言語の更新中に問題があった。</string>
+      <string name="userdata_not_exists">あなたのユーザー名または電子メール アドレスが見つかりませんでした。</string>
+      <string name="email_update_failed">この電子メール アドレスを更新中のエラーがありました。少なくとも 1 つの検証済みの電子メール アドレスが必要です。</string>
+      <string name="create_hash_failed">Ooooops 何か行った間違った/してくださいもう一度やり直してください ！</string>
+      <string name="sendmail_failed">電子メール メッセージの送信中にエラーがあった。管理者に問い合わせてください {* webmasterEmailAddress *}。</string>
+    </userFunctions>
+    <upload>
+        <string name="missing_project_title">あなたのプログラムのタイトルを指定する必要があります ！</string>
+        <string name="missing_file_data">申し訳ありませんが、アップロード中に問題があった ！</string>
+        <string name="missing_post_file_checksum">申し訳ありませんが、アップロード中に問題があった ！ポケットコードの最新バージョンを使用していますか？</string>
+        <string name="copy_failed">申し訳ありませんが、アップロード中にエラーがありました。もう一度やり直してください！</string>
+        <string name="rename_failed">申し訳ありませんが、アップロード中にエラーがありました。もう一度やり直してください！</string>
+        <string name="invalid_file_checksum">申し訳ありませんが、アップロード中にエラーがありました。もう一度やり直してください！</string>
+        <string name="project_exceed_filesize_limit">プログラム ファイルが大きすぎます。</string>
+        <string name="project_title_default">それをアップロードする前に、プログラムの名前を変更する必要があります。</string>
+        <string name="insulting_words_in_project_title">プログラム タイトルで攻撃的な言葉を使用しないでください。</string>
+        <string name="insulting_words_in_project_description">あなたのプログラムの説明で攻撃的な言葉を使用しないでください。</string>
+        <string name="save_thumbnail_failed">申し訳ありませんが、アップロード中にエラーがありました。もう一度やり直してください！</string>
+        <string name="invalid_project_xml">プログラム ファイルが正しくありません。新しいプログラムとして保存し、もう一度アップロードしてみてください。</string>
+        <string name="old_catrobat_version">申し訳ありませんが、古いバージョンのポケットコードを使用しています。最新のバージョンに更新してください。</string>
+        <string name="old_catrobat_language">申し訳ありませんが、あなたのプログラムには Catrobat 言語の旧バージョンが含まれています ！ポケット コードの最新バージョンを使用していますか？</string>
+        <string name="invalid_media_license">申し訳ありませんが、あなたのプログラムが無効なメディア ライセンス ！</string>
+        <string name="invalid_program_license">申し訳ありませんが、あなたのプログラムが無効なプログラム ライセンス ！</string>
+        <string name="visibility_incorrect">可視性は正しいです ！</string>
+        <string name="invalid_project_file">申し訳ありませんが、あなたのプログラムが不明な fileformat でいくつかのファイルが含まれています。</string>
+        <string name="linked_project_file_not_found">申し訳ありませんがあるようですいくつかのファイルをプロジェクトに欠けています。</string>
+        <string name="unlinked_project_file">申し訳ありませんが、プロジェクトはいくつかのプロジェクト関連ファイルを格納するようです。</string>
+    </upload>
+    <download>
+    	<string name="file_not_found">要求されたプログラムは、時に使用できません。後でもう一度お試しください ！</string>
+    </download>
+    <flag>
+        <string name="missing_post_data">なぜこのプログラム不適切として報告し理由を入力する必要があります ！</string>
+        <string name="sql_insert_failed">申し訳ありませんが、エラーが発生しましたプログラムの報告中 ！</string>
+    </flag>
+    <viewer>
+    	<string name="html_file_not_found">このページを表示できません。</string>
+      <string name="ip_is_blocked">あなたの IP アドレスがブロックされています。</string>
+      <string name="ip_is_blocked_temporary">あなたの IP アドレスは、30 秒間ブロックされています。</string>
+      <string name="user_is_blocked">あなたのアカウントをブロックされています。</string>
+    </viewer>
+    <auth>
+    	<string name="device_auth_invalid_token">認証データが正しくありません。ユーザー名とパスワードを確認してください ！</string>
+			<string name="device_auth_username_exists">申し訳ありませんが、あなたのユーザー名は既に使用います。</string>
+      <string name="not_a_tugraz_ip">このページを表示することはできません。</string>
+    </auth>
+    <registration>
+      <string name="postdata_missing">お客様のログイン データを入力してください。</string>
+    </registration>
+    <admin>
+      <string name="pootle_post_data_missing">後のデータが不足している: 必須： ラング。</string>
+      <string name="pootle_load_xlf_failed">XLF ファイルをロードできませんでした {* source *}。</string>
+      <string name="pootle_not_valid_xml">XLF 文字列から XML オブジェクトを生成できませんでした。</string>
+      <string name="pootle_invalid_stringname_in_xml">ソース XLF ファイルで無効な文字列名: {* stringName *}</string>
+      <string name="pootle_could_not_write_xml_file">言語ディレクトリに XML ファイルを書き込めませんでした: {* fileName *}</string>
+    </admin>
 </errors>

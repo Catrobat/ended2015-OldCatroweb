@@ -22,5 +22,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="msg_flagged_successful">このプログラム不適切として報告された ！</string>
+	<string name="title">Help -</string>
+  <string name="head_text">Get Started with Pocket Code</string>
+  
 </strings>

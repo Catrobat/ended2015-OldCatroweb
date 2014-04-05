@@ -1,26 +1,52 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="projects">&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</string>
+  <string name="myTitle">&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</string>
+  <string name="userTitle">ユーザー プロファイル</string>
+
+  <string name="changeAvatar">写真を変更</string>
+  <string name="password">パスワード:</string>
+  <string name="email">私の最初のメール アドレス</string>
+  <string name="second_email">私の 2 番目のメール アドレス</string>
+  <string name="projects">プログラムの量</string>
+  <string name="country">国</string>
+
+
+  <string name="my_projects">私のプログラム</string>
+  <string name="user_projects">プログラム</string>
+  <string name="no_projects_available">現在、プログラムはありません。</string>
+  <string name="new_password">新しいパスワード</string>
+  <string name="repeat_password">パスワードを繰り返してください。</string>
+  <string name="save">変更を保存します。</string>
+  <string name="saved">保存しました！</string>
+
+  <string name="really_delete_email">本当にこのメール アドレスを削除しますか？</string>
+  <string name="really_delete_project">本当にあなたのプログラムを削除しますか？</string>
+  <string name="image_too_big">選択した写真が大きすぎる、5 mb より大きいイメージを使用しないでください。</string>
+  <string name="other">その他</string>
+  <string name="avatar_success">あなたの写真を更新しました。</string>
+  <string name="password_success">あなたのパスワードを更新されました。</string>
+  <string name="email_add_success">新しい電子メール アドレスが追加されました。それを確認する受信トレイを確認してください。</string>
+  <string name="edit_one_entry">メール アドレスとパスワードべつべつに更新できます。</string>
 </strings>
