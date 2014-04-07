@@ -53,8 +53,8 @@
     	<string name="password_missing">パスワードがありません。</string>
     	<string name="password_not_equal_password2">パスワードが一致しませんでした。</string>
     	<string name="username_password_equal">パスワードは、ユーザー名と異なる必要があります。</string>
-      <string name="password_new_too_short">パスワードは少なくとも {* minimumPasswordLength *} 文字が必要です。</string>
-      <string name="password_new_too_long">パスワードの最大 {* maximumPasswordLength *} 文字を持つことができます。</string>
+      <string name="password_new_too_short">パスワードは少なくとも {*minimumPasswordLength*} 文字が必要です。</string>
+      <string name="password_new_too_long">パスワードの最大 {*maximumPasswordLength*} 文字を持つことができます。</string>
       <string name="email_missing">電子メール アドレスがありません。</string>
       <string name="email_invalid">電子メール アドレスが無効です。</string>
     	<string name="email_already_exists">このメール アドレスは既に存在します。</string>
@@ -119,9 +119,9 @@
     </registration>
     <admin>
       <string name="pootle_post_data_missing">後のデータが不足している: 必須： ラング。</string>
-      <string name="pootle_load_xlf_failed">XLF ファイルをロードできませんでした {* source *}。</string>
+      <string name="pootle_load_xlf_failed">XLF ファイルをロードできませんでした {*source*}。</string>
       <string name="pootle_not_valid_xml">XLF 文字列から XML オブジェクトを生成できませんでした。</string>
-      <string name="pootle_invalid_stringname_in_xml">ソース XLF ファイルで無効な文字列名: {* stringName *}</string>
-      <string name="pootle_could_not_write_xml_file">言語ディレクトリに XML ファイルを書き込めませんでした: {* fileName *}</string>
+      <string name="pootle_invalid_stringname_in_xml">ソース XLF ファイルで無効な文字列名: {*stringName*}</string>
+      <string name="pootle_could_not_write_xml_file">言語ディレクトリに XML ファイルを書き込めませんでした: {*fileName*}</string>
     </admin>
 </errors>

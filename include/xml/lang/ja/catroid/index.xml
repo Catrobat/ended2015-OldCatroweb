@@ -23,8 +23,8 @@
 -->
 <strings>
     <string name="recommended">おすすめ</string>
-    <string name="newestProjects">&#x30C0;&#x30A6;&#x30F3;&#x30ED;&#x30FC;&#x30C9;&#x56DE;&#x6570;</string>
-    <string name="mostDownloaded">&#x6700;&#x65B0;&#x30D7;&#x30ED;&#x30B8;&#x30A7;&#x30AF;&#x30C8;</string>
+    <string name="newestProjects">最新</string>
+    <string name="mostDownloaded">最もダウンロードされた</string>
     <string name="downloaded">ダウンロード</string>
     <string name="mostViewed">よく見られている</string>
     <string name="viewed">閲覧</string>

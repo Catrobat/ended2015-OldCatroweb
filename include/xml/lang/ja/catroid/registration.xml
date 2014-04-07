@@ -30,7 +30,7 @@
   <string name="enter_password">パスワードを入力してください。</string>
   <string name="email">メール アドレス</string>
   <string name="enter_email">メール アドレスを入力してください。</string>
-  <string name="email_info">メール アドレスにユーザー名、パスワード、およびデータへのアクセスが送信されます。メール アドレスは決して共有誰かと。参照してください私たち {* privacyPolicyLink *} 詳細については。</string>
+  <string name="email_info">メール アドレスにユーザー名、パスワード、およびデータへのアクセスが送信されます。メール アドレスは決して共有誰かと。参照してください私たち {*privacyPolicyLink*} 詳細については。</string>
   <string name="email_info_link_title">プライバシー ポリシー</string>
   <string name="country">国</string>
   <string name="select_country">あなたの国を選択します。</string>

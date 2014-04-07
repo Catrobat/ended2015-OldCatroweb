@@ -23,5 +23,5 @@
 -->
 <strings>
   <string name="header">検索結果</string>
-  <string name="results">検索結果は {* 量 *} でした。</string>
+  <string name="results">検索結果は {*amount*} でした。</string>
 </strings>

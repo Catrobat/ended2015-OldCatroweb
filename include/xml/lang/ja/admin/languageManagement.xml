@@ -22,5 +22,5 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="pootle_language_successfully_created">言語 {* languageName *} 更新に成功しました ！</string>
+  <string name="pootle_language_successfully_created">言語 {*languageName*} 更新に成功しました ！</string>
 </strings>
