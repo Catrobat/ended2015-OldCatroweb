@@ -24,7 +24,7 @@
 
 class upload extends CoreAuthenticationDevice {
   private $uploadState;
-  private $allowed_file_endings = Array(".gif", ".png",".jpg",".jpeg",".xml", ".spf", ".catroid",".mp3",".wav",".mid",".nomedia");
+  private $allowed_file_endings = Array(".gif", ".png",".jpg",".jpeg",".xml", ".spf", ".catroid",".mp3",".wav",".mid",".nomedia",".m4a");
   private $allowed_unlinked_files = Array("automatic_screenshot.png","manual_screenshot.png","screenshot.png");
 
   public function __construct() {
