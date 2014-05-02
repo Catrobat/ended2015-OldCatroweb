@@ -361,7 +361,7 @@ public class FooterTests extends BaseTest {
       driver().findElement(By.id("footerMoreButton")).click();
       ajaxWait();
 
-      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[6]/a"));
+      clickAndWaitForPopUp(By.xpath("//*[@id='mobileFooterMenu']/ul/li[7]/a"));
       assertRegExp(".*Imprint.*", driver().getTitle());
       closePopUp();
     } catch(AssertionError e) {
