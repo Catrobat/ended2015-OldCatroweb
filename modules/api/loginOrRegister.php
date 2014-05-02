@@ -71,7 +71,12 @@ class loginOrRegister extends CoreAuthenticationNone {
           $this->statusCode = STATUS_CODE_REGISTRATION_OK;
           $this->answer = $this->languageHandler->getString('registration_success');
         } catch(Exception $e) {
-          $this->statusCode = STATUS_CODE_AUTHENTICATION_REGISTRATION_FAILED;
+          if(!$e->getCode()) {
+            $this->statusCode = STATUS_CODE_AUTHENTICATION_REGISTRATION_FAILED;
+          }
+          else {
+            $this->statusCode = $e->getCode();
+          }
           $this->answer = $e->getMessage();
         }
       }

@@ -61,6 +61,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
     <string name="last_email">Eine E-Mail Adresse wird ben&#xF6;tigt.</string>
     <string name="avatar_creation_failed"/>
     <string name="username_is_email_address"/>
+    <string name="email_already_exists">Die E-Mail Adresse existiert bereits!</string>
   </userFunctions>
   <upload>
     <string name="old_catrobat_version">Es tut uns Leid, du nutzt eine alte Version von Pocket Code. Bitte lade dir die aktuelle Version herunter.</string>

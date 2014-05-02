@@ -71,7 +71,7 @@ class upload extends CoreAuthenticationDevice {
       
       $projectIdArray = $this->updateOrInsertProjectIntoDatabase($projectInformation['projectTitle'],
           $projectInformation['projectDescription'], $projectInformation['uploadIp'],
-          $projectInformation['uploadLanguage'], $fileSize, $projectInformation['versionName'],
+          $projectInformation['deviceLanguage'], $fileSize, $projectInformation['versionName'],
           $projectInformation['versionCode'], $projectInformation['visible']);
       
       $projectId = $projectIdArray['id'];
@@ -281,7 +281,7 @@ class upload extends CoreAuthenticationDevice {
     }
 
     $uploadIp = (isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'');
-    $uploadLanguage = ((isset($formData['userLanguage'])) ? checkUserInput($formData['userLanguage']) : 'en');
+    $uploadLanguage = ((isset($formData['deviceLanguage'])) ? checkUserInput($formData['deviceLanguage']) : 'en');
 
     $visible = $this->checkVisible(((isset($formData['visible'])) ? checkUserInput($formData['visible']) : 't'));
     
@@ -293,7 +293,7 @@ class upload extends CoreAuthenticationDevice {
         "versionName"        => $versionName,
         "versionCode"        => $versionCode,
         "uploadIp"           => $uploadIp,
-        "uploadLanguage"     => $uploadLanguage,
+        "deviceLanguage"     => $uploadLanguage,
         "visible"            => $visible,
         "files"              => $fileArray
     ));
@@ -640,7 +640,7 @@ class upload extends CoreAuthenticationDevice {
     $mailText .= (isset($formData['projectDescription']) ? "Project Description: " . $formData['projectDescription'] . "\n" : "");
     $mailText .= (isset($fileData['upload']) ? "Project Size: " . intval($fileData['upload']['size']) . " Byte\n" : "");
     $mailText .= (isset($formData['userEmail']) ? "User Email: " . $formData['userEmail'] . "\n" : "");
-    $mailText .= (isset($formData['userLanguage']) ? "User Language: " . $formData['userLanguage'] . "\n" : "");
+    $mailText .= (isset($formData['deviceLanguage']) ? "User Language: " . $formData['deviceLanguage'] . "\n" : "");
     $mailText .= (isset($_SERVER['REMOTE_ADDR']) ? "User IP: " . $_SERVER['REMOTE_ADDR'] . "\n" : "");
     $mailText .= "You should check this!";
 

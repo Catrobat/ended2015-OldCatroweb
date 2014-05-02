@@ -57,7 +57,7 @@
       <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
       <string name="email_missing">You haven't entered an email address, please add one.</string>
       <string name="email_invalid">This email address is not valid.</string>
-      <string name="last_email">One email address is required.</string>
+      <string name="email_already_exists">This email address already exists.</string>
       <string name="country_missing">You haven't entered a country, please add one.</string>
       <string name="password_or_username_wrong">Your password or username was incorrect.</string>
       <string name="board_authentication_failed">The board authentication failed.</string>

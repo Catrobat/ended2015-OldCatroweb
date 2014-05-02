@@ -283,7 +283,7 @@ class userFunctions extends CoreAuthenticationNone {
     }
     if(pg_num_rows($result) > 0) {
       throw new Exception($this->errorHandler->getError('userFunctions', 'email_already_exists'),
-          STATUS_CODE_USER_EMAIL_INVALID);
+          STATUS_CODE_USER_ADD_EMAIL_EXISTS);
     }
   }
 
