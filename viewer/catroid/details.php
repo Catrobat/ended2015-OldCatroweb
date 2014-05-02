@@ -56,29 +56,42 @@
         <span>
           <?php echo ($this->project['description'])? $this->project['description'] : $this->languageHandler->getString('no_description_available');?>
         </span>
+        <div class="projectDetailsDownloadButton">
+          <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
+            <div class="blue">
+              <span class="projectDetailsDownloadText shrinkTextToFit"><?php echo $this->languageHandler->getString('download_button');?></span>
+            </div>
+          </a>
+        </div>
+          <span id="reportAsInappropriateButton"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
+          <br/>
+        <span id="projectDetailsDownloadLanguageVersion"><?php echo $this->languageHandler->getString('language_version_info_text') . " " . $this->project['language_code'];?></span>
       </div>
     </div>
 
-    <div class="projectDetailsDownload">
-      <div class="projectDetailsDownloadButton">
-        <span id="projectDetailsDownloadLanguageVersion"><?php echo $this->languageHandler->getString('language_version_info_text') . " " . $this->project['language_code'];?></span>
-        <a style="text-decoration: none;" href="<?php echo BASE_PATH?>download/<?php echo $this->project['id']; echo PROJECTS_EXTENSION; ?>?fname=<?php echo urlencode($this->project['title'])?>">
-          <div class="blue">
-            <span class="projectDetailsDownloadText shrinkTextToFit"><?php echo $this->languageHandler->getString('download_button');?></span>
-          </div>
-        </a>
-        <a id="projectDetailsDownloadLicense" href="<?php echo BASE_PATH?>licenseToPlay"><?php echo $this->languageHandler->getString('some_rights_reserved');?></a>
+    <div id="projectDetailsReportContainer">
+      <?php if($this->project['showReportAsInappropriateButton']['show']) : ?>
+      <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
+        <form method="POST" class="reportInappropriateForm">
+          <p><?php echo $this->languageHandler->getString('report_as_inappropriate_label')?></p>
+          <input type="hidden" id="reportInappropriateProjectId" value="<?php echo $this->project['id']?>"/>
+          <p>
+          <textarea class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="<?php echo $this->languageHandler->getString('flag_reason_placeholder')?>" required="required"></textarea>
+          </p>
+          <p class="reportAsInappropriateDialogButtons">
+            <input type="button" class="buttonWhite buttonSmall" id="reportInappropriateCancelButton" value="<?php echo $this->languageHandler->getString('cancel')?>"/>
+            <input type="button" class="buttonGreen buttonSmall" id="reportInappropriateReportButton" value="<?php echo $this->languageHandler->getString('report')?>"/>
+          </p>
+        </form>
       </div>
+      <div id="reportAsInappropriateAnswer"></div>
+      <?php else : ?>
+      <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
+        <?php echo $this->project['showReportAsInappropriateButton']['message']; ?>
+      </div>
+    <?php endif; ?>
     </div>
     
-    <div class="projectDetailsDescription">
-      <div class="detailsFlagButton">
-        <button type="button" id="reportAsInappropriateButton">
-          <span id="detailsFlagButtonText"><?php echo $this->languageHandler->getString('report_as_inappropriate')?></span>
-        </button>
-      </div>
-    </div>
-
     <div class="projectDetailsSeperator">
     </div>
 
@@ -116,32 +129,6 @@
           </div>
         </li>
       </ul>
-    </div>
-
-    <div class="projectDetailsSeperator">
-    </div>
-
-    <div id="projectDetailsReportContainer">
-      <?php if($this->project['showReportAsInappropriateButton']['show']) : ?>
-      <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
-        <form method="POST" class="reportInappropriateForm">
-          <p><?php echo $this->languageHandler->getString('report_as_inappropriate_label')?></p>
-          <input type="hidden" id="reportInappropriateProjectId" value="<?php echo $this->project['id']?>"/>
-          <p>
-          <textarea class="reportInappropriateReason" id="reportInappropriateReason" name="flagReason" placeholder="<?php echo $this->languageHandler->getString('flag_reason_placeholder')?>" required="required"></textarea>
-          </p>
-          <p class="reportAsInappropriateDialogButtons">
-            <input type="button" class="buttonWhite buttonSmall" id="reportInappropriateCancelButton" value="<?php echo $this->languageHandler->getString('cancel')?>"/>
-            <input type="button" class="buttonGreen buttonSmall" id="reportInappropriateReportButton" value="<?php echo $this->languageHandler->getString('report')?>"/>
-          </p>
-        </form>
-      </div>
-      <div id="reportAsInappropriateAnswer"></div>
-      <?php else : ?>
-      <div class="reportAsInappropriateDialog" id="reportAsInappropriateDialog">
-        <?php echo $this->project['showReportAsInappropriateButton']['message']; ?>
-      </div>
-    <?php endif; ?>
     </div>
   </div>
 </article>
