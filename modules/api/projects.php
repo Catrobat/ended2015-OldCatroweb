@@ -229,7 +229,7 @@ class projects extends CoreAuthenticationNone {
     $this->retrieve($offset, $limit, PROJECT_MASK_ALL, PROJECT_SORTBY_AGE, $_REQUEST['query']);
   }
   
-  public function featured($limit = 1, $visible = "t") {
+  public function featured($limit = 20, $visible = "t") {
     if(isset($_REQUEST['limit'])) {
       $limit = $_REQUEST['limit'];
     }
