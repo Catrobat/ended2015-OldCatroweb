@@ -41,7 +41,7 @@ public class UploadTests extends BaseTest {
   public void uploadResubmission() throws Throwable {
     try {
       String title = "Resubmit this project";
-      String response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.7.3beta.catrobat", "8ecb0b576e76843c81124415d67b2ccb", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.7.3beta.catrobat", "79a37c484ee5df7072d22ec4cbab14a6", "", "", "", ""));
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
 
       assertEquals("200 was expected, message was: "+CommonFunctions.getValueFromJSONobject(response, "answer"),"200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
@@ -51,7 +51,7 @@ public class UploadTests extends BaseTest {
       assertTrue(isTextPresent("Catrobat Language version: 0.9"));
 
       //update the project
-      response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.7.4beta.catrobat", "f1bd3e7dcf7d7cc40aa791c5878f0f35", "", "", "", ""));
+      response = projectUploader.upload(CommonData.getUploadPayload(title, "Resubmission test, overwrite already uploaded projects.", "test-0.7.4beta.catrobat", "7e066fbc7f34450ebd5e9b8f29d6a9e4", "", "", "", ""));
       id = CommonFunctions.getValueFromJSONobject(response, "projectId");
       
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
@@ -73,7 +73,7 @@ public class UploadTests extends BaseTest {
     try {
       String projectTitle = "testTitle";
       String projectDescription = "testDescription";
-      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, projectDescription, "test-0.7.3beta-xml.catrobat", "0ac32705fe54b54b647e0aeea127ad74", "", "", "", ""));
+      String response = projectUploader.upload(CommonData.getUploadPayload(projectTitle, projectDescription, "test-0.7.3beta-xml.catrobat", "8d55e59c52ab750060876a214360247e", "", "", "", ""));
       String id = CommonFunctions.getValueFromJSONobject(response, "projectId");
       
       assertEquals("200", CommonFunctions.getValueFromJSONobject(response, "statusCode"));
@@ -146,7 +146,7 @@ public class UploadTests extends BaseTest {
   @DataProvider(name = "ftpProjectsForUpload")
   public Object[][] ftpProjectsForUpload() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadFtpPayload("testing project upload", "Testing FTP uploads.", "test-0.7.3beta.catrobat", "8ecb0b576e76843c81124415d67b2ccb", "", "", "", "") }
+        { CommonData.getUploadFtpPayload("testing project upload", "Testing FTP uploads.", "test-0.7.3beta.catrobat", "79a37c484ee5df7072d22ec4cbab14a6", "", "", "", "") }
     };
     return returnArray;
   }
@@ -154,11 +154,11 @@ public class UploadTests extends BaseTest {
   @DataProvider(name = "validProjectsForUpload")
   public Object[][] validProjectsForUpload() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test-0.7.3beta.catrobat", "8ecb0b576e76843c81124415d67b2ccb", "", "", "", "") },
-        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test-0.7.3beta.catrobat", "8ecb0b576e76843c81124415d67b2ccb", "", "", "", "") },
-        { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test-0.7.3beta.catrobat", "8ecb0b576e76843c81124415d67b2ccb", "", "", "", "") },
-        { CommonData.getUploadPayload("my_test_project_with_looong_description", "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ", "test-0.7.3beta.catrobat", "8ecb0b576e76843c81124415d67b2ccb", "", "", "", "") },
-        { CommonData.getUploadPayload("XML-ProjectName", "XML-ProjectDescription", "test-0.7.3beta-xml.catrobat", "0ac32705fe54b54b647e0aeea127ad74", "", "", "", "") }
+        { CommonData.getUploadPayload("testing project upload", "some description for my test project.", "test-0.7.3beta.catrobat", "79a37c484ee5df7072d22ec4cbab14a6", "", "", "", "") },
+        { CommonData.getUploadPayload("my test project with spaces and some uppercases in fileChecksum", "some description for my test project.", "test-0.7.3beta.catrobat", "79a37c484ee5df7072d22ec4cbab14a6", "", "", "", "") },
+        { CommonData.getUploadPayload("my spÄc1al c´har ' t3ßt pröjec+", "some description ' with -äöüÜÖÄß- for my test project.%&()[]{}_|~#", "test-0.7.3beta.catrobat", "79a37c484ee5df7072d22ec4cbab14a6", "", "", "", "") },
+        { CommonData.getUploadPayload("my_test_project_with_looong_description", "some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. some description for my test project. ", "test-0.7.3beta.catrobat", "79a37c484ee5df7072d22ec4cbab14a6", "", "", "", "") },
+        { CommonData.getUploadPayload("XML-ProjectName", "XML-ProjectDescription", "test-0.7.3beta-xml.catrobat", "8d55e59c52ab750060876a214360247e", "", "", "", "") }
         
     };
     return returnArray;
@@ -167,17 +167,17 @@ public class UploadTests extends BaseTest {
   @DataProvider(name = "invalidProjectsForUpload")
   public Object[][] invalidProjectsForUpload() {
     Object[][] returnArray = new Object[][] {
-        { CommonData.getUploadPayload("insulting word in description", "fuck the project!!!!.", "test-0.7.3beta.catrobat", "8ecb0b576e76843c81124415d67b2ccb", "", "", "", "", "512")},
-        { CommonData.getUploadPayload("fucking word in title", "some description.", "test-0.7.3beta.catrobat", "8ecb0b576e76843c81124415d67b2ccb", "", "", "", "", "511") },
+        { CommonData.getUploadPayload("insulting word in description", "fuck the project!!!!.", "test-0.7.3beta.catrobat", "79a37c484ee5df7072d22ec4cbab14a6", "", "", "", "", "512")},
+        { CommonData.getUploadPayload("fucking word in title", "some description.", "test-0.7.3beta.catrobat", "79a37c484ee5df7072d22ec4cbab14a6", "", "", "", "", "511") },
         { CommonData.getUploadPayload("no token given", "some description", "test-0.7.3beta.catrobat", "583783A335BD40D3D0195A13432AFABB", "", "", "", " ", "601") },
         { CommonData.getUploadPayload("wrong checksum", "some description", "test-0.7.3beta.catrobat", "2c2d13d52cf670ea55b2014b336d1b4d", "", "", "", " ", "601") },
         { CommonData.getUploadPayload("wrong token given", "some description", "test-0.7.3beta.catrobat", "583783A335BD40D3D0195A13432AFABB", "", "", "", "123", "601") },
         { CommonData.getUploadPayload("invalid xml in project file", "some description", "invalid_xml.zip", "AADC2DEDE19CDB559E362DB2E119F038", "", "", "", " ", "601") },
         { CommonData.getUploadPayload("invalid zip file", "some description", "not_a_zip.zip", "D1B761A18F525A2A20CAA2A5DA12BBF1", "", "", "", " ", "601") },
-        { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention", "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "eefc4182b2497ac1d0204a1d5ccb320b", "", "", "", "", "519") },
+        { CommonData.getUploadPayload("project v6 with thumbnail and xml-project extention", "this project has its own thumbnail and is v6 and has xml extention instead of spf", "test_version_6_xml.zip", "e3411ed8970e7b7e03b44723a6833601", "", "", "", "", "519") },
         { CommonData.getUploadPayload("project v8 to test the native app builder", "native app building test", "test_version_8_0.5.4a.catrobat", "d0b32588e6c23a0e19bb4f66eec85277", "", "", "", "", "519") },
         { CommonData.getUploadPayload("new catroid extention", "this project has catroid as extention", "test.catrobat", "583783a335bd40d3d0195a13432afabb", "", "", "", "", "519") },
-        { CommonData.getUploadPayload("invalid upload with language version 0.7 ", "this project is outdated", "test-lang_version_0.7.catrobat", "01f73685dd3340dcf902632f74bfa546", "", "", "", "", "518")}
+        { CommonData.getUploadPayload("invalid upload with language version 0.7 ", "this project is outdated", "test-lang_version_0.7.catrobat", "215803be1b1bf589c5a7ed00b9453f78", "", "", "", "", "518")}
         };
     return returnArray;
   }
