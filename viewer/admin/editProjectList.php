@@ -104,8 +104,10 @@
             </form>
           </td>
           <?php 
-            foreach($this->tags as $tag) {
-              echo "<td><input type=\"checkbox\" ".(in_array($tag["id"], $project['tags'],true)?"checked":"")." name=\"haaallo\" onchange=\"updateTagRef(this.checked,".$project['id'].",".$tag["id"].");\" /></td>";
+            if(is_array($this->tags)) {
+              foreach($this->tags as $tag) {
+                echo "<td><input type=\"checkbox\" ".(in_array($tag["id"], $project['tags'],true)?"checked":"")." name=\"haaallo\" onchange=\"updateTagRef(this.checked,".$project['id'].",".$tag["id"].");\" /></td>";
+              }
             }
           ?>
         </tr>
