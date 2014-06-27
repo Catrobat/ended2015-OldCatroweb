@@ -1297,7 +1297,7 @@ class tools extends CoreAuthenticationAdmin {
       
       echo '<form id="nextform" class="admin" action="showProjectsContent" method="POST">
       <input type="hidden" name="projectId" value="' . ($this->projectId) . '"/>
-      <input  type =  "submit" value="Next" name="nextProject" id="next' . $project['id'] . '" >
+      <input  type =  "submit" value="Skip" name="nextProject" id="next' . $project['id'] . '" >
         </form>';
       echo "unzipped directory: " . $unzipDir;
       die();
@@ -1325,12 +1325,24 @@ class tools extends CoreAuthenticationAdmin {
 //     $this->projectTitle = $_POST['title']; 
 
     if(isset($_POST['approve'])) {
-      if($this->approveProject($_POST['projectId'])) {
-        $answer = "The project was successfully approved!";
-      } else {
-        $answer = "Error: could NOT approve the project!";
+      if($_POST['approve']=="approve")
+      {
+        if($this->approveProject($_POST['projectId'])) {
+          $answer = "The project was successfully approved!";
+        } else {
+          $answer = "Error: could NOT approve the project!";
+        }
+        $this->answer = $answer;
       }
-      $this->answer = $answer;
+      else if($_POST['approve']=="invisible")
+      {
+        if($this->hideProject($_POST['projectId'])) {
+          $answer = "The project was successfully approved!";
+        } else {
+          $answer = "Error: could NOT approve the project!";
+        }
+        $this->answer = $answer;
+      }
     }
     $this->unapprovedProjects = $this->retrieveAllUnapprovedProjectsFromDatabase(); 
     if (!$this->unapprovedProjects) {

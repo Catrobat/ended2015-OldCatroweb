@@ -26,8 +26,8 @@
 
 <body>
   <script type="text/javascript">
-    function submitApproveForm(id, title) {
-      if(confirm("Approve project?"))
+    function submitApproveForm(id, title, action) {
+      if(confirm(action + " project "+title+" ?"))
         document.getElementById(id).submit();
     }
   </script>
@@ -37,16 +37,23 @@
   }?>
   <h1><?php echo $this->projectTitle . ' - ID: <span id="projectId">' . $this->projectId . "</span>"?></h1>
   <div>
-  <form id="nextform" class="admin" action="showProjectsContent" method="POST">
-    <input type="hidden" name="projectId" value="<?php echo ($this->projectId)?>"/>
-    <input id="nextClick" type = <?= sizeof($this->unapprovedProjects) == 1 ? "hidden" : "submit"?> value="Next" name="nextProject" id="next<?php echo $project['id']?>" >
-  </form>  
   <form id="approveform<?php echo $this->projectId?>" class="admin" action="showProjectsContent" method="POST">
     <input type="hidden" name="projectId" value="<?php echo $this->projectId?>"/>
     <input type="hidden" name="approve" value="approve"/>
     <input type="hidden" name="title" value="<?php echo $this->projectTitle?>"/>
-    <input type="button" value="Approve" name="approveButton" id="approve<?php echo $this->projectId?>" onclick="javascript:submitApproveForm('approveform<?php echo $this->projectId?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>');" />
+    <input type="button" value="Approve" name="approveButton" id="approve<?php echo $this->projectId?>" onclick="javascript:submitApproveForm('approveform<?php echo $this->projectId?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>','Approve');" />
   </form>
+  <form id="approveform<?php echo $this->projectId?>_inv" class="admin" action="showProjectsContent" method="POST">
+    <input type="hidden" name="projectId" value="<?php echo $this->projectId?>"/>
+    <input type="hidden" name="approve" value="invisible"/>
+    <input type="hidden" name="title" value="<?php echo $this->projectTitle?>"/>
+    <input type=<?= sizeof($this->unapprovedProjects) == 1 ? "hidden" : "button"?> value="Hide" name="approveButton" id="approve<?php echo $this->projectId?>" onclick="javascript:submitApproveForm('approveform<?php echo $this->projectId?>_inv', '<?php echo addslashes(htmlspecialchars($project['title']))?>','Hide');" />
+  </form>
+ 
+  <form id="nextform" class="admin" action="showProjectsContent" method="POST">
+    <input type="hidden" name="projectId" value="<?php echo ($this->projectId)?>"/>
+    <input id="nextClick" type = <?= sizeof($this->unapprovedProjects) == 1 ? "hidden" : "submit"?> value="Skip" name="nextProject" id="next<?php echo $project['id']?>" >
+  </form>  
   </div>  
     <article>
       <div>
