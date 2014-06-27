@@ -1418,6 +1418,44 @@ class tools extends CoreAuthenticationAdmin {
     }
     $this->__set(1, $resource);
   }
+  
+  public function addInternTaggingName($tag_name) {
+    $query = "EXECUTE insert_intern_tagging_name('$tag_name');";
+    return @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+  }
+  
+  public function getInternTaggingList() {
+    $result = pg_execute($this->dbConnection, "get_intern_tagging_list", array());
+    if(!$result) {
+      throw new Exception($this->errorHandler->getError('db', 'query_failed', pg_last_error($this->dbConnection)),
+          STATUS_CODE_SQL_QUERY_FAILED);
+    }
+  
+    return pg_fetch_all($result);
+  }
+  
+  public function internTagging() {
+    if(isset($_POST['internTaggingAdd'])) {
+      if($this->addInternTaggingName($_POST['tag'])) {
+        $answer = "Tag added successfully!";
+      } else {
+        $answer = "Error: could NOT add Tag!";
+      }
+      $this->answer = $answer;
+    }
+    
+//     if(isset($_POST['uploadNotificationsRemove'])) {
+//       if($this->removeUploadNotificationsEMail($_POST['id'])) {
+//         $answer = "E-Mail removed successfully!";
+//       } else {
+//         $answer = "Error: could NOT remove E-Mail!";
+//       }
+//       $this->answer = $answer;
+//     }
+    
+    $this->htmlFile = "internTagging.php";
+    $this->tagList = $this->getInternTaggingList();
+  }
 
   public function __destruct() {
     parent::__destruct();
