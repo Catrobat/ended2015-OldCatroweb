@@ -37,6 +37,11 @@
 		if (confirm("Change project '"+name+"' to "+newstate+"?"))
 			document.getElementById(id).submit();
 	}
+
+	function updateTagRef(check,p_id,t_id)
+	{
+	  $.post('/admin/tools/updateTagRef',{project_id:p_id,tag_id:t_id,checked:check});
+	}
   </script>
   <h2>Administration Tools - List of available projects</h2>
   <a id="aAdminToolsBackToCatroidweb" href="<?php echo BASE_PATH;?>admin/tools">&lt;- back</a><br /><br />
@@ -56,8 +61,8 @@
           <th>Delete</th>
           <th>Approved</th>
           <?php 
-            for($i=0;$i<count($tags);$i++) {
-              echo "<th>".$tags[$i]."</th>";
+            for($i=0;$i<count($this->tags);$i++) {
+              echo "<th>".$this->tags[$i]["name"]."</th>";
             }
           ?>
         </tr>
@@ -95,6 +100,11 @@
               <input type="button" value="change" name="toggleApprovedProject" id="toggle<?php echo $project['id']?>" onclick="javascript:submitToggleApprovedForm('toggleApprovedForm<?php echo $project['id']?>', '<?php echo addslashes(htmlspecialchars($project['title']))?>', '<?php echo ($project['approved']=='t' ? 'unapprove' : 'approve');?>');" /> <!-- chg -->
             </form>
           </td>
+          <?php 
+            foreach($this->tags as $tag) {
+              echo "<td><input type=\"checkbox\" ".(in_array($tag["id"], $project['tags'],true)?"checked":"")." name=\"haaallo\" onchange=\"updateTagRef(this.checked,".$project['id'].",".$tag["id"].");\" /></td>";
+            }
+          ?>
         </tr>
       <?php }}?>
       </table>

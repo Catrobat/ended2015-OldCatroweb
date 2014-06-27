@@ -753,13 +753,16 @@ class tools extends CoreAuthenticationAdmin {
     if($projects) {
       for($i=0;$i<count($projects);$i++) {
         $projects[$i]['num_flags'] = $this->countFlags($projects[$i]['id']);
-      }
-      if($tags)
-      {
-        for($i=0;$i<count($tags);$i++) {
-          if(!is_array($projects[$tags[$i]["id_project"]]['tags']))
-            $projects[$tags[$i]["id_project"]]['tags'] = array();
-          $projects[$tags[$i]["id_project"]]['tags'][] = $tags[$i]["id_tag"];
+        $projects[$i]['tags'] = array();
+        if($tags)
+        {
+          foreach($tags as $tag)
+          {
+            if($projects[$i]['id']==$tag["id_project"])
+            {
+              $projects[$i]['tags'][] = $tag["id_tag"];
+            }
+          }
         }
       }
     }
@@ -1481,6 +1484,21 @@ class tools extends CoreAuthenticationAdmin {
     
     $this->htmlFile = "internTagging.php";
     $this->tagList = $this->getInternTaggingList();
+  }
+  
+  public function updateTagRef()
+  {
+    if(!isset($_POST['checked']))
+      return;
+    
+    if($_POST['checked'] == "true") {
+      $query = "EXECUTE insert_intern_tagging_ref('".$_POST["tag_id"]."','".$_POST['project_id']."');";
+      return @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    }else {
+      $query = "EXECUTE remove_intern_tagging_ref('".$_POST["tag_id"]."','".$_POST['project_id']."');";
+      return @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    }
+    $this->answer = "OK";
   }
 
   public function __destruct() {
