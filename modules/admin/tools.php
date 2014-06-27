@@ -773,6 +773,8 @@ class tools extends CoreAuthenticationAdmin {
     $query = 'EXECUTE get_intern_tagging_list;';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $tags =  pg_fetch_all($result);
+    if(!$tags)
+      return array();
     return($tags);
   }
   

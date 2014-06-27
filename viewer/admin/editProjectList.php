@@ -61,9 +61,12 @@
           <th>Delete</th>
           <th>Approved</th>
           <?php 
+          if(count($this->tags)>0)
+          {
             for($i=0;$i<count($this->tags);$i++) {
               echo "<th>".$this->tags[$i]["name"]."</th>";
             }
+          }
           ?>
         </tr>
       <?php
