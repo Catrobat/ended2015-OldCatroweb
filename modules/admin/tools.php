@@ -149,6 +149,7 @@ class tools extends CoreAuthenticationAdmin {
     }
     $this->htmlFile = "editProjectList.php";
     $this->projects = $this->retrieveAllProjectsFromDatabase();
+    $this->tags = $this->retrieveAllTagsFromDatabase();
   }
   
   public function addStarterProject() {
@@ -744,12 +745,32 @@ class tools extends CoreAuthenticationAdmin {
     $query = 'EXECUTE get_projects_ordered_by_uploadtime;';
     $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
     $projects =  pg_fetch_all($result);
+    
+    $query = 'EXECUTE get_intern_tagging_list_reference;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $tags =  pg_fetch_all($result);
+    
     if($projects) {
       for($i=0;$i<count($projects);$i++) {
         $projects[$i]['num_flags'] = $this->countFlags($projects[$i]['id']);
       }
+      if($tags)
+      {
+        for($i=0;$i<count($tags);$i++) {
+          if(!is_array($projects[$tags[$i]["id_project"]]['tags']))
+            $projects[$tags[$i]["id_project"]]['tags'] = array();
+          $projects[$tags[$i]["id_project"]]['tags'][] = $tags[$i]["id_tag"];
+        }
+      }
     }
     return($projects);
+  }
+  
+  private function retrieveAllTagsFromDatabase() {
+    $query = 'EXECUTE get_intern_tagging_list;';
+    $result = @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+    $tags =  pg_fetch_all($result);
+    return($tags);
   }
   
   private function retrieveAllStarterProjectsFromDatabase() {
@@ -1444,14 +1465,14 @@ class tools extends CoreAuthenticationAdmin {
       $this->answer = $answer;
     }
     
-//     if(isset($_POST['uploadNotificationsRemove'])) {
-//       if($this->removeUploadNotificationsEMail($_POST['id'])) {
-//         $answer = "E-Mail removed successfully!";
-//       } else {
-//         $answer = "Error: could NOT remove E-Mail!";
-//       }
-//       $this->answer = $answer;
-//     }
+    if(isset($_POST['uploadInternTaggingRemove'])) {
+      if($this->removeUploadNotificationsEMail($_POST['id'])) {
+        $answer = "Tag removed successfully!";
+      } else {
+        $answer = "Error: could NOT remove Tag!";
+      }
+      $this->answer = $answer;
+    }
     
     $this->htmlFile = "internTagging.php";
     $this->tagList = $this->getInternTaggingList();

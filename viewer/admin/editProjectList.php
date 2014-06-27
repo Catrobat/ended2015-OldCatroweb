@@ -55,6 +55,11 @@
           <th>Visible</th>
           <th>Delete</th>
           <th>Approved</th>
+          <?php 
+            for($i=0;$i<count($tags);$i++) {
+              echo "<th>".$tags[$i]."</th>";
+            }
+          ?>
         </tr>
       <?php
         if($this->projects) {
