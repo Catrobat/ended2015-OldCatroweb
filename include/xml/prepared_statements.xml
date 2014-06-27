@@ -159,6 +159,7 @@
     <string name="get_uploadnotifications_email_list">SELECT * FROM upload_notifications</string>
     
     <string name="insert_intern_tagging_name">INSERT INTO intern_tagging (name) VALUES ($1)</string>
+    <string name="remove_intern_tagging_name">DELETE FROM intern_tagging WHERE id=$1</string>
     <string name="get_intern_tagging_list">SELECT * FROM intern_tagging</string>
     <string name="get_intern_tagging_list_reference">SELECT * FROM intern_tagging_reference</string>
     

@@ -60,7 +60,7 @@
         <th>delete</th>
       </tr>
       
-      <?php if(!$this->emailList) : ?>
+      <?php if(!$this->tagList) : ?>
       <tr>
         <td colspan=2>No entry</td>
       </tr>
