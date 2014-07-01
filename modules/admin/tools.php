@@ -1455,6 +1455,11 @@ class tools extends CoreAuthenticationAdmin {
     return @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
   }
   
+  public function removeInternTaggingReferencesById($id) {
+    $query = "EXECUTE remove_intern_tagging_references_by_id('$id');";
+    return @pg_query($query) or $this->errorHandler->showErrorPage('db', 'query_failed', pg_last_error());
+  }
+  
   public function getInternTaggingList() {
     $result = pg_execute($this->dbConnection, "get_intern_tagging_list", array());
     if(!$result) {
@@ -1477,6 +1482,7 @@ class tools extends CoreAuthenticationAdmin {
     
     if(isset($_POST['internTaggingRemove'])) {
       if($this->removeInternTaggingName($_POST['id'])) {
+        $this->removeInternTaggingReferencesById($_POST['id']);
         $answer = "Tag removed successfully!";
       } else {
         $answer = "Error: could NOT remove Tag!";
