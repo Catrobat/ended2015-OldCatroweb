@@ -291,6 +291,44 @@ public class AdminTests extends BaseTest {
       throw e;
     }
   }
+  
+  @Test(groups = { "functionality", "internTagging" }, description = "check intern tagging functionality")
+  public void internTagging() throws Throwable {
+    try {
+      openAdminLocation();
+      assertTrue(isTextPresent("Catroid Administration Site"));
+      driver().findElement(By.id("aAdministrationTools")).click();
+      ajaxWait();
+      driver().findElement(By.id("aAdminToolsInternTagging")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Administration Tools - Intern Tagging"));
+      driver().findElement(By.id("tagInput")).sendKeys("my intern tag");
+      driver().findElement(By.id("addTag")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Tag added successfully!"));
+      assertTrue(isTextPresent("my intern tag"));
+      driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
+      ajaxWait();
+      driver().findElement(By.id("aAdminToolsEditProjects")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("my intern tag"));
+      driver().findElement(By.id("aAdminToolsBackToCatroidweb")).click();
+      ajaxWait();
+      driver().findElement(By.id("aAdminToolsInternTagging")).click();
+      ajaxWait();
+      clickOkOnNextConfirmationBox();
+      driver().findElement(By.xpath("//*[@id='projectTableId']/tbody/tr[2]/td[2]/form/input[3]")).click();
+      ajaxWait();
+      assertTrue(isTextPresent("Tag removed successfully!"));
+      
+    } catch(AssertionError e) {
+      captureScreen("AdminTests.internTagging");
+      throw e;
+    } catch(Exception e) {
+      captureScreen("AdminTests.internTagging");
+      throw e;
+    }
+  }
 
   @Test(groups = { "functionality", "approveProjectslist" }, description = "check approve projects list")
   public void approveProjectsList() throws Throwable {
