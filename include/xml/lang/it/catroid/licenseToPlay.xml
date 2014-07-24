@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+	<string name="title">Licenza per il gioco - Dare credito e condividere</string>
+
+	<string name="project_licence_part1">
+		Immagina che ciascun programma del progetto Catrobat sia una torta, una torta molto speciale che viene fornita con la sua ricetta (blocchi di programmazione).
+Tutti i membri della comunità di Catrobat condividono le loro torte insieme alle relative ricette. Questo significa che puoi godere di tutte le torte e, allo stesso tempo, imparare a come crearne di nuove!
+	</string>
+	<string name="project_licence_part2">
+		Non ci sono ricette segrete: le istruzioni su come creare ciascuna torta sono rese fruibili per chiunque per essere usate, riusate, modificate e possono servire come ispirazione per nuove idee... pardon, torte.
+	</string>
+	<string name="project_licence_part3">
+		Puoi mangiare le torte come pure copiare le ricette altrui per farne di nuove, anche con nuovi ingredienti.
+Questa libertà viene garantita da due semplici requisiti:
+	</string>
+	<string name="project_licence_part3_list_element1">condividi le tue torte insieme alle ricette</string>
+	<string name="project_licence_part3_list_element2">dai credito a chi ti ha ispirato</string>
+	<string name="project_licence_part4">
+		Nel creare la comunità Catrobat, abbiamo deciso di adottare questo approccio in quanto crediamo che esso supporti la creatività e l'apprendimento all'interno della comunità.
+Condividendo le ricette e gli ingredienti (script e opere multimediali), le persone possono costruire appoggiandosi su le idee altri e, in definitiva, crescere tutti insieme.
+	</string>
+	<string name="project_licence_part5">
+		Nel progettare il sito web di Catrobat, abbiamo pensato a funzionalità che incoraggino le persone a condividere le proprie idee e dar credito agli altri. In ciascuna pagina dedicata ai diversi programmi, puoi sempre scaricare gli script originali del programma. Se modifichi script o altre opere multimediali di un programma esistente, vi incoraggiamo a dare credito al programma originale direttamente nelle note del programma, menzionando sia il creatore sia il programma che ha ispirato il vostro.
+	</string>
+	<string name="project_licence_learn_more_new">
+		Se vuoi approfondire maggiormente i termini d'uso della comunità online di Catrobat, puoi visitare la pagina {*termsOfUseLink*}.
+	</string>
+
+  <string name="project_licence_dated">Versione 1.1, 2 Aprile 2013</string>
+</strings>

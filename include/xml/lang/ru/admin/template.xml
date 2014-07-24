@@ -1,25 +1,25 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="template_common_one_minute_ago">1 &#x43C;&#x438;&#x43D;&#x443;&#x442;&#x443; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
@@ -68,7 +68,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_hungarian">&#x412;&#x435;&#x43D;&#x433;&#x435;&#x440;&#x441;&#x43A;&#x438;&#x439;</string>
   <string name="template_common_indonesian">&#x418;&#x43D;&#x434;&#x43E;&#x43D;&#x435;&#x437;&#x438;&#x439;&#x441;&#x43A;&#x438;&#x439;</string>
   <string name="template_common_italian">&#x418;&#x442;&#x430;&#x43B;&#x44C;&#x44F;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_japanese"> &#x42F;&#x43F;&#x43E;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
+  <string name="template_common_japanese">&#x42F;&#x43F;&#x43E;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
   <string name="template_common_korean">&#x41A;&#x43E;&#x440;&#x435;&#x439;&#x441;&#x43A;&#x438;&#x439;</string>
   <string name="template_common_latvian">&#x41B;&#x430;&#x442;&#x44B;&#x448;&#x441;&#x43A;&#x438;&#x439;</string>
   <string name="template_common_lithuanian">&#x41B;&#x438;&#x442;&#x43E;&#x432;&#x441;&#x43A;&#x438;&#x439;</string>

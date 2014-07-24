@@ -1,44 +1,45 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="uploaded">hochgeladen</string>
   <string name="updated">aktualisiert</string>
-  <string name="download_button">Herunterladen</string>
-  <string name="views">mal gesehen</string>
-  <string name="report_as_inappropriate_label">Warum ist dieses Programm unpassend?</string>
-  <string name="report_as_inappropriate_please_login">Bitte {*login_link*} um dieses Programm als unpassend zu melden.</string>
-  <string name="report_as_inappropriate_already_flagged">Du hast dieses Programm bereits als unpassend gemeldet.</string>
-  <string name="report">Melden</string>
+  <string name="uploaded_by">Herunterladen</string>
+  <string name="login">Lizenz zum Spielen</string>
+  <string name="download_button">Download</string>
+  <string name="filesize">Warum ist dieses Programm unpassend?</string>
+  <string name="report_as_inappropriate">Bitte {*login_link*} um dieses Programm als unpassend zu melden.</string>
+  <string name="report_as_inappropriate_label">Du hast dieses Programm bereits als unpassend gemeldet.</string>
+  <string name="report_as_inappropriate_please_login">Melden</string>
+  <string name="report_as_inappropriate_own_project">Abbrechen</string>
+  <string name="report_as_inappropriate_already_flagged">Gib einen Grund an</string>
+  <string name="report">Catrobat Language Version:</string>
   <string name="cancel">Abbrechen</string>
-  <string name="flag_reason_placeholder">Gib einen Grund an</string>
-  <string name="language_version_info_text">Catrobat Language Version:</string>
-  <string name="no_description_available">Keine Beschreibung verf&#xFC;gbar.</string>
-  <string name="uploaded_by">von {*nicknameString*}</string>
-  <string name="login">einloggen</string>
-  <string name="filesize">gro&#xDF;</string>
-  <string name="report_as_inappropriate">Als unpassend melden</string>
-  <string name="report_as_inappropriate_own_project">Du kannst dein eigenes Programm nicht markieren.</string>
-  <string name="downloads">mal heruntergeladen</string>
+  <string name="flag_reason_placeholder">von {*nicknameString*}</string>
+  <string name="some_rights_reserved">einloggen</string>
+  <string name="views">gro&#xDF;</string>
+  <string name="downloads">Als unpassend melden</string>
+  <string name="language_version_info_text">Du kannst dein eigenes Programm nicht markieren.</string>
   <string name="description">Beschreibung</string>
+  <string name="no_description_available">Beschreibung</string>
 </strings>

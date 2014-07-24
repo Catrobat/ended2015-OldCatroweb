@@ -1,51 +1,59 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="project1">Gr&#xF6;&#xDF;e &#xE4;ndern</string>
-  <string name="project2">Aussehen &#xE4;ndern</string>
-  <string name="project4">Gleiten</string>
-  <string name="project7">GSensor</string>
-  <string name="project8">Kompass</string>
-  <string name="title">Tutorial Karten</string>
-  <string name="project3">Bewegte Animation</string>
-  <string name="project6">Sprich etwas</string>
-  <string name="headline1">Bereite alles vor: </string>
-  <string name="headline2">Versuche diesen Code: </string>
-  <string name="headline4">Extra Tipp: </string>
-  <string name="project5">Spiele einen Klang ab</string>
-  <string name="headline3">Tu es:</string>
-  <string name="project3_description">Verwende diesen Trick um den Papagei fliegen zu lassen.</string>
-  <string name="project6_description">Verwende diesen Code damit ein Objekt spricht.</string>
-  <string name="project9_description">Schau dir diesen Code an! Er zeigt dir, wie man zwischen Objekten kommuniziert.</string>
-  <string name="project1_description">Tippe auf die Ente um ihre Gr&#xF6;&#xDF;e zu ver&#xE4;ndern.</string>
-  <string name="project7_description">Verwende diesen Trick um ein Objekt mit Neigung deines Handys zu kontrollieren. </string>
-  <string name="project5_extratip_2">2. W&#xE4;hle "Pocket Code Rekorder"</string>
-  <string name="project2_description">Verwende diesen Trick um automatisch mitzuz&#xE4;hlen.</string>
-  <string name="project8_description">Verwende diesen Code um einen Kompass zu erstellen.</string>
-  <string name="project5_extratip_3">3. Tippe auf das Icon um einen Klang aufzunehmen</string>
-  <string name="project7_extratip_1">Wenn zu empfindlich, teile durch 10</string>
-  <string name="project4_description">Gleite mit einem Objekt &#xFC;ber den Bildschirm.</string>
-  <string name="project5_description">Tippe auf die Trommel um den Klang abzuspielen.</string>
-  <string name="project5_extratip_1">1. Tipp "+"</string>
+
+  <string name="headline1">Gr&#xF6;&#xDF;e &#xE4;ndern</string>
+  <string name="headline2">Aussehen &#xE4;ndern</string>
+  <string name="headline3">Gleiten</string>
+  <string name="headline4">GSensor</string>
+
+	<string name="project1">Kompass</string>
+	<string name="project2">Tutorial Karten</string>
+	<string name="project3">Bewegte Animation</string>
+	<string name="project4">Gleite</string>
+	<string name="project5">Bereite alles vor:</string>
+	<string name="project6">Versuche diesen Code:</string>
+	<string name="project7">Extra Tipp:</string>
+	<string name="project8">Spiele einen Klang ab</string>
+	<string name="project9">Verschicke an alle:</string>
+
+	<string name="title">Verwende diesen Trick um den Papagei fliegen zu lassen.</string>
+  <string name="project1_description">Verwende diesen Code damit ein Objekt spricht.</string>
+	<string name="project2_description">Schau dir diesen Code an! Er zeigt dir, wie man zwischen Objekten kommuniziert.</string>
+	<string name="project3_description">Tippe auf die Ente um ihre Gr&#xF6;&#xDF;e zu ver&#xE4;ndern.</string>
+	<string name="project4_description">Verwende diesen Trick um ein Objekt mit Neigung deines Handys zu kontrollieren.</string>
+	<string name="project5_description">2. W&#xE4;hle "Pocket Code Rekorder"</string>
+	<string name="project6_description">Verwende diesen Trick um automatisch mitzuz&#xE4;hlen.</string>
+	<string name="project7_description">Verwende diesen Code um einen Kompass zu erstellen.</string>
+	<string name="project8_description">3. Tippe auf das Icon um einen Klang aufzunehmen</string>
+	<string name="project9_description">Wenn zu empfindlich, teile durch 10</string>
+	
+	<string name="project5_extratip_1">Gleite mit einem Objekt &#xFC;ber den Bildschirm.</string>
+	<string name="project5_extratip_2">Tippe auf die Trommel um den Klang abzuspielen.</string>
+	<string name="project5_extratip_3">1. Tipp "+"</string>
+	<string name="project7_extratip_1">If too sensitive, divide by 10</string>
+
+	
+	
 </strings>

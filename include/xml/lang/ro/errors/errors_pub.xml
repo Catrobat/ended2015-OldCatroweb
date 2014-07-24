@@ -1,120 +1,127 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
-  <userFunctions>
-    <string name="expired_url">Scuza&#x21B;i! URL de recuperare a expirat. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x21B;i din nou.</string>
-    <string name="username_password_equal">Parola trebuie s&#x103; difere de nume.</string>
-    <string name="board_authentication_failed">Autentificarea &#xEE;n board a e&#x219;uat.</string>
-    <string name="language_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
-    <string name="email_update_failed"/>
-    <string name="wiki_api_response_incorrect">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
-    <string name="create_hash_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
-    <string name="hash_not_found"/>
-    <string name="username_missing"/>
-    <string name="username_invalid_underscore"/>
-    <string name="username_invalid_hash"/>
-    <string name="username_invalid_verticalbar"/>
-    <string name="username_invaquery_failedlid_curlybrace"/>
-    <string name="username_invalid_lessgreater"/>
-    <string name="username_invalid_squarebracket"/>
-    <string name="username_invalid_spaces"/>
-    <string name="username_invalid_insulting_words"/>
-    <string name="username_invalid"/>
-    <string name="username_blacklisted"/>
-    <string name="username_already_exists"/>
-    <string name="password_missing"/>
-    <string name="password_new_too_short"/>
-    <string name="password_new_too_long"/>
-    <string name="email_missing"/>
-    <string name="email_invalid">Adresa de email nu este valid&#x103;.</string>
-    <string name="last_email"/>
-    <string name="country_missing"/>
-    <string name="password_or_username_wrong">Parola sau numele dumneavoastr&#x103; au fost gre&#x219;ite.</string>
-    <string name="board_registration_failed"/>
-    <string name="userdata_missing">Numele sau adresa email lipse&#x219;te.</string>
-    <string name="unsupported_image"/>
-    <string name="avatar_creation_failed"/>
-    <string name="password_new_board_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
-    <string name="userdata_not_exists">Numele sau adresa email nu a fost g&#x103;sit.</string>
-    <string name="sendmail_failed"/>
-  </userFunctions>
-  <profile>
-    <string name="password_missing">Parola lispe&#x219;te.</string>
-    <string name="email_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
-    <string name="city_update_failed">A avut loc o eroare la actualizarea adresei email.</string>
-    <string name="password_equal"/>
-  </profile>
-  <db>
-    <string name="query_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
-    <string name="connection_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
-    <string name="no_entry_for_id">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
-  </db>
-  <viewer>
-    <string name="ip_is_blocked">Adresa IP a dumneavoastr&#x103; a fost blocat&#x103;</string>
-    <string name="ip_is_blocked_temporary"/>
-    <string name="user_is_blocked">Contul dumneavoastr&#x103; a fost blocat.</string>
-    <string name="html_file_not_found">Aceast&#x103; pagin&#x103; nu poate fi afi&#x219;at&#x103;.</string>
-  </viewer>
-  <admin>
-    <string name="pootle_post_data_missing">POST-data lipse&#x219;te: trebuie: lang.</string>
-    <string name="pootle_load_xlf_failed">Nu a fost &#xEE;nc&#x103;rcat XLF-fi&#x219;ierul de la {*source*}.</string>
-    <string name="pootle_not_valid_xml">Nu sa putut genera XML-obiectul de la XLF-string.</string>
-    <string name="pootle_invalid_stringname_in_xml">Nume nevalid &#xEE;n sursa XLF-fi&#x219;ierului: {*stringName*}</string>
-    <string name="pootle_could_not_write_xml_file">Nu sa &#xEE;nscris XML-fi&#x219;ierul c&#x103;tre mapa cu limbi: {*fileName*}</string>
-  </admin>
-  <server>
-    <string name="missing_mcrypt"/>
-    <string name="missing_blowfish"/>
-  </server>
-  <upload>
-    <string name="missing_project_title">Trebuie s&#x103; specifica&#x21B;i titlul proiectului dumneavoastr&#x103;.</string>
-    <string name="missing_file_data"/>
-    <string name="missing_post_file_checksum"/>
-    <string name="copy_failed">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
-    <string name="rename_failed">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
-    <string name="invalid_file_checksum">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
-    <string name="save_thumbnail_failed">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
-    <string name="project_exceed_filesize_limit">Fi&#x219;ierul cu proiectul dumneavoastrp e prea mare.</string>
-    <string name="project_title_default">Trebuie s&#x103; redenumi&#x21B;i proiectul &#xEE;nainte de &#xEE;nc&#x103;rcarea lui.</string>
-    <string name="insulting_words_in_project_title">V&#x103; rug&#x103;m s&#x103; nu folosi&#x21B;i limbaj ofensiv &#xEE;n titlul proiectului.</string>
-    <string name="insulting_words_in_project_description">V&#x103; rug&#x103;m s&#x103; nu folosi&#x21B;i limbaj ofensiv &#xEE;n descrierea proiectului.</string>
-    <string name="invalid_project_xml"/>
-    <string name="old_catrobat_language"/>
-  </upload>
-  <download>
-    <string name="file_not_found">Proiectul cerut nu este disponibil la moment. &#xCE;ncerca&#x21B;i din nou mai t&#xEE;rziu!</string>
-  </download>
-  <flag>
-    <string name="missing_post_data"/>
-    <string name="sql_insert_failed">Scuza&#x21B;i, a avut loc o eroare la reportarea proiectului!</string>
-  </flag>
-  <auth>
-    <string name="device_auth_invalid_token"/>
-    <string name="device_auth_username_exists"/>
-    <string name="not_a_tugraz_ip">Dumneavoastr&#x103; nu ave&#x21B;i dreptul de vizualizare a aceste pagini.</string>
-  </auth>
-  <registration>
-    <string name="postdata_missing"/>
-  </registration>
+		<server>
+				<string name="missing_mcrypt">Please tell the administrator to install mcrypt. Thanks.</string>
+				<string name="missing_blowfish">Please tell the administrator to install CRYPT_BLOWFISH. Thanks.</string>
+		</server>
+    <db>
+        <string name="query_failed">Parola lispe&#x219;te.</string>
+        <string name="connection_failed">Parola lispe&#x219;te.</string>
+        <string name="no_entry_for_id">Parola lispe&#x219;te.</string>
+    </db>
+    <profile>
+    	<string name="no_such_user">Parola lispe&#x219;te.</string>
+    </profile>
+    <userFunctions>
+      <string name="hash_not_found">Scuza&#x21B;i! URL de recuperare a expirat. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x21B;i din nou.</string>
+			<string name="expired_url">Scuza&#x21B;i! URL de recuperare a expirat. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x21B;i din nou.</string>
+      <string name="username_missing">Autentificarea &#xEE;n board a e&#x219;uat.</string>
+      <string name="username_invalid_underscore">A avut loc o eroare la actualizarea adresei email.</string>
+      <string name="username_invalid_hash">The username you have entered is not allowed. Please do not use hash signs (#).</string>
+      <string name="username_invalid_verticalbar">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
+      <string name="username_invaquery_failedlid_curlybrace">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
+      <string name="username_invalid_lessgreater">The username you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
+      <string name="username_invalid_squarebracket">The username you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
+      <string name="username_invalid_spaces">The username you have entered is not allowed. Please do not use spaces (" ").</string>
+      <string name="username_is_email_address">Your username may not be an email address.</string>
+      <string name="username_invalid_insulting_words">The username you have entered is not allowed. Please do not use insulting words.</string>
+      <string name="username_invalid">The username you have entered is not allowed.</string>
+      <string name="username_blacklisted">The username you have entered is not allowed.</string>
+      <string name="username_already_exists">The username you have entered already exists.</string>
+      <string name="password_missing">You haven't entered a password, please add one.</string>
+      <string name="password_not_equal_password2">The passwords didn't match.</string>
+      <string name="username_password_equal">The password must differ from the username.</string>
+      <string name="password_new_too_short">The new password must have at least {*minimumPasswordLength*} characters.</string>
+      <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
+      <string name="email_missing">You haven't entered an email address, please add one.</string>
+      <string name="email_invalid">This email address is not valid.</string>
+      <string name="last_email">One email address is required.</string>
+      <string name="country_missing">You haven't entered a country, please add one.</string>
+      <string name="password_or_username_wrong">Adresa de email nu este valid&#x103;.</string>
+      <string name="board_authentication_failed">Registrarea &#xEE;n board a e&#x219;uat.</string>
+      <string name="wiki_api_response_incorrect">Parola lispe&#x219;te.</string>
+      <string name="board_registration_failed">Parola sau numele dumneavoastr&#x103; au fost gre&#x219;ite.</string>
+      <string name="userdata_missing">Your username or email address is missing.</string>
+      <string name="unsupported_image">Numele sau adresa email lipse&#x219;te.</string>
+      <string name="avatar_creation_failed">Sorry, we encountered an error while processing your registration. Please try again!</string>
+      <string name="password_new_board_update_failed">There was a problem while updating the password.</string>
+      <string name="country_update_failed">There was a problem while updating your home country.</string>
+      <string name="language_update_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
+      <string name="userdata_not_exists">Your username or email address was not found.</string>
+      <string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
+      <string name="create_hash_failed">Parola lispe&#x219;te.</string>
+      <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
+    </userFunctions>
+    <upload>
+        <string name="missing_project_title">Trebuie s&#x103; specifica&#x21B;i titlul proiectului dumneavoastr&#x103;.</string>
+        <string name="missing_file_data">Sorry, there was a problem during the upload!</string>
+        <string name="missing_post_file_checksum">Sorry, there was a problem during the upload! Are you using the latest version of Pocket Code?</string>
+        <string name="copy_failed">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
+        <string name="rename_failed">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
+        <string name="invalid_file_checksum">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
+        <string name="project_exceed_filesize_limit">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
+        <string name="project_title_default">Fi&#x219;ierul cu proiectul dumneavoastrp e prea mare.</string>
+        <string name="insulting_words_in_project_title">Trebuie s&#x103; redenumi&#x21B;i proiectul &#xEE;nainte de &#xEE;nc&#x103;rcarea lui.</string>
+        <string name="insulting_words_in_project_description">V&#x103; rug&#x103;m s&#x103; nu folosi&#x21B;i limbaj ofensiv &#xEE;n titlul proiectului.</string>
+        <string name="save_thumbnail_failed">Scuza&#x21B;i, a ap&#x103;rut o eroare la &#xEE;nc&#x103;rcare. &#xCE;ncerca&#x21B;i din nou!</string>
+        <string name="invalid_project_xml">Sorry, your programm file is invalid. Try to save it as a new programm and upload it again.</string>
+        <string name="old_catrobat_version">Sorry, you are using an old version of Pocket Code. Please update to the lastest version.</string>
+        <string name="old_catrobat_language">Sorry, your programm contains an old version of the Catrobat language! Are you using the latest version of Pocket Code?</string>
+        <string name="invalid_media_license">Sorry, your programm has an invalid media license!</string>
+        <string name="invalid_program_license">Sorry, your programm has an invalid program license!</string>
+        <string name="visibility_incorrect">The visibility is incorrect!</string>
+        <string name="invalid_project_file">Sorry, your program contains some files with unknown fileformat.</string>
+        <string name="linked_project_file_not_found">Sorry, there seems to be some file missing in your project.</string>
+        <string name="unlinked_project_file">Sorry, your project seems to contain some project-unrelated files.</string>
+    </upload>
+    <download>
+    	<string name="file_not_found">Proiectul cerut nu este disponibil la moment. &#xCE;ncerca&#x21B;i din nou mai t&#xEE;rziu!</string>
+    </download>
+    <flag>
+        <string name="missing_post_data">You must enter a reason why you want to report this programm as inappropriate!</string>
+        <string name="sql_insert_failed">Scuza&#x21B;i, a avut loc o eroare la reportarea proiectului!</string>
+    </flag>
+    <viewer>
+    	<string name="html_file_not_found">Adresa IP a dumneavoastr&#x103; a fost blocat&#x103;</string>
+      <string name="ip_is_blocked">Adresa IP a dumneavoastr&#x103; a fost blocat&#x103;</string>
+      <string name="ip_is_blocked_temporary">Your IP-Address has been blocked for 30 seconds.</string>
+      <string name="user_is_blocked">Contul dumneavoastr&#x103; a fost blocat.</string>
+    </viewer>
+    <auth>
+    	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your username and password!</string>
+			<string name="device_auth_username_exists">Sorry, your username is already in use.</string>
+      <string name="not_a_tugraz_ip">Dumneavoastr&#x103; nu ave&#x21B;i dreptul de vizualizare a aceste pagini.</string>
+    </auth>
+    <registration>
+      <string name="postdata_missing">Please enter your login data.</string>
+    </registration>
+    <admin>
+      <string name="pootle_post_data_missing">POST-data lipse&#x219;te: trebuie: lang.</string>
+      <string name="pootle_load_xlf_failed">Nu a fost &#xEE;nc&#x103;rcat XLF-fi&#x219;ierul de la {*source*}.</string>
+      <string name="pootle_not_valid_xml">Nu sa putut genera XML-obiectul de la XLF-string.</string>
+      <string name="pootle_invalid_stringname_in_xml">Nume nevalid &#xEE;n sursa XLF-fi&#x219;ierului: {*stringName*}</string>
+      <string name="pootle_could_not_write_xml_file">Nu sa &#xEE;nscris XML-fi&#x219;ierul c&#x103;tre mapa cu limbi: {*fileName*}</string>
+    </admin>
 </errors>
