@@ -22,7 +22,7 @@
   * along with this program. If not, see <http://www.gnu.org/licenses/>.
   */
 
-class CorePresenter_mp3 extends CorePresenterCommon {
+class CorePresenter_m4a extends CorePresenterCommon {
   public function __construct(CoreModule $module) {
     parent::__construct($module);
   }
