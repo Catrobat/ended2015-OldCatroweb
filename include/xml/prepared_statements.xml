@@ -166,7 +166,7 @@
     <string name="get_intern_tagging_list">SELECT * FROM intern_tagging</string>
     <string name="get_intern_tagging_list_reference">SELECT * FROM intern_tagging_reference</string>
     
-    <string name="get_unapproved_projects">SELECT * FROM projects WHERE approved=false ORDER BY projects DESC</string>
+    <string name="get_unapproved_projects">SELECT * FROM projects WHERE approved=false AND visible=true ORDER BY projects DESC</string>
     <string name="approve_project">UPDATE projects SET approved=$1 WHERE projects.id=$2</string>
 
 </statements>
