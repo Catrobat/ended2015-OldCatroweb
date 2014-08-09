@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="uploaded">Caricato</string>
+  <string name="updated">aggiornato</string>
+  <string name="uploaded_by">da {*nicknameString*}</string>
+  <string name="login">login</string>
+  <string name="download_button">Scarica</string>
+  <string name="filesize">grande</string>
+  <string name="report_as_inappropriate">Segnala come inappropriato</string>
+  <string name="report_as_inappropriate_label">Perché pensi che questo programma sia inappropriato?</string>
+  <string name="report_as_inappropriate_please_login">Per favore {*login_link*} per segnalare questo programma come inappropriato.</string>
+  <string name="report_as_inappropriate_own_project">Non puoi segnalare il tuo programma.</string>
+  <string name="report_as_inappropriate_already_flagged">Hai già segnalato questo programma come inappropriato.</string>
+  <string name="report">Report</string>
+  <string name="cancel">Annulla</string>
+  <string name="flag_reason_placeholder">Inserire un motivo</string>
+  <string name="some_rights_reserved">Licenza per giocare</string>
+  <string name="views">Visualizzazioni</string>
+  <string name="downloads">Download</string>
+  <string name="language_version_info_text">Versione di Catrobat:</string>
+  <string name="description">Descrizione</string>
+  <string name="no_description_available">Nessuna descrizione disponibile.</string>
+</strings>

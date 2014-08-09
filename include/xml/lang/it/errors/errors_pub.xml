@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<errors>
+		<server>
+				<string name="missing_mcrypt">Si prega di informare l'amministratore di installare mcrypt. Grazie.</string>
+				<string name="missing_blowfish">Si prega di informare l'amministratore di installare CRYPT_BLOWFISH. Grazie.</string>
+		</server>
+    <db>
+        <string name="query_failed">Ooooops qualcosa è andato male. / nRiprovare, grazie!</string>
+        <string name="connection_failed">Ooooops qualcosa è andato male. / nRiprovare, grazie!</string>
+        <string name="no_entry_for_id">Ooooops qualcosa è andato male. / nRiprovare, grazie!</string>
+    </db>
+    <profile>
+    	<string name="no_such_user">Ooooops qualcosa è andato male. / nRiprovare, grazie!</string>
+    </profile>
+    <userFunctions>
+      <string name="hash_not_found">Spiacente! Impossibile trovare qualcosa da recuperare. Riprovare, grazie.</string>
+			<string name="expired_url">Spiacenti, ma la url di recupero è obsoleta. Riprovare, grazie.</string>
+      <string name="username_missing">Non è stato immesso un nome utente, si prega di aggiungerne uno.</string>
+      <string name="username_invalid_underscore">Il nome utente inserito non è ammesso. Si prega di non utilizzare il carattere trattino basso (_).</string>
+      <string name="username_invalid_hash">Il nome utente inserito non è ammesso. Si prega di non utilizzare il carattere grattella (#).</string>
+      <string name="username_invalid_verticalbar">Il nome utente inserito non è ammesso. Si prega di non utilizzare il carattere barra verticale (|).</string>
+      <string name="username_invaquery_failedlid_curlybrace">Il nome utente inserito non è ammesso. Si prega di non utilizzare i caratteri parentesi graffe  ({ o }).</string>
+      <string name="username_invalid_lessgreater">Il nome utente inserito non è ammesso. Si prega di non utilizzare i caratteri minore o maggiore (&lt; o &gt;).</string>
+      <string name="username_invalid_squarebracket">Il nome utente inserito non è ammesso. Si prega di non utilizzare i caratteri parentesi quadre ([ o ]).</string>
+      <string name="username_invalid_spaces">Il nome utente inserito non è ammesso. Si prega di non utilizzare il carattere spazio (" ").</string>
+      <string name="username_is_email_address">Il tuo nome utente non dovrebbe essere un indirizzo email.</string>
+      <string name="username_invalid_insulting_words">Il nome utente inserito non è ammesso. Si prega di non utilizzare parole scurrili.</string>
+      <string name="username_invalid">Il nome utente inserito non è ammesso.</string>
+      <string name="username_blacklisted">Il nome utente inserito non è ammesso.</string>
+      <string name="username_already_exists">Il nome utente inserito esiste già.</string>
+      <string name="password_missing">Non è stata inserita una  password, si prega di aggiungerla.</string>
+      <string name="password_not_equal_password2">Le due password non coincidono.</string>
+      <string name="username_password_equal">La password deve essere diversa dal nome utente.</string>
+      <string name="password_new_too_short">La nuova password deve avere almeno {*minimumPasswordLength*} caratteri.</string>
+      <string name="password_new_too_long">La nuova password può avere al massimo {*maximumPasswordLength*} caratteri.</string>
+      <string name="email_missing">Non è stato inserito un indirizzo e-mail, si prega di aggiungerne uno.</string>
+      <string name="email_invalid">Questo indirizzo email non è valido.</string>
+      <string name="last_email">E' obbligatorio inserire almeno un indirizzo email.</string>
+      <string name="country_missing">Non è stato inserito un paese, si prega di aggiungerne uno.</string>
+      <string name="password_or_username_wrong">Password o nome utente errati.</string>
+      <string name="board_authentication_failed">L'autenticazione è fallita.</string>
+      <string name="wiki_api_response_incorrect">Ooooops qualcosa è andato male. / nRiprovare, grazie!</string>
+      <string name="board_registration_failed">Spiacenti, si è verificato un errore durante l'elaborazione della registrazione. Riprovare, grazie!</string>
+      <string name="userdata_missing">Manca il tuo nome utente o indirizzo email.</string>
+      <string name="unsupported_image">Questo formato di immagine non è supportato, prova un'altra immagine.</string>
+      <string name="avatar_creation_failed">Spiacenti, c'è stato un errore durante l'elaborazione della registrazione. Riprovare, grazie!</string>
+      <string name="password_new_board_update_failed">C'è stato un problema durante l'aggiornamento della password.</string>
+      <string name="country_update_failed">C'è stato un problema durante l'aggiornamento del vostro paese.</string>
+      <string name="language_update_failed">C'è stato un problema durante l'aggiornamento della lingua.</string>
+      <string name="userdata_not_exists">Non è stato trovato il tuo nome utente o indirizzo email.</string>
+      <string name="email_update_failed">Errore durante l'aggiornamento di questo indirizzo di posta elettronica. Si richiede almeno un indirizzo email convalidato.</string>
+      <string name="create_hash_failed">Ooooops qualcosa è andato male. / nRiprovare, grazie!</string>
+      <string name="sendmail_failed">C'è stato un errore durante l'invio di un messaggio di posta elettronica. Si prega di contattare l'amministratore all'indirizzo {*webmasterEmailAddress*}.</string>
+    </userFunctions>
+    <upload>
+        <string name="missing_project_title">È necessario specificare un titolo per il programma!</string>
+        <string name="missing_file_data">Spiacenti, c'è stato un problema durante il caricamento!</string>
+        <string name="missing_post_file_checksum">Spiacenti, c'è stato un problema durante il caricamento! Stai usando l'ultima versione di Pocket Code?</string>
+        <string name="copy_failed">Spiacenti, c'è stato un errore durante il caricamento. Riprova, grazie!</string>
+        <string name="rename_failed">Spiacenti, c'è stato un errore durante il caricamento. Riprova, grazie!</string>
+        <string name="invalid_file_checksum">Spiacenti, c'è stato un errore durante il caricamento. Riprova, grazie!</string>
+        <string name="project_exceed_filesize_limit">Il file del tuo programma è troppo grande.</string>
+        <string name="project_title_default">Devi rinominare il tuo programma, prima di caricarlo.</string>
+        <string name="insulting_words_in_project_title">Si prega di non utilizzare un linguaggio offensivo nel titolo del programma.</string>
+        <string name="insulting_words_in_project_description">Si prega di non utilizzare un linguaggio offensivo nella descrizione del programma.</string>
+        <string name="save_thumbnail_failed">Spiacenti, c'è stato un errore durante il caricamento. Riprova, grazie!</string>
+        <string name="invalid_project_xml">Spiacenti, il file del programma non è valido. Tenta di salvarlo come nuovo programma e caricalo di nuovo.</string>
+        <string name="old_catrobat_version">Siamo spiacenti, si utilizza una versione obsoleta di Pocket Code. Si raccomanda di passare all'ultima versione.</string>
+        <string name="old_catrobat_language">Spiacenti, il tuo programma contiene una vecchia versione del linguaggio Catrobat! Stai usando l'ultima versione di Pocket Code?</string>
+        <string name="invalid_media_license">Siamo spiacenti, il programma ha una licenza non valida per i contenuti multimediali!</string>
+        <string name="invalid_program_license">Spiacenti, il tuo programma ha una licenza non valida!</string>
+        <string name="visibility_incorrect">La visibilità impostata non è corretta!</string>
+        <string name="invalid_project_file">Spiacenti, il programma contiene qualche file con formato sconosciuto.</string>
+        <string name="linked_project_file_not_found">Spiacenti, sembra manchi qualche file nel tuo progetto.</string>
+        <string name="unlinked_project_file">Spiacenti, il progetto sembra contenere alcuni file non inerenti il progetto.</string>
+    </upload>
+    <download>
+    	<string name="file_not_found">Il programma richiesto non è al momento disponibile. Riprova più tardi!</string>
+    </download>
+    <flag>
+        <string name="missing_post_data">È necessario inserire un motivo per cui segnali questo programma come inappropriato!</string>
+        <string name="sql_insert_failed">Spiacenti, c'è stato un errore durante la segnalazione del programma!</string>
+    </flag>
+    <viewer>
+    	<string name="html_file_not_found">Questa pagina non può essere visualizzata.</string>
+      <string name="ip_is_blocked">Il tuo indirizzo IP è stato bloccato.</string>
+      <string name="ip_is_blocked_temporary">Il tuo indirizzo IP è stato bloccato per 30 secondi.</string>
+      <string name="user_is_blocked">Il tuo account è stato bloccato.</string>
+    </viewer>
+    <auth>
+    	<string name="device_auth_invalid_token">Spiacenti, errore nei dati di autenticazione. Ricontrollare username e password, grazie!</string>
+			<string name="device_auth_username_exists">Spiacenti, il nome utente scelto è già in uso.</string>
+      <string name="not_a_tugraz_ip">Non hai i permessi necessari per visualizzare questa pagina.</string>
+    </auth>
+    <registration>
+      <string name="postdata_missing">Inserisci i tuoi dati di login.</string>
+    </registration>
+    <admin>
+      <string name="pootle_post_data_missing">Mancano alcuni dati; richiesto: lang.</string>
+      <string name="pootle_load_xlf_failed">Impossibile caricare il file XLF da {*source*}.</string>
+      <string name="pootle_not_valid_xml">Impossibile generare l'oggetto XML dalla stringa XLF.</string>
+      <string name="pootle_invalid_stringname_in_xml">Nome della stringa non valida  nel file XLF sorgente: {*stringName*}</string>
+      <string name="pootle_could_not_write_xml_file">Impossibile scrivere il file XML nella cartella della lingua: {*fileName*}</string>
+    </admin>
+</errors>

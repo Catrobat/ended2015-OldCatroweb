@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+
+  <string name="starting_position">Posizione iniziale:</string>
+  
+	<string name="title">Introduzione passo per passo</string>
+	
+	<string name="step1_title">1. Crea un nuovo programma</string>
+	<string name="step1_description"></string>
+	<string name="step1_additional_text_1">Premi su "Nuovo".</string>
+	<string name="step1_additional_text_2">Scrivi il nome del programma, seleziona "Crea programma vuoto" e premi "OK".</string>
+	
+  <string name="step2_title">2. Crea un nuovo oggetto</string>
+	<string name="step2_description"></string>
+	<string name="step2_additional_text_1">Tocca lo schermo:</string>
+	<string name="step2_additional_text_2">Scegli il primo aspetto del nuovo oggetto.</string>
+	<string name="step2_additional_text_3">Disegna un nuovo aspetto.</string>
+	<string name="step2_additional_text_4">Scegli dalla galleria.</string>
+	<string name="step2_additional_text_5">Scatta una foto.</string>
+  <string name="step2_additional_text_6">Inserisci il nome dell'oggetto e premi "OK" per crearlo.</string>  
+
+  <string name="step3_title">3. inizia un movimento</string>
+	<string name="step3_description"></string>
+	<string name="step3_additional_text_1">Tocca lo schermo:</string>
+	<string name="step3_additional_text_2">Il primo mattoncino da usare è all'interno della categoria "Movimento".</string>
+	<string name="step3_additional_text_3">Seleziona il mattoncino "Scivola". L'oggetto si sposterà sulla scena nella nuova posizione definita dal mattoncino.</string>
+	<string name="step3_additional_text_4">Premi "Play" per andare sulla scena e vedere scivolare l'oggetto.</string>
+	<string name="step3_additional_text_5">Utilizza il pulsante indietro di Android per chiudere la scena.</string>
+	<string name="step3_additional_text_6">Il mattoncino ora è sganciato. Per incollarlo, spostarlo alla posizione desiderata. Puoi anche spostare mattoncini già inseriti toccando il mattoncino finché non risulta sganciato.</string>
+  
+  <string name="step4_title">4. Cambia Aspetto</string>
+	<string name="step4_description">Puoi cambiare l'aspetto dell'oggetto.</string>
+	<string name="step4_additional_text_1">Scegli il mattoncino "Passa all'aspetto"; con esso puoi scegliere uno degli aspetti esistenti o crearne uno nuovo.</string>
+	<string name="step4_additional_text_2">Scegli il mattoncino sotto il mattoncino "Scivola".</string>
+	<string name="step4_additional_text_3">Tocca dentro l'elenco a discesa per creare un nuovo aspetto.</string>
+	<string name="step4_additional_text_4">Scegli, come prima, la sorgente dell'immagine.</string>
+	<string name="step4_additional_text_5">Ora devi selezionare la nuova immagine.</string>
+	<string name="step4_additional_text_6">Tocca play per vedere in azione le modifiche.</string>
+	
+	<string name="step5_title">5. Parla</string>
+	<string name="step5_description">Ora scoprirai il modo di far parlare un oggetto.</string>
+	<string name="step5_additional_text_1">Scegli il mattoncino "Parla". L'oggetto pronuncerà il testo, quando viene eseguito questo mattoncino.</string>
+	<string name="step5_additional_text_2">Metti il mattoncino sotto il mattoncino "Passa all'aspetto".</string>
+	<string name="step5_additional_text_3">Tocca play per vedere in azione le modifiche.</string>
+	
+	<string name="step6_title">6. Ancora e ancora</string>
+	<string name="step6_description">Qui si illustra come far ripetere agli oggetti un certo comportamento.</string>
+	<string name="step6_additional_text_1">Scegli il mattoncino "Per sempre". Tutto ciò che viene messo dentro il ciclo si ripete per sempre.</string>
+	<string name="step6_additional_text_2">Porta il mattoncino "Per sempre" sotto il mattoncino "Quando il programma inizia".</string>
+	<string name="step6_additional_text_3">Aggiungi un altro mattoncino "Scivola".</string>
+	<string name="step6_additional_text_4">Posiziona il mattoncino "Scivola"  prima del mattoncino "Fine del ciclo". </string>
+	<string name="step6_additional_text_5">Premi sulla casella di testo di x e poi quella di y e scrivi il valore 0.</string>
+	<string name="step6_additional_text_6">Tocca play per vedere in azione le modifiche.</string>
+	
+	<string name="step7_title">7. Toccare è la soluzione a tutto.</string>
+	<string name="step7_description">Puoi anche controllare il comportamento dell'oggetto sulla scena quando il programma è in esecuzione.</string>
+	<string name="step7_additional_text_1">Scegli il mattoncino "Quando premuto". Ciascun mattoncino messo sotto "Quando premuto" verrà eseguito ogni volta che si tocca l'oggetto sulla scena.</string>
+	<string name="step7_additional_text_2">Posizionare "Quando premuto" sotto gli altri mattoncini.</string>
+	<string name="step7_additional_text_3">Scegli il mattoncino "Gira a destra" e posizionalo sotto il mattoncino "Quando premuto".</string>
+	<string name="step7_additional_text_4">Ora lo script è pronto.</string>
+	<string name="step7_additional_text_5">Tocca play per vedere in azione le modifiche. Se ora premi sull'oggetto, esso si gira.</string>
+	
+	<string name="step8_title">8. Copia, elimina o modifica un mattoncino</string>
+	<string name="step8_description"></string>
+	<string name="step8_additional_text_1">Premendo una sola volta sulla parte sinistra di un qualunque mattoncino si apre un menu contestuale. Da lì puoi muovere, copiare, eliminare o modificare i valori all'interno del mattoncino usando l'editor di formule.</string>
+	
+	<string name="step9_title">9. Navigare all'interno dell'app</string>
+	<string name="step9_description"></string>
+	<string name="step9_additional_text_1">Usa il pulsante Indietro di Android per navigare nell'app.</string>
+	<string name="step9_additional_text_2">Vai indietro di una schermata alla pagina iniziale del tuo oggetto. Da qui puoi gestire gli script ma anche gli aspetti e i suoni associati all'oggetto. Da qui puoi rinominare, copiare, aggiugere o eliminare aspetti e suoni.</string>
+	<string name="step9_additional_text_3">Se premi ancora sul pusante indietro di Android vai ad una schermata con tutti gli oggetti e lo sfondo.</string>
+	
+	<string name="step10_title">10. Cambia lo sfondo</string>
+	<string name="step10_description">Questa è una panoramica di tutti gli oggetti e dello sfondo associati ad un singolo programma.</string>
+	<string name="step10_additional_text_1">Lo sfondo è come un qualsiasi oggetto, ma puoi avere solo uno sfondo.</string>
+	<string name="step10_additional_text_2">Anche allo sfondo puoi aggiungere script suoni e aspetti nello stesso modo che faresti con un qualsiasi altro oggetto.</string>
+	
+	<string name="step11_title">11. Menu principale</string>
+	<string name="step11_description">Usa il pulsante indiero di Android per ottenere questa schermata.</string>
+	<string name="step11_additional_text_1">Continua con il programma attualmente aperto.</string>
+	<string name="step11_additional_text_2">Aggiungi un nuovo programma.</string>
+	<string name="step11_additional_text_3">Vedi tutti i tuoi programmi locali.</string>
+	<string name="step11_additional_text_4">Vai al sito di aiuto e discuti con altri utenti.</string>
+	<string name="step11_additional_text_5">Esplora il mondo dei programmi di Pocket Code. Scarica e modifica i programmi che ti piacciono.</string>
+	<string name="step11_additional_text_6">Invia il programma attualmente aperto.</string>
+
+</strings>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="registration_mail_subject">La tua registrazione per {*appplication_name*}</string>
+  <string name="registration_mail_text_row1">Congratulaioni e benvenuti nella comunità {*appplication_url*}.</string>
+  <string name="registration_mail_text_row2">Si prega di conservare questa e-mail. Le informazioni sulla registrazione sono le seguenti:</string>
+  <string name="registration_mail_text_row3">Nome utente: {*username*}</string>
+  <string name="registration_mail_text_row5">Password: {*password*}</string>
+  <string name="registration_mail_text_row6">Puoi usare il tuo nome utente e la tua password per accedere alla cominità {*appplication_name*}.</string>
+  <string name="registration_mail_text_row7">Per farlo, basta visitare la seguente pagina:</string>
+  <string name="registration_mail_text_row8">Per modificare i dettagli del profilo, visitare questa pagina:</string>
+  <string name="registration_mail_text_row9">Nel caso in cui si dimentichi la password, è possibile ripristinarla utilizzando l'indirizzo email o lo username associato all'account in fase di registrazione.</string>
+  <string name="registration_mail_text_row10">Cordiali saluti,</string>
+  <string name="registration_mail_text_row11">Il Team di {*appplication_name*}</string>
+
+  <string name="recovery_mail_subject">Ripristino password per {*appplication_name*}</string>
+  <string name="recovery_mail_text_row1">Gentile {*username*}.</string>
+  <string name="recovery_mail_text_row2">Hai richesto di ripristinare la password su {*appplication_url*} perché dimenticata. Se la richiesta non è partita da te ignora questa comunicazione. Questa richiesta scade automaticamente dopo 24 ore.</string>
+  <string name="recovery_mail_text_row3">Per reimpostare la password e crearne una nuova, visitare la seguente pagina:</string>
+  <string name="recovery_mail_text_row5">Puoi usare il tuo nome utente e la tua password per accedere alla cominità {*appplication_name*}.</string>
+  <string name="recovery_mail_text_row6">Per farlo, basta visitare la seguente pagina:</string>
+  <string name="recovery_mail_text_row7">Per modificare i dettagli del profilo, visitare questa pagina:</string>
+  <string name="recovery_mail_text_row8">Cordiali saluti,</string>
+  <string name="recovery_mail_text_row9">Il Team di {*appplication_name*}</string>
+
+	<string name="email_validation_subject">E-mail di verifica per {*appplication_name*}</string>
+  <string name="email_validation_text_row1">Gentile {*username*}, per procedere con l'aggiunta di un nuovo indirizzo e-mail fai clic sul link qui sotto.</string>
+  <string name="email_validation_text_row2">Cordiali saluti,</string>
+  <string name="email_validation_text_row3">Il Team di {*appplication_name*}</string>
+</strings>
