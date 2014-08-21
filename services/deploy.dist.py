@@ -168,7 +168,7 @@ if __name__ == '__main__':
 	parameter = 'empty'
 	try:
 		if sys.argv[1] == 'webtest':
-			deploy = Deploy(RemoteShell('web-test.catrob.at', 'ask', 'coordinator', 'for', 'access'))
+			deploy = Deploy(RemoteShell('catrobat-web-test.ist.tugraz.at', 'unpriv', 'cep8neewth3yav6a', 22, '/var/www/webtest'))
 			if len(sys.argv) > 2:
 				deploy.run(files=sys.argv[2])
 			else:
