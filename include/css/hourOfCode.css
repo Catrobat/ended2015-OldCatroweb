@@ -61,6 +61,7 @@
   -moz-border-radius: 20px;
   border-radius: 20px;
   padding-bottom: 2em;
+  padding-top: 5px;
 }
 
 #wrapper article .hide {
@@ -76,9 +77,47 @@
   cursor: pointer;
 }
 
-#wrapper article .detailHeaderCenter {
+#wrapper article #detailHeaderNavigation {
   float: left;
   width: 70%;
+  text-align: center;
+  font-size: 18px;  
+}
+
+#wrapper article .detailHeaderNav {
+  display: table;
+  margin: 0 auto;
+}
+
+#wrapper article div.navigationPoints {
+  background-color: #17a5b8;
+  color: #FFFFFF;
+  width: 35px;
+  height: 35px;
+  float: left;
+  border-radius: 50%;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+#wrapper article a.stepLinks {
+  cursor: pointer;
+  line-height: 35px;
+}
+
+#wrapper article div.linkBackground {
+  background-color: #17a5b8;
+  width: 35px;
+  height: 35px;
+  float: left;
+  border-radius: 50%;
+  margin-left: 0.1em;
+  margin-right: 0.1em;
+}
+
+#wrapper article .detailHeaderCenter {
+  float: left;
+  width: 100%;
   min-height: 50px;
   line-height: 50px;
   font-size: 1.5em;
@@ -155,15 +194,24 @@
   width: 80%;
 }
 
-.arrowRight {
+.arrow {
   margin: 0 auto;
-  transform: rotate(-90deg);
-  -ms-transform: rotate(-90deg);
-  -webkit-transform: rotate(-90deg);
   width: 35px;
   height: 35px;
   background-image: url('../images/symbols/sprite_icons_web.png');
   background-position: 0 -175px;
+}
+
+.left {
+  transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  -webkit-transform: rotate(90deg);
+}
+
+.right {
+  transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  -webkit-transform: rotate(-90deg);
 }
 
 @media screen and (max-width: 840px) {
