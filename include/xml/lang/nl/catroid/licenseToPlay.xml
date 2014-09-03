@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2013 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+	<string name="title">Licentie om te spelen - Ere wie ere toekomt en deel</string>
+
+	<string name="project_licence_part1">
+		Verbeeld je dat elk Catrobat-programma een taart is, een heel speciale taart en je krijgt er het recept ook bij (programmeerblokken).
+		Alle leden van de Catrobat-gemeenschap delen hun taarten met de recepten. Dit betekent dat jij kunt smullen van de taarten en kunt leren hoe je deze zelf kunt maken!
+	</string>
+	<string name="project_licence_part2">
+		Er zijn geen geheime recepten: het recept om deze taarten te maken zijn beschikbaar voor iedereen om te gebruik, hergebruiken, veranderen en kunnen als
+		inspiratie dienen voor nieuwe ideeën... ik bedoel taarten.
+	</string>
+	<string name="project_licence_part3">
+		Je kunt de taarten opeten, maar ook de recepten van anderen kopiëren en gebruiken voor je eigen taart, met misschien wel andere ingrediënten.
+		Deze vrijheid komt met twee simpele voorwaarden:
+	</string>
+	<string name="project_licence_part3_list_element1">deel je taart, samen met het recept</string>
+	<string name="project_licence_part3_list_element2">vertel wie je geïnspireerd heeft</string>
+	<string name="project_licence_part4">
+		Bij het maken van de Catrobat-gemeenschap hebben we besloten dat we deze werkwijze gebruiken, omdat we geloven dat het leren en creativiteit in de gemeenschap ondersteunt.
+		Door recepten en ingrediënten (scripts en grafisch werk) te delen, kan iedereen op ideeën van anderen bouwen en iedereen heeft daar voordeel bij.
+	</string>
+	<string name="project_licence_part5">
+		Bij het ontwerpen van de Catrobat-website hebben we functies toegevoegd die mensen aanmoedigen om te delen en te vertellen wie je geïnspireerd hebben. Op elke programmapagina, kun
+		je altijd het originele script van het programma downloaden. Als je een programma hergebruikt (het script en het grafisch werk aanpassen en het resultaat delen),
+		moedigen we je aan om te vertellen wie je geïnspireerd heeft. Dit doe je in de programmanotities, waarin je de mensen en programma's noemt die je geïnspireerd hebben.
+	</string>
+	<string name="project_licence_learn_more_new">
+		Leer meer over de gebruiksvoorwaarden voor de online Catrobat-gemeenschap op{*termsOfUseLink*}.
+	</string>
+
+  <string name="project_licence_dated">Version 1.1, 2 April 2013</string>
+</strings>

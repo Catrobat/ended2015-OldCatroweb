@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2013 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="myTitle">Mijn profiel</string>
+  <string name="userTitle">Gebruikersprofiel</string>
+
+  <string name="showMore">toon meer</string>
+
+
+  <string name="changeAvatar">Verander afbeelding</string>
+  <string name="password">Wachtwoord</string>
+  <string name="email">Mijn eerste e-mailadres</string>
+  <string name="second_email">Mijn tweede e-mailadres</string>
+  <string name="projects">Programma's</string>
+  <string name="country">Land</string>
+
+
+  <string name="my_projects">Mijn programma's</string>
+  <string name="user_projects">Programma's van</string>
+  <string name="no_projects_available">Er zijn geen programma's.</string>
+  <string name="new_password">Nieuw wachtwoord</string>
+  <string name="repeat_password">Herhaal wachtwoord</string>
+  <string name="save">wijzigingen opslaan</string>
+  <string name="saved">opgeslagen!</string>
+
+  <string name="really_delete_email">Weet je zeker dat je dit e-mailadres wilt verwijderen</string>
+  <string name="really_delete_project">Weet je zeker dat je je programma wilt verwijderen</string>
+  <string name="image_too_big">De gekozen afbeelding is te groot, gebruik geen afbeeldingen groter dan 5Mb.</string>
+  <string name="other">Overig</string>
+  <string name="avatar_success">Je avatar is succesvol aangepast.</string>
+  <string name="password_success">Je wachtwoord is succesvol gewijzigd.</string>
+  <string name="email_add_success">Het nieuwe e-mail adres is succesvol toegevoegd. Controleer je Postvak In om het te bevestigen.</string>
+  <string name="edit_one_entry">Je kunt je e-mailadressen en wachtwoorden niet tegelijk aanpassen.</string>
+</strings>

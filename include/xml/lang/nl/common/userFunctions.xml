@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2013 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="registration_mail_subject">Jouw {*appplication_name*}-registratie</string>
+  <string name="registration_mail_text_row1">Gefeliciteerd en welkom bij de {*appplication_url*}-gemeenschap.</string>
+  <string name="registration_mail_text_row2">Bewaar deze e-mail alsjeblieft. Je inloggegevens staan hieronder:</string>
+  <string name="registration_mail_text_row3">Gebruikersnaam: {*username*}</string>
+  <string name="registration_mail_text_row5">Wachtwoord: {*password*}</string>
+  <string name="registration_mail_text_row6">Je kunt je gebruikersnaam en wachtwoord altijd gebruiken om de {*appplication_name*}-gemeenschap te bereiken.</string>
+  <string name="registration_mail_text_row7">Ga naar de volgende pagina, om dat te doen:</string>
+  <string name="registration_mail_text_row8">Om je profiel aan te passen, ga je naar deze pagina:</string>
+  <string name="registration_mail_text_row9">Mocht je je wachtwoord zijn vergeten, dan kun je een opnieuw instellen met behulp van je e-mailadres of je gebruikersnaam die bij je account horen.</string>
+  <string name="registration_mail_text_row10">Met vriendelijke groeten,</string>
+  <string name="registration_mail_text_row11">Het {*appplication_name*}-team</string>
+
+  <string name="recovery_mail_subject">Jouw {*appplication_name*}-wachtwoordherstel</string>
+  <string name="recovery_mail_text_row1">Beste {*username*}.</string>
+  <string name="recovery_mail_text_row2">Je hebt gevraagd om je wachtwoord opnieuw in te stellen voor {*appplication_url*}, omdat je je wachtwoord vergeten bent. Als je hier niet om gevraagd hebt, dan mag je deze e-mail negeren. Het vervalt na 24 uur en wordt daarna nutteloos.</string>
+  <string name="recovery_mail_text_row3">Om je wachtwoord opnieuw in te stellen, ga je naar de volgende pagina:</string>
+  <string name="recovery_mail_text_row5">Je kunt je gebruikersnaam of je wachtwoord altijd gebruiken om de {*appplication_name*}-gemeenschap te bereiken.</string>
+  <string name="recovery_mail_text_row6">Ga naar de volgende pagina, om dat te doen:</string>
+  <string name="recovery_mail_text_row7">Om je profiel aan te passen, ga je naar deze pagina:</string>
+  <string name="recovery_mail_text_row8">Met vriendelijke groeten,</string>
+  <string name="recovery_mail_text_row9">Het {*appplication_name*}-team</string>
+
+	<string name="email_validation_subject">Jouw {*appplication_name*} e-mailbevestiging</string>
+  <string name="email_validation_text_row1">Beste {*username*}, door op de link hieronder te klikken bevestig je je e-mailadres en wordt deze toegevoegd aan je account.</string>
+  <string name="email_validation_text_row2">Met vriendelijke groeten,</string>
+  <string name="email_validation_text_row3">Het {*appplication_name*}-team</string>
+</strings>

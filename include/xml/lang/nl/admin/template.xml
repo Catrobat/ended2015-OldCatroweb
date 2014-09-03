@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2013 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="template_common_one_minute_ago">1 minuut geleden</string>
+  <string name="template_common_less_than_a_minute_ago">minder dan een minuut geleden</string>
+  <string name="template_common_minutes_ago">{*minuteCount*} minuten geleden</string>
+  <string name="template_common_one_hour_ago">ongeveer 1 uur geleden</string>
+  <string name="template_common_hours_ago">ongeveer {*hourCount*} uren geleden</string>
+  <string name="template_common_one_day_ago">1 dag geleden</string>
+  <string name="template_common_days_ago">ongeveer {*dayCount*} dagen geleden</string>
+  <string name="template_common_one_month_ago">1 maand geleden</string>
+  <string name="template_common_months_ago">ongeveer {*monthCount*} maanden geleden</string>
+  <string name="template_common_one_year_ago">ongeveer 1 jaar geleden</string>
+  <string name="template_common_years_ago">ongeveer {*yearCount*} jaren geleden</string>
+  <string name="template_common_over_years_ago">meer dan {*yearCount*} jaren geleden</string>
+  <string name="template_common_january">Januari</string>
+  <string name="template_common_february">Februari</string>
+  <string name="template_common_march">Maart</string>
+  <string name="template_common_april">April</string>
+  <string name="template_common_may">Mei</string>
+  <string name="template_common_june">Juni</string>
+  <string name="template_common_july">Juli</string>
+  <string name="template_common_august">Augustus</string>
+  <string name="template_common_september">September</string>
+  <string name="template_common_october">Oktober</string>
+  <string name="template_common_november">November</string>
+  <string name="template_common_december">December</string>
+  <string name="template_common_arabic">Arabisch</string>
+  <string name="template_common_bulgarian">Bulgaars</string>
+  <string name="template_common_catalan">Catalaans</string>
+  <string name="template_common_chinese_simplified_han">Chinees (versimpeld Han)</string>
+  <string name="template_common_chinese_traditional_han">Chinees (traditioneel Han)</string>
+  <string name="template_common_croatian">Kroatisch</string>
+  <string name="template_common_czech">Tsjechisch</string>
+  <string name="template_common_danish">Deens</string>
+  <string name="template_common_dutch">Nederlands</string>
+  <string name="template_common_english_united_kingdom">Engels (Verenigd Koninkrijk)</string>
+  <string name="template_common_english_united_states">Engels (Verenigde Staten)</string>
+  <string name="template_common_estonian">Ests</string>
+  <string name="template_common_filipino">Filipijns</string>
+  <string name="template_common_finnish">Fins</string>
+  <string name="template_common_french">Frans</string>
+  <string name="template_common_german">Duits</string>
+  <string name="template_common_greek">Grieks</string>
+  <string name="template_common_hebrew">Hebreeuws</string>
+  <string name="template_common_hindi">Hindi</string>
+  <string name="template_common_hungarian">Hongaars</string>
+  <string name="template_common_indonesian">Indonesisch</string>
+  <string name="template_common_italian">Italiaans</string>
+  <string name="template_common_japanese">Japans</string>
+  <string name="template_common_korean">Koreaans</string>
+  <string name="template_common_latvian">Lets</string>
+  <string name="template_common_lithuanian">Litouws</string>
+  <string name="template_common_malay">Maleisisch</string>
+  <string name="template_common_norwegian">Noors</string>
+  <string name="template_common_persian">Persisch</string>
+  <string name="template_common_polish">Pools</string>
+  <string name="template_common_portuguese_brazil">Portugees (Brazilië)</string>
+  <string name="template_common_portuguese_portugal">Portugees (Portugal)</string>
+  <string name="template_common_romanian">Roemeens</string>
+  <string name="template_common_russian">Russisch</string>
+  <string name="template_common_serbian">Servisch</string>
+  <string name="template_common_slovak">Slovaaks</string>
+  <string name="template_common_slovenian">Sloveens</string>
+  <string name="template_common_spanish_latin_america">Spaans (Latijns Amerika)</string>
+  <string name="template_common_spanish_spain">Spaans (Spanje)</string>
+  <string name="template_common_swedish">Zweeds</string>
+  <string name="template_common_thai">Thais</string>
+  <string name="template_common_turkish">Turks</string>
+  <string name="template_common_ukrainian">Oekraïens</string>
+  <string name="template_common_vietnamese">Vietnamees</string>
+</strings>

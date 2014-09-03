@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2013 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Gebruiksvoorwaarden</string>
+  <string name="terms_of_use_welcome">Welkom bij de Catrobat-gemeenschap! Als onderdeel van de Catrobat-gemeenschap deel je programma's en ideeën met andere mensen:</string>
+  <string name="terms_of_use_enumeration_1">uit andere landen en culturen</string>
+  <string name="terms_of_use_enumeration_2">van verschillende leeftijd (van jonge kinderen tot tieners en grootouders)</string>
+  <string name="terms_of_use_enumeration_3">met verschillende ervaringsniveau's</string>
+  <string name="terms_of_use_your_support">We hebben je hulp nodig om ervoor te zorgen dat deze gemeenschap een ondersteunde plaats is voor iedereen. Op deze manier kun je helpen:</string>
+  <string name="terms_of_use_enumeration_4">Wees respectvol. Als je programma's deelt, hou er dan rekening mee dat mensen van verschillende leeftijden en achtergrond je bijdragen kunnen zien.</string>
+  <string name="terms_of_use_enumeration_5">Ere wie ere toekomt. Voel je vrij om aangepaste versies te maken van programma's van anderen - zorg er wel voor dat je hun naam vermeldt. De plaats hiervoor is in de programmanotities. Zie de paragraaf onder dit lijstje voor meer info over het aanpassen van andermans programma's.</string>
+  <string name="terms_of_use_enumeration_6">Wees eerlijk. Doe je niet voor als iemand anders en hou de gemeenschap niet voor de gek.</string>
+  <string name="terms_of_use_enumeration_7">Hou persoonlijke informatie privé. Deel je e-mailadres, telefoonnummer en andere contactinformatie niet.</string>
+  <string name="terms_of_use_enumeration_8">Hou deze website vriendelijk. Als je een programma of opmerking gemeen, aanvallend, te agressief of anderzins ongewenst vindt, klik dan op de 'meld als ongepast'-knop en beschrijf kort waarom. Het Catrobat-team zal je melding bekijken en eventueel het programma, opmerking of bericht verwijderen.</string>
+  <string name="terms_of_use_become_a_member">Met het Catrobat-project willen we samenwerken aanmoedigen en toestaan om elkaars creativiteit samente voegen voor de menselijkheid. Jij kunt ook een actief lid van de Catrobat-gemeenschap worden door je programma's terug te geven aan de gemeenschap als een cadeau, net zoals andere actieve leden hun programma's aan jou hebben gegeven:</string>
+  <string name="terms_of_use_enumeration_9">Door je programma te uploaden naar onze websites, accepteer je en geef je toestemming om je werk onder bepaalde vrije licenties van geüploade Catrobat-programma's vrij te geven. Net zoals de vrije licenties waaron het Catrobat-systeem zelf beschikbaar is voor jou, geven deze vrije licenties van geüploade Catrobat-programma's iedereen het recht om te leren van eerder geüpload werk van anderen en dit werk aan te passen en her te gebruiken om eigen nieuwe fascinerende spellen, animaties en andere programma's te maken. Dit zorgt ervoor dat iedereen 'op de schouders van je vrienden staat' en één daarvan ben jij! Je werk draagt bij aan de hele wereld en zal vrij zijn om door iedereen te gebruiken, ongeveer net zoals tekst en afbeeldingen die gratis toegevoegd zijn aan Wikipedia door vrijwilligers van over de hele wereld. Denk alsof dit je cadeau is voor de mensheid: je geeft aan iedereen en iedereen, die hun werk uploaden naar onze websites, geven aan jou. Dus, een geüpload programma is een cadeau van grote waarde welke de eigenaar aan jou geeft, onder de voorwaarde dat jij deelneemt aan de gemeenschap met dezelfde condities.</string>
+  <string name="terms_of_use_enumeration_10">You do not have to accept the gift; if you do, certain rules apply. The benefits of these rules are that you can learn from the work and build upon it to make even cooler stuff yourself, which you can then, e.g., again upload to our websites as your own. Another benefit is that these licenses make sure that you cannot be held liable for any problems arising to others through their use of your program.</string>
+  <string name="terms_of_use_enumeration_11">Een belangrijke bijkomende voorwaarde is dat je duidelijk de auteurs aangeeft van het werk waarop jouw werk is gebaseerd. Tegelijkertijd zullen we er hard aan werken dat jouw werk net zo duidelijk wordt vermeld door anderen, door jouw unieke naam (welke je zelf hebt gekozen als gebruikersnaam in de Catrobat-gemeenschap) en door anderen de mogelijkheid te geven hun dankbaarheid - dat ze jouw werk aan iedereen mochten geven en in het bijzonder aan hen - publiekelijk te tonen.</string>
+  <string name="terms_of_use_enumeration_12">Lees onze {*licenseofuploadedprojects*} voor de exacte juridische voorwaarden.</string>
+  <string name="terms_of_use_our_gift">Ons cadeau aan jou:</string>
+  <string name="terms_of_use_enumeration_13">We geven je al onze software en internetmiddelen welke gerelateerd zijn aan het Catrobat-systeem, bijv. de software geschreven door het Catrobat-team, onze websites en internetmiddelen, onze eigen broncode welke gerelateerd is aan het Catrobat-systeem en alle additionele materialen, zoals bijv. afbeeldingen, geluiden en teksten, nu en in de toekomst onder Catrobat's vrije licentie.</string>
+  <string name="terms_of_use_enumeration_14">Deze licenties maken deel uit van Catrobat en zijn beide gratis voor jou, alsook vrij in de zin van het jou de vrijheid geven deze te gebruiken, zoals je wilt, met enkele beperkingen om ervoor te zorgen dat het Catrobat-systeem voor altijd vrij en nuttig blijft voor iedereen</string>
+  <string name="terms_of_use_enumeration_15">Lees onze {*licenseofsystem*} voor de exacte juridische voorwaarden. De broncode van het Catrobat-systeem en ook vele andere documenten en middelen zijn beschikbaar via {*googlecode*}.</string>
+  <string name="terms_of_use_our_terms">Onze gebruiksvoorwaarden:</string>
+  <string name="terms_of_use_enumeration_16">We houden ons het recht voor om programma's, gebruikersaccounts en elk soort digitaal - naar websites van Catrobat geüpload - materiaal te weigeren, verwijderen of te verbergen, bij voorbeeld als we vinden dat een programma ongepast materiaal bevat of als een gebruiker de rechten van andere personen beperkt.</string>
+  <string name="terms_of_use_enumeration_17">Alle internetmiddelen van Catrobat worden aangeboden in de hoop dat deze nuttig zijn, maar absoluut zonder garantie.</string>
+  <string name="terms_of_use_enumeration_18">Lees onze {*termsofservice*} voor de exacte formulering van bovenstaande punten en voor bijkomende juridische voorwaarden.</string>
+  <string name="terms_of_use_check_back">Kom af en toe terug op deze pagina, aangezien we altijd proberen om onze gebruiksvoorwaarden te verbeteren.</string>
+  <string name="terms_of_use_mail_us">Op- en/of aanmerkingen en suggesties over deze gebruiksvoorwaarden kunnen gemaild worden naar {*mailus*}.</string>
+  <string name="terms_of_use_dated">Versie 1.1, 2 April 2013</string>
+</strings>
