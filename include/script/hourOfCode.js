@@ -31,6 +31,30 @@ for(i=4;i<=20;i++) {
   $(".navigation"+i).hide();
 }
 
+function initHourOfCode() {
+  var overlay = $("#imageOverlay");
+  var popup = $("#imagePopup");
+  var outerContainer = $("#outerContainer");
+  
+  overlay.width($(document).width() - 1);
+  overlay.height($(document).height());
+  
+  console.log($('html').offset().top);
+  
+  popup.css("top", "50px");
+  outerContainer.height($(window).height() - 100);
+  
+  $(overlay).click(function() {
+    $( overlay ).fadeToggle( 300, function() {});
+    $( popup ).fadeToggle( 300, function() {});
+  });
+  
+  $(popup).click(function() {
+    $( overlay ).fadeToggle( 300, function() {});
+    $( popup ).fadeToggle( 300, function() {});
+  });
+}
+
 function prev(index) {
   
   if(currentSlide > 1) {  
@@ -203,8 +227,31 @@ function hideNavigations(type) {
       }
     }
   }
+}
+
+function showImage(path, id, selector) {
   
-  $('html, body').animate({ scrollTop: $('.header').offset().top }, 'medium');
+  var container = $("#container");
+  $(container).html('<img class="img" src="'+path+'images/hourOfCode/'+id+'_'+selector+'.jpg" />');
   
+  $(".img").height($(window).height() - 108);
+  
+  $(document).ready(function() {
+    $("#container img").load(function() {
+      $("#outerContainer").width($(this).width() + 8);
+    });
+    
+    $(document).keyup(function(e) {
+      if (e.keyCode == 27) { 
+        $("#imageOverlay").fadeToggle( 300, function() {});
+        $("#imagePopup").fadeToggle( 300, function() {}); 
+      }   // esc
+    });
+    
+  });
+  
+  $("#imageOverlay").fadeToggle( 300, function() {});
+  $("#imagePopup").fadeToggle( 300, function() {});
+  window.scrollTo(0, 0);
 }
 

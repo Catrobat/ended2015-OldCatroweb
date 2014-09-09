@@ -64,6 +64,10 @@
   padding-top: 5px;
 }
 
+#wrapper article div.hourOfCodeMainContent span {
+  cursor: pointer;
+}
+
 #wrapper article .hide {
   display: none !important;
 }
@@ -143,7 +147,7 @@
   display: table-cell;
 }
 
-#wrapper article img {
+#wrapper article .hourOfCodeMain img {
   width: 80%;
 }
 
@@ -192,6 +196,47 @@
   margin: 0 auto;
   padding-top: 10px;
   width: 80%;
+}
+
+#wrapper article #imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  background-color: black;
+  filter: progid:DXImageTransform.Microsoft.Alpha(Opacity=80);
+  opacity: 0.8;
+  display: none;
+}
+
+#wrapper article #imagePopup {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  z-index: 10000;
+  text-align: center;
+  line-height: 0;
+  font-weight: normal;
+  display: none;
+}
+
+#imagePopup #outerContainer {
+  position: relative;
+  background-color: white;
+  margin: 0 auto;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
+}
+
+#imagePopup #outerContainer #container {
+  padding: 4px;
+}
+
+#imagePopup #outerContainer #container img {
+  height: 100%;
 }
 
 .arrow {

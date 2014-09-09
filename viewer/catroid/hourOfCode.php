@@ -48,12 +48,12 @@
         <?php if($i==4||$i==7||$i==8||$i==11||$i==14) {
           if($i==11) { ?>
           <div class="detailImage4">
-            <img src="images/hourOfCode/<?php echo $i."_1.jpg"?>" /><br />
+            <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
             <div><?php echo $this->languageHandler->getString('imageText'.$i."_1"); ?></div>
           </div>
           <div class="detailSpacer"><div class="arrow right"></div></div>
           <div class="detailImage4">
-            <img src="images/hourOfCode/<?php echo $i."_2.jpg"?>" /><br />
+            <span id="image_<?php echo $i."_2"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 2);'><img src="images/hourOfCode/thumbs/<?php echo $i."_2.jpg"?>" /></span><br />
             <ol>
               <li><?php echo $this->languageHandler->getString('imageText'.$i."_2_1"); ?></li>
               <li><?php echo $this->languageHandler->getString('imageText'.$i."_2_2"); ?></li>
@@ -61,24 +61,42 @@
             </ol>
           </div>
           <div class="detailSpacer"><div class="arrow right"></div></div>
-          <div class="detailImage4"><img src="images/hourOfCode/<?php echo $i."_3.jpg"?>" /><br /><div><?php echo $this->languageHandler->getString('imageText'.$i."_3"); ?></div></div>
+          <div class="detailImage4">
+            <span id="image_<?php echo $i."_3"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 3);'><img src="images/hourOfCode/thumbs/<?php echo $i."_3.jpg"?>" /></span><br />
+            <div><?php echo $this->languageHandler->getString('imageText'.$i."_3"); ?></div>
+          </div>
           <div class="detailSpacer"><div class="arrow right"></div></div>
-          <div class="detailImage4"><img src="images/hourOfCode/<?php echo $i."_4.jpg"?>" /><br /><div><?php echo $this->languageHandler->getString('imageText'.$i."_4"); ?></div></div>
+          <div class="detailImage4">
+            <span id="image_<?php echo $i."_4"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 4);'><img src="images/hourOfCode/thumbs/<?php echo $i."_4.jpg"?>" /></span><br />
+            <div><?php echo $this->languageHandler->getString('imageText'.$i."_4"); ?></div>
+          </div>
         <?php }
         else { ?>
-          <div class="detailImage4"><img src="images/hourOfCode/<?php echo $i."_1.jpg"?>" /><br /><div><?php echo $this->languageHandler->getString('imageText'.$i."_1"); ?></div></div>
+          <div class="detailImage4">
+            <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
+            <div><?php echo $this->languageHandler->getString('imageText'.$i."_1"); ?></div>
+          </div>
           <div class="detailSpacer"><div class="arrow right"></div></div>
-          <div class="detailImage4"><img src="images/hourOfCode/<?php echo $i."_2.jpg"?>" /><br /><div><?php echo $this->languageHandler->getString('imageText'.$i."_2"); ?></div></div>
+          <div class="detailImage4">
+            <span id="image_<?php echo $i."_2"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 2);'><img src="images/hourOfCode/thumbs/<?php echo $i."_2.jpg"?>" /></span><br />
+            <div><?php echo $this->languageHandler->getString('imageText'.$i."_2"); ?></div>
+          </div>
           <div class="detailSpacer"><div class="arrow right"></div></div>
-          <div class="detailImage4"><img src="images/hourOfCode/<?php echo $i."_3.jpg"?>" /><br /><div><?php echo $this->languageHandler->getString('imageText'.$i."_3"); ?></div></div>
+          <div class="detailImage4">
+            <span id="image_<?php echo $i."_3"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 3);'><img src="images/hourOfCode/thumbs/<?php echo $i."_3.jpg"?>" /></span><br />
+            <div><?php echo $this->languageHandler->getString('imageText'.$i."_3"); ?></div>
+          </div>
           <div class="detailSpacer"><div class="arrow right"></div></div>
-          <div class="detailImage4"><img src="images/hourOfCode/<?php echo $i."_4.jpg"?>" /><br /><div><?php echo $this->languageHandler->getString('imageText'.$i."_4"); ?></div></div>
+          <div class="detailImage4">
+            <span id="image_<?php echo $i."_4"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 4);'><img src="images/hourOfCode/thumbs/<?php echo $i."_4.jpg"?>" /></span><br />
+            <div><?php echo $this->languageHandler->getString('imageText'.$i."_4"); ?></div>
+          </div>
         <?php }
         }
         else { ?>
           <?php if($i == 9) {?>
             <div class="detailImage3">
-              <img src="images/hourOfCode/<?php echo $i."_1.jpg"?>" /><br />
+              <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
               <ol>
                 <li><?php echo $this->languageHandler->getString('imageText'.$i."_1_1"); ?></li>
                 <li><?php echo $this->languageHandler->getString('imageText'.$i."_1_2"); ?></li>
@@ -87,7 +105,7 @@
             </div>
             <div class="detailSpacer"><div class="arrow right"></div></div>
             <div class="detailImage3">
-              <img src="images/hourOfCode/<?php echo $i."_2.jpg"?>" /><br />
+              <span id="image_<?php echo $i."_2"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 2);'><img src="images/hourOfCode/thumbs/<?php echo $i."_2.jpg"?>" /></span><br />
               <ol>
                 <li><?php echo $this->languageHandler->getString('imageText'.$i."_2_1"); ?></li>
                 <li><?php echo $this->languageHandler->getString('imageText'.$i."_2_2"); ?></li>
@@ -96,13 +114,13 @@
             </div>
             <div class="detailSpacer"><div class="arrow right"></div></div>
             <div class="detailImage3">
-              <img src="images/hourOfCode/<?php echo $i."_3.jpg"?>" /><br />
+              <span id="image_<?php echo $i."_3"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 3);'><img src="images/hourOfCode/thumbs/<?php echo $i."_3.jpg"?>" /></span><br />
               <div><?php echo $this->languageHandler->getString('imageText'.$i."_3"); ?></div>
             </div>
           <?php }
           else if($i==10) { ?>
             <div class="detailImage3">
-              <img src="images/hourOfCode/<?php echo $i."_1.jpg"?>" /><br />
+              <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
               <ol>
                 <li><?php echo $this->languageHandler->getString('imageText'.$i."_1_1"); ?></li>
                 <li><?php echo $this->languageHandler->getString('imageText'.$i."_1_2"); ?></li>
@@ -110,7 +128,7 @@
             </div>
             <div class="detailSpacer"><div class="arrow right"></div></div>
             <div class="detailImage3">
-              <img src="images/hourOfCode/<?php echo $i."_2.jpg"?>" /><br />
+              <span id="image_<?php echo $i."_2"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 2);'><img src="images/hourOfCode/thumbs/<?php echo $i."_2.jpg"?>" /></span><br />
               <ol>
                 <li><?php echo $this->languageHandler->getString('imageText'.$i."_2_1"); ?></li>
                 <li><?php echo $this->languageHandler->getString('imageText'.$i."_2_2"); ?></li>
@@ -121,23 +139,23 @@
             </div>
             <div class="detailSpacer"><div class="arrow right"></div></div>
             <div class="detailImage3">
-              <img src="images/hourOfCode/<?php echo $i."_3.jpg"?>" /><br />
+              <span id="image_<?php echo $i."_3"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 3);'><img src="images/hourOfCode/thumbs/<?php echo $i."_3.jpg"?>" /></span><br />
               <div><?php echo $this->languageHandler->getString('imageText'.$i."_3"); ?></div>
             </div>
           <?php }
           else if($i==16) { ?>
             <div class="detailImage3">
-                <img src="images/hourOfCode/<?php echo $i."_1.jpg"?>" /><br />
+                <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
                 <div><?php echo $this->languageHandler->getString('imageText'.$i."_1"); ?></div>
               </div>
               <div class="detailSpacer"><div class="arrow right"></div></div>
               <div class="detailImage3">
-                <img src="images/hourOfCode/<?php echo $i."_2.jpg"?>" /><br />
+                <span id="image_<?php echo $i."_2"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 2);'><img src="images/hourOfCode/thumbs/<?php echo $i."_2.jpg"?>" /></span><br />
                 <div><?php echo $this->languageHandler->getString('imageText'.$i."_2"); ?></div>
               </div>
               <div class="detailSpacer"><div class="arrow right"></div></div>
               <div class="detailImage3">
-                <img src="images/hourOfCode/<?php echo $i."_3.jpg"?>" /><br />
+                <span id="image_<?php echo $i."_3"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 3);'><img src="images/hourOfCode/thumbs/<?php echo $i."_3.jpg"?>" /></span><br />
                 <ol>
                   <li><?php echo $this->languageHandler->getString('imageText'.$i."_3_1"); ?></li>
                   <li><?php echo $this->languageHandler->getString('imageText'.$i."_3_2"); ?></li>
@@ -147,17 +165,17 @@
           <?php }
           else if($i==17) { ?>
             <div class="detailImage3">
-                <img src="images/hourOfCode/<?php echo $i."_1.jpg"?>" /><br />
+                <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
                 <div><?php echo $this->languageHandler->getString('imageText'.$i."_1"); ?></div>
               </div>
               <div class="detailSpacer"><div class="arrow right"></div></div>
               <div class="detailImage3">
-                <img src="images/hourOfCode/<?php echo $i."_2.jpg"?>" /><br />
+                <span id="image_<?php echo $i."_2"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 2);'><img src="images/hourOfCode/thumbs/<?php echo $i."_2.jpg"?>" /></span><br />
                 <div><?php echo $this->languageHandler->getString('imageText'.$i."_2"); ?></div>
               </div>
               <div class="detailSpacer"><div class="arrow right"></div></div>
               <div class="detailImage3">
-                <img src="images/hourOfCode/<?php echo $i."_3.jpg"?>" /><br />
+                <span id="image_<?php echo $i."_3"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 3);'><img src="images/hourOfCode/thumbs/<?php echo $i."_3.jpg"?>" /></span><br />
                 <div><?php echo $this->languageHandler->getString('imageText'.$i."_3_1"); ?></div>
                 <ol>
                   <li><?php echo $this->languageHandler->getString('imageText'.$i."_3_2"); ?></li>
@@ -168,7 +186,7 @@
           <?php }
           else if($i==18) { ?>
             <div class="detailImage3">
-                  <img src="images/hourOfCode/<?php echo $i."_1.jpg"?>" /><br />
+                  <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
                   <ol>
                     <li><?php echo $this->languageHandler->getString('imageText'.$i."_1_1"); ?></li>
                     <li><?php echo $this->languageHandler->getString('imageText'.$i."_1_2"); ?></li>
@@ -176,28 +194,28 @@
                 </div>
                 <div class="detailSpacer"><div class="arrow right"></div></div>
                 <div class="detailImage3">
-                  <img src="images/hourOfCode/<?php echo $i."_2.jpg"?>" /><br />
+                  <span id="image_<?php echo $i."_2"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 2);'><img src="images/hourOfCode/thumbs/<?php echo $i."_2.jpg"?>" /></span><br />
                   <div><?php echo $this->languageHandler->getString('imageText'.$i."_2"); ?></div>
                 </div>
                 <div class="detailSpacer"><div class="arrow right"></div></div>
                 <div class="detailImage3">
-                  <img src="images/hourOfCode/<?php echo $i."_3.jpg"?>" /><br />
+                  <span id="image_<?php echo $i."_3"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 3);'><img src="images/hourOfCode/thumbs/<?php echo $i."_3.jpg"?>" /></span><br />
                   <div><?php echo $this->languageHandler->getString('imageText'.$i."_3"); ?></div>
                 </div>
           <?php }
           else { ?>
             <div class="detailImage3">
-              <img src="images/hourOfCode/<?php echo $i."_1.jpg"?>" /><br />
+              <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
               <div><?php echo $this->languageHandler->getString('imageText'.$i."_1"); ?></div>
             </div>
             <div class="detailSpacer"><div class="arrow right"></div></div>
             <div class="detailImage3">
-              <img src="images/hourOfCode/<?php echo $i."_2.jpg"?>" /><br />
+              <span id="image_<?php echo $i."_2"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 2);'><img src="images/hourOfCode/thumbs/<?php echo $i."_2.jpg"?>" /></span><br />
               <div><?php echo $this->languageHandler->getString('imageText'.$i."_2"); ?></div>
             </div>
             <div class="detailSpacer"><div class="arrow right"></div></div>
             <div class="detailImage3">
-              <img src="images/hourOfCode/<?php echo $i."_3.jpg"?>" /><br />
+              <span id="image_<?php echo $i."_3"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 3);'><img src="images/hourOfCode/thumbs/<?php echo $i."_3.jpg"?>" /></span><br />
               <div><?php echo $this->languageHandler->getString('imageText'.$i."_3"); ?></div>
             </div>
           <?php }?>
@@ -206,4 +224,15 @@
     </div>
     <?php }?>
   </div> 
+  <div id="imageOverlay"></div>
+  <div id="imagePopup">
+    <div id="outerContainer">
+      <div id="container">bild</div>
+    </div>
+  </div>
 </article>
+<script>
+  $(document).ready(function() {
+      initHourOfCode();
+  });
+</script>
