@@ -39,13 +39,13 @@
 	<string name="title10">#10: Loudness sensor</string>
 	<string name="title11">#11: Change some more bricks</string>
 	<string name="title12">#12: Back to objects</string>
-	<string name="title13">#13: Target object</string>
-	<string name="title14">#14: Target object #2</string>
-	<string name="title15">#15: Target object #3</string>
+	<string name="title13">#13: Object "target"</string>
+	<string name="title14">#14: Object "target"</string>
+	<string name="title15">#15: Object "target"</string>
 	<string name="title16">#16: Object "parcel"</string>
-	<string name="title17">#17: Object "parcel" #2</string>
-	<string name="title18">#18: Object "parcel" #3</string>
-	<string name="title19">#19: Object "parcel" #4</string>
+	<string name="title17">#17: Object "parcel"</string>
+	<string name="title18">#18: Object "parcel"</string>
+	<string name="title19">#19: Object "restart"</string>
 	<string name="title20">#20: Object "Background"</string>
 	
 	<string name="description1">This task explains how you get Pocket Code on your mobile device.</string>
@@ -126,8 +126,8 @@
 	<string name="imageText13_3">3.) Add four more bricks like shown above.</string>
 	<string name="imageText14_1">1.) Tap the field "y:" and choose "New".</string>
 	<string name="imageText14_2">2.) Insert “goalx” and confirm with “OK”.</string>
-	<string name="imageText14_3">3.) Tap the field "0.0" and insert the formula "random(-400/400)".</string>
-	<string name="imageText14_4">4.) Repeat the steps 1-3 for the second “Set variable” - brick, but this time label the variable „goaly“ and set the value to „random(400/-700)“.</string>
+	<string name="imageText14_3">3.) Tap the field "0.0" and insert the formula "random(-400, 400)".</string>
+	<string name="imageText14_4">4.) Repeat the steps 1-3 for the second "Set variable" - brick, but this time label the variable "goaly" and set the value to "random(400, -700)".</string>
 	<string name="imageText15_1">1.) Add a "Place at" - brick and set the field "100" to variable "goalx" and the field "200" to variable "goaly".</string>
 	<string name="imageText15_2">2.) Check your values match with the ones above.</string>
 	<string name="imageText15_3">3.) Go back until you see this screen.</string>
@@ -138,11 +138,11 @@
 	<string name="imageText16_3_3">Change the values of the “Place at” - brick to “x” and “y”.</string>
 	<string name="imageText17_1">1.) Add the above shown bricks below the last „Place at“ - brick.</string>
 	<string name="imageText17_2">2.) Modify value within the “Change Y by” - brick to “-5”. Then tap into the field “1” within the “If 1 is true then”.</string>
-	<string name="imageText17_3_1">“position_x” and “position_y” can be found in the category “Object”.</string>
-	<string name="imageText17_3_2">“goaly” and “goalx” are in the “Variables” category.</string>
-	<string name="imageText17_3_3">“AND” is in the “Logic” category.</string>
-	<string name="imageText17_3_4">"AND" in category "Logic"</string>
-	<string name="imageText18_1_1">Change the values of the “Place at” - brick to “100” and “200”.</string>
+	<string name="imageText17_3_1">Insert the shown formula and tap "OK".</string>
+	<string name="imageText17_3_2">"position_x" and "position_y" can be found in the category "Object".</string>
+	<string name="imageText17_3_3">"goaly" and "goalx" are in the "Variables" category.</string>
+	<string name="imageText17_3_4">"AND" is in the "Logic" category.</string>
+	<string name="imageText18_1_1">Change the values of the "Place at" - brick to "position_x" and "goaly+100".</string>
 	<string name="imageText18_1_2">Tap the field "Broadcast" and create a new message "win".</string>
 	<string name="imageText18_2">2.) Add the above shown bricks and modify their values.</string>
 	<string name="imageText18_3">3.) Go back until you see this screen on your device. Go to the scripts of the object “restart”.</string>
