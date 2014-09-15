@@ -34,6 +34,9 @@
   </div> 
   <div class="clear"></div>
   <div class="tutorialMain">
+    <div class="tutorialHourOfCode1" onclick="self.location.href='/hourOfCode'"><img src="images/tutorial/1_hourOfCode.png" /></div>
+    <div class="tutorialHourOfCode2"  onclick="self.location.href='/hourOfCode'"><img src="images/tutorial/2_hourOfCode.png" /></div>
+    <div class="break"></div>
     <div class="tutorialStepByStep1" onclick="self.location.href='/stepByStep'"><img src="images/tutorial/1_stepbystep.png" /></div>
     <div class="tutorialStepByStep2"  onclick="self.location.href='/stepByStep'"><img src="images/tutorial/2_stepbystep.png" /></div>
     <div class="tutorialBottomContainer">
