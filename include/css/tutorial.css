@@ -101,6 +101,7 @@
   width: 100%;
   text-align: center;
   cursor: pointer;
+  padding-bottom: 2.2em;
 }
 
 #wrapper article div.tutorialDiscuss2, #wrapper article div.tutorialHourOfCode2 {
