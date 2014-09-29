@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Yeni bir hesap oluştur</string>
+  <string name="nickname">Kullanıcı adı</string>
+  <string name="enter_nickname">Kullanıcı adı girin</string>
+  <string name="nickname_info">"Kullanıcı adı icin "komik dragon" gibi falan, bir isim uydurun "komik dragon" gibi falan  (neden gerçek adınızı kullanmaktan sakınmalısınız?)" </string>
+  <string name="password">Şifre</string>
+  <string name="enter_password">Şifrenizi girin</string>
+  <string name="email">E-posta adresi</string>
+  <string name="enter_email">E-posta adresinizi girin</string>
+  <string name="email_info">Kullanıcı adınız, şifreniz ve veri erişiminiz e-posta adresinize gönderilecektir. Bize verdiginiz E-posta adresi hiçbir koşulda üçüncü şahıslarla paylaşılmaz. Detaylar icin buraya bakın{* gizlilikPolitikasiBağlan*}.</string>
+  <string name="email_info_link_title">Gizlilik politikası</string>
+  <string name="country">Ülke</string>
+  <string name="select_country">Ülkenizi seçin</string>
+  <string name="other">Diğer</string>
+  <string name="city">Şehir</string>
+  <string name="enter_city">şehrinizi girin</string>
+  <string name="birth">Toğum Tarihi</string>
+  <string name="select_month">ay seçin</string>
+  <string name="select_year">yıl seçin</string>
+  <string name="gender">Cinsiyet</string>
+  <string name="select_gender">cinsiyetinizi seçin</string>
+  <string name="female">Kadın</string>
+  <string name="male">Erkek</string>
+  <string name="create">Hesap oluştur</string>
+  <string name="login">hesabınız varsa üye girişini deneyin</string>
+  <string name="password_recover">şifrenizi unuttuysanız buraya tıklayın</string>
+  <string name="additional_options">Devam etmek için diğer seçenekler:</string>
+  <string name="registration_success">Kayıt başarılı!</string>
+</strings>

@@ -25,7 +25,7 @@
     <string name="recommended">Featured</string>
     <string name="newestProjects">desc&#x103;rc&#x103;ri</string>
     <string name="mostDownloaded">Proiectele noi.</string>
-    <string name="downloaded">downloads</string>
+    <string name="downloaded">Descărcări</string>
     <string name="mostViewed">Most Viewed</string>
-    <string name="viewed">views</string>
+    <string name="viewed">vizualizari</string>
 </strings>

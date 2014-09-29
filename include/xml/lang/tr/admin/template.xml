@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="template_common_one_minute_ago">1 dakika önce</string>
+  <string name="template_common_less_than_a_minute_ago">bir dakikadan daha az süre önce</string>
+  <string name="template_common_minutes_ago">{* dakikaSayısı *} dakika önce</string>
+  <string name="template_common_one_hour_ago">1 saat kadar önce</string>
+  <string name="template_common_hours_ago">hakkında {* saatSayısı *} saat önce</string>
+  <string name="template_common_one_day_ago">1 gün önce</string>
+  <string name="template_common_days_ago">hakkında {* günSayısı *} gün önce</string>
+  <string name="template_common_one_month_ago">1 ay önce</string>
+  <string name="template_common_months_ago">hakkında {*ay Sayısı *} ay önce</string>
+  <string name="template_common_one_year_ago">yaklaşık 1 yıl önce</string>
+  <string name="template_common_years_ago">hakkında {*  yıl Sayısı *} yıl önce</string>
+  <string name="template_common_over_years_ago"> {* yıl Sayısı *} yıldan daha önce</string>
+  <string name="template_common_january">Ocak</string>
+  <string name="template_common_february">Şubat</string>
+  <string name="template_common_march">Mart</string>
+  <string name="template_common_april">Nisan</string>
+  <string name="template_common_may">Mayıs</string>
+  <string name="template_common_june">Haziran</string>
+  <string name="template_common_july">Temmuz</string>
+  <string name="template_common_august">Ağustos</string>
+  <string name="template_common_september">Eylül</string>
+  <string name="template_common_october">Ekim</string>
+  <string name="template_common_november">Kasım</string>
+  <string name="template_common_december">Aralık</string>
+  <string name="template_common_arabic">Arapça</string>
+  <string name="template_common_bulgarian">Bulgarca</string>
+  <string name="template_common_catalan">Katalanca</string>
+  <string name="template_common_chinese_simplified_han">Çince (Basitleştirilmiş Han)</string>
+  <string name="template_common_chinese_traditional_han">Çince (geleneksel Han)</string>
+  <string name="template_common_croatian">Hırvatça</string>
+  <string name="template_common_czech">Çekçe</string>
+  <string name="template_common_danish">Danimarkaca</string>
+  <string name="template_common_dutch">Hollandaca</string>
+  <string name="template_common_english_united_kingdom">İngilizce (Birleşik Krallık)</string>
+  <string name="template_common_english_united_states">İngilizce (ABD)</string>
+  <string name="template_common_estonian">Estonyaca</string>
+  <string name="template_common_filipino">Filipince</string>
+  <string name="template_common_finnish">Fince</string>
+  <string name="template_common_french">Fransızca</string>
+  <string name="template_common_german">Almanca</string>
+  <string name="template_common_greek">Yunanca</string>
+  <string name="template_common_hebrew">İbranice</string>
+  <string name="template_common_hindi">Hintçe</string>
+  <string name="template_common_hungarian">Macarca</string>
+  <string name="template_common_indonesian">Endonezyaca</string>
+  <string name="template_common_italian">İtalyanca</string>
+  <string name="template_common_japanese">Japonca</string>
+  <string name="template_common_korean">Korece</string>
+  <string name="template_common_latvian">Letonyaca</string>
+  <string name="template_common_lithuanian">Litvanyaca</string>
+  <string name="template_common_malay">Malayca</string>
+  <string name="template_common_norwegian">Norveççe</string>
+  <string name="template_common_persian">Farsça</string>
+  <string name="template_common_polish">Polonyaca</string>
+  <string name="template_common_portuguese_brazil">Portekizce (Brezilya)</string>
+  <string name="template_common_portuguese_portugal">Portekizce (Portekiz)</string>
+  <string name="template_common_romanian">Romence</string>
+  <string name="template_common_russian">Rusça</string>
+  <string name="template_common_serbian">Sırpça</string>
+  <string name="template_common_slovak">Slovakça</string>
+  <string name="template_common_slovenian">Slovakça</string>
+  <string name="template_common_spanish_latin_america">İspanyolca (Latin Amerika)</string>
+  <string name="template_common_spanish_spain">İspanyolca (İspanya)</string>
+  <string name="template_common_swedish">İsveççe</string>
+  <string name="template_common_thai">Taylandca</string>
+  <string name="template_common_turkish">Türkçe</string>
+  <string name="template_common_ukrainian">Ukraynaca</string>
+  <string name="template_common_vietnamese">Vietnamca</string>
+</strings>

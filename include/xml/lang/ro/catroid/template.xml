@@ -56,7 +56,7 @@
   <string name="template_footer_imprint_link">Englez&#x103; (Regatul Unit)</string>
   <string name="template_footer_contact_link">Englez&#x103; (Statele Unite)</string>
   <string name="template_footer_tutorial_link">Eston&#x103;</string>
-  <string name="template_footer_rights_reserved">License to play</string>
+  <string name="template_footer_rights_reserved">Licenţă pentru a juca</string>
   
   <string name="template_common_one_minute_ago">Finlandez&#x103;</string>
   <string name="template_common_less_than_a_minute_ago">{*minuteCount*} minute &#xEE;n urm&#x103;</string>

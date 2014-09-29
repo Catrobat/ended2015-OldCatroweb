@@ -23,5 +23,5 @@
 -->
 <strings>
 	<string name="default_project_name">Dein Projekt wurde erfolgreich hinaufgeladen!</string>
-	<string name="upload_successfull">Your program was uploaded successfully!</string>
+	<string name="upload_successfull">Dein Programm wurde erfolgreich hochgeladen!</string>
 </strings>

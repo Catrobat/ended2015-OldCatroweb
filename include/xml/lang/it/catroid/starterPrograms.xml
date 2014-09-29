@@ -22,8 +22,8 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-	<string name="title">Programmi di avvio</string>
-  <string name="head_text1">Prova questi programmi di avvio. Guardali per apportare modifiche e aggiungere le tue idee.</string>
+	<string name="title">Programmi per iniziare</string>
+  <string name="head_text1">Per iniziare, prova questi programmi. Guarda a come sono fatti per apportare modifiche e aggiungere tue idee.</string>
   
   <string name="group1">Giochi</string>
   <string name="group2">Animazioni</string>

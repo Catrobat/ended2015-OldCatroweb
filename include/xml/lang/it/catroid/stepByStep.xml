@@ -56,14 +56,14 @@
 	<string name="step4_additional_text_2">Scegli il mattoncino sotto il mattoncino "Scivola".</string>
 	<string name="step4_additional_text_3">Tocca dentro l'elenco a discesa per creare un nuovo aspetto.</string>
 	<string name="step4_additional_text_4">Scegli, come prima, la sorgente dell'immagine.</string>
-	<string name="step4_additional_text_5">Ora dovi selezionare la nuova immagine.</string>
-	<string name="step4_additional_text_6">Tocca play per vedere il comportamento in azione.</string>
+	<string name="step4_additional_text_5">Ora devi selezionare la nuova immagine.</string>
+	<string name="step4_additional_text_6">Tocca play per vedere in azione le modifiche.</string>
 	
 	<string name="step5_title">5. Parla</string>
 	<string name="step5_description">Ora scoprirai il modo di far parlare un oggetto.</string>
 	<string name="step5_additional_text_1">Scegli il mattoncino "Parla". L'oggetto pronuncerà il testo, quando viene eseguito questo mattoncino.</string>
-	<string name="step5_additional_text_2">Metti il mattoncino sotto il mattoncino "Cambia aspetto".</string>
-	<string name="step5_additional_text_3">Tocca play per vedere il comportamento in azione.</string>
+	<string name="step5_additional_text_2">Metti il mattoncino sotto il mattoncino "Passa all'aspetto".</string>
+	<string name="step5_additional_text_3">Tocca play per vedere in azione le modifiche.</string>
 	
 	<string name="step6_title">6. Ancora e ancora</string>
 	<string name="step6_description">Qui si illustra come far ripetere agli oggetti un certo comportamento.</string>
@@ -72,7 +72,7 @@
 	<string name="step6_additional_text_3">Aggiungi un altro mattoncino "Scivola".</string>
 	<string name="step6_additional_text_4">Posiziona il mattoncino "Scivola"  prima del mattoncino "Fine del ciclo". </string>
 	<string name="step6_additional_text_5">Premi sulla casella di testo di x e poi quella di y e scrivi il valore 0.</string>
-	<string name="step6_additional_text_6">Tocca play per vedere il comportamento in azione.</string>
+	<string name="step6_additional_text_6">Tocca play per vedere in azione le modifiche.</string>
 	
 	<string name="step7_title">7. Toccare è la soluzione a tutto.</string>
 	<string name="step7_description">Puoi anche controllare il comportamento dell'oggetto sulla scena quando il programma è in esecuzione.</string>
@@ -80,7 +80,7 @@
 	<string name="step7_additional_text_2">Posizionare "Quando premuto" sotto gli altri mattoncini.</string>
 	<string name="step7_additional_text_3">Scegli il mattoncino "Gira a destra" e posizionalo sotto il mattoncino "Quando premuto".</string>
 	<string name="step7_additional_text_4">Ora lo script è pronto.</string>
-	<string name="step7_additional_text_5">Premi Play per vedere il comportamento sulla scena. Se ora premi sull'oggetto, esso si gira.</string>
+	<string name="step7_additional_text_5">Tocca play per vedere in azione le modifiche. Se ora premi sull'oggetto, esso si gira.</string>
 	
 	<string name="step8_title">8. Copia, elimina o modifica un mattoncino</string>
 	<string name="step8_description"></string>

@@ -22,24 +22,24 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded">&#xEE;nc&#x103;rcat</string>
-  <string name="updated">de {*nicknameString*}</string>
-  <string name="uploaded_by">Login</string>
-  <string name="login">Desc&#x103;rcare</string>
-  <string name="download_button">Download</string>
-  <string name="filesize">De ce crede&#x21B;i c&#x103; acest proiect este necorespunz&#x103;tor?</string>
-  <string name="report_as_inappropriate">Raportare</string>
-  <string name="report_as_inappropriate_label">Anulare</string>
-  <string name="report_as_inappropriate_please_login">introduce&#x21B;i un motiv</string>
-  <string name="report_as_inappropriate_own_project">vizualiz&#x103;ri</string>
-  <string name="report_as_inappropriate_already_flagged">desc&#x103;rc&#x103;ri</string>
-  <string name="report">Report</string>
+  <string name="uploaded">încărcat</string>
+  <string name="updated">actualizat</string>
+  <string name="uploaded_by">de {*nicknameString*}</string>
+  <string name="login">login</string>
+  <string name="download_button">Descarca</string>
+  <string name="filesize">mare</string>
+  <string name="report_as_inappropriate">Raportare ca necorespunzător</string>
+  <string name="report_as_inappropriate_label">De ce crezi că acest program este necorespunzător?</string>
+  <string name="report_as_inappropriate_please_login">Vă rugăm să {*login_link*} pentru a raporta acest program ca fiind necorespunzător.</string>
+  <string name="report_as_inappropriate_own_project">Nu pot semnaliza propriul program.</string>
+  <string name="report_as_inappropriate_already_flagged">Deja aţi semnalizat acest program ca fiind necorespunzător.</string>
+  <string name="report">Raport</string>
   <string name="cancel">Anulare</string>
-  <string name="flag_reason_placeholder">Enter a reason</string>
-  <string name="some_rights_reserved">License to play</string>
-  <string name="views">views</string>
-  <string name="downloads">downloads</string>
-  <string name="language_version_info_text">Catrobat Language version:</string>
-  <string name="description">Description</string>
-  <string name="no_description_available">No description available.</string>
+  <string name="flag_reason_placeholder">Introduceţi un motiv</string>
+  <string name="some_rights_reserved">Licenţă pentru a juca</string>
+  <string name="views">vizualizari</string>
+  <string name="downloads">Descărcări</string>
+  <string name="language_version_info_text">Versiunea de limbaj Catrobat:</string>
+  <string name="description">Descrierea</string>
+  <string name="no_description_available">Nici o descriere disponibilă.</string>
 </strings>

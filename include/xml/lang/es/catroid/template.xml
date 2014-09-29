@@ -37,7 +37,7 @@
   <string name="template_header_menu">Menu</string>
   <string name="template_header_home">Home</string>
   <string name="template_header_profile">Profile</string>
-  <string name="template_header_search">Búsqueda</string>
+  <string name="template_header_search">Search</string>
   <string name="template_header_search_for_projects">Search for programs</string>
   <string name="template_header_my_profile">My Profile</string>
   <string name="template_header_change_profile">Change Profile</string>
@@ -45,7 +45,7 @@
 
   <string name="template_body_nojs">Please enable JavaScript in your browser.</string>
   
-  <string name="template_footer_search_header">Búsqueda</string>  
+  <string name="template_footer_search_header">Search</string>  
   <string name="template_footer_more">more</string>
   <string name="template_footer_less">less</string>
   <string name="template_footer_about">About</string>

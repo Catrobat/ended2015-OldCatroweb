@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+
+  <string name="starting_position">Başlangıç konumu:</string>
+  
+	<string name="title">Adım adım tanıtım</string>
+	
+	<string name="step1_title">1. Yeni bir program yapın</string>
+	<string name="step1_description"></string>
+	<string name="step1_additional_text_1">"Yeni"'ye dokunun.</string>
+	<string name="step1_additional_text_2">Program adı girin, "boş program oluştur"'u seçin ve "OK"ye dokunun.</string>
+	
+  <string name="step2_title">2. Yeni bir nesne oluşturun</string>
+	<string name="step2_description"></string>
+	<string name="step2_additional_text_1">Dokunun:</string>
+	<string name="step2_additional_text_2">Yeni nesnenin ilk görünümü icin kaynak seçin.</string>
+	<string name="step2_additional_text_3">Yeni bir görünüm çizin.</string>
+	<string name="step2_additional_text_4">Galeriden seçin.</string>
+	<string name="step2_additional_text_5">Fotoğraf Çek.</string>
+  <string name="step2_additional_text_6">Bir nesne adı girin ve nesne oluşturmak için “OK”'ye dokunun.</string>  
+
+  <string name="step3_title">3. Hareket etmeye başla</string>
+	<string name="step3_description"></string>
+	<string name="step3_additional_text_1">Dokunun:</string>
+	<string name="step3_additional_text_2">Kullandığımız ilk tuğla "Hareket" kategorisi dışında.</string>
+	<string name="step3_additional_text_3">"Kay" tuğlasını seçin. Nesne sahnedeki tugla tarafından tanımlanan konuma taşınacaktır.</string>
+	<string name="step3_additional_text_4"> Kayan nesneyi görmek için sahne alanı'na gidin ve "Oynat"a dokunun.</string>
+	<string name="step3_additional_text_5">Sahne alanı'ndan geri gitmek için 'Android Geri Düğmesi'ni kullanın.</string>
+	<string name="step3_additional_text_6">Tuğla yüzer durumda. Yapıştırmak için tuğlayı istediğiniz konuma taşıyın. Eklenmiş durumda olan tuğlalara dokunarak yüzer duruma getirdikten sonra yine taşıyabilirsiniz.</string>
+  
+  <string name="step4_title">4. Görünümü değiştir</string>
+	<string name="step4_description">Nesnenizin görünümünü değiştirebilirsiniz.</string>
+	<string name="step4_additional_text_1">"Görünüm'e geç" tuğlasını seçin. Bu tuğla ile görünüm seçimi yapabilir yada yeni bir görünüm oluşturabilirsiniz.</string>
+	<string name="step4_additional_text_2">Tuğlayı "Kayma" - tuğlasının altına oturtun.</string>
+	<string name="step4_additional_text_3">Yeni bir görünüm oluşturmak için aşağı açılan alana dokunun.</string>
+	<string name="step4_additional_text_4">Daha önceki gibi resmin kaynağını seçin.</string>
+	<string name="step4_additional_text_5">Şimdi yeni resmi seçmeniz gerekmektedir.</string>
+	<string name="step4_additional_text_6">Davranışı sahnede görmek için oyna'ya dokunun.</string>
+	
+	<string name="step5_title">5. Konuş</string>
+	<string name="step5_description">Şimdi nesneyi nasıl konuşturacagınızı öğreneceksiniz.</string>
+	<string name="step5_additional_text_1">"Konuş" tuğlasını seçin. Bu tuğla seçildiğinde nesne metni okumaya başlar.</string>
+	<string name="step5_additional_text_2">Tuğla'yı "görünüme geç" tuğlası'nın altına oturtun.</string>
+	<string name="step5_additional_text_3">Davranışı sahnede görmek için oyna'ya dokunun.</string>
+	
+	<string name="step6_title">tekrar ve tekrar</string>
+	<string name="step6_description">Bu aşamada, nesnelerin davranışlarının nasıl tekrar edileceği gösterilmektedir.</string>
+	<string name="step6_additional_text_1">"Sonsuza dek" tuğlasını seçin. Döngü'deki hersey sonsuza kadar tekrarlanır.</string>
+	<string name="step6_additional_text_2"> "Sonsuza dek" tuğlasını "Program başladığı zaman" tuğlasının altına oturtun</string>
+	<string name="step6_additional_text_3">Bir "Kayma" tuğlası daha ekleyin.</string>
+	<string name="step6_additional_text_4">"Döngünün sonu " tuğlasını "Kayma" tuğlasının alanına oturtun. </string>
+	<string name="step6_additional_text_5">Metin alanına dokunarak x ve y değerlerini 0 olarak ayarlayın.</string>
+	<string name="step6_additional_text_6">Davranışı sahnede görmek için oyna'ya dokunun.</string>
+	
+	<string name="step7_title">7. dokunmak her şeydir.</string>
+	<string name="step7_description">Nesnenin davranışını program ekranda çalışırkende denetleyebilirsiniz.</string>
+	<string name="step7_additional_text_1">"Dokunduğunuz zaman" tuğlasını seçin. Bu tuğlanın altındaki her bir tuğla sahnedeki nesneye dokunduğunuzda bir kez yürüyecektir.</string>
+	<string name="step7_additional_text_2">"Dokunduğunuz zaman" tuğlasını diger tuğlaların altına yerleştirin.</string>
+	<string name="step7_additional_text_3">"Sağa dön" tuğlasını  seçin ve "dokunduğunuz zaman" tuğlasının altına oturtun. </string>
+	<string name="step7_additional_text_4">Şimdi bu komut dosyanız var.</string>
+	<string name="step7_additional_text_5">Davranışı sahnede görmek için Oyna'ya dokunun. Nesneye şimdi dokunursanız, dönmeye başlayacaktır.</string>
+	
+	<string name="step8_title">8. Copy, delete or edit a brick</string>
+	<string name="step8_description"></string>
+	<string name="step8_additional_text_1">Single tap on the left side of each brick opens the context menu. There you can move, copy, delete or edit the values of the brick with the formula editor.</string>
+	
+	<string name="step9_title">9. Navigation in the app</string>
+	<string name="step9_description"></string>
+	<string name="step9_additional_text_1">Use the Android Back Button to navigate in the app.</string>
+	<string name="step9_additional_text_2">Go back one screen to the overview of your object. Here you can go into the scripts and also to an powerful representation of the looks and sounds of the object. There you can rename, copy add or delete looks and sounds.</string>
+	<string name="step9_additional_text_3">Use again the Android Back Button to get to the overview of your objects and your background.</string>
+	
+	<string name="step10_title">10. Change the background</string>
+	<string name="step10_description">This is the overview of your objects and the background depends to one program.</string>
+	<string name="step10_additional_text_1">The background is like an object, but you just can have on background.</string>
+	<string name="step10_additional_text_2">You can add scripts, sounds and look in the same way to the background object.</string>
+	
+	<string name="step11_title">11. Main Menu</string>
+	<string name="step11_description">Use the Android Back Button to get to this screen.</string>
+	<string name="step11_additional_text_1">Continue with your currently opened program.</string>
+	<string name="step11_additional_text_2">Add a new program.</string>
+	<string name="step11_additional_text_3">See all your local programs.</string>
+	<string name="step11_additional_text_4">Go to the help site and discuss with other users.</string>
+	<string name="step11_additional_text_5">Explore the world of the Pocket Code programs. Download and remix programs you like.</string>
+	<string name="step11_additional_text_6">Upload the program that is currently opened.</string>
+
+</strings>

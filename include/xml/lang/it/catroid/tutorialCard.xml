@@ -23,9 +23,9 @@
 -->
 <strings>
 
-  <string name="headline1">Stai pronto:</string>
+  <string name="headline1">Preparati:</string>
   <string name="headline2">Prova questo codice:</string>
-  <string name="headline3">Fai così:</string>
+  <string name="headline3">Esegui:</string>
   <string name="headline4">Ulteriore suggerimento:</string>
 
 	<string name="project1">Modifica le dimensioni</string>
@@ -47,10 +47,10 @@
 	<string name="project6_description">Usa questo codice per far parlare un oggetto.</string>
 	<string name="project7_description">Usa questo trucco per controllare un oggetto attraverso l'inclinazione del dispositivo.</string>
 	<string name="project8_description">Usa questo codice per creare una bussola.</string>
-	<string name="project9_description">Guarda a questo codice! Ti mostra come mettere in comunicazione più oggetti.</string>
+	<string name="project9_description">Guarda questo programma! Ti mostra come comunicare tra più oggetti.</string>
 	
 	<string name="project5_extratip_1">1. fai clic su "+"</string>
-	<string name="project5_extratip_2">2. Seleziona "Registratore Pocket Code"</string>
+	<string name="project5_extratip_2">2. Seleziona "Registratore di Pocket Code"</string>
 	<string name="project5_extratip_3">3. Premi l'icona per registrare il suono</string>
 	<string name="project7_extratip_1">Se troppo sensibile, dividi per 10</string>
 
