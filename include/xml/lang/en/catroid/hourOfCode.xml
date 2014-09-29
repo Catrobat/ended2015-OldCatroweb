@@ -54,7 +54,7 @@
 	<string name="description4">This task shows how to add a variable.</string>
 	<string name="description5">This task explains how to add and label a new variable.</string>
 	<string name="description6">This task shows how to set a value for a variable.</string>
-	<string name="description7">This task shows how to add a "Forever" brick.</string>
+	<string name="description7">This task shows how to add a "Forever"-loop.</string>
 	<string name="description8">In this task we’ll add some more bricks and modify the „Place at“ - brick.</string>
 	<string name="description9">In this task we modify the "Set size to" - brick and change the values of the "Set variable" - bricks.</string>
 	<string name="description10">This task shows how to add a "If 1 is true then" - brick and how you can modify it.</string>
@@ -72,8 +72,8 @@
 	<string name="imageText1_1">1.) Tap "Play Store".</string>
 	<string name="imageText1_2">2.) Search "Pocket Code".</string>
 	<string name="imageText1_3">3.) Tap "Install".</string>
-	<string name="imageText2_1">1.) Tap "Explore" in PocketCode on your Mobile Device.</string>
-	<string name="imageText2_2">2.) Tap on the CSEDWeek-banner.</string>
+	<string name="imageText2_1">1.) Tap "Explore" in Pocket Code on your Mobile Device.</string>
+	<string name="imageText2_2">2.) Tap on the banner.</string>
 	<string name="imageText2_3">3.) Download the program “Skydiving Steve”.</string>
 	<string name="imageText3_1">1.) Pull down the menu and tap on the program.</string>
 	<string name="imageText3_2">2.) Tap object "parachute".</string>
@@ -89,8 +89,8 @@
 	<string name="imageText6_2">2.) Tap in the field "0.0".</string>
 	<string name="imageText6_3">3.) Insert "-500" and tap "OK".</string>
 	<string name="imageText7_1">1.) Tap "+".</string>
-	<string name="imageText7_2">2.) Go to the “Control” category.</string>
-	<string name="imageText7_3">3.) Choose the “Forever” brick.</string>
+	<string name="imageText7_2">2.) Go to the “Control” - category.</string>
+	<string name="imageText7_3">3.) Choose the “Forever” - brick.</string>
 	<string name="imageText7_4">4.) Drag and drop the „Forever“ - brick below the „Set variable“ - bricks.</string>
 	<string name="imageText8_1">1.) Insert the shown bricks below the „Forever“ - brick.</string>
 	<string name="imageText8_2">2.) Tap in the "100" field.</string>
@@ -99,11 +99,11 @@
 	<string name="imageText9_1_1">Set the size to “20%”.</string>
 	<string name="imageText9_1_2">Change the value of the first "Set variable" - brick to "-3".</string>
 	<string name="imageText9_1_3">At the second „Set variable“ - brick tap in the field „0.0“.</string>
-	<string name="imageText9_2_1">Choose “x”.</string>
+	<string name="imageText9_2_1">Tap on "y" and choose “x”.</string>
 	<string name="imageText9_2_2">Insert "-".</string>
 	<string name="imageText9_2_3">Tap "Sensors" and choose "inclination_x".</string>
 	<string name="imageText9_2_4">Insert "x 0.5"</string>
-	<string name="imageText9_3">3.) Check if your inserted formula matches the one at the screenshot and confirm with “OK”.</string>
+	<string name="imageText9_3">3. Check if your inserted formula matches the one in the screenshot and confirm with "OK".</string>
 	<string name="imageText10_1_1">Add a “If 1 is true then” - brick and place it below the last “Change variable” - brick.</string>
 	<string name="imageText10_1_2">Tap the field with the value „0“ within the „If 1 is true then“ - brick.</string>
 	<string name="imageText10_2_1">Tap "Sensors".</string>
@@ -129,7 +129,7 @@
 	<string name="imageText14_3">3.) Tap the field "0.0" and insert the formula "random(-400, 400)".</string>
 	<string name="imageText14_4">4.) Repeat the steps 1-3 for the second "Set variable" - brick, but this time label the variable "goaly" and set the value to "random(400, -700)".</string>
 	<string name="imageText15_1">1.) Add a "Place at" - brick and set the field "100" to variable "goalx" and the field "200" to variable "goaly".</string>
-	<string name="imageText15_2">2.) Check your values match with the ones above.</string>
+	<string name="imageText15_2">2.) Check if your values match the ones above.</string>
 	<string name="imageText15_3">3.) Go back until you see this screen.</string>
 	<string name="imageText16_1">1.) Tap "parcel" and choose "Scripts".</string>
 	<string name="imageText16_2">2.) Add all the bricks shown above.</string>
@@ -137,7 +137,7 @@
 	<string name="imageText16_3_2">Tap the field „restart“ within the „When I receive“ - brick and create the new message: „start“.</string>
 	<string name="imageText16_3_3">Change the values of the “Place at” - brick to “x” and “y”.</string>
 	<string name="imageText17_1">1.) Add the above shown bricks below the last „Place at“ - brick.</string>
-	<string name="imageText17_2">2.) Modify value within the “Change Y by” - brick to “-5”. Then tap into the field “1” within the “If 1 is true then”.</string>
+	<string name="imageText17_2">2.) Modify the value within the “Change Y by” - brick to “-5”. Then tap into the field “1” within the “If 1 is true then”.</string>
 	<string name="imageText17_3_1">Insert the shown formula and tap "OK".</string>
 	<string name="imageText17_3_2">"position_x" and "position_y" can be found in the category "Object".</string>
 	<string name="imageText17_3_3">"goaly" and "goalx" are in the "Variables" category.</string>
@@ -149,8 +149,9 @@
 	<string name="imageText19_1">1.) Add the above shown bricks and modify their values.</string>
 	<string name="imageText19_2">2.) Add the above shown bricks and set the "Broadcast" - message to "restart".</string>
 	<string name="imageText19_3">3.) Go back until you see this screen, then go to the scripts of “Background”.</string>
-	<string name="imageText20_1">1.) Add the above shown bricks and set the "Broadcast" - message to "start".</string>
-	<string name="imageText20_2">2.) Tap on the "play button" and enjoy your game.</string>
-	<string name="imageText20_3">3.) …You’ve successfully completed the …</string>
+	<string name="imageText20_1_1">Add the above shown bricks and set the "Broadcast" - message to "start".</string>
+	<string name="imageText20_1_2">Tap the "Play" - button.</string>
+	<string name="imageText20_2">2.) Enjoy your game.</string>
+	<string name="imageText20_3">3.) You've successfully completed the tutorial "Skydiving Steve".</string>
 	
 </strings>

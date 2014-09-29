@@ -184,7 +184,7 @@
                 </ol>
               </div>
           <?php }
-          else if($i==18) { ?>
+          else if($i==18 || $i==20) { ?>
             <div class="detailImage3">
                   <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
                   <ol>
