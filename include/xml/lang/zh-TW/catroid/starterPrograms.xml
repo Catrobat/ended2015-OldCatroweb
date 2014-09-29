@@ -22,5 +22,12 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="pootle_language_successfully_created">traditional testing</string>
+	<string name="title">Starter Programs</string>
+  <string name="head_text1">Try out these starter programs. Look inside to make changes and add your ideas.</string>
+  
+  <string name="group1">Games</string>
+  <string name="group2">Animations</string>
+  <string name="group3">Interactive Art and Stories</string>
+  <string name="group4">Music and Dance</string>
+
 </strings>

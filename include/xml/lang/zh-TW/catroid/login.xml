@@ -22,5 +22,13 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="pootle_language_successfully_created">traditional testing</string>
+  <string name="title">Login</string>
+  <string name="password_link">Forgot password or username?</string>  
+  <string name="nickname">Username:</string>
+  <string name="password">Password:</string>
+  <string name="enter_nick">Username</string>
+  <string name="enter_password">Password</string>
+  <string name="login">Login</string>
+  <string name="additional_options">Other options to proceed:</string>
+  <string name="catroid_logout_success">Logout was successful.</string>
 </strings>
