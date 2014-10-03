@@ -32,7 +32,7 @@
   <div class="hourOfCodeMain">
     <?php for($i=1;$i<21;$i++) {?>
     <div id="content<?php echo $i;?>" class="hourOfCodeMainContent<?php echo  $i!=1?" hide":" "?>">
-        <div class="detailHeaderSide" onclick="prev(<?php echo $i; ?>);"><div class="arrow left"></div></div>
+        <div class="detailHeaderSide" onclick="prev(<?php echo $i; ?>);"><div class="arrow left hide"></div></div>
         <div id="detailHeaderNavigation">
           <div class="detailHeaderNav">
             <?php for($j=1;$j<=20;$j++) {?>

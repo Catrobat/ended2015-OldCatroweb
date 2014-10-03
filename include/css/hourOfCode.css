@@ -78,7 +78,6 @@
   height: 50px;
   line-height: 50px;
   text-align: center;
-  cursor: pointer;
 }
 
 #wrapper article #detailHeaderNavigation {
@@ -241,16 +240,18 @@
   width: 35px;
   height: 35px;
   background-image: url('../images/symbols/sprite_icons_web.png');
-  background-position: 0 -175px;
+  background-position: 0 -244px;
 }
 
 .left {
+  cursor: pointer;
   transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
 }
 
 .right {
+  cursor: pointer;
   transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
