@@ -27,6 +27,7 @@
 	<string name="prev">Prev.</string>
 	<string name="next">Next</string>
 	
+	<string name="title0">#0: TITLE</string>
 	<string name="title1">#1: Install "Pocket Code"</string>
 	<string name="title2">#2: Download Project</string>
 	<string name="title3">#3: Open Project</string>
@@ -48,6 +49,7 @@
 	<string name="title19">#19: Object "restart"</string>
 	<string name="title20">#20: Object "Background"</string>
 	
+	<string name="description0">Description.</string>
 	<string name="description1">This task explains how you get "Pocket Code" on your mobile device.</string>
 	<string name="description2">In this task you’ll get all the stuff you need for your first program in “Pocket Code”.</string>
 	<string name="description3">Let’s look inside the program.</string>
@@ -70,6 +72,9 @@
 	<string name="description19">Now you have to modify the object “restart”. You need to define the position and the behaviour of the object.</string>
 	<string name="description20">In this last task, you’ll finish the program by modifying the "background" object and finally you can start playing the game.</string>
 	
+  <string name="imageText0_1">Text1</string>
+	<string name="imageText0_2">Text2</string>
+	<string name="imageText0_3">Text3</string>
 	<string name="imageText1_1">Tap "Play Store".</string>
 	<string name="imageText1_2">Search "Pocket Code".</string>
 	<string name="imageText1_3">Tap "Install".</string>

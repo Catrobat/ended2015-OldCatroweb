@@ -30,17 +30,17 @@
   </div> 
   <div class="clear"></div>
   <div class="hourOfCodeMain">
-    <?php for($i=1;$i<21;$i++) {?>
-    <div id="content<?php echo $i;?>" class="hourOfCodeMainContent<?php echo  $i!=1?" hide":" "?>">
-        <div class="detailHeaderSide" onclick="prev(<?php echo $i; ?>);"><div class="arrow left hide"></div></div>
+    <?php for($i=0;$i<21;$i++) {?>
+    <div id="content<?php echo $i;?>" class="hourOfCodeMainContent<?php echo  $i!=0?" hide":" "?>">
+        <div class="detailHeaderSide" onclick="prev(<?php echo $i; ?>);"><div class="arrow1 left hide"></div></div>
         <div id="detailHeaderNavigation">
           <div class="detailHeaderNav">
-            <?php for($j=1;$j<=20;$j++) {?>
+            <?php for($j=0;$j<=20;$j++) {?>
               <a class="stepLinks navigation<?php echo $j; ?>" onclick="changeContainer(<?php echo $j; ?>);"><div class="linkBackground"> <?php echo $j; ?></div></a>
             <?php }?>
           </div>
         </div>
-        <div class="detailHeaderSide" onclick="next(<?php echo $i; ?>);"><div class="arrow right"></div></div>
+        <div class="detailHeaderSide" onclick="next(<?php echo $i; ?>);"><div class="arrow1 right"></div></div>
         <div class="clear"></div>
         <div class="detailHeaderCenter"><?php echo $this->languageHandler->getString('title'.$i); ?></div>
         <div class="detailDescription"><?php echo $this->languageHandler->getString('description'.$i); ?></div>
@@ -203,6 +203,34 @@
                   <div><?php echo $this->languageHandler->getString('imageText'.$i."_3"); ?></div>
                 </div>
           <?php }
+          else if($i == 0) { ?>
+            <div class="detailImage3">
+              <div class=gif-player>
+		            <div id="canvas1" class=canvas>
+			            <img class="gif-still" src="images/hourOfCode/thumbs/0_1.jpg">
+			            <img class="gif-movie" gif="images/hourOfCode/0_1.gif">
+		            </div>
+	            </div>
+            </div>
+            <div class="detailSpacer"><div class="arrow right"></div></div>
+            <div class="detailImage3">
+              <div class=gif-player>
+		            <div id="canvas2" class=canvas>
+			            <img class="gif-still" src="images/hourOfCode/thumbs/0_2.jpg">
+			            <img class="gif-movie" gif="images/hourOfCode/0_2.gif">
+		            </div>
+	            </div>
+            </div>
+            <div class="detailSpacer"><div class="arrow right"></div></div>
+            <div class="detailImage3">
+              <div class=gif-player>
+		            <div id="canvas3" class=canvas>
+			            <img class="gif-still" src="images/hourOfCode/thumbs/0_3.jpg">
+			            <img class="gif-movie" gif="images/hourOfCode/0_3.gif">
+		            </div>
+	            </div>
+            </div>
+          <?php }
           else { ?>
             <div class="detailImage3">
               <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
@@ -234,5 +262,22 @@
 <script>
   $(document).ready(function() {
       initHourOfCode();
+
+			/* instantiate player(s) */
+			$('.gif-player').each(function(){
+
+				function swapWithFade(i1,i2,done) {
+					i1.fadeOut(0, function(){ 
+						i2.fadeIn(0,done);
+					});
+				}
+				
+				var self = $(this);
+				this.gp = new gifPlayer(self, {
+					play: swapWithFade,
+					stop: swapWithFade });
+			});
+
+      
   });
 </script>

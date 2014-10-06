@@ -21,17 +21,18 @@
  *along with this program. If not, see <http://www.gnu.org/licenses/>.
  */
 
-currentSlide = 1;
-$(".navigation"+1).css("color", "#FFFFFF");
+currentSlide = 0;
+$(".navigation"+0).css("color", "#FFFFFF");
 $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
 
-for(i=4;i<=20;i++) {
-  if(i === 1 || i === 20)
+for(i=3;i<=20;i++) {
+  if(i === 0 || i === 20)
     continue;
   $(".navigation"+i).hide();
 }
 
 function initHourOfCode() {
+  
   var overlay = $("#imageOverlay");
   var popup = $("#imagePopup");
   var outerContainer = $("#outerContainer");
@@ -57,7 +58,7 @@ function initHourOfCode() {
 
 function prev(index) {
   
-  if(currentSlide > 1) {  
+  if(currentSlide > 0) {  
     
     currentSlide -= 1;
     hideNavigations(1);
@@ -91,7 +92,7 @@ function changeContainer(slide) {
   
   hideNavigations(3);
   
-  for(var i=1;i<=20;i++) {
+  for(var i=0;i<=20;i++) {
     if(i === slide) {
       $("#content"+i).removeClass("hide");
       $(".navigation"+i).css("color", "#FFFFFF");
@@ -108,15 +109,15 @@ function hideNavigations(type) {
   
   if(type === 1) {
     
-    if(currentSlide == 1)
-      $(".detailHeaderSide .arrow.left").addClass("hide");
+    if(currentSlide == 0)
+      $(".detailHeaderSide .arrow1.left").addClass("hide");
     else if(currentSlide == 19)
-      $(".detailHeaderSide .arrow.right").removeClass("hide");
+      $(".detailHeaderSide .arrow1.right").removeClass("hide");
     
     check = false;
-    for(i=1;i<=20;i++) {
+    for(i=0;i<=20;i++) {
       
-      if(currentSlide < 3 && i <= 3) {
+      if(currentSlide < 2 && i <= 2) {
         $(".navigationPoints").remove();
         $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
@@ -126,7 +127,7 @@ function hideNavigations(type) {
         check = true;
       }
       
-      if(i <= 3 && currentSlide <3)
+      if(i <= 2 && currentSlide <2)
         continue;
       
       if(check === false) 
@@ -135,29 +136,29 @@ function hideNavigations(type) {
       check = true;
         
       if(i - 1 === currentSlide || i === currentSlide || i + 1 === currentSlide) {
-        if((i - 1 === currentSlide) && currentSlide > 3 && currentSlide <= 18)
+        if((i - 1 === currentSlide) && currentSlide > 2 && currentSlide <= 18)
           $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
-        if((i + 1 === currentSlide) && currentSlide >= 3 && currentSlide < 18)
+        if((i + 1 === currentSlide) && currentSlide >= 2 && currentSlide < 18)
           $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
           
         $(".navigation"+i).show();
       }
-      else if(i !== 1 && i !== 20)
+      else if(i !== 0 && i !== 20)
         $(".navigation"+i).hide();
     }
   }
   else if(type === 2) {
     
-    if(currentSlide == 2)
-      $(".detailHeaderSide .arrow.left").removeClass("hide");
+    if(currentSlide == 1)
+      $(".detailHeaderSide .arrow1.left").removeClass("hide");
     else if(currentSlide == 20)
-      $(".detailHeaderSide .arrow.right").addClass("hide");
+      $(".detailHeaderSide .arrow1.right").addClass("hide");
     
     check = false;
     
-    for(i=1;i<=20;i++) {
+    for(i=0;i<=20;i++) {
       
-      if(currentSlide < 3 && i <= 3) {
+      if(currentSlide < 2 && i <= 2) {
         $(".navigationPoints").remove();
         $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
@@ -177,31 +178,31 @@ function hideNavigations(type) {
       check = true;
       
        if(i - 1 === currentSlide || i === currentSlide || i + 1 === currentSlide) {
-        if(i - 1 === currentSlide  && currentSlide > 3 && currentSlide <= 18)
+        if(i - 1 === currentSlide  && currentSlide > 2 && currentSlide <= 18)
           $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
-        if(i + 1 === currentSlide && currentSlide >= 3 && currentSlide < 18) 
+        if(i + 1 === currentSlide && currentSlide >= 2 && currentSlide < 18) 
           $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         
         $(".navigation"+i).show();
       }
-      else if(i !== 1 && i !== 20)
+      else if(i !== 0 && i !== 20)
         $(".navigation"+i).hide();
     }
     
   }
   else if(type === 3) {
     
-    if(currentSlide == 1) {
-      $(".detailHeaderSide .arrow.left").addClass("hide");
-      $(".detailHeaderSide .arrow.right").removeClass("hide");
+    if(currentSlide == 0) {
+      $(".detailHeaderSide .arrow1.left").addClass("hide");
+      $(".detailHeaderSide .arrow1.right").removeClass("hide");
     }
     else if(currentSlide == 20) {
-      $(".detailHeaderSide .arrow.left").removeClass("hide");
-      $(".detailHeaderSide .arrow.right").addClass("hide");
+      $(".detailHeaderSide .arrow1.left").removeClass("hide");
+      $(".detailHeaderSide .arrow1.right").addClass("hide");
     }
     else {
-      $(".detailHeaderSide .arrow.left").removeClass("hide");
-      $(".detailHeaderSide .arrow.right").removeClass("hide");
+      $(".detailHeaderSide .arrow1.left").removeClass("hide");
+      $(".detailHeaderSide .arrow1.right").removeClass("hide");
     }
     
     check = false;
@@ -211,9 +212,9 @@ function hideNavigations(type) {
     
     check = true;
     
-    for(i=1;i<=20;i++) {
+    for(i=0;i<=20;i++) {
       
-      if(currentSlide < 3 && i <= 3) {
+      if(currentSlide < 2 && i <= 2) {
         $(".navigationPoints").remove();
         $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
@@ -224,26 +225,26 @@ function hideNavigations(type) {
         check = true;
       }
       else {
-        if(i - 1 === currentSlide  && currentSlide > 3 && currentSlide <= 18)
+        if(i - 1 === currentSlide  && currentSlide > 2 && currentSlide <= 18)
           $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
-        if(i + 1 === currentSlide && currentSlide >= 3 && currentSlide < 18) 
+        if(i + 1 === currentSlide && currentSlide >= 2 && currentSlide < 18) 
           $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
       }
       
       if(currentSlide === 20) {
-        if(i === 20 || i === 19 || i === 18 || i === 1) 
+        if(i === 20 || i === 19 || i === 18 || i === 0) 
           $(".navigation"+i).show();
         else 
           $(".navigation"+i).hide();
       }
-      else if(currentSlide === 1) {
-        if(i === 1 || i === 2 || i === 3 || i === 20) 
+      else if(currentSlide === 0) {
+        if(i === 0 || i === 1 || i === 2 || i === 20) 
           $(".navigation"+i).show();
         else 
           $(".navigation"+i).hide();
       }
       else {
-        if(currentSlide-1 === i || currentSlide === i || currentSlide+1 === i || i === 1 || i === 20)
+        if(currentSlide-1 === i || currentSlide === i || currentSlide+1 === i || i === 0 || i === 20)
           $(".navigation"+i).show();
         else
           $(".navigation"+i).hide();
@@ -276,5 +277,125 @@ function showImage(path, id, selector) {
   $("#imageOverlay").fadeToggle( 300, function() {});
   $("#imagePopup").fadeToggle( 300, function() {});
   window.scrollTo(0, 0);
+}
+
+/*
+ *  Copyright (c) 2012 Alex Pankratov. All rights reserved.
+ *
+ *  http://swapped.cc/gif-player
+ */
+ 
+/*
+ *  This code is distributed under terms of BSD license. 
+ *  You can obtain the copy of the license by visiting:
+ *
+ *  http://www.opensource.org/licenses/bsd-license.php
+ */
+
+function gifPlayer(cont, opts) {
+
+  /* 
+   *  parameters
+   */
+  var defaults = {
+    autoplay: true,
+    play:     function(s, m, cb) { s.hide(); m.show(); cb(); },
+    stop:     function(m, s, cb) { m.hide(); s.show(); cb(); }
+  };
+
+  var opts = $.extend({}, defaults, opts);
+  
+  /*
+   *  variables
+   */
+  var c = cont;
+  var s = cont.find('.gif-still');
+  var m = cont.find('.gif-movie');
+
+  var state = 'e';
+  var busy = false;
+
+  var i = new Image;
+
+  /* 
+   *  functions
+   */
+  var setState = function(was, now) {
+    c.removeClass('gif-player-' + was);
+    c.addClass('gif-player-' + now);
+    state = now;
+  }
+
+  var play = opts['play'];
+  var stop = opts['stop'];
+  var done = function() { busy = false; }
+
+  /* 
+   *  click() handler
+   */
+  this.act = function()
+  {
+    if (busy)
+      return;
+
+    switch (state)
+    {
+
+    case 'e': /* empty, ready to load */
+
+      setState('e', 'l');
+      m.load(function(){ 
+
+        i.src = m.attr('src');
+        m.unbind('load');
+
+        if (! opts['autoplay'])
+        {
+          setState('l','s');
+          return;
+        }
+
+        setState('l','p');
+        busy = true;
+        play(s, m, done);
+      });
+      m.attr('src', m.attr('gif'));
+      break;
+
+    case 'l': /* loading... */
+
+      setState('l', 'e');
+      m.unbind('load');
+      m.attr('src', '');
+      break;
+
+    case 's': /* stopped, ready to play */
+
+      /* this rewinds the gif, not in all browsers */
+      m.attr('src', null).attr('src', i.src);
+
+      setState('s', 'p');
+      busy = true;
+      play(s, m, done);
+      break;
+    
+    case 'p': /* playing... */
+
+      setState('p', 's');
+      busy = true;
+      stop(m, s, done);
+      break;
+    }
+  }
+  
+  /*
+   *  initialization
+   */
+  var that = this;
+
+  c.find('.canvas').click( function(){ that.act(); });
+  c.addClass('gif-player-e');
+  
+  m.hide(); s.show();
 }
 

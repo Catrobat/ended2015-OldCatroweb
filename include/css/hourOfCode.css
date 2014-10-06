@@ -243,15 +243,22 @@
   background-position: 0 -244px;
 }
 
-.left {
+.arrow1 {
   cursor: pointer;
+  margin: 0 auto;
+  width: 35px;
+  height: 35px;
+  background-image: url('../images/symbols/sprite_icons_web.png');
+  background-position: 0 -175px;
+}
+
+.left {
   transform: rotate(90deg);
   -ms-transform: rotate(90deg);
   -webkit-transform: rotate(90deg);
 }
 
 .right {
-  cursor: pointer;
   transform: rotate(-90deg);
   -ms-transform: rotate(-90deg);
   -webkit-transform: rotate(-90deg);
@@ -279,3 +286,49 @@
     font-size: 1em;
   }
 }
+
+
+/* GIF PLAYER BEGIN */
+
+.gif-player {
+			padding-top: 0px !important;
+		}
+
+		.gif-player .canvas {
+			text-align: center !important;
+      margin: 0 auto;
+      padding-top: 0px !important;
+      width: 100% !important;
+      cursor: pointer;
+		}
+
+		.gif-player .canvas img {
+			display: block;
+		}
+
+		.gif-ctrl {
+			margin: 0 auto;
+			width: 34px;
+			height: 33px;
+			background-image: url('images/buttons.png');
+			cursor: pointer;
+		}
+		
+		.gif-still, .gif-movie {
+		  width: 100% !important;
+		}
+
+	
+		/*
+		 *	"Stopped" state, show "play" button
+		 */
+		.gif-player-s .gif-ctrl       { background-position:   0px 0px }
+		.gif-player-s .gif-ctrl:hover { background-position: -34px 0px }
+
+		/*
+		 *	"Playing" state, show "stop" button
+		 */
+		.gif-player-p .gif-ctrl       { background-position:   0px -68px }
+		.gif-player-p .gif-ctrl:hover { background-position: -34px -68px }
+
+/* GIF PLAYER END*/
