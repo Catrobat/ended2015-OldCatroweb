@@ -157,6 +157,12 @@
   display: table-cell;
 }
 
+#wrapper article .detailImage5 {
+  width: 16%;
+  text-align: center;
+  display: table-cell;
+}
+
 #wrapper article .detailSpacer {
   display: table-cell;
   vertical-align: middle;
@@ -218,7 +224,6 @@
 
 #imagePopup #outerContainer {
   position: relative;
-  background-color: white;
   margin: 0 auto;
   -webkit-border-radius: 4px;
   -moz-border-radius: 4px;
@@ -233,6 +238,12 @@
 
 #imagePopup #outerContainer #container img {
   height: 100%;
+  border: 4px #FFF solid;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+  border-radius: 4px;
 }
 
 .arrow {

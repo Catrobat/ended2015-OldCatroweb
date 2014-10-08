@@ -24,10 +24,8 @@
 <strings>
 
 	<string name="title">Skydiving Steve</string>
-	<string name="prev">Prev.</string>
-	<string name="next">Next</string>
 	
-	<string name="title0">#0: TITLE</string>
+	<string name="title0">#0: Skydiving Steve</string>
 	<string name="title1">#1: Install "Pocket Code"</string>
 	<string name="title2">#2: Download Project</string>
 	<string name="title3">#3: Open Project</string>
@@ -48,29 +46,30 @@
 	<string name="title18">#18: Object "parcel"</string>
 	<string name="title19">#19: Object "restart"</string>
 	<string name="title20">#20: Object "Background"</string>
+	<string name="title21">#21: Check your scripts!</string>
 	
-	<string name="description0">Description.</string>
-	<string name="description1">This task explains how you get "Pocket Code" on your mobile device.</string>
-	<string name="description2">In this task you’ll get all the stuff you need for your first program in “Pocket Code”.</string>
+	<string name="description0">In the following step-by-step tutorial you learn how to program the behavior of steve and his parcel. The images below show you how to control steve during the game. You have to navigate steve above the target and tap on steve to drop the parcel. Good luck...</string>
+	<string name="description1">How to install Pocket Code on your mobile device.</string>
+	<string name="description2">How to download the essential program allowing you to programm “Skydiving Steve”.</string>
 	<string name="description3">Let’s look inside the program.</string>
-	<string name="description4">You need variables to control the x and y position of your parachute.</string>
-	<string name="description5">In this task you name a variable for the x-position of your parachute.</string>
-	<string name="description6">In this task you name a variable and set it as starting y-position of your parachute.</string>
-	<string name="description7">You need to control the position of your parachute all the time. Therefor you need a "Forever" - loop.</string>
-	<string name="description8">You need more bricks inside the "Forever" - loop to control your parachute. You modify the "Place at" - brick so as to control the position of your parachute with the variables "x" an "y".</string>
-	<string name="description9">You need to change the y position of your parachute all the time by -3 with the first "Change variable" - brick. The x position of your parachute is controlled by the inclination of your mobile device.</string>
-	<string name="description10">You should be able to control the height of your parachute with your mobile device's loudness sensor. Therefor you need to add and modify a "If 1 is true then" - brick.</string>
-	<string name="description11">You need to add and change a "When I receive" - brick if you want restart the game with the parachute's initial positions.</string>
-	<string name="description12">Now you are done with your first object. The parachute should work fine now, but to play the game we need to modify some more objects. Up next you need to navigate back to the object overview.</string>
-	<string name="description13">In this task the object „target“ gets modified. To control your target you need to add the following bricks.</string>
-	<string name="description14">If the game is restarted, the target should change the position. Therefor you need to set the x- and y-position by random values.</string>
-	<string name="description15">Up next you need to modify the "Place at" - brick in in order, that you can control the position of your target with the variables "goalx" an "goaly".</string>
-    
-	<string name="description16">The parcel should only be shown when the parcel receives the message "start". Therefor you need to edit the object "parcel". </string>
-	<string name="description17">To check if the parcel hits the target, you need a "If 1 is true then"- brick.</string>
-	<string name="description18">You should win if a parcel hits the target. In this case you have to fix the position of the parcel and to tell the other objects of your triumph.</string>
-	<string name="description19">Now you have to modify the object “restart”. You need to define the position and the behaviour of the object.</string>
-	<string name="description20">In this last task, you’ll finish the program by modifying the "background" object and finally you can start playing the game.</string>
+	<string name="description4">The variables x and y allow you to control the position of your parachute.</string>
+	<string name="description5">Label the x position of your parachute.</string>
+	<string name="description6">Label and set the y starting position of your parachute.</string>
+	<string name="description7">You need to control the position of your parachute at all times. Insert a "Forever" - loop to do so.</string>
+	<string name="description8">Add more bricks in your "Forever" loop to control your parachute. Inserting the variables x and y in your "Place at" brick enables you to control the position of your parachute. </string>
+	<string name="description9">Change the variable y by -3 to let your parachute glide to the ground. Change the variable x so your parachute follows the inclination angle of your mobile device.</string>
+	<string name="description10">You can control the height of your parachute with the loudness sensor of your mobile device. To do so, add and modify a "If 1 is true then" brick.</string>
+	<string name="description11">When you restart the game, the starting position of your parachute should match your initial starting position. For this you need to add and modify three bricks as shown in the pictures below.</string>
+	<string name="description12">You have now successfully finished your "parachute" object! Navigate back to the object overview to modify the next object.</string>
+	<string name="description13">Here you start modifying the object „target". Add the bricks to control the position and size of your target.</string>
+	<string name="description14">When you restart the game, the position of your target needs to change. For this step, set the variables goalx and goaly with the random function.</string>
+	<string name="description15">Modify your "Place at" brick to control the position of your target with the variables goalx an goaly.</string>
+	<string name="description16">Here you start modifying your object "parcel". When the object "parcel" receives the message "start", the parcel should be shown. Set the position of parcel with the variables x and y.</string>
+	<string name="description17">To check whether the parcel has hit the target, you need the "If 1 is true then" brick.</string>
+	<string name="description18">If the parcel has successfully hit the target, you need to modify the position of the parcel.Send a message to the other objects to let them know that you have won.</string>
+	<string name="description19">Here you modify the object “restart”. Define the position and the behavior of the object. </string>
+	<string name="description20">Complete the program by modifying the "background" object. Now you can start playing your game. Have fun!</string>
+	<string name="description21">Click on the image below to enlarge it. Review your scripts of your objects if your game doesn't work correct.</string>
 	
   <string name="imageText0_1">Text1</string>
 	<string name="imageText0_2">Text2</string>
@@ -159,5 +158,10 @@
 	<string name="imageText20_1_2">Tap the "Play" - button.</string>
 	<string name="imageText20_2">Enjoy your game.</string>
 	<string name="imageText20_3">You've successfully completed the tutorial "Skydiving Steve". We would be pleased to find some really cool modifications of "Skydiving Steve" on pocketcode.org</string>
+	<string name="imageText21_1">Object 1</string>
+	<string name="imageText21_2">Object 2</string>
+	<string name="imageText21_3">Object 3</string>
+	<string name="imageText21_4">Object 4</string>
+	<string name="imageText21_5">Object 5</string>
 	
 </strings>
