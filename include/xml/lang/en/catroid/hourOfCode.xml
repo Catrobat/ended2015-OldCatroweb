@@ -48,9 +48,9 @@
 	<string name="title20">#20: Object "Background"</string>
 	<string name="title21">#21: Check your scripts!</string>
 	
-	<string name="description0">In the following step-by-step tutorial you learn how to program the behavior of steve and his parcel. The images below show you how to control steve during the game. You have to navigate steve above the target and tap on steve to drop the parcel. Good luck...</string>
+	<string name="description0">In the following step-by-step tutorial you learn how to program the behavior of Steve and his parcel. The images below show you how to control Steve during the game. You have to navigate Steve above the target and tap on Steve to drop the parcel. Good luck...</string>
 	<string name="description1">How to install Pocket Code on your mobile device.</string>
-	<string name="description2">How to download the essential program allowing you to programm “Skydiving Steve”.</string>
+	<string name="description2">How to download the essential program allowing you to program “Skydiving Steve”.</string>
 	<string name="description3">Let’s look inside the program.</string>
 	<string name="description4">The variables x and y allow you to control the position of your parachute.</string>
 	<string name="description5">Label the x position of your parachute.</string>
@@ -158,10 +158,10 @@
 	<string name="imageText20_1_2">Tap the "Play" - button.</string>
 	<string name="imageText20_2">Enjoy your game.</string>
 	<string name="imageText20_3">You've successfully completed the tutorial "Skydiving Steve". We would be pleased to find some really cool modifications of "Skydiving Steve" on pocketcode.org</string>
-	<string name="imageText21_1">Object 1</string>
-	<string name="imageText21_2">Object 2</string>
-	<string name="imageText21_3">Object 3</string>
-	<string name="imageText21_4">Object 4</string>
-	<string name="imageText21_5">Object 5</string>
+	<string name="imageText21_1">Object "background"</string>
+	<string name="imageText21_2">Object "parachute"</string>
+	<string name="imageText21_3">Object "parcel"</string>
+	<string name="imageText21_4">Object "restart"</string>
+	<string name="imageText21_5">Object "target"</string>
 	
 </strings>
