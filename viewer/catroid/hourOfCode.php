@@ -205,7 +205,6 @@
                 <ol>
                   <li><?php echo $this->languageHandler->getString('imageText'.$i."_3_2"); ?></li>
                   <li><?php echo $this->languageHandler->getString('imageText'.$i."_3_3"); ?></li>
-                  <li><?php echo $this->languageHandler->getString('imageText'.$i."_3_4"); ?></li>
                 </ol>
               </div>
           <?php }
