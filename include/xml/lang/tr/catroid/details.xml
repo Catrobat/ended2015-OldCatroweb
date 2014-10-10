@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="uploaded">yüklendi</string>
+  <string name="updated">Güncellendi</string>
+  <string name="uploaded_by">tarafından {* nicknameString *}</string>
+  <string name="login">oturum aç</string>
+  <string name="download_button">indir</string>
+  <string name="filesize">büyük</string>
+  <string name="report_as_inappropriate">Uygunsuz olarak rapor et</string>
+  <string name="report_as_inappropriate_label">Bu programı neden uygunsuz buldunuz?</string>
+  <string name="report_as_inappropriate_please_login">Bu programı uygunsuz olarak rapor etmek için lütfen {* link'e bağlanın *} .</string>
+  <string name="report_as_inappropriate_own_project">Kendi programınızı uygunsuz olarak işaretleyemezsiniz.</string>
+  <string name="report_as_inappropriate_already_flagged">Bu programı daha önce uygunsuz olarak belirttiniz.</string>
+  <string name="report">Rapor et</string>
+  <string name="cancel">İptal et</string>
+  <string name="flag_reason_placeholder">Bu programı uygunsuz olarak belirtmenizin sebebi ne</string>
+  <string name="some_rights_reserved">Oynamak için lisansınız</string>
+  <string name="views">Görünümler</string>
+  <string name="downloads">Karşıdan yüklemeler</string>
+  <string name="language_version_info_text">Catrobat dil sürümü:</string>
+  <string name="description">Açıklama</string>
+  <string name="no_description_available">Açıklama mevcut değil.</string>
+</strings>

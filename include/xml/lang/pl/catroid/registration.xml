@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Utwórz nowe konto</string>
+  <string name="nickname">Nazwa użytkownika</string>
+  <string name="enter_nickname">wprowadź nazwę użytkownika</string>
+  <string name="nickname_info">Niech Twoja nazwa użytkownika będzie taka jak "zabawny smok" (dlaczego nie należy używać prawdziwego nazwiska?).</string>
+  <string name="password">Hasło</string>
+  <string name="enter_password">Wprowadź hasło</string>
+  <string name="email">Adres e-mail</string>
+  <string name="enter_email">Wprowadź swój adres e-mail</string>
+  <string name="email_info">Wyślemy Twoją nazwę użytkownika, hasło i dane dostępu na Twój adres e-mail. Nigdy nikomu nie udostępnimy Twojego adresu e-mail. Zobacz naszą {*privacyPolicyLink*} w sprawie szczegółów.</string>
+  <string name="email_info_link_title">polityka prywatności</string>
+  <string name="country">Kraj</string>
+  <string name="select_country">Wybierz swój kraj</string>
+  <string name="other">Inne</string>
+  <string name="city">Miejscowość</string>
+  <string name="enter_city">podaj swoje miasto</string>
+  <string name="birth">Data urodzenia</string>
+  <string name="select_month">Wybierz swój miesiąc</string>
+  <string name="select_year">Wybierz rok</string>
+  <string name="gender">Płeć</string>
+  <string name="select_gender">Wybierz swoją płeć</string>
+  <string name="female">kobieta</string>
+  <string name="male">mężczyzna</string>
+  <string name="create">Utwórz moje konto</string>
+  <string name="login">spróbuj się zalogować, jeśli masz już konto</string>
+  <string name="password_recover">Kliknij tutaj, jeśli nie pamiętasz swojego hasła</string>
+  <string name="additional_options">Inne możliwości:</string>
+  <string name="registration_success">Rejestracja udana!</string>
+</strings>

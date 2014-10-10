@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="registration_mail_subject">Twoja rejestracja {*appplication_name*}</string>
+  <string name="registration_mail_text_row1">Gratulujemy i zapraszamy do społeczności {*appplication_url*}.</string>
+  <string name="registration_mail_text_row2">Proszę zachowaj tę wiadomość w swoim archiwum. Oto informacje o Twoim koncie:</string>
+  <string name="registration_mail_text_row3">Nazwa użytkownika: {*username*}</string>
+  <string name="registration_mail_text_row5">Hasło: {*password*}</string>
+  <string name="registration_mail_text_row6">W każdej chwili możesz użyć loginu i hasła, aby uzyskać dostęp do społeczności {* appplication_name *}.</string>
+  <string name="registration_mail_text_row7">Aby to zrobić, odwiedź następującą stronę:</string>
+  <string name="registration_mail_text_row8">Aby edytować swoje dane w profilu, przejdź do tej strony:</string>
+  <string name="registration_mail_text_row9">W przypadku gdy nie pamiętasz hasła, możesz je zresetować przy użyciu adresu e-mail lub nazwy użytkownika dla Twojego konta.</string>
+  <string name="registration_mail_text_row10">Z poważaniem,</string>
+  <string name="registration_mail_text_row11">Twój zespół {*appplication_name*}</string>
+
+  <string name="recovery_mail_subject">Odzyskiwanie Twojego hasła dla {*appplication_name*}</string>
+  <string name="recovery_mail_text_row1">Drogi/a {*username*}.</string>
+  <string name="recovery_mail_text_row2">Żądasz resetowania hasła {*appplication_url*} ponieważ nie pamiętasz hasła. Jeśli nie poprosisz o to, zignoruj to. Wygaśnie ono i stanie się bezużyteczne w ciągu 24 godzin.</string>
+  <string name="recovery_mail_text_row3">Aby zresetować hasło i utworzyć nowe, odwiedź następującą stronę:</string>
+  <string name="recovery_mail_text_row5">Możesz użyć loginu i hasła w każdej chwili, aby uzyskać dostęp do społeczności {*appplication_name*}.</string>
+  <string name="recovery_mail_text_row6">Aby to zrobić, odwiedź następującą stronę:</string>
+  <string name="recovery_mail_text_row7">Aby edytować swoje dane w profilu, przejdź do tej strony:</string>
+  <string name="recovery_mail_text_row8">Z poważaniem,</string>
+  <string name="recovery_mail_text_row9">Twój zespół {*appplication_name*}</string>
+
+	<string name="email_validation_subject">Twoja weryfikacja e-mail {*appplication_name*}</string>
+  <string name="email_validation_text_row1">Drogi/a {*username*}, aby kontynuować proces dodawania nowego adresu e-mail, proszę kliknąć poniższy link, w celu sprawdzenia.</string>
+  <string name="email_validation_text_row2">Z poważaniem,</string>
+  <string name="email_validation_text_row3">Twój zespół {*appplication_name*}</string>
+</strings>

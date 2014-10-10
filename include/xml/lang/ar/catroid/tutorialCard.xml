@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+
+  <string name="headline1">استعد:</string>
+  <string name="headline2">جرب هذا النص البرمجي:</string>
+  <string name="headline3">افعلها:</string>
+  <string name="headline4">نصيحة إضافية:</string>
+
+	<string name="project1">تغيير الحجم</string>
+	<string name="project2">تغيير مظهر</string>
+	<string name="project3">تحريك الرسوم المتحركة</string>
+	<string name="project4">الانزلاق</string>
+	<string name="project5">شغل الصوت</string>
+	<string name="project6">تحدث بشيء</string>
+	<string name="project7">جسينسور</string>
+	<string name="project8">بوصلة</string>
+	<string name="project9">نشر</string>
+
+	<string name="title">بطاقة البرنامج التعليمي</string>
+  <string name="project1_description">اضغط على البطة لتغيير الحجم.</string>
+	<string name="project2_description">استخدام هذه الحيلة للعد تلقائياً.</string>
+	<string name="project3_description">استخدم هذه الحيلة عندما تريد ببغاء يطير.</string>
+	<string name="project4_description">الانتقال بسلاسة من نقطة واحدة إلى أخرى.</string>
+	<string name="project5_description">اضغط على الاسطوانة تشغيل هذا الصوت</string>
+	<string name="project6_description">استخدم هذه التعليمة البرمجية لجعل الكائن يتحدث.</string>
+	<string name="project7_description">استخدام هذه الحيلة للتحكم في الكائن مع الميل للجهاز الخاص بك.</string>
+	<string name="project8_description">استخدم هذه التعليمة البرمجية لإنشاء بوصلة.</string>
+	<string name="project9_description">انظروا إلى هذا الرمز! يوضح لك كيفية التواصل بين الكائنات.</string>
+	
+	<string name="project5_extratip_1">1. انقر فوق "+"</string>
+	<string name="project5_extratip_2">2. حدد "مسجل رمز الجيب"</string>
+	<string name="project5_extratip_3">3. اضغط على أيقونة لتسجيل الصوت الخاص بك</string>
+	<string name="project7_extratip_1">إذا كانت حساسة للغاية ، القسمة على 10.</string>
+
+	
+	
+</strings>

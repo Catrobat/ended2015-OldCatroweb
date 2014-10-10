@@ -69,7 +69,7 @@
 	<string name="description18">If the parcel has successfully hit the target, you need to modify the position of the parcel.Send a message to the other objects to let them know that you have won.</string>
 	<string name="description19">Here you modify the object “restart”. Define the position and the behavior of the object. </string>
 	<string name="description20">Complete the program by modifying the "background" object. Now you can start playing your game. Have fun!</string>
-	<string name="description21">Click on the image below to enlarge it. Review your scripts of your objects if your game doesn't work correct.</string>
+	<string name="description21">Click on the images below to enlarge them. Review the scripts of your objects if your game doesn't work correctly.</string>
 	
   <string name="imageText0_1">Text1</string>
 	<string name="imageText0_2">Text2</string>
@@ -157,7 +157,7 @@
 	<string name="imageText20_1_1">Add the above shown bricks and set the "Broadcast" - message to "start".</string>
 	<string name="imageText20_1_2">Tap the "Play" - button.</string>
 	<string name="imageText20_2">Enjoy your game.</string>
-	<string name="imageText20_3">You've successfully completed the tutorial "Skydiving Steve". We would be pleased to find some really cool modifications of "Skydiving Steve" on pocketcode.org</string>
+	<string name="imageText20_3">You've successfully completed the tutorial "Skydiving Steve". We would be pleased to find some really cool remixes of "Skydiving Steve" on pocketcode.org --- just change it as you like and upload it again from your own account.</string>
 	<string name="imageText21_1">Object "background"</string>
 	<string name="imageText21_2">Object "parachute"</string>
 	<string name="imageText21_3">Object "parcel"</string>

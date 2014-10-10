@@ -1,36 +1,45 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded">&#xEE;nc&#x103;rcat</string>
+  <string name="uploaded">încărcat</string>
+  <string name="updated">actualizat</string>
   <string name="uploaded_by">de {*nicknameString*}</string>
-  <string name="login">Login</string>
-  <string name="download_button">Desc&#x103;rcare</string>
-  <string name="report_as_inappropriate">raporteaz&#x103; ca necorespunz&#x103;tor</string>
-  <string name="report_as_inappropriate_label">De ce crede&#x21B;i c&#x103; acest proiect este necorespunz&#x103;tor?</string>
-  <string name="report">Raportare</string>
+  <string name="login">login</string>
+  <string name="download_button">Descarca</string>
+  <string name="filesize">mare</string>
+  <string name="report_as_inappropriate">Raportare ca necorespunzător</string>
+  <string name="report_as_inappropriate_label">De ce crezi că acest program este necorespunzător?</string>
+  <string name="report_as_inappropriate_please_login">Vă rugăm să {*login_link*} pentru a raporta acest program ca fiind necorespunzător.</string>
+  <string name="report_as_inappropriate_own_project">Nu pot semnaliza propriul program.</string>
+  <string name="report_as_inappropriate_already_flagged">Deja aţi semnalizat acest program ca fiind necorespunzător.</string>
+  <string name="report">Raport</string>
   <string name="cancel">Anulare</string>
-  <string name="flag_reason_placeholder">introduce&#x21B;i un motiv</string>
-  <string name="views">vizualiz&#x103;ri</string>
-  <string name="downloads">desc&#x103;rc&#x103;ri</string>
+  <string name="flag_reason_placeholder">Introduceţi un motiv</string>
+  <string name="some_rights_reserved">Licenţă pentru a juca</string>
+  <string name="views">vizualizari</string>
+  <string name="downloads">Descărcări</string>
+  <string name="language_version_info_text">Versiunea de limbaj Catrobat:</string>
+  <string name="description">Descrierea</string>
+  <string name="no_description_available">Nici o descriere disponibilă.</string>
 </strings>

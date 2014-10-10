@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="template_common_one_minute_ago">منذ 1 دقيقة</string>
+  <string name="template_common_less_than_a_minute_ago">منذ أقل من دقيقة</string>
+  <string name="template_common_minutes_ago">{* عدد الدقائق*} قبل دقائق</string>
+  <string name="template_common_one_hour_ago">قبل ما يقارب ساعة</string>
+  <string name="template_common_hours_ago">قبل ما يقارب {* عدد الساعات *} ساعات</string>
+  <string name="template_common_one_day_ago">قبل يوم واحد</string>
+  <string name="template_common_days_ago">قبل ما يقارب {* عدد الأيام*} أيام</string>
+  <string name="template_common_one_month_ago">قبل شهر واحد</string>
+  <string name="template_common_months_ago">قبل ما يقارب {* عدد الأشهر*} أشهر</string>
+  <string name="template_common_one_year_ago">قبل ما يقارب عام</string>
+  <string name="template_common_years_ago">قبل ما يقارب {* عدد السنوات*} سنوات</string>
+  <string name="template_common_over_years_ago">أكثر من {* عدد السنوات*} سنوات ماضية</string>
+  <string name="template_common_january">كانون الثاني / يناير</string>
+  <string name="template_common_february">شباط / فبراير</string>
+  <string name="template_common_march">اذار/ مارس</string>
+  <string name="template_common_april">نيسان / ابريل</string>
+  <string name="template_common_may">أيار/مايو</string>
+  <string name="template_common_june">حزيران/يونيه</string>
+  <string name="template_common_july">تموز/يوليو</string>
+  <string name="template_common_august">آب</string>
+  <string name="template_common_september">أيلول</string>
+  <string name="template_common_october">تشرين الاول / اكتوبر</string>
+  <string name="template_common_november">تشرين الثاني/نوفمبر</string>
+  <string name="template_common_december">كانون أول / ديسمبر</string>
+  <string name="template_common_arabic">العربية</string>
+  <string name="template_common_bulgarian">البلغارية</string>
+  <string name="template_common_catalan">الكتالانية</string>
+  <string name="template_common_chinese_simplified_han">الصينية (هان التقليدية)</string>
+  <string name="template_common_chinese_traditional_han">الصينية (هان التقليدية)</string>
+  <string name="template_common_croatian">الكرواتية</string>
+  <string name="template_common_czech">التشيكية</string>
+  <string name="template_common_danish">الدانماركية</string>
+  <string name="template_common_dutch">هولندي</string>
+  <string name="template_common_english_united_kingdom">الإنكليزية (المملكة المتحدة)</string>
+  <string name="template_common_english_united_states">الإنجليزية (الولايات المتحدة)</string>
+  <string name="template_common_estonian">الإستونية</string>
+  <string name="template_common_filipino">الفلبينية</string>
+  <string name="template_common_finnish">الفنلندية</string>
+  <string name="template_common_french">فرنسية</string>
+  <string name="template_common_german">اللغة الألمانية</string>
+  <string name="template_common_greek">اليونانية</string>
+  <string name="template_common_hebrew">العبرية</string>
+  <string name="template_common_hindi">الهندية</string>
+  <string name="template_common_hungarian">الهنغارية</string>
+  <string name="template_common_indonesian">الإندونيسية</string>
+  <string name="template_common_italian">الإيطالي</string>
+  <string name="template_common_japanese">اليابانية</string>
+  <string name="template_common_korean">كوري</string>
+  <string name="template_common_latvian">اللاتفية</string>
+  <string name="template_common_lithuanian">اللتوانية</string>
+  <string name="template_common_malay">الماليزية</string>
+  <string name="template_common_norwegian">النرويجية ‏</string>
+  <string name="template_common_persian">فارسي</string>
+  <string name="template_common_polish">البولندية</string>
+  <string name="template_common_portuguese_brazil">اللغة البرتغاليه (البرازيل)</string>
+  <string name="template_common_portuguese_portugal">البرتغالية (البرتغال)</string>
+  <string name="template_common_romanian">الرومانية</string>
+  <string name="template_common_russian">روسية</string>
+  <string name="template_common_serbian">صربي</string>
+  <string name="template_common_slovak">السلوفاكية</string>
+  <string name="template_common_slovenian">السلوفانية</string>
+  <string name="template_common_spanish_latin_america">الإسبانية (أمريكا اللاتينية)</string>
+  <string name="template_common_spanish_spain">الإسبانية (إسبانيا)</string>
+  <string name="template_common_swedish">السويدية</string>
+  <string name="template_common_thai">التايلندية</string>
+  <string name="template_common_turkish">التركية</string>
+  <string name="template_common_ukrainian">الأوكرانية</string>
+  <string name="template_common_vietnamese">فيتنامية</string>
+</strings>

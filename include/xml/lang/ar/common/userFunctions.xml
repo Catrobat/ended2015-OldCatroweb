@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="registration_mail_subject">الخاص بك {* appplication_name *} التسجيل</string>
+  <string name="registration_mail_text_row1">تهانينا ومرحبا بكم في مجتمع {* appplication_url *} .</string>
+  <string name="registration_mail_text_row2">الرجاء الحفاظ على هذا البريد الإلكتروني في السجل الخاص بك. معلومات الحساب الخاص بك على النحو التالي:</string>
+  <string name="registration_mail_text_row3">اسم المستخدم: {* username*}</string>
+  <string name="registration_mail_text_row5">كلمة المرور: {* password*}</string>
+  <string name="registration_mail_text_row6">يمكنك استخدام اسم المستخدم الخاص بك وكلمة المرور الخاصة بك في أي وقت للوصول الى مجتمع  {* appplication_name *} .</string>
+  <string name="registration_mail_text_row7">للقيام بذلك، قم بزيارة الصفحة التالية فقط:</string>
+  <string name="registration_mail_text_row8">لتحرير التفاصيل الشخصية الخاصة بك، انتقل إلى هذه الصفحة:</string>
+  <string name="registration_mail_text_row9">في حالة ما إذا كنت قد نسيت كلمة المرور الخاصة بك، سوف تكون قادراً على إعادة تعيينها باستخدام عنوان البريد الإلكتروني أو اسم المستخدم الخاص بك المقترنة مع الحساب الخاص بك.</string>
+  <string name="registration_mail_text_row10">مع خالص تحياتي</string>
+  <string name="registration_mail_text_row11">فريقك {* appplication_name *}</string>
+
+  <string name="recovery_mail_subject">استرداد كلمة الرمور الخاص بك {* appplication_name *}</string>
+  <string name="recovery_mail_text_row1">عزيزي {*username*}.</string>
+  <string name="recovery_mail_text_row2">لقد طلبت إعادة تعيين كلمة المرور الخاصة بك في {* appplication_url *} لأنك نسيت كلمة المرور الخاصة بك. إذا كنت لم تطلب هذا، الرجاء تجاهل ذلك. وسوف تنتهي وتصبح عديمة الفائدة في 24 ساعة.</string>
+  <string name="recovery_mail_text_row3">لإعادة تعيين كلمة المرور الخاصة بك وإنشاء واحدة جديدة، يرجى زيارة الصفحة التالية:</string>
+  <string name="recovery_mail_text_row5">يمكنك استخدام اسم المستخدم الخاص بك وكلمة المرور الخاصة بك في أي وقت للوصول الى مجتمع  {* appplication_name *} .</string>
+  <string name="recovery_mail_text_row6">للقيام بذلك، قم بزيارة الصفحة التالية فقط:</string>
+  <string name="recovery_mail_text_row7">لتحرير التفاصيل الشخصية الخاصة بك، انتقل إلى هذه الصفحة:</string>
+  <string name="recovery_mail_text_row8">مع خالص تحياتي</string>
+  <string name="recovery_mail_text_row9">فريقك {* appplication_name *}</string>
+
+	<string name="email_validation_subject">التحقق من البريد الإلكتروني الخاص بك {* appplication_name *} </string>
+  <string name="email_validation_text_row1">عزيزي {* username*} لتواصل عملية إضافة بريد إلكتروني جديد الرجاء انقر فوق الارتباط أدناه للتحقق.</string>
+  <string name="email_validation_text_row2">مع خالص تحياتي</string>
+  <string name="email_validation_text_row3">فريقك {* appplication_name *}</string>
+</strings>

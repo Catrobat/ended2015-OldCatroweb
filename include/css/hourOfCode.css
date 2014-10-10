@@ -200,6 +200,11 @@
   width: 80%;
 }
 
+#wrapper article .detailImage5 div {
+  margin: 0auto;
+  padding-top: 10px;
+}
+
 #wrapper article #imageOverlay {
   position: absolute;
   top: 0;

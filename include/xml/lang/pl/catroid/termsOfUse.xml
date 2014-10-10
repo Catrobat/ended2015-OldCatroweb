@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Warunki użytkowania</string>
+  <string name="terms_of_use_welcome1">Witaj w społeczności Catrobat!</string>
+  <string name="terms_of_use_welcome2">Jako uczestnik społeczności Catrobat dzielisz się programami i pomysłami z innymi ludźmi:</string>
+  <string name="terms_of_use_enumeration_1">z wielu różnych krajów i kultur</string>
+  <string name="terms_of_use_enumeration_2">w każdym wieku (od małych dzieci do nastolatków i ich dziadków)</string>
+  <string name="terms_of_use_enumeration_3">na wszystkich poziomach doświadczenia</string>
+  <string name="terms_of_use_your_support">Potrzebujemy Twojej pomocy, aby ta społeczność dawała wsparcie dla każdego jej członka. Oto jak możesz pomóc:</string>
+  <string name="terms_of_use_enumeration_4">Miej szacunek. Podczas udostępniania programów, pamiętaj, proszę, że ludzie z różnych grup wiekowych i środowisk zobaczą Twój wkład.</string>
+  <string name="terms_of_use_enumeration_5">Podziękuj. Masz swobodę przerabiania programów innych ludzi - po prostu upewnij się, że składasz im podziękowania. Jednym z miejsc podziękowań jest opis programu. Proszę, zobacz ustęp poniżej, tę wypunktowaną listę szczegółowych informacji na temat modyfikowania programów innych użytkowników.</string>
+  <string name="terms_of_use_enumeration_6">Zachowaj uczciwość. Nie udawaj, że jesteś kim innym i nie staraj się oszukać społeczności.</string>
+  <string name="terms_of_use_enumeration_7">Nie ujawniaj informacji osobistych. Nie dziel się swoim adresem e-mail, numerem telefonu lub innymi danymi osobowymi.</string>
+  <string name="terms_of_use_enumeration_8">Pomóż zachować przyjazność witryny. Jeśli czujesz, że inni mogliby odczuć program lub komentarz jako nieprzyjemny, obraźliwy, zbyt agresywny lub w inny sposób nieodpowiedni, po prostu kliknij na przycisk "Zgłoś jako niewłaściwe" i zostaw krótkie wyjaśnienie. Zespół Catrobat sprawdzi twoje zgłoszenie i może usunąć dowolny program, komentarz lub post.</string>
+  <string name="terms_of_use_become_a_member">Dzięki projektowi Catrobat chcemy wspierać współpracę i umożliwić połączenie kreatywności wszystkich użytkowników na rzecz całej ludzkości. Również Ty możesz zostać aktywnym członkiem społeczności Catrobat, oddając swoje programy społeczności jako prezent, w taki sam sposób, jak inni aktywni uczestnicy dają swoje programy Tobie:</string>
+  <string name="terms_of_use_enumeration_9">Umieszczając program na naszych stronach internetowych, akceptujesz i zgadzasz się na korzystanie z Twojej pracy na wolnych darmowych licencjach dla przesłanych programów Catrobat. Na tych samych wolnych licencjach sam system Catrobat jest dostępny dla Ciebie, Wolne licencje przesłanych programów Catrobat dają każdemu prawo do uczenia się z prac wcześniej przesłanych przez innych, a także dostosowania i remiksownia tych prac aby budować własne nowe fascynujące gry, animacje i inne programy. To pozwala każdemu "stanąć na barkach kolegów", jednym z nich jesteś Ty! Twoja praca będzie zatem dostępna dla całego świata i wolno z niej będzie wszystkim korzystać, trochę podobnie do tekstów i zdjęć umieszczanych w Wikipedii przez wolontariuszy z całego świata. Potraktuj to jak Twój prezent dla ludzkości: dajesz go każdemu i wszyscy inni, którzy przesyłają swoje prace na nasze strony internetowych dają go Tobie. Dzięki temu umieszczony program jest darem wielkiej wartości, który jego właściciel daje Ci za darmo, pod warunkiem, że uczestniczysz we wspólnocie na tych samych warunkach.</string>
+  <string name="terms_of_use_enumeration_10">Nie musisz przyjąć tego daru; ale jeśli przyjmiesz, obowiązują Cię pewne zasady. Korzyścią płynącą z tych zasad jest to, czego możesz się nauczyć i to że możesz budować nawet ciekawsze rzeczy samemu, aby je następnie, np., ponownie umieścić na naszych stronach internetowych jako własne. Kolejną zaletą jest to, że te licencje zapewniają, że nie ponosisz odpowiedzialności za wszelkie problemy wynikające dla innych  używających twojego programu.</string>
+  <string name="terms_of_use_enumeration_11">Jeden ważny dodatkowy warunek, to uznanie wkładu autorów, na których pracy został oparty Twój projekt. W tym samym czasie będziemy pracować ciężko, żeby Twoja praca została wyraźnie doceniona przez innych, jako Twój wkład, poprzez przypisanie do niego unikatowej nazwy, która została przez Ciebie wybrana do reprezentowania Ciebie w społeczności Catrobat i dając innym możliwość wyrażenia publicznie ich wdzięczności dla Ciebie za to, że Twoja praca jest dostępna dla wszystkich, a w szczególności dla nich.</string>
+  <string name="terms_of_use_enumeration_12">Proszę, zapoznaj się z {*licenseofuploadedprojects*} aby poznać dokładne sformułowania i warunki prawne.</string>
+  <string name="terms_of_use_our_gift">Nasz prezent dla Ciebie:</string>
+  <string name="terms_of_use_enumeration_13">Oferujemy całe nasze oprogramowanie i zasoby internetowe związane z systemem Catrobat, tj. oprogramowanie napisane przez zespół Catrobat, nasze strony internetowe i zasoby internetowe, nasz własny kod źródłowy związany z systemem Catrobat i wszelkie dodatkowe dołączone materiały, takie jak np. zdjęcia, dźwięki i teksty, teraz i w przyszłości dla Ciebie na wolnych licencjach Catrobat.</string>
+  <string name="terms_of_use_enumeration_14">Te licencje czynią wszystkie części Catrobat zarówno wolnymi od opłat, jak również wolnymi w sensie swobody korzystania z nich, jak tylko chcesz, z kilkoma tylko ograniczeniami, zapewniającymi, między innymi, że system Catrobat zawsze pozostanie wolny i użyteczny dla wszystkich.</string>
+  <string name="terms_of_use_enumeration_15">Proszę zapoznać się z {*licenseofsystem*}, aby poznać dokładne sformułowania i warunki prawne. Kod źródłowy systemu Catrobat, a także wiele innych dokumentów i zasoby są dostępne za pośrednictwem {*googlecode*}.</string>
+  <string name="terms_of_use_our_terms">Nasze warunki użytkowania i korzystania z usługi:</string>
+  <string name="terms_of_use_enumeration_16">Zastrzegamy sobie prawo do odrzucenia, usunięcia lub ukrycia programów, kont użytkowników i wszelkich materiałów cyfrowych przesłanych na strony internetowe Catrobat w dowolnym czasie według własnego uznania, przykładowo, jeśli zauważymy, że program zawiera nieodpowiednie materiały lub użytkownik narusza prawa innych osób.</string>
+  <string name="terms_of_use_enumeration_17">Całe oprogramowanie i zasoby internetowe Catrobat  są oferowane w nadziei, że będą one przydatne, ale bez jakiejkolwiek gwarancji.</string>
+  <string name="terms_of_use_enumeration_18">Proszę zapoznać się z naszym {*termsofservice*}, aby poznać precyzyjne sformułowania powyższych punktów oraz niektóre dodatkowe warunki i sformułowania prawne.</string>
+  <string name="terms_of_use_enumeration_19">Jeśli Ty, lub jeżeli jesteś w wieku poniżej 13 lat, Twoi rodzice lub opiekunowie prawni, są związani z organizacją zajmującą się lub odpowiedzialną za naruszenia prywatności  i/lub masową inwigilację, wtedy nie wolno Ci korzystać z naszej aplikacji i dostępu do naszych usług. Dokładne szczegóły tego ograniczenia i pewne wyjątki to są określone w sekcjach 4.a i 4.b w naszych {*termsofservice*}.</string>
+  <string name="terms_of_use_enumeration_20">Jeśli jesteś w wieku poniżej 13 lat, to musisz zapytać rodziców lub opiekunów prawnych, czy pozwalają Ci używać aplikacji i usług Catrobat.</string>
+  <string name="terms_of_use_check_back">Zajrzyj tutaj z powrotem od czasu do czasu, ponieważ zawsze staramy się poprawić nasze warunki korzystania z serwisu.</string>
+  <string name="terms_of_use_mail_us">Jeśli masz sugestie dotyczące niniejszych warunków użytkowania proszę, napisz do {*mailus*}.</string>
+  <string name="terms_of_use_dated">Wersja 1.3, 4 marca 2014</string>
+</strings>

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+	<string name="title">Licencja na granie - oceń i podziel się</string>
+
+	<string name="project_licence_part1">
+		Wyobraź sobie program w Catrobat jako ciasteczko, takie specjalne ciasteczko z przepisem (blokami programu).
+Wszyscy uczestnicy społeczności Catrobat dzielą się tymi ciasteczkami, łącznie z przepisami na nie. Oznacza to, że możesz posmakować ciasteczka i nauczyć się jak je przygotowywać!
+	</string>
+	<string name="project_licence_part2">
+		Nie ma sekretnych przepisów: instrukcje, jak zrobić ciasteczko są dostępne dla każdego, aby je wykorzystywać, modyfikować i traktować       je jako inspirację dla nowych pomysłów... to znaczy ciasteczek.
+	</string>
+	<string name="project_licence_part3">
+		Możesz zjeść ciasteczko możesz też skopiować przepisy innych, aby zrobić własne z nieco innymi składnikami.
+Ta swoboda pociąga za sobą dwa proste wymagania:
+	</string>
+	<string name="project_licence_part3_list_element1">dziel się swoimi ciasteczkami oraz przepisami na nie</string>
+	<string name="project_licence_part3_list_element2">podziękuj tym, którzy Cię zainspirowali</string>
+	<string name="project_licence_part4">
+		Ustalając reguły dla społeczności Catrobata, zdecydowaliśmy się na takie podejście ponieważ wierzymy, że to pomaga w uczeniu się i kreatywności.
+        Poprzez dzielenie się przepisami i składnikami (skryptami, rysunkami, dźwiękami), ludzie mogą opierać się na pomysłach innych z korzyścią dla wszystkich.
+	</string>
+	<string name="project_licence_part5">
+		Projektując stronę projektu Catrobat, włączyliśmy do niej elementy pomagające ludziom dzielić się projektami i wspierać innych. Na stronie każdego programu
+        możesz zawsze pobrać oryginalne skrypty. Jeśli remiksujesz program (modyfikując skrypty, obrazki lub dźwięki i dzieląc się wynikiem),
+        zachęcamy Cię do podziękowań w uwagach do programu i wypisania osób lub programów, które Cię zainspirowały.
+	</string>
+	<string name="project_licence_learn_more_new">
+		Dowiedz się więcej na temat zasad udziału w społeczności on-line projektu Catrobat {*termsOfUseLink*}.
+	</string>
+
+  <string name="project_licence_dated">Wersja 1.1, 2 kwietnia 2013</string>
+</strings>

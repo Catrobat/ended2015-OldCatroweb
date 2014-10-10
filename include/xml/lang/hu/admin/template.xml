@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="template_common_one_minute_ago">1 perccel ezelőtt</string>
+  <string name="template_common_less_than_a_minute_ago">kevesebb, mint egy perccel ezelőtt</string>
+  <string name="template_common_minutes_ago">{*minuteCount*} perccel ezelőtt</string>
+  <string name="template_common_one_hour_ago">körülbelül 1 órával ezelőtt</string>
+  <string name="template_common_hours_ago">kb. {*hourCount*} órája</string>
+  <string name="template_common_one_day_ago">1 napja</string>
+  <string name="template_common_days_ago">kb. {*dayCount*} napja</string>
+  <string name="template_common_one_month_ago">1 hónappal ezelőtt</string>
+  <string name="template_common_months_ago">kb. {*monthCount*} hónapja</string>
+  <string name="template_common_one_year_ago">körülbelül 1 éve</string>
+  <string name="template_common_years_ago">kb. {*yearCount*} éve</string>
+  <string name="template_common_over_years_ago">több, mint {*yearCount*} évvel ezelőtt</string>
+  <string name="template_common_january">január</string>
+  <string name="template_common_february">február</string>
+  <string name="template_common_march">március</string>
+  <string name="template_common_april">április</string>
+  <string name="template_common_may">május</string>
+  <string name="template_common_june">június</string>
+  <string name="template_common_july">július</string>
+  <string name="template_common_august">augusztus</string>
+  <string name="template_common_september">szeptember</string>
+  <string name="template_common_october">október</string>
+  <string name="template_common_november">november</string>
+  <string name="template_common_december">december</string>
+  <string name="template_common_arabic">Arab</string>
+  <string name="template_common_bulgarian">Bolgár</string>
+  <string name="template_common_catalan">Katalán</string>
+  <string name="template_common_chinese_simplified_han">Kínai (egyszerűsített Han)</string>
+  <string name="template_common_chinese_traditional_han">Kínai (hagyományos Han)</string>
+  <string name="template_common_croatian">Horvát</string>
+  <string name="template_common_czech">Cseh</string>
+  <string name="template_common_danish">Dán</string>
+  <string name="template_common_dutch">Holland</string>
+  <string name="template_common_english_united_kingdom">Angol (Egyesült Királyság)</string>
+  <string name="template_common_english_united_states">Angol (Egyesült Államok)</string>
+  <string name="template_common_estonian">Észt</string>
+  <string name="template_common_filipino">FIlippínó</string>
+  <string name="template_common_finnish">Finn</string>
+  <string name="template_common_french">French</string>
+  <string name="template_common_german">Német</string>
+  <string name="template_common_greek">Görög</string>
+  <string name="template_common_hebrew">Héber</string>
+  <string name="template_common_hindi">Hindi</string>
+  <string name="template_common_hungarian">Magyar</string>
+  <string name="template_common_indonesian">Indonéz</string>
+  <string name="template_common_italian">Olasz</string>
+  <string name="template_common_japanese">Japán</string>
+  <string name="template_common_korean">Koreai</string>
+  <string name="template_common_latvian">Lett</string>
+  <string name="template_common_lithuanian">Litván</string>
+  <string name="template_common_malay">Maláj</string>
+  <string name="template_common_norwegian">Norvég</string>
+  <string name="template_common_persian">Perzsa</string>
+  <string name="template_common_polish">Lengyel</string>
+  <string name="template_common_portuguese_brazil">Portugál (Brazil)</string>
+  <string name="template_common_portuguese_portugal">Portugál (portugáliai)</string>
+  <string name="template_common_romanian">Román</string>
+  <string name="template_common_russian">Orosz</string>
+  <string name="template_common_serbian">Szerb</string>
+  <string name="template_common_slovak">Szlovák</string>
+  <string name="template_common_slovenian">Szlovèn</string>
+  <string name="template_common_spanish_latin_america">Spanyol (Latin-Amerika)</string>
+  <string name="template_common_spanish_spain">Spanyol (spanyolországi)</string>
+  <string name="template_common_swedish">Svéd</string>
+  <string name="template_common_thai">Thai</string>
+  <string name="template_common_turkish">Török</string>
+  <string name="template_common_ukrainian">Ukrán</string>
+  <string name="template_common_vietnamese">Vietnámi</string>
+</strings>

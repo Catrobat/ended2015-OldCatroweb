@@ -92,7 +92,7 @@
           </div>
           <div class="detailSpacer"><div class="arrow right"></div></div>
           <div class="detailImage5">
-            <span id="image_<?php echo $i."_5"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 4);'><img src="images/hourOfCode/thumbs/<?php echo $i."_5.jpg"?>" /></span><br />
+            <span id="image_<?php echo $i."_5"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 5);'><img src="images/hourOfCode/thumbs/<?php echo $i."_5.jpg"?>" /></span><br />
             <div><?php echo $this->languageHandler->getString('imageText'.$i."_5"); ?></div>
           </div>
         <?php }

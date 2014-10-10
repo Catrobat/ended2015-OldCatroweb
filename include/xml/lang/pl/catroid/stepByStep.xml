@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+
+  <string name="starting_position">Pozycja wyjściowa:</string>
+  
+	<string name="title">Wprowadzenie krok po kroku</string>
+	
+	<string name="step1_title">1. Stwórz nowy program</string>
+	<string name="step1_description"></string>
+	<string name="step1_additional_text_1">Naciśnij na "Nowy".</string>
+	<string name="step1_additional_text_2">Wprowadź nazwę programu, wybierz "Utwórz pusty program" i naciśnij "OK".</string>
+	
+  <string name="step2_title">2. Utwórz nowy obiekt</string>
+	<string name="step2_description"></string>
+	<string name="step2_additional_text_1">Naciśnij:</string>
+	<string name="step2_additional_text_2">Wybierz źródło pierwszego wyglądu twojego nowego obiektu.</string>
+	<string name="step2_additional_text_3">Narysuj nowy wygląd.</string>
+	<string name="step2_additional_text_4">Wybierz z galerii.</string>
+	<string name="step2_additional_text_5">Zrób zdjęcie.</string>
+  <string name="step2_additional_text_6">Wpisz nazwę obiektu i naciśnij "OK", aby utworzyć obiekt.</string>  
+
+  <string name="step3_title">3. Wprowadź ruch</string>
+	<string name="step3_description"></string>
+	<string name="step3_additional_text_1">Naciśnij:</string>
+	<string name="step3_additional_text_2">Pierwszy blok, którego używamy jest z kategorii "Ruch".</string>
+	<string name="step3_additional_text_3">Wybierz blok "Leć". Obiekt przesunie się na scenie do nowej pozycji zdefiniowanej w bloku.</string>
+	<string name="step3_additional_text_4">Naciśnij "Graj", aby przejść do sceny i zobaczyć poruszający się obiekt.</string>
+	<string name="step3_additional_text_5">Użyj przycisku wstecz Androida, aby wrócić ze sceny.</string>
+	<string name="step3_additional_text_6">Teraz blok wisi. Aby go umieścić, przesuń blok na wybrane miejsce. Możesz też przesunąć istniejące bloki przez ich naciśnięcie, aż zostaną zawieszone.</string>
+  
+  <string name="step4_title">4. Zmień Wygląd</string>
+	<string name="step4_description">Możesz zmienić wygląd swojego obiektu.</string>
+	<string name="step4_additional_text_1">Wybierz blok "Zmień na wygląd". Za pomocą tego bloku możesz wybrać wygląd lub utworzyć nowy.</string>
+	<string name="step4_additional_text_2">Umieść blok pod blokiem "Leć".</string>
+	<string name="step4_additional_text_3">Naciśnij pole rozwijanej listy (trójkącik), aby utworzyć nowy wygląd.</string>
+	<string name="step4_additional_text_4">Wybierz źródło obrazu, podobnie jak przedtem.</string>
+	<string name="step4_additional_text_5">Teraz musisz wybrać (lub utworzyć) nowy obraz.</string>
+	<string name="step4_additional_text_6">Naciśnij odtwarzanie, aby zobaczyć co się dzieje na scenie.</string>
+	
+	<string name="step5_title">5. Powiedz</string>
+	<string name="step5_description">Teraz dowiesz się jak zrobić żeby obiekt zaczął mówić.</string>
+	<string name="step5_additional_text_1">Wybierz blok "Powiedz". Obiekt mówi tekst, gdy ten blok jest wykonywany.</string>
+	<string name="step5_additional_text_2">Umieść blok pod blokiem "Przełącz się na wygląd".</string>
+	<string name="step5_additional_text_3">Naciśnij odtwarzanie, aby zobaczyć co się dzieje na scenie.</string>
+	
+	<string name="step6_title">6. Znowu i znowu</string>
+	<string name="step6_description">Ten krok pokazuje, jak można powtarzać zachowanie się obiektów.</string>
+	<string name="step6_additional_text_1">Wybierz blok "Zawsze". Wszystko w pętli będzie powtarzane w kółko (w nieskończoność).</string>
+	<string name="step6_additional_text_2">Umieść blok "Zawsze" pod blokiem "Gdy program startuje".</string>
+	<string name="step6_additional_text_3">Dodaj kolejny blok "Leć".</string>
+	<string name="step6_additional_text_4">Umieść blok “Leć” ponad blokiem “Koniec pętli”. </string>
+	<string name="step6_additional_text_5">Wybierz w polu tekstowym wartości  x i y i ustaw je na 0.</string>
+	<string name="step6_additional_text_6">Naciśnij odtwarzanie, aby zobaczyć co się dzieje na scenie.</string>
+	
+	<string name="step7_title">Naciskanie to wszystko.</string>
+	<string name="step7_description">Możesz również kontrolować zachowanie obiektu, gdy program już działa na scenie.</string>
+	<string name="step7_additional_text_1">Wybierz blok "Gdy naciśnięty". Każdy blok umieszczony pod nim zostanie raz wykonany gdy naciśniesz obiekt na scenie.</string>
+	<string name="step7_additional_text_2">Umieść "Gdy naciśnięty" pod innymi klockami.</string>
+	<string name="step7_additional_text_3">Wybierz blok "Obróć w prawo" i Umieść go pod blokiem "Gdy naciśnięty".</string>
+	<string name="step7_additional_text_4">Teraz masz ten skrypt.</string>
+	<string name="step7_additional_text_5">Naciśnij odtwarzanie, aby zobaczyć co się dzieje na scenie. Jeśli teraz naciśniesz obiekt, to on się zakręci.</string>
+	
+	<string name="step8_title">8. Kopiowanie, usuwanie lub edycja bloku</string>
+	<string name="step8_description"></string>
+	<string name="step8_additional_text_1">Pojedyncze stuknięcie na lewej stronie każdego bloku otwiera menu kontekstowe. Stąd możesz przesuwać, kopiować, usuwać lub edytować wartości bloku wykorzystując edytor formuł.</string>
+	
+	<string name="step9_title">9. Nawigacja po aplikacji</string>
+	<string name="step9_description"></string>
+	<string name="step9_additional_text_1">Użyj przycisku Cofnij systemu Android aby nawigować po aplikacji.</string>
+	<string name="step9_additional_text_2">Cofnij o jeden ekran aby przejrzeć swój obiekt. Stąd możesz przejść do skryptów a także do potężnego przedstawienia wyglądu i dźwięków obiektu. W tym miejscu możesz zmienić nazwę, skopiować, dodać lub usunąć wygląd i dźwięki.</string>
+	<string name="step9_additional_text_3">Użyj przycisku Cofnij systemu Android ponownie aby uzyskać omówienie obiektów i tła.</string>
+	
+	<string name="step10_title">10. Zmiana tła</string>
+	<string name="step10_description">To jest przegląd twoich obiektów i tła zależny od programu.</string>
+	<string name="step10_additional_text_1">Tło jest też obiektem, ale tylko można mieć tylko jedno tło.</string>
+	<string name="step10_additional_text_2">Do obiektu tło można zwyczajnie dodać skrypty, dźwięki i wyglądy.</string>
+	
+	<string name="step11_title">11. Główne menu</string>
+	<string name="step11_description">Użyj przycisku wstecz Androida, aby dostać się do tego ekranu.</string>
+	<string name="step11_additional_text_1">Kontynuuj pracę z obecnie otwartym programem.</string>
+	<string name="step11_additional_text_2">Dodj nowy program.</string>
+	<string name="step11_additional_text_3">Zobacz wszystkie lokalne programy.</string>
+	<string name="step11_additional_text_4">Przejdź do witryny Pomoc i podyskuj z innymi użytkownikami.</string>
+	<string name="step11_additional_text_5">Poznaj świat programów Pocket Code. Pobierz za darmo i remiksuj programy, które lubisz.</string>
+	<string name="step11_additional_text_6">Wyślij program, który jest obecnie otwarty.</string>
+
+</strings>

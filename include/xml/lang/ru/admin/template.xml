@@ -1,93 +1,93 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="template_common_one_minute_ago">1 &#x43C;&#x438;&#x43D;&#x443;&#x442;&#x443; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_less_than_a_minute_ago">&#x43C;&#x435;&#x43D;&#x44C;&#x448;&#x435; &#x43E;&#x434;&#x43D;&#x43E;&#x439; &#x43C;&#x438;&#x43D;&#x443;&#x442;&#x44B; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_minutes_ago">{*minuteCount*} &#x43C;&#x438;&#x43D;&#x443;&#x442; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_one_hour_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; &#x447;&#x430;&#x441; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_hours_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*hourCount*} &#x447;&#x430;&#x441;&#x43E;&#x432; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_one_day_ago">1 &#x434;&#x435;&#x43D;&#x44C; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_days_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*dayCount*} &#x434;&#x43D;&#x435;&#x439; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_one_month_ago">1 &#x43C;&#x435;&#x441;&#x44F;&#x446; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_months_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*monthCount*} &#x43C;&#x435;&#x441;&#x44F;&#x446;&#x435;&#x432; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_one_year_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; &#x433;&#x43E;&#x434; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_years_ago">&#x43F;&#x440;&#x438;&#x43C;&#x435;&#x440;&#x43D;&#x43E; {*yearCount*} &#x433;&#x43E;&#x434;&#x430; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_over_years_ago">&#x431;&#x43E;&#x43B;&#x44C;&#x448;&#x435; {*yearCount*} &#x43B;&#x435;&#x442; &#x43D;&#x430;&#x437;&#x430;&#x434;</string>
-  <string name="template_common_january">&#x42F;&#x43D;&#x432;&#x430;&#x440;&#x44C;</string>
-  <string name="template_common_february">&#x424;&#x435;&#x432;&#x440;&#x430;&#x43B;&#x44C;</string>
-  <string name="template_common_march">&#x41C;&#x430;&#x440;&#x442;</string>
-  <string name="template_common_april">&#x410;&#x43F;&#x440;&#x435;&#x43B;&#x44C;</string>
-  <string name="template_common_may">&#x41C;&#x430;&#x439;</string>
-  <string name="template_common_june">&#x418;&#x44E;&#x43D;&#x44C;</string>
-  <string name="template_common_july">&#x418;&#x44E;&#x43B;&#x44C;</string>
-  <string name="template_common_august">&#x410;&#x432;&#x433;&#x443;&#x441;&#x442;</string>
-  <string name="template_common_september">&#x421;&#x435;&#x43D;&#x442;&#x44F;&#x431;&#x440;&#x44C;</string>
-  <string name="template_common_october">&#x41E;&#x43A;&#x442;&#x44F;&#x431;&#x440;&#x44C;</string>
-  <string name="template_common_november">&#x41D;&#x43E;&#x44F;&#x431;&#x440;&#x44C;</string>
-  <string name="template_common_december">&#x414;&#x435;&#x43A;&#x430;&#x431;&#x440;&#x44C;</string>
-  <string name="template_common_arabic">&#x410;&#x440;&#x430;&#x431;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_bulgarian">&#x411;&#x43E;&#x43B;&#x433;&#x430;&#x440;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_catalan">&#x41A;&#x430;&#x442;&#x430;&#x43B;&#x43E;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_chinese_simplified_han">&#x41A;&#x438;&#x442;&#x430;&#x439;&#x441;&#x43A;&#x438;&#x439; (&#x423;&#x43F;&#x440;&#x43E;&#x449;&#x435;&#x43D;&#x43D;&#x44B;&#x439;)</string>
-  <string name="template_common_chinese_traditional_han">&#x41A;&#x438;&#x442;&#x430;&#x439;&#x441;&#x43A;&#x438;&#x439; (&#x422;&#x440;&#x430;&#x434;&#x438;&#x446;&#x438;&#x43E;&#x43D;&#x43D;&#x44B;&#x439;)</string>
-  <string name="template_common_croatian">&#x425;&#x43E;&#x440;&#x432;&#x430;&#x442;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_czech">&#x427;&#x435;&#x448;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_danish">&#x414;&#x430;&#x442;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_dutch">&#x413;&#x43E;&#x43B;&#x43B;&#x430;&#x43D;&#x434;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_english_united_kingdom">&#x410;&#x43D;&#x433;&#x43B;&#x438;&#x439;&#x441;&#x43A;&#x438;&#x439; (&#x412;&#x435;&#x43B;&#x438;&#x43A;&#x43E;&#x431;&#x440;&#x438;&#x442;&#x430;&#x43D;&#x438;&#x44F;)</string>
-  <string name="template_common_english_united_states">&#x410;&#x43D;&#x433;&#x43B;&#x438;&#x439;&#x441;&#x43A;&#x438;&#x439; (&#x421;&#x43E;&#x435;&#x434;&#x438;&#x43D;&#x435;&#x43D;&#x43D;&#x44B;&#x435; &#x428;&#x442;&#x430;&#x442;&#x44B;)</string>
-  <string name="template_common_estonian">&#x42D;&#x441;&#x442;&#x43E;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_filipino">&#x424;&#x438;&#x43B;&#x438;&#x43F;&#x43F;&#x438;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_finnish">&#x424;&#x438;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_french">&#x424;&#x440;&#x430;&#x43D;&#x446;&#x443;&#x437;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_german">&#x41D;&#x435;&#x43C;&#x435;&#x446;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_greek">&#x413;&#x440;&#x435;&#x447;&#x435;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_hebrew">&#x418;&#x432;&#x440;&#x438;&#x442;</string>
-  <string name="template_common_hindi">&#x425;&#x438;&#x43D;&#x434;&#x438;</string>
-  <string name="template_common_hungarian">&#x412;&#x435;&#x43D;&#x433;&#x435;&#x440;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_indonesian">&#x418;&#x43D;&#x434;&#x43E;&#x43D;&#x435;&#x437;&#x438;&#x439;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_italian">&#x418;&#x442;&#x430;&#x43B;&#x44C;&#x44F;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_japanese"> &#x42F;&#x43F;&#x43E;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_korean">&#x41A;&#x43E;&#x440;&#x435;&#x439;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_latvian">&#x41B;&#x430;&#x442;&#x44B;&#x448;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_lithuanian">&#x41B;&#x438;&#x442;&#x43E;&#x432;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_malay">&#x41C;&#x430;&#x43B;&#x430;&#x439;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_norwegian">&#x41D;&#x43E;&#x440;&#x432;&#x435;&#x436;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_persian">&#x41F;&#x435;&#x440;&#x441;&#x438;&#x434;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_polish">&#x41F;&#x43E;&#x43B;&#x44C;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_portuguese_brazil">&#x41F;&#x43E;&#x440;&#x442;&#x443;&#x433;&#x430;&#x43B;&#x44C;&#x441;&#x43A;&#x438;&#x439; (&#x411;&#x440;&#x430;&#x437;&#x438;&#x43B;&#x438;&#x44F;)</string>
-  <string name="template_common_portuguese_portugal">&#x41F;&#x43E;&#x440;&#x442;&#x443;&#x433;&#x430;&#x43B;&#x44C;&#x441;&#x43A;&#x438;&#x439; (&#x41F;&#x43E;&#x440;&#x442;&#x443;&#x433;&#x430;&#x43B;&#x438;&#x44F;)</string>
-  <string name="template_common_romanian">&#x420;&#x443;&#x43C;&#x44B;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_russian">&#x420;&#x443;&#x441;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_serbian">&#x421;&#x435;&#x440;&#x431;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_slovak">&#x421;&#x43B;&#x43E;&#x432;&#x430;&#x446;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_slovenian">&#x421;&#x43B;&#x43E;&#x432;&#x435;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_spanish_latin_america">&#x418;&#x441;&#x43F;&#x430;&#x43D;&#x441;&#x43A;&#x438;&#x439; (&#x41B;&#x430;&#x442;&#x438;&#x43D;&#x441;&#x43A;&#x430;&#x44F; &#x410;&#x43C;&#x435;&#x440;&#x438;&#x43A;&#x430;)</string>
-  <string name="template_common_spanish_spain">&#x418;&#x441;&#x43F;&#x430;&#x43D;&#x441;&#x43A;&#x438;&#x439; (&#x418;&#x441;&#x43F;&#x430;&#x43D;&#x438;&#x44F;)</string>
-  <string name="template_common_swedish">&#x428;&#x432;&#x435;&#x434;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_thai">&#x422;&#x430;&#x439;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_turkish">&#x422;&#x443;&#x440;&#x435;&#x446;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_ukrainian">&#x423;&#x43A;&#x440;&#x430;&#x438;&#x43D;&#x441;&#x43A;&#x438;&#x439;</string>
-  <string name="template_common_vietnamese">&#x412;&#x44C;&#x435;&#x442;&#x43D;&#x430;&#x43C;&#x441;&#x43A;&#x438;&#x439;</string>
+  <string name="template_common_one_minute_ago">1 минуту назад</string>
+  <string name="template_common_less_than_a_minute_ago">меньше минуты назад</string>
+  <string name="template_common_minutes_ago">{* minuteCount *} минут(-ы) назад</string>
+  <string name="template_common_one_hour_ago">около 1 часа назад</string>
+  <string name="template_common_hours_ago">около {* hourCount *} часов назад</string>
+  <string name="template_common_one_day_ago">1 день назад</string>
+  <string name="template_common_days_ago">около {* dayCount *} дней назад</string>
+  <string name="template_common_one_month_ago">1 месяц назад</string>
+  <string name="template_common_months_ago">около {* monthCount *} месяцев назад</string>
+  <string name="template_common_one_year_ago">около года назад</string>
+  <string name="template_common_years_ago">около {* yearCount *} лет назад</string>
+  <string name="template_common_over_years_ago">более {* yearCount *} лет назад</string>
+  <string name="template_common_january">Январь</string>
+  <string name="template_common_february">Февраль</string>
+  <string name="template_common_march">Март</string>
+  <string name="template_common_april">Апрель</string>
+  <string name="template_common_may">Май</string>
+  <string name="template_common_june">Июнь</string>
+  <string name="template_common_july">Июль</string>
+  <string name="template_common_august">Август</string>
+  <string name="template_common_september">Сентябрь</string>
+  <string name="template_common_october">Октябрь</string>
+  <string name="template_common_november">Ноябрь</string>
+  <string name="template_common_december">Декабрь</string>
+  <string name="template_common_arabic">Арабский</string>
+  <string name="template_common_bulgarian">Болгарский</string>
+  <string name="template_common_catalan">Каталонский</string>
+  <string name="template_common_chinese_simplified_han">Китайский (упрощенный)</string>
+  <string name="template_common_chinese_traditional_han">Китайский (традиционный)</string>
+  <string name="template_common_croatian">Хорватский</string>
+  <string name="template_common_czech">Чешский</string>
+  <string name="template_common_danish">Датский</string>
+  <string name="template_common_dutch">Нидерландский</string>
+  <string name="template_common_english_united_kingdom">Английский (британский)</string>
+  <string name="template_common_english_united_states">Английский (США)</string>
+  <string name="template_common_estonian">Эстонский</string>
+  <string name="template_common_filipino">Филиппинский</string>
+  <string name="template_common_finnish">Финский</string>
+  <string name="template_common_french">Французский</string>
+  <string name="template_common_german">Немецкий</string>
+  <string name="template_common_greek">Греческий</string>
+  <string name="template_common_hebrew">Иврит</string>
+  <string name="template_common_hindi">Хинди</string>
+  <string name="template_common_hungarian">Венгерский</string>
+  <string name="template_common_indonesian">Индонезийский</string>
+  <string name="template_common_italian">Итальянский</string>
+  <string name="template_common_japanese">Японский</string>
+  <string name="template_common_korean">Корейский</string>
+  <string name="template_common_latvian">Латвийский</string>
+  <string name="template_common_lithuanian">Литовский</string>
+  <string name="template_common_malay">Малайский</string>
+  <string name="template_common_norwegian">Норвежский</string>
+  <string name="template_common_persian">Персидский</string>
+  <string name="template_common_polish">Польский</string>
+  <string name="template_common_portuguese_brazil">Португальский (Бразилия)</string>
+  <string name="template_common_portuguese_portugal">Португальский (Португалия)</string>
+  <string name="template_common_romanian">Румынский</string>
+  <string name="template_common_russian">Русский</string>
+  <string name="template_common_serbian">Сербский</string>
+  <string name="template_common_slovak">Словацкий</string>
+  <string name="template_common_slovenian">Словенский</string>
+  <string name="template_common_spanish_latin_america">Испанский (Латинская Америка)</string>
+  <string name="template_common_spanish_spain">Испанский (Испания)</string>
+  <string name="template_common_swedish">Шведский</string>
+  <string name="template_common_thai">Тайский</string>
+  <string name="template_common_turkish">Турецкий</string>
+  <string name="template_common_ukrainian">Украинский</string>
+  <string name="template_common_vietnamese">Вьетнамский</string>
 </strings>

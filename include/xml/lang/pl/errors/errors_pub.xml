@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<errors>
+		<server>
+				<string name="missing_mcrypt">Proszę, powiedz administratorowi, żeby zainstalował mcrypt. Dzięki.</string>
+				<string name="missing_blowfish">Proszę, powiedz administratorowi, żeby zainstalował CRYPT_BLOWFISH. Dzięki.</string>
+		</server>
+    <db>
+        <string name="query_failed">Ooooops coś poszło źle./ nProszę, spróbuj ponownie!</string>
+        <string name="connection_failed">Ooooops coś poszło źle./ nProszę, spróbuj ponownie!</string>
+        <string name="no_entry_for_id">Ooooops coś poszło źle./ nProszę, spróbuj ponownie!</string>
+    </db>
+    <profile>
+    	<string name="no_such_user">Ooooops coś poszło źle./ nProszę, spróbuj ponownie!</string>
+    </profile>
+    <userFunctions>
+      <string name="hash_not_found">Przepraszamy! Nie można znaleźć niczego do odzyskania. Proszę spróbowuj ponownie.</string>
+			<string name="expired_url">Przepraszam! Twój adres (url) odzyskiwania wygasł. Proszę, spróbuj ponownie.</string>
+      <string name="username_missing">Nie wprowadzono nazwy użytkownika, proszę, podaj ją.</string>
+      <string name="username_invalid_underscore">Podana nazwa użytkownika, nie jest dozwolona. Proszę nie używać znaków podkreślenia (_).</string>
+      <string name="username_invalid_hash">Podana nazwa użytkownika, nie jest dozwolona. Proszę nie używać znaków hash (#).</string>
+      <string name="username_invalid_verticalbar">Podana nazwa użytkownika, nie jest dozwolona. Proszę nie używać  pionowej kreski (|).</string>
+      <string name="username_invaquery_failedlid_curlybrace">Podana nazwa użytkownika, nie jest dozwolona. Proszę nie używać nawiasów klamrowych ({ lub }).</string>
+      <string name="username_invalid_lessgreater">Podana nazwa użytkownika, nie jest dozwolona. Proszę nie używać znaków mniejsza lub większa niż (&lt; i &gt;).</string>
+      <string name="username_invalid_squarebracket">Podana nazwa użytkownika, nie jest dozwolona. Proszę nie używać nawiasów kwadratowych ([ lub ]).</string>
+      <string name="username_invalid_spaces">Podana nazwa użytkownika, nie jest dozwolona. Proszę nie używać spacji (" ").</string>
+      <string name="username_is_email_address">Twoja nazwa użytkownika nie może być adresem e-mail.</string>
+      <string name="username_invalid_insulting_words">Podana nazwa użytkownika, nie jest dozwolona. Proszę nie używać słów obraźliwych.</string>
+      <string name="username_invalid">Podana nazwa użytkownika, nie jest dozwolona.</string>
+      <string name="username_blacklisted">Podana nazwa użytkownika, nie jest dozwolona.</string>
+      <string name="username_already_exists">Podana nazwa użytkownika już istnieje.</string>
+      <string name="password_missing">Nie wprowadzono hasła, proszę, podaj je.</string>
+      <string name="password_not_equal_password2">Hasła nie pasują.</string>
+      <string name="username_password_equal">Hasło musi się różnić od nazwy użytkownika.</string>
+      <string name="password_new_too_short">Nowe hasło musi mieć co najmniej {*minimumPasswordLength*} znaków.</string>
+      <string name="password_new_too_long">Nowe hasło może mieć maksymalnie {*maximumPasswordLength*} znaków.</string>
+      <string name="email_missing">Adres e-mail nie został podany, proszę, podaj go.</string>
+      <string name="email_invalid">Adres e-mail nie jest prawidłowy.</string>
+      <string name="last_email">Jeden adres e-mail jest wymagany.</string>
+      <string name="country_missing">Nie wprowadzono kraju, należy go podać.</string>
+      <string name="password_or_username_wrong">Twoje hasło lub nazwa użytkownika były nieprawidłowe.</string>
+      <string name="board_authentication_failed">Uwierzytelnianie nie powiodło się.</string>
+      <string name="wiki_api_response_incorrect">Ooooops coś poszło źle./ nProszę, spróbuj ponownie!</string>
+      <string name="board_registration_failed">Przepraszamy, wystąpił błąd podczas przetwarzania rejestracji. Spróbuj ponownie!</string>
+      <string name="userdata_missing">Brak nazwy użytkownika lub adresu e-mail.</string>
+      <string name="unsupported_image">Ten typ obrazu nie jest obsługiwany, proszę wybierz inny obraz.</string>
+      <string name="avatar_creation_failed">Przepraszamy, napotkaliśmy błąd podczas przetwarzania rejestracji. Spróbuj ponownie!</string>
+      <string name="password_new_board_update_failed">Wystąpił problem podczas aktualizacji hasła.</string>
+      <string name="country_update_failed">Wystąpił problem podczas aktualizacji twojego kraju.</string>
+      <string name="language_update_failed">Wystąpił problem podczas aktualizacji dla twojego języka.</string>
+      <string name="userdata_not_exists">Twoja nazwa użytkownika lub adres e-mail adres nie zostały znalezione.</string>
+      <string name="email_update_failed">Błąd podczas aktualizowania tego adresu e-mail. Musisz mieć co najmniej jeden prawidłowy adres e-mail.</string>
+      <string name="create_hash_failed">Ooooops coś poszło źle./ nProszę, spróbuj ponownie!</string>
+      <string name="sendmail_failed">Wystąpił błąd podczas wysyłania wiadomości e-mail. Proszę skontaktuj się z administratorem na {*webmasterEmailAddress*}.</string>
+    </userFunctions>
+    <upload>
+        <string name="missing_project_title">Musisz podać tytuł swojego programu!</string>
+        <string name="missing_file_data">Przepraszamy, wystąpił błąd podczas wysyłania!</string>
+        <string name="missing_post_file_checksum">Przepraszamy wystąpił błąd podczas wysyłania! Czy używasz najnowszej wersji Pocket Code?</string>
+        <string name="copy_failed">Przepraszamy wystąpił błąd podczas wysyłania. Próbuj ponownie!</string>
+        <string name="rename_failed">Przepraszamy, wystąpił błąd podczas wysyłania. Próbuj ponownie!</string>
+        <string name="invalid_file_checksum">Przepraszamy, wystąpił błąd podczas wysyłania. Próbuj ponownie!</string>
+        <string name="project_exceed_filesize_limit">Plik programu jest zbyt duży.</string>
+        <string name="project_title_default">Musisz zmienić nazwę swego programu, przed przesłaniem go.</string>
+        <string name="insulting_words_in_project_title">Proszę nie używać wulgarnego języka w tytule programu.</string>
+        <string name="insulting_words_in_project_description">Proszę nie używać wulgarnego języka w opisie programu.</string>
+        <string name="save_thumbnail_failed">Przepraszamy, wystąpił błąd podczas wysyłania. Próbuj ponownie!</string>
+        <string name="invalid_project_xml">Przepraszamy, plik programu jest nieprawidłowy. Spróbuj zapisać go jako nowy program i przesłać go ponownie.</string>
+        <string name="old_catrobat_version">Przepraszamy, używasz starej wersji Pocket Code. Proszę, zaktualizuj do najnowszej wersji.</string>
+        <string name="old_catrobat_language">Przepraszamy, Twój program zawiera starą wersję języka Catrobat! Czy używasz najnowszej wersji Pocket Code?</string>
+        <string name="invalid_media_license">Przepraszamy, Twój program posiada nieprawidłową licencję mediów!</string>
+        <string name="invalid_program_license">Przepraszamy, Twój program posiada nieprawidłową licencję programu!</string>
+        <string name="visibility_incorrect">Widoczność jest niepoprawna!</string>
+        <string name="invalid_project_file">Przepraszamy, Twój program zawiera jakieś pliki nieznanego formatu.</string>
+        <string name="linked_project_file_not_found">Przepraszamy, wydaje się że w projekcie brakuje jakiegoś pliku.</string>
+        <string name="unlinked_project_file">Przepraszamy, projekt wydaje się zawierać jakieś pliki niezwiązane z projektem.</string>
+    </upload>
+    <download>
+    	<string name="file_not_found">Żądany program nie jest teraz dostępny. Spróbuj ponownie później!</string>
+    </download>
+    <flag>
+        <string name="missing_post_data">Musisz podać powód dlaczego chcesz zgłosić ten program jako nieodpowiedni!</string>
+        <string name="sql_insert_failed">Przepraszamy, wystąpił błąd podczas raportowania programu!</string>
+    </flag>
+    <viewer>
+    	<string name="html_file_not_found">Nie można wyświetlić tej strony.</string>
+      <string name="ip_is_blocked">Twój adres IP został zablokowany.</string>
+      <string name="ip_is_blocked_temporary">Twój adres IP został zablokowany na 30 sekund.</string>
+      <string name="user_is_blocked">Twoje konto zostało zablokowane.</string>
+    </viewer>
+    <auth>
+    	<string name="device_auth_invalid_token">Przepraszamy, Twoje dane uwierzytelniania były nieprawidłowe. Sprawdź nazwę użytkownika i hasło!</string>
+			<string name="device_auth_username_exists">Przepraszamy, Twoja nazwa użytkownika jest już w użyciu.</string>
+      <string name="not_a_tugraz_ip">Nie masz uprawnień do oglądania tej strony.</string>
+    </auth>
+    <registration>
+      <string name="postdata_missing">Wprowadź swoje dane logowania.</string>
+    </registration>
+    <admin>
+      <string name="pootle_post_data_missing">Brakuje POST-data: wymagane: lang.</string>
+      <string name="pootle_load_xlf_failed">Nie można załadować pliku XLF od {* źródła *}.</string>
+      <string name="pootle_not_valid_xml">Nie można wygenerować obiektu XML ze stringu XLF.</string>
+      <string name="pootle_invalid_stringname_in_xml">W pliku źródłowym XLF nieprawidłowa nazwa stringu: {*stringName*}</string>
+      <string name="pootle_could_not_write_xml_file">Nie można zapisać pliku XML w katalogu języka: {*fileName*}</string>
+    </admin>
+</errors>
