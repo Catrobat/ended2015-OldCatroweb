@@ -12,6 +12,12 @@ files:
     languages_mapping:
       two_letters_code:
         'zh-CN': 'zh-CN'
-        #'zh-TW': 'zh-TW'
-
-
+        'zh-TW': 'zh-TW'
+        'sr-CS': 'sr-CS'
+        'es-CR': 'es-CR'
+        'es-ES': 'es-ES'
+        'en-AU': 'en-AU'
+        'en-CA': 'en-CA'
+        'en-GB': 'en-GB'
+        'pt-BR': 'pt-BR'
+        'pt-PT': 'pt-PT'
