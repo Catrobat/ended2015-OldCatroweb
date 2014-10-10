@@ -22,18 +22,18 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-	<string name="title">Tutorials</string>
-  <string name="head_text1">This tutorials show you how to use effective tricks in </string>
+	<string name="title">Tutoriales</string>
+  <string name="head_text1">Este tutorial te enseña cómo utilizar trucos efectivos en </string>
   <string name="head_text2">Pocket Code.</string>
   
-  <string name="title">Tutorials</string>
-	<string name="project1">Change Size</string>
-	<string name="project2">Change Look</string>
-	<string name="project3">Moving Animation</string>
-	<string name="project4">Glide</string>
-	<string name="project5">Play Sound</string>
-	<string name="project6">Speak Something</string>
-	<string name="project7">GSensor</string>
-	<string name="project8">Compass</string>
-	<string name="project9">Broadcast</string>
+  <string name="title">Tutoriales</string>
+	<string name="project1">Cambia el tamaño</string>
+	<string name="project2">Cambio de Apariencia</string>
+	<string name="project3">Animaciones con movimiento</string>
+	<string name="project4">Deslizar</string>
+	<string name="project5">Reproducir sonido</string>
+	<string name="project6">Hablar algo</string>
+	<string name="project7">Acelerómetro</string>
+	<string name="project8">Brújula</string>
+	<string name="project9">Difusión</string>
 </strings>

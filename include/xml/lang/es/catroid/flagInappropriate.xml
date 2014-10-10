@@ -22,5 +22,5 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="msg_flagged_successful">You reported this program as inappropriate!</string>
+  <string name="msg_flagged_successful">Ha evaluado este programa como inapropiado!</string>
 </strings>

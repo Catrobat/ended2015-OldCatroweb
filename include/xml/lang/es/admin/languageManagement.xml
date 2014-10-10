@@ -22,5 +22,5 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="pootle_language_successfully_created">The language {*languageName*} was successfully updated!</string>
+  <string name="pootle_language_successfully_created">El lenguaje {* languageName *} se actualizó correctamente!</string>
 </strings>
