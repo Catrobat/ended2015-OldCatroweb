@@ -25,12 +25,12 @@
 class projects extends CoreAuthenticationNone {
   protected $maxId = 2147483647; // (2^8)^4 / 2 - 1  (4 bytes signed int)
   protected $mask = array(PROJECT_MASK_DEFAULT => array('ProjectId', 'ProjectName'),
-      PROJECT_MASK_GRID_ROW_AGE => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'UploadedString'),
-      PROJECT_MASK_GRID_ROW_DOWNLOADS => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Downloads'),
-      PROJECT_MASK_GRID_ROW_VIEWS => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Views'),
-      PROJECT_MASK_FEATURED => array('ProjectId', 'ProjectName', 'FeaturedImage', 'Author'),
+      PROJECT_MASK_GRID_ROW_AGE => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'UploadedString', 'FileSize'),
+      PROJECT_MASK_GRID_ROW_DOWNLOADS => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Downloads', 'FileSize'),
+      PROJECT_MASK_GRID_ROW_VIEWS => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotSmall', 'Views', 'FileSize'),
+      PROJECT_MASK_FEATURED => array('ProjectId', 'ProjectName', 'FeaturedImage', 'Author', 'FileSize'),
       PROJECT_MASK_ALL => array('ProjectId', 'ProjectName', 'ProjectNameShort', 'ScreenshotBig', 'ScreenshotSmall', 'Author',
-          'Description', 'Uploaded', 'UploadedString', 'Version', 'Views', 'Downloads', 'ProjectUrl', 'DownloadUrl'));
+          'Description', 'Uploaded', 'UploadedString', 'Version', 'Views', 'Downloads', 'ProjectUrl', 'DownloadUrl', 'FileSize'));
 
   public function __construct() {
     parent::__construct();
@@ -337,7 +337,7 @@ class projects extends CoreAuthenticationNone {
         "_q" . ((strlen($query) > 0) ? count($searchTerms) : '0') .
         "_" . $order;
     $sqlQuery = "SELECT
-        projects.id, projects.title, projects.description, projects.view_count, projects.user_id, projects.download_count, projects.version_name,
+        projects.id, projects.title, projects.description, projects.view_count, projects.user_id, projects.download_count, projects.version_name, projects.filesize_bytes,
         coalesce(extract(epoch from \"timestamp\"(projects.update_time)), extract(epoch from \"timestamp\"(projects.upload_time))) AS last_activity,
         cusers.username AS uploaded_by
     FROM projects, cusers
@@ -490,6 +490,9 @@ class projects extends CoreAuthenticationNone {
       }
       if(in_array('DownloadUrl', $selectedFields)) {
         $currentProject['DownloadUrl'] = 'download/' . $project['id'] . PROJECTS_EXTENSION;
+      }
+      if(in_array('FileSize', $selectedFields)) {
+        $currentProject['FileSize'] = convertBytesToMegabytes($project['filesize_bytes']);
       }
       array_push($tempProjectList, $currentProject);
     }

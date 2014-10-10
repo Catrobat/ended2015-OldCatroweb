@@ -131,6 +131,8 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
     if(!in_array($file, $this->jsFiles)) {
       array_push($this->jsFiles, $file);
     }
+    
+//     var_dump($this->jsFiles);
   }
 
   public function addGlobalJs($file) {

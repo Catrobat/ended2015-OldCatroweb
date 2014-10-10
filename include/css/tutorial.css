@@ -96,14 +96,15 @@
   cursor: pointer;
 }
 
-#wrapper article div.tutorialDiscuss1 {
+#wrapper article div.tutorialDiscuss1, #wrapper article div.tutorialHourOfCode1 {
   display: block;
   width: 100%;
   text-align: center;
   cursor: pointer;
+  padding-bottom: 2.2em;
 }
 
-#wrapper article div.tutorialDiscuss2 {
+#wrapper article div.tutorialDiscuss2, #wrapper article div.tutorialHourOfCode2 {
   display: none;
   cursor: pointer;
 }
@@ -349,7 +350,7 @@
    text-align: center;
  }
  
- #wrapper article div.tutorialDiscuss1 {
+ #wrapper article div.tutorialDiscuss1, #wrapper article div.tutorialHourOfCode1 {
    display: none; 
  }
  
@@ -357,6 +358,12 @@
    display: block; 
    text-align: center;
    padding-top: 2.2em;
+ }
+ 
+ #wrapper article div.tutorialHourOfCode2 {
+   display: block; 
+   text-align: center;
+   padding-bottom: 2.2em;
  }
   
  #wrapper article div.tutorialStarterProgamsContainer { 
