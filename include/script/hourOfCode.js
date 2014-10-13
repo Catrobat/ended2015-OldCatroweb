@@ -40,8 +40,6 @@ function initHourOfCode() {
   overlay.width($(document).width() - 1);
   overlay.height($(document).height());
   
-  console.log($('html').offset().top);
-  
   popup.css("top", "50px");
   outerContainer.height($(window).height() - 100);
   
@@ -253,24 +251,18 @@ function hideNavigations(type) {
   }
 }
 
-function showImage(path, id, selector) {
+function showImage(path, id, selector, type) {
   
   var container = $("#container");
   $(container).html('<img class="img" src="'+path+'images/hourOfCode/'+id+'_'+selector+'.jpg" />');
   
-  $(".img").height($(window).height() - 108);
-  
+  if(type !== 1)
+    $(".img").height($(window).height() - 108);
+  else {
+
+    $(".img").css("height", "auto");
+  }
   $(document).ready(function() {
-    
-    
-//    $("#image_"+id+"_"+selector).click(function() {
-//      console.log($(this).width());
-//    });
-    
-    
-//    $("#container img").load(function() {
-//      $("#outerContainer").width($(this).width() + 8);
-//    });
     
     $(document).keyup(function(e) {
       if (e.keyCode == 27) { 
@@ -284,6 +276,12 @@ function showImage(path, id, selector) {
   $("#imageOverlay").fadeToggle( 300, function() {});
   $("#imagePopup").fadeToggle( 300, function() {});
   window.scrollTo(0, 0);
+  
+  var overlay = $("#imageOverlay");
+  
+  overlay.width($(document).width() - 1);
+  overlay.height($(document).height());
+  
 }
 
 /*
