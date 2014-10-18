@@ -34,7 +34,7 @@
   <string name="report_as_inappropriate_own_project">You cannot flag your own program.</string>
   <string name="report_as_inappropriate_already_flagged">You've already flagged this program as inappropriate.</string>
   <string name="report">Report</string>
-  <string name="cancel">Cancel</string>
+  <string name="cancel">Cancelar</string>
   <string name="flag_reason_placeholder">Enter a reason</string>
   <string name="some_rights_reserved">License to play</string>
   <string name="views">views</string>

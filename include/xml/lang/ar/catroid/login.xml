@@ -23,12 +23,12 @@
 -->
 <strings>
   <string name="title">تسجيل الدخول</string>
-  <string name="password_link">Forgot password or username?</string>  
+  <string name="password_link">نسيت كلمة المرور أو اسم المستخدم؟</string>  
   <string name="nickname">اسم المستخدم:</string>
   <string name="password">كلمة المرور:</string>
-  <string name="enter_nick">Username</string>
-  <string name="enter_password">Password</string>
+  <string name="enter_nick">اسم المستخدم</string>
+  <string name="enter_password">كلمة المرور</string>
   <string name="login">تسجيل الدخول</string>
-  <string name="additional_options">Other options to proceed:</string>
-  <string name="catroid_logout_success">Logout was successful.</string>
+  <string name="additional_options">خيارات أخرى للقيام بها:</string>
+  <string name="catroid_logout_success">تم تسجيل الخروج بنجاح.</string>
 </strings>

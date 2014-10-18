@@ -22,7 +22,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="registration_mail_subject">Your {*appplication_name*} Registration</string>
+  <string name="registration_mail_subject">&#x60A8;&#x597D; {*username*}</string>
   <string name="registration_mail_text_row1">Congratulations and welcome to the {*appplication_url*} community.</string>
   <string name="registration_mail_text_row2">Please keep this e-mail for your records. Your account information is as follows:</string>
   <string name="registration_mail_text_row3">Username: {*username*}</string>

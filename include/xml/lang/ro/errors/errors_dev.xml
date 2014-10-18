@@ -23,36 +23,36 @@
 -->
 <errors>
 		<server>
-				<string name="missing_mcrypt">Mcrypt is missing on your system.</string>
-				<string name="missing_blowfish">CRYPT_BLOWFISH is missing on your system.</string>
+				<string name="missing_mcrypt">Mcrypt lipsește de pe sistemul dumneavoastră.</string>
+				<string name="missing_blowfish">CRYPT_BLOWFISH lipsește pe sistemul dumneavoastră.</string>
 		</server>
     <db>
-        <string name="query_failed">Opera&#x21B;iunea asupra bazei de date a e&#x219;uat.</string>
-        <string name="connection_failed">Conexiunea cu baza de date a e&#x219;uat.</string>
-        <string name="no_entry_for_id">Nu a fost g&#x103;sit&#x103; nici o &#xEE;nscriere pentru acest identificator.</string>
+        <string name="query_failed">Operațiunea asupra bazei de date a eșuat.</string>
+        <string name="connection_failed">Conexiunea cu baza de date a eșuat.</string>
+        <string name="no_entry_for_id">Nu a fost găsită nici o înscriere pentru acest identificator</string>
     </db>
     <profile>
-    	<string name="no_such_user">Parola lispe&#x219;te.</string>
+    	<string name="no_such_user">Ooooops, ceva a mers greșit./nVă rugăm să încercați din nou!</string>
     </profile>
     <userFunctions>
-    	<string name="hash_not_found">Recovery hash was not found.</string>
-			<string name="expired_url">Scuza&#x21B;i! URL de recuperare a expirat. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x21B;i din nou.</string>
-    	<string name="username_missing">Numele lispe&#x219;te.</string>
+    	<string name="hash_not_found">Codul de recuperare nu a fost găsit.</string>
+			<string name="expired_url">Scuzați! URL de recuperare a expirat. Vă rugăm să încercați din nou.</string>
+    	<string name="username_missing">Numele lispește.</string>
     	<string name="username_invalid_underscore">Numele este nevalid. Sublinierele (_) nu sunt permise.</string>
     	<string name="username_invalid_hash">Numele este nevalide. Semnele diez (#) nu sunt permise.</string>
     	<string name="username_invalid_verticalbar">Numele este nevalide. Barele verticale (|) nu sunt permise.</string>
     	<string name="username_invalid_curlybrace">Numele este nevalide. Acoladele ({ sau }) nu sunt permise.</string>
-    	<string name="username_invalid_lessgreater">The username is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.</string>
-    	<string name="username_invalid_squarebracket">Numele este nevalide. Parantezele p&#x103;trate ([ sau]) nu sunt permise.</string>
+    	<string name="username_invalid_lessgreater">Numele de utilizator este invalid. Caracterele mai mic sau mai mare (&lt; sau &gt;) nu sunt permise.</string>
+    	<string name="username_invalid_squarebracket">Numele este nevalide. Parantezele pătrate ([ sau]) nu sunt permise.</string>
     	<string name="username_invalid_spaces">Numele este nevalid. Sublinierele (_) nu sunt permise.</string>
-    	<string name="username_is_email_address">Your username may not be an email address.</string>
+    	<string name="username_is_email_address">Numele de utilizator nu poate fi o adresă de e-mail.</string>
     	<string name="username_invalid_insulting_words">Numele este nevalid.</string>
-    	<string name="username_invalid">Acest nume este &#xEE;n lista neagr&#x103; &#x219;i nu este permis.</string>
-    	<string name="username_blacklisted">Acest nume deja exista.</string>
-    	<string name="username_already_exists">Parola lispe&#x219;te.</string>
-    	<string name="password_missing">Parola trebuie s&#x103; difere de nume.</string>
-    	<string name="password_not_equal_password2">The passwords didn't match.</string>
-    	<string name="username_password_equal">The password must differ from the username.</string>
+    	<string name="username_invalid">Acest nume este invalid.</string>
+    	<string name="username_blacklisted">Acest nume de utilizator este pe lista neagră şi nu este permis.</string>
+    	<string name="username_already_exists">Acest nume de utilizator deja există.</string>
+    	<string name="password_missing">Lipsește parola.</string>
+    	<string name="password_not_equal_password2">Parolele nu se potrivesc.</string>
+    	<string name="username_password_equal">Parola trebuie să difere de numele de utilizator.</string>
       <string name="password_new_too_short">Adresa email lipse&#x219;te.</string>
       <string name="password_new_too_long">Aceast&#x103; adres&#x103; email nu este valid&#x103;.</string>
       <string name="email_missing">Aceast&#x103; adres&#x103; email deja exist&#x103;.</string>
@@ -71,7 +71,7 @@
       <string name="language_update_failed">Ooooops ceva nu a mers bine. V&#x103; rug&#x103;m s&#x103; &#xEE;ncerca&#x163;i din nou!</string>
     	<string name="userdata_not_exists">username or email address was not found.</string>
     	<string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
-    	<string name="create_hash_failed">Parola lispe&#x219;te.</string>
+    	<string name="create_hash_failed">Ooooops, ceva a mers greșit./nVă rugăm să încercați din nou!</string>
     	<string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>
     </userFunctions>
     <upload>

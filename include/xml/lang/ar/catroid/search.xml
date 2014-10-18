@@ -23,5 +23,5 @@
 -->
 <strings>
   <string name="header">نتائج البحث</string>
-  <string name="results">Your search returned {*amount*} results</string>
+  <string name="results">تم أرجاع البحث {* amount*} النتائج</string>
 </strings>

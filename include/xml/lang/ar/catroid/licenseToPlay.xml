@@ -22,34 +22,28 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-	<string name="title">License to play - Give credit and share</string>
+	<string name="title">ترخيص للتشغيل--منح الائتمان والمشاركة</string>
 
 	<string name="project_licence_part1">
-		Imagine that each Catrobat program is a cake, a very special cake that comes with its recipe (programming blocks).
-		All members of the Catrobat community share their cakes along with their recipes. This means that you can enjoy the cakes and learn how to make them yourself!
+		تخيل أن كل برنامج كاتروبات كعكة، كعكة خاصة جداً يأتي مع وصفه (برمجة كتل). جميع أعضاء في مجتمع كاتروبات يشاركون  بما لديهم من الكعك جنبا إلى جنب مع وصفاتهم. وهذا يعني أنه يمكنك الاستمتاع بالكعك وتعلم كيفية صنعها بنفسك!
 	</string>
 	<string name="project_licence_part2">
-		There are no secret recipes: the instructions on how to make these cakes are open for anyone to use, reuse, modify, and serve as
-        inspiration for new ideas... I mean cakes.
+		لا يوجد هناك وصفات سرية: إرشادات حول كيفية جعل هذه الكعك مفتوحة لأي شخص يمكنه الاستخدام، إعادة استخدام، والتعديل، وأن تكون بمثابة مصدر الهام لأفكار جديدة... أعني الكعك.
 	</string>
 	<string name="project_licence_part3">
-		You can eat the cakes as well as copy other people's recipes to make your own, maybe with different ingredients.
-		This freedom comes with two simple requirements:
+		يمكنك أكل الكعك فضلا عن نسخ الوصفات الأخرى لصنعها بنفسك، ربما بمكونات مختلفة. هذه الحرية تأتي مع اثنين من المتطلبات البسيطة:
 	</string>
-	<string name="project_licence_part3_list_element1">share your cakes along with the recipe</string>
-	<string name="project_licence_part3_list_element2">give credit to those who inspired you</string>
+	<string name="project_licence_part3_list_element1">شارك بالكعكة الخاص بك جنبا إلى جنب مع الوصفة</string>
+	<string name="project_licence_part3_list_element2">إعطاء الفرصة والثقة لأولئك الذين شكلوا لك إلهاما</string>
 	<string name="project_licence_part4">
-		In setting up the Catrobat community, we decided to adopt this approach since we believe that it supports learning and creativity within the community. 
-        By sharing recipes and ingredients (scripts and artwork), people can build upon one another's ideas and everyone will benefit.
+		في مجتمع كاتروبات، قررنا اعتماد هذا النهج لأننا نعتقد بأنه يدعم التعلم والإبداع داخل المجتمع. بتبادل الوصفات والمكونات (مخطوطات وأعمال فنية)، يمكن للناس أن يبنوا أفكارهم على أفكار الأخرين، وسوف يستفيد منها الجميع.
 	</string>
 	<string name="project_licence_part5">
-		In designing the Catrobat website, we included features to encourage people to share and to give credit to others. On each program page, you 
-        can always download the original scripts for the program. If you remix a program (modifying the scripts or artwork, and sharing the result), 
-        we encourage you to give credit in the Program Notes, mentioning the people and program that inspired you.
+		في تصميم موقع كاتروبات، قمنا بتضمين ميزات تشجع الناس للمشاركة وإعطاء الفرصة للآخرين. في كل صفحة في البرنامج، يمكنك دائماً تحميل البرامج النصية الأصلية للبرنامج. إذا كنت ريمكس برنامج (تعديل البرامج النصية أو العمل الفني، وتقاسم النتيجة)، نحن نشجعك على إعطاء الفرصة والثقة في ملاحظات البرنامج، والإشارة الى الناس والبرامج التي ألهمتك.
 	</string>
 	<string name="project_licence_learn_more_new">
-		Learn more about the terms of use of the Catrobat online community on {*termsOfUseLink*}.
+		مزيد من المعلومات حول شروط الاستخدام في بيئة الكاتروبات في {*termsOfUseLink*}.
 	</string>
 
-  <string name="project_licence_dated">Version 1.1, 2 April 2013</string>
+  <string name="project_licence_dated">الإصدار 1، 1، 2 أبريل 2013</string>
 </strings>

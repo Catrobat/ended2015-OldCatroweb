@@ -22,12 +22,12 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-	<string name="title">Tutorials</string>
-  <string name="head_text1">This tutorials show you how to use effective tricks in </string>
+	<string name="title">Tutoriels</string>
+  <string name="head_text1">Ce tutoriels vous montre comment utiliser les astuces efficacement dans </string>
   <string name="head_text2">Pocket Code.</string>
   
-  <string name="title">Tutorials</string>
-	<string name="project1">Change Size</string>
+  <string name="title">Tutoriels</string>
+	<string name="project1">Changer la taille</string>
 	<string name="project2">Change Look</string>
 	<string name="project3">Moving Animation</string>
 	<string name="project4">Glide</string>

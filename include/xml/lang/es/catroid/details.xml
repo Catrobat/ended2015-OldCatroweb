@@ -22,24 +22,24 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded">uploaded</string>
-  <string name="updated">updated</string>
-  <string name="uploaded_by">by {*nicknameString*}</string>
-  <string name="login">login</string>
-  <string name="download_button">Download</string>
-  <string name="filesize">big</string>
-  <string name="report_as_inappropriate">Report as inappropriate</string>
-  <string name="report_as_inappropriate_label">Why do you think this program is inappropriate?</string>
-  <string name="report_as_inappropriate_please_login">Please {*login_link*} to report this program as inappropriate.</string>
-  <string name="report_as_inappropriate_own_project">You cannot flag your own program.</string>
-  <string name="report_as_inappropriate_already_flagged">You've already flagged this program as inappropriate.</string>
-  <string name="report">Report</string>
-  <string name="cancel">Cancel</string>
-  <string name="flag_reason_placeholder">Enter a reason</string>
-  <string name="some_rights_reserved">License to play</string>
-  <string name="views">views</string>
-  <string name="downloads">downloads</string>
-  <string name="language_version_info_text">Catrobat Language version:</string>
-  <string name="description">Description</string>
-  <string name="no_description_available">No description available.</string>
+  <string name="uploaded">cargado</string>
+  <string name="updated">actualizado</string>
+  <string name="uploaded_by">por {* nicknameString *}</string>
+  <string name="login">Inicio de sesión</string>
+  <string name="download_button">Descargar</string>
+  <string name="filesize">grande</string>
+  <string name="report_as_inappropriate">Reporte como inapropiado</string>
+  <string name="report_as_inappropriate_label">¿Por qué crees que este programa es inapropiado?</string>
+  <string name="report_as_inappropriate_please_login">Por favor {* login_link *} para informar este programa como inadecuado.</string>
+  <string name="report_as_inappropriate_own_project">Usted no debería incluir bandera de su propio programa.</string>
+  <string name="report_as_inappropriate_already_flagged">Ya has marcado este programa como inadecuado.</string>
+  <string name="report">Informe</string>
+  <string name="cancel">Cancelar</string>
+  <string name="flag_reason_placeholder">Entre una razón</string>
+  <string name="some_rights_reserved">Licencia para jugar</string>
+  <string name="views">Vistas</string>
+  <string name="downloads">descargas</string>
+  <string name="language_version_info_text">Versión Catrobat:</string>
+  <string name="description">Descripción</string>
+  <string name="no_description_available">No hay descripción disponible</string>
 </strings>

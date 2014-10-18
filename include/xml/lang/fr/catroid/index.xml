@@ -22,10 +22,10 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-    <string name="recommended">Featured</string>
-    <string name="newestProjects">Newest</string>
-    <string name="mostDownloaded">Most Downloaded</string>
-    <string name="downloaded">downloads</string>
-    <string name="mostViewed">Most Viewed</string>
-    <string name="viewed">views</string>
+    <string name="recommended">A l'affiche</string>
+    <string name="newestProjects">Nouveau</string>
+    <string name="mostDownloaded">Les plus téléchargés</string>
+    <string name="downloaded">téléchargements</string>
+    <string name="mostViewed">Les plus populaires</string>
+    <string name="viewed">vues</string>
 </strings>

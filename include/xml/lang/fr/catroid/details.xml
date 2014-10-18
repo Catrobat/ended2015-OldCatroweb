@@ -22,24 +22,24 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded">uploaded</string>
-  <string name="updated">updated</string>
-  <string name="uploaded_by">by {*nicknameString*}</string>
-  <string name="login">login</string>
-  <string name="download_button">Download</string>
-  <string name="filesize">big</string>
-  <string name="report_as_inappropriate">Report as inappropriate</string>
-  <string name="report_as_inappropriate_label">Why do you think this program is inappropriate?</string>
+  <string name="uploaded">Téléchargé</string>
+  <string name="updated">mis à jour</string>
+  <string name="uploaded_by">par {* nicknameString *}</string>
+  <string name="login">Identifiant</string>
+  <string name="download_button">Télécharger</string>
+  <string name="filesize">gros</string>
+  <string name="report_as_inappropriate">Signaler comme inapproprié</string>
+  <string name="report_as_inappropriate_label">Pourquoi pensez-vous que ce programme n'est pas approprié ?</string>
   <string name="report_as_inappropriate_please_login">Please {*login_link*} to report this program as inappropriate.</string>
-  <string name="report_as_inappropriate_own_project">You cannot flag your own program.</string>
-  <string name="report_as_inappropriate_already_flagged">You've already flagged this program as inappropriate.</string>
-  <string name="report">Report</string>
+  <string name="report_as_inappropriate_own_project">Vous ne pouvez pas marquer votre propre programme.</string>
+  <string name="report_as_inappropriate_already_flagged">Vous avez déjà signalé ce programme comme étant inapproprié.</string>
+  <string name="report">Signaler</string>
   <string name="cancel">Annuler</string>
-  <string name="flag_reason_placeholder">Enter a reason</string>
-  <string name="some_rights_reserved">License to play</string>
-  <string name="views">views</string>
-  <string name="downloads">downloads</string>
+  <string name="flag_reason_placeholder">Entrez un motif</string>
+  <string name="some_rights_reserved">Licence pour jouer</string>
+  <string name="views">vues</string>
+  <string name="downloads">téléchargements</string>
   <string name="language_version_info_text">Catrobat Language version:</string>
   <string name="description">Description</string>
-  <string name="no_description_available">No description available.</string>
+  <string name="no_description_available">Aucune description disponible.</string>
 </strings>

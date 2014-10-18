@@ -23,105 +23,105 @@
 -->
 <errors>
 		<server>
-				<string name="missing_mcrypt">Mcrypt is missing on your system.</string>
-				<string name="missing_blowfish">CRYPT_BLOWFISH is missing on your system.</string>
+				<string name="missing_mcrypt">Mcrypt غير موجود على النظام الخاص بك.</string>
+				<string name="missing_blowfish">CRYPT_BLOWFISH غير موجود على النظام الخاص بك.</string>
 		</server>
     <db>
-        <string name="query_failed">DB operation failed.</string>
-        <string name="connection_failed">DB connection failed.</string>
-        <string name="no_entry_for_id">No entry was found for the given ID</string>
+        <string name="query_failed">فشلت عملية DB.</string>
+        <string name="connection_failed">فشل اتصال DB.</string>
+        <string name="no_entry_for_id">لم يتم العثور على أي سجل للقيمة المدخلة</string>
     </db>
     <profile>
-    	<string name="no_such_user">Ooooops something went wrong./nPlease try again!</string>
+    	<string name="no_such_user">أوووووبس هناك خطأ.  n/ حاول مرة أخرى!</string>
     </profile>
     <userFunctions>
-    	<string name="hash_not_found">Recovery hash was not found.</string>
-			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>
-    	<string name="username_missing">The username is missing.</string>
-    	<string name="username_invalid_underscore">The username is invalid. Underscores (_) are not allowed.</string>
-    	<string name="username_invalid_hash">The username is invalid. Hash signs (#) are not allowed.</string>
-    	<string name="username_invalid_verticalbar">The username is invalid. Vertical bars (|) are not allowed.</string>
-    	<string name="username_invalid_curlybrace">The username is invalid. Curly braces ({ or }) are not allowed.</string>
-    	<string name="username_invalid_lessgreater">The username is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.</string>
-    	<string name="username_invalid_squarebracket">The username is invalid. Square brackets ([ or ]) are not allowed.</string>
-    	<string name="username_invalid_spaces">The username is invalid. Spaces (" ") are not allowed.</string>
-    	<string name="username_is_email_address">Your username may not be an email address.</string>
-    	<string name="username_invalid_insulting_words">The username is invalid. There are insulting words in the username field!</string>
-    	<string name="username_invalid">The username is invalid.</string>
-    	<string name="username_blacklisted">This username is on the blacklist and not allowed.</string>
-    	<string name="username_already_exists">This username already exists.</string>
-    	<string name="password_missing">The password is missing.</string>
-    	<string name="password_not_equal_password2">The passwords didn't match.</string>
-    	<string name="username_password_equal">The password must differ from the username.</string>
-      <string name="password_new_too_short">Your password must have at least {*minimumPasswordLength*} characters.</string>
-      <string name="password_new_too_long">Your password can have a maximum of {*maximumPasswordLength*} characters.</string>
-      <string name="email_missing">The email address is missing.</string>
-      <string name="email_invalid">The email address is not valid.</string>
-    	<string name="email_already_exists">This email address already exists.</string>
-    	<string name="country_missing">The country is missing.</string>
-      <string name="password_or_username_wrong">The password or username was incorrect.</string>
-      <string name="board_authentication_failed">The board authentication failed.</string>
-      <string name="wiki_api_response_incorrect">The response of the mediawiki API was incorrect.</string>
-    	<string name="board_registration_failed">The board registration failed.</string>
-    	<string name="userdata_missing">The username or email address is missing.</string>
-      <string name="unsupported_image">Invalid image, allowed image types are gif, png or jpeg.</string>
-      <string name="avatar_creation_failed">The creation of the new avatar failed.</string>
-    	<string name="password_new_board_update_failed">Failed to update the board password.</string>
-      <string name="country_update_failed">There was a problem while updating your home country.</string>
-      <string name="language_update_failed">There was a problem while updating your language.</string>
-    	<string name="userdata_not_exists">username or email address was not found.</string>
-    	<string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
-    	<string name="create_hash_failed">Ooooops something went wrong./nPlease try again!</string>
-    	<string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>
+    	<string name="hash_not_found">لم يتم العثور على رمز الاسترداد.</string>
+			<string name="expired_url">عذراً! انتهت مدة صلاحية url الخاصة بك. الرجاء المحاولة مرة أخرى.</string>
+    	<string name="username_missing">اسم المستخدم غير موجود.</string>
+    	<string name="username_invalid_underscore">اسم المستخدم غير صحيح. غير مسموح بإستخدام (_).</string>
+    	<string name="username_invalid_hash">اسم المستخدم غير صحيح. غير مسموح بعلامات التجزئة (#).</string>
+    	<string name="username_invalid_verticalbar">اسم المستخدم غير صحيح. غير مسموح بأشرطة عمودية (|).</string>
+    	<string name="username_invalid_curlybrace">اسم المستخدم غير صحيح. لا يسمح بالأقواس المتعرجة الكبيرة ({or}).</string>
+    	<string name="username_invalid_lessgreater">اسم المستخدم غير صحيح. أقل من أو أكبر من علامات (&lt; أو &gt;) غير مسموح بها.</string>
+    	<string name="username_invalid_squarebracket">اسم المستخدم غير صحيح. أقواس مربعة ([or]) غير مسموح بها.</string>
+    	<string name="username_invalid_spaces">اسم المستخدم غير صحيح. المسافات ("") غير مسموح بها.</string>
+    	<string name="username_is_email_address">لا يمكن أن يكون اسم المستخدم هو نفسه البريد الالكتروني الخاص بك.</string>
+    	<string name="username_invalid_insulting_words">اسم المستخدم غير صحيح. هناك كلمات مهينة في حقل اسم المستخدم!</string>
+    	<string name="username_invalid">اسم المستخدم غير صحيح.</string>
+    	<string name="username_blacklisted">اسم المستخدم في القائمة السوداء وغير مسموح به.</string>
+    	<string name="username_already_exists">اسم المستخدم موجود بالفعل.</string>
+    	<string name="password_missing">كلمة المرور غير موجودة.</string>
+    	<string name="password_not_equal_password2">لا تتطابق كلمات المرور.</string>
+    	<string name="username_password_equal">كلمة المرور يجب أن تختلف عن اسم المستخدم.</string>
+      <string name="password_new_too_short">يجب أن تحتوي كلمة المرور الخاصة بك على الأقل {* minimumPasswordLength*} حرفاً.</string>
+      <string name="password_new_too_long">تحتوي كلمة المرور الخاصة بك كحد أقصى على {* maximumPasswordLength*} حرفاً.</string>
+      <string name="email_missing">عنوان البريد الإلكتروني غير موجود.</string>
+      <string name="email_invalid">البريد الإلكتروني خطأ.</string>
+    	<string name="email_already_exists">عنوان البريد الإلكتروني هذا موجود بالفعل.</string>
+    	<string name="country_missing">اسم الدولة غير موجود.</string>
+      <string name="password_or_username_wrong">كلمة المرور أو اسم المستخدم غير صحيح.</string>
+      <string name="board_authentication_failed">فشلت عملية التحقق.</string>
+      <string name="wiki_api_response_incorrect">استجابة ميدياويكي API غير صحيحة.</string>
+    	<string name="board_registration_failed">فشلت عملية التسجيل .</string>
+    	<string name="userdata_missing">عنوان البريد الإلكتروني أو اسم المستخدم غير موجود.</string>
+      <string name="unsupported_image">صورة غير صالحة، يسمح فقط  لأنواع الصور gif أو png أو jpeg.</string>
+      <string name="avatar_creation_failed">فشل إنشاء صورة جديدة.</string>
+    	<string name="password_new_board_update_failed">فشل تحديث كلمة المرور للبورد.</string>
+      <string name="country_update_failed">حدثت مشكلة أثناء تحديث بلدك.</string>
+      <string name="language_update_failed">حدثت مشكلة أثناء تحديث اللغة الخاصة بك.</string>
+    	<string name="userdata_not_exists">لم يتم العثور على عنوان البريد الإلكتروني أو اسم المستخدم.</string>
+    	<string name="email_update_failed">حدث خطأ أثناء تحديث عنوان البريد الإلكتروني هذا. يجب أن يكون لديك على الأقل عنوان بريد إلكتروني  صحيح.</string>
+    	<string name="create_hash_failed">أوووووبس هناك خطأ.  n/ حاول مرة أخرى!</string>
+    	<string name="sendmail_failed">حدث خطأ أثناء إرسال رسالة بريد إلكتروني. ربما الايميل سيرفير الخاص بك معطل؟</string>
     </userFunctions>
     <upload>
-        <string name="missing_project_title">There was no programm Title specified. (XML file and POST data, at least one is required.)</string>
-        <string name="missing_file_data">POST-Data not correct or missing!</string>
-        <string name="missing_post_file_checksum">Client did not send fileChecksum! Are you using an outdated version of Pocket Code?</string>
-        <string name="copy_failed">Statement copy has failed!</string>
-        <string name="rename_failed">Statement rename has failed!</string>
-        <string name="invalid_file_checksum">The checksum of the uploaded file differs from the checksum generated by the client!</string>
-        <string name="project_exceed_filesize_limit">The size of the programm file exceed the max filesize limit!</string>
-        <string name="project_title_default">Uploading programm named with the default programm name is not allowed.</string>
-        <string name="insulting_words_in_project_title">There are insulting words in the programm title!</string>
-        <string name="insulting_words_in_project_description">There are insulting words in the programm description!</string>
-        <string name="save_thumbnail_failed">Save thumbnail failed!</string>
-        <string name="invalid_project_xml">The XML of the programm is not valid!</string>
-        <string name="old_catrobat_version">Sorry, you are using an old version of Pocket Code. Please update to the lastest version.</string>
-        <string name="old_catrobat_language">Programm contains old Catrobat language!</string>
-        <string name="invalid_media_license">Invalid media license!</string>
-        <string name="invalid_program_license">Invalid program license!</string>
-        <string name="visibility_incorrect">The visibility is incorrect!</string>
-        <string name="invalid_project_file">User tried to upload some file with wrong extension</string>
-        <string name="linked_project_file_not_found">Project XML metions a file which not exists in project-folder</string>
-        <string name="unlinked_project_file">Project contains files which are not mentioned in the XML</string>
+        <string name="missing_project_title">لم يتم تعيين عنوان برنامج . (ملف XML والبيانات POST، واحد على الأقل المطلوب).</string>
+        <string name="missing_file_data">البيانات المرسلة غير صحيحة أو مفقودة!</string>
+        <string name="missing_post_file_checksum">لم يرسل العميل ملف تشيكسوم! هل أنت تستخدم نسخة قديمة ؟</string>
+        <string name="copy_failed">هناك فشل في نسخ الجملة!</string>
+        <string name="rename_failed">هناك فشل في إعادة تسمية الجملة!</string>
+        <string name="invalid_file_checksum">تشيكسوم للملف الذي تم تحميله يختلف عن تشيكسوم الذي تم إنشاؤها بواسطة العميل!</string>
+        <string name="project_exceed_filesize_limit">حجم ملف البرنامج يتجاوز الحد الأقصى للحجم المسموح به !</string>
+        <string name="project_title_default">غير مسموح بتحميل البرنامج الذي يحمل نفس الإسم الافتراضي.</string>
+        <string name="insulting_words_in_project_title">هناك كلمات مهينة في عنوان البرنامج!</string>
+        <string name="insulting_words_in_project_description">هناك كلمات مهينة في وصف البرنامج!</string>
+        <string name="save_thumbnail_failed">لقد فشلت عملية حفظ الصورة المصغرة !</string>
+        <string name="invalid_project_xml">XML للبرنامج غير صالح!</string>
+        <string name="old_catrobat_version">آسف، أنت تستخدم نسخة قديمة من "النص البرمجي لجهاز الجيب". الرجاء تحديثه الى أحدث نسخة.</string>
+        <string name="old_catrobat_language">يحتوي البرنامج على لغة كاتروبات قديمة!</string>
+        <string name="invalid_media_license">رخصة الوسائط غير صالحة!</string>
+        <string name="invalid_program_license">رخصة البرنامج غير صالحة!</string>
+        <string name="visibility_incorrect">الرؤية غير صحيحة!</string>
+        <string name="invalid_project_file">حاول المستخدم تحميل بعض الملفات بإمتداد غير صحيح</string>
+        <string name="linked_project_file_not_found">ويشير المشروع XML إلى ملف غير موجود في مجلد المشروع</string>
+        <string name="unlinked_project_file">المشروع يحتوي على الملفات التي لم تذكر في XML</string>
     </upload>
     <download>
-    	<string name="file_not_found">Could not find requested file on server</string>
+    	<string name="file_not_found">لم يتم العثور على الملف المطلوب من الخادم</string>
     </download>
     <flag>
-        <string name="missing_post_data">POST-Data not correct or missing! Required: programmId and flagReason.</string>
-        <string name="sql_insert_failed">SQL query insert_new_flagged_project failed!</string>
+        <string name="missing_post_data">البيانات المرسلة غير صحيحة أو مفقودة! مطلوب: programmId and flagReason.</string>
+        <string name="sql_insert_failed">فشل SQL الاستعلام insert_new_flagged_project!</string>
     </flag>
     <viewer>
-    	<string name="html_file_not_found">Could not find html viewer file.</string>
-    	<string name="ip_is_blocked">Your IP-Address has been blocked.</string>
-    	<string name="ip_is_blocked_temporary">Your IP-Address has been blocked for 30 seconds.</string>
-      <string name="user_is_blocked">Your Account has been blocked.</string>
+    	<string name="html_file_not_found">لم يتم العثور على ملف عارض html.</string>
+    	<string name="ip_is_blocked">عنوان IP الخاص بك مقفول.</string>
+    	<string name="ip_is_blocked_temporary">لقد تم قفل عنوان IP الخاص بك لمدة 30 ثانية.</string>
+      <string name="user_is_blocked">لقد تم قفل الحساب الخاص بك.</string>
     </viewer>
     <auth>
-    	<string name="device_auth_invalid_token">Authentication of device failed: invalid auth-token!</string>
-    	<string name="device_auth_username_exists">Registration failed: username already exists!</string>
-      <string name="not_a_tugraz_ip">This page can only be accessed from localhost or within the TU Graz network.</string>
+    	<string name="device_auth_invalid_token">لقد فشل التحقق من الجهاز : رمز مميز غير صالح!</string>
+    	<string name="device_auth_username_exists">فشل التسجيل: اسم المستخدم موجود مسبقاً!</string>
+      <string name="not_a_tugraz_ip">يمكن فقط الوصول إلى هذه الصفحة من localhost أو ضمن شبكة "TU Graz".</string>
     </auth>
     <registration>
-    	<string name="postdata_missing">Nothing was sent.</string>
+    	<string name="postdata_missing">لم يتم إرسال أي شيء.</string>
     </registration>
     <admin>
-      <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
-      <string name="pootle_load_xlf_failed">Could not load XLF-file from {*source*}.</string>
-      <string name="pootle_not_valid_xml">Could not generate XML-object from XLF-string.</string>
-      <string name="pootle_invalid_stringname_in_xml">Invalid string name in source XLF-file: {*stringName*}</string>
-      <string name="pootle_could_not_write_xml_file">Could not write XML-file to language directory: {*fileName*}</string>
+      <string name="pootle_post_data_missing">البيانات المرسلة مفقودة: المطلوب: lang.</string>
+      <string name="pootle_load_xlf_failed">تعذر تحميل الملف XLF من {* المصدر *}.</string>
+      <string name="pootle_not_valid_xml">تعذر إنشاء كائن XML من XLF-السلسلة.</string>
+      <string name="pootle_invalid_stringname_in_xml">اسم السلسلة غير صالح في مصدر XLF-ملف: {* stringName*}</string>
+      <string name="pootle_could_not_write_xml_file">تعذر كتابة ملف XML إلى مجلد اللغة: {* fileName*}</string>
     </admin>
 </errors>

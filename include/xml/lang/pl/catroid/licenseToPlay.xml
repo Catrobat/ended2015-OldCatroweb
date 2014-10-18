@@ -22,34 +22,33 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-	<string name="title">License to play - Give credit and share</string>
+	<string name="title">Licencja na granie - oceń i podziel się</string>
 
 	<string name="project_licence_part1">
-		Imagine that each Catrobat program is a cake, a very special cake that comes with its recipe (programming blocks).
-		All members of the Catrobat community share their cakes along with their recipes. This means that you can enjoy the cakes and learn how to make them yourself!
+		Wyobraź sobie program w Catrobat jako ciasteczko, takie specjalne ciasteczko z przepisem (blokami programu).
+Wszyscy uczestnicy społeczności Catrobat dzielą się tymi ciasteczkami, łącznie z przepisami na nie. Oznacza to, że możesz posmakować ciasteczka i nauczyć się jak je przygotowywać!
 	</string>
 	<string name="project_licence_part2">
-		There are no secret recipes: the instructions on how to make these cakes are open for anyone to use, reuse, modify, and serve as
-        inspiration for new ideas... I mean cakes.
+		Nie ma sekretnych przepisów: instrukcje, jak zrobić ciasteczko są dostępne dla każdego, aby je wykorzystywać, modyfikować i traktować       je jako inspirację dla nowych pomysłów... to znaczy ciasteczek.
 	</string>
 	<string name="project_licence_part3">
-		You can eat the cakes as well as copy other people's recipes to make your own, maybe with different ingredients.
-		This freedom comes with two simple requirements:
+		Możesz zjeść ciasteczko możesz też skopiować przepisy innych, aby zrobić własne z nieco innymi składnikami.
+Ta swoboda pociąga za sobą dwa proste wymagania:
 	</string>
-	<string name="project_licence_part3_list_element1">share your cakes along with the recipe</string>
-	<string name="project_licence_part3_list_element2">give credit to those who inspired you</string>
+	<string name="project_licence_part3_list_element1">dziel się swoimi ciasteczkami oraz przepisami na nie</string>
+	<string name="project_licence_part3_list_element2">podziękuj tym, którzy Cię zainspirowali</string>
 	<string name="project_licence_part4">
-		In setting up the Catrobat community, we decided to adopt this approach since we believe that it supports learning and creativity within the community. 
-        By sharing recipes and ingredients (scripts and artwork), people can build upon one another's ideas and everyone will benefit.
+		Ustalając reguły dla społeczności Catrobata, zdecydowaliśmy się na takie podejście ponieważ wierzymy, że to pomaga w uczeniu się i kreatywności.
+        Poprzez dzielenie się przepisami i składnikami (skryptami, rysunkami, dźwiękami), ludzie mogą opierać się na pomysłach innych z korzyścią dla wszystkich.
 	</string>
 	<string name="project_licence_part5">
-		In designing the Catrobat website, we included features to encourage people to share and to give credit to others. On each program page, you 
-        can always download the original scripts for the program. If you remix a program (modifying the scripts or artwork, and sharing the result), 
-        we encourage you to give credit in the Program Notes, mentioning the people and program that inspired you.
+		Projektując stronę projektu Catrobat, włączyliśmy do niej elementy pomagające ludziom dzielić się projektami i wspierać innych. Na stronie każdego programu
+        możesz zawsze pobrać oryginalne skrypty. Jeśli remiksujesz program (modyfikując skrypty, obrazki lub dźwięki i dzieląc się wynikiem),
+        zachęcamy Cię do podziękowań w uwagach do programu i wypisania osób lub programów, które Cię zainspirowały.
 	</string>
 	<string name="project_licence_learn_more_new">
-		Learn more about the terms of use of the Catrobat online community on {*termsOfUseLink*}.
+		Dowiedz się więcej na temat zasad udziału w społeczności on-line projektu Catrobat {*termsOfUseLink*}.
 	</string>
 
-  <string name="project_licence_dated">Version 1.1, 2 April 2013</string>
+  <string name="project_licence_dated">Wersja 1.1, 2 kwietnia 2013</string>
 </strings>

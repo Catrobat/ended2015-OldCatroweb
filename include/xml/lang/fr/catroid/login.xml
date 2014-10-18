@@ -24,8 +24,8 @@
 <strings>
   <string name="title">Login</string>
   <string name="password_link">Forgot password or username?</string>  
-  <string name="nickname">Username:</string>
-  <string name="password">Password:</string>
+  <string name="nickname">Nom d'utilisateur :</string>
+  <string name="password">Mot de passe :</string>
   <string name="enter_nick">Username</string>
   <string name="enter_password">Password</string>
   <string name="login">Login</string>

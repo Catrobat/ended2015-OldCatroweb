@@ -22,31 +22,31 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="myTitle">My Profile</string>
-  <string name="userTitle">User Profile</string>
+  <string name="myTitle">الصفحة الشخصية</string>
+  <string name="userTitle">الملفّ الشّخصي للمستخدم</string>
 
-  <string name="changeAvatar">Change picture</string>
-  <string name="password">Password</string>
-  <string name="email">My first email</string>
-  <string name="second_email">My second email</string>
-  <string name="projects">Amount of programs</string>
-  <string name="country">Country</string>
+  <string name="changeAvatar">تغيير الصورة</string>
+  <string name="password">كلمة المرور</string>
+  <string name="email">بريدي الإلكتروني الأول</string>
+  <string name="second_email">البريد الإلكتروني الثاني الخاص بي</string>
+  <string name="projects">حجم البرامج</string>
+  <string name="country">البلد</string>
 
 
-  <string name="my_projects">My Programs</string>
-  <string name="user_projects">Programs of</string>
-  <string name="no_projects_available">There are currently no programs.</string>
-  <string name="new_password">New password</string>
-  <string name="repeat_password">Repeat password</string>
-  <string name="save">save changes</string>
-  <string name="saved">saved!</string>
+  <string name="my_projects">البرنامج الخاص بي</string>
+  <string name="user_projects">البرامج من</string>
+  <string name="no_projects_available">لا يوجد حاليا أية برامج.</string>
+  <string name="new_password">كلمة المرور الجديدة</string>
+  <string name="repeat_password">تكرار كلمة المرور</string>
+  <string name="save">حفظ التغييرات؟</string>
+  <string name="saved">حفظ!</string>
 
-  <string name="really_delete_email">Do you really want to delete this email address</string>
-  <string name="really_delete_project">Do you really want to delete your program</string>
-  <string name="image_too_big">Your chosen picture is too large, please do not use images larger than 5mb.</string>
-  <string name="other">Other</string>
-  <string name="avatar_success">You updated your avatar successfully.</string>
-  <string name="password_success">You updated your password successfully.</string>
-  <string name="email_add_success">The new e-mail address was successfully added. Please check your inbox to verify it.</string>
-  <string name="edit_one_entry">You can only update your e-mails and password seperatly.</string>
+  <string name="really_delete_email">هل تريد حقاً حذف عنوان البريد الإلكتروني هذا</string>
+  <string name="really_delete_project">هل تريد حذف البرنامج الخاص بك حقاً</string>
+  <string name="image_too_big">الصورة التي تم اختيارها كبيرة جداً، ويرجى عدم استخدام الصور أكبر من 5 ميغا بايت.</string>
+  <string name="other">الأخرى</string>
+  <string name="avatar_success">لقد تم تحديث الصورة الرمزية الخاصة بك بنجاح.</string>
+  <string name="password_success">لقد تم تحديث كلمة المرور الخاصة بك بنجاح.</string>
+  <string name="email_add_success">تمت إضافة عنوان البريد الإلكتروني الجديد بنجاح. الرجاء التحقق من علبة الوارد الخاصة بك للتحقق من ذلك.</string>
+  <string name="edit_one_entry">يمكنك فقط تحديث البريد الإلكتروني الخاص بك وكلمة المرور بشكل منفصل.</string>
 </strings>

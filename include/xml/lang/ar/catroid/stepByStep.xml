@@ -23,87 +23,87 @@
 -->
 <strings>
 
-  <string name="starting_position">Starting position:</string>
+  <string name="starting_position">موضع البداية:</string>
   
-	<string name="title">Step-by-Step Intro</string>
+	<string name="title">مقدمة خطوة بخطوة</string>
 	
-	<string name="step1_title">1. Make a new program</string>
+	<string name="step1_title">1-إنشاء برنامج جديد</string>
 	<string name="step1_description"></string>
-	<string name="step1_additional_text_1">Tap on "New".</string>
-	<string name="step1_additional_text_2">Enter a progam name, select "Create empty program" and tap "OK".</string>
+	<string name="step1_additional_text_1">اضغط على "جديد".</string>
+	<string name="step1_additional_text_2">قم بإدخال اسم البرنامج، حدد "إنشاء البرنامج فارغة" واضغط على "موافق".</string>
 	
-  <string name="step2_title">2. Create a new object</string>
+  <string name="step2_title">2. إنشاء كائن جديد</string>
 	<string name="step2_description"></string>
-	<string name="step2_additional_text_1">Tap:</string>
-	<string name="step2_additional_text_2">Choose the source of the first look of your  new object.</string>
-	<string name="step2_additional_text_3">Draw a new look.</string>
-	<string name="step2_additional_text_4">Choose from gallery.</string>
-	<string name="step2_additional_text_5">Take a picture.</string>
-  <string name="step2_additional_text_6">Enter an object name and tap “OK” to create the object.</string>  
+	<string name="step2_additional_text_1">اضغط على:</string>
+	<string name="step2_additional_text_2">اختر مصدر أول مظهر للكائن الجديد الخاص بك.</string>
+	<string name="step2_additional_text_3">أرسم مظهر جديد.</string>
+	<string name="step2_additional_text_4">اختر من المعرض.</string>
+	<string name="step2_additional_text_5">التقاط صورة.</string>
+  <string name="step2_additional_text_6">أدخل اسم الكائن، واضغط على "موافق" لإنشاء الكائن.</string>  
 
-  <string name="step3_title">3. Start Moving</string>
+  <string name="step3_title">3. بدء التحرك</string>
 	<string name="step3_description"></string>
-	<string name="step3_additional_text_1">Tap:</string>
-	<string name="step3_additional_text_2">The first brick we use is out of the category "Motion".</string>
-	<string name="step3_additional_text_3">Choose the "Glide" brick. The object will move to the new position defined with the brick on the stage.</string>
-	<string name="step3_additional_text_4">Tap “Play” to go to the stage and see the object gliding.</string>
-	<string name="step3_additional_text_5">Use the Android Back Button to get back from the stage.</string>
-	<string name="step3_additional_text_6">The brick is now floating. To paste it, move the brick to the desired position. You can also move already inserted bricks by tapping the brick until it is floating again.</string>
+	<string name="step3_additional_text_1">اضغط على:</string>
+	<string name="step3_additional_text_2">أول طوبة نستخدم هي خارج فئة "الحركة".</string>
+	<string name="step3_additional_text_3">اختر الطوب "المنزلق". سيتم نقل الكائن إلى الموضع الجديد المعرف بطوبة في المرحلة.</string>
+	<string name="step3_additional_text_4">انقر على "تشغيل" للذهاب إلى المرحلة ورؤية الكائن وهو ينزلق.</string>
+	<string name="step3_additional_text_5">استخدم "الزر الخلفي  لأندرويد" للعودة من المرحلة.</string>
+	<string name="step3_additional_text_6">يتحرك الآن الطوب. للصقه، أنقل الطوب إلى الموضع المطلوب. يمكنك أيضا نقل الطوب الذي تم إدراجه مسبقاً بالضغط على الطوبة  حتى تتحرك مرة أخرى.</string>
   
-  <string name="step4_title">4. Change Look</string>
-	<string name="step4_description">You can change the look of your object.</string>
-	<string name="step4_additional_text_1">Choose the “Switch to look” brick. With this brick you can choose a look or create a new one.</string>
-	<string name="step4_additional_text_2">Snap the brick underneath the "Glide" - brick.</string>
-	<string name="step4_additional_text_3">Tap into the dropdown field to create a new look.</string>
-	<string name="step4_additional_text_4">Choose the source of the image like before.</string>
-	<string name="step4_additional_text_5">Now you have to select the new image.</string>
-	<string name="step4_additional_text_6">Tap play to see the behaviour on the stage.</string>
+  <string name="step4_title">4-تغيير مظهر</string>
+	<string name="step4_description">يمكنك تغيير مظهر الكائن الخاص بك.</string>
+	<string name="step4_additional_text_1">اختر "التبديل للمظهر " الطوبة. مع هذه الطوبة يمكنك اختيار مظهرأو إنشاء واحدة جديدة.</string>
+	<string name="step4_additional_text_2">انجذاب الطوب تحت "الانزلاق"-الطوب.</string>
+	<string name="step4_additional_text_3">انقر فوق القائمة المنسدلة للحقل لإنشاء مشهد جديد.</string>
+	<string name="step4_additional_text_4">اختر مصدر الصورة .</string>
+	<string name="step4_additional_text_5">الآن يجب عليك تحديد صورة جديدة.</string>
+	<string name="step4_additional_text_6">انقر فوق تشغيل لمشاهدة السلوك على المنصة.</string>
 	
-	<string name="step5_title">5. Speak</string>
-	<string name="step5_description">Now you will find out how to make an object talk.</string>
-	<string name="step5_additional_text_1">Choose the “Speak” brick. The object speaks the text, when this brick is executed.</string>
-	<string name="step5_additional_text_2">Snap the brick underneath the "Switch to look" brick.</string>
-	<string name="step5_additional_text_3">Tap play to see the behaviour on the stage.</string>
+	<string name="step5_title">5-الكلام</string>
+	<string name="step5_description">الآن سوف تجد كيف يمكنك جعل الكائن يتحدث.</string>
+	<string name="step5_additional_text_1">اختر الطوب "الكلام". يقوم الكائن بالتحدث، عندما يتم  تنفيذ الطوبة.</string>
+	<string name="step5_additional_text_2">انجذاب الطوبة تحت "التبديل للمشهد" للطوبة.</string>
+	<string name="step5_additional_text_3">انقر فوق تشغيل لمشاهدة السلوك على المنصة.</string>
 	
-	<string name="step6_title">6. Again and again</string>
-	<string name="step6_description">This step shows you how to repeat behaviour of objects.</string>
-	<string name="step6_additional_text_1">Choose the “Forever” brick. Everything in the loop repeats forever.</string>
-	<string name="step6_additional_text_2">Snap the “Forever” brick underneath the "When program started" - brick.</string>
-	<string name="step6_additional_text_3">Add another “Glide” brick.</string>
-	<string name="step6_additional_text_4">Snap the “Glide” brick aboth the “End of loop” brick. </string>
-	<string name="step6_additional_text_5">Tap into the text field of the x and y value and set to 0.</string>
-	<string name="step6_additional_text_6">Tap play to see the behaviour on the stage.</string>
+	<string name="step6_title">6. مرارا وتكرارا</string>
+	<string name="step6_description">هذه الخطوة توضح لك كيفية تكرار سلوك الكائنات.</string>
+	<string name="step6_additional_text_1">اختر الطوب "إلى الأبد". كل شيء في الحلقة تكرار إلى الأبد.</string>
+	<string name="step6_additional_text_2">انجذاب الطوب "إلى الأبد" تحت "عند بدء تشغيل برنامج"--الطوب.</string>
+	<string name="step6_additional_text_3">إضافة آخر لبنة "الانزلاق".</string>
+	<string name="step6_additional_text_4">التقط أبوث الطوب "الانزلاق" الطوب "نهاية لحلقة". </string>
+	<string name="step6_additional_text_5">انقر في حقل النص x والقيمة y وتعيينها إلى 0.</string>
+	<string name="step6_additional_text_6">انقر فوق تشغيل لمشاهدة السلوك على المنصة.</string>
 	
-	<string name="step7_title">7. Tapping is everything.</string>
-	<string name="step7_description">You can also control the behaviour of the object when the program is running on the stage.</string>
-	<string name="step7_additional_text_1">Choose the “When tapped” brick. Every brick underneath the “When tapped” will be executed one time when you tap the object on the stage.</string>
-	<string name="step7_additional_text_2">Place the “When tapped” underneath the other bricks.</string>
-	<string name="step7_additional_text_3">Choose the “Turn right” brick and snap it underneath the “When tapped” brick.</string>
-	<string name="step7_additional_text_4">Now you have this script.</string>
-	<string name="step7_additional_text_5">Tap play to see the behaviour on the stage. If you now tap on the object, it spins.</string>
+	<string name="step7_title">7-النقر كل شيء.</string>
+	<string name="step7_description">يمكنك أيضا التحكم في سلوك الكائن عندما يتم تشغيل البرنامج في المرحلة.</string>
+	<string name="step7_additional_text_1">اختر الطوب "عند النقرعليها". كل طوبة تحتها "عند النقر عليها" سيتم تنفيذها مرة واحدة عندما تنقر على الكائن في المرحلة.</string>
+	<string name="step7_additional_text_2">ضع "عند النقر عليها" تحت الطوبة الأخرى.</string>
+	<string name="step7_additional_text_3">اختر الطوبة "إتجه الى اليمين" وثبتها تحت "عند النقر عليها".</string>
+	<string name="step7_additional_text_4">الآن لديك هذا البرنامج النصي.</string>
+	<string name="step7_additional_text_5">انقر فوق تشغيل لمشاهدة السلوك في المرحلة. إذا كنت تضغط الأن على الكائن، فإنه يدور.</string>
 	
-	<string name="step8_title">8. Copy, delete or edit a brick</string>
+	<string name="step8_title">8-نسخ أو حذف أو تحرير الطوبة</string>
 	<string name="step8_description"></string>
-	<string name="step8_additional_text_1">Single tap on the left side of each brick opens the context menu. There you can move, copy, delete or edit the values of the brick with the formula editor.</string>
+	<string name="step8_additional_text_1">ضغطه واحدة على الجانب الأيسر من كل طوبة يفتح قائمة السياق. يمكنك نقل، نسخ، حذف أو تحرير قيم الطوب بإستخدام محرر الصيغة.</string>
 	
-	<string name="step9_title">9. Navigation in the app</string>
+	<string name="step9_title">9-التنقل في التطبيق</string>
 	<string name="step9_description"></string>
-	<string name="step9_additional_text_1">Use the Android Back Button to navigate in the app.</string>
-	<string name="step9_additional_text_2">Go back one screen to the overview of your object. Here you can go into the scripts and also to an powerful representation of the looks and sounds of the object. There you can rename, copy add or delete looks and sounds.</string>
-	<string name="step9_additional_text_3">Use again the Android Back Button to get to the overview of your objects and your background.</string>
+	<string name="step9_additional_text_1">استخدم "الزر الخلفي لأندرويد" للتنقل في التطبيق.</string>
+	<string name="step9_additional_text_2">العودة بشاشة واحدة للإطلاع على للكائن الخاص بك. هنا يمكنك الذهاب إلى البرامج النصية، وأيضا لتمثيل قوي لمشاهد واصوات الكائن. يمكنك إعادة تسمية، نسخ إضافة أو حذف مشاهد وأصوات.</string>
+	<string name="step9_additional_text_3">استخدم "الزر الخلفي لأندرويد" مرة أخرى للحصول على نظرة عامة حول الكائنات الخاصة بك والخلفية الخاصة بك.</string>
 	
-	<string name="step10_title">10. Change the background</string>
-	<string name="step10_description">This is the overview of your objects and the background depends to one program.</string>
-	<string name="step10_additional_text_1">The background is like an object, but you just can have on background.</string>
-	<string name="step10_additional_text_2">You can add scripts, sounds and look in the same way to the background object.</string>
+	<string name="step10_title">10-تغيير الخلفية</string>
+	<string name="step10_description">هذه هي نظرة عامة على الكائنات الخاصة بك والخلفية ويعتمد على برنامج واحد.</string>
+	<string name="step10_additional_text_1">الخلفية مثل كائن، ولكن يمكنك فقط الحصول على الخلفية.</string>
+	<string name="step10_additional_text_2">يمكنك إضافة البرامج النصية، الأصوات ومناظر بنفس الطريقة إلى كائن الخلفية.</string>
 	
-	<string name="step11_title">11. Main Menu</string>
-	<string name="step11_description">Use the Android Back Button to get to this screen.</string>
-	<string name="step11_additional_text_1">Continue with your currently opened program.</string>
-	<string name="step11_additional_text_2">Add a new program.</string>
-	<string name="step11_additional_text_3">See all your local programs.</string>
-	<string name="step11_additional_text_4">Go to the help site and discuss with other users.</string>
-	<string name="step11_additional_text_5">Explore the world of the Pocket Code programs. Download and remix programs you like.</string>
-	<string name="step11_additional_text_6">Upload the program that is currently opened.</string>
+	<string name="step11_title">القائمة الرئيسية</string>
+	<string name="step11_description">استخدم "الزر الخلفي  لأندرويد" للحصول على هذه الشاشة.</string>
+	<string name="step11_additional_text_1">إستمر مع برنامجك المفتوح حاليا.</string>
+	<string name="step11_additional_text_2">إضافة برنامج جديد.</string>
+	<string name="step11_additional_text_3">شاهد جميع برامجك المحلية.</string>
+	<string name="step11_additional_text_4">انتقل إلى موقع المساعدة وناقش مع المستخدمين الآخرين.</string>
+	<string name="step11_additional_text_5">استكشاف عالم برامج "النص البرمجي لجهاز الجيب". تحميل البرامج التي تريد.</string>
+	<string name="step11_additional_text_6">قم بتحميل البرنامج الذي تم فتحه الأن.</string>
 
 </strings>

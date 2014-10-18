@@ -23,81 +23,81 @@
 -->
 <strings>
 
-  <string name="starting_position">Starting position:</string>
+  <string name="starting_position">Position de départ :</string>
   
-	<string name="title">Step-by-Step Intro</string>
+	<string name="title">Intro premiers pas</string>
 	
-	<string name="step1_title">1. Make a new program</string>
+	<string name="step1_title">1. Créer une nouvelle appli</string>
 	<string name="step1_description"></string>
-	<string name="step1_additional_text_1">Tap on "New".</string>
-	<string name="step1_additional_text_2">Enter a progam name, select "Create empty program" and tap "OK".</string>
+	<string name="step1_additional_text_1">Appuyer sur  « New ».</string>
+	<string name="step1_additional_text_2">Entrer un titre, sélectionner « Create empty program » et appuyer sur  « OK ».</string>
 	
-  <string name="step2_title">2. Create a new object</string>
+  <string name="step2_title">2. Créer un nouvel objet</string>
 	<string name="step2_description"></string>
-	<string name="step2_additional_text_1">Tap:</string>
-	<string name="step2_additional_text_2">Choose the source of the first look of your  new object.</string>
-	<string name="step2_additional_text_3">Draw a new look.</string>
-	<string name="step2_additional_text_4">Choose from gallery.</string>
-	<string name="step2_additional_text_5">Take a picture.</string>
-  <string name="step2_additional_text_6">Enter an object name and tap “OK” to create the object.</string>  
+	<string name="step2_additional_text_1">Appuyer :</string>
+	<string name="step2_additional_text_2">Sélectionner la source de la première apparence du nouvel objet.</string>
+	<string name="step2_additional_text_3">Dessiner une nouvelle apparence.</string>
+	<string name="step2_additional_text_4">Sélectionner dans la galerie.</string>
+	<string name="step2_additional_text_5">Prendre une photo.</string>
+  <string name="step2_additional_text_6">Entrer un nom d'objet et appuyer sur « OK » pour créer l'objet.</string>  
 
-  <string name="step3_title">3. Start Moving</string>
+  <string name="step3_title">3. Commencer à bouger</string>
 	<string name="step3_description"></string>
-	<string name="step3_additional_text_1">Tap:</string>
-	<string name="step3_additional_text_2">The first brick we use is out of the category "Motion".</string>
-	<string name="step3_additional_text_3">Choose the "Glide" brick. The object will move to the new position defined with the brick on the stage.</string>
-	<string name="step3_additional_text_4">Tap “Play” to go to the stage and see the object gliding.</string>
-	<string name="step3_additional_text_5">Use the Android Back Button to get back from the stage.</string>
-	<string name="step3_additional_text_6">The brick is now floating. To paste it, move the brick to the desired position. You can also move already inserted bricks by tapping the brick until it is floating again.</string>
+	<string name="step3_additional_text_1">Appuyer :</string>
+	<string name="step3_additional_text_2">Le premier élément utilisé se trouve dans la catégorie  « Motion ».</string>
+	<string name="step3_additional_text_3">Sélectionner l'élément  « Glide ». L'objet est déplacé vers la nouvelle position définie par l'élément sur la scène.</string>
+	<string name="step3_additional_text_4">Appuyer sur « Play » pour passer à la scène et regarder l'objet glisser.</string>
+	<string name="step3_additional_text_5">Utiliser le bouton Retour Android pour retourner.</string>
+	<string name="step3_additional_text_6">L'élément flotte. Placer l'élément dans la position souhaité pour le coller. Il est aussi possible de déplacer des éléments insérés en appuyant sur l'élément jusqu'à ce qu'il flotte.</string>
   
-  <string name="step4_title">4. Change Look</string>
-	<string name="step4_description">You can change the look of your object.</string>
-	<string name="step4_additional_text_1">Choose the “Switch to look” brick. With this brick you can choose a look or create a new one.</string>
-	<string name="step4_additional_text_2">Snap the brick underneath the "Glide" - brick.</string>
-	<string name="step4_additional_text_3">Tap into the dropdown field to create a new look.</string>
-	<string name="step4_additional_text_4">Choose the source of the image like before.</string>
-	<string name="step4_additional_text_5">Now you have to select the new image.</string>
-	<string name="step4_additional_text_6">Tap play to see the behaviour on the stage.</string>
+  <string name="step4_title">4. Changer l'apparence</string>
+	<string name="step4_description">Il est possible de changer l'apparence d'un objet.</string>
+	<string name="step4_additional_text_1">Séléctionner l'élément « Switch to look ». Cet élément permet de créer ou de sélectionner une apparence.</string>
+	<string name="step4_additional_text_2">Placer l'élément en-dessous l'élément « Glide » .</string>
+	<string name="step4_additional_text_3">Appuyer sur le champ de liste déroulante pour créer une nouvelle apparence.</string>
+	<string name="step4_additional_text_4">Sélectionner la source de l'image comme décrit avant.</string>
+	<string name="step4_additional_text_5">Sélectionner l'image.</string>
+	<string name="step4_additional_text_6">Appuyer sur Play pour regarder la scène.</string>
 	
-	<string name="step5_title">5. Speak</string>
-	<string name="step5_description">Now you will find out how to make an object talk.</string>
-	<string name="step5_additional_text_1">Choose the “Speak” brick. The object speaks the text, when this brick is executed.</string>
-	<string name="step5_additional_text_2">Snap the brick underneath the "Switch to look" brick.</string>
-	<string name="step5_additional_text_3">Tap play to see the behaviour on the stage.</string>
+	<string name="step5_title">5. Parler</string>
+	<string name="step5_description">Faire un objet parler.</string>
+	<string name="step5_additional_text_1">Sélectionner l'élément « Speak ». L'objet prononce le texte, lorsque l'élément est exécutée.</string>
+	<string name="step5_additional_text_2">Plasser l'élément en-dessous l'élément « Switch to look ».</string>
+	<string name="step5_additional_text_3">Appuyer sur Play pour regarder la scène.</string>
 	
-	<string name="step6_title">6. Again and again</string>
-	<string name="step6_description">This step shows you how to repeat behaviour of objects.</string>
-	<string name="step6_additional_text_1">Choose the “Forever” brick. Everything in the loop repeats forever.</string>
-	<string name="step6_additional_text_2">Snap the “Forever” brick underneath the "When program started" - brick.</string>
-	<string name="step6_additional_text_3">Add another “Glide” brick.</string>
-	<string name="step6_additional_text_4">Snap the “Glide” brick aboth the “End of loop” brick. </string>
-	<string name="step6_additional_text_5">Tap into the text field of the x and y value and set to 0.</string>
-	<string name="step6_additional_text_6">Tap play to see the behaviour on the stage.</string>
+	<string name="step6_title">6. Répétitions</string>
+	<string name="step6_description">Les objets en action.</string>
+	<string name="step6_additional_text_1">Séléctionner l'élément « Forever ». Tous les éléments qui se trouvent dans la boucle sont répétés.</string>
+	<string name="step6_additional_text_2">Placer l'élément « Forever » en-dessous l'élément « When program started ».</string>
+	<string name="step6_additional_text_3">Ajouter un élément « Glide ».</string>
+	<string name="step6_additional_text_4">Placer l'élément « Glide » au-dessus l'élément « End of loop ». </string>
+	<string name="step6_additional_text_5">Appuyer sur le champ de texte et mettre les valeurs de x et y à 0.</string>
+	<string name="step6_additional_text_6">Appuyer sur Play pour regarder la scène.</string>
 	
-	<string name="step7_title">7. Tapping is everything.</string>
-	<string name="step7_description">You can also control the behaviour of the object when the program is running on the stage.</string>
-	<string name="step7_additional_text_1">Choose the “When tapped” brick. Every brick underneath the “When tapped” will be executed one time when you tap the object on the stage.</string>
-	<string name="step7_additional_text_2">Place the “When tapped” underneath the other bricks.</string>
-	<string name="step7_additional_text_3">Choose the “Turn right” brick and snap it underneath the “When tapped” brick.</string>
-	<string name="step7_additional_text_4">Now you have this script.</string>
-	<string name="step7_additional_text_5">Tap play to see the behaviour on the stage. If you now tap on the object, it spins.</string>
+	<string name="step7_title">7. Appuyer sans cesse.</string>
+	<string name="step7_description">Il est aussi possible de contrôler les actions d'un objet lorsque l'appli est en cours d'exécution.</string>
+	<string name="step7_additional_text_1">Sélectionner l'élément « When tapped ». Tous les éléments qui se trouvent en-dessous de l'élément « When tapped » seront exécutés une fois lorsqu'on appuye sur l'objet sur la scène.</string>
+	<string name="step7_additional_text_2">Placer l'élément « When tapped » en-dessous les autres éléments.</string>
+	<string name="step7_additional_text_3">Séléctionner l'élément « Turn right » et placer-le en-dessous l'élément « When tapped ».</string>
+	<string name="step7_additional_text_4">Le script est complet.</string>
+	<string name="step7_additional_text_5">Appuyer sur play pour regarder les actions. En appuyant l'objet il commence à tourner.</string>
 	
-	<string name="step8_title">8. Copy, delete or edit a brick</string>
+	<string name="step8_title">8. Copier, supprimer ou modifier un élément</string>
 	<string name="step8_description"></string>
-	<string name="step8_additional_text_1">Single tap on the left side of each brick opens the context menu. There you can move, copy, delete or edit the values of the brick with the formula editor.</string>
+	<string name="step8_additional_text_1">Appuyer sur la gauche de chaque élément pour ouvrir le menu contextuel. L'éditeur de formule permet de déplacer, copier, supprimer ou modifier les valeur de l'élément.</string>
 	
-	<string name="step9_title">9. Navigation in the app</string>
+	<string name="step9_title">9. Naviguer</string>
 	<string name="step9_description"></string>
-	<string name="step9_additional_text_1">Use the Android Back Button to navigate in the app.</string>
+	<string name="step9_additional_text_1">Utiliser le bouton retour Android pour naviguer dans l'appli.</string>
 	<string name="step9_additional_text_2">Go back one screen to the overview of your object. Here you can go into the scripts and also to an powerful representation of the looks and sounds of the object. There you can rename, copy add or delete looks and sounds.</string>
 	<string name="step9_additional_text_3">Use again the Android Back Button to get to the overview of your objects and your background.</string>
 	
-	<string name="step10_title">10. Change the background</string>
+	<string name="step10_title">10. Changer l'arrière plan</string>
 	<string name="step10_description">This is the overview of your objects and the background depends to one program.</string>
 	<string name="step10_additional_text_1">The background is like an object, but you just can have on background.</string>
 	<string name="step10_additional_text_2">You can add scripts, sounds and look in the same way to the background object.</string>
 	
-	<string name="step11_title">11. Main Menu</string>
+	<string name="step11_title">11. Menu principal</string>
 	<string name="step11_description">Use the Android Back Button to get to this screen.</string>
 	<string name="step11_additional_text_1">Continue with your currently opened program.</string>
 	<string name="step11_additional_text_2">Add a new program.</string>

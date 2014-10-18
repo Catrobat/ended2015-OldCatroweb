@@ -22,7 +22,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded">&#x437;&#x430;&#x433;&#x440;&#x443;&#x436;&#x435;&#x43D;&#x43E;</string>
+  <string name="uploaded">загружена</string>
   <string name="updated">&#x43E;&#x442; {*nicknameString*}</string>
   <string name="uploaded_by">&#x41B;&#x43E;&#x433;&#x438;&#x43D;</string>
   <string name="login">&#x421;&#x43A;&#x430;&#x447;&#x430;&#x442;&#x44C;</string>

@@ -22,24 +22,24 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded">uploaded</string>
-  <string name="updated">updated</string>
+  <string name="uploaded">تم التحميل</string>
+  <string name="updated">تحديث</string>
   <string name="uploaded_by">من {*nicknameString*}</string>
-  <string name="login">login</string>
+  <string name="login">تسجيل الدخول</string>
   <string name="download_button">تحميل</string>
-  <string name="filesize">big</string>
-  <string name="report_as_inappropriate">Report as inappropriate</string>
-  <string name="report_as_inappropriate_label">Why do you think this program is inappropriate?</string>
-  <string name="report_as_inappropriate_please_login">Please {*login_link*} to report this program as inappropriate.</string>
-  <string name="report_as_inappropriate_own_project">You cannot flag your own program.</string>
-  <string name="report_as_inappropriate_already_flagged">You've already flagged this program as inappropriate.</string>
-  <string name="report">Report</string>
-  <string name="cancel">موافق</string>
-  <string name="flag_reason_placeholder">Enter a reason</string>
-  <string name="some_rights_reserved">License to play</string>
-  <string name="views">views</string>
+  <string name="filesize">كبيرة</string>
+  <string name="report_as_inappropriate">تقرير غير مناسب</string>
+  <string name="report_as_inappropriate_label">لماذا تعتقد أن هذا البرنامج غير مناسب؟</string>
+  <string name="report_as_inappropriate_please_login">الرجاء {* login_link *} الابلاغ بأن هذا البرنامج غير مناسب.</string>
+  <string name="report_as_inappropriate_own_project">لا يمكنك وضع علامة للبرنامج الخاص بك.</string>
+  <string name="report_as_inappropriate_already_flagged">لقد قمت بتأشير علامة على هذا البرنامج بأنه غير مناسب.</string>
+  <string name="report">تقرير</string>
+  <string name="cancel">إالغاء</string>
+  <string name="flag_reason_placeholder">أدخل السبب</string>
+  <string name="some_rights_reserved">ترخيص لتشغيل</string>
+  <string name="views">عرض</string>
   <string name="downloads">التنزيلات</string>
-  <string name="language_version_info_text">إصدار اللغة كاتروبات:</string>
+  <string name="language_version_info_text">إصدار لغة كاتروبات:</string>
   <string name="description">الوصف</string>
-  <string name="no_description_available">No description available.</string>
+  <string name="no_description_available">لا يوجد أي وصف .</string>
 </strings>

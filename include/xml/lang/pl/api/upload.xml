@@ -23,5 +23,5 @@
 -->
 <strings>
 	<string name="default_project_name">defaultProgram</string>
-	<string name="upload_successfull">Your program was uploaded successfully!</string>
+	<string name="upload_successfull">Program został wysłany pomyślnie!</string>
 </strings>

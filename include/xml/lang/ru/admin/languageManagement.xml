@@ -22,5 +22,5 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="pootle_language_successfully_created">&#x42F;&#x437;&#x44B;&#x43A; {*languageName*} &#x431;&#x44B;&#x43B; &#x443;&#x441;&#x43F;&#x435;&#x448;&#x43D;&#x43E; &#x43E;&#x431;&#x43D;&#x43E;&#x432;&#x43B;&#x435;&#x43D;!</string>
+  <string name="pootle_language_successfully_created">Язык {* languageName *} успешно обновлен!</string>
 </strings>

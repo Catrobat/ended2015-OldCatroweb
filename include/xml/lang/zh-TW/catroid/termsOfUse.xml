@@ -22,13 +22,13 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="title">Terms of Use</string>
-  <string name="terms_of_use_welcome1">Welcome to the Catrobat community!</string>
-  <string name="terms_of_use_welcome2">As part of the Catrobat community, you are sharing programs and ideas with people:</string>
-  <string name="terms_of_use_enumeration_1">from many different countries and cultures</string>
-  <string name="terms_of_use_enumeration_2">of all ages (from young children to teens and grandparents)</string>
-  <string name="terms_of_use_enumeration_3">with all levels of experience</string>
-  <string name="terms_of_use_your_support">We need your help to make this community a supportive place for every member. Here's how you can help:</string>
+  <string name="title">&#x4F7F;&#x7528;&#x689D;&#x4F8B;</string>
+  <string name="terms_of_use_welcome1">&#x6709;&#x591A;&#x500B;&#x4E0D;&#x540C;&#x570B;&#x5BB6;&#x548C;&#x6587;&#x5316;</string>
+  <string name="terms_of_use_welcome2">&#x6709;&#x4E0D;&#x540C;&#x5E74;&#x9F61;&#xFF08;&#x6709;&#x5C0F;&#x5B69;&#x5230;&#x8001;&#x4EBA;&#xFF09;</string>
+  <string name="terms_of_use_enumeration_1">&#x6709;&#x4E0D;&#x540C;&#x4EBA;&#x751F;&#x7D93;&#x9A57;</string>
+  <string name="terms_of_use_enumeration_2">&#x6211;&#x5011;&#x9700;&#x8981;&#x60A8;&#x7684;&#x8E34;&#x8E8D;&#x53C3;&#x8207;&#x4EE5;&#x5851;&#x9020;&#x4E00;&#x500B;&#x8C50;&#x5BCC;&#x652F;&#x63F4;&#x7684;&#x793E;&#x7FA4;&#x3002;&#x9019;&#x662F;&#x60A8;&#x53EF;&#x505A;&#x5230;&#x7684;&#xFF1A;</string>
+  <string name="terms_of_use_enumeration_3">&#x8ACB;&#x8AA0;&#x5BE6;&#x3002;&#x4E0D;&#x8981;&#x5047;&#x5192;&#x4ED6;&#x4EBA;&#x548C;&#x85D0;&#x8996;&#x793E;&#x7FA4;&#x3002;</string>
+  <string name="terms_of_use_your_support">&#x8ACB;&#x4FDD;&#x5BC6;&#x500B;&#x4EBA;&#x8CC7;&#x6599;&#x3002;&#x4E0D;&#x8981;&#x544A;&#x8A34;&#x4ED6;&#x4EBA;&#x60A8;&#x7684;&#x96FB;&#x90F5;&#x5730;&#x5740;&#xFF0C;&#x96FB;&#x8A71;&#x548C;&#x5176;&#x4ED6;&#x500B;&#x4EBA;&#x806F;&#x7D61;&#x8CC7;&#x8A0A;&#x3002;</string>
   <string name="terms_of_use_enumeration_4">Be respectful. When sharing programs, please remember that people of many different ages and backgrounds will see your contributions.</string>
   <string name="terms_of_use_enumeration_5">Give credit. Feel free to make modified versions of other people's programs - just make sure to give them credit. One place to give credit is in your program's description. Please see the paragraph below this dotted list for details about modifying programs of other users.</string>
   <string name="terms_of_use_enumeration_6">Be honest. Don't pretend to be someone other than who you are or try to trick the community.</string>

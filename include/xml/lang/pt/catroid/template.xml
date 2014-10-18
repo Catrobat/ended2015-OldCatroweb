@@ -29,7 +29,7 @@
   <string name="template_header_password">Password:</string>
   <string name="template_header_login">Login</string>
   <string name="template_header_logout">Logout</string>
-  <string name="template_header_cancel">Cancel</string>
+  <string name="template_header_cancel">Cancelar</string>
   <string name="template_header_loading">loading...</string>
   <string name="template_header_logged_in_as">You are logged in as</string>
   <string name="template_header_enter_nick">your username</string>

@@ -23,105 +23,105 @@
 -->
 <errors>
 		<server>
-				<string name="missing_mcrypt">Please tell the administrator to install mcrypt. Thanks.</string>
-				<string name="missing_blowfish">Please tell the administrator to install CRYPT_BLOWFISH. Thanks.</string>
+				<string name="missing_mcrypt">من فضلك قم بإخبار مدير الشبكة للقيام بتثبيت mcrypt. شكرا.</string>
+				<string name="missing_blowfish">من فضلك أخبر مدير الشبكة للقيام بتثبيت CRYPT_BLOWFISH. شكرا.</string>
 		</server>
     <db>
-        <string name="query_failed">Ooooops something went wrong./nPlease try again!</string>
-        <string name="connection_failed">Ooooops something went wrong./nPlease try again!</string>
-        <string name="no_entry_for_id">Ooooops something went wrong./nPlease try again!</string>
+        <string name="query_failed">أوووووبس هناك خطأ.  n/ حاول مرة أخرى!</string>
+        <string name="connection_failed">أوووووبس هناك خطأ.  n/ حاول مرة أخرى!</string>
+        <string name="no_entry_for_id">أوووووبس هناك خطأ.  n/ حاول مرة أخرى!</string>
     </db>
     <profile>
-    	<string name="no_such_user">Ooooops something went wrong./nPlease try again!</string>
+    	<string name="no_such_user">أوووووبس هناك خطأ.  n/ حاول مرة أخرى!</string>
     </profile>
     <userFunctions>
-      <string name="hash_not_found">Sorry! Couldn't find something to recover. Please try again.</string>
-			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>
-      <string name="username_missing">You haven't entered a username, please add one.</string>
-      <string name="username_invalid_underscore">The username you have entered is not allowed. Please do not use underscores (_).</string>
-      <string name="username_invalid_hash">The username you have entered is not allowed. Please do not use hash signs (#).</string>
-      <string name="username_invalid_verticalbar">The username you have entered is not allowed. Please do not use vertical bars (|).</string>
-      <string name="username_invaquery_failedlid_curlybrace">The username you have entered is not allowed. Please do not use curly braces ({ or }).</string>
-      <string name="username_invalid_lessgreater">The username you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
-      <string name="username_invalid_squarebracket">The username you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
-      <string name="username_invalid_spaces">The username you have entered is not allowed. Please do not use spaces (" ").</string>
-      <string name="username_is_email_address">Your username may not be an email address.</string>
-      <string name="username_invalid_insulting_words">The username you have entered is not allowed. Please do not use insulting words.</string>
-      <string name="username_invalid">The username you have entered is not allowed.</string>
-      <string name="username_blacklisted">The username you have entered is not allowed.</string>
-      <string name="username_already_exists">The username you have entered already exists.</string>
-      <string name="password_missing">You haven't entered a password, please add one.</string>
-      <string name="password_not_equal_password2">The passwords didn't match.</string>
-      <string name="username_password_equal">The password must differ from the username.</string>
-      <string name="password_new_too_short">The new password must have at least {*minimumPasswordLength*} characters.</string>
-      <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
-      <string name="email_missing">You haven't entered an email address, please add one.</string>
-      <string name="email_invalid">This email address is not valid.</string>
-      <string name="last_email">One email address is required.</string>
-      <string name="country_missing">You haven't entered a country, please add one.</string>
-      <string name="password_or_username_wrong">Your password or username was incorrect.</string>
-      <string name="board_authentication_failed">The board authentication failed.</string>
-      <string name="wiki_api_response_incorrect">Ooooops something went wrong./nPlease try again!</string>
-      <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
-      <string name="userdata_missing">Your username or email address is missing.</string>
-      <string name="unsupported_image">This image type is not supported, please try another image.</string>
-      <string name="avatar_creation_failed">Sorry, we encountered an error while processing your registration. Please try again!</string>
-      <string name="password_new_board_update_failed">There was a problem while updating the password.</string>
-      <string name="country_update_failed">There was a problem while updating your home country.</string>
-      <string name="language_update_failed">There was a problem while updating your language.</string>
-      <string name="userdata_not_exists">Your username or email address was not found.</string>
-      <string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
-      <string name="create_hash_failed">Ooooops something went wrong./nPlease try again!</string>
-      <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
+      <string name="hash_not_found">عذراً! لم أستطع العثور على شيء للقيام بإسترداده. الرجاء المحاولة مرة أخرى.</string>
+			<string name="expired_url">عذراً! انتهت مدة صلاحية url الخاصة بك. الرجاء المحاولة مرة أخرى.</string>
+      <string name="username_missing">لم تقم بإدخال اسم مستخدم، يرجى إضافة واحد.</string>
+      <string name="username_invalid_underscore">اسم المستخدم الذي قمت بإدخاله غير مسموح به. الرجاء عدم استخدام (_).</string>
+      <string name="username_invalid_hash">إسم المستخدم الذي قمت بإدخاله غير مسموح به. الرجاء عدم استخدام علامات التجزئة (#).</string>
+      <string name="username_invalid_verticalbar">إسم المستخدم الذي قمت بإدخاله غير مسموح به. الرجاء عدم استخدام الأشرطة العمودية (|).</string>
+      <string name="username_invaquery_failedlid_curlybrace">إسم المستخدم الذي قمت بإدخاله غير مسموح به. الرجاء عدم استخدام الأقواس المتعرجة ({او}).</string>
+      <string name="username_invalid_lessgreater">إسم المستخدم الذي قمت بإدخاله غير مسموح به. الرجاء عدم استخدام أقل من أو أكبر من علامات (&lt; أو &gt;).</string>
+      <string name="username_invalid_squarebracket">إسم المستخدم الذي قمت بإدخاله غير مسموح به. الرجاء عدم استخدام الأقواس المربعة ([أو]).</string>
+      <string name="username_invalid_spaces">إسم المستخدم الذي قمت بإدخاله غير مسموح به. الرجاء عدم استخدام المسافات ("").</string>
+      <string name="username_is_email_address">لا يمكن أن يكون اسم المستخدم هو نفسه البريد الالكتروني الخاص بك.</string>
+      <string name="username_invalid_insulting_words">غير مسموح باسم المستخدم الذي قمت بإدخاله. الرجاء عدم استخدام كلمات مهينة.</string>
+      <string name="username_invalid">غير مسموح باسم المستخدم الذي قمت بإدخاله.</string>
+      <string name="username_blacklisted">غير مسموح باسم المستخدم الذي قمت بإدخاله.</string>
+      <string name="username_already_exists">اسم المستخدم الذي قمت بإدخاله موجود مسبقاً.</string>
+      <string name="password_missing">لم تقم بإدخال كلمة مرور، يرجى إضافة واحدة.</string>
+      <string name="password_not_equal_password2">كلمات المرور غير متطابقة.</string>
+      <string name="username_password_equal">كلمة المرور يجب أن تختلف عن اسم المستخدم.</string>
+      <string name="password_new_too_short">يجب أن تحتوي كلمة المرور الخاصة بك على الأقل {* minimumPasswordLength*} حرفاً.</string>
+      <string name="password_new_too_long">تحتوي كلمة المرور الخاصة بك كحد أقصى على {* maximumPasswordLength*} حرفاً.</string>
+      <string name="email_missing">لم تقم بإدخال عنوان البريد إلكتروني، الرجاء إضافة واحدة.</string>
+      <string name="email_invalid">البريد الإلكتروني خطأ.</string>
+      <string name="last_email">مطلوب عنوان بريد إلكتروني واحد.</string>
+      <string name="country_missing">لم تقم بإدخال البلد، يرجى إضافة واحدة.</string>
+      <string name="password_or_username_wrong">كلمة المرور أو اسم المستخدم غير صحيح.</string>
+      <string name="board_authentication_failed">فشلت عملية التحقق.</string>
+      <string name="wiki_api_response_incorrect">أوووووبس هناك خطأ.  n/ حاول مرة أخرى!</string>
+      <string name="board_registration_failed">عذراً، حدث خطأ أثناء معالجة التسجيل الخاص بك. الرجاء المحاولة مرة أخرى!</string>
+      <string name="userdata_missing">عنوان البريد الإلكتروني أو اسم المستخدم غير موجود.</string>
+      <string name="unsupported_image">هذا النوع من الصور غير معتمد، الرجاء محاولة صورة أخرى.</string>
+      <string name="avatar_creation_failed">آسف، واجهنا خطأ أثناء معالجة التسجيل الخاص بك. الرجاء المحاولة مرة أخرى!</string>
+      <string name="password_new_board_update_failed">هناك مشكلة أثناء تحديث كلمة المرور.</string>
+      <string name="country_update_failed">حدثت مشكلة أثناء تحديث بلدك.</string>
+      <string name="language_update_failed">حدثت مشكلة أثناء تحديث اللغة الخاصة بك.</string>
+      <string name="userdata_not_exists">لم يتم العثور على عنوان البريد الإلكتروني أو اسم المستخدم الخاص بك.</string>
+      <string name="email_update_failed">حدث خطأ أثناء تحديث عنوان البريد الإلكتروني هذا. يجب أن يكون لديك على الأقل عنوان بريد إلكتروني  صحيح.</string>
+      <string name="create_hash_failed">أوووووبس هناك خطأ.  n/ حاول مرة أخرى!</string>
+      <string name="sendmail_failed">حدث خطأ أثناء إرسال رسالة بريد إلكتروني. الرجاء الاتصال بمسؤول في {* webmasterEmailAddress*}.</string>
     </userFunctions>
     <upload>
-        <string name="missing_project_title">You need to specify a title for your programm!</string>
-        <string name="missing_file_data">Sorry, there was a problem during the upload!</string>
-        <string name="missing_post_file_checksum">Sorry, there was a problem during the upload! Are you using the latest version of Pocket Code?</string>
-        <string name="copy_failed">Sorry, there was an error during the upload. Try again!</string>
-        <string name="rename_failed">Sorry, there was an error during the upload. Try again!</string>
-        <string name="invalid_file_checksum">Sorry, there was an error during the upload. Try again!</string>
-        <string name="project_exceed_filesize_limit">Your programm file is too large.</string>
-        <string name="project_title_default">You have to rename your programm, before uploading it.</string>
-        <string name="insulting_words_in_project_title">Please don't use offensive language in your programm title.</string>
-        <string name="insulting_words_in_project_description">Please don't use offensive language in your programm description.</string>
-        <string name="save_thumbnail_failed">Sorry, there was an error during the upload. Try again!</string>
-        <string name="invalid_project_xml">Sorry, your programm file is invalid. Try to save it as a new programm and upload it again.</string>
-        <string name="old_catrobat_version">Sorry, you are using an old version of Pocket Code. Please update to the lastest version.</string>
-        <string name="old_catrobat_language">Sorry, your programm contains an old version of the Catrobat language! Are you using the latest version of Pocket Code?</string>
-        <string name="invalid_media_license">Sorry, your programm has an invalid media license!</string>
-        <string name="invalid_program_license">Sorry, your programm has an invalid program license!</string>
-        <string name="visibility_incorrect">The visibility is incorrect!</string>
-        <string name="invalid_project_file">Sorry, your program contains some files with unknown fileformat.</string>
-        <string name="linked_project_file_not_found">Sorry, there seems to be some file missing in your project.</string>
-        <string name="unlinked_project_file">Sorry, your project seems to contain some project-unrelated files.</string>
+        <string name="missing_project_title">أنت بحاجة إلى تحديد عنوان البرنامج الخاص بك!</string>
+        <string name="missing_file_data">عذراً، هناك مشكلة أثناء التحميل!</string>
+        <string name="missing_post_file_checksum">عذراً، هناك مشكلة أثناء التحميل! هل تستخدم أحدث نسخة من "النص البرمجي لجهاز الجيب"؟</string>
+        <string name="copy_failed">عذراً، حدث خطأ أثناء التحميل. حاول مرة أخرى!</string>
+        <string name="rename_failed">عذراً، حدث خطأ أثناء التحميل. حاول مرة أخرى!</string>
+        <string name="invalid_file_checksum">عذراً، حدث خطأ أثناء التحميل. حاول مرة أخرى!</string>
+        <string name="project_exceed_filesize_limit">حجم ملف البرنامج الخاص بك كبير جداً.</string>
+        <string name="project_title_default">يجب عليك إعادة تسمية البرنامج الخاص بك، قبل تحميله.</string>
+        <string name="insulting_words_in_project_title">يرجى عدم استخدام لغة هجومية في عنوان البرنامج الخاص بك.</string>
+        <string name="insulting_words_in_project_description">يرجى عدم استخدام لغة هجومية في وصف البرنامج الخاص بك.</string>
+        <string name="save_thumbnail_failed">عذراً، حدث خطأ أثناء التحميل. حاول مرة أخرى!</string>
+        <string name="invalid_project_xml">عذراً، ملف البرنامج الخاص بك غير صالح. حاول القيام بتخزينه كبرنامج جديد ثم القيام بتحميله مرة أخرى.</string>
+        <string name="old_catrobat_version">آسف، أنت تستخدم نسخة قديمة من "النص البرمجي لجهاز الجيب". الرجاء تحديثه الى أحدث نسخة.</string>
+        <string name="old_catrobat_language">عذراً، البرنامج الخاص بك يحتوي على إصدار قديم من لغة كاتروبات! هل تستخدم أحدث نسخة من "النص البرمجي لجهاز الجيب"؟</string>
+        <string name="invalid_media_license">آسف، البرنامج الخاص بك لديه ترخيص وسائط غير صالح!</string>
+        <string name="invalid_program_license">آسف، البرنامج الخاص بك لديه ترخيص برنامج غير صالح!</string>
+        <string name="visibility_incorrect">الرؤية غير صحيحة!</string>
+        <string name="invalid_project_file">عذراً، البرنامج الخاص بك يحتوي على ملفات بتنسيق غير معروف.</string>
+        <string name="linked_project_file_not_found">آسف، يبدو أن هناك بعض الملفات مفقودة في المشروع الخاص بك .</string>
+        <string name="unlinked_project_file">عذراً، يبدو المشروع الخاص بك يحتوي على بعض الملفات التي لا علاقة لها المشروع.</string>
     </upload>
     <download>
-    	<string name="file_not_found">The requested programm is not available at the time. Try again later!</string>
+    	<string name="file_not_found">البرنامج المطلوب غير متوفر في الوقت الحالي. حاول مرة أخرى في وقت لاحق!</string>
     </download>
     <flag>
-        <string name="missing_post_data">You must enter a reason why you want to report this programm as inappropriate!</string>
-        <string name="sql_insert_failed">Sorry, there was an error while reporting the programm!</string>
+        <string name="missing_post_data">يجب عليك إدخال سببا لماذا تريد أن ينشر هذا البرنامج بأنه غير مناسب!</string>
+        <string name="sql_insert_failed">عذراً، حدث خطأ أثناء إعداد تقارير البرنامج!</string>
     </flag>
     <viewer>
-    	<string name="html_file_not_found">This page cannot be displayed.</string>
-      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
-      <string name="ip_is_blocked_temporary">Your IP-Address has been blocked for 30 seconds.</string>
-      <string name="user_is_blocked">Your Account has been blocked.</string>
+    	<string name="html_file_not_found">لا يمكن عرض هذه الصفحة.</string>
+      <string name="ip_is_blocked">عنوان IP الخاص بك مقفول.</string>
+      <string name="ip_is_blocked_temporary">لقد تم قفل عنوان IP الخاص بك لمدة 30 ثانية.</string>
+      <string name="user_is_blocked">لقد تم قفل الحساب الخاص بك.</string>
     </viewer>
     <auth>
-    	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your username and password!</string>
-			<string name="device_auth_username_exists">Sorry, your username is already in use.</string>
-      <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
+    	<string name="device_auth_invalid_token">آسف، بيانات التحقق الخاصة بك غير صحيحة. الرجاء التحقق من اسم المستخدم وكلمة المرور الخاصة بك!</string>
+			<string name="device_auth_username_exists">آسف، اسم المستخدم الخاص بك قيد الاستخدام مسبقاً.</string>
+      <string name="not_a_tugraz_ip">غير مسموح لك عرض هذه الصفحة.</string>
     </auth>
     <registration>
-      <string name="postdata_missing">Please enter your login data.</string>
+      <string name="postdata_missing">الرجاء إدخال بيانات تسجيل الدخول الخاصة بك.</string>
     </registration>
     <admin>
-      <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
-      <string name="pootle_load_xlf_failed">Could not load XLF-file from {*source*}.</string>
-      <string name="pootle_not_valid_xml">Could not generate XML-object from XLF-string.</string>
-      <string name="pootle_invalid_stringname_in_xml">Invalid string name in source XLF-file: {*stringName*}</string>
-      <string name="pootle_could_not_write_xml_file">Could not write XML-file to language directory: {*fileName*}</string>
+      <string name="pootle_post_data_missing">البيانات المرسلة مفقودة: المطلوب: lang.</string>
+      <string name="pootle_load_xlf_failed">تعذر تحميل الملف XLF من {* المصدر *}.</string>
+      <string name="pootle_not_valid_xml">تعذر إنشاء كائن XML من XLF-السلسلة.</string>
+      <string name="pootle_invalid_stringname_in_xml">اسم السلسلة غير صالح في مصدر XLF-ملف: {* stringName*}</string>
+      <string name="pootle_could_not_write_xml_file">تعذر كتابة ملف XML إلى مجلد اللغة: {* fileName*}</string>
     </admin>
 </errors>

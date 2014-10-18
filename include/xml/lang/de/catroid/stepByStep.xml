@@ -99,10 +99,10 @@
 	
 	<string name="step11_title">Entdecke die Welt der Pocket Code Programme. Wenn dir eines gef&#xE4;llt, lade es herunter und remixe es.</string>
 	<string name="step11_description">&#xDC;bersicht &#xFC;ber alle Pocket Code Programme auf deinem Handy.</string>
-	<string name="step11_additional_text_1">Continue with your currently opened program.</string>
-	<string name="step11_additional_text_2">Add a new program.</string>
-	<string name="step11_additional_text_3">See all your local programs.</string>
-	<string name="step11_additional_text_4">Go to the help site and discuss with other users.</string>
+	<string name="step11_additional_text_1">Mache mit deinem momentan geöffneten Programm weiter.</string>
+	<string name="step11_additional_text_2">Füge ein neues Programm hinzu.</string>
+	<string name="step11_additional_text_3">Schau dir all deine lokalen Programme an.</string>
+	<string name="step11_additional_text_4">Besuche die Hilfe Website und diskutiere mit den anderen Benutzern.</string>
 	<string name="step11_additional_text_5">Explore the world of the Pocket Code programs. Download and remix programs you like.</string>
 	<string name="step11_additional_text_6">Upload the program that is currently opened.</string>
 

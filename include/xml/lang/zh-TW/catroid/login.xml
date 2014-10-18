@@ -22,10 +22,10 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="title">Login</string>
-  <string name="password_link">Forgot password or username?</string>  
-  <string name="nickname">Username:</string>
-  <string name="password">Password:</string>
+  <string name="title">&#x5FD8;&#x8A18;&#x5BC6;&#x78BC;&#xFF1F;&#x6309;&#x9019;&#xFF01;</string>
+  <string name="password_link">&#x767B;&#x5165;</string>  
+  <string name="nickname">&#x5462;&#x7A31;</string>
+  <string name="password">&#x5BC6;&#x78BC;&#xFF1A;</string>
   <string name="enter_nick">Username</string>
   <string name="enter_password">Password</string>
   <string name="login">Login</string>

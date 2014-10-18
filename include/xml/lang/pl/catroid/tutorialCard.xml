@@ -23,36 +23,36 @@
 -->
 <strings>
 
-  <string name="headline1">Get Ready:</string>
-  <string name="headline2">Try this Code:</string>
-  <string name="headline3">Do it:</string>
-  <string name="headline4">Extra Tip:</string>
+  <string name="headline1">Przygotuj się:</string>
+  <string name="headline2">Spróbuj tego kodu:</string>
+  <string name="headline3">Zrób to:</string>
+  <string name="headline4">Dodatkowa rada:</string>
 
-	<string name="project1">Change Size</string>
-	<string name="project2">Change Look</string>
-	<string name="project3">Moving Animation</string>
+	<string name="project1">Zmień wielkość</string>
+	<string name="project2">Zmień wygląd</string>
+	<string name="project3">Animacja ruchu</string>
 	<string name="project4">Leć</string>
-	<string name="project5">Play Sound</string>
-	<string name="project6">Speak Something</string>
+	<string name="project5">Odtwórz dźwięk</string>
+	<string name="project6">Powiedz coś</string>
 	<string name="project7">GSensor</string>
-	<string name="project8">Compass</string>
+	<string name="project8">Kompas</string>
 	<string name="project9">Nadaj</string>
 
-	<string name="title">Tutorial Card</string>
-  <string name="project1_description">Tap the duck to change the size.</string>
-	<string name="project2_description">Use this trick to count automatically.</string>
-	<string name="project3_description">Use this trick when you want a flying parrot.</string>
-	<string name="project4_description">Move smoothly from one point to another.</string>
-	<string name="project5_description">Tap the drum to play this sound</string>
-	<string name="project6_description">Use this code to make an object speaking.</string>
-	<string name="project7_description">Use this trick to control an object with the inclination of your device.</string>
-	<string name="project8_description">Use this code to make a compass.</string>
-	<string name="project9_description">Look at this code! This shows you how to communicate between objects.</string>
+	<string name="title">Karta poradnika</string>
+  <string name="project1_description">Naciśnij kaczkę żeby zmienić rozmiar.</string>
+	<string name="project2_description">Użyj tego triku, aby liczyć automatycznie.</string>
+	<string name="project3_description">Użyj tego tricku, jeśli chcesz żeby papuga latała.</string>
+	<string name="project4_description">Przejdź płynnie z jednego punktu do innego.</string>
+	<string name="project5_description">Naciśnij bęben, aby zagrać ten dźwięk</string>
+	<string name="project6_description">Użyj tego kodu, żeby obiekt zaczął mówić.</string>
+	<string name="project7_description">Użyj tego tricku do kontrolowania obiektu za pomocą przechylania swojego urządzenia.</string>
+	<string name="project8_description">Użyj tego kodu, aby zrobić kompas.</string>
+	<string name="project9_description">Spójrz na ten kod! To pokazuje, jak obiekty mogą się komunikować.</string>
 	
-	<string name="project5_extratip_1">1. Click "+"</string>
-	<string name="project5_extratip_2">2. Select "Pocket Code Recorder"</string>
-	<string name="project5_extratip_3">3. Press icon to record your sound</string>
-	<string name="project7_extratip_1">If too sensitive, divide by 10</string>
+	<string name="project5_extratip_1">1. Naciśnij "+"</string>
+	<string name="project5_extratip_2">2. Wybierz rejestrator "Pocket Code"</string>
+	<string name="project5_extratip_3">3. Naciśnij ikonę, aby nagrać dźwięk</string>
+	<string name="project7_extratip_1">jeśli jest zbyt wrażliwy, podziel przez 10</string>
 
 	
 	
