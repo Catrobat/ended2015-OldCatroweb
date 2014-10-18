@@ -1,30 +1,31 @@
 Following Languages are from CrowdIn:
+"Shortcut": "Language"
 
-ar:
-bs:
-de:
-en:
-en-AU:
-en-CA:
-en-GB:
-es:
-es-CR:
-fr:
-hr:
-hu:
-it:
-ja:
-ko:
-nl:
-no:
-pl:
-pt:
-pt-BR:
-ro:
-ru:
-sl:
-sr-CS:
-sr-SP:
-tr:
-zh-CN:
-zh-TW:
+ar: Arabic
+bs: Bosnian
+de: German
+en: English (Source files for crowdIn)
+en-AU: English Australia
+en-CA: English Canada
+en-GB: English United Kingdom
+es: Spanish
+es-CR: Spanish Costa Rica
+fr: French
+hr: Croatian
+hu: Hungarian
+it: Italian
+ja: Japanese
+ko: Korean
+nl: Dutch
+no: Norwegian
+pl: Polish
+pt: Portuguese
+pt-BR: Portuguese Brazillian
+ro: Romanian
+ru: Russian
+sl: Slovenian
+sr-CS: Serbian Latin
+sr-SP: Serbian Cyrillic
+tr: Turkish
+zh-CN: Chinese Simplified
+zh-TW: Chinese Traditional
