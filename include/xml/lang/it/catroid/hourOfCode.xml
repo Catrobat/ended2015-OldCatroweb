@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+
+	<string name="title">Skydiving Steve - Steve il paracadutista</string>
+	
+	<string name="title0">#0: Steve il paracadutista</string>
+	<string name="title1">#1: Installa "Pocket Code"</string>
+	<string name="title2">#2: Fai il download del Progetto</string>
+	<string name="title3">#3: Apri il Progetto</string>
+	<string name="title4">#4: Aggiungi una Variabile</string>
+	<string name="title5">#5: Cambia nome alle variabili</string>
+	<string name="title6">#6: Imposta valore variabile "y"</string>
+	<string name="title7">#7: Per sempre</string>
+	<string name="title8">#8: Inserisci e modifica mattoncini</string>
+	<string name="title9">#9: Cambia valoriabili e valori</string>
+	<string name="title10">#10: Sensore del livello sonoro</string>
+	<string name="title11">#11: Modifica altri mattoncini</string>
+	<string name="title12">#12: Ritorna agli oggetti</string>
+	<string name="title13">#13: L'oggetto "target"</string>
+	<string name="title14">#14: L'oggetto "target"</string>
+	<string name="title15">#15: L'oggetto "target"</string>
+	<string name="title16">#16: L'oggetto "parcel"</string>
+	<string name="title17">#17:L'oggetto "parcel"</string>
+	<string name="title18">#18: L'oggetto "parcel"</string>
+	<string name="title19">#19: L'oggetto "restart"</string>
+	<string name="title20">#20: L'oggetto "Background"</string>
+	<string name="title21">#21: Controlla il tuo codice!</string>
+	
+	<string name="description0">In questo tutorial passo-a-passo imparerai come programmare il comportamento di Steve e del suo pacco. L'immagine sottostante ti mostra come controllare Steve durante il gioco. Dovrai condurre Steve sopra l'obiettivo e toccare lo sfondo per far cadere il pacco. Buona fortuna...</string>
+	<string name="description1">Come installare Pocket Code sul tuo dispositivo.</string>
+	<string name="description2">Come scaricare il programma, consentendoti di personalizzare "Steve il paracadutista".</string>
+	<string name="description3">Diamo un'occhiata all'interno del programma.</string>
+	<string name="description4">Le variabili x e y permettono di controllare la posizione del paracadute.</string>
+	<string name="description5">Memorizziamo la posizione x del paracadute.</string>
+	<string name="description6">Memorizziamo e impostiamo la posizione iniziale y del paracadute.</string>
+	<string name="description7">È necessario controllare in ogni momento la posizione del . Per farlo, inserire un ciclo "Per sempre".</string>
+	<string name="description8">Aggiungi più mattoncini all'interno del ciclo "Per sempre" per controllare il paracadute. Inserendo le variabili x e y nel mattoncino "Posiziona a" possiamo controllare la posizione del paracadute. </string>
+	<string name="description9">Cambiando il valore della variabile y di -3, si fa scivolare il paracadute a terra. Cambiare il valore della variabile x affinché il paracadute segua l'inclinazione del dispositivo.</string>
+	<string name="description10">Puoi controllare l'altezza del paracadute attraverso il sensore del livello sonoro. Per farlo aggiungere e modificare il mattoncino "Se 1 è vero allora".</string>
+	<string name="description11">Quando il gioco inizia, la posizione iniziale del paracadute dovrebbe coincidere con la posizione iniziale appena impostata. Per far questo è necessario aggiungere e modificare tre mattoncini come mostrato nella figura seguente.</string>
+	<string name="description12">Ora hai completato la gestione dell'oggetto "Paracadute"! RItorna indietro al menu che mostra gli oggetti del progetto, al fine di modificare il prossimo oggetto.</string>
+	<string name="description13">Inizia a modificare l'oggetto "target". Aggiungi il mattoncino per controllare la posizione e la dimensione del nostro oggetto.</string>
+	<string name="description14">Ogni volta che il gioco ricomincia, si vorrebbe far cambiare la posizione del target. Per questo, impostare le variabili goalx e goaly usando la funzione che genera numeri casuali.</string>
+	<string name="description15">Modifica il mattoncino "Posiziona a" per impostare la posizione dell'oggetto target usando le variabili goalx e goaly.</string>
+	<string name="description16">Qui inizi a personalizzare l'oggetto "parcel". Quando tale oggetto riceve il messaggio "start", il pacco dovrebbe essere mostrato. Imposta la posizione del pacco usando le variabili x ed y.</string>
+	<string name="description17">Per controllare se il pacco ha colpito l'obiettivo, devi far uso del mattoncino "Se 1 è vero allora".</string>
+	<string name="description18">Se il pacco ha colpito l'obiettivo, hai la necessità di cambiare la posizione del pacco. Manda un messaggio agli altri oggetti per far sapere loro che hai vinto.</string>
+	<string name="description19">Qui si personalizza l'oggetto "restart". Definiamo la posizione e il comportamento di tale oggetto. </string>
+	<string name="description20">Completa il programma personalizzando l'oggetto "background". Ora puoi iniziare a giocare. Buon divertimento!</string>
+	<string name="description21">Fai clic sull'immagine sotto per allargarla. Ricontrolla il codice associato agli oggetti se il gioco non funziona correttamente.</string>
+	
+  <string name="imageText0_1">Text1</string>
+	<string name="imageText0_2">Text2</string>
+	<string name="imageText0_3">Text3</string>
+	<string name="imageText1_1">Premi su "Play Store".</string>
+	<string name="imageText1_2">Cerca "Pocket Code".</string>
+	<string name="imageText1_3">Premi su "Installa".</string>
+	<string name="imageText2_1">Premi "Esplora" di "Pocket Code" sul tuo dispositivo.</string>
+	<string name="imageText2_2">Tocca il banner.</string>
+	<string name="imageText2_3">Scarica il programma "Skydiving Steve" (Steve il paracadutista).</string>
+	<string name="imageText3_1">Scorri il menu e seleziona "Apri Skydiving Steve".</string>
+	<string name="imageText3_2">Premi sull'oggetto "parachute".</string>
+	<string name="imageText3_3">Scegli "Script".</string>
+	<string name="imageText4_1">Premi su "+".</string>
+	<string name="imageText4_2">Vai alla categoria "Variabili".</string>
+	<string name="imageText4_3">Premi su "Imposta variabile".</string>
+	<string name="imageText4_4">Trascina il mattoncino "Imposta variabile" sotto quello "Quando il programma inizia".</string>
+	<string name="imageText5_1">Add a second variable just as before.</string>
+	<string name="imageText5_2">Tap "New...".</string>
+	<string name="imageText5_3">Insert "x" and tap "OK".</string>
+	<string name="imageText6_1">Label the second variable with "y".</string>
+	<string name="imageText6_2">Tap the field filled with "0.0".</string>
+	<string name="imageText6_3">Insert "-500" and tap "OK".</string>
+	<string name="imageText7_1">Premi su "+".</string>
+	<string name="imageText7_2">Go to the "Control" - category.</string>
+	<string name="imageText7_3">Choose the "Forever" - brick.</string>
+	<string name="imageText7_4">Drag and drop the "Forever" - brick below the "Set variable" - bricks.</string>
+	<string name="imageText8_1">Insert the shown bricks below the "Forever" - brick.</string>
+	<string name="imageText8_2">Tap the "100" field.</string>
+	<string name="imageText8_3">Tap "Variables" and choose "x".</string>
+	<string name="imageText8_4">Tap "200" in the same brick on the top, go to the "Variables" category and choose "y". Confirm with "OK".</string>
+	<string name="imageText9_1_1">Set the size to "20" %.</string>
+	<string name="imageText9_1_2">Change the value of the first "Set variable" - brick to "-3".</string>
+	<string name="imageText9_1_3">At the second "Set variable" - brick tap the field "0.0".</string>
+	<string name="imageText9_2_1">Tap on "y" and choose "x".</string>
+	<string name="imageText9_2_2">Insert "-".</string>
+	<string name="imageText9_2_3">Tap "Sensors" and choose "inclination_x".</string>
+	<string name="imageText9_2_4">Multiply by "0.5" </string>
+	<string name="imageText9_3">Check if your inserted formula matches the one in the screenshot and confirm with "OK".</string>
+	<string name="imageText10_1_1">Add a “If 1 is true then” - brick and place it below the last “Change variable” - brick.</string>
+	<string name="imageText10_1_2">Tap the field with the value "0" within the "If 1 is true then" - brick.</string>
+	<string name="imageText10_2_1">Tap "Sensors".</string>
+	<string name="imageText10_2_2">Choose "loudness".</string>
+	<string name="imageText10_2_3">Tap "Logic".</string>
+	<string name="imageText10_2_4">Choose "&gt;".</string>
+	<string name="imageText10_2_5">Insert "50".</string>
+	<string name="imageText10_3">Check if your formula matches the formula in the screenshot and tap "OK".</string>
+	<string name="imageText11_1">Add a "Change variable" - brick and modify the value like above.</string>
+	<string name="imageText11_2_1">Add a "When I receive" - brick.</string>
+	<string name="imageText11_2_2">Place it below the last brick ("End of loop").</string>
+	<string name="imageText11_2_3">Add two "Set variable" - bricks.</string>
+	<string name="imageText11_3">Tap the field filled with "message 1", choose "New…" and insert "restart".</string>
+	<string name="imageText11_4">Change the values of the two "Set variable" - bricks like shown in the screenshot above.</string>
+	<string name="imageText12_1">Tap the "back" - button on your device.</string>
+	<string name="imageText12_2">Tap the "back" - button once more.</string>
+	<string name="imageText12_3">Now you should see this screen on your device.</string>
+	<string name="imageText13_1">Tap "target" and choose "Scripts".</string>
+	<string name="imageText13_2">Add and modify the bricks as in the screenshot above.</string>
+	<string name="imageText13_3">Add four more bricks like shown above.</string>
+	<string name="imageText14_1">Tap the field "y:" and choose "New".</string>
+	<string name="imageText14_2">Insert "goalx" and confirm with "OK".</string>
+	<string name="imageText14_3">Tap the field "0.0" and insert the formula "random(-400, 400)".</string>
+	<string name="imageText14_4">Repeat the steps 1-3 for the second "Set variable" - brick, expect naming the variable "goaly" and setting the value to "random(400, -700)".</string>
+	<string name="imageText15_1">Change the values of the "Place at" - brick to "goalx" and "goaly".</string>
+	<string name="imageText15_2">Check if your values match the ones above.</string>
+	<string name="imageText15_3">Go back until you see this screen.</string>
+	<string name="imageText16_1">Tap "parcel" and choose "Scripts".</string>
+	<string name="imageText16_2">Add all the bricks shown above.</string>
+	<string name="imageText16_3_1">Change the value of the "Set size" - brick to "50".</string>
+	<string name="imageText16_3_2">Tap the field "restart" within the "When I receive" - brick and create the new message: "start".</string>
+	<string name="imageText16_3_3">Change the values of the "Place at" - brick to "x" and "y".</string>
+	<string name="imageText17_1">Add the above shown bricks below the last "Place at" - brick.</string>
+	<string name="imageText17_2">Change the value within the "Change Y by" - brick to "-5". Then tap into the field "1" within the "If 1 is true then".</string>
+	<string name="imageText17_3">Insert the shown formula and tap "OK".</string>
+	<string name="imageText17_3_1">"position_x" and "position_y" can be found in the category "Object".</string>
+	<string name="imageText17_3_2">"goaly" and "goalx" are in the "Variables" category.</string>
+	<string name="imageText17_3_3">"AND" is in the "Logic" category.</string>
+	<string name="imageText18_1_1">Change the values of the "Place at" - brick to "position_x" and "goaly+100".</string>
+	<string name="imageText18_1_2">Tap the field "Broadcast" and create a new message "win".</string>
+	<string name="imageText18_2">Add the above shown bricks and modify their values alike.</string>
+	<string name="imageText18_3">Go back until you see this screen on your device. Go to the scripts of the object "restart".</string>
+	<string name="imageText19_1">Add the above shown bricks and modify their values alike.</string>
+	<string name="imageText19_2">Add the above shown bricks and set the "Broadcast" - message to "restart".</string>
+	<string name="imageText19_3">Go back until you see this screen, then go to the scripts of “Background”.</string>
+	<string name="imageText20_1_1">Add the above shown bricks and set the "Broadcast" - message to "start".</string>
+	<string name="imageText20_1_2">Tap the "Play" - button.</string>
+	<string name="imageText20_2">Enjoy your game.</string>
+	<string name="imageText20_3">You've successfully completed the tutorial "Skydiving Steve". We would be pleased to find some really cool remixes of "Skydiving Steve" on pocketcode.org --- just change it as you like and upload it again from your own account.</string>
+	<string name="imageText21_1">Object "background"</string>
+	<string name="imageText21_2">Object "parachute"</string>
+	<string name="imageText21_3">Object "parcel"</string>
+	<string name="imageText21_4">Object "restart"</string>
+	<string name="imageText21_5">Object "target"</string>
+	
+</strings>

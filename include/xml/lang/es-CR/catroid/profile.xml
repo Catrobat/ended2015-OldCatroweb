@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="myTitle">Mi Perfil</string>
+  <string name="userTitle">Perfíl del Usuario</string>
+
+  <string name="changeAvatar">Cambiar la imagen</string>
+  <string name="password">Contraseña</string>
+  <string name="email">Mi primera dirección de correo electrónico</string>
+  <string name="second_email">Mi segunda dirección de correo electrónico</string>
+  <string name="projects">Cantidad de programas</string>
+  <string name="country">País</string>
+
+
+  <string name="my_projects">Mis programas</string>
+  <string name="user_projects">Programas de</string>
+  <string name="no_projects_available">Actualmente no existen programas.</string>
+  <string name="new_password">Nueva contraseña</string>
+  <string name="repeat_password">Repeta la contraseña</string>
+  <string name="save">¿Desea guardar los cambios?</string>
+  <string name="saved">Guardado!</string>
+
+  <string name="really_delete_email">¿Realmente deseas eliminar esta dirección de correo electrónico?</string>
+  <string name="really_delete_project">¿Estas seguro que quieres eliminar tu programa?</string>
+  <string name="image_too_big">La imagen elegida es demasiado pesada, no utilice imágenes de más de 5mb.</string>
+  <string name="other">Otros</string>
+  <string name="avatar_success">Has actualizado tu avatar exitosamente.</string>
+  <string name="password_success">Has actualizado tu contraseña exitosamente.</string>
+  <string name="email_add_success">La nueva dirección de correo electrónico ha sido agregada exitosamente. Por favor revise la bandeja de entrada de su correo electrónico para verificarla.</string>
+  <string name="edit_one_entry">Tu correo electrónico y contraseña solo pueden ser actualizados por separado.</string>
+</strings>

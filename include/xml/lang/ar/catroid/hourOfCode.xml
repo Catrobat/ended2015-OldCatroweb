@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+
+	<string name="title">ستيف القافز بالمظلات</string>
+	
+	<string name="title0">#0: ستيف القافز بالمظلات</string>
+	<string name="title1">#1: تثبيت النص البرمجي لجهاز الجيب</string>
+	<string name="title2">#2: تحميل المشروع</string>
+	<string name="title3">#3: فتح المشروع</string>
+	<string name="title4">#4: إضافة متغير</string>
+	<string name="title5">#5: تسمية المتغيرات</string>
+	<string name="title6">#6: تعيين المتغير "ص"</string>
+	<string name="title7">#7: إلى الأبد</string>
+	<string name="title8">#8: إدراج وتعديل الطوب</string>
+	<string name="title9">#9: تغيير المتغيرات والقيم</string>
+	<string name="title10">جهاز إستشعار بالصوت</string>
+	<string name="title11">#11: تغيير بعض الطوب </string>
+	<string name="title12">#12: العودة إلى كائنات</string>
+	<string name="title13">#13: الكائن "الهدف"</string>
+	<string name="title14">#13: الكائن "الهدف"</string>
+	<string name="title15">#13: الكائن "الهدف"</string>
+	<string name="title16">#16: الكائن "لا يتجزأ"</string>
+	<string name="title17">#16: الكائن "لا يتجزأ"</string>
+	<string name="title18">#16: الكائن "لا يتجزأ"</string>
+	<string name="title19">#19: الكائن "إعادة تشغيل"</string>
+	<string name="title20">#20: الكائن "الخلفية"</string>
+	<string name="title21">#21: التحقق من البرامج النصية الخاصة بك!</string>
+	
+	<string name="description0">في ما يلي البرنامج التعليمي خطوة بخطوة كي تتعلم كيفية برمجة سلوك Steve. الصور أدناه تظهر لك كيفية التحكم بـ Steve أثناء اللعبة. You have to navigate Steve above the target and tap the background to drop the parcel. حظا سعيدا...</string>
+	<string name="description1">كيفية تثبيت "النص البرمجي لجهاز الجيب" على الجهاز المحمول الخاص بك.</string>
+	<string name="description2">كيفية تحميل البرنامج الأساسية التي تسمح لك لبرمجة "Steve القفز بالمظلات".</string>
+	<string name="description3">دعونا ننظر داخل البرنامج.</string>
+	<string name="description4">المتغيرات س و ص تسمح لك التحكم بموقع المظلة الخاص بك.</string>
+	<string name="description5">قم بتسمية الموضع س للمظلة الخاصة بك.</string>
+	<string name="description6">قم بتسمية وتعيين نقطة البداية ص للمظلة الخاصة بك.</string>
+	<string name="description7">أنت بحاجة إلى التحكم في موقع المظلة الخاصة بك في جميع الأوقات. قم بإدراج "إلى الأبد"--حلقة للقيام بذلك.</string>
+	<string name="description8">إضافة المزيد من الطوب في الحلقة الخاصة بك "إلى الأبد" للتحكم في المظلة الخاصة بك. إدراج المتغيرات س و ص في  "مكان في" الطوب تمكنك من التحكم في موقع المظلة. </string>
+	<string name="description9">تغيير المتغير ص الى -3 ليجعل المظلة الخاصة بك تنزلق على الأرض. قم بتغيير المتغير س ولذلك المظلة الخاصة بك سوف تتبع زاوية الميل للجهاز المحمول الخاص بك.</string>
+	<string name="description10">يمكنك التحكم في ارتفاع المظلة الخاصة بك مع استشعار الصوت للجهاز المحمول الخاص بك. للقيام بذلك، قم بإضافة وتعديل "إذا كان 1 صحيحاً ثم" الطوب.</string>
+	<string name="description11">موضع البداية للمظلة الخاصة بك عند إعادة تشغيل اللعبة، يجب أن يطابق موضع البداية الأولى الخاص بك. ولهذا تحتاج لإضافة وتعديل ثلاثات طوبات كما هو موضح في الصور أدناه.</string>
+	<string name="description12">الآن أنهيت بنجاح الكائن "المظلة" الخاص بك! انتقل مرة أخرى إلى استعراض الكائن لتتمكن من تعديل الكائن التالي.</string>
+	<string name="description13">هنا يمكنك البدء في تعديل الكائن "الهدف". أضف الطوب للسيطرة على الموقف وحجم الهدف الخاص بك.</string>
+	<string name="description14">عند إعادة تشغيل اللعبة، موقع الهدف الخاص بك يحتاج إلى تغيير. بالنسبة لهذه الخطوة، قم بتعيين قيم المتغيرات goalx و goaly  بإستخدام الدالة العشوائية.</string>
+	<string name="description15">تعديل الطوب "مكان في" الخاص بك للتحكم في موضع الهدف الخاص بك بإستخدام المتغيرات goalx و goaly .</string>
+	<string name="description16">هنا يمكنك البدء في تعديل الكائن الخاص بك "الطرد". عندما يتلقى الكائن الموجود في "طرد" الرسالة "بدء"، ينبغي أن تظهر الطرود. قم بتعيين موضع الطرد بإستخدام المتغيرات x و y.</string>
+	<string name="description17">للتحقق فيما إذا كان الطرد قد أصاب الهدف، فإنك تحتاج "إذا كان 1 صحيحاً ثم" الطوب.</string>
+	<string name="description18">إذا كان الطرد قد ضرب الهدف بنجاح ، تحتاج إلى تعديل موقع الطرد.أرسل رسالة إلى الكائنات الأخرى ليعرفوا أنك فائز.</string>
+	<string name="description19">هنا يمكنك تعديل الكائن "إعادة التشغيل". قم بتعريف الموقع وسلوكيات الكائن. </string>
+	<string name="description20">أكمل البرنامج بتعديل كائن "الخلفية". الآن يمكنك البدء في اللعبة الخاصة بك. استمتع!</string>
+	<string name="description21">انقر على الصور أدناه لتكبيرها. قم بإستعراض البرامج النصية للكائنات الخاصة بك إذا كانت لعبتك لا تعمل بشكل صحيح.</string>
+	
+  <string name="imageText0_1">النص1</string>
+	<string name="imageText0_2">النص2</string>
+	<string name="imageText0_3">النص3</string>
+	<string name="imageText1_1">انقر فوق "تشغيل مخزن".</string>
+	<string name="imageText1_2">البحث عن "تعليمات برمجية الجيب".</string>
+	<string name="imageText1_3">انقر فوق "تثبيت".</string>
+	<string name="imageText2_1">انقر فوق "استكشاف" في "قانون الجيب" على "الجهاز المحمول" الخاص بك.</string>
+	<string name="imageText2_2">انقر فوق الشريط.</string>
+	<string name="imageText2_3">تحميل البرنامج "Steve القفز بالمظلات".</string>
+	<string name="imageText3_1">إسحب القائمة الى الأسفل وانقر فوق "فتح المظلات Steve".</string>
+	<string name="imageText3_2">انقر فوق كائن "المظلة".</string>
+	<string name="imageText3_3">اختر "البرامج النصية".</string>
+	<string name="imageText4_1">اضغط على "+".</string>
+	<string name="imageText4_2">انتقل إلى الفئة "المتغيرات".</string>
+	<string name="imageText4_3">انقر فوق "تعيين المتغير".</string>
+	<string name="imageText4_4">السحب والإفلات "تعيين المتغير"-الطوب أدناه "عند بدء تشغيل برنامج"--الطوب.</string>
+	<string name="imageText5_1">إضافة متغير ثاني فقط كما كان من قبل.</string>
+	<string name="imageText5_2">انقر فوق "جديد...".</string>
+	<string name="imageText5_3">إدراج "س" ثم انقر على "موافق".</string>
+	<string name="imageText6_1">تسمية المتغير الثاني مع "ص".</string>
+	<string name="imageText6_2">انقر على حقل مليئ بـ "0.0".</string>
+	<string name="imageText6_3">إدراج "-500" واضغط على "موافق".</string>
+	<string name="imageText7_1">اضغط على "+".</string>
+	<string name="imageText7_2">اذهب إلى الفئة -"التحكم".</string>
+	<string name="imageText7_3">اختر "الأبد"-الطوب.</string>
+	<string name="imageText7_4">قم بسحب وإفلات "للأبد"--الطوب تحت "تعيين المتغير".</string>
+	<string name="imageText8_1">قم بإدراج الطوب المعروض أدنى "إلى الأبد"-الطوب.</string>
+	<string name="imageText8_2">انقر على حقل "100".</string>
+	<string name="imageText8_3">اضغط على "المتغيرات" واختر "س".</string>
+	<string name="imageText8_4">اضغط على "200" في نفس الطوب في الأعلى، والانتقال إلى الفئة "المتغيرات" واختر "ص". تأكيد مع "موافق".</string>
+	<string name="imageText9_1_1">تعيين الحجم إلى "20" في المائة.</string>
+	<string name="imageText9_1_2">قم بتغيير قيمة الأول "تعيين المتغير "-الطوب إلى "-3".</string>
+	<string name="imageText9_1_3">في الثاني "تعيين المتغير "-الطوب أنقرعلى حقل "0.0".</string>
+	<string name="imageText9_2_1">اضغط على "ص" واختر "س".</string>
+	<string name="imageText9_2_2">إدراج "-".</string>
+	<string name="imageText9_2_3">انقر فوق "أجهزة الاستشعار" واختر "درجة ميول س".</string>
+	<string name="imageText9_2_4">قم بضرب "0.5" </string>
+	<string name="imageText9_3">تحقق فيما إذا كانت الصيغة الخاصة بك التي تم إدراجها  تطابق التي في لقطة الشاشة وتأكيد مع "موافق".</string>
+	<string name="imageText10_1_1">إضافة "إذا كان 1 صحيحاً ثم"--الطوب ووضعه في أسفل آخر "تغيير متغير"-الطوب.</string>
+	<string name="imageText10_1_2">انقر على الحقل الذي يحتوي على القيمة "0" في "إذا كان 1 صحيحاً ثم"-الطوب.</string>
+	<string name="imageText10_2_1">انقر فوق "أجهزة الاستشعار".</string>
+	<string name="imageText10_2_2">اختر "صوت مرتفع".</string>
+	<string name="imageText10_2_3">اضغط على "المنطق".</string>
+	<string name="imageText10_2_4">اختر "&gt;".</string>
+	<string name="imageText10_2_5">إدراج "50".</string>
+	<string name="imageText10_3">التحقق من ما إذا كانت الصيغة الخاصة بك تطابق الصيغة الموجودة في الصورة واضغط على "موافق".</string>
+	<string name="imageText11_1">إضافة "تغيير متغير"-الطوب وقم بتعديل القيمة مثل ما هو في الأعلى.</string>
+	<string name="imageText11_2_1">إضافة "عندما أتلقى"-الطوب.</string>
+	<string name="imageText11_2_2">قم بوضعه أسفل أخر طوبة ("نهاية الدوران").</string>
+	<string name="imageText11_2_3">إضافة اثنين "تعيين متغير "-الطوب.</string>
+	<string name="imageText11_3">أنقر على الحقل "رسالة 1"، اختر "جديد..."، وقم بإدراج "إعادة تشغيل".</string>
+	<string name="imageText11_4">Change the values of the two "Set variable" - bricks like shown in the screenshot above.</string>
+	<string name="imageText12_1">Tap the "back" - button on your device.</string>
+	<string name="imageText12_2">Tap the "back" - button once more.</string>
+	<string name="imageText12_3">Now you should see this screen on your device.</string>
+	<string name="imageText13_1">Tap "target" and choose "Scripts".</string>
+	<string name="imageText13_2">Add and modify the bricks as in the screenshot above.</string>
+	<string name="imageText13_3">Add four more bricks like shown above.</string>
+	<string name="imageText14_1">Tap the field "y:" and choose "New".</string>
+	<string name="imageText14_2">Insert "goalx" and confirm with "OK".</string>
+	<string name="imageText14_3">Tap the field "0.0" and insert the formula "random(-400, 400)".</string>
+	<string name="imageText14_4">Repeat the steps 1-3 for the second "Set variable" - brick, expect naming the variable "goaly" and setting the value to "random(400, -700)".</string>
+	<string name="imageText15_1">Change the values of the "Place at" - brick to "goalx" and "goaly".</string>
+	<string name="imageText15_2">Check if your values match the ones above.</string>
+	<string name="imageText15_3">Go back until you see this screen.</string>
+	<string name="imageText16_1">Tap "parcel" and choose "Scripts".</string>
+	<string name="imageText16_2">Add all the bricks shown above.</string>
+	<string name="imageText16_3_1">Change the value of the "Set size" - brick to "50".</string>
+	<string name="imageText16_3_2">Tap the field "restart" within the "When I receive" - brick and create the new message: "start".</string>
+	<string name="imageText16_3_3">Change the values of the "Place at" - brick to "x" and "y".</string>
+	<string name="imageText17_1">Add the above shown bricks below the last "Place at" - brick.</string>
+	<string name="imageText17_2">Change the value within the "Change Y by" - brick to "-5". Then tap into the field "1" within the "If 1 is true then".</string>
+	<string name="imageText17_3">Insert the shown formula and tap "OK".</string>
+	<string name="imageText17_3_1">"position_x" and "position_y" can be found in the category "Object".</string>
+	<string name="imageText17_3_2">"goaly" and "goalx" are in the "Variables" category.</string>
+	<string name="imageText17_3_3">"AND" is in the "Logic" category.</string>
+	<string name="imageText18_1_1">Change the values of the "Place at" - brick to "position_x" and "goaly+100".</string>
+	<string name="imageText18_1_2">Tap the field "Broadcast" and create a new message "win".</string>
+	<string name="imageText18_2">Add the above shown bricks and modify their values alike.</string>
+	<string name="imageText18_3">Go back until you see this screen on your device. Go to the scripts of the object "restart".</string>
+	<string name="imageText19_1">Add the above shown bricks and modify their values alike.</string>
+	<string name="imageText19_2">Add the above shown bricks and set the "Broadcast" - message to "restart".</string>
+	<string name="imageText19_3">Go back until you see this screen, then go to the scripts of “Background”.</string>
+	<string name="imageText20_1_1">Add the above shown bricks and set the "Broadcast" - message to "start".</string>
+	<string name="imageText20_1_2">Tap the "Play" - button.</string>
+	<string name="imageText20_2">Enjoy your game.</string>
+	<string name="imageText20_3">You've successfully completed the tutorial "Skydiving Steve". We would be pleased to find some really cool remixes of "Skydiving Steve" on pocketcode.org --- just change it as you like and upload it again from your own account.</string>
+	<string name="imageText21_1">Object "background"</string>
+	<string name="imageText21_2">Object "parachute"</string>
+	<string name="imageText21_3">Object "parcel"</string>
+	<string name="imageText21_4">Object "restart"</string>
+	<string name="imageText21_5">Object "target"</string>
+	
+</strings>

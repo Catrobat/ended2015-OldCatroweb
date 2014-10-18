@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">BOARD &#x6CE8;&#x518C;&#x6210;&#x529F;</string>
+  <string name="nickname">&#x6CE8;&#x518C;&#x65B0;&#x5E10;&#x53F7;</string>
+  <string name="enter_nickname">&#x6635;&#x79F0;</string>
+  <string name="nickname_info">&#x8F93;&#x5165;&#x6635;&#x79F0;</string>
+  <string name="password">&#x5BC6;&#x7801;</string>
+  <string name="enter_password">&#x8F93;&#x5165;&#x5BC6;&#x7801;</string>
+  <string name="email">&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;</string>
+  <string name="enter_email">&#x8F93;&#x5165;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;</string>
+  <string name="email_info">&#x9690;&#x79C1;&#x653F;&#x7B56;</string>
+  <string name="email_info_link_title">&#x56FD;&#x5BB6;</string>
+  <string name="country">&#x9009;&#x62E9;&#x60A8;&#x7684;&#x56FD;&#x5BB6;</string>
+  <string name="select_country">&#x5E02;</string>
+  <string name="other">&#x8F93;&#x5165;&#x60A8;&#x7684;&#x5E02;</string>
+  <string name="city">&#x751F;&#x65E5;</string>
+  <string name="enter_city">&#x9009;&#x62E9;&#x6708;&#x4EFD;</string>
+  <string name="birth">&#x9009;&#x62E9;&#x5E74;&#x4EFD;</string>
+  <string name="select_month">&#x6027;&#x522B;</string>
+  <string name="select_year">&#x9009;&#x62E9;&#x6027;&#x522B;</string>
+  <string name="gender">&#x5973;</string>
+  <string name="select_gender">&#x7537;</string>
+  <string name="female">&#x521B;&#x5EFA;&#x6211;&#x7684;&#x5E10;&#x53F7;</string>
+  <string name="male">&#x5FD8;&#x8BB0;&#x4E86;&#x60A8;&#x7684;&#x5BC6;&#x7801;&#xFF1F;</string>
+  <string name="create">Create my account</string>
+  <string name="login">try to login if you have already an account</string>
+  <string name="password_recover">click here if you forgot your password</string>
+  <string name="additional_options">Other options to proceed:</string>
+  <string name="registration_success">BOARD &#x6CE8;&#x518C;&#x6210;&#x529F;</string>
+</strings>
