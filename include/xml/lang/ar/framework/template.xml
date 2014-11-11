@@ -102,7 +102,7 @@
   <string name="template_header_password">كلمة المرور:</string>
   <string name="template_header_login">تسجيل الدخول</string>
   <string name="template_header_logout">خروج</string>
-  <string name="template_header_cancel">موافق</string>
+  <string name="template_header_cancel">إلغاء</string>
   <string name="template_header_loading">تحميل...</string>
   <string name="template_header_logged_in_as">يتم تسجيل دخولك</string>
   <string name="template_header_enter_nick">اسم المستخدم الخاص بك</string>

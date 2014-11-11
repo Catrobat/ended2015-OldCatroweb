@@ -22,6 +22,6 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="header">Search Results</string>
+  <string name="header">Rezultati iskanja</string>
   <string name="results">Your search returned {*amount*} results</string>
 </strings>

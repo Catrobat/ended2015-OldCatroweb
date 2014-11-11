@@ -29,9 +29,9 @@
   <string name="template_header_password">Hasło:</string>
   <string name="template_header_login">Logowanie</string>
   <string name="template_header_logout">Wyloguj się</string>
-  <string name="template_header_cancel">Poniechaj</string>
+  <string name="template_header_cancel">Anuluj</string>
   <string name="template_header_loading">ładowanie...</string>
-  <string name="template_header_logged_in_as">Twój login to</string>
+  <string name="template_header_logged_in_as">Jesteś zalogowany jako</string>
   <string name="template_header_enter_nick">Twoja nazwa użytkownika</string>
   <string name="template_header_enter_password">twoje hasło</string>
   <string name="template_header_menu">Menu</string>
@@ -60,16 +60,16 @@
   
   <string name="template_common_one_minute_ago">1 minuta</string>
   <string name="template_common_less_than_a_minute_ago">teraz</string>
-  <string name="template_common_minutes_ago">{*minuteCount*} minut</string>
+  <string name="template_common_minutes_ago">{*minuteCount*} minut(y)</string>
   <string name="template_common_one_hour_ago">1 godzina</string>
-  <string name="template_common_hours_ago">{*hourCount*} godzin</string>
+  <string name="template_common_hours_ago">{*hourCount*} godzin(y)</string>
   <string name="template_common_one_day_ago">1 dzień</string>
   <string name="template_common_days_ago">{*dayCount*} dni</string>
   <string name="template_common_one_month_ago">1 miesiąc</string>
-  <string name="template_common_months_ago">{*monthCount*} miesięcy</string>
+  <string name="template_common_months_ago">{*monthCount*} miesiące(cy)</string>
   <string name="template_common_one_year_ago">1 rok</string>
-  <string name="template_common_years_ago">{*yearCount*} lat</string>
-  <string name="template_common_over_years_ago">{*yearCount*} lat</string>
+  <string name="template_common_years_ago">{*yearCount*} lat(a)</string>
+  <string name="template_common_over_years_ago">{*yearCount*} lat(a)</string>
   <string name="template_common_january">styczeń</string>
   <string name="template_common_february">luty</string>
   <string name="template_common_march">marzec</string>
@@ -138,7 +138,7 @@
   <string name="template_common_country_angola">Angola</string>
   <string name="template_common_country_antarctica">Antarktyka</string>
   <string name="template_common_country_argentina">Argentyna</string>
-  <string name="template_common_country_american_samoa">Amerykańskie Samoa</string>
+  <string name="template_common_country_american_samoa">Samoa Amerykańskie</string>
   <string name="template_common_country_austria">Austria</string>
   <string name="template_common_country_australia">Australia</string>
   <string name="template_common_country_aruba">Aruba</string>
@@ -181,7 +181,7 @@
   <string name="template_common_country_cape_verde">Wyspy Zielonego Przylądka</string>
   <string name="template_common_country_christmas_island">Wyspa Bożego Narodzenia</string>
   <string name="template_common_country_cyprus">Cypr</string>
-  <string name="template_common_country_czech_republic">Republika Czeska</string>
+  <string name="template_common_country_czech_republic">Czechy</string>
   <string name="template_common_country_germany">Niemcy</string>
   <string name="template_common_country_djibouti">Dżibuti</string>
   <string name="template_common_country_denmark">Dania</string>
@@ -202,7 +202,7 @@
   <string name="template_common_country_faroe_islands">Wyspy Owcze</string>
   <string name="template_common_country_france">Francja</string>
   <string name="template_common_country_gabon">Gabon</string>
-  <string name="template_common_country_united_kingdom">Zjednoczone Królestwo</string>
+  <string name="template_common_country_united_kingdom">Wielka Brytania</string>
   <string name="template_common_country_grenada">Grenada</string>
   <string name="template_common_country_georgia">Gruzja</string>
   <string name="template_common_country_french_guiana">Gujana Francuska</string>
@@ -214,13 +214,13 @@
   <string name="template_common_country_guadeloupe">Gwadelupa</string>
   <string name="template_common_country_equatorial_guinea">Gwinea Równikowa</string>
   <string name="template_common_country_greece">Grecja</string>
-  <string name="template_common_country_south_georgia_and_the_south_sandwich_islands">Wyspy South Georgia i South Sandwich</string>
+  <string name="template_common_country_south_georgia_and_the_south_sandwich_islands">Georgia Południowa i Sandwich Południowy</string>
   <string name="template_common_country_guatemala">Gwatemala</string>
   <string name="template_common_country_guam">Guam</string>
   <string name="template_common_country_guinea_bissau">Gwinea Bissau</string>
   <string name="template_common_country_guyana">Gujana</string>
   <string name="template_common_country_hong_kong">Hong Kong</string>
-  <string name="template_common_country_heard_island_and_mcdonald_islands">Wyspy Heard i McDonald</string>
+  <string name="template_common_country_heard_island_and_mcdonald_islands">Wyspy Heard i McDonalda</string>
   <string name="template_common_country_honduras">Honduras</string>
   <string name="template_common_country_croatia">Chorwacja</string>
   <string name="template_common_country_haiti">Haiti</string>
@@ -311,14 +311,14 @@
   <string name="template_common_country_reunion">Reunion</string>
   <string name="template_common_country_romania">Rumunia</string>
   <string name="template_common_country_russia">Rosja</string>
-  <string name="template_common_country_rwanda">Ruanda</string>
+  <string name="template_common_country_rwanda">Rwanda</string>
   <string name="template_common_country_saudi_arabia">Arabia Saudyjska</string>
   <string name="template_common_country_solomon_islands">Wyspy Salomona</string>
   <string name="template_common_country_seychelles">Seszele</string>
   <string name="template_common_country_sudan">Sudan</string>
   <string name="template_common_country_sweden">Szwecja</string>
   <string name="template_common_country_singapore">Singapur</string>
-  <string name="template_common_country_saint_helena">Wyspy Świętej Heleny</string>
+  <string name="template_common_country_saint_helena">Wyspa Świętej Heleny</string>
   <string name="template_common_country_slovenia">Słowenia</string>
   <string name="template_common_country_svalbard_and_jan_mayen">Svalbard i Jan Mayen</string>
   <string name="template_common_country_slovakia">Słowacja</string>
@@ -327,11 +327,11 @@
   <string name="template_common_country_senegal">Senegal</string>
   <string name="template_common_country_somalia">Somalia</string>
   <string name="template_common_country_suriname">Surinam</string>
-  <string name="template_common_country_sao_tome_and_principe">Wyspy Świętego Tomasza i Książęcej</string>
+  <string name="template_common_country_sao_tome_and_principe">Wyspy Świętego Tomasza i Książęca</string>
   <string name="template_common_country_el_salvador">Salwador</string>
   <string name="template_common_country_syria">Syria</string>
   <string name="template_common_country_swaziland">Suazi</string>
-  <string name="template_common_country_turks_and_caicos_islands">Wyspy Turks i Caicos</string>
+  <string name="template_common_country_turks_and_caicos_islands">Turks i Caicos</string>
   <string name="template_common_country_chad">Czad</string>
   <string name="template_common_country_french_southern_and_antarctic_lands">Francuskie Terytoria Południowe i Antarktyczne</string>
   <string name="template_common_country_togo">Togo</string>
@@ -364,7 +364,7 @@
   <string name="template_common_country_samoa">Samoa</string>
   <string name="template_common_country_yemen">Jemen</string>
   <string name="template_common_country_mayotte">Majotta</string>
-  <string name="template_common_country_south_africa">Południowa Afryka</string>
+  <string name="template_common_country_south_africa">Republika Południowej Afryki</string>
   <string name="template_common_country_zambia">Zambia</string>
   <string name="template_common_country_zimbabwe">Zimbabwe</string>
 </strings>

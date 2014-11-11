@@ -38,7 +38,7 @@
   <string name="city">Miejscowość</string>
   <string name="enter_city">podaj swoje miasto</string>
   <string name="birth">Data urodzenia</string>
-  <string name="select_month">Wybierz swój miesiąc</string>
+  <string name="select_month">Wybierz miesiąc</string>
   <string name="select_year">Wybierz rok</string>
   <string name="gender">Płeć</string>
   <string name="select_gender">Wybierz swoją płeć</string>

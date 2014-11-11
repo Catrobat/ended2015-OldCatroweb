@@ -84,20 +84,20 @@
 	
 	<string name="step8_title">8. Copier, supprimer ou modifier un élément</string>
 	<string name="step8_description"></string>
-	<string name="step8_additional_text_1">Single tap on the left side of each brick opens the context menu. There you can move, copy, delete or edit the values of the brick with the formula editor.</string>
+	<string name="step8_additional_text_1">Appuyer sur la gauche de chaque élément pour ouvrir le menu contextuel. L'éditeur de formule permet de déplacer, copier, supprimer ou modifier les valeur de l'élément.</string>
 	
-	<string name="step9_title">9. Navigation in the app</string>
+	<string name="step9_title">9. Naviguer</string>
 	<string name="step9_description"></string>
-	<string name="step9_additional_text_1">Use the Android Back Button to navigate in the app.</string>
+	<string name="step9_additional_text_1">Utiliser le bouton retour Android pour naviguer dans l'appli.</string>
 	<string name="step9_additional_text_2">Go back one screen to the overview of your object. Here you can go into the scripts and also to an powerful representation of the looks and sounds of the object. There you can rename, copy add or delete looks and sounds.</string>
 	<string name="step9_additional_text_3">Use again the Android Back Button to get to the overview of your objects and your background.</string>
 	
-	<string name="step10_title">10. Change the background</string>
+	<string name="step10_title">10. Changer l'arrière plan</string>
 	<string name="step10_description">This is the overview of your objects and the background depends to one program.</string>
 	<string name="step10_additional_text_1">The background is like an object, but you just can have on background.</string>
 	<string name="step10_additional_text_2">You can add scripts, sounds and look in the same way to the background object.</string>
 	
-	<string name="step11_title">11. Main Menu</string>
+	<string name="step11_title">11. Menu principal</string>
 	<string name="step11_description">Use the Android Back Button to get to this screen.</string>
 	<string name="step11_additional_text_1">Continue with your currently opened program.</string>
 	<string name="step11_additional_text_2">Add a new program.</string>

@@ -23,36 +23,36 @@
 -->
 <strings>
 
-  <string name="headline1">Get Ready:</string>
-  <string name="headline2">Try this Code:</string>
-  <string name="headline3">Do it:</string>
-  <string name="headline4">Extra Tip:</string>
+  <string name="headline1">Pripremi se:</string>
+  <string name="headline2">Isprobaj ovaj kod:</string>
+  <string name="headline3">Učini to:</string>
+  <string name="headline4">Dodatni savjet:</string>
 
-	<string name="project1">Change Size</string>
-	<string name="project2">Change Look</string>
-	<string name="project3">Moving Animation</string>
-	<string name="project4">Glide</string>
-	<string name="project5">Play Sound</string>
-	<string name="project6">Speak Something</string>
-	<string name="project7">GSensor</string>
-	<string name="project8">Compass</string>
-	<string name="project9">Broadcast</string>
+	<string name="project1">Promjena veličine</string>
+	<string name="project2">Promjena izgleda</string>
+	<string name="project3">Pokretne animacije</string>
+	<string name="project4">Klizati</string>
+	<string name="project5">Reproduciranje zvuka</string>
+	<string name="project6">Pričaj nešto</string>
+	<string name="project7">GSenzor</string>
+	<string name="project8">Kompas</string>
+	<string name="project9">Razglasi</string>
 
-	<string name="title">Tutorial Card</string>
+	<string name="title">Vodič karta</string>
   <string name="project1_description">Tap the duck to change the size.</string>
-	<string name="project2_description">Use this trick to count automatically.</string>
-	<string name="project3_description">Use this trick when you want a flying parrot.</string>
-	<string name="project4_description">Move smoothly from one point to another.</string>
-	<string name="project5_description">Tap the drum to play this sound</string>
-	<string name="project6_description">Use this code to make an object speaking.</string>
-	<string name="project7_description">Use this trick to control an object with the inclination of your device.</string>
-	<string name="project8_description">Use this code to make a compass.</string>
-	<string name="project9_description">Look at this code! This shows you how to communicate between objects.</string>
+	<string name="project2_description">Iskoristi ovu vještinu za automatsko brojanje.</string>
+	<string name="project3_description">Iskoristi ovu vještinu ako želiš leteću papigu.</string>
+	<string name="project4_description">Kreći se lagano sa jedne točke na drugu.</string>
+	<string name="project5_description">Pritisni na bubanj da reproduciraš ovaj zvuk</string>
+	<string name="project6_description">Iskoriti ovaj kod da bi napravio govoreći objekt.</string>
+	<string name="project7_description">Iskorisiti ovu vještinu za kontrolu objekta sa nagibanjem uređaja.</string>
+	<string name="project8_description">Iskoristi ovaj kod za pravljenje kompasa.</string>
+	<string name="project9_description">Pogledaj ovaj kod! Ovo ti pokazuje kako komunicirati između objekata.</string>
 	
-	<string name="project5_extratip_1">1. Click "+"</string>
-	<string name="project5_extratip_2">2. Select "Pocket Code Recorder"</string>
-	<string name="project5_extratip_3">3. Press icon to record your sound</string>
-	<string name="project7_extratip_1">If too sensitive, divide by 10</string>
+	<string name="project5_extratip_1">1. Pritisni "+"</string>
+	<string name="project5_extratip_2">2. Izaberi "Pocket Code snimač"</string>
+	<string name="project5_extratip_3">3. Pritisni ikonu da bi snimio svoj zvuk</string>
+	<string name="project7_extratip_1">Ako je previše osjetljiva, podijeli sa 10</string>
 
 	
 	

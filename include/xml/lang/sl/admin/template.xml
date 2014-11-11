@@ -22,8 +22,8 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="template_common_one_minute_ago">1 minute ago</string>
-  <string name="template_common_less_than_a_minute_ago">less than a minute ago</string>
+  <string name="template_common_one_minute_ago">1 minuto nazaj</string>
+  <string name="template_common_less_than_a_minute_ago">manj kot pred eno minuto</string>
   <string name="template_common_minutes_ago">{*minuteCount*} minutes ago</string>
   <string name="template_common_one_hour_ago">about 1 hour ago</string>
   <string name="template_common_hours_ago">about {*hourCount*} hours ago</string>

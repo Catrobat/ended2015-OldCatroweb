@@ -48,5 +48,5 @@
   <string name="avatar_success">Pomyślnie zaktualizowano Twój awatar.</string>
   <string name="password_success">Aktualizacja hasła przebiegła pomyślnie.</string>
   <string name="email_add_success">Twój nowy adres e-mail został pomyślnie dodany. Zajrzyj do skrzynki odbiorczej, żeby to sprawdzić.</string>
-  <string name="edit_one_entry">Można jedynie oddzielnie aktualizować adres-mail i hasło.</string>
+  <string name="edit_one_entry">Można jedynie oddzielnie aktualizować adres e-mail i hasło.</string>
 </strings>

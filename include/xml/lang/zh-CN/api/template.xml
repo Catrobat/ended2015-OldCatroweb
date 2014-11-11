@@ -1,25 +1,25 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
   <string name="template_common_one_minute_ago">&#x4E00;&#x5206;&#x949F;&#x524D;</string>
@@ -46,4 +46,48 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
   <string name="template_common_october">&#x5341;&#x6708;</string>
   <string name="template_common_november">&#x5341;&#x4E00;&#x6708;</string>
   <string name="template_common_december">&#x5341;&#x4E8C;&#x6708;</string>
+  <string name="template_common_arabic">Arabic</string>
+  <string name="template_common_bulgarian">Bulgarian</string>
+  <string name="template_common_catalan">Catalan</string>
+  <string name="template_common_chinese_simplified_han">Chinese (Simplified Han)</string>
+  <string name="template_common_chinese_traditional_han">Chinese (Traditional Han)</string>
+  <string name="template_common_croatian">Croatian</string>
+  <string name="template_common_czech">Czech</string>
+  <string name="template_common_danish">Danish</string>
+  <string name="template_common_dutch">Dutch</string>
+  <string name="template_common_english_united_kingdom">English (United Kingdom)</string>
+  <string name="template_common_english_united_states">English (United States)</string>
+  <string name="template_common_estonian">Estonian</string>
+  <string name="template_common_filipino">Filipino</string>
+  <string name="template_common_finnish">Finnish</string>
+  <string name="template_common_french">French</string>
+  <string name="template_common_german">German</string>
+  <string name="template_common_greek">Greek</string>
+  <string name="template_common_hebrew">Hebrew</string>
+  <string name="template_common_hindi">Hindi</string>
+  <string name="template_common_hungarian">Hungarian</string>
+  <string name="template_common_indonesian">Indonesian</string>
+  <string name="template_common_italian">Italian</string>
+  <string name="template_common_japanese">Japanese</string>
+  <string name="template_common_korean">Korean</string>
+  <string name="template_common_latvian">Latvian</string>
+  <string name="template_common_lithuanian">Lithuanian</string>
+  <string name="template_common_malay">Malay</string>
+  <string name="template_common_norwegian">Norwegian</string>
+  <string name="template_common_persian">Persian</string>
+  <string name="template_common_polish">Polish</string>
+  <string name="template_common_portuguese_brazil">Portuguese (Brazil)</string>
+  <string name="template_common_portuguese_portugal">Portuguese (Portugal)</string>
+  <string name="template_common_romanian">Romanian</string>
+  <string name="template_common_russian">Russian</string>
+  <string name="template_common_serbian">Serbian</string>
+  <string name="template_common_slovak">Slovak</string>
+  <string name="template_common_slovenian">Slovenian</string>
+  <string name="template_common_spanish_latin_america">Spanish (Latin America)</string>
+  <string name="template_common_spanish_spain">Spanish (Spain)</string>
+  <string name="template_common_swedish">Swedish</string>
+  <string name="template_common_thai">Thai</string>
+  <string name="template_common_turkish">Turkish</string>
+  <string name="template_common_ukrainian">Ukrainian</string>
+  <string name="template_common_vietnamese">Vietnamese</string>
 </strings>

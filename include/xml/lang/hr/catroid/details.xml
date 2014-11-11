@@ -22,24 +22,24 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="uploaded">uploaded</string>
-  <string name="updated">updated</string>
-  <string name="uploaded_by">by {*nicknameString*}</string>
-  <string name="login">login</string>
-  <string name="download_button">Download</string>
-  <string name="filesize">big</string>
-  <string name="report_as_inappropriate">Report as inappropriate</string>
-  <string name="report_as_inappropriate_label">Why do you think this program is inappropriate?</string>
-  <string name="report_as_inappropriate_please_login">Please {*login_link*} to report this program as inappropriate.</string>
-  <string name="report_as_inappropriate_own_project">You cannot flag your own program.</string>
-  <string name="report_as_inappropriate_already_flagged">You've already flagged this program as inappropriate.</string>
-  <string name="report">Report</string>
-  <string name="cancel">Cancel</string>
-  <string name="flag_reason_placeholder">Enter a reason</string>
-  <string name="some_rights_reserved">License to play</string>
-  <string name="views">views</string>
-  <string name="downloads">downloads</string>
-  <string name="language_version_info_text">Catrobat Language version:</string>
-  <string name="description">Description</string>
-  <string name="no_description_available">No description available.</string>
+  <string name="uploaded">uploadovano</string>
+  <string name="updated">ažurirano</string>
+  <string name="uploaded_by">od {*nicknameString*}</string>
+  <string name="login">prijava</string>
+  <string name="download_button">Preuzmi</string>
+  <string name="filesize">velik</string>
+  <string name="report_as_inappropriate">Prijavi kao neprikladno</string>
+  <string name="report_as_inappropriate_label">Zašto misliš da je ovaj program neprikladan?</string>
+  <string name="report_as_inappropriate_please_login">Molimo {*login_link*} da bi prijavio ovaj program kao neprikladan.</string>
+  <string name="report_as_inappropriate_own_project">Ne možeš označiti vlastiti program.</string>
+  <string name="report_as_inappropriate_already_flagged">Već si označio da je ovaj program neprikladan.</string>
+  <string name="report">Prijavi</string>
+  <string name="cancel">Odustani</string>
+  <string name="flag_reason_placeholder">Unesite razlog</string>
+  <string name="some_rights_reserved">Licenca za reproduciranje</string>
+  <string name="views">pregleda</string>
+  <string name="downloads">preuzimanja</string>
+  <string name="language_version_info_text">Verzija Catrobat jezika:</string>
+  <string name="description">Opis</string>
+  <string name="no_description_available">Opis nije dostupan.</string>
 </strings>

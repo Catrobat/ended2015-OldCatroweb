@@ -1,120 +1,127 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <errors>
-  <userFunctions>
-    <string name="expired_url">&#x5BF9;&#x4E0D;&#x8D77;&#xFF01;&#x60A8;&#x6062;&#x590D;&#x7684;&#x7F51;&#x5740;&#x5DF2;&#x8FC7;&#x671F;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#x3002;</string>
-    <string name="username_password_equal">&#x5BC6;&#x7801;&#x4E0E;&#x6635;&#x79F0;&#x5FC5;&#x987B;&#x4E0D;&#x540C;&#x3002;</string>
-    <string name="board_authentication_failed">&#x7535;&#x8DEF;&#x677F;&#x9A8C;&#x8BC1;&#x5931;&#x8D25;&#x3002;</string>
-    <string name="language_update_failed">&#x5F53;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65F6;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x3002;</string>
-    <string name="email_update_failed"/>
-    <string name="wiki_api_response_incorrect">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
-    <string name="create_hash_failed">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
-    <string name="hash_not_found"/>
-    <string name="username_missing"/>
-    <string name="username_invalid_underscore"/>
-    <string name="username_invalid_hash"/>
-    <string name="username_invalid_verticalbar"/>
-    <string name="username_invaquery_failedlid_curlybrace"/>
-    <string name="username_invalid_lessgreater"/>
-    <string name="username_invalid_squarebracket"/>
-    <string name="username_invalid_spaces"/>
-    <string name="username_invalid_insulting_words"/>
-    <string name="username_invalid"/>
-    <string name="username_blacklisted"/>
-    <string name="username_already_exists"/>
-    <string name="password_missing"/>
-    <string name="password_new_too_short"/>
-    <string name="password_new_too_long"/>
-    <string name="email_missing"/>
-    <string name="email_invalid">&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65E0;&#x6548;&#x3002;</string>
-    <string name="last_email"/>
-    <string name="country_missing"/>
-    <string name="password_or_username_wrong">&#x60A8;&#x7684;&#x5BC6;&#x7801;&#x6216;&#x6635;&#x79F0;&#x4E0D;&#x6B63;&#x786E;&#x3002;</string>
-    <string name="board_registration_failed"/>
-    <string name="userdata_missing">&#x60A8;&#x7684;&#x6635;&#x79F0;&#x6216;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x5931;&#x8E2A;&#x3002;</string>
-    <string name="unsupported_image"/>
-    <string name="avatar_creation_failed"/>
-    <string name="password_new_board_update_failed">&#x5F53;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65F6;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x3002;</string>
-    <string name="userdata_not_exists">&#x60A8;&#x7684;&#x6635;&#x79F0;&#x6216;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x672A;&#x627E;&#x5230;&#x3002;</string>
-    <string name="sendmail_failed"/>
-  </userFunctions>
-  <profile>
-    <string name="password_missing">&#x5BC6;&#x7801;&#x5931;&#x8E2A;</string>
-    <string name="email_update_failed">&#x5F53;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65F6;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x3002;</string>
-    <string name="city_update_failed">&#x5F53;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65F6;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x3002;</string>
-    <string name="password_equal"/>
-  </profile>
-  <db>
-    <string name="query_failed">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
-    <string name="connection_failed">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
-    <string name="no_entry_for_id">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
-  </db>
-  <viewer>
-    <string name="ip_is_blocked">&#x60A8;&#x7684;IP&#x5730;&#x5740;&#x5DF2;&#x88AB;&#x5C01;&#x9501;&#x3002;</string>
-    <string name="ip_is_blocked_temporary"/>
-    <string name="user_is_blocked">&#x60A8;&#x7684;&#x5E10;&#x6237;&#x5DF2;&#x88AB;&#x5C01;&#x9501;&#x3002;</string>
-    <string name="html_file_not_found">&#x8FD9;&#x9875;&#x65E0;&#x6CD5;&#x663E;&#x793A;&#x3002;</string>
-  </viewer>
-  <admin>
-    <string name="pootle_post_data_missing"/>
-    <string name="pootle_load_xlf_failed"/>
-    <string name="pootle_not_valid_xml"/>
-    <string name="pootle_invalid_stringname_in_xml"/>
-    <string name="pootle_could_not_write_xml_file"/>
-  </admin>
-  <server>
-    <string name="missing_mcrypt"/>
-    <string name="missing_blowfish"/>
-  </server>
-  <upload>
-    <string name="missing_project_title">&#x60A8;&#x5FC5;&#x987B;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x6807;&#x9898;&#x7ED9;&#x60A8;&#x7684;&#x9879;&#x76EE;&#xFF01;</string>
-    <string name="missing_file_data"/>
-    <string name="missing_post_file_checksum"/>
-    <string name="copy_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
-    <string name="rename_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
-    <string name="invalid_file_checksum">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
-    <string name="save_thumbnail_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
-    <string name="project_exceed_filesize_limit">&#x60A8;&#x7684;&#x9879;&#x76EE;&#x6587;&#x4EF6;&#x592A;&#x5927;&#x4E86;&#x3002;</string>
-    <string name="project_title_default">&#x4E0A;&#x8F7D;&#x4E4B;&#x524D;&#x60A8;&#x5FC5;&#x987B;&#x91CD;&#x547D;&#x540D;&#x60A8;&#x7684;&#x9879;&#x76EE;&#x3002;</string>
-    <string name="insulting_words_in_project_title">&#x8BF7;&#x4E0D;&#x8981;&#x5728;&#x9879;&#x76EE;&#x6807;&#x9898;&#x4E2D;&#x4F7F;&#x7528;&#x653B;&#x51FB;&#x6027;&#x7684;&#x8BED;&#x8A00;&#x3002;</string>
-    <string name="insulting_words_in_project_description">&#x8BF7;&#x4E0D;&#x8981;&#x5728;&#x9879;&#x76EE;&#x8BF4;&#x660E;&#x4E2D;&#x4F7F;&#x7528;&#x653B;&#x51FB;&#x6027;&#x7684;&#x8BED;&#x8A00;&#x3002;</string>
-    <string name="invalid_project_xml"/>
-    <string name="old_catrobat_language"/>
-  </upload>
-  <download>
-    <string name="file_not_found">&#x60A8;&#x6240;&#x8981;&#x6C42;&#x7684;&#x9879;&#x76EE;&#x672B;&#x53EF;&#x4EE5;&#x5728;&#x8FD9;&#x65F6;&#x95F4;&#x3002;&#x8BF7;&#x7A0D;&#x540E;&#x518D;&#x8BD5;&#xFF01;</string>
-  </download>
-  <flag>
-    <string name="missing_post_data"/>
-    <string name="sql_insert_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x5F53;&#x60A8;&#x62A5;&#x544A;&#x9879;&#x76EE;&#x65F6;&#xFF0C;&#x51FA;&#x73B0;&#x4E86;&#x9519;&#x8BEF;&#xFF01;</string>
-  </flag>
-  <auth>
-    <string name="device_auth_invalid_token"/>
-    <string name="device_auth_username_exists"/>
-    <string name="not_a_tugraz_ip"/>
-  </auth>
-  <registration>
-    <string name="postdata_missing"/>
-  </registration>
+		<server>
+				<string name="missing_mcrypt">Please tell the administrator to install mcrypt. Thanks.</string>
+				<string name="missing_blowfish">Please tell the administrator to install CRYPT_BLOWFISH. Thanks.</string>
+		</server>
+    <db>
+        <string name="query_failed">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
+        <string name="connection_failed">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
+        <string name="no_entry_for_id">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
+    </db>
+    <profile>
+    	<string name="no_such_user">&#x5BC6;&#x7801;&#x5931;&#x8E2A;</string>
+    </profile>
+    <userFunctions>
+      <string name="hash_not_found">&#x5BF9;&#x4E0D;&#x8D77;&#xFF01;&#x60A8;&#x6062;&#x590D;&#x7684;&#x7F51;&#x5740;&#x5DF2;&#x8FC7;&#x671F;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#x3002;</string>
+			<string name="expired_url">&#x5BC6;&#x7801;&#x4E0E;&#x6635;&#x79F0;&#x5FC5;&#x987B;&#x4E0D;&#x540C;&#x3002;</string>
+      <string name="username_missing">&#x7535;&#x8DEF;&#x677F;&#x9A8C;&#x8BC1;&#x5931;&#x8D25;&#x3002;</string>
+      <string name="username_invalid_underscore">&#x5F53;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65F6;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x3002;</string>
+      <string name="username_invalid_hash">The username you have entered is not allowed. Please do not use hash signs (#).</string>
+      <string name="username_invalid_verticalbar">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
+      <string name="username_invaquery_failedlid_curlybrace">Ooooops&#x51FA;&#x4E86;&#x95EE;&#x9898;&#x3002;&#x8BF7;&#x518D;&#x8BD5;&#x4E00;&#x6B21;&#xFF01;</string>
+      <string name="username_invalid_lessgreater">The username you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
+      <string name="username_invalid_squarebracket">The username you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
+      <string name="username_invalid_spaces">The username you have entered is not allowed. Please do not use spaces (" ").</string>
+      <string name="username_is_email_address">Your username may not be an email address.</string>
+      <string name="username_invalid_insulting_words">The username you have entered is not allowed. Please do not use insulting words.</string>
+      <string name="username_invalid">The username you have entered is not allowed.</string>
+      <string name="username_blacklisted">The username you have entered is not allowed.</string>
+      <string name="username_already_exists">The username you have entered already exists.</string>
+      <string name="password_missing">You haven't entered a password, please add one.</string>
+      <string name="password_not_equal_password2">The passwords didn't match.</string>
+      <string name="username_password_equal">The password must differ from the username.</string>
+      <string name="password_new_too_short">The new password must have at least {*minimumPasswordLength*} characters.</string>
+      <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
+      <string name="email_missing">You haven't entered an email address, please add one.</string>
+      <string name="email_invalid">This email address is not valid.</string>
+      <string name="last_email">One email address is required.</string>
+      <string name="country_missing">You haven't entered a country, please add one.</string>
+      <string name="password_or_username_wrong">&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65E0;&#x6548;&#x3002;</string>
+      <string name="board_authentication_failed">&#x7535;&#x8DEF;&#x677F;&#x6CE8;&#x518C;&#x5931;&#x8D25;&#x3002;</string>
+      <string name="wiki_api_response_incorrect">&#x5BC6;&#x7801;&#x5931;&#x8E2A;</string>
+      <string name="board_registration_failed">&#x60A8;&#x7684;&#x5BC6;&#x7801;&#x6216;&#x6635;&#x79F0;&#x4E0D;&#x6B63;&#x786E;&#x3002;</string>
+      <string name="userdata_missing">Your username or email address is missing.</string>
+      <string name="unsupported_image">&#x60A8;&#x7684;&#x6635;&#x79F0;&#x6216;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x5931;&#x8E2A;&#x3002;</string>
+      <string name="avatar_creation_failed">Sorry, we encountered an error while processing your registration. Please try again!</string>
+      <string name="password_new_board_update_failed">There was a problem while updating the password.</string>
+      <string name="country_update_failed">&#x5F53;&#x66F4;&#x65B0;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x65F6;&#x51FA;&#x73B0;&#x4E86;&#x95EE;&#x9898;&#x3002;</string>
+      <string name="language_update_failed">&#x60A8;&#x7684;&#x6635;&#x79F0;&#x6216;&#x7535;&#x5B50;&#x90AE;&#x4EF6;&#x5730;&#x5740;&#x672A;&#x627E;&#x5230;&#x3002;</string>
+      <string name="userdata_not_exists">Your username or email address was not found.</string>
+      <string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
+      <string name="create_hash_failed">&#x5BC6;&#x7801;&#x5931;&#x8E2A;</string>
+      <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
+    </userFunctions>
+    <upload>
+        <string name="missing_project_title">&#x60A8;&#x5FC5;&#x987B;&#x6307;&#x5B9A;&#x4E00;&#x4E2A;&#x6807;&#x9898;&#x7ED9;&#x60A8;&#x7684;&#x9879;&#x76EE;&#xFF01;</string>
+        <string name="missing_file_data">Sorry, there was a problem during the upload!</string>
+        <string name="missing_post_file_checksum">Sorry, there was a problem during the upload! Are you using the latest version of Pocket Code?</string>
+        <string name="copy_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
+        <string name="rename_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
+        <string name="invalid_file_checksum">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
+        <string name="project_exceed_filesize_limit">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x4E0A;&#x8F7D;&#x51FA;&#x73B0;&#x9519;&#x8BEF;&#x3002;&#x518D;&#x8BD5;&#x4E00;&#x6B21;!</string>
+        <string name="project_title_default">&#x60A8;&#x7684;&#x9879;&#x76EE;&#x6587;&#x4EF6;&#x592A;&#x5927;&#x4E86;&#x3002;</string>
+        <string name="insulting_words_in_project_title">&#x4E0A;&#x8F7D;&#x4E4B;&#x524D;&#x60A8;&#x5FC5;&#x987B;&#x91CD;&#x547D;&#x540D;&#x60A8;&#x7684;&#x9879;&#x76EE;&#x3002;</string>
+        <string name="insulting_words_in_project_description">&#x8BF7;&#x4E0D;&#x8981;&#x5728;&#x9879;&#x76EE;&#x6807;&#x9898;&#x4E2D;&#x4F7F;&#x7528;&#x653B;&#x51FB;&#x6027;&#x7684;&#x8BED;&#x8A00;&#x3002;</string>
+        <string name="save_thumbnail_failed">&#x8BF7;&#x4E0D;&#x8981;&#x5728;&#x9879;&#x76EE;&#x8BF4;&#x660E;&#x4E2D;&#x4F7F;&#x7528;&#x653B;&#x51FB;&#x6027;&#x7684;&#x8BED;&#x8A00;&#x3002;</string>
+        <string name="invalid_project_xml">Sorry, your programm file is invalid. Try to save it as a new programm and upload it again.</string>
+        <string name="old_catrobat_version">Sorry, you are using an old version of Pocket Code. Please update to the lastest version.</string>
+        <string name="old_catrobat_language">Sorry, your programm contains an old version of the Catrobat language! Are you using the latest version of Pocket Code?</string>
+        <string name="invalid_media_license">Sorry, your programm has an invalid media license!</string>
+        <string name="invalid_program_license">Sorry, your programm has an invalid program license!</string>
+        <string name="visibility_incorrect">The visibility is incorrect!</string>
+        <string name="invalid_project_file">Sorry, your program contains some files with unknown fileformat.</string>
+        <string name="linked_project_file_not_found">Sorry, there seems to be some file missing in your project.</string>
+        <string name="unlinked_project_file">Sorry, your project seems to contain some project-unrelated files.</string>
+    </upload>
+    <download>
+    	<string name="file_not_found">&#x60A8;&#x6240;&#x8981;&#x6C42;&#x7684;&#x9879;&#x76EE;&#x672B;&#x53EF;&#x4EE5;&#x5728;&#x8FD9;&#x65F6;&#x95F4;&#x3002;&#x8BF7;&#x7A0D;&#x540E;&#x518D;&#x8BD5;&#xFF01;</string>
+    </download>
+    <flag>
+        <string name="missing_post_data">You must enter a reason why you want to report this programm as inappropriate!</string>
+        <string name="sql_insert_failed">&#x5BF9;&#x4E0D;&#x8D77;&#xFF0C;&#x5F53;&#x60A8;&#x62A5;&#x544A;&#x9879;&#x76EE;&#x65F6;&#xFF0C;&#x51FA;&#x73B0;&#x4E86;&#x9519;&#x8BEF;&#xFF01;</string>
+    </flag>
+    <viewer>
+    	<string name="html_file_not_found">&#x60A8;&#x7684;IP&#x5730;&#x5740;&#x5DF2;&#x88AB;&#x5C01;&#x9501;&#x3002;</string>
+      <string name="ip_is_blocked">&#x60A8;&#x7684;IP&#x5730;&#x5740;&#x5DF2;&#x88AB;&#x5C01;&#x9501;&#x3002;</string>
+      <string name="ip_is_blocked_temporary">&#x60A8;&#x7684;&#x5E10;&#x6237;&#x5DF2;&#x88AB;&#x5C01;&#x9501;&#x3002;</string>
+      <string name="user_is_blocked">&#x8FD9;&#x9875;&#x65E0;&#x6CD5;&#x663E;&#x793A;&#x3002;</string>
+    </viewer>
+    <auth>
+    	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your username and password!</string>
+			<string name="device_auth_username_exists">Sorry, your username is already in use.</string>
+      <string name="not_a_tugraz_ip">You are not allowed to view this page.</string>
+    </auth>
+    <registration>
+      <string name="postdata_missing">Please enter your login data.</string>
+    </registration>
+    <admin>
+      <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
+      <string name="pootle_load_xlf_failed">Could not load XLF-file from {*source*}.</string>
+      <string name="pootle_not_valid_xml">Could not generate XML-object from XLF-string.</string>
+      <string name="pootle_invalid_stringname_in_xml">Invalid string name in source XLF-file: {*stringName*}</string>
+      <string name="pootle_could_not_write_xml_file">Could not write XML-file to language directory: {*fileName*}</string>
+    </admin>
 </errors>

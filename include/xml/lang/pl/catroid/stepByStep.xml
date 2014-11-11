@@ -35,7 +35,7 @@
   <string name="step2_title">2. Utwórz nowy obiekt</string>
 	<string name="step2_description"></string>
 	<string name="step2_additional_text_1">Naciśnij:</string>
-	<string name="step2_additional_text_2">Wybierz źródło pierwszego wyglądu twojego nowego obiektu.</string>
+	<string name="step2_additional_text_2">Wybierz źródło początkowego wyglądu Twojego nowego obiektu.</string>
 	<string name="step2_additional_text_3">Narysuj nowy wygląd.</string>
 	<string name="step2_additional_text_4">Wybierz z galerii.</string>
 	<string name="step2_additional_text_5">Zrób zdjęcie.</string>

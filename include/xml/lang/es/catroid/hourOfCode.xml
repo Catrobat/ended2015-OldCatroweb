@@ -48,7 +48,7 @@
 	<string name="title20">#20: Object "Background"</string>
 	<string name="title21">#21: Check your scripts!</string>
 	
-	<string name="description0">In the following step-by-step tutorial you learn how to program the behavior of Steve and his parcel. The images below show you how to control Steve during the game. You have to navigate Steve above the target and tap on Steve to drop the parcel. Good luck...</string>
+	<string name="description0">In the following step-by-step tutorial you learn how to program the behavior of Steve and his parcel. The images below show you how to control Steve during the game. You have to navigate Steve above the target and tap the background to drop the parcel. Good luck...</string>
 	<string name="description1">How to install Pocket Code on your mobile device.</string>
 	<string name="description2">How to download the essential program allowing you to program “Skydiving Steve”.</string>
 	<string name="description3">Let’s look inside the program.</string>
@@ -133,7 +133,7 @@
 	<string name="imageText14_2">Insert "goalx" and confirm with "OK".</string>
 	<string name="imageText14_3">Tap the field "0.0" and insert the formula "random(-400, 400)".</string>
 	<string name="imageText14_4">Repeat the steps 1-3 for the second "Set variable" - brick, expect naming the variable "goaly" and setting the value to "random(400, -700)".</string>
-	<string name="imageText15_1">Add a "Place at" - brick and set the field "100" to variable "goalx" and the field "200" to variable "goaly".</string>
+	<string name="imageText15_1">Change the values of the "Place at" - brick to "goalx" and "goaly".</string>
 	<string name="imageText15_2">Check if your values match the ones above.</string>
 	<string name="imageText15_3">Go back until you see this screen.</string>
 	<string name="imageText16_1">Tap "parcel" and choose "Scripts".</string>

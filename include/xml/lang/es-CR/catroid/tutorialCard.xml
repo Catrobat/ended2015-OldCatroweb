@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+
+  <string name="headline1">Prepárate:</string>
+  <string name="headline2">Prueba Programar:</string>
+  <string name="headline3">Hazlo:</string>
+  <string name="headline4">Sugerencia adicional:</string>
+
+	<string name="project1">Cambia el tamaño</string>
+	<string name="project2">Cambio de Apariencia</string>
+	<string name="project3">Animaciones con movimiento</string>
+	<string name="project4">Deslizar</string>
+	<string name="project5">Reproducir sonido</string>
+	<string name="project6">Hablar algo</string>
+	<string name="project7">Acelerómetro</string>
+	<string name="project8">Brújula</string>
+	<string name="project9">Difundir</string>
+
+	<string name="title">Tarjetas Tutoriales Pocket Code</string>
+  <string name="project1_description">Presione el pato para cambiar su tamaño.</string>
+	<string name="project2_description">Utilizar este truco para contar automáticamente.</string>
+	<string name="project3_description">Utilice este truco cuando quieres hacer que un loro vuele.</string>
+	<string name="project4_description">Mover suavemente de un punto a otro.</string>
+	<string name="project5_description">Presione el tambor para reproducir este sonido</string>
+	<string name="project6_description">Utilice este código para hacer que un objeto hable.</string>
+	<string name="project7_description">Usar este truco para controlar un objeto usando la inclinación del dispositivo.</string>
+	<string name="project8_description">Usa este código para hacer una brújula.</string>
+	<string name="project9_description">Mira este código! Muestra cómo hacer que los objetos se comuniquen entre ellos.</string>
+	
+	<string name="project5_extratip_1">1. Haga clic en "+"</string>
+	<string name="project5_extratip_2">2. Seleccione "Grabador de Pocket Code"</string>
+	<string name="project5_extratip_3">3. Pulse el icono para grabar tu sonido</string>
+	<string name="project7_extratip_1">Si es demasiado sensible, divide por 10</string>
+
+	
+	
+</strings>

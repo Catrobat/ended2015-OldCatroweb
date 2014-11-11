@@ -22,18 +22,18 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-	<string name="title">Tutorials</string>
-  <string name="head_text1">This tutorials show you how to use effective tricks in </string>
+	<string name="title">Vodiči</string>
+  <string name="head_text1">Ovaj vodič će ti pokazati kako korisiti učinkovite trikove u </string>
   <string name="head_text2">Pocket Code.</string>
   
-  <string name="title">Tutorials</string>
-	<string name="project1">Change Size</string>
-	<string name="project2">Change Look</string>
-	<string name="project3">Moving Animation</string>
-	<string name="project4">Glide</string>
-	<string name="project5">Play Sound</string>
-	<string name="project6">Speak Something</string>
-	<string name="project7">GSensor</string>
-	<string name="project8">Compass</string>
-	<string name="project9">Broadcast</string>
+  <string name="title">Vodiči</string>
+	<string name="project1">Promjena veličine</string>
+	<string name="project2">Promjena izgleda</string>
+	<string name="project3">Pokretne animacije</string>
+	<string name="project4">Klizati</string>
+	<string name="project5">Reproduciranje zvuka</string>
+	<string name="project6">Pričaj nešto</string>
+	<string name="project7">GSenzor</string>
+	<string name="project8">Kompas</string>
+	<string name="project9">Razglasi</string>
 </strings>

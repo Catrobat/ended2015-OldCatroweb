@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="template_common_one_minute_ago">pre 1 minut</string>
+  <string name="template_common_less_than_a_minute_ago">pre manje od jedne minute</string>
+  <string name="template_common_minutes_ago">pre {*minuteCount*} minuta</string>
+  <string name="template_common_one_hour_ago">pre 1 sat</string>
+  <string name="template_common_hours_ago">pre {*hourCount*} sati</string>
+  <string name="template_common_one_day_ago">pre 1 dan</string>
+  <string name="template_common_days_ago">pre {*dayCount*} dana</string>
+  <string name="template_common_one_month_ago">pre 1 mesec</string>
+  <string name="template_common_months_ago">pre {*monthCount*} meseci</string>
+  <string name="template_common_one_year_ago">pre 1 godinu</string>
+  <string name="template_common_years_ago">pre {*yearCount*} godina</string>
+  <string name="template_common_over_years_ago">preko {*yearCount*} godina</string>
+  <string name="template_common_january">Januar</string>
+  <string name="template_common_february">Februar</string>
+  <string name="template_common_march">Mart</string>
+  <string name="template_common_april">April</string>
+  <string name="template_common_may">Maj</string>
+  <string name="template_common_june">Juni</string>
+  <string name="template_common_july">Juli</string>
+  <string name="template_common_august">Avgust</string>
+  <string name="template_common_september">Septembar</string>
+  <string name="template_common_october">Oktobar</string>
+  <string name="template_common_november">Novembar</string>
+  <string name="template_common_december">Decembar</string>
+  <string name="template_common_arabic">Arapski</string>
+  <string name="template_common_bulgarian">Bugarski</string>
+  <string name="template_common_catalan">Katalonski</string>
+  <string name="template_common_chinese_simplified_han">Kineski (pojednostavljeni Han)</string>
+  <string name="template_common_chinese_traditional_han">Kineski (tradicionalni Han)</string>
+  <string name="template_common_croatian">Hrvatski</string>
+  <string name="template_common_czech">Češki</string>
+  <string name="template_common_danish">Danski</string>
+  <string name="template_common_dutch">Holandski</string>
+  <string name="template_common_english_united_kingdom">Engleski (Ujedinjeno Kraljevstvo)</string>
+  <string name="template_common_english_united_states">Engleski (Sjedinjene Države)</string>
+  <string name="template_common_estonian">Estonski</string>
+  <string name="template_common_filipino">Filipinski</string>
+  <string name="template_common_finnish">Finski</string>
+  <string name="template_common_french">Francuski</string>
+  <string name="template_common_german">Nemački</string>
+  <string name="template_common_greek">Grčki</string>
+  <string name="template_common_hebrew">Hebrejski</string>
+  <string name="template_common_hindi">Hindski</string>
+  <string name="template_common_hungarian">Mađarski</string>
+  <string name="template_common_indonesian">Indonezijski</string>
+  <string name="template_common_italian">Italijanski</string>
+  <string name="template_common_japanese">Japanski</string>
+  <string name="template_common_korean">Korejski</string>
+  <string name="template_common_latvian">Latvijski</string>
+  <string name="template_common_lithuanian">Litvanski</string>
+  <string name="template_common_malay">Malajski</string>
+  <string name="template_common_norwegian">Norveški</string>
+  <string name="template_common_persian">Perzijski</string>
+  <string name="template_common_polish">Poljski</string>
+  <string name="template_common_portuguese_brazil">Portugalski (Brazil)</string>
+  <string name="template_common_portuguese_portugal">Portugalski (Portugal)</string>
+  <string name="template_common_romanian">Rumunski</string>
+  <string name="template_common_russian">Ruski</string>
+  <string name="template_common_serbian">Srpski</string>
+  <string name="template_common_slovak">Slovački</string>
+  <string name="template_common_slovenian">Slovenski</string>
+  <string name="template_common_spanish_latin_america">Španski (Latinska Amerika)</string>
+  <string name="template_common_spanish_spain">Španski (Španija)</string>
+  <string name="template_common_swedish">Švedski</string>
+  <string name="template_common_thai">Tajlandski</string>
+  <string name="template_common_turkish">Turski</string>
+  <string name="template_common_ukrainian">Ukrajinski</string>
+  <string name="template_common_vietnamese">Vijetnamski</string>
+</strings>

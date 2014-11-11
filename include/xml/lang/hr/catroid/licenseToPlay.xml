@@ -22,22 +22,21 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-	<string name="title">License to play - Give credit and share</string>
+	<string name="title">LIcenca za reproduciranje - Daj kredit i podijeli</string>
 
 	<string name="project_licence_part1">
-		Imagine that each Catrobat program is a cake, a very special cake that comes with its recipe (programming blocks).
-		All members of the Catrobat community share their cakes along with their recipes. This means that you can enjoy the cakes and learn how to make them yourself!
+		Zamisli da je svaki Catrobat program specijalan kolač koji ima svoj recept. (programski blokovi)
+Svi članovi Catrobat zajednice dijele svoje kolače uključujući i recepte. To znači da možeš uživati u kolaču i naučiti kako da ga sam napraviš!
 	</string>
 	<string name="project_licence_part2">
-		There are no secret recipes: the instructions on how to make these cakes are open for anyone to use, reuse, modify, and serve as
-        inspiration for new ideas... I mean cakes.
+		Ne postoje tajni recepti: uputstva kako da napraviš taj kolač, su dostupna svakom na korištenje, izmjenu, preuzimanje, i služe kao inspiracija za nove ideje... Mislim na kolače.
 	</string>
 	<string name="project_licence_part3">
-		You can eat the cakes as well as copy other people's recipes to make your own, maybe with different ingredients.
-		This freedom comes with two simple requirements:
+		Možeš jesti te kolače, kao i kopirati recepte od drugih da bi napravio svoj osobni, ali možda sa drugim sastojcima.
+Ta sloboda dolazi sa dva jednostavna uslova:
 	</string>
-	<string name="project_licence_part3_list_element1">share your cakes along with the recipe</string>
-	<string name="project_licence_part3_list_element2">give credit to those who inspired you</string>
+	<string name="project_licence_part3_list_element1">podijeli svoje kolače zajedno sa receptima</string>
+	<string name="project_licence_part3_list_element2">daj kredit onome koji te je ispirisao</string>
 	<string name="project_licence_part4">
 		In setting up the Catrobat community, we decided to adopt this approach since we believe that it supports learning and creativity within the community. 
         By sharing recipes and ingredients (scripts and artwork), people can build upon one another's ideas and everyone will benefit.
@@ -51,5 +50,5 @@
 		Learn more about the terms of use of the Catrobat online community on {*termsOfUseLink*}.
 	</string>
 
-  <string name="project_licence_dated">Version 1.1, 2 April 2013</string>
+  <string name="project_licence_dated">Verzija 1.1, 2 travanj 2013</string>
 </strings>

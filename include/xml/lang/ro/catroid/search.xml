@@ -23,5 +23,5 @@
 -->
 <strings>
   <string name="header">Rezultatele c&#x103;ut&#x103;rii</string>
-  <string name="results">Your search returned {*amount*} results</string>
+  <string name="results">Căutarea a întors {*amount*} rezultate</string>
 </strings>

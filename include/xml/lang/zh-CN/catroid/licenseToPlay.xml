@@ -1,28 +1,53 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--
-Catroid: An on-device visual programming system for Android devices
-Copyright (C) 2010-2014 The Catrobat Team
-(<http://developer.catrobat.org/credits>)
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Affero General Public License as
-published by the Free Software Foundation, either version 3 of the
-License, or (at your option) any later version.
-
-An additional term exception under section 7 of the GNU Affero
-General Public License, version 3, is available at
-http://developer.catrobat.org/license_additional_term
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Affero General Public License for more details.
-
-You should have received a copy of the GNU Affero General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="title">&#x4F7F;&#x7528;&#x6388;&#x6743;&#x6761;&#x4F8B; - &#x5206;&#x4EAB;&#x524D;&#x8BF7;&#x6CE8;&#x660E;&#x539F;&#x8457;&#x8005;</string>
-  <string name="project_licence_part3_list_element1">&#x5206;&#x4EAB;&#x60A8;&#x7684;&#x86CB;&#x7CD5;&#x52A0;&#x4E0A;&#x98DF;&#x8C31;</string>
-  <string name="project_licence_part3_list_element2">&#x80AF;&#x5B9A;&#x548C;&#x8BA4;&#x53EF;&#x539F;&#x8457;</string>
+	<string name="title">&#x4F7F;&#x7528;&#x6388;&#x6743;&#x6761;&#x4F8B; - &#x5206;&#x4EAB;&#x524D;&#x8BF7;&#x6CE8;&#x660E;&#x539F;&#x8457;&#x8005;</string>
+
+	<string name="project_licence_part1">
+		&#x5206;&#x4EAB;&#x60A8;&#x7684;&#x86CB;&#x7CD5;&#x52A0;&#x4E0A;&#x98DF;&#x8C31;
+	</string>
+	<string name="project_licence_part2">
+		&#x80AF;&#x5B9A;&#x548C;&#x8BA4;&#x53EF;&#x539F;&#x8457;
+	</string>
+	<string name="project_licence_part3">
+		You can eat the cakes as well as copy other people's recipes to make your own, maybe with different ingredients.
+		This freedom comes with two simple requirements:
+	</string>
+	<string name="project_licence_part3_list_element1">share your cakes along with the recipe</string>
+	<string name="project_licence_part3_list_element2">give credit to those who inspired you</string>
+	<string name="project_licence_part4">
+		In setting up the Catrobat community, we decided to adopt this approach since we believe that it supports learning and creativity within the community. 
+        By sharing recipes and ingredients (scripts and artwork), people can build upon one another's ideas and everyone will benefit.
+	</string>
+	<string name="project_licence_part5">
+		In designing the Catrobat website, we included features to encourage people to share and to give credit to others. On each program page, you 
+        can always download the original scripts for the program. If you remix a program (modifying the scripts or artwork, and sharing the result), 
+        we encourage you to give credit in the Program Notes, mentioning the people and program that inspired you.
+	</string>
+	<string name="project_licence_learn_more_new">
+		Learn more about the terms of use of the Catrobat online community on {*termsOfUseLink*}.
+	</string>
+
+  <string name="project_licence_dated">Version 1.1, 2 April 2013</string>
 </strings>

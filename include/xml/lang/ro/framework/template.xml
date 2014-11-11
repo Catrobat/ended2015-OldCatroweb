@@ -95,7 +95,7 @@
   <string name="template_common_turkish">Turc&#x103;</string>
   <string name="template_common_ukrainian">Ucrainean&#x103;</string>
   <string name="template_common_vietnamese">Vietnamez&#x103;</string>
-  <string name="template_header_forgot_password">click here if you forgot your password</string>  
+  <string name="template_header_forgot_password">faceţi clic aici dacă aţi uitat parola</string>  
   <string name="template_header_register">Condi&#x219;iile de utilizare</string>
   <string name="template_header_additional_options">Other options to proceed:</string>
   <string name="template_header_nick">Nick:</string>

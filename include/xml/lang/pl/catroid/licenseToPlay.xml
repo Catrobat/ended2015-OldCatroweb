@@ -29,13 +29,13 @@
 Wszyscy uczestnicy społeczności Catrobat dzielą się tymi ciasteczkami, łącznie z przepisami na nie. Oznacza to, że możesz posmakować ciasteczka i nauczyć się jak je przygotowywać!
 	</string>
 	<string name="project_licence_part2">
-		Nie ma sekretnych przepisów: instrukcje, jak zrobić ciasteczko są dostępne dla każdego, aby je wykorzystywać, modyfikować i traktować       je jako inspirację dla nowych pomysłów... to znaczy ciasteczek.
+		Nie ma sekretnych przepisów: instrukcje, jak zrobić ciasteczko są dostępne dla każdego, aby je wykorzystywać, modyfikować i traktować  jako inspirację dla nowych pomysłów... to znaczy ciasteczek.
 	</string>
 	<string name="project_licence_part3">
-		Możesz zjeść ciasteczko możesz też skopiować przepisy innych, aby zrobić własne z nieco innymi składnikami.
+		Możesz zjeść ciasteczko, możesz też skopiować przepisy innych, aby zrobić własne z nieco innymi składnikami.
 Ta swoboda pociąga za sobą dwa proste wymagania:
 	</string>
-	<string name="project_licence_part3_list_element1">dziel się swoimi ciasteczkami oraz przepisami na nie</string>
+	<string name="project_licence_part3_list_element1">dziel się swoimi ciasteczkami wraz z przepisami na nie</string>
 	<string name="project_licence_part3_list_element2">podziękuj tym, którzy Cię zainspirowali</string>
 	<string name="project_licence_part4">
 		Ustalając reguły dla społeczności Catrobata, zdecydowaliśmy się na takie podejście ponieważ wierzymy, że to pomaga w uczeniu się i kreatywności.
@@ -44,7 +44,7 @@ Ta swoboda pociąga za sobą dwa proste wymagania:
 	<string name="project_licence_part5">
 		Projektując stronę projektu Catrobat, włączyliśmy do niej elementy pomagające ludziom dzielić się projektami i wspierać innych. Na stronie każdego programu
         możesz zawsze pobrać oryginalne skrypty. Jeśli remiksujesz program (modyfikując skrypty, obrazki lub dźwięki i dzieląc się wynikiem),
-        zachęcamy Cię do podziękowań w uwagach do programu i wypisania osób lub programów, które Cię zainspirowały.
+        zachęcamy Cię do podziękowań w uwagach do programu i wymieniania osób i programów, które Cię zainspirowały.
 	</string>
 	<string name="project_licence_learn_more_new">
 		Dowiedz się więcej na temat zasad udziału w społeczności on-line projektu Catrobat {*termsOfUseLink*}.
