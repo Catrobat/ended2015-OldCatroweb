@@ -22,13 +22,13 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="title">Login</string>
-  <string name="password_link">Forgot password or username?</string>  
-  <string name="nickname">Username:</string>
-  <string name="password">Password:</string>
-  <string name="enter_nick">Username</string>
-  <string name="enter_password">Password</string>
-  <string name="login">Login</string>
-  <string name="additional_options">Other options to proceed:</string>
-  <string name="catroid_logout_success">Logout was successful.</string>
+  <string name="title">Prijava</string>
+  <string name="password_link">Zaboravio lozinku ili korisničko ime?</string>  
+  <string name="nickname">Korisničko ime:</string>
+  <string name="password">Lozinka:</string>
+  <string name="enter_nick">Korisničko ime</string>
+  <string name="enter_password">Lozinka</string>
+  <string name="login">Prijava</string>
+  <string name="additional_options">Druge mogućnosti za nastavak:</string>
+  <string name="catroid_logout_success">Uspešno si odjavljen.</string>
 </strings>

@@ -23,20 +23,20 @@
 -->
 <strings>
 
-  <string name="headline1">Get Ready:</string>
-  <string name="headline2">Try this Code:</string>
-  <string name="headline3">Do it:</string>
-  <string name="headline4">Extra Tip:</string>
+  <string name="headline1">Pripremi se:</string>
+  <string name="headline2">Probaj ovaj kod:</string>
+  <string name="headline3">Učini to:</string>
+  <string name="headline4">Dodatni savet:</string>
 
-	<string name="project1">Change Size</string>
-	<string name="project2">Change Look</string>
-	<string name="project3">Moving Animation</string>
-	<string name="project4">Glide</string>
-	<string name="project5">Play Sound</string>
-	<string name="project6">Speak Something</string>
-	<string name="project7">GSensor</string>
-	<string name="project8">Compass</string>
-	<string name="project9">Broadcast</string>
+	<string name="project1">Promena veličine</string>
+	<string name="project2">Promena izgleda</string>
+	<string name="project3">Pokretne animacije</string>
+	<string name="project4">Klizati</string>
+	<string name="project5">Reproduciraj zvuk</string>
+	<string name="project6">Reci nešto</string>
+	<string name="project7">GSenzor</string>
+	<string name="project8">Kompas</string>
+	<string name="project9">Emituj</string>
 
 	<string name="title">Tutorial Card</string>
   <string name="project1_description">Tap the duck to change the size.</string>
@@ -49,10 +49,10 @@
 	<string name="project8_description">Use this code to make a compass.</string>
 	<string name="project9_description">Look at this code! This shows you how to communicate between objects.</string>
 	
-	<string name="project5_extratip_1">1. Click "+"</string>
-	<string name="project5_extratip_2">2. Select "Pocket Code Recorder"</string>
-	<string name="project5_extratip_3">3. Press icon to record your sound</string>
-	<string name="project7_extratip_1">If too sensitive, divide by 10</string>
+	<string name="project5_extratip_1">1. Pritisni "+"</string>
+	<string name="project5_extratip_2">2. Izaberi "Pocket Code snimač"</string>
+	<string name="project5_extratip_3">3. Pritisni ikonu da bi snimio svoj zvuk</string>
+	<string name="project7_extratip_1">Ako je previše osetljiva, podeli sa 10</string>
 
 	
 	

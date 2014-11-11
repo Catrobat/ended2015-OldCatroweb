@@ -32,9 +32,9 @@
   <string name="enter_email">enter your email address</string>
   <string name="email_info">We will send your username, password, and access data to your email address. We will never share your email address with anyone. See our {*privacyPolicyLink*} for details.</string>
   <string name="email_info_link_title">privacy policy</string>
-  <string name="country">Country</string>
+  <string name="country">Država</string>
   <string name="select_country">select your country</string>
-  <string name="other">Other</string>
+  <string name="other">Drugo</string>
   <string name="city">City</string>
   <string name="enter_city">enter your city</string>
   <string name="birth">Birthday</string>
@@ -48,5 +48,5 @@
   <string name="login">try to login if you have already an account</string>
   <string name="password_recover">click here if you forgot your password</string>
   <string name="additional_options">Other options to proceed:</string>
-  <string name="registration_success">Registration successful!</string>
+  <string name="registration_success">Registracija uspješna!</string>
 </strings>

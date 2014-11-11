@@ -22,7 +22,7 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="myTitle">My Profile</string>
+  <string name="myTitle">Moj profil</string>
   <string name="userTitle">User Profile</string>
 
   <string name="changeAvatar">Change picture</string>

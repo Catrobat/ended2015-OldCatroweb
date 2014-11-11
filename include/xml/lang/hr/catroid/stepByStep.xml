@@ -23,55 +23,55 @@
 -->
 <strings>
 
-  <string name="starting_position">Starting position:</string>
+  <string name="starting_position">Početni položaj:</string>
   
-	<string name="title">Step-by-Step Intro</string>
+	<string name="title">Uvod korak po korak</string>
 	
-	<string name="step1_title">1. Make a new program</string>
+	<string name="step1_title">1. Izradi novi program</string>
 	<string name="step1_description"></string>
-	<string name="step1_additional_text_1">Tap on "New".</string>
-	<string name="step1_additional_text_2">Enter a progam name, select "Create empty program" and tap "OK".</string>
+	<string name="step1_additional_text_1">Dodirni "Novi".</string>
+	<string name="step1_additional_text_2">Unesi naziv programa, odaberi "Započni novi program" i pritisni "OK".</string>
 	
-  <string name="step2_title">2. Create a new object</string>
+  <string name="step2_title">2. Kreiraj novi objekt</string>
 	<string name="step2_description"></string>
-	<string name="step2_additional_text_1">Tap:</string>
-	<string name="step2_additional_text_2">Choose the source of the first look of your  new object.</string>
-	<string name="step2_additional_text_3">Draw a new look.</string>
-	<string name="step2_additional_text_4">Choose from gallery.</string>
-	<string name="step2_additional_text_5">Take a picture.</string>
-  <string name="step2_additional_text_6">Enter an object name and tap “OK” to create the object.</string>  
+	<string name="step2_additional_text_1">Pritisni:</string>
+	<string name="step2_additional_text_2">Izaberi izvor za početni izgled svog novog objekta.</string>
+	<string name="step2_additional_text_3">Nacrtaj novi izgled.</string>
+	<string name="step2_additional_text_4">Odaberi iz galerije.</string>
+	<string name="step2_additional_text_5">Slikaj.</string>
+  <string name="step2_additional_text_6">Unesi naziv objekta i dodirnite "OK" za kreiranje novog objekta.</string>  
 
-  <string name="step3_title">3. Start Moving</string>
+  <string name="step3_title">3. Počni sa kretanjem</string>
 	<string name="step3_description"></string>
-	<string name="step3_additional_text_1">Tap:</string>
-	<string name="step3_additional_text_2">The first brick we use is out of the category "Motion".</string>
+	<string name="step3_additional_text_1">Pritisni:</string>
+	<string name="step3_additional_text_2">Prvi blok koji koristimo pripada kategoriji "Kretanje".</string>
 	<string name="step3_additional_text_3">Choose the "Glide" brick. The object will move to the new position defined with the brick on the stage.</string>
 	<string name="step3_additional_text_4">Tap “Play” to go to the stage and see the object gliding.</string>
 	<string name="step3_additional_text_5">Use the Android Back Button to get back from the stage.</string>
 	<string name="step3_additional_text_6">The brick is now floating. To paste it, move the brick to the desired position. You can also move already inserted bricks by tapping the brick until it is floating again.</string>
   
-  <string name="step4_title">4. Change Look</string>
-	<string name="step4_description">You can change the look of your object.</string>
-	<string name="step4_additional_text_1">Choose the “Switch to look” brick. With this brick you can choose a look or create a new one.</string>
+  <string name="step4_title">4. Promjeni izgled</string>
+	<string name="step4_description">Možeš promijeniti izgled svog objekta.</string>
+	<string name="step4_additional_text_1">Odaberi "Prebaci na izgled" blok. S ovim blokom možeš odabrati izgled ili napraviti novi.</string>
 	<string name="step4_additional_text_2">Snap the brick underneath the "Glide" - brick.</string>
 	<string name="step4_additional_text_3">Tap into the dropdown field to create a new look.</string>
 	<string name="step4_additional_text_4">Choose the source of the image like before.</string>
-	<string name="step4_additional_text_5">Now you have to select the new image.</string>
+	<string name="step4_additional_text_5">Sada trebaš izabrati novu sliku.</string>
 	<string name="step4_additional_text_6">Tap play to see the behaviour on the stage.</string>
 	
 	<string name="step5_title">5. Speak</string>
-	<string name="step5_description">Now you will find out how to make an object talk.</string>
-	<string name="step5_additional_text_1">Choose the “Speak” brick. The object speaks the text, when this brick is executed.</string>
+	<string name="step5_description">Sada ćeš saznati kako napraviti objekt koji govori.</string>
+	<string name="step5_additional_text_1">Odaberi "Govor" blok. Objekt izgovara tekst kad se ovaj blok izvršava.</string>
 	<string name="step5_additional_text_2">Snap the brick underneath the "Switch to look" brick.</string>
 	<string name="step5_additional_text_3">Tap play to see the behaviour on the stage.</string>
 	
 	<string name="step6_title">6. Again and again</string>
 	<string name="step6_description">This step shows you how to repeat behaviour of objects.</string>
-	<string name="step6_additional_text_1">Choose the “Forever” brick. Everything in the loop repeats forever.</string>
+	<string name="step6_additional_text_1">Odaberi "Zauvijek" blok. Sve što se nalazi u petlji se ponavlja zauvijek.</string>
 	<string name="step6_additional_text_2">Snap the “Forever” brick underneath the "When program started" - brick.</string>
-	<string name="step6_additional_text_3">Add another “Glide” brick.</string>
+	<string name="step6_additional_text_3">Dodaj još jedan "Klizati" blok.</string>
 	<string name="step6_additional_text_4">Snap the “Glide” brick aboth the “End of loop” brick. </string>
-	<string name="step6_additional_text_5">Tap into the text field of the x and y value and set to 0.</string>
+	<string name="step6_additional_text_5">Pritisni na polje za tekst od x i y vrijednosti i postavi ih na 0.</string>
 	<string name="step6_additional_text_6">Tap play to see the behaviour on the stage.</string>
 	
 	<string name="step7_title">7. Tapping is everything.</string>
@@ -79,30 +79,30 @@
 	<string name="step7_additional_text_1">Choose the “When tapped” brick. Every brick underneath the “When tapped” will be executed one time when you tap the object on the stage.</string>
 	<string name="step7_additional_text_2">Place the “When tapped” underneath the other bricks.</string>
 	<string name="step7_additional_text_3">Choose the “Turn right” brick and snap it underneath the “When tapped” brick.</string>
-	<string name="step7_additional_text_4">Now you have this script.</string>
+	<string name="step7_additional_text_4">Sada imaš ovu skriptu.</string>
 	<string name="step7_additional_text_5">Tap play to see the behaviour on the stage. If you now tap on the object, it spins.</string>
 	
-	<string name="step8_title">8. Copy, delete or edit a brick</string>
+	<string name="step8_title">8. Kopiraj, izbriši ili uredi blok</string>
 	<string name="step8_description"></string>
-	<string name="step8_additional_text_1">Single tap on the left side of each brick opens the context menu. There you can move, copy, delete or edit the values of the brick with the formula editor.</string>
+	<string name="step8_additional_text_1">Jednim dodirom na lijevu stranu svakog bloka otvaraš kontekst izbornik. Na njemu možeš pomjerati, kopirati, izbrisati ili uređivati vrijednosti bloka sa uređivačem formula.</string>
 	
-	<string name="step9_title">9. Navigation in the app</string>
+	<string name="step9_title">9. Navigacija u aplikaciji</string>
 	<string name="step9_description"></string>
-	<string name="step9_additional_text_1">Use the Android Back Button to navigate in the app.</string>
-	<string name="step9_additional_text_2">Go back one screen to the overview of your object. Here you can go into the scripts and also to an powerful representation of the looks and sounds of the object. There you can rename, copy add or delete looks and sounds.</string>
-	<string name="step9_additional_text_3">Use again the Android Back Button to get to the overview of your objects and your background.</string>
+	<string name="step9_additional_text_1">Koristi Android-ov gumb za natrag za navigaciju u aplikaciji.</string>
+	<string name="step9_additional_text_2">Idi natrag jedan zaslon na pregled svog objekta. Ovdje možeš ići u skripte i u  prikaz izgleda i zvukova objekta. Tu možeš preimenovati, kopirati, dodavati ili izbrisati izglede i zvukove.</string>
+	<string name="step9_additional_text_3">Koristi opet Android-ov gumb za natrag da bi prikazao/la pregled svojih objekata i pozadine.</string>
 	
-	<string name="step10_title">10. Change the background</string>
+	<string name="step10_title">10. Promjeni pozadinu</string>
 	<string name="step10_description">This is the overview of your objects and the background depends to one program.</string>
-	<string name="step10_additional_text_1">The background is like an object, but you just can have on background.</string>
-	<string name="step10_additional_text_2">You can add scripts, sounds and look in the same way to the background object.</string>
+	<string name="step10_additional_text_1">Pozadina je kao objekt, ali ti možeš imati samo jednu pozadinu.</string>
+	<string name="step10_additional_text_2">Možeš dodati skripte, zvukove i izglede na isti način na objekt pozadine.</string>
 	
-	<string name="step11_title">11. Main Menu</string>
-	<string name="step11_description">Use the Android Back Button to get to this screen.</string>
-	<string name="step11_additional_text_1">Continue with your currently opened program.</string>
-	<string name="step11_additional_text_2">Add a new program.</string>
-	<string name="step11_additional_text_3">See all your local programs.</string>
-	<string name="step11_additional_text_4">Go to the help site and discuss with other users.</string>
+	<string name="step11_title">11. Glavni izbornik</string>
+	<string name="step11_description">Koristi Android-ov gumb za natrag da bi došao/la na ovaj zaslon.</string>
+	<string name="step11_additional_text_1">Nastavi sa trenutno otvorenim programom.</string>
+	<string name="step11_additional_text_2">Dodaj novi program.</string>
+	<string name="step11_additional_text_3">Vidi sve svoje lokalne programe.</string>
+	<string name="step11_additional_text_4">Idi na stranicu za pomoć i razgovaraj sa drugim korisnicima.</string>
 	<string name="step11_additional_text_5">Explore the world of the Pocket Code programs. Download and remix programs you like.</string>
 	<string name="step11_additional_text_6">Upload the program that is currently opened.</string>
 

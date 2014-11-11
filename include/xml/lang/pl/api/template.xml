@@ -22,18 +22,18 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="template_common_one_minute_ago">1 minuta</string>
+  <string name="template_common_one_minute_ago">minutę temu</string>
   <string name="template_common_less_than_a_minute_ago">mniej niż minutę temu</string>
-  <string name="template_common_minutes_ago">{*minuteCount*} minut</string>
-  <string name="template_common_one_hour_ago">1 godzina</string>
-  <string name="template_common_hours_ago">{*hourCount*} godzin</string>
-  <string name="template_common_one_day_ago">1 dzień</string>
-  <string name="template_common_days_ago">{*dayCount*} dni</string>
-  <string name="template_common_one_month_ago">1 miesiąc</string>
-  <string name="template_common_months_ago">{*monthCount*} miesięcy</string>
-  <string name="template_common_one_year_ago">1 rok</string>
-  <string name="template_common_years_ago">{*yearCount*} lat</string>
-  <string name="template_common_over_years_ago">&gt;{*yearCount*} lat</string>
+  <string name="template_common_minutes_ago">{*minuteCount*} minut(y) temu</string>
+  <string name="template_common_one_hour_ago">około godzinę temu</string>
+  <string name="template_common_hours_ago">{*hourCount*} godzin(y) temu</string>
+  <string name="template_common_one_day_ago">dzień temu</string>
+  <string name="template_common_days_ago">{*dayCount*} dni temu</string>
+  <string name="template_common_one_month_ago">miesiąc temu</string>
+  <string name="template_common_months_ago">{*monthCount*} miesiące(cy) temu</string>
+  <string name="template_common_one_year_ago">około rok temu</string>
+  <string name="template_common_years_ago">{*yearCount*} lat(a) temu</string>
+  <string name="template_common_over_years_ago">ponad {*yearCount*} lat(a) temu</string>
   <string name="template_common_january">styczeń</string>
   <string name="template_common_february">luty</string>
   <string name="template_common_march">marzec</string>

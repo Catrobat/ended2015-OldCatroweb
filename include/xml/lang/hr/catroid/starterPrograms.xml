@@ -22,12 +22,12 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-	<string name="title">Starter Programs</string>
-  <string name="head_text1">Try out these starter programs. Look inside to make changes and add your ideas.</string>
+	<string name="title">Početni programi</string>
+  <string name="head_text1">Isprobaj ove početne programe. Pogledaj ih, pa da napraviš promjene, dodaj svoje ideje.</string>
   
-  <string name="group1">Games</string>
-  <string name="group2">Animations</string>
+  <string name="group1">Igre</string>
+  <string name="group2">Animacije</string>
   <string name="group3">Interactive Art and Stories</string>
-  <string name="group4">Music and Dance</string>
+  <string name="group4">Glazba i ples</string>
 
 </strings>

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+	<string name="title">Licencia para jugar - reconoce y comparte</string>
+
+	<string name="project_licence_part1">
+		Imagina que cada programa de Cartrobat es una tarta, una tarta muy especial que viene con su propia receta (bloques de programación). 
+Todos los miembros de la comunidad Cartrobat comparten sus tartas junto con sus recetas. ¡Esto significa que tú puedes disfrutar de las tartas y aprender cómo hacerlas tú mismo!
+	</string>
+	<string name="project_licence_part2">
+		No hay recetas secretas: las instrucciones de cómo hacer las tartas son abierta para que puedan ser utilizadas, re-utilizadas, modificadas y que sirvan de inspiración para nuevas ideas…... quiero decir nuevas tartas. hay recetas secretas.
+	</string>
+	<string name="project_licence_part3">
+		Tú puedes comer las tartas, así como copiar las recetas de otras personas para hacer tus tartas, inclusive con otros ingredientes. 
+Para tener esta libertad solo se te piden dos requisitos:
+	</string>
+	<string name="project_licence_part3_list_element1">compartir tus tartas con la receta</string>
+	<string name="project_licence_part3_list_element2">dar reconocimiento a aquellos que te han inspirado</string>
+	<string name="project_licence_part4">
+		Cuando establecimos la comunidad de Cartrobat, decidimos adoptar este enfoque ya que nosotros creemos que da apoyo al aprendizaje y la creatividad dentro de una comunidad. 
+Compartiendo recetas e ingredientes (líneas de programación e ilustraciones), las personas pueden construir sobre las ideas de otras personas y así todos se benefician.
+	</string>
+	<string name="project_licence_part5">
+		En el diseño de la página web de Catrobat, se han incluido herramientas para animar a las personas a compartir y a reconocer los desarrollos de otras personas.  En cada página de programa, siempre puedes descargar las líneas de código de programación originales de ese programa. Si tu modificas o mezclas un programa (modificar las líneas de código de programación o las ilustraciones y comparte el resultado), te animamos a reconocer al autor del programa te has descargado en las Notas de Programa, mencionando a las personas y el programa que te inspiró.
+	</string>
+	<string name="project_licence_learn_more_new">
+		Más información sobre las condiciones de uso de la comunidad en línea de Catrobat en {* termsOfUseLink *}.
+	</string>
+
+  <string name="project_licence_dated">Versión 1.1, 02 de abril de 2013</string>
+</strings>

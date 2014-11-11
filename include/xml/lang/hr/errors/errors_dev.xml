@@ -23,78 +23,78 @@
 -->
 <errors>
 		<server>
-				<string name="missing_mcrypt">Mcrypt is missing on your system.</string>
-				<string name="missing_blowfish">CRYPT_BLOWFISH is missing on your system.</string>
+				<string name="missing_mcrypt">Mcrypt nedostaje na tvom sustavu.</string>
+				<string name="missing_blowfish">CRYPT_BLOWFISH nedostaje u tvom sustavu.</string>
 		</server>
     <db>
-        <string name="query_failed">DB operation failed.</string>
-        <string name="connection_failed">DB connection failed.</string>
-        <string name="no_entry_for_id">No entry was found for the given ID</string>
+        <string name="query_failed">DB operacija nije uspjela.</string>
+        <string name="connection_failed">Povezivanje sa bazom podataka nije uspjelo.</string>
+        <string name="no_entry_for_id">Unos za zadani ID nije pronađen</string>
     </db>
     <profile>
-    	<string name="no_such_user">Ooooops something went wrong./nPlease try again!</string>
+    	<string name="no_such_user">Ooooops došlo je do greške. Molimo pokušaj ponovo!</string>
     </profile>
     <userFunctions>
     	<string name="hash_not_found">Recovery hash was not found.</string>
-			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>
-    	<string name="username_missing">The username is missing.</string>
-    	<string name="username_invalid_underscore">The username is invalid. Underscores (_) are not allowed.</string>
-    	<string name="username_invalid_hash">The username is invalid. Hash signs (#) are not allowed.</string>
-    	<string name="username_invalid_verticalbar">The username is invalid. Vertical bars (|) are not allowed.</string>
-    	<string name="username_invalid_curlybrace">The username is invalid. Curly braces ({ or }) are not allowed.</string>
-    	<string name="username_invalid_lessgreater">The username is invalid. Less than or greater than signs (&lt; or &gt;) are not allowed.</string>
-    	<string name="username_invalid_squarebracket">The username is invalid. Square brackets ([ or ]) are not allowed.</string>
-    	<string name="username_invalid_spaces">The username is invalid. Spaces (" ") are not allowed.</string>
-    	<string name="username_is_email_address">Your username may not be an email address.</string>
-    	<string name="username_invalid_insulting_words">The username is invalid. There are insulting words in the username field!</string>
-    	<string name="username_invalid">The username is invalid.</string>
-    	<string name="username_blacklisted">This username is on the blacklist and not allowed.</string>
-    	<string name="username_already_exists">This username already exists.</string>
-    	<string name="password_missing">The password is missing.</string>
-    	<string name="password_not_equal_password2">The passwords didn't match.</string>
-    	<string name="username_password_equal">The password must differ from the username.</string>
-      <string name="password_new_too_short">Your password must have at least {*minimumPasswordLength*} characters.</string>
-      <string name="password_new_too_long">Your password can have a maximum of {*maximumPasswordLength*} characters.</string>
-      <string name="email_missing">The email address is missing.</string>
-      <string name="email_invalid">The email address is not valid.</string>
-    	<string name="email_already_exists">This email address already exists.</string>
-    	<string name="country_missing">The country is missing.</string>
-      <string name="password_or_username_wrong">The password or username was incorrect.</string>
+			<string name="expired_url">Oprosti! Url za povrat podataka je istekao. Molimo pokušaj ponovo.</string>
+    	<string name="username_missing">Korisničko ime nedostaje.</string>
+    	<string name="username_invalid_underscore">Korisničko ime nije valjano. Podvlake (_) nisu dopuštene.</string>
+    	<string name="username_invalid_hash">Korisničko ime nije valjano. Hash znakovi (#) nisu dozvoljeni.</string>
+    	<string name="username_invalid_verticalbar">Korisničko ime nije valjano. Okomite crte (|) nisu dopuštene.</string>
+    	<string name="username_invalid_curlybrace">Korisničko ime nije valjano. Vitičaste zagrade ({ or }) nisu dopuštene.</string>
+    	<string name="username_invalid_lessgreater">Korisničko ime nije valjano. Manje od ili veće od znakovi (&lt; i &gt;) nisu dopušteni.</string>
+    	<string name="username_invalid_squarebracket">Korisničko ime nije valjano. Uglaste zagrade ([ or ]) nisu dopuštene.</string>
+    	<string name="username_invalid_spaces">Korisničko ime nije valjano. Razmaci (" ") nisu dopušteni.</string>
+    	<string name="username_is_email_address">Korisničko ime ne može biti email adresa.</string>
+    	<string name="username_invalid_insulting_words">Korisničko ime nije valjano. Uvredljive riječi se nalaze u polju za korisničko ime!</string>
+    	<string name="username_invalid">Korisničko ime nije valjano.</string>
+    	<string name="username_blacklisted">Korisničko ime je na crnoj listi i nije dopušteno.</string>
+    	<string name="username_already_exists">Ovo korisničko ime već postoji.</string>
+    	<string name="password_missing">Lozinka nedostaje.</string>
+    	<string name="password_not_equal_password2">Lozinke se ne podudaraju.</string>
+    	<string name="username_password_equal">Lozinka se mora razlikovati od korisničkog imena.</string>
+      <string name="password_new_too_short">Lozinka mora imati najmanje {*minimumPasswordLength*} znakova.</string>
+      <string name="password_new_too_long">Lozinka može imati maksimalno {*maximumPasswordLength*} znakova.</string>
+      <string name="email_missing">Email adresa nedostaje.</string>
+      <string name="email_invalid">Email adresa nije valjana.</string>
+    	<string name="email_already_exists">Email adresa već postoji.</string>
+    	<string name="country_missing">Država nije izabrana.</string>
+      <string name="password_or_username_wrong">Lozinka ili korisničko ime je netočno.</string>
       <string name="board_authentication_failed">The board authentication failed.</string>
       <string name="wiki_api_response_incorrect">The response of the mediawiki API was incorrect.</string>
     	<string name="board_registration_failed">The board registration failed.</string>
-    	<string name="userdata_missing">The username or email address is missing.</string>
-      <string name="unsupported_image">Invalid image, allowed image types are gif, png or jpeg.</string>
-      <string name="avatar_creation_failed">The creation of the new avatar failed.</string>
+    	<string name="userdata_missing">Nedostaje korisničko ime ili email adresa.</string>
+      <string name="unsupported_image">Nevažeća slika, dopušteni tipovi slika su gif, png ili jpeg.</string>
+      <string name="avatar_creation_failed">Izrada novog avatara nije uspjela.</string>
     	<string name="password_new_board_update_failed">Failed to update the board password.</string>
-      <string name="country_update_failed">There was a problem while updating your home country.</string>
-      <string name="language_update_failed">There was a problem while updating your language.</string>
-    	<string name="userdata_not_exists">username or email address was not found.</string>
-    	<string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
-    	<string name="create_hash_failed">Ooooops something went wrong./nPlease try again!</string>
+      <string name="country_update_failed">Došlo je do problema tijekom ažuriranja države.</string>
+      <string name="language_update_failed">Došlo je do problema tijekom ažuriranja jezika.</string>
+    	<string name="userdata_not_exists">korisničko ime ili email adresa nije pronađena.</string>
+    	<string name="email_update_failed">Pogreška tijekom ažuriranja email adrese. Moraš imati barem jednu potvrđenu email adresu.</string>
+    	<string name="create_hash_failed">Ooooops došlo je do greške. Molimo pokušaj ponovo!</string>
     	<string name="sendmail_failed">There was an error while sending e-mail message. Maybe your mailserver is out of order?</string>
     </userFunctions>
     <upload>
-        <string name="missing_project_title">There was no programm Title specified. (XML file and POST data, at least one is required.)</string>
-        <string name="missing_file_data">POST-Data not correct or missing!</string>
+        <string name="missing_project_title">Naziv programa nije naveden. (XML datoteka i POST podaci, jedno je barem potrebno.)</string>
+        <string name="missing_file_data">POST-podaci nisu ispravni ili nedostaju!</string>
         <string name="missing_post_file_checksum">Client did not send fileChecksum! Are you using an outdated version of Pocket Code?</string>
         <string name="copy_failed">Statement copy has failed!</string>
         <string name="rename_failed">Statement rename has failed!</string>
         <string name="invalid_file_checksum">The checksum of the uploaded file differs from the checksum generated by the client!</string>
-        <string name="project_exceed_filesize_limit">The size of the programm file exceed the max filesize limit!</string>
+        <string name="project_exceed_filesize_limit">Veličina datoteke programa prekoračuje maksimalno ograničenu veličinu!</string>
         <string name="project_title_default">Uploading programm named with the default programm name is not allowed.</string>
-        <string name="insulting_words_in_project_title">There are insulting words in the programm title!</string>
-        <string name="insulting_words_in_project_description">There are insulting words in the programm description!</string>
+        <string name="insulting_words_in_project_title">U nazivu programa se nalaze uvredljive riječi!</string>
+        <string name="insulting_words_in_project_description">U opisu programa se nalaze uvredjlive riječi!</string>
         <string name="save_thumbnail_failed">Save thumbnail failed!</string>
-        <string name="invalid_project_xml">The XML of the programm is not valid!</string>
-        <string name="old_catrobat_version">Sorry, you are using an old version of Pocket Code. Please update to the lastest version.</string>
-        <string name="old_catrobat_language">Programm contains old Catrobat language!</string>
+        <string name="invalid_project_xml">XML programa nije valjan!</string>
+        <string name="old_catrobat_version">Žao nam je, koristiš staru verziju Pocket Code-a. Ažuriraj na zadnju verziju.</string>
+        <string name="old_catrobat_language">Program sadrži stari Catrobat jezik!</string>
         <string name="invalid_media_license">Invalid media license!</string>
         <string name="invalid_program_license">Invalid program license!</string>
         <string name="visibility_incorrect">The visibility is incorrect!</string>
         <string name="invalid_project_file">User tried to upload some file with wrong extension</string>
-        <string name="linked_project_file_not_found">Project XML metions a file which not exists in project-folder</string>
-        <string name="unlinked_project_file">Project contains files which are not mentioned in the XML</string>
+        <string name="linked_project_file_not_found">U XML-u projekta se navodi datoteka koja ne postoji u mapi projekta</string>
+        <string name="unlinked_project_file">Projekt sadrži datoteke koje nisu navedene u XML-u</string>
     </upload>
     <download>
     	<string name="file_not_found">Could not find requested file on server</string>
@@ -105,21 +105,21 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">Could not find html viewer file.</string>
-    	<string name="ip_is_blocked">Your IP-Address has been blocked.</string>
-    	<string name="ip_is_blocked_temporary">Your IP-Address has been blocked for 30 seconds.</string>
-      <string name="user_is_blocked">Your Account has been blocked.</string>
+    	<string name="ip_is_blocked">Tvoja IP adresa je blokirana.</string>
+    	<string name="ip_is_blocked_temporary">Tvoja IP adresa je blokirana na 30 sekundi.</string>
+      <string name="user_is_blocked">Tvoj račun je blokiran.</string>
     </viewer>
     <auth>
-    	<string name="device_auth_invalid_token">Authentication of device failed: invalid auth-token!</string>
-    	<string name="device_auth_username_exists">Registration failed: username already exists!</string>
-      <string name="not_a_tugraz_ip">This page can only be accessed from localhost or within the TU Graz network.</string>
+    	<string name="device_auth_invalid_token">Provjera autentičnosti uređaja nije uspjela: nevaljan auth-token!</string>
+    	<string name="device_auth_username_exists">Registracija nije uspjela: korisničko ime već postoji!</string>
+      <string name="not_a_tugraz_ip">Stranici možeš samo pristupiti sa localhosta ili u mreži TU Graza.</string>
     </auth>
     <registration>
-    	<string name="postdata_missing">Nothing was sent.</string>
+    	<string name="postdata_missing">Ništa nije poslano.</string>
     </registration>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
-      <string name="pootle_load_xlf_failed">Could not load XLF-file from {*source*}.</string>
+      <string name="pootle_load_xlf_failed">Nije moguće učitati XML datoteku iz {*source*}.</string>
       <string name="pootle_not_valid_xml">Could not generate XML-object from XLF-string.</string>
       <string name="pootle_invalid_stringname_in_xml">Invalid string name in source XLF-file: {*stringName*}</string>
       <string name="pootle_could_not_write_xml_file">Could not write XML-file to language directory: {*fileName*}</string>

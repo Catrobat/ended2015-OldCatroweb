@@ -27,9 +27,9 @@
   <string name="head_text2">Pocket Code.</string>
   
   <string name="title">Tutorials</string>
-	<string name="project1">Change Size</string>
-	<string name="project2">Change Look</string>
-	<string name="project3">Moving Animation</string>
+	<string name="project1">Promjeni veličinu</string>
+	<string name="project2">Promjeni izgled</string>
+	<string name="project3">Pokretne animacije</string>
 	<string name="project4">Glide</string>
 	<string name="project5">Play Sound</string>
 	<string name="project6">Speak Something</string>

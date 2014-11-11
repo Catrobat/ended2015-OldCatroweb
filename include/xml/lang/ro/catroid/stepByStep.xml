@@ -23,31 +23,31 @@
 -->
 <strings>
 
-  <string name="starting_position">Starting position:</string>
+  <string name="starting_position">Poziţia iniţială:</string>
   
-	<string name="title">Step-by-Step Intro</string>
+	<string name="title">Întroducere în Pas-cu-Pas</string>
 	
-	<string name="step1_title">1. Make a new program</string>
+	<string name="step1_title">1. Creaţi un program nou</string>
 	<string name="step1_description"></string>
-	<string name="step1_additional_text_1">Tap on "New".</string>
-	<string name="step1_additional_text_2">Enter a progam name, select "Create empty program" and tap "OK".</string>
+	<string name="step1_additional_text_1">Apăsaţi pe "Nou".</string>
+	<string name="step1_additional_text_2">Introduceţi un nume de program, selectaţi "Crează program gol" şi apăsaţi "OK".</string>
 	
-  <string name="step2_title">2. Create a new object</string>
+  <string name="step2_title">2. Creaţi un obiect nou</string>
 	<string name="step2_description"></string>
-	<string name="step2_additional_text_1">Tap:</string>
-	<string name="step2_additional_text_2">Choose the source of the first look of your  new object.</string>
-	<string name="step2_additional_text_3">Draw a new look.</string>
-	<string name="step2_additional_text_4">Choose from gallery.</string>
-	<string name="step2_additional_text_5">Take a picture.</string>
-  <string name="step2_additional_text_6">Enter an object name and tap “OK” to create the object.</string>  
+	<string name="step2_additional_text_1">Apăsaţi:</string>
+	<string name="step2_additional_text_2">Alegeţi sursa pentru primul aspect al obiectului noi.</string>
+	<string name="step2_additional_text_3">Desenaţi un aspect nou.</string>
+	<string name="step2_additional_text_4">Alegeţi din galerie.</string>
+	<string name="step2_additional_text_5">Fotografiaţi.</string>
+  <string name="step2_additional_text_6">Introduceţi un nume de obiect şi atinge "OK" pentru a crea obiectul.</string>  
 
-  <string name="step3_title">3. Start Moving</string>
+  <string name="step3_title">3. începe deplasarea</string>
 	<string name="step3_description"></string>
-	<string name="step3_additional_text_1">Tap:</string>
-	<string name="step3_additional_text_2">The first brick we use is out of the category "Motion".</string>
-	<string name="step3_additional_text_3">Choose the "Glide" brick. The object will move to the new position defined with the brick on the stage.</string>
-	<string name="step3_additional_text_4">Tap “Play” to go to the stage and see the object gliding.</string>
-	<string name="step3_additional_text_5">Use the Android Back Button to get back from the stage.</string>
+	<string name="step3_additional_text_1">Apăsaţi:</string>
+	<string name="step3_additional_text_2">Prima caramida pe care o folosim este din categoria "Mişcare".</string>
+	<string name="step3_additional_text_3">Alege caramida "Alunecare". Obiectul se va muta pe scena la noua poziţie definită cu caramida.</string>
+	<string name="step3_additional_text_4">Apăsaţi pe "Play" pentru a merge la scenă şi vedea cum se alunecă obiectul.</string>
+	<string name="step3_additional_text_5">Folosiţi butonul înapoi de la Android pentru a pleca din scenă.</string>
 	<string name="step3_additional_text_6">The brick is now floating. To paste it, move the brick to the desired position. You can also move already inserted bricks by tapping the brick until it is floating again.</string>
   
   <string name="step4_title">4. Change Look</string>

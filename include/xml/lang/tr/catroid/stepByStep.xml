@@ -84,7 +84,7 @@
 	
 	<string name="step8_title">8. Tuğlayı kopyala, sil yada düzenle</string>
 	<string name="step8_description"></string>
-	<string name="step8_additional_text_1">Single tap on the left side of each brick opens the context menu. There you can move, copy, delete or edit the values of the brick with the formula editor.</string>
+	<string name="step8_additional_text_1">Her tuğla'nın sol tarafına bir kez dokundugunuzda  içerik menüsü açılır. Formül düzenleyicisi ile oradaki tuğla degerlerini, taşır, kopyalar, siler yada istediginiz şekilde düzenleyebilirsiniz.</string>
 	
 	<string name="step9_title">9. Programın içinde gezinin</string>
 	<string name="step9_description"></string>

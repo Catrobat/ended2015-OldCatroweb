@@ -27,16 +27,16 @@
 				<string name="missing_blowfish">Please tell the administrator to install CRYPT_BLOWFISH. Thanks.</string>
 		</server>
     <db>
-        <string name="query_failed">Ooooops something went wrong./nPlease try again!</string>
-        <string name="connection_failed">Ooooops something went wrong./nPlease try again!</string>
-        <string name="no_entry_for_id">Ooooops something went wrong./nPlease try again!</string>
+        <string name="query_failed">Ooooops došlo je do greške. Molimo pokušaj ponovo!</string>
+        <string name="connection_failed">Ooooops došlo je do greške. Molimo pokušaj ponovo!</string>
+        <string name="no_entry_for_id">Ooooops došlo je do greške. Molimo pokušaj ponovo!</string>
     </db>
     <profile>
-    	<string name="no_such_user">Ooooops something went wrong./nPlease try again!</string>
+    	<string name="no_such_user">Ooooops došlo je do greške. Molimo pokušaj ponovo!</string>
     </profile>
     <userFunctions>
       <string name="hash_not_found">Sorry! Couldn't find something to recover. Please try again.</string>
-			<string name="expired_url">Sorry! Your recovery url has expired. Please try again.</string>
+			<string name="expired_url">Oprosti! Url za povrat podataka je istekao. Molimo pokušaj ponovo.</string>
       <string name="username_missing">You haven't entered a username, please add one.</string>
       <string name="username_invalid_underscore">The username you have entered is not allowed. Please do not use underscores (_).</string>
       <string name="username_invalid_hash">The username you have entered is not allowed. Please do not use hash signs (#).</string>
@@ -45,14 +45,14 @@
       <string name="username_invalid_lessgreater">The username you have entered is not allowed. Please do not use less than or greater than signs (&lt; or &gt;).</string>
       <string name="username_invalid_squarebracket">The username you have entered is not allowed. Please do not use square brackets ([ or ]).</string>
       <string name="username_invalid_spaces">The username you have entered is not allowed. Please do not use spaces (" ").</string>
-      <string name="username_is_email_address">Your username may not be an email address.</string>
+      <string name="username_is_email_address">Korisničko ime ne može biti e-mail adresa.</string>
       <string name="username_invalid_insulting_words">The username you have entered is not allowed. Please do not use insulting words.</string>
       <string name="username_invalid">The username you have entered is not allowed.</string>
       <string name="username_blacklisted">The username you have entered is not allowed.</string>
       <string name="username_already_exists">The username you have entered already exists.</string>
       <string name="password_missing">You haven't entered a password, please add one.</string>
-      <string name="password_not_equal_password2">The passwords didn't match.</string>
-      <string name="username_password_equal">The password must differ from the username.</string>
+      <string name="password_not_equal_password2">Lozinke se ne odgovaraju.</string>
+      <string name="username_password_equal">Lozinka se mora razlikovati od korisničkog imena.</string>
       <string name="password_new_too_short">The new password must have at least {*minimumPasswordLength*} characters.</string>
       <string name="password_new_too_long">The new password can have a maximum of {*maximumPasswordLength*} characters.</string>
       <string name="email_missing">You haven't entered an email address, please add one.</string>
@@ -61,17 +61,17 @@
       <string name="country_missing">You haven't entered a country, please add one.</string>
       <string name="password_or_username_wrong">Your password or username was incorrect.</string>
       <string name="board_authentication_failed">The board authentication failed.</string>
-      <string name="wiki_api_response_incorrect">Ooooops something went wrong./nPlease try again!</string>
+      <string name="wiki_api_response_incorrect">Ooooops došlo je do greške. Molimo pokušaj ponovo!</string>
       <string name="board_registration_failed">Sorry, there occurred an error while processing your registration. Please try again!</string>
       <string name="userdata_missing">Your username or email address is missing.</string>
       <string name="unsupported_image">This image type is not supported, please try another image.</string>
       <string name="avatar_creation_failed">Sorry, we encountered an error while processing your registration. Please try again!</string>
       <string name="password_new_board_update_failed">There was a problem while updating the password.</string>
-      <string name="country_update_failed">There was a problem while updating your home country.</string>
-      <string name="language_update_failed">There was a problem while updating your language.</string>
+      <string name="country_update_failed">Došlo je do problema prilikom ažuriranja države.</string>
+      <string name="language_update_failed">Došlo je do problema prilikom ažuriranja jezika.</string>
       <string name="userdata_not_exists">Your username or email address was not found.</string>
-      <string name="email_update_failed">Error while updating this e-mail address. You must have at least one validated e-mail address.</string>
-      <string name="create_hash_failed">Ooooops something went wrong./nPlease try again!</string>
+      <string name="email_update_failed">Greška prilikom ažuriranja e-mail adrese. Moraš imati barem jednu potvrđenu e-mail adresu.</string>
+      <string name="create_hash_failed">Ooooops došlo je do greške. Molimo pokušaj ponovo!</string>
       <string name="sendmail_failed">There was an error while sending e-mail message. Please contact the administrator at {*webmasterEmailAddress*}.</string>
     </userFunctions>
     <upload>
@@ -87,7 +87,7 @@
         <string name="insulting_words_in_project_description">Please don't use offensive language in your programm description.</string>
         <string name="save_thumbnail_failed">Sorry, there was an error during the upload. Try again!</string>
         <string name="invalid_project_xml">Sorry, your programm file is invalid. Try to save it as a new programm and upload it again.</string>
-        <string name="old_catrobat_version">Sorry, you are using an old version of Pocket Code. Please update to the lastest version.</string>
+        <string name="old_catrobat_version">Žao nam je, koristiš staru verziju Pocket Code-a. Ažuriraj na zadnju verziju.</string>
         <string name="old_catrobat_language">Sorry, your programm contains an old version of the Catrobat language! Are you using the latest version of Pocket Code?</string>
         <string name="invalid_media_license">Sorry, your programm has an invalid media license!</string>
         <string name="invalid_program_license">Sorry, your programm has an invalid program license!</string>
@@ -105,9 +105,9 @@
     </flag>
     <viewer>
     	<string name="html_file_not_found">This page cannot be displayed.</string>
-      <string name="ip_is_blocked">Your IP-Address has been blocked.</string>
-      <string name="ip_is_blocked_temporary">Your IP-Address has been blocked for 30 seconds.</string>
-      <string name="user_is_blocked">Your Account has been blocked.</string>
+      <string name="ip_is_blocked">Tvoja IP adresa je blokirana.</string>
+      <string name="ip_is_blocked_temporary">Tvoja IP adresa je blokirana na 30 sekundi.</string>
+      <string name="user_is_blocked">Tvoj račun je blokiran.</string>
     </viewer>
     <auth>
     	<string name="device_auth_invalid_token">Sorry, your authentication data was incorrect. Please check your username and password!</string>
@@ -119,7 +119,7 @@
     </registration>
     <admin>
       <string name="pootle_post_data_missing">POST-data is missing: required: lang.</string>
-      <string name="pootle_load_xlf_failed">Could not load XLF-file from {*source*}.</string>
+      <string name="pootle_load_xlf_failed">Nije moguće učitati XML datoteku iz {*source*}.</string>
       <string name="pootle_not_valid_xml">Could not generate XML-object from XLF-string.</string>
       <string name="pootle_invalid_stringname_in_xml">Invalid string name in source XLF-file: {*stringName*}</string>
       <string name="pootle_could_not_write_xml_file">Could not write XML-file to language directory: {*fileName*}</string>

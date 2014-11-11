@@ -22,31 +22,31 @@
   along with this program. If not, see <http://www.gnu.org/licenses/>.
 -->
 <strings>
-  <string name="myTitle">My Profile</string>
-  <string name="userTitle">User Profile</string>
+  <string name="myTitle">Moj profil</string>
+  <string name="userTitle">Korisnički profil</string>
 
-  <string name="changeAvatar">Change picture</string>
-  <string name="password">Password</string>
-  <string name="email">My first email</string>
-  <string name="second_email">My second email</string>
-  <string name="projects">Amount of programs</string>
-  <string name="country">Country</string>
+  <string name="changeAvatar">Promijeni sliku</string>
+  <string name="password">Lozinka</string>
+  <string name="email">Moja prva email adresa</string>
+  <string name="second_email">Moja druga email adresa</string>
+  <string name="projects">Broj programa</string>
+  <string name="country">Država</string>
 
 
-  <string name="my_projects">My Programs</string>
-  <string name="user_projects">Programs of</string>
-  <string name="no_projects_available">There are currently no programs.</string>
-  <string name="new_password">New password</string>
-  <string name="repeat_password">Repeat password</string>
-  <string name="save">save changes</string>
-  <string name="saved">saved!</string>
+  <string name="my_projects">Moji programi</string>
+  <string name="user_projects">Programi od</string>
+  <string name="no_projects_available">Trenutačno nema programa.</string>
+  <string name="new_password">Nova lozinka</string>
+  <string name="repeat_password">Ponovite lozinku</string>
+  <string name="save">spremi izmjene</string>
+  <string name="saved">spremljeno!</string>
 
-  <string name="really_delete_email">Do you really want to delete this email address</string>
-  <string name="really_delete_project">Do you really want to delete your program</string>
-  <string name="image_too_big">Your chosen picture is too large, please do not use images larger than 5mb.</string>
-  <string name="other">Other</string>
-  <string name="avatar_success">You updated your avatar successfully.</string>
-  <string name="password_success">You updated your password successfully.</string>
-  <string name="email_add_success">The new e-mail address was successfully added. Please check your inbox to verify it.</string>
-  <string name="edit_one_entry">You can only update your e-mails and password seperatly.</string>
+  <string name="really_delete_email">Želiš li izbrisati ovu email adresu</string>
+  <string name="really_delete_project">Želiš li zaista izbrisati svoj program</string>
+  <string name="image_too_big">Izabrana slika je prevelika, molimo da ne koristiš slike veće od 5mb.</string>
+  <string name="other">Ostalo</string>
+  <string name="avatar_success">Uspješno si ažurirao/la svog avatara.</string>
+  <string name="password_success">Uspješno si ažurirao/la svoju lozinku.</string>
+  <string name="email_add_success">Nova email adresa je uspješno dodana. Molimo provjeri svoj ulazni spremnik da bi je potvrdio/la.</string>
+  <string name="edit_one_entry">Svoje email adrese i lozinku moraš odvojeno ažurirati.</string>
 </strings>

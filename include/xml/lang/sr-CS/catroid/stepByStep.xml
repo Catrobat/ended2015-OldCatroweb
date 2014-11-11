@@ -23,35 +23,35 @@
 -->
 <strings>
 
-  <string name="starting_position">Starting position:</string>
+  <string name="starting_position">Početna pozicija:</string>
   
-	<string name="title">Step-by-Step Intro</string>
+	<string name="title">Uvod korak po korak</string>
 	
-	<string name="step1_title">1. Make a new program</string>
+	<string name="step1_title">1. Napravi novi program</string>
 	<string name="step1_description"></string>
-	<string name="step1_additional_text_1">Tap on "New".</string>
-	<string name="step1_additional_text_2">Enter a progam name, select "Create empty program" and tap "OK".</string>
+	<string name="step1_additional_text_1">Dodirni "Novi".</string>
+	<string name="step1_additional_text_2">Unesi ime programa, odaberi "Započni novi program" i pritisni "Uredu".</string>
 	
-  <string name="step2_title">2. Create a new object</string>
+  <string name="step2_title">2. Kreiraj novi objekt</string>
 	<string name="step2_description"></string>
-	<string name="step2_additional_text_1">Tap:</string>
-	<string name="step2_additional_text_2">Choose the source of the first look of your  new object.</string>
-	<string name="step2_additional_text_3">Draw a new look.</string>
-	<string name="step2_additional_text_4">Choose from gallery.</string>
-	<string name="step2_additional_text_5">Take a picture.</string>
-  <string name="step2_additional_text_6">Enter an object name and tap “OK” to create the object.</string>  
+	<string name="step2_additional_text_1">Pritisni:</string>
+	<string name="step2_additional_text_2">Izaberi izvor za početni izgled svog novog objekta.</string>
+	<string name="step2_additional_text_3">Nacrtaj novi izgled.</string>
+	<string name="step2_additional_text_4">Izaberi iz galerije.</string>
+	<string name="step2_additional_text_5">Slikaj.</string>
+  <string name="step2_additional_text_6">Unesi ime objekta i pritisni "Uredu" za kreiranje novog objekta.</string>  
 
-  <string name="step3_title">3. Start Moving</string>
+  <string name="step3_title">3. Počni sa kretanjem</string>
 	<string name="step3_description"></string>
-	<string name="step3_additional_text_1">Tap:</string>
-	<string name="step3_additional_text_2">The first brick we use is out of the category "Motion".</string>
+	<string name="step3_additional_text_1">Pritisni:</string>
+	<string name="step3_additional_text_2">Prvi blok koji koristimo pripada kategoriji "Kretanje".</string>
 	<string name="step3_additional_text_3">Choose the "Glide" brick. The object will move to the new position defined with the brick on the stage.</string>
 	<string name="step3_additional_text_4">Tap “Play” to go to the stage and see the object gliding.</string>
 	<string name="step3_additional_text_5">Use the Android Back Button to get back from the stage.</string>
 	<string name="step3_additional_text_6">The brick is now floating. To paste it, move the brick to the desired position. You can also move already inserted bricks by tapping the brick until it is floating again.</string>
   
-  <string name="step4_title">4. Change Look</string>
-	<string name="step4_description">You can change the look of your object.</string>
+  <string name="step4_title">4. Promeni izgled</string>
+	<string name="step4_description">Možeš promeniti izgled svog objekta.</string>
 	<string name="step4_additional_text_1">Choose the “Switch to look” brick. With this brick you can choose a look or create a new one.</string>
 	<string name="step4_additional_text_2">Snap the brick underneath the "Glide" - brick.</string>
 	<string name="step4_additional_text_3">Tap into the dropdown field to create a new look.</string>

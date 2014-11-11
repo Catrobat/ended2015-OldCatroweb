@@ -24,16 +24,16 @@
 <strings>
   <string name="template_common_one_minute_ago">minutę temu</string>
   <string name="template_common_less_than_a_minute_ago">mniej niż minutę temu</string>
-  <string name="template_common_minutes_ago">{*minuteCount*} minut temu</string>
+  <string name="template_common_minutes_ago">{*minuteCount*} minut(y) temu</string>
   <string name="template_common_one_hour_ago">około godzinę temu</string>
-  <string name="template_common_hours_ago">około {*hourCount*} godzin temu</string>
+  <string name="template_common_hours_ago">około {*hourCount*} godzin(y) temu</string>
   <string name="template_common_one_day_ago">dzień temu</string>
   <string name="template_common_days_ago">około {*dayCount*} dni temu</string>
   <string name="template_common_one_month_ago">miesiąc temu</string>
-  <string name="template_common_months_ago">około {*monthCount*} miesięcy temu</string>
+  <string name="template_common_months_ago">około {*monthCount*} miesiące(cy) temu</string>
   <string name="template_common_one_year_ago">około rok temu</string>
-  <string name="template_common_years_ago">około {*yearCount*} lata temu</string>
-  <string name="template_common_over_years_ago">ponad {*yearCount*} lata temu</string>
+  <string name="template_common_years_ago">około {*yearCount*} lat(a) temu</string>
+  <string name="template_common_over_years_ago">ponad {*yearCount*} lat(a) temu</string>
   <string name="template_common_january">styczeń</string>
   <string name="template_common_february">luty</string>
   <string name="template_common_march">marzec</string>
