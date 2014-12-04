@@ -25,8 +25,8 @@ currentSlide = 0;
 $(".navigation"+0).css("color", "#FFFFFF");
 $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
 
-for(var i=3;i<=21;i++) {
-  if(i === 0 || i === 21)
+for(var i=3;i<=18;i++) {
+  if(i === 0 || i === 18)
     continue;
   $(".navigation"+i).hide();
 }
@@ -71,7 +71,7 @@ function prev(index) {
 
 function next(index) {
   
-  if(currentSlide < 21) {
+  if(currentSlide < 18) {
     
     currentSlide += 1;
     hideNavigations(2);    
@@ -90,7 +90,7 @@ function changeContainer(slide) {
   
   hideNavigations(3);
   
-  for(var i=0;i<=21;i++) {
+  for(var i=0;i<=18;i++) {
     if(i === slide) {
       $("#content"+i).removeClass("hide");
       $(".navigation"+i).css("color", "#FFFFFF");
@@ -109,17 +109,17 @@ function hideNavigations(type) {
     
     if(currentSlide == 0)
       $(".detailHeaderSide .arrow1.left").addClass("hide");
-    else if(currentSlide == 20)
+    else if(currentSlide == 17)
       $(".detailHeaderSide .arrow1.right").removeClass("hide");
     
     check = false;
-    for(i=0;i<=21;i++) {
+    for(i=0;i<=18;i++) {
       
       if(currentSlide < 2 && i <= 2) {
         $(".navigationPoints").remove();
         $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
-      } else if(currentSlide > 19 && i >= 19) {
+      } else if(currentSlide > 16 && i >= 16) {
         $(".navigationPoints").remove();
         $(".navigation9").before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
@@ -134,14 +134,14 @@ function hideNavigations(type) {
       check = true;
         
       if(i - 1 === currentSlide || i === currentSlide || i + 1 === currentSlide) {
-        if((i - 1 === currentSlide) && currentSlide > 2 && currentSlide <= 19)
+        if((i - 1 === currentSlide) && currentSlide > 2 && currentSlide <= 16)
           $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
-        if((i + 1 === currentSlide) && currentSlide >= 2 && currentSlide < 19)
+        if((i + 1 === currentSlide) && currentSlide >= 2 && currentSlide < 16)
           $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
           
         $(".navigation"+i).show();
       }
-      else if(i !== 0 && i !== 21)
+      else if(i !== 0 && i !== 18)
         $(".navigation"+i).hide();
     }
   }
@@ -149,25 +149,25 @@ function hideNavigations(type) {
     
     if(currentSlide == 1)
       $(".detailHeaderSide .arrow1.left").removeClass("hide");
-    else if(currentSlide == 21)
+    else if(currentSlide == 18)
       $(".detailHeaderSide .arrow1.right").addClass("hide");
     
     check = false;
     
-    for(i=0;i<=21;i++) {
+    for(i=0;i<=18;i++) {
       
       if(currentSlide < 2 && i <= 2) {
         $(".navigationPoints").remove();
         $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
       }
-      else if(currentSlide > 19 && i >= 19) {
+      else if(currentSlide > 16 && i >= 16) {
         $(".navigationPoints").remove();
         $(".navigation9").before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
       }
       
-      if(currentSlide > 19 && i >= 19)
+      if(currentSlide > 16 && i >= 16)
         continue;
 
       if(check === false) 
@@ -176,14 +176,14 @@ function hideNavigations(type) {
       check = true;
       
        if(i - 1 === currentSlide || i === currentSlide || i + 1 === currentSlide) {
-        if(i - 1 === currentSlide  && currentSlide > 2 && currentSlide <= 19)
+        if(i - 1 === currentSlide  && currentSlide > 2 && currentSlide <= 16)
           $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
-        if(i + 1 === currentSlide && currentSlide >= 2 && currentSlide < 19) 
+        if(i + 1 === currentSlide && currentSlide >= 2 && currentSlide < 16) 
           $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         
         $(".navigation"+i).show();
       }
-      else if(i !== 0 && i !== 21)
+      else if(i !== 0 && i !== 18)
         $(".navigation"+i).hide();
     }
     
@@ -194,7 +194,7 @@ function hideNavigations(type) {
       $(".detailHeaderSide .arrow1.left").addClass("hide");
       $(".detailHeaderSide .arrow1.right").removeClass("hide");
     }
-    else if(currentSlide == 21) {
+    else if(currentSlide == 18) {
       $(".detailHeaderSide .arrow1.left").removeClass("hide");
       $(".detailHeaderSide .arrow1.right").addClass("hide");
     }
@@ -210,39 +210,39 @@ function hideNavigations(type) {
     
     check = true;
     
-    for(i=0;i<=21;i++) {
+    for(i=0;i<=18;i++) {
       
       if(currentSlide < 2 && i <= 2) {
         $(".navigationPoints").remove();
         $(".navigation3").after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
       }    
-      else if(currentSlide > 19 && i >= 19) {
+      else if(currentSlide > 16 && i >= 16) {
         $(".navigationPoints").remove();
         $(".navigation9").before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
         check = true;
       }
       else {
-        if(i - 1 === currentSlide  && currentSlide > 2 && currentSlide <= 19)
+        if(i - 1 === currentSlide  && currentSlide > 2 && currentSlide <= 16)
           $(".navigation"+(currentSlide-1)).before('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
-        if(i + 1 === currentSlide && currentSlide >= 2 && currentSlide < 19) 
+        if(i + 1 === currentSlide && currentSlide >= 2 && currentSlide < 16) 
           $(".navigation"+(currentSlide+1)).after('<div class="navigationPoints" style="float: left; color: #05222a;">...</div>');
       }
       
-      if(currentSlide === 21) {
-        if(i === 21 || i === 20 || i === 19 || i === 0) 
+      if(currentSlide === 18) {
+        if(i === 18 || i === 17 || i === 16 || i === 0) 
           $(".navigation"+i).show();
         else 
           $(".navigation"+i).hide();
       }
       else if(currentSlide === 0) {
-        if(i === 0 || i === 1 || i === 2 || i === 21) 
+        if(i === 0 || i === 1 || i === 2 || i === 18) 
           $(".navigation"+i).show();
         else 
           $(".navigation"+i).hide();
       }
       else {
-        if(currentSlide-1 === i || currentSlide === i || currentSlide+1 === i || i === 0 || i === 21)
+        if(currentSlide-1 === i || currentSlide === i || currentSlide+1 === i || i === 0 || i === 18)
           $(".navigation"+i).show();
         else
           $(".navigation"+i).hide();
