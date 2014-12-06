@@ -58,6 +58,7 @@
               <li><?php echo $this->languageHandler->getString('imageText'.$i."_2_1"); ?></li>
               <li><?php echo $this->languageHandler->getString('imageText'.$i."_2_2"); ?></li>
               <li><?php echo $this->languageHandler->getString('imageText'.$i."_2_3"); ?></li>
+              <li><?php echo $this->languageHandler->getString('imageText'.$i."_2_4"); ?></li>
             </ol>
           </div>
           <div class="detailSpacer"><div class="arrow right"></div></div>
@@ -244,6 +245,24 @@
                   <span id="image_<?php echo $i."_3"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 3);'><img src="images/hourOfCode/thumbs/<?php echo $i."_3.jpg"?>" /></span><br />
                   <div><?php echo $this->languageHandler->getString('imageText'.$i."_3"); ?></div>
                 </div>
+          <?php }else if($i==13) { ?>
+            <div class="detailImage3">
+              <span id="image_<?php echo $i."_1"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 1);'><img src="images/hourOfCode/thumbs/<?php echo $i."_1.jpg"?>" /></span><br />
+              <div><?php echo $this->languageHandler->getString('imageText'.$i."_1"); ?></div>
+            </div>
+            <div class="detailSpacer"><div class="arrow right"></div></div>
+            <div class="detailImage3">
+              <span id="image_<?php echo $i."_2"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 2);'><img src="images/hourOfCode/thumbs/<?php echo $i."_2.jpg"?>" /></span><br /><div><?php echo $this->languageHandler->getString('imageText'.$i."_2"); ?></div>
+            
+            </div>
+            <div class="detailSpacer"><div class="arrow right"></div></div>
+            <div class="detailImage3">
+              <span id="image_<?php echo $i."_3"?>" onclick='showImage(<?php echo "\"".BASE_PATH."\"".",".$i; ?>, 3);'><img src="images/hourOfCode/thumbs/<?php echo $i."_3.jpg"?>" /></span><br />
+              <ol>
+                <li><?php echo $this->languageHandler->getString('imageText'.$i."_3_1"); ?></li>
+                <li><?php echo $this->languageHandler->getString('imageText'.$i."_3_2"); ?></li>
+              </ol>
+            </div>
           <?php }
           else if($i == 0) { ?>
             <div class="detailImage3">
