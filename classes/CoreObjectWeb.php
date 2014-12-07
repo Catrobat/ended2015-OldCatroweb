@@ -165,7 +165,7 @@ abstract class CoreObjectWeb extends CoreObjectDatabase {
     $jqueryHistory = 'jquery.history.js';
     if(!file_exists(CORE_BASE_PATH . CACHE_PATH . $jqueryHistory)) {
       file_put_contents(CORE_BASE_PATH . CACHE_PATH . $jqueryHistory,
-          file_get_contents("http://balupton.github.io/history.js/scripts/bundled/html5/" . $jqueryHistory));
+          file_get_contents("https://raw.githubusercontent.com/browserstate/history.js/master/scripts/bundled/html5/" . $jqueryHistory));
     }
     
     foreach($jsFiles as $js) {
