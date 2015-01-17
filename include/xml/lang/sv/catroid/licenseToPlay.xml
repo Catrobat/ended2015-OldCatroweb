@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+	<string name="title">Licens för att spela - ge kredit och dela</string>
+
+	<string name="project_licence_part1">
+		Tänk dig att varje Catrobat program är en tårta, en mycket speciell kaka som kommer med dess recept (programmering block).   Alla medlemmar i Catrobat gemenskapen delar deras kakor tillsammans med sina recept. Detta innebär att du kan njuta av kakor och lär dig hur man gör dem själv!
+	</string>
+	<string name="project_licence_part2">
+		Det finns inga hemliga recept: instruktionerna på hur man gör dessa kakor är öppna för alla att använda, återanvända, ändra och tjäna som inspiration för nya idéer... Jag menar kakor.
+	</string>
+	<string name="project_licence_part3">
+		Du kan äta kakor samt kopiera andras recept för att göra dina egna, kanske med olika ingredienser.   Denna frihet kommer med två enkla krav:
+	</string>
+	<string name="project_licence_part3_list_element1">Dela dina kakor tillsammans med receptet</string>
+	<string name="project_licence_part3_list_element2">ge kredit till dem som inspirerade dig</string>
+	<string name="project_licence_part4">
+		när vi upprättade gemenskapen Catrobat, beslutade vi att anta denna strategi eftersom vi anser att det stöder lärande och kreativitet inom gemenskapen.          Genom att dela recept och ingredienser (skript och teckningar), människor kan bygga vidare på varandras idéer och alla kommer att gynnas.
+	</string>
+	<string name="project_licence_part5">
+		Vid utformningen av webbplatsen Catrobat, ingår vi funktioner för att uppmuntra människor att dela och ge kredit till andra. På varje sida, kan du alltid hämta de ursprungliga skript för programmet. Om du remixar ett program (ändra skript eller konstverk och dela resultatet), uppmuntrar vi dig att ge kredit i programmets anteckningar, och nämna dom människor och program som inspirerade dig.
+	</string>
+	<string name="project_licence_learn_more_new">
+		Läs mer om villkoren för användning av en Catrobat community på {* termsOfUseLink *}.
+	</string>
+
+  <string name="project_licence_dated">Version 1.1, 2 April 2013</string>
+</strings>

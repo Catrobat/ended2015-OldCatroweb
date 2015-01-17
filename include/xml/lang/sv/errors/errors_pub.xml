@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<errors>
+		<server>
+				<string name="missing_mcrypt">säg till administratören att installera mcrypt. Tack.</string>
+				<string name="missing_blowfish">säg till administratören att installera CRYPT_BLOWFISH. Tack.</string>
+		</server>
+    <db>
+        <string name="query_failed">Ooooops något gick fel. /n var god och försök igen!</string>
+        <string name="connection_failed">Ooooops något gick fel. /n var god och försök igen!</string>
+        <string name="no_entry_for_id">Ooooops något gick fel. /n var god och försök igen!</string>
+    </db>
+    <profile>
+    	<string name="no_such_user">Ooooops något gick fel. /n var god och försök igen!</string>
+    </profile>
+    <userFunctions>
+      <string name="hash_not_found">Förlåt! Kunde inte hitta något att återvinna. Försök igen.</string>
+			<string name="expired_url">Förlåt! Din återhämtnings url har löpt ut. Försök igen.</string>
+      <string name="username_missing">Du inte har angett ett användarnamn, Lägg till ett.</string>
+      <string name="username_invalid_underscore">Det användarnamn som du har angett är inte tillåtet. Vänligen använd inte understreck (_).</string>
+      <string name="username_invalid_hash">Det användarnamn som du har angett är inte tillåtet. Använd inte hash-tecken (#).</string>
+      <string name="username_invalid_verticalbar">Det användarnamn som du har angett är inte tillåtet. Vänligen använd inte vertikalstreck (|).</string>
+      <string name="username_invaquery_failedlid_curlybrace">Det användarnamn som du har angett är inte tillåtet. Du kan inte använda klammerparenteser ({ or }).</string>
+      <string name="username_invalid_lessgreater">Det användarnamn som du har angett är inte tillåtet. Vänligen använd inte mindre än eller större än-tecken (&lt; och &gt;).</string>
+      <string name="username_invalid_squarebracket">Det användarnamn som du har angett är inte tillåtet. Du kan inte använda hakparenteser ([eller]).</string>
+      <string name="username_invalid_spaces">Det användarnamn som du har angett är inte tillåtet. Använd inte blanksteg ("").</string>
+      <string name="username_is_email_address">Ditt användarnamn får inte vara en e-postadress.</string>
+      <string name="username_invalid_insulting_words">Det användarnamn som du har angett är inte tillåtet. Vänligen använd inte förolämpande ord.</string>
+      <string name="username_invalid">Det användarnamn som du har angett är inte tillåtet.</string>
+      <string name="username_blacklisted">Det användarnamn som du har angett är inte tillåtet.</string>
+      <string name="username_already_exists">Det användarnamn som du har angett finns redan.</string>
+      <string name="password_missing">Du har inte angett ett lösenord, vänligen lägg till ett.</string>
+      <string name="password_not_equal_password2">Lösenorden matchade inte.</string>
+      <string name="username_password_equal">Lösenordet måste skilja sig från användarnamnet.</string>
+      <string name="password_new_too_short">Ditt lösenord måste ha minst {* minimumPasswordLength *} tecken.</string>
+      <string name="password_new_too_long">Lösenordet kan ha maximalt {* maximumPasswordLength *} tecken.</string>
+      <string name="email_missing">Du har inte angett en e-postadress, vänligen lägg till ett.</string>
+      <string name="email_invalid">Denna e-postadress är inte giltig.</string>
+      <string name="last_email">En e-postadress krävs.</string>
+      <string name="country_missing">Du inte har angett ett land, Lägg till ett.</string>
+      <string name="password_or_username_wrong">Ditt lösenord eller användarnamn var felaktigt.</string>
+      <string name="board_authentication_failed">Styrelsen-Autentiseringen misslyckades.</string>
+      <string name="wiki_api_response_incorrect">Ooooops något gick fel. /n var god och försök igen!</string>
+      <string name="board_registration_failed">Tyvärr, uppstod det ett fel med din registrering. vänligen försök igen!</string>
+      <string name="userdata_missing">Ditt användarnamn eller e-postadress saknas.</string>
+      <string name="unsupported_image">Den här bildtypen stöds inte, försök med en annan bild.</string>
+      <string name="avatar_creation_failed">Tyvärr, upptäckte vi ett fel med din registrering. vänligen försök igen!</string>
+      <string name="password_new_board_update_failed">Ett problem uppstod när du uppdaterade lösenordet.</string>
+      <string name="country_update_failed">Ett problem uppstod när du uppdaterade ditt hemland.</string>
+      <string name="language_update_failed">Ett problem uppstod när du uppdaterade ditt språk.</string>
+      <string name="userdata_not_exists">Ditt användarnamn eller e-post adress hittades inte.</string>
+      <string name="email_update_failed">Fel vid uppdatering av denna e-postadress. Du måste ha minst en verifierad e-postadress.</string>
+      <string name="create_hash_failed">Ooooops något gick fel. /n var god och försök igen!</string>
+      <string name="sendmail_failed">Ett fel uppstod när e-postmeddelandet skickades. Vänligen kontakta administratören på {* webmasterEmailAddress *}.</string>
+    </userFunctions>
+    <upload>
+        <string name="missing_project_title">Du måste ange en titel för ditt program!</string>
+        <string name="missing_file_data">Tyvärr, var det ett problem under uppladdningen!</string>
+        <string name="missing_post_file_checksum">Tyvärr, var det ett problem under uppladdningen! Använder du den senaste versionen av Pocket Code?</string>
+        <string name="copy_failed">Tyvärr, ett fel uppstod under uppladdningen. Försök igen!</string>
+        <string name="rename_failed">Tyvärr, ett fel uppstod under uppladdningen. Försök igen!</string>
+        <string name="invalid_file_checksum">Tyvärr, ett fel uppstod under uppladdningen. Försök igen!</string>
+        <string name="project_exceed_filesize_limit">Din program-fil är för stor.</string>
+        <string name="project_title_default">Du måste byta namn på ditt program, innan du laddar upp det.</string>
+        <string name="insulting_words_in_project_title">Vänligen använd inte kränkande språk i din program titel.</string>
+        <string name="insulting_words_in_project_description">Vänligen använd inte kränkande språk i din program beskrivning.</string>
+        <string name="save_thumbnail_failed">Tyvärr, ett fel uppstod under uppladdningen. Försök igen!</string>
+        <string name="invalid_project_xml">Tyvärr, är din program-fil ogiltig. Försök att spara den som ett nytt program och ladda upp den igen.</string>
+        <string name="old_catrobat_version">Tyvärr, använder du en gammal version av Pocket Code. Vänligen uppdatera till den senaste versionen.</string>
+        <string name="old_catrobat_language">Tyvärr, innehåller ditt program en gammal version av Catrobat språket! Använder du den senaste versionen av Pocket Code?</string>
+        <string name="invalid_media_license">Tyvärr, ditt program har en ogiltig media-licens!</string>
+        <string name="invalid_program_license">Tyvärr, ditt program har en ogiltig programlicens!</string>
+        <string name="visibility_incorrect">Synligheten är fel!</string>
+        <string name="invalid_project_file">Tyvärr, innehåller ditt program några filer med okänt filformat.</string>
+        <string name="linked_project_file_not_found">Tyvärr, verkar det saknas vissa filer i ditt projekt.</string>
+        <string name="unlinked_project_file">Tyvärr, verkar ditt projekt innehålla några projekt-orelaterade filer.</string>
+    </upload>
+    <download>
+    	<string name="file_not_found">det önskade programmet är inte tillgängligt just nu. Försök igen senare!</string>
+    </download>
+    <flag>
+        <string name="missing_post_data">Du måste ange en anledning till varför du vill rapportera detta program som olämpligt!</string>
+        <string name="sql_insert_failed">Tyvärr, ett fel uppstod när du rapporterade programmet!</string>
+    </flag>
+    <viewer>
+    	<string name="html_file_not_found">Den här sidan kan inte visas.</string>
+      <string name="ip_is_blocked">Din IP-adress har blockerats.</string>
+      <string name="ip_is_blocked_temporary">Din IP-adress har blockerats i 30 sekunder.</string>
+      <string name="user_is_blocked">Ditt konto har spärrats.</string>
+    </viewer>
+    <auth>
+    	<string name="device_auth_invalid_token">Tyvärr, var din autentiseringsdata felaktig. Vänligen kontrollera ditt användarnamn och lösenord!</string>
+			<string name="device_auth_username_exists">Tyvärr, används ditt användarnamn redan.</string>
+      <string name="not_a_tugraz_ip">Du tillåts inte att visa sidan.</string>
+    </auth>
+    <registration>
+      <string name="postdata_missing">Skriv in dina inloggningsuppgifter.</string>
+    </registration>
+    <admin>
+      <string name="pootle_post_data_missing">Efter data saknas: krävs: lang.</string>
+      <string name="pootle_load_xlf_failed">Kunde inte ladda XLF-fil från {* källa *}.</string>
+      <string name="pootle_not_valid_xml">Gick inte att skapa XML-objekt från XLF-sträng.</string>
+      <string name="pootle_invalid_stringname_in_xml">Ogiltig strängnamn i källan XLF-filen: {* stringName *}</string>
+      <string name="pootle_could_not_write_xml_file">Kunde inte skriva XML-fil till språk katalog: {* filnamn *}</string>
+    </admin>
+</errors>

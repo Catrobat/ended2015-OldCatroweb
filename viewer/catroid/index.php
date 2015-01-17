@@ -133,8 +133,8 @@ onload = function(){
           </div>
         </div>
         <?php
-//           for($i=0; $i < count($this->featuredProjects); $i++)
-//             echo '<span class="pagination" onclick="javascript:next(' . $i . ')" id="span' . $i . '"></span>';              
+          for($i=0; $i < count($this->featuredProjects); $i++)
+            echo '<span class="pagination" onclick="javascript:next(' . $i . ')" id="span' . $i . '"></span>';              
          ?>
         <div class="projectSpacer"></div>
 

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="registration_mail_subject">Din {* appplication_name *} registrering</string>
+  <string name="registration_mail_text_row1">Grattis och Välkommen till  {* appplication_url *} gemenskapen.</string>
+  <string name="registration_mail_text_row2">Behåll denna e-post för dina poster. Information om ditt konto är följande:</string>
+  <string name="registration_mail_text_row3">Användarnamn: {* användarnamn *}</string>
+  <string name="registration_mail_text_row5">Lösenord: {* lösenord *}</string>
+  <string name="registration_mail_text_row6">Du kan använda ditt användarnamn och lösenord när som helst komma åt  {* appplication_name *} gemenskapen.</string>
+  <string name="registration_mail_text_row7">för att göra så, bara besök följande sida:</string>
+  <string name="registration_mail_text_row8">Om du vill redigera dina profiluppgifter, gå till denna sida:</string>
+  <string name="registration_mail_text_row9">I händelse av att du har glömt ditt lösenord, kommer du att kunna återställa det med den e-postadressen eller ditt användarnamn som hör till ditt konto.</string>
+  <string name="registration_mail_text_row10">Med vänliga hälsningar,</string>
+  <string name="registration_mail_text_row11">Din {* appplication_name *} Team</string>
+
+  <string name="recovery_mail_subject">Din {* appplication_name *} Password Recovery</string>
+  <string name="recovery_mail_text_row1">Kära {* användarnamn *}.</string>
+  <string name="recovery_mail_text_row2">Du har begärt för att återställa ditt lösenord på {* appplication_url *} eftersom du har glömt ditt lösenord. Om du inte har begärt detta, Vänligen ignorera det. Det kommer att löpa ut och bli värdelös om 24 timmar.</string>
+  <string name="recovery_mail_text_row3">För att återställa ditt lösenord och skapa ett nytt, besök följande sida:</string>
+  <string name="recovery_mail_text_row5">Du kan använda ditt användarnamn och lösenord när som helst komma åt  {* appplication_name *} gemenskapen.</string>
+  <string name="recovery_mail_text_row6">för att göra så, bara besök följande sida:</string>
+  <string name="recovery_mail_text_row7">Om du vill redigera dina profiluppgifter, gå till denna sida:</string>
+  <string name="recovery_mail_text_row8">Med vänliga hälsningar,</string>
+  <string name="recovery_mail_text_row9">Din {* appplication_name *} Team</string>
+
+	<string name="email_validation_subject">Din {* appplication_name *} e-kontroll</string>
+  <string name="email_validation_text_row1">Kära {* användarnamn *} för att fortsätta processen för att lägga till en ny e-post adress vänligen klicka på länken nedan för att kontrollera.</string>
+  <string name="email_validation_text_row2">Med vänliga hälsningar,</string>
+  <string name="email_validation_text_row3">Din {* appplication_name *} Team</string>
+</strings>

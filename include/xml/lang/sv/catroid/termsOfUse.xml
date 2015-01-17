@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+  <string name="title">Användarvillkor</string>
+  <string name="terms_of_use_welcome1">Välkommen till Catrobat gemenskapen!</string>
+  <string name="terms_of_use_welcome2">Som en del av Catrobat gemenskapen, delar du program och idéer med människor:</string>
+  <string name="terms_of_use_enumeration_1">från många olika länder och kulturer</string>
+  <string name="terms_of_use_enumeration_2">i alla åldrar (från små barn till tonåringar och farföräldrar)</string>
+  <string name="terms_of_use_enumeration_3">med alla nivåer av erfarenhet</string>
+  <string name="terms_of_use_your_support">Vi behöver din hjälp att göra denna gemenskap en stödjande plats för varje medlem. Här är hur du kan hjälpa:</string>
+  <string name="terms_of_use_enumeration_4">Vara respektfull. När du delar program, kom ihåg att människor av många olika åldrar och bakgrunder kommer att  se ditt bidrag.</string>
+  <string name="terms_of_use_enumeration_5">Ge kredit. Känn dig fri att göra modifierade versioner av andras program - se bara till att ge dem kredit. En plats att ge kredit är i programmets beskrivning. Se stycket under denna prickade lista för information om hur du ändrar program av andra användare.</string>
+  <string name="terms_of_use_enumeration_6">Vara ärlig. Inte låtsas vara någon annan än vem du är eller försöka lura gemenskapen.</string>
+  <string name="terms_of_use_enumeration_7">Hålla personlig information privat. Dela inte din e-postadress, telefonnummer eller annan personlig kontaktinformation.</string>
+  <string name="terms_of_use_enumeration_8">Att hålla webbplatsen vänlig. Om du känner att andra skulle tycka ett program eller kommentar är, förolämpande, för våldsamma eller annars olämplig, bara klicka på knappen "rapportera som olämpligt" och lämna en kort förklaring. Catrobat laget kommer att granska rapporten och ta bort alla program, kommentar, eller post.</string>
+  <string name="terms_of_use_become_a_member">Genom Catrobat projektet vill vi främja samarbete och se allas kreativitet för att kombinera för hela mänskligheten. Du kan också bli en aktiv medlem av Catrobat gemenskapen genom att ge dina program tillbaka till gemenskapen som en gåva, på samma sätt som andra aktiva medlemmar ger sina program till dig:</string>
+  <string name="terms_of_use_enumeration_9">Genom att överföra ett program till våra webbplatser,  accepterar du och godkänner att sätta detta arbete under vissa fria licenser av uppladdade Catrobat program. Liknar de fria licenser som själva Catrobat systemet är tillgänglig för dig, dessa fria licenser av uppladdade Catrobat program ger alla rätt att lära sig från jobbet tidigare laddat upp av andra och att anpassa och remixa, som fungerar för att bygga sina egna nya fascinerande spel, animationer och andra program. Detta ger alla möjlighet att "stå på axlarna av sina kamrater", en av dem är du! Ditt arbete kommer således gynna hela världen och fortfarande gratis för alla att använda, lite liknande text och bilder har fritt bidragits till Wikipedia av frivilliga från hela världen. Tänk på det som din gåva till mänskligheten: du ger till alla, och alla andra som laddar upp deras arbete till våra webbplatser ger dig. Således är ett uppladdat program en gåva av stort värde som dess ägare ger dig gratis, med villkoret att du deltar i samhället på samma villkor.</string>
+  <string name="terms_of_use_enumeration_10">Du behöver inte acceptera gåvan; Om du gör, följer vissa regler med. Fördelarna med dessa regler är att du kan lära av arbetet och bygga på det och  göra ännu coolare saker själv, som du kan då exempelvis igen ladda upp till våra webbplatser som ditt eget. En annan fördel är att dessa licenser ser till att du inte kan hållas ansvarig för eventuella problem som uppstår för andra genom sin användning av ditt program.</string>
+  <string name="terms_of_use_enumeration_11">En ytterligare viktig förutsättning är att du tydligt ger erkännande till de författare vars verk bygger på ditt eget arbete. På samma gång, kommer vi att arbeta hårt för att ditt arbete klart uppskattas av andra för att ha bidragit av dig, genom att ge erkännande till det unika namn du fritt har valt att representera dig i Catrobats gemenskapen och genom att ge andra möjlighet att uttrycka sin tacksamhet till dig i offentliga sätt för att ha gett ditt arbete för alla, och i synnerhet till dem.</string>
+  <string name="terms_of_use_enumeration_12">Kontakta {* licenseofuploadedprojects *} för de exakta rättsliga villkoren.</string>
+  <string name="terms_of_use_our_gift">Vår gåva till dig:</string>
+  <string name="terms_of_use_enumeration_13">Vi erbjuder alla våran egna programvara och Internet-resurser med Catrobat systemet, t.ex., den programvara skriven av Catrobat laget, våra webbplatser och Internet-resurser, vår egen källkod relaterat med Catrobat systemet, och ytterligare ingår material som, t.ex. bilder, ljud och texter, nu och i framtiden till dig under Catrobats fria licenser.</string>
+  <string name="terms_of_use_enumeration_14">Dessa licenser göra alla delar av Catrobat både kostnadsfritt till dig samt gratis i avkänningen av att ge dig frihet att använda dem hur du vill, med bara några begränsningar, bland annat garantera att Catrobat systemet för alltid kommer att förbli fri och användbart för alla.</string>
+  <string name="terms_of_use_enumeration_15">Kontakta {* licenseofsystem *} för de exakta rättsliga villkoren. Källkoden till Catrobat systemet samt många andra dokument och resurser är tillgängliga via {* googlecode *}.</string>
+  <string name="terms_of_use_our_terms">Våra användarvillkor och Service:</string>
+  <string name="terms_of_use_enumeration_16">Vi förbehåller oss rätten att avvisa, ta bort eller dölja program, användarkonton, och digitala material upp till Catrobats webbplatser helst i godtycke, för anföra som exempel om vi finner att ett program innehåller olämpligt material eller om en användare gör intrång i andra personers rättigheter.</string>
+  <string name="terms_of_use_enumeration_17">Alla Catrobats programvara och Internet-resurser erbjuds i hopp om att de kommer att vara användbara, men utan någon garanti.</string>
+  <string name="terms_of_use_enumeration_18">Kontakta vår {* termsofservice *} för exakta formuleringar av ovanstående punkter och några ytterligare rättsliga villkor.</string>
+  <string name="terms_of_use_enumeration_19">Om du, eller, om du är under 13 års ålder, dina föräldrar eller vårdnadshavare, är associerade med en organisation som bedriver eller ansvarar för dragnet typ kränkningar av privatlivet och/eller bulk eller massövervakning, då du inte får använda våra program och tillgång till våra tjänster. De exakta detaljerna i denna begränsning och vissa undantag till det är beskrivet i avsnitt 4.a och 4.b på våra {* termsofservice *}.</string>
+  <string name="terms_of_use_enumeration_20">Om du är under 13 år, måste du fråga dina föräldrar eller vårdnadshavare om de tillåter dig att använda Catrobats programvaror och tjänster.</string>
+  <string name="terms_of_use_check_back">Kontrollera tillbaka hit från tid till tid, eftersom vi försöker alltid att förbättra våra användarvillkor.</string>
+  <string name="terms_of_use_mail_us">Maila några förslag angående dessa användarvillkor till {* mailus *}.</string>
+  <string name="terms_of_use_dated">Version 1.3, 4 mars 2014</string>
+</strings>

@@ -294,7 +294,7 @@ function getSupportedLanguagesArray($languageHandler) {
     'sl'=>array('name'=>$languageHandler->getString('template_common_slovenian'), 'nameNative'=>'‪slovenščina‬', 'supported'=>false),
     'es-419'=>array('name'=>$languageHandler->getString('template_common_spanish_latin_america'), 'nameNative'=>'‪español (Latinoamérica)‬', 'supported'=>false),
     'es'=>array('name'=>$languageHandler->getString('template_common_spanish_spain'), 'nameNative'=>'‪español (España)‬', 'supported'=>true),
-    'sv'=>array('name'=>$languageHandler->getString('template_common_swedish'), 'nameNative'=>'‪svenska‬', 'supported'=>false),
+    'sv'=>array('name'=>$languageHandler->getString('template_common_swedish'), 'nameNative'=>'‪svenska‬', 'supported'=>true),
     'th'=>array('name'=>$languageHandler->getString('template_common_thai'), 'nameNative'=>'‪ไทย‬', 'supported'=>false),
     'tr'=>array('name'=>$languageHandler->getString('template_common_turkish'), 'nameNative'=>'‪Türkçe‬', 'supported'=>true),
     'uk'=>array('name'=>$languageHandler->getString('template_common_ukrainian'), 'nameNative'=>'‪українська‬', 'supported'=>false),

@@ -29,7 +29,7 @@ var Index = Class.$extend( {
     this.downloadProjects = null;
     this.viewProjects = null;
     this.history = window.History;
-    this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
+//    this.history.Adapter.bind(window, 'statechange', $.proxy(this.restoreHistoryState, this));
     this.featuredProject = $.parseJSON(featured);
     
     console.log(this.featuredProject);
@@ -57,27 +57,27 @@ var Index = Class.$extend( {
   },
   
   saveHistoryState : function(action) {
-    var context = [];
-    context['newest'] = this.newestProjects.getHistoryState();
-    context['downloads'] = this.downloadProjects.getHistoryState();
-    context['views'] = this.viewProjects.getHistoryState();
-
-    if($.isEmptyObject(context['newest']) == false && $.isEmptyObject(context['downloads']) == false && $.isEmptyObject(context['views']) == false) {
-      if(action == 'init') {
-        var state = this.history.getState();
-        if(typeof state.data.newest === 'undefined' && typeof state.data.downloads === 'undefined' && typeof state.data.views === 'undefined') {
-          this.history.replaceState({newest: context['newest'], downloads: context['downloads'], views: context['views']}, 
-                this.pageLabels['websiteTitle'], '');
-        } else {
-          this.restoreHistoryState();
-        }
-      }
-      
-      if(action == 'push') {
-        this.history.pushState({newest: context['newest'], downloads: context['downloads'], views: context['views']},
-              this.pageLabels['websiteTitle'], '');
-      }
-    }
+//    var context = [];
+//    context['newest'] = this.newestProjects.getHistoryState();
+//    context['downloads'] = this.downloadProjects.getHistoryState();
+//    context['views'] = this.viewProjects.getHistoryState();
+//
+//    if($.isEmptyObject(context['newest']) == false && $.isEmptyObject(context['downloads']) == false && $.isEmptyObject(context['views']) == false) {
+//      if(action == 'init') {
+//        var state = this.history.getState();
+//        if(typeof state.data.newest === 'undefined' && typeof state.data.downloads === 'undefined' && typeof state.data.views === 'undefined') {
+//          this.history.replaceState({newest: context['newest'], downloads: context['downloads'], views: context['views']}, 
+//                this.pageLabels['websiteTitle'], '');
+//        } else {
+//          this.restoreHistoryState();
+//        }
+//      }
+//      
+//      if(action == 'push') {
+//        this.history.pushState({newest: context['newest'], downloads: context['downloads'], views: context['views']},
+//              this.pageLabels['websiteTitle'], '');
+//      }
+//    }
   },
 
   restoreHistoryState : function() {

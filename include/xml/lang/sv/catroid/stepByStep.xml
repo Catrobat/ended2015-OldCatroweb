@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Catroid: An on-device visual programming system for Android devices
+  Copyright (C) 2010-2014 The Catrobat Team
+  (<http://developer.catrobat.org/credits>)
+  
+  This program is free software: you can redistribute it and/or modify
+  it under the terms of the GNU Affero General Public License as
+  published by the Free Software Foundation, either version 3 of the
+  License, or (at your option) any later version.
+  
+  An additional term exception under section 7 of the GNU Affero
+  General Public License, version 3, is available at
+  http://developer.catrobat.org/license_additional_term
+  
+  This program is distributed in the hope that it will be useful,
+  but WITHOUT ANY WARRANTY; without even the implied warranty of
+  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+  GNU Affero General Public License for more details.
+  
+  You should have received a copy of the GNU Affero General Public License
+  along with this program. If not, see <http://www.gnu.org/licenses/>.
+-->
+<strings>
+
+  <string name="starting_position">Utgångsläget:</string>
+  
+	<string name="title">Steg för steg-Intro</string>
+	
+	<string name="step1_title">1. gör ett nytt program</string>
+	<string name="step1_description"></string>
+	<string name="step1_additional_text_1">Klicka på "Nya".</string>
+	<string name="step1_additional_text_2">Ange ett progam namn, välj "Skapa tomma program" och tryck "OK".</string>
+	
+  <string name="step2_title">2. skapa ett nytt objekt</string>
+	<string name="step2_description"></string>
+	<string name="step2_additional_text_1">tryck på:</string>
+	<string name="step2_additional_text_2">Välj källan för det första utseendet på ditt nya objekt.</string>
+	<string name="step2_additional_text_3">Rita ett nytt utseende.</string>
+	<string name="step2_additional_text_4">Välj från Galleri.</string>
+	<string name="step2_additional_text_5">Ta en bild.</string>
+  <string name="step2_additional_text_6">Ange objektnamn och tryck på "OK" för att skapa objektet.</string>  
+
+  <string name="step3_title">3. börja flytta</string>
+	<string name="step3_description"></string>
+	<string name="step3_additional_text_1">tryck på:</string>
+	<string name="step3_additional_text_2">Den första kloss som vi använder är av kategorin "Rörelser".</string>
+	<string name="step3_additional_text_3">Välj "Glid" klossen. Objektet flyttas till den nya positionen som definieras med klossen på scenen.</string>
+	<string name="step3_additional_text_4">Tryck på "Play" för att gå till scenen och se objektet glida.</string>
+	<string name="step3_additional_text_5">Använd Androids tillbaka knapp, för att få tillbaka från scenen.</string>
+	<string name="step3_additional_text_6">Klossen flyter nu. Om du vill klistra in den, flytta klossen till önskad position. Du kan också flytta redan infogade klossar genom att trycka på klossen tills den är flytande igen.</string>
+  
+  <string name="step4_title">4. ändra utseende</string>
+	<string name="step4_description">Du kan ändra utseendet på ditt objekt.</string>
+	<string name="step4_additional_text_1">Välj "byt utseende till" klossen. Med denna kloss kan du välja ett utseende eller skapa ett nytt.</string>
+	<string name="step4_additional_text_2">Fäst klossen under "Glid" - klossen.</string>
+	<string name="step4_additional_text_3">Klicka på fliken för att skapa ett nytt utseende.</string>
+	<string name="step4_additional_text_4">Välj källan till bilden som innan.</string>
+	<string name="step4_additional_text_5">Nu måste du att välja den nya bilden.</string>
+	<string name="step4_additional_text_6">tryck på play för att se uppträdandet på scenen.</string>
+	
+	<string name="step5_title">5. tala</string>
+	<string name="step5_description">Nu kommer du få reda på hur du får ett objekt att tala.</string>
+	<string name="step5_additional_text_1">Välj "Säg" klossen. Objektet talar texten, när denna kloss körs.</string>
+	<string name="step5_additional_text_2">Fäst klossen under "byt utseende till" tegel.</string>
+	<string name="step5_additional_text_3">tryck på play för att se uppträdandet på scenen.</string>
+	
+	<string name="step6_title">6. igen och igen</string>
+	<string name="step6_description">Detta steg visar hur du upprepar beteendet hos objekten.</string>
+	<string name="step6_additional_text_1">Välj "För alltid" klossen. Allt i slingan upprepas för evigt.</string>
+	<string name="step6_additional_text_2">Fäst "För alltid" klossen under "när programmet startar" - klossen.</string>
+	<string name="step6_additional_text_3">Lägga till en annan "Glid" kloss.</string>
+	<string name="step6_additional_text_4">Fäst "Glid" klossen ovanför "Slutet av slingan" klossen. </string>
+	<string name="step6_additional_text_5">tryck in till textfältet för x och y-värdet och sätt värdet 0.</string>
+	<string name="step6_additional_text_6">tryck på play för att se uppträdandet på scenen.</string>
+	
+	<string name="step7_title">7. trycka är allt.</string>
+	<string name="step7_description">Du kan också styra beteendet hos objektet när programmet körs på scenen.</string>
+	<string name="step7_additional_text_1">Välj "när tryckt" klossen, Varje tegel under den "när tryckt" kommer att genomföras en gång när du trycker på objektet på scenen.</string>
+	<string name="step7_additional_text_2">Placera  "när tryckt" under de andra klossarna.</string>
+	<string name="step7_additional_text_3">Välj "Sväng höger" tegel och sätt den under "när tryckt" klossen.</string>
+	<string name="step7_additional_text_4">Nu har du detta skript.</string>
+	<string name="step7_additional_text_5">tryck på starta för att se uppträdande på scenen. Om du nu klickar på objektet, snurrar det.</string>
+	
+	<string name="step8_title">8. Kopiera, ta bort eller redigera en kloss</string>
+	<string name="step8_description"></string>
+	<string name="step8_additional_text_1">Ett enda tryck på vänster sida av varje kloss öppnar den sammanhangsberoende menyn. Där kan du flytta, kopiera, ta bort eller redigera värdena i klossen med formel redigeraren.</string>
+	
+	<string name="step9_title">9. navigering i app</string>
+	<string name="step9_description"></string>
+	<string name="step9_additional_text_1">Använd Android tillbaka knappen för att navigera i app.</string>
+	<string name="step9_additional_text_2">Gå tillbaka en skärm till översikten över dina objekt. Här kan du gå in i skript och även till en kraftfull representation av utseende och ljud för objektet. Där kan du byta namn, kopiera lägga till eller ta bort utseenden och ljud.</string>
+	<string name="step9_additional_text_3">Använd igen Android tillbaka knappen för att komma till översikten över dina objekt och din bakgrund.</string>
+	
+	<string name="step10_title">10. ändra bakgrunden</string>
+	<string name="step10_description">Detta är en översikt över dina objekt och bakgrunden beror på ett program.</string>
+	<string name="step10_additional_text_1">Bakgrunden är som ett objekt, men du bara kan ha en bakgrund.</string>
+	<string name="step10_additional_text_2">Du kan lägga till skript, ljud och utseenden på samma sätt till objektet bakgrund.</string>
+	
+	<string name="step11_title">11. huvudmenyn</string>
+	<string name="step11_description">Använd Android tillbaka knappen för att komma till denna skärm.</string>
+	<string name="step11_additional_text_1">Fortsätt med det för närvarande öppnade programmet.</string>
+	<string name="step11_additional_text_2">Lägg till ett nytt program.</string>
+	<string name="step11_additional_text_3">Se alla dina lokala program.</string>
+	<string name="step11_additional_text_4">Gå till Hjälp sidan och diskutera med andra användare.</string>
+	<string name="step11_additional_text_5">Utforska världen av Pocket Code program. Ladda ner och remixa program du gillar.</string>
+	<string name="step11_additional_text_6">Ladda upp det program som just nu är öppnat.</string>
+
+</strings>
