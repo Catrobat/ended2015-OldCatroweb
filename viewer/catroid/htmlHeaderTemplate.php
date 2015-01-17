@@ -26,6 +26,11 @@
 ?>
     
       <header role="banner">
+        <div id="navigationMenuTop">
+          <div><a href="http://catrobat.org/" target="_blank"><?php echo $this->languageHandler->getString('template_footer_about')?> <?php echo APPLICATION_NAME;?></a></div>
+          <div><a href="/tutorial"><?php echo $this->languageHandler->getString('template_footer_tutorial_link')?></a></div>
+          <div><a href="https://play.google.com/store/apps/details?id=org.catrobat.catroid" target="_blank"><?php echo $this->languageHandler->getString('template_footer_google_play')?></a></div>
+        </div>
         <nav role="navigation">
           <div id="largeMenu">
             <div class="marginSpacer"></div>
