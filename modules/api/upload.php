@@ -280,7 +280,7 @@ class upload extends CoreAuthenticationDevice {
       $projectDescription = ((isset($formData['projectDescription'])) ? checkUserInput($formData['projectDescription']) : "");
     }
 
-    $uploadIp = (isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:'');
+    $uploadIp = (isset($_SERVER['HTTP_X_FORWARDED_FOR'])?$_SERVER['HTTP_X_FORWARDED_FOR']:'');
     $uploadLanguage = ((isset($formData['deviceLanguage'])) ? checkUserInput($formData['deviceLanguage']) : 'en');
 
     $visible = $this->checkVisible(((isset($formData['visible'])) ? checkUserInput($formData['visible']) : 't'));
