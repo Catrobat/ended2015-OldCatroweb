@@ -367,4 +367,7 @@
   <string name="template_common_country_south_africa">South Africa</string>
   <string name="template_common_country_zambia">Zambia</string>
   <string name="template_common_country_zimbabwe">Zimbabwe</string>
+  
+  <string name="template_common_about_pocketcode">About Pocket Code</string>
+  <string name="template_common_tutorials">Tutorials</string>
 </strings>
