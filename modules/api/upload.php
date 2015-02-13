@@ -63,6 +63,7 @@ class upload extends CoreAuthenticationDevice {
       $this->checkValidCatrobatVersion($projectInformation['versionName']);
       $this->checkValidCatrobatCode($projectInformation['versionCode']);
       $this->checkValidFileExtensions($projectInformation["files"]);
+      // can't use this for now due to CAT-942
       //$this->compareXMLAndProjectFiles($projectInformation["files"],CORE_BASE_PATH . PROJECTS_UNZIPPED_DIRECTORY . $tempFilenameUnique . '/');
       $this->checkValidProjectTitle($projectInformation['projectTitle']);
       $this->checkTitleForInsultingWords($projectInformation['projectTitle']);
@@ -89,7 +90,8 @@ class upload extends CoreAuthenticationDevice {
       $unapprovedWords = $this->badWordsFilter->getUnapprovedWords();
       if($unapprovedWords) {
         $this->badWordsFilter->mapUnapprovedWordsToProject($projectId);
-        $this->sendUnapprovedWordlistPerEmail();
+        // don't need this for now ... will be refactored (symfony)
+        //$this->sendUnapprovedWordlistPerEmail();
       }
 
       $this->buildNativeApp($projectId);
@@ -103,7 +105,8 @@ class upload extends CoreAuthenticationDevice {
       $this->loadModule('common/userFunctions');
       $this->token = $this->userFunctions->updateAuthenticationToken();
     } catch(Exception $e) {
-      $this->sendUploadFailAdminEmail($_POST, $_FILES);
+      // don't need this for now ... will be refactored (symfony)
+      //$this->sendUploadFailAdminEmail($_POST, $_FILES);
       $this->cleanup();
       $this->statusCode = $e->getCode();
       $this->answer = $e->getMessage();
